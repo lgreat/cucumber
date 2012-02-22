@@ -69,7 +69,7 @@
                     <school:espCheckboxWithLabel key="instructional_model" value="waldorf" label="Waldorf"/>
                     <school:espCheckboxWithLabel key="instructional_model" value="other" label="Other:"
                                                  styleClass="js_otherField_form_instructional_model_other" nobr="true"/>
-                    <input id="form_instructional_model_other" class="mls js_otherField text input_4" type="text"
+                    <input id="form_instructional_model_other" class="mls js_otherField text-smaller input_4" type="text"
                            name="instructional_model_other" value="${responseMap['instructional_model_other'].value}"
                            maxlength="40" placeholder="[Please indicate]"/>
                 </div>
@@ -109,7 +109,7 @@
                     <school:espCheckboxWithLabel key="academic_focus" value="vocational" label="Vocational education"/>
                     <school:espCheckboxWithLabel key="academic_focus" value="other" label="Other:"
                                                  styleClass="js_otherField_form_academic_focus_other" nobr="true"/>
-                    <input id="form_academic_focus_other" class="mls js_otherField text input_4" type="text"
+                    <input id="form_academic_focus_other" class="mls js_otherField text-smaller input_4" type="text"
                            name="academic_focus_other" value="${responseMap['academic_focus_other'].value}"
                            maxlength="40" placeholder="[Please indicate]"/>
                 </div>
@@ -146,7 +146,7 @@
                         <school:espCheckboxWithLabel key="immersion_language" value="other" label="Other:"
                                                      styleClass="js_otherField_form_immersion_language_other"
                                                      nobr="true"/>
-                        <input id="form_immersion_language_other" class="mls js_otherField text input_4" type="text"
+                        <input id="form_immersion_language_other" class="mls js_otherField text-smaller input_4" type="text"
                                name="immersion_language_other" value="${responseMap['immersion_language_other'].value}"
                                maxlength="40" placeholder="[Please indicate]"/>
                     </div>

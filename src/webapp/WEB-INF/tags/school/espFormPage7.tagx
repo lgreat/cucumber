@@ -173,7 +173,7 @@
 
                         <div class="grid_6">
                             <gsml:input type="text" value="${responseMap['contact_method_email'].value}" styleId="form_contact_method_email"
-                                        name="contact_method_email" styleClass="text input_6 js_otherField" disabled="${stateLocked}" placeholder="[Enter email]" maxlength="100"/>
+                                        name="contact_method_email" styleClass="text-smaller input_6 js_otherField" disabled="${stateLocked}" placeholder="[Enter email]" maxlength="100"/>
 
                         </div>
 
@@ -194,7 +194,7 @@
 
                         <div class="grid_6">
                             <gsml:input type="text" value="${responseMap['contact_method_other'].value}" styleId="form_contact_method_other"
-                                        name="contact_method_other" styleClass="text js_otherField input_6" disabled="${stateLocked}" placeholder="[Please indicate]" maxlength="40"/>
+                                        name="contact_method_other" styleClass="text-smaller js_otherField input_6" disabled="${stateLocked}" placeholder="[Please indicate]" maxlength="40"/>
                         </div>
 
                         <div class="grid_10 omega">

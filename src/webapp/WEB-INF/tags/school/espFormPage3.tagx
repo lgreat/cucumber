@@ -70,7 +70,7 @@
         <school:espRadioWithLabel key="application_deadline" value="yearround"
                                   label="Year-round / Rolling admissions, if space is available"/>
         <school:espRadioWithLabel key="application_deadline" value="date" label="Date: " nobr="true"/>
-        <input id="form_application_deadline" name="application_deadline" class="mls js_otherField text input_4"
+        <input id="form_application_deadline" name="application_deadline" class="mls js_otherField text-smaller input_4"
                value="${responseMap['application_deadline'].value}" placeholder="[Select date]"
                maxlength="10"/><br/>
         <school:espRadioWithLabel key="application_deadline" value="parents_contact"
@@ -131,7 +131,7 @@
         <div class="grid_16 omega">
             <school:espRadioWithLabel key="application_fee" value="no" label="No"/>
         </div>
-        <div class="grid_2">
+        <div class="grid_2 alpha prefix_7">
             <school:espRadioWithLabel key="application_fee" value="yes" label="Yes" nobr="true"
                                       styleClass="fltlft"/>
         </div>
@@ -204,7 +204,7 @@
             <school:espCheckboxWithLabel key="financial_aid_type" value="other" label="Other forms of aid:"
                                          nobr="true" styleClass="js_otherField_form_financial_aid_type_other"/>
             <input id="form_financial_aid_type_other" type="text" name="financial_aid_type_other"
-                   class="mls js_otherField text input_4" value="${responseMap['financial_aid_type_other'].value}"
+                   class="mls js_otherField text-smaller input_4" value="${responseMap['financial_aid_type_other'].value}"
                    placeholder="[Please indicate]" maxlength="100"/>
         </div>
         <!--<school:espFieldError text="Please specify the other types of aid"-->

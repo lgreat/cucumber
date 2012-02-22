@@ -41,7 +41,7 @@
             <school:espCheckboxWithLabel key="foreign_language" value="vietnamese" label="Vietnamese"/>
             <school:espCheckboxWithLabel key="foreign_language" value="other" label="Other:"
                                          styleClass="js_otherField_js_form_foreign_language_other" nobr="true"/>
-            <input id="js_form_foreign_language_other" class="js_otherField text input_4 mls" type="text"
+            <input id="js_form_foreign_language_other" class="js_otherField text-smaller input_4 mls" type="text"
                    name="foreign_language_other"
                    value="${responseMap['foreign_language_other'].value}"
                    placeholder="[Please indicate]" maxlength="40"/>
@@ -67,7 +67,7 @@
 
 
                 <div id="js_ell_languages" class="mtm">
-                    <div class="grid_5 aplha">
+                    <div class="grid_5 alpha">
                         <school:espCheckboxWithLabel key="ell_languages" value="arabic" label="Arabic languages"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="amharic" label="Amharic"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="cantonese" label="Chinese (Cantonese)"/>
@@ -83,7 +83,7 @@
                         <school:espCheckboxWithLabel key="ell_languages" value="japanese" label="Japanese"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="korean" label="Korean"/>
                     </div>
-                    <div class="grid_5 omega">
+                    <div class="grid_6 omega">
                         <school:espCheckboxWithLabel key="ell_languages" value="russian" label="Russian"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="spanish" label="Spanish"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="tagalog" label="Tagalog"/>
@@ -103,12 +103,12 @@
             </div>
             <div class="grid_16 omega">
                 <c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
-                    <school:espRadioWithLabel key="spec_ed_level" value="none" label="none"/>
+                    <school:espRadioWithLabel key="spec_ed_level" value="none" label="None"/>
                 </c:if>
                 <school:espRadioWithLabel key="spec_ed_level" value="basic"
                                           label="Basic - we offer or partner to provide services based on the needs of individual students"/>
                 <school:espRadioWithLabel key="spec_ed_level" value="moderate"
-                                          label="Moderate -we consistently offer a full program for particular special education needs"/>
+                                          label="Moderate - we consistently offer a full program for particular special education needs"/>
                 <school:espRadioWithLabel key="spec_ed_level" value="intensive"
                                           label="Intensive - we offer a full program for many needs and/or we offer at least one very comprehensive program for very challenging needs such as autism or complete visual impairment"/>
             </div>
@@ -175,7 +175,7 @@
                                          label="Differentiated learning programs"/>
             <school:espCheckboxWithLabel key="extra_learning_resources" value="other" label="Other:"
                                          styleClass="js_otherField_js_form_extra_learning_resources_other" nobr="true"/>
-            <input id="js_form_extra_learning_resources_other" class="js_otherField text input_4 mls" type="text"
+            <input id="js_form_extra_learning_resources_other" class="js_otherField text-smaller input_4 mls" type="text"
                    name="extra_learning_resources_other"
                    value="${responseMap['extra_learning_resources_other'].value}"
                    placeholder="[Please indicate]" maxlength="30"/>
@@ -314,7 +314,7 @@
                 <school:espCheckboxWithLabel key="staff_languages" value="vietnamese" label="Vietnamese"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="other" label="Other:"
                                              styleClass="js_otherField_js_form_staff_languages_other" nobr="true"/>
-                <input id="js_form_staff_languages_other" class="js_otherField text input_4 mls" type="text"
+                <input id="js_form_staff_languages_other" class="js_otherField text-smaller input_4 mls" type="text"
                        name="staff_languages_other"
                        value="${responseMap['staff_languages_other'].value}"
                        placeholder="[Please indicate]" maxlength="30"/>
@@ -455,34 +455,35 @@
         <div class="alpha grid_7">
             <p class="labelGroup">What college preparation/awareness resources does your school provide to students?</p>
         </div>
-        <div class="grid_16 omega">
-            <div class="grid_8 alpha">
-                <school:espCheckboxWithLabel key="college_prep" value="none" label="None"/>
-                <school:espCheckboxWithLabel key="college_prep" value="prep_classes"
-                                             label="College prep programs/courses during the year"/>
-                <school:espCheckboxWithLabel key="college_prep" value="info_sessions"
-                                             label="College presentations or information sessions"/>
-                <school:espCheckboxWithLabel key="college_prep" value="community_college"
-                                             label="Community college courses"/>
-                <school:espCheckboxWithLabel key="college_prep" value="sat_act_prep" label="SAT/ACT prep classes"/>
-            </div>
-            <div class="grid_7 omega">
-                <school:espCheckboxWithLabel key="college_prep" value="summer_prep"
-                                             label="Summer college prep programs"/>
-                <school:espCheckboxWithLabel key="college_prep" value="college_trips"
-                                             label="School-sponsored trips to college campuses"/>
-                <school:espCheckboxWithLabel key="college_prep" value="visiting_lecturers"
-                                             label="Visiting teachers or lecturers from colleges"/>
-                <school:espCheckboxWithLabel key="college_prep" value="other"
-                                             label="Other:" styleClass="js_otherField_js_form_college_prep_other"
-                                             nobr="true"/>
-                <input id="js_form_college_prep_other" class="js_otherField text input_4 mls" type="text"
-                       name="college_prep_other"
-                       value="${responseMap['college_prep_other'].value}"
-                       placeholder="[Please indicate]" maxlength="30"/>
-            </div>
-            <school:espFieldError text="Please specify a response" styleId="js_form_college_prep_other_error" styleClass="grid_6 omega"/>
+
+        <div class="grid_8">
+            <school:espCheckboxWithLabel key="college_prep" value="none" label="None"/>
+            <school:espCheckboxWithLabel key="college_prep" value="prep_classes"
+                                         label="College prep programs/courses during the year"/>
+            <school:espCheckboxWithLabel key="college_prep" value="info_sessions"
+                                         label="College presentations or information sessions"/>
+            <school:espCheckboxWithLabel key="college_prep" value="community_college"
+                                         label="Community college courses"/>
+            <school:espCheckboxWithLabel key="college_prep" value="sat_act_prep" label="SAT/ACT prep classes"/>
         </div>
+        <div class="grid_8 omega">
+            <school:espCheckboxWithLabel key="college_prep" value="summer_prep"
+                                         label="Summer college prep programs"/>
+            <school:espCheckboxWithLabel key="college_prep" value="college_trips"
+                                         label="School-sponsored trips to college campuses"/>
+            <school:espCheckboxWithLabel key="college_prep" value="visiting_lecturers"
+                                         label="Visiting teachers or lecturers from colleges"/>
+            <school:espCheckboxWithLabel key="college_prep" value="other"
+                                         label="Other:" styleClass="js_otherField_js_form_college_prep_other"
+                                         nobr="true"/>
+            <input id="js_form_college_prep_other" class="js_otherField text-smaller input_4 mls" type="text"
+                   name="college_prep_other"
+                   value="${responseMap['college_prep_other'].value}"
+                   placeholder="[Please indicate]" maxlength="30"/>
+        </div>
+        <school:espFieldError text="Please specify a response" styleId="js_form_college_prep_other_error"
+                              styleClass="grid_6 omega"/>
+
     </div>
 </c:if>
 
@@ -513,7 +514,7 @@
                     </select>
                 </div>
 
-                <div class="grid_7 omega">
+                <div class="grid_8 omega">
                     <div id="js_form_post_graduation_year_error" class="error" style="display: none">
                         <span class="sprite i-alert vam"><!--Do not collapse--></span>
                         Please specify a year.
@@ -528,7 +529,7 @@
                            value="${responseMap['post_graduation_2yr'].value}" maxlength="3"/>
                     <label class="checkbox">% Graduates going to a 2 year college</label>
                 </div>
-                <div class="grid_7 omega">
+                <div class="grid_8 omega">
                     <div id="js_form_post_graduation_2yr_error" class="error" style="display: none">
                         <span class="sprite i-alert vam"><!--Do not collapse--></span>
                         Please enter a number.
@@ -543,7 +544,7 @@
                            value="${responseMap['post_graduation_4yr'].value}" maxlength="3"/>
                     <label class="checkbox">% Graduates going to a 4 year college</label>
                 </div>
-                <div class="grid_7 omega">
+                <div class="grid_8 omega">
                     <div id="js_form_post_graduation_4yr_error" class="error" style="display: none">
                         <span class="sprite i-alert vam"><!--Do not collapse--></span>
                         Please enter a number.
@@ -558,7 +559,7 @@
                            value="${responseMap['post_graduation_military'].value}" maxlength="3"/>
                     <label class="checkbox">% Graduates going into military service</label>
                 </div>
-                <div class="grid_7 omega">
+                <div class="grid_8 omega">
                     <div id="js_form_post_graduation_military_error" class="error" style="display: none">
                         <span class="sprite i-alert vam"><!--Do not collapse--></span>
                         Please enter a number.
@@ -573,7 +574,7 @@
                            value="${responseMap['post_graduation_vocational'].value}" maxlength="3"/>
                     <label class="checkbox">% Graduates going into vocational programs</label>
                 </div>
-                <div class="grid_7 omega">
+                <div class="grid_8 omega">
                     <div id="js_form_post_graduation_vocational_error" class="error" style="display: none">
                         <span class="sprite i-alert vam"><!--Do not collapse--></span>
                         Please enter a number.
@@ -588,7 +589,7 @@
                            value="${responseMap['post_graduation_workforce'].value}" maxlength="3"/>
                     <label class="checkbox">% Graduates going directly into the workforce</label>
                 </div>
-                <div class="grid_7 omega">
+                <div class="grid_8 omega">
                     <div id="js_form_post_graduation_workforce_error" class="error" style="display: none">
                         <span class="sprite i-alert vam"><!--Do not collapse--></span>
                         Please enter a number.
@@ -627,7 +628,7 @@
             <school:espCheckboxWithLabel key="skills_training" value="engineering" label="Engineering"/>
             <school:espCheckboxWithLabel key="skills_training" value="other" label="Other:"
                                          styleClass="js_otherField_js_form_skills_training_other" nobr="true"/>
-            <input id="js_form_skills_training_other" class="js_otherField text input_4 mls" type="text"
+            <input id="js_form_skills_training_other" class="js_otherField text-smaller input_4 mls" type="text"
                    name="skills_training_other"
                    value="${responseMap['skills_training_other'].value}"
                    placeholder="[Please indicate]" maxlength="30"/>

@@ -122,7 +122,7 @@
               <school:espCheckboxWithLabel key="boys_sports" value="wrestling" label="Wrestling"/>
               <school:espCheckboxWithLabel key="boys_sports" value="ultimate" label="Ultimate Frisbee"/>
               <school:espCheckboxWithLabel key="boys_sports_other_cb" value="" styleClass="js_otherField_js_boys_sports_other" nobr="true" label="Other: "/>
-              <input id="js_boys_sports_other" class="mls js_otherField text input_4" type="text" name="boys_sports_other" value="${responseMap['boys_sports_other'].value}" maxlength="30" placeholder="[Please indicate]"/>
+              <input id="js_boys_sports_other" class="mls js_otherField text-smaller input_4" type="text" name="boys_sports_other" value="${responseMap['boys_sports_other'].value}" maxlength="30" placeholder="[Please indicate]"/>
             </div>
             <div class="grid_9 omega">
               <p class="labelGroup">Girls Sports</p>
@@ -161,7 +161,7 @@
               <school:espCheckboxWithLabel key="girls_sports" value="water_polo" label="Water Polo"/>
               <school:espCheckboxWithLabel key="girls_sports" value="wrestling" label="Wrestling"/>
               <school:espCheckboxWithLabel key="girls_sports_other_cb" value="" styleClass="js_otherField_js_girls_sports_other" nobr="true" label="Other: "/>
-              <input id="js_girls_sports_other" class="mls js_otherField text input_4" type="text" name="girls_sports_other" value="${responseMap['girls_sports_other'].value}" maxlength="30" placeholder="[Please indicate]"/>
+              <input id="js_girls_sports_other" class="mls js_otherField text-smaller input_4" type="text" name="girls_sports_other" value="${responseMap['girls_sports_other'].value}" maxlength="30" placeholder="[Please indicate]"/>
             </div>
           </div>
 
@@ -184,7 +184,7 @@
               <school:espCheckboxWithLabel key="student_clubs" value="cub_scouts" label="Cub Scouts"/>
               <school:espCheckboxWithLabel key="student_clubs" value="dance" label="Dance club" styleClass="js_otherField_form_student_clubs_dance"/>
               <label for="form_student_clubs_dance" class="checkbox mll">Style: </label>
-              <input id="form_student_clubs_dance" class="mls js_otherField text input_3" type="text" name="student_clubs_dance" value="${responseMap['student_clubs_dance'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
+              <input id="form_student_clubs_dance" class="mls js_otherField text-smaller input_3" type="text" name="student_clubs_dance" value="${responseMap['student_clubs_dance'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
               <school:espCheckboxWithLabel key="student_clubs" value="debate" label="Debate"/>
               <school:espCheckboxWithLabel key="student_clubs" value="deca" label="DECA"/>
               <school:espCheckboxWithLabel key="student_clubs" value="drama_club" label="Drama club"/>
@@ -196,7 +196,7 @@
             <div class="grid_6">
               <school:espCheckboxWithLabel key="student_clubs" value="language_club" label="Foreign language and culture club" styleClass="js_otherField_form_student_clubs_language"/>
                <label for="form_student_clubs_language" class="checkbox mll">Languages: </label>
-              <input id="form_student_clubs_language" class="mls js_otherField text input_3" type="text" name="student_clubs_language" value="${responseMap['student_clubs_language'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
+              <input id="form_student_clubs_language" class="mls js_otherField text-smaller input_3" type="text" name="student_clubs_language" value="${responseMap['student_clubs_language'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
               <school:espCheckboxWithLabel key="student_clubs" value="forensics" label="Forensics club"/>
               <school:espCheckboxWithLabel key="student_clubs" value="fbla" label="Future Business Leaders of America (FBLA)"/>
               <school:espCheckboxWithLabel key="student_clubs" value="game_club" label="Game club"/>
@@ -235,11 +235,11 @@
               <school:espCheckboxWithLabel key="student_clubs" value="yearbook" label="Yearbook"/>
               <school:espCheckboxWithLabel key="student_clubs" value="yoga" label="Yoga club"/>
               <school:espCheckboxWithLabel key="student_clubs_other" value="" label="Other:" styleClass="js_otherField_form_student_clubs_other_1" nobr="true"/>
-              <input id="form_student_clubs_other_1" class="mls mts js_otherField text input_3" type="text" name="student_clubs_other_1" value="${responseMap['student_clubs_other_1'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
+              <input id="form_student_clubs_other_1" class="mls mts js_otherField text-smaller input_3" type="text" name="student_clubs_other_1" value="${responseMap['student_clubs_other_1'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
               <school:espCheckboxWithLabel key="student_clubs_other" value="" label="Other:" styleClass="js_otherField_form_student_clubs_other_2" nobr="true"/>
-              <input id="form_student_clubs_other_2" class="mls mts js_otherField text input_3" type="text" name="student_clubs_other_2" value="${responseMap['student_clubs_other_2'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
+              <input id="form_student_clubs_other_2" class="mls mts js_otherField text-smaller input_3" type="text" name="student_clubs_other_2" value="${responseMap['student_clubs_other_2'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
               <school:espCheckboxWithLabel key="student_clubs_other" value="" label="Other:" styleClass="js_otherField_form_student_clubs_other_3" nobr="true"/>
-              <input id="form_student_clubs_other_3" class="mls mts js_otherField text input_3" type="text" name="student_clubs_other_3" value="${responseMap['student_clubs_other_3'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
+              <input id="form_student_clubs_other_3" class="mls mts js_otherField text-smaller input_3" type="text" name="student_clubs_other_3" value="${responseMap['student_clubs_other_3'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
             </div>
           </div>
 
