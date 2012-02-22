@@ -141,6 +141,12 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         values.addAll(mergeValuesForKeys(responses, false, "instructional_model_other"));
         model.put("instructional_model", StringUtils.joinPretty(values.iterator(), "; "));
 
+        // merge academic_focus
+        values.clear();
+        values.addAll(mergeValuesForKeys(responses, true, "academic_focus"));
+        values.addAll(mergeValuesForKeys(responses, false, "academic_focus_other"));
+        model.put("academic_focus", StringUtils.joinPretty(values.iterator(), "; "));
+
         // merge transportation
         values.clear();
         values.addAll(mergeValuesForKeys(responses, true, "transportation"));
@@ -190,7 +196,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
                 { "academic_award_3", "academic_award_3_year" },
         });
         model.put("academicAwards", academicAwards);
-        
+
         // merge community service awards
         String serviceAwards = mergeValuesForDualKeys(responses, ", ", "; ", true, new String[][] {
                 { "service_award_1", "service_award_1_year" },

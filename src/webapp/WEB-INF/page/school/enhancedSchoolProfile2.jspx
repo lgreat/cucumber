@@ -67,9 +67,9 @@
             <tr>
                 <td class="small_bold">School type</td>
                 <td>
-                    ${gsweb:capitalize(school.type.schoolTypeName)}
-                    <c:if test="${not empty coed}">&#160;${coed}</c:if>
-                    <c:if test="${not empty school.affiliation}">&#160;${gsweb:capitalize(school.affiliation)}</c:if>
+                    ${gsweb:capitalize(school.type.schoolTypeName)}&amp;#046;
+                    <c:if test="${not empty coed}">&#160;${coed}&amp;#046;</c:if>
+                    <c:if test="${not empty school.affiliation}">&#160;${gsweb:capitalize(school.affiliation)}&amp;#046;</c:if>
                 </td>
             </tr>
 
@@ -135,11 +135,11 @@
 
             <school:espTableRow label="Instructional and/or curriculum models used" value="${instructional_model}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Special academic themes or areas of focus" list="${responses.academic_focus}"
+            <school:espTableRow label="Special academic themes or areas of focus" value="${academic_focus}"
                                 hideIfEmpty="true"/>
 
             <c:set var="immersion"><gsweb:erts list="${responses.immersion}"/></c:set>
-            <c:set var="immersionLanguages"><gsweb:erts list="${responses.immersion_languages}" dlm="; "/></c:set>
+            <c:set var="immersionLanguages"><gsweb:erts list="${responses.immersion_language}" dlm="; "/></c:set>
             <tr>
                 <td class="small_bold">Bi-lingual or language immersion programs offered</td>
                 <td>${immersion}<c:if test="${not empty immersionLanguages}">.&#160;${immersionLanguages}</c:if>
@@ -185,10 +185,10 @@
             </c:if>
 
             <c:set var="appsRcdYr"><gsweb:erts list="${responses.applications_received_year}" /></c:set>
-            <school:espTableRow label="Number of applications received for the ${appsRcdYr} school year:" list="${responses.applications_received}" hideIfEmpty="false"/>
+            <school:espTableRow label="Number of applications received for the ${appsRcdYr} school year" list="${responses.applications_received}" hideIfEmpty="false"/>
 
             <c:set var="stdsAcptdYr"><gsweb:erts list="${responses.students_accepted_year}" /></c:set>
-            <school:espTableRow label="Number of students accepted for the ${stdsAcptdYr} year:" list="${responses.students_accepted}" hideIfEmpty="false"/>
+            <school:espTableRow label="Number of students accepted for the ${stdsAcptdYr} year" list="${responses.students_accepted}" hideIfEmpty="false"/>
 
             <c:set var="appFee"><gsweb:erts list="${responses.application_fee}"/></c:set>
             <c:set var="appFeeAmt"><gsweb:erts list="${responses.application_fee_amount}"/></c:set>
@@ -196,7 +196,7 @@
             <c:set var="isFeeWaivers" value="${fn:toLowerCase(feeWaivers) eq 'no' }"/>
             <c:set var="feeWaiversDesc" value="${isFeeWaivers ? 'Fee waivers available' : 'No fee waivers available'}"/>
             <tr>
-                <td class="small_bold">Application Fee:</td>
+                <td class="small_bold">Application Fee?</td>
                 <td>
                     <c:if test="${not empty appFee}">${appFee}&#160;</c:if>
                     <c:if test="${not empty appFeeAmt}">$${appFeeAmt}&#160;</c:if>
@@ -206,12 +206,12 @@
 
             <c:set var="tuitionYr"><gsweb:erts list="${responses.tuition_year}" /></c:set>
             <c:set var="tuitionAmt"><gsweb:erts list="${responses.tuition_high}"/> - <gsweb:erts list="${responses.tuition_low}"/></c:set>
-            <school:espTableRow label="Tuition range for the ${tuitionYr} school year:" value="${tuitionAmt}" hideIfEmpty="false"/>
+            <school:espTableRow label="Tuition range for the ${tuitionYr} school year" value="${tuitionAmt}" hideIfEmpty="false"/>
 
             <c:set var="fnclAid"><gsweb:erts list="${responses.financial_aid}" /></c:set>
             <c:set var="fnclAidType"><gsweb:erts list="${responses.financial_aid_type}" dlm="; "/></c:set>
             <tr>
-                <td class="small_bold">Financial aid offered:</td>
+                <td class="small_bold">Financial aid offered</td>
                 <td>
                     ${fnclAid}<c:if test="${not empty fnclAidType}">.&#160;${fnclAidType}</c:if>
                 </td>
@@ -243,8 +243,8 @@
             <c:set var="ellLangs"><gsweb:erts list="${responses.ell_languages}"/></c:set>
             <c:if test="${not empty ellLvl}">
                 <tr>
-                    <td class="small_bold">ESL/ELL programming offered:</td>
-                    <td>${ellLvl} ${ellLangs}</td>
+                    <td class="small_bold">ESL/ELL programming offered</td>
+                    <td>${ellLvl}&amp;#046; ${ellLangs}</td>
                 </tr>
             </c:if>
 
