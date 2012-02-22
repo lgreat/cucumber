@@ -269,7 +269,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
     this.addItemAtPosition = function(file, position) {
-        htmlblock = '<tr id="' + file.id + '" class="fileNumber'+ position +'"><td>' + file.name + '</td><td class="uploadStatus">Queued for upload</td><td>' + file.size + '</td><td><span class="deleteFileUpload iconx16 i-16-close"><!-- do not collapse --></span></td></tr>';
+        htmlblock = '<tr id="' + file.id + '" class="fileNumber'+ position +'"><td>' + file.name + '</td><td class="uploadStatus">Queued for upload</td><td>' + file.size + ' KB</td><td><span class="deleteFileUpload iconx16 i-16-close"><!-- do not collapse --></span></td></tr>';
 
         var tableBody = this.container.find('table tbody');
         tableBody.find('tr:eq('+ parseInt(position) +')').after(htmlblock);
