@@ -263,8 +263,6 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
     }
 
     public void testHardExceptionIsCaught() {
-        expect(_stateManager.getState("CD")).andThrow(new IllegalArgumentException("No such state: CD"));
-
         getRequest().setParameter("searchQuery", "Somewhere");
         getRequest().setParameter("state", "CD"); // invalid
         getRequest().setParameter("lat", "37.57");

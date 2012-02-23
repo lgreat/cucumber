@@ -264,19 +264,24 @@ public class SchoolSearchWidgetController extends SimpleFormController {
                         StringUtils.isNotBlank(command.getState()) &&
                         StringUtils.isNotBlank(command.getNormalizedAddress())) {
 
-                    State state = _stateManager.getState(command.getState());
+                    try {
+                        State state = State.fromString(command.getState());
 
-                    if (StringUtils.isNotBlank(command.getCityName())) {
-                        City city = getCityFromString(state, command.getCityName());
-                        if (city != null) {
-                            city.setState(state);
-                            command.setCity(city);
-                        } else {
-                            command.setCity(null);
+                        if (StringUtils.isNotBlank(command.getCityName())) {
+                            City city = getCityFromString(state, command.getCityName());
+                            if (city != null) {
+                                city.setState(state);
+                                command.setCity(city);
+                            } else {
+                                command.setCity(null);
+                            }
                         }
-                    }
 
-                    hasResults = loadResultsForLatLon(state, command.getLat(), command.getLon(), DISTANCE_IN_MILES, MAX_NUM_RESULTS, command.getNormalizedAddress(), command);
+                        hasResults = loadResultsForLatLon(state, command.getLat(), command.getLon(), DISTANCE_IN_MILES, MAX_NUM_RESULTS, command.getNormalizedAddress(), command);
+                    } catch (IllegalArgumentException iae) {
+                        errors.rejectValue("searchQuery", null, "An error occurred. Please try again.");
+                        shownError = true;
+                    }
                 } else {
                     errors.rejectValue("searchQuery", null, "An error occurred. Please try again.");
                     shownError = true;
