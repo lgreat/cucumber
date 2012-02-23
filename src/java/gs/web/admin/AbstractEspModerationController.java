@@ -325,11 +325,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
             StringBuffer espVerificationUrl = new StringBuffer("<a href=\"");
             espVerificationUrl.append(urlBuilder.asFullUrl(request));
-            espVerificationUrl.append("\">Click here to verify</a>");
+            espVerificationUrl.append("\">"+urlBuilder.asFullUrl(request)+"</a>");
 
             Map<String, String> emailAttributes = new HashMap<String, String>();
             emailAttributes.put("HTML__espVerificationUrl", espVerificationUrl.toString());
-
+            emailAttributes.put("first_name", user.getFirstName());
             getExactTargetAPI().sendTriggeredEmail("ESP-verification", user, emailAttributes);
 
         } catch (Exception e) {
@@ -339,7 +339,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
     private void sendRejectionEmail(User user) {
         try {
-            getExactTargetAPI().sendTriggeredEmail("ESP-rejection", user);
+            if (user != null && StringUtils.isNotEmpty(user.getFirstName())) {
+                Map<String, String> emailAttributes = new HashMap<String, String>();
+                emailAttributes.put("first_name", user.getFirstName());
+                getExactTargetAPI().sendTriggeredEmail("ESP-rejection", user);
+            }
         } catch (Exception e) {
             _log.error("Error sending rejection email message: " + e, e);
         }
