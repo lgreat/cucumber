@@ -267,8 +267,8 @@ Statistics (NCES) and some state Departments of Education.</p>
 					<p class="question">Can the school principal send GreatSchools new information that isn't otherwise available?</p>
 					<p>Once
 a private school is listed on our site, the school's principal may
-provide additional information, free of charge, through our <link:schoolEspDashboard>Official</link:schoolEspDashboard>
-School Profile feature. <link:schoolEspRegister>School leaders can request access to edit the profile.</link:schoolEspRegister></p>
+provide additional information, free of charge, through our Official
+School Profile feature. School leaders can <link:schoolEspRegister>request access here</link:schoolEspRegister> to edit the profile.</p>
 				</li>
 
 				<li>
@@ -351,10 +351,10 @@ Official School Profile is absolutely free. It allows the principal or
 other school official to add the following information about the school
 directly to their GreatSchools.org profile:</p>
 					<ul>
-						<li>Mission</li>
-						<li>Schedule and calendar</li>
+						<li>Schedule and program details</li>
 						<li>Detailed descriptions of curriculum and enrichment activities (music, sports, etc.)</li>
-						<li>In-depth information on staff, safety, student support, community involvement and much more</li>
+						<li>In-depth information on staff, safety, student support, community involvement</li>
+                        <li>School photos and videos</li>
 					</ul>
 					<p>As
 an added bonus, the Official School Profile also lets the principal or
@@ -381,8 +381,10 @@ already have a school Web site.</p>
 					<p class="question">How do I create an Official School Profile?</p>
 					<p>Creating an Official School Profile is simple! Principals and school officials,
                         <link:schoolEspRegister>get started on your Official School Profile</link:schoolEspRegister>
-                        using our secure, online questionnaire. Or
-                        <gsml:a href="/cgi-bin/static/ed_extra.inc/${state}">read more about Official School Profiles</gsml:a>.</p>
+                        by requesting a school official’s account. Our team will manually verify your affiliation with
+                        the school to ensure that only authorized individuals may edit your school’s information.
+                        Didn't find the answer you're looking for?
+                        <link:contactUs feedbackType="esp">Contact us about Official School Profiles</link:contactUs></p>
 				</li>
 			</ol>
 
