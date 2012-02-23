@@ -109,13 +109,17 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         //model.put("action",new UrlBuilder(UrlBuilder.ADD_EDIT_SCHOOL_OR_DISTRICT).toString());
         model.put("name",command.getSubmitterName());
         model.put("schoolOrDistrict",command.getSchoolOrDistrict());
-        model.put("schoolId",command.getSchoolId());
-        
-        School school = _schoolDao.getSchoolById(command.getState(),new Integer(command.getSchoolId()));
-        model.put("name",school.getName());
-        //School school = _schoolDao.findSchool(State.fromString(command.getState()),)
 
         Queue queue = new Queue();
+        char[] digits = {0,1,2,3,4,5,6,7,8,9};
+        if(command.getSchoolId() != null && StringUtils.containsAny(command.getSchoolId(),digits) && StringUtils.containsOnly(command.getSchoolId(),digits)){
+            model.put("schoolId",command.getSchoolId());
+            School school = _schoolDao.getSchoolById(command.getState(),new Integer(command.getSchoolId()));
+            model.put("name",school.getName());
+        }else{
+            queue.setOriginalId(0);
+        }
+        //School school = _schoolDao.findSchool(State.fromString(command.getState()),)
         queue.setContactName(command.getSubmitterName());
         queue.setContactEmail(command.getSubmitterEmail());
         queue.setContactConnection(command.getSubmitterConnectionToSchool());
