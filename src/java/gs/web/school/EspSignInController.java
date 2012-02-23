@@ -122,28 +122,26 @@ public class EspSignInController implements ReadWriteAnnotationController {
             userState.setNewUser(false);
             userState.setUserEmailValidated(user.isEmailValidated());
 
-            //Check if the user has any esp memberships.
-            List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
-            for (EspMembership membership : espMemberships) {
+            //Check is user is already approved
+            if (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
+                userState.setUserApprovedESPMember(true);
                 userState.setUserRequestedESP(true);
-                //User has at least one active membership.
-                if (membership.getActive()) {
-                    userState.setUserApprovedESPMember(true);
-                    break;
-                } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
-                    //User is awaiting moderator decision.
-                    userState.setUserAwaitingESPMembership(true);
-                } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
-                    userState.setUserESPDisabled(true);
-                } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
-                    userState.setUserESPRejected(true);
+            } else {
+                //Check if the user has any pending, disabled or rejected esp memberships.
+                List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsByUserId(user.getId(), false);
+                for (EspMembership membership : espMemberships) {
+                    userState.setUserRequestedESP(true);
+                    if (membership.getStatus().equals(EspMembershipStatus.PROCESSING) && !membership.getActive()) {
+                        //User is awaiting moderator decision.
+                        userState.setUserAwaitingESPMembership(true);
+                    } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) && !membership.getActive()) {
+                        userState.setUserESPDisabled(true);
+                    } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
+                        userState.setUserESPRejected(true);
+                    }
                 }
             }
-            
-            if (user.hasRole(Role.ESP_SUPERUSER)) {
-                userState.setUserRequestedESP(true); // hack to bypass validation
-                userState.setUserApprovedESPMember(true);
-            }
+
         }
         return user;
     }

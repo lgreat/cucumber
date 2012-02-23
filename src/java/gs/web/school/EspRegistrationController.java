@@ -187,7 +187,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                         userState.setUserEmailValidated(true);
                     }
 
-                    //Check is user is already approved or if the decision is pending.
+                    //Check is user is already approved or if pending, disabled or rejected.
                     if (user.hasRole(Role.ESP_MEMBER) || user.hasRole(Role.ESP_SUPERUSER)) {
                         userState.setUserApprovedESPMember(true);
                     } else {
