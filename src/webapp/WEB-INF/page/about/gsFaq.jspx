@@ -382,13 +382,11 @@ already have a school Web site.</p>
 					<p>Creating an Official School Profile is simple! Principals and school officials,
                         <link:schoolEspRegister>get started on your Official School Profile</link:schoolEspRegister>
                         by requesting a school official’s account. Our team will manually verify your affiliation with
-                        the school to ensure that only authorized individuals may edit your school’s information.
-                        Didn't find the answer you're looking for?
-                        <link:contactUs feedbackType="esp">Contact us about Official School Profiles</link:contactUs></p>
+                        the school to ensure that only authorized individuals may edit your school’s information. </p>
 				</li>
 			</ol>
 
-			<p class="emphasis-right">Didn't find the answer you're looking for? <a href="mailto:esphelp@greatschools.org">Contact us about Official School Profiles</a>.</p>
+			<p class="emphasis-right">Didn't find the answer you're looking for? <link:contactUs feedbackType="esp">Contact us about Official School Profiles</link:contactUs>.</p>
 
 			<h3 id="faq-ratings">GreatSchools Ratings</h3>
 
