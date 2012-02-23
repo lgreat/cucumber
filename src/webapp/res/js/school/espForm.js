@@ -686,11 +686,11 @@ new (function() {
     var sendToPageNumber = function(pageNum) {
         var myParams = GS.util.getUrlVars();
         if (GS.history5Enabled) {
-            if (typeof pollingPhotoViewer !== 'undefined') {
+            if (typeof GS.pollingPhotoViewer !== 'undefined') {
                 if (pageNum === 6) {
-                    pollingPhotoViewer.turnPollingOn();
+                    GS.pollingPhotoViewer.turnPollingOn();
                 } else {
-                    pollingPhotoViewer.turnPollingOff();
+                    GS.pollingPhotoViewer.turnPollingOff();
                 }
             }
             // use HTML 5 history API to rewrite the current URL to represent the new state.

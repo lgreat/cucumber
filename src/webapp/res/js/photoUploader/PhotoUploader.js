@@ -209,6 +209,8 @@ GS.PhotoUploader.prototype.createUploader = function() {
                 alert("Error: File too large: " + file.name);
             } else if (err.code == plupload.FILE_EXTENSION_ERROR) {
                 alert("There was an error. " + fileExtension.toUpperCase() + " files cannot be uploaded as a photo. Images must be JPEG, GIF or PNG. File: " + file.name + " will not be added to the queue.");
+            } else if (err.code == plupload.IMAGE_DIMENSIONS_ERROR) {
+                alert("There was an error. Dimensions of file " + file.name + " are too large. File will not be added to the queue");
             } else {
                 this.setStatus(file, "Error");
             }
@@ -321,7 +323,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
     this.getMaxQueuedItems = function() {
-        return this.maxQueuedItems - pollingPhotoViewer.numberPhotos;
+        return this.maxQueuedItems - GS.pollingPhotoViewer.numberPhotos;
     }.gs_bind(this);
 
 };

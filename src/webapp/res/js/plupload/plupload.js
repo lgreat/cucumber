@@ -1043,7 +1043,7 @@
                         // if there are more files settings.max_actual_queue dont add to array.
                         var numberExistingPhotos = 0;
                         if (typeof pollingPhotoViewer != 'undefined') {
-                            numberExistingPhotos = pollingPhotoViewer.numberPhotos;
+                            numberExistingPhotos = GS.pollingPhotoViewer.numberPhotos;
                         }
 
                         if(settings.max_actual_queue !== undef && files.length + numberExistingPhotos >= settings.max_actual_queue){ // NEW

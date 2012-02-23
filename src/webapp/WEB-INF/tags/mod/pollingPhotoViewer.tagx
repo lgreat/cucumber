@@ -68,9 +68,9 @@
 
     <script type="text/javascript">
         jQuery(function() {
-            pollingPhotoViewer = new GS.PollingPhotoViewer('pollingPhotoViewer', '${url}', ${schoolId}, '${schoolDatabaseState}');
-            pollingPhotoViewer.init();
-            pollingPhotoViewer.pollingOn = ${startPolling};
+            GS.pollingPhotoViewer = new GS.PollingPhotoViewer('pollingPhotoViewer', '${url}', ${schoolId}, '${schoolDatabaseState}');
+            GS.pollingPhotoViewer.init();
+            GS.pollingPhotoViewer.pollingOn = ${startPolling};
         });
     </script>
 </jsp:root>
