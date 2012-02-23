@@ -29,7 +29,7 @@
         </div>
         <c:if test="${numberOfExistingPhotos eq 0}">
             <div id="js-noPhotosYet">
-                <p>No existing photos</p>
+                <p class="small">No existing photos</p>
             </div>
         </c:if>
         <c:forEach items="${existingPhotos}" var="existingPhoto">
