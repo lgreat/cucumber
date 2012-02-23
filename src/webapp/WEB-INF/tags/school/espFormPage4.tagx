@@ -427,7 +427,7 @@
             <school:espCheckboxWithLabel key="facilities" value="learning_lab" label="Learning lab"/>
             <school:espCheckboxWithLabel key="facilities" value="library" label="Library"/>
             <school:espCheckboxWithLabel key="facilities" value="multi_purpose"
-                                         label="Multi-purpose room (“cafegymatorium”)"/>
+                                         label="Multi-purpose room (&amp;quot;cafegymatorium&amp;quot;)"/>
         </div>
         <div class="grid_5 omega">
             <school:espCheckboxWithLabel key="facilities" value="music" label="Music room"/>
