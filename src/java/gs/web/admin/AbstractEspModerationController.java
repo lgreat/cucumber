@@ -342,7 +342,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             if (user != null && StringUtils.isNotEmpty(user.getFirstName())) {
                 Map<String, String> emailAttributes = new HashMap<String, String>();
                 emailAttributes.put("first_name", user.getFirstName());
-                getExactTargetAPI().sendTriggeredEmail("ESP-rejection", user);
+                getExactTargetAPI().sendTriggeredEmail("ESP-rejection", user, emailAttributes);
             }
         } catch (Exception e) {
             _log.error("Error sending rejection email message: " + e, e);
