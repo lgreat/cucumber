@@ -160,6 +160,9 @@ GS.PhotoUploader.prototype.createUploader = function() {
         var status = "Uploading... " + file.percent + "%";
         if (file.percent === 100) {
             status = "Upload complete";
+            var deleteButton = $('#' + file.id + ' .deleteFileUpload');
+            deleteButton.removeClass('i-16-close');
+            deleteButton.addClass('i-16-checkmark');
         }
         this.setStatus(file, status);
     }.gs_bind(this);
@@ -170,7 +173,9 @@ GS.PhotoUploader.prototype.createUploader = function() {
         } else {
             this.uploadCompleteOverlay.show();
         }
-        jQuery('.deleteFileUpload').off('click');
+
+        var deleteIcons = this.container.find('.deleteFileUpload');
+        deleteIcons.off('click');
 
         // add a namespaced event to remove all photos in uploader list the next time they click the queue button.
         this.queueButton.on('click.removeAllOnceIfDoneUploading', function() {
