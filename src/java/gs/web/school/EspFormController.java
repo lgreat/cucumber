@@ -384,11 +384,11 @@ public class EspFormController implements ReadWriteAnnotationController {
      */
     protected boolean checkUserHasAccess(User user, State state, Integer schoolId) {
         if (user != null && state != null && schoolId > 0) {
-            if (user.hasRole(Role.ESP_MEMBER)) {
+            if (user.hasRole(Role.ESP_SUPERUSER)) {
+                return true;
+            } else if (user.hasRole(Role.ESP_MEMBER)) {
                 return _espMembershipDao.findEspMembershipByStateSchoolIdUserId
                         (state, schoolId, user.getId(), true) != null;
-            } else if (user.hasRole(Role.ESP_SUPERUSER)) {
-                return true;
             } else {
                 _log.warn("User " + user + " does not have required role " + Role.ESP_MEMBER + " or " + Role.ESP_SUPERUSER + " to access ESP form.");
             }
