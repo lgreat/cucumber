@@ -162,7 +162,7 @@ Misc classes
     background-image:         linear-gradient(top, #dddddd, #cccccc); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#dddddd', EndColorStr='#cccccc'); /* IE6?IE9 */
 }
-.slStylesV1-0 th, .slStylesV1-0 td       { padding: 10px; }
+.slStylesV1-0 th, .slStylesV1-0 td       { padding: 10px;vertical-align: top; }
 /*
     You can zebra-stripe your tables in outdated browsers by adding
     the class "even" to every other table row.
