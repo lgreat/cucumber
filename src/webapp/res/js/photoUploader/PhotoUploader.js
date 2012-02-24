@@ -54,7 +54,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.uploader.init();
 
     this.init = function(numberOfExistingPhotos) {
-        if (!this.uploader.features.hasOwnProperty('flash')) {
+        if (!this.uploader.features.hasOwnProperty('jpgresize')) {
             this.container.fadeTo(0,0.5);
             this.queueButton.removeClass('button-1');
             this.queueButton.addClass('button-1-inactive');
