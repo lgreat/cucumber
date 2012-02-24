@@ -33,7 +33,7 @@ GS.PhotoUploader = function(url, maxQueuedItems, schoolId, schoolDatabaseState) 
 
 GS.PhotoUploader.prototype.createUploader = function() {
     this.uploader = new plupload.Uploader({
-        runtimes : 'gears,html5,flash,silverlight,browserplus',
+        runtimes : 'flash',
         browse_button : 'jsPhotoQueueButton',
         container: 'photo-upload-container',
         max_file_size : '20mb',
@@ -42,7 +42,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
         url : this.url,
         resize : {width : 500, height : 500, quality : 80},
         flash_swf_url : '/res/js/plupload/plupload.flash.swf',
-        silverlight_xap_url : '/res/js/plupload/plupload.silverlight.xap',
         multipart_params : {
             'schoolId' : this.schoolId,
             'schoolDatabaseState' :  this.schoolDatabaseState
@@ -55,6 +54,15 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.uploader.init();
 
     this.init = function(numberOfExistingPhotos) {
+        if (!this.uploader.features.hasOwnProperty('flash')) {
+            this.container.fadeTo(0,0.5);
+            this.queueButton.removeClass('button-1');
+            this.queueButton.addClass('button-1-inactive');
+            this.container.find('button').prop('disabled',true);
+            this.uploadErrorOverlay.html('You must have <a href="http://get.adobe.com/flashplayer/" target="_blank">Adobe Flash Player</a> installed to upload photos.').show();
+            return;
+        }
+
         var self = this;
         this.uploader.bind('FilesAdded', this.filesQueued);
 
@@ -158,7 +166,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
 
     this.updateProgress = function(up, file) {
         var status = "Uploading... " + file.percent + "%";
-        if (file.percent === 100) {
+        if (file.percent === 100 && file.status === plupload.DONE) {
             status = "Upload complete";
             var deleteButton = $('#' + file.id + ' .deleteFileUpload');
             deleteButton.removeClass('i-16-close');

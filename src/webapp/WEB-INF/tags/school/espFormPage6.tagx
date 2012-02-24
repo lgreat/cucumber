@@ -7,14 +7,8 @@
         >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
 
-    <pageHelper:externalJavascript file="http://bp.yahooapis.com/2.4.21/browserplus-min.js" />
     <pageHelper:externalJavascript file="/res/js/plupload/plupload.js" />
-    <pageHelper:externalJavascript file="/res/js/plupload/plupload.gears.js" />
-    <pageHelper:externalJavascript file="/res/js/plupload/plupload.silverlight.js" />
     <pageHelper:externalJavascript file="/res/js/plupload/plupload.flash.js" />
-    <pageHelper:externalJavascript file="/res/js/plupload/plupload.browserplus.js" />
-    <pageHelper:externalJavascript file="/res/js/plupload/plupload.html4.js" />
-    <pageHelper:externalJavascript file="/res/js/plupload/plupload.html5.js" />
 
     <pageHelper:externalJavascript file="/res/js/hover.js" />
     <pageHelper:externalJavascript file="/res/js/photoUploader/PhotoUploader.js" />
