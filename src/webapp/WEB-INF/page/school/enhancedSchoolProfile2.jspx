@@ -34,7 +34,7 @@
 
         <p class="smaller"><a href="javascript:void(0);">Learn more about Official School Info</a> &amp;raquo;
             | Principal or other school officials can <link:schoolEspRegister>edit this info</link:schoolEspRegister>.
-            <a href="javascript:void(0);">School Official FAQ</a>.</p>
+            <a href="/about/gsFaq.page?state=wi#faq-officialprofiles">School Official FAQ</a>.</p>
 
         <!-- SECTION 1: School Basics -->
         <table>
@@ -186,10 +186,10 @@
             </c:if>
 
             <c:set var="appsRcdYr"><gsweb:erts list="${responses.applications_received_year}" /></c:set>
-            <school:espTableRow label="Number of applications received for the ${appsRcdYr} school year" list="${responses.applications_received}" hideIfEmpty="false"/>
+            <school:espTableRow label="Number of applications received for the ${appsRcdYr} school year" list="${responses.applications_received}" hideIfEmpty="true"/>
 
             <c:set var="stdsAcptdYr"><gsweb:erts list="${responses.students_accepted_year}" /></c:set>
-            <school:espTableRow label="Number of students accepted for the ${stdsAcptdYr} year" list="${responses.students_accepted}" hideIfEmpty="false"/>
+            <school:espTableRow label="Number of students accepted for the ${stdsAcptdYr} year" list="${responses.students_accepted}" hideIfEmpty="true"/>
 
             <c:set var="appFee"><gsweb:erts list="${responses.application_fee}"/></c:set>
             <c:set var="appFeeAmt"><gsweb:erts list="${responses.application_fee_amount}"/></c:set>
@@ -206,7 +206,11 @@
             </tr>
 
             <c:set var="tuitionYr"><gsweb:erts list="${responses.tuition_year}" /></c:set>
-            <c:set var="tuitionAmt"><gsweb:erts list="${responses.tuition_high}"/> - <gsweb:erts list="${responses.tuition_low}"/></c:set>
+            <c:set var="tuitionAmt" value=""/>
+            <c:if test="${not empty responses.tuition_high and not empty responses.tuition_low}">
+                <c:set var="tuitionAmt"><gsweb:erts list="${responses.tuition_high}"/> - <gsweb:erts
+                        list="${responses.tuition_low}"/></c:set>
+            </c:if>
             <school:espTableRow label="Tuition range for the ${tuitionYr} school year" value="${tuitionAmt}" hideIfEmpty="false"/>
 
             <c:set var="fnclAid"><gsweb:erts list="${responses.financial_aid}" /></c:set>
@@ -286,7 +290,7 @@
             <c:set var="isP4" value="${fn:length(pn4)>0 and fn:length(pu4)>0}"/>
             <c:set var="isP5" value="${fn:length(pn5)>0 and fn:length(pu5)>0}"/>
             <tr>
-                <td class="small_bold">Partnerships with local resources and organizations:</td>
+                <td class="small_bold">Partnerships with local resources and organizations</td>
                 <td>
                     <c:if test="${isP1}"><a href="${gsweb:formatUrl(pu1)}" target="_blank">${pn1}</a></c:if><c:if
                         test="${isP2 or isP3 or isP4 or isP5}">; </c:if>
