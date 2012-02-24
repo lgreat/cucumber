@@ -162,7 +162,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
             status = "Upload complete";
             var deleteButton = $('#' + file.id + ' .deleteFileUpload');
             deleteButton.removeClass('i-16-close');
-            deleteButton.addClass('i-16-checkmark');
+            deleteButton.addClass('i-16-success');
         }
         this.setStatus(file, status);
     }.gs_bind(this);

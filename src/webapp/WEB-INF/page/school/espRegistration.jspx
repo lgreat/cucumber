@@ -123,7 +123,7 @@
             <div class="grid_5 omega">
                 <div class="js_screenName success" style="display: none">
                     <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-checkmark img"><!-- do not collapse --></span>
+                        <span class="iconx16 i-16-success img"><!-- do not collapse --></span>
 
                         <div class="bk">Username is available</div>
                     </div>
@@ -175,7 +175,7 @@
             <div class="grid_5 omega">
                 <div class="js_confirmPassword success" style="display: none;">
                     <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-checkmark img"><!-- do not collapse --></span>
+                        <span class="iconx16 i-16-success img"><!-- do not collapse --></span>
 
                         <div class="bk">Password match confirmed</div>
                     </div>
