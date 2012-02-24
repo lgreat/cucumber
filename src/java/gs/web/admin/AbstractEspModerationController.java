@@ -46,6 +46,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         private String _contactName;
         private String _contactEmail;
         private boolean _isDisabledUserReRequestingAccess;
+        private boolean _hasOtherActiveEspMemberships;
         
         public ModerationRow(EspMembership _membership) {
             super();
@@ -79,7 +80,15 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         public void setDisabledUserReRequestingAccess(boolean isDisabledUserReRequestingAccess) {
             this._isDisabledUserReRequestingAccess = isDisabledUserReRequestingAccess;
         }
-        
+
+        public boolean isHasOtherActiveEspMemberships() {
+            return _hasOtherActiveEspMemberships;
+        }
+
+        public void setHasOtherActiveEspMemberships(boolean hasOtherActiveEspMemberships) {
+            _hasOtherActiveEspMemberships = hasOtherActiveEspMemberships;
+        }
+
         public boolean isEmailMatch() {
             if(_contactEmail == null || _membership.getUser() == null) return false;
             return _contactEmail.equals(_membership.getUser().getEmail());
@@ -249,7 +258,12 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                     if("old_contact_email".equals(r.getKey())) mrow.setContactEmail(r.getValue());
                 }
             }
-            
+
+            List<EspMembership> otherActiveMemberships = getEspMembershipDao().findEspMembershipsByUserId(membership.getUser().getId(), true);
+            if (otherActiveMemberships != null && !otherActiveMemberships.isEmpty()) {
+                mrow.setHasOtherActiveEspMemberships(true);
+            }
+
             // is disabled user re-requesting access?
             for(EspMembership rejected : rejectedMemberships) {
                 try {

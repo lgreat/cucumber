@@ -64,7 +64,7 @@
                 <div class="legend">
 									<b style="margin-right:20px;">Legend: </b>
 									<span class="emailMatch">User email matches contact email</span>
-									<span class="durra">Disabled user re-requesting access</span>
+									<span class="durra">User requesting multi-access</span>
 								</div>
                 <form:form commandName="espModerationCommand">
                     <c:if test="${not empty mrows}">
@@ -107,7 +107,7 @@
                     <c:forEach var="mrow" items="${mrows}" varStatus="index">
                     		<c:set var="membership" value="${mrow.membership}"/>
                     		<c:set var="emailMatchClass" value="${mrow.emailMatch? 'emailMatch' : ''}"/>
-                    		<c:set var="durraClass" value="${mrow.disabledUserReRequestingAccess? 'durra' : ''}"/>
+                    		<c:set var="durraClass" value="${mrow.disabledUserReRequestingAccess || mrow.hasOtherActiveEspMemberships? 'durra' : ''}"/>
                     		<table width="950" class="${emailMatchClass} ${durraClass}">
                             <col width="32px"/>
                             <col width="210px"/>
