@@ -149,7 +149,7 @@ Misc classes
     background-image:     -ms-linear-gradient(top, #999999, #777777); /* IE10 */
     background-image:      -o-linear-gradient(top, #999999, #777777); /* Opera 11.10+ */
     background-image:         linear-gradient(top, #999999, #777777); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#999999', EndColorStr='#777777'); /* IE6?IE9 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#999999', EndColorStr='#777777'); /* IE6-IE9 */
 }
 .slStylesV1-0 tr.subhead th          { font-weight: normal; color:#2b2b2b; text-align:left; }
 .slStylesV1-0 tr.subhead th, .slStylesV1-0 thead tr.subhead th    {
@@ -160,7 +160,7 @@ Misc classes
     background-image:     -ms-linear-gradient(top, #dddddd, #cccccc); /* IE10 */
     background-image:      -o-linear-gradient(top, #dddddd, #cccccc); /* Opera 11.10+ */
     background-image:         linear-gradient(top, #dddddd, #cccccc); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#dddddd', EndColorStr='#cccccc'); /* IE6?IE9 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#dddddd', EndColorStr='#cccccc'); /* IE6-IE9 */
 }
 .slStylesV1-0 th, .slStylesV1-0 td       { padding: 10px;vertical-align: top; }
 /*
@@ -172,7 +172,7 @@ Misc classes
     background-color: #f1f1f1;
 }
 .slStylesV1-0 tfoot       { font-style: italic; }
-.slStylesV1-0 caption     { font-size: 18px; line-height: 24px; margin-bottom: 10px; background: #fff; text-align:left; }
+.slStylesV1-0 caption     { font-size: 18px; line-height: 27px; margin-bottom: 10px; background: #fff; text-align:left; }
 
 
 /* Misc classes
