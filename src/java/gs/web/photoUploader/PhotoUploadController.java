@@ -49,7 +49,7 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
     public static final String NOT_LOGGED_IN_ERROR = "Unauthorized"; // value referenced in JS
     public static final String REQUEST_TOO_LARGE_ERROR = "Request too large"; // value referenced in JS
     public static final String INVALID_CONTENT_TYPE_ERROR = "File type not supported"; // value referenced in JS
-    public static final String[] VALID_CONTENT_TYPES = {"image/gif", "image/jpeg", "image/png"};
+    public static final String[] VALID_CONTENT_TYPES = {"image/gif", "image/jpeg", "image/png", "application/octet-stream"};
 
     private ISchoolMediaDao _schoolMediaDao;
 

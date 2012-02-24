@@ -66,6 +66,10 @@ GS.PhotoUploader.prototype.createUploader = function() {
             self.done();
         });
 
+        this.uploader.bind("UploadFile", function(up, file) {
+            self.setStatus(file, self.PREPARING);
+        });
+
         this.uploader.bind("FileUploaded", function(up, file, response) {
             var stopTheUploader = false;
             var data = jQuery.parseJSON(response.response);
@@ -88,11 +92,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
             if (stopTheUploader) {
                 self.uploader.stop();
                 self.done();
-            } else {
-                if (self.uploader.files.length > file._gsPosition + 1) {
-                    var nextFile = self.uploader.files[file._gsPosition + 1];
-                    self.setStatus(nextFile, self.PREPARING);
-                }
             }
         });
 
@@ -154,6 +153,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
         this.styleUploading();
         this.setStatus(this.uploader.files[0], this.PREPARING);
         this.uploader.start();
+        this.container.find('.deleteFileUpload').off('click');
     }.gs_bind(this);
 
     this.updateProgress = function(up, file) {
@@ -173,9 +173,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
         } else {
             this.uploadCompleteOverlay.show();
         }
-
-        var deleteIcons = this.container.find('.deleteFileUpload');
-        deleteIcons.off('click');
 
         // add a namespaced event to remove all photos in uploader list the next time they click the queue button.
         this.queueButton.on('click.removeAllOnceIfDoneUploading', function() {
@@ -210,7 +207,20 @@ GS.PhotoUploader.prototype.createUploader = function() {
             } else if (err.code == plupload.FILE_EXTENSION_ERROR) {
                 alert("There was an error. " + fileExtension.toUpperCase() + " files cannot be uploaded as a photo. Images must be JPEG, GIF or PNG. File: " + file.name + " will not be added to the queue.");
             } else if (err.code == plupload.IMAGE_DIMENSIONS_ERROR) {
-                alert("There was an error. Dimensions of file " + file.name + " are too large. File will not be added to the queue");
+                alert("There was an error. Dimensions of file " + file.name + " are too large to process.");
+                if (file.status === plupload.FAILED) {
+                    this.setStatus(file, "Error: Dimensions too large");
+                }
+            } else if (err.code == plupload.IMAGE_FORMAT_ERROR) {
+                alert("There was an error. " + file.name + " is corrupted or an unsupported format.");
+                if (file.status === plupload.FAILED) {
+                    this.setStatus(file, "Error: Unsupported format");
+                }
+            } else if (err.code == plupload.IMAGE_MEMORY_ERROR) {
+                alert("There was an error. Not enough system memory to resize " + file.name + ".");
+                if (file.status === plupload.FAILED) {
+                    this.setStatus(file, "Error: Out of memory");
+                }
             } else {
                 this.setStatus(file, "Error");
             }
