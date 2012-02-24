@@ -32,9 +32,8 @@
 
         <p class="medium">This school has provided details to help you learn more about its unique programs and features.</p>
 
-        <p class="smaller"><a href="javascript:void(0);">Learn more about Official School Info</a> &amp;raquo;
-            | Principal or other school officials can <link:schoolEspRegister>edit this info</link:schoolEspRegister>.
-            <a href="/about/gsFaq.page?state=wi#faq-officialprofiles">School Official FAQ</a>.</p>
+        <p class="smaller"><a href="/about/gsFaq.page?state=wi#faq-officialprofiles">Learn more about Official School Info</a> &amp;raquo;
+            | Principal or other school officials can <link:schoolEspSignIn>edit this info</link:schoolEspSignIn>.</p>
 
         <!-- SECTION 1: School Basics -->
         <table>
@@ -191,36 +190,38 @@
             <c:set var="stdsAcptdYr"><gsweb:erts list="${responses.students_accepted_year}" /></c:set>
             <school:espTableRow label="Number of students accepted for the ${stdsAcptdYr} year" list="${responses.students_accepted}" hideIfEmpty="true"/>
 
-            <c:set var="appFee"><gsweb:erts list="${responses.application_fee}"/></c:set>
-            <c:set var="appFeeAmt"><gsweb:erts list="${responses.application_fee_amount}"/></c:set>
-            <c:set var="feeWaivers"><gsweb:erts list="${responses.fee_waivers}"/></c:set>
-            <c:set var="isFeeWaivers" value="${fn:toLowerCase(feeWaivers) eq 'no' }"/>
-            <c:set var="feeWaiversDesc" value="${isFeeWaivers ? 'Fee waivers available' : 'No fee waivers available'}"/>
-            <tr>
-                <td class="small_bold">Application Fee?</td>
-                <td>
-                    <c:if test="${not empty appFee and fn:toLowerCase(appFee) ne 'yes'}">${appFee}&amp;#059;&amp;#160;</c:if>
-                    <c:if test="${not empty appFeeAmt}">$${appFeeAmt}&amp;#059;&amp;#160;</c:if>
-                    <c:if test="${not empty feeWaiversDesc}">${feeWaiversDesc}</c:if>
-                </td>
-            </tr>
+            <c:if test="${not empty responses.application_fee}">
+                <c:set var="appFee"><gsweb:erts list="${responses.application_fee}"/></c:set>
+                <c:set var="appFeeAmt"><gsweb:erts list="${responses.application_fee_amount}"/></c:set>
+                <c:set var="feeWaivers"><gsweb:erts list="${responses.fee_waivers}"/></c:set>
+                <tr>
+                    <td class="small_bold">Application Fee?</td>
+                    <td>
+                        <c:if test="${fn:toLowerCase(appFee) ne 'yes'}">${appFee}</c:if>
+                        <c:if test="${not empty appFeeAmt}"><c:if test="${fn:toLowerCase(appFee) ne 'yes'}">&amp;#059;&amp;#160;</c:if> $${appFeeAmt}</c:if>
+                        <c:if test="${not empty feeWaivers}"><c:if test="${fn:toLowerCase(appFee) ne 'yes' or not empty appFeeAmt}">&amp;#059;&amp;#160;</c:if>${feeWaivers}</c:if>
+                    </td>
+                </tr>
+            </c:if>
 
-            <c:set var="tuitionYr"><gsweb:erts list="${responses.tuition_year}" /></c:set>
-            <c:set var="tuitionAmt" value=""/>
+
             <c:if test="${not empty responses.tuition_high and not empty responses.tuition_low}">
+                <c:set var="tuitionYr"><gsweb:erts list="${responses.tuition_year}"/></c:set>
                 <c:set var="tuitionAmt"><gsweb:erts list="${responses.tuition_high}"/> - <gsweb:erts
                         list="${responses.tuition_low}"/></c:set>
+                <school:espTableRow label="Tuition range for the ${tuitionYr} school year" value="${tuitionAmt}"
+                                    hideIfEmpty="false"/>
             </c:if>
-            <school:espTableRow label="Tuition range for the ${tuitionYr} school year" value="${tuitionAmt}" hideIfEmpty="false"/>
 
-            <c:set var="fnclAid"><gsweb:erts list="${responses.financial_aid}" /></c:set>
-            <c:set var="fnclAidType"><gsweb:erts list="${responses.financial_aid_type}" dlm="; "/></c:set>
-            <tr>
-                <td class="small_bold">Financial aid offered</td>
-                <td>
-                    ${fnclAid}<c:if test="${not empty fnclAidType}">.&#160;${fnclAidType}</c:if>
-                </td>
-            </tr>
+            <c:if test="${not empty financial_aid_type}">
+                <c:set var="fnclAid"><gsweb:erts list="${responses.financial_aid}"/></c:set>
+                <tr>
+                    <td class="small_bold">Financial aid offered</td>
+                    <td>
+                        ${fnclAid}.&#160;${financial_aid_type}
+                    </td>
+                </tr>
+            </c:if>
 
             <school:espTableRow label="Vouchers accepted:" list="${responses.students_vouchers}" hideIfEmpty="true"/>
 
@@ -289,20 +290,22 @@
             <c:set var="isP3" value="${fn:length(pn3)>0 and fn:length(pu3)>0}"/>
             <c:set var="isP4" value="${fn:length(pn4)>0 and fn:length(pu4)>0}"/>
             <c:set var="isP5" value="${fn:length(pn5)>0 and fn:length(pu5)>0}"/>
-            <tr>
-                <td class="small_bold">Partnerships with local resources and organizations</td>
-                <td>
-                    <c:if test="${isP1}"><a href="${gsweb:formatUrl(pu1)}" target="_blank">${pn1}</a></c:if><c:if
-                        test="${isP2 or isP3 or isP4 or isP5}">; </c:if>
-                    <c:if test="${isP2}"><a href="${gsweb:formatUrl(pu2)}" target="_blank">${pn2}</a></c:if><c:if
-                        test="${isP3 or isP4 or isP5}">; </c:if>
-                    <c:if test="${isP3}"><a href="${gsweb:formatUrl(pu3)}" target="_blank">${pn3}</a></c:if><c:if
-                        test="${isP4 or isP5}">; </c:if>
-                    <c:if test="${isP4}"><a href="${gsweb:formatUrl(pu4)}" target="_blank">${pn4}</a></c:if><c:if
-                        test="${isP5}">; </c:if>
-                    <c:if test="${isP5}"><a href="${gsweb:formatUrl(pu3)}" target="_blank">${pn3}</a></c:if>
-                </td>
-            </tr>
+            <c:if test="${isP1 or isP2 or isP3 or isP4 or isP5}">
+                <tr>
+                    <td class="small_bold">Partnerships with local resources and organizations</td>
+                    <td>
+                        <c:if test="${isP1}"><a href="${gsweb:formatUrl(pu1)}" target="_blank">${pn1}</a></c:if><c:if
+                            test="${isP2 or isP3 or isP4 or isP5}">; </c:if>
+                        <c:if test="${isP2}"><a href="${gsweb:formatUrl(pu2)}" target="_blank">${pn2}</a></c:if><c:if
+                            test="${isP3 or isP4 or isP5}">; </c:if>
+                        <c:if test="${isP3}"><a href="${gsweb:formatUrl(pu3)}" target="_blank">${pn3}</a></c:if><c:if
+                            test="${isP4 or isP5}">; </c:if>
+                        <c:if test="${isP4}"><a href="${gsweb:formatUrl(pu4)}" target="_blank">${pn4}</a></c:if><c:if
+                            test="${isP5}">; </c:if>
+                        <c:if test="${isP5}"><a href="${gsweb:formatUrl(pu3)}" target="_blank">${pn3}</a></c:if>
+                    </td>
+                </tr>
+            </c:if>
 
             <c:set var="facilities"><gsweb:erts list="${responses.facilities}" dlm="; "/></c:set>
             <c:if test="${not empty facilities and fn:toLowerCase(facilities) ne 'none'}">
