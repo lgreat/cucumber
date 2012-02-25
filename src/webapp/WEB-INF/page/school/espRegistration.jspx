@@ -206,7 +206,7 @@
                 <gsweb:stateSelector styleId="js_stateAdd"
                                      name="state"
                                      useNoState="true"
-                                     noStateLabel="- Choose state -"
+                                     noStateLabel="Choose state"
                                      allowNoState="false"
                         />
             </div>
@@ -227,7 +227,7 @@
             </div>
             <div class="grid_5">
                 <select id="js_city" name="city">
-                    <option selected="selected" value="">- Choose city -</option>
+                    <option selected="selected" value="">Choose city</option>
                     <c:forEach var="cityOption" items="">
                         <![CDATA[<option ]]>
                         <![CDATA[ value="${cityOption.name}">${cityOption.name}</option>]]>
@@ -252,7 +252,7 @@
             </div>
             <div class="grid_6">
                 <select name="schoolId" id="js_school" class="selectChildSchool input_6">
-                    <option selected="selected" value="0">- Choose school -</option>
+                    <option selected="selected" value="0">Choose school</option>
                     <c:forEach var="schoolOption" items="">
                         <![CDATA[<option ]]>
                         <![CDATA[ value="${schoolOption.id}">${schoolOption.name}</option>]]>
