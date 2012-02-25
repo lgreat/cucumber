@@ -30,7 +30,7 @@
     <c:if test="${not empty styleClass}"><c:out value=' class="${styleClass}"' escapeXml="false"/></c:if>
     <c:if test="${disabled}"><c:out value=' disabled="disabled" ' escapeXml="false"/></c:if>
     <![CDATA[>]]>
-      <option value="" disabled="disabled">${placeholder}</option>
+      <option value="">${placeholder}</option>
       <c:forEach var="te" items="${tuitionValues}">
         <![CDATA[<option]]>
         <c:if test="${te == nvalue}"><![CDATA[ selected="selected"]]></c:if>
