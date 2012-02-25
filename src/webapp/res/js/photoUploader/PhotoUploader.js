@@ -15,6 +15,7 @@ GS.PhotoUploader = function(url, maxQueuedItems, schoolId, schoolDatabaseState) 
     this.uploader = null;
     this.uploadButton = jQuery('#jsPhotoUploadButton');
     this.queueButton = jQuery('#jsPhotoQueueButton');
+    this.fakeQueueButton = jQuery('#jsPhotoFakeQueueButton');
     this.container = jQuery('#photo-upload-container');
     this.spinner = jQuery('.js-photoUploaderSpinner');
     this.uploadCompleteOverlay = jQuery('#jsUploadComplete');
@@ -54,16 +55,19 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.uploader.init();
 
     this.init = function(numberOfExistingPhotos) {
-        if (!this.uploader.features.hasOwnProperty('jpgresize')) {
-            this.container.fadeTo(0,0.5);
-            this.queueButton.removeClass('button-1');
-            this.queueButton.addClass('button-1-inactive');
-            this.container.find('button').prop('disabled',true);
-            this.uploadErrorOverlay.html('You must have <a href="http://get.adobe.com/flashplayer/" target="_blank">Adobe Flash Player</a> installed to upload photos.').show();
-            return;
-        }
+
 
         var self = this;
+        this.uploader.bind('Init', function(uploader) {
+            if (!uploader.features.hasOwnProperty('jpgresize')) {
+                self.container.fadeTo(0,0.5);
+                self.disableQueueButton();
+                self.container.find('button').prop('disabled',true);
+                self.uploadErrorOverlay.html('You must have <a href="http://get.adobe.com/flashplayer/" target="_blank">Adobe Flash Player</a> installed to upload photos.').show();
+                return;
+            }
+        });
+
         this.uploader.bind('FilesAdded', this.filesQueued);
 
         this.uploader.bind("UploadProgress",this.updateProgress);
@@ -118,6 +122,16 @@ GS.PhotoUploader.prototype.createUploader = function() {
         });
     }.gs_bind(this);
 
+    this.disableQueueButton = function() {
+        this.queueButton.hide();
+        this.fakeQueueButton.show();
+    }.gs_bind(this);
+
+    this.enableQueueButton = function() {
+        this.fakeQueueButton.hide();
+        this.queueButton.show();
+    }.gs_bind(this);
+
     this.enableUploading = function() {
         this.uploadButton.prop('disabled',false);
         this.uploadButton.addClass('button-1');
@@ -134,23 +148,17 @@ GS.PhotoUploader.prototype.createUploader = function() {
         this.uploadButton.prop('disabled',true);
         this.uploadButton.removeClass('button-1');
         this.uploadButton.addClass('button-1-inactive');
-        this.queueButton.prop('disabled',true);
-        this.queueButton.removeClass('button-1');
-        this.queueButton.addClass('button-1-inactive');
+        this.disableQueueButton();
         this.container.css('background-color', 'aaa');
         this.spinner.show();
     }.gs_bind(this);
 
     this.styleQueueFull = function() {
-        this.queueButton.removeClass('button-1');
-        this.queueButton.addClass('button-1-inactive');
-        this.queueButton.prop('disabled',true);
+        this.disableQueueButton();
     }.gs_bind(this);
 
     this.styleQueueNotFull = function() {
-        this.queueButton.addClass('button-1');
-        this.queueButton.removeClass('button-1-inactive');
-        this.queueButton.prop('disabled',false);
+        this.enableQueueButton();
     }.gs_bind(this);
 
     this.isQueueFull = function() {
@@ -217,6 +225,9 @@ GS.PhotoUploader.prototype.createUploader = function() {
             } else if (err.code == plupload.IMAGE_DIMENSIONS_ERROR) {
                 alert("There was an error. Dimensions of file " + file.name + " are too large to process.");
                 if (file.status === plupload.FAILED) {
+                    // stop-start hack to stop uploader from failing on next photo after Dimensions too large error
+                    this.uploader.stop();
+                    this.uploader.start();
                     this.setStatus(file, "Error: Dimensions too large");
                 }
             } else if (err.code == plupload.IMAGE_FORMAT_ERROR) {

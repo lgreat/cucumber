@@ -867,6 +867,16 @@ GSType.hover.SchoolEspThankYou = function() {
 
 GSType.hover.SchoolEspThankYou.prototype = new GSType.hover.HoverDialog("schoolEspThankYou",640);
 
+GSType.hover.EspAccountVerified = function() {
+    this.loadDialog = function() {
+
+    };
+    this.showHover = function() {
+        GSType.hover.espAccountVerified.show();
+    };
+    this.onClose = function() {};
+};
+
 // Confirm ESP Save hover
 GSType.hover.ConfirmEspSave = function() {
     this.loadDialog = function() {
@@ -1076,6 +1086,7 @@ GSType.hover.schoolReviewPostedThankYou = new GSType.hover.SchoolReviewPostedTha
 GSType.hover.schoolReviewNotPostedThankYou = new GSType.hover.SchoolReviewNotPostedThankYou();
 GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolReview();
 GSType.hover.schoolEspThankYou = new GSType.hover.SchoolEspThankYou();
+GSType.hover.espAccountVerified = new GSType.hover.EspAccountVerified();
 GSType.hover.confirmEspSave = new GSType.hover.ConfirmEspSave();
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
 GSType.hover.interruptSurvey = new GSType.hover.InterruptSurvey();
@@ -1422,6 +1433,7 @@ jQuery(function() {
     GSType.hover.schoolReviewNotPostedThankYou.loadDialog();
     GSType.hover.emailValidatedSchoolReview.loadDialog();
     GSType.hover.schoolEspThankYou.loadDialog();
+    GSType.hover.espAccountVerified.loadDialog();
     GSType.hover.emailToFriend.loadDialog();
     GSType.hover.interruptSurvey.loadDialog();
     GSType.hover.nlSubscription.loadDialog();
@@ -1596,6 +1608,8 @@ jQuery(function() {
         GSType.hover.principalReviewSubmitted.show();
     } else if (showHover == "schoolEspThankYou") {
         GSType.hover.schoolEspThankYou.show();
+    } else if (showHover == "espAccountVerified") {
+        GSType.hover.espAccountVerified.show();
     } else if (showHover == "confirmEspSave") {
         GSType.hover.confirmEspSave.show();
     }
@@ -1606,4 +1620,3 @@ jQuery(function() {
 
 
 });
-

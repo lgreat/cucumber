@@ -22,7 +22,8 @@ public class HoverHelper {
         EMAIL_VERIFIED_SCHOOL_REVIEW_QUEUED("emailValidatedSchoolReviewQueued"),
         EMAIL_VERIFIED("emailValidated"),
         NEW_EMAIL_VERIFIED("editEmailValidated"),
-        SUBSCRIPTION_EMAIL_VERIFIED("subscriptionEmailValidated");
+        SUBSCRIPTION_EMAIL_VERIFIED("subscriptionEmailValidated"),
+        ESP_ACCOUNT_VERIFIED("espAccountVerified");
 
         private String _id;
 

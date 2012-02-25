@@ -109,6 +109,7 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                 PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community
                 viewName = "/account/";
                 if (user.hasRole(Role.ESP_MEMBER) && StringUtils.isNotBlank(requestedRedirect)) {
+                    hoverHelper.setHoverCookie(HoverHelper.Hover.ESP_ACCOUNT_VERIFIED);
                     viewName = requestedRedirect;
                 }
                 return new ModelAndView(new RedirectView(viewName)); // E A R L Y   E X I T
