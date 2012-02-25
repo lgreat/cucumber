@@ -345,7 +345,7 @@
                                name="partnerships_url_1" class="text input_6 mas"
                                value="${responseMap['partnerships_url_1'].value}"
                                placeholder="[Web site]" maxlength="100"/>
-                        <div class="prefix_6">
+                        <div class="prefix_6 mlm">
                             <p class="hint">Example: http://www.website.org</p>
                         </div>
                     </li>

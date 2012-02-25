@@ -20,14 +20,17 @@
     </div>
 </div>
 
-<p id="js_sctn_admissions_header" class="small">Please choose one or more options below to provide application information to parents</p>
+<div id="js_sctn_admissions_header" class="mbl">
+<p class="small">Please choose one or more options below to provide application information to parents</p>
+    <hr class="keyline2"/>
+</div>
 
 <div id="sctn_admissions_url" class="lal clearfix">
     <div class="alpha grid_7">
         <label for="form_admissions_url">Send parents directly to your admissions page</label>
     </div>
     <div class="grid_16 omega">
-        <input id="form_admissions_url" name="admissions_url" class="mls js_otherField text input_6"
+        <input id="form_admissions_url" name="admissions_url" class="js_otherField text input_6"
                value="${responseMap['admissions_url'].value}" placeholder="[Enter URL for page on your website]"
                size="30" maxlength="100"/>
 
@@ -70,7 +73,7 @@
         <school:espRadioWithLabel key="application_deadline" value="yearround"
                                   label="Year-round / Rolling admissions, if space is available"/>
         <school:espRadioWithLabel key="application_deadline" value="date" label="Date: " nobr="true"/>
-        <input id="form_application_deadline" name="application_deadline" class="mls js_otherField text-smaller input_4"
+        <input id="form_application_deadline" name="application_deadline" class="js_otherField text-smaller input_4"
                value="${responseMap['application_deadline'].value}" placeholder="[Select date]"
                maxlength="10"/><br/>
         <school:espRadioWithLabel key="application_deadline" value="parents_contact"
@@ -88,7 +91,7 @@
     </div>
     <div class="grid_4">
         <input id="form_applications_received" name="applications_received" type="text"
-               class="mls js_otherField text input_4"
+               class="js_otherField text input_4"
                value="${responseMap['applications_received'].value}" placeholder="[Enter number]"
                maxlength="5"/>
 
@@ -109,7 +112,7 @@
     </div>
     <div class="grid_4">
         <input id="form_students_accepted" name="students_accepted" type="text"
-               class="mls js_otherField text input_4" value="${responseMap['students_accepted'].value}"
+               class="js_otherField text input_4" value="${responseMap['students_accepted'].value}"
                placeholder="[Enter number]" maxlength="4"/>
 
         <p class="hint">Example: 60</p>
@@ -130,28 +133,29 @@
         </div>
         <div class="grid_16 omega">
             <school:espRadioWithLabel key="application_fee" value="no" label="No"/>
-        </div>
-        <div class="grid_2 alpha prefix_7">
-            <school:espRadioWithLabel key="application_fee" value="yes" label="Yes" nobr="true"
-                                      styleClass="fltlft"/>
-        </div>
-        <div id="js_application_fee_group" class="grid_14 omega">
-            <div class="grid_5 alpha">
-                <span class="small">$</span>
-                <input id="form_application_fee_amount" type="text" name="application_fee_amount"
-                       class="mls js_otherField text input_4"
-                       value="${responseMap['application_fee_amount'].value}" placeholder="[Enter number]"
-                       maxlength="3"/>
 
-                <p class="hint">Enter amount of application fee</p>
+            <div class="grid_2 alpha">
+                <school:espRadioWithLabel key="application_fee" value="yes" label="Yes" nobr="true"
+                                          styleClass="fltlft"/>
             </div>
+            <div id="js_application_fee_group" class="grid_14 omega">
+                <div class="grid_5 alpha">
+                    <span class="small">$</span>
+                    <input id="form_application_fee_amount" type="text" name="application_fee_amount"
+                           class="mls js_otherField text input_4"
+                           value="${responseMap['application_fee_amount'].value}" placeholder="[Enter number]"
+                           maxlength="3"/>
 
-            <div class="grid_4">
-                <p class="small">Are fee waivers available?</p>
-            </div>
-            <div class="grid_5 omega">
-                <school:espRadioWithLabel key="fee_waivers" value="no" label="No"/>
-                <school:espRadioWithLabel key="fee_waivers" value="yes" label="Yes" nobr="true"/>
+                    <p class="hint">Enter amount of application fee</p>
+                </div>
+
+                <div class="grid_4">
+                    <p class="small">Are fee waivers available?</p>
+                </div>
+                <div class="grid_5 omega">
+                    <school:espRadioWithLabel key="fee_waivers" value="no" label="No"/>
+                    <school:espRadioWithLabel key="fee_waivers" value="yes" label="Yes" nobr="true"/>
+                </div>
             </div>
         </div>
     </div>
@@ -222,19 +226,19 @@
             <ol>
                 <li class="mvs">
                     <input id="form_feeder_school_1" type="text" name="feeder_school_1"
-                           class="mls js_otherField text input_6"
+                           class="js_otherField text input_6"
                            value="${responseMap['feeder_school_1'].value}"
                            placeholder="[Type in school name]" size="6" maxlength="100"/>
                 </li>
                 <li class="mvs">
                     <input id="form_feeder_school_2" type="text" name="feeder_school_2"
-                           class="mls js_otherField text input_6"
+                           class="js_otherField text input_6"
                            value="${responseMap['feeder_school_2'].value}"
                            placeholder="[Type in school name]" size="6" maxlength="100"/>
                 </li>
                 <li class="mvs">
                     <input id="form_feeder_school_3" type="text" name="feeder_school_3"
-                           class="mls js_otherField text input_6"
+                           class="js_otherField text input_6"
                            value="${responseMap['feeder_school_3'].value}"
                            placeholder="[Type in school name]" size="6" maxlength="100"/>
                 </li>
@@ -254,17 +258,17 @@
             <ol>
                 <li class="mvs">
                     <input id="form_destination_school_1" type="text" name="destination_school_1"
-                           class="mls js_otherField text input_6" value="${responseMap['destination_school_1'].value}"
+                           class="js_otherField text input_6" value="${responseMap['destination_school_1'].value}"
                            placeholder="[Type in school name]" size="6" maxlength="100"/>
                 </li>
                 <li class="mvs">
                     <input id="form_destination_school_2" type="text" name="destination_school_2"
-                           class="mls js_otherField text input_6" value="${responseMap['destination_school_2'].value}"
+                           class="js_otherField text input_6" value="${responseMap['destination_school_2'].value}"
                            placeholder="[Type in school name]" size="6" maxlength="100"/>
                 </li>
                 <li class="mvs">
                     <input id="form_destination_school_3" type="text" name="destination_school_3"
-                           class="mls js_otherField text input_6" value="${responseMap['destination_school_3'].value}"
+                           class="js_otherField text input_6" value="${responseMap['destination_school_3'].value}"
                            placeholder="[Type in school name]" size="6" maxlength="100"/>
                 </li>
                 <school:espCheckboxWithLabel key="destination_school" value="1" label="Do not know / Not applicable"/>

@@ -83,7 +83,7 @@
                         <p class="labelGroup">What are your school colors?</p>
                     </div>
                     <div class="grid_16 omega">
-                        <gsml:input styleId="form_school_colors" styleClass="mls js_otherField text input_8" type="text"
+                        <gsml:input styleId="form_school_colors" styleClass="js_otherField text input_8" type="text"
                                name="school_colors" value="${responseMap['school_colors'].value}"
                                maxlength="40" placeholder="[Enter colors separated by commas]"/>
                         <p class="hint">Example: blue, gold</p>
@@ -97,7 +97,7 @@
                         <p class="labelGroup">What is your school mascot (if you have one)?</p>
                     </div>
                     <div class="grid_16 omega">
-                        <gsml:input styleId="form_school_mascot" styleClass="mls js_otherField text input_8" type="text"
+                        <gsml:input styleId="form_school_mascot" styleClass="js_otherField text input_8" type="text"
                                name="school_mascot" value="${responseMap['school_mascot'].value}"
                                maxlength="40" placeholder="[Enter mascot name]"/>
                     </div>
@@ -132,7 +132,7 @@
                     <p class="labelGroup">Provide a link to YouTube or other hosted videos of your school or videos created by staff/students at your school.</p>
                 </div>
                 <div class="grid_16 omega">
-                    <gsml:input styleId="form_school_video" styleClass="mls js_otherField text input_8" type="text"
+                    <gsml:input styleId="form_school_video" styleClass="js_otherField text input_8" type="text"
                            name="school_video" value="${responseMap['school_video'].value}"
                            placeholder="[Paste video URL or web address here]"/>
                     <p class="hint">Example: http://youtu.be/schoolvideo</p>
@@ -145,7 +145,7 @@
                         <p class="labelGroup">Is there anything else you would like parents and students to know about your school?</p>
                     </div>
                     <div class="grid_16 omega">
-                        <textarea id="form_anything_else" class="mls js_otherField text input_8" type="text"
+                        <textarea id="form_anything_else" class="js_otherField text input_8" type="text"
                                name="anything_else" maxlength="500" cols="80" rows="4">${responseMap['anything_else'].value}</textarea>
                         <p class="hint js-charactersLeft"><!-- no collapse --></p>
                     </div>
