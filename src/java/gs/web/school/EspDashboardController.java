@@ -29,6 +29,7 @@ public class EspDashboardController {
     public static final String VIEW = "school/espDashboard";
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
+    public static final String MODEL_SUPERUSER_ERROR = "superUserError";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -47,7 +48,14 @@ public class EspDashboardController {
             return "redirect:" + urlBuilder.asFullUrl(request);
         }
         // if school is explicitly specified in the URL, grab it here
-        School school = getSchool(state, schoolId);
+        School school = getSchool(state, schoolId, modelMap);
+        
+        if (state != null) {
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            if (sessionContext != null) {
+                sessionContext.setState(state);
+            }
+        }
 
         if (user.hasRole(Role.ESP_SUPERUSER)) {
             // super users need nothing else besides the school
@@ -173,22 +181,30 @@ public class EspDashboardController {
      * Parses the state and schoolId out of the request and fetches the school. Returns null if
      * it can't parse parameters, can't find school, or the school is inactive
      */
-    protected School getSchool(State state, Integer schoolId) {
+    protected School getSchool(State state, Integer schoolId, ModelMap modelMap) {
         if (state == null || schoolId == null) {
+            if (state != null || schoolId != null) {
+                modelMap.put(MODEL_SUPERUSER_ERROR, "Please choose both a state and school.");
+            }
             return null;
         }
         School school = null;
         try {
             school = _schoolDao.getSchoolById(state, schoolId);
         } catch (Exception e) {
+            modelMap.put(MODEL_SUPERUSER_ERROR, "No school found in " + state + " with id " + schoolId);
             // handled below
         }
         if (school == null || !school.isActive()) {
+            if (school != null && !school.isActive()) {
+                modelMap.put(MODEL_SUPERUSER_ERROR, "The school with id " + schoolId + "(" + school.getName() + ") in " + state + " is inactive");
+            }
             _log.error("School is null or inactive: " + school);
             return null;
         }
 
         if (school.isPreschoolOnly()) {
+            modelMap.put(MODEL_SUPERUSER_ERROR, "The school with id " + schoolId + "(" + school.getName() + ") in " + state + " is a preschool");
             _log.error("School is preschool only! " + school);
             return null;
         }

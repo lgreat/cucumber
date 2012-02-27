@@ -256,9 +256,37 @@
 
             <c:if test="${espSuperuser}">
                 <div class="grid_24">
-                    <p>Super user: Please select a school to view the form.</p>
+                    <h3>Super user:</h3>
+                    <c:if test="${not empty superUserError}">
+                        <p style="font-weight: bold; color:#cc0033;">${superUserError}</p>
+                    </c:if>
+                    <p>Please input a school to view the form:</p>
+                    <form action="" method="GET">
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_4 alpha">
+                                <label>State abbreviation:</label>
+                            </div>
+                            <div class="grid_5 postfix_14 omega">
+                                <input type="text" name="state" value="${(not empty school)?school.databaseState:requestScope.context.state}"/>
+                            </div>
+                        </div>
+                        <div class="formRow clearfix">
+                            <div class="prefix_1 grid_4 alpha">
+                                <label>School Id:</label>
+                            </div>
+                            <div class="grid_5 postfix_14 omega">
+                                <input type="text" name="schoolId" value="${school.id}"/>
+                            </div>
+                        </div>
+                        <div class="formRow clearfix">
+                            <input class="button-1" type="submit" value="Go"/>
+                        </div>
+                    </form>
+                </div>
+                <div class="grid_24">
+                    <p>Or select a school from the drop downs:</p>
                     <mod:cityStateSchoolSelect url=""
-                                               defaultState="${school.databaseState}"
+                                               defaultState="${(not empty school)?school.databaseState:requestScope.context.state}"
                                                defaultCity="${school.city}"
                                                defaultSchoolId="${school.id}"/>
                 </div>
