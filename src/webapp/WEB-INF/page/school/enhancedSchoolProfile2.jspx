@@ -337,7 +337,7 @@
                 <c:set var="pgE"><gsweb:erts list="${responses.post_graduation_workforce}"/>%</c:set>
                 <tr>
                     <td class="small_bold">
-                        Post-graduation statistics:
+                        Post-graduation statistics
                     </td>
                     <td class="block">
                         <div class="line">
@@ -485,7 +485,7 @@
 
                 <c:set var="studentsEthnicity"><gsweb:erts list="${students_ethnicity}"/></c:set>
                 <tr>
-                    <td class="small_bold">Student ethnicity breakdown:</td>
+                    <td class="small_bold">Student ethnicity breakdown</td>
                     <td>
                         <c:choose>
                             <c:when test="${not empty studentsEthnicity and fn:toLowerCase(studentsEthnicity) ne 'data unavailable'}">
@@ -529,7 +529,7 @@
 
                 <c:set var="privateGender"><gsweb:erts list="${responses.private_gender}"/></c:set>
                 <tr>
-                    <td class="small_bold">Student gender breakdown:</td>
+                    <td class="small_bold">Student gender breakdown</td>
                     <td>
                         <c:choose>
                             <c:when test="${not empty privateGender and fn:toLowerCase(privateGender) ne 'data unavailable'}">
@@ -553,7 +553,7 @@
 
                 <c:set var="privateEll"><gsweb:erts list="${responses.private_ell}"/></c:set>
                 <tr>
-                    <td class="small_bold">Percentage of students that participate in ELL or ESL programs:</td>
+                    <td class="small_bold">Percentage of students that participate in ELL or ESL programs</td>
                     <td>
                         <c:out value="${(fn:length(privateEll)>0 and fn:toLowerCase(privateEll) ne 'data unavailable') ? privateEll : 'Data Unavailable'}"/>
                     </td>
@@ -561,7 +561,7 @@
 
                 <c:set var="privateSpecialEd"><gsweb:erts list="${private_special_ed}"/></c:set>
                 <tr>
-                    <td class="small_bold">Percentage of students that take advantage of some kind of Special Education service:</td>
+                    <td class="small_bold">Percentage of students that take advantage of some kind of Special Education service</td>
                     <td>
                         <c:out value="${(fn:length(privateSpecialEd)>0 and fn:toLowerCase(privateSpecialEd) ne 'data unavailable') ? privateSpecialEd : 'Data Unavailable'}"/>
                     </td>
@@ -569,7 +569,7 @@
 
                 <c:set var="privateRFL"><gsweb:erts list="${private_free_reduced_lunch}"/></c:set>
                 <tr>
-                    <td class="small_bold">Percentage of students eligible for free or reduced-price lunch:</td>
+                    <td class="small_bold">Percentage of students eligible for free or reduced-price lunch</td>
                     <td>
                         <c:out value="${(fn:length(privateRFL)>0 and fn:toLowerCase(privateRFL) ne 'data unavailable') ? privateRFL : 'Data Unavailable'}"/>
                     </td>
