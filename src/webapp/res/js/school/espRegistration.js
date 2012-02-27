@@ -10,7 +10,7 @@ GS.form.EspForm = function() {
         var schoolSelect = jQuery('#js_school');
 
         citySelect.html('<option value="">Loading ...</option>');
-        schoolSelect.html('<option value="">- Choose school -</option>');
+        schoolSelect.html('<option value="">Choose school</option>');
 
         jQuery.ajax({
             type: 'GET',
@@ -30,12 +30,12 @@ GS.form.EspForm = function() {
         var citySelect = jQuery('#js_city');
         var schoolSelect = jQuery('#js_school');
 
-        schoolSelect.html('<option value="">- Choose school -</option>');
+        schoolSelect.html('<option value="">Choose school</option>');
 
         var state = stateSelect.val();
         var city = citySelect.val();
 
-        if (state !== '' && city !== '' && city !== '- Choose city -' && city !== 'My city is not listed') {
+        if (state !== '' && city !== '' && city !== 'Choose city' && city !== 'My city is not listed') {
             jQuery('#js_school').html("<option>Loading...</option>");
             jQuery.ajax({
                 type: 'GET',
@@ -57,7 +57,7 @@ GS.form.EspForm = function() {
             for (var x = 0; x < data.cities.length; x++) {
                 var city = data.cities[x];
                 if (city.name !== '') {
-                    var cityVal = (city.name === '- Choose city -') ? '' : city.name;
+                    var cityVal = (city.name === 'Choose city') ? '' : city.name;
                     citySelect.append("<option value=\"" + cityVal + "\">" + city.name + "</option>");
                 }
             }
