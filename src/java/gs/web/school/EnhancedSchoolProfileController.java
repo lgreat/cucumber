@@ -118,15 +118,15 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         List<String> values;
 
         // merge feeder school fields
-        values = mergeValuesForKeys(responses, true, "feeder_school_1", "feeder_school_2", "feeder_school_3");
+        values = mergeValuesForKeys(responses, false, "feeder_school_1", "feeder_school_2", "feeder_school_3");
         model.put("feederSchools", StringUtils.joinPretty(values.iterator(), "; "));
 
         // merge destination school fields
-        values = mergeValuesForKeys(responses, true, "destination_school_1", "destination_school_2", "destination_school_3");
+        values = mergeValuesForKeys(responses, false, "destination_school_1", "destination_school_2", "destination_school_3");
         model.put("destinationSchools", StringUtils.joinPretty(values.iterator(), "; "));
         
         // merge college destinations
-        values = mergeValuesForKeys(responses, true, "college_destination_1", "college_destination_2", "college_destination_3");
+        values = mergeValuesForKeys(responses, false, "college_destination_1", "college_destination_2", "college_destination_3");
         model.put("collegeDestinations", StringUtils.joinPretty(values.iterator(), "; "));
 
         values = new ArrayList<String>();
@@ -160,6 +160,12 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         values.addAll(mergeValuesForKeys(responses, true, "transportation"));
         values.addAll(mergeValuesForKeys(responses, false, "transportation_other"));
         model.put("transportation", StringUtils.joinPretty(values.iterator(), "; "));
+
+        // merge immersion_language
+        values.clear();
+        values.addAll(mergeValuesForKeys(responses, true, "immersion_language"));
+        values.addAll(mergeValuesForKeys(responses, false, "immersion_language_other"));
+        model.put("immersion_language", StringUtils.joinPretty(values.iterator(), "; "));
 
         // merge student clubs
         values.clear();
@@ -210,7 +216,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         model.put("college_prep", StringUtils.joinPretty(values.iterator(), "; "));
 
         // merge academic awards
-        String academicAwards = mergeValuesForDualKeys(responses, ", ", "; ", true, new String[][] {
+        String academicAwards = mergeValuesForDualKeys(responses, ", ", "; ", false, new String[][] {
                 { "academic_award_1", "academic_award_1_year" },
                 { "academic_award_2", "academic_award_2_year" },
                 { "academic_award_3", "academic_award_3_year" },
@@ -218,7 +224,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         model.put("academicAwards", academicAwards);
 
         // merge community service awards
-        String serviceAwards = mergeValuesForDualKeys(responses, ", ", "; ", true, new String[][] {
+        String serviceAwards = mergeValuesForDualKeys(responses, ", ", "; ", false, new String[][] {
                 { "service_award_1", "service_award_1_year" },
                 { "service_award_2", "service_award_2_year" },
                 { "service_award_3", "service_award_3_year" },

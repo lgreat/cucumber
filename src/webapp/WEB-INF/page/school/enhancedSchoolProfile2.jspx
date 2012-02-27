@@ -82,7 +82,7 @@
                     <td>
                         <c:forEach var="contactMethod" items="${responses.contact_method}">
                             <c:if test="${contactMethod.value eq 'email'}">
-                                <c:set var="cmEmail"><gsweb:erts list="${responses.contact_method_email}"/></c:set>
+                                <c:set var="cmEmail"><gsweb:erts list="${responses.contact_method_email}" pretty="false"/></c:set>
 
                                 <div>Email:${cmEmail}</div>
                             </c:if>
@@ -90,7 +90,7 @@
                                 <div>Phone:${school_phone}</div>
                             </c:if>
                             <c:if test="${contactMethod.value eq 'other'}">
-                                <c:set var="cmOther"><gsweb:erts list="${responses.contact_method_other}"/></c:set>
+                                <c:set var="cmOther"><gsweb:erts list="${responses.contact_method_other}" pretty="false"/></c:set>
 
                                 <div>Other:${cmOther}</div>
                             </c:if>
@@ -126,11 +126,11 @@
 
             <c:set var="transportationShuttle"><gsweb:erts list="${responses.transportation_shuttle}"/></c:set>
             <c:set var="transportationShuttleOther"><gsweb:erts
-                    list="${responses.transportation_shuttle_other}"/></c:set>
+                    list="${responses.transportation_shuttle_other}" pretty="false"/></c:set>
             <c:if test="${(not empty transportationShuttle and fn:toLowerCase(transportationShuttle) ne 'no') or not empty transportationShuttleOther}">
                 <tr>
                     <td class="small_bold">School-run shuttle from nearby metro and bus stops</td>
-                    <td>${transportationShuttle} ${transportationShuttleOther}</td>
+                    <td>${transportationShuttle}&amp;#046; ${transportationShuttleOther}</td>
                 </tr>
             </c:if>
 
@@ -140,11 +140,10 @@
                                 hideIfEmpty="true"/>
 
             <c:set var="immersion"><gsweb:erts list="${responses.immersion}"/></c:set>
-            <c:set var="immersionLanguages"><gsweb:erts list="${responses.immersion_language}" dlm="; "/></c:set>
             <c:if test="${not empty immersion}">
                 <tr>
                     <td class="small_bold">Bi-lingual or language immersion programs offered</td>
-                    <td>${immersion}<c:if test="${not empty immersionLanguages}">.&#160;${immersionLanguages}</c:if>
+                    <td>${immersion}<c:if test="${not empty immersion_language}">.&#160;${immersion_language}</c:if>
                     </td>
                 </tr>
             </c:if>
@@ -277,16 +276,16 @@
                 </tr>
             </c:if>
 
-            <c:set var="pn1"><gsweb:erts list="${responses.partnerships_name_1}"/></c:set>
-            <c:set var="pu1"><gsweb:erts list="${responses.partnerships_url_1}"/></c:set>
-            <c:set var="pn2"><gsweb:erts list="${responses.partnerships_name_2}"/></c:set>
-            <c:set var="pu2"><gsweb:erts list="${responses.partnerships_url_2}"/></c:set>
-            <c:set var="pn3"><gsweb:erts list="${responses.partnerships_name_3}"/></c:set>
-            <c:set var="pu3"><gsweb:erts list="${responses.partnerships_url_3}"/></c:set>
-            <c:set var="pn4"><gsweb:erts list="${responses.partnerships_name_4}"/></c:set>
-            <c:set var="pu4"><gsweb:erts list="${responses.partnerships_url_4}"/></c:set>
-            <c:set var="pn5"><gsweb:erts list="${responses.partnerships_name_5}"/></c:set>
-            <c:set var="pu5"><gsweb:erts list="${responses.partnerships_url_5}"/></c:set>
+            <c:set var="pn1"><gsweb:erts list="${responses.partnerships_name_1}" pretty="false"/></c:set>
+            <c:set var="pu1"><gsweb:erts list="${responses.partnerships_url_1}" pretty="false"/></c:set>
+            <c:set var="pn2"><gsweb:erts list="${responses.partnerships_name_2}" pretty="false"/></c:set>
+            <c:set var="pu2"><gsweb:erts list="${responses.partnerships_url_2}" pretty="false"/></c:set>
+            <c:set var="pn3"><gsweb:erts list="${responses.partnerships_name_3}" pretty="false"/></c:set>
+            <c:set var="pu3"><gsweb:erts list="${responses.partnerships_url_3}" pretty="false"/></c:set>
+            <c:set var="pn4"><gsweb:erts list="${responses.partnerships_name_4}" pretty="false"/></c:set>
+            <c:set var="pu4"><gsweb:erts list="${responses.partnerships_url_4}" pretty="false"/></c:set>
+            <c:set var="pn5"><gsweb:erts list="${responses.partnerships_name_5}" pretty="false"/></c:set>
+            <c:set var="pu5"><gsweb:erts list="${responses.partnerships_url_5}" pretty="false"/></c:set>
             <c:set var="isP1" value="${fn:length(pn1)>0 and fn:length(pu1)>0}"/>
             <c:set var="isP2" value="${fn:length(pn2)>0 and fn:length(pu2)>0}"/>
             <c:set var="isP3" value="${fn:length(pn3)>0 and fn:length(pu3)>0}"/>
@@ -453,9 +452,9 @@
                 </tr>
             </c:if>
 
-            <school:espTableRow label="School colors" list="${responses.school_colors}" hideIfEmpty="true"/>
+            <school:espTableRow label="School colors" list="${responses.school_colors}" hideIfEmpty="true" pretty="false"/>
 
-            <school:espTableRow label="School mascot" list="${responses.school_mascot}" hideIfEmpty="true"/>
+            <school:espTableRow label="School mascot" list="${responses.school_mascot}" hideIfEmpty="true" pretty="false"/>
 
             <c:set var="facebookUrl"><gsweb:erts list="${responses.facebook_url}" pretty="false"/></c:set>
             <c:if test="${not empty facebookUrl}">
@@ -465,7 +464,7 @@
                 </tr>
             </c:if>
 
-            <school:espTableRow label="More about the school’s culture" list="${responses.anything_else}" hideIfEmpty="true"/>
+            <school:espTableRow label="More about the school’s culture" list="${responses.anything_else}" hideIfEmpty="true" pretty="false"/>
 
             </tbody>
         </table>
