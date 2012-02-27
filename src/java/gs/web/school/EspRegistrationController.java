@@ -12,6 +12,7 @@ import gs.data.state.State;
 import gs.web.community.registration.UserCommand;
 import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.web.tracking.OmnitureTracking;
+import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.SitePrefCookie;
 import gs.web.util.UrlBuilder;
@@ -39,6 +40,8 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     private static final Log _log = LogFactory.getLog(EspRegistrationController.class);
 
     public static final String VIEW = "school/espRegistration";
+
+    HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -210,6 +213,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             JSONObject rval;
             Map data = userState.getUserState();
             rval = new JSONObject(data);
+            _cacheInterceptor.setNoCacheHeaders(response);
             response.setContentType("application/json");
             response.getWriter().print(rval.toString());
             response.getWriter().flush();
@@ -348,6 +352,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         data.put("isRejected", isRejected);
 
         JSONObject rval = new JSONObject(data);
+        _cacheInterceptor.setNoCacheHeaders(response);
         response.setContentType("application/json");
         response.getWriter().print(rval.toString());
         response.getWriter().flush();
