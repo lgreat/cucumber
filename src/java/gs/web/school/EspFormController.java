@@ -186,6 +186,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         if (fieldError != null) {
             errorFieldToMsgMap.put("school_fax", fieldError);
         }
+        handleSchoolAffiliation(requestParameterMap, keysForPage);
 
         // Basic validation goes here
         // Note: This should only validate data going into esp_response. Data going to external places MUST be
@@ -290,6 +291,14 @@ public class EspFormController implements ReadWriteAnnotationController {
         errorObj.put("error", msg);
         errorObj.write(response.getWriter());
         response.getWriter().flush();
+    }
+    
+    protected void handleSchoolAffiliation(Map<String, Object[]> requestParameterMap, Set<String> keysForPage) {
+        if (keysForPage.contains("school_type_affiliation") && (
+                requestParameterMap.get("school_type_affiliation") == null
+                        || requestParameterMap.get("school_type_affiliation").length == 0)) {
+            requestParameterMap.put("school_type_affiliation", new Object[]{""}); // force delete
+        }
     }
 
     protected void handleAddressSave(Map<String, Object[]> requestParameterMap, Set<String> keysForPage, Address existingAddress) {

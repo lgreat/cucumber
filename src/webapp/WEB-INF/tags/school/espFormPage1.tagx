@@ -123,13 +123,14 @@
             <p class="labelGroup">School type</p>
         </div>
         <div class="grid_16 omega">
-            <school:espRadioWithLabel key="school_type" value="public" label="Public" disabled="${stateLocked}"/>
-            <school:espRadioWithLabel key="school_type" value="charter" label="Public Charter" disabled="${stateLocked}"/>
-            <school:espRadioWithLabel key="school_type" value="private" label="Private" disabled="${stateLocked}"/>
+            <c:choose>
+                <c:when test="${school.type.schoolTypeName eq 'public'}"><span>Public</span></c:when>
+                <c:when test="${school.type.schoolTypeName eq 'charter'}"><span>Public Charter</span></c:when>
+                <c:when test="${school.type.schoolTypeName eq 'private'}"><span>Private</span></c:when>
+            </c:choose>
 
             <div class="grid_14 prefix_1 alpha omega">
-
-                <div id="form_school_type_affiliation_group">
+                <c:if test="${school.type.schoolTypeName eq 'private'}">
                     <school:espCheckboxWithLabel key="school_type_affiliation" value="religious" nobr="true"
                                                  label="Religious / Parochial" disabled="${stateLocked}"/>
                     <label for="form_school_type_affiliation_other" class="mlm">Affiliation:</label>
@@ -138,7 +139,7 @@
                                 name="school_type_affiliation_other"
                                 value="${responseMap['school_type_affiliation_other'].value}"
                                 disabled="${stateLocked}"/>
-                </div>
+                </c:if>
             </div>
         </div>
     </div>

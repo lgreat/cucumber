@@ -911,7 +911,6 @@ new (function() {
         });
         jQuery(formWrapper).find('.js_otherField').filter('.js_setDefaultMarker').change(); // trigger right away to set default state
 
-        GS.form.controlVisibilityOfElementWithRadio('#form_school_type_affiliation_group', '[name=school_type]', 'private');
         GS.form.controlVisibilityOfElementWithRadio('#form_age_pk_start_group', '[name=early_childhood_programs]', 'yes');
         GS.form.controlVisibilityOfElementWithCheckbox('#form_before_after_care_before_group','#form_before_after_care_before', true);
         GS.form.controlVisibilityOfElementWithCheckbox('#form_before_after_care_after_group','#form_before_after_care_after', true);
