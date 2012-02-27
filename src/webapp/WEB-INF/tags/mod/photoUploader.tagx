@@ -32,6 +32,9 @@
                             <button class="button-1" id="jsPhotoQueueButton" type="button"
                                     style="-moz-user-select: none;">Select files
                             </button>
+                            <button class="button-1-inactive" id="jsPhotoFakeQueueButton" type="button" disabled="true"
+                                    style="-moz-user-select: none; display:none;">Select files
+                            </button>
                             &amp;nbsp;
                             <button class="button-1-inactive" id="jsPhotoUploadButton" type="button"
                                     style="-moz-user-select: none;" disabled="true">Upload files

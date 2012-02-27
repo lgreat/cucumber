@@ -203,11 +203,11 @@ GS.PhotoUploader.prototype.createUploader = function() {
 
     this.handleError = function(up, err) {
         var file = err.file, message;
-        var fileExtension = file.name.substring(file.name.lenth-4, file.name.length);
 
         this.spinner.hide();
 
         if (file) {
+            var fileExtension = file.name.substring(file.name.length-4, file.name.length);
             message = err.message;
 
             if (err.details) {
