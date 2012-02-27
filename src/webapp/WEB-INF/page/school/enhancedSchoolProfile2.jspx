@@ -141,11 +141,13 @@
 
             <c:set var="immersion"><gsweb:erts list="${responses.immersion}"/></c:set>
             <c:set var="immersionLanguages"><gsweb:erts list="${responses.immersion_language}" dlm="; "/></c:set>
-            <tr>
-                <td class="small_bold">Bi-lingual or language immersion programs offered</td>
-                <td>${immersion}<c:if test="${not empty immersionLanguages}">.&#160;${immersionLanguages}</c:if>
-                </td>
-            </tr>
+            <c:if test="${not empty immersion}">
+                <tr>
+                    <td class="small_bold">Bi-lingual or language immersion programs offered</td>
+                    <td>${immersion}<c:if test="${not empty immersionLanguages}">.&#160;${immersionLanguages}</c:if>
+                    </td>
+                </tr>
+            </c:if>
 
             </tbody>
         </table>
