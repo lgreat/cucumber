@@ -256,19 +256,19 @@
                       <li>
                           <input id="form_academic_award_1" class="mls mts js_otherField text input_4" type="text"
                                  name="academic_award_1" value="${responseMap['academic_award_1'].value}"
-                                 maxlength="30" placeholder="[Academic award name]"/>
+                                 maxlength="60" placeholder="[Academic award name]"/>
                           <school:espYearSelect key="academic_award_1_year" placeholder="[Select year]"/>
                       </li>
                       <li>
                           <input id="form_academic_award_2" class="mls mts js_otherField text input_4" type="text"
                                  name="academic_award_2" value="${responseMap['academic_award_2'].value}"
-                                 maxlength="30" placeholder="[Academic award name]"/>
+                                 maxlength="60" placeholder="[Academic award name]"/>
                           <school:espYearSelect key="academic_award_2_year" placeholder="[Select year]"/>
                       </li>
                       <li>
                           <input id="form_academic_award_3" class="mls mts js_otherField text input_4" type="text"
                                  name="academic_award_3" value="${responseMap['academic_award_3'].value}"
-                                 maxlength="30" placeholder="[Academic award name]"/>
+                                 maxlength="60" placeholder="[Academic award name]"/>
                           <school:espYearSelect key="academic_award_3_year" placeholder="[Select year]"/>
                       </li>
                   </ol>
@@ -287,19 +287,19 @@
                   <ol>
                       <li>
                           <input id="form_service_award_1" class="mls mts js_otherField text input_4" type="text"
-                                 name="service_award_1" value="${responseMap['service_award_1'].value}" maxlength="30"
+                                 name="service_award_1" value="${responseMap['service_award_1'].value}" maxlength="60"
                                  placeholder="[Service award name]"/>
                           <school:espYearSelect key="service_award_1_year" placeholder="[Select year]"/>
                       </li>
                       <li>
                           <input id="form_service_award_2" class="mls mts js_otherField text input_4" type="text"
-                                 name="service_award_2" value="${responseMap['service_award_2'].value}" maxlength="30"
+                                 name="service_award_2" value="${responseMap['service_award_2'].value}" maxlength="60"
                                  placeholder="[Service award name]"/>
                           <school:espYearSelect key="service_award_2_year" placeholder="[Select year]"/>
                       </li>
                       <li>
                           <input id="form_service_award_3" class="mls mts js_otherField text input_4" type="text"
-                                 name="service_award_3" value="${responseMap['service_award_3'].value}" maxlength="30"
+                                 name="service_award_3" value="${responseMap['service_award_3'].value}" maxlength="60"
                                  placeholder="[Service award name]"/>
                           <school:espYearSelect key="service_award_3_year" placeholder="[Select year]"/>
                       </li>
