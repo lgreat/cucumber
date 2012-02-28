@@ -28,6 +28,8 @@ GS.PhotoUploader = function(url, maxQueuedItems, schoolId, schoolDatabaseState) 
     this.filledRowClass = '';
     this.PREPARING = "Preparing..."; // resizing photo, pre-upload
     this.EMPTY_QUEUE_ROW_HTML = "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
+    this.resetOnNextQueue = false;
+    this.FLASH_ENABLED_STYLE = 'position: absolute; top: 191px; background: none repeat scroll 0% 0% transparent; z-index: 99999; width: 101px; height: 23px; left: 11px;';
 
     this.createUploader();
 };
@@ -49,24 +51,31 @@ GS.PhotoUploader.prototype.createUploader = function() {
         },
         filters : [
             {title : "Image files", extensions : "jpg,jpeg,gif,png"}
-        ]
+        ],
+        urlstream_upload: true
     });
 
+    this.styleInitializationError = function() {
+        this.container.fadeTo(0,0.5);
+        this.disableQueueButton();
+        this.container.find('button').prop('disabled',true);
+        if (!this.uploader.features.hasOwnProperty('jpgresize')) {
+            this.uploadErrorOverlay.html('You must have <a href="http://get.adobe.com/flashplayer/" target="_blank">Adobe Flash Player</a> installed to upload photos.').show();
+        }
+        return;
+    }.gs_bind(this);
+
+    this.uploader.bind('Init', function(uploader) {
+        if (!uploader.features.hasOwnProperty('jpgresize')) {
+            this.styleInitializationError();
+        }
+    }.gs_bind(this));
+
+    // initialize the plupload uploader instance
     this.uploader.init();
 
     this.init = function(numberOfExistingPhotos) {
-
-
         var self = this;
-        this.uploader.bind('Init', function(uploader) {
-            if (!uploader.features.hasOwnProperty('jpgresize')) {
-                self.container.fadeTo(0,0.5);
-                self.disableQueueButton();
-                self.container.find('button').prop('disabled',true);
-                self.uploadErrorOverlay.html('You must have <a href="http://get.adobe.com/flashplayer/" target="_blank">Adobe Flash Player</a> installed to upload photos.').show();
-                return;
-            }
-        });
 
         this.uploader.bind('FilesAdded', this.filesQueued);
 
@@ -125,11 +134,13 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.disableQueueButton = function() {
         this.queueButton.hide();
         this.fakeQueueButton.show();
+        $('.plupload.flash').css('left','-10000px');
     }.gs_bind(this);
 
     this.enableQueueButton = function() {
         this.fakeQueueButton.hide();
         this.queueButton.show();
+        $('.plupload.flash').attr('style',this.FLASH_ENABLED_STYLE);
     }.gs_bind(this);
 
     this.enableUploading = function() {
@@ -190,21 +201,26 @@ GS.PhotoUploader.prototype.createUploader = function() {
             this.uploadCompleteOverlay.show();
         }
 
-        // add a namespaced event to remove all photos in uploader list the next time they click the queue button.
-        this.queueButton.on('click.removeAllOnceIfDoneUploading', function() {
-            this.removeAllItems();
-            this.queueButton.off('click.removeAllOnceIfDoneUploading');
-        }.gs_bind(this));
+        this.styleQueueNotFull();
+
+        while (this.uploader.files.length > 0) {
+            var file = this.uploader.files[this.uploader.files.length-1];
+            this.uploader.removeFile(file);
+        }
+        this.resetOnNextQueue = true;
 
         this.spinner.hide();
-
-        this.styleQueueNotFull();
     }.gs_bind(this);
 
     this.handleError = function(up, err) {
         var file = err.file, message;
 
         this.spinner.hide();
+
+        if (err.code === plupload.INIT_ERROR) {
+            this.styleInitializationError();
+            return;
+        }
 
         if (file) {
             var fileExtension = file.name.substring(file.name.length-4, file.name.length);
@@ -256,6 +272,11 @@ GS.PhotoUploader.prototype.createUploader = function() {
         var index = 0;
         var htmlblock = '';
         var tbody = jQuery ('#photo-upload-container table tbody');
+
+        if (this.resetOnNextQueue) {
+            this.removeAllItems();
+            this.resetOnNextQueue = false;
+        }
 
         if (this.totalItemsInList > this.getMaxQueuedItems()) {
             return;
@@ -313,10 +334,15 @@ GS.PhotoUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
     this.removeAllItems = function() {
-        while (this.uploader.files.length > 0) {
-            var file = this.uploader.files[this.uploader.files.length-1];
-            this.removeItem(file.id);
-            this.uploader.removeFile(file);
+        var idsToRemove = [];
+        this.container.find('table tbody tr').each(function() {
+            var id = $(this).attr('id');
+            if (id !== undefined && id.length > 0) {
+                idsToRemove.push($(this).attr('id'));
+            }
+        });
+        for (var i = 0; i < idsToRemove.length; i++) {
+            this.removeItem(idsToRemove[i]);
         }
     }.gs_bind(this);
 

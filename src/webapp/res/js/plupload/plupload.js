@@ -1042,7 +1042,7 @@
                         // LIMIT OF ACTUAL ADD QUEUE
                         // if there are more files settings.max_actual_queue dont add to array.
                         var numberExistingPhotos = 0;
-                        if (typeof pollingPhotoViewer != 'undefined') {
+                        if (typeof GS.pollingPhotoViewer != 'undefined') {
                             numberExistingPhotos = GS.pollingPhotoViewer.numberPhotos;
                         }
 
