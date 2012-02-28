@@ -78,13 +78,12 @@
                     <div class="grid_5">
                         <school:espCheckboxWithLabel key="ell_languages" value="german" label="German"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="hmong" label="Hmong"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="french" label="French"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="italian" label="Italian"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="japanese" label="Japanese"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="korean" label="Korean"/>
+                        <school:espCheckboxWithLabel key="ell_languages" value="russian" label="Russian"/>
                     </div>
                     <div class="grid_6 omega">
-                        <school:espCheckboxWithLabel key="ell_languages" value="russian" label="Russian"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="spanish" label="Spanish"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="tagalog" label="Tagalog"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="urdu" label="Urdu"/>
