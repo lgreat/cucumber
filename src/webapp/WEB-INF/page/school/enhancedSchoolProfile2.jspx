@@ -56,10 +56,10 @@
             <school:espTableRow label="Age at which early childhood or Pre-K program begins"
                                 list="${responses.age_pk_start}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="School start time" list="${responses.start_time}" hideIfEmpty="false"
+            <school:espTableRow label="School start time" list="${responses.start_time}" hideIfEmpty="true"
                                 pretty="false"/>
 
-            <school:espTableRow label="School end time" list="${responses.end_time}" hideIfEmpty="false"
+            <school:espTableRow label="School end time" list="${responses.end_time}" hideIfEmpty="true"
                                 pretty="false"/>
 
 
