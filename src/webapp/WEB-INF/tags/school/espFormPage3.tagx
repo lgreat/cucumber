@@ -242,7 +242,9 @@
                            value="${responseMap['feeder_school_3'].value}"
                            placeholder="[Type in school name]" size="6" maxlength="100"/>
                 </li>
-                <school:espCheckboxWithLabel key="feeder_school" value="1" label="Do not know / Not applicable"/>
+                <div>
+                    <school:espCheckboxWithLabel key="feeder_school" value="1" label="Do not know / Not applicable"/>
+                </div>
             </ol>
         </div>
     </div>
@@ -271,7 +273,10 @@
                            class="js_otherField text input_6" value="${responseMap['destination_school_3'].value}"
                            placeholder="[Type in school name]" size="6" maxlength="100"/>
                 </li>
-                <school:espCheckboxWithLabel key="destination_school" value="1" label="Do not know / Not applicable"/>
+                <div>
+                    <school:espCheckboxWithLabel key="destination_school" value="1"
+                                                 label="Do not know / Not applicable"/>
+                </div>
             </ol>
         </div>
     </div>
