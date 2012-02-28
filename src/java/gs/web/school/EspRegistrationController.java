@@ -78,6 +78,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             //display a message to the user.We do not care about rejected or inactive users yet.
             for (EspMembership membership : memberships) {
                 if (membership.getActive() && membership.getStatus().equals(EspMembershipStatus.APPROVED)) {
+                    modelMap.clear();
                     UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
                     return "redirect:" + urlBuilder.asFullUrl(request);
                 } else if (membership.getStatus().equals(EspMembershipStatus.PROCESSING)) {
