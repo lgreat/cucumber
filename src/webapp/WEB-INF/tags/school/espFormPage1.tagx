@@ -124,9 +124,9 @@
         </div>
         <div class="grid_16 omega">
             <c:choose>
-                <c:when test="${school.type.schoolTypeName eq 'public'}"><span>Public</span></c:when>
-                <c:when test="${school.type.schoolTypeName eq 'charter'}"><span>Public Charter</span></c:when>
-                <c:when test="${school.type.schoolTypeName eq 'private'}"><span>Private</span></c:when>
+                <c:when test="${school.type.schoolTypeName eq 'public'}"><span class="small mls">Public</span></c:when>
+                <c:when test="${school.type.schoolTypeName eq 'charter'}"><span class="small mls">Public Charter</span></c:when>
+                <c:when test="${school.type.schoolTypeName eq 'private'}"><span class="small mls">Private</span></c:when>
             </c:choose>
 
             <div class="grid_14 prefix_1 alpha omega">

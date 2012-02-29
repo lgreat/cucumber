@@ -84,10 +84,6 @@
 <div id="sctn_applications_received" class="lal clearfix">
     <div class="alpha grid_7">
         <label for="form_applications_received">How many applications did you receive this year?</label>
-        <school:espFieldError text="Please enter a number" styleId="form_applications_received_error"
-                              styleClass="grid_6 omega"/>
-        <school:espFieldError text="Please specify the year" styleId="form_applications_received_year_error"
-                              styleClass="grid_6 omega"/>
     </div>
     <div class="grid_4">
         <input id="form_applications_received" name="applications_received" type="text"
@@ -97,18 +93,20 @@
 
         <p class="hint">Example: 1135</p>
     </div>
-    <div class="grid_12 omega">
+    <div class="grid_4">
         <school:espCrntSchoolYearSelect key="applications_received_year" placeholder="[Select year]"/>
+    </div>
+    <div class="grid_8 omega">
+        <school:espFieldError text="Please enter a number" styleId="form_applications_received_error"
+                              styleClass="grid_6 omega"/>
+        <school:espFieldError text="Please specify the year" styleId="form_applications_received_year_error"
+                              styleClass="grid_6 omega"/>
     </div>
 </div>
 
 <div id="sctn_students_accepted" class="lal clearfix">
     <div class="alpha grid_7">
         <label for="form_students_accepted">How many students did you accept this year?</label>
-        <school:espFieldError text="Please enter a number" styleId="form_students_accepted_error"
-                              styleClass="grid_6 omega"/>
-        <school:espFieldError text="Please specify the year" styleId="form_students_accepted_year_error"
-                              styleClass="grid_6 omega"/>
     </div>
     <div class="grid_4">
         <input id="form_students_accepted" name="students_accepted" type="text"
@@ -117,8 +115,14 @@
 
         <p class="hint">Example: 60</p>
     </div>
-    <div class="grid_12 omega">
+    <div class="grid_4">
         <school:espCrntSchoolYearSelect key="students_accepted_year" placeholder="[Select year]"/>
+    </div>
+    <div class="grid_8 omega">
+        <school:espFieldError text="Please enter a number" styleId="form_students_accepted_error"
+                              styleClass="grid_6 omega"/>
+        <school:espFieldError text="Please specify the year" styleId="form_students_accepted_year_error"
+                              styleClass="grid_6 omega"/>
     </div>
 </div>
 
