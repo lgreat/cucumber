@@ -185,6 +185,8 @@
                 </tr>
             </c:if>
 
+            <school:espTableRow label="Application deadline" list="${responses.application_deadline}" hideIfEmpty="true"/>
+
             <c:set var="appsRcdYr"><gsweb:erts list="${responses.applications_received_year}" /></c:set>
             <school:espTableRow label="Number of applications received for the ${appsRcdYr} school year" list="${responses.applications_received}" hideIfEmpty="true"/>
 

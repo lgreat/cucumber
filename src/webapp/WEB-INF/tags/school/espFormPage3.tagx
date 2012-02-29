@@ -72,10 +72,10 @@
     <div class="grid_16 omega">
         <school:espRadioWithLabel key="application_deadline" value="yearround"
                                   label="Year-round / Rolling admissions, if space is available"/>
-        <school:espRadioWithLabel key="application_deadline" value="date" label="Date: " nobr="true"/>
-        <input id="form_application_deadline" name="application_deadline" class="js_otherField text-smaller input_4"
-               value="${responseMap['application_deadline'].value}" placeholder="[Select date]"
-               maxlength="10"/><br/>
+        <!--<school:espRadioWithLabel key="application_deadline" value="date" label="Date: " nobr="true"/>-->
+        <!--<input id="form_application_deadline" name="application_deadline" class="js_otherField text-smaller input_4"-->
+               <!--value="${responseMap['application_deadline'].value}" placeholder="[Select date]"-->
+               <!--maxlength="10"/><br/>-->
         <school:espRadioWithLabel key="application_deadline" value="parents_contact"
                                   label="Parents should contact the school for more information or if there are multiple deadlines"/>
     </div>
