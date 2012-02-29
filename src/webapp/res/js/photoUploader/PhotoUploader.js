@@ -32,6 +32,7 @@ GS.PhotoUploader = function(url, maxQueuedItems, schoolId, schoolDatabaseState) 
     this.FLASH_ENABLED_STYLE = 'position: absolute; top: 191px; background: none repeat scroll 0% 0% transparent; z-index: 99999; width: 101px; height: 23px; left: 11px;';
 
     this.createUploader();
+    this.LOGGING_ENABLED = true;
 };
 
 GS.PhotoUploader.prototype.createUploader = function() {
@@ -87,9 +88,21 @@ GS.PhotoUploader.prototype.createUploader = function() {
             self.done();
         });
 
+        // gets triggered when the file begins to be resized (if that option is on)
         this.uploader.bind("UploadFile", function(up, file) {
-            self.setStatus(file, self.PREPARING);
-        });
+            this.setStatus(file, self.PREPARING);
+
+            // for each file that begins resize/upload, start a timer, and set the status to failed and restart
+            // plupload if the file hasn't finished by then
+            setTimeout(function() {
+                if (file.status === plupload.UPLOADING) {
+                    file.status = plupload.FAILED;
+                    this.setStatus(file, "Error: Your file is too large. Please resize and try again.");
+                    this.uploader.stop();
+                    this.uploader.start();
+                }
+            }.gs_bind(this), 30*1000);
+        }.gs_bind(this));
 
         this.uploader.bind("FileUploaded", function(up, file, response) {
             var stopTheUploader = false;
@@ -100,13 +113,22 @@ GS.PhotoUploader.prototype.createUploader = function() {
                     self.errorMessage = "Error: Not logged in";
                     stopTheUploader = true;
                 } else if (data.error.message == "Request too large") {
+                    file.status = plupload.FAILED;
                     self.setStatus(file, "Error: File too large.");
                     self.errorMessage = "Some files were not uploaded. File size limit is 2MB";
                 } else if (data.error.message == "File type not supported") {
+                    file.status = plupload.FAILED;
                     self.setStatus(file, "Error: Images must be JPEG, GIF or PNG");
                     self.errorMessage = "Some files were not uploaded.";
                 } else {
                     self.errorMessage = "One or more errors occurred while uploading. Some files might not have been uploaded.";
+                }
+            } else {
+                if (file.percent === 100 && file.status === plupload.DONE) {
+                    status = "Upload complete";
+                    var deleteButton = $('#' + file.id + ' .deleteFileUpload');
+                    deleteButton.removeClass('i-16-close');
+                    deleteButton.addClass('i-16-success');
                 }
             }
 
@@ -184,14 +206,10 @@ GS.PhotoUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
     this.updateProgress = function(up, file) {
-        var status = "Uploading... " + file.percent + "%";
-        if (file.percent === 100 && file.status === plupload.DONE) {
-            status = "Upload complete";
-            var deleteButton = $('#' + file.id + ' .deleteFileUpload');
-            deleteButton.removeClass('i-16-close');
-            deleteButton.addClass('i-16-success');
+        if (file.status !== plupload.FAILED) {
+            var status = "Uploading... " + file.percent + "%";
+            this.setStatus(file, status);
         }
-        this.setStatus(file, status);
     }.gs_bind(this);
 
     this.done = function() {
@@ -379,6 +397,12 @@ GS.PhotoUploader.prototype.createUploader = function() {
 
     this.getMaxQueuedItems = function() {
         return this.maxQueuedItems - GS.pollingPhotoViewer.numberPhotos;
+    }.gs_bind(this);
+
+    this.log = function(message) {
+        if (typeof this.LOGGING_ENABLED !== 'undefined' && this.LOGGING_ENABLED === true) {
+            console.log(message);
+        }
     }.gs_bind(this);
 
 };
