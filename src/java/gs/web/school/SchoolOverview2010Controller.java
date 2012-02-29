@@ -128,7 +128,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             pqKeys.add("best_known_for");
             List<EspResponse> espResponses = _espResponseDao.getResponsesByKeys(school, pqKeys);
             if (espResponses != null && espResponses.size() > 0) {
-                String bestKnownFor = espResponses.get(0).getValue();
+                String bestKnownFor = espResponses.get(0).getSafeValue();
                 if (StringUtils.isNotBlank(bestKnownFor)) {
                     if (!StringUtils.endsWith(bestKnownFor, ".")) {
                         bestKnownFor += ".";

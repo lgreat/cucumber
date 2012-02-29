@@ -120,7 +120,7 @@ public class EspFormController implements ReadWriteAnnotationController {
                 responseStruct = new EspFormResponseStruct();
                 responseMap.put(response.getKey(), responseStruct);
             }
-            responseStruct.addValue(response.getValue());
+            responseStruct.addValue(response.getSafeValue());
         }
 
         _espFormExternalDataHelper.fetchExternalValues(responseMap, school); // fetch data that lives outside of esp_response

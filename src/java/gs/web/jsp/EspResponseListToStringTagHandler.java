@@ -49,7 +49,7 @@ public class EspResponseListToStringTagHandler extends SimpleTagSupport {
         ArrayList<String> slist = new ArrayList<String>(_list.size());
         for(EspResponse r : _list) {
             if(r != null) {
-                String s = _pretty ? r.getPrettyValue() : r.getValue(); 
+                String s = _pretty ? r.getPrettyValue() : r.getSafeValue();
                 if(s != null) slist.add(s);
             }
         }

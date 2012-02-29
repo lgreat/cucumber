@@ -39,7 +39,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
      */
     protected static void extractEspResponseValues(List<EspResponse> responses, List<String> values, boolean pretty) {
         for(EspResponse r : responses) {
-            if(r != null) values.add(pretty ? r.getPrettyValue() : r.getValue());
+            if(r != null) values.add(pretty ? r.getPrettyValue() : r.getSafeValue());
         }
     }
 
@@ -81,10 +81,10 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
                 continue;
             }
             for (EspResponse response : responses) {
-                if (response == null || response.getValue() == null) {
+                if (response == null || response.getSafeValue() == null) {
                     continue;
                 }
-                String originalResponse = pretty ? response.getPrettyValue() : response.getValue();
+                String originalResponse = pretty ? response.getPrettyValue() : response.getSafeValue();
                 String newValue = mergeValuesForValues(mapResponses, response, specialValuesToKeys, prettyForSpecialValue, originalResponse);
                 vlist.add(newValue);
             }
@@ -95,8 +95,8 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
     protected String mergeValuesForValues(Map<String, List<EspResponse>> mapResponses, EspResponse response, Map specialValuesToKeys,
                                           boolean prettyForSpecialValue, String originalResponseValue) {
         String newValue = originalResponseValue;
-        if (specialValuesToKeys != null && specialValuesToKeys.get(response.getValue()) != null) {
-            String specialKey = (String) specialValuesToKeys.get(response.getValue());
+        if (specialValuesToKeys != null && specialValuesToKeys.get(response.getSafeValue()) != null) {
+            String specialKey = (String) specialValuesToKeys.get(response.getSafeValue());
             List<EspResponse> specialResponseToAdd = mapResponses.get(specialKey);
 
             if (specialResponseToAdd != null && !specialResponseToAdd.isEmpty()) {
@@ -104,7 +104,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
                     if (specialResponse == null) {
                         continue;
                     }
-                    String s = prettyForSpecialValue ? specialResponse.getPrettyValue() : specialResponse.getValue();
+                    String s = prettyForSpecialValue ? specialResponse.getPrettyValue() : specialResponse.getSafeValue();
                     if (org.apache.commons.lang.StringUtils.isNotBlank(s)) {
                         newValue += ", " + s;
                     }

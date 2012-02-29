@@ -166,7 +166,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
         }
         if (espOtherResponses != null && espOtherResponses.size() > 0) {
             for (EspResponse response: espOtherResponses) {
-                for (String value: response.getValue().split(",")) {
+                for (String value: response.getSafeValue().split(",")) {
                     String cleanedUpValue = StringUtils.capitalize(StringUtils.trim(value));
                     category.add(cleanedUpValue);
                 }

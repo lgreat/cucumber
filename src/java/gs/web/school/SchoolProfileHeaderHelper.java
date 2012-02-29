@@ -239,8 +239,8 @@ public class SchoolProfileHeaderHelper {
         if (espResponses != null) {
             Map<String, List<EspResponse>> espKeyToResponseMap = EspResponse.rollup(espResponses);
             if (espKeyToResponseMap.get("start_time") != null && espKeyToResponseMap.get("end_time") != null) {
-                String startTime = espKeyToResponseMap.get("start_time").get(0).getValue();
-                String endTime = espKeyToResponseMap.get("end_time").get(0).getValue();
+                String startTime = espKeyToResponseMap.get("start_time").get(0).getSafeValue();
+                String endTime = espKeyToResponseMap.get("end_time").get(0).getSafeValue();
                 model.put(PQ_START_TIME, startTime);
                 model.put(PQ_END_TIME, endTime);
                 model.put(PQ_HOURS, startTime + " - " + endTime);

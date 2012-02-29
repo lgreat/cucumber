@@ -254,8 +254,8 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             List<EspResponse> list = _espResponseDao.getResponsesByKeys(school, espResponseKeys, true);
             if(list != null) {
                 for(EspResponse r : list) {
-                    if("old_contact_name".equals(r.getKey())) mrow.setContactName(r.getValue());
-                    if("old_contact_email".equals(r.getKey())) mrow.setContactEmail(r.getValue());
+                    if("old_contact_name".equals(r.getKey())) mrow.setContactName(r.getSafeValue());
+                    if("old_contact_email".equals(r.getKey())) mrow.setContactEmail(r.getSafeValue());
                 }
             }
 

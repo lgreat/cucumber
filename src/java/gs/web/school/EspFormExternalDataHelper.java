@@ -8,6 +8,7 @@ import gs.data.school.census.CensusDataType;
 import gs.data.school.census.ICensusDataSetDao;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.util.Address;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -226,7 +227,7 @@ public class EspFormExternalDataHelper {
             _log.debug("Saving school home_page_url elsewhere: " + values[0]);
             String url = (String) values[0];
             if (!StringUtils.equals(url, school.getWebSite())) {
-                school.setWebSite(url);
+                school.setWebSite(StringEscapeUtils.escapeHtml(url));
                 saveSchool(school, user, now);
             }
         } else if (StringUtils.equals("grade_levels", key)) {
@@ -247,7 +248,7 @@ public class EspFormExternalDataHelper {
             _log.error("Saving affiliation " + values[0] + " elsewhere for school:" + school.getName());
             String affiliation = (String) values[0];
             if (!StringUtils.equals(school.getAffiliation(), affiliation)) {
-                school.setAffiliation(affiliation);
+                school.setAffiliation(StringEscapeUtils.escapeHtml(affiliation));
                 saveSchool(school, user, now);
             }
         } else if (StringUtils.equals("coed", key)) {
@@ -269,7 +270,7 @@ public class EspFormExternalDataHelper {
             // only save if different
             if (!StringUtils.equals(school.getPhysicalAddress().getStreet(), address.getStreet())) {
                 _log.debug("Saving physical address " + address.getStreet() + " elsewhere for school:" + school.getName());
-                school.getPhysicalAddress().setStreet((address.getStreet()));
+                school.getPhysicalAddress().setStreet(StringEscapeUtils.escapeHtml(address.getStreet()));
                 setSchoolLatLon(school);
                 saveSchool(school, user, now);
             }
@@ -278,7 +279,10 @@ public class EspFormExternalDataHelper {
             String phone = (String) values[0];
             // only save if different
             if (!StringUtils.equals(school.getPhone(), phone)) {
-                school.setPhone(phone);
+                if (containsBadChars(phone)) {
+                    return "Contains invalid characters.";
+                }
+                school.setPhone(StringEscapeUtils.escapeHtml(phone));
                 saveSchool(school, user, now);
             }
             return null;
@@ -286,6 +290,9 @@ public class EspFormExternalDataHelper {
             String fax = (String) values[0];
             // only save if different
             if (!StringUtils.equals(school.getFax(), fax)) {
+                if (containsBadChars(fax)) {
+                    return "Contains invalid characters.";
+                }
                 school.setFax(fax);
                 saveSchool(school, user, now);
             }
@@ -293,9 +300,13 @@ public class EspFormExternalDataHelper {
         }
         return null;
     }
+    
+    static boolean containsBadChars(String val) {
+        return StringUtils.contains(val, "<") || StringUtils.contains(val, "\"");
+    } 
 
     void saveCensusString(School school, String data, CensusDataType censusDataType, User user) {
-        _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, data, "ESP-" + user.getId());
+        _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, StringEscapeUtils.escapeHtml(data), "ESP-" + user.getId());
     }
 
     void saveCensusInteger(School school, int data, CensusDataType censusDataType, User user) {
