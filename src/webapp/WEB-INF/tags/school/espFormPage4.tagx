@@ -268,7 +268,7 @@
                 <school:espCheckboxWithLabel key="staff_resources" value="security" label="Security personnel"/>
                 <school:espCheckboxWithLabel key="staff_resources" value="school_psychologist"
                                              label="School psychologist"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="school_counslor"
+                <school:espCheckboxWithLabel key="staff_resources" value="school_counselor"
                                              label="School social worker/counselors(s)"/>
                 <school:espCheckboxWithLabel key="staff_resources" value="special_ed_coordinator"
                                              label="Special education coordinator"/>

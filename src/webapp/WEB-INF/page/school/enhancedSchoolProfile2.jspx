@@ -265,7 +265,7 @@
 
             <school:espTableRow label="Boarding options:" list="${responses.boarding}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Special staff resources available to students:" list="${responses.boarding}"
+            <school:espTableRow label="Special staff resources available to students:" list="${responses.staff_resources}"
                                 hideIfEmpty="true"/>
 
             <school:espTableRow label="Languages spoken by school staff" value="${staff_languages}"
