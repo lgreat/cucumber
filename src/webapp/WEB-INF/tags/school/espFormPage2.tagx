@@ -28,7 +28,7 @@
                 </div>
                 <div class="grid_5">
                     <school:espCheckboxWithLabel key="instructional_model" value="none" label="None"/>
-                    <school:espCheckboxWithLabel key="instructional_model" value="accellerated_credit"
+                    <school:espCheckboxWithLabel key="instructional_model" value="accelerated_credit"
                                                  label="Accelerated credit learning"/>
                     <school:espCheckboxWithLabel key="instructional_model" value="adult_ed" label="Adult education"/>
                     <school:espCheckboxWithLabel key="instructional_model" value="AP_courses"
