@@ -407,6 +407,10 @@ public class EspFormExternalDataHelper {
             if (newLevelCode.equals(LevelCode.PRESCHOOL)) {
                 return "You can not set preschool as your only grade.";
             }
+            // GS-12570 Preserve 'UG'
+            if (school.getGradeLevels().contains(Grade.UNGRADED)) {
+                grades.addLevel(Grade.UNGRADED);
+            }
             if (!grades.equals(school.getGradeLevels())) {
                 school.setGradeLevels(grades);
                 school.setLevelCode(newLevelCode);
