@@ -208,8 +208,8 @@
 
             <c:if test="${not empty responses.tuition_high and not empty responses.tuition_low}">
                 <c:set var="tuitionYr"><gsweb:erts list="${responses.tuition_year}"/></c:set>
-                <c:set var="tuitionAmt"><gsweb:erts list="${responses.tuition_high}"/> - <gsweb:erts
-                        list="${responses.tuition_low}"/></c:set>
+                <c:set var="tuitionAmt"><gsweb:erts list="${responses.tuition_low}"/> - <gsweb:erts
+                        list="${responses.tuition_high}"/></c:set>
                 <school:espTableRow label="Tuition range for the ${tuitionYr} school year" value="${tuitionAmt}"
                                     hideIfEmpty="false"/>
             </c:if>
