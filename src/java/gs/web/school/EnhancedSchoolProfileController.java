@@ -63,45 +63,55 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
      * Merges the lists under one or more given key names into a single list. It also Handles adding another response value to a given value.
      * Example if u want "student_clubs" to be merged and within that want the response_value "dance" to be merged with value of the response_key "dance_style"
      * then the Map specialValuesToKeys = key=>"dance" value=>"dance_style"
+     *
      * @param mapResponses
-     * @param pretty use the esp response pretty value or the raw value?
-     * @param specialValuesToKeys - Map of value to key.Map that tracks whether a value needs another response value added to it.
+     * @param pretty                use the esp response pretty value or the raw value?
+     * @param specialValuesToKeys   - Map of value to key.Map that tracks whether a value needs another response value added to it.
      * @param prettyForSpecialValue - use the esp response pretty value or the raw value for special
      * @param keys
      * @return the extracted esp response values
      */
-    protected static List<String> mergeValuesForValues(Map<String, List<EspResponse>> mapResponses,
-                                                       boolean pretty, Map specialValuesToKeys, boolean prettyForSpecialValue, String... keys) {
+    protected List<String> mergeValuesForKeys(Map<String, List<EspResponse>> mapResponses,
+                                              boolean pretty, Map specialValuesToKeys, boolean prettyForSpecialValue, String... keys) {
         ArrayList<String> vlist = new ArrayList<String>();
 
         for (String key : keys) {
             List<EspResponse> responses = mapResponses.get(key);
-            if (responses != null) {
-                for (EspResponse response : responses) {
-                    if (response != null && response.getValue() != null) {
-                        String valueToAdd = pretty ? response.getPrettyValue() : response.getValue();
+            if (responses == null) {
+                continue;
+            }
+            for (EspResponse response : responses) {
+                if (response == null || response.getValue() == null) {
+                    continue;
+                }
+                String originalResponse = pretty ? response.getPrettyValue() : response.getValue();
+                String newValue = mergeValuesForValues(mapResponses, response, specialValuesToKeys, prettyForSpecialValue, originalResponse);
+                vlist.add(newValue);
+            }
+        }
+        return vlist;
+    }
 
-                        if (specialValuesToKeys != null && specialValuesToKeys.get(response.getValue()) != null) {
-                            String specialKey = (String) specialValuesToKeys.get(response.getValue());
-                            List<EspResponse> specialResponseToAdd = mapResponses.get(specialKey);
+    protected String mergeValuesForValues(Map<String, List<EspResponse>> mapResponses, EspResponse response, Map specialValuesToKeys,
+                                          boolean prettyForSpecialValue, String originalResponseValue) {
+        String newValue = originalResponseValue;
+        if (specialValuesToKeys != null && specialValuesToKeys.get(response.getValue()) != null) {
+            String specialKey = (String) specialValuesToKeys.get(response.getValue());
+            List<EspResponse> specialResponseToAdd = mapResponses.get(specialKey);
 
-                            if (specialResponseToAdd != null && !specialResponseToAdd.isEmpty()) {
-                                for (EspResponse specialResponse : specialResponseToAdd) {
-                                    if (specialResponse != null) {
-                                        String s = prettyForSpecialValue ? specialResponse.getPrettyValue() : specialResponse.getValue();
-                                        if (org.apache.commons.lang.StringUtils.isNotBlank(s)) {
-                                            valueToAdd += ", " + s;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        vlist.add(valueToAdd);
+            if (specialResponseToAdd != null && !specialResponseToAdd.isEmpty()) {
+                for (EspResponse specialResponse : specialResponseToAdd) {
+                    if (specialResponse == null) {
+                        continue;
+                    }
+                    String s = prettyForSpecialValue ? specialResponse.getPrettyValue() : specialResponse.getValue();
+                    if (org.apache.commons.lang.StringUtils.isNotBlank(s)) {
+                        newValue += ", " + s;
                     }
                 }
             }
         }
-        return vlist;
+        return newValue;
     }
 
     /**
@@ -218,7 +228,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         specialValues.put("dance","student_clubs_dance");
         specialValues.put("language_club","student_clubs_language");
 
-        values.addAll(mergeValuesForValues(responses, true, specialValues, false, "student_clubs"));
+        values.addAll(mergeValuesForKeys(responses, true, specialValues, false, "student_clubs"));
         values.addAll(mergeValuesForKeys(responses, false, "student_clubs_other_1", "student_clubs_other_2", "student_clubs_other_3"));
         model.put("student_clubs", StringUtils.joinPretty(values.iterator(), "; "));
 
