@@ -29,10 +29,10 @@ GS.PhotoUploader = function(url, maxQueuedItems, schoolId, schoolDatabaseState) 
     this.PREPARING = "Preparing..."; // resizing photo, pre-upload
     this.EMPTY_QUEUE_ROW_HTML = "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>";
     this.resetOnNextQueue = false;
-    this.FLASH_ENABLED_STYLE = 'position: absolute; top: 191px; background: none repeat scroll 0% 0% transparent; z-index: 99999; width: 101px; height: 23px; left: 11px;';
+    this.FLASH_ENABLED_STYLE = 'position: absolute; top: 191px; background: none repeat scroll 0% 0% transparent; z-index: 9999999; width: 101px; height: 23px; left: 11px;';
 
     this.createUploader();
-    this.LOGGING_ENABLED = true;
+    this.LOGGING_ENABLED = false;
 };
 
 GS.PhotoUploader.prototype.createUploader = function() {
@@ -126,6 +126,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
             } else {
                 if (file.percent === 100 && file.status === plupload.DONE) {
                     status = "Upload complete";
+                    self.setStatus(file, status);
                     var deleteButton = $('#' + file.id + ' .deleteFileUpload');
                     deleteButton.removeClass('i-16-close');
                     deleteButton.addClass('i-16-success');
@@ -206,7 +207,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
     this.updateProgress = function(up, file) {
-        if (file.status !== plupload.FAILED) {
+        if (file.status === plupload.UPLOADING) {
             var status = "Uploading... " + file.percent + "%";
             this.setStatus(file, status);
         }
@@ -399,9 +400,9 @@ GS.PhotoUploader.prototype.createUploader = function() {
         return this.maxQueuedItems - GS.pollingPhotoViewer.numberPhotos;
     }.gs_bind(this);
 
-    this.log = function(message) {
+    this.log = function() {
         if (typeof this.LOGGING_ENABLED !== 'undefined' && this.LOGGING_ENABLED === true) {
-            console.log(message);
+            console.log(arguments);
         }
     }.gs_bind(this);
 
