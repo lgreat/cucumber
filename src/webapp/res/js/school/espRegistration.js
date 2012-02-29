@@ -130,8 +130,11 @@ GS.form.EspForm = function() {
             jQuery('#js_userAwaitingMembershipError').show();
             GS.form.espForm.addWarningClassToElem(emailField);
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
-            // users who have been approved and validated their emails.We check the cookie, since a signed in user should be able to submit one request.
+            // users who have been approved and validated their emails.However they are not logged in, therefore prompt them to log in.
             GS.form.espForm.showEmailError("You already have access to this school's Official School Profile.<br/><a href='/official-school-profile/signin.page'>Sign in</a> to your account here.", emailField);
+        } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated === true && data.isUserCookieSet === true) {
+            // users who have been approved and validated their emails and have a cookie set. They should view the ESP dashboard.
+            window.location = '/official-school-profile/dashboard/';
         } else if (data.isUserEmailValidated === true && data.isUserCookieSet !== true) {
             // valid GS users who never request ESP.We check the cookie, since a signed in user should be able to submit one request.
             var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/official-school-profile/register.page')";
