@@ -761,6 +761,11 @@ new (function() {
                     jQuery('#form_grade_levels_error').show();
                     return false;
                 }
+            } else if (numChecked == 2) {
+                if (checkedLevels.filter('#form_grade_levels__pk, #form_grade_levels__kg').size() == 2) {
+                    jQuery('#form_grade_levels_error').show();
+                    return false;
+                }
             }
         }
         return true;

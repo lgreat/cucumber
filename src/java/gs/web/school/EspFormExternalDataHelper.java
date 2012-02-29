@@ -400,14 +400,16 @@ public class EspFormExternalDataHelper {
         Collections.addAll(gradesList, data);
         if (!gradesList.isEmpty()) {
             Grades grades = Grades.createGrades(StringUtils.join(gradesList, ","));
-            if (grades.containsOnly(Grade.PRESCHOOL)) {
-                return "You can not set preschool as your only grade.";
-            } else if (StringUtils.isBlank(grades.getCommaSeparatedString())) {
+            if (StringUtils.isBlank(grades.getCommaSeparatedString())) {
                 return "You must select a grade level.";
+            }
+            LevelCode newLevelCode = LevelCode.createLevelCode(grades, school.getName());
+            if (newLevelCode.equals(LevelCode.PRESCHOOL)) {
+                return "You can not set preschool as your only grade.";
             }
             if (!grades.equals(school.getGradeLevels())) {
                 school.setGradeLevels(grades);
-                school.setLevelCode(LevelCode.createLevelCode(grades, school.getName()));
+                school.setLevelCode(newLevelCode);
                 saveSchool(school, user, now);
             }
         } else {
