@@ -36,7 +36,7 @@
             | Principal or other school officials can <link:schoolEspSignIn>edit this info</link:schoolEspSignIn>.</p>
 
         <!-- SECTION 1: School Basics -->
-        <table>
+        <table class="tableType1">
             <col width="210"/>
             <col width="auto"/>
             <thead>
@@ -44,7 +44,7 @@
                 <th colspan="2">School Basics</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="striped">
 
             <school:espTableRow label="Number of students enrolled" value="${student_enrollment}" hideIfEmpty="true"/>
 
@@ -152,7 +152,7 @@
         </table>
 
         <!-- SECTION 2: Application Enrollment -->
-        <table>
+        <table class="tableType1">
             <col width="210"/>
             <col width="auto"/>
             <thead>
@@ -160,7 +160,7 @@
                 <th colspan="2">Application Enrollment</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="striped">
 
             <school:espTableRow label="Does this school have an application or enrollment process?" list="${responses.application_process}" hideIfEmpty="true"/>
 
@@ -236,7 +236,7 @@
         </table>
 
         <!-- SECTION 3: Programs and Resources -->
-        <table>
+        <table class="tableType1">
             <col width="210"/>
             <col width="auto"/>
             <thead>
@@ -244,7 +244,7 @@
                 <th colspan="2">Programs and Resources</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="striped">
 
             <school:espTableRow label="Foreign languages taught" value="${foreign_language}" hideIfEmpty="true"/>
             <c:set var="ellLvl"><gsweb:erts list="${responses.ell_level}"/></c:set>
@@ -384,7 +384,7 @@
         </table>
 
         <!-- SECTION 4: Enrichment, Extracurriculars, and Specials -->
-        <table>
+        <table class="tableType1">
             <col width="210"/>
             <col width="auto"/>
             <thead>
@@ -392,7 +392,7 @@
                 <th colspan="2">Enrichment, Extracurriculars, and Specials</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="striped">
 
             <c:set var="artsMedia"><gsweb:erts list="${responses.arts_media}" dlm="; "/></c:set>
             <c:if test="${not empty artsMedia and fn:toLowerCase(artsMedia) ne 'none'}">
@@ -428,7 +428,7 @@
         </table>
 
         <!-- SECTION 5: School Culture -->
-        <table>
+        <table class="tableType1">
             <col width="210"/>
             <col width="auto"/>
             <thead>
@@ -436,7 +436,7 @@
                 <th colspan="2">School Culture</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="striped">
 
             <school:espTableRow label="School Attire" list="${responses.dress_code}" hideIfEmpty="true"/>
 
@@ -476,7 +476,7 @@
         <c:if test="${school.type.schoolTypeName == 'private'}">
 
             &lt;!&ndash; SECTION 6: Student Information &ndash;&gt;
-            <table>
+            <table class="tableType1">
                 <col width="210"/>
                 <col width="auto"/>
                 <thead>
@@ -484,7 +484,7 @@
                     <th colspan="2">Student Information</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="striped">
 
                 <c:set var="studentsEthnicity"><gsweb:erts list="${students_ethnicity}"/></c:set>
                 <tr>

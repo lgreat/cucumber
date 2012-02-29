@@ -14,9 +14,10 @@ http://docs.jquery.com/Tutorials#Plugin_Development
 
 =0 template
 =1 disableSelection (disable text selection)
-=1a disableSelection - CSS class list of website wide items with text selection disabled
+=1a disableSelection - register CSS class list of website wide items with text selection disabled
 =2 popup (informational popup bubbles)
 =3 alternateRowColors (table stripping plugin)
+=3a alternateRowColors - register table stripping plugin
 =4 debug (console.log or alert messaging)
 =5 characterCounter (textarea character count)
 =6 infiniteCarousel
@@ -275,9 +276,9 @@ jQuery(document).ready(function() {
             //Iterate over the current set of matched elements
             return this.each(function() {
                 $('tr:odd', this)
-                        .removeClass('even').addClass('odd');
-                $('tr:even', this)
                         .removeClass('odd').addClass('even');
+                $('tr:even', this)
+                        .removeClass('even').addClass('odd');
                 return this;
 
             });
@@ -286,6 +287,13 @@ jQuery(document).ready(function() {
 
 // end of closure
 })(jQuery);
+
+/* =3a alternateRowColors (table stripping plugin)
+ ---------------------------------------------------------------------------*/
+jQuery(document).ready(function() {
+    // disable selection of button-1 class
+    jQuery('.tableType1 tbody.striped').alternateRowColors();
+});
 
 /* =4 debug messaging
 ---------------------------------------------------------------------------*/
