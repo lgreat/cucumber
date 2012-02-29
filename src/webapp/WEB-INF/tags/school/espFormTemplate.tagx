@@ -12,7 +12,7 @@
     <!-- No ids are to be used in this file unless they include ${page}. This template can be included multiple times
          per page! -->
         <div class="mod form">
-            <div class="inner">
+            <div class="inner clearfix">
                 <div class="hd">
                     <div class="alpha grid_11">
                         <h3>${headerText}</h3>
