@@ -48,27 +48,24 @@
 
         <div id="photoConfirmationImagePlaceholder"><!-- no collapse --></div>
 
-        <form name="photoDeleteConfirmation" id="photoDeleteConfirmationForm" method="get">
+        <div class="spacer_10"><!-- do not collapse --></div>
 
-            <div class="spacer_10"><!-- do not collapse --></div>
+        <div class="line">
 
-            <div class="line">
-
-                <div class="unit size1of6">
-                    <button class="button-1"
-                            type="button"
-                            id="submitPhotoDeleteConfirmation">Yes, Delete
-                    </button>
-                </div>
-                <div class="unit size5of6 lastUnit">
-                    <button class="button-1"
-                            type="button"
-                            onclick="GSType.hover.photoDeleteConfirmation.hide();">Cancel
-                    </button>
-                </div>
+            <div class="unit size1of6">
+                <button class="button-1"
+                        type="button"
+                        id="submitPhotoDeleteConfirmation">Yes, Delete
+                </button>
             </div>
+            <div class="unit size5of6 lastUnit">
+                <button class="button-1"
+                        type="button"
+                        onclick="GSType.hover.photoDeleteConfirmation.hide();">Cancel
+                </button>
+            </div>
+        </div>
 
-        </form>
     </div>
 
 </jsp:root>
