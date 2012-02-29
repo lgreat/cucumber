@@ -14,18 +14,24 @@
         <div class="mod form">
             <div class="inner clearfix">
                 <div class="hd">
-                    <div class="alpha grid_11">
+                    <div class="alpha grid_10">
                         <h3>${headerText}</h3>
                     </div>
-                    <div class="grid_12 omega">
+                    <div class="grid_13 omega">
                         <div class="fltrt">
+                            <span class="mhm">
                             <button class="button-1 js_saveButton">Save &amp;amp; Finish Later</button>
+                            </span>
                             <c:if test="${page gt 1}">
-                                <button class="button-1 js_prevPageButton mlm">&amp;laquo; Previous</button>
+                                <span class="mhm">
+                                <button class="button-1 js_prevPageButton">&amp;laquo; Previous</button>
+                                </span>
                             </c:if>
-                            <span class="mlm">Page ${page} of ${maxPage}</span>
+                            <span class="mhm">Page ${page} of ${maxPage}</span>
                             <c:if test="${page lt maxPage}">
-                                <button class="button-1 mlm js_nextPageButton">Next &amp;raquo;</button>
+                                <span class="mhm">
+                                <button class="button-1 js_nextPageButton">Next &amp;raquo;</button>
+                                </span>
                             </c:if>
                         </div>
                     </div>
@@ -47,18 +53,22 @@
                 </div>
 
                 <div class="ft">
-                    <div class="grid_23 omega alpha">
+                    <div class="grid_13 omega alpha prefix_10">
                         <div class="fltrt">
+                            <span class="mhm">
                             <button class="button-1 js_saveButton">Save &amp;amp; Finish Later</button>
-                            <div class="fltrt">
-                                <c:if test="${page gt 1}">
-                                    <button class="button-1 js_prevPageButton mlm">&amp;laquo; Previous</button>
-                                </c:if>
-                                <span class="mlm">Page ${page} of ${maxPage}</span>
-                                <c:if test="${page lt maxPage}">
-                                    <button class="button-1 mlm js_nextPageButton">Next &amp;raquo;</button>
-                                </c:if>
-                            </div>
+                            </span>
+                            <c:if test="${page gt 1}">
+                                    <span class="mhm">
+                                    <button class="button-1 js_prevPageButton">&amp;laquo; Previous</button>
+                                    </span>
+                            </c:if>
+                            <span class="mhm">Page ${page} of ${maxPage}</span>
+                            <c:if test="${page lt maxPage}">
+                                    <span class="mhm">
+                                    <button class="button-1 js_nextPageButton">Next &amp;raquo;</button>
+                                    </span>
+                            </c:if>
                         </div>
                     </div>
                 </div>
