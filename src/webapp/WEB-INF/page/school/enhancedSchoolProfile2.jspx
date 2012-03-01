@@ -467,6 +467,14 @@
                 </tr>
             </c:if>
 
+            <c:set var="schoolVideo"><gsweb:erts list="${responses.school_video}" pretty="false"/></c:set>
+            <c:if test="${not empty schoolVideo}">
+                <tr>
+                    <td class="small_bold">School videos</td>
+                    <td><a href="${gsweb:formatUrl(schoolVideo)}" target="_blank">${schoolVideo}</a></td>
+                </tr>
+            </c:if>
+
             <school:espTableRow label="More about the school’s culture" list="${responses.anything_else}" hideIfEmpty="true" pretty="false"/>
 
             </tbody>
