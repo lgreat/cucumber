@@ -29,7 +29,7 @@
 
             <div class="lal clearfix">
                 <div class="alpha grid_7">
-                    <p class="labelGroup">Does your school have a bullying and/or cyber bulling policy in place?</p>
+                    <p class="labelGroup">Does your school have a bullying and/or cyber bullying policy in place?</p>
                 </div>
                 <div class="grid_16 omega">
                     <school:espRadioWithLabel key="bullying_policy" value="no" label="No"/>
