@@ -164,7 +164,7 @@
 
             <school:espTableRow label="Does this school have an application or enrollment process?" list="${responses.application_process}" hideIfEmpty="true"/>
 
-            <c:set var="admissionsUrl"><gsweb:erts list="${responses.admissions_url}"/></c:set>
+            <c:set var="admissionsUrl"><gsweb:erts list="${responses.admissions_url}" pretty="false"/></c:set>
             <!--<c:set var="appUpload"><gsweb:erts list="${responses.application_upload}"/></c:set>-->
             <c:if test="${not empty admissionsUrl or not empty school_phone}">
                 <tr>
@@ -172,7 +172,8 @@
                     <td>
                         <ul>
                             <c:if test="${not empty admissionsUrl}">
-                                <div>Visit the school's website: <span class="val">${admissionsUrl}</span></div>
+                                <div>Visit the school's website:
+                                    <a href="${gsweb:formatUrl(admissionsUrl)}" target="_blank">${gsweb:formatUrl(admissionsUrl)}</a></div>
                             </c:if>
                             <!--<c:if test="${not empty appUpload}">-->
                                 <!--<div>Download application information: <span class="val">${appUpload}</span></div>-->
