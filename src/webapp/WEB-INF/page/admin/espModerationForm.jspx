@@ -6,6 +6,7 @@
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        xmlns:gsweb="gstaglib"
         xmlns:form="http://www.springframework.org/tags/form">
     <html lang="en">
 
@@ -131,7 +132,7 @@
                                 <td><!--Do no collapse--></td>
                                 <!--Second Row-->
                                 <td>${mrow.contactEmail}</td>
-                                <td><a href="${mrow.absoluteWebUrl}" target="_blank">${membership.webUrl}</a></td>
+                                <td><a href="${gsweb:escapeHtml(mrow.absoluteWebUrl)}" target="_blank">${gsweb:escapeHtml(membership.webUrl)}</a></td>
                                 <td>${membership.user.lastName}</td>
                                 <td>${membership.school.id}</td>
                                 <td>${membership.jobTitle}</td>

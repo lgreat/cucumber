@@ -162,7 +162,7 @@
               <!--Second Row-->
               <td class="smallest">${membership.active? 'Yes' : 'No'}</td>
               <td>${mrow.contactEmail}</td>
-              <td><a href="${mrow.absoluteWebUrl}" target="_blank">${membership.webUrl}</a></td>
+              <td><a href="${gsweb:escapeHtml(mrow.absoluteWebUrl)}" target="_blank">${gsweb:escapeHtml(membership.webUrl)}</a></td>
               <td>${membership.user.lastName}</td>
               <td>${membership.school.id}</td>
               <td>${membership.jobTitle}</td>
