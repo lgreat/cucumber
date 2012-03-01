@@ -317,7 +317,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                     <div class="mediaExt1">
                         <span class="sprite pencil_med img"><!-- do not collapse --></span>
                         <div class="bk"><strong>Are you the principal? </strong>
-                            <link:schoolProfileEspLogin school="${school}">Complete your school's profile</link:schoolProfileEspLogin>
+                            <link:schoolProfileEspLogin school="${school}" styleClass="no_interrupt">Complete your school's profile</link:schoolProfileEspLogin>
                         </div>
                     </div>
                 </div>
