@@ -275,14 +275,34 @@
                                 <label>School Id:</label>
                             </div>
                             <div class="grid_5 postfix_14 omega">
-                                <input type="text" name="schoolId" value="${school.id}"/>
+                                <input type="text" name="schoolId" value="${school.id}" id="js_super_user_school_id"/>
                             </div>
                         </div>
                         <div class="formRow clearfix">
-                            <input class="button-1" type="submit" value="Go"/>
+                            <input class="button-1" type="submit" value="Go" id="js_super_user_input_submit"/>
                         </div>
                     </form>
                 </div>
+                <script type="text/javascript">
+                    var validateSchoolId = function() {
+                        var fieldSelector = '#js_super_user_school_id';
+                        jQuery(fieldSelector).removeClass("warning");
+                        var formField = jQuery(fieldSelector);
+                        var fieldVal = jQuery.trim(formField.val());
+                        if (fieldVal == '' || !(/^\d+$/.test(fieldVal)) ) {
+                            jQuery(fieldSelector).filter("input[type=text]").addClass("warning");
+                            alert("Please choose an integer school id!");
+                            return false;
+                        }
+                        return true;
+                    };
+                    jQuery('#js_super_user_school_id').change(function() {
+                        jQuery(this).removeClass("warning");
+                    });
+                    jQuery('#js_super_user_input_submit').click(function() {
+                        return validateSchoolId();
+                    });
+                </script>
                 <div class="grid_24">
                     <p>Or select a school from the drop downs:</p>
                     <mod:cityStateSchoolSelect url=""
