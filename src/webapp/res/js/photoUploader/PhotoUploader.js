@@ -75,6 +75,14 @@ GS.PhotoUploader.prototype.createUploader = function() {
     // initialize the plupload uploader instance
     this.uploader.init();
 
+    // hack to find out if plupload has been init with resize abilities, since it doesnt seem to trigger
+    // the Init or Error events when it fails to initialize properly
+    setTimeout(function() {
+        if (!this.uploader.features.hasOwnProperty('jpgresize')) {
+            this.styleInitializationError();
+        }
+    }.gs_bind(this), 5 * 1000);
+
     this.init = function(numberOfExistingPhotos) {
         var self = this;
 
