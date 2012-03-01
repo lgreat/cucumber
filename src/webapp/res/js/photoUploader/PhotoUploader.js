@@ -183,7 +183,6 @@ GS.PhotoUploader.prototype.createUploader = function() {
         this.uploadButton.removeClass('button-1');
         this.uploadButton.addClass('button-1-inactive');
         this.disableQueueButton();
-        this.container.css('background-color', 'aaa');
         this.spinner.show();
     }.gs_bind(this);
 
