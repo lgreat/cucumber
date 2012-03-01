@@ -54,16 +54,24 @@
     <a href="#">alert(GS.javascriptDesignPatterns.revealingModule.doubleVar);</a><br/>
 
     <h2>Prototypal Inheritance</h2>
-    <a href="#">alert(first.prototypalMethod === second.prototypalMethod)</a><br/>
-    <a href="#">alert(first.nonPrototypalMethod === second.nonPrototypalMethod)</a><br/>
-    <a href="#">first.nonPrototypalMethod()</a><br/>
-    <a href="#">second.nonPrototypalMethod()</a><br/>
-    <a href="#">first.prototypalMethod()</a><br/>
-    <a href="#">second.prototypalMethod()</a><br/>
+    <a href="#">alert(first.bumpZ === second.bumpZ)</a><br/>
+    <a href="#">alert(first.alertXY === second.alertXY)</a><br/>
+    <a href="#">first.alertXY()</a><br/>
+    <a href="#">second.alertXY()</a><br/>
     <br/>
-    <a href="#">alert(first.z === second.z)</a><br/>
+    <a href="#">alert(first.z)</a><br/>
+    <a href="#">alert(first.x)</a><br/>
+    <a href="#">alert(second.x)</a><br/>
+    <a href="#">first.alertZ()</a><br/>
+    <a href="#">second.alertZ()</a><br/>
+    <a href="#">first.bumpZ()</a><br/>
+    <a href="#">second.bumpZ()</a><br/>
     <a href="#">first.bumpZAndAlert()</a><br/>
     <a href="#">second.bumpZAndAlert()</a><br/>
+    <br/>
+    <button class="js_1_2">js_1_2</button>
+    <button class="js_3_4">js_3_4</button>
+
     </body>
     </html>
 </jsp:root>

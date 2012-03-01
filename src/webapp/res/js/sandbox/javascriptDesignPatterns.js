@@ -101,26 +101,44 @@ GS.javascriptDesignPatterns.revealingModule = (function() {
 // Prototypal Inheritance //
 ////////////////////////////
 GS.javascriptDesignPatterns.ClassPrototype = function() {
-    this.z = 0;
-    this.prototypalMethod = function() {
-        alert(this.x + "," + this.y);
-    };
-    this.bumpZ = function() {
-        this.z++;
+    var z = 0;
+    return {
+        _bumpZ: function() {
+            z++;
+        },
+        _alertZ: function() {
+            alert(z);
+        }
     };
 };
-GS.javascriptDesignPatterns.Class = function(x, y) {
-    this.x = x;
-    this.y = y;
-    this.nonPrototypalMethod = function() {
-        alert(this.x + "," + this.y);
+GS.javascriptDesignPatterns.Class = function(_x, _y) {
+    var selector = '.js_' + _x + '_' + _y;
+    var bumpZ = this._bumpZ;
+    var alertZ = this._alertZ;
+    var nonPrototypalMethod = function() {
+        alert(_x + "," + _y);
     };
-    this.bumpZAndAlert = function() {
-        this.bumpZ();
-        alert(this.z);
+    var bumpZAndAlert = function() {
+        bumpZ();
+        alertZ();
+    };
+    var callOtherMethod = function() {
+        nonPrototypalMethod();
+    };
+    jQuery(selector).on('click', callOtherMethod);
+    return {
+        x: _x,
+        y: _y,
+        alertXY: callOtherMethod,
+        bumpZAndAlert: bumpZAndAlert,
+        bumpZ: bumpZ,
+        alertZ: alertZ
     };
 };
 GS.javascriptDesignPatterns.Class.prototype = new GS.javascriptDesignPatterns.ClassPrototype();
 
-var first = new GS.javascriptDesignPatterns.Class(1,2);
-var second = new GS.javascriptDesignPatterns.Class(3,4);
+var first, second;
+jQuery(function() {
+    first = new GS.javascriptDesignPatterns.Class(1,2);
+    second = new GS.javascriptDesignPatterns.Class(3,4);
+});
