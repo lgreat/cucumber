@@ -125,7 +125,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
                 }
             } else {
                 if (file.percent === 100 && file.status === plupload.DONE) {
-                    status = "Upload complete";
+                    var status = "Upload complete";
                     self.setStatus(file, status);
                     var deleteButton = $('#' + file.id + ' .deleteFileUpload');
                     deleteButton.removeClass('i-16-close');
