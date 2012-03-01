@@ -934,14 +934,6 @@ new (function() {
         });
         
         // page 3 specific
-        //GS.util.log('p3 validation - START');
-        var isPrivateSchool = GS.espForm.school.type == 'private';
-        var isElementarySchool = GS.espForm.school.levels.indexOf('e') >= 0;
-        var isMiddleSchool = GS.espForm.school.levels.indexOf('m') >= 0;
-        var isHighSchool = GS.espForm.school.levels.indexOf('h') >= 0;
-        var isWiDcIn = (jQuery.inArray(GS.espForm.school.state, ['wi','dc','in']) >= 0);
-        var appFeeShow = isPrivateSchool && isWiDcIn;
-        //GS.util.log('p3 - GS.espForm.school.state:'+GS.espForm.school.state+', isPrivateSchool:'+isPrivateSchool+', isMiddleSchool:'+isMiddleSchool+',isHighSchool:'+isHighSchool+', isWiDcIn:'+isWiDcIn);
         GS.form.controlVisibilityOfElementWithRadio('#js_sctn_admissions_header, #js_sctn_admissions_contact_school, #sctn_admissions_url, #sctn_parents_contact, #sctn_application_deadline, #sctn_applications_received, #sctn_students_accepted, #sctn_application_fee','[name=application_process]', 'yes');
         $('#form_applications_received').on('keyup', function(){
         	$('#form_applications_received_year').toggle($(this).val().length > 0)
@@ -951,32 +943,9 @@ new (function() {
         	$('#form_students_accepted_year').toggle($(this).val().length > 0)
         });
         $('#form_students_accepted').keyup();
-        $('#form_application_fee').on('keyup', function(){
-        	$('#form_application_fee_amount').toggle(appFeeShow && ($(this).val().length > 0));
-            $('#js-fee-waivers').toggle(appFeeShow);
-        });
-        $('#form_application_fee').toggle(appFeeShow).keyup();
-        $('[name=form_application_process]').on('change', function(){
-        	var isAppProcess = $('#form_application_fee__yes').prop('checked');
-        	$('#form_tuition_low').toggle(isPrivateSchool && isAppProcess);
-        	$('#form_tuition_high').toggle(isPrivateSchool && isAppProcess);
-        	$('#form_tuition_year').toggle(isPrivateSchool && isAppProcess);
-        	$('#form_students_vouchers').toggle(isPrivateSchool && isAppProcess);
-        	$('#form_financial_aid').toggle(isPrivateSchool && isAppProcess);
-        });
-        $('#form_application_fee__yes').change();
-        $('[name=financial_aid]').on('change', function(){
-        	var show = $('#form_financial_aid__yes').prop('checked');
-        	$('[name=financial_aid_type]:first').parent().toggle(show);
-            $('[name=financial_aid_type]:last').parent().toggle(show);
-        });
-        $('#form_financial_aid__yes').change();
-        $('[name*="feeder_school_"]').toggle(isMiddleSchool || isHighSchool);
-        $('[name*="destination_school_"]').toggle(isElementarySchool || isHighSchool);
 
-
+        GS.form.controlVisibilityOfElementWithRadio('#js_financial_aid_group', '[name=financial_aid]', 'yes');
         GS.form.controlVisibilityOfElementWithRadio('#js_application_fee_group', '[name=application_fee]', 'yes');
-        //GS.util.log('p3 validation - END');
         // END page 3 specific
 
 

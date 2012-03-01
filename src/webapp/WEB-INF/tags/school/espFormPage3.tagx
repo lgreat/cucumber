@@ -202,7 +202,7 @@
             <school:espRadioWithLabel key="financial_aid" value="no" label="No"/>
             <school:espRadioWithLabel key="financial_aid" value="yes" label="Yes"/>
         </div>
-        <div class="grid_11 omega">
+        <div class="grid_11 omega" id="js_financial_aid_group">
             <school:espCheckboxWithLabel key="financial_aid_type" value="school_based" label="School-based aid"/>
             <school:espCheckboxWithLabel key="financial_aid_type" value="outside" label="Outside scholarships"/>
             <school:espCheckboxWithLabel key="financial_aid_type" value="voucher"
