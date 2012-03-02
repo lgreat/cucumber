@@ -50,7 +50,7 @@
                             <form:form commandName="espRegistrationCommand">
 
                                 <fieldset>
-                                    <legend>Returning school official sign in</legend>
+                                    <legend>School official sign in</legend>
                                     <hr class="legend"/>
 
                                     <div class="lal clearfix">
