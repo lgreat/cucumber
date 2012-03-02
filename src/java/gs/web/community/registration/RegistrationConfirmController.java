@@ -155,6 +155,10 @@ public class RegistrationConfirmController extends AbstractCommandController imp
                     default:
                 }
 
+                if (user.hasRole(Role.ESP_MEMBER)) {
+                    hoverHelper.setHoverCookie(HoverHelper.Hover.ESP_ACCOUNT_VERIFIED);
+                }
+
                 user.setEmailValidated();  //upgrades the user to registered member
                 _userDao.saveUser(user);
                 PageHelper.setMemberAuthorized(request, response, user); // auto-log in to community

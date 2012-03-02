@@ -101,6 +101,7 @@
 <school:principalConfirmHover/>
 <school:principalReviewSubmitted/>
 <compare:compareSchoolsLimitReachedHover/>
+<communityHover:espAccountVerified/>
 
 <div id="marginGS">
     <c:if test="${requestScope.pageHelper.showingLeaderboard}">

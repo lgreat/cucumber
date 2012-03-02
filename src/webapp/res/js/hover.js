@@ -877,6 +877,8 @@ GSType.hover.EspAccountVerified = function() {
     this.onClose = function() {};
 };
 
+GSType.hover.EspAccountVerified.prototype = new GSType.hover.HoverDialog("espAccountVerified",640);
+
 // Confirm ESP Save hover
 GSType.hover.ConfirmEspSave = function() {
     this.loadDialog = function() {
