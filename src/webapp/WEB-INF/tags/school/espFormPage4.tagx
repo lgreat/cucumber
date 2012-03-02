@@ -116,7 +116,7 @@
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
-            <p class="labelGroup">Does your school have a specialized program for specific types of special education students? If so, please indicate below.</p>
+            <p class="labelGroup">Does your school have a specialized program for specific types of special education students? If so, please indicate here.</p>
 
             <div id="js_form_special_ed_programs_error" class="error" style="display: none">
                 <span class="sprite i-alert vam"><!--Do not collapse--></span>
