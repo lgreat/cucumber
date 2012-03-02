@@ -35,7 +35,8 @@ public class ForgotPasswordValidatorAjaxControllerTest extends BaseControllerTes
         replayMocks(_userDao);
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks(_userDao);
-        assertTrue(getResponse().getContentAsString().startsWith("{\"errorMsg\""));
+        assertTrue(getResponse().getContentAsString().contains("\"errorMsg\":"));
+        assertTrue(getResponse().getContentAsString().contains("\"errorCode\":"));
     }
 
     public void testInvalidEmail() throws Exception {
@@ -43,7 +44,8 @@ public class ForgotPasswordValidatorAjaxControllerTest extends BaseControllerTes
         replayMocks(_userDao);
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks(_userDao);
-        assertTrue(getResponse().getContentAsString().startsWith("{\"errorMsg\""));
+        assertTrue(getResponse().getContentAsString().contains("\"errorMsg\":"));
+        assertTrue(getResponse().getContentAsString().contains("\"errorCode\":"));
     }
 
     public void testNoUser() throws Exception {
@@ -51,7 +53,8 @@ public class ForgotPasswordValidatorAjaxControllerTest extends BaseControllerTes
         replayMocks(_userDao);
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks(_userDao);
-        assertTrue(getResponse().getContentAsString().startsWith("{\"errorMsg\""));
+        assertTrue(getResponse().getContentAsString().contains("\"errorMsg\":"));
+        assertTrue(getResponse().getContentAsString().contains("\"errorCode\":"));
     }
 
     public void testProvisionalUser() throws Exception {
@@ -64,7 +67,8 @@ public class ForgotPasswordValidatorAjaxControllerTest extends BaseControllerTes
         replayMocks(_userDao);
         _controller.handleRequest(getRequest(), getResponse());
         verifyMocks(_userDao);
-        assertTrue(getResponse().getContentAsString().startsWith("{\"errorMsg\""));
+        assertTrue(getResponse().getContentAsString().contains("\"errorMsg\":"));
+        assertTrue(getResponse().getContentAsString().contains("\"errorCode\":"));
     }
 
     public void testSuccess() throws Exception {

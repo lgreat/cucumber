@@ -31,6 +31,7 @@ public class ForgotPasswordValidatorAjaxController implements Controller {
         Map<Object, Object> rval = new HashMap<Object, Object>();
         if (ForgotPasswordValidatorHelper.emailInvalid(email)) {
             rval.put("errorMsg", "Email invalid.");
+            rval.put("errorCode", "INVALID_EMAIL");
             return rval;
         }
         User user = _userDao.findUserFromEmailIfExists(email);
@@ -41,6 +42,7 @@ public class ForgotPasswordValidatorAjaxController implements Controller {
                     "Would you like to <a href=\"" + href +
                     "\" onclick=\"GSType.hover.forgotPassword.showJoin();return false;\">join GreatSchools</a>?";
             rval.put("errorMsg", errorMsg);
+            rval.put("errorCode", "NO_SUCH_ACCOUNT");
         } else if (ForgotPasswordValidatorHelper.userNoPassword(user)) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.REGISTRATION, null, email);
             String href = builder.asSiteRelative(request);
@@ -50,12 +52,20 @@ public class ForgotPasswordValidatorAjaxController implements Controller {
                     "but still need to create a free account with GreatSchools. <a href=\"" + href +
                     "\" onclick=\"GSType.hover.forgotPassword.showJoin();return false;\"></a>" + joinLink;
             rval.put("errorMsg", errorMsg);
+            rval.put("errorCode", "EMAIL_ONLY_ACCOUNT");
         } else if (ForgotPasswordValidatorHelper.userDeactivated(user)) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.CONTACT_US, State.CA, null);
             String href = builder.asAnchor(request, "contact us").asATag();
             String errorMsg = "The account associated with that email address has been disabled. " +
                     "Please " + href + " for more information.";
             rval.put("errorMsg", errorMsg);
+            rval.put("errorCode","DISABLED_ACCOUNT");
+        }
+
+        if (rval.containsKey("errorMsg") || rval.containsKey("errorCode")) {
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.ESP_REGISTRATION);
+            String href = builder.asSiteRelative(request);
+            rval.put("ESP_REGISTRATION_URL", href);
         }
 
         return rval;

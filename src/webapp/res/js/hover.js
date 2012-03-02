@@ -1105,7 +1105,17 @@ GSType.hover.miniStateLauncher = new GSType.hover.MiniStateLauncher();
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
 
-    if (data.errorMsg) {
+    // special-case error messages for OSP signin page
+    var isOspSignIn = window.location.pathname === '/official-school-profile/signin.page';
+    if (isOspSignIn && data !== undefined && data.errorCode !== undefined) {
+        var espRegistrationUrl = data.ESP_REGISTRATION_URL;
+        if (data.errorCode === 'NO_SUCH_ACCOUNT') {
+            GSType.hover.forgotPassword.addMessage('There is no school official\'s account associated with this email address. <a href="' + espRegistrationUrl + '">Please register to gain access</a>.');
+        } else if (data.errorCode === 'EMAIL_ONLY_ACCOUNT') {
+            GSType.hover.forgotPassword.addMessage('You have an email address on file, but still need to create a <a href="' + espRegistrationUrl + '">school official\'s profile</a>.');
+        }
+        return;
+    } else if (data.errorMsg) {
         GSType.hover.forgotPassword.addMessage(data.errorMsg);
         return;
     }
