@@ -33,16 +33,18 @@
     <gsml:body adPageName="ESP/signin" pageLayout="nocol">
         <div class="spacer_20"><!-- do not collapse --></div>
         <div class="container_24 slStylesV1-0 slFormsV1-0">
+            <div class="grid_24">
+                <h1 class="fltlft">Sign in to your Official School Profile</h1>
+
+                <div class="fltrt mtm">
+                    <span class="small mrm"><link:contactUs feedbackType="esp">Need Help?</link:contactUs></span>
+                    <span class="iconx16 i-16-help vam"><!-- do not collapse --></span>
+                </div>
+            </div>
+
             <div class="grid_16" id="js_espSignIn">
 
-                <h1 class="">Sign in to your Official School Profile</h1>
-
                 <p class="">You must be a school official with a special membership on GreatSchools to edit an Official School Profile.</p>
-                <p>
-                    If you already have access to edit your school's profile, note that
-                    <strong>we recently updated our system</strong> to make it easier for you to edit your school's profile information.
-                    <strong>Please <link:schoolEspRegister>register here</link:schoolEspRegister> to gain access through the new system</strong>.
-                </p>
 
                 <div class="mod form">
                     <div class="inner">
@@ -127,22 +129,33 @@
 
             </div>
             <div class="grid_8">
-                <p class="">New to GreatSchools? <link:schoolEspRegister>Create a school official account.</link:schoolEspRegister></p>
 
-                <h3 class="">Why you should create an Official School Profile</h3>
+                <div class="mod standard_2-1">
+                    <div class="inner">
+                        <div class="bd">
+                            <p class="small bottom"><strong>New to GreatSchools? </strong><link:schoolEspRegister>Create a school official account</link:schoolEspRegister>.</p>
+                        </div>
+                    </div>
+                </div>
 
-                <ul>
-                    <li>It's absolutely free and simple to create!</li>
-                    <li>It helps parents and students understand your school's special qualities</li>
-                    <li>It lets you respond to a parent review</li>
-                    <li>It lets you update your school's contact information</li>
-                </ul>
-
-                <p>Need help? <link:contactUs feedbackType="esp">Contact us</link:contactUs>.</p>
-
-                <p class="">You must be a principal or a school official to create an Online School Profile. We will verify your identity after you sign up.</p>
-
-                <link:schoolEspRegister styleClass="button-1">Create an account</link:schoolEspRegister>
+                <div class="mod standard_3-1">
+                    <div class="outer">
+                        <div class="inner">
+                            <div class="hd">
+                                <h4>Why you should create an Official School Profile</h4>
+                            </div>
+                            <div class="bd">
+                                <ul class="small">
+                                    <li>It's absolutely free and simple to create!</li>
+                                    <li>It helps parents and students understand your school's special qualities</li>
+                                    <li>It lets you respond to a parent review</li>
+                                    <li>It lets you update your school's contact information</li>
+                                </ul>
+                                <p class="small"><link:schoolEspRegister>Create a school official account &amp;raquo;</link:schoolEspRegister></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>

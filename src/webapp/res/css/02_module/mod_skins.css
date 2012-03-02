@@ -1,0 +1,146 @@
+/* @charset "UTF-8"; */
+/* CSS Document */
+
+/*
+Theme Name: Text
+Description: All the specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+
+*/
+
+/* --------------------------------------------------------------
+
+   * Sets up some sensible standard modules skins.
+
+-------------------------------------------------------------- */
+
+/* ***************** BLOCK SKINS ***************** */
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* -------------------- form --------------------- */
+.slStylesV1-0 .form{
+  margin-bottom:20px;
+}
+.slStylesV1-0 .form .inner{
+  border:1px solid #e6e6e6; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#fafafa;
+  padding:14px 19px;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_1-1 ----------------- */
+.slStylesV1-0 .standard_1-1{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_1-1 .inner{
+  border:1px solid #e6e6e6; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#ffffff;
+  padding:10px;
+}
+.slStylesV1-0 .standard_1-1 .bd ul{
+  margin: 0;
+  padding: 0;
+}
+.slStylesV1-0 .standard_1-1 .bd li{
+  list-style-type: none;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_1-2 ----------------- */
+.slStylesV1-0 .standard_1-2{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_1-2 .inner{
+  border:1px solid #e6e6e6; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#ffffff;
+  padding:20px;
+}
+.slStylesV1-0 .standard_1-2 .bd ul{
+  margin: 0;
+  padding: 0;
+}
+.slStylesV1-0 .standard_1-2 .bd li{
+  list-style-type: none;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_2-1 ----------------- */
+.slStylesV1-0 .standard_2-1{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_2-1 .inner{
+  border:1px solid #dddddd; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#fafafa;
+  padding:10px;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_2-2 ----------------- */
+.slStylesV1-0 .standard_2-2{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_2-2 .inner{
+  border:1px solid #dddddd; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#fafafa;
+  padding:20px;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_3-1 ----------------- */
+.slStylesV1-0 .standard_3-1{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_3-1 .outer{
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#f3fafd;
+  padding:5px;
+}
+.slStylesV1-0 .standard_3-1 .inner{
+  border:1px solid #d2e9f3; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#ffffff;
+  padding:10px;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_3-2 ----------------- */
+.slStylesV1-0 .standard_3-2{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_3-2 .outer{
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#f1f1f1;
+  padding:5px;
+}
+.slStylesV1-0 .standard_3-2 .inner{
+  border:1px solid #e6e6e6; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#ffffff;
+  padding:10px;
+}
+
+
+

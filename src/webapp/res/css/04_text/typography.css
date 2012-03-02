@@ -118,6 +118,7 @@ Misc classes
 .slStylesV1-0 li ol       { margin: 0; }
 .slStylesV1-0 ul,
 .slStylesV1-0 ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.5em; }
+.slStylesV1-0 ol          { *padding-left: 2.0em; }
 
 .slStylesV1-0 ul li       { list-style-type: disc; }
 .slStylesV1-0 ol li       { list-style-type: decimal; }
