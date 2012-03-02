@@ -74,18 +74,11 @@
 
             <school:espTableRow label="School Leader's name" value="${administrator_name}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="School Leader's email" value="${administrator_email}" hideIfEmpty="true"/>
-
             <c:if test="${not empty responses.contact_method}">
                 <tr>
                     <td class="small_bold">Best ways for parents to contact the school</td>
                     <td>
                         <c:forEach var="contactMethod" items="${responses.contact_method}">
-                            <c:if test="${contactMethod.value eq 'email'}">
-                                <c:set var="cmEmail"><gsweb:erts list="${responses.contact_method_email}" pretty="false"/></c:set>
-
-                                <div>Email:${cmEmail}</div>
-                            </c:if>
                             <c:if test="${contactMethod.value eq 'phone' and not empty school_phone }">
                                 <div>Phone:${school_phone}</div>
                             </c:if>
