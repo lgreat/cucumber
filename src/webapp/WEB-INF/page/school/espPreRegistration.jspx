@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          version="2.0">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<c:set var="pageTitle" value="GreatSchools Official School Profile - Register"/>
+<head>
+    <title>${pageTitle}</title>
+</head>
+
+<gsml:body adPageName="OSP/preRegistration" pageLayout="nocol">
+<div class="container_24 slStylesV1-0 slFormsV1-0">
+
+    <div class="spacer_20"><!-- do not collapse --></div>
+    <p>User: ${user}</p>
+    <p>Membership: ${membership}</p>
+
+</div>
+
+    <div class="spacer_60"><!-- do not collapse --></div>
+
+<div style="display:none;">
+    <mod:tracking pageName="OSP Pre-Registration" hier1="ESP"/>
+</div>
+</gsml:body>
+</html>
+</jsp:root>
