@@ -220,7 +220,7 @@
                 </tr>
             </c:if>
 
-            <school:espTableRow label="Vouchers accepted:" list="${responses.students_vouchers}" hideIfEmpty="true"/>
+            <school:espTableRow label="Vouchers accepted" list="${responses.students_vouchers}" hideIfEmpty="true"/>
 
             <school:espTableRow label="Students typically attend these schools prior to attending this school" value="${feederSchools}" hideIfEmpty="true"/>
 
@@ -255,11 +255,11 @@
             <school:espTableRow label="Specialized programs for specific types of special education students"
                                 list="${responses.special_ed_programs}" hideIfEmpty="true" dlm="; "/>
 
-            <school:espTableRow label="Special schedule:" list="${responses.schedule}" hideIfEmpty="true"/>
+            <school:espTableRow label="Special schedule" list="${responses.schedule}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Boarding options:" list="${responses.boarding}" hideIfEmpty="true"/>
+            <school:espTableRow label="Boarding options" list="${responses.boarding}" hideIfEmpty="true"/>
 
-            <school:espTableRow label="Special staff resources available to students:" list="${responses.staff_resources}"
+            <school:espTableRow label="Special staff resources available to students" list="${responses.staff_resources}"
                                 hideIfEmpty="true"/>
 
             <school:espTableRow label="Languages spoken by school staff" value="${staff_languages}"
