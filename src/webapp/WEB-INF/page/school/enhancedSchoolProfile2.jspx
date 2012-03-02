@@ -80,12 +80,12 @@
                     <td>
                         <c:forEach var="contactMethod" items="${responses.contact_method}">
                             <c:if test="${contactMethod.value eq 'phone' and not empty school_phone }">
-                                <div>Phone:${school_phone}</div>
+                                <div>Phone: ${school_phone}</div>
                             </c:if>
                             <c:if test="${contactMethod.value eq 'other'}">
                                 <c:set var="cmOther"><gsweb:erts list="${responses.contact_method_other}" pretty="false"/></c:set>
 
-                                <div>Other:${cmOther}</div>
+                                <div>Other: ${cmOther}</div>
                             </c:if>
 
                         </c:forEach>
@@ -163,18 +163,17 @@
                 <tr>
                     <td class="small_bold">To obtain application information, parents may</td>
                     <td>
-                        <ul>
-                            <c:if test="${not empty admissionsUrl}">
-                                <div>Visit the school's website:
-                                    <a href="${gsweb:formatUrl(admissionsUrl)}" target="_blank">${gsweb:formatUrl(admissionsUrl)}</a></div>
-                            </c:if>
-                            <!--<c:if test="${not empty appUpload}">-->
-                                <!--<div>Download application information: <span class="val">${appUpload}</span></div>-->
-                            <!--</c:if>-->
-                            <c:if test="${not empty school_phone}">
-                                <div>Call the school: <span class="val">${school_phone}</span></div>
-                            </c:if>
-                        </ul>
+                        <c:if test="${not empty admissionsUrl}">
+                            <div>Visit the school's website:
+                                <a href="${gsweb:formatUrl(admissionsUrl)}"
+                                   target="_blank">${gsweb:formatUrl(admissionsUrl)}</a></div>
+                        </c:if>
+                        <!--<c:if test="${not empty appUpload}">-->
+                        <!--<div>Download application information: <span class="val">${appUpload}</span></div>-->
+                        <!--</c:if>-->
+                        <c:if test="${not empty school_phone}">
+                            <div>Call the school: <span class="val">${school_phone}</span></div>
+                        </c:if>
                     </td>
                 </tr>
             </c:if>
