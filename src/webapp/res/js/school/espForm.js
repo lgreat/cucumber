@@ -863,7 +863,7 @@ new (function() {
 
     jQuery(function() {
         var formWrapper = $('#js_pageContainer');
-        formWrapper.on('click', '.js_saveButton', function() {
+        formWrapper.on('click', '.js_saveButton, .js_doneButton', function() {
             saveAndFinish();
             return false;
         });
