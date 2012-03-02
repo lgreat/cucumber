@@ -105,7 +105,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
             setTimeout(function() {
                 if (file.status === plupload.UPLOADING) {
                     file.status = plupload.FAILED;
-                    this.setStatus(file, "Error: Your file is too large. Please resize and try again.");
+                    this.setStatus(file, "Error: Photo upload failed. You may need to resize your photo and try again.");
                     this.uploader.stop();
                     this.uploader.start();
                 }
