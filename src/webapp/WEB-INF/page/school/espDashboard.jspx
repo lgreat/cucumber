@@ -53,7 +53,7 @@
                                             <c:if test="${school.physicalAddress.street ne null}">
                                                 <span class="small">${school.physicalAddress.street}</span><br/>
                                             </c:if>
-                                            <span class="small">${school.city}, ${school.databaseState}</span>
+                                            <span class="small">${school.city}, ${school.databaseState} ${school.zipcode}</span>
                                         </p>
                                     </div>
                                     <div class="unit size55of100 lastUnit">
