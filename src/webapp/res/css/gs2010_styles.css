@@ -814,6 +814,7 @@ h4.subhead2 a {
 .osp-dashboard {}
 .osp-dashboard .inner { border-top: 1px solid #e5e5e5; background-color: #f9f9f9; padding: 5px 20px 7px 10px; }
 .osp-dashboard .bd p { line-height: 48px; }
+.osp-dashboard .bd a{ color: #555; text-decoration: none;}
 /* --------- pageNav (extends mod) ----------- */
 .pageNav .inner{margin:0 0 1em;padding:0;}
 .pageNav .hd h1{margin:0 0 0.50em;}

@@ -104,9 +104,15 @@
                                 <div class="bd">
                                     <div class="line">
                                         <div class="mediaExt1-3 unit size78of100 selected">
-                                            <span class="iconx48 i-48-sb img"><!-- do not collapse --></span>
+                                            <link:schoolEspForm school="${school}" page="1">
+                                                <span class="iconx48 i-48-sb img"><!-- do not collapse --></span>
+                                            </link:schoolEspForm>
 
-                                            <p class="bk">School basics</p>
+                                            <p class="bk">
+                                                <link:schoolEspForm school="${school}" page="1">
+                                                    School basics
+                                                </link:schoolEspForm>
+                                            </p>
                                         </div>
                                         <div class="unit size22of100 lastUnit pts">
                                             <link:schoolEspForm school="${school}" page="1"
@@ -122,9 +128,12 @@
                                 <div class="bd">
                                     <div class="line">
                                         <div class="mediaExt1-3 unit size78of100 selected">
-                                            <span class="iconx48 i-48-im img"><!-- do not collapse --></span>
-
-                                            <p class="bk">Instructional model</p>
+                                            <link:schoolEspForm school="${school}" page="2">
+                                                <span class="iconx48 i-48-im img"><!-- do not collapse --></span>
+                                            </link:schoolEspForm>
+                                            <p class="bk">
+                                                <link:schoolEspForm school="${school}" page="2">Instructional model</link:schoolEspForm>
+                                            </p>
                                         </div>
                                         <div class="unit size22of100 lastUnit pts">
                                             <link:schoolEspForm school="${school}" page="2"
@@ -140,9 +149,13 @@
                                 <div class="bd">
                                     <div class="line">
                                         <div class="mediaExt1-3 unit size78of100 selected">
-                                            <span class="iconx48 i-48-ae img"><!-- do not collapse --></span>
+                                            <link:schoolEspForm school="${school}" page="3">
+                                                <span class="iconx48 i-48-ae img"><!-- do not collapse --></span>
+                                            </link:schoolEspForm>
 
-                                            <p class="bk">Applying &amp;amp; enrolling</p>
+                                            <p class="bk">
+                                                <link:schoolEspForm school="${school}" page="3">Applying &amp;amp; enrolling</link:schoolEspForm>
+                                            </p>
                                         </div>
                                         <div class="unit size22of100 lastUnit pts">
                                             <link:schoolEspForm school="${school}" page="3"
@@ -158,9 +171,15 @@
                                 <div class="bd">
                                     <div class="line">
                                         <div class="mediaExt1-3 unit size78of100 selected">
-                                            <span class="iconx48 i-48-pr img"><!-- do not collapse --></span>
+                                            <link:schoolEspForm school="${school}" page="4">
+                                                <span class="iconx48 i-48-pr img"><!-- do not collapse --></span>
+                                            </link:schoolEspForm>
 
-                                            <p class="bk">Programs &amp;amp; resources</p>
+                                            <p class="bk">
+                                                <link:schoolEspForm school="${school}" page="4">
+                                                    Programs &amp;amp; resources
+                                                </link:schoolEspForm>
+                                            </p>
                                         </div>
                                         <div class="unit size22of100 lastUnit pts">
                                             <link:schoolEspForm school="${school}" page="4"
@@ -179,9 +198,15 @@
                                 <div class="bd">
                                     <div class="line">
                                         <div class="mediaExt1-3 unit size78of100 selected">
-                                            <span class="iconx48 i-48-ee img"><!-- do not collapse --></span>
+                                            <link:schoolEspForm school="${school}" page="5">
+                                                <span class="iconx48 i-48-ee img"><!-- do not collapse --></span>
+                                            </link:schoolEspForm>
 
-                                            <p class="bk">Enrichment &amp;amp; extracurriculars</p>
+                                            <p class="bk">
+                                                <link:schoolEspForm school="${school}" page="5">
+                                                    Enrichment &amp;amp; extracurriculars
+                                                </link:schoolEspForm>
+                                            </p>
                                         </div>
                                         <div class="unit size22of100 lastUnit pts">
                                             <link:schoolEspForm school="${school}" page="5"
@@ -197,9 +222,15 @@
                                 <div class="bd">
                                     <div class="line">
                                         <div class="mediaExt1-3 unit size78of100 selected">
-                                            <span class="iconx48 i-48-sc img"><!-- do not collapse --></span>
+                                            <link:schoolEspForm school="${school}" page="6">
+                                                <span class="iconx48 i-48-sc img"><!-- do not collapse --></span>
+                                            </link:schoolEspForm>
 
-                                            <p class="bk">School culture</p>
+                                            <p class="bk">
+                                                <link:schoolEspForm school="${school}" page="6">
+                                                    School culture
+                                                </link:schoolEspForm>
+                                            </p>
                                         </div>
                                         <div class="unit size22of100 lastUnit pts">
                                             <link:schoolEspForm school="${school}" page="6"
@@ -215,9 +246,15 @@
                                 <div class="bd">
                                     <div class="line">
                                         <div class="mediaExt1-3 unit size78of100 selected">
-                                            <span class="iconx48 i-48-ci img"><!-- do not collapse --></span>
+                                            <link:schoolEspForm school="${school}" page="7">
+                                                <span class="iconx48 i-48-ci img"><!-- do not collapse --></span>
+                                            </link:schoolEspForm>
 
-                                            <p class="bk">Contact info</p>
+                                            <p class="bk">
+                                                <link:schoolEspForm school="${school}" page="7">
+                                                    Contact info
+                                                </link:schoolEspForm>
+                                            </p>
                                         </div>
                                         <div class="unit size22of100 lastUnit pts">
                                             <link:schoolEspForm school="${school}" page="7"
@@ -229,25 +266,34 @@
                         </div>
 
                         <!-- Hiding this c:if block. Not part of 19.6.-->
-<!--                        <c:if test="${school.type.schoolTypeName == 'private'}">
+                        <!--
+                        <c:if test="${school.type.schoolTypeName == 'private'}">
 
                             <div class="mod osp-dashboard">
                                 <div class="inner">
                                     <div class="bd">
                                         <div class="mediaExt1-3 grid_9 selected">
-                                            <span class="iconx48 i-48-si img">&lt;!&ndash; do not collapse &ndash;&gt;</span>
+                                            <link:schoolEspForm school="${school}" page="8">
+                                                <span class="iconx48 i-48-si img">&lt;!&ndash; do not collapse &ndash;&gt;</span>
+                                            </link:schoolEspForm>
 
-                                            <p class="bk">Student info</p>
+                                            <p class="bk">
+                                                <link:schoolEspForm school="${school}" page="8">
+                                                    Student info
+                                                </link:schoolEspForm>
+                                            </p>
                                         </div>
                                         <div class="grid_2 mtm pts">
                                             <link:schoolEspForm school="${school}"
-                                                                page="8" styleClass="button-6">${pageStarted[8]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                                                page="8"
+                                                                styleClass="button-6">${pageStarted[8]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                        </c:if>-->
+                        </c:if>
+                        -->
                     </div>
                 </div>
             </c:if>
