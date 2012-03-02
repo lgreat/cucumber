@@ -35,9 +35,18 @@
     <c:set var="doNotShowPassword" value="true"/>
 </c:if>
 
-<div class="grid_16">
+<div class="grid_24">
+    <h1 class="fltlft">Request a school official account</h1>
 
-<h1 class="">Request a school official account</h1>
+    <div class="fltrt mtm">
+        <span class="small mrm"><link:contactUs feedbackType="esp">Need Help?</link:contactUs></span>
+        <span class="iconx16 i-16-help vam"><!-- do not collapse --></span>
+    </div>
+</div>
+
+
+
+<div class="grid_16">
 
 <p class="">
     Welcome principals and school officials! Raise the visibility of your school by taking advantage of GreatSchools'
@@ -399,22 +408,64 @@
 </div>
 <div class="grid_8">
     <c:if test="${!userLoggedIn}">
-        <p class="">Already have a school official account? <link:schoolEspSignIn>Sign in.</link:schoolEspSignIn></p>
+        <div class="mod standard_2-1">
+            <div class="inner">
+                <div class="bd">
+                    <p class="small bottom">Already have a school official account?
+                        <link:schoolEspSignIn>Sign in.</link:schoolEspSignIn></p>
+                </div>
+            </div>
+        </div>
     </c:if>
 
-    <h3>New to GreatSchools? Register for a school official's account.</h3>
+    <div class="mod standard_3-2">
+        <div class="outer">
+            <div class="inner">
+                <div class="hd">
+                    <h4 class="make-d61">How it works</h4>
+                </div>
+                <div class="bd small bottom">
+                    <div class="media mbs">
+                        <div class="img loud mrm"><strong>Step 1: </strong></div>
+                        <div class="bd">
+                            Request a school official’s account.
+                        </div>
+                    </div>
+                    <div class="media mbs">
+                        <div class="img loud mrm"><strong>Step 2: </strong></div>
+                        <div class="bd">
+                            A GreatSchools representative will verify your identity and relationship to the school.
+                        </div>
+                    </div>
+                    <div class="media mbs">
+                        <div class="img loud mrm"><strong>Step 3: </strong></div>
+                        <div class="bd">
+                            Once approved, you’ll receive a confirmation email with a link to activate your account and access your Official School Profile.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <p>Five reasons to create an Official School Profile</p>
-
-    <ol>
-        <li>Give your school more visibility - get noticed by more families.</li>
-        <li>Publish changes to your school's profile immediately.</li>
-        <li>Highlight your school's unique qualities and strengths.</li>
-        <li>Add photos and videos that bring your school profile to life.</li>
-        <li>Boost enrollment.</li>
-    </ol>
-
-    <p>Need help? <link:contactUs feedbackType="esp">Contact us</link:contactUs>.</p>
+    <div class="mod standard_3-1">
+        <div class="outer">
+            <div class="inner">
+                <div class="hd">
+                    <h4 class="">Five reasons to create an Official School Profile</h4>
+                </div>
+                <div class="bd small bottom">
+                    <ol start="1" type="1">
+                        <li>Give your school more visibility -- get noticed by more families.</li>
+                        <li>Publish changes to your school’s profile immediately.</li>
+                        <li>Highlight your school’s unique qualities and strengths.</li>
+                        <li>Add photos and videos that bring your school profile to life.</li>
+                        <li>Boost enrollment.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 </div>

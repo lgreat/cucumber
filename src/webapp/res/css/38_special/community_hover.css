@@ -36,8 +36,8 @@ body.hover{background-color: #ebebeb;}
 /* **************** BLOCK STRUCTURES ***************** */
 /* ------------------- mod ------------------- */
 .mod{margin:0;}
-.inner{position:relative;}
-.hd,.bd,.ft{display: inline-block; width:100%; *display:block; *width:auto; zoom:1;}
+.mod .inner{}
+.bd, .ft, .hd{overflow:hidden; *overflow:visible; zoom:1;}
 
 .startaconversation .hd h2{color: #d61;}
 .startaconversation .bd input, .startaconversation .bd textarea{width:100%;}
