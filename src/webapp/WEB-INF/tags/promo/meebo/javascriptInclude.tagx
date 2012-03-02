@@ -5,8 +5,29 @@
           version="2.0">
 
     <c:if test="${!requestScope.pageHelper.adFree and !requestScope.context.cobranded}">
-        <gsml:url var="meebojs" value="/res/js/meebo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-        <![CDATA[<script type="text/javascript" src="${meebojs}"></script>]]>
+
+        <c:choose>
+
+            <c:when test="${param.nomeebo == '1'}">
+
+                <!-- No meebo -->
+
+            </c:when>
+
+            <c:when test="${param.delaymeebo == '1'}">
+                <gsml:url var="meebojs" value="/res/js/meebo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+                <script type="text/javascript">
+                    jQuery(window).load(function() {jQuery.getScript("${meebojs}");});
+                </script>
+            </c:when>
+
+            <c:otherwise>
+                <gsml:url var="meebojs" value="/res/js/meebo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+                <![CDATA[<script type="text/javascript" src="${meebojs}"></script>]]>
+            </c:otherwise>
+
+        </c:choose>
+
     </c:if>
 
 </jsp:root>
