@@ -13,9 +13,14 @@
 
     <c:set var="prefix" value="form"/>
 
-    <gsml:radio styleId="${prefix}_${key}__${fn:toLowerCase(value)}" name="${key}" value="${value}"
-                       checked="${not empty responseMap[key].valueMap[value]}" styleClass="${styleClass}" disabled="${disabled}"/>
-    <label for="${prefix}_${key}__${fn:toLowerCase(value)}" class="radio">${label}</label>
-    <c:if test="${empty nobr}"><br/></c:if>
+    <div class="mediaExt1-1">
+        <gsml:radio styleId="${prefix}_${key}__${fn:toLowerCase(value)}" name="${key}" value="${value}"
+                    checked="${not empty responseMap[key].valueMap[value]}" styleClass="${styleClass} img"
+                    disabled="${disabled}"/>
+
+        <div class="bk pts">
+            <label for="${prefix}_${key}__${fn:toLowerCase(value)}" class="radio">${label}</label>
+        </div>
+    </div>
 
 </jsp:root>
