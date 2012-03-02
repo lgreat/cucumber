@@ -7639,6 +7639,11 @@ ul.schoolList div p {
     background-color: #f9eccd;
 }
 
+.slStylesV1-0 .even th,
+.slStylesV1-0 .even td {
+    background-color: #f1f1f1;
+}
+
 .even .cs_gsRating .badge_sm_na {
     background-position: -500px 0;
 }
