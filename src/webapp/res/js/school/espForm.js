@@ -946,9 +946,9 @@ new (function() {
 
         GS.form.controlVisibilityOfElementWithRadio('#js_financial_aid_group', '[name=financial_aid]', 'yes');
         GS.form.controlVisibilityOfElementWithRadio('#js_application_fee_group', '[name=application_fee]', 'yes');
-        GS.form.controlVisibilityOfElementWithRadio('#sctn_tuition_range', '[name=application_fee]', 'yes');
-        GS.form.controlVisibilityOfElementWithRadio('#sctn_students_vouchers', '[name=application_fee]', 'yes');
-        GS.form.controlVisibilityOfElementWithRadio('#sctn_financial_aid', '[name=application_fee]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#sctn_tuition_range', '[name=application_process]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#sctn_students_vouchers', '[name=application_process]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#sctn_financial_aid', '[name=application_process]', 'yes');
         // END page 3 specific
 
 
