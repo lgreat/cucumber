@@ -46,13 +46,15 @@ GS.util.CityStateSchoolSelect = function (containerId, submitCallback, options) 
 
         var state = this.stateSelect.val();
         var city = this.citySelect.val();
+        var excludePreschoolsOnly = this.options.excludePreschoolsOnly !== undefined
+                && this.options.excludePreschoolsOnly === true;
 
         if (state !== '' && city !== '- Choose city -' && city !== 'My city is not listed') {
             jQuery('#js_school').html("<option>Loading...</option>");
             jQuery.ajax({
                 type:'GET',
                 url:this.SCHOOLS_AJAX_URL,
-                data:{state:state, city:city, format:'json', type:'school'},
+                data:{state:state, city:city, format:'json', type:'school', excludePreschoolsOnly: excludePreschoolsOnly},
                 dataType:'json',
                 async:true
             }).done(function (data) {
@@ -60,7 +62,7 @@ GS.util.CityStateSchoolSelect = function (containerId, submitCallback, options) 
             }.gs_bind(this));
         }
 
-    };
+    }.gs_bind(this);
 
     this.parseCities = function (data) {
         var citySelect = this.citySelect;

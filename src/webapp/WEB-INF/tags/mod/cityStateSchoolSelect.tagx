@@ -10,6 +10,7 @@
     <jsp:directive.attribute name="defaultState" type="java.lang.String" required="false" description="Begin with this state selected"/>
     <jsp:directive.attribute name="defaultCity" type="java.lang.String" required="false" description="Begin with this city selected"/>
     <jsp:directive.attribute name="defaultSchoolId" type="java.lang.Integer" required="false" description="Begin with this school selected"/>
+    <jsp:directive.attribute name="excludePreschoolsOnly" type="java.lang.Boolean" required="false" description="Whether or not to exclude pk-only schools"/>
 
     <pageHelper:externalJavascript file="/res/js/util/cityStateSchoolSelect.js"/>
 
@@ -89,7 +90,8 @@
         var options = {
             defaultState:'${defaultState}',
             defaultCity:'${defaultCity}',
-            defaultSchoolId:'${defaultSchoolId}'
+            defaultSchoolId:'${defaultSchoolId}',
+            excludePreschoolsOnly:${excludePreschoolsOnly}
         };
         var cityStateSchoolSelects = new GS.util.CityStateSchoolSelect('#js-cityStateSchoolSelect', function(state,city,schoolId) {
             window.location.href = '${url}?schoolId=' + schoolId + '&amp;state=' + state;

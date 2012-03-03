@@ -354,7 +354,8 @@
                     <mod:cityStateSchoolSelect url=""
                                                defaultState="${(not empty school)?school.databaseState:requestScope.context.state}"
                                                defaultCity="${school.city}"
-                                               defaultSchoolId="${school.id}"/>
+                                               defaultSchoolId="${school.id}"
+                                               excludePreschoolsOnly="${true}"/>
                 </div>
             </c:if>
 
