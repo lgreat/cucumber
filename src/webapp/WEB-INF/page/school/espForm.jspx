@@ -98,43 +98,43 @@
                 </div>
                 <div id="js_espFormNav" class="grid_16 omega">
                     <ul>
-                        <li class="${(page eq 1)?'selected':''} ${(false and percentComplete[1] ge 100)?'completed':''}">
+                        <li class="${(page eq 1)?'selected':''} ${(percentComplete[1] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="1" styleClass="js_saveForm">
                                 <span class="espNavIcon iconx48 i-48-sb"><!-- do not collapse --></span>
                                 <span class="espNavLabel">School basics</span>
                             </link:schoolEspForm>
                         </li>
-                        <li class="${(page eq 2)?'selected':''} ${(false and percentComplete[2] ge 100)?'completed':''}">
+                        <li class="${(page eq 2)?'selected':''} ${(percentComplete[2] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="2" styleClass="js_saveForm">
                                 <span class="espNavIcon iconx48 i-48-im"><!-- do not collapse --></span>
                                 <span class="espNavLabel">Instructional model</span>
                             </link:schoolEspForm>
                         </li>
-                        <li class="${(page eq 3)?'selected':''} ${(false and percentComplete[3] ge 100)?'completed':''}">
+                        <li class="${(page eq 3)?'selected':''} ${(percentComplete[3] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="3" styleClass="js_saveForm">
                                 <span class="espNavIcon iconx48 i-48-ae"><!-- do not collapse --></span>
                                 <span class="espNavLabel">Applying<br/>&amp;amp; enrolling</span>
                             </link:schoolEspForm>
                         </li>
-                        <li class="${(page eq 4)?'selected':''} ${(false and percentComplete[4] ge 100)?'completed':''}">
+                        <li class="${(page eq 4)?'selected':''} ${(percentComplete[4] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="4" styleClass="js_saveForm">
                                 <span class="espNavIcon iconx48 i-48-pr"><!-- do not collapse --></span>
                                 <span class="espNavLabel">Programs<br/>&amp;amp; resources</span>
                             </link:schoolEspForm>
                         </li>
-                        <li class="${(page eq 5)?'selected':''} ${(false and percentComplete[5] ge 100)?'completed':''}">
+                        <li class="${(page eq 5)?'selected':''} ${(percentComplete[5] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="5" styleClass="js_saveForm">
                                 <span class="espNavIcon iconx48 i-48-ee"><!-- do not collapse --></span>
                                 <span class="espNavLabel">Enrichment<br/>&amp;amp; extras</span>
                             </link:schoolEspForm>
                         </li>
-                        <li class="${(page eq 6)?'selected':''} ${(false and percentComplete[6] ge 100)?'completed':''}">
+                        <li class="${(page eq 6)?'selected':''} ${(percentComplete[6] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="6" styleClass="js_saveForm">
                                 <span class="espNavIcon iconx48 i-48-sc"><!-- do not collapse --></span>
                                 <span class="espNavLabel">School culture</span>
                             </link:schoolEspForm>
                         </li>
-                        <li class="${(page eq 7)?'selected':''} ${(false and percentComplete[7] ge 100)?'completed':''}">
+                        <li class="${(page eq 7)?'selected':''} ${(percentComplete[7] ge 100)?'completed':''}">
                             <link:schoolEspForm school="${school}" page="7" styleClass="js_saveForm">
                                 <span class="espNavIcon iconx48 i-48-ci"><!-- do not collapse --></span>
                                 <span class="espNavLabel">Contact info</span>

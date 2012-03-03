@@ -477,49 +477,11 @@ public class EspFormController implements ReadWriteAnnotationController {
     }
 
     /**
-     * Percent completion for a page is currently {number of keys that have active values} / {total number of keys}
+     * Percent completion for a page is currently always 0
+     * TODO: Implementation needed
      */
     protected int getPercentCompletionForPage(int page, School school) {
-        Set<String> keys = getKeysForPercentCompletion(page);
-
-        if (!keys.isEmpty() && school != null) {
-            int count = _espResponseDao.getKeyCount(school, keys);
-            if (count > 0) {
-                float percent = ((float) count / keys.size()) * 100;
-                return Math.round(percent);
-            }
-        }
-
         return 0;
-    }
-
-    /**
-     * Get the list of keys that count towards percent completion for a particular page.
-     * TODO: This signature might be insufficient. Probably the school needs to get passed in
-     */
-    protected Set<String> getKeysForPercentCompletion(int page) {
-        Set<String> keys = new HashSet<String>();
-        if (page == 1) {
-            keys.add("admissions_url");
-            keys.add("student_enrollment");
-        } else if (page == 2) {
-            keys.add("academic_focus");
-            keys.add("instructional_model");
-            keys.add("instructional_model_other");
-            keys.add("best_known_for");
-            keys.add("college_destination_1");
-            keys.add("college_destination_2");
-            keys.add("college_destination_3");
-        } else if (page == 3) {
-        } else if (page == 4) {
-        } else if (page == 5) {
-        } else if (page == 6) {
-        } else if (page == 7) {
-        } else if (page == 8) {
-        } else {
-            _log.error("Unknown page provided to getKeysForPercentCompletion: " + page);
-        }
-        return keys;
     }
 
     protected Map<String, Object[]> cloneAndConvert(Map<String,String[]> requestParameterMap) {
