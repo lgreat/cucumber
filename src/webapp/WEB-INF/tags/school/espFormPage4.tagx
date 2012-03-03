@@ -489,7 +489,10 @@
 <c:if test="${not empty school.levelCode and (fn:indexOf(school.levelCode,'h') >=0) }">
     <div class="lal clearfix">
         <div class="alpha grid_7">
-            <p class="labelGroup">What percent of students at your school attend the following immediately after graduation? Please indicate the school year for the data you provide.</p>
+            <p class="labelGroup">What percent of students at your school attend the following immediately after graduation?
+            <br/><br/>
+            Please provide the most recent data available and include the year you are reporting for. The sum of values may not exceed 100%.</p>
+
         </div>
         <div class="grid_16 omega">
 
@@ -528,6 +531,10 @@
                     <label class="checkbox">% Graduates going to a 2 year college</label>
                 </div>
                 <div class="grid_8 omega">
+                    <div id="js_form_post_graduation_percentages_error" class="error" style="display: none">
+                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                        Sum of values may not exceed 100%.
+                    </div>
                     <div id="js_form_post_graduation_2yr_error" class="error" style="display: none">
                         <span class="sprite i-alert vam"><!--Do not collapse--></span>
                         Please enter a number.

@@ -580,6 +580,36 @@ GS.validation.validateAllOrNone = function(fieldSelectors, errorSelector) {
     return valid;
 };
 
+GS.validation.validateSumPercentages = function(fieldSelector, errorSelector) {
+    var isValid = true;
+    var maxPercentage = 100;
+    jQuery(fieldSelector).filter("input[type=text]").removeClass("warning");
+    jQuery(errorSelector).hide();
+    var formFields = jQuery(fieldSelector).filter(':visible'); // only validate visible fields
+    if (formFields !== undefined && formFields.size() > 0) {
+        var fieldType = formFields.attr('type');
+
+        if (fieldType == 'text') {
+            var total = 0;
+            // require each one to be numeric
+            formFields.each(function() {
+                var fieldVal = parseInt(jQuery.trim(jQuery(this).val()));
+                if (fieldVal > 0) {
+                    total += fieldVal;
+                }
+            });
+
+            isValid = total <= maxPercentage;
+        }
+
+        if (!isValid) {
+            jQuery(errorSelector).show();
+            jQuery(fieldSelector).filter("input[type=text]").addClass("warning");
+        }
+    }
+    return isValid;
+};
+
 // TODO: figure out what to do with this type of validation method
 GS.validation.validateSelectIfTextboxValueEntered = function(selectBoxSelector, textBoxSelector, errorSelector, textBoxValid) {
     var selectBox = $(selectBoxSelector).filter(':visible');
@@ -813,6 +843,12 @@ new (function() {
         validations.push(GS.validation.validateInteger('#js_form_post_graduation_military','#js_form_post_graduation_military_error'));
         validations.push(GS.validation.validateInteger('#js_form_post_graduation_vocational','#js_form_post_graduation_vocational_error'));
         validations.push(GS.validation.validateInteger('#js_form_post_graduation_workforce','#js_form_post_graduation_workforce_error'));
+        validations.push(GS.validation.validateSumPercentages('#js_form_post_graduation_2yr, ' +
+                '#js_form_post_graduation_4yr, ' +
+                '#js_form_post_graduation_military, ' +
+                '#js_form_post_graduation_vocational, ' +
+                '#js_form_post_graduation_workforce', '#js_form_post_graduation_percentages_error')
+        );
 //        var isValidSkillsTraining = GS.validation.validateRequiredIfChecked
 //            ('#js_form_skills_training_other', '.js_otherField_js_form_skills_training_other', '#js_form_skills_training_error');
 
