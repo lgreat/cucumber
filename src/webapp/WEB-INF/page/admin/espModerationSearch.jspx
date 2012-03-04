@@ -65,7 +65,7 @@
             <div class="ral clearfix">
               <label class="alpha grid_3" for="userId">User account ID</label>
               <div class="grid_5">
-                <input type="text" id="userId" name="userId" class="text_grid_7" size="10" maxlength="10" value="${espModerationSearchCommand.userId}" />
+                <input type="text" id="userId" name="userId" class="text_grid_7" size="12" maxlength="12" value="${espModerationSearchCommand.userId}" />
               </div>
             </div>
             <div class="ral clearfix">
