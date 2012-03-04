@@ -96,7 +96,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         
         public String getAbsoluteWebUrl() {
             String webUrl = _membership.getWebUrl();
-            if (StringUtils.isNotEmpty(webUrl) && !StringUtils.startsWithIgnoreCase("http://", webUrl)) {
+            if (StringUtils.isNotEmpty(webUrl) && !StringUtils.startsWithIgnoreCase(webUrl, "http://")) {
                 return "http://" + webUrl;
             }
             return webUrl;
