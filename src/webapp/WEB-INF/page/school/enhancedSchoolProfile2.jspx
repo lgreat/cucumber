@@ -66,9 +66,9 @@
             <tr>
                 <td class="small_bold">School type</td>
                 <td>
-                    ${gsweb:capitalize(school.type.schoolTypeName)}&amp;#059;
-                    <c:if test="${not empty coed}">&#160;${coed}&amp;#059;</c:if>
-                    <c:if test="${not empty school.affiliation}">&#160;${gsweb:capitalize(school.affiliation)}&amp;#046;</c:if>
+                    ${gsweb:capitalize(school.type.schoolTypeName)}
+                    <c:if test="${not empty coed}">; ${coed}</c:if>
+                    <c:if test="${not empty school.affiliation}">; ${gsweb:capitalize(school.affiliation)}</c:if>
                 </td>
             </tr>
 
