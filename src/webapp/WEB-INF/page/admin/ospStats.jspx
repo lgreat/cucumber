@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>GreatSchools OSP Status Page</title>
+    <script type="text/javascript">
+        <![CDATA[
+        var loadTotalOSPForState = function(state, deferred) {
+            return function() {
+                $('.js_error_' + state).html('<img src="/res/img/admin/spinner.gif"/>');
+                jQuery.getJSON(
+                        "/admin/status/ospAjax.page",
+                        {state:state}
+                ).always(function() {
+                            deferred.resolve();
+                        }
+                ).done(function (data) {
+                            if (data.total !== undefined) {
+                                $('#js_stats_by_state_' + state).html(data.total);
+                            }
+                            if (data.totalNew !== undefined) {
+                                $('#js_new_osp_' + state).html(data.totalNew);
+                            }
+                            if (data.activeMembers !== undefined) {
+                                $('#js_active_members_' + state).html(data.activeMembers);
+                            }
+                            if (data.totalContributingMembers !== undefined) {
+                                $('#js_contributing_members_' + state).html(data.totalContributingMembers);
+                            }
+                        }
+                ).fail(function() {
+                            $('.js_error_' + state).html("Error");
+                        }
+                );
+            };
+        };
+        jQuery(function() {
+            var totalOspQueue = new jQuery.Deferred();
+            var nextQueue = null;
+            jQuery('#js_state_data').find('.js_stats_by_state').each(function(index, element) {
+                var state = this.id.substring("js_stats_by_state_".length);
+                if (nextQueue == null) {
+                    nextQueue = new jQuery.Deferred();
+                    totalOspQueue.done(loadTotalOSPForState(state, nextQueue));
+                } else {
+                    var newQueue = new jQuery.Deferred();
+                    nextQueue.done(loadTotalOSPForState(state, newQueue));
+                    nextQueue = newQueue;
+                }
+            });
+            totalOspQueue.resolve(); // start the cascade
+        });
+        ]]>
+    </script>
+</head>
+
+<gsml:body adPageName="OSP/stats" pageLayout="nocol">
+    <div class="slStylesV1-0">
+        <h3>OSP Status Page</h3>
+        <p>Hover over label for more detailed description</p>
+        <c:set var="stateRowSpan" value="4"/>
+        <table class="tableType1">
+            <col width="50"/>
+            <col width="250"/>
+            <col width="350"/>
+            <thead>
+            <tr>
+                <th>State</th>
+                <th>Label</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody id="js_state_data" class="striped">
+            <c:forEach items="${states}" var="curState">
+                <tr>
+                    <td rowspan="${stateRowSpan}">${curState}</td>
+                    <td title="Number of schools with active rows in esp_response">Total Active OSP (Including PQ)</td>
+                    <td id="js_stats_by_state_${curState}" class="js_error_${curState} js_stats_by_state">Please wait...</td>
+                </tr>
+                <tr>
+                    <td title="Number of schools with active rows in esp_response, excluding those migrated from PQ">Total Active OSP (Excluding PQ)</td>
+                    <td id="js_new_osp_${curState}" class="js_error_${curState}">Please wait...</td>
+                </tr>
+                <tr>
+                    <td title="Number of approved members in state (from esp_membership)">Total Active Members</td>
+                    <td id="js_active_members_${curState}" class="js_error_${curState}">Please wait...</td>
+                </tr>
+                <tr>
+                    <td title="Number of members in state who have saved at least 1 row (from esp_response), includes super users who don't show up under active members!">Total Contributing Members</td>
+                    <td id="js_contributing_members_${curState}" class="js_error_${curState}">Please wait...</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+    <div style="display:none;">
+        <mod:tracking pageName="OSP Stats" hier1="OSP Stats"/>
+    </div>
+</gsml:body>
+</html>
+</jsp:root>
+
