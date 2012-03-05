@@ -32,7 +32,7 @@
 
         <p class="medium">This school has provided details to help you learn more about its unique programs and features.</p>
 
-        <p class="smaller"><a href="/about/gsFaq.page?state=wi#faq-officialprofiles">Learn more about Official School Info</a> &amp;raquo;
+        <p class="smaller"><a href="/about/gsFaq.page?state=${school.databaseState.abbreviation}#faq-officialprofiles">Learn more about Official School Info</a> &amp;raquo;
             | Principal or other school officials can <link:schoolEspSignIn>edit this info</link:schoolEspSignIn>.</p>
 
         <!-- SECTION 1: School Basics -->
