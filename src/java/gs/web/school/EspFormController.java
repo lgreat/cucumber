@@ -246,11 +246,20 @@ public class EspFormController implements ReadWriteAnnotationController {
             return; // early exit
         }
 
+        // Check if this is the first time this school has gotten any data
+        boolean schoolHasNoUserCreatedRows = _espResponseDao.schoolHasNoUserCreatedRows(school, true);
+
         // Deactivate existing data first, then save
         _espResponseDao.deactivateResponsesByKeys(school, keysForPage);
         _espResponseDao.saveResponses(school, responseList);
 
         JSONObject successObj = new JSONObject();
+        // if there were no keys saved before, and we're saving at least one now,
+        // then the form has officially been started
+        if (schoolHasNoUserCreatedRows && !responseList.isEmpty()) {
+            successObj.put("formStarted", true);
+        }
+
         // let page know new completion percentage
         // TODO: Will probably need to include global form percentage as well
         successObj.put("percentComplete", getPercentCompletionForPage(page, school));

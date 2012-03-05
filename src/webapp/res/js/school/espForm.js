@@ -695,6 +695,9 @@ new (function() {
                         GS.util.log("Updating percent complete for page " + GS.espForm.currentPage + " to " + parseInt(data.percentComplete));
                         GS.espForm.percentComplete[GS.espForm.currentPage] = parseInt(data.percentComplete);
                     }
+                    if (data.formStarted !== undefined && data.formStarted && clickCapture) {
+                        clickCapture.capture("events", "event60;");
+                    }
                     masterDeferred.resolve();
                 });
         } catch (e) {
