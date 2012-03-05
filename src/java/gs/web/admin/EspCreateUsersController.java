@@ -37,15 +37,58 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
         return VIEW;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void createUser(HttpServletRequest request, HttpServletResponse response) {
-        String email = request.getParameter("email");
-        String stateStr = request.getParameter("state");
-        String schoolIdStr = request.getParameter("schoolId");
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String jobTitle = request.getParameter("jobTitle");
+//    @RequestMapping(method = RequestMethod.POST)
+//    public void createUser(HttpServletRequest request, HttpServletResponse response) {
+//        String email = request.getParameter("email");
+//        String stateStr = request.getParameter("state");
+//        String schoolIdStr = request.getParameter("schoolId");
+//        String firstName = request.getParameter("firstName");
+//        String lastName = request.getParameter("lastName");
+//        String jobTitle = request.getParameter("jobTitle");
+//
+//        if (StringUtils.isNotBlank(email) && StringUtils.isNotBlank(stateStr) && StringUtils.isNotBlank(schoolIdStr)) {
+//            email = email.trim();
+//            stateStr = stateStr.trim();
+//            schoolIdStr = schoolIdStr.trim();
+//            State state = State.fromString(stateStr);
+//            if (state != null) {
+//                School school = _schoolDao.getSchoolById(state, new Integer(schoolIdStr));
+//                if (school != null) {
+//                    User user = _userDao.findUserFromEmailIfExists(email);
+//                    if (user == null) {
+//                        user = new User();
+//                        user.setEmail(email);
+//                        user.setFirstName(StringUtils.isNotBlank(firstName) ? firstName : null);
+//                        user.setLastName(StringUtils.isNotBlank(lastName) ? lastName : null);
+//                        user.setHow("esp_pre_approved");
+//                        user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+//                        _userDao.saveUser(user);
+//                    }
+//                    saveEspMembership(user, state, school, jobTitle);
+//                }
+//
+//            }
+//        }
+//    }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public void createUsers(HttpServletRequest request, HttpServletResponse response) {
+        String data = request.getParameter("data");
+        String[] lines = data.split("\n");
+        for (int i = 0; i < lines.length; i++) {
+            String[] fields = lines[i].split("\t");
+            String email = fields[0];
+            String stateStr = fields[1];
+            String schoolIdStr = fields[2];
+            String firstName = fields[3];
+            String lastName = fields[4];
+            String jobTitle = fields[5];
+            createUser(email, stateStr, schoolIdStr, firstName, lastName, jobTitle);
+        }
+
+    }
+
+    protected void createUser(String email, String stateStr, String schoolIdStr, String firstName, String lastName, String jobTitle) {
         if (StringUtils.isNotBlank(email) && StringUtils.isNotBlank(stateStr) && StringUtils.isNotBlank(schoolIdStr)) {
             email = email.trim();
             stateStr = stateStr.trim();
@@ -66,7 +109,6 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                     }
                     saveEspMembership(user, state, school, jobTitle);
                 }
-
             }
         }
     }

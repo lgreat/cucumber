@@ -114,6 +114,19 @@
 
         <input class="button-1" type="submit" value="Submit »" id="js_submit"/>
 
+
+        <div>
+            <textarea rows="10" cols="100" id="js_users"><!--some comment--></textarea>
+        </div>
+        <br/>
+        <button type="button" id="js_startCreateEspUsers">Start</button>
+        <button type="button" id="js_stopCreateEspUsers">Stop!</button>
+        <button type="button" id="js_resetCreateEspUsers">Reset!</button>
+        <p>Progress: <span id="js_userCreationProgress">0/0</span></p>
+        <label for="js_userCreationDebug">Log messages:</label><br/>
+        <textarea id="js_userCreationDebug" rows="15" cols="100" readonly="readonly"><!--some comment--></textarea>
+
+
     </gsml:body>
     </html>
 </jsp:root>
