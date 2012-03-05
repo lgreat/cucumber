@@ -15,7 +15,7 @@
 
                 <div class="grid_11">
                     <input id="form_best_known_for" class="text input_11" type="text" name="best_known_for"
-                           value="${responseMap['best_known_for'].value}" maxlength="60"/>
+                           value="${responseMap['best_known_for'].value}" maxlength="80"/>
 
                     <p class="hint">Please use complete sentences, for example, "Our school is best known for our championship football team."</p>
                 </div>
