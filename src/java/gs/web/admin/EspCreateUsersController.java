@@ -53,7 +53,9 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
         String lastName = request.getParameter("lastName");
         String jobTitle = request.getParameter("jobTitle");
         State state = getState(request.getParameter("state"), returnValues);
+
         createUser(email, state, schoolIdStr, firstName, lastName, jobTitle, returnValues);
+
         JSONObject rval = new JSONObject(returnValues);
         _cacheInterceptor.setNoCacheHeaders(response);
         response.setContentType("application/json");
@@ -122,27 +124,34 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                               String firstName, String lastName, String jobTitle, Map returnValues) {
         if (StringUtils.isNotBlank(email) && state != null && StringUtils.isNotBlank(schoolIdStr)) {
             email = email.trim();
-            schoolIdStr = schoolIdStr.trim();
-            School school = _schoolDao.getSchoolById(state, new Integer(schoolIdStr));
-            if (school != null) {
-                User user = _userDao.findUserFromEmailIfExists(email);
-                if (user == null) {
-                    user = new User();
-                    user.setEmail(email);
-                    user.setFirstName(StringUtils.isNotBlank(firstName) ? firstName : null);
-                    user.setLastName(StringUtils.isNotBlank(lastName) ? lastName : null);
-                    user.setHow("esp_pre_approved");
-                    user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-                    _userDao.saveUser(user);
-                } else {
-                    // TODO ?Example NL users.
+            if (validateEmail(email)) {
+                schoolIdStr = schoolIdStr.trim();
+                School school = null;
+                try {
+                    school = _schoolDao.getSchoolById(state, new Integer(schoolIdStr));
+                } catch (Exception e) {
+                    appendDebugOutput(returnValues, "debugOutput", "ERROR: School:" + schoolIdStr + " not found for email:" + email);
+                    appendDebugOutput(returnValues, "usersWithErrors", email);
                 }
-                saveEspMembership(user, state, school, jobTitle, returnValues);
+                if (school != null) {
+                    User user = _userDao.findUserFromEmailIfExists(email);
+                    if (user == null) {
+                        user = new User();
+                        user.setEmail(email);
+                        user.setFirstName(StringUtils.isNotBlank(firstName) ? firstName : null);
+                        user.setLastName(StringUtils.isNotBlank(lastName) ? lastName : null);
+                        user.setHow("esp_pre_approved");
+                        user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                        _userDao.saveUser(user);
+                    } else {
+                        // TODO ?Example NL users.
+                    }
+                    saveEspMembership(user, state, school, jobTitle, returnValues);
+                }
             } else {
-                appendDebugOutput(returnValues, "debugOutput", "ERROR: School:" + schoolIdStr + " not found for email:" + email);
+                appendDebugOutput(returnValues, "debugOutput", "ERROR: Email:" + email + " is not valid");
                 appendDebugOutput(returnValues, "usersWithErrors", email);
             }
-
         } else {
             appendDebugOutput(returnValues, "debugOutput", "ERROR: Email:" + email + " State:" + state + " and SchoolId:" + schoolIdStr + " cannot be blank.");
             appendDebugOutput(returnValues, "usersWithErrors", email);
@@ -192,6 +201,11 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
             debugOutputs.add(debugOutput);
             returnValues.put(key, debugOutputs);
         }
+    }
+
+    protected boolean validateEmail(String email) {
+        org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
+        return emv.isValid(email);
     }
 
 }
