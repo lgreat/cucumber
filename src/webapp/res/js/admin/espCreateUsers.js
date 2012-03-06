@@ -1,9 +1,9 @@
 var GS = GS || {};
 GS.form = GS.form || {};
-GS.form.CreateEspUserForm = function() {
+GS.form.NewEspUserForm = function() {
 
-    this.createUser = function() {
-        if (GS.form.CreateEspUserForm.validateFields() === true) {
+    var createUser = function() {
+        if (validateFields() === true) {
             var email = jQuery('#js_email').val();
             var state = jQuery('#js_state').val();
             var schoolId = jQuery('#js_schoolId').val();
@@ -22,14 +22,14 @@ GS.form.CreateEspUserForm = function() {
         }
     };
 
-    this.validateFields = function() {
-        var isEmailValid = GS.form.EspCreateUsersForm.validateRequiredInput("js_email");
-        var isStateValid = GS.form.EspCreateUsersForm.validateRequiredInput("js_state");
-        var isSchoolIdValid = GS.form.EspCreateUsersForm.validateRequiredInput("js_schoolId");
+    var validateFields = function() {
+        var isEmailValid = validateRequiredInput("js_email");
+        var isStateValid = validateRequiredInput("js_state");
+        var isSchoolIdValid = validateRequiredInput("js_schoolId");
         return isEmailValid && isStateValid && isSchoolIdValid;
     };
 
-    this.validateRequiredInput = function(fieldName) {
+    var validateRequiredInput = function(fieldName) {
         var field = jQuery('#' + fieldName);
         var fieldVal = field.val();
         var fieldError = jQuery('#' + fieldName + '_error');
@@ -48,7 +48,7 @@ GS.form.CreateEspUserForm = function() {
     };
 };
 
-GS.form.CreateEspUsersBatchForm = function() {
+GS.form.NewEspUsersBatchForm = function() {
     var inputElementSelector = "#js_users";
     var debugElementSelector = "#js_userCreationDebug";
     var progressElementSelector = "#js_userCreationProgress";
@@ -60,7 +60,8 @@ GS.form.CreateEspUsersBatchForm = function() {
     var abort = false;
 
     var genericDebugOutput = [];
-    var usersAlreadyCreated = [];
+    var usersAlreadyApproved = [];
+    var usersAlreadyPreApproved = [];
     var usersWithErrors = [];
 
     var updateProgress = function() {
@@ -69,13 +70,17 @@ GS.form.CreateEspUsersBatchForm = function() {
 
     var updateDebug = function() {
         var content = '';
-        if (usersAlreadyCreated.length > 0) {
-            content += "Users already created: " + usersAlreadyCreated.join(",");
-            content += "\n";
+        if (usersAlreadyApproved.length > 0) {
+            content += "Users already approved: " + usersAlreadyApproved.join(",");
+            content += "\n\n";
+        }
+        if (usersAlreadyPreApproved.length > 0) {
+            content += "Users already pre-approved: " + usersAlreadyPreApproved.join(",");
+            content += "\n\n";
         }
         if (usersWithErrors.length > 0) {
             content += "Users with errors (see debug output): " + usersWithErrors.join(",");
-            content += "\n";
+            content += "\n\n";
         }
         if (genericDebugOutput.length > 0) {
             content += "Generic debug output:\n" + genericDebugOutput.join("\n");
@@ -83,30 +88,34 @@ GS.form.CreateEspUsersBatchForm = function() {
         $(debugElementSelector).val(content);
     };
 
-    this.countRows = function(elem) {
+    var countRows = function(elem) {
         if ($.trim(elem.val()) == '') {
             return 0;
         }
         return $.trim(elem.val()).split("\n").length;
     };
 
-    this.startUserCreation = function() {
-        if (confirm("ARE YOU SURE?")) {
+    var startUserCreation = function() {
+        var state = jQuery('#js_batchState').val();
+        if (state === '') {
+            alert("Please select a state.");
+        } else if (confirm("ARE YOU SURE?")) {
             abort = false;
             createUsers(currentIndex, step);
         }
+
     };
 
-    this.stopUserCreation = function() {
+    var stopUserCreation = function() {
         abort = true;
     };
 
-    this.resetUserCreation = function() {
+    var resetUserCreation = function() {
         abort = true;
         currentIndex = 0;
         updateProgress();
         genericDebugOutput = [];
-        usersAlreadyCreated = [];
+        usersAlreadyApproved = [];
         usersWithErrors = [];
         $(debugElementSelector).val('');
     };
@@ -128,17 +137,18 @@ GS.form.CreateEspUsersBatchForm = function() {
         }
         working = true;
         var lines = sliceRows($(inputElementSelector), myIndex, myIndex + myStep);
+        var state = jQuery('#js_batchState').val();
         jQuery.ajax({
             type: 'POST',
             url: "/admin/createEspUsers.page",
-            data: {data:lines},
+            data: {data:lines,state:state},
             dataType: 'json',
             async: true
-        }).done(GS.form.CreateEspUsersBatchForm.createUsersSuccessCallback)
-            .fail(GS.form.CreateEspUsersBatchForm.createUsersErrorCallback);
+        }).done(createUsersSuccessCallback)
+            .fail(createUsersErrorCallback);
     };
 
-    this.createUsersSuccessCallback = function(data) {
+    var createUsersSuccessCallback = function(data) {
         working = false;
         currentIndex += step;
         if (currentIndex > totalRows) {
@@ -146,17 +156,20 @@ GS.form.CreateEspUsersBatchForm = function() {
         }
         updateProgress();
 
-//        if (data.debugOutput && data.debugOutput.length > 0) {
-//            genericDebugOutput = genericDebugOutput.concat(data.debugOutput);
-//        }
-//        if (data.usersAlreadyCreated && data.usersAlreadyCreated.length > 0) {
-//            usersAlreadyCreated = usersAlreadyCreated.concat(data.usersAlreadyCreated);
-//        }
-//        if (data.usersWithErrors && data.usersWithErrors.length > 0) {
-//            usersWithErrors = usersWithErrors.concat(data.usersWithErrors);
-//        }
-//
-//        updateDebug();
+        if (data.debugOutput && data.debugOutput.length > 0) {
+            genericDebugOutput = genericDebugOutput.concat(data.debugOutput);
+        }
+        if (data.usersAlreadyApproved && data.usersAlreadyApproved.length > 0) {
+            usersAlreadyApproved = usersAlreadyApproved.concat(data.usersAlreadyApproved);
+        }
+        if (data.usersAlreadyPreApproved && data.usersAlreadyPreApproved.length > 0) {
+            usersAlreadyPreApproved = usersAlreadyPreApproved.concat(data.usersAlreadyPreApproved);
+        }
+        if (data.usersWithErrors && data.usersWithErrors.length > 0) {
+            usersWithErrors = usersWithErrors.concat(data.usersWithErrors);
+        }
+
+        updateDebug();
 
         if (currentIndex < totalRows) {
             createUsers(currentIndex, step); // recurse
@@ -165,31 +178,40 @@ GS.form.CreateEspUsersBatchForm = function() {
         }
     };
 
-    this.createUsersErrorCallback = function() {
+    var createUsersErrorCallback = function() {
         working = false;
         alert("Unexpected error with the AJAX request!");
     };
 
-    this.updateTotalRows = function() {
-        totalRows = GS.form.CreateEspUsersBatchForm.countRows(jQuery('#js_users'));
+    var updateTotalRows = function() {
+        totalRows = countRows(jQuery('#js_users'));
+    };
+
+    // interface
+    return {
+        startUserCreation: startUserCreation,
+        stopUserCreation: stopUserCreation,
+        resetUserCreation: resetUserCreation,
+        updateTotalRows: updateTotalRows
     };
 
 };
 
-GS.form.CreateEspUserForm = new GS.form.CreateEspUserForm();
-GS.form.CreateEspUsersBatchForm = new GS.form.CreateEspUsersBatchForm();
+GS.form.newEspUserForm = new GS.form.NewEspUserForm();
+GS.form.newEspUsersBatchForm = new GS.form.NewEspUsersBatchForm();
 
 jQuery(function() {
     jQuery('#js_submit').click(
-        GS.form.CreateEspUserForm.createUser
+        GS.form.newEspUserForm.createUser
     );
 
     jQuery('#js_users').change(function() {
-        GS.form.CreateEspUsersBatchForm.updateTotalRows();
-        GS.form.CreateEspUsersBatchForm.resetUserCreation();
+        GS.form.newEspUsersBatchForm.updateTotalRows();
+        GS.form.newEspUsersBatchForm.resetUserCreation();
     });
-    jQuery('#js_startCreateEspUsers').click(GS.form.CreateEspUsersBatchForm.startUserCreation);
-    jQuery('#js_stopCreateEspUsers').click(GS.form.CreateEspUsersBatchForm.stopUserCreation);
-    jQuery('#js_resetCreateEspUsers').click(GS.form.CreateEspUsersBatchForm.resetUserCreation);
+
+    jQuery('#js_startCreateEspUsers').click(GS.form.newEspUsersBatchForm.startUserCreation);
+    jQuery('#js_stopCreateEspUsers').click(GS.form.newEspUsersBatchForm.stopUserCreation);
+    jQuery('#js_resetCreateEspUsers').click(GS.form.newEspUsersBatchForm.resetUserCreation);
 });
 

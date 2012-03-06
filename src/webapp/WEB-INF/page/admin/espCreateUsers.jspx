@@ -114,6 +114,29 @@
 
         <input class="button-1" type="submit" value="Submit »" id="js_submit"/>
 
+        <br/>
+        <br/>
+        <ul>
+            <li>First select a state from the drop down.</li>
+            <li>Then paste in new user info in the text area below.</li>
+            <li>New line for a each user.</li>
+            <li>Each line should have tab separated values.</li>
+            <li>Order of the tab separated values is important.Email,school id,first name,last name,job title.</li>
+            <li>State,email and school id are required.</li>
+            <li>Example - someone@somedoamin.com 53 someFirstName someLastname principal</li>
+            <li>NOTE- The batch right now processes only one state at a time.</li>
+        </ul>
+
+        <div class="lal clearfix">
+            <div class="alpha grid_4">
+                <label for="js_batchState">State</label>
+            </div>
+            <gsweb:stateSelector styleId="js_batchState"
+                                 name="state"
+                                 useNoState="true"
+                                 noStateLabel="- Choose state -"
+                                 allowNoState="false"/>
+        </div>
 
         <div>
             <textarea rows="10" cols="100" id="js_users"><!--some comment--></textarea>
