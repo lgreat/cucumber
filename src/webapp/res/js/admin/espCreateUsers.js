@@ -12,12 +12,27 @@ GS.form.NewEspUserForm = function() {
             var jobTitle = jQuery('#js_jobTitle').val();
             jQuery.ajax({
                 type: 'POST',
-                url: "/admin/createEspUsers.page",
+                url: "/admin/createEspUser.page",
                 data: {email:email, state:state, schoolId:schoolId, firstName:firstName, lastName:lastName, jobTitle:jobTitle},
                 dataType: 'json',
                 async: true
             }).done(function(data) {
-                    alert("user created");
+                    var debugInfo = "";
+                    if (data.debugOutput && data.debugOutput.length > 0) {
+                        debugInfo = debugInfo.concat(data.debugOutput);
+                        debugInfo += "\n\n";
+                    }
+                    if (data.usersAlreadyApproved && data.usersAlreadyApproved.length > 0) {
+                        debugInfo = "User already approved:" + debugInfo.concat(data.usersAlreadyApproved);
+                        debugInfo += "\n\n";
+                    }
+                    if (data.usersAlreadyPreApproved && data.usersAlreadyPreApproved.length > 0) {
+                        debugInfo = "user already pre-approved:" + debugInfo.concat(data.usersAlreadyPreApproved);
+                        debugInfo += "\n\n";
+                    }
+                    if (debugInfo != "") {
+                        alert(debugInfo);
+                    }
                 });
         }
     };
@@ -45,6 +60,10 @@ GS.form.NewEspUserForm = function() {
         }
 
         return isValid;
+    };
+    // interface
+    return {
+        createUser: createUser
     };
 };
 
@@ -140,7 +159,7 @@ GS.form.NewEspUsersBatchForm = function() {
         var state = jQuery('#js_batchState').val();
         jQuery.ajax({
             type: 'POST',
-            url: "/admin/createEspUsers.page",
+            url: "/admin/createEspUsersBatch.page",
             data: {data:lines,state:state},
             dataType: 'json',
             async: true

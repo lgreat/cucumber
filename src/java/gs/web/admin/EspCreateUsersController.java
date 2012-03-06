@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Controller
-@RequestMapping("/admin/createEspUsers.page")
+@RequestMapping("/admin/")
 public class EspCreateUsersController implements ReadWriteAnnotationController {
 
     public static final String VIEW = "admin/espCreateUsers";
@@ -38,46 +38,30 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
     @Autowired
     private IEspMembershipDao _espMembershipDao;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "createEspUsers.page", method = RequestMethod.GET)
     public String display(ModelMap modelMap, HttpServletRequest request) {
         return VIEW;
     }
 
-//    @RequestMapping(method = RequestMethod.POST)
-//    public void createUser(HttpServletRequest request, HttpServletResponse response) {
-//        String email = request.getParameter("email");
-//        String stateStr = request.getParameter("state");
-//        String schoolIdStr = request.getParameter("schoolId");
-//        String firstName = request.getParameter("firstName");
-//        String lastName = request.getParameter("lastName");
-//        String jobTitle = request.getParameter("jobTitle");
-//
-//        if (StringUtils.isNotBlank(email) && StringUtils.isNotBlank(stateStr) && StringUtils.isNotBlank(schoolIdStr)) {
-//            email = email.trim();
-//            stateStr = stateStr.trim();
-//            schoolIdStr = schoolIdStr.trim();
-//            State state = State.fromString(stateStr);
-//            if (state != null) {
-//                School school = _schoolDao.getSchoolById(state, new Integer(schoolIdStr));
-//                if (school != null) {
-//                    User user = _userDao.findUserFromEmailIfExists(email);
-//                    if (user == null) {
-//                        user = new User();
-//                        user.setEmail(email);
-//                        user.setFirstName(StringUtils.isNotBlank(firstName) ? firstName : null);
-//                        user.setLastName(StringUtils.isNotBlank(lastName) ? lastName : null);
-//                        user.setHow("esp_pre_approved");
-//                        user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
-//                        _userDao.saveUser(user);
-//                    }
-//                    saveEspMembership(user, state, school, jobTitle);
-//                }
-//
-//            }
-//        }
-//    }
+    @RequestMapping(value = "createEspUser.page", method = RequestMethod.POST)
+    public void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Map returnValues = new HashMap();
 
-    @RequestMapping(method = RequestMethod.POST)
+        String email = request.getParameter("email");
+        String schoolIdStr = request.getParameter("schoolId");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String jobTitle = request.getParameter("jobTitle");
+        State state = getState(request.getParameter("state"), returnValues);
+        createUser(email, state, schoolIdStr, firstName, lastName, jobTitle, returnValues);
+        JSONObject rval = new JSONObject(returnValues);
+        _cacheInterceptor.setNoCacheHeaders(response);
+        response.setContentType("application/json");
+        response.getWriter().print(rval.toString());
+        response.getWriter().flush();
+    }
+
+    @RequestMapping(value = "createEspUsersBatch.page", method = RequestMethod.POST)
     public void createUsers(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map returnValues = new HashMap();
 
