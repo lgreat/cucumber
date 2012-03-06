@@ -149,6 +149,25 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         return s;
     }
 
+    /**
+     * Returns the value of the first response if there is one.  Null otherwise.
+     * @param responses List of responses
+     * @param pretty use the pretty esp response value or the raw value?
+     * @return String or null
+     */
+    protected String getFirstValue(List<EspResponse> responses, boolean pretty) {
+        if (responses == null) {
+            return null;
+        }
+
+        EspResponse response = responses.get(0);
+        if (response == null) {
+            return null;
+        }
+
+        return pretty ? response.getPrettyValue() : response.getSafeValue();
+    }
+
     private IEspResponseDao _espResponseDao;
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
@@ -169,6 +188,13 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         List<EspResponse> listResponses = _espResponseDao.getResponses(school);
         Map<String, List<EspResponse>> responses = EspResponse.rollup(listResponses);
         model.put("responses", responses);
+
+        boolean admissionsPhoneContact = false;
+        if (org.apache.commons.lang.StringUtils.equals(getFirstValue(responses.get("parents_contact"), false), "yes")) {
+            admissionsPhoneContact = true;
+        }
+
+        model.put("parents_contact", admissionsPhoneContact);
 
         List<String> values;
 
