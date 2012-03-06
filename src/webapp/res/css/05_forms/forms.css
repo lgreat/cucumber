@@ -145,3 +145,4 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 -------------------------------------------------------------- */
 .slFormsV1-0 .mumbo { font: normal 11px/16px Arial, Helvetica, sans-serif; color: #777777; }
 .slFormsV1-0 .hint { font: italic 11px/16px Arial, Helvetica, sans-serif; color: #777777; margin: 0; padding: 2px 0 6px; }
+.ie7 .slFormsV1-0 .hint {margin-left: 5px;}
