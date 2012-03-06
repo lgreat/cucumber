@@ -1,5 +1,6 @@
 var GS = GS || {};
 GS.form = GS.form || {};
+//Package that handles adding a single user.
 GS.form.NewEspUserForm = function() {
 
     var createUser = function() {
@@ -67,6 +68,7 @@ GS.form.NewEspUserForm = function() {
     };
 };
 
+//Package that handles adding multiple users as a batch.
 GS.form.NewEspUsersBatchForm = function() {
     var inputElementSelector = "#js_users";
     var debugElementSelector = "#js_userCreationDebug";
