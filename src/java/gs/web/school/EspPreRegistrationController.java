@@ -6,18 +6,21 @@ import gs.data.school.EspMembership;
 import gs.data.school.EspMembershipStatus;
 import gs.data.school.IEspMembershipDao;
 import gs.data.school.ISchoolDao;
+import gs.data.util.DigestUtil;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -26,6 +29,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/official-school-profile/")
 public class EspPreRegistrationController implements ReadWriteAnnotationController {
+    public static final String PATH_TO_FORM = "/official-school-profile/preRegister.page"; // used by UrlBuilder
     private static final Log _log = LogFactory.getLog(EspPreRegistrationController.class);
 
     public static final String VIEW = "school/espPreRegistration";
@@ -97,11 +101,69 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
         return null;
     }
     
-    protected User getValidUserFromHash(String hashPlusId) {
-        // TODO
-        _log.error("Rejecting user because I haven't written authentication yet.");
-        return null;
+    protected User getValidUserFromHash(String hashPlusUserId) {
+        User user = null;
+        Integer userId = getUserId(hashPlusUserId);
+        if (hashPlusUserId == null) {
+            _log.error("Cannot verify email with null hashPlusUserId");
+        } else if (hashPlusUserId.length() <= DigestUtil.MD5_HASH_LENGTH || userId == null) {
+            _log.warn("Email verification request with badly formed hashPlusUserId: " + hashPlusUserId +
+                    "Expecting hash of length " + DigestUtil.MD5_HASH_LENGTH + " followed by userId.");
+        } else {
+            String hash = getHash(hashPlusUserId);
+            try {
+                user = _userDao.findUserFromId(userId);
+                if (!verificationHashMatchesUser(user, hash)) {
+                    _log.error("Verification link hash " + hashPlusUserId + " does not match user: " + user);
+                }
+            } catch (ObjectRetrievalFailureException orfe) {
+                _log.warn("Community registration request for unknown user id: " + userId);
+            }
+        }
+
+        return user;
     }
+
+    public boolean verificationHashMatchesUser(User user, String hash) {
+        boolean validHash = false;
+        String actualHash = null;
+        try {
+            if (user.getId() != null && user.getEmail() != null) {
+                actualHash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
+            }
+            validHash = (hash != null && actualHash != null && hash.equals(actualHash));
+            if (!validHash) {
+                _log.warn("OSP Pre-registration request has invalid hash: " + hash + " for user " + user.getEmail());
+//                _log.error("TEMPORARILY RETURNING TRUE DURING DEVELOPMENT. DO NOT CHECK IN");
+//                return true;
+            }
+        } catch (NoSuchAlgorithmException e) {
+            _log.warn("Failed to hash string: " + e, e);
+            //Nothing can be done
+        }
+        return validHash;
+    }
+
+    public String getHash(String hashPlusUserId) {
+        if (hashPlusUserId == null || hashPlusUserId.length() <= DigestUtil.MD5_HASH_LENGTH) {
+            return null;
+        }
+
+        return hashPlusUserId.substring(0, DigestUtil.MD5_HASH_LENGTH);
+    }
+
+    public Integer getUserId(String hashPlusUserId) {
+        if (hashPlusUserId == null || hashPlusUserId.length() <= DigestUtil.MD5_HASH_LENGTH) {
+            return null;
+        }
+
+        try {
+            return Integer.parseInt(hashPlusUserId.substring(DigestUtil.MD5_HASH_LENGTH));
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
     
     protected String redirectToRegistration(HttpServletRequest request) {
         UrlBuilder ospReg = new UrlBuilder(UrlBuilder.ESP_REGISTRATION);

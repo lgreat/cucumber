@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.142 2012/02/17 21:50:40 eddie Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.143 2012/03/06 21:15:04 aroy Exp $
  */
 
 package gs.web.util;
@@ -488,6 +488,9 @@ public class UrlBuilderSaTest extends BaseTestCase {
 
         builder = new UrlBuilder(UrlBuilder.ADD_EDIT_SCHOOL_OR_DISTRICT);
         assertEquals("/about/feedback/addEditSchoolOrDistrict.page", builder.toString());
+        
+        builder = new UrlBuilder(UrlBuilder.ESP_PRE_REGISTRATION, null, "foo");
+        assertEquals("/official-school-profile/preRegister.page?id=foo", builder.toString());
     }
 
     public void testMicroSitePages() {

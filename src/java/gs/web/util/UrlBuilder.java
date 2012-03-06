@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.284 2012/02/17 21:50:40 eddie Exp $
+ * $Id: UrlBuilder.java,v 1.285 2012/03/06 21:15:04 aroy Exp $
  */
 
 package gs.web.util;
@@ -23,6 +23,7 @@ import gs.web.path.DirectoryStructureUrlFields.ExtraResourceIdentifier;
 import gs.web.request.RequestInfo;
 import gs.web.request.Subdomain;
 import gs.web.school.EspFormController;
+import gs.web.school.EspPreRegistrationController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.Anchor;
@@ -345,6 +346,7 @@ public class UrlBuilder {
     public static final VPage ESP_REGISTRATION = new VPage("vpage:espRegistration");
     public static final VPage ESP_SIGN_IN = new VPage("vpage:espSignIn");
     public static final VPage ESP_DASHBOARD = new VPage("vpage:espLanding");
+    public static final VPage ESP_PRE_REGISTRATION = new VPage("vpage:espPreRegistration");
 
     private static void populateVPageNameMap() {
         Field[] fields = UrlBuilder.class.getFields();
@@ -1563,6 +1565,10 @@ public class UrlBuilder {
             _perlPage = false;
             _path = "/account/";
             setParameter("viewAllActivity","true");
+        } else if(ESP_PRE_REGISTRATION.equals(page)){
+            _perlPage = false;
+            _path = EspPreRegistrationController.PATH_TO_FORM;
+            setParameter(EspPreRegistrationController.PARAM_ID,param0);
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }
