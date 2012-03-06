@@ -95,24 +95,22 @@
         </div>
     </c:if>
 
-    <c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
-        <div class="lal clearfix">
-            <div class="alpha grid_7">
-                <p class="labelGroup">Select one of these options to best describe the special education programming at your school</p>
-            </div>
-            <div class="grid_16 omega">
-                <c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
-                    <school:espRadioWithLabel key="spec_ed_level" value="none" label="None"/>
-                </c:if>
-                <school:espRadioWithLabel key="spec_ed_level" value="basic"
-                                          label="Basic - we offer or partner to provide services based on the needs of individual students"/>
-                <school:espRadioWithLabel key="spec_ed_level" value="moderate"
-                                          label="Moderate - we consistently offer a full program for particular special education needs"/>
-                <school:espRadioWithLabel key="spec_ed_level" value="intensive"
-                                          label="Intensive - we offer a full program for many needs and/or we offer at least one very comprehensive program for very challenging needs such as autism or complete visual impairment"/>
-            </div>
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">Select one of these options to best describe the special education programming at your school</p>
         </div>
-    </c:if>
+        <div class="grid_16 omega">
+            <c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
+                <school:espRadioWithLabel key="spec_ed_level" value="none" label="None"/>
+            </c:if>
+            <school:espRadioWithLabel key="spec_ed_level" value="basic"
+                                      label="Basic - we offer or partner to provide services based on the needs of individual students"/>
+            <school:espRadioWithLabel key="spec_ed_level" value="moderate"
+                                      label="Moderate - we consistently offer a full program for particular special education needs"/>
+            <school:espRadioWithLabel key="spec_ed_level" value="intensive"
+                                      label="Intensive - we offer a full program for many needs and/or we offer at least one very comprehensive program for very challenging needs such as autism or complete visual impairment"/>
+        </div>
+    </div>
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
