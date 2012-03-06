@@ -86,11 +86,11 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
 
         String data = request.getParameter("data");
         if (StringUtils.isBlank(data)) {
-            appendDebugOutput(returnValues, "debugOutput", "ERROR: No data received");
+            addToList(returnValues, "debugOutput", "ERROR: No data received");
         } else {
             String[] lines = data.split("\n");
             if (lines.length == 0) {
-                appendDebugOutput(returnValues, "debugOutput", "ERROR: No data received");
+                addToList(returnValues, "debugOutput", "ERROR: No data received");
             } else {
                 State state = getState(request.getParameter("state"), returnValues);
                 for (int i = 0; i < lines.length; i++) {
@@ -105,12 +105,12 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                             try {
                                 addUser(request, email, state, schoolIdStr, firstName, lastName, jobTitle, returnValues);
                             } catch (Exception e) {
-                                appendDebugOutput(returnValues, "debugOutput", "ERROR: at creating user for email:" + email + " Exception:" + e);
-                                appendDebugOutput(returnValues, "usersWithErrors", email);
+                                addToList(returnValues, "debugOutput", "ERROR: at creating user for email:" + email + " Exception:" + e);
+                                addToList(returnValues, "usersWithErrors", email);
                             }
                         }
                     } catch (Exception e) {
-                        appendDebugOutput(returnValues, "debugOutput", "ERROR: at line number:" + i + " Exception:" + e);
+                        addToList(returnValues, "debugOutput", "ERROR: at line number:" + i + " Exception:" + e);
                     }
                 }
 
@@ -127,12 +127,12 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
     protected State getState(String stateStr, Map returnValues) {
         State state = null;
         if (StringUtils.isBlank(stateStr)) {
-            appendDebugOutput(returnValues, "debugOutput", "ERROR: State:" + stateStr + " cannot be blank.");
+            addToList(returnValues, "debugOutput", "ERROR: State:" + stateStr + " cannot be blank.");
         } else {
             state = State.fromString(stateStr);
         }
         if (state == null) {
-            appendDebugOutput(returnValues, "debugOutput", "ERROR: State:" + stateStr + " not found.");
+            addToList(returnValues, "debugOutput", "ERROR: State:" + stateStr + " not found.");
         }
         return state;
     }
@@ -159,8 +159,8 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                 try {
                     school = _schoolDao.getSchoolById(state, new Integer(schoolIdStr));
                 } catch (Exception e) {
-                    appendDebugOutput(returnValues, "debugOutput", "ERROR: School:" + schoolIdStr + " not found for email:" + email);
-                    appendDebugOutput(returnValues, "usersWithErrors", email);
+                    addToList(returnValues, "debugOutput", "ERROR: School:" + schoolIdStr + " not found for email:" + email);
+                    addToList(returnValues, "usersWithErrors", email);
                 }
                 if (school != null) {
                     User user = _userDao.findUserFromEmailIfExists(email);
@@ -175,15 +175,20 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                     } else {
                         // TODO ?Example NL users.
                     }
-                    saveEspMembership(request, user, state, school, jobTitle, returnValues);
+
+                    boolean didPreApproveUser = saveEspMembership(user, state, school, jobTitle, returnValues);
+                    //If the user state was changed to "pre-approved" then send out an email.
+                    if (didPreApproveUser) {
+                        sendESPVerificationEmail(request, user, returnValues);
+                    }
                 }
             } else {
-                appendDebugOutput(returnValues, "debugOutput", "ERROR: Email:" + email + " is not valid");
-                appendDebugOutput(returnValues, "usersWithErrors", email);
+                addToList(returnValues, "debugOutput", "ERROR: Email:" + email + " is not valid");
+                addToList(returnValues, "usersWithErrors", email);
             }
         } else {
-            appendDebugOutput(returnValues, "debugOutput", "ERROR: Email:" + email + " State:" + state + " and SchoolId:" + schoolIdStr + " cannot be blank.");
-            appendDebugOutput(returnValues, "usersWithErrors", email);
+            addToList(returnValues, "debugOutput", "ERROR: Email:" + email + " State:" + state + " and SchoolId:" + schoolIdStr + " cannot be blank.");
+            addToList(returnValues, "usersWithErrors", email);
         }
     }
 
@@ -191,19 +196,21 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
      * Method to add a new esp_membership row for a user in a "pre-approved" status.
      * This method also updates the status to "pre-approved" if the current status is "disabled","rejected" or "processing".
      *
-     * @param request
      * @param user
      * @param state
      * @param school
      * @param jobTitle
      * @param returnValues
      */
-    protected void saveEspMembership(HttpServletRequest request, User user, State state, School school, String jobTitle, Map returnValues) {
+    protected boolean saveEspMembership(User user, State state, School school, String jobTitle, Map returnValues) {
+        boolean preApprovedUser = false;
+
         if (state != null && school != null && school.getId() != null && school.getId() > 0 && user != null
                 && user.getId() != null) {
             EspMembership espMembership = _espMembershipDao.findEspMembershipByStateSchoolIdUserId(state, school.getId(), user.getId(), false);
 
             if (espMembership == null) {
+
                 EspMembership esp = new EspMembership();
                 esp.setActive(false);
                 esp.setJobTitle(StringUtils.isNotBlank(jobTitle) ? jobTitle : DEFAULT_JOB_TITLE);
@@ -212,35 +219,41 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                 esp.setStatus(EspMembershipStatus.PRE_APPROVED);
                 esp.setUser(user);
                 _espMembershipDao.saveEspMembership(esp);
-                sendESPVerificationEmail(request, user, returnValues);
-                appendDebugOutput(returnValues, "debugOutput", "INFO: created a new pre-approved user." + user.getEmail());
+                preApprovedUser = true;
+                addToList(returnValues, "debugOutput", "INFO: created a new pre-approved user." + user.getEmail());
+
             } else if ((espMembership.getStatus().equals(EspMembershipStatus.DISABLED) ||
                     espMembership.getStatus().equals(EspMembershipStatus.REJECTED) ||
                     espMembership.getStatus().equals(EspMembershipStatus.PROCESSING)) && !espMembership.getActive()) {
+
                 espMembership.setStatus(EspMembershipStatus.PRE_APPROVED);
                 espMembership.setUpdated(new Date());
                 _espMembershipDao.saveEspMembership(espMembership);
-                sendESPVerificationEmail(request, user, returnValues);
-                appendDebugOutput(returnValues, "debugOutput", "INFO: updated user to pre-approved:" + user.getEmail());
+                preApprovedUser = true;
+                addToList(returnValues, "debugOutput", "INFO: updated user to pre-approved:" + user.getEmail());
+
             } else if (espMembership.getStatus().equals(EspMembershipStatus.APPROVED)) {
-                appendDebugOutput(returnValues, "usersAlreadyApproved", user.getEmail());
-                appendDebugOutput(returnValues, "usersWithErrors", user.getEmail());
+
+                addToList(returnValues, "usersAlreadyApproved", user.getEmail());
+                addToList(returnValues, "usersWithErrors", user.getEmail());
+
             } else if (espMembership.getStatus().equals(EspMembershipStatus.PRE_APPROVED)) {
-                appendDebugOutput(returnValues, "usersAlreadyPreApproved", user.getEmail());
-                appendDebugOutput(returnValues, "usersWithErrors", user.getEmail());
+
+                addToList(returnValues, "usersAlreadyPreApproved", user.getEmail());
+                addToList(returnValues, "usersWithErrors", user.getEmail());
             }
         } else {
-            appendDebugOutput(returnValues, "debugOutput", "ERROR: State:" + state + " School:" + school + " and User:" + user + " cannot be null.");
+            addToList(returnValues, "debugOutput", "ERROR: State:" + state + " School:" + school + " and User:" + user + " cannot be null.");
         }
+        return preApprovedUser;
     }
 
     protected void sendESPVerificationEmail(HttpServletRequest request, User user, Map<String, List<String>> returnValues) {
         if (user != null && StringUtils.isNotBlank(user.getEmail())) {
             try {
                 String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-                hash = DigestUtil.hashString(hash);
 
-                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_PRE_REGISTRATION, null, hash + user.getId());
 
                 StringBuffer espVerificationUrl = new StringBuffer("<a href=\"");
                 espVerificationUrl.append(urlBuilder.asFullUrl(request));
@@ -252,7 +265,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                 _exactTargetAPI.sendTriggeredEmail("ESP-preapproval", user, emailAttributes);
 
             } catch (Exception e) {
-                appendDebugOutput(returnValues, "debugOutput", "ERROR: Sending verification email to:" + user.getEmail() + ".Exception:" + e);
+                addToList(returnValues, "debugOutput", "ERROR: Sending verification email to:" + user.getEmail() + ".Exception:" + e);
             }
         }
     }
@@ -264,7 +277,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
      * @param key          - key to append the message to.
      * @param debugOutput  - the debug message.
      */
-    protected void appendDebugOutput(Map<String, List<String>> returnValues, String key, String debugOutput) {
+    protected void addToList(Map<String, List<String>> returnValues, String key, String debugOutput) {
         List debugOutputs = returnValues.get(key);
         if (debugOutputs != null) {
             debugOutputs.add(debugOutput);
