@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -187,34 +188,25 @@ public class EspModerationSearchController extends AbstractEspModerationControll
             }
         }
 
-        // by state and school?
+        // by state and school or state, school and email?
         else if(!isEmpty(command.getStateString()) && !isEmpty(command.getSchoolId())) {
             int schoolId = resolveSchoolId(command);
             State state = command.getState();
-            School school = _schoolDao.getSchoolById(state, schoolId);
-            if(school != null) {
-                results = _espMembershipDao.findEspMembershipsBySchool(school, false);
+            try {
+                School school = _schoolDao.getSchoolById(state, schoolId);
+                if(school != null) {
+                    results = _espMembershipDao.findEspMembershipsBySchool(school, false);
+                }
+            } catch(ObjectRetrievalFailureException orfe) {
+                // results remains null, do nothing
             }
-            
+
             if(results != null && results.size() > 0) {
                 // filter by email?
                 if(!isEmpty(command.getEmail())) {
                     ArrayList<EspMembership> tmplist = new ArrayList<EspMembership>(results.size());
                     for(EspMembership m : results) {
                         if(m.getUser() != null && command.getEmail().equals(m.getUser().getEmail())) {
-                            tmplist.add(m);
-                        }
-                    }
-                    results = tmplist;
-                }
-                
-                // filter by user?
-                if(!isEmpty(command.getEmail())) {
-                    int userId = resolveUserId(command);
-                    ArrayList<EspMembership> tmplist = new ArrayList<EspMembership>(results.size());
-                    for(EspMembership m : results) {
-                        int mUserId = m.getUser() == null ? -1 : m.getUser().getId().intValue();
-                        if(userId == mUserId) {
                             tmplist.add(m);
                         }
                     }
@@ -231,7 +223,9 @@ public class EspModerationSearchController extends AbstractEspModerationControll
         // by user only?
         else if(!isEmpty(command.getUserId())) {
             int userId = resolveUserId(command);
-            if(userId != -1) results = _espMembershipDao.findEspMembershipsByUserId(userId, false);
+            if(userId != -1) {
+                results = _espMembershipDao.findEspMembershipsByUserId(userId, false);
+            }
         }
         
         return results;
