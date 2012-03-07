@@ -7,7 +7,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
-          version="2.0">
+          version="2.0" xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <jsp:directive.page contentType="text/html"/>
     <jsp:output doctype-root-element="html"
@@ -36,8 +36,7 @@
                 <h1 class="fltlft">Your Official School Profile</h1>
 
                 <div class="fltrt mtm">
-                    <span class="small mrm"><link:contactUs feedbackType="esp">Need Help?</link:contactUs></span>
-                    <span class="iconx16 i-16-help vam"><!-- do not collapse --></span>
+                    <school:espNeedHelp school="${school}" />
                 </div>
             </div>
 

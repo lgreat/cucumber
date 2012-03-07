@@ -8763,6 +8763,7 @@ div#YahooRealEstateLink {
     position: relative;
 }
 
+#js-bubbleInfo-espHelp,
 #js-bubbleInfo-8,
 #js-bubbleInfo-9 {
     position: relative;
@@ -8807,6 +8808,14 @@ div#YahooRealEstateLink {
     border: 1px solid #ccc;
     padding: 10px 15px;
     width: 220px;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.generic-bubbleInfo .popup-contents {
+    background: #FFF;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
     text-align: left;
     margin-bottom: 15px;
 }
@@ -8903,6 +8912,18 @@ div#YahooRealEstateLink {
     top: 20px;
 }
 
+.generic-bubbleInfo span.arrow-outline-right {
+    position: absolute;
+    left: 194px;
+    top: 20px;
+}
+
+.generic-bubbleInfo span.arrow-right {
+    position: absolute;
+    left: 192px;
+    top: 20px;
+}
+
 #popup-contents-7 span.arrow-outline-bottom {
     position: absolute;
     left: 119px;
@@ -8925,6 +8946,13 @@ div#YahooRealEstateLink {
 
 #popup-contents-8 span.arrow-top,
 #popup-contents-9 span.arrow-top {
+    position: absolute;
+    left: 30px;
+    top: 3px;
+    *top: 1px;
+}
+
+.generic-bubbleInfo span.arrow-top {
     position: absolute;
     left: 30px;
     top: 3px;
@@ -10266,4 +10294,3 @@ p#btsBubbleOpts {
     left: 315px;
     top: -144px;
 }
-
