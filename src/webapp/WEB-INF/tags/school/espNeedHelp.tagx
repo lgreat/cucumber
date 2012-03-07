@@ -30,8 +30,6 @@
             <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTrigger}" width="200" height="50">
                 <span class="text3bold">Get help with your profile from local staff</span>
                 <br/>
-                <span>Hotline: ???-???-????</span>
-                <br/>
                 <span>Email: indianapolis@greatschools.org</span>
             </gsml:bubblePopup>
         </c:when>
