@@ -7,7 +7,7 @@ Function.prototype.gs_bind = function(obj) {
     };
 };
 
-GS.PhotoUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabaseState) {
+GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabaseState) {
     this.idSuffix = idSuffix; //a unique ID suffix for this specific uploader instance
     this.httpPostUrl = httpPostUrl;
     this.schoolId = schoolId;
@@ -28,7 +28,7 @@ GS.PhotoUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabaseState
     this.createUploader();
 };
 
-GS.PhotoUploader.prototype.createUploader = function() {
+GS.SingleFileUploader.prototype.createUploader = function() {
     this.uploader = new plupload.Uploader({
         runtimes : 'flash,html5,silverlight',
         browse_button : 'jsPhotoBrowseButton',
