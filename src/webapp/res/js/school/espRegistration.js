@@ -173,26 +173,6 @@ GS.form.EspForm = function() {
         return dfd.promise();
     };
 
-//    this.validateSchool = function() {
-//        var schoolField = jQuery('#js_school');
-//        var schoolId = schoolField.val();
-//        var fieldError = jQuery('.js_school.invalid');
-//        var dfd = jQuery.Deferred();
-//
-//        fieldError.hide();
-//        GS.form.espForm.removeWarningClassFromElem(schoolField);
-//
-//        if (schoolId === "" || schoolId === undefined || schoolId === "-1" || schoolId === "0") {
-//            fieldError.show();
-//            GS.form.espForm.addWarningClassToElem(schoolField);
-//            dfd.reject();
-//        } else {
-//            dfd.resolve();
-//        }
-//
-//        return dfd.promise();
-//    };
-
     this.validateStateSchoolUserUnique = function() {
         var schoolId = jQuery('#js_school').val();
         var state = jQuery('#js_stateAdd').val();
@@ -300,7 +280,6 @@ GS.form.EspForm = function() {
             GS.form.espForm.validateRequiredFields('stateAdd'),
             GS.form.espForm.validateRequiredFields('city'),
             GS.form.espForm.validateRequiredFields('school'),
-//            GS.form.espForm.validateSchool(),
             GS.form.espForm.validateStateSchoolUserUnique()
         ).done(
             function() {
@@ -362,7 +341,7 @@ jQuery(function() {
     jQuery('#js_jobTitle').change(function() {
         GS.form.espForm.validateRequiredFields('jobTitle');
     });
-//    jQuery('#js_school').change(GS.form.espForm.validateSchool);
+
     jQuery('#js_school').change(function() {
         GS.form.espForm.validateRequiredFields('school');
     });
