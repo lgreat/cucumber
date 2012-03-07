@@ -159,7 +159,7 @@
 
             <c:set var="admissionsUrl"><gsweb:erts list="${responses.admissions_url}" pretty="false"/></c:set>
             <!--<c:set var="appUpload"><gsweb:erts list="${responses.application_upload}"/></c:set>-->
-            <c:if test="${not empty admissionsUrl or parents_contact}">
+            <c:if test="${not empty admissionsUrl or admissions_contact_school}">
                 <tr>
                     <td class="small_bold">To obtain application information, parents may</td>
                     <td>
@@ -171,7 +171,7 @@
                         <!--<c:if test="${not empty appUpload}">-->
                         <!--<div>Download application information: <span class="val">${appUpload}</span></div>-->
                         <!--</c:if>-->
-                        <c:if test="${parents_contact}">
+                        <c:if test="${admissions_contact_school}">
                             <div>Call the school</div>
                         </c:if>
                     </td>

@@ -189,12 +189,12 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         Map<String, List<EspResponse>> responses = EspResponse.rollup(listResponses);
         model.put("responses", responses);
 
-        boolean admissionsPhoneContact = false;
-        if (org.apache.commons.lang.StringUtils.equals(getFirstValue(responses.get("parents_contact"), false), "yes")) {
-            admissionsPhoneContact = true;
+        boolean admissionsContactSchool = false;
+        if (org.apache.commons.lang.StringUtils.equals(getFirstValue(responses.get("admissions_contact_school"), false), "yes")) {
+            admissionsContactSchool = true;
         }
 
-        model.put("parents_contact", admissionsPhoneContact);
+        model.put("admissions_contact_school", admissionsContactSchool);
 
         List<String> values;
 

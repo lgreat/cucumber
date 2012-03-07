@@ -973,7 +973,7 @@ new (function() {
         });
         
         // page 3 specific
-        GS.form.controlVisibilityOfElementWithRadio('#js_sctn_admissions_header, #js_sctn_admissions_contact_school, #sctn_admissions_url, #sctn_parents_contact, #sctn_application_deadline, #sctn_applications_received, #sctn_students_accepted, #sctn_application_fee','[name=application_process]', 'yes');
+        GS.form.controlVisibilityOfElementWithRadio('#js_sctn_admissions_header, #js_sctn_admissions_contact_school, #sctn_admissions_url, #sctn_application_deadline, #sctn_applications_received, #sctn_students_accepted, #sctn_application_fee','[name=application_process]', 'yes');
         $('#form_applications_received').on('keyup', function(){
         	$('#form_applications_received_year').toggle($(this).val().length > 0)
         });

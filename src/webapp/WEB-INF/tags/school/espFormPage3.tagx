@@ -43,7 +43,7 @@
         <label>Contact school</label>
     </div>
     <div class="grid_16 omega">
-        <school:espCheckboxWithLabel key="parents_contact" value="yes" label="Parents should call the school for application information"/>
+        <school:espCheckboxWithLabel key="admissions_contact_school" value="yes" label="Parents should call the school for application information"/>
     </div>
 </div>
 
@@ -53,15 +53,6 @@
   </div>
   <div class="grid_9 omega">
     <input type="file" id="form_application_upload" name="application_upload" class="mls js_otherField text input_6" value="${responseMap['application_upload'].value}" placeholder="[Click browse to upload a PDF file]" size="30" maxlength="30"/>
-  </div>
-</div>-->
-
-<!--<div id="sctn_parents_contact" class="lal clearfix">
-  <div class="alpha grid_8">
-    <label for="form_parents_contact">Contact school</label>
-  </div>
-  <div class="grid_9 omega">
-    <school:espCheckboxWithLabel key="parents_contact" value="1" label="Parents should call the school for application information"/>
   </div>
 </div>-->
 
