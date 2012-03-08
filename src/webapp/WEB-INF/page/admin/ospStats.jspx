@@ -16,15 +16,45 @@
     <title>GreatSchools OSP Status Page</title>
     <script type="text/javascript">
         <![CDATA[
-        var loadTotalOSPForState = function(state, deferred) {
+        GS.util = GS.util || {};
+        GS.util.chainedExecutor = (function () {
+            var chain = function (f, deferred) {
+                return function () {
+                    var blah = f();
+                    if (blah && blah.always) {
+                        blah.always(function () {
+                            deferred.resolve();
+                        });
+                    } else {
+                        deferred.resolve();
+                    }
+                };
+            };
+            return function (funcArray) {
+                var initialQueue = new jQuery.Deferred();
+                var nextQueue = null;
+                for (var x = 0; x < funcArray.length; x++) {
+                    var obj = funcArray[x];
+                    if (nextQueue == null) {
+                        nextQueue = new jQuery.Deferred();
+                        initialQueue.done(chain(funcArray[x], nextQueue));
+                    } else {
+                        var newQueue = new jQuery.Deferred();
+                        nextQueue.done(chain(funcArray[x], newQueue));
+                        nextQueue = newQueue;
+                    }
+                }
+                initialQueue.resolve();
+            };
+        })();
+
+        var loadOSPStatsForState = function(elem) {
             return function() {
+                var state = elem.id.substring("js_stats_by_state_".length);
                 $('.js_error_' + state).html('<img src="/res/img/admin/spinner.gif"/>');
-                jQuery.getJSON(
+                return jQuery.getJSON(
                         "/admin/status/ospAjax.page",
                         {state:state}
-                ).always(function() {
-                            deferred.resolve();
-                        }
                 ).done(function (data) {
                             if (data.total !== undefined) {
                                 $('#js_stats_by_state_' + state).html(data.total);
@@ -42,24 +72,15 @@
                 ).fail(function() {
                             $('.js_error_' + state).html("Error");
                         }
-                );
-            };
+                ).promise();
+            }
         };
         jQuery(function() {
-            var totalOspQueue = new jQuery.Deferred();
-            var nextQueue = null;
-            jQuery('#js_state_data').find('.js_stats_by_state').each(function(index, element) {
-                var state = this.id.substring("js_stats_by_state_".length);
-                if (nextQueue == null) {
-                    nextQueue = new jQuery.Deferred();
-                    totalOspQueue.done(loadTotalOSPForState(state, nextQueue));
-                } else {
-                    var newQueue = new jQuery.Deferred();
-                    nextQueue.done(loadTotalOSPForState(state, newQueue));
-                    nextQueue = newQueue;
-                }
+            var funcArray = new Array();
+            jQuery('#js_state_data').find('.js_stats_by_state').each(function() {
+                funcArray.push(loadOSPStatsForState(this));
             });
-            totalOspQueue.resolve(); // start the cascade
+            GS.util.chainedExecutor(funcArray);
         });
         ]]>
     </script>
