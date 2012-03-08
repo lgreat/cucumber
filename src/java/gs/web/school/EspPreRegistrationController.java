@@ -2,13 +2,19 @@ package gs.web.school;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.community.UserProfile;
+import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.EspMembership;
 import gs.data.school.EspMembershipStatus;
 import gs.data.school.IEspMembershipDao;
-import gs.data.school.ISchoolDao;
+import gs.data.security.IRoleDao;
+import gs.data.security.Role;
 import gs.data.util.DigestUtil;
+import gs.web.community.registration.UserCommand;
+import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
+import gs.web.util.validator.UserCommandValidator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,11 +22,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,17 +43,19 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
     private static final Log _log = LogFactory.getLog(EspPreRegistrationController.class);
 
     public static final String VIEW = "school/espPreRegistration";
-    
-    public static final String PARAM_ID="id";
+
+    public static final String PARAM_ID = "id";
     public static final String MODEL_MEMBERSHIP = "membership";
     public static final String MODEL_USER = "user";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
+
     @Autowired
     private IUserDao _userDao;
+
     @Autowired
-    private ISchoolDao _schoolDao; // TODO: maybe unnecessary?
+    protected IRoleDao _roleDao;
 
     @RequestMapping(value = "preRegister.page", method = RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request) {
@@ -71,7 +83,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
         // pull the membership in status PRE_APPROVED
         boolean hasActiveMembership = false;
         EspMembership membershipToProcess = null;
-        for (EspMembership membership: memberships) {
+        for (EspMembership membership : memberships) {
             if (membership.getStatus() == EspMembershipStatus.PRE_APPROVED) {
                 membershipToProcess = membership;
             } else if (membership.getActive()) {
@@ -86,21 +98,61 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             _log.error("Already found active membership for user " + user);
             return redirectToRegistration(request);
         }
-        
-        // ok member passed authentication and has a preapproved membership, let's show them the form!
-        // TODO: Any other data necessary?
+
+        // ok member passed authentication and has a pre-approved membership, let's show them the form!
         modelMap.put(MODEL_MEMBERSHIP, membershipToProcess);
         modelMap.put(MODEL_USER, user);
-        
+        EspRegistrationCommand command = new EspRegistrationCommand();
+        modelMap.addAttribute("espRegistrationCommand", command);
+
         return VIEW;
     }
 
     @RequestMapping(value = "preRegister.page", method = RequestMethod.POST)
-    public String processForm(ModelMap modelMap, HttpServletRequest request) {
-        // TODO
-        return null;
+    public String processForm(@ModelAttribute("espRegistrationCommand") EspRegistrationCommand command,
+                              BindingResult result,
+                              HttpServletRequest request,
+                              HttpServletResponse response) throws Exception {
+        String hashPlusId = request.getParameter(PARAM_ID);
+        User user = getValidUserFromHash(hashPlusId);
+        if (user == null) {
+            // error logging handled by getValidUserFromHash method
+            return redirectToRegistration(request);
+        }
+
+        //server side validation for the fields.
+        validate(command, result, user);
+        if (result.hasErrors()) {
+            return VIEW;
+        }
+
+        setUserInfo(command, user);
+        _userDao.updateUser(user);
+        ThreadLocalTransactionManager.commitOrRollback();
+
+        //Set the user's password.
+        setUsersPassword(command, user);
+
+        //add the esp_member role to the user
+        Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
+        user.addRole(role);
+
+        _userDao.updateUser(user);
+        ThreadLocalTransactionManager.commitOrRollback();
+        user = getValidUserFromHash(hashPlusId);
+
+        //Set the user's profile and save the user.
+        updateUserProfile(command, user);
+        _userDao.updateUser(user);
+
+        //update ESP membership for user.
+        updateEspMembership(command, user);
+
+        //Sign the user in and re-direct to the dashboard
+        PageHelper.setMemberAuthorized(request, response, user, true);
+        return redirectToEspDashboard(request);
     }
-    
+
     protected User getValidUserFromHash(String hashPlusUserId) {
         User user = null;
         Integer userId = getUserId(hashPlusUserId);
@@ -164,9 +216,127 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
         }
     }
 
-    
+    protected void validate(EspRegistrationCommand command, BindingResult result, User user) {
+        UserCommandValidator validator = new UserCommandValidator();
+        validator.setUserDao(_userDao);
+        UserCommand userCommand = new UserCommand();
+
+        userCommand.setFirstName(command.getFirstName());
+        userCommand.setLastName(command.getLastName());
+        userCommand.setPassword(command.getPassword());
+        userCommand.setConfirmPassword(command.getConfirmPassword());
+        userCommand.setScreenName(command.getScreenName());
+
+        validator.validateFirstName(userCommand, result);
+        validator.validateLastName(userCommand, result);
+        validator.validatePassword(userCommand, result);
+        validator.validateUsername(userCommand, user, result);
+
+        String email = command.getEmail();
+        if (StringUtils.isNotBlank(email)) {
+            email = email.trim();
+            if (!user.getEmail().equals(email)) {
+                result.rejectValue("email", "Email address in the hash does not match the email param in the POST.");
+            } else if (!validateEmail(email.trim())) {
+                result.rejectValue("email", "invalid_email");
+            }
+        } else {
+            result.rejectValue("email", "invalid_email");
+        }
+
+        String jobTitle = command.getJobTitle();
+        if (StringUtils.isBlank(jobTitle)) {
+            result.rejectValue("jobTitle", null, "Job Title cannot be empty.");
+        }
+    }
+
+    //TODO move this to a util
+    protected boolean validateEmail(String email) {
+        org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
+        return emv.isValid(email);
+    }
+
+    protected void setUserInfo(EspRegistrationCommand command, User user) {
+        if (user != null) {
+            if (StringUtils.isNotBlank(command.getFirstName())) {
+                user.setFirstName(command.getFirstName().trim());
+            }
+            if (StringUtils.isNotBlank(command.getLastName())) {
+                user.setLastName(command.getLastName().trim());
+            }
+            //default gender.
+            if (StringUtils.isBlank(user.getGender())) {
+                user.setGender("u");
+            }
+        }
+    }
+
+    protected void setUsersPassword(EspRegistrationCommand command, User user) throws Exception {
+        //NOTE :We accept just spaces as password.Therefore do NOT use : isBlank, use : isEmpty and do NOT trim().
+        try {
+            if (StringUtils.isNotEmpty(command.getPassword()) && !user.isEmailValidated()) {
+                user.setPlaintextPassword(command.getPassword());
+                user.setEmailVerified(true);
+            }
+        } catch (Exception e) {
+            _log.warn("Error setting password: " + e.getMessage(), e);
+            throw e;
+        }
+    }
+
+    protected void updateUserProfile(EspRegistrationCommand command, User user) {
+        UserProfile userProfile;
+
+        if (user.getUserProfile() != null && user.getUserProfile().getId() != null) {
+            userProfile = user.getUserProfile();
+            setUserProfileFieldsFromCommand(command, userProfile);
+
+        } else {
+            userProfile = new UserProfile();
+            setUserProfileFieldsFromCommand(command, userProfile);
+            userProfile.setUser(user);
+            user.setUserProfile(userProfile);
+        }
+    }
+
+    protected void setUserProfileFieldsFromCommand(EspRegistrationCommand command, UserProfile userProfile) {
+        if (userProfile != null) {
+            if (StringUtils.isNotBlank(command.getScreenName())) {
+                userProfile.setScreenName(command.getScreenName().trim());
+            }
+            //TODO update the state and city?
+
+            if (StringUtils.isBlank(userProfile.getHow())) {
+                userProfile.setHow("esp");
+            }
+            userProfile.setUpdated(new Date());
+        }
+    }
+
+    protected void updateEspMembership(EspRegistrationCommand command, User user) {
+
+        List<EspMembership> espMemberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
+        //TODO for all the pre-approved?
+        for (EspMembership espMembership : espMemberships) {
+            if (espMembership.getStatus().equals(EspMembershipStatus.PRE_APPROVED)) {
+                if (StringUtils.isNotBlank(command.getJobTitle())) {
+                    espMembership.setJobTitle(command.getJobTitle());
+                }
+                espMembership.setStatus(EspMembershipStatus.APPROVED);
+                espMembership.setActive(true);
+                espMembership.setUpdated(new Date());
+                _espMembershipDao.saveEspMembership(espMembership);
+            }
+        }
+    }
+
     protected String redirectToRegistration(HttpServletRequest request) {
         UrlBuilder ospReg = new UrlBuilder(UrlBuilder.ESP_REGISTRATION);
+        return "redirect:" + ospReg.asSiteRelative(request);
+    }
+
+    protected String redirectToEspDashboard(HttpServletRequest request) {
+        UrlBuilder ospReg = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
         return "redirect:" + ospReg.asSiteRelative(request);
     }
 }
