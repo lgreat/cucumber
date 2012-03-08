@@ -17,11 +17,10 @@ GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabase
     this.uploadButton = this.container.find('.js-uploader-upload-button');
     this.browseButton = this.container.find('.js-uploader-browse-button');
     this.fakeBrowseButton = this.container.find('.js-uploader-fake-browse-button');
-    this.fileBox = this.container.find('.js-uploader.file');
+    this.fileBox = this.container.find('.js-uploader-file');
     this.statusBox = this.container.find('.js-uploader-status');
     this.spinner = this.container.find('.spinner');
 
-    this.errorMessage = null; // an error message for entire uploader to be displayed after uploader done
     this.FLASH_ENABLED_STYLE = 'position: absolute; top: 191px; background: none repeat scroll 0% 0% transparent; z-index: 9999999; width: 101px; height: 23px; left: 11px;';
     this.LOGGING_ENABLED = false;
 
@@ -31,9 +30,9 @@ GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabase
 GS.SingleFileUploader.prototype.createUploader = function() {
     this.uploader = new plupload.Uploader({
         runtimes : 'flash,html5,silverlight',
-        browse_button : 'jsPhotoBrowseButton',
-        container: 'file-upload-container',
-        max_file_size : '20mb',
+        browse_button : 'js-plupload-browse-' + this.idSuffix,
+        container: 'file-uploader-container-' + this.idSuffix,
+        max_file_size : '1kb',
         url: this.httpPostUrl,
         flash_swf_url : '/res/js/plupload/plupload.flash.swf',
         multipart_params : {
@@ -72,12 +71,11 @@ GS.SingleFileUploader.prototype.createUploader = function() {
 
         this.uploader.bind("FileUploaded", function(up, file, response) {
             var data = jQuery.parseJSON(response.response);
-            if (data && data.error && data.error.message) {
-                self.setStatus(file, "Error");
-                if (data.error.message == "Unauthorized") {
-                    self.errorMessage = "Error: Not logged in";
+            if (data && data.errorMessage) {
+                if (data.errorMessage == "Unauthorized") {
+                    self.setStatus(file, "Error: Not authorized to upload a PDF for this school.");
                 } else {
-                    self.errorMessage = "One or more errors occurred while uploading. Your file may not have been uploaded.";
+                    self.setStatus(file, "One or more errors occurred while uploading. Your file may not have been uploaded.");
                 }
             } else {
                 if (file.percent === 100 && file.status === plupload.DONE) {
@@ -123,12 +121,9 @@ GS.SingleFileUploader.prototype.createUploader = function() {
         this.spinner.show();
     }.gs_bind(this);
 
-
     this.startUpload = function() {
         this.styleUploading();
-        this.setStatus(this.uploader.files[0], this.PREPARING);
         this.uploader.start();
-        this.container.find('.deleteFileUpload').off('click');
     }.gs_bind(this);
 
     this.updateProgress = function(up, file) {
@@ -165,15 +160,14 @@ GS.SingleFileUploader.prototype.createUploader = function() {
                 message += " (" + err.details + ")";
             }
             if (err.code == plupload.FILE_SIZE_ERROR) {
-                alert("There was an error. " + fileExtension.toUpperCase() + " files have a limit of 20MB. File: " + file.name + " cannot be uploaded.");
+                alert("There was an error. PDF files have a limit of 20MB. File: " + file.name + " cannot be uploaded.");
             } else if (err.code == plupload.FILE_EXTENSION_ERROR) {
-                alert("There was an error. " + fileExtension.toUpperCase() + " is not a PDF file.");
+                alert("There was an error. " + file.name + " is not a PDF file.");
             } else {
                 alert("We're sorry, an unknown error has occurred.");
             }
 
         } else {
-            //this.displayUploaderError(message);
             alert("We're sorry, an unknown error has occurred");
             this.done();
         }
@@ -186,8 +180,8 @@ GS.SingleFileUploader.prototype.createUploader = function() {
         }
 
         this.fileBox.html(files[0].name);
+        this.enableUploading();
     }.gs_bind(this);
-
 
     this.setStatus = function(file, status) {
         this.statusBox.html(status);

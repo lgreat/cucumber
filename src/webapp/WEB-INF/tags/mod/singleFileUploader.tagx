@@ -11,20 +11,20 @@
     <jsp:directive.attribute name="idSuffix" required="true" type="java.lang.String" description="An unique suffix used to ensure uniqueness among file uploaders"/>
 
     <div id="file-uploader-container-${idSuffix}">
-        <div class="js-uploader-file"><!-- no collapse --></div>
-        <div class="js-uploader-status"><!-- no collapse --></div>
+        <div class="js-uploader-file uploader-file text3"><!-- no collapse --></div>
+        <div class="js-uploader-status uploader-status text3"><!-- no collapse --></div>
 
         <div>
             <span class="js-uploader-buttons" colspan="4">
-                <button class="button-1 js-uploader-browse-button" type="button"
-                        style="-moz-user-select: none;">Select files
+                <button id="js-plupload-browse-${idSuffix}" class="button-1 js-uploader-browse-button" type="button"
+                        style="-moz-user-select: none;">Browse
                 </button>
                 <button class="button-1-inactive js-uploader-fake-browse-button" type="button" disabled="true"
-                        style="-moz-user-select: none; display:none;">Select files
+                        style="-moz-user-select: none; display:none;">Browse
                 </button>
                 &amp;nbsp;
-                <button class="button-1-inactive js-uploader-upload-button" type="button"
-                        style="-moz-user-select: none;" disabled="true">Upload files
+                <button id="js-plupload-upload-${idSuffix}" class="button-1-inactive js-uploader-upload-button" type="button"
+                        style="-moz-user-select: none;" disabled="true">Upload file
                 </button>
             </span>
         </div>
@@ -35,8 +35,9 @@
 
     <script type="text/javascript">
         jQuery(function() {
-            GS.['fileUploader${idSuffix}'] = new GS.SingleFileUploader("${url}", '${idSuffix}', ${schoolId}, "${schoolDatabaseState}");
-            GS.['fileUploader${idSuffix}'].init();
+            var propertyName = 'fileUploader${idSuffix}';
+            GS[propertyName] = new GS.SingleFileUploader("${url}", '${idSuffix}', ${schoolId}, "${schoolDatabaseState}");
+            GS[propertyName].init();
         });
     </script>
 
