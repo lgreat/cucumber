@@ -22,6 +22,7 @@
                     var email = jQuery('#js_espSignIn #js_email').val();
                     GSType.hover.emailNotValidated.setEmail(email);
                     GSType.hover.emailNotValidated.show();
+                    return false;
                 });
             });
             function addWarningToInputs(elem) {
