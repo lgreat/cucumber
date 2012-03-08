@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.120 2012/02/16 21:44:52 aroy Exp $
+ * $Id: UrlUtil.java,v 1.121 2012/03/08 18:32:41 droy Exp $
  */
 
 package gs.web.util;
@@ -8,6 +8,8 @@ package gs.web.util;
 import gs.data.state.State;
 import gs.data.util.CdnUtil;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.httpclient.URIException;
+import org.apache.commons.httpclient.util.URIUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -805,7 +807,11 @@ public final class UrlUtil {
     public static String urlEncode(String input) throws Exception {
         return URLEncoder.encode(input, "UTF-8");
     }
-    
+
+    public static String encodeWithinQuery(String input) throws URIException {
+        return URIUtil.encodeWithinQuery(input);
+    }
+
     public static String formatUrl(String url) {
         if (!StringUtils.startsWith(url, "http://")) {
             return "http://" + url;

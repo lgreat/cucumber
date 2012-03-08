@@ -222,6 +222,12 @@
     </function>
 
     <function>
+        <name>encodeWithinQuery</name>
+        <function-class>gs.web.util.UrlUtil</function-class>
+        <function-signature>java.lang.String encodeWithinQuery(java.lang.String)</function-signature>
+    </function>
+
+    <function>
         <name>boldifyFirstXWords</name>
         <function-class>gs.web.jsp.Util</function-class>
         <function-signature>java.lang.String boldifyFirstXWords(java.lang.String, int)</function-signature>

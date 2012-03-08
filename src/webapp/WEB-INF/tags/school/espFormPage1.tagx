@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
@@ -39,7 +40,9 @@
             <p class="labelGroup">Grade levels offered</p>
             <div id="form_grade_levels_error"  class="error" style="display: none">
                 <span class="sprite i-alert vam"><!--Do not collapse--></span>
-                Please specify your school's K-12 grade levels.
+                Please specify non-preschool grade levels. Contact us at
+                <a href="mailto:osphelp@greatschools.org?subject=OSP:%20${fn:escapeXml(gsweb:encodeWithinQuery(school.name))}%20is%20now%20a%20preschool">osphelp@greatschools.org</a>
+                if your school is a preschool.
             </div>
         </div>
         <div class="grid_5">

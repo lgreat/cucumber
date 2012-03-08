@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.90 2012/02/16 21:44:52 aroy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.91 2012/03/08 18:32:41 droy Exp $
  */
 
 package gs.web.util;
@@ -778,5 +778,25 @@ public class UrlUtilSaTest extends TestCase {
     public void testFormatUrl() {
         assertEquals("http://www.google.com", UrlUtil.formatUrl("www.google.com"));
         assertEquals("http://www.google.com", UrlUtil.formatUrl("http://www.google.com"));
+    }
+
+    public void testUrlEncode() {
+        try {
+            // Note that spaces are converted to plusses.
+            // This works great for URLs, but not for the subject of a mailto link.
+            assertEquals("a+%26+%22%2F%3E", UrlUtil.urlEncode("a & \"/>"));
+        } catch(Exception e) {
+            fail("urlEncode should not throw an exception.");
+        }
+    }
+
+    public void testEncodeWithinQuery() {
+        try {
+            // Note that spaces are converted to %20.
+            // This works better for the subject of a mailto link.
+            assertEquals("a%20%26%20%22%2F%3E", UrlUtil.encodeWithinQuery("a & \"/>"));
+        } catch(Exception e) {
+            fail("encodeWithinQuery should not throw an exception.");
+        }
     }
 }
