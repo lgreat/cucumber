@@ -12,7 +12,7 @@
     <jsp:directive.attribute name="existingPhotos" required="false" type="java.util.List" description="List of SchoolMedia that are either active or pending" />
 
     <div id="photo-upload-container">
-        <table>
+        <table class="tableType1">
             <col width="207"/>
             <col width="207"/>
             <col width="157"/>
@@ -43,7 +43,7 @@
                 </td>
             </tr>
             </tfoot>
-            <tbody><!-- no collapse -->
+            <tbody class="striped"><!-- no collapse -->
             <c:forEach begin="1" end="${maxNumberOfPhotos}">
                 <tr>
                     <td>&amp;nbsp;</td>

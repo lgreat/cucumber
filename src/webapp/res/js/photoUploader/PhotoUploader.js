@@ -357,6 +357,7 @@ GS.PhotoUploader.prototype.createUploader = function() {
         var tableBody = this.container.find('table tbody');
         tableBody.find('tr:eq('+ parseInt(position) +')').after(htmlblock);
         tableBody.find('tr:eq('+ parseInt(position) + ')').remove();
+        tableBody.alternateRowColors();
     }.gs_bind(this);
 
     this.removeAllItems = function() {
@@ -375,8 +376,10 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.removeItem = function(id) {
         this.totalItemsInList--;
         this.container.find('#' + id).remove();
-        this.container.find('table tbody tr:last').after(this.EMPTY_QUEUE_ROW_HTML);
+        var tableBody = this.container.find('table tbody');
+        tableBody.find('tr:last').after(this.EMPTY_QUEUE_ROW_HTML);
         this.onItemRemoved();
+        tableBody.alternateRowColors();
     }.gs_bind(this);
 
     this.onItemRemoved = function() {
