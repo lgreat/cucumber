@@ -396,27 +396,6 @@ public class EspFormController implements ReadWriteAnnotationController {
     }
 
     /**
-     * Checks if the user has access to the form for the school specified by the given state/schoolId.
-     * Returns false any parameter is null, or if the user does not have an active esp membership
-     * for the given state/schoolId and is not a superuser
-     */
-    protected boolean checkUserHasAccess(User user, State state, Integer schoolId) {
-        if (user != null && state != null && schoolId > 0) {
-            if (user.hasRole(Role.ESP_SUPERUSER)) {
-                return true;
-            } else if (user.hasRole(Role.ESP_MEMBER)) {
-                return _espMembershipDao.findEspMembershipByStateSchoolIdUserId
-                        (state, schoolId, user.getId(), true) != null;
-            } else {
-                _log.warn("User " + user + " does not have required role " + Role.ESP_MEMBER + " or " + Role.ESP_SUPERUSER + " to access ESP form.");
-            }
-        } else {
-            _log.warn("Invalid or null user/state/schoolId: " + user + "/" + state + "/" + schoolId);
-        }
-        return false;
-    }
-
-    /**
      * Pulls the user out of the session context. Returns null if there is no user, or if the user fails
      * checkUserAccess
      */
@@ -426,7 +405,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         if (sessionContext != null) {
             user = sessionContext.getUser();
         }
-        if (checkUserHasAccess(user, state, schoolId)) {
+        if (_espFormValidationHelper.checkUserHasAccess(user, state, schoolId)) {
             return user;
         }
         return null;
