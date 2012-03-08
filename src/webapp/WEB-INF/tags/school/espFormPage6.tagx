@@ -107,7 +107,9 @@
             <c:set var="maxNumberOfPhotos" value="4" />
             <div class="lal clearfix">
                 <div class="grid_7 alpha">
-                    <p class="labelGroup">Upload photos of your school or events at your school that will appear on the GreatSchools profile. Limit is ${maxNumberOfPhotos} photos.</p>
+                    <p class="labelGroup">Upload photos of your school or events to appear on the GreatSchools profile.</p>
+                    <p class="small">Up to ${maxNumberOfPhotos} photos. File size limit is 10MB.</p>
+                    <p class="smaller">Please do not upload photos of children without a parent's permission. GreatSchools reserves the right to remove any media content from the site at any time.</p>
                     <school:espFieldError text="Error occurred" styleId="jsUploadError" styleClass="grid_6 omega"/>
                 </div>
                 <div class="grid_16 omega">
