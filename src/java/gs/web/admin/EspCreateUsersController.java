@@ -167,16 +167,21 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                     if (user == null) {
                         user = new User();
                         user.setEmail(email);
-                        user.setFirstName(StringUtils.isNotBlank(firstName) ? firstName : null);
-                        user.setLastName(StringUtils.isNotBlank(lastName) ? lastName : null);
+                        user.setFirstName(StringUtils.isNotBlank(firstName) ? firstName.trim() : null);
+                        user.setLastName(StringUtils.isNotBlank(lastName) ? lastName.trim() : null);
                         user.setHow("esp_pre_approved");
                         user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
                         _userDao.saveUser(user);
                     } else {
-                        // TODO ?Example NL users.
+                        if (StringUtils.isBlank(user.getFirstName()) && StringUtils.isNotBlank(firstName)) {
+                            user.setFirstName(firstName.trim());
+                        }
+                        if (StringUtils.isBlank(user.getLastName()) && StringUtils.isNotBlank(lastName)) {
+                            user.setLastName(lastName.trim());
+                        }
                     }
 
-                    boolean didPreApproveUser = saveEspMembership(user, state, school, jobTitle, returnValues);
+                    boolean didPreApproveUser = preApproveEspMembership(user, state, school, jobTitle, returnValues);
                     //If the user state was changed to "pre-approved" then send out an email.
                     if (didPreApproveUser) {
                         sendESPVerificationEmail(request, user, returnValues);
@@ -202,8 +207,8 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
      * @param jobTitle
      * @param returnValues
      */
-    protected boolean saveEspMembership(User user, State state, School school, String jobTitle, Map returnValues) {
-        boolean preApprovedUser = false;
+    protected boolean preApproveEspMembership(User user, State state, School school, String jobTitle, Map returnValues) {
+        boolean didPreApproveUser = false;
 
         if (state != null && school != null && school.getId() != null && school.getId() > 0 && user != null
                 && user.getId() != null) {
@@ -219,7 +224,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                 esp.setStatus(EspMembershipStatus.PRE_APPROVED);
                 esp.setUser(user);
                 _espMembershipDao.saveEspMembership(esp);
-                preApprovedUser = true;
+                didPreApproveUser = true;
                 addToList(returnValues, "debugOutput", "INFO: created a new pre-approved user." + user.getEmail());
 
             } else if ((espMembership.getStatus().equals(EspMembershipStatus.DISABLED) ||
@@ -229,7 +234,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                 espMembership.setStatus(EspMembershipStatus.PRE_APPROVED);
                 espMembership.setUpdated(new Date());
                 _espMembershipDao.saveEspMembership(espMembership);
-                preApprovedUser = true;
+                didPreApproveUser = true;
                 addToList(returnValues, "debugOutput", "INFO: updated user to pre-approved:" + user.getEmail());
 
             } else if (espMembership.getStatus().equals(EspMembershipStatus.APPROVED)) {
@@ -245,7 +250,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
         } else {
             addToList(returnValues, "debugOutput", "ERROR: State:" + state + " School:" + school + " and User:" + user + " cannot be null.");
         }
-        return preApprovedUser;
+        return didPreApproveUser;
     }
 
     protected void sendESPVerificationEmail(HttpServletRequest request, User user, Map<String, List<String>> returnValues) {
