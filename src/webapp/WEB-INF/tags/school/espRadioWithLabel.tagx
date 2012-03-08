@@ -20,6 +20,7 @@
 
         <div class="bk pts">
             <label for="${prefix}_${key}__${fn:toLowerCase(value)}" class="radio">${label}</label>
+            <jsp:doBody/>
         </div>
     </div>
 
