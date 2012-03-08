@@ -1,15 +1,21 @@
 package gs.web.photoUploader;
 
 import gs.data.community.User;
+import gs.data.community.UserProfile;
 import gs.data.school.ISchoolMediaDao;
 import gs.data.school.SchoolMedia;
 import gs.data.school.SchoolMediaDaoHibernate;
+import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import gs.web.school.EspFormValidationHelper;
+import gs.web.util.PageHelper;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.fileupload.FileItemStream;
 import sun.misc.BASE64Decoder;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
@@ -24,8 +30,11 @@ public class PhotoUploadControllerTest extends BaseControllerTestCase {
     
     PhotoUploadController _controller;
     PhotoUploadController _mockedController;
+    EspFormValidationHelper _espFormValidationHelper;
 
     SchoolPhotoProcessor _processor;
+    
+    private User _user;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -34,11 +43,34 @@ public class PhotoUploadControllerTest extends BaseControllerTestCase {
         _controller = new PhotoUploadController();
         _mockedController = new MockedUploadTestController();
         _processor = org.easymock.classextension.EasyMock.createStrictMock(SchoolPhotoProcessor.class);
+        _espFormValidationHelper = org.easymock.classextension.EasyMock.createStrictMock(EspFormValidationHelper.class);
+        _controller.setEspFormValidationHelper(_espFormValidationHelper);
+        Role superuser = new Role();
+        superuser.setKey(Role.ESP_SUPERUSER);
+        _user = new User();
 
         _controller.setSchoolMediaDao(_schoolMediaDao);
     }
 
-    public void testHandleDelete() throws Exception {
+    void authorizeUser() {
+        _user.setId(1);
+        _user.setEmail("ssprouse@greatschools.org");
+        try {
+            _user.setPlaintextPassword("foobar");
+            _user.setUserProfile(new UserProfile());
+            PageHelper.setMemberAuthorized(getRequest(), getResponse(), _user);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        getRequest().setCookies(getResponse().getCookies());
+
+        SessionContextUtil.getSessionContext(getRequest()).setUser(_user);
+
+    }
+
+    public void testHandleDelete_userHasAccess() throws Exception {
+        authorizeUser();
         int mediaId = 1;
         int schoolId = 1;
         State schoolDatabaseState = State.CA;
@@ -49,15 +81,42 @@ public class PhotoUploadControllerTest extends BaseControllerTestCase {
         schoolMedia.setSchoolState(schoolDatabaseState);
 
         expect(_schoolMediaDao.getById(eq(mediaId))).andReturn(schoolMedia);
+        expect(_espFormValidationHelper.checkUserHasAccess(eq(_user), eq(State.CA), eq(new Integer(schoolId)))).andReturn(true);
         schoolMedia.setStatus(SchoolMediaDaoHibernate.Status.DELETED.value);
         _schoolMediaDao.save(eq(schoolMedia));
+        org.easymock.classextension.EasyMock.replay(_espFormValidationHelper);
         replay(_schoolMediaDao);
         
-        _controller.handleDelete(mediaId, schoolId, schoolDatabaseState,  getResponse());
+        _controller.handleDelete(mediaId, schoolId, schoolDatabaseState, getRequest(), getResponse());
 
+        org.easymock.classextension.EasyMock.verify(_espFormValidationHelper);
         verify(_schoolMediaDao);
         
         assertFalse(getResponse().getContentAsString().contains("error"));
+    }
+
+    public void testHandleDelete_userDoesntHaveAccess() throws Exception {
+        authorizeUser();
+        int mediaId = 1;
+        int schoolId = 1;
+        State schoolDatabaseState = State.CA;
+
+        SchoolMedia schoolMedia = new SchoolMedia();
+        schoolMedia.setId(mediaId);
+        schoolMedia.setSchoolId(schoolId);
+        schoolMedia.setSchoolState(schoolDatabaseState);
+
+        expect(_schoolMediaDao.getById(eq(mediaId))).andReturn(schoolMedia);
+        expect(_espFormValidationHelper.checkUserHasAccess(eq(_user), eq(State.CA), eq(new Integer(schoolId)))).andReturn(false);
+        org.easymock.classextension.EasyMock.replay(_espFormValidationHelper);
+        replay(_schoolMediaDao);
+
+        _controller.handleDelete(mediaId, schoolId, schoolDatabaseState, getRequest(), getResponse());
+
+        org.easymock.classextension.EasyMock.verify(_espFormValidationHelper);
+        verify(_schoolMediaDao);
+
+        assertTrue(getResponse().getContentAsString().contains("error"));
     }
 
     public void testHandleDeleteFailure() throws Exception {
@@ -68,7 +127,7 @@ public class PhotoUploadControllerTest extends BaseControllerTestCase {
         expect(_schoolMediaDao.getById(eq(mediaId))).andReturn(null);
         replay(_schoolMediaDao);
 
-        _controller.handleDelete(mediaId, schoolId, schoolDatabaseState,  getResponse());
+        _controller.handleDelete(mediaId, schoolId, schoolDatabaseState, getRequest(), getResponse());
 
         verify(_schoolMediaDao);
 

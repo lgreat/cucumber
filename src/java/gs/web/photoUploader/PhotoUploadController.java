@@ -8,6 +8,7 @@ import gs.data.school.SchoolMedia;
 import gs.data.school.SchoolMediaDaoHibernate;
 import gs.data.state.State;
 import gs.data.util.CommunityUtil;
+import gs.web.school.EspFormValidationHelper;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -19,6 +20,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
@@ -46,10 +48,13 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
     public static final int FULL_SIZE_IMAGE_MAX_DIMENSION = 500;
 
     
-    public static final String NOT_LOGGED_IN_ERROR = "Unauthorized"; // value referenced in JS
+    public static final String UNAUTHORIZED_ERROR = "Unauthorized"; // value referenced in JS
     public static final String REQUEST_TOO_LARGE_ERROR = "Request too large"; // value referenced in JS
     public static final String INVALID_CONTENT_TYPE_ERROR = "File type not supported"; // value referenced in JS
     public static final String[] VALID_CONTENT_TYPES = {"image/gif", "image/jpeg", "image/png", "application/octet-stream"};
+
+    @Autowired
+    private EspFormValidationHelper _espFormValidationHelper;
 
     private ISchoolMediaDao _schoolMediaDao;
 
@@ -99,7 +104,7 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
 
         // handle user not logged in
         if (user == null) {
-            error(response, "-1", NOT_LOGGED_IN_ERROR);
+            error(response, "-1", UNAUTHORIZED_ERROR);
             return;
         }
 
@@ -135,15 +140,19 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
                                 return;
                             }
 
-                            SchoolPhotoProcessor processor = createSchoolPhotoProcessor(fileStream);
-                            schoolMedia = createSchoolMediaObject(user.getId(), schoolId, schoolDatabaseState, fileStream.getName());
-                            schoolMediaRecordInserted = true;
+                            if (_espFormValidationHelper.checkUserHasAccess(user, schoolDatabaseState, schoolId)) {
+                                SchoolPhotoProcessor processor = createSchoolPhotoProcessor(fileStream);
+                                schoolMedia = createSchoolMediaObject(user.getId(), schoolId, schoolDatabaseState, fileStream.getName());
+                                schoolMediaRecordInserted = true;
 
-                            getSchoolMediaDao().save(schoolMedia);
-                            processor.handleScaledPhoto(user, schoolMedia.getId());
-                            photoPassedOnSuccessfully = true;
-                            processor.finish();
-
+                                getSchoolMediaDao().save(schoolMedia);
+                                processor.handleScaledPhoto(user, schoolMedia.getId());
+                                photoPassedOnSuccessfully = true;
+                                processor.finish();
+                            } else {
+                                error(response, "-1", UNAUTHORIZED_ERROR);
+                                return;
+                            }
                         }
                     } else {
                         // put multi-part form fields into a map for later use
@@ -179,7 +188,16 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
     protected void handleUpdate(@RequestParam(value="schoolMediaId", required=false) Integer schoolMediaId,
                                 @RequestParam(value="schoolId", required=false) Integer schoolId,
                                 @RequestParam(value="schoolDatabaseState", required=false) State schoolDatabaseState,
+                                HttpServletRequest request,
                                 HttpServletResponse response) {
+
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = sessionContext.getUser();
+        // handle user not logged in or user doesn't have access to this OSP
+        if (user == null || !_espFormValidationHelper.checkUserHasAccess(user, schoolDatabaseState, schoolId)) {
+            error(response, "-1", UNAUTHORIZED_ERROR);
+            return;
+        }
 
         SchoolMedia schoolMedia = _schoolMediaDao.getById((int)schoolMediaId);
 
@@ -204,9 +222,18 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
     protected void handleDelete(@RequestParam(value="schoolMediaId", required=false) Integer schoolMediaId,
                                 @RequestParam(value="schoolId", required=false) Integer schoolId,
                                 @RequestParam(value="schoolDatabaseState", required=false) State schoolDatabaseState,
+                                HttpServletRequest request,
                                 HttpServletResponse response) {
 
         SchoolMedia schoolMedia = _schoolMediaDao.getById((int)schoolMediaId);
+
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User user = sessionContext.getUser();
+        // handle user not logged in or user doesn't have access to this OSP
+        if (user == null || !_espFormValidationHelper.checkUserHasAccess(user, schoolDatabaseState, schoolId)) {
+            error(response, "-1", UNAUTHORIZED_ERROR);
+            return;
+        }
 
         if (schoolMedia != null && schoolMedia.getSchoolId().equals(schoolId) && schoolMedia.getSchoolState().equals(schoolDatabaseState)) {
             schoolMedia.setStatus(SchoolMediaDaoHibernate.Status.DELETED.value);
@@ -276,5 +303,9 @@ public class PhotoUploadController implements ReadWriteAnnotationController {
 
     public void setSchoolMediaDao(ISchoolMediaDao schoolMediaDao) {
         _schoolMediaDao = schoolMediaDao;
+    }
+
+    public void setEspFormValidationHelper(EspFormValidationHelper espFormValidationHelper) {
+        _espFormValidationHelper = espFormValidationHelper;
     }
 }
