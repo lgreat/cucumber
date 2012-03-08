@@ -137,6 +137,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
         Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
         user.addRole(role);
 
+        //todo comment
         _userDao.updateUser(user);
         ThreadLocalTransactionManager.commitOrRollback();
         user = getValidUserFromHash(hashPlusId);
@@ -146,7 +147,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
         _userDao.updateUser(user);
 
         //update ESP membership for user.
-        updateEspMembership(command, user);
+        approveEspMembership(command, user);
 
         //Sign the user in and re-direct to the dashboard
         PageHelper.setMemberAuthorized(request, response, user, true);
@@ -229,9 +230,13 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
 
         validator.validateFirstName(userCommand, result);
         validator.validateLastName(userCommand, result);
-        validator.validatePassword(userCommand, result);
+        //Password is not always visible on the form.Therefore check the command to see if its available.
+        if (StringUtils.isNotEmpty(command.getPassword())) {
+            validator.validatePassword(userCommand, result);
+        }
         validator.validateUsername(userCommand, user, result);
 
+        //validate email
         String email = command.getEmail();
         if (StringUtils.isNotBlank(email)) {
             email = email.trim();
@@ -244,6 +249,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             result.rejectValue("email", "invalid_email");
         }
 
+        //validate job title
         String jobTitle = command.getJobTitle();
         if (StringUtils.isBlank(jobTitle)) {
             result.rejectValue("jobTitle", null, "Job Title cannot be empty.");
@@ -273,6 +279,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
 
     protected void setUsersPassword(EspRegistrationCommand command, User user) throws Exception {
         //NOTE :We accept just spaces as password.Therefore do NOT use : isBlank, use : isEmpty and do NOT trim().
+        //todo provisional users note change password
         try {
             if (StringUtils.isNotEmpty(command.getPassword()) && !user.isEmailValidated()) {
                 user.setPlaintextPassword(command.getPassword());
@@ -313,7 +320,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
         }
     }
 
-    protected void updateEspMembership(EspRegistrationCommand command, User user) {
+    protected void approveEspMembership(EspRegistrationCommand command, User user) {
 
         List<EspMembership> espMemberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
         //TODO for all the pre-approved?
