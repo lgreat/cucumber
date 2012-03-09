@@ -7644,6 +7644,11 @@ ul.schoolList div p {
     background-color: #f1f1f1;
 }
 
+.slStylesV1-0 .odd th,
+.slStylesV1-0 .odd td {
+    background-color: #ffffff;
+}
+
 .odd .cs_gsRating .badge_sm_na {
     background-position: -500px 0;
 }
