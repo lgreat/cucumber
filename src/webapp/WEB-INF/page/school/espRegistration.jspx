@@ -36,7 +36,7 @@
 </c:if>
 
 <div class="grid_24">
-    <h1 class="fltlft">Request a school official account</h1>
+    <h1 class="fltlft">Request a school official's account</h1>
 
     <div class="fltrt mtm">
         <span class="small mrm"><link:contactUs feedbackType="esp">Need Help?</link:contactUs></span>
@@ -50,7 +50,7 @@
 
 <p class="">
     Welcome principals and school officials! Raise the visibility of your school by taking advantage of GreatSchools'
-    FREE Official School Profile. Fill out the registration form below to get started.
+    FREE Official School Profile. Fill out the following registration form to get started.
 </p>
 <p>
     If you already have access to edit your school's profile, note that
@@ -411,8 +411,8 @@
         <div class="mod standard_2-1">
             <div class="inner">
                 <div class="bd">
-                    <p class="small bottom">Already have a school official account?
-                        <link:schoolEspSignIn>Sign in.</link:schoolEspSignIn></p>
+                    <p class="small_bold bottom">Already have a school official account?
+                        <link:schoolEspSignIn styleClass="small">Sign in.</link:schoolEspSignIn></p>
                 </div>
             </div>
         </div>
