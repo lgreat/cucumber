@@ -7634,8 +7634,8 @@ table#compareTable col.col_1{
 ul.schoolList div p {
     word-wrap: break-word;
 }
-.even th,
-.even td {
+.odd th,
+.odd td {
     background-color: #f9eccd;
 }
 
@@ -7644,79 +7644,79 @@ ul.schoolList div p {
     background-color: #f1f1f1;
 }
 
-.even .cs_gsRating .badge_sm_na {
+.odd .cs_gsRating .badge_sm_na {
     background-position: -500px 0;
 }
 
-.even .cs_gsRating .badge_sm_1 {
+.odd .cs_gsRating .badge_sm_1 {
     background-position: -500px -30px;
 }
 
-.even .cs_gsRating .badge_sm_2 {
+.odd .cs_gsRating .badge_sm_2 {
     background-position: -500px -60px;
 }
 
-.even .cs_gsRating .badge_sm_3 {
+.odd .cs_gsRating .badge_sm_3 {
     background-position: -500px -90px;
 }
 
-.even .cs_gsRating .badge_sm_4 {
+.odd .cs_gsRating .badge_sm_4 {
     background-position: -500px -120px;
 }
 
-.even .center .stars_lg_0 {
+.odd .center .stars_lg_0 {
     background-position: -200px -240px;
 }
 
-.even .center .stars_lg_1 {
+.odd .center .stars_lg_1 {
     background-position: -200px -260px;
 }
 
-.even .center .stars_lg_2 {
+.odd .center .stars_lg_2 {
     background-position: -200px -280px;
 }
 
-.even .center .stars_lg_3 {
+.odd .center .stars_lg_3 {
     background-position: -200px -300px;
 }
 
-.even .center .stars_lg_4 {
+.odd .center .stars_lg_4 {
     background-position: -200px -320px;
 }
 
-.even .center .stars_lg_5 {
+.odd .center .stars_lg_5 {
     background-position: -200px -340px;
 }
 
-.even .cs_gsRating .badge_sm_5 {
+.odd .cs_gsRating .badge_sm_5 {
     background-position: -500px -150px;
 }
 
-.even .cs_gsRating .badge_sm_6 {
+.odd .cs_gsRating .badge_sm_6 {
     background-position: -500px -180px;
 }
 
-.even .cs_gsRating .badge_sm_7 {
+.odd .cs_gsRating .badge_sm_7 {
     background-position: -500px -210px;
 }
 
-.even .cs_gsRating .badge_sm_8 {
+.odd .cs_gsRating .badge_sm_8 {
     background-position: -500px -240px;
 }
 
-.even .cs_gsRating .badge_sm_9 {
+.odd .cs_gsRating .badge_sm_9 {
     background-position: -500px -270px;
 }
 
-.even .cs_gsRating .badge_sm_10 {
+.odd .cs_gsRating .badge_sm_10 {
     background-position: -500px -300px;
 }
 
-.even .cs_gsRating .badge_sm_ps {
+.odd .cs_gsRating .badge_sm_ps {
     background-position: -500px -330px;
 }
 
-.even .cs_gsRating .badge_sm_pr {
+.odd .cs_gsRating .badge_sm_pr {
     background-position: -500px -360px;
 }
 
