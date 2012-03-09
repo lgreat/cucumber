@@ -8,6 +8,7 @@ import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.util.DigestUtil;
+import gs.data.util.email.EmailUtils;
 import gs.web.util.HttpCacheInterceptor;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
@@ -153,7 +154,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                            String firstName, String lastName, String jobTitle, Map returnValues) {
         if (StringUtils.isNotBlank(email) && state != null && StringUtils.isNotBlank(schoolIdStr)) {
             email = email.trim();
-            if (validateEmail(email)) {
+            if (EmailUtils.isValidEmail(email)) {
                 schoolIdStr = schoolIdStr.trim();
                 School school = null;
                 try {
@@ -291,11 +292,6 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
             debugOutputs.add(debugOutput);
             returnValues.put(key, debugOutputs);
         }
-    }
-
-    protected boolean validateEmail(String email) {
-        org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
-        return emv.isValid(email);
     }
 
     public ExactTargetAPI getExactTargetAPI() {
