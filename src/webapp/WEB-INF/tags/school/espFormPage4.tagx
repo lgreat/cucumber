@@ -40,11 +40,12 @@
             <school:espCheckboxWithLabel key="foreign_language" value="urdu" label="Urdu"/>
             <school:espCheckboxWithLabel key="foreign_language" value="vietnamese" label="Vietnamese"/>
             <school:espCheckboxWithLabel key="foreign_language" value="other" label="Other:"
-                                         styleClass="js_otherField_js_form_foreign_language_other" nobr="true"/>
-            <input id="js_form_foreign_language_other" class="js_otherField text-smaller input_4 mls" type="text"
-                   name="foreign_language_other"
-                   value="${responseMap['foreign_language_other'].value}"
-                   placeholder="[Please indicate]" maxlength="40"/>
+                                         styleClass="js_otherField_js_form_foreign_language_other" nobr="true">
+                <input id="js_form_foreign_language_other" class="js_otherField text-smaller input_4 mls" type="text"
+                       name="foreign_language_other"
+                       value="${responseMap['foreign_language_other'].value}"
+                       placeholder="[Please indicate]" maxlength="40"/>
+            </school:espCheckboxWithLabel>
         </div>
         <school:espFieldError text="Please specify a response" styleId="js_form_foreign_language_other_error" styleClass="grid_6 omega"/>
     </div>
@@ -171,11 +172,13 @@
             <school:espCheckboxWithLabel key="extra_learning_resources" value="differentiated"
                                          label="Differentiated learning programs"/>
             <school:espCheckboxWithLabel key="extra_learning_resources" value="other" label="Other:"
-                                         styleClass="js_otherField_js_form_extra_learning_resources_other" nobr="true"/>
-            <input id="js_form_extra_learning_resources_other" class="js_otherField text-smaller input_4 mls" type="text"
-                   name="extra_learning_resources_other"
-                   value="${responseMap['extra_learning_resources_other'].value}"
-                   placeholder="[Please indicate]" maxlength="30"/>
+                                         styleClass="js_otherField_js_form_extra_learning_resources_other" nobr="true">
+                <input id="js_form_extra_learning_resources_other" class="js_otherField text-smaller input_4 mls"
+                       type="text"
+                       name="extra_learning_resources_other"
+                       value="${responseMap['extra_learning_resources_other'].value}"
+                       placeholder="[Please indicate]" maxlength="30"/>
+            </school:espCheckboxWithLabel>
         </div>
         <school:espFieldError text="Please specify a response" styleId="js_form_extra_learning_resources_other_error" styleClass="grid_6 omega"/>
     </div>
@@ -310,11 +313,12 @@
                 <school:espCheckboxWithLabel key="staff_languages" value="urdu" label="Urdu"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="vietnamese" label="Vietnamese"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="other" label="Other:"
-                                             styleClass="js_otherField_js_form_staff_languages_other" nobr="true"/>
-                <input id="js_form_staff_languages_other" class="js_otherField text-smaller input_4 mls" type="text"
-                       name="staff_languages_other"
-                       value="${responseMap['staff_languages_other'].value}"
-                       placeholder="[Please indicate]" maxlength="30"/>
+                                             styleClass="js_otherField_js_form_staff_languages_other" nobr="true">
+                    <input id="js_form_staff_languages_other" class="js_otherField text-smaller input_4 mls" type="text"
+                           name="staff_languages_other"
+                           value="${responseMap['staff_languages_other'].value}"
+                           placeholder="[Please indicate]" maxlength="30"/>
+                </school:espCheckboxWithLabel>
             </div>
             <school:espFieldError text="Please specify a response" styleId="js_form_staff_languages_other_error" styleClass="grid_6 omega"/>
         </div>
@@ -471,11 +475,12 @@
                                          label="Visiting teachers or lecturers from colleges"/>
             <school:espCheckboxWithLabel key="college_prep" value="other"
                                          label="Other:" styleClass="js_otherField_js_form_college_prep_other"
-                                         nobr="true"/>
-            <input id="js_form_college_prep_other" class="js_otherField text-smaller input_4 mls" type="text"
-                   name="college_prep_other"
-                   value="${responseMap['college_prep_other'].value}"
-                   placeholder="[Please indicate]" maxlength="30"/>
+                                         nobr="true">
+                <input id="js_form_college_prep_other" class="js_otherField text-smaller input_4 mls" type="text"
+                       name="college_prep_other"
+                       value="${responseMap['college_prep_other'].value}"
+                       placeholder="[Please indicate]" maxlength="30"/>
+            </school:espCheckboxWithLabel>
         </div>
         <school:espFieldError text="Please specify a response" styleId="js_form_college_prep_other_error"
                               styleClass="grid_6 omega"/>
@@ -630,11 +635,12 @@
             <school:espCheckboxWithLabel key="skills_training" value="welding" label="Welding certification"/>
             <school:espCheckboxWithLabel key="skills_training" value="engineering" label="Engineering"/>
             <school:espCheckboxWithLabel key="skills_training" value="other" label="Other:"
-                                         styleClass="js_otherField_js_form_skills_training_other" nobr="true"/>
-            <input id="js_form_skills_training_other" class="js_otherField text-smaller input_4 mls" type="text"
-                   name="skills_training_other"
-                   value="${responseMap['skills_training_other'].value}"
-                   placeholder="[Please indicate]" maxlength="30"/>
+                                         styleClass="js_otherField_js_form_skills_training_other" nobr="true">
+                <input id="js_form_skills_training_other" class="js_otherField text-smaller input_4 mls" type="text"
+                       name="skills_training_other"
+                       value="${responseMap['skills_training_other'].value}"
+                       placeholder="[Please indicate]" maxlength="30"/>
+            </school:espCheckboxWithLabel>
         </div>
         <school:espFieldError text="Please specify a response" styleId="js_form_skills_training_other_error" styleClass="grid_6 omega"/>
     </div>
