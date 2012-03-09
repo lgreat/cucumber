@@ -410,6 +410,33 @@ public class EspFormController implements ReadWriteAnnotationController {
         }
         return null;
     }
+    
+    public static final Map<State, List<String>> FRUITCAKE_STATE_TO_CITY = new HashMap<State, List<String>>(3) {
+        {
+            List<String> wiCities = new ArrayList<String>(1);
+            wiCities.add("Milwaukee");
+            put(State.WI, wiCities);
+            List<String> inCities = new ArrayList<String>(4);
+            inCities.add("Beech Grove");
+            inCities.add("Indianapolis");
+            inCities.add("West Newton");
+            inCities.add("Speedway");
+            put(State.IN, inCities);
+            put(State.DC, null); // null means accept all
+//            put(State.CA, null); // for testing
+        }
+    };
+    
+    public static boolean isFruitcakeSchool(School s) {
+        if (s != null && s.getDatabaseState() != null && s.getCity() != null) {
+            if (FRUITCAKE_STATE_TO_CITY.containsKey(s.getDatabaseState())) {
+                List<String> cities = FRUITCAKE_STATE_TO_CITY.get(s.getDatabaseState());
+                // null means accept all
+                return cities == null || cities.contains(s.getCity());
+            }
+        }
+        return false;
+    }
 
     /**
      * Parses the state and schoolId out of the request and fetches the school. Returns null if
@@ -457,11 +484,10 @@ public class EspFormController implements ReadWriteAnnotationController {
      * How many pages are on the form for a given school
      */
     protected int getMaxPageForSchool(School school) {
+//        if (isFruitcakeSchool(school)) { // TODO: CHeck for private too!!!!
+//            return 8;
+//        }
         return 7;
-        /*if (SchoolType.PRIVATE == school.getType()) {
-            return 8;
-        }
-        return 7;*/
     }
 
     /**

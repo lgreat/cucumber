@@ -56,6 +56,8 @@ public class EspFormExternalDataHelper {
                 insertEspFormResponseStructForPhone(responseMap, school);
             } else if (StringUtils.equals("school_fax", key)) {
                 insertEspFormResponseStructForFax(responseMap, school);
+            } else if (StringUtils.equals("ethnicity", key)) {
+                insertEspFormResponseStructForEthnicity(responseMap, school);
             } else {
                 // for keys where external data DOES map 1:1 with the form fields, fetch data from external source here
                 String[] vals = getExternalValuesForKey(key, school);
@@ -138,6 +140,16 @@ public class EspFormExternalDataHelper {
             EspFormResponseStruct lastFourStruct = new EspFormResponseStruct();
             lastFourStruct.addValue(lastFour);
             responseMap.put("school_fax_last_four", lastFourStruct);
+        }
+    }
+
+    void insertEspFormResponseStructForEthnicity(Map<String, EspFormResponseStruct> responseMap, School school) {
+        List<SchoolCensusValue> censusValues = school.getCensusInfo().getManualValues(school, CensusDataType.STUDENTS_ETHNICITY);
+        System.out.println("Census Values: " + censusValues);
+        if (censusValues != null) {
+            for (SchoolCensusValue value: censusValues) {
+                System.out.println("  " + value);
+            }
         }
     }
 
@@ -465,6 +477,9 @@ public class EspFormExternalDataHelper {
         keys.add("school_url");
         keys.add("administrator_name");
         keys.add("administrator_email");
+        if (school.getType() == SchoolType.PRIVATE && EspFormController.isFruitcakeSchool(school)) {
+            keys.add("ethnicity");
+        }
         return keys;
     }
 }
