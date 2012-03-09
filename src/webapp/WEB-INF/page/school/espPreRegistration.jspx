@@ -14,6 +14,7 @@
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <c:set var="pageTitle" value="GreatSchools Official School Profile - Register"/>
 <jsp:directive.page contentType="text/html"/>
+<pageHelper:externalJavascript file="/res/js/school/espRegistration.js"/>
 <pageHelper:externalJavascript file="/res/js/school/espPreRegistration.js"/>
 <head>
     <title>${pageTitle}</title>
@@ -24,7 +25,8 @@
         <c:set var="isReadOnly" value="true"/>
         <c:set var="doNotShowPassword" value="true"/>
     </c:if>
-    <form:form commandName="espRegistrationCommand">
+    <form:form commandName="espRegistrationCommand" onsubmit="return false;">
+        <input type="hidden" name="membershipId" value="${membership.id}"></input>
         <div>
             <div class="lal clearfix">
                 <div class="alpha grid_4">

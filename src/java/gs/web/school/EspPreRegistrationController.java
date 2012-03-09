@@ -3,17 +3,19 @@ package gs.web.school;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.school.EspMembership;
 import gs.data.school.EspMembershipStatus;
 import gs.data.school.IEspMembershipDao;
 import gs.data.security.IRoleDao;
 import gs.data.security.Role;
 import gs.data.util.DigestUtil;
+import gs.data.util.email.EmailUtils;
 import gs.web.community.registration.UserCommand;
 import gs.web.util.PageHelper;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import gs.web.util.validator.UserCommandValidator;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -47,6 +49,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
     public static final String PARAM_ID = "id";
     public static final String MODEL_MEMBERSHIP = "membership";
     public static final String MODEL_USER = "user";
+    public static final String PARAM_MEMBERSHIP_TO_PROCESS_ID = "membershipId";
 
     @Autowired
     private IEspMembershipDao _espMembershipDao;
@@ -58,7 +61,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
     protected IRoleDao _roleDao;
 
     @RequestMapping(value = "preRegister.page", method = RequestMethod.GET)
-    public String showForm(ModelMap modelMap, HttpServletRequest request) {
+    public String showForm(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
         String hashPlusId = request.getParameter(PARAM_ID);
         if (StringUtils.isBlank(hashPlusId)) {
             _log.error("No id parameter");
@@ -90,11 +93,23 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
                 hasActiveMembership = true;
             }
         }
+
+        //If there is already user logged in.Log that user out.
+        //If the pre-approved user is email validated then log that user in.
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        User loggedInUser = sessionContext.getUser();
+
+        if (user.isEmailValidated()) {
+            PageHelper.setMemberAuthorized(request, response, user, true);
+        } else if (loggedInUser != null) {
+            PageHelper.logout(request, response);
+        }
+
         if (membershipToProcess == null) {
             _log.error("No pre_approved memberships found for user " + user);
             return redirectToRegistration(request);
         } else if (hasActiveMembership) {
-            // What to do here? For now we only allow one active membership per user, so error
+            // For now we only allow one active membership per user, so error
             _log.error("Already found active membership for user " + user);
             return redirectToRegistration(request);
         }
@@ -120,34 +135,36 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             return redirectToRegistration(request);
         }
 
+        //get the user's membership that should be approved.
+        EspMembership membershipToProcess = getEspMembershipToProcess(user,request);
+        if(membershipToProcess == null){
+             _log.error("Did not find a membership to approve for user:" + user);
+            return redirectToRegistration(request);
+        }
+
         //server side validation for the fields.
         validate(command, result, user);
         if (result.hasErrors()) {
             return VIEW;
         }
 
+        //Set the user's information.
         setUserInfo(command, user);
-        _userDao.updateUser(user);
-        ThreadLocalTransactionManager.commitOrRollback();
 
         //Set the user's password.
         setUsersPassword(command, user);
-
-        //add the esp_member role to the user
-        Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
-        user.addRole(role);
-
-        //todo comment
-        _userDao.updateUser(user);
-        ThreadLocalTransactionManager.commitOrRollback();
-        user = getValidUserFromHash(hashPlusId);
 
         //Set the user's profile and save the user.
         updateUserProfile(command, user);
         _userDao.updateUser(user);
 
-        //update ESP membership for user.
-        approveEspMembership(command, user);
+        //approve ESP membership for user.
+        approveEspMembership(membershipToProcess, command);
+
+        //add the esp_member role to the user.
+        Role role = _roleDao.findRoleByKey(Role.ESP_MEMBER);
+        user.addRole(role);
+        _userDao.updateUser(user);
 
         //Sign the user in and re-direct to the dashboard
         PageHelper.setMemberAuthorized(request, response, user, true);
@@ -242,7 +259,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             email = email.trim();
             if (!user.getEmail().equals(email)) {
                 result.rejectValue("email", "Email address in the hash does not match the email param in the POST.");
-            } else if (!validateEmail(email.trim())) {
+            } else if (!EmailUtils.isValidEmail(email)) {
                 result.rejectValue("email", "invalid_email");
             }
         } else {
@@ -256,30 +273,23 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
         }
     }
 
-    //TODO move this to a util
-    protected boolean validateEmail(String email) {
-        org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
-        return emv.isValid(email);
-    }
-
     protected void setUserInfo(EspRegistrationCommand command, User user) {
-        if (user != null) {
-            if (StringUtils.isNotBlank(command.getFirstName())) {
-                user.setFirstName(command.getFirstName().trim());
-            }
-            if (StringUtils.isNotBlank(command.getLastName())) {
-                user.setLastName(command.getLastName().trim());
-            }
-            //default gender.
-            if (StringUtils.isBlank(user.getGender())) {
-                user.setGender("u");
-            }
+        if (StringUtils.isNotBlank(command.getFirstName())) {
+            user.setFirstName(command.getFirstName().trim());
+        }
+        if (StringUtils.isNotBlank(command.getLastName())) {
+            user.setLastName(command.getLastName().trim());
+        }
+        //default gender.
+        if (StringUtils.isBlank(user.getGender())) {
+            user.setGender("u");
         }
     }
 
     protected void setUsersPassword(EspRegistrationCommand command, User user) throws Exception {
         //NOTE :We accept just spaces as password.Therefore do NOT use : isBlank, use : isEmpty and do NOT trim().
-        //todo provisional users note change password
+        //Allow provisional users to change their passwords.Do not allow users who are already email validated to enter their passwords here.
+        // Hence only set the password if the user is not already email validated.
         try {
             if (StringUtils.isNotEmpty(command.getPassword()) && !user.isEmailValidated()) {
                 user.setPlaintextPassword(command.getPassword());
@@ -311,7 +321,6 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             if (StringUtils.isNotBlank(command.getScreenName())) {
                 userProfile.setScreenName(command.getScreenName().trim());
             }
-            //TODO update the state and city?
 
             if (StringUtils.isBlank(userProfile.getHow())) {
                 userProfile.setHow("esp");
@@ -320,20 +329,31 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
         }
     }
 
-    protected void approveEspMembership(EspRegistrationCommand command, User user) {
+    protected EspMembership getEspMembershipToProcess(User user, HttpServletRequest request) {
+        EspMembership membershipToProcess = null;
+        String membershipIdStr = request.getParameter(PARAM_MEMBERSHIP_TO_PROCESS_ID);
+        if (membershipIdStr != null) {
+            int membershipId = new Integer(membershipIdStr);
 
-        List<EspMembership> espMemberships = _espMembershipDao.findEspMembershipsByUserId(user.getId(), false);
-        //TODO for all the pre-approved?
-        for (EspMembership espMembership : espMemberships) {
-            if (espMembership.getStatus().equals(EspMembershipStatus.PRE_APPROVED)) {
-                if (StringUtils.isNotBlank(command.getJobTitle())) {
-                    espMembership.setJobTitle(command.getJobTitle());
-                }
-                espMembership.setStatus(EspMembershipStatus.APPROVED);
-                espMembership.setActive(true);
-                espMembership.setUpdated(new Date());
-                _espMembershipDao.saveEspMembership(espMembership);
+            EspMembership espMembership = _espMembershipDao.findEspMembershipById(membershipId, false);
+
+            //check if the membership has been pre-approved and also check if it belongs to the user.
+            if (espMembership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && (espMembership.getUser().getId() == user.getId())) {
+                membershipToProcess = espMembership;
             }
+        }
+        return membershipToProcess;
+    }
+
+    protected void approveEspMembership(EspMembership espMembership, EspRegistrationCommand command) {
+        if (espMembership.getStatus().equals(EspMembershipStatus.PRE_APPROVED)) {
+            if (StringUtils.isNotBlank(command.getJobTitle())) {
+                espMembership.setJobTitle(command.getJobTitle());
+            }
+            espMembership.setStatus(EspMembershipStatus.APPROVED);
+            espMembership.setActive(true);
+            espMembership.setUpdated(new Date());
+            _espMembershipDao.saveEspMembership(espMembership);
         }
     }
 
