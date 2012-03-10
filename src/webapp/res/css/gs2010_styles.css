@@ -64,7 +64,6 @@ General comments:
 =12e-6 data and widgets
 =12f schools
 =12f-1 school profile (deprecated: see 4k)
-=12f-3 principal reviews
 =12g video page
 =12h inline sign-in
 =12i user info
@@ -5987,74 +5986,6 @@ body.hover #startADiscussion .submit {
     right: 12px;
     top: 15px;
     font: 11px Arial, Helvetica, sans-serif;
-}
-
-/* =12f-3 principal reviews
--------------------------------------------------------------------------------------------*/
-#principalReviewFormContainer {
-/*width: 700px;*/
-    float: left;
-    border-right: 1px solid #dedede;
-    padding: 15px;
-}
-
-#principalReviewFormContainer button {
-    margin: 5px;
-}
-
-#principalReviewFormContainer textarea {
-    width: 300px;
-    height: 100px;
-}
-
-#principalReviewFormContainer .btns {
-    padding: 0 0 0 132px;
-    overflow: hidden;
-}
-
-#principalReviewFormContainer .btns input,
-#principalReviewFormContainer .btns label {
-    float: left;
-    margin-right: 5px;
-}
-
-#principalReviewFormContainer .btns label {
-    float: left;
-    margin-bottom: 1em;
-}
-
-#principalReviewFormContainer .btns #submitPrincipalReview {
-    clear: left;
-    margin-left: 0;
-}
-
-#principalReviewForm {
-    margin-top: 10px;
-}
-
-#principalConfirmationHover p {
-    font-size: 12px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #666;
-    font-weight: bold;
-}
-
-#principalConfirmationHover #agreeError {
-    clear: both;
-    margin: 10px 0 0 5px;
-}
-
-#principalReviewForm .principalReview-indent {
-    width: 300px;
-    margin-left: 134px;
-}
-
-#principalReviewSubmittedHover_cancel {
-    margin-left: 8px;
-}
-
-#continueToSurvey {
-    float: left;
 }
 
 /* =12g- video page

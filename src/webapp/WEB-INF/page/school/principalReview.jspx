@@ -28,97 +28,144 @@
 
 <gsml:body adPageName="Principal feedback form " pageLayout="nocol">
 
-    <div id="principalReviewFormContainer">
+    <div id="principalReviewFormContainer" class="container_24 slStylesV1-0 slFormsV1-0">
+        <div class="spacer_20"><!-- do not collapse --></div>
+        <div class="grid_24">
+            <h1>School Official: Respond to reviews about ${school.name}</h1>
 
-        <h2>School Official: Respond to reviews about ${school.name}</h2>
+            <h3>What's your point of view?</h3>
 
-        <h5>What's your point of view?</h5>
+            <p>Parents want to hear the "inside scoop" about this school from an official source. Add your comments in the space below. What you write will be posted on the reviews page above other school reviews.
+                <link:parentReviewGuidelines
+                        onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
+                        styleClass="linkGuidelines">Click here</link:parentReviewGuidelines> to read guidelines on the kinds of comments that GreatSchools will post.
+            </p>
 
-        <p>Parents want to hear the "inside scoop" about this school from an official source. Add your comments in the space below. What you write will be posted on the reviews page above other school reviews.
-            <link:parentReviewGuidelines
-                    onclick="Popup=window.open(this.href,'guidelines','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no, width=800,height=600,left=50,top=50'); return false;"
-                    styleClass="linkGuidelines">Click here</link:parentReviewGuidelines> to read guidelines on the kinds of comments that GreatSchools will post.
-        </p>
+            <p>GreatSchools will display your full name and job title with your comment.</p>
+        </div>
+        <div class="grid_24">
+            <div class="mod form">
+                <div class="inner">
+                    <div class="bd">
+                        <form:form id="principalReviewForm" method="post" action="principalComments.page"
+                                   commandName="reviewCommand">
+                            <form:errors path="*" cssClass="error invalid" cssStyle="display:block;"/>
+                            <input type="hidden" value="" name="member_id"/>
+                            <input type="hidden" value="${school.name}" name="schoolname"/>
+                            <input type="hidden" value="public" name="schooltype"/>
+                            <input type="hidden" value="principal" name="who"/>
+                            <input type="hidden" value="${school.databaseState}" name="state"/>
+                            <input type="hidden" value="${school.id}" name="id"/>
 
-        <br/>
+                            <fieldset class="contactPw">
 
-        <p>GreatSchools will display your full name and job title with your comment.</p>
+                                <div class="lal clearfix principalReview_firstName">
+                                    <div class="alpha grid_5">
+                                        <label for="fName">First name</label>
+                                    </div>
+                                    <div class="grid_9">
+                                        <spring:input id="fName" class="text input_8" path="firstName"/>
+                                    </div>
+                                    <div class="grid_9 omega">
 
-        <form:form id="principalReviewForm" method="post" action="principalComments.page" commandName="reviewCommand">
-            <form:errors path="*" cssClass="error invalid" cssStyle="display:block;" />
-            <input type="hidden" value="" name="member_id"/>
-            <input type="hidden" value="${school.name}" name="schoolname"/>
-            <input type="hidden" value="public" name="schooltype"/>
-            <input type="hidden" value="principal" name="who"/>
-            <input type="hidden" value="${school.databaseState}" name="state"/>
-            <input type="hidden" value="${school.id}" name="id"/>
+                                        <span class="error invalid">
+                                            <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                                            Please provide your first name
+                                        </span>
+                                    </div>
+                                </div>
 
-            <fieldset class="contactPw">
-                <ul>
+                                <div class="lal clearfix principalReview_lastName">
+                                    <div class="alpha grid_5">
+                                        <label for="lName">Last name</label>
+                                    </div>
+                                    <div class="grid_9">
+                                        <spring:input id="lName" class="text input_8" path="lastName"/>
+                                    </div>
+                                    <div class="grid_9 omega">
+                                    <span class="error invalid">
+                                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                                        Please provide your last name
+                                    </span>
+                                    </div>
+                                </div>
 
-                    <li class="principalReview_firstName">
-                        <label for="fName">First name *</label>
-                        <spring:input id="fName" path="firstName"/>
+                                <div class="lal clearfix principalReview_jobTitle">
+                                    <div class="alpha grid_5">
+                                        <label for="jobTitle">Job title</label>
+                                    </div>
+                                    <div class="grid_9">
+                                        <spring:input id="jobTitle" class="text input_8" path="jobTitle"/>
+                                    </div>
+                                    <div class="grid_9 omega">
+                                        <span class="error invalid">
+                                            <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                                            Please provide your job title
+                                        </span>
+                                    </div>
+                                </div>
 
-                        <span class="error invalid">Please provide your first name</span>
+                                <div class="lal clearfix principalReview_email">
+                                    <div class="alpha grid_5">
+                                    <label for="jemail">Email address</label>
+                                        </div>
+                                    <div class="grid_9">
+                                    <spring:input id="jemail" class="text input_8" path="email"/>
+                                        </div>
+                                    <div class="grid_9 omega">
+                                        <span class="error invalid">
+                                            <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                                            Please provide a valid email address
+                                        </span>
+                                    </div>
+                                </div>
 
-                    </li>
-                    <li class="principalReview_lastName">
-                        <label for="lName">Last name *</label>
-                        <spring:input id="lName" path="lastName"/>
+                                <div class="lal clearfix principalReview_comments">
+                                    <div class="alpha grid_5">
+                                        <label for="principal-comments">Comments</label>
+                                    </div>
+                                    <div class="grid_9">
+                                        <spring:textarea id="principal-comments" class="text input_8 height-2" path="comments"></spring:textarea>
 
-                        <span class="error invalid">Please provide your last name</span>
-
-                    </li>
-                    <li class="principalReview_jobTitle">
-                        <label for="jobTitle">Job title *</label>
-                        <spring:input id="jobTitle" path="jobTitle"/>
-
-                        <span class="error invalid">Please provide your job title</span>
-
-                    </li>
-                    <li class="principalReview_email">
-                        <label for="jemail">Email address *</label>
-                        <spring:input id="jemail" path="email"/>
-
-                        <span class="error invalid">Please provide a valid email address</span>
-
-                    </li>
-                    <li class="principalReview_comments">
-                        <label for="principal-comments">Comments *</label>
-                        <spring:textarea id="principal-comments" path="comments" ></spring:textarea>
-                        <span class="error invalid">Please provide us with your comments</span>
-
-                        <p class="principalReview-indent">Please note: GreatSchools will only post one principal or school official comment at a time. If an official comment is already posted for this school, submitting this form may replace that comment.</p>
-
-                    </li>
-
-                </ul>
-            </fieldset>
+                                        <div class="alpha grid_8 omega">
+                                            <p class="principalReview-indent small">Please note: GreatSchools will only post one principal or school official comment at a time. If an official comment is already posted for this school, submitting this form may replace that comment.</p>
+                                        </div>
+                                    </div>
+                                    <div class="grid_9 omega">
+                                        <span class="error invalid">
+                                            <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                                            Please provide us with your comments
+                                        </span>
+                                    </div>
+                                </div>
 
 
-            <fieldset class="btns">
+                            </fieldset>
 
-                    <span class="error invalid"
-                          id="principalReview_termsNotChecked">You must agree to our terms of use before proceeding</span>
+                            <fieldset class="btns">
 
-                <br/>
+                                <span class="error invalid" id="principalReview_termsNotChecked">
+                                    <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                                    You must agree to our terms of use before proceeding
+                                </span>
 
-                <input type="checkbox" name="permit" id="permit"/><label id="touAgree"
-                                                                         for="permit">I give GreatSchools permission to post my comments online for other parents to read.
-                <br/>Checking this box means you agree to the
-                <link:termsOfUse title="GreatSchools Terms of Service"
-                                 target="_blank">GreatSchools Terms of Use.</link:termsOfUse></label>
+                                <div class="mbm">
+                                    <input type="checkbox" name="permit" id="permit"/>
+                                    <label id="touAgree" class="checkbox"
+                                           for="permit">I give GreatSchools permission to post my comments online for other parents to read. Checking this box means you agree to the
+                                        <link:termsOfUse title="GreatSchools Terms of Service"
+                                                         target="_blank">GreatSchools Terms of Use.</link:termsOfUse></label>
+                                </div>
+                                <button class="button-1" type="submit" name="submitPrincipalReview" id="submitPrincipalReview">Submit</button>
 
-                <button class="button-1" type="submit" name="submitPrincipalReview" id="submitPrincipalReview">Submit</button>
+                                <p>Thank you for your help!</p>
 
-                <p>
-                    Thank you for your help!
-                </p>
-
-            </fieldset>
-
-        </form:form>
+                            </fieldset>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript">
