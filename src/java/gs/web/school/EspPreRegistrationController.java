@@ -247,8 +247,8 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
 
         validator.validateFirstName(userCommand, result);
         validator.validateLastName(userCommand, result);
-        //Password is not always visible on the form.Therefore check the command to see if its available.
-        if (StringUtils.isNotEmpty(command.getPassword())) {
+        //Password is not always visible on the form.Its only visible if the user is not already email validated.
+        if (!user.isEmailValidated()) {
             validator.validatePassword(userCommand, result);
         }
         validator.validateUsername(userCommand, user, result);
