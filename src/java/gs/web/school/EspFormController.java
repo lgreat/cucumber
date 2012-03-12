@@ -187,6 +187,7 @@ public class EspFormController implements ReadWriteAnnotationController {
             errorFieldToMsgMap.put("school_fax", fieldError);
         }
         handleSchoolAffiliation(requestParameterMap, keysForPage);
+        handleEthnicity(requestParameterMap, keysForPage);
 
         // Basic validation goes here
         // Note: This should only validate data going into esp_response. Data going to external places MUST be
@@ -232,6 +233,8 @@ public class EspFormController implements ReadWriteAnnotationController {
                 EspResponse espResponse;
                 if (StringUtils.equals("address", key)) {
                     espResponse = createEspResponse(user, school, now, key, active, (Address) responseValue);
+                } else if (StringUtils.equals("ethnicity", key) ) {
+                    espResponse = createEspResponse(user, school, now, key, active, responseValue.toString());
                 } else {
                     espResponse = createEspResponse(user, school, now, key, active, (String) responseValue);
                 }
@@ -307,6 +310,28 @@ public class EspFormController implements ReadWriteAnnotationController {
                 requestParameterMap.get("school_type_affiliation") == null
                         || requestParameterMap.get("school_type_affiliation").length == 0)) {
             requestParameterMap.put("school_type_affiliation", new Object[]{""}); // force delete
+        }
+    }
+
+    protected void handleEthnicity(Map<String, Object[]> requestParameterMap, Set<String> keysForPage) {
+        Map<Integer, Integer> breakdownToValueMap = new HashMap<Integer, Integer>();
+        Set<String> keysToRemove = new HashSet<String>();
+        for (String key: keysForPage) {
+            if (StringUtils.startsWith(key, "ethnicity_") && requestParameterMap.get(key) != null && requestParameterMap.get(key).length == 1) {
+                keysToRemove.add(key);
+                try {
+                    Integer breakdownId = new Integer(key.substring("ethnicity_".length()));
+                    Integer value = new Integer(requestParameterMap.get(key)[0].toString());
+                    breakdownToValueMap.put(breakdownId, value);
+                } catch (Exception e) {
+                    _log.error(e, e);
+                }
+            }
+        }
+        keysForPage.removeAll(keysToRemove);
+        if (breakdownToValueMap.size() > 0) {
+            keysForPage.add("ethnicity");
+            requestParameterMap.put("ethnicity", new Object[] {breakdownToValueMap});
         }
     }
 
@@ -423,7 +448,6 @@ public class EspFormController implements ReadWriteAnnotationController {
             inCities.add("Speedway");
             put(State.IN, inCities);
             put(State.DC, null); // null means accept all
-//            put(State.CA, null); // for testing
         }
     };
     
@@ -484,7 +508,7 @@ public class EspFormController implements ReadWriteAnnotationController {
      * How many pages are on the form for a given school
      */
     protected int getMaxPageForSchool(School school) {
-//        if (isFruitcakeSchool(school)) { // TODO: CHeck for private too!!!!
+//        if (isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE) {
 //            return 8;
 //        }
         return 7;

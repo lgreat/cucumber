@@ -3,10 +3,7 @@ package gs.web.school;
 import gs.data.community.User;
 import gs.data.geo.LatLon;
 import gs.data.school.*;
-import gs.data.school.census.CensusDataSet;
-import gs.data.school.census.CensusDataType;
-import gs.data.school.census.ICensusDataSetDao;
-import gs.data.school.census.SchoolCensusValue;
+import gs.data.school.census.*;
 import gs.data.util.Address;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -145,10 +142,14 @@ public class EspFormExternalDataHelper {
 
     void insertEspFormResponseStructForEthnicity(Map<String, EspFormResponseStruct> responseMap, School school) {
         List<SchoolCensusValue> censusValues = school.getCensusInfo().getManualValues(school, CensusDataType.STUDENTS_ETHNICITY);
-        System.out.println("Census Values: " + censusValues);
         if (censusValues != null) {
             for (SchoolCensusValue value: censusValues) {
-                System.out.println("  " + value);
+                if (value.getDataSet() != null && value.getDataSet().getBreakdown() != null && value.getValueInteger() != null) {
+                    Integer breakdownId = value.getDataSet().getBreakdown().getId();
+                    EspFormResponseStruct ethnicityValue = new EspFormResponseStruct();
+                    ethnicityValue.addValue(String.valueOf(value.getValueInteger()));
+                    responseMap.put("ethnicity_" + breakdownId, ethnicityValue);
+                }
             }
         }
     }
@@ -309,6 +310,11 @@ public class EspFormExternalDataHelper {
                 saveSchool(school, user, now);
             }
             return null;
+        } else if (StringUtils.equals("ethnicity", key)) {
+            Map<Integer, Integer> breakdownIdToValueMap = (Map<Integer, Integer>) values[0];
+            return handleEthnicity(breakdownIdToValueMap, school, user);
+        } else {
+            _log.error("Unknown external key: " + key);
         }
         return null;
     }
@@ -326,13 +332,27 @@ public class EspFormExternalDataHelper {
     }
 
     CensusDataSet findOrCreateManualDataSet(School school, CensusDataType censusDataType) {
-        CensusDataSet dataSet = _dataSetDao.findDataSet(school.getDatabaseState(), censusDataType, 0, null, null);
+        return findOrCreateManualDataSet(school, censusDataType, null);
+    }
+
+    CensusDataSet findOrCreateManualDataSet(School school, CensusDataType censusDataType, Breakdown breakdown) {
+        CensusDataSet dataSet = _dataSetDao.findDataSet(school.getDatabaseState(), censusDataType, 0, breakdown, null);
         if (dataSet == null) {
-            dataSet = _dataSetDao.createDataSet(school.getDatabaseState(), censusDataType, 0, null, null);
+            dataSet = _dataSetDao.createDataSet(school.getDatabaseState(), censusDataType, 0, breakdown, null);
         }
         return dataSet;
     }
 
+    String handleEthnicity(Map<Integer, Integer> breakdownIdToValueMap, School school, User user) {
+        for (Integer breakdownId: breakdownIdToValueMap.keySet()) {
+            Integer value = breakdownIdToValueMap.get(breakdownId);
+            Breakdown breakdown = new Breakdown(breakdownId);
+            CensusDataSet dataSet = findOrCreateManualDataSet(school, CensusDataType.STUDENTS_ETHNICITY, breakdown);
+            _dataSetDao.addValue(dataSet, school, value, "ESP-" + user.getId());
+        }
+        return null;
+    }
+    
     /**
      * Calculate the new lat, lon if the school address has been changed by the user.
      */

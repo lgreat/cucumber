@@ -3,35 +3,38 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
 >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="8" maxPage="${maxPage}" headerText="Student info">
         <fieldset>
-
+            <legend>Your school's student ethnicity breakdown</legend>
+            <hr class="legend"><!--Do not collapse--></hr>
             <c:choose>
                 <c:when test="${school.databaseState eq 'WI'}">
-                    Wisconsin
+                    <school:espFormEthnicityRow label="American Indian" breakdownId="10"/>
+                    <school:espFormEthnicityRow label="Asian" breakdownId="7"/>
+                    <school:espFormEthnicityRow label="Black" breakdownId="2"/>
+                    <school:espFormEthnicityRow label="Hispanic" breakdownId="3"/>
+                    <school:espFormEthnicityRow label="Pacific Islander" breakdownId="8"/>
+                    <school:espFormEthnicityRow label="White" breakdownId="1"/>
+                    <school:espFormEthnicityRow label="Two or More" breakdownId="6"/>
                 </c:when>
                 <c:when test="${school.databaseState eq 'DC'}">
-                    D.C.
+                    <school:espFormEthnicityRow label="American Indian/Alaskan Native" breakdownId="10"/>
+                    <school:espFormEthnicityRow label="Asian/Pacific Islander" breakdownId="5"/>
+                    <school:espFormEthnicityRow label="Black" breakdownId="2"/>
+                    <school:espFormEthnicityRow label="Hispanic" breakdownId="3"/>
+                    <school:espFormEthnicityRow label="White" breakdownId="1"/>
+                    <school:espFormEthnicityRow label="Multiracial" breakdownId="6"/>
                 </c:when>
                 <c:when test="${school.databaseState eq 'IN'}">
-                    Indiana
-                </c:when>
-                <c:when test="${school.databaseState eq 'CA'}">
-                    <div class="lal clearfix">
-                        <div class="alpha grid_5">
-                            <label for="form_ethnicity_">White</label>
-                        </div>
-                        <div class="grid_7 suffix_1">
-                            <!-- input -->
-
-                        </div>
-                        <div class="grid_7 omega">
-                            <!-- error ? -->
-                        </div>
-                    </div>
+                    <school:espFormEthnicityRow label="American Indian" breakdownId="10"/>
+                    <school:espFormEthnicityRow label="Asian" breakdownId="7"/>
+                    <school:espFormEthnicityRow label="Black" breakdownId="2"/>
+                    <school:espFormEthnicityRow label="Hispanic" breakdownId="3"/>
+                    <school:espFormEthnicityRow label="Multiracial" breakdownId="6"/>
+                    <school:espFormEthnicityRow label="Native Hawaiian or Other Pacific Islander" breakdownId="8"/>
+                    <school:espFormEthnicityRow label="White" breakdownId="1"/>
                 </c:when>
             </c:choose>
 
