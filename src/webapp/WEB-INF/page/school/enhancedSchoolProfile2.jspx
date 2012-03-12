@@ -281,24 +281,59 @@
             <c:set var="pu4"><gsweb:erts list="${responses.partnerships_url_4}" pretty="false"/></c:set>
             <c:set var="pn5"><gsweb:erts list="${responses.partnerships_name_5}" pretty="false"/></c:set>
             <c:set var="pu5"><gsweb:erts list="${responses.partnerships_url_5}" pretty="false"/></c:set>
-            <c:set var="isP1" value="${fn:length(pn1)>0 and fn:length(pu1)>0}"/>
-            <c:set var="isP2" value="${fn:length(pn2)>0 and fn:length(pu2)>0}"/>
-            <c:set var="isP3" value="${fn:length(pn3)>0 and fn:length(pu3)>0}"/>
-            <c:set var="isP4" value="${fn:length(pn4)>0 and fn:length(pu4)>0}"/>
-            <c:set var="isP5" value="${fn:length(pn5)>0 and fn:length(pu5)>0}"/>
+            <c:set var="isP1" value="${fn:length(pn1) gt 0}"/>
+            <c:set var="isP2" value="${fn:length(pn2) gt 0}"/>
+            <c:set var="isP3" value="${fn:length(pn3) gt 0}"/>
+            <c:set var="isP4" value="${fn:length(pn4) gt 0}"/>
+            <c:set var="isP5" value="${fn:length(pn5) gt 0}"/>
             <c:if test="${isP1 or isP2 or isP3 or isP4 or isP5}">
                 <tr>
                     <td class="small_bold">Partnerships with local resources and organizations</td>
                     <td>
-                        <c:if test="${isP1}"><a href="${gsweb:formatUrl(pu1)}" target="_blank">${pn1}</a></c:if><c:if
-                            test="${isP2 or isP3 or isP4 or isP5}">; </c:if>
-                        <c:if test="${isP2}"><a href="${gsweb:formatUrl(pu2)}" target="_blank">${pn2}</a></c:if><c:if
-                            test="${isP3 or isP4 or isP5}">; </c:if>
-                        <c:if test="${isP3}"><a href="${gsweb:formatUrl(pu3)}" target="_blank">${pn3}</a></c:if><c:if
-                            test="${isP4 or isP5}">; </c:if>
-                        <c:if test="${isP4}"><a href="${gsweb:formatUrl(pu4)}" target="_blank">${pn4}</a></c:if><c:if
-                            test="${isP5}">; </c:if>
-                        <c:if test="${isP5}"><a href="${gsweb:formatUrl(pu3)}" target="_blank">${pn3}</a></c:if>
+                        <c:if test="${isP1}">
+                            <c:choose>
+                                <c:when test="${fn:length(pu1) gt 0}">
+                                    <a href="${gsweb:formatUrl(pu1)}" target="_blank">${pn1}</a>
+                                </c:when>
+                                <c:otherwise>${pn1}</c:otherwise>
+                            </c:choose>
+                            <c:if test="${isP2 or isP3 or isP4 or isP5}">; </c:if>
+                        </c:if>
+                        <c:if test="${isP2}">
+                            <c:choose>
+                                <c:when test="${fn:length(pu2) gt 0}">
+                                    <a href="${gsweb:formatUrl(pu2)}" target="_blank">${pn2}</a>
+                                </c:when>
+                                <c:otherwise>${pn2}</c:otherwise>
+                            </c:choose>
+                            <c:if test="${isP3 or isP4 or isP5}">; </c:if>
+                        </c:if>
+                        <c:if test="${isP3}">
+                            <c:choose>
+                                <c:when test="${fn:length(pu3) gt 0}">
+                                    <a href="${gsweb:formatUrl(pu3)}" target="_blank">${pn3}</a>
+                                </c:when>
+                                <c:otherwise>${pn3}</c:otherwise>
+                            </c:choose>
+                            <c:if test="${isP4 or isP5}">; </c:if>
+                        </c:if>
+                        <c:if test="${isP4}">
+                            <c:choose>
+                                <c:when test="${fn:length(pu4) gt 0}">
+                                    <a href="${gsweb:formatUrl(pu4)}" target="_blank">${pn4}</a>
+                                </c:when>
+                                <c:otherwise>${pn4}</c:otherwise>
+                            </c:choose>
+                            <c:if test="${isP5}">; </c:if>
+                        </c:if>
+                        <c:if test="${isP5}">
+                            <c:choose>
+                                <c:when test="${fn:length(pu5) gt 0}">
+                                    <a href="${gsweb:formatUrl(pu5)}" target="_blank">${pn5}</a>
+                                </c:when>
+                                <c:otherwise>${pn5}</c:otherwise>
+                            </c:choose>
+                        </c:if>
                     </td>
                 </tr>
             </c:if>
