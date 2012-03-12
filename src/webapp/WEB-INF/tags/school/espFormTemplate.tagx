@@ -28,11 +28,18 @@
                                 </span>
                             </c:if>
                             <span class="mhm">Page ${page} of ${maxPage}</span>
-                            <c:if test="${page lt maxPage}">
-                                <span class="mhm">
-                                <button class="button-1 js_nextPageButton">Next &amp;raquo;</button>
-                                </span>
-                            </c:if>
+                            <c:choose>
+                                <c:when test="${page lt maxPage}">
+                                    <span class="mhm">
+                                    <button class="button-1 js_nextPageButton">Next &amp;raquo;</button>
+                                    </span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="mhm">
+                                    <button class="button-1 js_doneButton">Done</button>
+                                    </span>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div class="clear"><!--Do not collapse--></div>
