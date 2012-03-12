@@ -29,16 +29,13 @@
             </div>
 
             <div class="nal clearfix">
-                <div class="alpha prefix_5 grid_4">
-                    <gsml:input styleId="form_physical_address_city" styleClass="text input_4" type="text"
-                                name="physical_address_city"
-                                value="${responseMap['physical_address_city'].value}" disabled="${true}"/>
+
+                <div class="alpha prefix_5 grid_6 suffix_12 omega">
+                    <p class="loud small bottom">
+                        ${responseMap['physical_address_city'].value} ${responseMap['physical_address_state'].value}, ${responseMap['physical_address_zip'].value}
+                    </p>
                 </div>
-                <div class="grid_2 suffix_12 omega">
-                    <gsml:input styleId="form_physical_address_zip" styleClass="text input_2" type="text"
-                                name="physical_address_zip"
-                                value="${responseMap['physical_address_zip'].value}" disabled="${true}"/>
-                </div>
+
             </div>
 
             <div class="lal clearfix">
