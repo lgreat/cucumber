@@ -593,7 +593,7 @@ GS.validation.validateSumPercentages = function(fieldSelector, errorSelector) {
             var total = 0;
             // require each one to be numeric
             formFields.each(function() {
-                var fieldVal = parseInt(jQuery.trim(jQuery(this).val()));
+                var fieldVal = parseInt(jQuery.trim(jQuery(this).val()), 10);
                 if (fieldVal > 0) {
                     total += fieldVal;
                 }
