@@ -26,6 +26,7 @@
     <context:component-scan base-package="gs.web.promo" />
     <context:component-scan base-package="gs.web.geo" />
     <context:component-scan base-package="gs.web.admin" />
+    <context:component-scan base-package="gs.web.email" />
 
     <mvc:annotation-driven />
     <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
@@ -2478,21 +2479,6 @@
     <bean name="/email/managementSuccess.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName" value="email/managementSuccess"/>
-    </bean>
-
-    <bean name="/email/unsubscribe.page"
-          class="gs.web.email.UnsubscribeController"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="emailCmd"/>
-        <property name="commandClass" value="gs.web.email.UnsubscribeCommand"/>
-        <property name="formView" value="/email/unsubscribe"/>
-        <property name="successView" value="email/unsubscribeSuccess" />
-     </bean>
-
-    <bean name="/email/unsubscribeSuccess.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName" value="email/unsubscribeSuccess"/>
     </bean>
 
     <bean name="/community/registration/popup/NthGraderRegistrationHover.page"

@@ -1,0 +1,108 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:form="http://www.springframework.org/tags/form">
+
+    <html lang="en">
+
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <jsp:directive.page contentType="text/html"/>
+
+    <head>
+        <title>Email Unsubscribe - GreatSchools</title>
+    </head>
+
+    <gsml:body adPageName="email/unsubscribe" pageLayout="nocol">
+        <ad:setSlotPrefix slotPrefix="Email_Unsubscribe"/>
+
+        <div class="spacer_20"><!-- do not collapse --></div>
+
+        <div class="container_24 slStylesV1-0 slFormsV1-0">
+            <div class="grid_24">
+                <div class="mod form">
+                    <div class="inner">
+                        <div class="bd">
+                            <form:form name="unsubscribeSurvey" commandName="emailCmd" method="post"
+                                       action="/email/unsubscribeSurvey.page?email=${emailCmd.email}&amp;ref=${emailCmd.userId}">
+
+                                <fieldset>
+                                    <legend>Unsubscribe Complete</legend>
+                                    <hr class="legend"/>
+
+                                    <form:hidden path="userId" id="userId" value="${emailCmd.userId}"/>
+                                    <form:hidden path="unsubscribedSuccess" id="hasUnsubscribed"
+                                                 value="${emailCmd.unsubscribedSuccess}"/>
+                                    <form:hidden path="unsubscribeId" id="unsubscribeId" value="${emailCmd.unsubscribeId}"/>
+                                    <c:if test="${emailCmd.unsubscribeDateTime ne null}">
+                                        <form:hidden path="unsubscribeDateTime"
+                                                     id="unsubscribeDateTime" value="${emailCmd.unsubscribeDateTime}"/>
+                                    </c:if>
+
+                                    <p>Before you go, would you mind telling us why you unsubscribed? This question is
+                                        entirely optional - you have already been unsubscribed.</p>
+
+                                    <p>Select your answer below then click the "Let us know" button.</p>
+
+                                    <form:radiobutton path="unsubscribeReason"
+                                                      id="notRelevant"
+                                                      value="Content is no longer revelant" />
+                                    <label for="notRelevant" class="radio">Content is no longer revelant</label><br/>
+
+                                    <form:radiobutton path="unsubscribeReason"
+                                                      id="graduated"
+                                                      value="My child has graduated high school" />
+                                    <label for="graduated" class="radio">My child has graduated high school</label><br/>
+
+                                    <form:radiobutton path="unsubscribeReason"
+                                                      id="changingEmail"
+                                                      value="I'm changing my email address" />
+                                    <label for="changingEmail" class="radio">I'm changing my email address</label><br/>
+
+                                    <form:radiobutton path="unsubscribeReason"
+                                                      id="didNotSubscribe"
+                                                      value="I don't recall subscribing" />
+                                    <label for="didNotSubscribe" class="radio">I don't recall subscribing</label><br/>
+
+                                    <form:radiobutton path="unsubscribeReason"
+                                                      id="emailstooFrequent"
+                                                      value="Emails are too frequent" />
+                                    <label for="emailstooFrequent" class="radio">Emails are too frequent</label><br/>
+
+                                    <form:radiobutton path="unsubscribeReason"
+                                                      id="otherReasons"
+                                                      value="Other" />
+                                    <label for="otherReasons" class="radio">Other</label><br/>
+
+                                    <form:textarea path="otherReasonsText"
+                                                   id="otherReasonsText"
+                                                   cssClass="input_8"/>
+                                    <p class="hint">Max Characters: 256</p>
+
+
+                                    <input class="button-1 mtm mrm" type="submit"
+                                           id="letUsKnow" name="letUsKnow" value="Let Us Know"/>
+                                    <link:home>No Thanks</link:home>
+                                </fieldset>
+
+                            </form:form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <mod:tracking pageName="Email Unsubscribe"
+                      hier1="Email,Unsubscribe"/>
+    </gsml:body>
+
+
+    </html>
+</jsp:root>

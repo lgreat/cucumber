@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.285 2012/03/06 21:15:04 aroy Exp $
+ * $Id: UrlBuilder.java,v 1.286 2012/03/12 16:39:39 rramachandran Exp $
  */
 
 package gs.web.util;
@@ -989,6 +989,9 @@ public class UrlBuilder {
         } else if(ADD_EDIT_SCHOOL_OR_DISTRICT.equals(page)){
             _perlPage = false;
             _path = "/about/feedback/addEditSchoolOrDistrict.page";
+        }  else if (NEWSLETTER_UNSUBSCRIBE.equals(page)) {
+            _perlPage = false;
+            _path = "/email/unsubscribe.page";
         } else {
             throw new IllegalArgumentException("VPage unknown: " + page);
         }
@@ -1387,12 +1390,6 @@ public class UrlBuilder {
         } else if (NEWSLETTER_MANAGEMENT.equals(page)) {
             _perlPage = false;
             _path = "/email/management.page";
-            if (StringUtils.isNotBlank(param0)) {
-                setParameter("email", param0);
-            }
-        } else if (NEWSLETTER_UNSUBSCRIBE.equals(page)) {
-            _perlPage = false;
-            _path = "/email/unsubscribe.page";
             if (StringUtils.isNotBlank(param0)) {
                 setParameter("email", param0);
             }

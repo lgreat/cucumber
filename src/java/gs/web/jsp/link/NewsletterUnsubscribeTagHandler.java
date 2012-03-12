@@ -1,6 +1,5 @@
 package gs.web.jsp.link;
 
-import gs.data.state.State;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 
@@ -16,13 +15,17 @@ import org.apache.commons.lang.StringUtils;
  */
 public class NewsletterUnsubscribeTagHandler extends LinkTagHandler {
     private String _email;
+    private String _ref;
 
     protected UrlBuilder createUrlBuilder() {
 
-        UrlBuilder builder = new UrlBuilder(UrlBuilder.NEWSLETTER_UNSUBSCRIBE, getState(), _email);
+        UrlBuilder builder = new UrlBuilder(UrlBuilder.NEWSLETTER_UNSUBSCRIBE);
 
-         if (_email != null ) {
+        if (StringUtils.isNotBlank(_email)) {
             builder.setParameter("email", _email);
+        }
+        if (StringUtils.isNotBlank(_ref)) {
+            builder.setParameter("ref", _ref);
         }
 
 
@@ -31,6 +34,10 @@ public class NewsletterUnsubscribeTagHandler extends LinkTagHandler {
 
     public void setEmail(String email) {
         _email = email;
+    }
+
+    public void setRef (String ref) {
+        _ref = ref;
     }
 
 }

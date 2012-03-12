@@ -769,7 +769,7 @@
         <description>
             <![CDATA[Link to our "newsletter unsubscribe page".
             This page allows a user to unsubscribe from newsletter subscriptions.
-            Currently <code>/email/unsubscribe.page?email=$EMAIL.</code>]]>
+            Currently <code>/email/unsubscribe.page?email=$EMAIL&ref=$ref.</code>]]>
         </description>
         <attribute>
             <name>styleClass</name>
@@ -812,6 +812,13 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>Optional javascript onclick</description>
+        </attribute>
+        <attribute>
+            <name>ref</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Optional member Id (user Id)</description>
         </attribute>
     </tag>
     <tag>

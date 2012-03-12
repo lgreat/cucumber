@@ -438,7 +438,7 @@
                      title="GreatSchools Privacy Policy"
                      href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow></p>
 <p>
-    <link:newsletterUnsubscribe email="${emailCmd.email}">Unsubscribe from all newsletters</link:newsletterUnsubscribe>
+    <link:newsletterUnsubscribe email="${emailCmd.email}" ref="${emailCmd.userId}">Unsubscribe from all newsletters</link:newsletterUnsubscribe>
 </p>
 
 </div>

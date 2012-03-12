@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.143 2012/03/06 21:15:04 aroy Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.144 2012/03/12 16:39:38 rramachandran Exp $
  */
 
 package gs.web.util;
@@ -379,10 +379,8 @@ public class UrlBuilderSaTest extends BaseTestCase {
         String encodedEmail = URLEncoder.encode(email,"UTF-8");
         assertEquals("/email/management.page?email="+encodedEmail, builder.asSiteRelative(request));
 
-        final String email2 = "dlee@greatschools.org";
-        builder = new UrlBuilder(UrlBuilder.NEWSLETTER_UNSUBSCRIBE, State.WY, email2);
-        String encodedEmail2 = URLEncoder.encode(email2,"UTF-8");
-        assertEquals("/email/unsubscribe.page?email="+encodedEmail2, builder.asSiteRelative(request));
+        builder = new UrlBuilder(UrlBuilder.NEWSLETTER_UNSUBSCRIBE);
+        assertEquals("/email/unsubscribe.page", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.BETA_SIGNUP, State.WY, null);
         assertEquals("/community/beta.page?state=WY", builder.asSiteRelative(request));
