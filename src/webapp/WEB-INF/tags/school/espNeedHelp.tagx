@@ -16,9 +16,15 @@
         <span class="iconx16 i-16-help vam"><!-- do not collapse --></span>
     </c:set>
 
+    <c:set var="bubbleTriggerNoLink">
+        <span class="small mrm"><a href="javascript:void(0)">Need Help?</a></span>
+        <span class="iconx16 i-16-help vam"><!-- do not collapse --></span>
+    </c:set>
+
+
     <c:choose>
         <c:when test="${state eq 'DC'}">
-            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTrigger}" width="200" height="50">
+            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="200" height="50">
                 <span class="text3bold">Get help with your profile from local staff</span>
                 <br/>
                 <span>Hotline: 202-450-5278</span>
@@ -27,14 +33,14 @@
             </gsml:bubblePopup>
         </c:when>
         <c:when test="${(state eq 'IN' and (city eq 'Beech Grove' or city eq 'Indianapolis' or city eq 'West Newton' or city eq 'Speedway'))}">
-            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTrigger}" width="200" height="50">
+            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="200" height="50">
                 <span class="text3bold">Get help with your profile from local staff</span>
                 <br/>
                 <span>Email: indianapolis@greatschools.org</span>
             </gsml:bubblePopup>
         </c:when>
         <c:when test="${state eq 'WI' and city eq 'Milwaukee'}">
-            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTrigger}" width="200" height="50">
+            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="200" height="50">
                 <span class="text3bold">Get help with your profile from local staff</span>
                 <br/>
                 <span>Hotline: 414-748-1211</span>
