@@ -158,7 +158,7 @@
               <td>${mrow.contactName}</td>
             </tr>
             <tr>
-              <td><!-- do not collapse --> </td>
+              <td><a href="/admin/espModerationDetails.page?id=${membership.id}">&gt;</a></td>
               <!--Second Row-->
               <td class="smallest">${membership.active? 'Yes' : 'No'}</td>
               <td>${mrow.contactEmail}</td>

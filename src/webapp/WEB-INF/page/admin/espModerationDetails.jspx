@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:gsweb="gstaglib"
+          version="2.0" >
+
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <title>
+        Admin OSP Moderation - Details
+    </title>
+</head>
+
+<gsml:body adPageName="school/esp" pageLayout="nocol">
+    <div class="container_24">
+        <div class="grid_24 slStylesV1-0 slFormsV1-0">
+            <div>
+                <a href="/admin/espModerationForm.page">View Main Requests</a>
+                &#160;&#160;&#160;
+                <a href="/admin/espModerationForm.page?pending=1">View Pending Requests</a>
+                &#160;&#160;&#160;
+                <a href="/admin/espModerationSearch.page">Search Moderation Requests</a>
+            </div>
+            <div class="mod form">
+                <div class="inner">
+                    <div class="bd">
+                        <form:form name="espModerationDetails" commandName="espModerationDetailsCmd">
+                            <input type="submit" name="moderatorAction" value="approve"/>
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="membershipId">Membership ID</label>
+                                </div>
+                                <div class="grid_6">
+                                    <label id="membershipId">${espModerationDetailsCmd.espMembership.user.id}</label>
+                                </div>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="grid_6">
+                                    <form:input path="espMembership.user.email" id="email" cssClass="text input_6"/>
+                                </div>
+                                <c:if test="${emailError eq true}">
+                                    <div class="error" style="display:block">
+                                        <div class="mediaExt1-1">
+                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                                            <div class="bk"><form:errors path="espMembership.user.email"/></div>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="school">School</label>
+                                </div>
+                                <div class="grid_6">
+                                    <label id = "school">${espModerationDetailsCmd.espMembership.school.name}</label>
+                                </div>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="schoolId">School Id</label>
+                                </div>
+                                <div class="grid_6">
+                                    <form:input path="espMembership.schoolId" id="schoolId" cssClass="text input_6"/>
+                                </div>
+                                <c:if test="${schoolIdStateError eq true}">
+                                    <div class="error" style="display:block">
+                                        <div class="mediaExt1-1">
+                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                                            <div class="bk">
+                                                <form:errors path="espMembership.schoolId"/></div>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="webUrl">Web Url</label>
+                                </div>
+                                <div class="grid_6">
+                                    <label id="webUrl">${espModerationDetailsCmd.espMembership.webUrl}</label><br/>
+                                </div>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="firstName">First Name</label>
+                                </div>
+                                <div class="grid_6">
+                                    <form:input path="espMembership.user.firstName"
+                                                id="firstName" cssClass="text input_6"/>
+                                </div>
+                                <c:if test="${firstNameError eq true}">
+                                    <div class="error" style="display:block">
+                                        <div class="mediaExt1-1">
+                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                                            <div class="bk"><form:errors path="espMembership.user.firstName"/></div>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="lastName">Last Name</label>
+                                </div>
+                                <div class="grid_6">
+                                    <form:input path="espMembership.user.lastName"
+                                                id="lastName" cssClass="text input_6"/>
+                                </div>
+                                <c:if test="${lastNameError eq true}">
+                                    <div class="error" style="display:block">
+                                        <div class="mediaExt1-1">
+                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                                            <div class="bk"><form:errors path="espMembership.user.lastName"/></div>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="stateName">State</label>
+                                </div>
+                                <div class="grid_6">
+                                    <gsweb:stateSelector styleId="stateName"
+                                                         name="stateName"
+                                                         state="${espModerationDetailsCmd.espMembership.state}"
+                                            />
+                                </div>
+                                <c:if test="${schoolIdStateError eq true}">
+                                    <div class="error" style="display:block">
+                                        <div class="mediaExt1-1">
+                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                                            <div class="bk">
+                                                <form:errors path="espMembership.state"/></div>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="dateCreated">Date</label>
+                                </div>
+                                <div class="grid_6">
+                                    <label id="dateCreated">
+                                        <fmt:formatDate pattern="MM-dd-yyyy hh:mm"
+                                                        value="${espModerationDetailsCmd.espMembership.created}"/>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="dateUpdated">Date</label>
+                                </div>
+                                <div class="grid_6">
+                                    <label id="dateUpdated">
+                                        <fmt:formatDate pattern="MM-dd-yyyy hh:mm"
+                                                        value="${espModerationDetailsCmd.espMembership.updated}"/>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="jobTitle">Job Title</label>
+                                </div>
+                                <div class="grid_6">
+                                    <form:select path="espMembership.jobTitle" id="jobTitle">
+                                        <form:option value="">Choose One</form:option>
+                                        <form:option value="administrative assistant">
+                                            Administrative Asst.
+                                        </form:option>
+                                        <form:option value="administrator (other)">Administrator (Other)</form:option>
+                                        <form:option value="admissions representative">Admissions Rep</form:option>
+                                        <form:option value="assistant principal">Asst. Principal</form:option>
+                                        <form:option value="communications representative">
+                                            Communications Rep
+                                        </form:option>
+                                        <form:option value="consultant">Consultant</form:option>
+                                        <form:option value="department head">Department Head</form:option>
+                                        <form:option value="development representative">Development Rep</form:option>
+                                        <form:option value="headmaster">Headmaster</form:option>
+                                        <form:option value="president">President</form:option>
+                                        <form:option value="principal">Principal</form:option>
+                                        <form:option value="registrar">Registrar</form:option>
+                                        <form:option value="special education director">
+                                            Special Ed Director
+                                        </form:option>
+                                        <form:option value="superintendent">Superintendent</form:option>
+                                        <form:option value="teacher">Teacher</form:option>
+                                        <form:option value="webmaster">Webmaster</form:option>
+                                    </form:select>
+                                </div>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="note">Note</label>
+                                </div>
+                                <div class="grid_6">
+                                    <form:textarea path="espMembership.note"
+                                                   id="note" cssClass="textarea height-2 input_6"/>
+                                </div>
+                            </div>
+                            <input class="button-1" type="submit" id="Save" name="save" value="Save"/>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</gsml:body>
+
+</html>
+
+</jsp:root>
