@@ -117,10 +117,10 @@
               <school:espCheckboxWithLabel key="boys_sports" value="swimming" label="Swimming"/>
               <school:espCheckboxWithLabel key="boys_sports" value="tennis" label="Tennis"/>
               <school:espCheckboxWithLabel key="boys_sports" value="track" label="Track"/>
+              <school:espCheckboxWithLabel key="boys_sports" value="ultimate" label="Ultimate Frisbee"/>
               <school:espCheckboxWithLabel key="boys_sports" value="volleyball" label="Volleyball"/>
               <school:espCheckboxWithLabel key="boys_sports" value="water_polo" label="Water Polo"/>
               <school:espCheckboxWithLabel key="boys_sports" value="wrestling" label="Wrestling"/>
-              <school:espCheckboxWithLabel key="boys_sports" value="ultimate" label="Ultimate Frisbee"/>
               <school:espCheckboxWithLabel key="boys_sports_other_cb" value=""
                                              styleClass="js_otherField_js_boys_sports_other" nobr="true"
                                              label="Other: ">
@@ -270,13 +270,10 @@
 
           <div id="sctn_academic_awards" class="lal clearfix">
               <div class="alpha grid_5">
-                  <p class="labelGroup">Has your school received any academic awards in the past 3 years?</p>
+                  <p class="labelGroup">Please indicate if your school has received any academic
+                      awards in the past 3 years.</p>
               </div>
-              <div class="grid_6">
-                  <school:espRadioWithLabel key="academic_award_exists" value="no" label="No"/>
-                  <school:espRadioWithLabel key="academic_award_exists" value="yes" label="Yes"/>
-              </div>
-              <div class="grid_12 omega">
+              <div class="grid_18 omega">
                   <ol>
                       <li>
                           <input id="form_academic_award_1" class="mls mts js_otherField text input_4" type="text"
@@ -302,13 +299,10 @@
 
           <div id="sctn_service_awards" class="lal clearfix">
               <div class="alpha grid_5">
-                  <p class="labelGroup">Has your school received any community service awards in the past 3 years?</p>
+                  <p class="labelGroup">Please indicate if your school has received any service awards
+                      in the past 3 years.</p>
               </div>
-              <div class="grid_6">
-                  <school:espRadioWithLabel key="service_award_exists" value="no" label="No"/>
-                  <school:espRadioWithLabel key="service_award_exists" value="yes" label="Yes"/>
-              </div>
-              <div class="grid_12 omega">
+              <div class="grid_18 omega">
                   <ol>
                       <li>
                           <input id="form_service_award_1" class="mls mts js_otherField text input_4" type="text"
