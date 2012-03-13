@@ -7,15 +7,14 @@
     <jsp:directive.attribute name="breakdownId" required="true" description="Breakdown Id" type="java.lang.Integer"/>
     <c:set var="ethnicityRowResponseKey" value="ethnicity_${breakdownId}"/>
     <div class="lal clearfix">
-        <div class="alpha grid_5">
+        <div class="alpha prefix_7 grid_7">
+            <gsml:input styleId="form_ethnicity_${breakdownId}" styleClass="text digits_3" type="text"
+                        name="ethnicity_${breakdownId}"
+                        value="${responseMap[ethnicityRowResponseKey].value}" disabled="${stateLocked}" maxlength="3"/>
+            <span> % </span>
             <label for="form_ethnicity_${breakdownId}">${label}</label>
         </div>
-        <div class="grid_2 suffix_1">
-            <gsml:input styleId="form_ethnicity_${breakdownId}" styleClass="text input_2" type="text"
-                        name="ethnicity_${breakdownId}"
-                        value="${responseMap[ethnicityRowResponseKey].value}" disabled="${stateLocked}" maxlength="5"/>
-        </div>
-        <div class="grid_13 omega">
+        <div class="grid_6 omega">
             <!-- error ? -->
         </div>
     </div>

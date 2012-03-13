@@ -879,6 +879,12 @@ new (function() {
         validations.push(GS.validation.validateRequiredIfChecked('#form_contact_method_other', '#form_contact_method__other', '#form_contact_method_other_error'));
         // END PAGE 7
 
+        // PAGE 8
+        validations.push(GS.validation.validateInteger('#js_form_census_ell_esl','#js_form_census_ell_esl_number_error'));
+        validations.push(GS.validation.validateInteger('#js_form_census_forpl','#js_form_census_forpl_number_error'));
+        validations.push(GS.validation.validateInteger('#js_form_census_special_ed','#js_form_census_special_ed_number_error'));
+        // END PAGE 8
+
         for (var arrayIndex in validations) {
             if (validations[arrayIndex] === false) {
                 return false;

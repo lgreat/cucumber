@@ -3,41 +3,61 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
 >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="8" maxPage="${maxPage}" headerText="Student info">
-        <fieldset>
-            <legend>Your school's student ethnicity breakdown</legend>
-            <hr class="legend"><!--Do not collapse--></hr>
-            <c:choose>
-                <c:when test="${school.databaseState eq 'WI'}">
-                    <school:espFormEthnicityRow label="American Indian" breakdownId="10"/>
-                    <school:espFormEthnicityRow label="Asian" breakdownId="7"/>
-                    <school:espFormEthnicityRow label="Black" breakdownId="2"/>
-                    <school:espFormEthnicityRow label="Hispanic" breakdownId="3"/>
-                    <school:espFormEthnicityRow label="Pacific Islander" breakdownId="8"/>
-                    <school:espFormEthnicityRow label="White" breakdownId="1"/>
-                    <school:espFormEthnicityRow label="Two or More" breakdownId="6"/>
-                </c:when>
-                <c:when test="${school.databaseState eq 'DC'}">
-                    <school:espFormEthnicityRow label="American Indian/Alaskan Native" breakdownId="10"/>
-                    <school:espFormEthnicityRow label="Asian/Pacific Islander" breakdownId="5"/>
-                    <school:espFormEthnicityRow label="Black" breakdownId="2"/>
-                    <school:espFormEthnicityRow label="Hispanic" breakdownId="3"/>
-                    <school:espFormEthnicityRow label="White" breakdownId="1"/>
-                    <school:espFormEthnicityRow label="Multiracial" breakdownId="6"/>
-                </c:when>
-                <c:when test="${school.databaseState eq 'IN'}">
-                    <school:espFormEthnicityRow label="American Indian" breakdownId="10"/>
-                    <school:espFormEthnicityRow label="Asian" breakdownId="7"/>
-                    <school:espFormEthnicityRow label="Black" breakdownId="2"/>
-                    <school:espFormEthnicityRow label="Hispanic" breakdownId="3"/>
-                    <school:espFormEthnicityRow label="Multiracial" breakdownId="6"/>
-                    <school:espFormEthnicityRow label="Native Hawaiian or Other Pacific Islander" breakdownId="8"/>
-                    <school:espFormEthnicityRow label="White" breakdownId="1"/>
-                </c:when>
-            </c:choose>
-
-        </fieldset>
+        <legend>Student demographic information</legend>
+        <hr class="legend"><!--Do not collapse--></hr>
+        <c:choose>
+            <c:when test="${school.databaseState eq 'WI' or school.databaseState eq 'CA'}">
+                <fieldset>
+                    <div class="lal clearfix">
+                        <div class="alpha grid_7">
+                            <label>Your school's student ethnicity breakdown</label>
+                            <p class="hint">Enter percentage if applicable, e.g. 30%</p>
+                        </div>
+                    </div>
+                    <school:espFormEthnicityRow breakdownId="10" label="American Indian"/>
+                    <school:espFormEthnicityRow breakdownId="7"  label="Asian"/>
+                    <school:espFormEthnicityRow breakdownId="2"  label="Black"/>
+                    <school:espFormEthnicityRow breakdownId="3"  label="Hispanic"/>
+                    <school:espFormEthnicityRow breakdownId="8"  label="Pacific Islander"/>
+                    <school:espFormEthnicityRow breakdownId="1"  label="White"/>
+                    <school:espFormEthnicityRow breakdownId="6"  label="Two or More"/>
+                    <school:espFormCensusRow typeLabel="Percentage of students participating in ELL or ESL services"
+                                             stateLabel="English Proficient" dataTypeName="ell_esl"/>
+                    <school:espFormCensusRow typeLabel="Percentage of students eligible for free or reduced-price lunch"
+                                             stateLabel="Economically Disadvantaged" dataTypeName="forpl"/>
+                    <school:espFormCensusRow typeLabel="Percentage of students that take advantage of some type of Special Education service"
+                                             stateLabel="Disabled" dataTypeName="special_ed"/>
+                </fieldset>
+            </c:when>
+            <c:when test="${school.databaseState eq 'DC'}">
+                <fieldset>
+                    <legend>Your school's student ethnicity breakdown</legend>
+                    <hr class="legend"><!--Do not collapse--></hr>
+                    <school:espFormEthnicityRow breakdownId="10" label="American Indian/Alaskan Native"/>
+                    <school:espFormEthnicityRow breakdownId="5"  label="Asian/Pacific Islander"/>
+                    <school:espFormEthnicityRow breakdownId="2"  label="Black"/>
+                    <school:espFormEthnicityRow breakdownId="3"  label="Hispanic"/>
+                    <school:espFormEthnicityRow breakdownId="1"  label="White"/>
+                    <school:espFormEthnicityRow breakdownId="6"  label="Multiracial"/>
+                </fieldset>
+            </c:when>
+            <c:when test="${school.databaseState eq 'IN'}">
+                <fieldset>
+                    <legend>Your school's student ethnicity breakdown</legend>
+                    <hr class="legend"><!--Do not collapse--></hr>
+                    <school:espFormEthnicityRow breakdownId="10" label="American Indian"/>
+                    <school:espFormEthnicityRow breakdownId="7"  label="Asian"/>
+                    <school:espFormEthnicityRow breakdownId="2"  label="Black"/>
+                    <school:espFormEthnicityRow breakdownId="3"  label="Hispanic"/>
+                    <school:espFormEthnicityRow breakdownId="6"  label="Multiracial"/>
+                    <school:espFormEthnicityRow breakdownId="8"  label="Native Hawaiian or Other Pacific Islander"/>
+                    <school:espFormEthnicityRow breakdownId="1"  label="White"/>
+                </fieldset>
+            </c:when>
+        </c:choose>
     </school:espFormTemplate>
 </jsp:root>
