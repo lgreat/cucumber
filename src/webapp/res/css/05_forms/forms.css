@@ -83,7 +83,9 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .ie7 .slFormsV1-0 select { vertical-align: middle; }
 
 .slFormsV1-0 .lal select { margin: 5px; }
+.ie7 .slFormsV1-0 .lal select { margin-top: 0px; }
 .slFormsV1-0 .ral select { margin: 5px; }
+.ie7 .slFormsV1-0 .ral select { margin-top: 0px; }
 
 .slFormsV1-0 input.text {padding:5px 5px;}
 .slFormsV1-0 input.text-smaller {padding:2px;}

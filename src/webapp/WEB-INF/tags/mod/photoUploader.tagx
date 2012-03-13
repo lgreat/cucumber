@@ -13,9 +13,9 @@
 
     <div id="photo-upload-container">
         <table class="tableType1">
-            <col width="207"/>
-            <col width="207"/>
-            <col width="157"/>
+            <col width="auto"/>
+            <col width="150"/>
+            <col width="130"/>
             <col width="57"/>
             <thead>
             <tr>
