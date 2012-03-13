@@ -3,9 +3,7 @@ package gs.web.school;
 import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
-import gs.data.school.EspMembership;
-import gs.data.school.EspMembershipStatus;
-import gs.data.school.IEspMembershipDao;
+import gs.data.school.*;
 import gs.data.security.IRoleDao;
 import gs.data.security.Role;
 import gs.data.util.DigestUtil;
@@ -59,6 +57,9 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
 
     @Autowired
     protected IRoleDao _roleDao;
+    
+    @Autowired
+    private ISchoolDao _schoolDao;
 
     @RequestMapping(value = "preRegister.page", method = RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -113,6 +114,12 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             _log.error("Already found active membership for user " + user);
             return redirectToRegistration(request);
         }
+        
+        populateSchool(membershipToProcess);
+        if (membershipToProcess.getSchool() == null) {
+            _log.error("Can't find active non-preschool for membership: " + membershipToProcess);
+            return redirectToRegistration(request);
+        }
 
         // ok member passed authentication and has a pre-approved membership, let's show them the form!
         modelMap.put(MODEL_MEMBERSHIP, membershipToProcess);
@@ -141,6 +148,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
              _log.error("Did not find a membership to approve for user:" + user);
             return redirectToRegistration(request);
         }
+        populateSchool(membershipToProcess);
 
         //server side validation for the fields.
         validate(command, result, user);
@@ -204,8 +212,6 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             validHash = (hash != null && actualHash != null && hash.equals(actualHash));
             if (!validHash) {
                 _log.warn("OSP Pre-registration request has invalid hash: " + hash + " for user " + user.getEmail());
-//                _log.error("TEMPORARILY RETURNING TRUE DURING DEVELOPMENT. DO NOT CHECK IN");
-//                return true;
             }
         } catch (NoSuchAlgorithmException e) {
             _log.warn("Failed to hash string: " + e, e);
@@ -338,11 +344,22 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             EspMembership espMembership = _espMembershipDao.findEspMembershipById(membershipId, false);
 
             //check if the membership has been pre-approved and also check if it belongs to the user.
-            if (espMembership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && (espMembership.getUser().getId() == user.getId())) {
+            if (espMembership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && (espMembership.getUser().getId().equals(user.getId()))) {
                 membershipToProcess = espMembership;
             }
         }
         return membershipToProcess;
+    }
+    
+    protected void populateSchool(EspMembership espMembership) {
+        try {
+            School school = _schoolDao.getSchoolById(espMembership.getState(), espMembership.getId());
+            if (school.isActive() && !school.isPreschoolOnly()) {
+                espMembership.setSchool(school);
+            }
+        } catch (ObjectRetrievalFailureException orfe) {
+            // ignore
+        }
     }
 
     protected void approveEspMembership(EspMembership espMembership, EspRegistrationCommand command) {
