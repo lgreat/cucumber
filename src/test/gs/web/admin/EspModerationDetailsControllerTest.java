@@ -179,7 +179,6 @@ public class EspModerationDetailsControllerTest extends BaseControllerTestCase {
         resetAll();
 
         expect(_espMembershipDao.findEspMembershipById(id, false)).andReturn(_espMembership);
-        expect(_userDao.findUserFromEmailIfExists(_user.getEmail())).andReturn(_user);
         expect(_schoolDao.getSchoolById(_espMembership.getState(), _espMembership.getSchoolId())).andReturn(_school).atLeastOnce();
         _userDao.updateUser(_user);
         expectLastCall();
