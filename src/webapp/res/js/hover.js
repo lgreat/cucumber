@@ -1112,7 +1112,7 @@ GS.forgotPasswordHover_checkValidationResponse = function(data) {
         if (data.errorCode === 'NO_SUCH_ACCOUNT') {
             GSType.hover.forgotPassword.addMessage('There is no school official\'s account associated with this email address. Please <a href="' + espRegistrationUrl + '">register to gain access</a>.');
         } else if (data.errorCode === 'EMAIL_ONLY_ACCOUNT') {
-            GSType.hover.forgotPassword.addMessage('You have an email address on file, but still need to create a <a href="' + espRegistrationUrl + '">school official\'s profile</a>.');
+            GSType.hover.forgotPassword.addMessage('You have an email address on file, but still need to <a href="' + espRegistrationUrl + '">create a school official\'s profile</a>.');
         }
         return;
     } else if (data.errorMsg) {
