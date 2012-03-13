@@ -42,6 +42,7 @@
             <li class="subMenuItem"><a href="/worksheets/math/" id="SN_WA-MathWorksheets" class="subMenuItemAnchorText GS_CI9_">Math Worksheets</a></li>
             <li class="subMenuItem"><a href="/worksheets/reading/" id="SN_WA-ReadingWorksheets" class="subMenuItemAnchorText GS_CI9_">Reading Worksheets</a></li>
             <li class="subMenuItem"><a href="/worksheets/writing/" id="SN_WA-WritingWorksheets" class="subMenuItemAnchorText GS_CI9_">Writing Worksheets</a></li>
+            <li class="subMenuItem"><a href="/worksheets/science/" id="SN_WA-ScienceWorksheets" class="subMenuItemAnchorText GS_CI9_">Science Worksheets</a></li>
             <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=209" id="SN_WA-MathActivities" class="subMenuItemAnchorText GS_CI9_">Math Activities</a></li>
             <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=211" id="SN_WA-ReadingActivities" class="subMenuItemAnchorText GS_CI9_">Reading Activities</a></li>
             <li class="subMenuItem"><a href="/articles/?topics=156&amp;subjects=216" id="SN_WA-WritingActivities" class="subMenuItemAnchorText GS_CI9_">Writing Activities</a></li>
