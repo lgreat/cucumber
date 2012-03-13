@@ -5,6 +5,7 @@ import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.community.WelcomeMessageStatus;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.security.Role;
@@ -51,6 +52,8 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
     @Autowired
     private ISchoolDao _schoolDao;
+
+    private ExactTargetAPI _exactTargetAPI;
 
     @RequestMapping(value = "register.page", method = RequestMethod.GET)
     public String showForm(ModelMap modelMap, HttpServletRequest request) {
@@ -142,6 +145,12 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         OmnitureTracking omnitureTracking = new CookieBasedOmnitureTracking(request, response);
         omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EspRegistration);
 
+        if (command.getSchoolId() != null && command.getState() != null) {
+            School school = getSchoolDao().getSchoolById(command.getState(), command.getSchoolId());
+            if (school != null) {
+                sendRequestReceivedEmail(user, school);
+            }
+        }
         return "redirect:" + getSchoolOverview(request, response, command);
     }
 
@@ -271,6 +280,15 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             userProfile.setUser(user);
             user.setUserProfile(userProfile);
         }
+    }
+    
+    protected void sendRequestReceivedEmail(User user, School school) {
+        String triggerKey = "ESP-request-confirm";
+        Map<String,String> emailAttributes = new HashMap<String,String>();
+        emailAttributes.put("ESP_schoolname", school.getName());
+        emailAttributes.put("first_name", user.getFirstName());
+
+        getExactTargetAPI().sendTriggeredEmail(triggerKey, user, emailAttributes);
     }
 
     protected void setUserProfileFieldsFromCommand(EspRegistrationCommand espMembershipCommand, UserProfile userProfile) {
@@ -432,6 +450,14 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             }
         }
         return VIEW;
+    }
+
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
+
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
     }
 
     public IEspMembershipDao getEspMembershipDao() {
