@@ -325,7 +325,7 @@
                         <span class="sprite pencil_med img"><!-- do not collapse --></span>
 
                         <div class="text3bold-06b bk">Are you<br/>the principal?<br/>
-                        <link:schoolProfileEspLogin school="${school}" styleClass="text3-06b" styleId="espLink">Complete your school's profile</link:schoolProfileEspLogin>
+                        <link:schoolProfileEspLogin school="${school}" styleClass="text3-06b no_interrupt" styleId="espLink">Complete your school's profile</link:schoolProfileEspLogin>
                         </div>
                     </div>
                 </div>
