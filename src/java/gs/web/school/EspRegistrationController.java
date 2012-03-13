@@ -129,7 +129,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
             setFieldsOnUserUsingCommand(command, user);
             getUserDao().saveUser(user);
-            ThreadLocalTransactionManager.commitOrRollback();
+//            ThreadLocalTransactionManager.commitOrRollback();
         }
 
         //Set the user's password.
