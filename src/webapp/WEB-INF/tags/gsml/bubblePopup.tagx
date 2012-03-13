@@ -22,11 +22,11 @@
         </div>
 
         <div class="js-popup" style="left:${width+220}px">
-            <div id="popup-contents-${id}" class="text3 popup-contents">
+            <div id="popup-contents-${id}" class="popup-contents">
                 <c:choose>
                     <c:when test="${whichSide eq 'right'}">
-                        <span class="arrow-outline-${whichSide}" style="left:${width+65}px;top:${height/2-16}px;"><!-- do not collapse --></span>
-                        <span class="arrow-${whichSide}" style="left:${width+63}px;top:${height/2-16}px;"><!-- do not collapse --></span>
+                        <span class="arrow-outline-${whichSide}" style="left:${width+76}px;top:${height/2-16}px;"><!-- do not collapse --></span>
+                        <span class="arrow-${whichSide}" style="left:${width+74}px;top:${height/2-16}px;"><!-- do not collapse --></span>
                     </c:when>
                     <c:otherwise>
 
@@ -42,7 +42,7 @@
         <c:when test="${whichSide eq 'right'}">
             <script type="text/javascript">
                 jQuery(function () {
-                    jQuery('#js-bubbleInfo-${id}').popup({appear:'left',leftPosition:-${width+80}});
+                    jQuery('#js-bubbleInfo-${id}').popup({appear:'left',leftPosition:-${width+80},topPosition:-25});
                 });
             </script>
         </c:when>
