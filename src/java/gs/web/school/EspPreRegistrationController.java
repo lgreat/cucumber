@@ -95,17 +95,6 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             }
         }
 
-        //If there is already user logged in.Log that user out.
-        //If the pre-approved user is email validated then log that user in.
-        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        User loggedInUser = sessionContext.getUser();
-
-        if (user.isEmailValidated()) {
-            PageHelper.setMemberAuthorized(request, response, user, true);
-        } else if (loggedInUser != null) {
-            PageHelper.logout(request, response);
-        }
-
         if (membershipToProcess == null) {
             _log.error("No pre_approved memberships found for user " + user);
             return redirectToRegistration(request);
