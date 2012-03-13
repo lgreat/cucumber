@@ -166,16 +166,18 @@ public class EspModerationDetailsController extends AbstractEspModerationControl
                           EspMembership espMembership,
                           ModelMap modelMap) {
         String newEmail = command.getEspMembership().getUser().getEmail();
-        if(StringUtils.isNotBlank(newEmail)) {
-            User userForNewEmail = getUserDao().findUserFromEmailIfExists(newEmail);
-            if(userForNewEmail != null && !userForNewEmail.equals(espMembership.getUser())) {
-                bindingResult.rejectValue("espMembership.user.email", "email_exists", "choose a different email address");
+        if(!newEmail.equals(espMembership.getUser().getEmail())) {
+            if(StringUtils.isNotBlank(newEmail)) {
+                User userForNewEmail = getUserDao().findUserFromEmailIfExists(newEmail);
+                if(userForNewEmail != null && !userForNewEmail.equals(espMembership.getUser())) {
+                    bindingResult.rejectValue("espMembership.user.email", "email_exists", "choose a different email address");
+                    modelMap.put("emailError", true);
+                }
+            }
+            else {
+                bindingResult.rejectValue("espMembership.user.email", "invalid_email", "please enter an email address");
                 modelMap.put("emailError", true);
             }
-        }
-        else {
-            bindingResult.rejectValue("espMembership.user.email", "invalid_email", "please enter an email address");
-            modelMap.put("emailError", true);
         }
 
         String newFirstName = command.getEspMembership().getUser().getFirstName();
