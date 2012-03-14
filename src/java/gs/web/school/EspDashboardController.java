@@ -106,7 +106,7 @@ public class EspDashboardController {
             }
             modelMap.put("pageStarted", pageStartedMap);
             modelMap.put("anyPageStarted", anyPageStarted);
-            modelMap.put("isFruitcakeSchool", EspFormController.isFruitcakeSchool(school));
+            modelMap.put("isFruitcakeSchool", EspFormController.isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE);
         }
 
         return VIEW;
