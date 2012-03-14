@@ -342,7 +342,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
     
     protected void populateSchool(EspMembership espMembership) {
         try {
-            School school = _schoolDao.getSchoolById(espMembership.getState(), espMembership.getId());
+            School school = _schoolDao.getSchoolById(espMembership.getState(), espMembership.getSchoolId());
             if (school.isActive() && !school.isPreschoolOnly()) {
                 espMembership.setSchool(school);
             }
