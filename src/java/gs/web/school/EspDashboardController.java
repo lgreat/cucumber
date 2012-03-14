@@ -100,7 +100,7 @@ public class EspDashboardController {
             Map<Long, Boolean> pageStartedMap = new HashMap<Long, Boolean>(8);
             boolean anyPageStarted = false;
             for (long x=1; x < 9; x++) {
-                boolean pageStarted = _espResponseDao.getKeyCount(school, EspFormController.KEYS_BY_PAGE.get((int)x), true) > 0;
+                boolean pageStarted = _espResponseDao.getKeyCount(school, EspFormController.KEYS_BY_PAGE.get((int)x), false) > 0;
                 pageStartedMap.put(x, pageStarted);
                 anyPageStarted |= pageStarted;
             }
