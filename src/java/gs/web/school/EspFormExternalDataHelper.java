@@ -39,6 +39,8 @@ public class EspFormExternalDataHelper {
     private ICensusDataSetDao _dataSetDao;
     @Autowired
     private IJSONDao _jsonDao;
+    @Autowired private ICensusDataSetDao _censusDataSetDao;
+
     /**
      * Fetch the keys whose values live outside of esp_response and put them in responseMap
      * (overwriting existing keys if present).
@@ -53,7 +55,7 @@ public class EspFormExternalDataHelper {
                 insertEspFormResponseStructForPhone(responseMap, school);
             } else if (StringUtils.equals("school_fax", key)) {
                 insertEspFormResponseStructForFax(responseMap, school);
-            } else if (StringUtils.equals("ethnicity", key)) {
+            } else if (StringUtils.equals("census_ethnicity", key)) {
                 insertEspFormResponseStructForEthnicity(responseMap, school);
             } else {
                 // for keys where external data DOES map 1:1 with the form fields, fetch data from external source here
@@ -162,12 +164,6 @@ public class EspFormExternalDataHelper {
         if (StringUtils.equals("student_enrollment", key) && school.getEnrollment() != null) {
             _log.debug("Overwriting key " + key + " with value " + school.getEnrollment());
             return new String[]{String.valueOf(school.getEnrollment())};
-        } else if (StringUtils.equals("average_class_size", key)) {
-            SchoolCensusValue value = school.getCensusInfo().getManual(school, CensusDataType.CLASS_SIZE);
-            if (value != null && value.getValueInteger() != null) {
-                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
-                return new String[]{String.valueOf(value.getValueInteger())};
-            }
         } else if (StringUtils.equals("administrator_name", key)) {
             SchoolCensusValue value = school.getCensusInfo().getManual(school, CensusDataType.HEAD_OFFICIAL_NAME);
             if (value != null && value.getValueText() != null) {
@@ -205,6 +201,31 @@ public class EspFormExternalDataHelper {
             if (school.getSubtype().contains("all_female")) {
                 return new String[] {"all_girls"};
             }
+        } else if (StringUtils.equals("census_frpl", key)) {
+            SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType
+                    .STUDENTS_PERCENT_FREE_LUNCH);
+            if (value != null && value.getValueInteger() != null) {
+                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
+                return new String[]{String.valueOf(value.getValueInteger())};
+            }
+        } else if (StringUtils.equals("census_ell_esl", key)) {
+            SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType.STUDENTS_LIMITED_ENGLISH);
+            if (value != null && value.getValueInteger() != null) {
+                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
+                return new String[]{String.valueOf(value.getValueInteger())};
+            }
+        } else if (StringUtils.equals("census_special_ed", key)) {
+            SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION);
+            if (value != null && value.getValueInteger() != null) {
+                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
+                return new String[]{String.valueOf(value.getValueInteger())};
+            }
+        } else if (StringUtils.equals("census_disabilities", key)) {
+            SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType.STUDENTS_WITH_DISABILITIES);
+            if (value != null && value.getValueInteger() != null) {
+                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
+                return new String[]{String.valueOf(value.getValueInteger())};
+            }
         }
         return new String[0];
     }
@@ -223,14 +244,8 @@ public class EspFormExternalDataHelper {
             } catch (NumberFormatException nfe) {
                 return "Must be an integer.";
             }
-        } else if (StringUtils.equals("average_class_size", key)) {
-            try {
-                _log.debug("Saving average_class_size elsewhere: " + values[0]);
-                saveCensusInteger(school, Integer.parseInt((String)values[0]), CensusDataType.CLASS_SIZE, user);
-            } catch (NumberFormatException nfe) {
-                return "Must be an integer.";
-            }
         } else if (StringUtils.equals("administrator_name", key)) {
+            String value = (String) values[0];
             _log.debug("Saving administrator_name elsewhere: " + values[0]);
             saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_NAME, user);
         } else if (StringUtils.equals("administrator_email", key)) {
@@ -310,9 +325,17 @@ public class EspFormExternalDataHelper {
                 saveSchool(school, user, now);
             }
             return null;
-        } else if (StringUtils.equals("ethnicity", key)) {
+        } else if (StringUtils.equals("census_ethnicity", key)) {
             Map<Integer, Integer> breakdownIdToValueMap = (Map<Integer, Integer>) values[0];
             return handleEthnicity(breakdownIdToValueMap, school, user);
+        } else if (StringUtils.equals("census_frpl", key)) {
+            return saveCensusPercentFromString(school, CensusDataType.STUDENTS_PERCENT_FREE_LUNCH, user, key, (String) values[0]);
+        } else if (StringUtils.equals("census_ell_esl", key)) {
+            return saveCensusPercentFromString(school, CensusDataType.STUDENTS_LIMITED_ENGLISH, user, key, (String) values[0]);
+        } else if (StringUtils.equals("census_special_ed", key)) {
+            return saveCensusPercentFromString(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION, user, key, (String) values[0]);
+        } else if (StringUtils.equals("census_disabilities", key)) {
+            return saveCensusPercentFromString(school, CensusDataType.STUDENTS_WITH_DISABILITIES, user, key, (String) values[0]);
         } else {
             _log.error("Unknown external key: " + key);
         }
@@ -322,13 +345,39 @@ public class EspFormExternalDataHelper {
     static boolean containsBadChars(String val) {
         return StringUtils.contains(val, "<") || StringUtils.contains(val, "\"");
     } 
+    
+    String saveCensusPercentFromString(School school, CensusDataType censusDataType, User user, String key, String value) {
+        if (StringUtils.isBlank(value)) {
+            // deactivate existing value
+            SchoolCensusValue manualValue = school.getCensusInfo().getManualValue(school, censusDataType);
+            if (manualValue != null) {
+                _censusDataSetDao.deactivateDataValue(manualValue, getCensusModifiedBy(user));
+            }
+        } else {
+            try {
+                _log.debug("Saving " + key + " elsewhere: " + value);
+                Integer val = Integer.parseInt(value);
+                if (val < 0 || val > 100) {
+                    return "Must be a number between 0 and 100.";
+                }
+                saveCensusInteger(school, val, censusDataType, user);
+            } catch (NumberFormatException nfe) {
+                return "Must be an integer.";
+            }
+        }
+        return null;
+    }
+
+    protected String getCensusModifiedBy(User user) {
+        return "ESP-" + user.getId();
+    }
 
     void saveCensusString(School school, String data, CensusDataType censusDataType, User user) {
-        _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, StringEscapeUtils.escapeHtml(data), "ESP-" + user.getId());
+        _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, StringEscapeUtils.escapeHtml(data), getCensusModifiedBy(user));
     }
 
     void saveCensusInteger(School school, int data, CensusDataType censusDataType, User user) {
-        _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, data, "ESP-" + user.getId());
+        _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, data, getCensusModifiedBy(user));
     }
 
     CensusDataSet findOrCreateManualDataSet(School school, CensusDataType censusDataType) {
@@ -344,11 +393,22 @@ public class EspFormExternalDataHelper {
     }
 
     String handleEthnicity(Map<Integer, Integer> breakdownIdToValueMap, School school, User user) {
-        for (Integer breakdownId: breakdownIdToValueMap.keySet()) {
-            Integer value = breakdownIdToValueMap.get(breakdownId);
-            Breakdown breakdown = new Breakdown(breakdownId);
-            CensusDataSet dataSet = findOrCreateManualDataSet(school, CensusDataType.STUDENTS_ETHNICITY, breakdown);
-            _dataSetDao.addValue(dataSet, school, value, "ESP-" + user.getId());
+        int sum = 0;
+        for (Integer value: breakdownIdToValueMap.values()) {
+            if (value < 0) {
+                return "Please specify a positive number.";
+            }
+            sum += value;
+        }
+        if (sum == 100) {
+            for (Integer breakdownId: breakdownIdToValueMap.keySet()) {
+                Integer value = breakdownIdToValueMap.get(breakdownId);
+                Breakdown breakdown = new Breakdown(breakdownId);
+                CensusDataSet dataSet = findOrCreateManualDataSet(school, CensusDataType.STUDENTS_ETHNICITY, breakdown);
+                _dataSetDao.addValue(dataSet, school, value, getCensusModifiedBy(user));
+            }
+        } else {
+            return "Your ethnicity percents must add up to 100%.";
         }
         return null;
     }
@@ -455,7 +515,7 @@ public class EspFormExternalDataHelper {
     }
 
     void saveSchool(School school, User user, Date now) {
-        String modifiedBy = "ESP-" + user.getId();
+        String modifiedBy = getCensusModifiedBy(user);
         school.setManualEditBy(modifiedBy);
         school.setManualEditDate(now);
         school.setModified(now);
@@ -497,9 +557,13 @@ public class EspFormExternalDataHelper {
         keys.add("school_url");
         keys.add("administrator_name");
         keys.add("administrator_email");
-        if (school.getType() == SchoolType.PRIVATE && EspFormController.isFruitcakeSchool(school)) {
-            keys.add("ethnicity");
-        }
+//        if (school.getType() == SchoolType.PRIVATE && EspFormController.isFruitcakeSchool(school)) {
+            keys.add("census_ethnicity");
+            keys.add("census_ell_esl");
+            keys.add("census_frpl");
+            keys.add("census_special_ed");
+            keys.add("census_disabilities");
+//        }
         return keys;
     }
 }

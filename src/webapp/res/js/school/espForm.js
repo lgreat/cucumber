@@ -193,7 +193,7 @@ GS.form.handleHiddenElements = function(arrayOfObjects, containerSelector) {
     if (containerSelector === undefined) {
         containerSelector = '';
     }
-    var hiddenInputs = jQuery(containerSelector).find(":input").not(":visible").not(":button").not(":submit");
+    var hiddenInputs = jQuery(containerSelector).find(":input").not(":visible").not(":button").not(":submit").not("[type=hidden]");
     for (var i = 0; i < hiddenInputs.length; i++) {
         for (var j = 0; j < arrayOfObjects.length; j++) {
             if (arrayOfObjects[j].name === hiddenInputs[i].name) {
@@ -610,6 +610,85 @@ GS.validation.validateSumPercentages = function(fieldSelector, errorSelector) {
     return isValid;
 };
 
+GS.validation.validatePercentageRange = function(fieldSelector, errorSelector, minPercentage, maxPercentage) {
+    var isValid = true;
+    jQuery(fieldSelector).filter("input[type=text]").removeClass("warning");
+    jQuery(errorSelector).hide();
+    var formFields = jQuery(fieldSelector).filter(':visible'); // only validate visible fields
+    if (formFields !== undefined && formFields.size() > 0) {
+        var fieldType = formFields.attr('type');
+
+        if (fieldType == 'text') {
+            var total = 0;
+            // require each one to be numeric
+            formFields.each(function() {
+                var fieldVal = parseInt(jQuery.trim(jQuery(this).val()), 10);
+                if (fieldVal > 0) {
+                    total += fieldVal;
+                }
+            });
+
+            isValid = total <= maxPercentage && total >= minPercentage;
+        }
+
+        if (!isValid) {
+            jQuery(errorSelector).show();
+            jQuery(fieldSelector).filter("input[type=text]").addClass("warning");
+        }
+    }
+    return isValid;
+};
+
+GS.validation.validateEthnicities = function() {
+    var allValid = true;
+
+    var rangeValid = GS.validation.validatePercentageRange(
+        '#js_form_ethnicity_1,' +
+            '#js_form_ethnicity_2,' +
+            '#js_form_ethnicity_3,' +
+            '#js_form_ethnicity_4,' +
+            '#js_form_ethnicity_5,' +
+            '#js_form_ethnicity_6,' +
+            '#js_form_ethnicity_7,' +
+            '#js_form_ethnicity_8,' +
+            '#js_form_ethnicity_10',
+        '#js_form_ethnicity_sum_error', 100, 100);
+    allValid = allValid && rangeValid;
+
+    var field1Valid = GS.validation.validateInteger ('#js_form_ethnicity_1', '#js_form_ethnicity_1_number_error');
+    allValid = allValid && field1Valid;
+    var field2Valid = GS.validation.validateInteger ('#js_form_ethnicity_2', '#js_form_ethnicity_2_number_error');
+    allValid = allValid && field2Valid;
+    var field3Valid = GS.validation.validateInteger ('#js_form_ethnicity_3', '#js_form_ethnicity_3_number_error');
+    allValid = allValid && field3Valid;
+    var field4Valid = GS.validation.validateInteger ('#js_form_ethnicity_4', '#js_form_ethnicity_4_number_error');
+    allValid = allValid && field4Valid;
+    var field5Valid = GS.validation.validateInteger ('#js_form_ethnicity_5', '#js_form_ethnicity_5_number_error');
+    allValid = allValid && field5Valid;
+    var field6Valid = GS.validation.validateInteger ('#js_form_ethnicity_6', '#js_form_ethnicity_6_number_error');
+    allValid = allValid && field6Valid;
+    var field7Valid = GS.validation.validateInteger ('#js_form_ethnicity_7', '#js_form_ethnicity_7_number_error');
+    allValid = allValid && field7Valid;
+    var field8Valid = GS.validation.validateInteger ('#js_form_ethnicity_8', '#js_form_ethnicity_8_number_error');
+    allValid = allValid && field8Valid;
+    var field10Valid = GS.validation.validateInteger ('#js_form_ethnicity_10','#js_form_ethnicity_10_number_error');
+    allValid = allValid && field10Valid;
+
+    if (!rangeValid) {
+        // add this back in if any of the above validations removed it.
+        jQuery('#js_form_ethnicity_1,' +
+            '#js_form_ethnicity_2,' +
+            '#js_form_ethnicity_3,' +
+            '#js_form_ethnicity_4,' +
+            '#js_form_ethnicity_5,' +
+            '#js_form_ethnicity_6,' +
+            '#js_form_ethnicity_7,' +
+            '#js_form_ethnicity_8,' +
+            '#js_form_ethnicity_10').filter("input[type=text]").addClass("warning");
+    }
+    return allValid;
+};
+
 // TODO: figure out what to do with this type of validation method
 GS.validation.validateSelectIfTextboxValueEntered = function(selectBoxSelector, textBoxSelector, errorSelector, textBoxValid) {
     var selectBox = $(selectBoxSelector).filter(':visible');
@@ -880,9 +959,10 @@ new (function() {
         // END PAGE 7
 
         // PAGE 8
-        validations.push(GS.validation.validateInteger('#js_form_census_ell_esl','#js_form_census_ell_esl_number_error'));
-        validations.push(GS.validation.validateInteger('#js_form_census_forpl','#js_form_census_forpl_number_error'));
-        validations.push(GS.validation.validateInteger('#js_form_census_special_ed','#js_form_census_special_ed_number_error'));
+        validations.push(GS.validation.validateInteger ('#js_form_census_ell_esl','#js_form_census_ell_esl_number_error'));
+        validations.push(GS.validation.validateInteger ('#js_form_census_forpl','#js_form_census_forpl_number_error'));
+        validations.push(GS.validation.validateInteger ('#js_form_census_special_ed','#js_form_census_special_ed_number_error'));
+        validations.push(GS.validation.validateEthnicities());
         // END PAGE 8
 
         for (var arrayIndex in validations) {

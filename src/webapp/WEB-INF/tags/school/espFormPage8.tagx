@@ -7,18 +7,25 @@
 >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="8" maxPage="${maxPage}" headerText="Student info">
-        <legend>Student demographic information</legend>
-        <hr class="legend"><!--Do not collapse--></hr>
-        <c:choose>
-            <c:when test="${school.databaseState eq 'WI' or school.databaseState eq 'CA'}">
-                <fieldset>
-                    <div class="lal clearfix">
-                        <div class="alpha grid_7">
-                            <label>Your school's student ethnicity breakdown</label>
-                            <p class="hint">Enter percentage if applicable, e.g. 30%</p>
-                        </div>
+        <fieldset>
+            <legend>Student demographic information</legend>
+            <hr class="legend"><!--Do not collapse--></hr>
+            <input type="hidden" name="page_8_touched" value="yes"/>
+            <div class="lal clearfix">
+                <div class="alpha grid_7">
+                    <label>Your school's student ethnicity breakdown</label>
+                    <p class="hint">Enter percentage if applicable, e.g. 30%</p>
+                </div>
+                <div class="grid_16 omega">
+                    <div id="js_form_ethnicity_sum_error" class="error" style="display: none">
+                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                        Values must add up to exactly 100%.
                     </div>
-                    <school:espFormEthnicityRow breakdownId="10" label="American Indian"/>
+                </div>
+            </div>
+            <c:choose>
+                <c:when test="${school.databaseState eq 'WI'}">
+                    <school:espFormEthnicityRow breakdownId="4" label="American Indian"/>
                     <school:espFormEthnicityRow breakdownId="7"  label="Asian"/>
                     <school:espFormEthnicityRow breakdownId="2"  label="Black"/>
                     <school:espFormEthnicityRow breakdownId="3"  label="Hispanic"/>
@@ -28,36 +35,40 @@
                     <school:espFormCensusRow typeLabel="Percentage of students participating in ELL or ESL services"
                                              stateLabel="English Proficient" dataTypeName="ell_esl"/>
                     <school:espFormCensusRow typeLabel="Percentage of students eligible for free or reduced-price lunch"
-                                             stateLabel="Economically Disadvantaged" dataTypeName="forpl"/>
+                                             stateLabel="Economically Disadvantaged" dataTypeName="frpl"/>
                     <school:espFormCensusRow typeLabel="Percentage of students that take advantage of some type of Special Education service"
-                                             stateLabel="Disabled" dataTypeName="special_ed"/>
-                </fieldset>
-            </c:when>
-            <c:when test="${school.databaseState eq 'DC'}">
-                <fieldset>
-                    <legend>Your school's student ethnicity breakdown</legend>
-                    <hr class="legend"><!--Do not collapse--></hr>
+                                             stateLabel="Disabled" dataTypeName="disabilities"/>
+                </c:when>
+                <c:when test="${school.databaseState eq 'DC'}">
                     <school:espFormEthnicityRow breakdownId="10" label="American Indian/Alaskan Native"/>
                     <school:espFormEthnicityRow breakdownId="5"  label="Asian/Pacific Islander"/>
                     <school:espFormEthnicityRow breakdownId="2"  label="Black"/>
                     <school:espFormEthnicityRow breakdownId="3"  label="Hispanic"/>
                     <school:espFormEthnicityRow breakdownId="1"  label="White"/>
                     <school:espFormEthnicityRow breakdownId="6"  label="Multiracial"/>
-                </fieldset>
-            </c:when>
-            <c:when test="${school.databaseState eq 'IN'}">
-                <fieldset>
-                    <legend>Your school's student ethnicity breakdown</legend>
-                    <hr class="legend"><!--Do not collapse--></hr>
-                    <school:espFormEthnicityRow breakdownId="10" label="American Indian"/>
+                    <school:espFormCensusRow typeLabel="Percentage of students participating in ELL or ESL services"
+                                             stateLabel="ELL" dataTypeName="ell_esl"/>
+                    <school:espFormCensusRow typeLabel="Percentage of students eligible for free or reduced-price lunch"
+                                             stateLabel="Free and Reduced Lunch" dataTypeName="frpl"/>
+                    <school:espFormCensusRow typeLabel="Percentage of students that take advantage of some type of Special Education service"
+                                             stateLabel="Special Education" dataTypeName="special_ed"/>
+                </c:when>
+                <c:when test="${school.databaseState eq 'IN'}">
+                    <school:espFormEthnicityRow breakdownId="4" label="American Indian"/>
                     <school:espFormEthnicityRow breakdownId="7"  label="Asian"/>
                     <school:espFormEthnicityRow breakdownId="2"  label="Black"/>
                     <school:espFormEthnicityRow breakdownId="3"  label="Hispanic"/>
-                    <school:espFormEthnicityRow breakdownId="6"  label="Multiracial"/>
                     <school:espFormEthnicityRow breakdownId="8"  label="Native Hawaiian or Other Pacific Islander"/>
                     <school:espFormEthnicityRow breakdownId="1"  label="White"/>
-                </fieldset>
-            </c:when>
-        </c:choose>
+                    <school:espFormEthnicityRow breakdownId="6"  label="Multiracial"/>
+                    <school:espFormCensusRow typeLabel="Percentage of students participating in ELL or ESL services"
+                                             stateLabel="ELL" dataTypeName="ell_esl"/>
+                    <school:espFormCensusRow typeLabel="Percentage of students eligible for free or reduced-price lunch"
+                                             stateLabel="Paid Meals" dataTypeName="frpl"/>
+                    <school:espFormCensusRow typeLabel="Percentage of students that take advantage of some type of Special Education service"
+                                             stateLabel="Special Ed" dataTypeName="special_ed"/>
+                </c:when>
+            </c:choose>
+        </fieldset>
     </school:espFormTemplate>
 </jsp:root>

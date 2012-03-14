@@ -187,7 +187,10 @@ public class EspFormController implements ReadWriteAnnotationController {
             errorFieldToMsgMap.put("school_fax", fieldError);
         }
         handleSchoolAffiliation(requestParameterMap, keysForPage);
-        handleEthnicity(requestParameterMap, keysForPage);
+        fieldError = handleEthnicity(requestParameterMap, keysForPage);
+        if (fieldError != null) {
+            errorFieldToMsgMap.put("ethnicity", fieldError);
+        }
 
         // Basic validation goes here
         // Note: This should only validate data going into esp_response. Data going to external places MUST be
@@ -233,7 +236,7 @@ public class EspFormController implements ReadWriteAnnotationController {
                 EspResponse espResponse;
                 if (StringUtils.equals("address", key)) {
                     espResponse = createEspResponse(user, school, now, key, active, (Address) responseValue);
-                } else if (StringUtils.equals("ethnicity", key) ) {
+                } else if (StringUtils.equals("census_ethnicity", key) ) {
                     espResponse = createEspResponse(user, school, now, key, active, responseValue.toString());
                 } else {
                     espResponse = createEspResponse(user, school, now, key, active, (String) responseValue);
@@ -313,26 +316,35 @@ public class EspFormController implements ReadWriteAnnotationController {
         }
     }
 
-    protected void handleEthnicity(Map<String, Object[]> requestParameterMap, Set<String> keysForPage) {
+    protected String handleEthnicity(Map<String, Object[]> requestParameterMap, Set<String> keysForPage) {
         Map<Integer, Integer> breakdownToValueMap = new HashMap<Integer, Integer>();
         Set<String> keysToRemove = new HashSet<String>();
+        String error = null;
         for (String key: keysForPage) {
             if (StringUtils.startsWith(key, "ethnicity_") && requestParameterMap.get(key) != null && requestParameterMap.get(key).length == 1) {
                 keysToRemove.add(key);
                 try {
                     Integer breakdownId = new Integer(key.substring("ethnicity_".length()));
-                    Integer value = new Integer(requestParameterMap.get(key)[0].toString());
+                    String sValue = requestParameterMap.get(key)[0].toString();
+                    Integer value;
+                    if (StringUtils.length(sValue) == 0) {
+                        value = 0;
+                    } else {
+                        value = new Integer(sValue);
+                    }
                     breakdownToValueMap.put(breakdownId, value);
                 } catch (Exception e) {
                     _log.error(e, e);
+                    error = "Value must be numeric.";
                 }
             }
         }
         keysForPage.removeAll(keysToRemove);
         if (breakdownToValueMap.size() > 0) {
-            keysForPage.add("ethnicity");
-            requestParameterMap.put("ethnicity", new Object[] {breakdownToValueMap});
+            keysForPage.add("census_ethnicity");
+            requestParameterMap.put("census_ethnicity", new Object[] {breakdownToValueMap});
         }
+        return error;
     }
 
     protected void handleAddressSave(Map<String, Object[]> requestParameterMap, Set<String> keysForPage, Address existingAddress) {
@@ -448,6 +460,7 @@ public class EspFormController implements ReadWriteAnnotationController {
             inCities.add("Speedway");
             put(State.IN, inCities);
             put(State.DC, null); // null means accept all
+//            put(State.CA, null); // null means accept all
         }
     };
     
@@ -508,9 +521,9 @@ public class EspFormController implements ReadWriteAnnotationController {
      * How many pages are on the form for a given school
      */
     protected int getMaxPageForSchool(School school) {
-//        if (isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE) {
-//            return 8;
-//        }
+        if (isFruitcakeSchool(school) && school.getType() == SchoolType.PRIVATE) {
+            return 8;
+        }
         return 7;
     }
 
@@ -674,7 +687,7 @@ public class EspFormController implements ReadWriteAnnotationController {
             add("school_url");
         }});
         put(8, new HashSet<String>() {{
-            // TODO
+            add("page_8_touched");
         }});
     }};
 }

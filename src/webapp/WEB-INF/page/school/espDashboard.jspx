@@ -264,16 +264,13 @@
                             </div>
                         </div>
 
-                        <!-- Hiding this c:if block. Not part of 19.6.-->
-                        <!--
-                        <c:if test="${school.type.schoolTypeName == 'private'}">
-
+                        <c:if test="${isFruitcakeSchool}">
                             <div class="mod osp-dashboard">
                                 <div class="inner">
                                     <div class="bd">
-                                        <div class="mediaExt1-3 grid_9 selected">
+                                        <div class="mediaExt1-3 unit size78of100 selected">
                                             <link:schoolEspForm school="${school}" page="8">
-                                                <span class="iconx48 i-48-si img">&lt;!&ndash; do not collapse &ndash;&gt;</span>
+                                                <span class="iconx48 i-48-si img"><!-- do not collapse --></span>
                                             </link:schoolEspForm>
 
                                             <p class="bk">
@@ -282,17 +279,14 @@
                                                 </link:schoolEspForm>
                                             </p>
                                         </div>
-                                        <div class="grid_2 mtm pts">
-                                            <link:schoolEspForm school="${school}"
-                                                                page="8"
-                                                                styleClass="button-6">${pageStarted[8]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
+                                        <div class="unit size22of100 lastUnit pts">
+                                            <link:schoolEspForm school="${school}" page="8"
+                                                                styleClass="button-6 fltrt mtm">${pageStarted[8]?tabEditLabel:tabGetStartedLabel}</link:schoolEspForm>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </c:if>
-                        -->
                     </div>
                 </div>
             </c:if>

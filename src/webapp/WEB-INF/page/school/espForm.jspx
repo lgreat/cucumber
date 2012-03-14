@@ -21,7 +21,7 @@
         <c:set var="tabTitle_5" value="Enrichment &amp;amp; extracurriculars"/>
         <c:set var="tabTitle_6" value="School culture"/>
         <c:set var="tabTitle_7" value="Contact information"/>
-        <c:set var="tabTitle_8" value="Student information"/>
+        <c:set var="tabTitle_8" value="Student info"/>
         <c:choose>
             <c:when test="${page eq 1}"><c:set var="tabTitle" value="${tabTitle_1}"/></c:when>
             <c:when test="${page eq 2}"><c:set var="tabTitle" value="${tabTitle_2}"/></c:when>
@@ -139,15 +139,14 @@
                                 <span class="espNavLabel">Contact info</span>
                             </link:schoolEspForm>
                         </li>
-                        <!-- TODO Hiding this c:if block. Not part of 19.6.-->
-                        <!--<c:if test="${maxPage eq 8}">
+                        <c:if test="${maxPage eq 8}">
                             <li class="last ${(page eq 8)?'selected':''} ${(percentComplete[8] ge 100)?'completed':''}">
                                 <link:schoolEspForm school="${school}" page="8" styleClass="js_saveForm">
-                                    <span class="espNavIcon iconx48 i-48-si">&lt;!&ndash; do not collapse &ndash;&gt;</span>
+                                    <span class="espNavIcon iconx48 i-48-si"><!-- do not collapse --></span>
                                     <span class="espNavLabel">Student info</span>
                                 </link:schoolEspForm>
                             </li>
-                        </c:if>-->
+                        </c:if>
                     </ul>
                 </div>
             </div>
@@ -189,7 +188,7 @@
                         </div>
                     <!--</c:when>-->
                     <!--<c:when test="${page eq 8}">-->
-                        <c:if test="${school.type.schoolTypeName == 'private'}">
+                        <c:if test="${maxPage eq 8}">
                             <div id="js_pageWrapper-8" class="js_pageWrapper ${(page eq 8)?'':'hidden'}">
                                 <school:espFormPage8 maxPage="${maxPage}"/>
                             </div>

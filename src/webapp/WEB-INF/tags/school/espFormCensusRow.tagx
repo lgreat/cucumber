@@ -12,14 +12,14 @@
         <div class="alpha grid_7">
             <label for="js_form_census_${dataTypeName}">${typeLabel}</label>
         </div>
-        <div class="grid_10 suffix_1">
+        <div class="grid_9 suffix_1">
             <gsml:input styleId="js_form_census_${dataTypeName}" styleClass="text digits_3" type="text"
                         name="census_${dataTypeName}"
                         value="${responseMap[censusRowResponseKey].value}" disabled="${stateLocked}" maxlength="3"/>
             <span> % </span>
             <span>${stateLabel}</span>
         </div>
-        <div class="grid_5 omega">
+        <div class="grid_6 omega">
             <div id="js_form_census_${dataTypeName}_number_error"  class="error" style="display: none">
                 <span class="sprite i-alert vam"><!--Do not collapse--></span>
                 Please enter a number.
