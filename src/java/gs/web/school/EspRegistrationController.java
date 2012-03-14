@@ -212,6 +212,8 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                                 userState.setUserESPDisabled(true);
                             } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
                                 userState.setUserESPRejected(true);
+                            }else if(membership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && !membership.getActive()){
+                                userState.setUserESPPreApproved(true);
                             }
                         }
                     }

@@ -15,6 +15,7 @@ public class EspUserStateStruct {
     private boolean isUserApprovedESPMember = false;
     private boolean isUserESPDisabled = false;
     private boolean isUserESPRejected = false;
+    private boolean isUserESPPreApproved = false;
     private boolean isUserCookieSet = false;
     private boolean isCookieMatched = true;
 
@@ -98,6 +99,14 @@ public class EspUserStateStruct {
         isCookieMatched = cookieMatched;
     }
 
+    public boolean isUserESPPreApproved() {
+        return isUserESPPreApproved;
+    }
+
+    public void setUserESPPreApproved(boolean userESPPreApproved) {
+        isUserESPPreApproved = userESPPreApproved;
+    }
+
     public Map getUserState() {
         Map data = new HashMap();
 
@@ -107,6 +116,7 @@ public class EspUserStateStruct {
         data.put("isUserEmailValidated", isUserEmailValidated());
         data.put("isUserESPDisabled", isUserESPDisabled());
         data.put("isUserESPRejected", isUserESPRejected());
+        data.put("isUserESPPreApproved", isUserESPPreApproved());
         data.put("isUserCookieSet", isUserCookieSet());
         data.put("isCookieMatched", isCookieMatched());
         return data;

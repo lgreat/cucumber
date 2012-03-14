@@ -6,6 +6,7 @@
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
           version="2.0" >
@@ -24,6 +25,14 @@
                     GSType.hover.emailNotValidated.show();
                     return false;
                 });
+
+                jQuery('#js_espSignIn .js_espReSendEspPreApprovalEmail').click(function() {
+                    var email = jQuery('#js_espSignIn #js_email').val();
+                    GSType.hover.espPreApprovalEmail.setEmail(email);
+                    GSType.hover.espPreApprovalEmail.show();
+                    return false;
+                });
+
             });
             function addWarningToInputs(elem) {
                 elem.addClass('warning');
@@ -32,6 +41,7 @@
     </head>
 
     <gsml:body adPageName="ESP/signin" pageLayout="nocol">
+        <communityHover:espPreApprovalEmail/>
         <div class="spacer_20"><!-- do not collapse --></div>
         <div class="container_24 slStylesV1-0 slFormsV1-0">
             <div class="grid_24">

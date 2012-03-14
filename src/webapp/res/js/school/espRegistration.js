@@ -118,6 +118,12 @@ GS.form.EspForm = function() {
         var isValid = false;
         if (data.isEmailValid !== true) {
             GS.form.espForm.showEmailError("Please enter a valid email address.", emailField);
+        }else if (data.isCookieMatched !== true ) {
+            GS.form.espForm.showEmailError("An error has occurred.", emailField);
+        }else if (data.isUserESPPreApproved === true ) {
+            GSType.hover.espPreApprovalEmail.setEmail(jQuery('#js_email').val());
+            var onclickStr = "GSType.hover.espPreApprovalEmail.show();";
+            GS.form.espForm.showEmailError("You are pre-approved<a href='#' onclick=" + onclickStr + ">Verify email</a>", emailField);
         } else if (data.isUserESPRejected === true) {
             GS.form.espForm.showEmailError("Our records indicate you already requested a school official's account. Please contact us at gs_support@greatschools.org if you need further assistance.", emailField);
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
@@ -139,8 +145,6 @@ GS.form.EspForm = function() {
             // valid GS users who never request ESP.We check the cookie, since a signed in user should be able to submit one request.
             var onclickStr = "GSType.hover.signInHover.showHover('" + email + "','/official-school-profile/register.page')";
             GS.form.espForm.showEmailError("This email address is already registered.<a href='#' onclick=" + onclickStr + ">Log in.</a>", emailField);
-        }else if (data.isCookieMatched !== true ) {
-            GS.form.espForm.showEmailError("An error has occurred.", emailField);
         } else {
             isValid = true;
         }

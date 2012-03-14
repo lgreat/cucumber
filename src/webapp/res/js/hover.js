@@ -893,6 +893,20 @@ GSType.hover.ConfirmEspSave = function() {
 
 GSType.hover.ConfirmEspSave.prototype = new GSType.hover.HoverDialog("confirmEspSaveHover",640);
 
+
+//Hover to re-send the ESP pre-approval email.
+GSType.hover.EspPreApprovalEmail = function() {
+    this.email = '';
+    this.loadDialog = function() {
+    };
+    this.setEmail = function(email) {
+        GSType.hover.espPreApprovalEmail.email = email;
+    };
+};
+
+GSType.hover.EspPreApprovalEmail.prototype = new GSType.hover.HoverDialog("espPreApprovalEmailHover",640);
+
+
 //Email to a friend hover
 GSType.hover.EmailToFriend = function() {
     this.loadDialog = function() {
@@ -1090,6 +1104,7 @@ GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolR
 GSType.hover.schoolEspThankYou = new GSType.hover.SchoolEspThankYou();
 GSType.hover.espAccountVerified = new GSType.hover.EspAccountVerified();
 GSType.hover.confirmEspSave = new GSType.hover.ConfirmEspSave();
+GSType.hover.espPreApprovalEmail = new GSType.hover.EspPreApprovalEmail();
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
 GSType.hover.interruptSurvey = new GSType.hover.InterruptSurvey();
 GSType.hover.nlSubscription = new GSType.hover.NlSubscription();
@@ -1446,6 +1461,7 @@ jQuery(function() {
     GSType.hover.emailValidatedSchoolReview.loadDialog();
     GSType.hover.schoolEspThankYou.loadDialog();
     GSType.hover.espAccountVerified.loadDialog();
+    GSType.hover.espPreApprovalEmail.loadDialog();
     GSType.hover.emailToFriend.loadDialog();
     GSType.hover.interruptSurvey.loadDialog();
     GSType.hover.nlSubscription.loadDialog();
@@ -1492,6 +1508,16 @@ jQuery(function() {
         GSType.hover.validateLinkExpired.hide();
     });
 
+
+    jQuery('#sendEspPreApprovalEmail').click(function() {
+        var params = {
+            email: GSType.hover.espPreApprovalEmail.email
+        };
+
+        jQuery.get(GS.uri.Uri.getBaseHostname() + '/official-school-profile/espPreApprovalEmail.page', params);
+
+        GSType.hover.espPreApprovalEmail.hide();
+    });
 
     jQuery('#joinState').change(GSType.hover.joinHover.loadCities);
 
@@ -1624,6 +1650,8 @@ jQuery(function() {
         GSType.hover.espAccountVerified.show();
     } else if (showHover == "confirmEspSave") {
         GSType.hover.confirmEspSave.show();
+    } else if (showHover == "espPreApprovalEmail") {
+        GSType.hover.espPreApprovalEmail.show();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");

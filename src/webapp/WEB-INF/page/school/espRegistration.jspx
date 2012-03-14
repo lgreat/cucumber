@@ -7,6 +7,7 @@
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:gsweb="gstaglib"
           version="2.0" >
 
@@ -27,6 +28,7 @@
 </head>
 
 <gsml:body adPageName="OSP/registration" pageLayout="nocol">
+<communityHover:espPreApprovalEmail/>
 <div class="spacer_20"><!-- do not collapse --></div>
 <div class="container_24 slStylesV1-0 slFormsV1-0">
 

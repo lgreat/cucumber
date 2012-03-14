@@ -99,6 +99,10 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             _log.error("No pre_approved memberships found for user " + user);
             return redirectToRegistration(request);
         } else if (hasActiveMembership) {
+            //If user has approved membership and is email verified then log the user in and redirect to registration.
+            if (user.isEmailValidated()) {
+                PageHelper.setMemberAuthorized(request, response, user, true);
+            }
             // For now we only allow one active membership per user, so error
             _log.error("Already found active membership for user " + user);
             return redirectToRegistration(request);
@@ -318,7 +322,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             }
 
             if (StringUtils.isBlank(userProfile.getHow())) {
-                userProfile.setHow("esp");
+                userProfile.setHow("esp_pre_approved");
             }
             userProfile.setUpdated(new Date());
         }

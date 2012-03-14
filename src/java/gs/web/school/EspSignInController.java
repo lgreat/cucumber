@@ -102,6 +102,8 @@ public class EspSignInController implements ReadWriteAnnotationController {
         if (userState.isNewUser() || (!userState.isUserRequestedESP())) {
             // new users or users who have never requested access
             result.rejectValue("email", null, "You do not have a School Official account. To request one, <a href='/official-school-profile/register.page'>register here.</a>");
+        }else if (userState.isUserESPPreApproved()) {
+            result.rejectValue("email", null, "You are pre-approved.<a href='#' class='js_espReSendEspPreApprovalEmail'>verify here</a>");
         } else if (userState.isUserAwaitingESPMembership()) {
             // users who have requested access but are still being processed
             result.rejectValue("email", null, "You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
@@ -138,6 +140,8 @@ public class EspSignInController implements ReadWriteAnnotationController {
                         userState.setUserESPDisabled(true);
                     } else if (membership.getStatus().equals(EspMembershipStatus.REJECTED) && !membership.getActive()) {
                         userState.setUserESPRejected(true);
+                    }else if (membership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && !membership.getActive()) {
+                        userState.setUserESPPreApproved(true);
                     }
                 }
             }
