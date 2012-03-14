@@ -123,7 +123,7 @@ GS.form.EspForm = function() {
         }else if (data.isUserESPPreApproved === true ) {
             GSType.hover.espPreApprovalEmail.setEmail(jQuery('#js_email').val());
             var onclickStr = "GSType.hover.espPreApprovalEmail.show();";
-            GS.form.espForm.showEmailError("You are pre-approved<a href='#' onclick=" + onclickStr + ">Verify email</a>", emailField);
+            GS.form.espForm.showEmailError("You have been pre-approved for an account but must verify your email.<a href='#' onclick=" + onclickStr + ">Please verify email.</a>", emailField);
         } else if (data.isUserESPRejected === true) {
             GS.form.espForm.showEmailError("Our records indicate you already requested a school official's account. Please contact us at gs_support@greatschools.org if you need further assistance.", emailField);
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {

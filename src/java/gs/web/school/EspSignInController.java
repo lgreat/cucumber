@@ -103,7 +103,7 @@ public class EspSignInController implements ReadWriteAnnotationController {
             // new users or users who have never requested access
             result.rejectValue("email", null, "You do not have a School Official account. To request one, <a href='/official-school-profile/register.page'>register here.</a>");
         }else if (userState.isUserESPPreApproved()) {
-            result.rejectValue("email", null, "You are pre-approved.<a href='#' class='js_espReSendEspPreApprovalEmail'>verify here</a>");
+            result.rejectValue("email", null, "You have been pre-approved for an account but must verify your email.<a href='#' class='js_espReSendEspPreApprovalEmail'>Please verify email.</a>");
         } else if (userState.isUserAwaitingESPMembership()) {
             // users who have requested access but are still being processed
             result.rejectValue("email", null, "You have already requested access to this school's Official School Profile. We are reviewing your request currently and will email you within a few days with a link to get started on the profile.");
