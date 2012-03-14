@@ -319,6 +319,8 @@
                         <param>10_css3/opacity_shadow.css</param>
                         <param>38_special/cms_content.css</param>
                         <param>38_special/community_hover.css</param>
+                        <param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>
+                        <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
                         <param>99_debugging/debug.css</param>
                         <param>gs2010_styles.css</param>
                         <param>jquery.autocomplete.css</param>
@@ -327,12 +329,13 @@
                     <jsSourceDir>/res/js</jsSourceDir>
                     <jsSourceFiles>
                         <param>jquery/jquery-1.7.1.min.js</param>
-                        <param>jquery/jquery-ui-1.8.16.min.js</param>
+                        <param>jquery/jquery-ui-1.8.18.custom.min.js</param>
                         <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
                         <param>jquery/jquery.autocomplete.js</param>
                         <param>uri/uri.js</param>
                         <param>search/schoolAutocomplete.js</param>
                         <param>jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js</param>
+                        <param>jquery/plugins/timepicker/jquery.ptTimeSelect.js</param>
                         <param>global.js</param>
                         <param>topnavpromo.js</param>
                         <param>topnav.js</param>

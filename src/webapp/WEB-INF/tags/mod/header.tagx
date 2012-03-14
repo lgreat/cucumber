@@ -62,35 +62,12 @@
         <!--<c:set var="pw" value="${requestScope.context.pathway}"/>-->
 
         <div class="line">
-            <div class="unit size2of5">
+            <div class="unit size40of100">
                 <div id="logoBox">
                     <gsml:a href="/">
                         <gsml:img id="logo" src="/res/img/logo/logo_GS2010_330x110.png"
                                   alt="GreatSchools: Involved Parents. Successful Kids"/></gsml:a>
                 </div>
-            </div>
-
-            <div class="unit size1of6">
-                <!--<p>adFree: <c:out value="${requestScope.pageHelper.adFree}"/></p>-->
-                <!--<p>adServedByCobrand: <c:out value="${requestScope.pageHelper.adServedByCobrand}"/></p>-->
-                <!--<c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
-                    <div class="mediaExt4">
-                        <div class="img">
-                            <div class="spacer_40">&lt;!&ndash; do not collapse &ndash;&gt;</div>
-                            <span class="bts-logo">&lt;!&ndash; do not collapse &ndash;&gt;</span>
-                        </div>
-
-                        <div class="bk">
-                            <div class="mediaExt1">
-                                <div class="imgExt"><ad:Global_HeaderPromo_88x31/></div>
-                                <div class="bk">
-                                    <p class="smallText2-777 text-align-rt">Sponsored<br/>by:</p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </c:if>-->
             </div>
 
             <!-- variables holding the search form actions for local and community searches -->
@@ -131,7 +108,7 @@
                     }
                 }
             </script>
-            <div class="unit size7of16 lastUnit">
+            <div class="unit size60of100 lastUnit">
                 <div class="topnav_search_container">
                     <gsweb:form method="get" id="topnav_search_articlesAndCommunity"
                                 action="${articlesAndCommunitySearchAction}">

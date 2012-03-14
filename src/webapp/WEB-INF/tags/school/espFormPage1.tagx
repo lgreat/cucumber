@@ -101,39 +101,51 @@
         </div>
     </div>
 
-    <!--
     <div class="lal clearfix">
         <div class="alpha grid_7">
-            <label>What time does school start each day?</label>
+            <label for="js-time1">What time does school start each day?</label>
         </div>
-        <div class="grid_16 omega">
+        <div class="grid_3">
+            <input class="text input_3" type="text" name="time" id="js-time1" readonly="readonly" />
+        </div>
+        <div class="grid_13 omega">
             <p class="hint">Classroom start time only, not before-school programming</p>
         </div>
     </div>
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
-            <label>What time does school end each day?</label>
+            <label for="js-time2">What time does school end each day?</label>
         </div>
-        <div class="grid_16 omega">
+        <div class="grid_3">
+            <input class="text input_3" type="text" name="time" id="js-time2" readonly="readonly" />
+        </div>
+        <div class="grid_13 omega">
             <p class="hint">Classroom end time only, not after-school programming</p>
         </div>
     </div>
-    -->
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
             <p class="labelGroup">School type</p>
         </div>
-        <div class="grid_16 omega">
-            <c:choose>
-                <c:when test="${school.type.schoolTypeName eq 'public'}"><span class="small mls">Public</span></c:when>
-                <c:when test="${school.type.schoolTypeName eq 'charter'}"><span class="small mls">Public Charter</span></c:when>
-                <c:when test="${school.type.schoolTypeName eq 'private'}"><span class="small mls">Private</span></c:when>
-            </c:choose>
 
-            <div class="grid_14 prefix_1 alpha omega">
-                <c:if test="${school.type.schoolTypeName eq 'private'}">
+        <c:choose>
+            <c:when test="${school.type.schoolTypeName eq 'public'}">
+                <div class="grid_2 suffix_14 omega">
+                    <p class="small loud bottom">Public</p>
+                </div>
+            </c:when>
+            <c:when test="${school.type.schoolTypeName eq 'charter'}">
+                <div class="grid_2 suffix_14 omega">
+                    <p class="small loud bottom">Public Charter</p>
+                </div>
+            </c:when>
+            <c:when test="${school.type.schoolTypeName eq 'private'}">
+                <div class="grid_2">
+                    <p class="small loud">Private</p>
+                </div>
+                <div class="grid_7 suffix_7 omega">
                     <school:espCheckboxWithLabel key="school_type_affiliation" value="religious" nobr="true"
                                                  label="Religious / Parochial" disabled="${stateLocked}"/>
                     <label for="form_school_type_affiliation_other" class="mlm">Affiliation:</label>
@@ -142,9 +154,10 @@
                                 name="school_type_affiliation_other"
                                 value="${responseMap['school_type_affiliation_other'].value}"
                                 disabled="${stateLocked}"/>
-                </c:if>
-            </div>
-        </div>
+                </div>
+            </c:when>
+        </c:choose>
+
     </div>
 
     <div class="lal clearfix">
@@ -164,37 +177,49 @@
                 <p class="labelGroup">Does your school have before or after care on site?</p>
             </div>
             <div class="grid_16 omega">
-                <div>
-                    <gsml:checkbox styleId="form_before_after_care_before" name="before_after_care" value="before"
-                                   checked="${not empty responseMap['before_after_care'].valueMap['before']}"/>
-                    <label for="form_before_after_care_before" class="checkbox">Before school care </label>
+                <div class="line">
+                    <div class="unit size20of100">
+                        <gsml:checkbox styleId="form_before_after_care_before" name="before_after_care" value="before"
+                                       checked="${not empty responseMap['before_after_care'].valueMap['before']}"/>
+                        <label for="form_before_after_care_before" class="checkbox">Before school care </label>
+                    </div>
 
-                <span id="form_before_after_care_before_group">
-                    <label for="form_before_after_care_start" class="checkbox">| Start time</label>
-                    <select id="form_before_after_care_start" name="before_after_care_start">
-                        <gsml:forEachMinute var="hourAndMinute" begin="5:30" end="8:30" step="15">
-                            <gsml:selectOption value="${requestScope.forEachMinuteHourAndMinutes}"
-                                               selected="${responseMap['before_after_care_start'].value == requestScope.forEachMinuteHourAndMinutes}"
-                                    >${requestScope.forEachMinuteHourAndMinutes}</gsml:selectOption>
-                        </gsml:forEachMinute>
-                    </select>
-                </span>
+                    <div class="unit size80of100 lastUnit">
+                        <div class="line mrgtop_2">
+                        <span id="form_before_after_care_before_group">
+                            <div class="unit size2of100"><span class="small bottom">|</span></div>
+                            <div class="unit size11of100">
+                                <label for="js-time3" class="checkbox">Start time</label>
+                            </div>
+                            <div class="unti size87of100 lastUnit">
+                                <input class="text-smaller input_3" type="text" name="time" id="js-time3"
+                                       readonly="readonly"/>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
-                                   checked="${not empty responseMap['before_after_care'].valueMap['after']}"/>
-                    <label for="form_before_after_care_after" class="checkbox">After school care </label>
+                <div class="line">
+                    <div class="unit size20of100">
+                        <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
+                                       checked="${not empty responseMap['before_after_care'].valueMap['after']}"/>
+                        <label for="form_before_after_care_after" class="checkbox">After school care </label>
+                    </div>
 
-                <span id="form_before_after_care_after_group">
-                    <label for="form_before_after_care_end" class="checkbox">| End time</label>
-                    <select id="form_before_after_care_end" name="before_after_care_end">
-                        <gsml:forEachMinute var="hourAndMinute" begin="2:30" end="6:30" step="30">
-                            <gsml:selectOption value="${requestScope.forEachMinuteHourAndMinutes}"
-                                               selected="${responseMap['before_after_care_end'].value == requestScope.forEachMinuteHourAndMinutes}"
-                                    >${requestScope.forEachMinuteHourAndMinutes}</gsml:selectOption>
-                        </gsml:forEachMinute>
-                    </select>
-                </span>
+                    <div class="unit size80of100 lastUnit">
+                        <div class="line mrgtop_2">
+                        <span id="form_before_after_care_after_group">
+                            <div class="unit size2of100"><span class="small bottom">|</span></div>
+                            <div class="unit size11of100">
+                                <label for="form_before_after_care_end" class="checkbox">End time </label>
+                            </div>
+                            <div class="unti size87of100 lastUnit">
+                                <input class="text-smaller input_3" type="text" name="time" id="js-time4"
+                                       readonly="readonly"/>
+                            </div>
+                        </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -248,5 +273,13 @@
     </c:if>
 
     </fieldset>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            jQuery('#js-time1').ptTimeSelect();
+            jQuery('#js-time2').ptTimeSelect();
+            jQuery('#js-time3').ptTimeSelect();
+            jQuery('#js-time4').ptTimeSelect();
+        });
+    </script>
     </school:espFormTemplate>
 </jsp:root>

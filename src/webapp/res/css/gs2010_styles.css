@@ -2120,7 +2120,7 @@ body.cobranded #pageGS {
 -------------------------------------------------------------------------------------------*/
 
 .topnav_search_container{
-    position:relative;
+    /*position:relative;*/
     _zoom:1;
 }
 
@@ -2130,7 +2130,7 @@ body.cobranded #pageGS {
 
 #topnav_search {
     position: absolute;
-    top: 16px;
+    top: 40px;
     right: 0;
     width: 416px;
     height: 59px;

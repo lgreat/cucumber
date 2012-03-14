@@ -45,6 +45,8 @@
             <gsml:url var="opacityshadow" value="/res/css/10_css3/opacity_shadow.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="cmscontent" value="/res/css/38_special/cms_content.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="communityhover" value="/res/css/38_special/community_hover.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="themeroller" value="/res/css/97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="timepicker" value="/res/css/97_jQueryUI/timepicker/jquery.ptTimeSelect.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="debug" value="/res/css/99_debugging/debug.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="jquery_autocomplete_css" value="/res/css/jquery.autocomplete.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -73,6 +75,9 @@
             <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${cmscontent}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${communityhover}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${themeroller}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${themeroller}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${timepicker}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${debug}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
