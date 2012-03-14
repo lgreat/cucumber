@@ -113,6 +113,8 @@ public class UnsubscribeController implements ReadWriteAnnotationController {
         if (state == null) {
             state = SessionContextUtil.getSessionContext(request).getStateOrDefault();
         }
+
+        boolean unsubscribeAll =  false;
         List<String> messages = new ArrayList<String>();
         updateMessages(command, messages);
 
@@ -150,27 +152,44 @@ public class UnsubscribeController implements ReadWriteAnnotationController {
         else if(WebUtils.hasSubmitParameter(request, "UnsubscribeAll") && allSubscriptions != null ){
             subscriptions.addAll(allSubscriptions);
             unsubscribe = new Unsubscribe(user, "all");
+            unsubscribeAll = true;
         }
 
         /* if there are any subscriptions to be removed, create unique objects for each of the subscription products,
-        and save the unsubscribe */
+        and save the unsubscribe
+        String passed to the exact target API method is the name that is the attribute name used on exact target*/
         if(subscriptions.size() > 0){
             Iterator<Subscription> subscriptionIterator = subscriptions.iterator();
             while (subscriptionIterator.hasNext()) {
                 Subscription s = subscriptionIterator.next();
                 if(SubscriptionProduct.PARENT_ADVISOR.getName().equals(s.getProduct().getName())){
                     unsubscribedProducts.add(new UnsubscribedProducts("weekly", unsubscribe));
+                    if(!unsubscribeAll) {
+                        _exactTargetAPI.unsubscribeProduct(user.getEmail(), "GreatNews");
+                    }
                 }
                 if(SubscriptionProduct.DAILY_TIP.getName().equals(s.getProduct().getName())){
                     unsubscribedProducts.add(new UnsubscribedProducts("daily", unsubscribe));
+                    if(!unsubscribeAll) {
+                        _exactTargetAPI.unsubscribeProduct(user.getEmail(), "Summer Brain Drain");
+                    }
                 }
                 if(SubscriptionProduct.MYSTAT.getName().equals(s.getProduct().getName())){
                     unsubscribedProducts.add(new UnsubscribedProducts("mss", unsubscribe));
+                    if(!unsubscribeAll) {
+                        _exactTargetAPI.unsubscribeProduct(user.getEmail(), "Mystats");
+                    }
                 }
                 if(SubscriptionProduct.SPONSOR_OPT_IN.getName().equals(s.getProduct().getName())){
                     unsubscribedProducts.add(new UnsubscribedProducts("partner", unsubscribe));
+                    if(!unsubscribeAll) {
+                        _exactTargetAPI.unsubscribeProduct(user.getEmail(), "Sponsor");
+                    }
                 }
                 _subscriptionDao.removeSubscription(s.getId());
+            }
+            if(unsubscribeAll) {
+                _exactTargetAPI.unsubscribeAll(user.getEmail());
             }
             _unsubscribeDao.saveUnsubscribe(unsubscribe);
             command.setUnsubscribeId(unsubscribe.getId());
@@ -189,8 +208,6 @@ public class UnsubscribeController implements ReadWriteAnnotationController {
         for (Student student: previousMyNth) {
             _subscriptionDao.removeStudent(student.getId());
         }
-        // DELETE USER FROM EXACT TARGET IF NO SUBSCRIPTIONS
-        _exactTargetAPI.deleteSubscriber(user.getEmail());
 
         /* make unsubscribe survey page available */
         command.setUnsubscribedSuccess(true);

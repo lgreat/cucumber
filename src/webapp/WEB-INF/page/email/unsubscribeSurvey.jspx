@@ -17,6 +17,7 @@
 
     <head>
         <title>Email Unsubscribe - GreatSchools</title>
+        <meta name="robots" content="noindex"/>
     </head>
 
     <gsml:body adPageName="email/unsubscribe" pageLayout="nocol">

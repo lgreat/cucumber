@@ -191,6 +191,8 @@ public class UnsubscribeControllerTest extends BaseControllerTestCase {
         _command.setDailyNl(true);
         expect(_userDao.findUserFromId(_user.getId())).andReturn(_user);
         expect(_subscriptionDao.getUserSubscriptions(_user)).andReturn(_allSubscriptions);
+        _exactTargetAPI.unsubscribeProduct((String) anyObject(), (String) anyObject());
+        expectLastCall().times(4);
 
         /*http://stackoverflow.com/questions/859031/easymock-void-methods, http://burtbeckwith.com/blog/?p=43*/
         _subscriptionDao.removeSubscription(anyInt());
@@ -200,8 +202,6 @@ public class UnsubscribeControllerTest extends BaseControllerTestCase {
         _unsubscribedProductsDao.saveUnsubscribedProducts((UnsubscribedProducts)anyObject());
         expectLastCall().times(2);
         expect(_subscriptionDao.findMynthSubscriptionsByUser(_user)).andReturn(new ArrayList<Student>());
-        _exactTargetAPI.deleteSubscriber(_user.getEmail());
-        expectLastCall();
 
         replayAll();
         try{
@@ -235,7 +235,7 @@ public class UnsubscribeControllerTest extends BaseControllerTestCase {
         _unsubscribedProductsDao.saveUnsubscribedProducts((UnsubscribedProducts)anyObject());
         expectLastCall().times(4);
         expect(_subscriptionDao.findMynthSubscriptionsByUser(_user)).andReturn(new ArrayList<Student>());
-        _exactTargetAPI.deleteSubscriber(_user.getEmail());
+        _exactTargetAPI.unsubscribeAll(_user.getEmail());
         expectLastCall();
 
         replayAll();
