@@ -24,28 +24,23 @@
 
     <c:choose>
         <c:when test="${state eq 'DC'}">
-            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="210" height="78">
-                <span class="medium_bold">Get help with your profile from local staff</span>
-                <br/>
-                <span class="small">Hotline: 202-450-5278</span>
-                <br/>
-                <span class="small">Email: <span class="make-06b">dc@greatschools.org</span></span>
+            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="292" height="26">
+                <p class="medium_bold bottom">Get help with your profile from local staff</p>
+                <p class="small bottom">Hotline: 202-450-5278</p>
+                <p class="small bottom">Email: <span class="make-06b">dc@greatschools.org</span></p>
             </gsml:bubblePopup>
         </c:when>
         <c:when test="${(state eq 'IN' and (city eq 'Beech Grove' or city eq 'Indianapolis' or city eq 'West Newton' or city eq 'Speedway'))}">
-            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="210" height="78">
-                <span class="medium_bold">Get help with your profile from local staff</span>
-                <br/>
-                <span class="small">Email: <span class="make-06b">indianapolis@greatschools.org</span></span>
+            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="292" height="26">
+                <p class="medium_bold bottom">Get help with your profile from local staff</p>
+                <p class="small bottom">Email: <span class="make-06b">indianapolis@greatschools.org</span></p>
             </gsml:bubblePopup>
         </c:when>
         <c:when test="${state eq 'WI' and city eq 'Milwaukee'}">
-            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="210" height="78">
-                <span class="medium_bold">Get help with your profile from local staff</span>
-                <br/>
-                <span class="small">Hotline: 414-748-1211</span>
-                <br/>
-                <span class="small">Email: <span class="make-06b">milwaukee@greatschools.org</span></span>
+            <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="292" height="26">
+                <p class="medium_bold bottom">Get help with your profile from local staff</p>
+                <p class="small bottom">Hotline: 414-748-1211</p>
+                <p class="small bottom">Email: <span class="make-06b">milwaukee@greatschools.org</span></p>
             </gsml:bubblePopup>
         </c:when>
         <c:otherwise>

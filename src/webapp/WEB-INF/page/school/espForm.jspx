@@ -62,11 +62,13 @@
     <gsml:body adPageName="school/esp" pageLayout="nocol osp">
         <div class="container_24 slStylesV1-0 slFormsV1-0">
             <div class="spacer_20"><!-- do not collapse --></div>
-            <div class="grid_24">
+            <div class="grid_21">
                 <h1 class="fltlft">Your Official School Profile</h1>
+            </div>
 
+            <div class="grid_3">
                 <div class="fltrt mtm">
-                    <school:espNeedHelp school="${school}" />
+                    <school:espNeedHelp school="${school}"/>
                 </div>
             </div>
             <div class="grid_24">
