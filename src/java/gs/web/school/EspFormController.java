@@ -320,6 +320,10 @@ public class EspFormController implements ReadWriteAnnotationController {
         Map<Integer, Integer> breakdownToValueMap = new HashMap<Integer, Integer>();
         Set<String> keysToRemove = new HashSet<String>();
         String error = null;
+        boolean unavailable = keysForPage.contains("census_ethnicity_unavailable")
+                && requestParameterMap.get("census_ethnicity_unavailable") != null
+                && requestParameterMap.get("census_ethnicity_unavailable").length == 1
+                && Boolean.valueOf(requestParameterMap.get("census_ethnicity_unavailable")[0].toString());
         for (String key: keysForPage) {
             if (StringUtils.startsWith(key, "ethnicity_") && requestParameterMap.get(key) != null && requestParameterMap.get(key).length == 1) {
                 keysToRemove.add(key);
@@ -327,7 +331,7 @@ public class EspFormController implements ReadWriteAnnotationController {
                     Integer breakdownId = new Integer(key.substring("ethnicity_".length()));
                     String sValue = requestParameterMap.get(key)[0].toString();
                     Integer value;
-                    if (StringUtils.length(sValue) == 0) {
+                    if (unavailable || StringUtils.length(sValue) == 0) {
                         value = 0;
                     } else {
                         value = new Integer(sValue);
@@ -460,7 +464,7 @@ public class EspFormController implements ReadWriteAnnotationController {
             inCities.add("Speedway");
             put(State.IN, inCities);
             put(State.DC, null); // null means accept all
-//            put(State.CA, null); // null means accept all
+            put(State.CA, null); // null means accept all
         }
     };
     

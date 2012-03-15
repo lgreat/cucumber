@@ -640,6 +640,11 @@ GS.validation.validatePercentageRange = function(fieldSelector, errorSelector, m
 };
 
 GS.validation.validateEthnicities = function() {
+    if (jQuery('#form_census_ethnicity_unavailable__true').prop('checked')) {
+        jQuery('.js_form_ethnicity_error').hide();
+        jQuery('.js_form_ethnicity_validation').removeClass('warning');
+        return true;
+    }
     var allValid = true;
 
     var rangeValid = GS.validation.validatePercentageRange(
@@ -687,6 +692,25 @@ GS.validation.validateEthnicities = function() {
             '#js_form_ethnicity_10').filter("input[type=text]").addClass("warning");
     }
     return allValid;
+};
+
+GS.validation.validateCensuses = function() {
+    var a = GS.validation.validateCensus('#js_form_census_ell_esl','#js_form_census_ell_esl_number_error','#form_census_ell_esl_unavailable__true');
+    var b = GS.validation.validateCensus('#js_form_census_frpl','#js_form_census_frpl_number_error','#form_census_frpl_unavailable__true');
+    var c = GS.validation.validateCensus('#js_form_census_special_ed','#js_form_census_special_ed_number_error','#form_census_special_ed_unavailable__true');
+    var d = GS.validation.validateCensus('#js_form_census_disabilities','#js_form_census_disabilities_number_error','#form_census_disabilities_unavailable__true');
+    return a && b && c && d;
+};
+
+GS.validation.validateCensus = function(inputSelector, errorSelector, unavailableSelector) {
+    if (jQuery(unavailableSelector).prop('checked')) {
+        jQuery(errorSelector).hide();
+        jQuery(inputSelector).removeClass('warning');
+        return true;
+    }
+
+    return GS.validation.validateInteger(inputSelector, errorSelector) &&
+        GS.validation.validateRequired(inputSelector, errorSelector);
 };
 
 // TODO: figure out what to do with this type of validation method
@@ -959,9 +983,7 @@ new (function() {
         // END PAGE 7
 
         // PAGE 8
-        validations.push(GS.validation.validateInteger ('#js_form_census_ell_esl','#js_form_census_ell_esl_number_error'));
-        validations.push(GS.validation.validateInteger ('#js_form_census_forpl','#js_form_census_forpl_number_error'));
-        validations.push(GS.validation.validateInteger ('#js_form_census_special_ed','#js_form_census_special_ed_number_error'));
+        validations.push(GS.validation.validateCensuses());
         validations.push(GS.validation.validateEthnicities());
         // END PAGE 8
 
