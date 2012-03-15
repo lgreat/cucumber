@@ -134,7 +134,7 @@ public class EspPdfUploaderController implements ReadWriteAnnotationController {
                         }
 
                         // Handle a multi-part MIME encoded file.
-                        if (formFields.containsKey("schoolId") && formFields.containsKey("schoolDatabaseState") && fileStream != null) {
+                        if (formFields.containsKey("schoolId") && formFields.containsKey("schoolDatabaseState") && formFields.containsKey("type") && fileStream != null) {
                             try {
                                 schoolId = Integer.valueOf(formFields.get("schoolId"));
                                 schoolDatabaseState = State.fromString(formFields.get("schoolDatabaseState"));
@@ -169,7 +169,7 @@ public class EspPdfUploaderController implements ReadWriteAnnotationController {
                             }
 
                             // record that this OSP has a PDF by inserting an EspResponse
-                            String answerKey = "has_" + type + "_pdf";
+                            String answerKey = "has_" + StringUtils.lowerCase(type) + "_pdf";
                             EspResponse espResponse = createEspResponse(user, school, new Date(), answerKey, true, "yes");
                             List<EspResponse> espResponseList = new ArrayList<EspResponse>();
                             espResponseList.add(espResponse);
@@ -224,7 +224,7 @@ public class EspPdfUploaderController implements ReadWriteAnnotationController {
         props.setProperty("mail.transport.protocol", "smtp");
         props.setProperty("mail.smtp.host", System.getProperty("mail.server","mail.greatschools.org"));
         Session session = Session.getDefaultInstance(props, null);
-        String recipientEmail = "datahelp@greatschools.org";
+        String recipientEmail = "test_upload@greatschools.org";
         String senderEmail = "noreply@greatschools.org";
 
         MimeMessage msg = new MimeMessage(session);
