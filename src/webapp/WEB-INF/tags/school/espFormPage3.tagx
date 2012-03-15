@@ -21,8 +21,8 @@
 </div>
 
 <div id="js_sctn_admissions_header" class="mbl">
-<p class="small">Please choose one or more options below to provide application information to parents</p>
-    <hr class="keyline2"/>
+<p class="small"><em>Please choose one or more options below to provide application information to parents</em></p>
+    <hr class="keyline1"/>
 </div>
 
 <div id="sctn_admissions_url" class="lal clearfix">
@@ -42,9 +42,10 @@
     <div class="alpha grid_7">
         <label>Contact school</label>
     </div>
-    <div class="grid_16 omega">
+    <div class="grid_16 omega mbl">
         <school:espCheckboxWithLabel key="admissions_contact_school" value="yes" label="Parents should call the school for application information"/>
     </div>
+    <hr class="keyline1"/>
 </div>
 
 <!--<div id="sctn_application_package" class="lal clearfix">
@@ -202,10 +203,12 @@
             <school:espCheckboxWithLabel key="financial_aid_type" value="tax_credits" label="Tax credits"/>
 
             <school:espCheckboxWithLabel key="financial_aid_type" value="other" label="Other forms of aid:"
-                                         nobr="true" styleClass="js_otherField_form_financial_aid_type_other"/>
-            <input id="form_financial_aid_type_other" type="text" name="financial_aid_type_other"
-                   class="mls js_otherField text-smaller input_4" value="${responseMap['financial_aid_type_other'].value}"
-                   placeholder="[Please indicate]" maxlength="100"/>
+                                         nobr="true" styleClass="js_otherField_form_financial_aid_type_other">
+                <input id="form_financial_aid_type_other" type="text" name="financial_aid_type_other"
+                       class="mls js_otherField text-smaller input_4"
+                       value="${responseMap['financial_aid_type_other'].value}"
+                       placeholder="[Please indicate]" maxlength="100"/>
+            </school:espCheckboxWithLabel>
         </div>
         <!--<school:espFieldError text="Please specify the other types of aid"-->
         <!--styleId="form_financial_aid_type_other_error" styleClass="grid_6 omega"/>-->
