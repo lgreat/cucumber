@@ -20,9 +20,9 @@
         GS.util.chainedExecutor = (function () {
             var chain = function (f, deferred) {
                 return function () {
-                    var blah = f();
-                    if (blah && blah.always) {
-                        blah.always(function () {
+                    var result = f();
+                    if (result && result.always) {
+                        result.always(function () {
                             deferred.resolve();
                         });
                     } else {
@@ -98,27 +98,19 @@
             <thead>
             <tr>
                 <th>State</th>
-                <th>Label</th>
-                <th>Value</th>
+                <th title="Number of schools with active rows in esp_response">Total Active OSP (Including PQ)</th>
+                <th title="Number of schools with active rows in esp_response, excluding those migrated from PQ">Total Active OSP (Excluding PQ)</th>
+                <th title="Number of approved members in state (from esp_membership)">Total Active Members</th>
+                <th title="Number of members in state who have saved at least 1 row (from esp_response), includes super users who don't show up under active members!">Total Contributing Members</th>
             </tr>
             </thead>
             <tbody id="js_state_data" class="striped">
             <c:forEach items="${states}" var="curState">
                 <tr>
-                    <td rowspan="${stateRowSpan}">${curState}</td>
-                    <td title="Number of schools with active rows in esp_response">Total Active OSP (Including PQ)</td>
+                    <td>${curState}</td>
                     <td id="js_stats_by_state_${curState}" class="js_error_${curState} js_stats_by_state">Please wait...</td>
-                </tr>
-                <tr>
-                    <td title="Number of schools with active rows in esp_response, excluding those migrated from PQ">Total Active OSP (Excluding PQ)</td>
                     <td id="js_new_osp_${curState}" class="js_error_${curState}">Please wait...</td>
-                </tr>
-                <tr>
-                    <td title="Number of approved members in state (from esp_membership)">Total Active Members</td>
                     <td id="js_active_members_${curState}" class="js_error_${curState}">Please wait...</td>
-                </tr>
-                <tr>
-                    <td title="Number of members in state who have saved at least 1 row (from esp_response), includes super users who don't show up under active members!">Total Contributing Members</td>
                     <td id="js_contributing_members_${curState}" class="js_error_${curState}">Please wait...</td>
                 </tr>
             </c:forEach>
