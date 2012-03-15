@@ -120,8 +120,9 @@ GS.form.NewEspUsersBatchForm = function() {
         var state = jQuery('#js_batchState').val();
         if (state === '') {
             alert("Please select a state.");
-        } else if (confirm("ARE YOU SURE?")) {
+        } else if (confirm("You will be pre-approving users in STATE:" + state + ".Are you sure you want to continue?")) {
             abort = false;
+            jQuery(inputElementSelector).attr('disabled','');
             createUsers(currentIndex, step);
         }
 
@@ -131,15 +132,15 @@ GS.form.NewEspUsersBatchForm = function() {
         abort = true;
     };
 
-    var resetUserCreation = function() {
-        abort = true;
-        currentIndex = 0;
-        updateProgress();
-        genericDebugOutput = [];
-        usersAlreadyApproved = [];
-        usersWithErrors = [];
-        $(debugElementSelector).val('');
-    };
+//    var resetUserCreation = function() {
+//        abort = true;
+//        currentIndex = 0;
+//        updateProgress();
+//        genericDebugOutput = [];
+//        usersAlreadyApproved = [];
+//        usersWithErrors = [];
+//        $(debugElementSelector).val('');
+//    };
 
     var sliceRows = function(dataElement, startRow, endRow) {
         var rows = dataElement.val().split("\n");
@@ -196,6 +197,7 @@ GS.form.NewEspUsersBatchForm = function() {
             createUsers(currentIndex, step); // recurse
         } else {
             alert("Done!");
+            jQuery(inputElementSelector).removeAttr('disabled');
         }
     };
 
@@ -212,7 +214,7 @@ GS.form.NewEspUsersBatchForm = function() {
     return {
         startUserCreation: startUserCreation,
         stopUserCreation: stopUserCreation,
-        resetUserCreation: resetUserCreation,
+//        resetUserCreation: resetUserCreation,
         updateTotalRows: updateTotalRows
     };
 
@@ -228,11 +230,11 @@ jQuery(function() {
 
     jQuery('#js_users').change(function() {
         GS.form.newEspUsersBatchForm.updateTotalRows();
-        GS.form.newEspUsersBatchForm.resetUserCreation();
+//        GS.form.newEspUsersBatchForm.resetUserCreation();
     });
 
     jQuery('#js_startCreateEspUsers').click(GS.form.newEspUsersBatchForm.startUserCreation);
     jQuery('#js_stopCreateEspUsers').click(GS.form.newEspUsersBatchForm.stopUserCreation);
-    jQuery('#js_resetCreateEspUsers').click(GS.form.newEspUsersBatchForm.resetUserCreation);
+//    jQuery('#js_resetCreateEspUsers').click(GS.form.newEspUsersBatchForm.resetUserCreation);
 });
 

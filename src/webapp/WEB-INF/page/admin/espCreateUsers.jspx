@@ -117,19 +117,25 @@
         <br/>
         <br/>
         <ul>
-            <li>First select a state from the drop down.</li>
-            <li>Then paste in new user info in the text area below.</li>
-            <li>New line for a each user.</li>
-            <li>Each line should have tab separated values.</li>
-            <li>Order of the tab separated values is important.Email,school id,first name,last name,job title.</li>
-            <li>State,email and school id are required.</li>
-            <li>Example - someone@somedoamin.com 53 someFirstName someLastname principal</li>
-            <li>NOTE- The batch right now processes only one state at a time.</li>
+            <li>INSTRUCTIONS:</li>
+            <li>1)First select a state from the drop down.</li>
+            <li>2)Then paste in new user info in the text area below.</li>
+            <li>3)New line for a each user.Each line should have tab separated values(Not space or comma seperated).
+                <br/>Order of the tab separated values is important.Email,school id,first name,last name,job title.
+                State,email and school id are required.</li>
+            <li><br/>Example - someone@somedomain.com	53	someFirstName	someLastname	principal</li>
+            <li><br/>NOTES:</li>
+            <li>1)The batch right now processes only one state at a time.</li>
+            <li>2)If a user already has a pre-approved or approved row for any school, then a new pre-approved membership is not inserted.</li>
+            <li>3)If a user already has a first name and last name in the database, then they are not overwritten.They are only updated if they are blank in the database.</li>
+            <li>4)Schools which are inactive or preschool only are not allowed.</li>
         </ul>
 
+        <br/>
+        <br/>
         <div class="lal clearfix">
             <div class="alpha grid_4">
-                <label for="js_batchState">State</label>
+                <label for="js_batchState">Select a state:</label>
             </div>
             <gsweb:stateSelector styleId="js_batchState"
                                  name="state"
@@ -144,7 +150,6 @@
         <br/>
         <button type="button" id="js_startCreateEspUsers">Start</button>
         <button type="button" id="js_stopCreateEspUsers">Stop!</button>
-        <button type="button" id="js_resetCreateEspUsers">Reset!</button>
         <p>Progress: <span id="js_userCreationProgress">0/0</span></p>
         <label for="js_userCreationDebug">Log messages:</label><br/>
         <textarea id="js_userCreationDebug" rows="15" cols="100" readonly="readonly"><!--some comment--></textarea>
