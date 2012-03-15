@@ -62,6 +62,12 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         EspRegistrationCommand command = new EspRegistrationCommand();
 
         if (user != null && user.getId() != null) {
+            //If the user isa super user, then redirect to dashboard.
+            if (user.hasRole(Role.ESP_SUPERUSER)) {
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.ESP_DASHBOARD);
+                return "redirect:" + urlBuilder.asFullUrl(request);
+            }
+
             // User already exists in the session .Therefore pre-fill in form fields.
             command.setEmail(user.getEmail());
 
