@@ -338,7 +338,6 @@ public class CmsFeatureController extends AbstractController {
         model.put("type", type);
 
         model.put("uri", uri);
-        model.put("almondNetCategory", CmsContentUtils.getAlmondNetCategory(feature));
 
         // GS-11430 Allow for companion ads on articles with Delve Networks videos
         if (StringUtils.contains(feature.getCurrentPage(), "http://assets.delvenetworks.com/player/loader.swf")) {

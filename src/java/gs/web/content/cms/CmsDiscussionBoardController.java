@@ -53,7 +53,6 @@ public class CmsDiscussionBoardController extends AbstractController {
     public static final String MODEL_URI = "uri";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
     public static final String MODEL_REPLIES_PER_DISCUSSION = "repliesPerDiscussion";
-    public static final String MODEL_ALMOND_NET_CATEGORY = "almondNetCategory";
     public static final String MODEL_RAISE_YOUR_HAND = "raiseYourHand";
     public static final String MODEL_RAISE_YOUR_HAND_FEATURED_QUESTIONS = "raiseYourHandFeaturedQuestions";
     public static final String MODEL_PAGE_TITLE = "pageTitle";
@@ -209,7 +208,6 @@ public class CmsDiscussionBoardController extends AbstractController {
             } else if (recentConversations) {
                 title = pageTitle = "Recent Conversations";
             }
-            model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(board));
         } else if (isRaiseYourHand() && isRaiseYourHandFeaturedQuestions()){
             totalDiscussions = discussions.size();
             title = "Featured Discussions";

@@ -218,7 +218,6 @@ jQuery(function() {
               hier1="Topic Centers,Test Prep"
               community="true"
               local=""
-              omitAlmondNet="${true}"
         />
 </gsml:body>
 </html>

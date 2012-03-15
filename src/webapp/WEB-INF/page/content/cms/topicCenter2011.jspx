@@ -345,11 +345,8 @@
 </div>
 
 
-<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
-
 <mod:tracking pageName="${pageName}"
               hier1="Topic Centers,${omnitureTopicCenterName}"
-              omitAlmondNet="${true}"
         />
 
 <script type="text/javascript">

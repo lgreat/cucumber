@@ -234,12 +234,9 @@
 <c:set var="hier1"
        value="Worksheet,${feature.gradeCategories[0].name},${feature.subjectCategories[0].name},${titleForOmniture}"/>
 
-<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
-
 <mod:tracking pageName="${pageName}"
               hier1="${hier1}"
               events="event48"
-              omitAlmondNet="${true}"
               worksheetLicensorName="${feature.licensorName}"
         />
 

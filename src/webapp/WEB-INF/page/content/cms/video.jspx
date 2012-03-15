@@ -346,12 +346,9 @@
     <!-- end Vibrant Media IntelliTXT script section -->
 </c:if>
 
-<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
-
 <mod:tracking pageName="${pageName}"
               hier1="${hier1}"
               events="event47"
-              omitAlmondNet="${true}"
         />
 
 <!-- even though this is the video template, surveyType should remain "article" -->

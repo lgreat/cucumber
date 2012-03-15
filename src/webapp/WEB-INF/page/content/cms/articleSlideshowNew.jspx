@@ -238,12 +238,9 @@
         </div>
     </div>
 
-    <mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
-
     <mod:tracking pageName="${omniturePageName}"
                   hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Slideshow: ${titleForOmniture}"
                   events="event7"
-                  omitAlmondNet="${true}"
                   isContentFirstPage="${articleSlideshow.currentSlideIndex+1 eq 1}"
                   isContentPage="${true}"
                   contentId="${articleSlideshow.contentKey.identifier}"

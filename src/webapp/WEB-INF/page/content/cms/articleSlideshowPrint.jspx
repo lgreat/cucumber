@@ -89,11 +89,8 @@
         </div>
     </div>
 
-    <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
-
     <mod:tracking pageName="Article Slideshow"
                   hier1="Article,${commaSeparatedPrimaryKategoryNames},Article Slideshow: ${titleForOmniture}"
-                  omitAlmondNet="${true}"
             />
     </body>
     </html>

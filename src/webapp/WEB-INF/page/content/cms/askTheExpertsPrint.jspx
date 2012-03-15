@@ -98,11 +98,8 @@
             </c:if>
     <!-- Author bios, Licensor attribution, and disclaimer -->
 
-    <mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
-
     <mod:tracking pageName="Ask the Experts Print"
                   hier1="Article,${commaSeparatedPrimaryKategoryNames},Ask the Experts: ${titleForOmniture},Print Ask the Experts"
-                  omitAlmondNet="${true}"
             />
     </div>
     </div>

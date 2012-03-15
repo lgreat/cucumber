@@ -191,12 +191,10 @@
         </div>
 
     </div>
-<mod:almondNet title="${pageTitle}" category="${almondNetCategory}"/>
 
 <mod:tracking pageName="${pageName}"
               events="event7"
               hier1="Topic Centers,${omnitureTopicCenterName},Worksheets,${empty requestedGradeName? 'All Grades':requestedGradeName},${empty requestedSubjectName? 'All Subjects':requestedSubjectName}"
-              omitAlmondNet="${true}"
         />
 
 </gsml:body>

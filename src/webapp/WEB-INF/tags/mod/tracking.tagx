@@ -74,11 +74,6 @@
             name="community"
             description="Is this a community page"
             required="false"/>
-    <jsp:directive.attribute
-            name="omitAlmondNet"
-            description="Should AlmondNet tags be omitted?"
-            type="java.lang.Boolean"
-            required="false"/>
 <!-- See GS-9097 for local -->
     <jsp:directive.attribute
             name="local"
@@ -146,10 +141,6 @@
         name="contentSearchQuery"
         description="The query that the user typed, presumably for searching article, worksheets and more. Ends up in prop41."
         required="false"/>
-
-    <c:if test="${empty omitAlmondNet}">
-        <c:set var="omitAlmondNet" value="${false}"/>
-    </c:if>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
@@ -282,9 +273,6 @@
     height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
     <!-- End SiteCatalyst code version: H.2. -->
     ]]>
-        <c:if test="${!omitAlmondNet}">
-            <mod:almondNet/>
-        </c:if>
     <![CDATA[
         <script type="text/javascript">var tcdacmd="dt";</script>
         <script type="text/javascript" src="http://an.tacoda.net/an/12567/slf.js"></script>

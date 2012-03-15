@@ -686,12 +686,9 @@
 </c:if>
 -->
 
-<mod:almondNet title="${requestScope.pageTitle}" category="${almondNetCategory}"/>
-
 <mod:tracking pageName="${pageName}"
               hier1="${hier1}"
               events="event7"
-              omitAlmondNet="${true}"
         />
 
 <communityHover:interruptSurvey surveyType="article"/>

@@ -91,7 +91,6 @@
               hier1="Community,Community Home"
               community="true"
               local=""
-              omitAlmondNet="${true}"
         />
 </body>
 </html>

@@ -55,8 +55,7 @@ public class DiscussionController extends AbstractController {
     public static final String MODEL_COMMUNITY_HOST = "communityHost";
     public static final String MODEL_URI = "uri";
     public static final String MODEL_LOGIN_REDIRECT = "loginRedirectUrl";
-    public static final String MODEL_ALMOND_NET_CATEGORY = "almondNetCategory";
-    public static final String MODEL_REPLY_REPORTS = "replyReports";    
+    public static final String MODEL_REPLY_REPORTS = "replyReports";
     public static final String MODEL_DISCUSSION_REPORT = "discussionReport";
     public static final String MODEL_ALL_TOPIC_CENTERS = "allTopicCenters";
 
@@ -166,8 +165,6 @@ public class DiscussionController extends AbstractController {
             } else {
                 model.put(MODEL_LOGIN_REDIRECT, "#");                
             }
-
-            model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(board));
 
             // Google Ad Manager ad keywords
             PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);

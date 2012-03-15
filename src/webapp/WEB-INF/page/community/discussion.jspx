@@ -733,7 +733,6 @@
 <!-- sidebar that shows More-In: -->
 <cms:communitySidebar content="${moreInContent}" searchType="community"/>
 
-<mod:almondNet title="${pageTitle}" category="${requestScope.almondNetCategory}"/>
 <c:set var="boardTitle" value="${discussionBoard.title}"/>
 <c:set var="boardTitle" value="${fn:replace(boardTitle, ',', '')}"/>
 <c:set var="boardTitle" value='${fn:replace(boardTitle, "\"", "")}'/>
@@ -754,7 +753,6 @@
               hier1="Community,Discussions,${discussionBoard.contentKey.identifier}:${boardTitle},${discussion.id}:${discussionTitle}"
               community="true"
               local="${requestScope.discussionBoard.city ne null?'yes':''}"
-              omitAlmondNet="${true}"
         />
 </body>
 </html>

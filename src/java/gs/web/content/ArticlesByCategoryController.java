@@ -52,7 +52,6 @@ public class ArticlesByCategoryController extends AbstractController {
     protected static final String MODEL_MAX_RESULTS = "maxResults";
     protected static final String MODEL_BREADCRUMBS = "breadcrumbs";
     protected static final String MODEL_STYLE = "style";
-    protected static final String MODEL_ALMOND_NET_CATEGORY = "almondNetCategory";
 
     /** Page number */
     public static final String PARAM_PAGE = "p";
@@ -335,7 +334,6 @@ public class ArticlesByCategoryController extends AbstractController {
             for (CmsCategory category : categories) {
                 uniqueCategories.addAll(getCmsCategoryBreadcrumbs(category));
             }
-            model.put(MODEL_ALMOND_NET_CATEGORY, CmsContentUtils.getAlmondNetCategory(uniqueCategories));
 
             model.put(MODEL_TOPICS, topics);
             model.put(MODEL_GRADES, grades);
