@@ -165,13 +165,13 @@ GS.PhotoUploader.prototype.createUploader = function() {
     this.disableQueueButton = function() {
         this.queueButton.hide();
         this.fakeQueueButton.show();
-        $('.plupload.flash').css('left','-10000px');
+        this.container.find('.plupload.flash').css('left','-10000px');
     }.gs_bind(this);
 
     this.enableQueueButton = function() {
         this.fakeQueueButton.hide();
         this.queueButton.show();
-        $('.plupload.flash').attr('style',this.FLASH_ENABLED_STYLE);
+        this.container.find('.plupload.flash').attr('style',this.FLASH_ENABLED_STYLE);
     }.gs_bind(this);
 
     this.enableUploading = function() {

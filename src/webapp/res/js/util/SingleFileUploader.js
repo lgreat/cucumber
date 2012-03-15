@@ -7,7 +7,7 @@ Function.prototype.gs_bind = function(obj) {
     };
 };
 
-GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabaseState) {
+GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabaseState, extraPostParams) {
     this.idSuffix = idSuffix; //a unique ID suffix for this specific uploader instance
     this.httpPostUrl = httpPostUrl;
     this.schoolId = schoolId;
@@ -20,6 +20,8 @@ GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabase
     this.fileBox = this.container.find('.js-uploader-file');
     this.statusBox = this.container.find('.js-uploader-status');
     this.spinner = this.container.find('.spinner');
+    this.completeIcon = this.container.find('.js-uploader-complete');
+    this.extraPostParams = extraPostParams;
 
     this.FLASH_ENABLED_STYLE = 'position: absolute; top: 191px; background: none repeat scroll 0% 0% transparent; z-index: 9999999; width: 101px; height: 23px; left: 11px;';
     this.LOGGING_ENABLED = false;
@@ -32,13 +34,13 @@ GS.SingleFileUploader.prototype.createUploader = function() {
         runtimes : 'flash,html5,silverlight',
         browse_button : 'js-plupload-browse-' + this.idSuffix,
         container: 'file-uploader-container-' + this.idSuffix,
-        max_file_size : '1kb',
+        max_file_size : '20mb',
         url: this.httpPostUrl,
         flash_swf_url : '/res/js/plupload/plupload.flash.swf',
-        multipart_params : {
+        multipart_params : $.extend(this.extraPostParams, {
             'schoolId' : this.schoolId,
             'schoolDatabaseState' :  this.schoolDatabaseState
-        },
+        }),
         filters : [
             {title : "PDF files", extensions : "pdf"}
         ],
@@ -79,10 +81,11 @@ GS.SingleFileUploader.prototype.createUploader = function() {
                 }
             } else {
                 if (file.percent === 100 && file.status === plupload.DONE) {
+                    this.completeIcon.show();
                     var status = "Upload complete";
                 }
             }
-        });
+        }.gs_bind(this));
 
         this.uploadButton.click(function() {
             self.startUpload.apply(self, arguments);
@@ -92,13 +95,13 @@ GS.SingleFileUploader.prototype.createUploader = function() {
     this.disableBrowseButton = function() {
         this.browseButton.hide();
         this.fakeBrowseButton.show();
-        $('.plupload.flash').css('left','-10000px');
+        this.container.find('.plupload.flash').css('left','-10000px');
     }.gs_bind(this);
 
     this.enableBrowseButton = function() {
         this.fakeBrowseButton.hide();
         this.browseButton.show();
-        $('.plupload.flash').attr('style',this.FLASH_ENABLED_STYLE);
+        this.container.find('.plupload.flash').attr('style',this.FLASH_ENABLED_STYLE);
     }.gs_bind(this);
 
     this.enableUploading = function() {
@@ -179,7 +182,7 @@ GS.SingleFileUploader.prototype.createUploader = function() {
             this.uploader.files = this.uploader.files.slice(this.uploader.files.length-1,this.uploader.files.length);
         }
 
-        this.fileBox.html(files[0].name);
+        this.fileBox.val(files[0].name);
         this.enableUploading();
     }.gs_bind(this);
 

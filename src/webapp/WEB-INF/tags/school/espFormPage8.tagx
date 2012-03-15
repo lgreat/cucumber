@@ -3,10 +3,55 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
->
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
+    <pageHelper:externalJavascript file="/res/js/util/SingleFileUploader.js" />
+
     <school:espFormTemplate page="8" maxPage="${maxPage}" headerText="Student info">
+        <fieldset>
+            <legend>Your School&amp;apos;s ACT Results</legend>
+            <hr class="legend"><!--Do not collapse--></hr>
+            <em>Please either upload your school&amp;apos;s scanned ACT score report for the most recent year, or fax the report to GreatSchools.</em>
+            <hr class="legend"><!--Do not collapse--></hr>
+            <div class="lal clearfix">
+                <div class="alpha grid_7">
+                    <label>Fax your school&amp;apos;s ACT report</label>
+                </div>
+                <div class="grid_16 omega">
+                    <school:espCheckboxWithLabel key="fax_act" value="yes" label="Check here if you will fax the ACT official score report to GreatSchools. (Fax number is )"/>
+                </div>
+            </div>
+            <div class="alpha grid_7">
+                <label>Upload your school&amp;apos;s ACT report</label>
+            </div>
+            <div class="grid_16 omega">
+                <mod:singleFileUploader idSuffix="ACT" type="ACT" schoolDatabaseState="${school.databaseState}" schoolId="${school.id}" url="/osp/pdfUploader.json"/>
+                <p class="hint">Please upload a scanned copy of your complete ACT official score report here. PDF files only.</p>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Your School&amp;apos;s SAT Results</legend>
+            <hr class="legend"><!--Do not collapse--></hr>
+            <em>Please either upload your school&amp;apos;s scanned SAT score report for the most recent year, or fax the report to GreatSchools.</em>
+            <hr class="legend"><!--Do not collapse--></hr>
+            <div class="lal clearfix">
+                <div class="alpha grid_7">
+                    <label>Fax your school&amp;apos;s SAT report</label>
+                </div>
+                <div class="grid_16 omega">
+                    <school:espCheckboxWithLabel key="fax_sat" value="yes" label="Check here if you will fax the SAT official score report to GreatSchools. (Fax number is )"/>
+                </div>
+            </div>
+            <div class="alpha grid_7">
+                <label>Upload your school&amp;apos;s SAT report</label>
+            </div>
+            <div class="grid_16 omega">
+                <mod:singleFileUploader idSuffix="SAT" type="SAT" schoolDatabaseState="${school.databaseState}" schoolId="${school.id}" url="/osp/pdfUploader.json"/>
+                <p class="hint">Please upload a scanned copy of your complete SAT official score report here. PDF files only.</p>
+            </div>
+        </fieldset>
         <fieldset>
             <legend>Student demographic information</legend>
             <hr class="legend"><!--Do not collapse--></hr>

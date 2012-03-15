@@ -9,12 +9,14 @@
     <jsp:directive.attribute name="schoolId" required="true" type="java.lang.Integer" />
     <jsp:directive.attribute name="schoolDatabaseState" required="true" type="java.lang.String" />
     <jsp:directive.attribute name="idSuffix" required="true" type="java.lang.String" description="An unique suffix used to ensure uniqueness among file uploaders"/>
+    <jsp:directive.attribute name="type" required="false" type="java.lang.String" description="ACT or SAT"/>
 
-    <div id="file-uploader-container-${idSuffix}">
-        <div class="js-uploader-file uploader-file text3"><!-- no collapse --></div>
-        <div class="js-uploader-status uploader-status text3"><!-- no collapse --></div>
+    <div id="file-uploader-container-${idSuffix}" class="lal clearfix">
+        <div class="alpha grid_6">
+            <input class="js-uploader-file uploader-file text3" disabled="disabled" size="39"><!-- no collapse --></input>
+        </div>
 
-        <div>
+        <div class="omega grid_8">
             <span class="js-uploader-buttons" colspan="4">
                 <button id="js-plupload-browse-${idSuffix}" class="button-1 js-uploader-browse-button" type="button"
                         style="-moz-user-select: none;">Browse
@@ -27,16 +29,24 @@
                         style="-moz-user-select: none;" disabled="true">Upload file
                 </button>
             </span>
-        </div>
-        <div class="spinner">
-            <gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse -->
+            &amp;nbsp;
+            <span class="spinner" style="display:none;">
+                <gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse -->
+            </span>
+            <span class="js-uploader-complete iconx16 i-16-success" style="display:none;">
+                <!-- no collapse -->
+            </span>
+            <div class="js-uploader-status uploader-status text3"><!-- no collapse --></div>
         </div>
     </div>
 
     <script type="text/javascript">
         jQuery(function() {
             var propertyName = 'fileUploader${idSuffix}';
-            GS[propertyName] = new GS.SingleFileUploader("${url}", '${idSuffix}', ${schoolId}, "${schoolDatabaseState}");
+            var extraPostParams = {
+                type:'${type}'
+            };
+            GS[propertyName] = new GS.SingleFileUploader("${url}", '${idSuffix}', ${schoolId}, "${schoolDatabaseState}", extraPostParams);
             GS[propertyName].init();
         });
     </script>
