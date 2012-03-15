@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsweb="gstaglib"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+
+    <div id="espOtherEditors" class="dialog_white" style="display:none;padding:10px 0 0 20px;">
+        <h2>View and add editors to this Official School Profile</h2>
+
+
+        <div class="line">
+            <div class="unit size45of100">
+                <h5>Editors to this Official School Profile</h5>
+                <ol>
+                    <li>Editor</li>
+                </ol>
+            </div>
+            <div class="unit size55of100 lastUnit">
+                <div class="mod form">
+                    <div class="inner clearfix">
+                        <div class="hd">
+                            <div class="alpha grid_10">
+                                <h5>Suggest someone to become an editor to this profile</h5>
+
+                            </div>
+                            <div class="clear">
+
+                                <!-- no collapse -->
+                            </div>
+                        </div>
+                        <div class="bd">
+                            <form method="post" action="/official-school-profile/memberships/add.json" id="js-esp-accounts-form">
+                                <fieldset>
+                                    <div class="lal clearfix">
+                                        <div class="alpha grid_7">
+                                            <label>Email address</label>
+                                        </div>
+                                        <div class="grid_16 omega">
+                                            <input type="text" id="js-esp-accounts-form-email" name="email"/>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="ft">
+                            <div class="grid_13 omega alpha prefix_10">
+                                <div class="fltrt">
+                                    <span class="mhm">
+                                        <button class="button-1" style="-moz-user-select: none;">Submit request</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</jsp:root>

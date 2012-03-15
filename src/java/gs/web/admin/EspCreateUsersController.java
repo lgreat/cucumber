@@ -184,7 +184,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
      * @param jobTitle
      * @param returnValues
      */
-    protected void addUser(HttpServletRequest request, String email, State state, String schoolIdStr,
+     public void addUser(HttpServletRequest request, String email, State state, String schoolIdStr,
                            String firstName, String lastName, String jobTitle, Map returnValues) {
         if (state != null) {
             email = getValidEmail(email, returnValues);
