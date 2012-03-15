@@ -109,7 +109,7 @@
                                                 <span class="iconx48 i-48-sb img"><!-- do not collapse --></span>
                                             </link:schoolEspForm>
 
-                                            <p class="bk">
+                                            <p class="bk bottom">
                                                 <link:schoolEspForm school="${school}" page="1">
                                                     School basics
                                                 </link:schoolEspForm>
@@ -132,7 +132,7 @@
                                             <link:schoolEspForm school="${school}" page="2">
                                                 <span class="iconx48 i-48-im img"><!-- do not collapse --></span>
                                             </link:schoolEspForm>
-                                            <p class="bk">
+                                            <p class="bk bottom">
                                                 <link:schoolEspForm school="${school}" page="2">Instructional model</link:schoolEspForm>
                                             </p>
                                         </div>
@@ -154,7 +154,7 @@
                                                 <span class="iconx48 i-48-ae img"><!-- do not collapse --></span>
                                             </link:schoolEspForm>
 
-                                            <p class="bk">
+                                            <p class="bk bottom">
                                                 <link:schoolEspForm school="${school}" page="3">Applying &amp;amp; enrolling</link:schoolEspForm>
                                             </p>
                                         </div>
@@ -176,7 +176,7 @@
                                                 <span class="iconx48 i-48-pr img"><!-- do not collapse --></span>
                                             </link:schoolEspForm>
 
-                                            <p class="bk">
+                                            <p class="bk bottom">
                                                 <link:schoolEspForm school="${school}" page="4">
                                                     Programs &amp;amp; resources
                                                 </link:schoolEspForm>
@@ -203,7 +203,7 @@
                                                 <span class="iconx48 i-48-ee img"><!-- do not collapse --></span>
                                             </link:schoolEspForm>
 
-                                            <p class="bk">
+                                            <p class="bk bottom">
                                                 <link:schoolEspForm school="${school}" page="5">
                                                     Enrichment &amp;amp; extracurriculars
                                                 </link:schoolEspForm>
@@ -227,7 +227,7 @@
                                                 <span class="iconx48 i-48-sc img"><!-- do not collapse --></span>
                                             </link:schoolEspForm>
 
-                                            <p class="bk">
+                                            <p class="bk bottom">
                                                 <link:schoolEspForm school="${school}" page="6">
                                                     School culture
                                                 </link:schoolEspForm>
@@ -251,7 +251,7 @@
                                                 <span class="iconx48 i-48-ci img"><!-- do not collapse --></span>
                                             </link:schoolEspForm>
 
-                                            <p class="bk">
+                                            <p class="bk bottom">
                                                 <link:schoolEspForm school="${school}" page="7">
                                                     Contact info
                                                 </link:schoolEspForm>
@@ -275,7 +275,7 @@
                                                 <span class="iconx48 i-48-si img"><!-- do not collapse --></span>
                                             </link:schoolEspForm>
 
-                                            <p class="bk">
+                                            <p class="bk bottom">
                                                 <link:schoolEspForm school="${school}" page="8">
                                                     Student info
                                                 </link:schoolEspForm>
