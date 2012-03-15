@@ -149,7 +149,7 @@
         <label for="js_userCreationDebug">Log messages:</label><br/>
         <textarea id="js_userCreationDebug" rows="15" cols="100" readonly="readonly"><!--some comment--></textarea>
 
-
+        <div style="display:none;"><mod:tracking pageName="OSP CreateUsers" hier1="ESP"/></div>
     </gsml:body>
     </html>
 </jsp:root>

@@ -54,10 +54,10 @@
         <div>
             <div class="lal clearfix">
                 <div class="alpha grid_4">
-                    <label for="js_email">Email address</label>
+                    <label>Email address</label>
                 </div>
                 <div class="grid_6">
-                    <input name="email" id="js_email" class="text input_6"
+                    <input name="email" class="text input_6"
                            value="${user.email}"
                            readonly="true"/>
                     <p class="hint">Your email address has been pre-approved and you may not change it at this time. For assistance, please <link:contactUs feedbackType="esp">contact us</link:contactUs>.</p>
