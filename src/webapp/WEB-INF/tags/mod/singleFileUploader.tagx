@@ -16,7 +16,7 @@
             <input class="js-uploader-file uploader-file text3" disabled="disabled" size="39"><!-- no collapse --></input>
         </div>
 
-        <div class="omega grid_8">
+        <div class="grid_5">
             <span class="js-uploader-buttons" colspan="4">
                 <button id="js-plupload-browse-${idSuffix}" class="button-1 js-uploader-browse-button" type="button"
                         style="-moz-user-select: none;">Browse
@@ -29,14 +29,17 @@
                         style="-moz-user-select: none;" disabled="true">Upload file
                 </button>
             </span>
-            &amp;nbsp;
+        </div>
+        <div class="omega grid_1">
             <span class="spinner" style="display:none;">
                 <gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse -->
             </span>
-            <span class="js-uploader-complete iconx16 i-16-success" style="display:none;">
-                <!-- no collapse -->
-            </span>
             <div class="js-uploader-status uploader-status text3"><!-- no collapse --></div>
+            <div class="js-uploader-complete media success" style="display:none;">
+                <span class="iconx16 i-16-success img">
+                    <!-- no collapse -->
+                </span>
+            </div>
         </div>
     </div>
 
