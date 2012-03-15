@@ -16,9 +16,9 @@
         </script>
     </c:if>
 
-    <div id="espPreApprovalEmailHover" class="dialog_white" style="display:none;">
+    <div id="js_espPreApprovalEmailHover" class="dialog_white" style="display:none;">
         <h2>Resending</h2>
 
-        <button class="button-1" type="button" id="sendEspPreApprovalEmail">Send a new email</button>
+        <button class="button-1" type="button" id="js_sendEspPreApprovalEmail">Send a new email</button>
     </div>
 </jsp:root>

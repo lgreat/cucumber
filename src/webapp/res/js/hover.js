@@ -904,7 +904,7 @@ GSType.hover.EspPreApprovalEmail = function() {
     };
 };
 
-GSType.hover.EspPreApprovalEmail.prototype = new GSType.hover.HoverDialog("espPreApprovalEmailHover",640);
+GSType.hover.EspPreApprovalEmail.prototype = new GSType.hover.HoverDialog("js_espPreApprovalEmailHover",640);
 
 
 //Email to a friend hover
@@ -1509,7 +1509,7 @@ jQuery(function() {
     });
 
 
-    jQuery('#sendEspPreApprovalEmail').click(function() {
+    jQuery('#js_sendEspPreApprovalEmail').click(function() {
         var params = {
             email: GSType.hover.espPreApprovalEmail.email
         };
