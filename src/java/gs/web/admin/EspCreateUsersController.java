@@ -132,10 +132,11 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
             addToList(returnValues, "debugOutput", "ERROR: State:" + stateStr + " cannot be blank.");
         } else {
             stateStr = stateStr.trim();
-            state = State.fromString(stateStr);
-        }
-        if (state == null) {
-            addToList(returnValues, "debugOutput", "ERROR: State:" + stateStr + " not found.");
+            try {
+                state = State.fromString(stateStr);
+            } catch (Exception e) {
+                addToList(returnValues, "debugOutput", "ERROR: State:" + stateStr + " not found.");
+            }
         }
         return state;
     }
