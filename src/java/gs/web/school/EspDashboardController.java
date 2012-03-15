@@ -73,15 +73,20 @@ public class EspDashboardController {
                     validMemberships.add(membership);
                 }
             }
+            Collections.sort(validMemberships, new Comparator<EspMembership>() {
+                public int compare(EspMembership o1, EspMembership o2) {
+                    try {
+                        return o1.getSchool().getName().compareToIgnoreCase(o2.getSchool().getName());
+                    } catch (Exception e) {
+                        return 0;
+                    }
+                }
+            });
             modelMap.put("espMemberships", validMemberships);
             // now let's have the page default to a school if it makes sense
             if (school == null) {
                 if (validMemberships.size() == 1) {
                     // If only one membership, always default view to that school
-                    school = validMemberships.get(0).getSchool();
-                } else if (validMemberships.size() > 1) {
-                    // For now default to the first one, ultimately we'll probably remove this and have the
-                    // user pick which one they want.
                     school = validMemberships.get(0).getSchool();
                 }
             }
