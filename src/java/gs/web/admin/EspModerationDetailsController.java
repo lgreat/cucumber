@@ -83,7 +83,7 @@ public class EspModerationDetailsController extends AbstractEspModerationControl
 
         /* call base class method and update status and note entries for that membership in the db table */
         updateEspMembership(moderationCommand, request, response);
-        return showForm(command, bindingResult, modelMap, request, id);
+        return ESP_MODERATION_VIEW;
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "save")
@@ -194,15 +194,20 @@ public class EspModerationDetailsController extends AbstractEspModerationControl
 
         State newState = command.getEspMembership().getState();
         Integer newSchoolId = command.getEspMembership().getSchoolId();
+        School school = null;
         if(newSchoolId != null && newState != null) {
             try {
-                School school = getSchoolDao().getSchoolById(newState, newSchoolId);
+                school = getSchoolDao().getSchoolById(newState, newSchoolId);
                 modelMap.put("newSchool", school);
             }
             catch (ObjectRetrievalFailureException ex) {
                 bindingResult.rejectValue("espMembership.state", "invalid_schoolId_state", "Please enter a valid school id for the state");
                 bindingResult.rejectValue("espMembership.schoolId", "invalid_schoolId_state", "Please enter a valid school id for the state");
                 modelMap.put("schoolIdStateError", true);
+            }
+            if(school != null && (!school.isActive() || school.getLevelCode().equals("p"))) {
+                bindingResult.rejectValue("espMembership.schoolId", "inactive_or_pkonly_school", "Please enter a valid school Id");
+                modelMap.put("schoolIdError", true);
             }
         }
     }

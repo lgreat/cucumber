@@ -2,6 +2,7 @@ package gs.web.admin;
 
 import gs.data.community.IUserDao;
 import gs.data.community.User;
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.school.*;
 import gs.data.security.IRoleDao;
 import gs.data.security.Role;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.easymock.EasyMock.*;
 import static org.easymock.classextension.EasyMock.createStrictMock;
@@ -31,6 +33,7 @@ public class EspModerationDetailsControllerTest extends BaseControllerTestCase {
     private ISchoolDao _schoolDao;
     private IUserDao _userDao;
     private IRoleDao _roleDao;
+    private ExactTargetAPI _exactTargetAPI;
 
     private EspMembership _espMembership, _anotherEspMembership;
     private School _school, _anotherSchool;
@@ -52,11 +55,13 @@ public class EspModerationDetailsControllerTest extends BaseControllerTestCase {
         _schoolDao = createStrictMock(ISchoolDao.class);
         _userDao = createStrictMock(IUserDao.class);
         _roleDao = createStrictMock(IRoleDao.class);
+        _exactTargetAPI = createStrictMock(ExactTargetAPI.class);
 
         _espModerationDetailsController.setEspMembershipDao(_espMembershipDao);
         _espModerationDetailsController.setSchoolDao(_schoolDao);
         _espModerationDetailsController.setUserDao(_userDao);
         _espModerationDetailsController.setRoleDao(_roleDao);
+        _espModerationDetailsController.setExactTargetAPI(_exactTargetAPI);
         
         _role = new Role();
         _role.setId(1);
@@ -80,15 +85,15 @@ public class EspModerationDetailsControllerTest extends BaseControllerTestCase {
     }
 
     public void replayAll() {
-        super.replayMocks(_espMembershipDao, _schoolDao, _userDao);
+        super.replayMocks(_espMembershipDao, _schoolDao, _userDao, _exactTargetAPI);
     }
 
     public void verifyAll() {
-        super.verifyMocks(_espMembershipDao, _schoolDao, _userDao);
+        super.verifyMocks(_espMembershipDao, _schoolDao, _userDao, _exactTargetAPI);
     }
 
     public void resetAll() {
-        super.resetMocks(_espMembershipDao, _schoolDao, _userDao);
+        super.resetMocks(_espMembershipDao, _schoolDao, _userDao, _exactTargetAPI);
     }
 
     public void testEspModDetailsShowFormInvalidMember() {
@@ -132,22 +137,23 @@ public class EspModerationDetailsControllerTest extends BaseControllerTestCase {
         expect(_espMembershipDao.findEspMembershipById(id, false)).andReturn(_espMembership);
         _espMembershipDao.updateEspMembership(_espMembership);
         expectLastCall();
+        _exactTargetAPI.sendTriggeredEmail((String) anyObject(), (User) anyObject(), (Map<String, String>) anyObject());
+        expectLastCall();
         expect(_espMembershipDao.findEspMembershipsByUserId(new Integer(_user.getId()), true)).andReturn(espMemberships);
-        expect(_espMembershipDao.findEspMembershipById(id, false)).andReturn(_espMembership);
-        expect(_schoolDao.getSchoolById(_espMembership.getState(), _espMembership.getSchoolId())).andReturn(_school);
 
         replayAll();
         _view = _espModerationDetailsController.onModeratorAction(_command, _bindingResult, _modelMap, getRequest(),
                 getResponse(), "approve", getRequest().getParameter("id"));
         verifyAll();
 
-        assertEquals(ESP_MODERATION_DETAILS_VIEW, _view);
+        assertEquals(ESP_MODERATION_VIEW, _view);
     }
 
     public void testOnSaveWithErrors() {
         Integer id = Integer.parseInt(getRequest().getParameter("id"));
         getRequest().setParameter("stateName", "CA");
         _command.setEspMembership(_anotherEspMembership);
+        _anotherSchool.setActive(false);
 
         resetAll();
 
@@ -165,6 +171,7 @@ public class EspModerationDetailsControllerTest extends BaseControllerTestCase {
         assertEquals(_modelMap.get("emailError"), true);
         assertEquals(_modelMap.get("firstNameError"), true);
         assertEquals(_modelMap.get("lastNameError"), true);
+        assertEquals(_modelMap.get("schoolIdError"), true);
         assertNotSame(_user.getUpdated(), _espMembership.getUpdated());
         assertEquals(ESP_MODERATION_DETAILS_VIEW, _view);
     }
@@ -175,6 +182,8 @@ public class EspModerationDetailsControllerTest extends BaseControllerTestCase {
         _espMembership = createEspMembership(12345, 456, State.DC, _user, "Teacher");
         _school = createSchool(456, State.DC, "ZXCVB Elementary School");
         _command.setEspMembership(_espMembership);
+        _school.setActive(true);
+        _school.setLevelCode(LevelCode.ALL_LEVELS);
 
         resetAll();
 

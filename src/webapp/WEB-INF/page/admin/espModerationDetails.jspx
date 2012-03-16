@@ -78,7 +78,7 @@
                                 <div class="grid_6">
                                     <form:input path="espMembership.schoolId" id="schoolId" cssClass="text input_6"/>
                                 </div>
-                                <c:if test="${schoolIdStateError eq true}">
+                                <c:if test="${schoolIdStateError eq true or schoolIdError eq true}">
                                     <div class="error" style="display:block">
                                         <div class="mediaExt1-1">
                                             <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
@@ -161,7 +161,7 @@
 
                             <div class="lal clearfix">
                                 <div class="alpha grid_4">
-                                    <label for="dateCreated">Date</label>
+                                    <label for="dateCreated">Date Created</label>
                                 </div>
                                 <div class="grid_6">
                                     <label id="dateCreated">
@@ -173,7 +173,7 @@
 
                             <div class="lal clearfix">
                                 <div class="alpha grid_4">
-                                    <label for="dateUpdated">Date</label>
+                                    <label for="dateUpdated">Date Updated</label>
                                 </div>
                                 <div class="grid_6">
                                     <label id="dateUpdated">
