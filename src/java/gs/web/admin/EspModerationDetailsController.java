@@ -2,6 +2,7 @@ package gs.web.admin;
 
 import gs.data.community.User;
 import gs.data.school.EspMembership;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
 import org.apache.commons.lang.StringUtils;
@@ -205,7 +206,7 @@ public class EspModerationDetailsController extends AbstractEspModerationControl
                 bindingResult.rejectValue("espMembership.schoolId", "invalid_schoolId_state", "Please enter a valid school id for the state");
                 modelMap.put("schoolIdStateError", true);
             }
-            if(school != null && (!school.isActive() || school.getLevelCode().equals("p"))) {
+            if(school != null && (!school.isActive() || school.getLevelCode().equals(LevelCode.PRESCHOOL))) {
                 bindingResult.rejectValue("espMembership.schoolId", "inactive_or_pkonly_school", "Please enter a valid school Id");
                 modelMap.put("schoolIdError", true);
             }
