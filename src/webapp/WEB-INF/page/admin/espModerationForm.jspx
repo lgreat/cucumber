@@ -35,9 +35,11 @@
         		background-color: #aad4ff !important;
         	}
         	.durra, .durra * { /* disabled user re-requesting accerss (durra) */
-        		background-color: pink !important;
-        		color: red !important;
+        		background-color: #ff6347 !important;
         	}
+            .schoolHasActiveMemberships, .schoolHasActiveMemberships * {
+                background-color: #90ee90 !important;
+            }
         </style>
 
     </head>
@@ -63,10 +65,11 @@
                 </div>
 								
                 <div class="legend">
-									<b style="margin-right:20px;">Legend: </b>
-									<span class="emailMatch">User email matches contact email</span>
-									<span class="durra">User requesting multi-access</span>
-								</div>
+                    <b style="margin-right:20px;">Legend: </b>
+                    <span class="emailMatch">User email matches contact email</span>
+                    <span class="durra">User requesting multi-access</span>
+                    <span class="schoolHasActiveMemberships">School has active memberships</span>
+                </div>
                 <form:form commandName="espModerationCommand">
                     <c:if test="${not empty mrows}">
                         <input type="submit" name="moderatorAction" value="approve"/>
@@ -107,9 +110,10 @@
                     <c:when test="${not empty mrows}">
                     <c:forEach var="mrow" items="${mrows}" varStatus="index">
                     		<c:set var="membership" value="${mrow.membership}"/>
-                    		<c:set var="emailMatchClass" value="${mrow.emailMatch? 'emailMatch' : ''}"/>
-                    		<c:set var="durraClass" value="${mrow.disabledUserReRequestingAccess || mrow.hasOtherActiveEspMemberships? 'durra' : ''}"/>
-                    		<table width="950" class="${emailMatchClass} ${durraClass}">
+                    		<c:set var="emailMatchClass" value="${mrow.emailMatch ? 'emailMatch' : ''}"/>
+                    		<c:set var="durraClass" value="${mrow.disabledUserReRequestingAccess || mrow.hasOtherActiveEspMemberships ? 'durra' : ''}"/>
+                            <c:set var="schoolHasActiveMembershipsClass" value="${mrow.schoolHasActiveMemberships ? 'schoolHasActiveMemberships' : ''}"/>
+                    		<table width="950" class="${emailMatchClass} ${durraClass} ${schoolHasActiveMembershipsClass}">
                             <col width="32px"/>
                             <col width="210px"/>
                             <col width="206px"/>
@@ -122,7 +126,13 @@
                                 </td>
                                 <!--First Row-->
                                 <td><a href="mailto:${membership.user.email}">${membership.user.email}</a></td>
-                                <td>${membership.school.name}</td>
+                                <td>
+                                    ${membership.school.name}
+                                    <c:if test="${mrow.schoolHasActiveMemberships eq true}">
+                                        -<a href="/admin/espModerationSearch.page?schoolId=${membership.school.id}&amp;stateString=${membership.state}&amp;email=&amp;userId="> View all
+                                        requests for this school</a>
+                                    </c:if>
+                                </td>
                                 <td>${membership.user.firstName}</td>
                                 <td>${membership.state}</td>
                                 <td><fmt:formatDate pattern="MM-dd-yyyy hh:mm" value="${membership.created}" /></td>

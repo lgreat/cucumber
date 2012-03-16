@@ -35,6 +35,10 @@
     background-color: pink !important;
     color: red !important;
   }
+
+  .schoolHasActiveMemberships, .schoolHasActiveMemberships * {
+      background-color: #90ee90 !important;
+  }
 </style>
 
 </head>
@@ -83,8 +87,10 @@
       </div>
 
       <div class="legend">
-        <b style="margin-right: 20px;">Legend:</b> <span class="emailMatch">User email matches contact email</span> <span
-          class="durra">Disabled user re-requesting access</span>
+        <b style="margin-right: 20px;">Legend:</b>
+          <span class="emailMatch">User email matches contact email</span>
+          <span class="durra">Disabled user re-requesting access</span>
+          <span class="schoolHasActiveMemberships">School has active memberships</span>
       </div>
       <form:form commandName="espModerationSearchCommand" action="/admin/espModerationSearch.page">
         <input type="hidden" name="stateString" value="${espModerationSearchCommand.stateString}"/>
@@ -137,7 +143,8 @@
           <c:set var="membership" value="${mrow.membership}" />
           <c:set var="emailMatchClass" value="${mrow.emailMatch? 'emailMatch' : ''}" />
           <c:set var="durraClass" value="${mrow.disabledUserReRequestingAccess? 'durra' : ''}" />
-          <table width="950" class="${emailMatchClass} ${durraClass}">
+          <c:set var="schoolHasActiveMembershipsClass" value="${mrow.schoolHasActiveMemberships ? 'schoolHasActiveMemberships' : ''}"/>
+          <table width="950" class="${emailMatchClass} ${durraClass} ${schoolHasActiveMembershipsClass}">
             <col width="32px" />
             <col width="70px" />
             <col width="175px" />

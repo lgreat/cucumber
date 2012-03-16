@@ -47,6 +47,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         private String _contactEmail;
         private boolean _isDisabledUserReRequestingAccess;
         private boolean _hasOtherActiveEspMemberships;
+        private boolean _schoolHasActiveMemberships;
         
         public ModerationRow(EspMembership _membership) {
             super();
@@ -100,6 +101,14 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                 return "http://" + webUrl;
             }
             return webUrl;
+        }
+
+        public boolean isSchoolHasActiveMemberships() {
+            return _schoolHasActiveMemberships;
+        }
+
+        public void setSchoolHasActiveMemberships(boolean schoolHasActiveMemberships) {
+            _schoolHasActiveMemberships = schoolHasActiveMemberships;
         }
     }
     
@@ -262,6 +271,11 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             List<EspMembership> otherActiveMemberships = getEspMembershipDao().findEspMembershipsByUserId(membership.getUser().getId(), true);
             if (otherActiveMemberships != null && !otherActiveMemberships.isEmpty()) {
                 mrow.setHasOtherActiveEspMemberships(true);
+            }
+            
+            List<EspMembership> activeMembershipsForTheSchool = getEspMembershipDao().findEspMembershipsBySchool(membership.getSchool(), true);
+            if(activeMembershipsForTheSchool != null && activeMembershipsForTheSchool.size() > 0) {
+                mrow.setSchoolHasActiveMemberships(true);
             }
 
             // is disabled user re-requesting access?
