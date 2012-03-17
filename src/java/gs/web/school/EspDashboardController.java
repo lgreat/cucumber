@@ -97,9 +97,7 @@ public class EspDashboardController {
         if (school != null) {
             //Get the information about who else has ESP access to this school
             List<EspMembership> otherEspMemberships = getOtherEspMembersForSchool(school, user);
-            if (otherEspMemberships != null && !otherEspMemberships.isEmpty()) {
-                modelMap.put("otherEspMemberships", otherEspMemberships);
-            }
+            modelMap.put("otherEspMemberships", otherEspMemberships);
             
             // get percent completion info
             Map<Long, Boolean> pageStartedMap = new HashMap<Long, Boolean>(8);
@@ -154,12 +152,17 @@ public class EspDashboardController {
      * @param user
      */
     protected List<EspMembership> getOtherEspMembersForSchool(School school, User user) {
-        List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsBySchool(school, true);
+        List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsBySchool(school, false);
         if (espMemberships != null && !espMemberships.isEmpty() && user != null && user.getId() != null) {
             Iterator<EspMembership> iter = espMemberships.iterator();
-            //remove the current user from the list.
+
             while (iter.hasNext()) {
-                if (iter.next().getUser().getId() == user.getId()) {
+                EspMembership membership =  iter.next();
+                if (membership.getUser().getId() == user.getId()) {
+                    //remove the current user from the list.
+                    iter.remove();
+                } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) || membership.getStatus().equals(EspMembershipStatus.REJECTED)) {
+                    //remove rejected and disabled users.
                     iter.remove();
                 }
             }
@@ -171,7 +174,7 @@ public class EspDashboardController {
      * Pulls the user out of the session context. Returns null if there is no user, or if the user fails
      * checkUserAccess
      */
-    protected User getValidUser(HttpServletRequest request) {
+    public User getValidUser(HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = null;
         if (sessionContext != null) {
