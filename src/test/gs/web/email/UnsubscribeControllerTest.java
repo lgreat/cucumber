@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import static org.easymock.EasyMock.*;
 import static org.easymock.classextension.EasyMock.createStrictMock;
@@ -191,8 +192,8 @@ public class UnsubscribeControllerTest extends BaseControllerTestCase {
         _command.setDailyNl(true);
         expect(_userDao.findUserFromId(_user.getId())).andReturn(_user);
         expect(_subscriptionDao.getUserSubscriptions(_user)).andReturn(_allSubscriptions);
-        _exactTargetAPI.unsubscribeProduct((String) anyObject(), (String) anyObject());
-        expectLastCall().times(4);
+        _exactTargetAPI.unsubscribeProduct((String) anyObject(), (Set) anyObject());
+        expectLastCall();
 
         /*http://stackoverflow.com/questions/859031/easymock-void-methods, http://burtbeckwith.com/blog/?p=43*/
         _subscriptionDao.removeSubscription(anyInt());

@@ -123,6 +123,7 @@ public class UnsubscribeController implements ReadWriteAnnotationController {
 
         Unsubscribe unsubscribe = null;
         Set<UnsubscribedProducts> unsubscribedProducts = new HashSet<UnsubscribedProducts>();
+        Set<String> subscriberAttributes = new HashSet<String>();
 
         /*get all subscriptions in single call, then filter them*/
         List<Subscription> allSubscriptions = _subscriptionDao.getUserSubscriptions(user);
@@ -164,32 +165,27 @@ public class UnsubscribeController implements ReadWriteAnnotationController {
                 Subscription s = subscriptionIterator.next();
                 if(SubscriptionProduct.PARENT_ADVISOR.getName().equals(s.getProduct().getName())){
                     unsubscribedProducts.add(new UnsubscribedProducts("weekly", unsubscribe));
-                    if(!unsubscribeAll) {
-                        _exactTargetAPI.unsubscribeProduct(user.getEmail(), "GreatNews");
-                    }
+                    subscriberAttributes.add("GreatNews");
                 }
                 if(SubscriptionProduct.DAILY_TIP.getName().equals(s.getProduct().getName())){
                     unsubscribedProducts.add(new UnsubscribedProducts("daily", unsubscribe));
-                    if(!unsubscribeAll) {
-                        _exactTargetAPI.unsubscribeProduct(user.getEmail(), "Summer Brain Drain");
-                    }
+                    subscriberAttributes.add("Summer Brain Drain");
                 }
                 if(SubscriptionProduct.MYSTAT.getName().equals(s.getProduct().getName())){
                     unsubscribedProducts.add(new UnsubscribedProducts("mss", unsubscribe));
-                    if(!unsubscribeAll) {
-                        _exactTargetAPI.unsubscribeProduct(user.getEmail(), "Mystats");
-                    }
+                    subscriberAttributes.add("Mystats");
                 }
                 if(SubscriptionProduct.SPONSOR_OPT_IN.getName().equals(s.getProduct().getName())){
                     unsubscribedProducts.add(new UnsubscribedProducts("partner", unsubscribe));
-                    if(!unsubscribeAll) {
-                        _exactTargetAPI.unsubscribeProduct(user.getEmail(), "Sponsor");
-                    }
+                    subscriberAttributes.add("Sponsor");
                 }
                 _subscriptionDao.removeSubscription(s.getId());
             }
             if(unsubscribeAll) {
                 _exactTargetAPI.unsubscribeAll(user.getEmail());
+            }
+            else {
+                _exactTargetAPI.unsubscribeProduct(user.getEmail(), subscriberAttributes);
             }
             _unsubscribeDao.saveUnsubscribe(unsubscribe);
             command.setUnsubscribeId(unsubscribe.getId());

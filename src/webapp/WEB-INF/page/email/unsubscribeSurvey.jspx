@@ -34,7 +34,7 @@
                                        action="/email/unsubscribeSurvey.page?email=${emailCmd.email}&amp;ref=${emailCmd.userId}">
 
                                 <fieldset>
-                                    <legend>Unsubscribe Complete</legend>
+                                    <h3 class="bottom">Unsubscribe Complete</h3>
                                     <hr class="legend"/>
 
                                     <form:hidden path="userId" id="userId" value="${emailCmd.userId}"/>

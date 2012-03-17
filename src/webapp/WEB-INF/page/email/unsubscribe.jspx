@@ -33,7 +33,7 @@
                     <form:form name="unsubscribe" commandName="emailCmd" method="post">
                         <form:hidden path="userId" id="userId" value="${emailCmd.userId}"/>
                         <fieldset>
-                            <legend>Unsubscribe</legend>
+                            <h3 class="bottom">Unsubscribe</h3>
                             <hr class="legend"/>
 
                             <div class="grid_6">
@@ -72,7 +72,7 @@
                         <div class="spacer_30"><!-- do not collapse --></div>
 
                         <fieldset>
-                            <legend>Unsubscribe from all</legend>
+                            <h3 class="bottom">Unsubscribe from all</h3>
                             <hr class="legend"/>
                             <p>I wish to unsubscribe from all newsletters.</p>
                             <input class="button-1" type="submit" id="UnsubscribeAll" name="UnsubscribeAll"
