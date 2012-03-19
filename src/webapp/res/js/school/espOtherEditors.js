@@ -17,36 +17,58 @@ GS.form.RequestOtherEditors = function() {
             async: true
         }).done(
             function(data) {
-                if (data.debugOutput !== '') {
-                    alert(data.debugOutput);
-                }
-                if (data.usersAlreadyApproved !== '') {
-                    alert(data.usersAlreadyApproved);
-                }
-                if (data.usersAlreadyPreApproved !== '') {
-                    alert(data.usersAlreadyPreApproved);
-                }
-                if (data.newOtherEspMemberships !== '') {
-                    alert(data.newOtherEspMemberships);
+                if (data == null) {
+                    alert("null response");
+                    jQuery('#js_requestOtherEditorsFormInputs').hide(); // added here for testing
+                    jQuery('#js_requestOtherEditorsThankYou').show();
+                } else {
+                    if (data.debugOutput !== '') {
+                        alert(data.debugOutput);
+                    }
+                    if (data.usersAlreadyApproved !== '') {
+                        alert(data.usersAlreadyApproved);
+                    }
+                    if (data.usersAlreadyPreApproved !== '') {
+                        alert(data.usersAlreadyPreApproved);
+                    }
+                    if (data.newOtherEspMemberships !== '') {
+                        alert(data.newOtherEspMemberships);
 
-                    jQuery('# js_requestOtherEditorsForm').hide();
-                    jQuery('# js_requestOtherEditorsThankYou').show();
+                        jQuery('#js_requestOtherEditorsFormInputs').hide();
+                        jQuery('#js_requestOtherEditorsThankYou').show();
 
+                    }
                 }
             }).fail(function() {
-                alert("AN error occurred, please try again.");
+                alert("An error occurred, please try again.");
             }
         );
-    }
+    };
 
     return {
         preApproveNewEditor: preApproveNewEditor
     };
-}
+};
 
 GS.form.requestOtherEditors = new GS.form.RequestOtherEditors();
 
+GSType.hover.EspOtherEditors = function() {
+    this.loadDialog = function() {
+        this.pageName='OSP Add/See Accounts';
+        this.hier1='ESP';
+    };
+    this.showHover = function() {
+        GSType.hover.espOtherEditors.show();
+    };
+    this.onClose = function() {};
+};
+
+GSType.hover.EspOtherEditors.prototype = new GSType.hover.HoverDialog("espOtherEditors",640);
+GSType.hover.espOtherEditors = new GSType.hover.EspOtherEditors();
+
 jQuery(function() {
+    GSType.hover.espOtherEditors.loadDialog();
+
     jQuery('#js_otherEspEditors').click(
         GSType.hover.espOtherEditors.showHover
     );
@@ -56,8 +78,8 @@ jQuery(function() {
     );
 
     jQuery('#js_requestAnotherEspEditor').click( function() {
-            jQuery('# js_requestOtherEditorsForm').show();
-            jQuery('# js_requestOtherEditorsThankYou').hide();
+            jQuery('#js_requestOtherEditorsFormInputs').show();
+            jQuery('#js_requestOtherEditorsThankYou').hide();
         }
     );
 

@@ -879,32 +879,6 @@ GSType.hover.EspAccountVerified = function() {
 
 GSType.hover.EspAccountVerified.prototype = new GSType.hover.HoverDialog("espAccountVerified",640);
 
-
-GSType.hover.EspOtherEditors = function() {
-    this.loadDialog = function() {
-
-    };
-    this.showHover = function() {
-        var data = {};
-        data.schoolId = 1;
-        data.state = 'ca';
-
-        $.ajax({
-            url:'/official-school-profile/memberships/list.json',
-            method:'GET',
-            data: data
-        }).done(function(response) {
-            console.log("success", response);
-        }).fail(function() {
-            alert('Sorry, an unknown error has occurred. Please try again shortly.');
-        });
-        GSType.hover.espOtherEditors.show();
-    };
-    this.onClose = function() {};
-};
-
-GSType.hover.EspOtherEditors.prototype = new GSType.hover.HoverDialog("espOtherEditors",640);
-
 // Confirm ESP Save hover
 GSType.hover.ConfirmEspSave = function() {
     this.loadDialog = function() {
@@ -1129,7 +1103,6 @@ GSType.hover.schoolReviewNotPostedThankYou = new GSType.hover.SchoolReviewNotPos
 GSType.hover.emailValidatedSchoolReview = new GSType.hover.EmailValidatedSchoolReview();
 GSType.hover.schoolEspThankYou = new GSType.hover.SchoolEspThankYou();
 GSType.hover.espAccountVerified = new GSType.hover.EspAccountVerified();
-GSType.hover.espOtherEditors = new GSType.hover.EspOtherEditors();
 GSType.hover.confirmEspSave = new GSType.hover.ConfirmEspSave();
 GSType.hover.espPreApprovalEmail = new GSType.hover.EspPreApprovalEmail();
 GSType.hover.emailToFriend = new GSType.hover.EmailToFriend();
@@ -1488,7 +1461,6 @@ jQuery(function() {
     GSType.hover.emailValidatedSchoolReview.loadDialog();
     GSType.hover.schoolEspThankYou.loadDialog();
     GSType.hover.espAccountVerified.loadDialog();
-    GSType.hover.espOtherEditors.loadDialog();
     GSType.hover.espPreApprovalEmail.loadDialog();
     GSType.hover.emailToFriend.loadDialog();
     GSType.hover.interruptSurvey.loadDialog();

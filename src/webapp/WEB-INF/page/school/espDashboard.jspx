@@ -29,7 +29,7 @@
     </head>
 
     <gsml:body adPageName="OSP/dashboard" pageLayout="nocol">
-    <school:espOtherEditorsHover otherEspMemberships="${otherEspMemberships}"/>
+        <school:espOtherEditorsHover otherEspMemberships="${otherEspMemberships}"/>
         <div class="container_24 slStylesV1-0 slFormsV1-0">
             <div class="spacer_20"><!-- do not collapse --></div>
             <div class="grid_21">
@@ -63,7 +63,8 @@
                                                     school="${school}">View profile</link:schoolProfileOverview><br/>
                                             <link:schoolPrincipalReview
                                                     school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
-                                            <br/><a href="#" id="js_otherEspEditors">Other access</a>
+                                            <br/>
+                                            <a href="#" id="js_otherEspEditors" onclick="return false;">View and edit people with access to this profile</a>
                                         </p>
                                     </div>
                                 </div>

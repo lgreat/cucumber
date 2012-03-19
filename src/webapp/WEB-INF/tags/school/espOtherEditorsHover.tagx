@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:gsweb="gstaglib"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
     <jsp:directive.attribute name="otherEspMemberships" required="true" type="java.util.List"
                              description="List of who has access to this school's ESP"/>
     <pageHelper:externalJavascript file="/res/js/school/espOtherEditors.js"/>
+    <c:set var="maxEditors" value="4"/>
+    <c:set var="numEditors" value="${fn:length(otherEspMemberships)}"/>
 
-    <div id="espOtherEditors" class="dialog_white" style="display:none;padding:10px 0 0 20px;">
+    <div id="espOtherEditors" class="dialog_white slStylesV1-0 slFormsV1-0" style="display:none;padding:10px 0 0 20px;">
         <h2>View and add editors to this Official School Profile</h2>
-
-
         <div class="line">
-            <div class="unit size45of100">
+            <div class="unit ${numEditors lt maxEditors ? 'size45of100' : ''}">
                 <h5>Editors to this Official School Profile</h5>
 
                 <c:if test="${not empty otherEspMemberships}">
-                    <ol>
+                    <ul>
                         <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
                             <li>${otherEsp.user.firstName} ${otherEsp.user.lastName},
                                 <c:choose>
@@ -34,73 +34,92 @@
                             </li>
                             <br/>
                         </c:forEach>
-                    </ol>
+                    </ul>
                 </c:if>
-
+                <c:choose>
+                    <c:when test="${numEditors lt maxEditors}">
+                        <p>You may only have <strong>up to 4 active editors</strong> on this Online School Profile.</p>
+                    </c:when>
+                    <c:otherwise>
+                        <p>This profile has the maximum number of editors.</p>
+                    </c:otherwise>
+                </c:choose>
+                <p><link:contactUs feedbackType="esp">Contact us to remove someone from this list.</link:contactUs></p>
+                <div class="spacer_10"><!-- not empty --></div>
+                <button class="button-1 espOtherEditors_hideHover">Ok</button>
+                <div class="spacer_5"><!-- not empty --></div>
+                <p class="hint">Please note: GreatSchools may also make updates to Official School Profiles at any time.</p>
             </div>
-            <div class="unit size55of100 lastUnit">
-                <div class="mod form" id="js_requestOtherEditorsForm">
-                    <div class="inner clearfix">
-                        <div class="hd">
-                            <div class="alpha grid_10">
-                                <h5>Suggest someone to become an editor to this profile</h5>
-
+            <c:if test="${numEditors lt maxEditors}">
+                <div class="unit size55of100 lastUnit prl">
+                    <div class="mod form" id="js_requestOtherEditorsForm">
+                        <div class="inner clearfix">
+                            <div class="hd">
+                                <div class="alpha grid_10">
+                                    <h5>Suggest someone to become an editor to this profile</h5>
+                                </div>
+                                <div class="clear"><!-- no collapse --></div>
                             </div>
-                            <div class="clear">
-
-                                <!-- no collapse -->
-                            </div>
-                        </div>
-                        <div class="bd">
-                            <form>
-                                <fieldset>
+                            <div class="bd container_24" id="js_requestOtherEditorsFormInputs">
+                                <form onsubmit="return false;">
+                                    <fieldset>
+                                        <div class="lal clearfix">
+                                            <div class="alpha grid_3">
+                                                <label>Email address</label>
+                                            </div>
+                                            <div class="omega grid_3">
+                                                <input type="text" id="js_email" name="email" class="input_4"/>
+                                            </div>
+                                        </div>
+                                        <div class="lal clearfix">
+                                            <div class="alpha grid_3">
+                                                <label>First Name</label>
+                                            </div>
+                                            <div class="omega grid_3">
+                                                <input type="text" id="js_firstName" name="firstName" class="input_4"/>
+                                            </div>
+                                        </div>
+                                        <div class="lal clearfix">
+                                            <div class="alpha grid_3">
+                                                <label>Last Name</label>
+                                            </div>
+                                            <div class="omega grid_3">
+                                                <input type="text" id="js_lastName" name="lastName" class="input_4"/>
+                                            </div>
+                                            <br/>
+                                        </div>
+                                        <div class="lal clearfix">
+                                            <div class="alpha grid_3">
+                                                <label>Job title</label>
+                                            </div>
+                                            <div class="omega grid_3">
+                                                <school:espJobTitle/>
+                                            </div>
+                                        </div>
+                                    </fieldset>
                                     <div class="lal clearfix">
-                                        <div class="alpha grid_7">
-                                            <label>Email address</label>
-                                        </div>
-                                        <div class="grid_16 omega">
-                                            <input type="text" id="js_email" name="email"/>
-                                        </div>
-                                        <div>
-                                            <label>First Name</label>
-                                        </div>
-                                        <div>
-                                            <input type="text" id="js_firstName" name="firstName"/>
-                                        </div>
-                                        <div>
-                                            <label>Last Name</label>
-                                        </div>
-                                        <div>
-                                            <input type="text" id="js_lastName" name="lastName"/>
-                                        </div>
-                                        <br/>
-                                        <div>
-                                            <label>Job title</label>
-                                        </div>
-                                        <div>
-                                            <school:espJobTitle/>
+                                        <div class="alpha prefix_3 grid_3 omega">
+                                            <button class="button-1" style="-moz-user-select: none;"
+                                                    id="js_requestOtherPreApproval">Submit request
+                                            </button>
                                         </div>
                                     </div>
-                                </fieldset>
-                            </form>
-                        </div>
-                        <div class="ft">
-                            <div class="grid_13 omega alpha prefix_10">
-                                <div class="fltrt">
-                                    <span class="mhm">
-                                        <button class="button-1" style="-moz-user-select: none;"
-                                                id="js_requestOtherPreApproval">Submit request
-                                        </button>
-                                    </span>
-                                </div>
+                                </form>
+                            </div>
+                            <div id="js_requestOtherEditorsThankYou" style="display:none;">
+                                <p>
+                                    <em>Thank you. Your request has been submitted.</em>
+                                </p>
+
+                                <p>
+                                    <a id="js_requestAnotherEspEditor" href="#"
+                                       onclick="return false;">Submit another request</a>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="js_requestOtherEditorsThankYou">Thanks for submitting your request.
-                    <a id="js_requestAnotherEspEditor" href="#">Submit another request.</a>
-                </div>
-            </div>
+            </c:if>
         </div>
     </div>
 </jsp:root>
