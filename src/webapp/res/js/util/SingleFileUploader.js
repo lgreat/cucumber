@@ -31,10 +31,10 @@ GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabase
 
 GS.SingleFileUploader.prototype.createUploader = function() {
     this.uploader = new plupload.Uploader({
-        runtimes : 'flash,html5,silverlight',
+        runtimes : 'flash',
         browse_button : 'js-plupload-browse-' + this.idSuffix,
         container: 'file-uploader-container-' + this.idSuffix,
-        max_file_size : '20mb',
+        max_file_size : '5mb',
         url: this.httpPostUrl,
         flash_swf_url : '/res/js/plupload/plupload.flash.swf',
         multipart_params : $.extend(this.extraPostParams, {
