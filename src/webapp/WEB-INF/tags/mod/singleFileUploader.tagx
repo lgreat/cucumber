@@ -13,7 +13,12 @@
 
     <div id="file-uploader-container-${idSuffix}" class="lal clearfix">
         <div class="alpha grid_6">
-            <input class="js-uploader-file uploader-file text3" disabled="disabled" size="39"><!-- no collapse --></input>
+            <input class="js-uploader-file uploader-file text3" disabled="disabled" size="35"><!-- no collapse --></input>
+            <span class="js-uploader-delete" style="display:none;">
+                    <span class="iconx16 i-16-close img">
+                        <!-- no collapse -->
+                    </span>
+            </span>
         </div>
 
         <div class="grid_5">
@@ -34,12 +39,12 @@
             <span class="spinner" style="display:none;">
                 <gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse -->
             </span>
-            <div class="js-uploader-status uploader-status text3"><!-- no collapse --></div>
             <div class="js-uploader-complete media success" style="display:none;">
                 <span class="iconx16 i-16-success img">
                     <!-- no collapse -->
                 </span>
             </div>
+            <div class="js-uploader-status uploader-status text3"><!-- no collapse --></div>
         </div>
     </div>
 

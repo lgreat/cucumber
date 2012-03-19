@@ -16,6 +16,7 @@ GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabase
     this.container = jQuery('#file-uploader-container-' + this.idSuffix);
     this.uploadButton = this.container.find('.js-uploader-upload-button');
     this.browseButton = this.container.find('.js-uploader-browse-button');
+    this.deleteButton = this.container.find('.js-uploader-delete');
     this.fakeBrowseButton = this.container.find('.js-uploader-fake-browse-button');
     this.fileBox = this.container.find('.js-uploader-file');
     this.statusBox = this.container.find('.js-uploader-status');
@@ -27,6 +28,10 @@ GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabase
     this.LOGGING_ENABLED = false;
 
     this.createUploader();
+
+    this.deleteButton.on('click', '.img', function() {
+        this.clear();
+    }.gs_bind(this));
 };
 
 GS.SingleFileUploader.prototype.createUploader = function() {
@@ -182,9 +187,20 @@ GS.SingleFileUploader.prototype.createUploader = function() {
             this.uploader.files = this.uploader.files.slice(this.uploader.files.length-1,this.uploader.files.length);
         }
 
+        this.deleteButton.show();
+
         this.fileBox.val(files[0].name);
         this.enableUploading();
     }.gs_bind(this);
+
+    this.clear = function() {
+        var filesToDelete = this.uploader.files;
+        for (var i = 0; i < filesToDelete.length; i++) {
+            this.uploader.removeFile(filesToDelete[i]);
+        }
+        this.fileBox.val('');
+        this.deleteButton.hide();
+    };
 
     this.setStatus = function(file, status) {
         this.statusBox.html(status);
