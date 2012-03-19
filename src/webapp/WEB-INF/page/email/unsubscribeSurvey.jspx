@@ -21,7 +21,7 @@
     </head>
 
     <gsml:body adPageName="email/unsubscribe" pageLayout="nocol">
-        <ad:setSlotPrefix slotPrefix="Email_Unsubscribe"/>
+        <ad:setSlotPrefix slotPrefix="Email_Unsubscribe_Survey"/>
 
         <div class="spacer_20"><!-- do not collapse --></div>
 
