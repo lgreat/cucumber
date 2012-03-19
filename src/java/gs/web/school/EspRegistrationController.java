@@ -4,7 +4,6 @@ import gs.data.community.IUserDao;
 import gs.data.community.User;
 import gs.data.community.UserProfile;
 import gs.data.community.WelcomeMessageStatus;
-import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
@@ -133,9 +132,9 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             user = new User();
             user.setEmail(email);
             user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+            user.setHow("esp");
             setFieldsOnUserUsingCommand(command, user);
             getUserDao().saveUser(user);
-//            ThreadLocalTransactionManager.commitOrRollback();
         }
 
         //Set the user's password.
@@ -253,10 +252,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             if (StringUtils.isBlank(user.getGender())) {
                 user.setGender("u");
             }
-            //Only set "how" if it is not already set.
-            if (StringUtils.isBlank(user.getHow())) {
-                user.setHow("esp");
-            }
         }
     }
 
@@ -286,6 +281,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             userProfile = new UserProfile();
             setUserProfileFieldsFromCommand(espMembershipCommand, userProfile);
             userProfile.setUser(user);
+            userProfile.setHow("esp");
             user.setUserProfile(userProfile);
         }
     }
@@ -311,10 +307,6 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
 
             if (espMembershipCommand.getState() != null && userProfile.getState() == null) {
                 userProfile.setState(espMembershipCommand.getState());
-            }
-
-            if (StringUtils.isBlank(userProfile.getHow())) {
-                userProfile.setHow("esp");
             }
 
             userProfile.setUpdated(new Date());

@@ -311,6 +311,7 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
             userProfile = new UserProfile();
             setUserProfileFieldsFromCommand(command, userProfile);
             userProfile.setUser(user);
+            userProfile.setHow("esp_pre_approved");
             user.setUserProfile(userProfile);
         }
     }
@@ -319,10 +320,6 @@ public class EspPreRegistrationController implements ReadWriteAnnotationControll
         if (userProfile != null) {
             if (StringUtils.isNotBlank(command.getScreenName())) {
                 userProfile.setScreenName(command.getScreenName().trim());
-            }
-
-            if (StringUtils.isBlank(userProfile.getHow())) {
-                userProfile.setHow("esp_pre_approved");
             }
             userProfile.setUpdated(new Date());
         }
