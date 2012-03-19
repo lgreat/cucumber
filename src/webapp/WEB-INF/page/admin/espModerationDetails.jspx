@@ -36,7 +36,7 @@
                         <form:form name="espModerationDetails" commandName="espModerationDetailsCmd">
                             <!-- Make default submit action a save -->
                             <span class="hidden"><input class="button-1" type="submit" name="save" value="Save"/></span>
-                            <input type="submit" name="moderatorAction" value="approve"/>
+                            <!--<input type="submit" name="moderatorAction" value="approve"/>-->
                             <div class="lal clearfix">
                                 <div class="alpha grid_4">
                                     <label for="membershipId">Membership ID</label>
