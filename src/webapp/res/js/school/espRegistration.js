@@ -129,7 +129,7 @@ GS.form.EspForm = function() {
         } else if (data.isUserApprovedESPMember === true && data.isUserEmailValidated !== true) {
             // users who have been approved but haven't followed through by clicking through the link in email
             GSType.hover.emailNotValidated.setEmail(email);
-            var onclickStr = "GSType.hover.emailNotValidated.show()";
+            var onclickStr = "'GSType.hover.emailNotValidated.show(); return false;'";
             GS.form.espForm.showEmailError("Please verify your email.<a href='#' onclick=" + onclickStr + ">Verify email</a>", emailField);
         } else if (data.isUserAwaitingESPMembership === true) {
             // users who have requested access but are still being processed
