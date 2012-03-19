@@ -464,7 +464,6 @@ public class EspFormController implements ReadWriteAnnotationController {
             inCities.add("Speedway");
             put(State.IN, inCities);
             put(State.DC, null); // null means accept all
-            put(State.CA, null); // null means accept all
         }
     };
     
