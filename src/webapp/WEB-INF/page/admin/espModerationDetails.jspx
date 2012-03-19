@@ -94,6 +94,15 @@
 
                             <div class="lal clearfix">
                                 <div class="alpha grid_4">
+                                    <label for="status">Status</label>
+                                </div>
+                                <div class="grid_6">
+                                    <label id = "status">${espModerationDetailsCmd.espMembership.status.status}</label>
+                                </div>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
                                     <label for="webUrl">Web Url</label>
                                 </div>
                                 <div class="grid_6">
