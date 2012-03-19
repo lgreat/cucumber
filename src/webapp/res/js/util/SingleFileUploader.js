@@ -20,6 +20,7 @@ GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabase
     this.fakeBrowseButton = this.container.find('.js-uploader-fake-browse-button');
     this.fileBox = this.container.find('.js-uploader-file');
     this.statusBox = this.container.find('.js-uploader-status');
+    this.errorBox = this.container.find('.js-uploader-error');
     this.spinner = this.container.find('.spinner');
     this.completeIcon = this.container.find('.js-uploader-complete');
     this.extraPostParams = extraPostParams;
@@ -64,8 +65,6 @@ GS.SingleFileUploader.prototype.createUploader = function() {
 
         this.uploader.bind('FilesAdded', this.filesQueued);
 
-        this.uploader.bind("UploadProgress",this.updateProgress);
-
         this.uploader.bind("Error", this.handleError);
 
         this.uploader.bind("UploadComplete", function() {
@@ -77,12 +76,13 @@ GS.SingleFileUploader.prototype.createUploader = function() {
         }.gs_bind(this));
 
         this.uploader.bind("FileUploaded", function(up, file, response) {
+            this.errorBox.hide();
             var data = jQuery.parseJSON(response.response);
             if (data && data.errorMessage) {
                 if (data.errorMessage == "Unauthorized") {
-                    self.setStatus(file, "Error: Not authorized to upload a PDF for this school.");
+                    self.showError(file, "Error: Not authorized to upload a PDF for this school.");
                 } else {
-                    self.setStatus(file, "One or more errors occurred while uploading. Your file may not have been uploaded.");
+                    self.showError(file, "One or more errors occurred while uploading. Your file may not have been uploaded.");
                 }
             } else {
                 if (file.percent === 100 && file.status === plupload.DONE) {
@@ -182,6 +182,7 @@ GS.SingleFileUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
     this.filesQueued = function(up, files) {
+        this.errorBox.hide();
         // make sure there's never more than one item in the plupload queue
         if(this.uploader.files.length > 1) {
             this.uploader.files = this.uploader.files.slice(this.uploader.files.length-1,this.uploader.files.length);
@@ -204,6 +205,11 @@ GS.SingleFileUploader.prototype.createUploader = function() {
 
     this.setStatus = function(file, status) {
         this.statusBox.html(status);
+    }.gs_bind(this);
+
+    this.showError = function(file, status) {
+        this.errorBox.find('.bk').html(status);
+        this.errorBox.show();
     }.gs_bind(this);
 
     this.log = function() {
