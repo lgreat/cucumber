@@ -4,6 +4,7 @@ import gs.data.community.User;
 import gs.data.geo.LatLon;
 import gs.data.school.*;
 import gs.data.school.census.*;
+import gs.data.state.State;
 import gs.data.util.Address;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -32,6 +33,8 @@ import java.io.*;
 @Component("espFormExternalDataHelper")
 public class EspFormExternalDataHelper {
     private static final Log _log = LogFactory.getLog(EspFormExternalDataHelper.class);
+
+    public static final String CENSUS_ETHNICITY_LABEL = "Your school's student ethnicity breakdown";
 
     @Autowired
     private ISchoolDao _schoolDao;
@@ -101,7 +104,6 @@ public class EspFormExternalDataHelper {
         String phone = school.getPhone();
         if (StringUtils.length(phone) >= 14) {
             // "(510) 337-7022"
-            // TODO: what if the phone isn't 14 digits? DB limit = 31
             String areaCode = phone.substring(1,4);
             EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();
             areaCodeStruct.addValue(areaCode);
@@ -123,7 +125,6 @@ public class EspFormExternalDataHelper {
         String fax = school.getFax();
         if (StringUtils.length(fax) >= 14) {
             // "(510) 865-2194"
-            // TODO: what if the fax isn't 14 digits? DB limit = 31
             String areaCode = fax.substring(1,4);
             EspFormResponseStruct areaCodeStruct = new EspFormResponseStruct();
             areaCodeStruct.addValue(areaCode);
@@ -244,7 +245,6 @@ public class EspFormExternalDataHelper {
                 return "Must be an integer.";
             }
         } else if (StringUtils.equals("administrator_name", key)) {
-            String value = (String) values[0];
             _log.debug("Saving administrator_name elsewhere: " + values[0]);
             saveCensusString(school, (String) values[0], CensusDataType.HEAD_OFFICIAL_NAME, user);
         } else if (StringUtils.equals("administrator_email", key)) {
@@ -393,14 +393,23 @@ public class EspFormExternalDataHelper {
 
     String handleEthnicity(Map<Integer, Integer> breakdownIdToValueMap, School school, User user) {
         int sum = 0;
-        for (Integer value: breakdownIdToValueMap.values()) {
-            if (value < 0) {
-                return "Please specify a positive number.";
+        EspCensusDataTypeConfiguration ethnicityConfig = STATE_TO_ETHNICITY.get(school.getDatabaseState());
+        if (ethnicityConfig == null) {
+            _log.error("No ethnicity configuration for state " + school.getDatabaseState());
+            return "Ethnicity data cannot be saved at this time.";
+        }
+        for (EspCensusBreakdownConfiguration breakdown: ethnicityConfig.getBreakdowns()) {
+            Integer value = breakdownIdToValueMap.get(breakdown.getId());
+            if (value != null) {
+                if (value < 0) {
+                    return "Please specify a positive number.";
+                }
+                sum += value;
             }
-            sum += value;
         }
         if (sum == 100) {
-            for (Integer breakdownId: breakdownIdToValueMap.keySet()) {
+            for (EspCensusBreakdownConfiguration breakdownConfig: ethnicityConfig.getBreakdowns()) {
+                Integer breakdownId = breakdownConfig.getId();
                 Integer value = breakdownIdToValueMap.get(breakdownId);
                 Breakdown breakdown = new Breakdown(breakdownId);
                 CensusDataSet dataSet = findOrCreateManualDataSet(school, CensusDataType.STUDENTS_ETHNICITY, breakdown);
@@ -561,13 +570,92 @@ public class EspFormExternalDataHelper {
         keys.add("school_url");
         keys.add("administrator_name");
         keys.add("administrator_email");
-//        if (school.getType() == SchoolType.PRIVATE && EspFormController.isFruitcakeSchool(school)) {
+        if (school.getType() == SchoolType.PRIVATE) {
             keys.add("census_ethnicity");
             keys.add("census_ell_esl");
             keys.add("census_frpl");
             keys.add("census_special_ed");
             keys.add("census_disabilities");
-//        }
+        }
         return keys;
     }
+
+
+    protected static class EspCensusBreakdownConfiguration {
+        private Integer _id;
+        private String _name;
+
+        public EspCensusBreakdownConfiguration(Integer id, String name) {
+            _id = id;
+            _name = name;
+        }
+
+        public Integer getId() {
+            return _id;
+        }
+
+        public String getName() {
+            return _name;
+        }
+    }
+
+    protected static class EspCensusDataTypeConfiguration {
+        private Integer _id;
+        private String _name;
+        private List<EspCensusBreakdownConfiguration> _breakdowns;
+
+        public EspCensusDataTypeConfiguration(Integer id, String name, List<EspCensusBreakdownConfiguration> breakdowns) {
+            _id = id;
+            _name = name;
+            _breakdowns = breakdowns;
+        }
+
+        public Integer getId() {
+            return _id;
+        }
+
+        public String getName() {
+            return _name;
+        }
+
+        public List<EspCensusBreakdownConfiguration> getBreakdowns() {
+            return _breakdowns;
+        }
+    }
+
+    public static final Map<State, EspCensusDataTypeConfiguration> STATE_TO_ETHNICITY =
+            new HashMap<State, EspCensusDataTypeConfiguration>() {{
+            put(State.WI, new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_ETHNICITY.getId(), CENSUS_ETHNICITY_LABEL,
+                            Arrays.asList(
+                                    new EspCensusBreakdownConfiguration(4, "American Indian"),
+                                    new EspCensusBreakdownConfiguration(7, "Asian"),
+                                    new EspCensusBreakdownConfiguration(2, "Black"),
+                                    new EspCensusBreakdownConfiguration(3, "Hispanic"),
+                                    new EspCensusBreakdownConfiguration(8, "Pacific Islander"),
+                                    new EspCensusBreakdownConfiguration(1, "White"),
+                                    new EspCensusBreakdownConfiguration(6, "Two or More")))
+            );
+            put(State.DC, new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_ETHNICITY.getId(), CENSUS_ETHNICITY_LABEL,
+                            Arrays.asList(
+                                    new EspCensusBreakdownConfiguration(10, "American Indian/Alaskan Native"),
+                                    new EspCensusBreakdownConfiguration(5, "Asian/Pacific Islander"),
+                                    new EspCensusBreakdownConfiguration(2, "Black"),
+                                    new EspCensusBreakdownConfiguration(3, "Hispanic"),
+                                    new EspCensusBreakdownConfiguration(1, "White"),
+                                    new EspCensusBreakdownConfiguration(6, "Multiracial")))
+            );
+            put(State.IN, new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_ETHNICITY.getId(), CENSUS_ETHNICITY_LABEL,
+                            Arrays.asList(
+                                    new EspCensusBreakdownConfiguration(4, "American Indian"),
+                                    new EspCensusBreakdownConfiguration(7, "Asian"),
+                                    new EspCensusBreakdownConfiguration(2, "Black"),
+                                    new EspCensusBreakdownConfiguration(3, "Hispanic"),
+                                    new EspCensusBreakdownConfiguration(8, "Native Hawaiian or Other Pacific Islander"),
+                                    new EspCensusBreakdownConfiguration(1, "White"),
+                                    new EspCensusBreakdownConfiguration(6, "Multiracial")))
+            );
+    }};
 }

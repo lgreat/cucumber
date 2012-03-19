@@ -8,7 +8,7 @@
     <jsp:directive.attribute name="breakdownId" required="true" description="Breakdown Id" type="java.lang.Integer"/>
     <c:set var="ethnicityRowResponseKey" value="ethnicity_${breakdownId}"/>
     <div class="lal clearfix">
-        <div class="alpha prefix_7 grid_10">
+        <div class="alpha grid_10">
             <gsml:input styleId="js_form_ethnicity_${breakdownId}" styleClass="text digits_3 js_form_ethnicity_validation" type="text"
                         name="ethnicity_${breakdownId}"
                         value="${responseMap[ethnicityRowResponseKey].value}" disabled="${stateLocked}" maxlength="3"/>

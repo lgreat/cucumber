@@ -44,8 +44,6 @@ public class EspFormController implements ReadWriteAnnotationController {
     public static final String FORM_VISIBLE_KEYS_PARAM = "_visibleKeys";
 
     @Autowired
-    private IEspMembershipDao _espMembershipDao;
-    @Autowired
     private IEspResponseDao _espResponseDao;
     @Autowired
     private ISchoolDao _schoolDao;
@@ -93,6 +91,7 @@ public class EspFormController implements ReadWriteAnnotationController {
 
         putResponsesInModel(school, modelMap); // fetch responses for school, including external data
         putPercentCompleteInModel(school, modelMap);
+        modelMap.put("ethnicityBreakdowns", EspFormExternalDataHelper.STATE_TO_ETHNICITY.get(school.getDatabaseState()));
 
         modelMap.put("stateLocked", _noEditDao.isStateLocked(state));
 

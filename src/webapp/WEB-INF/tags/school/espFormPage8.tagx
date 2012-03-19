@@ -3,7 +3,6 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
@@ -57,33 +56,36 @@
             <legend>Student demographic information</legend>
             <hr class="legend"><!--Do not collapse--></hr>
             <input type="hidden" name="page_8_touched" value="yes"/>
-            <div class="lal clearfix">
-                <div class="alpha grid_7">
-                    <label>Your school's student ethnicity breakdown</label>
-                    <p class="hint">Enter percentage if applicable, e.g. 30%</p>
-                </div>
-                <div class="grid_16 omega">
-                    <div id="js_form_ethnicity_sum_error" class="error js_form_ethnicity_error" style="display: none">
-                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
-                        Values must add up to exactly 100%.
+            <c:if test="${not empty ethnicityBreakdowns}">
+                <div class="lal clearfix">
+                    <div class="alpha grid_7">
+                        <label>Your school's student ethnicity breakdown</label>
+                        <p class="hint">Enter percentage, if applicable, eg. 30%</p>
+                        <p class="hint">
+                            Note: GreatSchools collects student data from state and national sources. If your
+                            demographic updates become out of date, or you do not provide any data, this school's
+                            profile may reflect data from other sources.
+                        </p>
+                        <div id="js_form_ethnicity_sum_error" class="error js_form_ethnicity_error" style="display: none">
+                            <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                            Values must add up to exactly 100%.
+                        </div>
+                    </div>
+                    <div class="grid_16 omega">
+                        <c:forEach items="${ethnicityBreakdowns.breakdowns}" var="ethnicityBreakdown">
+                            <school:espFormEthnicityRow breakdownId="${ethnicityBreakdown.id}" label="${ethnicityBreakdown.name}"/>
+                        </c:forEach>
+                        <div class="lal clearfix">
+                            <div class="alpha grid_16 omega">
+                                <school:espCheckboxWithLabel key="census_ethnicity_unavailable" value="true"
+                                                             label="Data is unavailable" disabled="${stateLocked}"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </c:if>
             <c:choose>
                 <c:when test="${school.databaseState eq 'WI'}">
-                    <school:espFormEthnicityRow breakdownId="4" label="American Indian"/>
-                    <school:espFormEthnicityRow breakdownId="7"  label="Asian"/>
-                    <school:espFormEthnicityRow breakdownId="2"  label="Black"/>
-                    <school:espFormEthnicityRow breakdownId="3"  label="Hispanic"/>
-                    <school:espFormEthnicityRow breakdownId="8"  label="Pacific Islander"/>
-                    <school:espFormEthnicityRow breakdownId="1"  label="White"/>
-                    <school:espFormEthnicityRow breakdownId="6"  label="Two or More"/>
-                    <div class="lal clearfix">
-                        <div class="alpha prefix_7 grid_10">
-                            <school:espCheckboxWithLabel key="census_ethnicity_unavailable" value="true" label="Data is unavailable" disabled="${stateLocked}"/>
-                        </div>
-                        <div class="grid_6 omega"><!-- error? --></div>
-                    </div>
                     <school:espFormCensusRow typeLabel="Percentage of students participating in ELL or ESL services"
                                              stateLabel="English Proficient" dataTypeName="ell_esl"/>
                     <school:espFormCensusRow typeLabel="Percentage of students eligible for free or reduced-price lunch"
@@ -93,18 +95,6 @@
 
                 </c:when>
                 <c:when test="${school.databaseState eq 'DC' or school.databaseState eq 'CA'}">
-                    <school:espFormEthnicityRow breakdownId="10" label="American Indian/Alaskan Native"/>
-                    <school:espFormEthnicityRow breakdownId="5"  label="Asian/Pacific Islander"/>
-                    <school:espFormEthnicityRow breakdownId="2"  label="Black"/>
-                    <school:espFormEthnicityRow breakdownId="3"  label="Hispanic"/>
-                    <school:espFormEthnicityRow breakdownId="1"  label="White"/>
-                    <school:espFormEthnicityRow breakdownId="6"  label="Multiracial"/>
-                    <div class="lal clearfix">
-                        <div class="alpha prefix_7 grid_10">
-                            <school:espCheckboxWithLabel key="census_ethnicity_unavailable" value="true" label="Data is unavailable" disabled="${stateLocked}"/>
-                        </div>
-                        <div class="grid_6 omega"><!-- error? --></div>
-                    </div>
                     <school:espFormCensusRow typeLabel="Percentage of students participating in ELL or ESL services"
                                              stateLabel="ELL" dataTypeName="ell_esl"/>
                     <school:espFormCensusRow typeLabel="Percentage of students eligible for free or reduced-price lunch"
@@ -113,19 +103,6 @@
                                              stateLabel="Special Education" dataTypeName="special_ed"/>
                 </c:when>
                 <c:when test="${school.databaseState eq 'IN'}">
-                    <school:espFormEthnicityRow breakdownId="4" label="American Indian"/>
-                    <school:espFormEthnicityRow breakdownId="7"  label="Asian"/>
-                    <school:espFormEthnicityRow breakdownId="2"  label="Black"/>
-                    <school:espFormEthnicityRow breakdownId="3"  label="Hispanic"/>
-                    <school:espFormEthnicityRow breakdownId="8"  label="Native Hawaiian or Other Pacific Islander"/>
-                    <school:espFormEthnicityRow breakdownId="1"  label="White"/>
-                    <school:espFormEthnicityRow breakdownId="6"  label="Multiracial"/>
-                    <div class="lal clearfix">
-                        <div class="alpha prefix_7 grid_10">
-                            <school:espCheckboxWithLabel key="census_ethnicity_unavailable" value="true" label="Data is unavailable" disabled="${stateLocked}"/>
-                        </div>
-                        <div class="grid_6 omega"><!-- error? --></div>
-                    </div>
                     <school:espFormCensusRow typeLabel="Percentage of students participating in ELL or ESL services"
                                              stateLabel="ELL" dataTypeName="ell_esl"/>
                     <school:espFormCensusRow typeLabel="Percentage of students eligible for free or reduced-price lunch"
