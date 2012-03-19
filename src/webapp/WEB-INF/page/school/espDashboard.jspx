@@ -29,7 +29,10 @@
     </head>
 
     <gsml:body adPageName="OSP/dashboard" pageLayout="nocol">
-        <school:espOtherEditorsHover otherEspMemberships="${otherEspMemberships}"/>
+        <c:if test="${school.databaseState eq 'IN' or school.databaseState eq 'WI' or school.databaseState eq 'DC'}">
+            <school:espOtherEditorsHover otherEspMemberships="${otherEspMemberships}"/>
+            <c:set value="true" var="showOtherEditorsHover"/>
+        </c:if>
         <div class="container_24 slStylesV1-0 slFormsV1-0">
             <div class="spacer_20"><!-- do not collapse --></div>
             <div class="grid_21">
@@ -43,6 +46,8 @@
             </div>
 
             <c:if test="${not empty school}">
+            <input type="hidden" value="${school.id}" id="js_schoolId"/>
+            <input type="hidden" value="${school.databaseState}" id="js_schoolState"/>
                 <div class="grid_13 suffix_1">
                     <div class="mod form">
                         <div class="inner">
@@ -63,8 +68,11 @@
                                                     school="${school}">View profile</link:schoolProfileOverview><br/>
                                             <link:schoolPrincipalReview
                                                     school="${school}">Respond to parent reviews</link:schoolPrincipalReview>
-                                            <br/>
-                                            <a href="#" id="js_otherEspEditors" onclick="return false;">View and edit people with access to this profile</a>
+                                            <c:if test="${showOtherEditorsHover eq true}">
+                                                <br/>
+                                                <a href="#" id="js_otherEspEditors"
+                                                   onclick="return false;">View and edit people with access to this profile</a>
+                                            </c:if>
                                         </p>
                                     </div>
                                 </div>
