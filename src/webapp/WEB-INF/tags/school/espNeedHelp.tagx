@@ -35,7 +35,7 @@
                 <p class="small bottom">Email: <a href="mailto:indianapolis@greatschools.org">indianapolis@greatschools.org</a></p>
             </gsml:bubblePopup>
         </c:when>
-        <c:when test="${state eq 'WI' and city eq 'Milwaukee' or state eq 'CA'}">
+        <c:when test="${state eq 'WI' and city eq 'Milwaukee'}">
             <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="292" height="26">
                 <p class="medium_bold bottom">Get help with your profile from local staff</p>
                 <p class="small bottom">Hotline: 414-748-1211</p>
