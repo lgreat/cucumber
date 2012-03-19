@@ -19,8 +19,8 @@ GS.form.NewEspUserForm = function() {
                 async: true
             }).done(function(data) {
                     var debugInfo = "";
-                    if (data.debugOutput && data.debugOutput.length > 0) {
-                        debugInfo = debugInfo.concat(data.debugOutput);
+                    if (data.genericDebugOutput && data.genericDebugOutput.length > 0) {
+                        debugInfo = debugInfo.concat(data.genericDebugOutput);
                         debugInfo += "\n\n";
                     }
                     if (data.usersAlreadyApproved && data.usersAlreadyApproved.length > 0) {
@@ -132,16 +132,6 @@ GS.form.NewEspUsersBatchForm = function() {
         abort = true;
     };
 
-//    var resetUserCreation = function() {
-//        abort = true;
-//        currentIndex = 0;
-//        updateProgress();
-//        genericDebugOutput = [];
-//        usersAlreadyApproved = [];
-//        usersWithErrors = [];
-//        $(debugElementSelector).val('');
-//    };
-
     var sliceRows = function(dataElement, startRow, endRow) {
         var rows = dataElement.val().split("\n");
         if (startRow > rows.length || endRow < startRow || startRow < 0) {
@@ -178,8 +168,8 @@ GS.form.NewEspUsersBatchForm = function() {
         }
         updateProgress();
 
-        if (data.debugOutput && data.debugOutput.length > 0) {
-            genericDebugOutput = genericDebugOutput.concat(data.debugOutput);
+        if (data.genericDebugOutput && data.genericDebugOutput.length > 0) {
+            genericDebugOutput = genericDebugOutput.concat(data.genericDebugOutput);
         }
         if (data.usersAlreadyApproved && data.usersAlreadyApproved.length > 0) {
             usersAlreadyApproved = usersAlreadyApproved.concat(data.usersAlreadyApproved);
@@ -214,7 +204,6 @@ GS.form.NewEspUsersBatchForm = function() {
     return {
         startUserCreation: startUserCreation,
         stopUserCreation: stopUserCreation,
-//        resetUserCreation: resetUserCreation,
         updateTotalRows: updateTotalRows
     };
 
@@ -230,11 +219,9 @@ jQuery(function() {
 
     jQuery('#js_users').change(function() {
         GS.form.newEspUsersBatchForm.updateTotalRows();
-//        GS.form.newEspUsersBatchForm.resetUserCreation();
     });
 
     jQuery('#js_startCreateEspUsers').click(GS.form.newEspUsersBatchForm.startUserCreation);
     jQuery('#js_stopCreateEspUsers').click(GS.form.newEspUsersBatchForm.stopUserCreation);
-//    jQuery('#js_resetCreateEspUsers').click(GS.form.newEspUsersBatchForm.resetUserCreation);
 });
 
