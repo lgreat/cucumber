@@ -97,6 +97,18 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 form.inline {line-height:3;}
 .slFormsV1-0 form.inline p {margin-bottom:0; vertical-align:baseline;}
 
+/* Notification Blocks */
+.slFormsV1-0 .info-block,
+.slFormsV1-0 .success-block,
+.slFormsV1-0 .notice-block,
+.slFormsV1-0 .error-block,
+.slFormsV1-0 .alert-block 			{ font: normal 11px/16px Arial, Helvetica, sans-serif; padding: 10px; margin-bottom: 20px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+
+.slFormsV1-0 .info-block 			{ background: #F3F9FD; border-color: #BBDDED; color: #2b2b2b; }
+.slFormsV1-0 .success-block    { background: #E7F3E5; border-color: #B7DBB2; color: #118800; }
+.slFormsV1-0 .notice-block     { background: #FCEFE7; border-color: #F3CAAC; color: #dd6611; }
+.slFormsV1-0 .error-block, .alert-block { background: #FAE5EA; border-color: #EDA6B8; color: #cc0033; }
+
 /* Notifications */
 .slFormsV1-0 .error, .slFormsV1-0 .alert, .slFormsV1-0 .notice, .slFormsV1-0 .success, .slFormsV1-0 .info {font: normal 11px/16px Arial, Helvetica, sans-serif;padding:7px 0;margin:0;border:0;}
 .slFormsV1-0 .error, .slFormsV1-0 .alert {background:transparent;color:#cc0033;border-color:transparent;}
