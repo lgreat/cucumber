@@ -2,8 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsweb="gstaglib" xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
     <jsp:directive.attribute name="school" required="true" type="gs.data.school.School"/>
@@ -27,20 +26,20 @@
             <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="292" height="26">
                 <p class="medium_bold bottom">Get help with your profile from local staff</p>
                 <p class="small bottom">Hotline: 202-450-5278</p>
-                <p class="small bottom">Email: <span class="make-06b">dc@greatschools.org</span></p>
+                <p class="small bottom">Email: <a href="mailto:dc@greatschools.org">dc@greatschools.org</a></p>
             </gsml:bubblePopup>
         </c:when>
         <c:when test="${(state eq 'IN' and (city eq 'Beech Grove' or city eq 'Indianapolis' or city eq 'West Newton' or city eq 'Speedway'))}">
             <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="292" height="26">
                 <p class="medium_bold bottom">Get help with your profile from local staff</p>
-                <p class="small bottom">Email: <span class="make-06b">indianapolis@greatschools.org</span></p>
+                <p class="small bottom">Email: <a href="mailto:indianapolis@greatschools.org">indianapolis@greatschools.org</a></p>
             </gsml:bubblePopup>
         </c:when>
-        <c:when test="${state eq 'WI' and city eq 'Milwaukee'}">
+        <c:when test="${state eq 'WI' and city eq 'Milwaukee' or state eq 'CA'}">
             <gsml:bubblePopup id="espHelp" whichSide="right" triggerHtml="${bubbleTriggerNoLink}" width="292" height="26">
                 <p class="medium_bold bottom">Get help with your profile from local staff</p>
                 <p class="small bottom">Hotline: 414-748-1211</p>
-                <p class="small bottom">Email: <span class="make-06b">milwaukee@greatschools.org</span></p>
+                <p class="small bottom">Email: <a href="mailto:milwaukee@greatschools.org">milwaukee@greatschools.org</a></p>
             </gsml:bubblePopup>
         </c:when>
         <c:otherwise>
