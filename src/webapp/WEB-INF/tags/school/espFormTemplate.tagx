@@ -44,11 +44,15 @@
                     </div>
                     <div class="clear"><!--Do not collapse--></div>
                     <c:if test="${stateLocked}">
-                        <p class="alert">
-                            We are currently updating your state's data, so some of this school's information
+
+                        <div class="error-block">
+                            <div class="media">
+                            <span class="img iconx16 i-16-alert mrm"><!-- Do not collapse --></span>
+                            <div class="bd">We are currently updating your state's data, so some of this school's information
                             is temporarily unavailable for editing. If you need to edit information that is
-                            unavailable, please try again in two weeks. We apologize for the inconvenience.
-                        </p>
+                            unavailable, please try again in two weeks. We apologize for the inconvenience.</div>
+                            </div>
+                        </div>
                     </c:if>
                 </div>
 
