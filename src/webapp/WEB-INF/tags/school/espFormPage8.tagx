@@ -84,33 +84,13 @@
                     </div>
                 </div>
             </c:if>
-            <c:choose>
-                <c:when test="${school.databaseState eq 'WI'}">
-                    <school:espFormCensusRow typeLabel="Percentage of students participating in ELL or ESL services"
-                                             stateLabel="English Proficient" dataTypeName="ell_esl"/>
-                    <school:espFormCensusRow typeLabel="Percentage of students eligible for free or reduced-price lunch"
-                                             stateLabel="Economically Disadvantaged" dataTypeName="frpl"/>
-                    <school:espFormCensusRow typeLabel="Percentage of students that take advantage of some type of Special Education service"
-                                             stateLabel="Disabled" dataTypeName="disabilities"/>
-
-                </c:when>
-                <c:when test="${school.databaseState eq 'DC' or school.databaseState eq 'CA'}">
-                    <school:espFormCensusRow typeLabel="Percentage of students participating in ELL or ESL services"
-                                             stateLabel="ELL" dataTypeName="ell_esl"/>
-                    <school:espFormCensusRow typeLabel="Percentage of students eligible for free or reduced-price lunch"
-                                             stateLabel="Free and Reduced Lunch" dataTypeName="frpl"/>
-                    <school:espFormCensusRow typeLabel="Percentage of students that take advantage of some type of Special Education service"
-                                             stateLabel="Special Education" dataTypeName="special_ed"/>
-                </c:when>
-                <c:when test="${school.databaseState eq 'IN'}">
-                    <school:espFormCensusRow typeLabel="Percentage of students participating in ELL or ESL services"
-                                             stateLabel="ELL" dataTypeName="ell_esl"/>
-                    <school:espFormCensusRow typeLabel="Percentage of students eligible for free or reduced-price lunch"
-                                             stateLabel="Free or Reduced Price Meals" dataTypeName="frpl"/>
-                    <school:espFormCensusRow typeLabel="Percentage of students that take advantage of some type of Special Education service"
-                                             stateLabel="Special Ed" dataTypeName="special_ed"/>
-                </c:when>
-            </c:choose>
+            <c:if test="${not empty censusDataTypes}">
+                <c:forEach items="${censusDataTypes}" var="censusDataTypeConfig">
+                    <school:espFormCensusRow typeLabel="${censusDataTypeConfig.genericName}"
+                                             stateLabel="${censusDataTypeConfig.name}"
+                                             dataTypeId="${censusDataTypeConfig.id}"/>
+                </c:forEach>
+            </c:if>
         </fieldset>
     </school:espFormTemplate>
 </jsp:root>

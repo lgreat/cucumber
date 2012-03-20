@@ -35,6 +35,14 @@ public class EspFormExternalDataHelper {
     private static final Log _log = LogFactory.getLog(EspFormExternalDataHelper.class);
 
     public static final String CENSUS_ETHNICITY_LABEL = "Your school's student ethnicity breakdown";
+    public static final String CENSUS_STUDENTS_LIMITED_ENGLISH_LABEL =
+            "Percentage of students participating in ELL or ESL services";
+    public static final String CENSUS_STUDENTS_PERCENT_FREE_LUNCH_LABEL =
+            "Percentage of students eligible for free or reduced-price lunch";
+    public static final String CENSUS_STUDENTS_WITH_DISABILITIES_LABEL =
+            "Percentage of students that take advantage of some type of Special Education service";
+    public static final String CENSUS_STUDENTS_SPECIAL_EDUCATION_LABEL =
+            "Percentage of students that take advantage of some type of Special Education service";
 
     @Autowired
     private ISchoolDao _schoolDao;
@@ -201,30 +209,19 @@ public class EspFormExternalDataHelper {
             if (school.getSubtype().contains("all_female")) {
                 return new String[] {"all_girls"};
             }
-        } else if (StringUtils.equals("census_frpl", key)) {
-            SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType
-                    .STUDENTS_PERCENT_FREE_LUNCH);
-            if (value != null && value.getValueInteger() != null) {
-                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
-                return new String[]{String.valueOf(value.getValueInteger())};
-            }
-        } else if (StringUtils.equals("census_ell_esl", key)) {
-            SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType.STUDENTS_LIMITED_ENGLISH);
-            if (value != null && value.getValueInteger() != null) {
-                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
-                return new String[]{String.valueOf(value.getValueInteger())};
-            }
-        } else if (StringUtils.equals("census_special_ed", key)) {
-            SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION);
-            if (value != null && value.getValueInteger() != null) {
-                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
-                return new String[]{String.valueOf(value.getValueInteger())};
-            }
-        } else if (StringUtils.equals("census_disabilities", key)) {
-            SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType.STUDENTS_WITH_DISABILITIES);
-            if (value != null && value.getValueInteger() != null) {
-                _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
-                return new String[]{String.valueOf(value.getValueInteger())};
+        } else if (StringUtils.startsWith(key, "census_")) {
+            if (STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()) != null) {
+                for (EspCensusDataTypeConfiguration dataTypeConfig: STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState())) {
+                    if (StringUtils.equals("census_" + dataTypeConfig.getId(), key)) {
+                        SchoolCensusValue value = school.getCensusInfo().getManualValue(school, CensusDataType.getEnum(dataTypeConfig.getId()));
+                        if (value != null && value.getValueInteger() != null) {
+                            _log.debug("Overwriting key " + key + " with value " + value.getValueInteger());
+                            return new String[]{String.valueOf(value.getValueInteger())};
+                        }
+                    }
+                }
+            } else {
+                _log.error("Missing census data type configuration for " + key + " in " + school.getDatabaseState());
             }
         }
         return new String[0];
@@ -327,14 +324,17 @@ public class EspFormExternalDataHelper {
         } else if (StringUtils.equals("census_ethnicity", key)) {
             Map<Integer, Integer> breakdownIdToValueMap = (Map<Integer, Integer>) values[0];
             return handleEthnicity(breakdownIdToValueMap, school, user);
-        } else if (StringUtils.equals("census_frpl", key)) {
-            return saveCensusPercentFromString(school, CensusDataType.STUDENTS_PERCENT_FREE_LUNCH, user, key, (String) values[0]);
-        } else if (StringUtils.equals("census_ell_esl", key)) {
-            return saveCensusPercentFromString(school, CensusDataType.STUDENTS_LIMITED_ENGLISH, user, key, (String) values[0]);
-        } else if (StringUtils.equals("census_special_ed", key)) {
-            return saveCensusPercentFromString(school, CensusDataType.STUDENTS_SPECIAL_EDUCATION, user, key, (String) values[0]);
-        } else if (StringUtils.equals("census_disabilities", key)) {
-            return saveCensusPercentFromString(school, CensusDataType.STUDENTS_WITH_DISABILITIES, user, key, (String) values[0]);
+        } else if (StringUtils.startsWith(key, "census_")) {
+            if (STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()) != null) {
+                for (EspCensusDataTypeConfiguration dataTypeConfig: STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState())) {
+                    if (StringUtils.equals("census_" + dataTypeConfig.getId(), key)) {
+                        return saveCensusPercentFromString
+                                (school, CensusDataType.getEnum(dataTypeConfig.getId()), user, key, (String) values[0]);
+                    }
+                }
+            } else {
+                _log.error("Missing census data type configuration for " + key + " in " + school.getDatabaseState());
+            }
         } else {
             _log.error("Unknown external key: " + key);
         }
@@ -572,10 +572,10 @@ public class EspFormExternalDataHelper {
         keys.add("administrator_email");
         if (school.getType() == SchoolType.PRIVATE) {
             keys.add("census_ethnicity");
-            keys.add("census_ell_esl");
-            keys.add("census_frpl");
-            keys.add("census_special_ed");
-            keys.add("census_disabilities");
+            keys.add("census_6");
+            keys.add("census_8");
+            keys.add("census_15");
+            keys.add("census_22");
         }
         return keys;
     }
@@ -602,7 +602,13 @@ public class EspFormExternalDataHelper {
     protected static class EspCensusDataTypeConfiguration {
         private Integer _id;
         private String _name;
+        private String _genericName;
         private List<EspCensusBreakdownConfiguration> _breakdowns;
+
+        public EspCensusDataTypeConfiguration(Integer id, String name, String genericName) {
+            this(id, name, new ArrayList<EspCensusBreakdownConfiguration>());
+            _genericName = genericName;
+        }
 
         public EspCensusDataTypeConfiguration(Integer id, String name, List<EspCensusBreakdownConfiguration> breakdowns) {
             _id = id;
@@ -618,11 +624,54 @@ public class EspFormExternalDataHelper {
             return _name;
         }
 
+        public String getGenericName() {
+            return _genericName;
+        }
+
         public List<EspCensusBreakdownConfiguration> getBreakdowns() {
             return _breakdowns;
         }
     }
 
+    public static final Map<State, List<EspCensusDataTypeConfiguration>> STATE_TO_CENSUS_DATATYPES
+            = new HashMap<State, List<EspCensusDataTypeConfiguration>>() {{
+        put(State.WI, Arrays.asList(
+            new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_LIMITED_ENGLISH.getId(), "English Proficient",
+                            CENSUS_STUDENTS_LIMITED_ENGLISH_LABEL),
+            new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_PERCENT_FREE_LUNCH.getId(), "Economically Disadvantaged",
+                            CENSUS_STUDENTS_PERCENT_FREE_LUNCH_LABEL),
+            new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_WITH_DISABILITIES.getId(), "Disabled",
+                            CENSUS_STUDENTS_WITH_DISABILITIES_LABEL)
+        ));
+
+        put(State.DC, Arrays.asList(
+            new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_LIMITED_ENGLISH.getId(), "ELL",
+                            CENSUS_STUDENTS_LIMITED_ENGLISH_LABEL),
+            new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_PERCENT_FREE_LUNCH.getId(), "Free and Reduced Lunch",
+                            CENSUS_STUDENTS_PERCENT_FREE_LUNCH_LABEL),
+            new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_SPECIAL_EDUCATION.getId(), "Special Education",
+                            CENSUS_STUDENTS_SPECIAL_EDUCATION_LABEL)
+        ));
+
+        put(State.IN, Arrays.asList(
+            new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_LIMITED_ENGLISH.getId(), "ELL",
+                            CENSUS_STUDENTS_LIMITED_ENGLISH_LABEL),
+            new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_PERCENT_FREE_LUNCH.getId(), "Free or Reduced Price Meals",
+                            CENSUS_STUDENTS_PERCENT_FREE_LUNCH_LABEL),
+            new EspCensusDataTypeConfiguration
+                    (CensusDataType.STUDENTS_SPECIAL_EDUCATION.getId(), "Special Ed",
+                            CENSUS_STUDENTS_SPECIAL_EDUCATION_LABEL)
+        ));
+    }};
+    
     public static final Map<State, EspCensusDataTypeConfiguration> STATE_TO_ETHNICITY =
             new HashMap<State, EspCensusDataTypeConfiguration>() {{
             put(State.WI, new EspCensusDataTypeConfiguration

@@ -7,30 +7,30 @@
         >
     <jsp:directive.attribute name="typeLabel" required="true" description="Label" type="java.lang.String"/>
     <jsp:directive.attribute name="stateLabel" required="true" description="Label" type="java.lang.String"/>
-    <jsp:directive.attribute name="dataTypeName" required="true" description="Name of data type, used for HTML attributes" type="java.lang.String"/>
-    <c:set var="censusRowResponseKey" value="census_${dataTypeName}"/>
+    <jsp:directive.attribute name="dataTypeId" required="true" description="Id of data type, used for HTML attributes" type="java.lang.String"/>
+    <c:set var="censusRowResponseKey" value="census_${dataTypeId}"/>
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
-            <label for="js_form_census_${dataTypeName}">${typeLabel}</label>
+            <label for="js_form_census_${dataTypeId}">${typeLabel}</label>
         </div>
         <div class="grid_16 omega">
             <div class="alpha grid_9 suffix_1">
-                <gsml:input styleId="js_form_census_${dataTypeName}" styleClass="text digits_3" type="text"
-                            name="census_${dataTypeName}"
+                <gsml:input styleId="js_form_census_${dataTypeId}" styleClass="text digits_3 js_form_census_dataType" type="text"
+                            name="census_${dataTypeId}"
                             value="${responseMap[censusRowResponseKey].value}" disabled="${stateLocked}" maxlength="3"/>
                 <span> % </span>
                 <span>${stateLabel}</span>
             </div>
             <div class="grid_6 omega">
-                <div id="js_form_census_${dataTypeName}_number_error"  class="error" style="display: none">
+                <div id="js_form_census_${dataTypeId}_number_error"  class="error" style="display: none">
                     <span class="sprite i-alert vam"><!--Do not collapse--></span>
                     Please enter a number.
                 </div>
             </div>
             <div class="lal clearfix">
                 <div class="alpha grid_16 omega">
-                    <school:espCheckboxWithLabel key="census_${dataTypeName}_unavailable" value="true" label="Data is unavailable" disabled="${stateLocked}"/>
+                    <school:espCheckboxWithLabel key="census_${dataTypeId}_unavailable" value="true" label="Data is unavailable" disabled="${stateLocked}"/>
                 </div>
             </div>
         </div>

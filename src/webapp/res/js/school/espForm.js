@@ -648,58 +648,28 @@ GS.validation.validateEthnicities = function() {
     var allValid = true;
 
     var rangeValid = GS.validation.validatePercentageRange(
-        '#js_form_ethnicity_1,' +
-            '#js_form_ethnicity_2,' +
-            '#js_form_ethnicity_3,' +
-            '#js_form_ethnicity_4,' +
-            '#js_form_ethnicity_5,' +
-            '#js_form_ethnicity_6,' +
-            '#js_form_ethnicity_7,' +
-            '#js_form_ethnicity_8,' +
-            '#js_form_ethnicity_10',
+        '.js_form_ethnicity_validation',
         '#js_form_ethnicity_sum_error', 100, 100);
     allValid = allValid && rangeValid;
 
-    var field1Valid = GS.validation.validateInteger ('#js_form_ethnicity_1', '#js_form_ethnicity_1_number_error');
-    allValid = allValid && field1Valid;
-    var field2Valid = GS.validation.validateInteger ('#js_form_ethnicity_2', '#js_form_ethnicity_2_number_error');
-    allValid = allValid && field2Valid;
-    var field3Valid = GS.validation.validateInteger ('#js_form_ethnicity_3', '#js_form_ethnicity_3_number_error');
-    allValid = allValid && field3Valid;
-    var field4Valid = GS.validation.validateInteger ('#js_form_ethnicity_4', '#js_form_ethnicity_4_number_error');
-    allValid = allValid && field4Valid;
-    var field5Valid = GS.validation.validateInteger ('#js_form_ethnicity_5', '#js_form_ethnicity_5_number_error');
-    allValid = allValid && field5Valid;
-    var field6Valid = GS.validation.validateInteger ('#js_form_ethnicity_6', '#js_form_ethnicity_6_number_error');
-    allValid = allValid && field6Valid;
-    var field7Valid = GS.validation.validateInteger ('#js_form_ethnicity_7', '#js_form_ethnicity_7_number_error');
-    allValid = allValid && field7Valid;
-    var field8Valid = GS.validation.validateInteger ('#js_form_ethnicity_8', '#js_form_ethnicity_8_number_error');
-    allValid = allValid && field8Valid;
-    var field10Valid = GS.validation.validateInteger ('#js_form_ethnicity_10','#js_form_ethnicity_10_number_error');
-    allValid = allValid && field10Valid;
+    jQuery('.js_form_ethnicity_validation').each(function() {
+        allValid = GS.validation.validateInteger('#' + this.id, '#' + this.id + '_number_error') && allValid;
+    });
 
     if (!rangeValid) {
         // add this back in if any of the above validations removed it.
-        jQuery('#js_form_ethnicity_1,' +
-            '#js_form_ethnicity_2,' +
-            '#js_form_ethnicity_3,' +
-            '#js_form_ethnicity_4,' +
-            '#js_form_ethnicity_5,' +
-            '#js_form_ethnicity_6,' +
-            '#js_form_ethnicity_7,' +
-            '#js_form_ethnicity_8,' +
-            '#js_form_ethnicity_10').filter("input[type=text]").addClass("warning");
+        jQuery('.js_form_ethnicity_validation').addClass("warning");
     }
     return allValid;
 };
 
 GS.validation.validateCensuses = function() {
-    var a = GS.validation.validateCensus('#js_form_census_ell_esl','#js_form_census_ell_esl_number_error','#form_census_ell_esl_unavailable__true');
-    var b = GS.validation.validateCensus('#js_form_census_frpl','#js_form_census_frpl_number_error','#form_census_frpl_unavailable__true');
-    var c = GS.validation.validateCensus('#js_form_census_special_ed','#js_form_census_special_ed_number_error','#form_census_special_ed_unavailable__true');
-    var d = GS.validation.validateCensus('#js_form_census_disabilities','#js_form_census_disabilities_number_error','#form_census_disabilities_unavailable__true');
-    return a && b && c && d;
+    var allValid = true;
+    jQuery('.js_form_census_dataType').each(function() {
+        allValid = GS.validation.validateCensus
+            ('#' + this.id,'#' + this.id + '_number_error','#' + this.id.substring(3) + '_unavailable__true') && allValid;
+    });
+    return allValid;
 };
 
 GS.validation.validateCensus = function(inputSelector, errorSelector, unavailableSelector) {

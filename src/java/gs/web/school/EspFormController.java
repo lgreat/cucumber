@@ -92,6 +92,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         putResponsesInModel(school, modelMap); // fetch responses for school, including external data
         putPercentCompleteInModel(school, modelMap);
         modelMap.put("ethnicityBreakdowns", EspFormExternalDataHelper.STATE_TO_ETHNICITY.get(school.getDatabaseState()));
+        modelMap.put("censusDataTypes", EspFormExternalDataHelper.STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState()));
 
         modelMap.put("stateLocked", _noEditDao.isStateLocked(state));
 
@@ -190,6 +191,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         if (fieldError != null) {
             errorFieldToMsgMap.put("ethnicity", fieldError);
         }
+        handleCensusDataTypes(requestParameterMap, keysForPage, school);
 
         // Basic validation goes here
         // Note: This should only validate data going into esp_response. Data going to external places MUST be
@@ -348,6 +350,27 @@ public class EspFormController implements ReadWriteAnnotationController {
             requestParameterMap.put("census_ethnicity", new Object[] {breakdownToValueMap});
         }
         return error;
+    }
+
+    /**
+     * Make sure that census data types handle "this data is unavailable" correctly by disabling any active
+     * manual value in the DB.
+     */
+    protected void handleCensusDataTypes(Map<String, Object[]> requestParameterMap, Set<String> keysForPage, School school) {
+        List<EspFormExternalDataHelper.EspCensusDataTypeConfiguration> dataTypeConfigs =
+                EspFormExternalDataHelper.STATE_TO_CENSUS_DATATYPES.get(school.getDatabaseState());
+        if (dataTypeConfigs != null) {
+            for (EspFormExternalDataHelper.EspCensusDataTypeConfiguration dataTypeConfig: dataTypeConfigs) {
+                String key = "census_" + dataTypeConfig.getId();
+                String keyUnavailable = key + "_unavailable";
+                if (keysForPage.contains(keyUnavailable) 
+                        && requestParameterMap.get(keyUnavailable) != null
+                        && requestParameterMap.get(keyUnavailable).length == 1
+                        && Boolean.valueOf(requestParameterMap.get(keyUnavailable)[0].toString())) {
+                    requestParameterMap.put(key, new Object[] {""}); // this will disable the existing value
+                }
+            }
+        }
     }
 
     protected void handleAddressSave(Map<String, Object[]> requestParameterMap, Set<String> keysForPage, Address existingAddress) {
