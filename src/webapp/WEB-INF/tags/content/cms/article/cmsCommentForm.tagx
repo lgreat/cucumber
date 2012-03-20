@@ -32,42 +32,43 @@
 
                     <div class="lal clearfix">
                         <div class="alpha grid_3">
-                    <label for="name">Name (optional): </label>
+                            <label for="name">Name (optional): </label>
                         </div>
                         <div class="grid_7 suffix_5 omega">
-                    <input name="name" id="name" type="text" class="text input_7"/>
+                            <input name="name" id="name" type="text" class="text input_7"/>
                         </div>
                     </div>
 
                     <div class="lal clearfix">
-                    <div class="alpha grid_3">
-                    <label for="email">Email (optional): </label>
-                    </div>
-                    <div class="grid_7 suffix_5 omega">
-                    <input name="email" id="email" type="text" class="text input_7"/>
+                        <div class="alpha grid_3">
+                            <label for="email">Email (optional): </label>
+                        </div>
+                        <div class="grid_7 suffix_5 omega">
+                            <input name="email" id="email" type="text" class="text input_7"/>
                         </div>
                     </div>
 
                     <div class="lal clearfix">
-                    <div class="alpha grid_3">
-                    <label for="commenttextarea">Comment:</label>
-                    </div>
-                    <div class="grid_7 suffix_5 omega">
-                    <textarea name="comment" id="commenttextarea" class="input_7" cols="50" rows="5"><!-- do not collapse --></textarea>
+                        <div class="alpha grid_3">
+                            <label for="commenttextarea">Comment:</label>
+                        </div>
+                        <div class="grid_7 suffix_5 omega">
+                            <textarea name="comment" id="commenttextarea" class="input_7" cols="50"
+                                      rows="5"><!-- do not collapse --></textarea>
                         </div>
                     </div>
 
                     <div class="nal clearfix">
-                    <div class="alpha prefix_3 grid_9 suffix_3 omega">
-                    <script type="text/javascript">
-                        var RecaptchaOptions = {theme:'white', tabindex: 0};
-                    </script>
-                    <script type="text/javascript"
-                            src="http://api.recaptcha.net/challenge?k=6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL">
-                        /* this comment keeps the tag from collapsing */
-                    </script>
+                        <div class="alpha prefix_3 grid_9 suffix_3 omega">
+                            <script type="text/javascript">
+                                var RecaptchaOptions = {theme:'white', tabindex:0};
+                            </script>
+                            <script type="text/javascript"
+                                    src="http://api.recaptcha.net/challenge?k=6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL">
+                                /* this comment keeps the tag from collapsing */
+                            </script>
 
-                    <![CDATA[
+                            <![CDATA[
                     <noscript>
                        <iframe src="http://api.recaptcha.net/noscript?k=6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL"
                            height="300" width="500" frameborder="0"></iframe><br/>
@@ -79,23 +80,25 @@
                     </noscript>
                     ]]>
                         </div>
-</div>
+                    </div>
 
                     <div class="nal clearfix">
-                    <div class="mediaExt1-1">
-                    <input id="permit" class="img" name="permit" type="checkbox" checked="checked"/>
-                    <label class="checkbox-smaller bk pts" for="permit">Yes, I agree to the
-                        <link:termsOfUse>GreatSchools Terms of Use</link:termsOfUse> and give GreatSchools
-                        permission to post my comments for other parents to read.</label>
+                        <div class="mediaExt1-1">
+                            <input id="permit" class="img" name="permit" type="checkbox" checked="checked"/>
+                            <label class="checkbox-smaller bk pts" for="permit">Yes, I agree to the
+                                <link:termsOfUse>GreatSchools Terms of Use</link:termsOfUse> and give GreatSchools
+                                permission to post my comments for other parents to read.</label>
                         </div>
                     </div>
 
                     <div class="nal clearfix">
-                    <p class="mumbo bottom"><strong>Note:</strong> Your email address is required if you would like a response from GreatSchools.org.</p>
+                        <p class="mumbo bottom">
+                            <strong>Note:</strong> Your email address is required if you would like a response from GreatSchools.org.
+                        </p>
                     </div>
 
                     <div class="nal clearfix">
-                    <button class="button-1" type="submit">Post</button>
+                        <button class="button-1" type="submit">Post</button>
                     </div>
 
                 </form>
