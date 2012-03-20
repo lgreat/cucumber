@@ -71,12 +71,26 @@
                                                 <input type="text" id="js_email" name="email" class="input_4"/>
                                             </div>
                                         </div>
+                                        <div class="invalid error" id="js_emailErrorDiv"
+                                             style="display: none;">
+                                            <div class="mediaExt1-1">
+                                                <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                                <div class="bk" id="js_emailError"><!-- error msg goes here --></div>
+                                            </div>
+                                        </div>
                                         <div class="lal clearfix">
                                             <div class="alpha grid_3">
                                                 <label>First Name</label>
                                             </div>
                                             <div class="omega grid_3">
                                                 <input type="text" id="js_firstName" name="firstName" class="input_4"/>
+                                            </div>
+                                        </div>
+                                        <div class="invalid error" id="js_firstNameErrorDiv"
+                                             style="display: none;">
+                                            <div class="mediaExt1-1">
+                                                <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                                <div class="bk" id="js_firstNameError"><!-- error msg goes here --></div>
                                             </div>
                                         </div>
                                         <div class="lal clearfix">
@@ -87,6 +101,13 @@
                                                 <input type="text" id="js_lastName" name="lastName" class="input_4"/>
                                             </div>
                                             <br/>
+                                        </div>
+                                         <div class="invalid error" id="js_lastNameErrorDiv"
+                                             style="display: none;">
+                                            <div class="mediaExt1-1">
+                                                <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                                <div class="bk" id="js_lastNameError"><!-- error msg goes here --></div>
+                                            </div>
                                         </div>
                                         <div class="lal clearfix">
                                             <div class="alpha grid_3">

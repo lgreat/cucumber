@@ -36,7 +36,7 @@ public class EspOtherEditorsController implements ReadWriteAnnotationController 
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
     @RequestMapping(method = RequestMethod.POST)
-    public void add(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
+    public void add(HttpServletRequest request, HttpServletResponse response,
                     @RequestParam(value = PARAM_SCHOOL_ID, required = false) Integer schoolId,
                     @RequestParam(value = PARAM_STATE, required = false) State state,
                     @RequestParam(value = "email", required = false) String email,
@@ -44,6 +44,8 @@ public class EspOtherEditorsController implements ReadWriteAnnotationController 
                     @RequestParam(value = "lastName", required = false) String lastName,
                     @RequestParam(value = "jobTitle", required = false) String jobTitle
     ) throws Exception {
+
+        Map debugInfo = new HashMap();
 
         //get a valid logged in user.
         User user = _espDashboardController.getValidUser(request);
@@ -64,7 +66,6 @@ public class EspOtherEditorsController implements ReadWriteAnnotationController 
         }
 
         //Add the new pre-approved user.
-        Map debugInfo = new HashMap();
         //TODO right now this wont add more rows if already a approved or pre-approved for another school.What to do about Multi access?
         _espCreateUsersController.addUser(request, email, state, schoolId.toString(), firstName, lastName, jobTitle, debugInfo);
 
@@ -84,7 +85,5 @@ public class EspOtherEditorsController implements ReadWriteAnnotationController 
         response.getWriter().print(rval.toString());
         response.getWriter().flush();
     }
-
-
 
 }
