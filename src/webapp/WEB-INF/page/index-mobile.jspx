@@ -22,19 +22,12 @@
 
 <html lang="en">
 
-<jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-
+<jsp:output omit-xml-declaration="true" />
+<jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
 <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 
-<jsp:scriptlet>
-    SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-    request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
-    request.setAttribute("showExtendedFooter", true);
-</jsp:scriptlet>
 
 <head>
     <title>GreatSchools - Public and Private School Ratings, Reviews and Parent Community</title>
@@ -45,22 +38,10 @@
           content="school ratings, public schools, public school ratings, private schools, private school ratings, charter schools, charter school ratings, school reviews, school rankings, test scores, preschool, elementary school, middle school, high school, parent community, education resource, find school, great schools, greatschools"/>
     <meta name="decorator" content="standardMobileDecorator"/>
 
-    <pageHelper:setPathway pathway="HOME"/>
-
-    <jsp:scriptlet>
-        PageHelper.hideLeaderboard(request);
-        PageHelper.addMetaProperty(request, "fb:page_id", "54475228539");
-    </jsp:scriptlet>
-
     <meta name="verify-v1" content="8wIYiSgpVxmFXAqa0o9m/kbv8p0enMoVmBn0d7Tq3z8="/>
 </head>
 
 <body>
-
-    <div id="logoBoxMobile" align="center" style="background-color:#808080;">
-        <gsml:a href="/">
-            <gsml:img id="mobileLogo" src="/res/img/logo/logo_GS2010_330x110.png" height="30" alt="GreatSchools: Involved Parents. Successful Kids"/></gsml:a>
-    </div>
 
     <div id="content" align="left" style="padding:10px" data-role="content">
 

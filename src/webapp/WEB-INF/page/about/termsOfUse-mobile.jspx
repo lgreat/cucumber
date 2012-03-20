@@ -9,26 +9,20 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
     <html lang="en">
-    <jsp:output doctype-root-element="html"
-                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-
-    <jsp:directive.page contentType="text/html"/>
-    <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
-    <pageHelper:hideFooterAd/>
+    <jsp:output omit-xml-declaration="true" />
+    <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="Description" content="Terms of Use"/>
         <title>GreatSchools.org Terms of Use</title>
-        <link rel="stylesheet" href="/res/css/discussionBoards/db_community.css" type="text/css" />
         <meta name="decorator" content="standardMobileDecorator"/>
     </head>
 
-    <gsml:body adPageName="terms" pageLayout="nocol">
 
 
-<div id="policy">
+<div id="policy" >
   <h1 id="top">Terms of Use</h1>
   <p>Thank you for using the GreatSchools Inc. website (accessible at:"www.greatschools.org" hereinafter, the "website"). This page states the terms and conditions under which you may use the website and any materials, online communications and other information that is or becomes available on the website. By accessing the website you accept and agree to be bound, without limitation or qualification by these terms. If you do not accept any of the terms stated here, do not use the website. </p>
   <h2 id="s1">Agreement Between You and GreatSchools.org. </h2>
@@ -100,7 +94,5 @@
     </ol>
     <p>If you violate any of the above Parent Community Guidelines, you will be notified individually by community staff and may, as a result of your actions, receive a warning, temporary suspension or permanent banning from the community. We reserve the right to suspend or terminate your right to use our services at any time, for any reason.</p>
 </div>
-        <mod:tracking pageName="TermsOfUse" hier1="Home,Corporate,TermsOfUse"/>
-    </gsml:body>
     </html>
 </jsp:root>

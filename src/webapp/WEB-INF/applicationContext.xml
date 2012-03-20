@@ -260,5 +260,24 @@
         <constructor-arg type="java.util.Map"><null/></constructor-arg>
     </bean>
 
+    <bean id="springWurflManager" class="net.sourceforge.wurfl.spring.SpringWurflManager">
+
+        <!--if you have only one patchfile , you can write this way-->
+        <property name="wurflPatch" value="/WEB-INF/web_browsers_patch.xml"/>
+
+        <!-- otherwise, for 2 or more patch files -->
+        <!--
+        <property name="wurflPatches">
+            <list>
+                <value>/WEB-INF/web_browsers_patch.xml</value>
+                <value>/WEB-INF/web_browsers_patch2.xml</value>
+            </list>
+        </property>
+        -->
+    </bean>
+
+    <bean id="contextApplicationContextProvider" class="gs.web.request.ApplicationContextProvider" lazy-init="false" autowire="byName"/>
+
+
 
 </beans>

@@ -5,8 +5,11 @@ import gs.web.mobile.MobileHelper;
 import gs.web.mobile.UnknownDevice;
 import gs.web.util.CookieUtil;
 import gs.web.util.UrlUtil;
+import gs.web.util.context.SessionContextUtil;
 import net.sourceforge.wurfl.core.WURFLManager;
+import net.sourceforge.wurfl.spring.SpringWurflManager;
 import org.apache.commons.lang.ArrayUtils;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mobile.device.site.SitePreference;
 import org.springframework.mobile.device.site.SitePreferenceHandler;
 import org.springframework.mobile.device.site.SitePreferenceUtils;
@@ -53,6 +56,10 @@ public class RequestInfo {
         RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
         if (requestInfo == null) {
             requestInfo = new RequestInfo(request);
+            SpringWurflManager springWurflManager = (SpringWurflManager) (ApplicationContextProvider.getApplicationContext().getBean("springWurflManager"));
+            if (springWurflManager != null) {
+                requestInfo.setDevice(new Device(springWurflManager.getDeviceForRequest(request)));
+            }
         }
         return requestInfo;
     }
@@ -295,5 +302,9 @@ public class RequestInfo {
 
     public HostData getHostData() {
         return _hostData;
+    }
+
+    public void setDevice(Device device) {
+        _device = device;
     }
 }
