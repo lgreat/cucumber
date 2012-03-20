@@ -7,8 +7,8 @@
     <jsp:directive.attribute name="contentUrl" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="type" required="false" type="java.lang.String"/>
 
-    <div class="mod articleCommentForm">
-        <div class="inner rnd5">
+    <div class="mod form">
+        <div class="inner">
 
             <div class="hd">
                 <h3>Post a comment on this article</h3>
@@ -30,21 +30,35 @@
                     <input type="hidden" name="captchaResponse" value="the Response"/>
                     <input type="hidden" name="description" value=""/>
 
-                    <div class="formRow">
+                    <div class="lal clearfix">
+                        <div class="alpha grid_3">
                     <label for="name">Name (optional): </label>
-                    <input name="name" id="name" type="text" class="text"/>
+                        </div>
+                        <div class="grid_7 suffix_5 omega">
+                    <input name="name" id="name" type="text" class="text input_7"/>
+                        </div>
                     </div>
 
-                    <div class="formRow">
+                    <div class="lal clearfix">
+                    <div class="alpha grid_3">
                     <label for="email">Email (optional): </label>
-                    <input name="email" id="email" type="text" class="text"/>
+                    </div>
+                    <div class="grid_7 suffix_5 omega">
+                    <input name="email" id="email" type="text" class="text input_7"/>
+                        </div>
                     </div>
 
-                    <div class="formRow">
+                    <div class="lal clearfix">
+                    <div class="alpha grid_3">
                     <label for="commenttextarea">Comment:</label>
-                    <textarea name="comment" id="commenttextarea" cols="50" rows="5" style="resize: none;"><!-- do not collapse --></textarea>
+                    </div>
+                    <div class="grid_7 suffix_5 omega">
+                    <textarea name="comment" id="commenttextarea" class="input_7" cols="50" rows="5"><!-- do not collapse --></textarea>
+                        </div>
                     </div>
 
+                    <div class="nal clearfix">
+                    <div class="alpha prefix_3 grid_9 suffix_3 omega">
                     <script type="text/javascript">
                         var RecaptchaOptions = {theme:'white', tabindex: 0};
                     </script>
@@ -64,16 +78,25 @@
                            value="manual_challenge"/>
                     </noscript>
                     ]]>
+                        </div>
+</div>
 
-                    <div class="spacer_20"><!-- do not collapse --></div>
-                    <input id="permit" class="fltlft mrm" name="permit" type="checkbox" checked="checked"/>
-                    <p class="small">Yes, I agree to the
+                    <div class="nal clearfix">
+                    <div class="mediaExt1-1">
+                    <input id="permit" class="img" name="permit" type="checkbox" checked="checked"/>
+                    <label class="checkbox-smaller bk pts" for="permit">Yes, I agree to the
                         <link:termsOfUse>GreatSchools Terms of Use</link:termsOfUse> and give GreatSchools
-                        permission to post my comments for other parents to read.</p>
+                        permission to post my comments for other parents to read.</label>
+                        </div>
+                    </div>
 
-                    <p class="small"><strong>Note:</strong> Your email address is required if you would like a response from GreatSchools.org.</p>
+                    <div class="nal clearfix">
+                    <p class="mumbo bottom"><strong>Note:</strong> Your email address is required if you would like a response from GreatSchools.org.</p>
+                    </div>
 
+                    <div class="nal clearfix">
                     <button class="button-1" type="submit">Post</button>
+                    </div>
 
                 </form>
 
