@@ -29,7 +29,7 @@ public class HomePageIntegrationTest extends BaseHtmlUnitIntegrationTestCase {
         // http://www.nabble.com/Problem-with-jQuery-and-HtmlUnit-2.4-td21931584.html
         /*
         // We rarely want to turn on Javascript for testing since it has many side effects (such as
-        // hitting Omniture, tacoda, etc... but below I'm testing the search form submission
+        // hitting Omniture, etc... but below I'm testing the search form submission
         // which uses javascript so I'm explicitly turning it on
         _webClient.setJavaScriptEnabled(true);
         final HtmlPage page = (HtmlPage) _webClient.getPage(PAGE_URL + "?cobrand=framed");

@@ -28,7 +28,7 @@ public class BaseHtmlUnitIntegrationTestCase extends TestCase implements Integra
         // We default to Firefox 2 because minmax.js causes rhino javascript issues
         _webClient = new WebClient(BrowserVersion.FIREFOX_2);
         // Turning on javascript should be a conscious decision since it has side-effects
-        // such as hitting Omniture, Tacoda tags, etc...
+        // such as hitting Omniture, etc...
         _webClient.setJavaScriptEnabled(false);
         // Same for Cookies since they can affect how a page is rendered
         _webClient.setCookiesEnabled(false);
