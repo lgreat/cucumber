@@ -57,7 +57,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     protected static final long PRESCHOOL_CITY_POPULATION_BOUNDARY = 8000;
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
     public static String SCHOOL_HIGHLIGHTS_ATTRIBUTE = "schoolHighlights";
-    public static final int MAX_SCHOOL_PHOTOS_IN_GALLERY = 4;
+    public static final int MAX_SCHOOL_PHOTOS_IN_GALLERY = 10;
     public static final int MAX_SCHOOL_REVIEWS = 10;
 
     @Override

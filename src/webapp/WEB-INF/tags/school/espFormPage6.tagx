@@ -108,7 +108,7 @@
                 </div>
             </c:if>
 
-            <c:set var="maxNumberOfPhotos" value="4" />
+            <c:set var="maxNumberOfPhotos" value="10" />
             <div class="lal clearfix">
                 <div class="grid_7 alpha">
                     <p class="labelGroup">Upload photos of your school or events to appear on the GreatSchools profile.</p>

@@ -33,38 +33,55 @@
                 <br style="clear:both"/>
             </div>
 
-            <c:choose>
-                <c:when test="${fn:length(images) > 1}">
-                    <c:if test="${fn:length(images) == 4}">
-                        <c:set var="widthControl" value="widthWide"/>
-                    </c:if>
-                    <c:if test="${fn:length(images) == 3}">
-                        <c:set var="widthControl" value="widthMedium"/>
-                    </c:if>
-                    <c:if test="${fn:length(images) eq 2}">
-                        <c:set var="widthControl" value="widthSmall"/>
-                    </c:if>
+            <div class="infiniteCarousel7">
 
-                    <div id="photo-gallery-controls">
-                        <div class="${widthControl}" style="margin: auto;text-align: center;">
-                            <div id="photo-gallery-back">
-                                <span class="sprite i-left-photoGallery-default"><!--Do not collapse--></span>
-                            </div>
-                            <div id="photo-gallery-thumbnails">
-                                <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                                    <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
-                                        <img src="/res/img/pixel.gif" width="70" height="70"/>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                            <div id="photo-gallery-next">
-                                <span class="sprite i-right-photoGallery-default"><!--Do not collapse--></span>
-                            </div>
-                            <br style="clear:both"/>
-                        </div>
-                    </div>
-                </c:when>
-            </c:choose>
+                <div class="wrapper" style="overflow:hidden;">
+                    <ul class="unordered-carousel">
+
+                        <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                            <li>
+                                <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
+                                    <img src="/res/img/pixel.gif" width="70" height="70"/>
+                                </div>
+                            </li>
+                        </c:forEach>
+
+                    </ul>
+                </div>
+            </div>
+
+            <!--<c:choose>-->
+                <!--<c:when test="${fn:length(images) > 1}">-->
+                    <!--<c:if test="${fn:length(images) == 4}">-->
+                        <!--<c:set var="widthControl" value="widthWide"/>-->
+                    <!--</c:if>-->
+                    <!--<c:if test="${fn:length(images) == 3}">-->
+                        <!--<c:set var="widthControl" value="widthMedium"/>-->
+                    <!--</c:if>-->
+                    <!--<c:if test="${fn:length(images) eq 2}">-->
+                        <!--<c:set var="widthControl" value="widthSmall"/>-->
+                    <!--</c:if>-->
+
+                    <!--<div id="photo-gallery-controls">-->
+                        <!--&lt;!&ndash;<div class="${widthControl}" style="margin: auto;text-align: center;">&ndash;&gt;-->
+                            <!--<div id="photo-gallery-back">-->
+                                <!--<span class="sprite i-left-photoGallery-default">&lt;!&ndash;Do not collapse&ndash;&gt;</span>-->
+                            <!--</div>-->
+                            <!--<div id="photo-gallery-thumbnails">-->
+                                <!--<c:forEach begin="0" end="${numberOfImages-1}" var="index">-->
+                                    <!--<div id="gallery-thumbnail-${index}" class="gallery-thumbnail">-->
+                                        <!--<img src="/res/img/pixel.gif" width="70" height="70"/>-->
+                                    <!--</div>-->
+                                <!--</c:forEach>-->
+                            <!--</div>-->
+                            <!--<div id="photo-gallery-next">-->
+                                <!--<span class="sprite i-right-photoGallery-default">&lt;!&ndash;Do not collapse&ndash;&gt;</span>-->
+                            <!--</div>-->
+                            <!--<br style="clear:both"/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</c:when>-->
+            <!--</c:choose>-->
             <br style="clear:both"/>
         </div>
     </div>
@@ -93,6 +110,9 @@
             //gallery.loadImages(); will load thumbnails + full size images
             gallery.applyThumbnailClickHandlers(); //attach click handlers to thumbnails
             gallery.applyButtonClickHandlers(); //attach handlers to next and back buttons
+        });
+        jQuery(document).ready(function () {
+            jQuery('.infiniteCarousel7').infiniteCarousel();
         });
     </script>
 
