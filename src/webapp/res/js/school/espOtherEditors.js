@@ -1,6 +1,7 @@
 var GS = GS || {};
 GS.form = GS.form || {};
 GS.form.RequestOtherEditors = function() {
+    var MAX_ACCOUNTS = 4;
     var preApproveNewEditor = function() {
         hideAllErrors();
         var email = jQuery('#js_email').val();
@@ -23,13 +24,12 @@ GS.form.RequestOtherEditors = function() {
             }).done(
                 function(data) {
                     if (data == null) {
-                        alert("null response");
-                        jQuery('#js_requestOtherEditorsFormInputs').hide(); // added here for testing
-                        jQuery('#js_requestOtherEditorsThankYou').show();
+                        alert("An error occurred, please try again.");
                     } else {
-                        if (checkEmailForErrors(data)) {
+                        if (handleErrors(data)) {
+                            updateEditorsList(firstName, lastName);
                             jQuery('#js_requestOtherEditorsFormInputs').hide();
-                            jQuery('#js_requestOtherEditorsThankYou').show();
+                            showSuccess();
                         }
 
                     }
@@ -38,20 +38,24 @@ GS.form.RequestOtherEditors = function() {
                 }
             );
         }
-
-
     };
 
-    var checkEmailForErrors = function(data) {
+    var handleErrors = function(data) {
         var isValid = false;
-        if (data.errorCode === 'noEmail' || data.errorCode === 'invalidEmail') {
+        if (data.errorCode === 'noCookie') {
+            alert("Sorry, your cookie has expired. Please sign in and try again.");
+        } else if (data.errorCode === 'superUser') {
+            alert("OSP Super users are not allowed to use this feature. Please contact the Data Team to pre-approve school officials.");
+        } else if (data.errorCode === 'noMembership') {
+            alert("Sorry, we could not process your request at this time. Please contact us to suggest an editor for this Official School Profile.");
+        } else if (data.errorCode === 'noEmail' || data.errorCode === 'invalidEmail') {
             jQuery('#js_emailError').html("Please enter a valid email address.");
             jQuery('#js_emailErrorDiv').show();
         } else if (data.errorCode === 'userAlreadyApproved') {
-            jQuery('#js_emailError').html("This user is already pre-approved.");
+            jQuery('#js_emailError').html("This user already has approved access to a school.");
             jQuery('#js_emailErrorDiv').show();
         } else if (data.errorCode === 'userAlreadyPreApproved') {
-            jQuery('#js_emailError').html("This user is already approved.");
+            jQuery('#js_emailError').html("This user already has approved access to a school.");
             jQuery('#js_emailErrorDiv').show();
         } else {
             isValid = true;
@@ -109,11 +113,33 @@ GS.form.RequestOtherEditors = function() {
         jQuery('#js_emailErrorDiv').hide();
         jQuery('#js_firstNameErrorDiv').hide();
         jQuery('#js_lastNameErrorDiv').hide();
-    }
+    };
+
+    var updateEditorsList = function(firstName, lastName) {
+        jQuery('#js_espOtherEditorsList').append(
+            jQuery('<li></li>').html(firstName + ' ' + lastName + ', <span class="hint">(processing)</span>')
+        );
+    };
+
+    var showFormAgain = function() {
+        hideAllErrors();
+        $('#js_requestOtherEditorsFormInputs').find('form')[0].reset(); // reset fields
+        jQuery('#js_requestOtherEditorsFormInputs').show();
+        jQuery('#js_requestOtherEditorsThankYou').hide();
+    };
+
+    var showSuccess = function() {
+        jQuery('#js_requestOtherEditorsThankYou').show();
+        var numEditors = jQuery('#js_espOtherEditorsList').find('li').length;
+        if (numEditors >= MAX_ACCOUNTS) {
+            jQuery('#js_requestAnotherEspEditor').hide();
+        }
+    };
 
     return {
         preApproveNewEditor: preApproveNewEditor,
-        hideAllErrors: hideAllErrors
+        hideAllErrors: hideAllErrors,
+        showFormAgain: showFormAgain
     };
 };
 
@@ -147,11 +173,6 @@ jQuery(function() {
         GS.form.requestOtherEditors.preApproveNewEditor
     );
 
-    jQuery('#js_requestAnotherEspEditor').click(function() {
-            GS.form.requestOtherEditors.hideAllErrors();
-            jQuery('#js_requestOtherEditorsFormInputs').show();
-            jQuery('#js_requestOtherEditorsThankYou').hide();
-        }
-    );
+    jQuery('#js_requestAnotherEspEditor').on('click', 'a', GS.form.requestOtherEditors.showFormAgain);
 
 });

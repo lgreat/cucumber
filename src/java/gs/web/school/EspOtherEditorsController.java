@@ -1,8 +1,10 @@
 package gs.web.school;
 
 import gs.data.community.User;
+import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.data.school.*;
+import gs.data.security.Role;
 import gs.data.state.State;
 import gs.web.admin.EspCreateUsersController;
 import gs.web.util.HttpCacheInterceptor;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -33,6 +36,9 @@ public class EspOtherEditorsController implements ReadWriteAnnotationController 
     @Autowired
     private EspDashboardController _espDashboardController;
 
+    @Autowired
+    private IEspMembershipDao _espMembershipDao;
+
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
     @RequestMapping(method = RequestMethod.POST)
@@ -45,45 +51,56 @@ public class EspOtherEditorsController implements ReadWriteAnnotationController 
                     @RequestParam(value = "jobTitle", required = false) String jobTitle
     ) throws Exception {
 
-        Map debugInfo = new HashMap();
+        Map<String, Object> debugInfo = new HashMap<String, Object>();
 
         //get a valid logged in user.
         User user = _espDashboardController.getValidUser(request);
         if (user == null) {
+            writeErrorResponse(response, "noCookie");
+            return;
+        } else if (user.hasRole(Role.ESP_SUPERUSER)) {
+            writeErrorResponse(response, "superUser");
             return;
         }
 
-        //get the user's membership.
-        EspMembership membership = _espDashboardController.getEspMembershipForUser(user);
+        // Make sure the user has membership to the school
+        EspMembership membership = getEspMembershipForUserAndSchool(user, state, schoolId);
         if (membership == null) {
-            return;
-        }
-
-        //Check to see that the post is from the logged in user by comparing the school and state.
-        //TODO :If the user that is editing the form has multi-school access then this wont work.
-        if (!(membership.getState().getAbbreviation().equals(state.getAbbreviation()) || (membership.getSchoolId() == schoolId))) {
+            writeErrorResponse(response, "noMembership");
             return;
         }
 
         //Add the new pre-approved user.
-        //TODO right now this wont add more rows if already a approved or pre-approved for another school.What to do about Multi access?
-        _espCreateUsersController.addUser(request, email, state, schoolId.toString(), firstName, lastName, jobTitle, debugInfo);
+        // This won't add more rows if already a approved or pre-approved for another school. Users with multi-access
+        // must contact our data team to get further approvals
+        _espCreateUsersController.addUser(request, email, state, schoolId.toString(), firstName, lastName, jobTitle, debugInfo, user);
 
-        //Get the new list of pre-approved users.
-        //TODO This makes a call to get the school out of the DB.Definitely not required, since only a schoolId is required.
-        //Therefore add a new method to the Dao to get getOtherEspMembersForSchoolId.This requires a
-        //refactor of getOtherEspMembersForSchool.
-        School school = _espDashboardController.getSchool(state, schoolId, new ModelMap());
-
-        //TODO maybe there is another way to do this, without another database call for the new count of memberships.
-        List<EspMembership> espMemberships = _espDashboardController.getOtherEspMembersForSchool(school, user);
-        debugInfo.put("newOtherEspMemberships",espMemberships);
-
-        JSONObject rval = new JSONObject(debugInfo);
+        JSONObject rval = new JSONObject();
+        if (debugInfo.get("errorCode") != null) {
+            rval.put("errorCode", debugInfo.get("errorCode"));
+        } else {
+            rval.put("success", true);
+        }
         _cacheInterceptor.setNoCacheHeaders(response);
         response.setContentType("application/json");
         response.getWriter().print(rval.toString());
         response.getWriter().flush();
+    }
+
+    protected void writeErrorResponse(HttpServletResponse response, String errorCode) throws JSONException, IOException {
+        JSONObject rval = new JSONObject();
+        rval.put("errorCode", errorCode);
+        _cacheInterceptor.setNoCacheHeaders(response);
+        response.setContentType("application/json");
+        rval.write(response.getWriter());
+        response.getWriter().flush();
+    }
+
+    protected EspMembership getEspMembershipForUserAndSchool(User user, State schoolState, Integer schoolId) {
+        if (user != null && user.hasRole(Role.ESP_MEMBER) && schoolState != null && schoolId != null) {
+            return _espMembershipDao.findEspMembershipByStateSchoolIdUserId(schoolState, schoolId, user.getId(), true);
+        }
+        return null;
     }
 
 }

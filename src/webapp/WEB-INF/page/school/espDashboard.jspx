@@ -30,7 +30,7 @@
 
     <gsml:body adPageName="OSP/dashboard" pageLayout="nocol">
         <c:if test="${school.databaseState eq 'IN' or school.databaseState eq 'WI' or school.databaseState eq 'DC'}">
-            <school:espOtherEditorsHover otherEspMemberships="${otherEspMemberships}"/>
+            <school:espOtherEditorsHover otherEspMemberships="${allEspMemberships}"/>
             <c:set value="true" var="showOtherEditorsHover"/>
         </c:if>
         <div class="container_24 slStylesV1-0 slFormsV1-0">

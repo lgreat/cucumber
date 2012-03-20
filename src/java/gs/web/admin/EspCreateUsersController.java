@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -42,6 +43,8 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
     public static final String ERROR_CODE_USER_ALREADY_APPROVED = "userAlreadyApproved";
     public static final String ERROR_CODE_USER_ALREADY_PRE_APPROVED = "userAlreadyPreApproved";
     public static final String ERROR_CODE_VERIFICATION_EMAIL_NOT_SENT = "verificationEmailNotSent";
+    
+    public static final SimpleDateFormat PRE_APPROVED_BY_NOTE_DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 
     HttpCacheInterceptor _cacheInterceptor = new HttpCacheInterceptor();
 
@@ -202,6 +205,11 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
         return validEmail;
     }
 
+    public void addUser(HttpServletRequest request, String email, State state, String schoolIdStr,
+                        String firstName, String lastName, String jobTitle, Map debugInfo) {
+        addUser(request, email, state, schoolIdStr, firstName, lastName, jobTitle, debugInfo, null);
+    }
+
     /**
      * Helper method to add a new user to the database.
      * In case there is an error, then an error code is added to the debugInfo map.
@@ -216,9 +224,10 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
      * @param lastName
      * @param jobTitle
      * @param debugInfo
+     * @param preApprovedBy If not null, adds a note to the pre-approved membership listing who instigated it.
      */
     public void addUser(HttpServletRequest request, String email, State state, String schoolIdStr,
-                        String firstName, String lastName, String jobTitle, Map debugInfo) {
+                        String firstName, String lastName, String jobTitle, Map debugInfo, User preApprovedBy) {
         if (state != null) {
             email = getValidEmail(email, debugInfo);
             School school = getSchool(schoolIdStr, state, email, debugInfo);
@@ -246,7 +255,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                 }
 
                 //After adding the user, pre-approve the user.
-                boolean didPreApproveUser = preApproveEspMembership(user, state, school, jobTitle, debugInfo);
+                boolean didPreApproveUser = preApproveEspMembership(user, state, school, jobTitle, debugInfo, preApprovedBy);
                 //If the user state was changed to "pre-approved" then send out an email.
                 if (didPreApproveUser) {
                     if (!_espPreApprovalEmail.sendESPVerificationEmail(request, user)) {
@@ -267,7 +276,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
      * @param jobTitle
      * @param debugInfo
      */
-    protected boolean preApproveEspMembership(User user, State state, School school, String jobTitle, Map debugInfo) {
+    protected boolean preApproveEspMembership(User user, State state, School school, String jobTitle, Map debugInfo, User preApprovedBy) {
         boolean didPreApproveUser = false;
 
         if (state != null && school != null && school.getId() != null && school.getId() > 0 && user != null
@@ -275,7 +284,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
 
             //check if the user is eligible for pre-approval.If yes then pre-approve a user.
             if (isUserEligibleForPreApproval(user, debugInfo)) {
-                addOrUpdatePreApprovedEspMembership(user, state, school, jobTitle, debugInfo);
+                addOrUpdatePreApprovedEspMembership(user, state, school, jobTitle, debugInfo, preApprovedBy);
                 didPreApproveUser = true;
             }
 
@@ -294,7 +303,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
      * @param jobTitle
      * @param debugInfo
      */
-    protected void addOrUpdatePreApprovedEspMembership(User user, State state, School school, String jobTitle, Map debugInfo) {
+    protected void addOrUpdatePreApprovedEspMembership(User user, State state, School school, String jobTitle, Map debugInfo, User preApprovedBy) {
         EspMembership espMembership = _espMembershipDao.findEspMembershipByStateSchoolIdUserId(state, school.getId(), user.getId(), false);
 
         if (espMembership == null) {
@@ -305,11 +314,15 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
             esp.setSchoolId(school.getId());
             esp.setStatus(EspMembershipStatus.PRE_APPROVED);
             esp.setUser(user);
+            esp.setNote(getPreApprovedByNote(preApprovedBy));
             _espMembershipDao.saveEspMembership(esp);
             addToList(debugInfo, "genericDebugOutput", "INFO: created a new pre-approved user." + user.getEmail());
         } else {
             espMembership.setStatus(EspMembershipStatus.PRE_APPROVED);
             espMembership.setUpdated(new Date());
+            String existingNote = espMembership.getNote();
+            String newNote = getPreApprovedByNote(preApprovedBy) + ((existingNote != null) ? "\n" + existingNote : "");
+            espMembership.setNote(newNote);
             _espMembershipDao.saveEspMembership(espMembership);
             addToList(debugInfo, "genericDebugOutput", "INFO: updated user to pre-approved:" + user.getEmail());
         }
@@ -402,6 +415,11 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                 addToList(returnValues, "genericDebugOutput", "ERROR: There was an error sending verification email to:" + email);
             }
         }
+    }
+    
+    protected String getPreApprovedByNote(User preApprovedBy) {
+        String formattedDate = PRE_APPROVED_BY_NOTE_DATE_FORMAT.format(new Date());
+        return formattedDate + ": PRE-APPROVAL by user " + preApprovedBy.getEmail();
     }
 
     public ExactTargetAPI getExactTargetAPI() {

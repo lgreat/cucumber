@@ -96,8 +96,8 @@ public class EspDashboardController {
 
         if (school != null) {
             //Get the information about who else has ESP access to this school
-            List<EspMembership> otherEspMemberships = getOtherEspMembersForSchool(school, user);
-            modelMap.put("otherEspMemberships", otherEspMemberships);
+            List<EspMembership> otherEspMemberships = getEspMembersForSchool(school);
+            modelMap.put("allEspMemberships", otherEspMemberships);
             
             // get percent completion info
             Map<Long, Boolean> pageStartedMap = new HashMap<Long, Boolean>(8);
@@ -146,22 +146,18 @@ public class EspDashboardController {
     }
 
     /**
-     * Get the information about who else has ESP access to the same school as the user
+     * Get the information about who has ESP access to the given school
      *
      * @param school
-     * @param user
      */
-    protected List<EspMembership> getOtherEspMembersForSchool(School school, User user) {
+    protected List<EspMembership> getEspMembersForSchool(School school) {
         List<EspMembership> espMemberships = getEspMembershipDao().findEspMembershipsBySchool(school, false);
-        if (espMemberships != null && !espMemberships.isEmpty() && user != null && user.getId() != null) {
+        if (espMemberships != null && !espMemberships.isEmpty()) {
             Iterator<EspMembership> iter = espMemberships.iterator();
 
             while (iter.hasNext()) {
                 EspMembership membership =  iter.next();
-                if (membership.getUser().getId() == user.getId()) {
-                    //remove the current user from the list.
-                    iter.remove();
-                } else if (membership.getStatus().equals(EspMembershipStatus.DISABLED) || membership.getStatus().equals(EspMembershipStatus.REJECTED)) {
+                if (membership.getStatus().equals(EspMembershipStatus.DISABLED) || membership.getStatus().equals(EspMembershipStatus.REJECTED)) {
                     //remove rejected and disabled users.
                     iter.remove();
                 }

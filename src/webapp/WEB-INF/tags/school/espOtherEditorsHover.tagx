@@ -20,19 +20,18 @@
                 <h5>Editors to this Official School Profile</h5>
 
                 <c:if test="${not empty otherEspMemberships}">
-                    <ul>
+                    <ul id="js_espOtherEditorsList">
                         <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
                             <li>${otherEsp.user.firstName} ${otherEsp.user.lastName},
                                 <c:choose>
                                     <c:when test="${otherEsp.status eq 'PRE_APPROVED' or otherEsp.status eq 'PROCESSING'}">
-                                        (processing)
+                                        <span class="hint">(processing)</span>
                                     </c:when>
                                     <c:otherwise>
                                         ${otherEsp.jobTitle}
                                     </c:otherwise>
                                 </c:choose>
                             </li>
-                            <br/>
                         </c:forEach>
                     </ul>
                 </c:if>
@@ -132,9 +131,8 @@
                                     <em>Thank you. Your request has been submitted.</em>
                                 </p>
 
-                                <p>
-                                    <a id="js_requestAnotherEspEditor" href="#"
-                                       onclick="return false;">Submit another request</a>
+                                <p id="js_requestAnotherEspEditor">
+                                    <a href="#" onclick="return false;">Submit another request</a>
                                 </p>
                             </div>
                         </div>
