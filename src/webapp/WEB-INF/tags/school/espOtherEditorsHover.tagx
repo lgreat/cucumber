@@ -22,7 +22,15 @@
                 <c:if test="${not empty otherEspMemberships}">
                     <ul id="js_espOtherEditorsList">
                         <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
-                            <li>${otherEsp.user.firstName} ${otherEsp.user.lastName},
+                            <li>
+                                <c:choose>
+                                    <c:when test="${empty otherEsp.user.firstName or empty otherEsp.user.lastName}">
+                                        ${otherEsp.user.email}
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${otherEsp.user.firstName} ${otherEsp.user.lastName},
+                                    </c:otherwise>
+                                </c:choose>
                                 <c:choose>
                                     <c:when test="${otherEsp.status eq 'PRE_APPROVED' or otherEsp.status eq 'PROCESSING'}">
                                         <span class="hint">(processing)</span>

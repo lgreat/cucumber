@@ -64,6 +64,7 @@ GS.form.RequestOtherEditors = function() {
     };
 
     var validateEmail = function(email) {
+        jQuery('#js_emailErrorDiv').hide();
         var emailRegex = /^[_a-zA-Z0-9+-]+(\.[_a-zA-Z0-9+-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$/;
         var errMsg = '';
         if (email.length === 0 || !emailRegex.test(email)) {
@@ -78,6 +79,7 @@ GS.form.RequestOtherEditors = function() {
     };
 
     var validateFirstName = function(firstName) {
+        jQuery('#js_firstNameErrorDiv').hide();
         var nameRegex = /[0-9&<>\\]+/g;
         var errMsg = '';
         if (firstName.length === 0 || firstName.length > 24 || firstName.length < 2) {
@@ -94,6 +96,7 @@ GS.form.RequestOtherEditors = function() {
     };
 
     var validateLastName = function(lastName) {
+        jQuery('#js_lastNameErrorDiv').hide();
         var nameRegex = /^[0-9a-zA-Z-_.,&\s]+$/;
         var errMsg = '';
         if (lastName.length === 0 || lastName.length > 24 || lastName.length < 0) {
@@ -139,7 +142,10 @@ GS.form.RequestOtherEditors = function() {
     return {
         preApproveNewEditor: preApproveNewEditor,
         hideAllErrors: hideAllErrors,
-        showFormAgain: showFormAgain
+        showFormAgain: showFormAgain,
+        validateFirstName: validateFirstName,
+        validateLastName: validateLastName,
+        validateEmail: validateEmail
     };
 };
 
@@ -174,5 +180,23 @@ jQuery(function() {
     );
 
     jQuery('#js_requestAnotherEspEditor').on('click', 'a', GS.form.requestOtherEditors.showFormAgain);
+
+    jQuery('#js_firstName').blur(function() {
+            var firstName = jQuery(this).val();
+            GS.form.requestOtherEditors.validateFirstName(firstName);
+        }
+    );
+
+    jQuery('#js_lastName').blur(function() {
+            var lastName = jQuery(this).val();
+            GS.form.requestOtherEditors.validateLastName(lastName);
+        }
+    );
+
+    jQuery('#js_email').blur(function() {
+            var email = jQuery(this).val();
+            GS.form.requestOtherEditors.validateEmail(email);
+        }
+    );
 
 });
