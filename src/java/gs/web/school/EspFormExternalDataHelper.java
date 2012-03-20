@@ -681,7 +681,7 @@ public class EspFormExternalDataHelper {
                                     new EspCensusBreakdownConfiguration(7, "Asian"),
                                     new EspCensusBreakdownConfiguration(2, "Black"),
                                     new EspCensusBreakdownConfiguration(3, "Hispanic"),
-                                    new EspCensusBreakdownConfiguration(8, "Pacific Islander"),
+                                    new EspCensusBreakdownConfiguration(209, "Native Hawaiian or Other Pacific Islander"),
                                     new EspCensusBreakdownConfiguration(1, "White"),
                                     new EspCensusBreakdownConfiguration(6, "Two or More")))
             );
@@ -702,7 +702,7 @@ public class EspFormExternalDataHelper {
                                     new EspCensusBreakdownConfiguration(7, "Asian"),
                                     new EspCensusBreakdownConfiguration(2, "Black"),
                                     new EspCensusBreakdownConfiguration(3, "Hispanic"),
-                                    new EspCensusBreakdownConfiguration(8, "Native Hawaiian or Other Pacific Islander"),
+                                    new EspCensusBreakdownConfiguration(209, "Native Hawaiian or Other Pacific Islander"),
                                     new EspCensusBreakdownConfiguration(1, "White"),
                                     new EspCensusBreakdownConfiguration(6, "Multiracial")))
             );
