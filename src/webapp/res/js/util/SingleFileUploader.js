@@ -89,6 +89,7 @@ GS.SingleFileUploader.prototype.createUploader = function() {
                 if (file.percent === 100 && file.status === plupload.DONE) {
                     this.completeIcon.show();
                     var status = "Upload complete";
+                    this.deleteButton.hide();
                     if (this.successSelector != null && this.successSelector != '') {
                         var successElement = jQuery(this.successSelector);
                         successElement.find('.js_value').html(file.name);
@@ -119,12 +120,14 @@ GS.SingleFileUploader.prototype.createUploader = function() {
         this.uploadButton.prop('disabled',false);
         this.uploadButton.addClass('button-1');
         this.uploadButton.removeClass('button-1-inactive');
+        this.deleteButton.show();
     }.gs_bind(this);
 
     this.disableUploading = function() {
         this.uploadButton.prop('disabled',true);
         this.uploadButton.addClass('button-1-inactive');
         this.uploadButton.removeClass('button-1');
+        this.deleteButton.hide();
     }.gs_bind(this);
 
     this.styleUploading = function() {
@@ -195,8 +198,6 @@ GS.SingleFileUploader.prototype.createUploader = function() {
             this.uploader.files = this.uploader.files.slice(this.uploader.files.length-1,this.uploader.files.length);
         }
 
-        this.deleteButton.show();
-
         this.fileBox.val(files[0].name);
         this.enableUploading();
     }.gs_bind(this);
@@ -207,7 +208,7 @@ GS.SingleFileUploader.prototype.createUploader = function() {
             this.uploader.removeFile(filesToDelete[i]);
         }
         this.fileBox.val('');
-        this.deleteButton.hide();
+        this.disableUploading();
     };
 
     this.setStatus = function(file, status) {
