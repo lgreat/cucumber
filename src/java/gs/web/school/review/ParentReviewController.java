@@ -168,7 +168,12 @@ public class ParentReviewController extends AbstractController {
                 paramSortBy = "dd";
             }
 
-            Long numberOfNonPrincipalReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school, reviewsBy);
+            Long numberOfNonPrincipalReviews;
+            if (!includeInactive) {
+                numberOfNonPrincipalReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school, reviewsBy);
+            } else {
+                numberOfNonPrincipalReviews = _reviewDao.countPublishedDisabledNonPrincipalReviewsBySchool(school, reviewsBy);
+            }
             cmd.setSortBy(paramSortBy);
             cmd.setSchool(school);
             cmd.setReviews(reviews);
