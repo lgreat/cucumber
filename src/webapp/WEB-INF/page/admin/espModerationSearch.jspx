@@ -158,7 +158,13 @@
               <!--First Row-->
               <td class="smallest">${membership.status.status}</td>
               <td><a href="mailto:${membership.user.email}">${membership.user.email}</a></td>
-              <td>${membership.school.name}</td>
+              <td>
+                  ${membership.school.name}
+                  <c:if test="${(not empty espModerationSearchCommand.email or not empty espModerationSearchCommand.userId) and mrow.schoolHasActiveMemberships eq true}">
+                      -<a href="/admin/espModerationSearch.page?schoolId=${membership.school.id}&amp;stateString=${membership.state}&amp;email=&amp;userId="> View all
+                      requests for this school</a>
+                  </c:if>
+              </td>
               <td>${membership.user.firstName}</td>
               <td>${membership.state}</td>
               <td><fmt:formatDate pattern="MM-dd-yyyy hh:mm" value="${membership.created}" /></td>
