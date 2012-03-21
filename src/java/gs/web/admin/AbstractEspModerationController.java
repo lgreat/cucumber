@@ -250,7 +250,13 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
 
         for (EspMembership membership : memberships) {
             long schoolId = membership.getSchoolId();
-            School school = getSchoolDao().getSchoolById(membership.getState(), (int) schoolId);
+            School school;
+            try {
+                school = getSchoolDao().getSchoolById(membership.getState(), (int) schoolId);
+            } catch (Exception e) {
+                _log.error("Error fetching school for membership: " + membership, e);
+                continue;
+            }
             membership.setSchool(school);
 
             ModerationRow mrow = new ModerationRow(membership);
