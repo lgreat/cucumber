@@ -134,7 +134,7 @@ public class EspPdfUploaderController implements ReadWriteAnnotationController {
                         }
 
                         // Handle a multi-part MIME encoded file.
-                        if (formFields.containsKey("schoolId") && formFields.containsKey("schoolDatabaseState") && formFields.containsKey("type") && fileStream != null) {
+                        if (formFields.containsKey("schoolId") && formFields.containsKey("schoolDatabaseState") && formFields.containsKey("type")) {
                             try {
                                 schoolId = Integer.valueOf(formFields.get("schoolId"));
                                 schoolDatabaseState = State.fromString(formFields.get("schoolDatabaseState"));
@@ -168,16 +168,21 @@ public class EspPdfUploaderController implements ReadWriteAnnotationController {
                                 return model;
                             }
 
-                            // record that this OSP has a PDF by inserting an EspResponse
-                            String answerKey = "has_" + StringUtils.lowerCase(type) + "_pdf";
-                            EspResponse espResponse = createEspResponse(user, school, new Date(), answerKey, true, "yes");
+                            HashSet<String> responseKeys = new HashSet<String>();
                             List<EspResponse> espResponseList = new ArrayList<EspResponse>();
+
+//                            String answerKey = "has_" + StringUtils.lowerCase(type) + "_pdf";
+//                            responseKeys.add(answerKey);
+//                            EspResponse espResponse = createEspResponse(user, school, new Date(), answerKey, true, "yes");
+//                            espResponseList.add(espResponse);
+                            // record that this OSP has a PDF by inserting an EspResponse
+                            String answerKey = StringUtils.lowerCase(type) + "_pdf_filename";
+                            responseKeys.add(answerKey);
+                            EspResponse espResponse = createEspResponse(user, school, new Date(), answerKey, true, fileStream.getName());
                             espResponseList.add(espResponse);
 
                             // Deactivate existing data first, then save
-                            HashSet pdfResponseKey = new HashSet();
-                            pdfResponseKey.add(answerKey);
-                            _espResponseDao.deactivateResponsesByKeys(school, pdfResponseKey);
+                            _espResponseDao.deactivateResponsesByKeys(school, responseKeys);
                             _espResponseDao.saveResponses(school, espResponseList);
                         }
                     } else {
@@ -224,7 +229,7 @@ public class EspPdfUploaderController implements ReadWriteAnnotationController {
         props.setProperty("mail.transport.protocol", "smtp");
         props.setProperty("mail.smtp.host", System.getProperty("mail.server","mail.greatschools.org"));
         Session session = Session.getDefaultInstance(props, null);
-        String recipientEmail = "test_upload@greatschools.org";
+        String recipientEmail = "aroy@greatschools.org";
         String senderEmail = "noreply@greatschools.org";
 
         MimeMessage msg = new MimeMessage(session);

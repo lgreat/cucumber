@@ -29,6 +29,9 @@
             <div class="grid_16 omega">
                 <mod:singleFileUploader idSuffix="ACT" type="ACT" schoolDatabaseState="${school.databaseState}" schoolId="${school.id}" url="/osp/pdfUploader.json"/>
                 <p class="hint">Please upload a scanned copy of your complete ACT official score report here. PDF files only.</p>
+                <c:if test="${not empty responseMap['act_pdf_filename'].value}">
+                    <p>Last upload: ${responseMap['act_pdf_filename'].value}</p>
+                </c:if>
             </div>
         </fieldset>
         <fieldset>
@@ -50,6 +53,9 @@
             <div class="grid_16 omega">
                 <mod:singleFileUploader idSuffix="SAT" type="SAT" schoolDatabaseState="${school.databaseState}" schoolId="${school.id}" url="/osp/pdfUploader.json"/>
                 <p class="hint">Please upload a scanned copy of your complete SAT official score report here. PDF files only.</p>
+                <c:if test="${not empty responseMap['sat_pdf_filename'].value}">
+                    <p>Last upload: ${responseMap['sat_pdf_filename'].value}</p>
+                </c:if>
             </div>
         </fieldset>
         <fieldset>
