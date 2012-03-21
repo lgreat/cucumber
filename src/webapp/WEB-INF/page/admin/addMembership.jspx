@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:gsweb="gstaglib"
+          version="2.0" >
+
+<html lang="en">
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+
+<head>
+    <title>
+        Admin - Add Membership
+    </title>
+</head>
+
+<gsml:body adPageName="school/esp" pageLayout="nocol">
+    <div class="container_24">
+        <div class="grid_24 slStylesV1-0 slFormsV1-0">
+            <div class="mod form">
+                <div class="inner">
+                    <div class="bd">
+                        <form:form name="addMembership" commandName="addMembershipCommand">
+                            <c:if test="${hasErrors eq true}">
+                                <c:forEach var="error" items="${addMembershipCommand.errors}">
+                                    <div class="error" style="display:block">
+                                        <div class="mediaExt1-1">
+                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                            <div class="bk">${error.defaultMessage}</div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </c:if>
+                            <c:if test="${onSubmitSuccess eq true}">
+                                Submitted Successfully.<a href="/admin/espModerationSearch.page?schoolId=&amp;stateString=&amp;email=&amp;userId=${addMembershipCommand.memberId}"> View all
+                                    requests for the member ${addMembershipCommand.memberId}</a>
+                            </c:if>
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="memberId">Member Id</label>
+                                </div>
+                                <div class="grid_6">
+                                    <c:choose>
+                                        <c:when test="${hasErrors eq true}">
+                                            <form:input path="memberId"
+                                                        id="memberId" cssClass="text input_6"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input id="memberId" name="memberId" class="text input_6" type="text"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="state">State</label>
+                                </div>
+                                <div class="grid_6">
+                                    <c:choose>
+                                        <c:when test="${hasErrors eq true}">
+                                            <form:input path="state"
+                                                        id="state" cssClass="text input_6"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input id="state" name="state" class="text input_6" type="text"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
+                                    <label for="schoolIds">School Ids</label>
+                                </div>
+                                <div class="grid_6">
+                                    <c:choose>
+                                        <c:when test="${hasErrors eq true}">
+                                            <form:input path="schoolIds"
+                                                        id="schoolIds" cssClass="text input_6"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input id="schoolIds" name="schoolIds" class="text input_6" type="text"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                            <input class="button-1" type="submit" id="Submit" name="submit" value="Submit"/>
+                        </form:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</gsml:body>
+
+</html>
+
+</jsp:root>
