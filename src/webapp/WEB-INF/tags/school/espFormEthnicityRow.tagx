@@ -6,6 +6,7 @@
         >
     <jsp:directive.attribute name="label" required="true" description="Label" type="java.lang.String"/>
     <jsp:directive.attribute name="breakdownId" required="true" description="Breakdown Id" type="java.lang.Integer"/>
+    <jsp:directive.attribute name="addPercentError" required="false" description="True to include the percent error message on this line" type="java.lang.Boolean"/>
     <c:set var="ethnicityRowResponseKey" value="ethnicity_${breakdownId}"/>
     <div class="lal clearfix">
         <div class="alpha grid_10">
@@ -20,6 +21,12 @@
                 <span class="sprite i-alert vam"><!--Do not collapse--></span>
                 Please enter a number.
             </div>
+            <c:if test="${addPercentError eq true}">
+                <div id="js_form_ethnicity_sum_error" class="error js_form_ethnicity_error" style="display: none">
+                    <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                    Values must add up to exactly 100%.
+                </div>
+            </c:if>
         </div>
     </div>
 </jsp:root>

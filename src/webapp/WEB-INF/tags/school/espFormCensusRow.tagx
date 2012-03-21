@@ -11,7 +11,7 @@
     <c:set var="censusRowResponseKey" value="census_${dataTypeId}"/>
 
     <div class="lal clearfix">
-        <div class="alpha grid_7">
+        <div class="alpha grid_6 suffix_1">
             <label for="js_form_census_${dataTypeId}">${typeLabel}</label>
         </div>
         <div class="grid_16 omega">
@@ -26,6 +26,10 @@
                 <div id="js_form_census_${dataTypeId}_number_error"  class="error" style="display: none">
                     <span class="sprite i-alert vam"><!--Do not collapse--></span>
                     Please enter a number.
+                </div>
+                <div id="js_form_census_${dataTypeId}_percent_error"  class="error" style="display: none">
+                    <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                    Values may not be over 100%.
                 </div>
             </div>
             <div class="lal clearfix">

@@ -645,27 +645,22 @@ GS.validation.validateEthnicities = function(onSubmit) {
         jQuery('.js_form_ethnicity_validation').removeClass('warning');
         return true;
     }
+    jQuery('#js_form_ethnicity_sum_error').hide();
     var allValid = true;
-
-    var rangeValid;
-    if (onSubmit) {
-        rangeValid = GS.validation.validatePercentageRange(
-            '.js_form_ethnicity_validation',
-            '#js_form_ethnicity_sum_error', 100, 100);
-    } else {
-        rangeValid = GS.validation.validatePercentageRange(
-            '.js_form_ethnicity_validation',
-            '#js_form_ethnicity_sum_error', 0, 100);
-    }
-    allValid = allValid && rangeValid;
 
     jQuery('.js_form_ethnicity_validation').each(function() {
         allValid = GS.validation.validateInteger('#' + this.id, '#' + this.id + '_number_error') && allValid;
     });
 
+    var rangeValid = true;
+    if (allValid) {
+        rangeValid = GS.validation.validatePercentageRange(
+            '.js_form_ethnicity_validation',
+            '#js_form_ethnicity_sum_error', onSubmit?100:0, 100);
+        allValid = allValid && rangeValid;
+    }
+
     if (!rangeValid) {
-        // add this back in if any of the above validations removed it.
-        jQuery('.js_form_ethnicity_validation').addClass("warning");
         if (onSubmit && jQuery('#js_form_ethnicity_sum_error')[0].scrollIntoView) {
             jQuery('#js_form_ethnicity_sum_error')[0].scrollIntoView(true);
         }
@@ -677,20 +672,21 @@ GS.validation.validateCensuses = function() {
     var allValid = true;
     jQuery('.js_form_census_dataType').each(function() {
         allValid = GS.validation.validateCensus
-            ('#' + this.id,'#' + this.id + '_number_error','#' + this.id.substring(3) + '_unavailable__true') && allValid;
+            ('#' + this.id,'#' + this.id + '_number_error','#' + this.id + '_percent_error', '#' + this.id.substring(3) + '_unavailable__true') && allValid;
     });
     return allValid;
 };
 
-GS.validation.validateCensus = function(inputSelector, errorSelector, unavailableSelector) {
+GS.validation.validateCensus = function(inputSelector, errorSelector, percentErrorSelector, unavailableSelector) {
     if (jQuery(unavailableSelector).prop('checked')) {
         jQuery(errorSelector).hide();
+        jQuery(percentErrorSelector).hide();
         jQuery(inputSelector).removeClass('warning');
         return true;
     }
-
-    return GS.validation.validateInteger(inputSelector, errorSelector) &&
-        GS.validation.validateRequired(inputSelector, errorSelector);
+    return GS.validation.validateRequired(inputSelector, errorSelector) &&
+        GS.validation.validateInteger(inputSelector, errorSelector) &&
+        GS.validation.validatePercentageRange(inputSelector, percentErrorSelector, 0, 100);
 };
 
 // TODO: figure out what to do with this type of validation method
