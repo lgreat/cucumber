@@ -713,6 +713,8 @@ public class EspFormController implements ReadWriteAnnotationController {
         }});
         put(8, new HashSet<String>() {{
             add("page_8_touched");
+            add("act_pdf_filename");
+            add("sat_pdf_filename");
         }});
     }};
 }
