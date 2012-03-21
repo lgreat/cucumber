@@ -594,6 +594,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         put(3, new HashSet<String>() {{
             add("admissions_url");
             add("application_deadline");
+            add("application_deadline_date");
             add("application_fee");
             add("application_fee_amount");
             add("application_process");
