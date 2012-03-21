@@ -152,7 +152,7 @@ public class EspPdfUploaderController implements ReadWriteAnnotationController {
                                 _log.debug("Problem converting request param:", e);
                                 return model;
                             }
-                            
+
                             type = formFields.get("type");
 
                             try {
@@ -229,7 +229,7 @@ public class EspPdfUploaderController implements ReadWriteAnnotationController {
         props.setProperty("mail.transport.protocol", "smtp");
         props.setProperty("mail.smtp.host", System.getProperty("mail.server","mail.greatschools.org"));
         Session session = Session.getDefaultInstance(props, null);
-        String recipientEmail = "aroy@greatschools.org";
+        String recipientEmail = "test_upload@greatschools.org";
         String senderEmail = "noreply@greatschools.org";
 
         MimeMessage msg = new MimeMessage(session);
