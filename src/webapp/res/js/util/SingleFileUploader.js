@@ -24,6 +24,7 @@ GS.SingleFileUploader = function(httpPostUrl, idSuffix, schoolId, schoolDatabase
     this.spinner = this.container.find('.spinner');
     this.completeIcon = this.container.find('.js-uploader-complete');
     this.extraPostParams = extraPostParams;
+    this.successSelector = null;
 
     this.FLASH_ENABLED_STYLE = 'position: absolute; top: 191px; background: none repeat scroll 0% 0% transparent; z-index: 9999999; width: 101px; height: 23px; left: 11px;';
     this.LOGGING_ENABLED = false;
@@ -88,6 +89,11 @@ GS.SingleFileUploader.prototype.createUploader = function() {
                 if (file.percent === 100 && file.status === plupload.DONE) {
                     this.completeIcon.show();
                     var status = "Upload complete";
+                    if (this.successSelector != null && this.successSelector != '') {
+                        var successElement = jQuery(this.successSelector);
+                        successElement.find('.js_value').html(file.name);
+                        successElement.show();
+                    }
                 }
             }
         }.gs_bind(this));
@@ -144,6 +150,7 @@ GS.SingleFileUploader.prototype.createUploader = function() {
     this.done = function() {
         this.styleUploadComplete();
         this.spinner.hide();
+
     }.gs_bind(this);
 
     this.styleUploadComplete = function() {

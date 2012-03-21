@@ -11,6 +11,7 @@
     <jsp:directive.attribute name="schoolDatabaseState" required="true" type="java.lang.String" />
     <jsp:directive.attribute name="idSuffix" required="true" type="java.lang.String" description="An unique suffix used to ensure uniqueness among file uploaders"/>
     <jsp:directive.attribute name="type" required="false" type="java.lang.String" description="ACT or SAT"/>
+    <jsp:directive.attribute name="successSelector" required="false" type="java.lang.String" description="Selector to element to display success message"/>
 
     <div id="file-uploader-container-${idSuffix}" class="lal clearfix">
         <div class="alpha grid_6">
@@ -61,6 +62,7 @@
                 type:'${type}'
             };
             GS[propertyName] = new GS.SingleFileUploader("${url}", '${idSuffix}', ${schoolId}, "${schoolDatabaseState}", extraPostParams);
+            GS[propertyName].successSelector = '${successSelector}';
             GS[propertyName].init();
         });
     </script>

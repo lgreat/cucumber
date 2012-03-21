@@ -27,11 +27,13 @@
                 <label>Upload your school&amp;apos;s ACT report</label>
             </div>
             <div class="grid_16 omega">
-                <mod:singleFileUploader idSuffix="ACT" type="ACT" schoolDatabaseState="${school.databaseState}" schoolId="${school.id}" url="/osp/pdfUploader.json"/>
+                <mod:singleFileUploader idSuffix="ACT" type="ACT" schoolDatabaseState="${school.databaseState}"
+                                        schoolId="${school.id}" url="/osp/pdfUploader.json" successSelector="#js_actPdfFilename"/>
                 <p class="hint">Please upload a scanned copy of your complete ACT official score report here. PDF files only.</p>
-                <c:if test="${not empty responseMap['act_pdf_filename'].value}">
-                    <p>Last upload: ${responseMap['act_pdf_filename'].value}</p>
-                </c:if>
+                <c:set var="lastActFilename" value="${responseMap['act_pdf_filename'].value}"/>
+                <p class="${empty lastActFilename ? 'hidden' : ''}" id="js_actPdfFilename">
+                    Last upload: <span class="js_value">${lastActFilename}</span>
+                </p>
             </div>
         </fieldset>
         <fieldset>
@@ -51,11 +53,13 @@
                 <label>Upload your school&amp;apos;s SAT report</label>
             </div>
             <div class="grid_16 omega">
-                <mod:singleFileUploader idSuffix="SAT" type="SAT" schoolDatabaseState="${school.databaseState}" schoolId="${school.id}" url="/osp/pdfUploader.json"/>
+                <mod:singleFileUploader idSuffix="SAT" type="SAT" schoolDatabaseState="${school.databaseState}"
+                                        schoolId="${school.id}" url="/osp/pdfUploader.json" successSelector="#js_satPdfFilename"/>
                 <p class="hint">Please upload a scanned copy of your complete SAT official score report here. PDF files only.</p>
-                <c:if test="${not empty responseMap['sat_pdf_filename'].value}">
-                    <p>Last upload: ${responseMap['sat_pdf_filename'].value}</p>
-                </c:if>
+                <c:set var="lastSatFilename" value="${responseMap['sat_pdf_filename'].value}"/>
+                <p class="${empty lastSatFilename ? 'hidden' : ''}" id="js_satPdfFilename">
+                    Last upload: <span class="js_value">${lastSatFilename}</span>
+                </p>
             </div>
         </fieldset>
         <fieldset>
