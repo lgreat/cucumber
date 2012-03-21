@@ -42,7 +42,7 @@ public class AddMembershipController implements ReadWriteAnnotationController {
     protected ISchoolDao _schoolDao;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String display(@ModelAttribute("addMembershipCommand") EspModerationDetailsCommand command,
+    public String display(@ModelAttribute("addMembershipCommand") AddMembershipCommand command,
                           BindingResult bindingResult,
                           ModelMap modelMap,
                           HttpServletRequest request) {
