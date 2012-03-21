@@ -639,7 +639,7 @@ GS.validation.validatePercentageRange = function(fieldSelector, errorSelector, m
     return isValid;
 };
 
-GS.validation.validateEthnicities = function() {
+GS.validation.validateEthnicities = function(onSubmit) {
     if (jQuery('#form_census_ethnicity_unavailable__true').prop('checked')) {
         jQuery('.js_form_ethnicity_error').hide();
         jQuery('.js_form_ethnicity_validation').removeClass('warning');
@@ -647,9 +647,16 @@ GS.validation.validateEthnicities = function() {
     }
     var allValid = true;
 
-    var rangeValid = GS.validation.validatePercentageRange(
-        '.js_form_ethnicity_validation',
-        '#js_form_ethnicity_sum_error', 100, 100);
+    var rangeValid;
+    if (onSubmit) {
+        rangeValid = GS.validation.validatePercentageRange(
+            '.js_form_ethnicity_validation',
+            '#js_form_ethnicity_sum_error', 100, 100);
+    } else {
+        rangeValid = GS.validation.validatePercentageRange(
+            '.js_form_ethnicity_validation',
+            '#js_form_ethnicity_sum_error', 0, 100);
+    }
     allValid = allValid && rangeValid;
 
     jQuery('.js_form_ethnicity_validation').each(function() {
@@ -659,6 +666,9 @@ GS.validation.validateEthnicities = function() {
     if (!rangeValid) {
         // add this back in if any of the above validations removed it.
         jQuery('.js_form_ethnicity_validation').addClass("warning");
+        if (onSubmit && jQuery('#js_form_ethnicity_sum_error')[0].scrollIntoView) {
+            jQuery('#js_form_ethnicity_sum_error')[0].scrollIntoView(true);
+        }
     }
     return allValid;
 };
@@ -724,7 +734,7 @@ new (function() {
     var saveForm = function() {
         var masterDeferred = new jQuery.Deferred();
         try {
-            if (!doValidations()) {
+            if (!doValidations(true)) {
                 return masterDeferred.reject().promise();
             }
             var form = jQuery('#espFormPage-' + GS.espForm.currentPage);
@@ -877,8 +887,8 @@ new (function() {
         return true;
     };
 
-
-    var doValidations = function() {
+    // onSubmit == true when this is called on form submit. False otherwise, eg. during blur validations
+    var doValidations = function(onSubmit) {
         var validations = new Array();
         // PAGE 1
         jQuery('#form_student_enrollment_error').hide();
@@ -954,7 +964,7 @@ new (function() {
 
         // PAGE 8
         validations.push(GS.validation.validateCensuses());
-        validations.push(GS.validation.validateEthnicities());
+        validations.push(GS.validation.validateEthnicities(onSubmit));
         // END PAGE 8
 
         for (var arrayIndex in validations) {
@@ -1047,7 +1057,7 @@ new (function() {
 
         // validate all visible fields when any input textbox value is changed
         formWrapper.on('change', 'input, select', function() {
-            doValidations();
+            doValidations(false);
         });
         
         // page 3 specific
