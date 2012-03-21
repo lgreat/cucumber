@@ -314,15 +314,19 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
             esp.setSchoolId(school.getId());
             esp.setStatus(EspMembershipStatus.PRE_APPROVED);
             esp.setUser(user);
-            esp.setNote(getPreApprovedByNote(preApprovedBy));
+            if (preApprovedBy != null) {
+                esp.setNote(getPreApprovedByNote(preApprovedBy));
+            }
             _espMembershipDao.saveEspMembership(esp);
             addToList(debugInfo, "genericDebugOutput", "INFO: created a new pre-approved user." + user.getEmail());
         } else {
             espMembership.setStatus(EspMembershipStatus.PRE_APPROVED);
             espMembership.setUpdated(new Date());
-            String existingNote = espMembership.getNote();
-            String newNote = getPreApprovedByNote(preApprovedBy) + ((existingNote != null) ? "\n" + existingNote : "");
-            espMembership.setNote(newNote);
+            if (preApprovedBy != null) {
+                String existingNote = espMembership.getNote();
+                String newNote = getPreApprovedByNote(preApprovedBy) + ((existingNote != null) ? "\n" + existingNote : "");
+                espMembership.setNote(newNote);
+            }
             _espMembershipDao.saveEspMembership(espMembership);
             addToList(debugInfo, "genericDebugOutput", "INFO: updated user to pre-approved:" + user.getEmail());
         }
