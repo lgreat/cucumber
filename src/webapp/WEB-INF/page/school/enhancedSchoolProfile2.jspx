@@ -98,8 +98,8 @@
                 <tr>
                     <td class="small_bold">Before school or after school care / program onsite</td>
                     <td>
-                        <c:set var="scStart"><gsweb:erts list="${responses.before_after_care_start}"/></c:set>
-                        <c:set var="scEnd"><gsweb:erts list="${responses.before_after_care_end}"/></c:set>
+                        <c:set var="scStart"><gsweb:erts list="${responses.before_after_care_start}" pretty="false"/></c:set>
+                        <c:set var="scEnd"><gsweb:erts list="${responses.before_after_care_end}" pretty="false"/></c:set>
                         <c:if test="${not empty scStart or not empty scEnd}">
                             <ul>
                                 <c:if test="${not empty scStart}">
@@ -178,7 +178,22 @@
                 </tr>
             </c:if>
 
-            <school:espTableRow label="Application deadline" list="${responses.application_deadline}" hideIfEmpty="true"/>
+            <c:set var="applicationDeadline"><gsweb:erts list="${responses.application_deadline}"/></c:set>
+            <c:if test="${not empty responses.application_deadline}">
+                <tr>
+                    <td class="small_bold">Application deadline</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${applicationDeadline eq 'Date'and not empty responses.application_deadline_date}">
+                                     <gsweb:erts list="${responses.application_deadline_date}" pretty="false"/>
+                            </c:when>
+                            <c:otherwise>
+                                    ${applicationDeadline}
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+            </c:if>
 
             <c:set var="appsRcdYr"><gsweb:erts list="${responses.applications_received_year}" /></c:set>
             <school:espTableRow label="Number of applications received for the ${appsRcdYr} school year" list="${responses.applications_received}" hideIfEmpty="true"/>

@@ -106,7 +106,8 @@
             <label for="js-time1">What time does school start each day?</label>
         </div>
         <div class="grid_3">
-            <input class="text input_3" type="text" name="time" id="js-time1" readonly="readonly" />
+            <input class="text input_3" type="text" name="start_time" id="js-time1" readonly="readonly"
+                   value="${responseMap['start_time'].value}"/>
         </div>
         <div class="grid_13 omega">
             <p class="hint">Classroom start time only, not before-school programming</p>
@@ -118,7 +119,8 @@
             <label for="js-time2">What time does school end each day?</label>
         </div>
         <div class="grid_3">
-            <input class="text input_3" type="text" name="time" id="js-time2" readonly="readonly" />
+            <input class="text input_3" type="text" name="end_time" id="js-time2" readonly="readonly"
+                   value="${responseMap['end_time'].value}"/>
         </div>
         <div class="grid_13 omega">
             <p class="hint">Classroom end time only, not after-school programming</p>
@@ -192,8 +194,8 @@
                                 <label for="js-time3" class="checkbox">Start time</label>
                             </div>
                             <div class="unti size87of100 lastUnit">
-                                <input class="text-smaller input_3" type="text" name="time" id="js-time3"
-                                       readonly="readonly"/>
+                                <input class="text-smaller input_3" type="text" name="before_after_care_start" id="js-time3"
+                                       readonly="readonly" value="${responseMap['before_after_care_start'].value}"/>
                             </div>
                         </span>
                         </div>
@@ -214,8 +216,8 @@
                                 <label for="form_before_after_care_end" class="checkbox">End time </label>
                             </div>
                             <div class="unti size87of100 lastUnit">
-                                <input class="text-smaller input_3" type="text" name="time" id="js-time4"
-                                       readonly="readonly"/>
+                                <input class="text-smaller input_3" type="text" name="before_after_care_end" id="js-time4"
+                                       readonly="readonly" value="${responseMap['before_after_care_end'].value}"/>
                             </div>
                         </span>
                         </div>

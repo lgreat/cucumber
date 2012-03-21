@@ -64,10 +64,10 @@
     <div class="grid_16 omega">
         <school:espRadioWithLabel key="application_deadline" value="yearround"
                                   label="Year-round / Rolling admissions, if space is available"/>
-        <school:espRadioWithLabel key="application_deadline" value="date" label="Date: " nobr="true">
-            <input type="text" name="date" id="js-date1"
+        <school:espRadioWithLabel key="application_deadline" value="date" label="Date: " nobr="true" styleClass="js_otherField_js_form_application_deadline_date">
+            <input type="text" name="application_deadline_date" id="js_form_application_deadline_date"
                    class="js_otherField text-smaller input_3" readonly="readonly"
-                   value="${responseMap['application_deadline'].value}" maxlength="10"/>
+                   value="${responseMap['application_deadline_date'].value}" maxlength="10"/>
         </school:espRadioWithLabel>
         <school:espRadioWithLabel key="application_deadline" value="parents_contact"
                                   label="Parents should contact the school for more information or if there are multiple deadlines"/>
@@ -284,7 +284,7 @@
 </fieldset>
 <script type="text/javascript">
     jQuery(document).ready(function() {
-        jQuery('#js-date1').datepicker();
+        jQuery('#js_form_application_deadline_date').datepicker();
     });
 </script>
 </school:espFormTemplate>
