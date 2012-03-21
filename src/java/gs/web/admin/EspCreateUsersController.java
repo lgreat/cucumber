@@ -258,7 +258,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                 boolean didPreApproveUser = preApproveEspMembership(user, state, school, jobTitle, debugInfo, preApprovedBy);
                 //If the user state was changed to "pre-approved" then send out an email.
                 if (didPreApproveUser) {
-                    if (!_espPreApprovalEmail.sendESPVerificationEmail(request, user)) {
+                    if (!_espPreApprovalEmail.sendESPVerificationEmail(request, user, school.getName())) {
                         debugInfo.put("errorCode", ERROR_CODE_VERIFICATION_EMAIL_NOT_SENT);
                         _log.error("error sending pre-approval verification email to " + user.getEmail());
                     }

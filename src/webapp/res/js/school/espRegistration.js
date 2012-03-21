@@ -122,6 +122,7 @@ GS.form.EspForm = function() {
             GS.form.espForm.showEmailError("An error has occurred.", emailField);
         }else if (data.isUserESPPreApproved === true ) {
             GSType.hover.espPreApprovalEmail.setEmail(jQuery('#js_email').val());
+            GSType.hover.espPreApprovalEmail.setSchoolName(data.schoolName);
             var onclickStr = "GSType.hover.espPreApprovalEmail.show();";
             GS.form.espForm.showEmailError("You have been pre-approved for an account but must verify your email.<a href='#' onclick=" + onclickStr + ">Please verify email.</a>", emailField);
         } else if (data.isUserESPRejected === true) {

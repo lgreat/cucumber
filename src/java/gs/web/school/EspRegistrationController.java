@@ -169,6 +169,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     public void checkUserState(HttpServletRequest request, HttpServletResponse response, EspRegistrationCommand command) {
 
         String email = command.getEmail();
+        String schoolName = "";
         EspUserStateStruct userState = new EspUserStateStruct();
         User user = null;
 
@@ -219,6 +220,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
                                 userState.setUserESPRejected(true);
                             }else if(membership.getStatus().equals(EspMembershipStatus.PRE_APPROVED) && !membership.getActive()){
                                 userState.setUserESPPreApproved(true);
+                                schoolName = getSchoolNameForEspMembership(membership);
                             }
                         }
                     }
@@ -229,6 +231,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
         try {
             JSONObject rval;
             Map data = userState.getUserState();
+            data.put("schoolName", schoolName);
             rval = new JSONObject(data);
             _cacheInterceptor.setNoCacheHeaders(response);
             response.setContentType("application/json");
@@ -450,6 +453,17 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
             }
         }
         return VIEW;
+    }
+
+    protected String getSchoolNameForEspMembership(EspMembership espMembership) {
+        String schoolName = "";
+        if (espMembership != null) {
+            School school = _schoolDao.getSchoolById(espMembership.getState(), espMembership.getId());
+            if (school != null) {
+                schoolName = school.getName();
+            }
+        }
+        return schoolName;
     }
 
     public ExactTargetAPI getExactTargetAPI() {

@@ -31,17 +31,18 @@ public class EspRequestPreApprovalEmailController implements ReadWriteAnnotation
     @RequestMapping(method = RequestMethod.GET)
     public void display(ModelMap modelMap, HttpServletRequest request) {
         String email = request.getParameter("email");
-        if (StringUtils.isNotBlank(email)) {
+        String schoolName = request.getParameter("schoolName");
+        if (StringUtils.isNotBlank(email) && StringUtils.isNotBlank(schoolName)) {
             User user = _userDao.findUserFromEmailIfExists(email);
             if (user != null) {
-                if (!sendESPVerificationEmail(request, user)) {
+                if (!sendESPVerificationEmail(request, user, schoolName)) {
                     _log.error("ERROR sending pre-approval email.");
                 }
             }
         }
     }
 
-    public boolean sendESPVerificationEmail(HttpServletRequest request, User user) {
+    public boolean sendESPVerificationEmail(HttpServletRequest request, User user, String schoolName) {
         boolean emailSendSuccess = false;
         if (user != null && StringUtils.isNotBlank(user.getEmail())) {
             try {
@@ -56,6 +57,7 @@ public class EspRequestPreApprovalEmailController implements ReadWriteAnnotation
                 Map<String, String> emailAttributes = new HashMap<String, String>();
                 emailAttributes.put("HTML__espVerificationUrl", espVerificationUrl.toString());
                 emailAttributes.put("first_name", user.getFirstName());
+                emailAttributes.put("ESP_schoolname", schoolName);
                 _exactTargetAPI.sendTriggeredEmail("ESP-preapproval", user, emailAttributes);
                 emailSendSuccess = true;
             } catch (Exception e) {

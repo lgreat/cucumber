@@ -897,10 +897,14 @@ GSType.hover.ConfirmEspSave.prototype = new GSType.hover.HoverDialog("confirmEsp
 //Hover to re-send the ESP pre-approval email.
 GSType.hover.EspPreApprovalEmail = function() {
     this.email = '';
+    this.schoolName = '';
     this.loadDialog = function() {
     };
     this.setEmail = function(email) {
         GSType.hover.espPreApprovalEmail.email = email;
+    };
+    this.setSchoolName = function(schoolName) {
+        GSType.hover.espPreApprovalEmail.schoolName = schoolName;
     };
 };
 
@@ -1511,7 +1515,8 @@ jQuery(function() {
 
     jQuery('#js_sendEspPreApprovalEmail').click(function() {
         var params = {
-            email: GSType.hover.espPreApprovalEmail.email
+            email: GSType.hover.espPreApprovalEmail.email,
+            schoolName:GSType.hover.espPreApprovalEmail.schoolName
         };
 
         jQuery.get(GS.uri.Uri.getBaseHostname() + '/official-school-profile/espPreApprovalEmail.page', params);
