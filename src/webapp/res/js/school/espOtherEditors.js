@@ -52,10 +52,10 @@ GS.form.RequestOtherEditors = function() {
             jQuery('#js_emailError').html("Please enter a valid email address.");
             jQuery('#js_emailErrorDiv').show();
         } else if (data.errorCode === 'userAlreadyApproved') {
-            jQuery('#js_emailError').html("This user already has approved access to a school.");
+            jQuery('#js_emailError').html("This user is already approved for another school. Please <a href='/about/feedback.page?feedbackType=esp'>contact us</a> if you need assistance.");
             jQuery('#js_emailErrorDiv').show();
         } else if (data.errorCode === 'userAlreadyPreApproved') {
-            jQuery('#js_emailError').html("This user already has approved access to a school.");
+            jQuery('#js_emailError').html("This user is already approved for another school. Please <a href='/about/feedback.page?feedbackType=esp'>contact us</a> if you need assistance.");
             jQuery('#js_emailErrorDiv').show();
         } else {
             isValid = true;
