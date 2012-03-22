@@ -297,7 +297,7 @@
 
             <c:if test="${not empty espMemberships and fn:length(espMemberships) gt 1}">
                 <div class="mtl grid_24">
-                    <p>You have access to the following schools' official school profiles:</p>
+                    <p>You have access to the following schools' official school profiles. Please click on a school name to edit its profile.</p>
                     <ul>
                         <c:forEach var="membership" items="${espMemberships}">
                             <li><link:schoolEspDashboard school="${membership.school}">${membership.school.name}</link:schoolEspDashboard></li>
