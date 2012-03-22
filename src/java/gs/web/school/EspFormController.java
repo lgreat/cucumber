@@ -140,7 +140,7 @@ public class EspFormController implements ReadWriteAnnotationController {
         // Fetch parameters
         User user = getValidUser(request, state, schoolId);
         if (user == null) {
-            outputJsonError("noAccess", response);
+            outputJsonError("noUser", response);
             return; // early exit
         }
 
