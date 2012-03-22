@@ -111,5 +111,55 @@
                 </c:forEach>
             </c:if>
         </fieldset>
+
+        <c:if test="${school.databaseState == 'DC' || school.databaseState == 'IN'}">
+            <fieldset>
+                <div class="alpha grid_7">
+                    <label for="form_private_number_12th_graders">
+                        How many 12th graders were enrolled at your school in September of the most recent year?</label>
+
+                    <p class="hint">Please make sure the year you are reporting on matches the year of the SAT report you uploaded/faxed.</p>
+                </div>
+                <div class="grid_4">
+                    <input id="js_form_private_number_12th_graders" type="text" styleClass="text input_3"
+                           name="private_number_12th_graders"
+                           value="${responseMap['private_number_12th_graders'].value}" maxlength="4"
+                           placeholder="[Enter number]"/>
+                </div>
+                <div class="grid_6 omega">
+                    <div id="js_form_private_number_12th_graders_number_error" class="error" style="display: none">
+                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                        Please enter a number.
+                    </div>
+                    <div id="js_form_private_number_12th_graders_error" class="error" style="display: none">
+                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                        Please enter.
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="alpha grid_7">
+                    <label for="form_private_number_took_sat">Of those 12th graders, how many took the SAT?</label>
+                </div>
+                <div class="grid_4">
+                    <input id="js_form_private_number_took_sat" type="text" styleClass="text input_3"
+                           name="private_number_took_sat"
+                           value="${responseMap['private_number_took_sat'].value}" maxlength="4"
+                           placeholder="[Enter number]"/>
+                </div>
+                <div class="grid_6 omega">
+                    <div id="js_form_private_number_took_sat_number_error" class="error" style="display: none">
+                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                        Please enter a number.
+                    </div>
+                    <div id="js_form_private_number_took_sat_error" class="error" style="display: none">
+                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                        Please enter.
+                    </div>
+                </div>
+            </fieldset>
+        </c:if>
+
+
     </school:espFormTemplate>
 </jsp:root>

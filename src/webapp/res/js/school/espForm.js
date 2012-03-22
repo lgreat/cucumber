@@ -689,6 +689,19 @@ GS.validation.validateCensus = function(inputSelector, errorSelector, percentErr
         GS.validation.validatePercentageRange(inputSelector, percentErrorSelector, 0, 100);
 };
 
+GS.validation.validate12ThGraderFields = function() {
+    var pdfUploaded = jQuery('#js_satPdfFilename').filter(':visible').size() > 0 ? true : false;
+    if (jQuery('#form_fax_sat__yes').prop('checked') || pdfUploaded) {
+        var isValid12thGraderEnrolled = GS.validation.validateRequired('#js_form_private_number_12th_graders', '#js_form_private_number_12th_graders_error') &&
+            GS.validation.validateInteger('#js_form_private_number_12th_graders', '#js_form_private_number_12th_graders_number_error');
+
+        var isValid12thGraderSat = GS.validation.validateRequired('#js_form_private_number_took_sat', '#js_form_private_number_took_sat_error') &&
+            GS.validation.validateInteger('#js_form_private_number_took_sat', '#js_form_private_number_took_sat_number_error');
+        return   isValid12thGraderEnrolled && isValid12thGraderSat;
+    }
+    return true;
+};
+
 // TODO: figure out what to do with this type of validation method
 GS.validation.validateSelectIfTextboxValueEntered = function(selectBoxSelector, textBoxSelector, errorSelector, textBoxValid) {
     var selectBox = $(selectBoxSelector).filter(':visible');
@@ -961,6 +974,7 @@ new (function() {
         // PAGE 8
         validations.push(GS.validation.validateCensuses());
         validations.push(GS.validation.validateEthnicities(onSubmit));
+        validations.push(GS.validation.validate12ThGraderFields());
         // END PAGE 8
 
         for (var arrayIndex in validations) {
