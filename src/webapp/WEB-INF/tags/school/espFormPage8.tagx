@@ -133,7 +133,7 @@
                     </div>
                     <div id="js_form_private_number_12th_graders_error" class="error" style="display: none">
                         <span class="sprite i-alert vam"><!--Do not collapse--></span>
-                        Please enter.
+                        Please specify a response. We need this information to process your school's scores.
                     </div>
                 </div>
             </fieldset>
@@ -154,7 +154,7 @@
                     </div>
                     <div id="js_form_private_number_took_sat_error" class="error" style="display: none">
                         <span class="sprite i-alert vam"><!--Do not collapse--></span>
-                        Please enter.
+                        Please specify a response. We need this information to process your school's scores.
                     </div>
                 </div>
             </fieldset>
