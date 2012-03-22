@@ -40,7 +40,7 @@
 
                         <c:forEach begin="0" end="${numberOfImages-1}" var="index">
                             <li>
-                                <div id="gallery-thumbnail-${index}" class="gallery-thumbnail">
+                                <div class="gallery-thumbnail js_gallery_thumbnail_${index}">
                                     <img src="/res/img/pixel.gif" width="70" height="70"/>
                                 </div>
                             </li>
@@ -88,31 +88,31 @@
 
     <script type="text/javascript">
         var imageArray = [];
-        <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+//        <c:forEach begin="0" end="${numberOfImages-1}" var="index">
             imageArray.push(
                 new GS.photoGallery.MultiSizeImage(
                         new GS.photoGallery.Image('${basePhotoPath}${images[index].smallSizeFile}'),
                         new GS.photoGallery.Image('${basePhotoPath}${images[index].largeSizeFile}')
                 )
             );
-        </c:forEach>
+        //</c:forEach>
 
         var gallery = new GS.photoGallery.PhotoGallery("photo-gallery",imageArray,false);
 
-        <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-            gallery.photoMargins.push(Math.round((500 - ${images[index].height}) / 2));
-            document.getElementById("gallery-fullsize-"+${index}).style.marginTop = gallery.photoMargins[${index}]+"px";
-        </c:forEach>
+        var tmpMargin;
+        //<c:forEach begin="0" end="${numberOfImages-1}" var="index">
+            tmpMargin = Math.round((500 - ${images[index].height}) / 2);
+            gallery.photoMargins.push(tmpMargin);
+            document.getElementById("gallery-fullsize-${index}").style.marginTop = tmpMargin+"px";
+        //</c:forEach>
         jQuery(function() {
             gallery.showFullSizeImage(0); //load the first full size image into gallery
-            gallery.attachShowEvent('${cssClass}'); //show the gallery when this dom node clicked
+            //show the gallery and initialize the infinite carousel when this dom node clicked
+            gallery.attachShowEvent('${cssClass}', function() {jQuery('.infiniteCarousel7').infiniteCarousel();});
             gallery.loadThumbnails(); //start loading the gallery thumbnails
             //gallery.loadImages(); will load thumbnails + full size images
             gallery.applyThumbnailClickHandlers(); //attach click handlers to thumbnails
             gallery.applyButtonClickHandlers(); //attach handlers to next and back buttons
-        });
-        jQuery(document).ready(function () {
-            jQuery('.infiniteCarousel7').infiniteCarousel();
         });
     </script>
 
