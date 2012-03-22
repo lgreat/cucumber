@@ -136,6 +136,7 @@ GS.form.RequestOtherEditors = function() {
         var numEditors = jQuery('#js_espOtherEditorsList').find('li').length;
         if (numEditors >= MAX_ACCOUNTS) {
             jQuery('#js_requestAnotherEspEditor').hide();
+            jQuery('#js_requestOtherEditorsThankYou').css('padding-bottom', '181px');
         }
     };
 
@@ -163,7 +164,7 @@ GSType.hover.EspOtherEditors = function() {
     };
 };
 
-GSType.hover.EspOtherEditors.prototype = new GSType.hover.HoverDialog("espOtherEditors", 640);
+GSType.hover.EspOtherEditors.prototype = new GSType.hover.HoverDialog("espOtherEditors", 730);
 GSType.hover.espOtherEditors = new GSType.hover.EspOtherEditors();
 
 jQuery(function() {

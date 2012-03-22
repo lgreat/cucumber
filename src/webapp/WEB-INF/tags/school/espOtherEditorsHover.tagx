@@ -13,14 +13,15 @@
     <c:set var="maxEditors" value="4"/>
     <c:set var="numEditors" value="${fn:length(otherEspMemberships)}"/>
 
-    <div id="espOtherEditors" class="dialog_white slStylesV1-0 slFormsV1-0" style="display:none;padding:10px 0 0 20px;">
-        <h2>View and add editors to this Official School Profile</h2>
-        <div class="line">
-            <div class="unit ${numEditors lt maxEditors ? 'size45of100' : ''}">
-                <h5>Editors to this Official School Profile</h5>
+    <div id="espOtherEditors" class="container_24 slStylesV1-0 slFormsV1-0 clearfix espOtherEditorHover">
+        <div class="alpha grid_16 omega">
+            <h2>View and add editors to this Official School Profile</h2>
+        </div>
+            <div class="${numEditors lt maxEditors ? 'grid_8 alpha' : 'alpha grid_16 omega'}">
+                <h4>Editors to this Official School Profile</h4>
 
                 <c:if test="${not empty otherEspMemberships}">
-                    <ul id="js_espOtherEditorsList">
+                    <ol id="js_espOtherEditorsList">
                         <c:forEach var="otherEsp" items="${otherEspMemberships}" varStatus="index">
                             <li>
                                 <c:choose>
@@ -41,92 +42,92 @@
                                 </c:choose>
                             </li>
                         </c:forEach>
-                    </ul>
+                    </ol>
                 </c:if>
                 <c:choose>
                     <c:when test="${numEditors lt maxEditors}">
-                        <p>You may only have <strong>up to 4 active editors</strong> on this Online School Profile.</p>
+                        <p>You may only have <strong>up to 4 active editors</strong> on this Official School Profile.</p>
                     </c:when>
                     <c:otherwise>
                         <p>This profile has the maximum number of editors.</p>
                     </c:otherwise>
                 </c:choose>
                 <p><link:contactUs feedbackType="esp">Contact us to remove someone from this list.</link:contactUs></p>
-                <div class="spacer_10"><!-- not empty --></div>
                 <button class="button-1 espOtherEditors_hideHover">Ok</button>
-                <div class="spacer_5"><!-- not empty --></div>
-                <p class="hint">Please note: GreatSchools may also make updates to Official School Profiles at any time.</p>
+                <p class="smaller bottom quiet mtl">Please note: GreatSchools may also make updates to Official School Profiles at any time.</p>
             </div>
             <c:if test="${numEditors lt maxEditors}">
-                <div class="unit size55of100 lastUnit prl">
+                <div class="grid_10 omega">
                     <div class="mod form" id="js_requestOtherEditorsForm">
                         <div class="inner clearfix">
                             <div class="hd">
-                                <div class="alpha grid_10">
-                                    <h5>Suggest someone to become an editor to this profile</h5>
+                                <div class="alpha grid_9">
+                                    <h4>Suggest someone to become an editor of this profile</h4>
                                 </div>
                                 <div class="clear"><!-- no collapse --></div>
                             </div>
-                            <div class="bd container_24" id="js_requestOtherEditorsFormInputs">
+                            <div class="bd" id="js_requestOtherEditorsFormInputs">
                                 <form onsubmit="return false;">
                                     <fieldset>
+
                                         <div class="lal clearfix">
                                             <div class="alpha grid_3">
                                                 <label>Email address</label>
                                             </div>
-                                            <div class="omega grid_3">
-                                                <input type="text" id="js_email" name="email" class="input_4"/>
+                                            <div class="omega grid_6">
+                                                <input type="text" id="js_email" name="email" class="input_6 text"/>
+                                            </div>
+                                            <div class="alpha prefix_3 grid_6 omega">
+                                                <div class="invalid error" id="js_emailErrorDiv" style="display: none;">
+                                                    <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                                                    <span id="js_emailError"><!-- error msg goes here --></span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="invalid error" id="js_emailErrorDiv"
-                                             style="display: none;">
-                                            <div class="mediaExt1-1">
-                                                <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                                                <div class="bk" id="js_emailError"><!-- error msg goes here --></div>
-                                            </div>
-                                        </div>
+
                                         <div class="lal clearfix">
                                             <div class="alpha grid_3">
                                                 <label>First Name</label>
                                             </div>
-                                            <div class="omega grid_3">
-                                                <input type="text" id="js_firstName" name="firstName" class="input_4"/>
+                                            <div class="omega grid_6">
+                                                <input type="text" id="js_firstName" name="firstName"
+                                                       class="input_6 text"/>
+                                            </div>
+                                            <div class="alpha prefix_3 grid_6 omega">
+                                                <div class="invalid error" id="js_firstNameErrorDiv" style="display: none;">
+                                                    <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                                                    <span id="js_firstNameError"><!-- error msg goes here --></span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="invalid error" id="js_firstNameErrorDiv"
-                                             style="display: none;">
-                                            <div class="mediaExt1-1">
-                                                <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                                                <div class="bk" id="js_firstNameError"><!-- error msg goes here --></div>
-                                            </div>
-                                        </div>
+
                                         <div class="lal clearfix">
                                             <div class="alpha grid_3">
                                                 <label>Last Name</label>
                                             </div>
-                                            <div class="omega grid_3">
-                                                <input type="text" id="js_lastName" name="lastName" class="input_4"/>
+                                            <div class="omega grid_6">
+                                                <input type="text" id="js_lastName" name="lastName" class="input_6 text"/>
                                             </div>
-                                            <br/>
-                                        </div>
-                                         <div class="invalid error" id="js_lastNameErrorDiv"
-                                             style="display: none;">
-                                            <div class="mediaExt1-1">
-                                                <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                                                <div class="bk" id="js_lastNameError"><!-- error msg goes here --></div>
+                                            <div class="alpha prefix_3 grid_6 omega">
+                                                <div class="invalid error" id="js_lastNameErrorDiv" style="display: none;">
+                                                    <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                                                    <span id="js_lastNameError"><!-- error msg goes here --></span>
+                                                </div>
                                             </div>
                                         </div>
+
                                         <div class="lal clearfix">
                                             <div class="alpha grid_3">
                                                 <label>Job title</label>
                                             </div>
-                                            <div class="omega grid_3">
+                                            <div class="omega grid_6">
                                                 <school:espJobTitle/>
                                             </div>
                                         </div>
                                     </fieldset>
+
                                     <div class="lal clearfix">
-                                        <div class="alpha prefix_3 grid_3 omega">
+                                        <div class="alpha prefix_3 grid_6 omega">
                                             <button class="button-1" style="-moz-user-select: none;"
                                                     id="js_requestOtherPreApproval">Submit request
                                             </button>
@@ -134,19 +135,18 @@
                                     </div>
                                 </form>
                             </div>
-                            <div id="js_requestOtherEditorsThankYou" style="display:none;">
+
+                            <div id="js_requestOtherEditorsThankYou" class="espRequestOtherEditorsThankYou">
                                 <p>
                                     <em>Thank you. Your request has been submitted.</em>
                                 </p>
-
                                 <p id="js_requestAnotherEspEditor">
-                                    <a href="#" onclick="return false;">Submit another request</a>
+                                    <a href="#" onclick="return false;">Submit another request &amp;raquo;</a>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </c:if>
-        </div>
     </div>
 </jsp:root>

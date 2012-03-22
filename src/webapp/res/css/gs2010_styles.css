@@ -10408,3 +10408,13 @@ p#btsBubbleOpts {
     left: 315px;
     top: -144px;
 }
+
+.espOtherEditorHover{
+    display:none;
+    background-color: #EBEBEB;
+}
+
+.espRequestOtherEditorsThankYou{
+    display: none;
+    padding-bottom: 101px;
+}
