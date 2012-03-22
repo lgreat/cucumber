@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.286 2012/03/12 16:39:39 rramachandran Exp $
+ * $Id: UrlBuilder.java,v 1.287 2012/03/22 23:02:41 yfan Exp $
  */
 
 package gs.web.util;
@@ -1189,12 +1189,31 @@ public class UrlBuilder {
     public void handleSchoolProfile(Integer id, State databaseState, String name, Address physicalAddress, LevelCode levelCode, boolean showConfirmation, ExtraResourceIdentifier eri) {
         _perlPage = true;
 
+        // turn spaces and / into hyphens for readable and remove #
+        // yes, this does mean there is no way to deterministically get the school name back
+        // GS-12611
+        // http://tycoontalk.freelancer.com/html-forum/87933-what-characters-not-valid-url-characters.html
+        // http://docs.oracle.com/javase/1.5.0/docs/api/java/net/URLEncoder.html
+        // Young and Anthony discussed what to do given that there are many different interpretations of
+        // which characters must be url-encoded. The Java implementation of URLEncoder is quite strict and
+        // encodes characters like ( ) ~ ! etc. that other implementations don't encode, and also has different
+        // url encodings for characters like ü than other encoders. Per Anthony's suggestion, I settled on
+        // url encoding everything and then replacing all occurrences of %.. with an empty string, which will keep
+        // the url component looking clean.
+        String schoolUriComponent = null;
+        try {
+            schoolUriComponent =
+                URLEncoder.encode(WordUtils.capitalize(name.replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", "").replaceAll("`", ""), new char[]{'-'}), "UTF-8");
+            schoolUriComponent = schoolUriComponent.replaceAll("%..","");
+        } catch (UnsupportedEncodingException e) {
+            _log.error("Unsupported encoding while generating school profile URL. Should never happen!");
+        }
+
         if (LevelCode.PRESCHOOL.equals(levelCode)) {
-            // turn spaces and / into hyphens for readable and remove #
-            // yes, this does mean there is no way to deterministically get the school name back
+
             _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(databaseState,
                     physicalAddress.getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
-                    WordUtils.capitalize(name.replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", "").replaceAll("`", ""), new char[]{'-'}) +
+                    schoolUriComponent +
                     "/" + id + "/" +
                     (showConfirmation ? "?confirm=true" : "");
 
@@ -1208,13 +1227,7 @@ public class UrlBuilder {
             );
 
             path.append(id).append("-");
-            path.append(WordUtils.capitalize(
-                    name.replaceAll(" ", "-")
-                        .replaceAll("/", "-")
-                        .replaceAll("`", "")
-                        .replaceAll("#", ""),
-                    new char[]{'-'}
-            ));
+            path.append(schoolUriComponent);
             
             if(eri == ExtraResourceIdentifier.ESP_DISPLAY_PAGE) {
                 _perlPage = false;

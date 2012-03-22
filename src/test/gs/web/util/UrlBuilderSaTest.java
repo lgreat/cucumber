@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.144 2012/03/12 16:39:38 rramachandran Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.145 2012/03/22 23:02:41 yfan Exp $
  */
 
 package gs.web.util;
@@ -254,6 +254,23 @@ public class UrlBuilderSaTest extends BaseTestCase {
 
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_ESP);
         assertEquals("/new-york/cityname/8-Wowochocho-High-School/official-info/", builder.asSiteRelativeXml(null));
+    }
+
+    public void testSchoolBuilderGs12611() {
+        School school = new School();
+        school.setDatabaseState(State.CA);
+        school.setName("San Jos? High School");
+        school.setId(new Integer(5686));
+        Address address = new Address("123 way", "San Jose", State.CA, "12345");
+        school.setLevelCode(LevelCode.HIGH);
+        school.setPhysicalAddress(address);
+
+        UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        assertEquals("/california/san-jose/5686-San-Jos-High-School/", builder.asSiteRelativeXml(null));
+
+        school.setName("`~!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/ü");
+        builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        assertEquals("/california/san-jose/5686-*_-.-/", builder.asSiteRelativeXml(null));
     }
 
     public void testSurveyResultsBuilder() throws Exception {
