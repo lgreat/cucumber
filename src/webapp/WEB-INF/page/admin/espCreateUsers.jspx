@@ -128,7 +128,7 @@
                                         <li>First select a state from the drop down.</li>
                                         <li>Then paste in new user info in the text area below.</li>
                                         <li>New line for a each user.Each line should have comma separated values(Not space or tab seperated).
-                                            <br/>Order of the tab separated values is important.Email,school id,first name,last name,job title.
+                                            <br/>Order of the comma separated values is important.Email,school id,first name,last name,job title.
                                             State,email and school id are required.
                                         </li>
                                     </ol>
