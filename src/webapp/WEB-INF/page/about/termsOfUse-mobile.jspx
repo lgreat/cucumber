@@ -21,7 +21,7 @@
     </head>
 
 
-
+<body>
 <div id="policy" >
   <h1 id="top">Terms of Use</h1>
   <p>Thank you for using the GreatSchools Inc. website (accessible at:"www.greatschools.org" hereinafter, the "website"). This page states the terms and conditions under which you may use the website and any materials, online communications and other information that is or becomes available on the website. By accessing the website you accept and agree to be bound, without limitation or qualification by these terms. If you do not accept any of the terms stated here, do not use the website. </p>
@@ -94,5 +94,6 @@
     </ol>
     <p>If you violate any of the above Parent Community Guidelines, you will be notified individually by community staff and may, as a result of your actions, receive a warning, temporary suspension or permanent banning from the community. We reserve the right to suspend or terminate your right to use our services at any time, for any reason.</p>
 </div>
+</body>
     </html>
 </jsp:root>

@@ -67,10 +67,4 @@
         <li><a href="#">Subscribe to Newsletter</a></li>
     </ul>
 
-    <script type="text/javascript">
-        $('#top-nav-goto').on('click', function() {
-            $('#mobile-sub-nav').toggle();
-        });
-    </script>
-
 </jsp:root>
