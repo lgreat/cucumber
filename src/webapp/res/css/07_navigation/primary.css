@@ -191,7 +191,8 @@ General comments:
     margin-left: 0;
     margin-right: 0;
     zoom:1;
-    outline:none;
+    outline:0 none;
+    border: 0 none;
 }
 
 .col_1 {
@@ -233,6 +234,8 @@ General comments:
 #primary .ft_content {
     padding: 15px 20px;
     background-color: #ececec;
+    outline:0 none;
+    border:0 none;
 }
 
 #primary .ft_content p {
