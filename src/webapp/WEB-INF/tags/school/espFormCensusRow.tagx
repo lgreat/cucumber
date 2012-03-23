@@ -11,16 +11,15 @@
     <c:set var="censusRowResponseKey" value="census_${dataTypeId}"/>
 
     <div class="lal clearfix">
-        <div class="alpha grid_6 suffix_1">
+        <div class="alpha grid_7">
             <label for="js_form_census_${dataTypeId}">${typeLabel}</label>
         </div>
         <div class="grid_16 omega">
-            <div class="alpha grid_9 suffix_1">
-                <gsml:input styleId="js_form_census_${dataTypeId}" styleClass="text digits_3 js_form_census_dataType" type="text"
+            <div class="alpha grid_10">
+                <gsml:input styleId="js_form_census_${dataTypeId}" styleClass="text digits_3 js_form_census_dataType mhs" type="text"
                             name="census_${dataTypeId}"
                             value="${responseMap[censusRowResponseKey].value}" disabled="${stateLocked}" maxlength="3"/>
-                <span> % </span>
-                <span>${stateLabel}</span>
+                <label class="checkbox">% ${stateLabel}</label>
             </div>
             <div class="grid_6 omega">
                 <div id="js_form_census_${dataTypeId}_number_error"  class="error" style="display: none">

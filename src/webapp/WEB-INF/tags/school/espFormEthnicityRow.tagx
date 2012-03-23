@@ -10,11 +10,10 @@
     <c:set var="ethnicityRowResponseKey" value="ethnicity_${breakdownId}"/>
     <div class="lal clearfix">
         <div class="alpha grid_10">
-            <gsml:input styleId="js_form_ethnicity_${breakdownId}" styleClass="text digits_3 js_form_ethnicity_validation" type="text"
+            <gsml:input styleId="js_form_ethnicity_${breakdownId}" styleClass="text digits_3 js_form_ethnicity_validation mhs" type="text"
                         name="ethnicity_${breakdownId}"
                         value="${responseMap[ethnicityRowResponseKey].value}" disabled="${stateLocked}" maxlength="3"/>
-            <span> % </span>
-            <span>${label}</span>
+            <label class="checkbox">% ${label}</label>
         </div>
         <div class="grid_6 omega">
             <div id="js_form_ethnicity_${breakdownId}_number_error" class="error js_form_ethnicity_error" style="display: none">

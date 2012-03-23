@@ -15,35 +15,32 @@
 
     <div id="file-uploader-container-${idSuffix}" class="lal clearfix">
         <div class="alpha grid_6">
-            <input class="js-uploader-file uploader-file text3" disabled="disabled" size="35"><!-- no collapse --></input>
+            <input class="js-uploader-file uploader-file text input_6" disabled="disabled"><!-- no collapse --></input>
             <span class="js-uploader-delete mlm top_5" style="display:none; position:relative;">
-                    <span class="iconx16 i-16-close img">
-                        <!-- no collapse -->
-                    </span>
+                    <span class="iconx16 i-16-close img"><!-- no collapse --></span>
             </span>
         </div>
 
-        <div class="grid_6">
-            <span class="js-uploader-buttons" colspan="4">
+        <div class="grid_5">
+            <span class="js-uploader-buttons mts">
                 <button id="js-plupload-browse-${idSuffix}" class="button-1 js-uploader-browse-button" type="button"
                         style="-moz-user-select: none;">Browse
                 </button>
                 <button class="button-1-inactive js-uploader-fake-browse-button" type="button" disabled="true"
                         style="-moz-user-select: none; display:none;">Browse
                 </button>
-                <button id="js-plupload-upload-${idSuffix}" class="button-1-inactive js-uploader-upload-button mll" type="button"
+                <button id="js-plupload-upload-${idSuffix}" class="button-1-inactive js-uploader-upload-button mlm"
+                        type="button"
                         style="-moz-user-select: none;" disabled="true">Upload file
                 </button>
             </span>
         </div>
-        <div class="omega grid_4">
+        <div class="omega grid_5">
             <span class="spinner" style="display:none;">
                 <gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse -->
             </span>
             <div class="js-uploader-complete media success" style="display:none;">
-                <span class="iconx16 i-16-success img">
-                    <!-- no collapse -->
-                </span>
+                <span class="iconx16 i-16-success img"><!-- no collapse --></span>
             </div>
             <div style="display: none" class="js-uploader-error error">
                 <div class="mediaExt1-1">
