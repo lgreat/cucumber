@@ -239,7 +239,7 @@ public class ContactUsController extends SimpleFormController {
     protected void customizeEspEmail(ContactUsCommand command, SimpleMailMessage message, HttpServletRequest request, School school) {
         StringBuffer body = new StringBuffer();
 
-        message.setSubject("Enhanced School Profile help");
+        message.setSubject("Official School Profile help");
         EspFields fields = command.getEspFields();
         body.append("Title: ").append(fields.getTitle()).append("\n");
         body.append("Submitter name: ").append(command.getSubmitterName()).append("\n");
