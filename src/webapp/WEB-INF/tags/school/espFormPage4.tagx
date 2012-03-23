@@ -54,6 +54,10 @@
         <div class="lal clearfix">
             <div class="alpha grid_7">
                 <p class="labelGroup">Select one of these options to best describe the ESL/ELL programming at your school</p>
+                <div id="js_form_esl_ell_programming_error" class="error" style="display: none">
+                    <span class="sprite i-alert vam"><!--Do not collapse--></span>
+                    Please specify the ESL/ELL programming at your school.
+                </div>
             </div>
             <div class="grid_16 omega">
                 <c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
@@ -89,6 +93,7 @@
                         <school:espCheckboxWithLabel key="ell_languages" value="tagalog" label="Tagalog"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="urdu" label="Urdu"/>
                         <school:espCheckboxWithLabel key="ell_languages" value="vietnamese" label="Vietnamese"/>
+                        <school:espCheckboxWithLabel key="ell_languages" value="other" label="Other"/>
                     </div>
                 </div>
 

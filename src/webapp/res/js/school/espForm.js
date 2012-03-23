@@ -922,6 +922,14 @@ new (function() {
         // PAGE 4
 //        var isValidForeignLanguageOther = GS.validation.validateRequiredIfChecked
 //            ('#js_form_foreign_language_other', '.js_otherField_js_form_foreign_language_other', '#js_form_foreign_language_error');
+        if(onSubmit) {
+            validations.push(GS.validation.validateRequiredIfChecked('[name=ell_languages]', '[name=ell_level]',
+                '#js_form_esl_ell_programming_error'));
+        }
+        else if(jQuery('#js_form_esl_ell_programming_error').css('display')=='block') {
+            validations.push(GS.validation.validateRequiredIfChecked('[name=ell_languages]', '[name=ell_level]',
+                '#js_form_esl_ell_programming_error'));
+        }
         validations.push(GS.validation.validateRequiredIfChecked
             ('[name=special_ed_programs]', '[name=special_ed_programs_exists]', '#js_form_special_ed_programs_error'));
 //        validations.push(GS.validation.validateRequiredIfChecked
