@@ -18,8 +18,7 @@ version="2.0">
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title><decorator:title default="GreatSchools Mobile"/></title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"><!-- do not collapse --></script>
-    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js"><!-- do not collapse --></script>
+    <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
 </head>
 <body>
@@ -30,13 +29,7 @@ version="2.0">
 
     <tags:standardMobileFooter />
 </div>
-<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
-<!--<script type="text/javascript" src="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.js">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
-<script type="text/javascript">
-    $('#top-nav-goto').on('click', function() {
-        $('#mobile-sub-nav').toggle();
-    });
-</script>
+
 </body>
 </html>
 
