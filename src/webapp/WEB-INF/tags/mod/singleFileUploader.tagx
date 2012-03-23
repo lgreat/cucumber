@@ -16,7 +16,9 @@
     <div id="file-uploader-container-${idSuffix}" class="lal clearfix">
         <div class="alpha grid_6">
             <input class="js-uploader-file uploader-file text input_6" disabled="disabled"><!-- no collapse --></input>
-            <span class="js-uploader-delete mlm top_5" style="display:none; position:relative;">
+        </div>
+        <div class="grid_1">
+            <span class="js-uploader-delete mts" style="display:none;">
                     <span class="iconx16 i-16-close img"><!-- no collapse --></span>
             </span>
         </div>
@@ -35,7 +37,7 @@
                 </button>
             </span>
         </div>
-        <div class="omega grid_5">
+        <div class="omega grid_4">
             <span class="spinner" style="display:none;">
                 <gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse -->
             </span>

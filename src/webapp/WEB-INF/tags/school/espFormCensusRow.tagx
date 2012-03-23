@@ -22,13 +22,19 @@
                 <label class="checkbox">% ${stateLabel}</label>
             </div>
             <div class="grid_6 omega">
-                <div id="js_form_census_${dataTypeId}_number_error"  class="error" style="display: none">
-                    <span class="sprite i-alert vam"><!--Do not collapse--></span>
-                    Please enter a number.
+                <div id="js_form_census_${dataTypeId}_number_error" class="error" style="display: none">
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                        <div class="bk">Please enter a number.</div>
+                    </div>
                 </div>
-                <div id="js_form_census_${dataTypeId}_percent_error"  class="error" style="display: none">
-                    <span class="sprite i-alert vam"><!--Do not collapse--></span>
-                    Values may not be over 100%.
+                <div id="js_form_census_${dataTypeId}_percent_error" class="error" style="display: none">
+                    <div class="mediaExt1-1">
+                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                        <div class="bk">Values may not be over 100%.</div>
+                    </div>
                 </div>
             </div>
             <div class="lal clearfix">

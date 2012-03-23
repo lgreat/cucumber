@@ -10,6 +10,7 @@
     <pageHelper:externalJavascript file="/res/js/util/SingleFileUploader.js" />
 
     <school:espFormTemplate page="8" maxPage="${maxPage}" headerText="Student info">
+
         <p>
             We gather student demographic information and test scores from public schools, but frequently
             cannot gather it from the state for private schools. We ask for the student information and ACT
@@ -41,8 +42,10 @@
                     <mod:singleFileUploader idSuffix="ACT" type="ACT" schoolDatabaseState="${school.databaseState}"
                                             schoolId="${school.id}" url="/osp/pdfUploader.json"
                                             successSelector="#js_actPdfFilename"/>
+
                     <p class="hint">Please upload a scanned copy of your complete ACT official score report here. PDF files only.</p>
                     <c:set var="lastActFilename" value="${responseMap['act_pdf_filename'].value}"/>
+
                     <p class="${empty lastActFilename ? 'hidden' : ''}" id="js_actPdfFilename">
                         Last upload: <span class="js_value">${lastActFilename}</span>
                     </p>
@@ -73,8 +76,10 @@
                     <mod:singleFileUploader idSuffix="SAT" type="SAT" schoolDatabaseState="${school.databaseState}"
                                             schoolId="${school.id}" url="/osp/pdfUploader.json"
                                             successSelector="#js_satPdfFilename"/>
+
                     <p class="hint">Please upload a scanned copy of your complete SAT official score report here. PDF files only.</p>
                     <c:set var="lastSatFilename" value="${responseMap['sat_pdf_filename'].value}"/>
+
                     <p class="${empty lastSatFilename ? 'hidden' : ''}" id="js_satPdfFilename">
                         Last upload: <span class="js_value">${lastSatFilename}</span>
                     </p>
@@ -133,12 +138,18 @@
                 </div>
                 <div class="grid_6 omega">
                     <div id="js_form_private_number_12th_graders_number_error" class="error" style="display: none">
-                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
-                        Please enter a number.
+                        <div class="mediaExt1-1">
+                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                            <div class="bk">Please enter a number.</div>
+                        </div>
                     </div>
                     <div id="js_form_private_number_12th_graders_error" class="error" style="display: none">
-                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
-                        Please specify a response. We need this information to process your school's scores.
+                        <div class="mediaExt1-1">
+                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                            <div class="bk">Please specify a response. We need this information to process your school's scores.</div>
+                        </div>
                     </div>
                 </div>
             </fieldset>
@@ -154,12 +165,18 @@
                 </div>
                 <div class="grid_6 omega">
                     <div id="js_form_private_number_took_sat_number_error" class="error" style="display: none">
-                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
-                        Please enter a number.
+                        <div class="mediaExt1-1">
+                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                            <div class="bk">Please enter a number.</div>
+                        </div>
                     </div>
                     <div id="js_form_private_number_took_sat_error" class="error" style="display: none">
-                        <span class="sprite i-alert vam"><!--Do not collapse--></span>
-                        Please specify a response. We need this information to process your school's scores.
+                        <div class="mediaExt1-1">
+                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+
+                            <div class="bk">Please specify a response. We need this information to process your school's scores.</div>
+                        </div>
                     </div>
                 </div>
             </fieldset>
