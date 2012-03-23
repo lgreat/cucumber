@@ -133,7 +133,7 @@
                                         </li>
                                     </ol>
                                     <ul>
-                                        <li>Example - someone@somedomain.com 53 someFirstName someLastname principal</li>
+                                        <li>Example - someone@somedomain.com,53,someFirstName,someLastname,principal</li>
                                     </ul>
 
                                     <span class="loud">NOTES:</span>
