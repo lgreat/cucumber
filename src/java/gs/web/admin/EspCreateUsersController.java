@@ -115,7 +115,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
                 State state = getState(request.getParameter("state"), returnValues);
                 for (int i = 0; i < lines.length; i++) {
                     try {
-                        String[] fields = lines[i].split("\t");
+                        String[] fields = lines[i].split(",");
                         if (fields.length < 2) {
                             addToList(returnValues, "genericDebugOutput", "ERROR: email and school id are required.Please check row #:" + i);
                         } else {
@@ -309,7 +309,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
         if (espMembership == null) {
             EspMembership esp = new EspMembership();
             esp.setActive(false);
-            esp.setJobTitle(StringUtils.isNotBlank(jobTitle) ? jobTitle : DEFAULT_JOB_TITLE);
+            esp.setJobTitle(StringUtils.isNotBlank(jobTitle) ? jobTitle.trim() : DEFAULT_JOB_TITLE);
             esp.setState(state);
             esp.setSchoolId(school.getId());
             esp.setStatus(EspMembershipStatus.PRE_APPROVED);
