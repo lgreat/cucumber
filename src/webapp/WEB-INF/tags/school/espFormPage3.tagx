@@ -250,7 +250,8 @@
 </c:if>
 
 
-<c:if test="${gsweb:separatedListContains(school.levelCode, 'e', ',') or gsweb:separatedListContains(school.levelCode, 'm', ',') }">
+<c:if test="${gsweb:separatedListContains(school.levelCode, 'e', ',') or gsweb:separatedListContains(school.levelCode, 'm', ',')
+            or (gsweb:separatedListContains(school.levelCode, 'h', ',') and not gsweb:separatedListContains(school.gradeLevels, '12' , '-' ) )}">
     <div id="sctn_destination_school" class="lal clearfix">
         <div class="alpha grid_7">
             <label for="form_destination_school_1">What school(s) do many of your students typically attend after they graduate your school?</label>
