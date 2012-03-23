@@ -309,7 +309,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
         if (espMembership == null) {
             EspMembership esp = new EspMembership();
             esp.setActive(false);
-            esp.setJobTitle(StringUtils.isNotBlank(jobTitle) ? jobTitle.trim() : DEFAULT_JOB_TITLE);
+            esp.setJobTitle(StringUtils.isNotBlank(jobTitle) ? jobTitle.toLowerCase().trim() : DEFAULT_JOB_TITLE);
             esp.setState(state);
             esp.setSchoolId(school.getId());
             esp.setStatus(EspMembershipStatus.PRE_APPROVED);
