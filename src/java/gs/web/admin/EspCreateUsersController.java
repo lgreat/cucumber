@@ -384,9 +384,9 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
      * Helper method to convert the error codes to error messages and return those error messages the view.
      *
      * @param returnValues - returnValues is a Map of key(String) to the error_code(String).
-     * @param state          - key to append the message to.
-     * @param schoolId  - the debug message.
-     * @param email  - the debug message.
+     * @param state
+     * @param schoolId
+     * @param email
      */
     protected void decodeErrorCodes(Map returnValues, String state, String schoolId, String email) {
         if (returnValues != null && returnValues.get("errorCode") != null) {
@@ -418,6 +418,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
             } else if (returnValues.get("errorCode").equals(ERROR_CODE_VERIFICATION_EMAIL_NOT_SENT)) {
                 addToList(returnValues, "genericDebugOutput", "ERROR: There was an error sending verification email to:" + email);
             }
+            returnValues.put("errorCode", "");
         }
     }
     
