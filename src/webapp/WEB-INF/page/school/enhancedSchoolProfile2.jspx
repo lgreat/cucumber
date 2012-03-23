@@ -16,7 +16,8 @@
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <head>
     <title>${school.name} Official Information - ${school.city}, ${school.databaseState.abbreviation}</title>
-    <meta name="description" content="View official information for ${school.name} including information about school culture, programs, and extracurriculars ${school.city}, ${school.databaseState.longName} - ${school.databaseState.abbreviation}"/>
+    <meta name="description" content="View official information for ${school.name}, including information about school culture, programs, and extracurriculars - ${school.city}, ${school.databaseState.longName} - ${school.databaseState.abbreviation}"/>
+    <meta name="keywords" content="${school.name} official information, ${school.name} official info, ${school.name} programs, ${school.name} extracurriculars, ${school.name} school culture"/>
     <c:set var="pageName" value="Principal Questionnaire"/>
 </head>
 <gsml:body adPageName="overview" pageLayout="nocol">
