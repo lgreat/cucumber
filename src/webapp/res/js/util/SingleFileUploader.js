@@ -181,12 +181,8 @@ GS.SingleFileUploader.prototype.createUploader = function() {
                 alert("There was an error. PDF files have a limit of 20MB. File: " + file.name + " cannot be uploaded.");
             } else if (err.code == plupload.FILE_EXTENSION_ERROR) {
                 alert("There was an error. " + file.name + " is not a PDF file.");
-            } else {
-                alert("We're sorry, an unknown error has occurred.");
             }
-
         } else {
-            alert("We're sorry, an unknown error has occurred");
             this.done();
         }
     }.gs_bind(this);
@@ -227,4 +223,3 @@ GS.SingleFileUploader.prototype.createUploader = function() {
     }.gs_bind(this);
 
 };
-

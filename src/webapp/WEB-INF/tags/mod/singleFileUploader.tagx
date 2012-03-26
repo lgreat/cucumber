@@ -55,6 +55,8 @@
 
     <script type="text/javascript">
         jQuery(function() {
+            // don't initialize a singleFileUploader unless uploader container is visible
+            if($('#file-uploader-container-${idSuffix}:visible').length > 0) {
             var propertyName = 'fileUploader${idSuffix}';
             var extraPostParams = {
                 type:'${type}'
@@ -62,6 +64,7 @@
             GS[propertyName] = new GS.SingleFileUploader("${url}", '${idSuffix}', ${schoolId}, "${schoolDatabaseState}", extraPostParams);
             GS[propertyName].successSelector = '${successSelector}';
             GS[propertyName].init();
+            }
         });
     </script>
 
