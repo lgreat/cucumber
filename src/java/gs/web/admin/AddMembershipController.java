@@ -155,7 +155,7 @@ public class AddMembershipController implements ReadWriteAnnotationController {
                 bindingResult.reject("invalid_memberId", "A valid member Id was not specified or no member found.");
                 return;
             }
-            if(!user.getEmailVerified()) {
+            if(user.getEmailVerified() == null || !user.getEmailVerified()) {
                 bindingResult.reject("not_verified_member", "Member is not email validated.");
             }
 
