@@ -424,7 +424,7 @@ public class EspCreateUsersController implements ReadWriteAnnotationController {
     
     protected String getPreApprovedByNote(User preApprovedBy) {
         String formattedDate = PRE_APPROVED_BY_NOTE_DATE_FORMAT.format(new Date());
-        return formattedDate + ": PRE-APPROVAL by user " + preApprovedBy.getEmail();
+        return formattedDate + ": PRE_APPROVED by user " + preApprovedBy.getEmail();
     }
 
     public ExactTargetAPI getExactTargetAPI() {
