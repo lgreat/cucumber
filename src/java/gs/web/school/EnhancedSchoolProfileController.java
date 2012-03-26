@@ -132,15 +132,20 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
             List<EspResponse> listLft = responses.get(entry[0]);
             List<EspResponse> listRgt = responses.get(entry[1]);
             List<String> lftValueList = new ArrayList<String>(), rgtValueList = new ArrayList<String>();
-            if(listLft != null && listRgt != null) {
-                extractEspResponseValues(listLft, lftValueList, pretty);
-                extractEspResponseValues(listRgt, rgtValueList, pretty);
+            if(listLft != null) {
+                extractEspResponseValues(listLft, lftValueList, pretty);                
                 String lft = StringUtils.joinPretty(lftValueList.iterator(), " ");
-                String rgt = StringUtils.joinPretty(rgtValueList.iterator(), " ");
-                if(lft != null && rgt != null && lft.length() > 0 && rgt.length() > 0) {
+                String rgt = null;
+                if(listRgt != null) {
+                    extractEspResponseValues(listRgt, rgtValueList, pretty);
+                    rgt = StringUtils.joinPretty(rgtValueList.iterator(), " ");
+                }
+                if(lft != null && lft.length() > 0) {
                     sb.append(lft);
-                    sb.append(subDelim);
-                    sb.append(rgt);
+                    if(rgt != null && rgt.length() > 0) {
+                        sb.append(subDelim);
+                        sb.append(rgt);
+                    }
                     slist.add(sb.toString());
                 }
             }
