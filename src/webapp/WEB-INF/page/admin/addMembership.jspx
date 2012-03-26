@@ -96,7 +96,7 @@
             </div>
         </div>
     </div>
-    <mod:tracking pageName="OSP Moderation Membership Details"
+    <mod:tracking pageName="OSP Moderation Add Membership"
                   hier1="ESP"/>
 </gsml:body>
 
