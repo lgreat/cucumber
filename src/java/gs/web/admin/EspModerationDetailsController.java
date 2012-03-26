@@ -202,12 +202,12 @@ public class EspModerationDetailsController extends AbstractEspModerationControl
                 modelMap.put("newSchool", school);
             }
             catch (ObjectRetrievalFailureException ex) {
-                bindingResult.rejectValue("espMembership.state", "invalid_schoolId_state", "Please enter a valid school id for the state");
-                bindingResult.rejectValue("espMembership.schoolId", "invalid_schoolId_state", "Please enter a valid school id for the state");
+                bindingResult.rejectValue("espMembership.state", "invalid_schoolId_state", new Object[]{newState.getAbbreviation()}, "Please enter a valid school id for the state");
+                bindingResult.rejectValue("espMembership.schoolId", "invalid_schoolId_state", new Object[]{newState.getAbbreviation()}, "Please enter a valid school id for the state");
                 modelMap.put("schoolIdStateError", true);
             }
             if(school != null && (!school.isActive() || school.getLevelCode().equals(LevelCode.PRESCHOOL))) {
-                bindingResult.rejectValue("espMembership.schoolId", "inactive_or_pkonly_school", "Please enter a valid school Id");
+                bindingResult.rejectValue("espMembership.schoolId", "inactive_or_pkonly_school", new Object[]{newState.getAbbreviation()}, "Please enter a valid school Id");
                 modelMap.put("schoolIdError", true);
             }
         }
