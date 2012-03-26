@@ -22,7 +22,7 @@
         <div class="js_pageErrors error" style="display: none">
             <div class="mediaExt1-1">
                 <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                <div class="bk">Please correct the errors below to continue</div>
+                <div class="bk">Please correct the errors below to continue.</div>
             </div>
         </div>
 
@@ -196,7 +196,7 @@
         <div class="js_pageErrors error" style="display: none">
             <div class="mediaExt1-1">
                 <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                <div class="bk">Please correct the errors below to continue</div>
+                <div class="bk">Please correct the errors above to continue.</div>
             </div>
         </div>
     </school:espFormTemplate>
