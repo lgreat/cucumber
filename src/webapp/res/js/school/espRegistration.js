@@ -56,7 +56,7 @@ GS.form.EspForm = function() {
             citySelect.empty();
             for (var x = 0; x < data.cities.length; x++) {
                 var city = data.cities[x];
-                if (city.name !== '') {
+                if (city.name !== '' && city.name !== 'My city is not listed') {
                     var cityVal = (city.name === '- Choose city -') ? '' : city.name;
                     citySelect.append("<option value=\"" + cityVal + "\">" + city.name + "</option>");
                 }
