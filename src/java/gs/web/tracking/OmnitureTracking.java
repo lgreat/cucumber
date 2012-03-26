@@ -95,7 +95,8 @@ public abstract class  OmnitureTracking {
         NLLandingPageSignup(53),
         FBTabNLSignup(57),
         EspRegistration(59),
-        NewEspStarted(60);
+        NewEspStarted(60),
+        NewColleagueRequest(62); // GS-12569
 
         private int _eventNumber;
         SuccessEvent(int eventNumber){

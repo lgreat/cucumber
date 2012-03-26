@@ -27,6 +27,11 @@ GS.form.RequestOtherEditors = function() {
                         alert("An error occurred, please try again.");
                     } else {
                         if (handleErrors(data)) {
+                            if (s) {
+                                pageTracking.clear();
+                                pageTracking.successEvents="event62;";
+                                pageTracking.send();
+                            }
                             updateEditorsList(firstName, lastName);
                             jQuery('#js_requestOtherEditorsFormInputs').hide();
                             showSuccess();
