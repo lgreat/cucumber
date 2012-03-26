@@ -660,11 +660,6 @@ GS.validation.validateEthnicities = function(onSubmit) {
         allValid = allValid && rangeValid;
     }
 
-    if (!rangeValid) {
-        if (onSubmit && jQuery('#js_form_ethnicity_sum_error')[0].scrollIntoView) {
-            jQuery('#js_form_ethnicity_sum_error')[0].scrollIntoView(true);
-        }
-    }
     return allValid;
 };
 
