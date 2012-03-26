@@ -17,54 +17,49 @@
         >
 
     <style type="text/css">
-        .mobile-top-nav .ui-btn .ui-btn-inner { padding: 5px; !important; }
-        .mobile-top-nav .ui-btn-icon-top .ui-btn-inner {
-            padding-top: 5px;
+        .mobile-header {
+            height:40px;
         }
-        #standard-mobile-header .mobile-top-nav li {
-            width:auto;
-        }
-        #standard-mobile-header .mobile-top-nav .ui-btn {
-            height:30px;
-        }
-        .mobile-top-nav .ui-btn .ui-icon { width: 30px!important; height: 30px!important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: none !important; border-radius: none !important; }
-        #mobile-logo-link .ui-icon { background:  url(glyphish-icons/09-chat2.png) 50% 50% no-repeat; background-size: 24px 22px; }
-        #top-nav-search .ui-icon { background:  url(glyphish-icons/18-envelope.png) 50% 50% no-repeat; background-size: 24px 16px; height:100%; }
-        #top-nav-goto .ui-icon { background:  url(glyphish-icons/30-key.png) 50% 50% no-repeat;  background-size: 12px 26px; }
 
-        #mobile-logo-link {
+        .mobile-logo-link {
             position: absolute;
-            top:1px;left:1px;
-        }
-        #top-nav-search, #top-nav-goto {
-            float:right;
-            padding:5px;
-            border-left:1px solid grey;
-            height:30px;
-            text-decoration: none;
-            color:#FFF;
+            top:5px;left:1px;
         }
 
-        #standard-mobile-header a {
-            text-decoration: none;
-            color:#EEE;
+        .mobile-header-nav {
+            margin: 5px 4px 0px 0px;
+            float:right;
         }
+
+        .mobile-header-nav a {
+            margin-right:4px;
+        }
+
+        /*make list item icon appear on left side (in subnav)*/
+        .mobile-sub-nav.ui-listview .ui-btn-icon-left .ui-btn-inner {padding-left: 25px;}
+
     </style>
 
-    <div data-role="header" id="standard-mobile-header">
-        <div class="mobile-top-nav" >
-            <ul>
-                <li id="mobile-logo-link"><a href="#" data-icon="custom"><gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30" alt="GreatSchools: Involved Parents. Successful Kids"/></a></li>
-                <li id="top-nav-goto"><a href="#" data-icon="custom">Go To &amp;#x25BC;</a></li><!-- 25B2 = up arrow -->
-                <li id="top-nav-search"><a href="#" data-icon="custom">Search</a></li>
-            </ul>
+    <!-- there might be more than one header (hidden) on a page-->
+    <div data-role="header" class="mobile-header js-mobile-header">
+        <div class="mobile-logo-link"><a href="#" data-icon="custom"><gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30" alt="GreatSchools: Involved Parents. Successful Kids"/></a></div>
+
+        <div class="mobile-header-nav">
+            <a href="#" class="top-nav-search">
+                <div data-role="button" data-icon="search" data-iconpos="notext" data-inline="true" data-corners="false"><!-- --></div>
+            </a>
+            <a href="#" class="top-nav-goto">
+                <div data-role="button" data-icon="grid" data-iconpos="notext" data-inline="true" data-corners="false"><!-- --></div>
+            </a>
         </div>
     </div>
 
-    <ul id="mobile-sub-nav" data-role="listview" data-theme="c" style="display:none">
-        <li><a href="#">Find a School</a></li>
-        <li><a href="#">My Saved Schools</a></li>
-        <li><a href="#">Subscribe to Newsletter</a></li>
+
+
+    <ul class="mobile-sub-nav" data-role="listview" data-theme="e" style="display:none">
+        <li data-icon="search" class="ui-btn-icon-left"><a href="#">Find a School</a></li>
+        <li data-icon="home" class="ui-btn-icon-left"><a href="#">My Saved Schools</a></li>
+        <li data-icon="check" class="ui-btn-icon-left"><a href="#">Subscribe to Newsletter</a></li>
     </ul>
 
 </jsp:root>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:gsweb="gstaglib"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+
+
+    <jsp:directive.attribute name="school" required="true" description="School search result" type="gs.data.search.beans.ISchoolSearchResult"/>
+    <h3>
+        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}" databaseState="${school.databaseState}" name="${school.name}" physicalAddress="${school.address}" levelCode="${school.levelCode}">
+            ${school.name}
+        </link:schoolProfileOverviewForPrimitives>
+    </h3>
+
+    <p>${school.schoolType} ${school.grades.rangeString}
+        |
+        ${school.city}, ${school.databaseState}
+            <span style="display:block;">
+
+                <!-- GreatSchools Rating -->
+                <c:choose>
+                    <c:when test="${school.levelCode eq 'p' or school.schoolType eq 'private'}">
+                        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
+                                                                 databaseState="${school.databaseState}"
+                                                                 name="${school.name}"
+                                                                 physicalAddress="${school.address}"
+                                                                 levelCode="${school.levelCode}">
+                            <c:choose>
+                                <c:when test="${school.levelCode eq 'p'}">
+                                    <span class="badge_sm_ps"><!-- do not collapse --></span>
+                                </c:when>
+                                <c:when test="${school.schoolType eq 'private'}">
+                                    <span class="badge_sm_pr"><!-- do not collapse --></span>
+                                </c:when>
+                            </c:choose>
+                        </link:schoolProfileOverviewForPrimitives>
+                    </c:when>
+                    <c:otherwise>
+                        <link:schoolProfileRating2010 state="${school.databaseState}"
+                                                      schoolId="${school.id}"
+                                                      levelCode="${school.levelCode}">
+                            <c:choose>
+                                <c:when test="${not empty school.greatSchoolsRating}">
+                                    <span class="badge_sm_${school.greatSchoolsRating} ui-li-count"><!-- do not collapse -->${school.greatSchoolsRating}</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="badge_sm_na"><!-- do not collapse --></span>
+                                </c:otherwise>
+                            </c:choose>
+                        </link:schoolProfileRating2010>
+                    </c:otherwise>
+                </c:choose>
+
+
+                <!-- Parent Rating -->
+                <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
+                                                    state="${school.databaseState}"
+                                                    schoolId="${school.id}"
+                                                    styleClass="block"
+                                                    anchor="revPagination">
+                    <c:if test="${not empty school.parentRating}">
+                        <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
+                    </c:if>
+                </link:schoolProfileParentReview2010>
+
+            </span>
+    </p>
+
+</jsp:root>

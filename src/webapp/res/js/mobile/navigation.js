@@ -1,12 +1,12 @@
 //when 'navigation' module is "require()d", execution will begin as soon as 'jquery' is available
 define(['jquery'], function($) {
-    var $container = $('#standard-mobile-header');
-    var $goToButton = $('#top-nav-goto');
-    var $subNav = $('#mobile-sub-nav');
+    var $container = $('.js-mobile-header');
+    var $goToButton = $('.top-nav-goto');
+    //var $subNav = $('.mobilePage:visible .mobile-sub-nav');
 
     var setupEventHandlers = function() {
-        $goToButton.on('click', function() {
-            $subNav.toggle();
+        $goToButton.on('click', ':visible', function() {
+            $('.mobilePage:visible .mobile-sub-nav').toggle();
         });
     };
 
@@ -14,10 +14,12 @@ define(['jquery'], function($) {
         setupEventHandlers();
     };
 
+    var $getContainer = function() {
+        return $container.filter(':visible');
+    };
+
     return {
-        $container:$container,
-        $goToButton:$goToButton,
-        $subNav:$subNav,
+        $getContainer:$getContainer,
         init:init
     };
 });

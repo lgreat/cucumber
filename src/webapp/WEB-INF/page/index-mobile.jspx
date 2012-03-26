@@ -22,11 +22,9 @@
 
 <html lang="en">
 
-<jsp:output omit-xml-declaration="true" />
 <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
+<jsp:output omit-xml-declaration="true" />
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
-<jsp:directive.page import="gs.web.util.context.SessionContext"/>
-<jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
 
 
 <head>
@@ -39,25 +37,47 @@
     <meta name="decorator" content="standardMobileDecorator"/>
 
     <meta name="verify-v1" content="8wIYiSgpVxmFXAqa0o9m/kbv8p0enMoVmBn0d7Tq3z8="/>
+
+    <script type="text/javascript">
+        // index is a module that must be in file index.js
+        require(['index'], function(index) {
+            // executed after module loaded
+        });
+    </script>
+
 </head>
 
 <body>
+    <pageHelper:mobilePage id="searchByLocation">
+        <div data-role="controlgroup" data-type="horizontal" data-theme="c">
+            <a href="#searchByLocation" data-role="button"  data-theme="c" data-icon="search" data-iconshadow="false" class="ui-btn-active">By location</a>
+            <a href="#searchByName" data-role="button" data-transition="fade"  data-theme="c" data-iconshadow="false" data-icon="search">By name</a>
+        </div>
 
-    <div id="content" align="left" style="padding:10px" data-role="content">
+        <div id="searchByLocation" data-theme="c" style="margin-top: 0px;">
+            blah
+        </div>
+    </pageHelper:mobilePage>
 
+    <pageHelper:mobilePage id="searchByName">
+        <div data-role="controlgroup" data-type="horizontal" data-theme="c">
+            <a href="#searchByLocation" data-role="button"  data-theme="c" data-icon="search" data-iconshadow="false" data-shadow="false" >By location</a>
+            <a href="#searchByName" data-role="button" data-transition="fade"  data-theme="c" data-icon="search" data-iconshadow="false" class="ui-btn-active">By name</a>
+        </div>
 
-    <form method="GET" action="/search/search.page" id="search-form" accept-charset="UTF-8">
-        <input type="hidden" name="search_type" value="0"/>
-        <label>Search by name:</label><br/>
-            <input type="text" name="q" id="qNew" value="" />
-        <br/>
-<label>in</label><br/>
-            <select style="display: inline;" class="stateSelect" name="state" id="stateSelector">
+        <div id="searchByName" data-theme="c" data-role="content" style="overflow:hidden;margin-top: -18px;">
+
+            <form method="GET" data-theme="c" action="/search/search.page" id="search-form" accept-charset="UTF-8">
+                <input type="hidden" name="search_type" value="0"/>
+                <input type="text" name="q" id="qNew" value="" placeholder="School or district..." />
+
+                <select class="stateSelect" name="state" id="stateSelector" data-inline="true" >
+                    <option selected="selected" value="">State</option>
                     <option value="AK">AK</option>
                     <option value="AL">AL</option>
                     <option value="AR">AR</option>
                     <option value="AZ">AZ</option>
-                    <option selected="selected" value="CA">CA</option>
+                    <option value="CA">CA</option>
                     <option value="CO">CO</option>
                     <option value="CT">CT</option>
                     <option value="DC">DC</option>
@@ -104,10 +124,14 @@
                     <option value="WI">WI</option>
                     <option value="WV">WV</option>
                     <option value="WY">WY</option>
-        </select>
-<button type="submit" class="button-1" style="-moz-user-select: none;">Search</button></form>
+                </select>
+                <button type="submit" class="button-1" data-inline="true" data-theme="b">Search</button>
+            </form>
 
-    </div>
+        </div>
+
+    </pageHelper:mobilePage>
+
 
 </body>
 </html>

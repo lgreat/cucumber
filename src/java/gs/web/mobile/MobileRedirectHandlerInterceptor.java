@@ -22,10 +22,11 @@ public class MobileRedirectHandlerInterceptor implements HandlerInterceptor {
 
     public static final String sitePreferenceUrlForAlternateSite = "sitePreferenceUrlForAlternateSite";
 
-    private RequestInfo _requestInfo;
-
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        RequestInfo requestInfo = _requestInfo;
+        RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
+        if (requestInfo == null) {
+            throw new IllegalStateException("RequestInfo cannot be null");
+        }
 
         boolean beanSupportsMobile = false;
         boolean beanSupportsMobileOnly = false;
@@ -82,7 +83,7 @@ public class MobileRedirectHandlerInterceptor implements HandlerInterceptor {
         }
 
         if (subdomainToRedirectTo != null) {
-            String newHostname = _requestInfo.getHostnameForTargetSubdomain(subdomainToRedirectTo);
+            String newHostname = requestInfo.getHostnameForTargetSubdomain(subdomainToRedirectTo);
             String newUrl = UrlUtil.getRequestURLAtNewHostname(request, newHostname);
             response.sendRedirect(newUrl);
             return false;
@@ -104,12 +105,4 @@ public class MobileRedirectHandlerInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object o, Exception e) throws Exception {
     }
 
-    public RequestInfo getRequestInfo() {
-        return _requestInfo;
-    }
-
-    public void setRequestInfo(RequestInfo requestInfo) {
-        _requestInfo = requestInfo;
-    }
 }
-

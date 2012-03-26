@@ -2,41 +2,41 @@
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
         xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-        xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
-        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-        xmlns:cobrand="urn:jsptagdir:/WEB-INF/tags/cobrand"
-        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-        xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
-        xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-        xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
-        xmlns:meebo="urn:jsptagdir:/WEB-INF/tags/promo/meebo"
         >
 
 
-    <a href="${sitePreferenceUrlForAlternateSite}" data-role="button" data-inline="true">View full site</a>
-    <a href="/splash/iphone.page" data-role="button" data-inline="true">Get iPhone app</a>
+    <div data-theme="d" data-role="footer" class="mobile-footer" style="font-size:10px;" align="center">
 
-    <hr/>
+        <!-- TODO: move styles into stylesheet -->
+        <style type="text/css">
+            .mobile-footer a.ui-btn {
+                font-size:10px;
+                margin:5px 2px 0px 2px;
+            }
+            .mobile-footer-links .ui-link, .mobile-footer-links .ui-link:visited{
+                color:#eee;
+                text-shadow:0 0px 0 #eee;
+            }
+            .copyright {
+                text-shadow:0 0px 0 #eee;
+            }
+        </style>
 
-    <ul id="footnav">
-        <li>
-            <a href="/about/aboutUs.page">About Us</a>
-        </li>
-        <li>
-            <a href="/terms/">Terms of Use</a>
-        </li>
-        <li>
-            <a href="/privacy/">Privacy Policy</a>
-        </li>
-        <li><a href="/email/management.page">Subscribe to Newsletter</a></li>
-        <li><a href="#">My Saved Schools</a></li>
-    </ul>
+        <a href="${sitePreferenceUrlForAlternateSite}" data-role="button" data-inline="true" class="mobile-footer-button">View full site</a>
+        <a href="/splash/iphone.page" data-role="button" data-inline="true" class="mobile-footer-button">Get iPhone app</a>
 
-    <p class="copyright" id="footerCopyright">
-        ©1998-2012 GreatSchools Inc.</p>
+        <hr/>
+
+        <div data-theme="d" class="mobile-footer-links">
+                <a href="/about/aboutUs.page" data-role="link" data-theme="d">About Us</a> |
+                <a href="/terms/">Terms of Use</a> |
+                <a href="/privacy/">Privacy Policy</a> <br/>
+            <a href="/email/management.page">Subscribe to Newsletter</a> |
+            <a href="#">My Saved Schools</a>
+        </div>
+
+        <p class="copyright" id="footerCopyright">©1998-2012 GreatSchools Inc.</p>
+
+    </div>
 
 </jsp:root>

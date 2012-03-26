@@ -27,6 +27,7 @@ import gs.data.state.StateManager;
 import gs.data.util.Address;
 import gs.data.pagination.DefaultPaginationConfig;
 import gs.web.mobile.IControllerWithMobileSupport;
+import gs.web.mobile.IViewSelectionYieldedToInterceptor;
 import gs.web.pagination.Page;
 import gs.data.pagination.PaginationConfig;
 import gs.web.pagination.RequestedPage;
@@ -52,7 +53,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 
-public class SchoolSearchController extends AbstractCommandController implements IDirectoryStructureUrlController, IControllerWithMobileSupport {
+public class SchoolSearchController extends AbstractCommandController implements IDirectoryStructureUrlController, IControllerWithMobileSupport, IViewSelectionYieldedToInterceptor {
 
     private IDistrictDao _districtDao;
 
