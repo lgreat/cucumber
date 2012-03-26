@@ -348,6 +348,29 @@
                     <!--<verbose>true</verbose>-->
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.voltvoodoo</groupId>
+                <artifactId>brew</artifactId>
+                <version>0.2.10</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>optimize</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- Find JS files to work with here -->
+                    <optimizeSourceDir>${basedir}/src/webapp/res/js/mobile</optimizeSourceDir>
+
+                    <!-- Copy optimizeSourceDir to here, minify all js and css found -->
+                    <optimizeBuildDir>${basedir}/target/webapp/res/js/build/mobile</optimizeBuildDir>
+
+                    <!-- Copy minified js modules to here -->
+                    <optimizeOutputDir>${basedir}/src/webapp/res/js/mobile</optimizeOutputDir>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -699,6 +722,12 @@
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
             <version>3.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.voltvoodoo</groupId>
+            <artifactId>brew</artifactId>
+            <version>0.2.10</version>
         </dependency>
     </dependencies>
 </project>
