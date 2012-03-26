@@ -94,41 +94,44 @@
                 </div>
             </div>
         </fieldset>
-        <fieldset>
-            <legend>Student demographic information</legend>
-            <hr class="legend"><!--Do not collapse--></hr>
-            <input type="hidden" name="page_8_touched" value="yes"/>
-            <c:if test="${not empty ethnicityBreakdowns}">
-                <div class="lal clearfix">
-                    <div class="alpha grid_7">
-                        <label>Your school's student ethnicity breakdown</label>
-                        <p class="small">Please enter numerical values, e.g. 20.</p>
-                        <p class="small">
-                            Note: GreatSchools collects student data from state and national sources. If your
-                            demographic updates become out of date, or you do not provide any data, this school's
-                            profile may reflect data from other sources.
-                        </p>
+
+        <c:if test="${not empty ethnicityBreakdowns or not empty censusDataTypes}">
+            <fieldset>
+                <legend>Student demographic information</legend>
+                <hr class="legend"><!--Do not collapse--></hr>
+                <input type="hidden" name="page_8_touched" value="yes"/>
+                <c:if test="${not empty ethnicityBreakdowns}">
+                    <div class="lal clearfix">
+                        <div class="alpha grid_7">
+                            <label>Your school's student ethnicity breakdown</label>
+                            <p class="small">Please enter numerical values, e.g. 20.</p>
+                            <p class="small">
+                                Note: GreatSchools collects student data from state and national sources. If your
+                                demographic updates become out of date, or you do not provide any data, this school's
+                                profile may reflect data from other sources.
+                            </p>
+                        </div>
+                        <div class="grid_16 omega">
+                            <c:forEach items="${ethnicityBreakdowns.breakdowns}" var="ethnicityBreakdown"
+                                       varStatus="loopStatus">
+                                <school:espFormEthnicityRow breakdownId="${ethnicityBreakdown.id}"
+                                                            label="${ethnicityBreakdown.name}"
+                                                            addPercentError="${loopStatus.first}"/>
+                            </c:forEach>
+                            <school:espCheckboxWithLabel key="census_ethnicity_unavailable" value="true"
+                                                         label="Data is unavailable" disabled="${stateLocked}"/>
+                        </div>
                     </div>
-                    <div class="grid_16 omega">
-                        <c:forEach items="${ethnicityBreakdowns.breakdowns}" var="ethnicityBreakdown"
-                                   varStatus="loopStatus">
-                            <school:espFormEthnicityRow breakdownId="${ethnicityBreakdown.id}"
-                                                        label="${ethnicityBreakdown.name}"
-                                                        addPercentError="${loopStatus.first}"/>
-                        </c:forEach>
-                        <school:espCheckboxWithLabel key="census_ethnicity_unavailable" value="true"
-                                                     label="Data is unavailable" disabled="${stateLocked}"/>
-                    </div>
-                </div>
-            </c:if>
-            <c:if test="${not empty censusDataTypes}">
-                <c:forEach items="${censusDataTypes}" var="censusDataTypeConfig">
-                    <school:espFormCensusRow typeLabel="${censusDataTypeConfig.genericName}"
-                                             stateLabel="${censusDataTypeConfig.name}"
-                                             dataTypeId="${censusDataTypeConfig.id}"/>
-                </c:forEach>
-            </c:if>
-        </fieldset>
+                </c:if>
+                <c:if test="${not empty censusDataTypes}">
+                    <c:forEach items="${censusDataTypes}" var="censusDataTypeConfig">
+                        <school:espFormCensusRow typeLabel="${censusDataTypeConfig.genericName}"
+                                                 stateLabel="${censusDataTypeConfig.name}"
+                                                 dataTypeId="${censusDataTypeConfig.id}"/>
+                    </c:forEach>
+                </c:if>
+            </fieldset>
+        </c:if>
 
         <c:if test="${school.databaseState == 'DC' || school.databaseState == 'IN'}">
             <fieldset>
