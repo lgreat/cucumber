@@ -3,14 +3,36 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:article="urn:jsptagdir:/WEB-INF/tags/content/cms/article"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
 
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
     <jsp:directive.attribute name="uri" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="comments" required="true" type="java.util.List"/>
 
     <div class="mod articleDistribution">
         <div class="inner rnd4">
             <div class="bd"><article:socialToolsLayout1 includeFbSendBtn="true" includeShareBtn="false"/></div>
+            <!-- 2012 03 26 - mitch added comment to the toolbar with count -->
+            <c:if test="${not empty pageScope.comments and fn:length(pageScope.comments) gt 0}">
+                <c:set var="commentCount" value="${fn:length(pageScope.comments)}" />
+
+                <div class="ft">
+                    <div class="ft-inner">
+                        <ul>
+
+                            <li class="smaller">
+                                <gsml:url var="linkToComments"
+                                          value="#articleCommentsLinkTo"/>
+                                <gsml:a href="${linkToComments}">
+                                    <span class="sprite i-email vert-align-mid mrs"><!-- do not collapse --></span>
+                                    <c:out value="${commentCount} " default="0 " />comments</gsml:a>
+                                </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </c:if>
             <div class="ft">
                 <div class="ft-inner">
                     <ul>

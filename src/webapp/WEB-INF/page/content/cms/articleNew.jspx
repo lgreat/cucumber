@@ -106,8 +106,8 @@
 
                 <!--Sidebar-->
                 <div class="grid_5 alpha">
-
-                    <article:toolsLayout1 feature="${feature}" uri="${uri}"/>
+                    <!-- 2012 03 26 - mitch added comment to parameter list so I could access it in the toolbar -->
+                    <article:toolsLayout1 feature="${feature}" uri="${uri}" comments="${comments}"/>
 
                     <!--GS-12398 Display sidebar blog module only when there is no photo gallery or related videos or related articles or feature sidebar is displayed-->
                     <c:set var="showBlogModule" value="${true}" property="java.lang.Boolean"/>
