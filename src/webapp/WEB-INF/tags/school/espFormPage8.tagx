@@ -18,6 +18,14 @@
             school comparison experience on our site. If you are unable to provide the data or prefer not to
             share, please indicate that the data is unavailable.
         </p>
+
+        <div class="js_pageErrors error" style="display: none">
+            <div class="mediaExt1-1">
+                <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                <div class="bk">Please correct the errors below to continue</div>
+            </div>
+        </div>
+
         <fieldset>
             <legend>Your School&amp;apos;s ACT Results</legend>
             <hr class="legend"><!--Do not collapse--></hr>
@@ -182,6 +190,11 @@
             </fieldset>
         </c:if>
 
-
+        <div class="js_pageErrors error" style="display: none">
+            <div class="mediaExt1-1">
+                <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                <div class="bk">Please correct the errors below to continue</div>
+            </div>
+        </div>
     </school:espFormTemplate>
 </jsp:root>

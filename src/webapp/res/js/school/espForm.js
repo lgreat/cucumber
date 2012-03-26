@@ -742,8 +742,10 @@ GS.util.log = function(msg) {
 new (function() {
     var saveForm = function() {
         var masterDeferred = new jQuery.Deferred();
+        jQuery('.js_pageErrors').hide();
         try {
             if (!doValidations(true)) {
+                jQuery('.js_pageErrors').show();
                 return masterDeferred.reject().promise();
             }
             var form = jQuery('#espFormPage-' + GS.espForm.currentPage);
