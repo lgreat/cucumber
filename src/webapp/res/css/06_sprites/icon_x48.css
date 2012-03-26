@@ -34,7 +34,7 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 
 .iconx48 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x48/120221-48x48.png);
+    background-image: url(/res/img/sprites/icon/x48/120326-48x48.png);
     width: 48px;
     height: 48px;
 }
@@ -74,6 +74,23 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 .i-48-si {
     background-position: -336px 0;
 }
+
+.i-48-gallery-back-default{
+    background-position: -384px 0;
+}
+
+.i-48-gallery-next-default{
+    background-position: -432px 0;
+}
+
+span.i-48-gallery-back-default:hover{
+    background-position: -480px 0;
+}
+
+span.i-48-gallery-next-default:hover{
+    background-position: -528px 0;
+}
+
 
 /* row 48 */
 .selected .i-48-sb {

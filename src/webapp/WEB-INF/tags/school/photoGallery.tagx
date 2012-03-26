@@ -18,37 +18,57 @@
     <div id="photo-gallery">
         <div class="photo-gallery-module">
             <div class="heading">
-                <div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,35,-1)}</div>
+                <!--<div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,35,-1)}</div>-->
                 <div id="photo-gallery-close">
                     <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
                 </div>
             </div>
             <div id="photo-gallery-viewer">
+                <c:choose>
+                    <c:when test="${fn:length(images) > 1}">
+                        <div id="photo-gallery-back" style="position: absolute; top: 290px;left: 32px;">
+                            <span class="iconx48 i-48-gallery-back-default"><!--Do not collapse--></span>
+                        </div>
+                    </c:when>
+                </c:choose>
                 <c:forEach begin="0" end="${numberOfImages-1}" var="index">
                     <div id="gallery-fullsize-${index}" class="gallery-fullsize">
                         <img align="middle" class="test" src="/res/img/pixel.gif" width="${images[index].width}"
                              height="${images[index].height}"/>
                     </div>
                 </c:forEach>
+                <c:choose>
+                    <c:when test="${fn:length(images) > 1}">
+                        <div id="photo-gallery-next" style="position: absolute; top: 290px; left: 440px;">
+                            <span class="iconx48 i-48-gallery-next-default"><!--Do not collapse--></span>
+                        </div>
+                    </c:when>
+                </c:choose>
                 <br style="clear:both"/>
             </div>
 
-            <div class="infiniteCarousel7">
+            <c:choose>
+                <c:when test="${fn:length(images) > 1}">
 
-                <div class="wrapper" style="overflow:hidden;">
-                    <ul class="unordered-carousel">
+                    <div class="infiniteCarousel7">
 
-                        <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                            <li>
-                                <div class="gallery-thumbnail js_gallery_thumbnail_${index}">
-                                    <img src="/res/img/pixel.gif" width="70" height="70"/>
-                                </div>
-                            </li>
-                        </c:forEach>
+                        <div class="wrapper" style="overflow:hidden;">
+                            <ul class="unordered-carousel">
 
-                    </ul>
-                </div>
-            </div>
+                                <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                                    <li>
+                                        <div class="gallery-thumbnail js_gallery_thumbnail_${index}">
+                                            <img src="/res/img/pixel.gif" width="70" height="70"/>
+                                        </div>
+                                    </li>
+                                </c:forEach>
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </c:when>
+            </c:choose>
 
             <!--<c:choose>-->
                 <!--<c:when test="${fn:length(images) > 1}">-->
