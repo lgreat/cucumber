@@ -1214,7 +1214,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 }
 
 .gallery-thumbnail {
-    border: 1px solid #fff;
+    border: 2px solid #fff;
 }
 
 .gallery-thumbnail img{
@@ -1226,7 +1226,7 @@ div .gallery-thumbnail:hover{
 }
 
 div .gallery-thumbnail:hover img{
-    border:  0;
+    border: 1px solid #fff;
 }
 
 .gallery-thumbnail-selected {
@@ -1234,7 +1234,7 @@ div .gallery-thumbnail:hover img{
 }
 
 .gallery-thumbnail-selected img {
-    border: 0;
+    border: 1px solid #fff;
 }
 
 div .gallery-thumbnail-selected:hover {
@@ -4710,7 +4710,7 @@ body.cobranded #pageGS {
 -------------------------------------------------------------------------------------------*/
 .infiniteCarousel7{
     width: 500px;
-    height: 79px;
+    height: 81px;
     position: relative;
     margin:10px auto 10px;
     outline:0;
@@ -4735,13 +4735,13 @@ body.cobranded #pageGS {
 
 .infiniteCarousel7 .wrapper {
     clear:both;
-    width: 420px; /* .infiniteCarousel2 width - (.wrapper margin-left + .wrapper margin-right) */
+    width: 430px; /* .infiniteCarousel7 width - (.wrapper margin-left + .wrapper margin-right) */
     overflow: auto;
-    height: 74px;
+    height: 76px;
     margin: 0;
     position: absolute;
     top: 5px;
-    left:40px;
+    left:35px;
 }
 
 .infiniteCarousel7 .wrapper ul {
@@ -4759,8 +4759,8 @@ body.cobranded #pageGS {
     display: block;
     float: left;
     padding: 0 5px;
-    width: 74px;
-    height: 74px;
+    width: 76px;
+    height: 76px;
 }
 
 .infiniteCarousel7 ul li a img {
@@ -4793,8 +4793,8 @@ body.cobranded #pageGS {
               filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 ); /* IE6-9 */
 }
 
-.infiniteCarousel7 .forward {right: 12px;}
-.infiniteCarousel7 .back {left: 12px;}
+.infiniteCarousel7 .forward {right: 5px;}
+.infiniteCarousel7 .back {left: 5px;}
 
 .infiniteCarousel7 .forward:hover {text-decoration: none;
     background-color: #ffffff;
