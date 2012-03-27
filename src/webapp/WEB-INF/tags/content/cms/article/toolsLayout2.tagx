@@ -18,12 +18,11 @@
                         <article:socialToolsLayout3 includeFbSendBtn="true" includeShareBtn="false"/>
                     </div>
                     <div class="unit size50of100 lastUnit flrt">
-
                     <!-- DONE! switch to correct button design (or ask to use same icons as in article:toolsLayout1 -->
                     <!-- DONE! fix layout -->
                     <!-- TODO! make sure EN/ES toggle looks fine (not in mockup) -->
-                        <!-- 2012 03 26 - mitch added comment to the toolbar with count -->
-                        <div class="media">
+                        <!-- 2012 03 26 - mitch added comment to the toolbar with count   -->
+
                             <c:if test="${not empty feature.otherLanguageUri}">
                                 <div class="fltrt prm">
                                     <div class="img smaller">
@@ -72,7 +71,6 @@
 
                                 </div>
                         </c:if>
-                        </div>
                     </div>
                 </div>
             </div>
