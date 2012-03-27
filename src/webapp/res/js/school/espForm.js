@@ -663,12 +663,16 @@ GS.validation.validateEthnicities = function(onSubmit) {
     return allValid;
 };
 
-GS.validation.validateCensuses = function() {
+GS.validation.validateCensuses = function(onSubmit) {
+    jQuery('.js_form_census_dataType').removeClass('warning');
+    jQuery('.js_form_census_error').hide();
     var allValid = true;
-    jQuery('.js_form_census_dataType').each(function() {
-        allValid = GS.validation.validateCensus
-            ('#' + this.id,'#' + this.id + '_number_error','#' + this.id + '_percent_error', '#' + this.id.substring(3) + '_unavailable__true') && allValid;
-    });
+    if (onSubmit) {
+        jQuery('.js_form_census_dataType').each(function() {
+            allValid = GS.validation.validateCensus
+                ('#' + this.id,'#' + this.id + '_number_error','#' + this.id + '_percent_error', '#' + this.id.substring(3) + '_unavailable__true') && allValid;
+        });
+    }
     return allValid;
 };
 
@@ -989,7 +993,7 @@ new (function() {
         // END PAGE 7
 
         // PAGE 8
-        validations.push(GS.validation.validateCensuses());
+        validations.push(GS.validation.validateCensuses(onSubmit));
         validations.push(GS.validation.validateEthnicities(onSubmit));
         validations.push(GS.validation.validate12ThGraderFields());
         // END PAGE 8

@@ -22,14 +22,14 @@
                 <label class="checkbox">% ${stateLabel}</label>
             </div>
             <div class="grid_6 omega">
-                <div id="js_form_census_${dataTypeId}_number_error" class="error" style="display: none">
+                <div id="js_form_census_${dataTypeId}_number_error" class="error js_form_census_error" style="display: none">
                     <div class="mediaExt1-1">
                         <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
 
                         <div class="bk">Please enter a number.</div>
                     </div>
                 </div>
-                <div id="js_form_census_${dataTypeId}_percent_error" class="error" style="display: none">
+                <div id="js_form_census_${dataTypeId}_percent_error" class="error js_form_census_error" style="display: none">
                     <div class="mediaExt1-1">
                         <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
 
