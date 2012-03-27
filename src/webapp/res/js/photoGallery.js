@@ -47,6 +47,7 @@ GS.photoGallery.PhotoGallery.prototype.showFullSizeImage = function(index) {
     jQuery('#' + id).show();
 
     jQuery('.' + this.thumbnailIdPrefix + index).addClass(this.thumbnailSelectedCssClass);
+    jQuery('.' + this.thumbnailIdPrefix + index).trigger('itemSelected'); // custom infiniteCarousel event
 
     //track change
     this.currentFullSizeImage = index;

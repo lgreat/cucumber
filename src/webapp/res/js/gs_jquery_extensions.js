@@ -458,6 +458,18 @@ function debug(what) {
                     return gotoPage(currentPage + 1);
                 });
 
+                // Bind a custom event that listens for item selections from outside the carousel
+                $slider.on('itemSelected', 'li', function() {
+                    var me = $(this);
+                    if (me.hasClass('cloned')) { // don't consider any events triggered off our fake items
+                        return false;
+                    }
+                    var myPage = Math.floor(me.index() / visible); // first cloned page is page 0
+                    if (myPage != currentPage && myPage > 0 && myPage <= pages) {
+                        gotoPage(myPage);
+                    }
+                });
+
                 // create a public interface to move to a specific page
                 $(this).bind('goto', function (event, page) {
                     gotoPage(page);
