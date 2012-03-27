@@ -20,7 +20,7 @@
             <div class="heading">
                 <!--<div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,35,-1)}</div>-->
                 <div id="photo-gallery-close">
-                    <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
+                    <span class="iconx24 i-24-close"><!--Do not collapse--></span>
                 </div>
             </div>
             <div id="photo-gallery-viewer">

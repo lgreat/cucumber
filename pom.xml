@@ -334,6 +334,7 @@
                         <param>04_text/typography.css</param>
                         <param>05_forms/forms.css</param>
                         <param>06_sprites/icon_x16.css</param>
+                        <param>06_sprites/icon_x24.css</param>
                         <param>06_sprites/icon_x32.css</param>
                         <param>06_sprites/icon_x48.css</param>
                         <param>06_sprites/icon_x64.css</param>

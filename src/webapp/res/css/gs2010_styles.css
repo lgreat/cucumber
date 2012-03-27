@@ -1288,7 +1288,7 @@ div .gallery-thumbnail-selected:hover {
 }
 
 .photo-gallery-module .heading {
-    height: 48px;
+    height: 44px;
     /*background: rgb(244, 249, 252);*/
     margin-bottom: 15px;
     /*background: -moz-linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); *//* FF3.6+ */
