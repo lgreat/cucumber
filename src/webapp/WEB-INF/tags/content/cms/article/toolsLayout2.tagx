@@ -25,7 +25,7 @@
 
                             <c:if test="${not empty feature.otherLanguageUri}">
                                 <div class="fltrt prm">
-                                    <div class="img smaller">
+                                    <div class="smaller">
                                         <a href="${feature.otherLanguageUri}">
                                             <c:choose>
                                                 <c:when test="${feature.language eq 'ES'}"><span
@@ -40,7 +40,7 @@
                             </c:if>
 
                             <div class="fltrt prm">
-                                <div class="img smaller">
+                                <div class="smaller">
                                     <a href="javascript:void(0);"
                                        onClick="window.open('/print-view${uri}?fromPage=${feature.currentPageNum == -1 ? 'all' : feature.currentPageNum}','win', 'width=700,height=600,scrollbars=yes'); return false;"><span
                                             class="sprite i-print vert-align-mid mrs"><!-- do not collapse --></span>Print</a>
@@ -48,7 +48,7 @@
 
                             </div>
                             <div class="fltrt prm">
-                            <div class="img smaller">
+                            <div class="smaller">
                                 <gsml:url var="mailToFriendUrl"
                                           value="/community/mailToFriend.page?featureId=${feature.contentKey.identifier}&amp;refer=article"/>
                                 <gsml:a href="${mailToFriendUrl}"
@@ -62,7 +62,7 @@
                             <c:set var="commentCount" value="${fn:length(pageScope.comments)}" />
 
                             <div class="fltrt prm">
-                                <div class="img smaller">
+                                <div class="smaller">
                                     <gsml:url var="linkToComments"
                                               value="#articleCommentsLinkTo"/>
                                     <gsml:a href="${linkToComments}">
