@@ -165,7 +165,7 @@
                     </execution>
                     <execution>
                         <id>optimize</id>
-                        <phase>prepare-package</phase>
+                        <phase>process-classes</phase>
                         <configuration>
                             <target name="-optimize" description="Combine and minify files.">
                                 <echo message="Optimizing mobile javascript files" />
