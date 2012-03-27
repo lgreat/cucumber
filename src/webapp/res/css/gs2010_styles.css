@@ -1282,15 +1282,15 @@ div .gallery-thumbnail-selected:hover {
 }
 
 .photo-gallery-module.single-photo{
-    border-radius: 9px;
-    -moz-border-radius: 9px;
-    -webkit-border-radius: 9px;
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
 }
 
 .photo-gallery-module .heading {
-    height: 44px;
+    height: 34px;
     /*background: rgb(244, 249, 252);*/
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
     /*background: -moz-linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); *//* FF3.6+ */
     /*background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, rgba(244, 249, 252, 1)), color-stop(100%, rgba(226, 241, 247, 1)), color-stop(100%, rgba(32, 124, 202, 1)), color-stop(100%, rgba(226, 241, 247, 1))); *//* Chrome,Safari4+ */
     /*background: -webkit-linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); *//* Chrome10+,Safari5.1+ */
@@ -1298,10 +1298,10 @@ div .gallery-thumbnail-selected:hover {
     /*background: -ms-linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); *//* IE10+ */
     /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f4f9fc', endColorstr = '#e2f1f7', GradientType = 0); *//* IE6-9 */
     /*background: linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); *//* W3C */
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    -moz-border-radius-topleft: 9px;
-    -moz-border-radius-topright: 9px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    -moz-border-radius-topleft: 12px;
+    -moz-border-radius-topright: 12px;
 }
 
 #photo-gallery-controls {
@@ -4712,7 +4712,7 @@ body.cobranded #pageGS {
     width: 500px;
     height: 79px;
     position: relative;
-    margin:0 auto 10px;
+    margin:10px auto 10px;
     outline:0;
 
     /* backkground */
