@@ -66,7 +66,7 @@
                                   label="Year-round / Rolling admissions, if space is available"/>
         <school:espRadioWithLabel key="application_deadline" value="date" label="Date: " nobr="true" styleClass="js_otherField_js_form_application_deadline_date">
             <input type="text" name="application_deadline_date" id="js_form_application_deadline_date"
-                   class="js_otherField text-smaller input_3" readonly="readonly"
+                   class="js_otherField text-smaller input_3 mrgtop_neg1" readonly="readonly"
                    value="${responseMap['application_deadline_date'].value}" maxlength="10"/>
         </school:espRadioWithLabel>
         <school:espRadioWithLabel key="application_deadline" value="parents_contact"

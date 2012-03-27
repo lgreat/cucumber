@@ -262,6 +262,10 @@ General comments:
     border-left: 1px solid #999;
 }
 
+.mrgtop_neg1 {
+    margin-top: -1px;
+}
+
 .mrgtop_2 {
     margin-top: 2px;
 }
