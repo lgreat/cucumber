@@ -685,14 +685,26 @@ GS.validation.validateCensus = function(inputSelector, errorSelector, percentErr
 };
 
 GS.validation.validate12ThGraderFields = function() {
-    var pdfUploaded = jQuery('#js_satPdfFilename').filter(':visible').size() > 0 ? true : false;
-    if (jQuery('#form_fax_sat__yes').prop('checked') || pdfUploaded) {
+    var sat_block = jQuery('#js_sat_count_block');
+    sat_block.find('.error').hide();
+    sat_block.find('input').removeClass('warning');
+    if (jQuery('#form_fax_sat__yes').prop('checked') || jQuery('#js_satPdfFilename').filter(':visible').size() > 0) {
         var isValid12thGraderEnrolled = GS.validation.validateRequired('#js_form_private_number_12th_graders', '#js_form_private_number_12th_graders_error') &&
             GS.validation.validateInteger('#js_form_private_number_12th_graders', '#js_form_private_number_12th_graders_number_error');
 
         var isValid12thGraderSat = GS.validation.validateRequired('#js_form_private_number_took_sat', '#js_form_private_number_took_sat_error') &&
             GS.validation.validateInteger('#js_form_private_number_took_sat', '#js_form_private_number_took_sat_number_error');
-        return   isValid12thGraderEnrolled && isValid12thGraderSat;
+
+        if (isValid12thGraderEnrolled && isValid12thGraderSat) {
+            var numEnrolled = parseInt(jQuery('#js_form_private_number_12th_graders').val());
+            var numTaken = parseInt(jQuery('#js_form_private_number_took_sat').val());
+            if (numTaken > numEnrolled) {
+                jQuery('#js_form_private_number_took_sat_sum_error').show();
+                jQuery('#js_form_private_number_took_sat').addClass('warning');
+                return false;
+            }
+        }
+        return isValid12thGraderEnrolled && isValid12thGraderSat;
     }
     return true;
 };
@@ -737,7 +749,6 @@ GS.util.log = function(msg) {
 new (function() {
     var saveForm = function() {
         var masterDeferred = new jQuery.Deferred();
-        jQuery('.js_pageErrors').hide();
         try {
             if (!doValidations(true)) {
                 jQuery('.js_pageErrors').show();
@@ -895,6 +906,7 @@ new (function() {
 
     // onSubmit == true when this is called on form submit. False otherwise, eg. during blur validations
     var doValidations = function(onSubmit) {
+        jQuery('.js_pageErrors').hide();
         var validations = new Array();
         // PAGE 1
         jQuery('#form_student_enrollment_error').hide();
