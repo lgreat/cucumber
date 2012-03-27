@@ -31,7 +31,7 @@
                 <button class="button-1-inactive js-uploader-fake-browse-button" type="button" disabled="true"
                         style="-moz-user-select: none; display:none;">Browse
                 </button>
-                <button id="js-plupload-upload-${idSuffix}" class="button-1-inactive js-uploader-upload-button mlm"
+                <button id="js-plupload-upload-${idSuffix}" class="button-1-inactive js-uploader-upload-button mls"
                         type="button"
                         style="-moz-user-select: none;" disabled="true">Upload file
                 </button>
