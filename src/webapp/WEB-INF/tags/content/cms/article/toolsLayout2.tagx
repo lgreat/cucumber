@@ -67,7 +67,7 @@
                                     <gsml:url var="linkToComments"
                                               value="#articleCommentsLinkTo"/>
                                     <gsml:a href="${linkToComments}">
-                                        <span class="sprite i-email vert-align-mid mrs "><!-- do not collapse --></span><c:out value="${commentCount} " default="0 " />comments</gsml:a>
+                                        <span class="iconx16 i-16-comment vert-align-mid mrs "><!-- do not collapse --></span><c:out value="${commentCount} " default="0 " />comments</gsml:a>
                                 </div>
 
                                 </div>
