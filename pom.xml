@@ -92,6 +92,11 @@
                 <configuration>
                     <warSourceDirectory>${basedir}/src/webapp</warSourceDirectory>
                     <warSourceExcludes>**/mobile/*.js</warSourceExcludes>
+                    <webResources>
+                        <resource>
+                            <directory>target/gs-web/res/js/mobile</directory>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
 
@@ -160,7 +165,7 @@
                     </execution>
                     <execution>
                         <id>optimize</id>
-                        <phase>prepare-package</phase>
+                        <phase>process-resources</phase>
                         <configuration>
                             <target name="-optimize" description="Combine and minify files.">
                                 <echo message="Optimizing mobile javascript files" />
