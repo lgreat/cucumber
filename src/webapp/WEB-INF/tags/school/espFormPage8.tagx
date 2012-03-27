@@ -97,7 +97,7 @@
         <c:if test="${school.databaseState == 'DC' || school.databaseState == 'IN'}">
             <fieldset id="js_sat_count_block">
                 <div class="lal clearfix">
-                    <div class="alpha grid_7">
+                    <div class="alpha grid_6 suffix_1">
                         <label for="form_private_number_12th_graders">
                             How many 12th graders were enrolled at your school in September of the most recent year?
                         </label>
@@ -127,7 +127,7 @@
                     </div>
                 </div>
                 <div class="lal clearfix">
-                    <div class="alpha grid_7">
+                    <div class="alpha grid_6 suffix_1">
                         <label for="form_private_number_took_sat">Of those 12th graders, how many took the SAT?</label>
                     </div>
                     <div class="grid_7">
