@@ -639,7 +639,10 @@ GS.validation.validatePercentageRange = function(fieldSelector, errorSelector, m
     return isValid;
 };
 
-GS.validation.validateEthnicities = function(onSubmit) {
+GS.OSP_ETHNICITY_MIN_RANGE = 0;
+
+GS.validation.validateEthnicities = function(onSubmit, elem) {
+    // if data unavailable, no validation should be done, hide all errors
     if (jQuery('#form_census_ethnicity_unavailable__true').prop('checked')) {
         jQuery('.js_form_ethnicity_error').hide();
         jQuery('.js_form_ethnicity_validation').removeClass('warning');
@@ -649,43 +652,52 @@ GS.validation.validateEthnicities = function(onSubmit) {
     var allValid = true;
 
     jQuery('.js_form_ethnicity_validation').each(function() {
-        allValid = GS.validation.validateInteger('#' + this.id, '#' + this.id + '_number_error') && allValid;
+        if (onSubmit || (elem && elem.is($(this)))) {
+            allValid = GS.validation.validateInteger('#' + this.id, '#' + this.id + '_number_error') && allValid;
+        }
     });
 
-    var rangeValid = true;
-    if (allValid) {
-        rangeValid = GS.validation.validatePercentageRange(
+    // only do range validation if no field errors exist
+    if (jQuery('.js_form_ethnicity_error').filter(':visible').length == 0) {
+        if (onSubmit) {
+            GS.OSP_ETHNICITY_MIN_RANGE = 100;
+        }
+        var rangeValid = GS.validation.validatePercentageRange(
             '.js_form_ethnicity_validation',
-            '#js_form_ethnicity_sum_error', onSubmit?100:0, 100);
+            '#js_form_ethnicity_sum_error', GS.OSP_ETHNICITY_MIN_RANGE, 100);
         allValid = allValid && rangeValid;
     }
 
     return allValid;
 };
 
-GS.validation.validateCensuses = function(onSubmit) {
-    jQuery('.js_form_census_dataType').removeClass('warning');
-    jQuery('.js_form_census_error').hide();
+GS.validation.validateCensuses = function(onSubmit, elem) {
     var allValid = true;
-    if (onSubmit) {
-        jQuery('.js_form_census_dataType').each(function() {
-            allValid = GS.validation.validateCensus
-                ('#' + this.id,'#' + this.id + '_number_error','#' + this.id + '_percent_error', '#' + this.id.substring(3) + '_unavailable__true') && allValid;
-        });
-    }
+    jQuery('.js_form_census_dataType').each(function() {
+        allValid = GS.validation.validateCensus
+            ('#' + this.id,'#' + this.id + '_number_error','#' + this.id + '_percent_error',
+                '#' + this.id.substring(3) + '_unavailable__true', onSubmit, elem) && allValid;
+    });
     return allValid;
 };
 
-GS.validation.validateCensus = function(inputSelector, errorSelector, percentErrorSelector, unavailableSelector) {
+GS.validation.validateCensus = function(inputSelector, errorSelector, percentErrorSelector, unavailableSelector, onSubmit, elem) {
+    // if data unavailable, no validation should be done, hide all errors
     if (jQuery(unavailableSelector).prop('checked')) {
         jQuery(errorSelector).hide();
         jQuery(percentErrorSelector).hide();
         jQuery(inputSelector).removeClass('warning');
         return true;
     }
-    return GS.validation.validateRequired(inputSelector, errorSelector) &&
-        GS.validation.validateInteger(inputSelector, errorSelector) &&
-        GS.validation.validatePercentageRange(inputSelector, percentErrorSelector, 0, 100);
+    // if we are submitting or modifying this exact element, then perform validation
+    if (onSubmit || (elem && elem.is($(inputSelector)))) {
+        return GS.validation.validateRequired(inputSelector, errorSelector) &&
+            GS.validation.validateInteger(inputSelector, errorSelector) &&
+            GS.validation.validatePercentageRange(inputSelector, percentErrorSelector, 0, 100);
+    } else {
+        // otherwise leave validation for later
+        return true;
+    }
 };
 
 GS.validation.validate12ThGraderFields = function() {
@@ -909,7 +921,7 @@ new (function() {
     };
 
     // onSubmit == true when this is called on form submit. False otherwise, eg. during blur validations
-    var doValidations = function(onSubmit) {
+    var doValidations = function(onSubmit, elem) {
         jQuery('.js_pageErrors').hide();
         var validations = new Array();
         // PAGE 1
@@ -993,9 +1005,11 @@ new (function() {
         // END PAGE 7
 
         // PAGE 8
-        validations.push(GS.validation.validateCensuses(onSubmit));
-        validations.push(GS.validation.validateEthnicities(onSubmit));
-        validations.push(GS.validation.validate12ThGraderFields());
+        if (GS.espForm.currentPage == 8) {
+            validations.push(GS.validation.validateCensuses(onSubmit, elem));
+            validations.push(GS.validation.validateEthnicities(onSubmit, elem));
+            validations.push(GS.validation.validate12ThGraderFields());
+        }
         // END PAGE 8
 
         for (var arrayIndex in validations) {
@@ -1088,7 +1102,7 @@ new (function() {
 
         // validate all visible fields when any input textbox value is changed
         formWrapper.on('change', 'input, select', function() {
-            doValidations(false);
+            doValidations(false, $(this));
         });
         
         // page 3 specific
