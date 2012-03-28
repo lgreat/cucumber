@@ -376,12 +376,13 @@
                                 hideIfEmpty="true"/>
 
             <c:set var="pgy"><gsweb:erts list="${responses.post_graduation_year}"/></c:set>
-            <c:if test="${not empty pgy}">
-                <c:set var="pgA"><gsweb:erts list="${responses.post_graduation_2yr}"/>%</c:set>
-                <c:set var="pgB"><gsweb:erts list="${responses.post_graduation_4yr}"/>%</c:set>
-                <c:set var="pgC"><gsweb:erts list="${responses.post_graduation_military}"/>%</c:set>
-                <c:set var="pgD"><gsweb:erts list="${responses.post_graduation_vocational}"/>%</c:set>
-                <c:set var="pgE"><gsweb:erts list="${responses.post_graduation_workforce}"/>%</c:set>
+            <c:set var="pgA"><gsweb:erts list="${responses.post_graduation_2yr}"/>%</c:set>
+            <c:set var="pgB"><gsweb:erts list="${responses.post_graduation_4yr}"/>%</c:set>
+            <c:set var="pgC"><gsweb:erts list="${responses.post_graduation_military}"/>%</c:set>
+            <c:set var="pgD"><gsweb:erts list="${responses.post_graduation_vocational}"/>%</c:set>
+            <c:set var="pgE"><gsweb:erts list="${responses.post_graduation_workforce}"/>%</c:set>
+            <c:set var="pgAll">${pgA}${pgB}${pgC}${pgD}${pgE}</c:set>
+            <c:if test="${not empty pgy and fn:length(pgAll) gt 5}">
                 <tr>
                     <td class="small_bold">
                         Post-graduation statistics
