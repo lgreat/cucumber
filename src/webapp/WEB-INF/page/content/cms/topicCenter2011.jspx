@@ -85,7 +85,7 @@
 
 <div class="grid_16 slStylesV1-0">
 
-<h1 class="bottom mtl">${topicCenter.title}</h1>
+<h1 class="mtl">${topicCenter.title}</h1>
 
 <!-- Start LogoAd-->
 <div class="logoAd fltrt mrgtop_5">
@@ -108,7 +108,7 @@
 <!-- end logoAd -->
 
     <!--Start Top Story Box-->
-    <div class="mod mainFeature rnd4">
+    <div class="mod standard_1-2">
         <div class="inner">
             <div class="bd">
                 <a href="${topicCenter.mainFeatureLink.url}"><gsml:img src="${topicCenter.imageUrl}" width="260" height="230" alt="${topicCenter.imageAltText}"
@@ -119,7 +119,7 @@
                 <p class="small">${topicCenter.mainFeatureLink.description}
                     <a class="wsnw" href="${topicCenter.mainFeatureLink.url}">More <span
                             class="alertDoubleArrow">&amp;raquo;</span></a></p>
-                <ul>
+                <ul class="small bottom">
                     <c:forEach var="otherFeatureLink" items="${topicCenter.upToFiveFeatureLinks}">
                         <li><a href="${otherFeatureLink.url}">${otherFeatureLink.title}</a></li>
                     </c:forEach>
@@ -230,7 +230,7 @@
                                     topicIDs="${link.kategory.id}">
                                 <p class="small bottom make-06b">${link.kategory.name}</p>
                             </link:cmsCategoryBrowse>
-                            <h3 class="bottom"><a href="${link.url}">${link.linkText}</a></h3>
+                            <h4 class="bottom"><a href="${link.url}">${link.linkText}</a></h4>
 
                             <p class="small">${link.description}</p>
                         </div>

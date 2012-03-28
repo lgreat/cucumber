@@ -6,7 +6,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad">
 
     <jsp:directive.attribute name="topicCenter" required="true" type="gs.data.content.cms.CmsTopicCenter"/>
-    
+
     <c:set var="moreOnThisTopic">
         <cms:browseSidebar_v2 title="More on this topic" subtopics="${requestScope.topicCenter.subtopics}"/>
     </c:set>
@@ -25,11 +25,12 @@
 
     <c:choose>
         <c:when test="${topicCenter.worksheetsTopicCenter}">
-            <div class="mod sideNav_v2 rnd4">
+            <div class="mod standard_1-1">
                 <div class="inner">
                     <div class="clearfix">
                         <cms:worksheetsBrowseSidebar_v2/>
                     </div>
+                    <div class="pbm"><!-- Do not Collapse --></div>
                     <div class="clearfix">
                         <cms:browseSidebar_v2 title="Activities" subtopics="${requestScope.topicCenter.subtopics}"/>
                     </div>
@@ -37,11 +38,12 @@
             </div>
         </c:when>
         <c:when test="${topicCenter.elementarySchoolTopicCenter}">
-            <div class="mod sideNav_v2 rnd4">
+            <div class="mod standard_1-1">
                 <div class="inner">
                     <div class="clearfix">
                         ${browseByGrade}
                     </div>
+                    <div class="pbm"><!-- Do not Collapse --></div>
                     <div class="clearfix">
                         ${moreOnThisTopic}
                     </div>
@@ -54,11 +56,12 @@
             topicCenter.specialEducationTopicCenter or
             topicCenter.elementaryGradeTopicCenter
         }">
-            <div class="mod sideNav_v2 rnd4">
+            <div class="mod standard_1-1">
                 <div class="inner">
                     <div class="clearfix">
                         ${moreOnThisTopic}
                     </div>
+                    <div class="pbm"><!-- Do not Collapse --></div>
                     <div class="clearfix">
                         ${browseByGrade}
                     </div>
@@ -66,7 +69,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <div class="mod sideNav_v2 rnd4">
+            <div class="mod standard_1-1">
                 <div class="inner">
                     ${moreOnThisTopic}
                 </div>

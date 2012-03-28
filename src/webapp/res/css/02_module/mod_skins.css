@@ -69,11 +69,11 @@ General comments:
   padding:20px;
 }
 .slStylesV1-0 .standard_1-2 .bd ul{
-  margin: 0;
+  /*margin: 0;
   padding: 0;
-}
+*/}
 .slStylesV1-0 .standard_1-2 .bd li{
-  list-style-type: none;
+  /*list-style-type: none;*/
 }
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_2-1 ----------------- */
@@ -141,6 +141,7 @@ General comments:
   background-color:#ffffff;
   padding:10px;
 }
+
 
 
 
