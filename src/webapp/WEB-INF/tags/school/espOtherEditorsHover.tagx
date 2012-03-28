@@ -67,6 +67,7 @@
                                 <div class="clear"><!-- no collapse --></div>
                             </div>
                             <div class="bd" id="js_requestOtherEditorsFormInputs">
+                                <p>Please only request accounts for people who work at this school.</p>
                                 <form onsubmit="return false;">
                                     <fieldset>
 
