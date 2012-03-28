@@ -45,6 +45,7 @@ public class ReviewCommand implements EmailValidator.IEmail {
     private boolean _wantMssNL;
     private boolean _allowContact;
     private Boolean _mssSub ;
+    private String _ip;
 
     public String getEmail() {
         return _email;
@@ -428,5 +429,13 @@ public class ReviewCommand implements EmailValidator.IEmail {
 
     public void setMssSub(Boolean mssSub) {
         _mssSub = mssSub;
+    }
+
+    public String getIp() {
+        return _ip;
+    }
+
+    public void setIp(String ip) {
+        _ip = ip;
     }
 }

@@ -60,6 +60,7 @@ public class ReviewHelper {
         review.setComments(StringUtils.abbreviate(command.getComments(), 1200));
         review.setOriginal(command.getComments());
         review.setAllowContact(command.isAllowContact());
+        review.setIp(command.getIp());
 
         if (StringUtils.isNotEmpty(command.getFirstName()) || StringUtils.isNotEmpty(command.getLastName())) {
             review.setAllowName(true);

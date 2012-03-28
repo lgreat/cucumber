@@ -91,6 +91,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         Map<Object, Object> responseValues = new HashMap<Object, Object>();
 
         ReviewCommand reviewCommand = (ReviewCommand) command;
+        reviewCommand.setIp(getIPFromRequest(request));
 
         SitePrefCookie cookie = new SitePrefCookie(request, response);
         String verifiedEmailHash = cookie.getProperty("emailVerified");
