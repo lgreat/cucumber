@@ -178,9 +178,11 @@ public class MonitorController implements ReadWriteController {
         if ("enable".equalsIgnoreCase(mobileSiteAction)) {
             enableMobileSite(request, response);
             response.sendRedirect(BEAN_ID);
+            return null;
         } else if ("disable".equalsIgnoreCase(mobileSiteAction)){
             disableMobileSite(request, response);
             response.sendRedirect(BEAN_ID);
+            return null;
         }
         model.put("mobileSiteEnabled", mobileSiteEnabled);
 
