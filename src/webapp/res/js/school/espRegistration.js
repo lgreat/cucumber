@@ -167,7 +167,7 @@ GS.form.EspForm = function() {
         fieldError.hide();
         GS.form.espForm.removeWarningClassFromElem(field);
 
-        if (fieldVal === '' || fieldVal === undefined || fieldVal === '-1' || fieldVal === '0' || fieldVal === 'My city is not listed') {
+        if (fieldVal === '' || fieldVal === undefined || fieldVal === '-1' || fieldVal === '0' || fieldVal === 'My city is not listed' || fieldVal === 'Loading...') {
             fieldError.show();
             GS.form.espForm.addWarningClassToElem(field);
             dfd.reject();
@@ -179,7 +179,10 @@ GS.form.EspForm = function() {
     };
 
     this.validateStateSchoolUserUnique = function() {
-        var schoolId = jQuery('#js_school').val();
+        var schoolId = parseInt(jQuery('#js_school').val());
+        if (isNaN(schoolId)) {
+            schoolId = -1;
+        }
         var state = jQuery('#js_stateAdd').val();
         var email = jQuery('#js_email').val();
         var fieldError = jQuery('#js_uniqueError');
