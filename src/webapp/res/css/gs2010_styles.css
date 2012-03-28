@@ -1464,24 +1464,12 @@ div .gallery-thumbnail-selected:hover {
     margin-left: 6px;
 }
 
-.ie7 .searchInput {
-    height: 23px;
-    padding-top: 7px;
-}
-
-.ie8 .searchInput {
-    height: 23px;
-    padding-top: 7px;
-}
-
-.ie7 #byNameTabBody .searchInput {
-    height: 23px;
-    padding-top: 7px;
-}
-
-.ie8 #byNameTabBody .searchInput {
-    height: 23px;
-    padding-top: 7px;
+.ie7 .searchInput,
+.ie8 .searchInput,
+.ie7 #byNameTabBody .searchInput ,
+.ie8 #byNameTabBody .searchInput{
+    height: 26px;
+    padding-top: 9px;
 }
 
 #byNameTabBody .searchTextBox{
