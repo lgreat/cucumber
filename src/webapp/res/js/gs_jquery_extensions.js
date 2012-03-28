@@ -112,6 +112,9 @@ jQuery(document).ready(function() {
     jQuery('.infiniteCarousel3').disableSelection();
     // disable selection of back button on infinite carousel
     jQuery('.infiniteCarousel4').disableSelection();
+    // disable selection of Photo-gallery on school overview page
+    jQuery('#photo-gallery').disableSelection();
+
 });
 
 /* =2 popup (informational popup bubbles)
