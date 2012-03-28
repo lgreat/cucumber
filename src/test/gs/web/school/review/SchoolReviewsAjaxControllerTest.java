@@ -33,6 +33,8 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
     IReviewDao _reviewDao;
     IUserDao _userDao;
     IAlertWordDao _alertWordDao;
+    IBannedIPDao _bannedIPDao;
+    private static final String TEST_IP = "127.0.0.1";
     ISubscriptionDao _subscriptionDao;
     private IReportContentService _reportContentService;
     User _user;
@@ -61,6 +63,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _reportContentService = createMock(IReportContentService.class);
         _reportedEntityDao = createStrictMock(IReportedEntityDao.class);
         _heldSchoolDao = createStrictMock(IHeldSchoolDao.class);
+        _bannedIPDao = createStrictMock(IBannedIPDao.class);
 
         _school = new School();
         _school.setDatabaseState(State.CA);
@@ -93,6 +96,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setReportedEntityDao(_reportedEntityDao);
         _controller.setExactTargetAPI(_exactTargetAPI);
         _controller.setHeldSchoolDao(_heldSchoolDao);
+        _controller.setBannedIPDao(_bannedIPDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setEmailVerificationReviewOnlyEmail(_emailVerificationEmail);
 
@@ -346,6 +350,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         expect(_reviewDao.findReview(_user, _school)).andReturn(review);
         _reviewDao.saveReview(review);
 
+        expect(_bannedIPDao.isIPBanned(TEST_IP, 30)).andReturn(false);
         expect(_alertWordDao.getAlertWords(review.getComments())).andReturn(alertWordMap);
 
         _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, 1);
@@ -355,6 +360,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _reportContentService.reportContent(moderationUser, _user, getRequest(), review.getId(), ReportedEntity.ReportedEntityType.schoolReview, "Review contained warning words (sucks)");
 
         replay(_alertWordDao);
+        replay(_bannedIPDao);
         replay(_reviewDao);
         replay(_reportContentService);
         replay(_subscriptionDao);
@@ -364,6 +370,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.handle(_request, _response, _command, _errors);
         verify(_alertWordDao);
+        verify(_bannedIPDao);
         verify(_userDao);
         verify(_reviewDao);
         verify(_subscriptionDao);
@@ -631,6 +638,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         expect(_reviewDao.findReview(_user, _school)).andReturn(review);
         _reviewDao.saveReview(review);
 
+        expect(_bannedIPDao.isIPBanned(TEST_IP, 30)).andReturn(false);
         expect(_alertWordDao.getAlertWords(review.getComments())).andReturn(alertWordMap);
 
         _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, 1);
@@ -640,6 +648,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _reportContentService.reportContent(moderationUser, _user, getRequest(), review.getId(), ReportedEntity.ReportedEntityType.schoolReview, "Review contained warning words (sucks)");
 
         replay(_alertWordDao);
+        replay(_bannedIPDao);
         replay(_reviewDao);
         replay(_reportContentService);
         replay(_subscriptionDao);
@@ -649,6 +658,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.handle(_request, _response, _command, _errors);
         verify(_alertWordDao);
+        verify(_bannedIPDao);
         verify(_userDao);
         verify(_reviewDao);
         verify(_subscriptionDao);
@@ -686,6 +696,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         expect(_reviewDao.findReview(_user, _school)).andReturn(review);
         _reviewDao.saveReview(review);
 
+        expect(_bannedIPDao.isIPBanned(TEST_IP, 30)).andReturn(false);
         expect(_alertWordDao.getAlertWords(review.getComments())).andReturn(alertWordMap);
 
         _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, 1);
@@ -695,6 +706,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _reportContentService.reportContent(moderationUser, _user, getRequest(), review.getId(), ReportedEntity.ReportedEntityType.schoolReview, "Review contained warning words (sucks)");
 
         replay(_alertWordDao);
+        replay(_bannedIPDao);
         replay(_reviewDao);
         replay(_reportContentService);
         replay(_subscriptionDao);
@@ -704,6 +716,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         _controller.setSubscriptionDao(_subscriptionDao);
         _controller.handle(_request, _response, _command, _errors);
         verify(_alertWordDao);
+        verify(_bannedIPDao);
         verify(_userDao);
         verify(_reviewDao);
         verify(_subscriptionDao);

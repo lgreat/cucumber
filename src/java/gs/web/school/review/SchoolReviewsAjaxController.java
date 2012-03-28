@@ -67,6 +67,8 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     private IHeldSchoolDao _heldSchoolDao;
 
+    private IBannedIPDao _bannedIPDao;
+
     private EmailHelperFactory _emailHelperFactory;
 
     private Boolean _jsonPage = Boolean.FALSE;
@@ -137,10 +139,17 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         boolean reviewHasReallyBadWords = false;
         boolean reviewShouldBeReported = false;
-        StringBuffer reason = null;
+        StringBuilder reason = null;
+
+        boolean userIpOnBanList = isIPBlocked(request);
+        if (userIpOnBanList) {
+            reviewShouldBeReported = true;
+            reason = new StringBuilder("IP " + getIPFromRequest(request) + " was on ban list at time of submission.");
+            reviewHasReallyBadWords = true; // fall into the same flow as reviews flagged with really bad words
+        }
 
         Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordMap = getAlertWordDao().getAlertWords(review.getComments());
-        if (alertWordMap != null) {
+        if (!userIpOnBanList && alertWordMap != null) {
             Set<String> alertWords = alertWordMap.get(IAlertWordDao.alertWordTypes.WARNING);
             Set<String> reallyBadWords = alertWordMap.get(IAlertWordDao.alertWordTypes.REALLY_BAD);
 
@@ -149,7 +158,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             boolean reviewHasAnyBadWords = reviewHasAlertWords || reviewHasReallyBadWords;
 
             if (reviewHasAnyBadWords) {
-                reason = new StringBuffer("Review contained ");
+                reason = new StringBuilder("Review contained ");
 
                 if (reviewHasAlertWords) {
                     reason.append("warning words (").append(StringUtils.join(alertWords, ",")).append(")");
@@ -254,6 +263,18 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
         
         return null;
+    }
+    
+    protected String getIPFromRequest(HttpServletRequest request) {
+        String requestIP = (String) request.getAttribute("HTTP_X_CLUSTER_CLIENT_IP");
+        if (StringUtils.isBlank(requestIP) || StringUtils.equalsIgnoreCase("undefined", requestIP)) {
+            requestIP = request.getRemoteAddr();
+        }
+        return requestIP;
+    }
+
+    protected boolean isIPBlocked(HttpServletRequest request) {
+        return _bannedIPDao.isIPBanned(getIPFromRequest(request), 30);
     }
 
     protected void addMssSubForSchool(User user, School school) {
@@ -540,5 +561,13 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
 
     public void setReviewHelper(ReviewHelper reviewHelper) {
         _reviewHelper = reviewHelper;
+    }
+
+    public IBannedIPDao getBannedIPDao() {
+        return _bannedIPDao;
+    }
+
+    public void setBannedIPDao(IBannedIPDao bannedIPDao) {
+        _bannedIPDao = bannedIPDao;
     }
 }
