@@ -56,8 +56,9 @@ public class RequestInfo {
         RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
         if (requestInfo == null) {
             requestInfo = new RequestInfo(request);
-            SpringWurflManager springWurflManager = (SpringWurflManager) (ApplicationContextProvider.getApplicationContext().getBean("springWurflManager"));
-            if (springWurflManager != null) {
+            ApplicationContext applicationContext = ApplicationContextProvider.getApplicationContext();
+            if (applicationContext.containsBean("springWurflManager")) {
+                SpringWurflManager springWurflManager = (SpringWurflManager) applicationContext.getBean("springWurflManager");
                 requestInfo.setDevice(new Device(springWurflManager.getDeviceForRequest(request)));
             }
         }

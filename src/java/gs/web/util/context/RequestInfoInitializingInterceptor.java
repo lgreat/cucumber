@@ -25,13 +25,13 @@ public class RequestInfoInitializingInterceptor implements HandlerInterceptor, B
                              Object o) throws Exception {
 
         RequestInfo requestInfo = new RequestInfo(request);
-        SpringWurflManager springWurflManager = (SpringWurflManager) _beanFactory.getBean("springWurflManager");
-        if (springWurflManager != null) {
+        if (_beanFactory.containsBean("springWurflManager")) {
+            SpringWurflManager springWurflManager = (SpringWurflManager) _beanFactory.getBean("springWurflManager");
             requestInfo.setDevice(new Device(springWurflManager.getDeviceForRequest(request)));
         }
         request.setAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME, requestInfo);
 
-        return true; // go on
+        return true;
     }
 
 
