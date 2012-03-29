@@ -54,9 +54,9 @@
  *
  * LAST UPDATED:
  *
- * 		- $Date: 2012/03/15 00:42:29 $
- * 		- $Author: rcox $
- * 		- $Revision: 1.1 $
+ * 		- $Date: 2012/03/29 00:33:20 $
+ * 		- $Author: aroy $
+ * 		- $Revision: 1.2 $
  *
  *
  **********************************************************************/
@@ -103,120 +103,116 @@ jQuery.ptTimeSelect.options = {
  *
  *
  */
-jQuery.ptTimeSelect._ptTimeSelectInit = function () {
-    jQuery(document).ready(
-        function () {
-            //if the html is not yet created in the document, then do it now
-            if (!jQuery('#ptTimeSelectCntr').length) {
-                jQuery("body").append(
-                    '<div id="ptTimeSelectCntr" class="">'
-                        +	'		<div class="ui-widget ui-widget-content ui-corner-all">'
-                        +	'		<div class="ui-widget-header ui-corner-all">'
-                        +	'			<div id="ptTimeSelectCloseCntr" style="float: right;">'
-                        +	'				<a href="javascript: void(0);" onclick="jQuery.ptTimeSelect.closeCntr();" '
-                        +	'						onmouseover="jQuery(this).removeClass(\'ui-state-default\').addClass(\'ui-state-hover\');" '
-                        +	'						onmouseout="jQuery(this).removeClass(\'ui-state-hover\').addClass(\'ui-state-default\');"'
-                        +	'						class="ui-corner-all ui-state-default">'
-                        +	'					<span class="ui-icon ui-icon-circle-close">X</span>'
-                        +	'				</a>'
-                        +	'			</div>'
-                        +	'			<div id="ptTimeSelectUserTime" style="float: left;">'
-                        +	'				<span id="ptTimeSelectUserSelHr">1</span> : '
-                        +	'				<span id="ptTimeSelectUserSelMin">00</span> '
-                        +	'				<span id="ptTimeSelectUserSelAmPm">AM</span>'
-                        +	'			</div>'
-                        +	'			<br style="clear: both;" /><div></div>'
-                        +	'		</div>'
-                        +	'		<div class="ui-widget-content ui-corner-all">'
-                        +	'			<div>'
-                        +	'				<div class="ptTimeSelectTimeLabelsCntr">'
-                        +	'					<div class="ptTimeSelectLeftPane" style="width: 50%; text-align: center; float: left;" class="">Hour</div>'
-                        +	'					<div class="ptTimeSelectRightPane" style="width: 50%; text-align: center; float: left;">Minutes</div>'
-                        +	'				</div>'
-                        +	'				<div>'
-                        +	'					<div style="float: left; width: 50%;">'
-                        +	'						<div class="ui-widget-content ptTimeSelectLeftPane">'
-                        +	'							<div class="ptTimeSelectHrAmPmCntr">'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);" '
-                        +	'										style="display: block; width: 45%; float: left;">AM</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);" '
-                        +	'										style="display: block; width: 45%; float: left;">PM</a>'
-                        +	'								<br style="clear: left;" /><div></div>'
-                        +	'							</div>'
-                        +	'							<div class="ptTimeSelectHrCntr">'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">1</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">2</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">3</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">4</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">5</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">6</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">7</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">8</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">9</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">10</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">11</a>'
-                        +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">12</a>'
-                        +	'								<br style="clear: left;" /><div></div>'
-                        +	'							</div>'
-                        +	'						</div>'
-                        +	'					</div>'
-                        +	'					<div style="width: 50%; float: left;">'
-                        +	'						<div class="ui-widget-content ptTimeSelectRightPane">'
-                        +	'							<div class="ptTimeSelectMinCntr">'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">00</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">05</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">10</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">15</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">20</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">25</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">30</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">35</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">40</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">45</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">50</a>'
-                        +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">55</a>'
-                        +	'								<br style="clear: left;" /><div></div>'
-                        +	'							</div>'
-                        +	'						</div>'
-                        +	'					</div>'
-                        +	'				</div>'
-                        +	'			</div>'
-                        +	'			<div style="clear: left;"></div>'
-                        +	'		</div>'
-                        +	'		<div id="ptTimeSelectSetButton">'
-                        +	'			<a href="javascript: void(0);" onclick="jQuery.ptTimeSelect.setTime()"'
-                        +	'					onmouseover="jQuery(this).removeClass(\'ui-state-default\').addClass(\'ui-state-hover\');" '
-                        +	'						onmouseout="jQuery(this).removeClass(\'ui-state-hover\').addClass(\'ui-state-default\');"'
-                        +	'						class="ui-corner-all ui-state-default">'
-                        +	'				SET'
-                        +	'			</a>'
-                        +	'			<br style="clear: both;" /><div></div>'
-                        +	'		</div>'
-                        +	'		<!--[if lte IE 6.5]>'
-                        +	'			<iframe style="display:block; position:absolute;top: 0;left:0;z-index:-1;'
-                        +	'				filter:Alpha(Opacity=\'0\');width:3000px;height:3000px"></iframe>'
-                        +	'		<![endif]-->'
-                        +	'	</div></div>'
-                );
+jQuery.ptTimeSelect.ptTimeSelectInit = function () {
+    //if the html is not yet created in the document, then do it now
+    if (!jQuery('#ptTimeSelectCntr').length) {
+        jQuery("body").append(
+            '<div id="ptTimeSelectCntr" class="">'
+                +	'		<div class="ui-widget ui-widget-content ui-corner-all">'
+                +	'		<div class="ui-widget-header ui-corner-all">'
+                +	'			<div id="ptTimeSelectCloseCntr" style="float: right;">'
+                +	'				<a href="javascript: void(0);" onclick="jQuery.ptTimeSelect.closeCntr();" '
+                +	'						onmouseover="jQuery(this).removeClass(\'ui-state-default\').addClass(\'ui-state-hover\');" '
+                +	'						onmouseout="jQuery(this).removeClass(\'ui-state-hover\').addClass(\'ui-state-default\');"'
+                +	'						class="ui-corner-all ui-state-default">'
+                +	'					<span class="ui-icon ui-icon-circle-close">X</span>'
+                +	'				</a>'
+                +	'			</div>'
+                +	'			<div id="ptTimeSelectUserTime" style="float: left;">'
+                +	'				<span id="ptTimeSelectUserSelHr">1</span> : '
+                +	'				<span id="ptTimeSelectUserSelMin">00</span> '
+                +	'				<span id="ptTimeSelectUserSelAmPm">AM</span>'
+                +	'			</div>'
+                +	'			<br style="clear: both;" /><div></div>'
+                +	'		</div>'
+                +	'		<div class="ui-widget-content ui-corner-all">'
+                +	'			<div>'
+                +	'				<div class="ptTimeSelectTimeLabelsCntr">'
+                +	'					<div class="ptTimeSelectLeftPane" style="width: 50%; text-align: center; float: left;" class="">Hour</div>'
+                +	'					<div class="ptTimeSelectRightPane" style="width: 50%; text-align: center; float: left;">Minutes</div>'
+                +	'				</div>'
+                +	'				<div>'
+                +	'					<div style="float: left; width: 50%;">'
+                +	'						<div class="ui-widget-content ptTimeSelectLeftPane">'
+                +	'							<div class="ptTimeSelectHrAmPmCntr">'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);" '
+                +	'										style="display: block; width: 45%; float: left;">AM</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);" '
+                +	'										style="display: block; width: 45%; float: left;">PM</a>'
+                +	'								<br style="clear: left;" /><div></div>'
+                +	'							</div>'
+                +	'							<div class="ptTimeSelectHrCntr">'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">1</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">2</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">3</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">4</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">5</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">6</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">7</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">8</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">9</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">10</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">11</a>'
+                +	'								<a class="ptTimeSelectHr ui-state-default" href="javascript: void(0);">12</a>'
+                +	'								<br style="clear: left;" /><div></div>'
+                +	'							</div>'
+                +	'						</div>'
+                +	'					</div>'
+                +	'					<div style="width: 50%; float: left;">'
+                +	'						<div class="ui-widget-content ptTimeSelectRightPane">'
+                +	'							<div class="ptTimeSelectMinCntr">'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">00</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">05</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">10</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">15</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">20</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">25</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">30</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">35</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">40</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">45</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">50</a>'
+                +	'								<a class="ptTimeSelectMin ui-state-default" href="javascript: void(0);">55</a>'
+                +	'								<br style="clear: left;" /><div></div>'
+                +	'							</div>'
+                +	'						</div>'
+                +	'					</div>'
+                +	'				</div>'
+                +	'			</div>'
+                +	'			<div style="clear: left;"></div>'
+                +	'		</div>'
+                +	'		<div id="ptTimeSelectSetButton">'
+                +	'			<a href="javascript: void(0);" onclick="jQuery.ptTimeSelect.setTime()"'
+                +	'					onmouseover="jQuery(this).removeClass(\'ui-state-default\').addClass(\'ui-state-hover\');" '
+                +	'						onmouseout="jQuery(this).removeClass(\'ui-state-hover\').addClass(\'ui-state-default\');"'
+                +	'						class="ui-corner-all ui-state-default">'
+                +	'				SET'
+                +	'			</a>'
+                +	'			<br style="clear: both;" /><div></div>'
+                +	'		</div>'
+                +	'		<!--[if lte IE 6.5]>'
+                +	'			<iframe style="display:block; position:absolute;top: 0;left:0;z-index:-1;'
+                +	'				filter:Alpha(Opacity=\'0\');width:3000px;height:3000px"></iframe>'
+                +	'		<![endif]-->'
+                +	'	</div></div>'
+        );
 
-                var e = jQuery('#ptTimeSelectCntr');
+        var e = jQuery('#ptTimeSelectCntr');
 
-                // Add the events to the functions
-                e.find('.ptTimeSelectMin')
-                    .bind("click", function(){
-                        jQuery.ptTimeSelect.setMin($(this).text());
-                    });
+        // Add the events to the functions
+        e.find('.ptTimeSelectMin')
+            .bind("click", function(){
+                jQuery.ptTimeSelect.setMin($(this).text());
+            });
 
-                e.find('.ptTimeSelectHr')
-                    .bind("click", function(){
-                        jQuery.ptTimeSelect.setHr($(this).text());
-                    });
+        e.find('.ptTimeSelectHr')
+            .bind("click", function(){
+                jQuery.ptTimeSelect.setHr($(this).text());
+            });
 
-                $(document).mousedown(jQuery.ptTimeSelect._doCheckMouseClick);
-            }//end if
-        }
-    );
-}(); /* jQuery.ptTimeSelectInit() */
+        $(document).mousedown(jQuery.ptTimeSelect._doCheckMouseClick);
+    }//end if
+}; /* jQuery.ptTimeSelectInit() */
 
 
 /***********************************************************************
@@ -453,6 +449,7 @@ jQuery.ptTimeSelect._doCheckMouseClick = function(ev){
  *
  */
 jQuery.fn.ptTimeSelect = function (opt) {
+    jQuery.ptTimeSelect.ptTimeSelectInit(); // GS-12687
     return this.each(function(){
         if(this.nodeName.toLowerCase() != 'input') return;
         var e = jQuery(this);
