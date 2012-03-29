@@ -146,7 +146,6 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         if (userIpOnBanList) {
             reviewShouldBeReported = true;
             reason = new StringBuilder("IP " + getIPFromRequest(request) + " was on ban list at time of submission.");
-            reviewHasReallyBadWords = true; // fall into the same flow as reviews flagged with really bad words
         }
 
         Map<IAlertWordDao.alertWordTypes, Set<String>> alertWordMap = getAlertWordDao().getAlertWords(review.getComments());
@@ -178,7 +177,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
         boolean reviewProvisional = (isNewUser || (!userAuthorizedWithPassword && !emailVerifiedRecently));
 
         if (reviewProvisional) {
-            if (Poster.STUDENT.equals(poster)) {
+            if (userIpOnBanList || Poster.STUDENT.equals(poster)) {
                 review.setStatus("pu");
             } else {
                 if (reviewHasReallyBadWords) {
@@ -189,7 +188,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             }
 
         } else {
-            if (Poster.STUDENT.equals(poster)) {
+            if (userIpOnBanList || Poster.STUDENT.equals(poster)) {
                 review.setStatus("u");
             } else {
                 if (reviewHasReallyBadWords) {
@@ -232,7 +231,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             getReportContentService().reportContent(getAlertWordFilterUser(), user, request, review.getId(), ReportedEntity.ReportedEntityType.schoolReview, reason.toString());
         }
 
-        boolean reviewPosted = !(reviewProvisional || reviewHasReallyBadWords || schoolOnHoldList || Poster.STUDENT.equals(reviewCommand.getPoster()));
+        boolean reviewPosted = !(reviewProvisional || reviewHasReallyBadWords || schoolOnHoldList || userIpOnBanList || Poster.STUDENT.equals(reviewCommand.getPoster()));
         
         if (reviewPosted) {
             sendReviewPostedEmail(request, review);
