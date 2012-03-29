@@ -29,7 +29,7 @@ jQuery(function() {
                 if (data.reviewPosted !== undefined) {
                     if (data.reviewPosted === "true") {
                         // cookie to show schoolReviewPostedThankYou hover
-                        subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPostedThankYou", 3);
+                        subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewPosted", 3);
                     } else {
                         // cookie to show schoolReviewNotPostedThankYou hover
                         subCookie.setObjectProperty("site_pref", "showHover", "schoolReviewNotPostedThankYou", 3);
