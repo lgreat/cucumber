@@ -24,6 +24,12 @@
                 </div>
             </div>
             <div id="photo-gallery-viewer">
+                <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                    <div id="gallery-fullsize-${index}" class="gallery-fullsize">
+                        <img align="middle" class="test" src="/res/img/pixel.gif" width="${images[index].width}"
+                             height="${images[index].height}"/>
+                    </div>
+                </c:forEach>
                 <c:choose>
                     <c:when test="${fn:length(images) > 1}">
                         <div id="photo-gallery-back" style="position: absolute; top: 290px;left: 32px;">
@@ -31,12 +37,6 @@
                         </div>
                     </c:when>
                 </c:choose>
-                <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                    <div id="gallery-fullsize-${index}" class="gallery-fullsize">
-                        <img align="middle" class="test" src="/res/img/pixel.gif" width="${images[index].width}"
-                             height="${images[index].height}"/>
-                    </div>
-                </c:forEach>
                 <c:choose>
                     <c:when test="${fn:length(images) > 1}">
                         <div id="photo-gallery-next" style="position: absolute; top: 290px; left: 440px;">
