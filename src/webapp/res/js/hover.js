@@ -1090,6 +1090,17 @@ GSType.hover.MiniStateLauncher = function() {
 };
 GSType.hover.MiniStateLauncher.prototype = new GSType.hover.HoverDialog('miniStateLauncherHover',250);
 
+//GS-12508.
+GSType.hover.SchoolReviewPosted = function() {
+    this.loadDialog = function() {
+    };
+    this.showHover = function() {
+        GSType.hover.schoolReviewPosted.show();
+    };
+    this.onClose = function() {};
+};
+GSType.hover.SchoolReviewPosted.prototype = new GSType.hover.HoverDialog("schoolReviewPosted",640);
+
 GSType.hover.forgotPassword = new GSType.hover.ForgotPasswordHover();
 GSType.hover.emailValidated = new GSType.hover.EmailValidated();
 GSType.hover.editEmailValidated = new GSType.hover.EditEmailValidated();
@@ -1120,6 +1131,7 @@ GSType.hover.principalReviewSubmitted = new GSType.hover.PrincipalReviewSubmitte
 GSType.hover.compareSchoolsLimitReached = new GSType.hover.CompareSchoolsLimitReached();
 
 GSType.hover.miniStateLauncher = new GSType.hover.MiniStateLauncher();
+GSType.hover.schoolReviewPosted = new GSType.hover.SchoolReviewPosted();
 
 GS.forgotPasswordHover_checkValidationResponse = function(data) {
     GSType.hover.forgotPassword.clearMessages();
@@ -1476,6 +1488,7 @@ jQuery(function() {
     GSType.hover.compareSchoolsLimitReached.loadDialog();
 
     GSType.hover.miniStateLauncher.loadDialog();
+    GSType.hover.schoolReviewPosted.loadDialog();
 
     jQuery('#hover_forgotPasswordSubmit').click(function() {
         jQuery.getJSON(GS.uri.Uri.getBaseHostname() + '/community/forgotPasswordValidator.page',
@@ -1657,11 +1670,19 @@ jQuery(function() {
         GSType.hover.confirmEspSave.show();
     } else if (showHover == "espPreApprovalEmail") {
         GSType.hover.espPreApprovalEmail.show();
+    }else if (showHover == "schoolReviewPosted") {
+        GSType.hover.schoolReviewPosted.show();
     }
 
     subCookie.deleteObjectProperty("site_pref", "showHover");
 
-
-
+    //Omniture tracking for facebook share button on school review hovers.GS-12508
+    jQuery('#js_fbshare_schoolReviewPosted').click(function() {
+        if (s) {
+            pageTracking.clear();
+            pageTracking.successEvents = "event61";
+            pageTracking.send();
+        }
+    });
 
 });

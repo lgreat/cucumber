@@ -55,17 +55,35 @@
         </c:when>
         <c:otherwise>
             <script type="text/javascript">
+
+                //GS-12508.Prior to GS-12508 the all.js file was getting loaded asynchronously as part of A,B testing.
+                //GS-12508 - to implement the Fb share button required a FB.share file.
+                //If the FB.share file gets loaded before the all.js then there are javascript errors.
+                //Therefore took out the asynchronous loading of all.js.
+                // Now it gets loaded synchronously, but on load which happens late.
+                // Also included FB.share on standard decorator(since its needed on files specified on standard decorator)
+                // That way FB.share file gets loaded before all.js.This was a quick an dirty way to do this.
+
+
+                jQuery(window).load(function() {
+                    $.ajax({
+                        url: "http://connect.facebook.net/en_US/all.js",
+                        async: false,
+                        dataType: "script"
+                    });
+                });
+
                 window.fbAsyncInit = function() {
                     FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true, channelUrl: '${domainUrl}res/channel.html'});
                     GS.FB.subscribes();
                 };
 
-                (function() {
-                    var e = document.createElement('script');
-                    e.async = true;
-                    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-                    document.getElementById('fb-root').appendChild(e);
-                }());
+//                (function() {
+//                    var e = document.createElement('script');
+//                    e.async = true;
+//                    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+//                    document.getElementById('fb-root').appendChild(e);
+//                }());
 
             </script>
         </c:otherwise>

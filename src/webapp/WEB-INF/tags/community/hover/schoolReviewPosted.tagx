@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+    <jsp:directive.attribute name="schoolName" type="java.lang.String"
+                             description="Name of the school to put in the bosy of the message."
+                             required="true"/>
+
+    <div id="schoolReviewPosted" class="dialog_white" style="display:none;">
+        <h2>Thank you.Your review has been posted.</h2>
+
+        <p><strong>Care to share? </strong>
+            <span>Let your friends know how you felt about ${schoolName}.</span></p>
+
+        <button class="button-1 schoolReviewPosted_hideHover" type="button">No, thanks</button>
+        <a name="fb_share" type="button" href="http://www.facebook.com/sharer.php"
+           id="js_fbshare_schoolReviewPosted">Share on Facebook</a>
+    </div>
+</jsp:root>

@@ -16,9 +16,9 @@ public class HoverHelper {
     public enum Hover {
         //TODO: add comments describing each hover
 
-        SCHOOL_REVIEW_POSTED("schoolReviewPostedThankYou"),
+        SCHOOL_REVIEW_POSTED("schoolReviewPosted"),
         SCHOOL_REVIEW_QUEUED("schoolReviewNotPostedThankYou"),
-        EMAIL_VERIFIED_SCHOOL_REVIEW_POSTED("emailValidatedSchoolReviewPosted"),
+        EMAIL_VERIFIED_SCHOOL_REVIEW_POSTED("schoolReviewPosted"),
         EMAIL_VERIFIED_SCHOOL_REVIEW_QUEUED("emailValidatedSchoolReviewQueued"),
         EMAIL_VERIFIED("emailValidated"),
         NEW_EMAIL_VERIFIED("editEmailValidated"),

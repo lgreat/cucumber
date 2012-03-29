@@ -16,6 +16,7 @@
           xmlns:pg="http://jsptags.com/tags/navigation/pager"
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
@@ -151,6 +152,7 @@
     </c:if>
 </head>
 <gsml:body adPageName="parentReviews" pageLayout="overview">
+<communityHover:schoolReviewPosted schoolName="${school.name}"/>
 <pageHelper:externalCss file="/res/css/school/parentReviews/styles.css"/>
 <c:set var="adSlotPrefix" value="School_Profile_Page_Parent_Reviews"/>
 <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
@@ -612,6 +614,19 @@
 <!-- end reviewContainer -->
 
 </school:profile2010>
+
+<!--GS-12508.Prior to GS-12508 the all.js file was getting loaded asynchronously as part of A,B testing.
+GS-12508 - to implement the Fb share button required a FB.share file.
+If the FB.share file gets loaded before the all.js then there are javascript errors.
+Therefore took out the asynchronous loading of all.js. And the code below loads the FB.share asynchronously.
+FB.share file gets loaded before all.js.This was a quick an dirty way to do this.-->
+<script type="text/javascript">
+    jQuery(window).load(function() {
+        jQuery.getScript("http://static.ak.fbcdn.net/connect.php/js/FB.Share");
+    });
+</script>
+
+
 <mod:tracking pageName="${pageName}"
               hier1="School,Parent Reviews,Read Reviews"
               school="${school}" schoolGSRating="${gs_rating}"

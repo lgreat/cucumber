@@ -96,6 +96,7 @@ public abstract class  OmnitureTracking {
         FBTabNLSignup(57),
         EspRegistration(59),
         NewEspStarted(60),
+        FacebookShareButton(61), //GS-12508
         NewColleagueRequest(62); // GS-12569
 
         private int _eventNumber;
