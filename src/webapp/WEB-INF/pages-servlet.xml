@@ -2751,6 +2751,26 @@
     </bean>
 
 
+    <bean name="/sandbox/requireJSDemo.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/sandbox/requireJSDemo</value>
+        </property>
+    </bean>
+
+    <bean name="/sandbox/requireJSDemo2.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/sandbox/requireJSDemo</value>
+        </property>
+    </bean>
+
+    <bean name="/sandbox/requireJSDemo3.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/sandbox/requireJSDemo</value>
+        </property>
+    </bean>
 
 
 

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+
+        >
+    <html lang="en">
+    <jsp:output omit-xml-declaration="true" />
+    <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <meta name="Description" content="RequireJS Demo"/>
+        <title>RequireJS Demo</title>
+        <meta name="decorator" content="simpleDecorator"/>
+        <script src="/res/js/require.js"/>
+        <script src="/res/js/sandbox/requireJSDemo/cheese.js"><!-- no collapse --></script>
+        <script src="/res/js/sandbox/requireJSDemo/steak.js"><!-- no collapse --></script>
+        <script src="/res/js/sandbox/requireJSDemo/fries.js"><!-- no collapse --></script>
+        <script src="/res/js/sandbox/requireJSDemo/cheeseSteak.js"><!-- no collapse --></script>
+        <style type="text/css" >
+            div {
+                float:left;
+                margin:3px;
+                padding:3px;
+                width:120px;
+                border:1px solid grey;
+                min-height: 400px;
+            }
+            div h3 {
+                clear:left;
+                margin: 0px;
+            }
+            div p.messages {
+                min-height: 350px;
+                overflow:hidden;
+            }
+            div span.status {
+                position:relative;
+                top:1px;left:1px;
+                border-top:1px solid red;
+                width:118px;
+            }
+
+
+        </style>
+    </head>
+    
+
+
+    <body>
+
+
+        <div id="chef">
+            <h3>Chef</h3>
+            <a id="chef-get-steak" href="#" >get steak</a><br/>
+            <a id="chef-get-cheese" href="#" >get cheese</a><br/>
+            <a id="chef-make-cheesesteak" href="#">make cheesesteak</a><br/>
+            <p class="messages"><!-- no collapse --></p>
+            <span class="status"><!-- no collapse --></span>
+        </div>
+
+        <div id="steak">
+            <h3>Steak</h3>
+            <p class="messages"><!-- no collapse --></p>
+            <span class="status"><!-- no collapse --></span>
+
+
+        </div>
+        <div id="cheese">
+            <h3>Cheese</h3>
+            <p class="messages"><!-- no collapse --></p>
+            <span class="status"><!-- no collapse --></span>
+
+
+        </div>
+        <div id="fries">
+            <h3>Fries</h3>
+            <p class="messages"><!-- no collapse --></p>
+            <span class="status"><!-- no collapse --></span>
+
+
+        </div>
+        <div id="cheesesteak-sandwich">
+            <h3>CheeseSteak Sandwich</h3>
+            <p class="messages"><!-- no collapse --></p>
+            <span class="status"><!-- no collapse --></span>
+
+
+        </div>
+        <div id="hungry-admin">
+            <h3>Hungry Admin</h3>
+            <p class="messages"><!-- no collapse --></p>
+            <span class="status"><!-- no collapse --></span>
+
+        </div>
+
+
+    </body>
+    </html>
+</jsp:root>
