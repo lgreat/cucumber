@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="nal clearfix">
-                        <div class="alpha prefix_3 grid_9 suffix_3 omega">
+                        <div class="alpha grid_8 suffix_7 omega">
                             <script type="text/javascript">
                                 var RecaptchaOptions = {theme:'white', tabindex:0};
                             </script>
