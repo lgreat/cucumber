@@ -25,10 +25,19 @@
             jQuery('#reportContentType').val(contentType);
             jQuery('#reportContentId').val(idStr.substring(("report_" + contentType + "_").length));
             var contentTypeNormalized = contentType;
+            jQuery('#reportItDialog_flag').show();
+            jQuery('#reportItDialog_thumbnail').hide();
             if (contentTypeNormalized == 'discussion') {
                 contentTypeNormalized = 'conversation';
             } else if (contentTypeNormalized == 'schoolReview') {
                 contentTypeNormalized = 'review';
+            } else if (contentTypeNormalized == 'schoolMedia') {
+                contentTypeNormalized = 'photo';
+                jQuery('#reportContentId').val(GS.photoGalleryImageIdArray[GS.photoGallery.currentFullSizeImage]);
+                var thumbnailContainer = jQuery('.' + GS.photoGallery.thumbnailIdPrefix + GS.photoGallery.currentFullSizeImage);
+                jQuery('#reportItDialog_thumbnail').find('img').attr('src', thumbnailContainer.find('img').attr('src'));
+                jQuery('#reportItDialog_flag').hide();
+                jQuery('#reportItDialog_thumbnail').show();
             }
             jQuery('#reportHoverIntroContentType').html(contentTypeNormalized);
             jQuery('#reportHoverHeader').html(contentTypeNormalized);
@@ -46,6 +55,8 @@
                         initForContentType(idStr, 'member');
                     } else if (idStr.indexOf('schoolReview') > -1) {
                         initForContentType(idStr, 'schoolReview');
+                    } else if (idStr.indexOf('schoolMedia') > -1) {
+                        initForContentType(idStr, 'schoolMedia');
                     }
 
                     if (idStr.indexOf('schoolReview') > -1) {
@@ -106,6 +117,8 @@
                     contentTypeNormalized = 'conversation';
                 } else if (contentTypeNormalized == 'schoolReview') {
                     contentTypeNormalized = 'review';
+                } else if (contentTypeNormalized == 'schoolMedia') {
+                    contentTypeNormalized = 'photo'; // todo: will probably need to show/hide rather than replaceWith
                 }
                 jQuery('#' + GS.reportContent_idOfOpeningElement).replaceWith("You've reported this " + contentTypeNormalized + ".");
                 return false;                
@@ -116,8 +129,14 @@
     <!-- Report it dialog -->
     <div id="reportItDialog" style="display:none;">
         <div id="sd_header">
-        <img class="sd_icon fltlft" src="/res/img/discussion_boards/db_flag_54x66.png" width="54"
-                 height="66" alt="report it flag" align="middle"/>
+            <span id="reportItDialog_flag">
+                <img class="sd_icon fltlft" src="/res/img/discussion_boards/db_flag_54x66.png" width="54"
+                     height="66" alt="report it flag" align="middle"/>
+            </span>
+            <span id="reportItDialog_thumbnail" style="display:none;">
+                <img class="sd_thumb fltlft" src="/res/img/pixel.gif" width="70"
+                     height="70" alt="report it image thumbnail" align="middle"/>
+            </span>
 
         <h2 class="sd_title fltlft">Report this <span id="reportHoverHeader">content</span> as inappropriate</h2>
         <br class="clearfloat"/>

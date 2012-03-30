@@ -73,6 +73,7 @@ public class ReportContentAjaxController extends SimpleFormController implements
                 authorId = review.getUser().getId();
             }
             checkForReporteeUserProfile = false;
+        } else if (command.getType() == ReportedEntity.ReportedEntityType.schoolMedia) {
         } else {
             _log.warn("Unknown report content type: " + command.getType());
             return null;
@@ -84,12 +85,14 @@ public class ReportContentAjaxController extends SimpleFormController implements
             } catch (ObjectRetrievalFailureException orfe) {
                 // reportee stays null
             }
-        } else if (command.getType() != ReportedEntity.ReportedEntityType.schoolReview) {
+        } else if (command.getType() != ReportedEntity.ReportedEntityType.schoolReview &&
+                command.getType() != ReportedEntity.ReportedEntityType.schoolMedia) {
             _log.warn("Could not determine reportee's member id for content: '" + command.getContentId() + "'");
             return null;
         }
 
         if (command.getType() != ReportedEntity.ReportedEntityType.schoolReview
+                && command.getType() != ReportedEntity.ReportedEntityType.schoolMedia
                 && (reportee == null
                     || (checkForReporteeUserProfile && reportee.getUserProfile() == null))) {
             _log.warn("Reported content created by a user that doesn't exist.  member_id = '" + authorId + "'");

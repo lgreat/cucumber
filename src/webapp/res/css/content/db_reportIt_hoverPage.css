@@ -35,6 +35,10 @@
     padding:15px 20px 15px 0;
 }
 
+#reportItDialog .sd_thumb{
+    padding:0 20px 15px 0;
+}
+
 #reportItDialog .sd-btn-layout{
     margin:0 12px 0 0;
 }

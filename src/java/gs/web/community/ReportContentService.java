@@ -1,5 +1,6 @@
 package gs.web.community;
 
+import gs.data.school.ISchoolMediaDao;
 import gs.data.school.review.IReviewDao;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
@@ -30,6 +31,7 @@ public class ReportContentService extends SimpleFormController
     private IUserDao _userDao;
     private IReportedEntityDao _reportedEntityDao;
     private IReviewDao _reviewDao;
+    private ISchoolMediaDao _schoolMediaDao;
     private JavaMailSender _mailSender;
     private String _moderationEmail;
 
@@ -86,8 +88,22 @@ public class ReportContentService extends SimpleFormController
                     _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
                     // Per GS-10420, do not disable school reviews based on # of reports
                     break;
+                case schoolMedia:
+                    try {
+                        int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
+                        _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
+                        if (numTimesReported == 3) {
+                            // if this is the third time this photo is reported, disable it
+                            _schoolMediaDao.disableById(contentId);
+                        }
+                        // TODO: sendSchoolMediaEmail(...)
+                    } catch (Exception e) {
+                        _log.error(e, e);
+                        // ignore
+                    }
+                    break;
             }
-            if (type != ReportedEntity.ReportedEntityType.schoolReview) {
+            if (type != ReportedEntity.ReportedEntityType.schoolReview && type != ReportedEntity.ReportedEntityType.schoolMedia) {
                 // don't send emails for reporting school reviews
                 if (urlToContent != null) {
                     sendEmail(urlToContent, type, reporter, reportee, reason);
@@ -127,6 +143,10 @@ public class ReportContentService extends SimpleFormController
             _log.error("Error sending content reported email: urlToContent=" +
                     urlToContent + "; reporter=" + reporter.getUserProfile().getScreenName(), me);
         }
+    }
+
+    protected void sendSchoolMediaEmail(String urlToContent, String urlToSchool, User reporter, String reason) {
+
     }
 
     protected StringBuffer formatUserString(User user) {
@@ -239,5 +259,13 @@ public class ReportContentService extends SimpleFormController
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public ISchoolMediaDao getSchoolMediaDao() {
+        return _schoolMediaDao;
+    }
+
+    public void setSchoolMediaDao(ISchoolMediaDao schoolMediaDao) {
+        _schoolMediaDao = schoolMediaDao;
     }
 }
