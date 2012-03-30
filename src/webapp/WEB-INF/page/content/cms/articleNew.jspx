@@ -133,7 +133,7 @@
                     <c:if test="${not empty feature.sidebar}">
                         <c:set var="showBlogModule" value="${false}"/>
                         <div class="mod articleSidebar">
-                            <div class="inner">
+                            <div class="inner rnd4 mtl">
                                 <div class="bd">
                                     ${feature.sidebar}
                                 </div>

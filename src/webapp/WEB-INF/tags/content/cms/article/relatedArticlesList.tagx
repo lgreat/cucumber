@@ -7,7 +7,7 @@
     <ul class="small">
         <c:forEach var="relatedArticle" items="${feature.relatedArticles}" varStatus="status">
             <c:if test="${not empty relatedArticle.url}">
-                <li><a href="${relatedArticle.url}" class="GS_EV5_"
+                <li><a href="${relatedArticle.url}" class="GS_EV5_ small"
                        id="moreonA__${status.count}">${relatedArticle.linkText}</a></li>
             </c:if>
         </c:forEach>

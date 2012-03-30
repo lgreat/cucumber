@@ -15,7 +15,7 @@
 
     <c:if test="${hasPublishedRelatedArticles}">
         <div class="mod relatedArticles">
-            <div class="inner rnd4">
+            <div class="inner rnd4 mtl">
                 <div class="hd">
                     <h3>Related articles</h3>
                 </div>

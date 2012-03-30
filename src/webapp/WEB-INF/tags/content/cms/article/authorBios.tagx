@@ -20,7 +20,7 @@
 
     <c:if test="${hasBios}">
         <div class="mod authorBios">
-            <div class="inner rnd3">
+            <div class="inner rnd3 mtl">
                 <div class="bd">
                     ${biosContent}
                 </div>

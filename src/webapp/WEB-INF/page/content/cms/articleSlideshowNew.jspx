@@ -227,6 +227,8 @@
             </c:if>
             <!-- Related links -->
 
+            <div class="spacer_20"><!-- do not collapse --></div>
+
             <!-- Comments -->
             <article:commentsWithForm feature="${feature}" contentUrl="${contentUrl}" comments="${comments}"/>
             <!-- Comments -->
