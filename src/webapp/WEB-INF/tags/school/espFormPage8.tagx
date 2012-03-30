@@ -27,15 +27,15 @@
         </div>
 
         <fieldset>
-            <legend>Your School&amp;apos;s ACT Results</legend>
+            <legend>Your School's ACT Results</legend>
             <hr class="legend"><!--Do not collapse--></hr>
             <p class="small">
-                <em>Please either upload your school&amp;apos;s scanned ACT score report for the most recent year, or fax the report to GreatSchools.</em>
+                <em>Please either upload your school's scanned ACT score report for the most recent year, or fax the report to GreatSchools.</em>
             </p>
             <hr class="legend"><!--Do not collapse--></hr>
             <div class="lal clearfix">
                 <div class="alpha grid_7">
-                    <label>Fax your school&amp;apos;s ACT report</label>
+                    <label>Fax your school's ACT report</label>
                 </div>
                 <div class="grid_16 omega">
                     <school:espCheckboxWithLabel key="fax_act" value="yes" label="Check here if you will fax the ACT official score report to GreatSchools. (Fax number is xxx-xxx-xxxx)"/>
@@ -44,7 +44,7 @@
             <div class="alpha grid_23 omega"><p>Or</p></div>
             <div class="lal clearfix">
                 <div class="alpha grid_7">
-                    <label>Upload your school&amp;apos;s ACT report</label>
+                    <label>Upload your school's ACT report</label>
                 </div>
                 <div class="grid_16 omega">
                     <mod:singleFileUploader idSuffix="ACT" type="ACT" schoolDatabaseState="${school.databaseState}"
@@ -61,15 +61,15 @@
             </div>
         </fieldset>
         <fieldset>
-            <legend>Your School&amp;apos;s SAT Results</legend>
+            <legend>Your School's SAT Results</legend>
             <hr class="legend"><!--Do not collapse--></hr>
             <p>
-                <em>Please either upload your school&amp;apos;s scanned SAT score report for the most recent year, or fax the report to GreatSchools.</em>
+                <em>Please either upload your school's scanned SAT score report for the most recent year, or fax the report to GreatSchools.</em>
             </p>
             <hr class="legend"><!--Do not collapse--></hr>
             <div class="lal clearfix">
                 <div class="alpha grid_7">
-                    <label>Fax your school&amp;apos;s SAT report</label>
+                    <label>Fax your school's SAT report</label>
                 </div>
                 <div class="grid_16 omega">
                     <school:espCheckboxWithLabel key="fax_sat" value="yes" label="Check here if you will fax the SAT official score report to GreatSchools. (Fax number is xxx-xxx-xxxx)"/>
@@ -78,7 +78,7 @@
             <div class="alpha grid_23 omega"><p>Or</p></div>
             <div class="lal clearfix">
                 <div class="alpha grid_7">
-                    <label>Upload your school&amp;apos;s SAT report</label>
+                    <label>Upload your school's SAT report</label>
                 </div>
                 <div class="grid_16 omega">
                     <mod:singleFileUploader idSuffix="SAT" type="SAT" schoolDatabaseState="${school.databaseState}"

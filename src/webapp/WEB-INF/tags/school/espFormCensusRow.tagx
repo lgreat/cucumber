@@ -37,10 +37,8 @@
                     </div>
                 </div>
             </div>
-            <div class="lal clearfix">
-                <div class="alpha grid_16 omega">
+            <div class="alpha grid_16 omega">
                     <school:espCheckboxWithLabel key="census_${dataTypeId}_unavailable" value="true" label="Data is unavailable" disabled="${stateLocked}"/>
-                </div>
             </div>
         </div>
     </div>
