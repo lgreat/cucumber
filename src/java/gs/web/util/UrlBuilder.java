@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.287 2012/03/22 23:02:41 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.288 2012/03/30 01:51:49 yfan Exp $
  */
 
 package gs.web.util;
@@ -1196,14 +1196,15 @@ public class UrlBuilder {
         // http://docs.oracle.com/javase/1.5.0/docs/api/java/net/URLEncoder.html
         // Young and Anthony discussed what to do given that there are many different interpretations of
         // which characters must be url-encoded. The Java implementation of URLEncoder is quite strict and
-        // encodes characters like ( ) ~ ! etc. that other implementations don't encode, and also has different
-        // url encodings for characters like ü than other encoders. Per Anthony's suggestion, I settled on
-        // url encoding everything and then replacing all occurrences of %.. with an empty string, which will keep
-        // the url component looking clean.
+        // encodes characters like ( ) ~ ! etc. that other implementations don't encode.
+        // Per Anthony's suggestion, I settled on url encoding everything and then replacing all occurrences of
+        // %.. with an empty string, which will keep the url component looking clean.
         String schoolUriComponent = null;
         try {
+            // GS-10949 WARNING: this requires ISOLatin1AccentFilter from Lucene, so be careful to either port this
+            // when switching from Lucene to Solr, or don't remove the Lucene dependency till that's done
             schoolUriComponent =
-                URLEncoder.encode(WordUtils.capitalize(name.replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", "").replaceAll("`", ""), new char[]{'-'}), "UTF-8");
+                URLEncoder.encode(WordUtils.capitalize(ISOLatin1AccentFilter.removeAccents(name).replaceAll(" ", "-").replaceAll("/", "-").replaceAll("#", "").replaceAll("`", ""), new char[]{'-'}), "UTF-8");
             schoolUriComponent = schoolUriComponent.replaceAll("%..","");
         } catch (UnsupportedEncodingException e) {
             _log.error("Unsupported encoding while generating school profile URL. Should never happen!");
@@ -1211,18 +1212,26 @@ public class UrlBuilder {
 
         if (LevelCode.PRESCHOOL.equals(levelCode)) {
 
-            _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(databaseState,
-                    physicalAddress.getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL) +
+            // GS-10949 WARNING: this requires ISOLatin1AccentFilter from Lucene, so be careful to either port this
+            // when switching from Lucene to Solr, or don't remove the Lucene dependency till that's done
+            _path = ISOLatin1AccentFilter.removeAccents(
+                        DirectoryStructureUrlFactory.createNewCityBrowseURI(databaseState,
+                            physicalAddress.getCity(), new HashSet<SchoolType>(), LevelCode.PRESCHOOL)
+                    ) +
                     schoolUriComponent +
                     "/" + id + "/" +
                     (showConfirmation ? "?confirm=true" : "");
 
             _subdomain = Subdomain.PK;
         } else {
+            // GS-10949 WARNING: this requires ISOLatin1AccentFilter from Lucene, so be careful to either port this
+            // when switching from Lucene to Solr, or don't remove the Lucene dependency till that's done
             StringBuffer path = new StringBuffer(
-                    DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(
-                        databaseState,
-                        physicalAddress.getCity()
+                    ISOLatin1AccentFilter.removeAccents(
+                            DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(
+                                    databaseState,
+                                    physicalAddress.getCity()
+                            )
                     )
             );
 
@@ -1239,9 +1248,8 @@ public class UrlBuilder {
             if (showConfirmation) {
                 path.append("?confirm=true");
             }
-            // GS-10949 WARNING: this requires ISOLatin1AccentFilter from Lucene, so be careful to either port this
-            // when switching from Lucene to Solr, or don't remove the Lucene dependency till that's done
-            _path = ISOLatin1AccentFilter.removeAccents(path.toString());
+
+            _path = path.toString();
         }
     }
 
