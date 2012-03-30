@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.146 2012/03/30 01:51:49 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.147 2012/03/30 01:59:25 yfan Exp $
  */
 
 package gs.web.util;
@@ -268,9 +268,9 @@ public class UrlBuilderSaTest extends BaseTestCase {
         UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         assertEquals("/california/san-jose/5686-San-Jos-High-School/", builder.asSiteRelativeXml(null));
 
-        school.setName("`~!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/ü");
+        school.setName("`~!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/É");
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        assertEquals("/california/san-jose/5686-*_-.-U/", builder.asSiteRelativeXml(null));
+        assertEquals("/california/san-jose/5686-*_-.-E/", builder.asSiteRelativeXml(null));
     }
 
     public void testSurveyResultsBuilder() throws Exception {
