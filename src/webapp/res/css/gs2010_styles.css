@@ -792,8 +792,9 @@ h4.subhead2 a {
 /* **************** BLOCK STRUCTURES ***************** */
 /* ------------------- mod ------------------- */
 .mod{margin:0;}
-.inner{position:relative;}
-
+.mod .outer{}
+.mod .inner{}
+.bd, .ft, .hd{overflow:hidden; *overflow:visible; zoom:1;}
 /* **************** BLOCK SKINS ***************** */
 /* --------- standard (extends mod) ---------- */
 .standard .inner{margin:0 0 1em;padding:0;}
