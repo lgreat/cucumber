@@ -7,14 +7,22 @@
                              description="Name of the school to put in the bosy of the message."
                              required="true"/>
 
+    <!-- would like to namespace this div but it gets rewritten by jquery-ui -->
     <div id="schoolReviewPosted" class="dialog_white" style="display:none;">
-        <h2>Thank you.Your review has been posted.</h2>
+        <div class="pal">
+            <!-- 2012 03 29 -mitch
+            the styles below are pulled from slStylesV1-0 - this is outside of the namespace
+            we are looking to change the modal/hover and add default layout for consistency -->
+            <h2 style="color: #2b2b2b;font: normal 24px/30px Arial, Helvetica, sans-serif; margin-bottom: 20px;">Thank you.Your review has been posted.</h2>
 
-        <p><strong>Care to share? </strong>
-            <span>Let your friends know how you felt about ${schoolName}.</span></p>
+            <p style="font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px;"><strong>Care to share? </strong>
+                Let your friends know how you felt about ${schoolName}.</p>
 
-        <button class="button-1 schoolReviewPosted_hideHover" type="button">No, thanks</button>
-        <a name="fb_share" type="button" href="http://www.facebook.com/sharer.php"
-           id="js_fbshare_schoolReviewPosted">Share on Facebook</a>
+            <div>
+                <div style="display: inline-block;" class="prl"><a name="fb_share" type="button" href="http://www.facebook.com/sharer.php" id="js_fbshare_schoolReviewPosted">Share on Facebook</a></div>
+                <div style="display: inline-block;"><button class="button-1 schoolReviewPosted_hideHover" type="button">No, thanks</button></div>
+            </div>
+        </div>
     </div>
+
 </jsp:root>
