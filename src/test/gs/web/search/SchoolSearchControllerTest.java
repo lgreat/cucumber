@@ -491,16 +491,6 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         // TODO
     }
 
-    public void testGetGradeLevelFilters() {
-        String[] gradeLevels = new String[] {"p","h", "blah"};
-
-        List<SchoolFilters> filters = _controller.getGradeLevelFilters(gradeLevels);
-
-        assertEquals("Filters list should contain two filters", 2, filters.size());
-
-        assertTrue(filters.contains(SchoolFilters.GradeLevelFilter.PRESCHOOL));
-        assertTrue(filters.contains(SchoolFilters.GradeLevelFilter.HIGH));
-    }
 
     /*public void testGetSchoolTypeFilters() {
         String[] gradeLevels = new String[] {"public", "private", "charter", "blah"};
@@ -742,61 +732,6 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertEquals("start should be less than total results", 0, model.get(SchoolSearchController.MODEL_START));
     }
 
-
-    public void testTitleCalcCode() {
-        // These all have standard headers
-        assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, null, null));
-        assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, LevelCode.ELEMENTARY_MIDDLE, null));
-        assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, LevelCode.MIDDLE_HIGH, null));
-
-        // These useful views get nice SEO friendly titles
-        assertEquals("San Francisco Elementary Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, LevelCode.ELEMENTARY, null));
-        assertEquals("San Francisco Middle Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, LevelCode.MIDDLE, null));
-        assertEquals("San Francisco High Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, LevelCode.HIGH, null));
-        assertEquals("San Francisco Preschools and Daycare Centers - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, LevelCode.PRESCHOOL, null));
-
-        assertEquals("San Francisco Public Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, null, new String[]{"public"}));
-        assertEquals("San Francisco Private Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, null, new String[]{"private"}));
-        assertEquals("San Francisco Public Charter Schools - San Francisco, CA | GreatSchools", SchoolSearchController.getTitle("San Francisco", State.CA, null, new String[]{"charter"}));
-
-        assertEquals("Washington, DC Preschools and Daycare Centers - Washington, DC | GreatSchools", SchoolSearchController.getTitle("Washington, DC", State.DC, LevelCode.PRESCHOOL, null));
-
-        assertEquals("San Francisco Public and Private Schools - San Francisco, CA | GreatSchools",
-                     SchoolSearchController.getTitle("San Francisco", State.CA, null, new String[]{"public", "private"}));
-        assertEquals("San Francisco Public and Public Charter Schools - San Francisco, CA | GreatSchools",
-                     SchoolSearchController.getTitle("San Francisco", State.CA, null, new String[]{"public", "charter"}));
-        assertEquals("San Francisco Private and Public Charter Schools - San Francisco, CA | GreatSchools",
-                     SchoolSearchController.getTitle("San Francisco", State.CA, null, new String[]{"private", "charter"}));
-
-        assertEquals("San Francisco Public and Private Elementary Schools - San Francisco, CA | GreatSchools",
-                     SchoolSearchController.getTitle("San Francisco", State.CA, LevelCode.ELEMENTARY, new String[]{"public", "private"}));
-        assertEquals("San Francisco Public and Public Charter Middle Schools - San Francisco, CA | GreatSchools",
-                     SchoolSearchController.getTitle("San Francisco", State.CA, LevelCode.MIDDLE, new String[]{"public", "charter"}));
-        assertEquals("San Francisco Private and Public Charter High Schools - San Francisco, CA | GreatSchools",
-                     SchoolSearchController.getTitle("San Francisco", State.CA, LevelCode.HIGH, new String[]{"private", "charter"}));
-        assertEquals("San Francisco Private Preschools and Daycare Centers - San Francisco, CA | GreatSchools",
-                     SchoolSearchController.getTitle("San Francisco", State.CA, LevelCode.PRESCHOOL, new String[]{"private"}));
-    }
-
-    public void testMetaDescCalc() {
-        assertEquals("View and map all San Francisco schools. Plus, compare or save schools.",
-                SchoolSearchController.calcMetaDesc(null, "San Francisco", State.CA, null, null));
-        assertEquals("View and map all San Francisco middle schools. Plus, compare or save middle schools.",
-                SchoolSearchController.calcMetaDesc(null, "San Francisco", State.CA, LevelCode.MIDDLE, null));
-        assertEquals("View and map all San Francisco public elementary schools. Plus, compare or save public elementary schools.",
-                SchoolSearchController.calcMetaDesc(null, "San Francisco", State.CA, LevelCode.ELEMENTARY, new String[]{"public"}));
-
-        assertEquals("Find the best preschools in San Francisco, California (CA) - view preschool ratings, reviews and map locations.",
-                SchoolSearchController.calcMetaDesc(null, "San Francisco", State.CA, LevelCode.PRESCHOOL, null));
-
-        assertEquals("View and map all schools in the Oakland Unified School District. Plus, compare or save schools in this district.",
-                SchoolSearchController.calcMetaDesc("Oakland Unified School District", "Oakland", State.CA, null, null));
-        assertEquals("View and map all middle schools in the Oakland Unified School District. Plus, compare or save middle schools in this district.",
-                SchoolSearchController.calcMetaDesc("Oakland Unified School District", "Oakland", State.CA, LevelCode.MIDDLE, null));
-        assertEquals("View and map all public elementary schools in the Oakland Unified School District. Plus, compare or save public elementary schools in this district.",
-                SchoolSearchController.calcMetaDesc("Oakland Unified School District", "Oakland", State.CA, LevelCode.ELEMENTARY, new String[]{"public"}));
-    }
-
     public void testGetExactCountyMatch() {
         ICounty rval;
 
@@ -862,23 +797,31 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
     }
 
     public void testGetNearByCitiesByLatLongNullParams() {
+        // TODO: move this test case to NearbyCitiesSearchTest
+
         DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(getRequest());
         getRequest().setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
         SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
         SchoolSearchCommandWithFields cmd = new SchoolSearchCommandWithFields(schoolSearchCommand, fields);
 
+        NearbyCitiesSearch nearbyCitiesSearch = new NearbyCitiesSearch(cmd);
+        nearbyCitiesSearch.setCitySearchService(_citySearchService);
+
         replay(_citySearchService);
-        List<ICitySearchResult> s = _controller.new NearbyCitiesFacade(cmd).getNearbyCitiesByLatLon();
+        List<ICitySearchResult> s = nearbyCitiesSearch.getNearbyCitiesByLatLon();
         verify(_citySearchService);
         assertNotNull(s);
         assertEquals("Expecting 0 results from the search.",0, s.size());
     }
 
     public void testGetNearByCitiesByLatLongNoResults() throws SearchException {
+        // TODO: move this unit test to NearbyCitiesSearchTest
         DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(getRequest());
         getRequest().setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
         SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
         SchoolSearchCommandWithFields cmd = new SchoolSearchCommandWithFields(schoolSearchCommand, fields);
+        NearbyCitiesSearch nearbyCitiesSearch = new NearbyCitiesSearch(cmd);
+        nearbyCitiesSearch.setCitySearchService(_citySearchService);
 
         List<ICitySearchResult> res = new ArrayList<ICitySearchResult>();
         SearchResultsPage page = new SearchResultsPage(10, res);
@@ -887,17 +830,21 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         schoolSearchCommand.setSearchString("alameda");
         expect(_citySearchService.getCitiesNear(cmd.getLatitude(), cmd.getLongitude(), 50, null, 0, 33)).andReturn(page);
         replay(_citySearchService);
-        List<ICitySearchResult> s = _controller.new NearbyCitiesFacade(cmd).getNearbyCitiesByLatLon();
+        List<ICitySearchResult> s = nearbyCitiesSearch.getNearbyCitiesByLatLon();
         verify(_citySearchService);
         assertNotNull(s);
         assertEquals("Expecting 0 results from the search.", 0, s.size());
     }
 
     public void testGetNearByCitiesByLatLongWithResultsForSearchString() throws SearchException {
+        //TODO: move this unit test to NearbyCitiesSearchTest
+
         DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(getRequest());
         getRequest().setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
         SchoolSearchCommand schoolSearchCommand = new SchoolSearchCommand();
         SchoolSearchCommandWithFields cmd = new SchoolSearchCommandWithFields(schoolSearchCommand, fields);
+        NearbyCitiesSearch nearbyCitiesSearch = new NearbyCitiesSearch(cmd);
+        nearbyCitiesSearch.setCitySearchService(_citySearchService);
 
         List<ICitySearchResult> res = new ArrayList<ICitySearchResult>();
         CitySearchResult r = new CitySearchResult();
@@ -916,7 +863,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         expect(_citySearchService.getCitiesNear(cmd.getLatitude(), cmd.getLongitude(), 50, null, 0, 33)).andReturn(page);
 
         replay(_citySearchService);
-        List<ICitySearchResult> s = _controller.new NearbyCitiesFacade(cmd).getNearbyCitiesByLatLon();
+        List<ICitySearchResult> s = nearbyCitiesSearch.getNearbyCitiesByLatLon();
         verify(_citySearchService);
         assertNotNull(s);
         assertEquals("Expecting exactly 2 results from the search.",2, s.size());
@@ -946,37 +893,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         assertEquals(result, "http://localhost/california/");
     }
 
-    public void testGetRelCanonicalForDistrictBrowse() {
-        HttpServletRequest request = new GsMockHttpServletRequest();
 
-        Address address = new Address();
-        address.setCity("Alameda");
-
-        District district = new District();
-        district.setId(0);
-        district.setStateId(State.CA.getAbbreviationLowerCase());
-        district.setDatabaseState(State.CA);
-        district.setName("Alameda City Unified School District");
-        district.setPhysicalAddress(address);
-
-        String result = _controller.getRelCanonicalForDistrictBrowse(request, district);
-
-
-        assertEquals(result, "http://localhost/california/alameda/Alameda-City-Unified-School-District/schools/");
-    }
-
-    public void testGetRelCanonicalForCityBrowse() {
-        HttpServletRequest request = new GsMockHttpServletRequest();
-
-        City city = new City();
-        city.setName("Alameda");
-        city.setId(0);
-        city.setState(State.CA);
-
-        String result = _controller.getRelCanonicalForCityBrowse(request, city, State.CA);
-
-        assertEquals("http://localhost/california/alameda/schools/", result);
-    }
 
 //    public void testGetExactCityMatch() {
 //        City rval;

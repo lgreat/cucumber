@@ -80,6 +80,20 @@ class SchoolSearchCommandWithFields {
        return _district;
     }
 
+    /**
+     * Used by unit tests
+     */
+    public void setDistrict(District district) {
+        _district = district;
+    }
+
+    /**
+     * Used by unit tests
+     */
+    public void setCityFromUrl(City city) {
+        _cityFromUrl = city;
+    }
+
     public City getCityFromUrl() {
         if (_cityFromUrl == null) {
             State state = _fields.getState();
