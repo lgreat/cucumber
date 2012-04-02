@@ -7,11 +7,16 @@ import gs.data.community.local.LocalBoard;
 import gs.data.geo.City;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
+import gs.data.pagination.DefaultPaginationConfig;
+import gs.data.pagination.PaginationConfig;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
-import gs.data.search.*;
+import gs.data.search.FieldConstraint;
+import gs.data.search.FieldSort;
+import gs.data.search.SearchException;
+import gs.data.search.SearchResultsPage;
 import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.IDistrictSearchResult;
 import gs.data.search.beans.ISchoolSearchResult;
@@ -21,14 +26,12 @@ import gs.data.search.filters.SchoolFilters;
 import gs.data.search.services.CitySearchService;
 import gs.data.search.services.DistrictSearchService;
 import gs.data.search.services.SchoolSearchService;
-import gs.data.seo.SeoUtil;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Address;
-import gs.data.pagination.DefaultPaginationConfig;
 import gs.web.mobile.IControllerWithMobileSupport;
+import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.pagination.Page;
-import gs.data.pagination.PaginationConfig;
 import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -51,7 +54,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 
-public class SchoolSearchController extends AbstractCommandController implements IDirectoryStructureUrlController, IControllerWithMobileSupport {
+public class SchoolSearchController extends AbstractCommandController implements IDirectoryStructureUrlController, IControllerWithMobileSupport, IDeviceSpecificControllerPartOfPair {
 
     private IDistrictDao _districtDao;
 
@@ -79,6 +82,9 @@ public class SchoolSearchController extends AbstractCommandController implements
     private String _noResultsAjaxViewName;
     private String _viewName;
     private String _ajaxViewName;
+
+    private boolean _controllerHandlesMobileRequests;
+    private boolean _controllerHandlesDesktopRequests;
 
     private static final Logger _log = Logger.getLogger(SchoolSearchController.class);
     public static final String BEAN_ID = "/search/search.page";
@@ -458,17 +464,21 @@ public class SchoolSearchController extends AbstractCommandController implements
         } else if (StringUtils.equals(request.getParameter("search_type"), "1")) {
             model.put(MODEL_OMNITURE_NAME_SEARCH, true);
         }
+        return new ModelAndView(getViewName(schoolSearchCommand, searchResultsPage), model);
+    }
+
+    private String getViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<ISchoolSearchResult> searchResultsPage) {
         if (schoolSearchCommand.isAjaxRequest()) {
             if (searchResultsPage.getTotalResults() == 0) {
-                return new ModelAndView(getNoResultsAjaxViewName(), model);
+                return getNoResultsAjaxViewName();
             } else {
-                return new ModelAndView(getAjaxViewName(), model);
+                return getAjaxViewName();
             }
         } else {
             if (searchResultsPage.getTotalResults() == 0 && !schoolSearchCommand.isNearbySearchByLocation()) {
-                return new ModelAndView(getNoResultsViewName(), model);
+                return getNoResultsViewName();
             } else {
-                return new ModelAndView(getViewName(), model);
+                return getViewName();
             }
         }
     }
@@ -545,7 +555,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
     }
 
-    private ModelAndView stateBrowseRedirect(HttpServletRequest request, SessionContext sessionContext) {
+    protected ModelAndView stateBrowseRedirect(HttpServletRequest request, SessionContext sessionContext) {
         UrlBuilder builder = new UrlBuilder(UrlBuilder.RESEARCH, sessionContext.getState());
         final String url = builder.asSiteRelative(request);
         final RedirectView view = new RedirectView(url, false);
@@ -1128,5 +1138,21 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public void setAjaxViewName(String ajaxViewName) {
         _ajaxViewName = ajaxViewName;
+    }
+
+    public boolean controllerHandlesMobileRequests() {
+        return _controllerHandlesMobileRequests;
+    }
+
+    public boolean controllerHandlesDesktopRequests() {
+        return _controllerHandlesDesktopRequests;
+    }
+
+    public void setControllerHandlesMobileRequests(boolean handlesMobileRequests) {
+        _controllerHandlesMobileRequests = handlesMobileRequests;
+    }
+
+    public void setControllerHandlesDesktopRequests(boolean handlesDesktopRequests) {
+        _controllerHandlesDesktopRequests = handlesDesktopRequests;
     }
 }

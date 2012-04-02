@@ -3,19 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:device="http://www.springframework.org/schema/mobile/device"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:beans="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc
             http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
-            http://www.springframework.org/schema/beans
-            http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+
+
             http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context-3.0.xsd
             http://www.springframework.org/schema/aop
-            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-            http://www.springframework.org/schema/mobile/device
-            http://www.springframework.org/schema/mobile/device/spring-mobile-device-1.0.xsd"
+            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
        default-autowire="byName" default-lazy-init="true">
 
     <context:component-scan base-package="gs.web.photoUploader" />
@@ -60,7 +56,7 @@
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
-                <bean class="gs.web.mobile.MobileRedirectHandlerInterceptor" autowire="byName" />
+                <bean class="gs.web.mobile.GsSitePreferenceHandlerInterceptor" autowire="byName" />
                 <bean class="gs.web.mobile.MobileViewResolverInterceptor" autowire="byName" />
             </list>
         </property>
@@ -504,7 +500,7 @@
         </property>
     </bean>
 
-    <bean name="/search/search.page"
+    <!--<bean name="/search/search.page"
           class="gs.web.search.SchoolSearchController" autowire="byName" lazy-init="true">
         <property name="commandName">
             <value>schoolSearchCommand</value>
@@ -530,7 +526,70 @@
         <property name="ajaxViewName" value="search/schoolSearchResultsTable" />
         <property name="noResultsViewName" value="search/schoolSearchNoResults"/>
         <property name="noResultsAjaxViewName" value="search/schoolSearchNoResultsTable" />
+    </bean>-->
+
+    <bean name="/search/search.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <bean name="schoolSearchController" class="gs.web.search.SchoolSearchController">
+                    <property name="controllerHandlesDesktopRequests" value="true" />
+                    <property name="controllerHandlesMobileRequests" value="false" />
+                    <property name="commandName">
+                        <value>schoolSearchCommand</value>
+                    </property>
+                    <property name="validators">
+                        <list>
+                            <ref local="schoolSearchCommandValidator"/>
+                        </list>
+                    </property>
+                    <property name="commandClass">
+                        <value>gs.web.search.SchoolSearchCommand</value>
+                    </property>
+                    <property name="schoolSearchService" ref="solrSchoolSearchService" />
+                    <property name="looseSchoolSearchService" ref="looseSolrSchoolSearchService" />
+                    <property name="citySearchService" ref="solrCitySearchService" />
+                    <property name="districtSearchService" ref="solrDistrictSearchService" />
+                    <property name="mobileViewName">
+                        <value>search/schoolSearchResults-mobile</value>
+                    </property>
+                    <property name="beanSupportsMobileRequests" value="true"/>
+                    <property name="beanSupportsDesktopRequests" value="true"/>
+                    <property name="viewName" value="search/schoolSearchResults" />
+                    <property name="ajaxViewName" value="search/schoolSearchResultsTable" />
+                    <property name="noResultsViewName" value="search/schoolSearchNoResults"/>
+                    <property name="noResultsAjaxViewName" value="search/schoolSearchNoResultsTable" />
+                </bean>
+                <bean name="mobileSchoolSearchController" class="gs.web.search.MobileSchoolSearchController">
+                    <property name="controllerHandlesDesktopRequests" value="false" />
+                    <property name="controllerHandlesMobileRequests" value="true" />
+                    <property name="commandName">
+                        <value>schoolSearchCommand</value>
+                    </property>
+                    <property name="validators">
+                        <list>
+                            <ref local="schoolSearchCommandValidator"/>
+                        </list>
+                    </property>
+                    <property name="commandClass">
+                        <value>gs.web.search.SchoolSearchCommand</value>
+                    </property>
+                    <property name="schoolSearchService" ref="solrSchoolSearchService" />
+                    <property name="looseSchoolSearchService" ref="looseSolrSchoolSearchService" />
+                    <property name="citySearchService" ref="solrCitySearchService" />
+                    <property name="districtSearchService" ref="solrDistrictSearchService" />
+                    <property name="mobileViewName">
+                        <value>search/schoolSearchResults-mobile</value>
+                    </property>
+                    <property name="beanSupportsMobileRequests" value="true"/>
+                    <property name="beanSupportsDesktopRequests" value="true"/>
+                    <property name="viewName" value="search/schoolSearchResults-mobile" />
+                    <property name="noResultsViewName" value="search/schoolSearchNoResults-mobile"/>
+                </bean>
+            </list>
+        </constructor-arg>
     </bean>
+
+
 
     <bean name="/search/mapresults.page" class="gs.web.search.SchoolSearchController" autowire="byName" lazy-init="true">
         <property name="commandName">
@@ -2761,14 +2820,14 @@
     <bean name="/sandbox/requireJSDemo2.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
-            <value>/sandbox/requireJSDemo</value>
+            <value>/sandbox/requireJSDemo2</value>
         </property>
     </bean>
 
     <bean name="/sandbox/requireJSDemo3.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
-            <value>/sandbox/requireJSDemo</value>
+            <value>/sandbox/requireJSDemo3</value>
         </property>
     </bean>
 

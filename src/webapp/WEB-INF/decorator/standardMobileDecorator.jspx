@@ -20,6 +20,13 @@ version="2.0">
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0.1/jquery.mobile-1.0.1.min.css" />
         <link rel="stylesheet" href="/res/css/jquery-mobile-gs.css"/>
         <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
+        <![CDATA[
+        <script type="text/javascript">
+            require(['properties'], function(properties) {
+               properties.isDevEnvironment = ${requestScope.pageHelper.devEnvironment};
+            });
+        </script>
+        ]]>
     </head>
     <body>
         <decorator:body/>

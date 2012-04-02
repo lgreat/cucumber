@@ -138,7 +138,7 @@ ${modTracking}
 </div>
 
 <c:if test="${requestInfo.mobileSiteEnabled and hasMobileView}">
-    <a href="${sitePreferenceUrlForAlternateSite}">View mobile version</a>
+    <a href="${requestInfo.sitePreferenceUrlForAlternateSite}">View mobile version</a>
 </c:if>
 
 </body>

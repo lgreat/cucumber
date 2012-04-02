@@ -22,7 +22,7 @@
             }
         </style>
 
-        <a href="${sitePreferenceUrlForAlternateSite}" data-role="button" data-inline="true" class="mobile-footer-button">View full site</a>
+        <a href="${requestInfo.sitePreferenceUrlForAlternateSite}" data-role="button" data-inline="true" class="mobile-footer-button" data-ajax="false">View full site</a>
         <a href="/splash/iphone.page" data-role="button" data-inline="true" class="mobile-footer-button">Get iPhone app</a>
 
         <hr/>
