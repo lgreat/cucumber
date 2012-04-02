@@ -160,7 +160,7 @@
             <hr class="legend"/>
             </fieldset>
 
-            <div class="nal">
+            <div class="nal clearfix">
                 <div class="alpha prefix_4 grid_6 suffix_5 omega">
                     <p class="loud small">
                         ${membership.school.name}<br/>
@@ -241,7 +241,7 @@
             </div>
         </div>
 
-                <div class="nal">
+                <div class="nal clearfix">
                     <p class="mumbo">By joining GreatSchools, you agree to our
                         <gsml:popupWindow width="1025" height="600" left="50" top="50"
                                           title="GreatSchools Terms of Use"
