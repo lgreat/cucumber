@@ -89,21 +89,15 @@ public class RequestInfo {
      */
     public String getSitePreferenceUrlForAlternateSite() {
         String newUrl = getRequestURL();
-        Subdomain subdomainToSwitchTo;
+        
         SitePreference chosenSitePreference;
 
-        if (isOnMobileSite()) {
-            subdomainToSwitchTo = Subdomain.WWW;
+        if (shouldRenderMobileView()) {
             chosenSitePreference = SitePreference.NORMAL;
         } else {
-            subdomainToSwitchTo = Subdomain.MOBILE;
             chosenSitePreference = SitePreference.MOBILE;
         }
-        String newHostname = getHostnameForTargetSubdomain(subdomainToSwitchTo);
-
-        if (!isDeveloperWorkstation()) {
-            newUrl = UrlUtil.getRequestURLAtNewHostname(_hostData.getRequest(), newHostname);
-        }
+        
         newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
 
         return newUrl;
