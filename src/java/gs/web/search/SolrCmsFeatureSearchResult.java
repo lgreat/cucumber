@@ -240,6 +240,9 @@ public class SolrCmsFeatureSearchResult implements ICmsFeatureSearchResult {
      * @return e.g."math, writing, reading"
      */
     public String getSubjectsString() {
+        if (_subjects == null) {
+            return null;
+        }
         return StringUtils.join(_subjects.toArray(new String[0]),", ");
     }
 
