@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.148 2012/03/30 02:40:24 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.149 2012/04/02 14:41:39 yfan Exp $
  */
 
 package gs.web.util;
@@ -268,14 +268,12 @@ public class UrlBuilderSaTest extends BaseTestCase {
         UrlBuilder builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         assertEquals("/california/san-jose/5686-San-Jos-High-School/", builder.asSiteRelativeXml(null));
 
-        // GS-12611 -- why does this unit test fail on conint but not in IDEA?
-        //school.setName("`~!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/É");
-        //builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        //assertEquals("/california/san-jose/5686-*_-.-E/", builder.asSiteRelativeXml(null));
-
-        school.setName("`~!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/");
+        // \u00c9 is É which is uppercase E with accent aigue, for some reason needs to be encoded or else
+        // conint pulls it as \x89 during a cvs update, which breaks the build on running the unit test
+        // because UrlBuilder turns it into an A instead of an E
+        school.setName("`~!@#$%^&*()_-+={[}]|\\:;\"'<,>.?/\u00c9");
         builder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        assertEquals("/california/san-jose/5686-*_-.-/", builder.asSiteRelativeXml(null));
+        assertEquals("/california/san-jose/5686-*_-.-E/", builder.asSiteRelativeXml(null));
     }
 
     public void testSurveyResultsBuilder() throws Exception {
