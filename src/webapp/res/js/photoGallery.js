@@ -40,11 +40,13 @@ GS.photoGallery.PhotoGallery.prototype.showFullSizeImage = function(index) {
         }
         id = this.fullSizeImageIdPrefix + '-' + i;
         jQuery('#' + id).hide();
+        jQuery('.' + id).hide();
         jQuery('.' + this.thumbnailIdPrefix + i).removeClass(this.thumbnailSelectedCssClass);
     }
     //show desired image
     id = this.fullSizeImageIdPrefix + '-' + index;
     jQuery('#' + id).show();
+    jQuery('.' + id).show();
 
     jQuery('.' + this.thumbnailIdPrefix + index).addClass(this.thumbnailSelectedCssClass);
     jQuery('.' + this.thumbnailIdPrefix + index).trigger('itemSelected'); // custom infiniteCarousel event

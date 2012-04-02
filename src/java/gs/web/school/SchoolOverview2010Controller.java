@@ -1,5 +1,7 @@
 package gs.web.school;
 
+import gs.data.community.IReportedEntityDao;
+import gs.data.community.ReportedEntity;
 import gs.data.community.User;
 import gs.data.geo.IGeoDao;
 import gs.data.school.*;
@@ -51,6 +53,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private RatingHelper _ratingHelper;
     private IGeoDao _geoDao;
     private ISchoolMediaDao _schoolMediaDao;
+    private IReportedEntityDao _reportedEntityDao;
 
     private IEspResponseDao _espResponseDao;
 
@@ -174,22 +177,40 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
                 util.clearTempMsg(response);
             }
 
-            addSchoolPhotosToModel(school, model);
+            addSchoolPhotosToModel(school, model, request);
         }
 
         return new ModelAndView(_viewName, model);
     }
 
-    private void addSchoolPhotosToModel(School school, Map<String, Object> model) {
+    private void addSchoolPhotosToModel(School school, Map<String, Object> model, HttpServletRequest request) {
         List<SchoolMedia> photoGalleryImages = getSchoolPhotos(school);
         model.put("basePhotoPath",CommunityUtil.getMediaPrefix());
         model.put("photoGalleryImages",photoGalleryImages);
+        if (model.get("validUser") != null){
+            User user = (User) model.get("validUser");
+            model.put("photoReports", getReportsForSchoolMedia(user, photoGalleryImages));
+        }
+
     }
     
     protected List<SchoolMedia> getSchoolPhotos(School school) {
         ISchoolMediaDao schoolMediaDao = getSchoolMediaDao();
         List<SchoolMedia> schoolPhotos = schoolMediaDao.getActiveBySchool(school,MAX_SCHOOL_PHOTOS_IN_GALLERY);
         return schoolPhotos;
+    }
+
+    private Map<Integer, Boolean> getReportsForSchoolMedia(User user, List<SchoolMedia> schoolMediaList) {
+        if (schoolMediaList == null || user == null) {
+            return null;
+        }
+        Map<Integer, Boolean> reports = new HashMap<Integer, Boolean>(schoolMediaList.size());
+        for (SchoolMedia schoolMedia: schoolMediaList) {
+            reports.put(schoolMedia.getId(),
+                    _reportedEntityDao.hasUserReportedEntity
+                            (user, ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId()));
+        }
+        return reports;
     }
 
     public static String getMediaPrefix() {
@@ -401,5 +422,13 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     public void setSchoolMediaDao(ISchoolMediaDao schoolMediaDao) {
         _schoolMediaDao = schoolMediaDao;
+    }
+
+    public IReportedEntityDao getReportedEntityDao() {
+        return _reportedEntityDao;
+    }
+
+    public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
+        _reportedEntityDao = reportedEntityDao;
     }
 }

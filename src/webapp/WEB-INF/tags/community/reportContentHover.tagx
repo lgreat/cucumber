@@ -23,7 +23,8 @@
         function initForContentType(idStr, contentType) {
             GS.reportContent_idOfOpeningElement = idStr;
             jQuery('#reportContentType').val(contentType);
-            jQuery('#reportContentId').val(idStr.substring(("report_" + contentType + "_").length));
+            var reportContentId = idStr.substring(("report_" + contentType + "_").length);
+            jQuery('#reportContentId').val(reportContentId);
             var contentTypeNormalized = contentType;
             jQuery('#reportItDialog_flag').show();
             jQuery('#reportItDialog_thumbnail').hide();
@@ -33,8 +34,7 @@
                 contentTypeNormalized = 'review';
             } else if (contentTypeNormalized == 'schoolMedia') {
                 contentTypeNormalized = 'photo';
-                jQuery('#reportContentId').val(GS.photoGalleryImageIdArray[GS.photoGallery.currentFullSizeImage]);
-                var thumbnailContainer = jQuery('.' + GS.photoGallery.thumbnailIdPrefix + GS.photoGallery.currentFullSizeImage);
+                var thumbnailContainer = jQuery('.js_gallery_thumbnail_id_' + reportContentId);
                 jQuery('#reportItDialog_thumbnail').find('img').attr('src', thumbnailContainer.find('img').attr('src'));
                 jQuery('#reportItDialog_flag').hide();
                 jQuery('#reportItDialog_thumbnail').show();
@@ -118,7 +118,8 @@
                 } else if (contentTypeNormalized == 'schoolReview') {
                     contentTypeNormalized = 'review';
                 } else if (contentTypeNormalized == 'schoolMedia') {
-                    contentTypeNormalized = 'photo'; // todo: will probably need to show/hide rather than replaceWith
+                    contentTypeNormalized = 'photo';
+                    jQuery('#' + GS.reportContent_idOfOpeningElement).parent().addClass('smallAlertTextBold');
                 }
                 jQuery('#' + GS.reportContent_idOfOpeningElement).replaceWith("You've reported this " + contentTypeNormalized + ".");
                 return false;                

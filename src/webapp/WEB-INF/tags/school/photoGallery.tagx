@@ -45,26 +45,37 @@
                         </div>
                     </c:when>
                 </c:choose>
-                <div class="line">
-                    <div class="unit size4of5 plm pts">
-                        <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                            <span class="mts">
-                                <span class="iconx16 i-16-close img"><!-- no collapse --></span>
-                            </span>
-                            <a href="javascript:void(0);" class="disableLink link"
-                                 onclick="disablePhoto(); return false;">Delete</a>
-                        </gsml:ifUserCanDeleteContent>
-                    </div>
-                    <div class="unit size1of5 lastUnit">
-                        <div class="reportPhoto mediaExt2 smallText1">
-                            <div class="bk">
-                                <a class="reportIt" href="${loginRedirectUrl}"
-                                   onclick="return false;"
-                                   id="report_schoolMedia_0">Report this photo</a>
-                            </div>
+                <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                    <div class="line gallery-fullsize-${index}">
+                        <div class="unit size4of5 plm pts">
+                            <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+                                <span class="mts">
+                                    <span class="iconx16 i-16-close img"><!-- no collapse --></span>
+                                </span>
+                                <a href="javascript:void(0);" class="disableLink link"
+                                   onclick="disablePhoto(${images[index].id}); return false;">Delete</a>
+                            </gsml:ifUserCanDeleteContent>
+                        </div>
+                        <div class="unit size1of5 lastUnit">
+                            <c:choose>
+                                <c:when test="${requestScope.photoReports ne null and requestScope.photoReports[images[index].id] eq true}">
+                                    <div class="reportPhoto mediaExt2 smallText1">
+                                        <div class="bk reported smallAlertTextBold">You've reported this photo.</div>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="reportPhoto mediaExt2 smallText1">
+                                        <div class="bk">
+                                            <a class="reportIt" href="${loginRedirectUrl}"
+                                               onclick="return false;"
+                                               id="report_schoolMedia_${images[index].id}">Report this photo</a>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
-                </div>
+                </c:forEach>
             </div>
 
             <c:choose>
@@ -74,7 +85,7 @@
                             <ul class="unordered-carousel">
                                 <c:forEach begin="0" end="${numberOfImages-1}" var="index">
                                     <li>
-                                        <div class="gallery-thumbnail js_gallery_thumbnail_${index}">
+                                        <div class="gallery-thumbnail js_gallery_thumbnail_${index} js_gallery_thumbnail_id_${images[index].id}">
                                             <img src="/res/img/pixel.gif" width="70" height="70"/>
                                         </div>
                                     </li>
@@ -97,14 +108,8 @@
                 )
             );
         //</c:forEach>
-        var GS = GS || {};
-        GS.photoGalleryImageIdArray = [];
-//      <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-          GS.photoGalleryImageIdArray.push(${images[index].id});
-        //</c:forEach>
 
         var gallery = new GS.photoGallery.PhotoGallery("photo-gallery",imageArray,false);
-        GS.photoGallery = gallery;
 
         var tmpMargin;
         //<c:forEach begin="0" end="${numberOfImages-1}" var="index">
