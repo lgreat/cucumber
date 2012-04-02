@@ -49,11 +49,12 @@
                         <p>You may only have <strong>up to 4 active editors</strong> on this Official School Profile.</p>
                     </c:when>
                     <c:otherwise>
-                        <p>This profile has the maximum number of editors.</p>
+                        <span>This profile has the maximum number of editors. </span>
                     </c:otherwise>
                 </c:choose>
-                <p><link:contactUs feedbackType="esp">Contact us to remove someone from this list.</link:contactUs></p>
-                <button class="button-1 espOtherEditors_hideHover">Ok</button>
+                <span><link:contactUs feedbackType="esp">Contact us to remove someone from this list.</link:contactUs></span>
+                <br/>
+                <button class="button-1 espOtherEditors_hideHover mtl">Ok</button>
                 <p class="smaller bottom quiet mtl">Please note: GreatSchools may also make updates to Official School Profiles at any time.</p>
             </div>
             <c:if test="${numEditors lt maxEditors}">
