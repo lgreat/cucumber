@@ -704,24 +704,32 @@ GS.validation.validate12ThGraderFields = function() {
     var sat_block = jQuery('#js_sat_count_block');
     sat_block.find('.error').hide();
     sat_block.find('input').removeClass('warning');
-    if (jQuery('#form_fax_sat__yes').prop('checked') || jQuery('#js_satPdfFilename').filter(':visible').size() > 0) {
-        var isValid12thGraderEnrolled = GS.validation.validateRequired('#js_form_private_number_12th_graders', '#js_form_private_number_12th_graders_error') &&
-            GS.validation.validateInteger('#js_form_private_number_12th_graders', '#js_form_private_number_12th_graders_number_error');
 
-        var isValid12thGraderSat = GS.validation.validateRequired('#js_form_private_number_took_sat', '#js_form_private_number_took_sat_error') &&
-            GS.validation.validateInteger('#js_form_private_number_took_sat', '#js_form_private_number_took_sat_number_error');
-
-        if (isValid12thGraderEnrolled && isValid12thGraderSat) {
-            var numEnrolled = parseInt(jQuery('#js_form_private_number_12th_graders').val());
-            var numTaken = parseInt(jQuery('#js_form_private_number_took_sat').val());
-            if (numTaken > numEnrolled) {
-                jQuery('#js_form_private_number_took_sat_sum_error').show();
-                jQuery('#js_form_private_number_took_sat').addClass('warning');
-                return false;
-            }
-        }
-        return isValid12thGraderEnrolled && isValid12thGraderSat;
+    var isValid12thGraderEnrolled = GS.validation.validateInteger('#js_form_private_number_12th_graders', '#js_form_private_number_12th_graders_number_error');
+    var isValid12thGraderSat = GS.validation.validateInteger('#js_form_private_number_took_sat', '#js_form_private_number_took_sat_number_error');
+    if (!isValid12thGraderEnrolled || !isValid12thGraderSat) {
+        return false;
     }
+
+    var numEnrolled = parseInt(jQuery('#js_form_private_number_12th_graders').val());
+    var numTaken = parseInt(jQuery('#js_form_private_number_took_sat').val());
+    if ((isNaN(numTaken) && numEnrolled > 0)
+        || (isNaN(numEnrolled) && numTaken > 0)
+        || (jQuery('#form_fax_sat__yes').prop('checked') || jQuery('#js_satPdfFilename').filter(':visible').size() > 0)) {
+        isValid12thGraderEnrolled = GS.validation.validateRequired('#js_form_private_number_12th_graders', '#js_form_private_number_12th_graders_error');
+        isValid12thGraderSat = GS.validation.validateRequired('#js_form_private_number_took_sat', '#js_form_private_number_took_sat_error');
+
+        if (!(isValid12thGraderEnrolled && isValid12thGraderSat)) {
+            return false;
+        }
+    }
+
+    if (numTaken > numEnrolled) {
+        jQuery('#js_form_private_number_took_sat_sum_error').show();
+        jQuery('#js_form_private_number_took_sat').addClass('warning');
+        return false;
+    }
+
     return true;
 };
 
