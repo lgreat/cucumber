@@ -4,12 +4,13 @@
  * 
  *  LAST UPDATED:
  * 
- * 		- $Date: 2012/03/14 22:29:13 $
+ * 		- $Date: 2012/04/02 17:12:36 $
  * 		- $Author: rcox $
- * 		- $Revision: 1.1 $
+ * 		- $Revision: 1.2 $
  */
 #ptTimeSelectCntr {
-	width: 250px; 
+	width: 250px;
+    *width: 255px;
 	font-size: .9em;
 	position: absolute;
 	z-index: 10;
