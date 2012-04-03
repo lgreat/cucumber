@@ -1,5 +1,6 @@
 package gs.web.community;
 
+import gs.data.school.ISchoolMediaDao;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Review;
 import org.springframework.web.servlet.mvc.SimpleFormController;
@@ -31,6 +32,7 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
     private ICmsDiscussionBoardDao _cmsDiscussionBoardDao;
     private SolrService _solrService;
     private IReviewDao _reviewDao;
+    private ISchoolMediaDao _schoolMediaDao;
 
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
@@ -102,6 +104,9 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
                 }
                 review.setProcessDate(new Date());
                 _reviewDao.saveReview(review);
+            } else if (command.getContentType() == DeactivateContentCommand.ContentType.schoolMedia) {
+                _schoolMediaDao.disableById((int) command.getContentId());
+
             }
         }
         return null;
@@ -153,5 +158,13 @@ public class DeactivateContentAjaxController extends SimpleFormController implem
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
+    }
+
+    public ISchoolMediaDao getSchoolMediaDao() {
+        return _schoolMediaDao;
+    }
+
+    public void setSchoolMediaDao(ISchoolMediaDao schoolMediaDao) {
+        _schoolMediaDao = schoolMediaDao;
     }
 }

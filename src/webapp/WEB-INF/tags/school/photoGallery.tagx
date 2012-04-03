@@ -126,6 +126,18 @@
             gallery.applyThumbnailClickHandlers(); //attach click handlers to thumbnails
             gallery.applyButtonClickHandlers(); //attach handlers to next and back buttons
         });
+
+        function disablePhoto(photoId) {
+            jQuery.ajax({
+                type: 'POST',
+                url: "/community/deactivateContent.page",
+                data: {contentId: photoId,contentType: 'schoolMedia'},
+                dataType: 'text',
+                async: true
+            }).done(function(data) {
+                        window.location.reload();
+                    });
+        };
     </script>
 
 </jsp:root>
