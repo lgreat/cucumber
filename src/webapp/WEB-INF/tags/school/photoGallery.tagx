@@ -53,7 +53,7 @@
                                     <span class="iconx16 i-16-close img"><!-- no collapse --></span>
                                 </span>
                                 <a href="javascript:void(0);" class="disableLink link"
-                                   onclick="disablePhoto(${images[index].id}); return false;">Delete</a>
+                                   onclick="showDisablePhotoHover(${images[index].id}); return false;">Delete</a>
                             </gsml:ifUserCanDeleteContent>
                         </div>
                         <div class="unit size1of5 lastUnit">
@@ -98,6 +98,17 @@
         </div>
     </div>
 
+    <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+        <!-- Dialog for moderators to confirm disabling a photo -->
+        <div id="disablePhotoConfirmDialog" style="display:none">
+            <h2>Are you sure you want to delete this photo?</h2>
+            <div class="js_imageThumbnail mtm mbl">
+                <img src="/res/img/pixel.gif" width="70" height="70"/>
+            </div>
+            <button class="button-1 js_disablePhotoButton mrm" type="button">Yes, Delete</button>
+            <button class="button-1 disablePhotoConfirmDialog_hideHover" type="button">Cancel</button>
+        </div>
+    </gsml:ifUserCanDeleteContent>
     <script type="text/javascript">
         var imageArray = [];
 //        <c:forEach begin="0" end="${numberOfImages-1}" var="index">
@@ -127,6 +138,24 @@
             gallery.applyButtonClickHandlers(); //attach handlers to next and back buttons
         });
 
+        //<gsml:ifUserCanDeleteContent pageUser="${validUser}">
+        // code
+        var GS_disablePhotoConfirmDialog = null;
+        function showDisablePhotoHover(photoId) {
+            if (GS_disablePhotoConfirmDialog == null) {
+                GS_disablePhotoConfirmDialog = new GSType.hover.HoverDialog('disablePhotoConfirmDialog',640);
+            }
+            jQuery('#disablePhotoConfirmDialog').
+                    find('.js_imageThumbnail img').
+                    attr('src', jQuery('.js_gallery_thumbnail_id_' + photoId).find('img').attr('src'));
+            var disableButton = jQuery('#disablePhotoConfirmDialog').find('.js_disablePhotoButton');
+            disableButton.off('click');
+            disableButton.on('click', function() {
+                disablePhoto(photoId);
+                GS_disablePhotoConfirmDialog.hide();
+            });
+            GS_disablePhotoConfirmDialog.show();
+        }
         function disablePhoto(photoId) {
             jQuery.ajax({
                 type: 'POST',
@@ -137,7 +166,8 @@
             }).done(function(data) {
                         window.location.reload();
                     });
-        };
+        }
+        // </gsml:ifUserCanDeleteContent>
     </script>
 
 </jsp:root>
