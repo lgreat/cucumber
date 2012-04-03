@@ -13,13 +13,13 @@
 
     <c:set var="prefix" value="form"/>
 
-    <div class="mediaExt1-1">
+    <div class="media">
         <gsml:checkbox styleId="${prefix}_${key}__${fn:toLowerCase(value)}" styleClass="${styleClass} img"
                    name="${key}" value="${value}"
                    checked="${not empty responseMap[key].valueMap[value]}"
                    disabled="${disabled}"/>
 
-        <div class="bk pts">
+        <div class="bd pts">
             <label for="${prefix}_${key}__${fn:toLowerCase(value)}" class="checkbox">${label}</label>
             <jsp:doBody/>
         </div>

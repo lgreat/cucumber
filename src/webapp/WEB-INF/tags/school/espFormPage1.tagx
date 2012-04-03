@@ -181,20 +181,28 @@
             <div class="grid_16 omega">
                 <div class="line">
                     <div class="unit size20of100">
-                        <gsml:checkbox styleId="form_before_after_care_before" name="before_after_care" value="before"
-                                       checked="${not empty responseMap['before_after_care'].valueMap['before']}"/>
-                        <label for="form_before_after_care_before" class="checkbox">Before school care </label>
+                        <div class="media">
+                            <gsml:checkbox styleId="form_before_after_care_before" name="before_after_care"
+                                           value="before"
+                                           checked="${not empty responseMap['before_after_care'].valueMap['before']}"
+                                           styleClass="img"/>
+
+                            <div class="bd pts">
+                                <label for="form_before_after_care_before" class="checkbox">Before school care </label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="unit size80of100 lastUnit">
-                        <div class="line mrgtop_3">
+                        <div class="line mts">
                         <span id="form_before_after_care_before_group">
                             <div class="unit size2of100"><span class="small bottom">|</span></div>
                             <div class="unit size11of100">
                                 <label for="js-time3" class="checkbox">Start time</label>
                             </div>
                             <div class="unti size87of100 lastUnit">
-                                <input class="text-smaller input_3" type="text" name="before_after_care_start" id="js-time3"
+                                <input class="text-smaller input_3" type="text" name="before_after_care_start"
+                                       id="js-time3"
                                        readonly="readonly" value="${responseMap['before_after_care_start'].value}"/>
                             </div>
                         </span>
@@ -203,20 +211,27 @@
                 </div>
                 <div class="line">
                     <div class="unit size20of100">
-                        <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
-                                       checked="${not empty responseMap['before_after_care'].valueMap['after']}"/>
-                        <label for="form_before_after_care_after" class="checkbox">After school care </label>
+                        <div class="media">
+                            <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
+                                           checked="${not empty responseMap['before_after_care'].valueMap['after']}"
+                                           styleClass="img"/>
+
+                            <div class="bd pts">
+                                <label for="form_before_after_care_after" class="checkbox">After school care </label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="unit size80of100 lastUnit">
-                        <div class="line mrgtop_3">
+                        <div class="line mts">
                         <span id="form_before_after_care_after_group">
                             <div class="unit size2of100"><span class="small bottom">|</span></div>
                             <div class="unit size11of100">
                                 <label for="form_before_after_care_end" class="checkbox">End time </label>
                             </div>
                             <div class="unti size87of100 lastUnit">
-                                <input class="text-smaller input_3" type="text" name="before_after_care_end" id="js-time4"
+                                <input class="text-smaller input_3" type="text" name="before_after_care_end"
+                                       id="js-time4"
                                        readonly="readonly" value="${responseMap['before_after_care_end'].value}"/>
                             </div>
                         </span>

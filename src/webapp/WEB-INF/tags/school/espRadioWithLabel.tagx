@@ -13,12 +13,12 @@
 
     <c:set var="prefix" value="form"/>
 
-    <div class="mediaExt1-1">
+    <div class="media">
         <gsml:radio styleId="${prefix}_${key}__${fn:toLowerCase(value)}" name="${key}" value="${value}"
                     checked="${not empty responseMap[key].valueMap[value]}" styleClass="${styleClass} img"
                     disabled="${disabled}"/>
 
-        <div class="bk pts">
+        <div class="bd pts">
             <label for="${prefix}_${key}__${fn:toLowerCase(value)}" class="radio">${label}</label>
             <jsp:doBody/>
         </div>
