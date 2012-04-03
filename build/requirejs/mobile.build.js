@@ -15,5 +15,7 @@
         {
             name: "mobileSearchResults"
         }
-    ]
+    ],
+
+    packages: ["tracking"]
 })

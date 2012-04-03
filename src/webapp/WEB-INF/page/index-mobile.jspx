@@ -55,7 +55,7 @@
         </div>
 
         <div id="searchByLocation" data-theme="c" style="margin-top: 0px;">
-            blah
+            Search by location goes here
         </div>
     </pageHelper:mobilePage>
 
@@ -131,7 +131,7 @@
         </div>
 
     </pageHelper:mobilePage>
-
+    <mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home"/>
 
 </body>
 </html>
