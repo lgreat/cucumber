@@ -18,6 +18,7 @@
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
         >
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:directive.page import="gs.data.school.School"/>
@@ -464,6 +465,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 <div id="fade" class="black_overlay"><!-- do not collapse --></div>
 
 <school:schoolEspThankYou/>
+
+<community:reportContentHover openingElementSelector=".reportIt" reporterId="${validUser.id}"/>
 
 </gsml:body>
 </html>

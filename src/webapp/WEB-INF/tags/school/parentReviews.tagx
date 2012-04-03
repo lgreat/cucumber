@@ -11,7 +11,7 @@
           xmlns:pg="http://jsptags.com/tags/navigation/pager"
 
           xmlns:form="http://www.springframework.org/tags/form" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community">
+          >
 <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
 <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
 <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
@@ -61,8 +61,6 @@
     </script>
 
     <c:if test="${numberOfReviews gt 0}">
-
-        <community:reportContentHover openingElementSelector=".reportIt" reporterId="${validUser.id}"/>
 
         <div class="unit size3of10">
             <div id="overallRating2">
