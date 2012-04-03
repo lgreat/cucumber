@@ -86,7 +86,7 @@ public class SchoolPhotoListController implements ReadWriteAnnotationController 
                     schoolMediaListBean.setSchool(school);
                     schoolMediaListBean.setSchoolMedia(schoolMedia);
                     if (reportedEntityIdToCount.get(schoolMedia.getId()) != null) {
-                        schoolMediaListBean.setNumReports(reportedEntityIdToCount.get(schoolMedia.getId());
+                        schoolMediaListBean.setNumReports(reportedEntityIdToCount.get(schoolMedia.getId()));
                     }
                     if (reportedEntityIdToObj.get(schoolMedia.getId()) != null) {
                         schoolMediaListBean.setReport(reportedEntityIdToObj.get(schoolMedia.getId()));
