@@ -574,6 +574,7 @@ public class EspFormExternalDataHelper {
             keys.add("census_ethnicity");
             keys.add("census_6");
             keys.add("census_8");
+            keys.add("census_13");
             keys.add("census_15");
             keys.add("census_22");
         }
@@ -640,7 +641,7 @@ public class EspFormExternalDataHelper {
                     (CensusDataType.STUDENTS_LIMITED_ENGLISH.getId(), "English Proficient",
                             CENSUS_STUDENTS_LIMITED_ENGLISH_LABEL),
             new EspCensusDataTypeConfiguration
-                    (CensusDataType.STUDENTS_PERCENT_FREE_LUNCH.getId(), "Economically Disadvantaged",
+                    (CensusDataType.STUDENTS_ECONOMICALLY_DISADVANTAGED.getId(), "Economically Disadvantaged",
                             CENSUS_STUDENTS_PERCENT_FREE_LUNCH_LABEL),
             new EspCensusDataTypeConfiguration
                     (CensusDataType.STUDENTS_WITH_DISABILITIES.getId(), "Disabled",
