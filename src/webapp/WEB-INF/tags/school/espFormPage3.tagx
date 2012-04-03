@@ -198,8 +198,6 @@
         <div class="grid_11 omega" id="js_financial_aid_group">
             <school:espCheckboxWithLabel key="financial_aid_type" value="school_based" label="School-based aid"/>
             <school:espCheckboxWithLabel key="financial_aid_type" value="outside" label="Outside scholarships"/>
-            <school:espCheckboxWithLabel key="financial_aid_type" value="voucher"
-                                         label="Voucher program participants"/>
             <school:espCheckboxWithLabel key="financial_aid_type" value="tax_credits" label="Tax credits"/>
 
             <school:espCheckboxWithLabel key="financial_aid_type" value="other" label="Other forms of aid:"
