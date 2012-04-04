@@ -1,12 +1,15 @@
 package gs.web.community;
 
 import gs.data.school.ISchoolMediaDao;
+import gs.data.school.SchoolMedia;
 import gs.data.school.review.IReviewDao;
+import gs.data.util.CommunityUtil;
 import gs.web.util.ReadWriteController;
 import gs.web.util.UrlBuilder;
 import gs.data.community.*;
 import gs.data.content.cms.CmsDiscussionBoard;
 import gs.data.content.cms.ICmsDiscussionBoardDao;
+import gs.web.util.UrlUtil;
 import org.springframework.web.servlet.mvc.SimpleFormController;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -90,13 +93,17 @@ public class ReportContentService extends SimpleFormController
                     break;
                 case schoolMedia:
                     try {
-                        int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, contentId);
-                        _reportedEntityDao.reportEntity(reporter, type, contentId, reason);
+                        SchoolMedia schoolMedia = _schoolMediaDao.getById(contentId);
+                        UrlBuilder urlBuilder = new UrlBuilder
+                                ("schoolProfile?state=" + schoolMedia.getSchoolState().getAbbreviationLowerCase() +
+                                        "&id=" + schoolMedia.getSchoolId());
+                        int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, schoolMedia.getId());
+                        _reportedEntityDao.reportEntity(reporter, type, schoolMedia.getId(), reason);
                         if (numTimesReported == 3) {
                             // if this is the third time this photo is reported, disable it
-                            _schoolMediaDao.disableById(contentId);
+                            _schoolMediaDao.disableById(schoolMedia.getId());
                         }
-                        // TODO: sendSchoolMediaEmail(...)
+                        sendSchoolMediaEmail(getLinkForEntity(schoolMedia), urlBuilder.asFullUrl(request), reporter, reason);
                     } catch (Exception e) {
                         _log.error(e, e);
                         // ignore
@@ -146,7 +153,29 @@ public class ReportContentService extends SimpleFormController
     }
 
     protected void sendSchoolMediaEmail(String urlToContent, String urlToSchool, User reporter, String reason) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(_moderationEmail);
+        message.setFrom(_moderationEmail);
+        message.setSentDate(new Date());
+        message.setSubject("Reported content alert");
+        StringBuilder body = new StringBuilder();
+        body.append("The following photo has been reported as being in violation of our terms of use:\n\n");
+        body.append(urlToContent).append("\n\n");
+        body.append("This photo can be viewed and deleted from this profile page. ")
+                .append("To remove a photo, open the photo lightbox, choose the photo ")
+                .append("in question, and click on the delete icon under the image:\n\n");
+        body.append(urlToSchool).append("\n\n");
+        body.append("Reporter ").append(formatUserString(reporter)).append("\n\n");
+        body.append("Message:\n").append(reason);
+        message.setText(body.toString());
 
+        try {
+            _mailSender.send(message);
+        }
+        catch (MailException me) {
+            _log.error("Error sending content reported email: urlToContent=" +
+                    urlToContent + "; reporter=" + reporter.getUserProfile().getScreenName(), me);
+        }
     }
 
     protected StringBuffer formatUserString(User user) {
@@ -156,6 +185,13 @@ public class ReportContentService extends SimpleFormController
         text.append(")");
 
         return text;
+    }
+
+    protected String getLinkForEntity(SchoolMedia schoolMedia) {
+        if (schoolMedia != null) {
+            return CommunityUtil.getMediaPrefix() + schoolMedia.getLargeSizeFile();
+        }
+        return null;
     }
 
     protected String getLinkForEntity(HttpServletRequest request, Discussion d) {
