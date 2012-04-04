@@ -161,18 +161,23 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
                         boolean updateMembership = false;
 
                         if ("approve".equals(moderatorAction)) {
+                            try {
+                                membership.setSchool(getSchoolDao().getSchoolById(membership.getState(), membership.getSchoolId()));
+                            } catch (Exception e) {
+                                _log.error("Error fetching school for membership: " + membership, e);
+                            }
                             if (membership.getStatus() == EspMembershipStatus.PROCESSING
                                     || membership.getStatus() == EspMembershipStatus.REJECTED) {
                                 membership.setStatus(EspMembershipStatus.APPROVED);
                                 membership.setActive(true);
                                 addEspRole(user);
-                                sendESPVerificationEmail(request, user);
+                                sendESPVerificationEmail(request, user, membership.getSchool());
                                 updateMembership = true;
                             } else if (!membership.getActive()) {
                                 membership.setStatus(EspMembershipStatus.APPROVED);
                                 membership.setActive(true);
                                 addEspRole(user);
-                                sendESPVerificationEmail(request, user);
+                                sendESPVerificationEmail(request, user, membership.getSchool());
                                 updateMembership = true;
                             }
                         } else if ("reject".equals(moderatorAction)) {
@@ -346,7 +351,7 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
         }
     }
 
-    protected void sendESPVerificationEmail(HttpServletRequest request, User user) {
+    protected void sendESPVerificationEmail(HttpServletRequest request, User user, School school) {
         try {
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
             Date now = new Date();
@@ -365,6 +370,9 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
             Map<String, String> emailAttributes = new HashMap<String, String>();
             emailAttributes.put("HTML__espVerificationUrl", espVerificationUrl.toString());
             emailAttributes.put("first_name", user.getFirstName());
+            if (school != null) {
+                emailAttributes.put("school_name", school.getName());
+            }
             getExactTargetAPI().sendTriggeredEmail("ESP-verification", user, emailAttributes);
 
         } catch (Exception e) {
