@@ -54,11 +54,6 @@ public class MobileSchoolSearchController extends SchoolSearchController impleme
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
 
-        if (user != null) {
-            Set<FavoriteSchool> mslSchools = user.getFavoriteSchools();
-            model.put(MODEL_MSL_SCHOOLS, mslSchools);
-        }
-
         if (schoolSearchCommand.isNearbySearchByLocation()) {
             // check for exact county match
             ICounty county = getExactCountyMatch(schoolSearchCommand.getSearchString());
@@ -191,29 +186,6 @@ public class MobileSchoolSearchController extends SchoolSearchController impleme
                         requestedPage.pageSize
                 );
 
-                if (searchResultsPage.getTotalResults() == 0 && searchResultsPage.getSpellCheckResponse() != null &&
-                    !schoolSearchCommand.isNearbySearch()) {
-                    String didYouMean = SpellChecking.getSearchSuggestion(searchString, searchResultsPage.getSpellCheckResponse());
-
-                    if (didYouMean != null) {
-                        SearchResultsPage<ISchoolSearchResult> didYouMeanResultsPage = service.search(
-                                didYouMean,
-                                fieldConstraints,
-                                filterGroups,
-                                sort,
-                                schoolSearchCommand.getLat(),
-                                schoolSearchCommand.getLon(),
-                                schoolSearchCommand.getDistanceAsFloat(),
-                                requestedPage.offset,
-                                requestedPage.pageSize
-                        );
-
-                        if(didYouMeanResultsPage != null && didYouMeanResultsPage.getTotalResults() > 0) {
-                            model.put(MODEL_DID_YOU_MEAN, didYouMean);
-                            foundDidYouMeanSuggestions = true;
-                        }
-                    }
-                }
             } catch (SearchException ex) {
                 _log.debug("something when wrong when attempting to use SchoolSearchService. Eating exception", e);
             }

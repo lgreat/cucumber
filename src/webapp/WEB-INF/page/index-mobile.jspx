@@ -41,7 +41,7 @@
     <script type="text/javascript">
         // index is a module that must be in file index.js
         require(['index'], function(index) {
-            // executed after module loaded
+            index.init();
         });
     </script>
 

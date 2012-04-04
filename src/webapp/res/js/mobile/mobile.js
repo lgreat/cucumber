@@ -1,4 +1,11 @@
 define(['require','jquery','tracking','navigation'],function(require,$,tracking,navigation) {
-    navigation.init();
 
+
+    var init = function() {
+        navigation.init();
+    };
+
+    return {
+        init:init
+    }
 });

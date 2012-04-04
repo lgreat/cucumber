@@ -21,6 +21,7 @@
         <link rel="stylesheet" href="/res/css/jquery-mobile-gs.css"/>
         <mod:mobileBootstrapJS/>
         <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
+        <decorator:head/>
     </head>
     <body>
         <decorator:body/>
