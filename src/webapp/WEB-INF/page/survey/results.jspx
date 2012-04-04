@@ -432,7 +432,7 @@
             </c:if>
         </c:otherwise>
     </c:choose>
-
+     <!--
     <div class="nextprev">
         <div class="feedback">
             <gsml:url var="redirectPage" absolute="true"
@@ -477,7 +477,7 @@
             </div>
         </div>
     </div>
-
+        -->
 </div>
 
 <br style="clear:both;"/>
