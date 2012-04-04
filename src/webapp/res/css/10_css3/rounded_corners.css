@@ -54,6 +54,12 @@ General comments:
           border-radius: 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
 
+.rnd12 {
+  -webkit-border-radius: 12px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 12px; /* FF1-3.6 */
+          border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
 .rnd-top-3 {
   -webkit-border-radius: 3px 3px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
      -moz-border-radius: 3px 3px 0 0; /* FF1-3.6 */
@@ -76,6 +82,12 @@ General comments:
   -webkit-border-radius: 9px 9px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
      -moz-border-radius: 9px 9px 0 0; /* FF1-3.6 */
           border-radius: 9px 9px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.rnd-top-12 {
+  -webkit-border-radius: 12px 12px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 12px 12px 0 0; /* FF1-3.6 */
+          border-radius: 12px 12px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
 
 .rnd-bottom-4 {

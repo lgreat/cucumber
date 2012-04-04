@@ -25,45 +25,47 @@
 
     <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
 
-    <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper slStylesV1-0 rnd9">
-        <div class="inner rnd9">
-            <div class="hd gradient-5 rnd-top-9">
-                <div id="${prefix}-photo-gallery-close" class="photoGalleryClose">
-                    <span class="sprite i-close-photoGallery-default"><!--Do not collapse--></span>
+    <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper slStylesV1-0 rnd12">
+        <div class="inner rnd12">
+            <div class="hd rnd-top-12">
+                <div id="${prefix}-photo-gallery-close" class="fltrt mtm mrm">
+                    <span class="iconx24 i-24-close"><!--Do not collapse--></span>
                 </div>
             </div>
             <div class="bd">
-                <div class="photoGalleryViewer">
+                <div class="photoGalleryViewer mtl">
                     <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                        <div id="${prefix}-gallery-fullsize-${index}" class="galleryPhotoFullsize">
-                            <!--<div id="${prefix}-gallery-fullsize-${index}" class="gallery-fullsize">-->
+                        <!--<div id="${prefix}-gallery-fullsize-${index}" class="galleryPhotoFullsize">-->
+                        <div id="${prefix}-gallery-fullsize-${index}" class="gallery-fullsize">
                             <img src="/res/img/pixel.gif"/>
-
                             <span class="small quiet">${photoCaptions[index]}</span>
                         </div>
                     </c:forEach>
-                    <!--<br style="clear:both"/>-->
+                    <div id="${prefix}-photo-gallery-back"
+                         style="position: absolute; top: 176.5px;left: 11px;">
+                        <span class="iconx48 i-48-gallery-back-default"><!--Do not collapse--></span>
+                    </div>
+                    <div id="${prefix}-photo-gallery-next"
+                         style="position: absolute; top: 176.5px; left: 471px;">
+                        <span class="iconx48 i-48-gallery-next-default"><!--Do not collapse--></span>
+                    </div>
                 </div>
 
                 <div class="photoGalleryControls">
-                    <div class="galleryControls">
-                        <div id="${prefix}-photo-gallery-back" class="galleryBack">
-                            <span class="sprite i-left-photoGallery-default"><!--Do not collapse--></span>
+                    <div class="infiniteCarousel8">
+                        <div class="wrapper" style="overflow:hidden;">
+                            <ul class="unordered-carousel">
+                                <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                                    <li>
+                                        <div id="${prefix}-gallery-thumbnail-${index}" class="gallery-thumbnail">
+                                            <img src="/res/img/pixel.gif" width="68" height="68"/>
+                                        </div>
+                                    </li>
+                                </c:forEach>
+                            </ul>
                         </div>
-                        <div class="photoGalleryThumbnails">
-                            <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                                <div id="${prefix}-gallery-thumbnail-${index}" class="gallery-thumbnail">
-                                    <img src="/res/img/pixel.gif" width="68" height="68"/>
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <div id="${prefix}-photo-gallery-next" class="galleryNext">
-                            <span class="sprite i-right-photoGallery-default"><!--Do not collapse--></span>
-                        </div>
-                        <!--<br style="clear:both"/>-->
                     </div>
                 </div>
-                <!--<br style="clear:both"/>-->
             </div>
         </div>
     </div>
