@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
+
+<jsp:directive.tag body-content="empty"/>
+
+    <!-- writes out JS that requires the evaluation of JSTL expressions -->
+
+    <script>
+        var GS = GS || {};
+        GS.properties = GS.properties || {};
+
+        GS.properties.isDevEnvironment = ${requestScope.pageHelper.devEnvironment};
+
+        GS.properties.jsLoggingEnabled = ('${param.jslogging}' === 'true');
+
+        if (GS.properties.isDevEnvironment === true) {
+            GS.sCodeModuleName = 's_code_dev';
+        } else {
+            GS.sCodeModuleName = 's_code';
+        }
+
+        GS.log = function() {
+            if ('${param.jslogging}' === 'true') {
+                console.log(arguments);
+            }
+        };
+
+        GS.requireConfig = {
+            baseUrl: '/res/js/mobile/',
+            paths: {
+                'global':'/res/js/global',
+                'sCode':'/res/js/' + GS.sCodeModuleName
+            },
+            packages:["tracking"]
+        };
+
+    </script>
+
+</jsp:root>
