@@ -435,6 +435,7 @@
 
 </div>
 
+<br style="clear:both;"/>
 <mod:tracking pageName="${pageName}"
               hier1="School,Parent Survey,Display,Page ${pIndex + 1}" schoolGSRating="${gs_rating}"/>
 </school:profile2010>
