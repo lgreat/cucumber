@@ -3,7 +3,6 @@ package gs.web.admin;
 import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.school.*;
-import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @Controller
-@RequestMapping("/admin/schoolPhoto/list.page")
-public class SchoolPhotoListController implements ReadWriteAnnotationController {
+@RequestMapping("/admin/schoolMedia/list.page")
+public class SchoolMediaListController implements ReadWriteAnnotationController {
     @Autowired
     private IReportedEntityDao _reportedEntityDao;
 
@@ -28,20 +27,25 @@ public class SchoolPhotoListController implements ReadWriteAnnotationController 
     @Autowired
     private ISchoolDao _schoolDao;
 
-    public static final String VIEW = "admin/schoolPhotoList";
-    private static final int REPORTED_SCHOOL_MEDIA_PAGE_SIZE = 75;
+    public static final String VIEW = "admin/schoolMediaList";
+    public static final String MODEL_TOTAL_REPORTED="totalReportedMedia";
+    public static final String MODEL_REPORTED_MEDIA="reportedSchoolMedia";
+    private static final int REPORTED_SCHOOL_MEDIA_PAGE_SIZE = 1;
+    public static final String MODEL_PAGE_SIZE="pageSize";
     private static final String PARAM_PAGE = "p";
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showForm(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String showReportedMediaList(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         int page = 1;
         if (StringUtils.isNotBlank(request.getParameter(PARAM_PAGE))
                 && StringUtils.isNumeric(request.getParameter(PARAM_PAGE))) {
             page = Integer.parseInt(request.getParameter(PARAM_PAGE));
         }
-        List<SchoolMediaListBean> reportedSchoolPhotos = getReportedSchoolMedia(page);
-        modelMap.put("reportedSchoolPhotos", reportedSchoolPhotos);
+        List<SchoolMediaListBean> reportedSchoolMedia = getReportedSchoolMedia(page);
+        modelMap.put(MODEL_REPORTED_MEDIA, reportedSchoolMedia);
+        modelMap.put(MODEL_TOTAL_REPORTED, _reportedEntityDao.countActiveReportsByEntityType(ReportedEntity.ReportedEntityType.schoolMedia));
+        modelMap.put(MODEL_PAGE_SIZE, REPORTED_SCHOOL_MEDIA_PAGE_SIZE);
         return VIEW;
     }
 
@@ -50,34 +54,26 @@ public class SchoolPhotoListController implements ReadWriteAnnotationController 
         if (page > 1) {
             offset = (page - 1) * REPORTED_SCHOOL_MEDIA_PAGE_SIZE;
         }
+
         List<SchoolMediaListBean> returnVal = new ArrayList<SchoolMediaListBean>();
+        Map<Integer, ReportedEntity> reportedEntityIdToObj = new HashMap<Integer, ReportedEntity>();
+        Set<Integer> uniqueSchoolMediaIds = new HashSet<Integer>();
 
         //Get all the flagged school media in asc order of date creation.
-        List<ReportedEntity> reportedEntities = _reportedEntityDao.getActiveReportsByEntityType(ReportedEntity.ReportedEntityType.schoolMedia);
+        List<ReportedEntity> reportedEntities = _reportedEntityDao.getActiveReportsByEntityType(ReportedEntity.ReportedEntityType.schoolMedia,
+                REPORTED_SCHOOL_MEDIA_PAGE_SIZE, offset);
 
-        Map<Integer, ReportedEntity> reportedEntityIdToObj = new HashMap<Integer, ReportedEntity>();
-        Map<Integer, Integer> reportedEntityIdToCount = new HashMap<Integer, Integer>();
-        Set<Integer> uniqueSchoolMediaIds = new HashSet<Integer>();
 
         for (ReportedEntity reportedEntity : reportedEntities) {
             //We only want the oldest reported entity.
             //Therefore just store the first one.(List of reportedEntities is sorted in asc order of date creation)
             if (reportedEntityIdToObj.get(reportedEntity.getReportedEntityId()) == null) {
                 reportedEntityIdToObj.put((int) reportedEntity.getReportedEntityId(), reportedEntity);
-            }
-
-            //Count the number of times an entity is reported.
-            if (reportedEntityIdToCount.get(reportedEntity.getReportedEntityId()) == null) {
-                reportedEntityIdToCount.put((int) reportedEntity.getReportedEntityId(), 1);
-                //Add to a unique set of Ids.This is used to bulk query the schoolMedia table.
-                uniqueSchoolMediaIds.add((int) reportedEntity.getReportedEntityId());
-            } else {
-                int count = reportedEntityIdToCount.get(reportedEntity.getReportedEntityId());
-                reportedEntityIdToCount.put((int) reportedEntity.getReportedEntityId(), count++);
+                uniqueSchoolMediaIds.add((int)reportedEntity.getReportedEntityId());
             }
         }
 
-        if (uniqueSchoolMediaIds.size() > 0 && reportedEntityIdToCount.size() > 0 && reportedEntityIdToObj.size() > 0) {
+        if (uniqueSchoolMediaIds.size() > 0 && reportedEntityIdToObj.size() > 0) {
             List<SchoolMedia> schoolMediaList = _schoolMediaDao.getByIds(uniqueSchoolMediaIds);
             for (SchoolMedia schoolMedia : schoolMediaList) {
                 School school = _schoolDao.getSchoolById(schoolMedia.getSchoolState(), schoolMedia.getSchoolId());
@@ -85,9 +81,8 @@ public class SchoolPhotoListController implements ReadWriteAnnotationController 
                     SchoolMediaListBean schoolMediaListBean = new SchoolMediaListBean();
                     schoolMediaListBean.setSchool(school);
                     schoolMediaListBean.setSchoolMedia(schoolMedia);
-                    if (reportedEntityIdToCount.get(schoolMedia.getId()) != null) {
-                        schoolMediaListBean.setNumReports(reportedEntityIdToCount.get(schoolMedia.getId()));
-                    }
+                    schoolMediaListBean.setNumReports((_reportedEntityDao.getNumberTimesReported
+                            (ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId())));
                     if (reportedEntityIdToObj.get(schoolMedia.getId()) != null) {
                         schoolMediaListBean.setReport(reportedEntityIdToObj.get(schoolMedia.getId()));
                     }
