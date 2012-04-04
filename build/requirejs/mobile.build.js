@@ -6,16 +6,24 @@
 
     // for each jspx page, enter page-specific module name below so that it gets compile/minified
     modules: [
-        {
-            name: "main"
+        /*{
+            name: "main",
+            exclude: ["global","s_code"]
         },
         {
-            name: "index"
+            name: "index",
+            exclude: ["global","s_code"]
         },
         {
-            name: "mobileSearchResults"
-        }
+            name: "mobileSearchResults",
+            exclude: ["global","s_code"]
+        }*/
     ],
+
+    paths: {
+        'global':'../global',
+        'sCode':'../s_code_dev'
+    },
 
     packages: ["tracking"]
 })
