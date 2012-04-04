@@ -432,55 +432,9 @@
             </c:if>
         </c:otherwise>
     </c:choose>
-     <!--
-    <div class="nextprev">
-        <div class="feedback">
-            <gsml:url var="redirectPage" absolute="true"
-                      value="/survey/results.page?id=${school.id}&amp;state=${stateAbbrev}&amp;page=${pIndex}&amp;level=${param.level}&amp;feedback=1"/>
-            <gsml:img src="/res/img/survey/flag_1.gif" alt="Red flag"/>
-            Questions? Do these survey results look wrong?
-            <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}" target="_blank">Tell us here &gt;</link:schoolFeedback>
-        </div>
-        <div class="previousnextouterwrap" id="outerteachers">
-            <div class="previousnextwrap">
-                <c:if test="${pIndex gt 0}">
-                    <div class="previous">
-                        <gsml:img src="/res/img/survey/previousarrows.gif" alt="Previous arrows" />
-                        <link:surveyResults school="${school}" level="${param.level}" page="${pIndex-1}">
-                            <c:choose>
-                                <c:when test="${param.level eq 'p'}">
-                                    <gsml:img src="/res/img/survey/previous.gif" styleClass="pre" alt="Previous Page" />
-                                </c:when>
-                                <c:otherwise>
-                                    <gsml:img src="/res/img/survey/p_${pIndex}.gif" alt="Previous Page" />
-                                </c:otherwise>
-                            </c:choose>
-                        </link:surveyResults>
-                    </div>
-                </c:if>
-                <c:if test="${pIndex lt 3}">
-                    <div class="next">
-                        <link:surveyResults school="${school}" level="${param.level}" page="${pIndex+1}">
-                            <c:choose>
-                                <c:when test="${param.level eq 'p'}">
-                                    <gsml:img src="/res/img/survey/next.gif" styleClass="pre" alt="Next Page" />
-                                </c:when>
-                                <c:otherwise>
-                                    <gsml:img src="/res/img/survey/n_${pIndex}.gif" alt="Next Page" />
-                                </c:otherwise>
-                            </c:choose>
 
-                        </link:surveyResults>
-                        <gsml:img src="/res/img/survey/nextarrows.gif" alt="Next arrows" />
-                    </div>
-                </c:if>
-            </div>
-        </div>
-    </div>
-        -->
 </div>
 
-<br style="clear:both;"/>
 <mod:tracking pageName="${pageName}"
               hier1="School,Parent Survey,Display,Page ${pIndex + 1}" schoolGSRating="${gs_rating}"/>
 </school:profile2010>
