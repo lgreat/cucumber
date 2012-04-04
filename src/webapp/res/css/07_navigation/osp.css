@@ -33,7 +33,7 @@ General comments:
 
 #js_espFormNav .last { margin-right:0; padding-right:0; }
 
-#js_espFormNav a{
+#js_espFormNav a, #js_espFormNav .anchor{
     float: left;
     width: 70px;
     height: 100px;
@@ -60,7 +60,7 @@ General comments:
     font: normal 11px/12px Arial, Helvetica, sans-serif;
 }
 
-#js_espFormNav .selected a{
+#js_espFormNav .selected a, #js_espFormNav .selected .anchor {
     color: #2b2b2b;
     background-image: url(/res/img/osp/hoverbox_70x100.png);
 }
