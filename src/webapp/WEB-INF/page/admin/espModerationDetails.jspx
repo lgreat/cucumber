@@ -76,6 +76,15 @@
 
                             <div class="lal clearfix">
                                 <div class="alpha grid_4">
+                                    <label for="school">School Address</label>
+                                </div>
+                                <div class="grid_12">
+                                    <label id = "schoolAddress">${espModerationDetailsCmd.espMembership.school.physicalAddress}</label>
+                                </div>
+                            </div>
+
+                            <div class="lal clearfix">
+                                <div class="alpha grid_4">
                                     <label for="schoolId">School Id</label>
                                 </div>
                                 <div class="grid_6">
