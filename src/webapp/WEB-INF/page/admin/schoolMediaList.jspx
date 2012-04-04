@@ -80,7 +80,7 @@
                         </td>
                         <td>${schoolMediaBean.school.name} (${schoolMediaBean.school.databaseState})</td>
                         <td>
-                            ${schoolMedia.statusAsString}
+                            ${schoolMedia.statusAsString} - ${schoolMedia.id}
                         </td>
                         <fmt:formatDate value="${schoolMediaBean.report.dateCreated}" var="reportCreated"
                                         pattern="MMMM d, yyyy h:mma"/>

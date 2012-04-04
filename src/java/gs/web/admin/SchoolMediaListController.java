@@ -28,10 +28,10 @@ public class SchoolMediaListController implements ReadWriteAnnotationController 
     private ISchoolDao _schoolDao;
 
     public static final String VIEW = "admin/schoolMediaList";
-    public static final String MODEL_TOTAL_REPORTED="totalReportedMedia";
-    public static final String MODEL_REPORTED_MEDIA="reportedSchoolMedia";
+    public static final String MODEL_TOTAL_REPORTED = "totalReportedMedia";
+    public static final String MODEL_REPORTED_MEDIA = "reportedSchoolMedia";
     private static final int REPORTED_SCHOOL_MEDIA_PAGE_SIZE = 1;
-    public static final String MODEL_PAGE_SIZE="pageSize";
+    public static final String MODEL_PAGE_SIZE = "pageSize";
     private static final String PARAM_PAGE = "p";
 
     @RequestMapping(method = RequestMethod.GET)
@@ -56,42 +56,35 @@ public class SchoolMediaListController implements ReadWriteAnnotationController 
         }
 
         List<SchoolMediaListBean> returnVal = new ArrayList<SchoolMediaListBean>();
-        Map<Integer, ReportedEntity> reportedEntityIdToObj = new HashMap<Integer, ReportedEntity>();
-        Set<Integer> uniqueSchoolMediaIds = new HashSet<Integer>();
 
-        //Get all the flagged school media in asc order of date creation.
-        List<ReportedEntity> reportedEntities = _reportedEntityDao.getActiveReportsByEntityType(ReportedEntity.ReportedEntityType.schoolMedia,
+        //Get all the flagged school media Ids in asc order of date creation.
+        List<Long> schoolMediaIdsLong = _reportedEntityDao.getDistinctReportedEntityIds(ReportedEntity.ReportedEntityType.schoolMedia,
                 REPORTED_SCHOOL_MEDIA_PAGE_SIZE, offset);
+        List<SchoolMedia> schoolMediaList = _schoolMediaDao.getByIds(getSchoolMediaIds(schoolMediaIdsLong));
 
-
-        for (ReportedEntity reportedEntity : reportedEntities) {
-            //We only want the oldest reported entity.
-            //Therefore just store the first one.(List of reportedEntities is sorted in asc order of date creation)
-            if (reportedEntityIdToObj.get(reportedEntity.getReportedEntityId()) == null) {
-                reportedEntityIdToObj.put((int) reportedEntity.getReportedEntityId(), reportedEntity);
-                uniqueSchoolMediaIds.add((int)reportedEntity.getReportedEntityId());
-            }
-        }
-
-        if (uniqueSchoolMediaIds.size() > 0 && reportedEntityIdToObj.size() > 0) {
-            List<SchoolMedia> schoolMediaList = _schoolMediaDao.getByIds(uniqueSchoolMediaIds);
-            for (SchoolMedia schoolMedia : schoolMediaList) {
-                School school = _schoolDao.getSchoolById(schoolMedia.getSchoolState(), schoolMedia.getSchoolId());
-                if (school != null) {
-                    SchoolMediaListBean schoolMediaListBean = new SchoolMediaListBean();
-                    schoolMediaListBean.setSchool(school);
-                    schoolMediaListBean.setSchoolMedia(schoolMedia);
-                    schoolMediaListBean.setNumReports((_reportedEntityDao.getNumberTimesReported
-                            (ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId())));
-                    if (reportedEntityIdToObj.get(schoolMedia.getId()) != null) {
-                        schoolMediaListBean.setReport(reportedEntityIdToObj.get(schoolMedia.getId()));
-                    }
-                    returnVal.add(schoolMediaListBean);
-                }
+        for (SchoolMedia schoolMedia : schoolMediaList) {
+            School school = _schoolDao.getSchoolById(schoolMedia.getSchoolState(), schoolMedia.getSchoolId());
+            if (school != null) {
+                SchoolMediaListBean bean = new SchoolMediaListBean();
+                bean.setSchool(school);
+                bean.setSchoolMedia(schoolMedia);
+                bean.setNumReports((_reportedEntityDao.getNumberTimesReported
+                        (ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId())));
+                bean.setReport(_reportedEntityDao.getOldestReport(ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId()));
+                returnVal.add(bean);
             }
         }
 
         return returnVal;
+    }
+
+    protected List<Integer> getSchoolMediaIds(List<Long> schoolMediaIdsLong) {
+        List<Integer> schoolMediaIds = new ArrayList<Integer>();
+        for (Long schoolMediaId : schoolMediaIdsLong) {
+            int sd = new Integer(schoolMediaId.toString());
+            schoolMediaIds.add(sd);
+        }
+        return schoolMediaIds;
     }
 
     public static final class SchoolMediaListBean {
