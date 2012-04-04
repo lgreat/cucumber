@@ -135,6 +135,7 @@ public class EspModerationDetailsControllerTest extends BaseControllerTestCase {
         resetAll();
 
         expect(_espMembershipDao.findEspMembershipById(id, false)).andReturn(_espMembership);
+        expect(_schoolDao.getSchoolById(_espMembership.getState(), _espMembership.getSchoolId())).andReturn(_school);
         _espMembershipDao.updateEspMembership(_espMembership);
         expectLastCall();
         _exactTargetAPI.sendTriggeredEmail((String) anyObject(), (User) anyObject(), (Map<String, String>) anyObject());
