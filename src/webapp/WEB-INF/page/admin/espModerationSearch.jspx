@@ -47,9 +47,9 @@
     <div class="grid_24 slStylesV1-0 espModerationTable">
       
       <div>
-        <a href="/admin/espModerationForm.page">View Main Requests</a>
+        <a href="/admin/espModerationForm.page">Main Requests</a>
         &#160;&#160;&#160;
-        <a href="/admin/espModerationForm.page?pending=1">View Pending Requests</a>
+        <a href="/admin/espModerationForm.page?pending=1">Pending Requests</a>
         &#160;&#160;&#160;
         <b>Moderation Search</b>
       </div>
@@ -123,7 +123,7 @@
             <th>School</th>
             <th>First Name</th>
             <th>State</th>
-            <th>Date</th>
+            <th>Member Id</th>
             <th>Contact Name</th>
           </tr>
           <tr>
@@ -167,7 +167,7 @@
               </td>
               <td>${membership.user.firstName}</td>
               <td>${membership.state}</td>
-              <td><fmt:formatDate pattern="MM-dd-yyyy hh:mm" value="${membership.created}" /></td>
+              <td>${membership.user.id}</td>
               <td>${mrow.contactName}</td>
             </tr>
             <tr>

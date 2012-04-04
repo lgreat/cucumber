@@ -50,18 +50,18 @@
                 <div>
                     <c:choose>
                         <c:when test="${isPendingView}">
-                            <a href="/admin/espModerationForm.page?pending=0">View Main Requests</a>
+                            <a href="/admin/espModerationForm.page?pending=0">Main Requests</a>
                             &#160;&#160;&#160;
-                            <b>Pending View Requests</b>
+                            <b>Pending Requests</b>
                         </c:when>
                         <c:otherwise>
-                            <b>Main View Requests</b>
+                            <b>Main Requests</b>
                             &#160;&#160;&#160;
-                            <a href="/admin/espModerationForm.page?pending=1">View Pending Requests</a>
+                            <a href="/admin/espModerationForm.page?pending=1">Pending Requests</a>
                         </c:otherwise>
                     </c:choose>
                   &#160;&#160;&#160;
-                  <a href="/admin/espModerationSearch.page">Search Moderation Requests</a>
+                  <a href="/admin/espModerationSearch.page">Moderation Search</a>
                 </div>
 								
                 <div class="legend">
@@ -93,7 +93,7 @@
                             <th>School</th>
                             <th>First Name</th>
                             <th>State</th>
-                            <th>Date</th>
+                            <th>Member Id</th>
                             <th>Contact Name</th>
                         </tr>
                         <tr>
@@ -135,7 +135,7 @@
                                 </td>
                                 <td>${membership.user.firstName}</td>
                                 <td>${membership.state}</td>
-                                <td><fmt:formatDate pattern="MM-dd-yyyy hh:mm" value="${membership.created}" /></td>
+                                <td>${membership.user.id}</td>
                                 <td>${mrow.contactName}</td>
                             </tr>
                             <tr>
