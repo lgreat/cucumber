@@ -1152,7 +1152,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 /* -------------- findAnArticle -------------- */
 .findAnArticle .bd .bd-inner{padding:10px;border:1px solid #e6e6e6;border-top:none;}
 .findAnArticle .bd-inner input{width:100%;padding:3px 5px;outline:0;}
-/*----------------GS-11784 start---------------*/
+/*----------------Photo gallery GS-11784 start---------------*/
 .mediumThumbnail {
     width: 160px;
     text-align: center;
@@ -1190,15 +1190,15 @@ body.ie8 .btsSupplyListsTag .arrow {
     border: 2px solid #fff;
 }
 
-.gallery-thumbnail img{
+.gallery-thumbnail img {
     border: 1px solid #ccc;
 }
 
-div .gallery-thumbnail:hover{
-    border:  2px solid #999;
+div .gallery-thumbnail:hover {
+    border: 2px solid #999;
 }
 
-div .gallery-thumbnail:hover img{
+div .gallery-thumbnail:hover img {
     border: 1px solid #fff;
 }
 
@@ -1217,8 +1217,8 @@ div .gallery-thumbnail-selected:hover {
 .gallery-fullsize {
     display: block;
     height: auto;
-    width:500px;
-    margin-left:auto;
+    width: 500px;
+    margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
@@ -1226,110 +1226,28 @@ div .gallery-thumbnail-selected:hover {
 #photo-gallery {
     display: none;
     position: absolute;
+    background: none;
     top: -150px;
     width: 530px;
     left: 218px;
     z-index: 1002;
 }
 
-#photo-gallery-schoolname {
-    float: left;
-    margin: 11px 0 10px 10px;
-    font-family: Georgia;
-    font-size: 19px;
-    color: #333;
+.photo-gallery-module {
+    background-color: #fff;
+    border: 1px solid #8CDEED;
+    box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.5);
+    zoom: 1;
 }
 
-.photo-gallery-module{
-    background-color: #fff;
-    border:  1px solid #8CDEED;
-    border-radius: 12px;
-    -moz-border-radius: 12px;
-    box-shadow: 0px 0px 24px rgba(0,0,0,0.5);
-    zoom:1;
-}
 #photo-gallery-viewer {
     width: 530px;
-    height:500px;
-    display:table-cell;
+    height: 523px;
+    display: table-cell;
 }
 
-.photo-gallery-module.single-photo{
-    border-radius: 12px;
-    -moz-border-radius: 12px;
-    -webkit-border-radius: 12px;
-}
-
-.photo-gallery-module .heading {
-    height: 34px;
-    /*background: rgb(244, 249, 252);*/
-    /*margin-bottom: 15px;*/
-    /*background: -moz-linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); *//* FF3.6+ */
-    /*background: -webkit-gradient(linear, left top, left bottom, color-stop(15%, rgba(244, 249, 252, 1)), color-stop(100%, rgba(226, 241, 247, 1)), color-stop(100%, rgba(32, 124, 202, 1)), color-stop(100%, rgba(226, 241, 247, 1))); *//* Chrome,Safari4+ */
-    /*background: -webkit-linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); *//* Chrome10+,Safari5.1+ */
-    /*background: -o-linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); *//* Opera11.10+ */
-    /*background: -ms-linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); *//* IE10+ */
-    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f4f9fc', endColorstr = '#e2f1f7', GradientType = 0); *//* IE6-9 */
-    /*background: linear-gradient(top, rgba(244, 249, 252, 1) 15%, rgba(226, 241, 247, 1) 100%, rgba(32, 124, 202, 1) 100%, rgba(226, 241, 247, 1) 100%); *//* W3C */
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    -moz-border-radius-topleft: 12px;
-    -moz-border-radius-topright: 12px;
-}
-
-#photo-gallery-controls {
-    width: 530px;
-}
-.ie7 #photo-gallery-controls{
-    margin-top: 15px;
-}
-#photo-gallery-thumbnails {
-    display:inline-block;
-    vertical-align: middle;
-}
-
-#photo-gallery-back {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-#photo-gallery-next {
-    display: inline-block;
-    margin-left: 10px;
-    vertical-align: middle;
-}
-
-#photo-gallery-close {
-    float: right;
-    margin: 10px 10px 0 0;
-}
-
-#photo-gallery-content {
-    width: 100%;
-    margin: auto;
-}
-.ie7 #photo-gallery-back{
-    width:22px;
-    float: left;
-    margin-top:24px;
-}
-.ie7 #photo-gallery-next{
-    width:22px;
-    float: left;
-    margin-top:24px;
-}
-.ie7 #photo-gallery-thumbnails{
-    width:auto;
-    float:left;
-}
-.widthWide{
-    width:384px;
-}
-.widthMedium{
-    width:304px;
-}
-.widthSmall{
-    width:224px;
+.deletePhotoConfirm {
+    background: #ebebeb;
 }
 /*----------------GS-11784 ends----------------*/
 /* --- video-popup-contents (extends mod) ---- */

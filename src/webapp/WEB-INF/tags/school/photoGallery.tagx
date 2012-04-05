@@ -16,11 +16,10 @@
 
     <c:set var="numberOfImages" value="${fn:length(images)}"/>
 
-    <div id="photo-gallery">
-        <div class="photo-gallery-module">
-            <div class="heading">
-                <!--<div id="photo-gallery-schoolname">Photos of ${gsweb:generateTeaserText(school.name,35,-1)}</div>-->
-                <div id="photo-gallery-close">
+    <div id="photo-gallery" class="slStylesV1-0">
+        <div class="photo-gallery-module rnd12">
+            <div class="heading rnd-top-12">
+                <div id="photo-gallery-close" class="fltrt mtm mrm">
                     <span class="iconx24 i-24-close"><!--Do not collapse--></span>
                 </div>
             </div>
@@ -33,40 +32,42 @@
                 </c:forEach>
                 <c:choose>
                     <c:when test="${fn:length(images) > 1}">
-                        <div id="photo-gallery-back" style="position: absolute; top: 290px;left: 32px;">
+                        <div id="photo-gallery-back" style="position: absolute; top: 267px;left: 32px;">
                             <span class="iconx48 i-48-gallery-back-default"><!--Do not collapse--></span>
                         </div>
                     </c:when>
                 </c:choose>
                 <c:choose>
                     <c:when test="${fn:length(images) > 1}">
-                        <div id="photo-gallery-next" style="position: absolute; top: 290px; left: 440px;">
+                        <div id="photo-gallery-next" style="position: absolute; top: 267px; left: 440px;">
                             <span class="iconx48 i-48-gallery-next-default"><!--Do not collapse--></span>
                         </div>
                     </c:when>
                 </c:choose>
                 <c:forEach begin="0" end="${numberOfImages-1}" var="index">
-                    <div class="line gallery-fullsize-${index}">
-                        <div class="unit size4of5 plm pts">
+                    <div class="line gallery-fullsize-${index} mlm mrm mts">
+                        <div class="unit size68of100 mls">
                             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                                <span class="mts">
+                                <div class="mediaExt1-1">
                                     <span class="iconx16 i-16-close img"><!-- no collapse --></span>
-                                </span>
-                                <a href="javascript:void(0);" class="disableLink link"
+                                    <div class="bk">
+                                        <a href="javascript:void(0);" class="disableLink link small"
                                    onclick="showDisablePhotoHover(${images[index].id}); return false;">Delete</a>
+                                    </div>
+                                </div>
                             </gsml:ifUserCanDeleteContent>
                         </div>
-                        <div class="unit size1of5 lastUnit">
+                        <div class="unit size32of100 lastUnit">
                             <c:choose>
                                 <c:when test="${requestScope.photoReports ne null and requestScope.photoReports[images[index].id] eq true}">
-                                    <div class="reportPhoto mediaExt2 smallText1">
-                                        <div class="bk reported smallAlertTextBold">You've reported this photo.</div>
+                                    <div class="reportPhoto mediaExt1-1">
+                                        <div class="bk reported  small_bold bottom make-d61">You've reported this photo.</div>
                                     </div>
                                 </c:when>
                                 <c:otherwise>
-                                    <div class="reportPhoto mediaExt2 smallText1">
+                                    <div class="reportPhoto mediaExt1-1 small">
                                         <div class="bk">
-                                            <a class="reportIt" href="${loginRedirectUrl}"
+                                            <a class="reportIt fltrt" href="${loginRedirectUrl}"
                                                onclick="return false;"
                                                id="report_schoolMedia_${images[index].id}">Report this photo</a>
                                         </div>
@@ -100,7 +101,7 @@
 
     <gsml:ifUserCanDeleteContent pageUser="${validUser}">
         <!-- Dialog for moderators to confirm disabling a photo -->
-        <div id="disablePhotoConfirmDialog" style="display:none">
+        <div id="disablePhotoConfirmDialog" style="display:block;" class="slStylesV1-0 deletePhotoConfirm">
             <h2>Are you sure you want to delete this photo?</h2>
             <div class="js_imageThumbnail mtm mbl">
                 <img src="/res/img/pixel.gif" width="70" height="70"/>
