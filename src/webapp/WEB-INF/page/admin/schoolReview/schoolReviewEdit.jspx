@@ -33,11 +33,37 @@
             border: 1px solid #666;
         }
     </style>
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('a.block-ip').click(function(){
+                _content = jQuery(this).html()
+                _ip = jQuery(this).attr('id');
+
+                if ( _content == 'block' ){
+                    jQuery(this).html('blocking...')
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: '/admin/schoolReview/bannedIp/add.page',
+                        data: {ip: _ip},
+                        async: false
+                    });
+                    jQuery(this).html('Blocked. Manage list &amp;raquo;');
+                    jQuery(this).attr('href', '/admin/schoolReview/bannedIp/list.page');
+                }
+
+                if ( _content.indexOf('Blocked.')!=-1 ) {
+                    return true;
+                }
+                return false;
+            })
+        });
+    </script>
 </head>
 <gsml:body pageLayout="nocol" adPageName="schoolReviewEdit">
     <p>
         Return to: <a href="/admin/schoolReview/list.page">Flagged reviews</a> |
-        <a href="/admin/schoolReview/list.page?showUnprocessed=true">Unprocessed reviews</a>
+        <a href="/admin/schoolReview/list.page?showUnprocessed=true">Unprocessed reviews</a> |
+        <a href="/admin/schoolReview/bannedIp/list.page">Banned IP Addresses</a>
     </p>
     <br/>
     <c:if test="${not empty requestScope.command.review}">
@@ -65,6 +91,9 @@
             <br/>
             <label>Sender job title:</label><span class="value">${review.jobTitle}</span>
             <br/>
+            <c:if test="${not empty review.ip}">
+                <label>Sender ip:</label><span class="value">${review.ip} (<a href="#" class="block-ip" id="${review.ip}">block</a>)</span><br/>
+            </c:if>
             <label>School:</label>
             <span class="value"><link:schoolProfileParentReview
                     school="${review.school}">${review.school.name}</link:schoolProfileParentReview>
@@ -237,7 +266,8 @@
     </c:if>
     <p>
         Return to: <a href="/admin/schoolReview/list.page">Flagged reviews</a> |
-        <a href="/admin/schoolReview/list.page?showUnprocessed=true">Unprocessed reviews</a>
+        <a href="/admin/schoolReview/list.page?showUnprocessed=true">Unprocessed reviews</a> |
+        <a href="/admin/schoolReview/bannedIp/list.page">Banned IP Addresses</a>
     </p>
     <br/><br/>
 </gsml:body>

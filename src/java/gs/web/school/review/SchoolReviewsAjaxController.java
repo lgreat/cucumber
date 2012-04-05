@@ -274,7 +274,7 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
     }
 
     protected boolean isIPBlocked(HttpServletRequest request) {
-        return _bannedIPDao.isIPBanned(getIPFromRequest(request), 30);
+        return _bannedIPDao.isIPBanned(getIPFromRequest(request), IBannedIPDao.DEFAULT_DAYS_BANNED);
     }
 
     protected void addMssSubForSchool(User user, School school) {

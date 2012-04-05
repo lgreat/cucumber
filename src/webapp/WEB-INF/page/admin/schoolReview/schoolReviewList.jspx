@@ -52,6 +52,7 @@
 
                 <p>To see unprocessed reviews, <a href="?showUnprocessed=true">click here</a>.</p>
                 <p>To see held schools, <a href="/admin/schoolReview/holdList.page">click here</a>.</p>
+                <p>To see banned ip addresses, <a href="/admin/schoolReview/bannedIp/list.page">click here</a>.</p>
                 <br/>
 
                 <c:if test="${totalFlaggedReviews gt 0}">
@@ -85,6 +86,7 @@
                         <th>How</th>
                         <th>Date of Oldest Report</th>
                         <th># of Reports</th>
+                        <th>IP Address</th>
                     </tr>
                     <c:forEach items="${requestScope.flaggedReviews}" var="reviewBean">
                         <c:set var="review" value="${reviewBean.review}"/>
@@ -111,6 +113,7 @@
                                             pattern="MMMM d, yyyy h:mma"/>
                             <td>${reportedCreated}</td>
                             <td>${reviewBean.numReports}</td>
+                            <td>${review.ip}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -125,6 +128,8 @@
 
                 <p>To see flagged reviews, <a href="?showFlagged=true">click here</a>.</p>
                 <p>To see held schools, <a href="/admin/schoolReview/holdList.page">click here</a>.</p>
+                <p>To see banned ip addresses, <a href="/admin/schoolReview/bannedIp/list.page">click here</a>.</p>
+
                 <br/>
                 <c:if test="${totalUnprocessedReviews gt 0}">
                     <div style="margin-right: 250px;">
@@ -156,6 +161,7 @@
                         <th>Status</th>
                         <th>How</th>
                         <th># of Reports</th>
+                        <th>IP</th>
                     </tr>
                     <c:forEach items="${requestScope.unprocessedReviews}" var="reviewBean">
                         <c:set var="review" value="${reviewBean.review}"/>
@@ -178,6 +184,7 @@
                             </td>
                             <td>${review.how}</td>
                             <td>${reviewBean.numReports}</td>
+                            <td>${review.ip}</td>
                         </tr>
                     </c:forEach>
                 </table>

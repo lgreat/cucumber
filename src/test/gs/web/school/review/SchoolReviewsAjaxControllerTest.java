@@ -350,7 +350,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         expect(_reviewDao.findReview(_user, _school)).andReturn(review);
         _reviewDao.saveReview(review);
 
-        expect(_bannedIPDao.isIPBanned(TEST_IP, 30)).andReturn(false);
+        expect(_bannedIPDao.isIPBanned(TEST_IP, IBannedIPDao.DEFAULT_DAYS_BANNED)).andReturn(false);
         expect(_alertWordDao.getAlertWords(review.getComments())).andReturn(alertWordMap);
 
         _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, 1);
@@ -638,7 +638,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         expect(_reviewDao.findReview(_user, _school)).andReturn(review);
         _reviewDao.saveReview(review);
 
-        expect(_bannedIPDao.isIPBanned(TEST_IP, 30)).andReturn(false);
+        expect(_bannedIPDao.isIPBanned(TEST_IP, IBannedIPDao.DEFAULT_DAYS_BANNED)).andReturn(false);
         expect(_alertWordDao.getAlertWords(review.getComments())).andReturn(alertWordMap);
 
         _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, 1);
@@ -696,7 +696,7 @@ public class SchoolReviewsAjaxControllerTest extends BaseControllerTestCase {
         expect(_reviewDao.findReview(_user, _school)).andReturn(review);
         _reviewDao.saveReview(review);
 
-        expect(_bannedIPDao.isIPBanned(TEST_IP, 30)).andReturn(false);
+        expect(_bannedIPDao.isIPBanned(TEST_IP, IBannedIPDao.DEFAULT_DAYS_BANNED)).andReturn(false);
         expect(_alertWordDao.getAlertWords(review.getComments())).andReturn(alertWordMap);
 
         _reportedEntityDao.deleteReportsFor(ReportedEntity.ReportedEntityType.schoolReview, 1);

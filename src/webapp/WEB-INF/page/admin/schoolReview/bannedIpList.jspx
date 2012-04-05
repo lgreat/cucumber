@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:link="urn:www.greatschools.org/taglib/link" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+
+    <html lang="en">
+        <jsp:output doctype-root-element="html"
+                    doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+        <jsp:directive.page contentType="text/html"/>
+        <pageHelper:hideLeaderboard/>
+        <pageHelper:hideFooterAd/>
+
+        <head>
+            <![CDATA[<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>]]>
+            <title>Banned IP Address List | GreatSchools</title>
+            <style type="text/css">
+                .reviewTable td, .reviewTable th {
+                    padding: 2px;
+                    border: 1px solid #666;
+                }
+            </style>
+        </head>
+
+        <gsml:body pageLayout="nocol" adPageName="bannedIpList">
+            <p>
+                Return to: <a href="/admin/schoolReview/list.page">Flagged reviews</a> |
+                <a href="/admin/schoolReview/list.page?showUnprocessed=true">Unprocessed reviews</a>
+            </p>
+            <br/>
+
+            <c:if test="${not empty bannedIpList}">
+                <h1>Banned IP Addresses</h1>
+
+                <table class="flaggedReviewList reviewTable">
+                    <tr>
+                        <th>IP Address</th>
+                        <th>Days Ago</th>
+                        <th>Reason</th>
+                        <th>Action</th>
+                    </tr>
+                    <jsp:useBean id="now" class="java.util.Date"></jsp:useBean>
+                    <c:forEach items="${bannedIpList}" var="bannedIp">
+                        <tr>
+                            <fmt:formatNumber var="updated" value="${(now.time - bannedIp.updated.time) / millisPerDay}" maxFractionDigits="0"/>
+                            <td>${bannedIp.ip}</td>
+                            <td>${updated}</td>
+                            <fmt:formatDate value="${bannedIp.updated}" var="bannedIpUpdated" pattern="MMMM d, yyyy"/>
+                            <td>${bannedIp.reason}</td>
+                            <td>
+                                <form action="/admin/schoolReview/bannedIp/delete.page" method="POST">
+                                    <input type="hidden" name="ip" value="${bannedIp.ip}"/>
+                                    <input type="submit" value="Delete &amp;raquo;"/>
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:if>
+
+            <c:if test="${empty bannedIpList}">
+                <p>There are no IP addresses banned</p>
+            </c:if>
+
+            <br/>
+            <p>
+                Return to: <a href="/admin/schoolReview/list.page">Flagged reviews</a> |
+                <a href="/admin/schoolReview/list.page?showUnprocessed=true">Unprocessed reviews</a>
+            </p>
+            <br/>
+            <br/>
+        </gsml:body>
+    </html>
+</jsp:root>
