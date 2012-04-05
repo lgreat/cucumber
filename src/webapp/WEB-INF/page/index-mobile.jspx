@@ -16,7 +16,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
-        >
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search">
 <jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
 
@@ -57,6 +57,11 @@
         <div id="searchByLocation" data-theme="c" style="margin-top: 0px;">
             Search by location goes here
         </div>
+
+        <search:nearbyCities />
+
+        <search:nearbyDistricts />
+
     </pageHelper:mobilePage>
 
     <pageHelper:mobilePage id="searchByName">
@@ -130,8 +135,15 @@
 
         </div>
 
+        <search:nearbyCities />
+
+        <search:nearbyDistricts />
+
     </pageHelper:mobilePage>
-    <mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home"/>
+<!--    <mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home"/>-->
+
+
+
 
 </body>
 </html>

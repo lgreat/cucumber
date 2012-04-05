@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
 
@@ -23,7 +23,10 @@
         </style>
 
         <a href="${requestInfo.sitePreferenceUrlForAlternateSite}" data-role="button" data-inline="true" class="mobile-footer-button" data-ajax="false">View full site</a>
-        <a href="/splash/iphone.page" data-role="button" data-inline="true" class="mobile-footer-button">Get iPhone app</a>
+
+        <c:if test="${requestInfo.device.iphone}">
+            <a href="/splash/iphone.page" data-role="button" data-inline="true" class="mobile-footer-button">Get iPhone app</a>
+        </c:if>
 
         <hr/>
 

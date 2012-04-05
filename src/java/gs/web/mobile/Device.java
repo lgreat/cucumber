@@ -18,6 +18,10 @@ public class Device {
         _device = device;
     }
 
+    public boolean isIphone() {
+        return _device.getUserAgent().contains("iPhone");
+    }
+
     public boolean isMobileDevice() {
         if (_device == null) {
             return false;
