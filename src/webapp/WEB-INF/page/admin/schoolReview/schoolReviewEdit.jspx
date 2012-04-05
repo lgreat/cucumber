@@ -34,6 +34,7 @@
         }
     </style>
     <script type="text/javascript">
+        s = {};
         jQuery(document).ready(function(){
             jQuery('a.block-ip').click(function(){
                 _content = jQuery(this).html()
@@ -47,11 +48,11 @@
                         data: {ip: _ip},
                         async: false
                     });
-                    jQuery(this).html('Blocked. Manage list &amp;raquo;');
+                    jQuery(this).html('Blocked. Manage list');
                     jQuery(this).attr('href', '/admin/schoolReview/bannedIp/list.page');
                 }
 
-                if ( _content.indexOf('Blocked.')!=-1 ) {
+                if ( _content == 'Blocked. Manage list' ) {
                     return true;
                 }
                 return false;
