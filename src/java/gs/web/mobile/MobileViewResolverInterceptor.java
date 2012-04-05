@@ -4,6 +4,7 @@ package gs.web.mobile;
 import gs.web.request.RequestInfo;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,7 +72,9 @@ public class MobileViewResolverInterceptor implements HandlerInterceptor {
 
             if (requestInfo.isMobileSiteEnabled()) {
                 // allows view to render link to alternate (mobile | desktop) version if desired
-                modelAndView.getModel().put(HAS_MOBILE_VIEW_MODEL_KEY, controllerSupportsMobile || handler instanceof IDeviceSpecificControllerPartOfPair);
+                if (modelAndView.getView() == null || !(modelAndView.getView() instanceof RedirectView)) {
+                    modelAndView.getModel().put(HAS_MOBILE_VIEW_MODEL_KEY, controllerSupportsMobile || handler instanceof IDeviceSpecificControllerPartOfPair);
+                }
             }
         }
     }

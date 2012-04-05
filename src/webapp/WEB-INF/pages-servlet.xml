@@ -1981,12 +1981,34 @@
         </property>
     </bean>
 
-    <bean name="/school/overview.page"
-          class="gs.web.school.SchoolOverview2010Controller"
-          autowire="byName" lazy-init="true">
+    <!--<bean name="/school/overview.page"-->
+          <!--class="gs.web.school.SchoolOverview2010Controller"-->
+          <!--autowire="byName" lazy-init="true">-->
+        <!--<property name="viewName">-->
+            <!--<value>school/overview2010</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <bean name="mobileSchoolOverviewController" class="gs.web.school.SchoolOverviewMobileController" lazy-init="true">
+        <property name="controllerHandlesDesktopRequests" value="false" />
+        <property name="controllerHandlesMobileRequests" value="true" />
+    </bean>
+
+    <bean name="desktopSchoolOverviewController" class="gs.web.school.SchoolOverview2010Controller" lazy-init="true">
+        <property name="controllerHandlesDesktopRequests" value="true" />
+        <property name="controllerHandlesMobileRequests" value="false" />
         <property name="viewName">
             <value>school/overview2010</value>
         </property>
+    </bean>
+
+    <bean name="/school/overview.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="mobileSchoolOverviewController"/>
+                <ref bean="desktopSchoolOverviewController"/>
+            </list>
+        </constructor-arg>
     </bean>
 
     <bean name="parentReviews"

@@ -16,6 +16,8 @@ import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.data.util.CommunityUtil;
 import gs.web.content.cms.CmsHomepageController;
+import gs.web.mobile.IControllerWithMobileSupport;
+import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestInfo;
 import gs.web.util.PageHelper;
@@ -37,10 +39,10 @@ import java.util.*;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class SchoolOverview2010Controller extends AbstractSchoolController implements IDirectoryStructureUrlController {
+public class SchoolOverview2010Controller extends AbstractSchoolController implements IDirectoryStructureUrlController, IDeviceSpecificControllerPartOfPair {
     protected static final Log _log = LogFactory.getLog(SchoolOverview2010Controller.class.getName());
 
-    public static final String BEAN_ID = "/school/overview.page";
+    public static final String BEAN_ID = "desktopSchoolOverviewController";
 
     private String _viewName;
 
@@ -56,6 +58,8 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private IReportedEntityDao _reportedEntityDao;
 
     private IEspResponseDao _espResponseDao;
+    private boolean _controllerHandlesMobileRequests;
+    private boolean _controllerHandlesDesktopRequests;
 
     protected static final long PRESCHOOL_CITY_POPULATION_BOUNDARY = 8000;
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
@@ -334,6 +338,22 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             } // end if agentId != null
         } // end if cookies != null
         return false;
+    }
+
+    public boolean controllerHandlesMobileRequests() {
+        return _controllerHandlesMobileRequests;
+    }
+
+    public boolean controllerHandlesDesktopRequests() {
+        return _controllerHandlesDesktopRequests;
+    }
+
+    public void setControllerHandlesMobileRequests(boolean controllerHandlesMobileRequests) {
+        _controllerHandlesMobileRequests = controllerHandlesMobileRequests;
+    }
+
+    public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
+        _controllerHandlesDesktopRequests = controllerHandlesDesktopRequests;
     }
 
     public String getViewName() {
