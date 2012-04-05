@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:link="urn:www.greatschools.org/taglib/link" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
+    <pageHelper:hideLeaderboard/>
+    <pageHelper:hideFooterAd/>
+    <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
+    <head>
+        <![CDATA[<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>]]>
+        <title>School Media Edit | GreatSchools</title>
+        <style type="text/css">
+            .editForm label {
+                font-weight: bold;
+                margin-right: 5px;
+            }
+
+            .editForm textarea {
+                color: black;
+            }
+
+            .reportedEntity td, .reportedEntity th {
+                padding: 2px;
+                border: 1px solid #666;
+            }
+        </style>
+    </head>
+    <gsml:body pageLayout="nocol" adPageName="schoolMediaEdit">
+
+        <br/>
+        <c:if test="${not empty schoolMediaEditCommand.schoolMedia}">
+            <h2>School Media details</h2>
+            <c:set var="schoolMedia" value="${schoolMediaEditCommand.schoolMedia}"/>
+
+            <!--<form action="/admin/schoolMedia/edit.page" method="post" class="editForm">-->
+            <input type="hidden" name="id" value="${schoolMedia.id}"/>
+
+            <label>Sender:</label>
+            <span class="value">
+                <c:choose>
+                    <c:when test="${schoolMediaEditCommand.sender ne null}">
+                        <link:userProfile
+                                user="${schoolMediaEditCommand.sender}">${schoolMediaEditCommand.sender.userProfile.screenName}</link:userProfile>
+                    </c:when>
+                    <c:otherwise>
+                        <em>Not registered</em>
+                    </c:otherwise>
+                </c:choose>
+            </span>
+            <br/>
+            <label>Sender name:</label><span class="value">${schoolMediaEditCommand.sender.firstName} ${schoolMediaEditCommand.sender.lastName}</span>
+            <br/>
+            <label>Sender email:</label><span class="value">${schoolMediaEditCommand.sender.email}</span>
+            <br/>
+            <label>School:</label>
+            <span class="value"><link:schoolProfileOverview
+                    school="${schoolMediaEditCommand.school}">${schoolMediaEditCommand.school.name}</link:schoolProfileOverview>
+                (${schoolMediaEditCommand.school.databaseState} ${schoolMediaEditCommand.school.type.name})</span>
+            <br/>
+            <fmt:formatDate value="${schoolMedia.created}" var="schoolMediaCreated"
+                            pattern="MMMM d, yyyy"/>
+            <label>Date uploaded:</label><span class="value">${schoolMediaCreated}</span>
+            <br/>
+            <label>Status:</label>
+            <span class="value">${schoolMedia.statusAsString}
+
+            </span>
+            <br/>
+            <label>Reports:</label>
+            <c:choose>
+                <c:when test="${empty schoolMediaEditCommand.reports}">
+                    <span class="value">None</span>
+                </c:when>
+                <c:otherwise>
+                    <input type="hidden" id="reportId" name="reportId" value=""/>
+                    <table class="reportedEntity">
+                        <tr>
+                            <th>Date Reported</th>
+                            <th>Reason</th>
+                            <th>Reporter</th>
+                            <th>State</th>
+                        </tr>
+                        <c:forEach items="${schoolMediaEditCommand.reports}" var="report">
+                            <tr>
+                                <fmt:formatDate value="${report.dateCreated}" var="reportCreated"
+                                                pattern="MMMM d, yyyy h:mma"/>
+                                <td>${reportCreated}</td>
+                                <td>${report.reason}</td>
+                                <td><c:choose>
+                                    <c:when test="${report.reporterId eq -1}">Auto-filter</c:when>
+                                    <c:when test="${schoolMediaEditCommand.reportToUserMap ne null and schoolMediaEditCommand.reportToUserMap[report.id] ne null}">
+                                        <link:userProfile
+                                                user="${schoolMediaEditCommand.reportToUserMap[report.id]}">${schoolMediaEditCommand.reportToUserMap[report.id].userProfile.screenName}</link:userProfile>
+                                    </c:when>
+                                    <c:otherwise>${report.reporterId}</c:otherwise></c:choose></td>
+                                <td><c:choose>
+                                    <c:when test="${report.active}">Open</c:when>
+                                    <c:otherwise>Resolved</c:otherwise></c:choose></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:otherwise>
+            </c:choose>
+            <br/>
+            <br/>
+
+            <label>SchoolMedia:</label><br/>
+            <gsml:img
+                    src="${communityUtil.mediaPrefix}school_media/${schoolMedia.schoolState.abbreviationLowerCase}/${fn:substring(schoolMedia.hash,0,2)}/${schoolMedia.hash}-500.jpg"
+                    alt="${schoolMedia.id}"/>
+            <br/>
+            <br/>
+
+            <!--<br/>-->
+            <!--<label for="notesInput">Moderator comments:</label><br/>-->
+            <!--<textarea id="notesInput" rows="5" cols="75"-->
+                      <!--name="note">${schoolMedia.note}</textarea>-->
+            <!--<input id="notesEdit" type="submit" name="formCancel" value="Edit"-->
+                   <!--onclick="return false;" style="display:none;"/>-->
+            <!--<input id="notesSave" type="submit" name="submitNote" value="Save Comments"/>-->
+            <!--<c:choose>-->
+                <!--<c:when test="${not empty schoolMedia.note}">-->
+                    <!--<script type="text/javascript">-->
+                        <!--jQuery('#notesEdit').show();-->
+                        <!--jQuery('#notesSave').hide();-->
+                        <!--jQuery('#notesInput').prop('disabled', true);-->
+                        <!--jQuery('#notesEdit').click(function() {-->
+                            <!--jQuery('#notesEdit').hide();-->
+                            <!--jQuery('#notesSave').show();-->
+                            <!--jQuery('#notesInput').prop('disabled', false);-->
+                            <!--jQuery('#notesInput').focus();-->
+                        <!--});-->
+                    <!--</script>-->
+                <!--</c:when>-->
+                <!--<c:otherwise>-->
+                    <!--<script type="text/javascript">-->
+                        <!--jQuery('#notesEdit').hide();-->
+                    <!--</script>-->
+                <!--</c:otherwise>-->
+            <!--</c:choose>-->
+            <!--<br/>-->
+            <!--<br/>-->
+
+            <c:if test="${not empty schoolMediaEditCommand.reports}">
+                <c:set var="reportWord" value="Report"/>
+                <c:if test="${fn:length(schoolMediaEditCommand.reports) gt 1}">
+                    <c:set var="reportWord" value="Reports"/>
+                </c:if>
+                <input type="submit" name="resolveReports" value="Resolve ${reportWord}"/>
+                <input type="submit" name="disableReports" value="Dsiable ${reportWord}"/>
+                <br/>
+                <br/>
+            </c:if>
+            <br/>
+        </c:if>
+    </gsml:body>
+    </html>
+</jsp:root>
