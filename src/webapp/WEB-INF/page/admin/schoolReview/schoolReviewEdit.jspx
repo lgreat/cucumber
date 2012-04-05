@@ -37,7 +37,7 @@
         s = {};
         jQuery(document).ready(function(){
             jQuery('a.block-ip').click(function(){
-                _content = jQuery(this).html()
+                var _content = jQuery(this).html()
                 _ip = jQuery(this).attr('id');
 
                 if ( _content == 'block' ){
