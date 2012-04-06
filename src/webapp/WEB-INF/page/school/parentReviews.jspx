@@ -18,6 +18,7 @@
           xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
           xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 <jsp:directive.page import="gs.web.util.context.SessionContext"/>
@@ -147,6 +148,7 @@
         // TODO-10495 - Randall - END subcategory ratings toggle
     </script>
     <school:profile2010ShareThisJavaScript/>
+    <k12:trafficDriverIncludes/>
     <c:if test="${not empty relCanonical}">
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
