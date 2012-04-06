@@ -10386,6 +10386,33 @@ p#btsBubbleOpts {
     text-align: center;
 }
 
+.legend {
+    margin: 3px;
+    margin-top: 6px;
+    padding: 4px;
+    border-radius: 4px;
+    text-align: right;
+}
+
+.legend span {
+    margin-right: 10px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.emailMatch, .emailMatch * {
+    background-color: #aad4ff !important;
+}
+
+.durra, .durra * {
+    /* disabled user re-requesting accerss (durra) */
+    background-color: #ff6347 !important;
+}
+
+.schoolHasActiveMemberships, .schoolHasActiveMemberships * {
+    background-color: #90ee90 !important;
+}
+
 /*Photo delete hover styles*/
 #photoDeleteConfirmationHover h2{
     font: normal 24px/33px Arial, Helvetica, sans-serif;

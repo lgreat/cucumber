@@ -17,31 +17,6 @@
     <jsp:directive.page contentType="text/html"/>
     <head>
         <title>Admin OSP Moderation${isPendingView ? ' - Pending' : ''}</title>
-
-        <style type="text/css">
-        	.legend {
-        		margin: 3px;
-        		margin-top: 6px;
-        		padding: 4px;
-        		border-radius: 4px;
-        		text-align: right;
-        	}
-        	.legend span {
-        		margin-right: 10px;
-        		padding: 4px;
-        		border-radius: 4px;
-        	}
-        	.emailMatch, .emailMatch * {
-        		background-color: #aad4ff !important;
-        	}
-        	.durra, .durra * { /* disabled user re-requesting accerss (durra) */
-        		background-color: #ff6347 !important;
-        	}
-            .schoolHasActiveMemberships, .schoolHasActiveMemberships * {
-                background-color: #90ee90 !important;
-            }
-        </style>
-
     </head>
     <gsml:body adPageName="school/esp" pageLayout="nocol">
         <div class="container_24">
