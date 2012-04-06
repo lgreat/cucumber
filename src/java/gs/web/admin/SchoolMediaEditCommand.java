@@ -10,14 +10,13 @@ import java.util.Map;
 
 public class SchoolMediaEditCommand {
     private SchoolMedia _schoolMedia;
-    private Integer _id;
+    private Integer _schoolMediaId;
     private String _note;
-    private String _status;
-    private boolean _cancel = false;
     private List<ReportedEntity> _reports;
     private Map<Integer, User> _reportToUserMap;
     private School _school;
     private User _sender;
+    private String _moderatorAction;
 
     public SchoolMedia getSchoolMedia() {
         return _schoolMedia;
@@ -27,12 +26,12 @@ public class SchoolMediaEditCommand {
         _schoolMedia = schoolMedia;
     }
 
-    public Integer getId() {
-        return _id;
+    public Integer getSchoolMediaId() {
+        return _schoolMediaId;
     }
 
-    public void setId(Integer id) {
-        _id = id;
+    public void setSchoolMediaId(Integer schoolMediaId) {
+        _schoolMediaId = schoolMediaId;
     }
 
     public String getNote() {
@@ -41,22 +40,6 @@ public class SchoolMediaEditCommand {
 
     public void setNote(String note) {
         _note = note;
-    }
-
-    public String getStatus() {
-        return _status;
-    }
-
-    public void setStatus(String status) {
-        _status = status;
-    }
-
-    public boolean isCancel() {
-        return _cancel;
-    }
-
-    public void setCancel(boolean cancel) {
-        _cancel = cancel;
     }
 
     public List<ReportedEntity> getReports() {
@@ -89,5 +72,13 @@ public class SchoolMediaEditCommand {
 
     public void setSender(User sender) {
         _sender = sender;
+    }
+
+    public String getModeratorAction() {
+        return _moderatorAction;
+    }
+
+    public void setModeratorAction(String moderatorAction) {
+        _moderatorAction = moderatorAction;
     }
 }
