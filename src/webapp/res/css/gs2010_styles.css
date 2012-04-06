@@ -10386,7 +10386,7 @@ p#btsBubbleOpts {
     text-align: center;
 }
 
-.legend {
+.espModerationTable .legend {
     margin: 3px;
     margin-top: 6px;
     padding: 4px;
@@ -10394,22 +10394,22 @@ p#btsBubbleOpts {
     text-align: right;
 }
 
-.legend span {
+.espModerationTable .legend span {
     margin-right: 10px;
     padding: 4px;
     border-radius: 4px;
 }
 
-.emailMatch, .emailMatch * {
+.espModerationTable .emailMatch, .emailMatch * {
     background-color: #aad4ff !important;
 }
 
-.durra, .durra * {
+.espModerationTable .durra, .durra * {
     /* disabled user re-requesting accerss (durra) */
     background-color: #ff6347 !important;
 }
 
-.schoolHasActiveMemberships, .schoolHasActiveMemberships * {
+.espModerationTable .schoolHasActiveMemberships, .schoolHasActiveMemberships * {
     background-color: #90ee90 !important;
 }
 
