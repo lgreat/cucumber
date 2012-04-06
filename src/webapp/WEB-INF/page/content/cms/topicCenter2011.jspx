@@ -298,7 +298,7 @@
                                     <p class="small bottom make-06b">${link.kategory.name}</p>
                                 </link:cmsCategoryBrowse>
 
-                                <h3 class="bottom"><a href="${link.url}">${link.linkText}</a></h3>
+                                <h4 class="bottom"><a href="${link.url}">${link.linkText}</a></h4>
 
                                 <p class="small">${link.description}</p>
                             </div>
