@@ -195,7 +195,7 @@
                                 <p class="small bottom make-06b">${topicCenter.firstFeaturedArticlesModuleLink.kategory.name}</p>
                             </link:cmsCategoryBrowse>
 
-                            <h3 class="bottom"><a href="${topicCenter.firstFeaturedArticlesModuleLink.url}">${topicCenter.firstFeaturedArticlesModuleLink.linkText}</a></h3>
+                            <h4 class="bottom"><a href="${topicCenter.firstFeaturedArticlesModuleLink.url}">${topicCenter.firstFeaturedArticlesModuleLink.linkText}</a></h4>
 
                             <p class="small bottom">${topicCenter.firstFeaturedArticlesModuleLink.description}</p>
                         </div>
@@ -262,7 +262,7 @@
                                     <p class="small bottom make-06b">${topicCenter.firstMostPopularModuleLink.kategory.name}</p>
                                 </link:cmsCategoryBrowse>
 
-                                <h3 class="bottom"><a href="${topicCenter.firstMostPopularModuleLink.url}">${topicCenter.firstMostPopularModuleLink.linkText}</a></h3>
+                                <h4 class="bottom"><a href="${topicCenter.firstMostPopularModuleLink.url}">${topicCenter.firstMostPopularModuleLink.linkText}</a></h4>
 
                                 <p class="small bottom">${topicCenter.firstMostPopularModuleLink.description}</p>
                             </div>
