@@ -8,6 +8,8 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.ISchoolMediaDao;
 import gs.data.school.SchoolMedia;
 import gs.web.util.ReadWriteAnnotationController;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,16 @@ import java.util.Map;
 @RequestMapping("/admin/schoolMedia/edit.page")
 public class SchoolMediaEditController implements ReadWriteAnnotationController {
 
+    protected final Log _log = LogFactory.getLog(SchoolMediaEditController.class);
+
+    public static final String PARAM_SCHOOL_MEDIA_ID = "id";
+
+    public static final String VIEW = "admin/schoolMediaEdit";
+
+    public static final String EDIT_URL = "admin/schoolMedia/edit.page";
+
+    public static final String LIST_URL = "admin/schoolMedia/list.page";
+
     @Autowired
     private IReportedEntityDao _reportedEntityDao;
 
@@ -39,23 +51,15 @@ public class SchoolMediaEditController implements ReadWriteAnnotationController 
     @Autowired
     private ISchoolDao _schoolDao;
 
-    public static final String PARAM_SCHOOL_MEDIA_ID = "id";
-
-    public static final String VIEW = "admin/schoolMediaEdit";
-
-    public static final String EDIT_URL = "admin/schoolMedia/edit.page";
-
-    public static final String LIST_URL = "admin/schoolMedia/list.page";
-
     @RequestMapping(method = RequestMethod.GET)
-    public String showReportedMediaEditForm(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response,
+    public String showReportedMediaEditForm(ModelMap modelMap,
                                             @RequestParam(value = PARAM_SCHOOL_MEDIA_ID, required = true) Integer schoolMediaId) throws Exception {
         SchoolMediaEditCommand command = new SchoolMediaEditCommand();
         try {
             SchoolMedia schoolMedia = _schoolMediaDao.getById(schoolMediaId);
             command.setSchoolMedia(schoolMedia);
             command.setReports(_reportedEntityDao.getReports(ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId()));
-            command.setSchool(_schoolDao.getSchoolById(schoolMedia.getSchoolState(),schoolMedia.getSchoolId()));
+            command.setSchool(_schoolDao.getSchoolById(schoolMedia.getSchoolState(), schoolMedia.getSchoolId()));
             command.setSender(_userDao.findUserFromId(schoolMedia.getMemberId()));
             command.setSchoolMediaId(schoolMedia.getId());
             if (command.getReports() != null && command.getReports().size() > 0) {
@@ -64,52 +68,50 @@ public class SchoolMediaEditController implements ReadWriteAnnotationController 
                     try {
                         reportToUserMap.put(report.getId(), _userDao.findUserFromId(report.getReporterId()));
                     } catch (Exception e) {
-                        // ignore
+                        _log.error("ERROR while retrieving user for report id=" + report.getId());
                     }
                 }
                 command.setReportToUserMap(reportToUserMap);
             }
 
         } catch (ObjectRetrievalFailureException orfe) {
-            // do nothing
+            _log.error(orfe);
         }
         modelMap.addAttribute("schoolMediaEditCommand", command);
         return VIEW;
     }
 
-
     @RequestMapping(method = RequestMethod.POST)
-    public String editSchoolMedia(@ModelAttribute("schoolMediaEditCommand") SchoolMediaEditCommand command,
-                                  BindingResult result,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response) throws Exception {
+    public String editSchoolMedia(@ModelAttribute("schoolMediaEditCommand") SchoolMediaEditCommand command) throws Exception {
 
-        SchoolMedia schoolMedia = _schoolMediaDao.getById(command.getSchoolMediaId());
-        String rval = "";
-        if (schoolMedia == null || command.getModeratorAction() == null) {
-            return "";
+        String listPage = LIST_URL;
+        if (command.getSchoolMediaId() == null) {
+            return "redirect:/" + listPage;
         }
 
+        SchoolMedia schoolMedia = _schoolMediaDao.getById(command.getSchoolMediaId());
+        if (schoolMedia == null || command.getModeratorAction() == null) {
+            return "redirect:/" + listPage;
+        }
+
+        String editPage = EDIT_URL + '?' + PARAM_SCHOOL_MEDIA_ID + '=' + schoolMedia.getId();
+        String successView = "";
         if (command.getModeratorAction().equalsIgnoreCase("Resolve Report")
                 || command.getModeratorAction().equalsIgnoreCase("Resolve Reports")) {
-
             _reportedEntityDao.resolveReportsFor(ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId());
-
-            //TODO check if school media is active?
-            rval = "redirect:/" + LIST_URL;
-        } else if (command.getModeratorAction().equalsIgnoreCase("Disable Report")
-                || command.getModeratorAction().equalsIgnoreCase("Disable Reports")) {
-
-            _reportedEntityDao.resolveReportsFor(ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId());
+            successView = listPage;
+        } else if (command.getModeratorAction().equalsIgnoreCase("Disable Photo")) {
             _schoolMediaDao.disableById(schoolMedia.getId());
-            rval = "redirect:/" + EDIT_URL + "?id="+schoolMedia.getId();
+            successView = editPage;
         } else if (command.getModeratorAction().equalsIgnoreCase("Save Comments")) {
             schoolMedia.setNote(command.getNote());
             _schoolMediaDao.save(schoolMedia);
-            rval = "redirect:/" + EDIT_URL + "?id="+schoolMedia.getId();
+            successView = editPage;
+        } else if (command.getModeratorAction().equalsIgnoreCase("Publish Photo")) {
+            _schoolMediaDao.enableById(schoolMedia.getId());
+            successView = editPage;
         }
-      return rval;
+        return "redirect:/" + successView;
     }
-
 
 }
