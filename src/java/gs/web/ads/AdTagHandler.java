@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.41 2012/04/07 01:52:48 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.42 2012/04/07 02:48:00 yfan Exp $
  */
 package gs.web.ads;
 
@@ -209,7 +209,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
-        if (sc.isGptEnabled()) {
+        if (sc != null && sc.isGptEnabled()) {
             return getGptContent(request, sc, getJspBody());
         } else {
             return getContent(request, sc, getJspBody());
