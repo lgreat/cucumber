@@ -1,9 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.22 2011/05/06 00:57:21 yfan Exp $
+ * $Id: AdTagHandlerTest.java,v 1.23 2012/04/07 04:16:07 yfan Exp $
  */
 package gs.web.ads;
 
+import gs.data.admin.IPropertyDao;
 import gs.web.BaseTestCase;
 import gs.web.jsp.MockJspWriter;
 import gs.web.jsp.MockPageContext;
@@ -22,6 +23,9 @@ import javax.servlet.jsp.tagext.JspFragment;
 import java.io.IOException;
 import java.io.Writer;
 
+import static org.easymock.EasyMock.expect;
+import static org.easymock.classextension.EasyMock.createStrictMock;
+
 /**
  * Test AdTagHandler
  *
@@ -32,14 +36,29 @@ public class AdTagHandlerTest extends BaseTestCase {
     MockSessionContext _sessionContext;
     HttpServletRequest _request;
     MockJspWriter _writer;
+    private IPropertyDao _propertyDao;
 
     public void setUp() throws Exception {
         super.setUp();
         _tag = new AdTagHandler();
         _request = new MockHttpServletRequest();
         _sessionContext = new MockSessionContext();
+        _propertyDao = createStrictMock(IPropertyDao.class);
+        _sessionContext.setPropertyDao(_propertyDao);
         _writer = new MockJspWriter();
         XMLUnit.setIgnoreWhitespace(true);
+    }
+
+    public void replayAll() {
+        super.replayMocks(_propertyDao);
+    }
+
+    public void verifyAll() {
+        super.verifyMocks(_propertyDao);
+    }
+
+    public void resetAll() {
+        super.resetMocks(_propertyDao);
     }
 
     public void testAdFreeCobrands() throws Exception {
@@ -53,7 +72,13 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setJspContext(jspContext);
         _tag.setPosition("x22");
 
+        resetAll();
+        expect(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY,"false")).andReturn("false");
+        replayAll();
+
         assertEquals("", _tag.getContent());
+
+        verifyAll();
     }
 
     public void testAdFreeCobrandsWithAlwaysShowFramed() throws Exception {
@@ -68,9 +93,15 @@ public class AdTagHandlerTest extends BaseTestCase {
         _tag.setPosition("YouTube_381x311");
         _tag.setAlwaysShow(true);
 
+        resetAll();
+        expect(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY,"false")).andReturn("false");
+        replayAll();
+
         assertEquals("Expect ad tag even though ad free cobrand",
                 "<div id=\"adYouTube_381x311\" class=\"adYouTube_381x311 ad noprint\"><script type=\"text/javascript\">GA_googleFillSlot('YouTube_381x311');</script></div>", _tag.getContent());
         _tag.setAlwaysShow(false);
+
+        verifyAll();
     }
 
     public void testAdFreeCobrandsWithAlwaysShowAdvertisingOffline() throws Exception {
@@ -130,7 +161,12 @@ public class AdTagHandlerTest extends BaseTestCase {
         //try to set the same ad position
         try {
             _tag.setPosition("x22");
+            resetAll();
+            expect(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY,"false")).andReturn("false");
+            replayAll();
+
             _tag.getContent();
+            verifyAll();
             fail("x22 already set so we shouldn't allow it to be set again");
         } catch (IllegalArgumentException e){}
     }
@@ -154,7 +190,13 @@ public class AdTagHandlerTest extends BaseTestCase {
         //try to set the same ad position
         try {
             _tag.setPosition("Top_300x137");
+            resetAll();
+            expect(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY,"false")).andReturn("false");
+            replayAll();
+
             _tag.getContent();
+
+            verifyAll();
             fail("Top_300x137 already set so we shouldn't allow it to be set again");
         } catch (IllegalArgumentException e){}        
     }
@@ -177,7 +219,13 @@ public class AdTagHandlerTest extends BaseTestCase {
         //try to set the same ad position
         try {
             _tag.setPosition("Top_300x137");
+            resetAll();
+            expect(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY,"false")).andReturn("false");
+            replayAll();
+
             _tag.getContent();
+
+            verifyAll();
             fail("Top_300x137 already set so we shouldn't allow it to be set again");
         } catch (IllegalArgumentException e){}
     }
