@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.64 2012/01/04 01:17:14 rramachandran Exp $
+ * $Id: SessionContext.java,v 1.65 2012/04/07 01:52:48 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -405,6 +405,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         }
 
         return randomValue0To100 < interstitialDisplayRate;
+    }
+
+    public boolean isGptEnabled() {
+        return "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY, "false"));
     }
 
     /**

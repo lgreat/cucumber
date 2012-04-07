@@ -12,17 +12,17 @@
     <jsp:directive.tag import="gs.web.util.PageHelper"/>
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag import="org.apache.log4j.Logger"/>
-    <jsp:directive.tag import="java.util.ArrayList"/>
-    <jsp:directive.tag import="java.util.Iterator"/>
-    <jsp:directive.tag import="java.util.List"/>
-    <jsp:directive.tag import="java.util.Set"/>
     <jsp:directive.tag import="gs.web.util.UrlUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContextUtil"/>
     <jsp:directive.tag import="gs.web.util.CookieUtil"/>
     <jsp:directive.tag import="gs.web.util.context.SessionContext"/>
+    <jsp:directive.tag import="java.util.*"/>
+
     <jsp:scriptlet><![CDATA[
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         Logger _log = Logger.getLogger("xGAMsetup.tagx");
+        // GS-12415 map for getting width and height of ad
+        Map<String,AdPosition> adNameAdPositionMap = new java.util.HashMap<String,AdPosition>();
         if (null != pageHelper) {
             List adNames = new ArrayList();
             Set adPositions = pageHelper.getAdPositions();
@@ -39,21 +39,49 @@
             if (hideDefaultAds == null || !hideDefaultAds.booleanValue()) {
                 if (pageHelper.isShowingFooterAd()) {
                     if (request.getRequestURI() != null && request.getRequestURI().equals("/index.page")) {
-                        adNames.add(slotPrefix + AdPosition.Homepage_Footer_728x90.getName());
+                        // TODO-12415 refactor repeated adName, adPosition, adNameAdPositionMap, adNames.add calls into utility method
+                        AdPosition adPosition = AdPosition.Homepage_Footer_728x90;
+                        String adName = slotPrefix + adPosition.getName();
+                        adNameAdPositionMap.put(adName, adPosition);
+                        adNames.add(adName);
                     } else {
-                        adNames.add(slotPrefix + AdPosition.Footer_728x90.getName());
+                        // TODO-12415 refactor repeated adName, adPosition, adNameAdPositionMap, adNames.add calls into utility method
+                        AdPosition adPosition = AdPosition.Footer_728x90;
+                        String adName = slotPrefix + adPosition.getName();
+                        adNameAdPositionMap.put(adName, adPosition);
+                        adNames.add(adName);
                     }
                 }
 
                 if (pageHelper.isShowingBannerAd() && pageHelper.isShowingLeaderboard()) {
-                    adNames.add(slotPrefix + AdPosition.Header_728x90.getName());
+                    // TODO-12415 refactor repeated adName, adPosition, adNameAdPositionMap, adNames.add calls into utility method
+                    AdPosition adPosition = AdPosition.Header_728x90;
+                    String adName = slotPrefix + adPosition.getName();
+                    adNameAdPositionMap.put(adName, adPosition);
+                    adNames.add(adName);
                 }
 
                 if (!pageHelper.isAdFree() && !pageHelper.isFramed() && !pageHelper.isAdServedByCobrand()) {
-                    adNames.add(AdPosition.Global_NavPromo_968x30.getName());
-                    adNames.add(AdPosition.Global_HeaderPromo_88x31.getName());
-                    adNames.add(AdPosition.Custom_Peelback_Ad.getName());
-                    adNames.add(AdPosition.Custom_Welcome_Ad.getName());
+                    // TODO-12415 refactor repeated adName, adPosition, adNameAdPositionMap, adNames.add calls into utility method
+                    AdPosition adPosition = AdPosition.Global_NavPromo_968x30;
+                    String adName = adPosition.getName();
+                    adNameAdPositionMap.put(adName, adPosition);
+                    adNames.add(adName);
+
+                    adPosition = AdPosition.Global_HeaderPromo_88x31;
+                    adName = adPosition.getName();
+                    adNameAdPositionMap.put(adName, adPosition);
+                    adNames.add(adName);
+
+                    adPosition = AdPosition.Custom_Peelback_Ad;
+                    adName = adPosition.getName();
+                    adNameAdPositionMap.put(adName, adPosition);
+                    adNames.add(adName);
+
+                    adPosition = AdPosition.Custom_Welcome_Ad;
+                    adName = adPosition.getName();
+                    adNameAdPositionMap.put(adName, adPosition);
+                    adNames.add(adName);
                 }
             }
 
@@ -63,8 +91,11 @@
                     if (StringUtils.isEmpty(slotPrefix)) {
                         slotPrefix = "";
                         _log.warn(">empty prefix for: " + ad.getName());
-                    }                    
-                    adNames.add(slotPrefix + ad.getName());
+                    }
+                    // TODO-12415 refactor repeated adName, adPosition, adNameAdPositionMap, adNames.add calls into utility method
+                    String adName = slotPrefix + ad.getName();
+                    adNameAdPositionMap.put(adName, ad);
+                    adNames.add(adName);
                 }
             }
 
@@ -102,8 +133,62 @@
             request.setAttribute("GAMadNames", adNames);
             request.setAttribute("GAMadKeywords", pageHelper.getAdKeywords());
             request.setAttribute("GAMadSenseHint", pageHelper.getAdSenseHint());
+            // GS-12415
+            request.setAttribute("GPTadNameAdPositionMap", adNameAdPositionMap);
         }
         ]]></jsp:scriptlet>
+
+    <c:choose>
+    <c:when test="${requestScope.context.gptEnabled}">
+        <!-- TODO-12415 ghost text -->
+        <!-- TODO-12415 expandable ads -->
+        <!-- TODO-12415 widgets expecting JS, CSS from GSWeb, e.g. Primrose/Kindercare lead gen widgets, BTS -->
+        <!-- TODO-12415 refresh ads on school search results / browse page http://localhost:8080/search/search.page?search_type=0&q=child&state=CA&c=school?google_console=1 -->
+        <!-- TODO-12415 http://support.google.com/dfp_sb/bin/answer.py?hl=en&answer=1649768 -->
+        <![CDATA[
+        <script type="text/javascript">
+            var googletag = googletag || {};
+            googletag.cmd = googletag.cmd || [];
+            (function() {
+                var gads = document.createElement('script');
+                gads.async = true;
+                gads.type = 'text/javascript';
+                var useSSL = 'https:' == document.location.protocol;
+                gads.src = (useSSL ? 'https:' : 'http:') +
+                        '//www.googletagservices.com/tag/js/gpt.js';
+                var node = document.getElementsByTagName('script')[0];
+                node.parentNode.insertBefore(gads, node);
+            })();
+        </script>
+        ]]>
+
+        <![CDATA[
+        <script type="text/javascript">
+            googletag.cmd.push(function() {
+        ]]>
+
+            <!-- TODO-12415 multiple sizes e.g. 300x250 and 300x600, Custom_Peelback_Ad and Custom_Welcome_Ad - no width and height determinable - default to 1x1? -->
+            <c:forEach var="slotName" items="${GAMadNames}">
+                googletag.defineSlot('/1002894/${slotName}', [${GPTadNameAdPositionMap[slotName].width}, ${GPTadNameAdPositionMap[slotName].height}], 'div-gpt-ad-${slotName}')
+                    .addService(googletag.pubads());
+            </c:forEach>
+
+            <c:forEach var="keywordEntry" items="${GAMadKeywords}">
+                googletag.pubads().setTargeting("${keywordEntry.key}", <c:choose>
+                      <c:when test="${fn:length(keywordEntry.value) == 1}">"${keywordEntry.value[0]}"</c:when>
+                      <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
+                  </c:choose>);
+            </c:forEach>
+
+            <![CDATA[
+                googletag.pubads().collapseEmptyDivs();
+                googletag.pubads().enableSingleRequest();
+                googletag.enableServices();
+            });
+        </script>
+        ]]>
+    </c:when>
+    <c:otherwise>
         <jsp:scriptlet>
             /*
             Explanation of compfilter attribute from Sera:
@@ -163,4 +248,6 @@
                 GA_googleFetchAds();
             </script>
         </c:if>
+    </c:otherwise>
+    </c:choose>
 </jsp:root>

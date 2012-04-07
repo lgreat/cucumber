@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.40 2011/08/03 23:18:32 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.41 2012/04/07 01:52:48 yfan Exp $
  */
 package gs.web.ads;
 
@@ -119,12 +119,101 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         return buffer.toString();
     }
 
+    public String getGptContent(HttpServletRequest request, SessionContext sc, JspFragment body) throws JspException, IOException {
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+
+        if (pageHelper.isAdContentFree() || (!_alwaysShow && pageHelper.isAdFree())) {
+            return ""; //early exit
+        }
+
+        StringBuffer buffer = new StringBuffer();
+
+        buffer.append("<div id=\"")
+                .append(getAdId())
+                .append("\" class=\"")
+                .append(getAdId()).append(" ")
+                .append("ad");
+        if (!isShowOnPrintView()) {
+            buffer.append(" noprint");
+        }
+        buffer.append("\"")
+                .append(">");
+
+        if (!isAlwaysShow() && pageHelper.isAdServedByCobrand()) {
+            AdTagManager adManager = AdTagManager.getInstance();
+            String customAdTag = adManager.getAdTag(sc.getCobrand(), _adPosition);
+            if (StringUtils.isEmpty(customAdTag)) {
+                return "";
+            } else {
+                buffer.append(customAdTag);
+            }
+        } else {
+            // TODO-12415 GPT, unlike GAM tags, allows the same position to be used multiple times on the same page -- but keep logic for backwards compatibility?
+            //make sure position has not been previously used on this page.
+            Set <AdPosition> adPositions = pageHelper.getAdPositions();
+            if (adPositions.contains(_adPosition)) {
+                throw new IllegalArgumentException("Ad Position already defined: " + _adPosition);
+            } else {
+                pageHelper.addAdPosition(_adPosition);
+            }
+
+            String jsMethodName;
+            String slotName = _adPosition.getName();
+
+            if (_adPosition.isGAMPosition()) {
+                jsMethodName = JS_METHOD_NAME_GAM;
+                String slotPrefix = (String) request.getAttribute(REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
+                if (!"Global_NavPromo_968x30".equals(slotName) &&
+                        !"Global_HeaderPromo_88x31".equals(slotName) &&
+                        !"Custom_Peelback_Ad".equals(slotName) &&
+                        !"Custom_Welcome_Ad".equals(slotName) &&
+                        StringUtils.isNotBlank(slotPrefix)) {
+                    slotName = slotPrefix + slotName ;
+                }
+            } else {
+                jsMethodName = JS_METHOD_NAME_24_7;
+            }
+            StringBuilder adCodeBuffer = new StringBuilder();
+            adCodeBuffer.append("<div id=\"div-gpt-ad-").append(slotName).append("\">");
+            adCodeBuffer.append("<script type=\"text/javascript\">");
+            adCodeBuffer.append("googletag.cmd.push(function() {");
+            adCodeBuffer.append("googletag.display(\"div-gpt-ad-").append(slotName).append("\");");
+            // TODO-12415 ghost text
+            //adCodeBuffer.append("console.log('Displaying ad: ").append(slotName).append("');");
+            //adCodeBuffer.append("jQuery('#ad").append(slotName).append(" .jq-ghostText').hide();");
+            adCodeBuffer.append("});");
+            adCodeBuffer.append("</script>");
+            adCodeBuffer.append("</div>");
+
+            // TODO - currently only works from a JSP; if needed, refactor to allow extracting for non-JSP situations
+            if (null != body) {
+                StringWriter bodyWriter = new StringWriter();
+                body.invoke(bodyWriter);
+                StringBuffer adBuffer = bodyWriter.getBuffer();
+
+                if (adBuffer.indexOf("$AD") == -1) {
+                    throw new IllegalStateException("Missing variable $AD in body content.");
+                } else {
+                    buffer.append(adBuffer.toString().replaceAll("\\$AD", adCodeBuffer.toString()));
+                }
+            } else {
+                buffer.append(adCodeBuffer.toString());
+            }
+        }
+        buffer.append("</div>");
+        return buffer.toString();
+    }
+
     public String getContent() throws IOException, JspException {
         SessionContext sc = (SessionContext) getJspContext().findAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
-        return getContent(request, sc, getJspBody());
+        if (sc.isGptEnabled()) {
+            return getGptContent(request, sc, getJspBody());
+        } else {
+            return getContent(request, sc, getJspBody());
+        }
     }
 
     public String getPosition() {

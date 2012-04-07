@@ -1,9 +1,10 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.98 2012/01/05 02:15:49 yfan Exp $
+ * $Id: AdPosition.java,v 1.99 2012/04/07 01:52:48 yfan Exp $
  */
 package gs.web.ads;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.enums.Enum;
 
 import java.util.List;
@@ -159,12 +160,15 @@ public class AdPosition extends Enum {
 
     private boolean _isGAMPosition;
     private String _baseName = null;
+    private Integer _width = null;
+    private Integer _height = null;
 
     private boolean _isActive;
 
     private AdPosition(String s, boolean isGamControlled) {
         super(s);
         _isGAMPosition = isGamControlled;
+        initWidthHeight();
     }
 
     public AdPosition(String s, boolean isGamControlled, AdPosition baseAdPosition) {
@@ -216,5 +220,44 @@ public class AdPosition extends Enum {
         } else {
             return _baseName;
         }
+    }
+
+    private void initWidthHeight() {
+        String baseName = getBaseName();
+        if (baseName != null) {
+            String[] tokens = baseName.split("_");
+            for (String token : tokens) {
+                if (token.contains("x")) {
+                    String[] possibleDimensions = token.split("x");
+                    if (possibleDimensions.length == 2) {
+                        if (StringUtils.isNumeric(possibleDimensions[0]) &&
+                            StringUtils.isNumeric(possibleDimensions[1])) {
+                            try {
+                                _width = Integer.parseInt(possibleDimensions[0]);
+                                _height = Integer.parseInt(possibleDimensions[1]);
+                            } catch (NumberFormatException e) {
+                                // this should never happen
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // make sure that there's at least a 1x1 pixel for each ad
+        if (_width == null) {
+            _width = 1;
+        }
+        if (_height == null) {
+            _height = 1;
+        }
+    }
+
+    public Integer getWidth() {
+        return _width;
+    }
+    
+    public Integer getHeight() {
+        return _height;
     }
 }

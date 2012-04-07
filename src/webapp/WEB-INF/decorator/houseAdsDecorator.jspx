@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
+        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+        >
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
+    <head>
+        <!-- nothing goes here -->
+    </head>
+
+    <body>
+
+    <!-- TODO-12415 add JS condition to wrap around adding CSS and JavaScript if using synchronous mode not in iframes?
+                    but maybe do this somewhere else? -->
+
+    <pageHelper:addHouseAdsCss/>
+    <pageHelper:addHouseAdsJavaScript
+            uncompressedScripts="${param.uncompressedScripts}"
+            compressedScripts="${param.compressedScripts}"
+            serverName="${pageContext.request.serverName}"/>
+
+    <decorator:body/>
+
+    </body>
+    </html>
+</jsp:root>

@@ -29,6 +29,10 @@
         <pattern>*/sandbox/*</pattern>
     </decorator>
 
+    <decorator name="houseAdsDecorator" page="houseAdsDecorator.jspx">
+        <pattern>/demo/house-ads/*</pattern>
+    </decorator>
+
     <decorator name="iPhoneSplashPageDecorator" page="iPhoneSplashPageDecorator.jspx">
         <pattern>/splash/iphone.page</pattern>
     </decorator>
