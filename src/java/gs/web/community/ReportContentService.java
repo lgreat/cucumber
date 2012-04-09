@@ -99,7 +99,7 @@ public class ReportContentService extends SimpleFormController
                                         "&id=" + schoolMedia.getSchoolId());
                         int numTimesReported = _reportedEntityDao.getNumberTimesReported(type, schoolMedia.getId());
                         _reportedEntityDao.reportEntity(reporter, type, schoolMedia.getId(), reason);
-                        if (numTimesReported == 3) {
+                        if (numTimesReported == 2) {
                             // if this is the third time this photo is reported, disable it
                             _schoolMediaDao.disableById(schoolMedia.getId());
                         }
