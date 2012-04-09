@@ -14,6 +14,12 @@
         },
         {
             name: "mobileSearchResults"
+        },
+        {
+            name: "testScores"
+        },
+        {
+            name: "schoolOverview"
         }
     ],
 

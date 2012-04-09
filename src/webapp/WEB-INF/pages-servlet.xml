@@ -2684,11 +2684,35 @@
         <property name="viewName" value="/admin/schoolReview/holdList"/>
     </bean>
 
-    <bean name="/school/testScores.page"
-          class="gs.web.school.PerlFetchController"
-          autowire="byName" lazy-init="true">
+    <!--<bean name="/school/testScores.page"-->
+          <!--class="gs.web.school.PerlFetchController"-->
+          <!--autowire="byName" lazy-init="true">-->
+        <!--<property name="viewName" value="/school/testScores"/>-->
+        <!--<property name="perlContentPath" value="/gscache/achievement_simple/$STATE/$ID"/>-->
+    <!--</bean>-->
+
+    <bean name="mobileTestScoresController" class="gs.web.school.TestScoresMobileController" lazy-init="true">
+        <property name="controllerHandlesDesktopRequests" value="false"/>
+        <property name="controllerHandlesMobileRequests" value="true"/>
+    </bean>
+
+    <bean name="desktopTestScoresController" class="gs.web.school.TestScoresController" lazy-init="true">
+        <property name="controllerHandlesDesktopRequests" value="true"/>
+        <property name="controllerHandlesMobileRequests" value="false"/>
         <property name="viewName" value="/school/testScores"/>
         <property name="perlContentPath" value="/gscache/achievement_simple/$STATE/$ID"/>
+    </bean>
+
+
+    <bean name="/school/testScores.page" class="org.springframework.stereotype.Controller"
+          factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true"
+          scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="mobileTestScoresController"/>
+                <ref bean="desktopTestScoresController"/>
+            </list>
+        </constructor-arg>
     </bean>
 
     <bean name="/school/teachersStudents.page"
