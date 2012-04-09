@@ -318,7 +318,7 @@
             <plugin>
                 <groupId>com.samaxes.maven</groupId>
                 <artifactId>maven-minify-plugin</artifactId>
-                <version>1.3.5</version>
+                <version>1.2</version>
                 <!-- http://maven-samaxes-plugin.googlecode.com/svn/sites/maven-minify-plugin/usage.html -->
                 <!-- http://maven.apache.org/guides/mini/guide-configuring-plugins.html#Using_the_executions_Tag -->
                 <!-- http://maven-samaxes-plugin.googlecode.com/svn-history/r180/sites/maven-minify-plugin/faq.html#question -->
