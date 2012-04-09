@@ -51,7 +51,7 @@
                                 <div class="mediaExt1-1">
                                     <span class="iconx16 i-16-close img"><!-- no collapse --></span>
                                     <div class="bk">
-                                        <a href="javascript:void(0);" class="disableLink link small"
+                                        <a href="javascript:void(0);" class="disableLink link small bottom"
                                    onclick="showDisablePhotoHover(${images[index].id}); return false;">Delete</a>
                                     </div>
                                 </div>
@@ -65,9 +65,9 @@
                                     </div>
                                 </c:when>
                                 <c:otherwise>
-                                    <div class="reportPhoto mediaExt1-1 small">
+                                    <div class="reportPhoto mediaExt1-1">
                                         <div class="bk">
-                                            <a class="reportIt fltrt" href="${loginRedirectUrl}"
+                                            <a class="reportIt fltrt small bottom" href="${loginRedirectUrl}"
                                                onclick="return false;"
                                                id="report_schoolMedia_${images[index].id}">Report this photo</a>
                                         </div>
