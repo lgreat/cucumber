@@ -64,21 +64,24 @@ public class SchoolMediaListController implements ReadWriteAnnotationController 
         //Get all the flagged school media Ids in asc order of date creation.
         List<Long> schoolMediaIdsLong = _reportedEntityDao.getDistinctReportedEntityIds(ReportedEntity.ReportedEntityType.schoolMedia,
                 REPORTED_SCHOOL_MEDIA_PAGE_SIZE, offset);
-        List<SchoolMedia> schoolMediaList = _schoolMediaDao.getByIds(getSchoolMediaIds(schoolMediaIdsLong));
-        Map<String, Map<Integer, School>> stateToSchoolMap = getStateToSchoolMap(schoolMediaList);
 
-        for (SchoolMedia schoolMedia : schoolMediaList) {
-            Map<Integer, School> s = stateToSchoolMap.get(schoolMedia.getSchoolState().getAbbreviation());
-            School school = s.get(schoolMedia.getSchoolId());
+        if (schoolMediaIdsLong != null && schoolMediaIdsLong.size() > 0) {
+            List<SchoolMedia> schoolMediaList = _schoolMediaDao.getByIds(getSchoolMediaIds(schoolMediaIdsLong));
+            Map<String, Map<Integer, School>> stateToSchoolMap = getStateToSchoolMap(schoolMediaList);
+
+            for (SchoolMedia schoolMedia : schoolMediaList) {
+                Map<Integer, School> s = stateToSchoolMap.get(schoolMedia.getSchoolState().getAbbreviation());
+                School school = s.get(schoolMedia.getSchoolId());
 //            School school = _schoolDao.getSchoolById(schoolMedia.getSchoolState(), schoolMedia.getSchoolId());
-            if (school != null) {
-                SchoolMediaListBean bean = new SchoolMediaListBean();
-                bean.setSchool(school);
-                bean.setSchoolMedia(schoolMedia);
-                bean.setNumReports((_reportedEntityDao.getNumberTimesReported
-                        (ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId())));
-                bean.setReport(_reportedEntityDao.getOldestReport(ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId()));
-                returnVal.add(bean);
+                if (school != null) {
+                    SchoolMediaListBean bean = new SchoolMediaListBean();
+                    bean.setSchool(school);
+                    bean.setSchoolMedia(schoolMedia);
+                    bean.setNumReports((_reportedEntityDao.getNumberTimesReported
+                            (ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId())));
+                    bean.setReport(_reportedEntityDao.getOldestReport(ReportedEntity.ReportedEntityType.schoolMedia, schoolMedia.getId()));
+                    returnVal.add(bean);
+                }
             }
         }
 
@@ -93,8 +96,8 @@ public class SchoolMediaListController implements ReadWriteAnnotationController 
     protected List<Integer> getSchoolMediaIds(List<Long> schoolMediaIdsLong) {
         List<Integer> schoolMediaIds = new ArrayList<Integer>();
         for (Long schoolMediaId : schoolMediaIdsLong) {
-            int sd = new Integer(schoolMediaId.toString());
-            schoolMediaIds.add(sd);
+            int smId = new Integer(schoolMediaId.toString());
+            schoolMediaIds.add(smId);
         }
         return schoolMediaIds;
     }
