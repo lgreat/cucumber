@@ -3,8 +3,11 @@ package gs.web.admin;
 import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.school.*;
+import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +21,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/admin/schoolMedia/list.page")
 public class SchoolMediaListController implements ReadWriteAnnotationController {
+    protected final Log _log = LogFactory.getLog(SchoolMediaListController.class);
     @Autowired
     private IReportedEntityDao _reportedEntityDao;
 
@@ -61,9 +65,12 @@ public class SchoolMediaListController implements ReadWriteAnnotationController 
         List<Long> schoolMediaIdsLong = _reportedEntityDao.getDistinctReportedEntityIds(ReportedEntity.ReportedEntityType.schoolMedia,
                 REPORTED_SCHOOL_MEDIA_PAGE_SIZE, offset);
         List<SchoolMedia> schoolMediaList = _schoolMediaDao.getByIds(getSchoolMediaIds(schoolMediaIdsLong));
+        Map<String, Map<Integer, School>> stateToSchoolMap = getStateToSchoolMap(schoolMediaList);
 
         for (SchoolMedia schoolMedia : schoolMediaList) {
-            School school = _schoolDao.getSchoolById(schoolMedia.getSchoolState(), schoolMedia.getSchoolId());
+            Map<Integer, School> s = stateToSchoolMap.get(schoolMedia.getSchoolState().getAbbreviation());
+            School school = s.get(schoolMedia.getSchoolId());
+//            School school = _schoolDao.getSchoolById(schoolMedia.getSchoolState(), schoolMedia.getSchoolId());
             if (school != null) {
                 SchoolMediaListBean bean = new SchoolMediaListBean();
                 bean.setSchool(school);
@@ -78,6 +85,11 @@ public class SchoolMediaListController implements ReadWriteAnnotationController 
         return returnVal;
     }
 
+    /**
+     * Converts a list of Long school ids into a list of int school ids.
+     *
+     * @param schoolMediaIdsLong
+     */
     protected List<Integer> getSchoolMediaIds(List<Long> schoolMediaIdsLong) {
         List<Integer> schoolMediaIds = new ArrayList<Integer>();
         for (Long schoolMediaId : schoolMediaIdsLong) {
@@ -85,6 +97,52 @@ public class SchoolMediaListController implements ReadWriteAnnotationController 
             schoolMediaIds.add(sd);
         }
         return schoolMediaIds;
+    }
+
+    /**
+     * Constructs a Map of School Ids to the School Object in a State.
+     *
+     * @param schoolMediaList
+     */
+    protected Map<String, Map<Integer, School>> getStateToSchoolMap(List<SchoolMedia> schoolMediaList) {
+        Map<String, List> stateToSchoolIds = getStateSchoolIdsMap(schoolMediaList);
+        Map<String, Map<Integer, School>> stateToSchoolMap = new HashMap<String, Map<Integer, School>>();
+        for (String stateStr : stateToSchoolIds.keySet()) {
+            List<School> schools = new ArrayList<School>();
+            Map<Integer, School> schoolIdToSchool = new HashMap<Integer, School>();
+            try {
+                String schoolIds = StringUtils.join(stateToSchoolIds.get(stateStr), ",");
+                State state = State.fromString(stateStr);
+                schools = _schoolDao.getSchoolsByIds(state, schoolIds, false);
+            } catch (Exception e) {
+                _log.error("Exception while getting school:-" + e);
+            }
+
+            for (School school : schools) {
+                schoolIdToSchool.put(school.getId(), school);
+            }
+            stateToSchoolMap.put(stateStr, schoolIdToSchool);
+        }
+        return stateToSchoolMap;
+    }
+
+    /**
+     * Constructs a Map of State to the School Ids in  the State.
+     *
+     * @param schoolMediaList
+     */
+    protected Map<String, List> getStateSchoolIdsMap(List<SchoolMedia> schoolMediaList) {
+
+        Map<String, List> schoolIdsInState = new HashMap();
+        for (SchoolMedia schoolMedia : schoolMediaList) {
+            List schoolIds = new ArrayList();
+            if (schoolIdsInState.containsKey(schoolMedia.getSchoolState().getAbbreviation())) {
+                schoolIds = schoolIdsInState.get(schoolMedia.getSchoolState().getAbbreviation());
+            }
+            schoolIds.add(schoolMedia.getSchoolId());
+            schoolIdsInState.put(schoolMedia.getSchoolState().getAbbreviation(), schoolIds);
+        }
+        return schoolIdsInState;
     }
 
     public static final class SchoolMediaListBean {
@@ -125,6 +183,5 @@ public class SchoolMediaListController implements ReadWriteAnnotationController 
             _school = school;
         }
     }
-
 
 }

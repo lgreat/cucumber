@@ -53,6 +53,7 @@
                 <p>To see unprocessed reviews, <a href="?showUnprocessed=true">click here</a>.</p>
                 <p>To see held schools, <a href="/admin/schoolReview/holdList.page">click here</a>.</p>
                 <p>To see banned ip addresses, <a href="/admin/schoolReview/bannedIp/list.page">click here</a>.</p>
+                <p>To see flagged photos, <a href="/admin/schoolMedia/list.page">click here</a>.</p>
                 <br/>
 
                 <c:if test="${totalFlaggedReviews gt 0}">
@@ -129,6 +130,7 @@
                 <p>To see flagged reviews, <a href="?showFlagged=true">click here</a>.</p>
                 <p>To see held schools, <a href="/admin/schoolReview/holdList.page">click here</a>.</p>
                 <p>To see banned ip addresses, <a href="/admin/schoolReview/bannedIp/list.page">click here</a>.</p>
+                <p>To see flagged photos, <a href="/admin/schoolMedia/list.page">click here</a>.</p>
 
                 <br/>
                 <c:if test="${totalUnprocessedReviews gt 0}">

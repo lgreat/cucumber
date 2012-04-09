@@ -171,7 +171,7 @@
                         </c:if>
                         <input type="submit" name="moderatorAction" value="Resolve ${reportWord}"/>
                         <c:choose>
-                            <c:when test="${schoolMedia.statusAsString eq 'pending' or schoolMedia.statusAsString eq 'disabled'}">
+                            <c:when test="${schoolMedia.statusAsString eq 'disabled'}">
                                 <input type="submit" name="moderatorAction" value="Publish Photo"/>
                             </c:when>
                             <c:when test="${schoolMedia.statusAsString eq 'active'}">
@@ -189,6 +189,7 @@
             </c:otherwise>
         </c:choose>
 
+        <p>Return to: <a href="/admin/schoolMedia/list.page">Flagged school Photos</a></p>
     </gsml:body>
     </html>
 </jsp:root>
