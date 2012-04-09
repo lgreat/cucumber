@@ -967,7 +967,7 @@ h4.subhead2 a {
 .articleSlideshow .stepNavText{margin: 0 5px;}
 .articleSlideshow .hd select{width:130px;height:25px;opacity:0;position:relative;padding:0;margin:0 0 0 5px;filter: alpha(opacity = 0);zoom: 1;}
 .ie7 .articleSlideshow .hd select, .ie8 .articleSlideshow .hd select{width: 260px;}
-.articleSlideshow .hd .behaviorSelect{position:absolute;left:5px;width:130px;height:24px;}
+.articleSlideshow .hd .behaviorSelect{position:absolute;left:14px;width:130px;height:24px;}
 .articleSlideshow .hd .skinSelect{display:inline-block;background-color:#fff;border:1px solid #79bddb;border-bottom-color:#79bddb;position:absolute;padding:2px 15px 2px 5px;width:108px;height:18px;color:#777;}
 .articleSlideshow .hd .skinSelectArrow{font: bold 14px/18px Arial, Helvetica, sans-serif;color:#4da7cf;display:inline-block;padding:2px 0;border:1px solid #79bdd8;position:absolute;right:-1px;top:-1px;width:22px;height:18px;text-align:center;}
 .win .articleSlideshow .hd .skinSelectArrow{line-height:24px;}
