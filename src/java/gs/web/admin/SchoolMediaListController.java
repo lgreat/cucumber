@@ -34,7 +34,7 @@ public class SchoolMediaListController implements ReadWriteAnnotationController 
     public static final String VIEW = "admin/schoolMediaList";
     public static final String MODEL_TOTAL_REPORTED = "totalReportedMedia";
     public static final String MODEL_REPORTED_MEDIA = "reportedSchoolMedia";
-    private static final int REPORTED_SCHOOL_MEDIA_PAGE_SIZE = 1;
+    private static final int REPORTED_SCHOOL_MEDIA_PAGE_SIZE = 75;
     public static final String MODEL_PAGE_SIZE = "pageSize";
     private static final String PARAM_PAGE = "p";
 
