@@ -911,6 +911,7 @@ h4.subhead2 a {
 .articleDistribution .ft ul{float:left;margin:0;padding:0;}
 .articleDistribution .ft li{list-style:none outside none;float:left;margin:0 5px;padding:0;line-height:28px;}
 .articleDistribution .ft-inner{border-top:1px solid #ddd;margin-top:5px;padding:0 5px 5px;}
+.mod.articleDistribution .bd { overflow: visible;}
 /* ------------- relatedArticles ------------- */
 .relatedArticles {margin-bottom:10px;}
 .relatedArticles .inner{border:1px solid #e6e6e6;background-color: #fff;padding:10px;}
@@ -976,6 +977,7 @@ h4.subhead2 a {
 .chrome .articleFB{float: right;}
 /* ---------- articleDistribution2 ----------- */
 .articleDistribution2{margin-bottom:20px;}
+.mod.articleDistribution2 .bd, .mod.articleDistribution2 .line{overflow: visible;}
 
 /* ---------------- GS-12324 ----------------- */
 /* -------------- espSignInForm -------------- */

@@ -76,4 +76,5 @@
             </div>
         </div>
     </div>
+    <div class="clearfloat"><!-- do not collapse --></div>
 </jsp:root>
