@@ -5,6 +5,8 @@
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         >
 <html lang="en">
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -67,13 +69,13 @@
         <c:if test="${not empty gs_rating or not empty ratings.overall}">
             <div>
                 <c:if test="${not empty gs_rating}">
-                    <a href="#" data-role="button" data-inline="true">
+                    <a href="javascript:return false;" data-role="button" data-inline="true">
                         GreatSchools Rating<br/>
                         ${gs_rating} out of 10
                     </a>
                 </c:if>
                 <c:if test="${not empty ratings.overall}">
-                    <a href="#" data-role="button" data-inline="true">
+                    <a href="javascript:return false;" data-role="button" data-inline="true">
                         Community Rating<c:if test="${numberOfReviews gt 0}"> (${numberOfReviews})</c:if><br/>
                         ${ratings.overall} stars
                     </a>
@@ -85,6 +87,96 @@
             ${school.physicalAddress.street}<br/>
             ${school.physicalAddress.cityStateZip}
             <c:if test="${not empty school.phone}"><br/>Phone: ${school.phone}</c:if>
+        </div>
+        <c:if test="${not empty school.district}">
+            <div>District: ${school.district.name}</div>
+        </c:if>
+        <c:set var="schoolAddressQuery" value="${gsweb:escapeHtml(school.physicalAddress)}+${gsweb:escapeHtml(school.physicalAddress.cityStateZip)}+(${gsweb:escapeHtml(school.name)})"/>
+        <a href="http://maps.google.com/?q=${schoolAddressQuery}">
+            <div style="height: 150px;">Map</div>
+        </a>
+        <div>
+            <a href="http://maps.google.com/?saddr=&amp;daddr=${schoolAddressQuery}">Directions</a>
+            | <a href="javascript:return false;">See schools nearby</a>
+        </div>
+
+        <!-- TODO: Replace with tagx probably -->
+        <div style="text-align: center">
+            <a href="javascript:return false;" data-role="button" data-inline="true">SMS</a>
+            <a href="javascript:return false;" data-role="button" data-inline="true">Email</a>
+            <a href="javascript:return false;" data-role="button" data-inline="true">Save</a>
+        </div>
+
+        <c:if test="${numberOfReviews gt 0}">
+            <div>
+                <div>
+                    <a href="javascript:return false;" data-role="button" data-icon="arrow-r"
+                       data-iconpos="right">Reviews (${numberOfReviews})</a>
+                </div>
+                <div>
+                    <c:forEach items="${reviews}" var="review">
+                        <div>
+                            <div>
+                                <a name="ps${review.id}"><!-- not empty--></a>
+
+                                <!-- star rating -->
+                                <c:set var="curStarRating" value="${review.quality.name}"/>
+                                <c:if test="${school.levelCode eq 'p'}">
+                                    <c:set var="curStarRating" value="${review.POverall.name}"/>
+                                </c:if>
+                                <c:if test="${(curStarRating ne 'decline')}">
+                                    <span>${curStarRating} star(s)</span>
+                                </c:if>
+
+                                <span> Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
+                            </div>
+                            <p>
+                                <!-- GS-12650 75 words at 5 chars/word plus spaces gives 449 chars. -->
+                                <c:out value="${gsweb:abbreviateAtWhitespace(review.comments, 449)}" escapeXml="true"/>
+                            </p>
+                        </div>
+                    </c:forEach>
+                </div>
+                <div>
+                    <a href="javascript:return false;" data-role="button"
+                       data-iconpos="right">View more reviews</a>
+                </div>
+            </div>
+        </c:if>
+
+        <c:if test="${not empty testScores}">
+            <div>
+                <div>
+                    <a href="javascript:return false;" data-role="button" data-icon="arrow-r"
+                       data-iconpos="right">Test scores</a>
+                </div>
+                <div>
+                    <c:forEach items="${testScores}" var="testScore">
+                        <div>
+                            <h3>Grade ${testScore.dataSet.grade.name}</h3>
+                            <h3>${testScore.dataSet.subject}</h3>
+                            <div>${testScore.valueInteger}%</div>
+                        </div>
+                    </c:forEach>
+                </div>
+                <div>
+                    <a href="javascript:return false;" data-role="button"
+                       data-iconpos="right">View more test scores</a>
+                </div>
+            </div>
+        </c:if>
+
+        <search:nearbyCities />
+
+        <search:nearbyDistricts />
+
+        <div>
+            <a href="javascript:return false;" data-role="button" data-icon="search">Find a School</a>
+        </div>
+
+        <div>
+            <a class="js-linkToTop" href="javascript:return false;" data-role="button"
+               data-icon="arrow-u">Top of page</a>
         </div>
     </pageHelper:mobilePage>
 
