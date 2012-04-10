@@ -16,12 +16,7 @@ import gs.data.util.DigestUtil;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -354,13 +349,15 @@ public abstract class AbstractEspModerationController implements ReadWriteAnnota
     protected void sendESPVerificationEmail(HttpServletRequest request, User user, School school) {
         try {
             String hash = DigestUtil.hashStringInt(user.getEmail(), user.getId());
-            Date now = new Date();
-            String nowAsString = String.valueOf(now.getTime());
-            hash = DigestUtil.hashString(hash + nowAsString);
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, 1);
+            Date dateStamp = cal.getTime();
+            String dateStampAsString = String.valueOf(dateStamp.getTime());
+            hash = DigestUtil.hashString(hash + dateStampAsString);
             String redirect = new UrlBuilder(UrlBuilder.ESP_DASHBOARD).toString();
 
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.REGISTRATION_VALIDATION, null, hash + user.getId());
-            urlBuilder.addParameter("date", nowAsString);
+            urlBuilder.addParameter("date", dateStampAsString);
             urlBuilder.addParameter("redirect", redirect);
 
             StringBuffer espVerificationUrl = new StringBuffer("<a href=\"");
