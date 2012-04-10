@@ -29,7 +29,9 @@ define(['jquery','search/nearbyCities', 'geolocation'],function($, nearbyCitiesM
     var populateFromLatLon = function(lat, lon) {
         GS.log('nearbyCitiesList populateFromLatLon');
         nearbyCitiesModule.getCities(lat,lon, function(data) {
-            populateFromArray(data.cities);
+            if (data && data.cities && data.cities.length > 0) {
+                populateFromArray(data.cities);
+            }
         });
     };
 

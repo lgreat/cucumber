@@ -533,7 +533,7 @@
         <property name="noResultsAjaxViewName" value="search/schoolSearchNoResultsTable" />
     </bean>
 
-    <bean name="mobileSchoolSearchController" class="gs.web.search.MobileSchoolSearchController">
+    <bean name="schoolSearchMobileController" class="gs.web.search.SchoolSearchMobileController">
         <property name="controllerHandlesDesktopRequests" value="false" />
         <property name="controllerHandlesMobileRequests" value="true" />
         <property name="commandName">
@@ -564,7 +564,7 @@
         <constructor-arg>
             <list>
                 <ref bean="schoolSearchController"/>
-                <ref bean="mobileSchoolSearchController"/>
+                <ref bean="schoolSearchMobileController"/>
             </list>
         </constructor-arg>
     </bean>

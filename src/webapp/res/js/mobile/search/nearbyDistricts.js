@@ -1,4 +1,4 @@
-define(['localStorage'], function(localStorage) {
+define(['sessionStorage'], function(browserStorage) {
     var controllerUri = '/search/nearby/districts.json';
     var cacheKeyPrefix = 'nearbyDistricts-';
 
@@ -20,7 +20,7 @@ define(['localStorage'], function(localStorage) {
             GS.log('got nearby districts from server: ', data);
 
             // persist data from server
-            localStorage.setItem(getCacheKey(lat,lon), data);
+            browserStorage.setItem(getCacheKey(lat,lon), data);
 
             successCallback(data);
 
@@ -30,10 +30,10 @@ define(['localStorage'], function(localStorage) {
     };
 
     var getDistricts = function(lat,lon, callback) {
-        var data = localStorage.getItem(getCacheKey(lat,lon));
+        var data = browserStorage.getItem(getCacheKey(lat,lon));
 
         if (data !== null) {
-            GS.log('got districts from local storage: ', data);
+            GS.log('got districts from storage: ', data);
             callback(data);
         } else {
             fetchFromServer(lat,lon, callback);

@@ -48,14 +48,87 @@
 </head>
 
 <body>
+    <c:set var="searchString"><c:out value="${searchString}" escapeXml="true"/></c:set>
+
     <pageHelper:mobilePage id="searchByLocation">
+        <c:if test="${not empty param.noResults}">
+            <div>
+                <p>No schools match your search for <br/> ${param.searchString}</p>
+                <p>Please check the spelling or try different locations or keywords.</p>
+            </div>
+        </c:if>
+
         <div data-role="controlgroup" data-type="horizontal" data-theme="c">
             <a href="#searchByLocation" data-role="button"  data-theme="c" data-icon="search" data-iconshadow="false" class="ui-btn-active">By location</a>
             <a href="#searchByName" data-role="button" data-transition="fade"  data-theme="c" data-iconshadow="false" data-icon="search">By name</a>
         </div>
 
-        <div id="searchByLocation" data-theme="c" style="margin-top: 0px;">
-            Search by location goes here
+        <div id="js-searchByLocation" data-theme="c" style="margin-top: 0px;">
+            <form method="GET" data-theme="c" action="/search/search.page" id="search-form" accept-charset="UTF-8" data-ajax="false">
+                <input type="hidden" name="lat"/>
+                <input type="hidden" name="lon"/>
+                <input type="hidden" name="state"/>
+                <input type="hidden" name="locationType" value=""/>
+                <input type="hidden" name="sortBy" value="DISTANCE"/>
+                <input type="hidden" name="normalizedAddress" value=""/>
+                <input type="hidden" name="totalResults" value="0"/>
+                <input type="hidden" name="distance" value="25"/>
+                <input type="hidden" name="st" value="public"/>
+                <input type="hidden" name="st" value="charter"/>
+                <input type="hidden" name="st" value="private"/>
+                <gsml:input type="text" name="searchString" value="${searchString}" placeholder="City AND states, zip or address ..." />
+
+                <div id="js-gradeLevels" class="unit size1of3">
+                    <div class="small_bold bottom">Grade level</div>
+                    <!--<div class="triggerMouseLeave">-->
+                    <div id="category-2" class="filterCategory small bottom">
+                        <span id="js-grade-level-label" class="fltlft vert-align-mid defaultText">All grades</span>
+                        <a href="javascript:void(0)">
+                            <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
+                            <span class="navSprite dropDown-hover fltrt"><!--Do not Collapse--></span>
+                        </a>
+                    </div>
+                    <div id="dropDown-FAS-2" class="dropDown-FAS">
+                        <div class="col_2">
+                            <div>
+                                <input type="checkbox" checked="checked" name="gradeLevels"
+                                       id="js-grade-level-all"
+                                       value=""/>
+                                <label for="js-grade-level-all">All Grade Levels</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-grade-level" checked="checked"
+                                       name="gradeLevels"
+                                       id="js-grade-level-p" value="p"/>
+                                <label for="js-grade-level-p">Preschool</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-grade-level" checked="checked"
+                                       name="gradeLevels"
+                                       id="js-grade-level-e" value="e"/>
+                                <label for="js-grade-level-e">Elementary School (K-5)</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-grade-level" checked="checked"
+                                       name="gradeLevels"
+                                       id="js-grade-level-m" value="m"/>
+                                <label for="js-grade-level-m">Middle School (6-8)</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" class="jq-grade-level" checked="checked"
+                                       name="gradeLevels"
+                                       id="js-grade-level-h" value="h"/>
+                                <label for="js-grade-level-h">High School (9-12)</label>
+                            </div>
+                            <button class="button-1  mtm" id="hideDropDown-2" type="button" data-inline="true"
+                                    onclick="javascript:void(0)">Done
+                            </button>
+                        </div>
+                    </div>
+                    <!--</div>-->
+                </div>
+                <button type="button" class="button-1 js-submitButton" data-inline="true" data-theme="b" onclick="javascript:void(0);">Search</button>
+            </form>
         </div>
 
         <search:nearbyCities />
@@ -65,16 +138,22 @@
     </pageHelper:mobilePage>
 
     <pageHelper:mobilePage id="searchByName">
+        <c:if test="${not empty param.noResults}">
+            <div>
+                <p>No schools match your search for <br/> ${param.searchString}</p>
+                <p>Please check the spelling or try different locations or keywords.</p>
+            </div>
+        </c:if>
+
         <div data-role="controlgroup" data-type="horizontal" data-theme="c">
             <a href="#searchByLocation" data-role="button"  data-theme="c" data-icon="search" data-iconshadow="false" data-shadow="false" >By location</a>
             <a href="#searchByName" data-role="button" data-transition="fade"  data-theme="c" data-icon="search" data-iconshadow="false" class="ui-btn-active">By name</a>
         </div>
 
-        <div id="searchByName" data-theme="c" data-role="content" style="overflow:hidden;margin-top: -18px;">
+        <div id="js-searchByName" data-theme="c" data-role="content" style="overflow:hidden;margin-top: -18px;">
 
-            <form method="GET" data-theme="c" action="/search/search.page" id="search-form" accept-charset="UTF-8">
-                <input type="hidden" name="search_type" value="0"/>
-                <input type="text" name="q" id="qNew" value="" placeholder="School or district..." />
+            <form method="GET" data-theme="c" action="/search/search.page" id="search-form" accept-charset="UTF-8" data-ajax="false">
+                <gsml:input type="text" name="q" value="${searchString}" placeholder="School or district..." />
 
                 <select class="stateSelect" name="state" id="stateSelector" data-inline="true" >
                     <option selected="selected" value="">State</option>

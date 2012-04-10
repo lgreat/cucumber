@@ -29,7 +29,9 @@ define(['jquery','search/nearbyDistricts', 'geolocation'],function($, nearbyDist
     var populateFromLatLon = function(lat, lon) {
         GS.log('nearbyDistrictsList populateFromLatLon');
         nearbyDistrictsModule.getDistricts(lat,lon, function(data) {
-            populateFromArray(data.districts);
+            if (data && data.districts && data.districts.length > 0) {
+                populateFromArray(data.districts);
+            }
         });
     };
 

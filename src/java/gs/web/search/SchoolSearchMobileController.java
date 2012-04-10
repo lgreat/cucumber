@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 
-public class MobileSchoolSearchController extends SchoolSearchController implements IDirectoryStructureUrlController, IControllerWithMobileSupport {
+public class SchoolSearchMobileController extends SchoolSearchController implements IDirectoryStructureUrlController {
 
     private static final Logger _log = Logger.getLogger(SchoolSearchController.class);
 
@@ -298,12 +298,21 @@ public class MobileSchoolSearchController extends SchoolSearchController impleme
         } else if (StringUtils.equals(request.getParameter("search_type"), "1")) {
             model.put(MODEL_OMNITURE_NAME_SEARCH, true);
         }
-        return new ModelAndView(getViewName(schoolSearchCommand, searchResultsPage), model);
+        
+        String viewName;
+        if (searchResultsPage.getTotalResults() == 0) {
+            UrlBuilder builder = new UrlBuilder(UrlBuilder.HOME);
+            builder.addParameter("noResults","true");
+            if (isSearch) {
+                builder.addParameter("searchString",commandAndFields.getSearchString());
+            }
+            viewName = "redirect:" + builder.asSiteRelative(request);
+        } else {
+            viewName = getMobileViewName();
+        }
+        
+        return new ModelAndView(viewName, model);
     }
-
-    private String getViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<ISchoolSearchResult> searchResultsPage) {
-        return getViewName();
-    }
-
+    
 
 }
