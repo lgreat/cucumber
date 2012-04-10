@@ -73,8 +73,11 @@
         </div>
 
         <div>
-            <a href="#overview" data-inline="true" data-role="button" data-icon="arrow-r" data-mini="true" data-iconpos="right">School overview</a>
-            <a href="#testscores" data-inline="true" data-role="button" data-icon="arrow-r" data-mini="true" data-iconpos="right">Test scores</a>
+            <link:schoolProfileOverview school="${school}" anchor="${headerLinkAnchor}">Overview</link:schoolProfileOverview>
+            <c:if test="${school.levelCode ne 'p' and requestScope.hasTestScores}">
+                <c:set var="sptab3_name" value="Test Scores &amp;amp; Stats"/>
+                <c:set var="sptab3_link"><link:schoolProfileTestscore anchor="${headerLinkAnchor}" school="${school}">${sptab3_name}</link:schoolProfileTestscore></c:set>
+            </c:if>
         </div>
 
         <hr/>
@@ -93,7 +96,7 @@
 
         <c:if test="${not empty ratings.overall}">
             <div style="margin-bottom: 10px;">
-                <span>${cmd.totalReviews} star(s)</span><span> community rating</span>
+                <span>${cmd.ratings.overall} star(s)</span><span> community rating</span>
             </div>
         </c:if>
 
@@ -159,9 +162,12 @@
 
 
         <hr/>
-        <div class="">
-            <a href="#overview" data-inline="true" data-role="button" data-icon="arrow-r" data-mini="true" data-iconpos="right">School overview</a>
-            <a href="#testscores" data-inline="true" data-role="button" data-icon="arrow-r" data-mini="true" data-iconpos="right">Test scores</a>
+        <div>
+            <link:schoolProfileOverview school="${school}" anchor="${headerLinkAnchor}">Overview</link:schoolProfileOverview>
+            <c:if test="${school.levelCode ne 'p' and requestScope.hasTestScores}">
+                <c:set var="sptab3_name" value="Test Scores &amp;amp; Stats"/>
+                <c:set var="sptab3_link"><link:schoolProfileTestscore anchor="${headerLinkAnchor}" school="${school}">${sptab3_name}</link:schoolProfileTestscore></c:set>
+            </c:if>
         </div>
 
 

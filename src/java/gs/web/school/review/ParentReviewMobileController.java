@@ -25,14 +25,7 @@ public class ParentReviewMobileController extends AbstractController implements 
 
     private IReviewDao _reviewDao;
     private String _viewName;
-    private IReportedEntityDao _reportedEntityDao;
-    private ISubscriptionDao _subscriptionDao;
-    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
-    private ISchoolDao _schoolDao;
-    private NearbySchoolsHelper _nearbySchoolsHelper;
     private RatingHelper _ratingHelper;
-    private ILocalBoardDao _localBoardDao;
-    private IGeoDao _geoDao;
     private ParentReviewHelper _parentReviewHelper;
     private boolean _controllerHandlesDesktopRequests;
     private boolean _controllerHandlesMobileRequests;
@@ -222,52 +215,12 @@ public class ParentReviewMobileController extends AbstractController implements 
         }
     }
 
-    public String getViewName() {
-        return _viewName;
-    }
-
-    public void setViewName(String viewName) {
-        _viewName = viewName;
-    }
-
     public IReviewDao getReviewDao() {
         return _reviewDao;
     }
 
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
-    }
-
-    public IReportedEntityDao getReportedEntityDao() {
-        return _reportedEntityDao;
-    }
-
-    public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
-        _reportedEntityDao = reportedEntityDao;
-    }
-
-    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
-        return _schoolProfileHeaderHelper;
-    }
-
-    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
-        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
-    }
-
-    public ISchoolDao getSchoolDao() {
-        return _schoolDao;
-    }
-
-    public void setSchoolDao(ISchoolDao schoolDao) {
-        _schoolDao = schoolDao;
-    }
-
-    public NearbySchoolsHelper getNearbySchoolsHelper() {
-        return _nearbySchoolsHelper;
-    }
-
-    public void setNearbySchoolsHelper(NearbySchoolsHelper nearbySchoolsHelper) {
-        _nearbySchoolsHelper = nearbySchoolsHelper;
     }
 
     public RatingHelper getRatingHelper() {
@@ -278,44 +231,28 @@ public class ParentReviewMobileController extends AbstractController implements 
         _ratingHelper = ratingHelper;
     }
 
-    public ILocalBoardDao getLocalBoardDao() {
-        return _localBoardDao;
+    public String getViewName() {
+        return _viewName;
     }
 
-    public void setLocalBoardDao(ILocalBoardDao localBoardDao) {
-        _localBoardDao = localBoardDao;
-    }
-
-    public IGeoDao getGeoDao() {
-        return _geoDao;
-    }
-
-    public void setGeoDao(IGeoDao geoDao) {
-        _geoDao = geoDao;
-    }
-
-    public ISubscriptionDao getSubscriptionDao() {
-        return _subscriptionDao;
-    }
-
-    public void setSubscriptionDao(ISubscriptionDao subscriptionDao) {
-        _subscriptionDao = subscriptionDao;
+    public void setViewName(String viewName) {
+        _viewName = viewName;
     }
 
     public boolean controllerHandlesMobileRequests() {
-        return this._controllerHandlesMobileRequests;
+        return _controllerHandlesMobileRequests;
+    }
+
+    public void setControllerHandlesMobileRequests(boolean controllerHandlesMobileRequests) {
+        _controllerHandlesMobileRequests = controllerHandlesMobileRequests;
     }
 
     public boolean controllerHandlesDesktopRequests() {
-        return this._controllerHandlesDesktopRequests;
+        return _controllerHandlesDesktopRequests;
     }
 
-    public void setControllerHandlesMobileRequests(boolean handlesMobileRequests) {
-        this._controllerHandlesMobileRequests = handlesMobileRequests;
-    }
-
-    public void setControllerHandlesDesktopRequests(boolean handlesDesktopRequests) {
-        this._controllerHandlesDesktopRequests = handlesDesktopRequests;
+    public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
+        _controllerHandlesDesktopRequests = controllerHandlesDesktopRequests;
     }
 
     public ParentReviewHelper getParentReviewHelper() {
