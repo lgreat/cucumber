@@ -5,6 +5,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -80,14 +81,16 @@
             <a href="javascript:return false;" data-role="button" data-inline="true">Save</a>
         </div>
 
-        <!--TODO refactor this into a tag also.-->
-        <div>
-            <a href="javascript:return false;" data-role="button" >School overview ></a>
+
+        <div data-role="button" data-icon="arrow-r" data-iconpos="right">
+            <link:schoolProfileOverview school="${school}">
+                School overview
+            </link:schoolProfileOverview>
         </div>
 
-        <!--TODO refactor this into a tag also.-->
-        <div>
-            <a href="javascript:return false;" data-role="button">Reviews ></a>
+        <div data-role="button" data-icon="arrow-r" data-iconpos="right">
+            <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" schoolId="${school.id}"
+                                                state="${school.databaseState}">Reviews</link:schoolProfileParentReview2010>
         </div>
 
         <div>

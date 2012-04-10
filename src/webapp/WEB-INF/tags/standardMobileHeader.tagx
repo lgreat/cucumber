@@ -2,58 +2,57 @@
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
         xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:c="http://java.sun.com/jsp/jstl/core"
-        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-        xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
-        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-        xmlns:cobrand="urn:jsptagdir:/WEB-INF/tags/cobrand"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-        xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-        xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
-        xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-        xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
-        xmlns:meebo="urn:jsptagdir:/WEB-INF/tags/promo/meebo"
+        xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 
     <style type="text/css">
         .mobile-header {
-            height:40px;
+            height: 40px;
         }
 
         .mobile-logo-link {
             position: absolute;
-            top:5px;left:1px;
+            top: 5px;
+            left: 1px;
         }
 
         .mobile-header-nav {
             margin: 5px 4px 0px 0px;
-            float:right;
+            float: right;
         }
 
         .mobile-header-nav a {
-            margin-right:4px;
+            margin-right: 4px;
         }
 
-        /*make list item icon appear on left side (in subnav)*/
-        .mobile-sub-nav.ui-listview .ui-btn-icon-left .ui-btn-inner {padding-left: 25px;}
+            /*make list item icon appear on left side (in subnav)*/
+        .mobile-sub-nav.ui-listview .ui-btn-icon-left .ui-btn-inner {
+            padding-left: 25px;
+        }
 
     </style>
 
     <!-- there might be more than one header (hidden) on a page-->
     <div data-role="header" class="mobile-header js-mobile-header">
-        <div class="mobile-logo-link"><a href="#" data-icon="custom"><gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30" alt="GreatSchools: Involved Parents. Successful Kids"/></a></div>
+        <div class="mobile-logo-link">
+            <link:home>
+                <gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"
+                          alt="GreatSchools: Involved Parents. Successful Kids"/>
+            </link:home>
+        </div>
 
         <div class="mobile-header-nav">
-            <a href="#" class="top-nav-search">
-                <div data-role="button" data-icon="search" data-iconpos="notext" data-inline="true" data-corners="false"><!-- --></div>
-            </a>
+            <link:home>
+                <div data-role="button" data-icon="search" data-iconpos="notext" data-inline="true"
+                     data-corners="false"><!-- --></div>
+            </link:home>
             <a href="#" class="top-nav-goto">
-                <div data-role="button" data-icon="grid" data-iconpos="notext" data-inline="true" data-corners="false"><!-- --></div>
+                <div data-role="button" data-icon="grid" data-iconpos="notext" data-inline="true"
+                     data-corners="false"><!-- --></div>
             </a>
         </div>
     </div>
-
 
 
     <ul class="mobile-sub-nav" data-role="listview" data-theme="e" style="display:none">
