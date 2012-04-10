@@ -4,7 +4,7 @@
  * This clickCapture module is for Mobile and replaces trackIt.js on desktop site
  */
 
-define(['global','jquery'], function(global, jQuery) {
+define(['global'], function(global) {
 
     /*
      * ClickCapture object constructor

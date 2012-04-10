@@ -1,4 +1,4 @@
-define(['require','jquery','tracking','navigation'],function(require,$,tracking,navigation) {
+define(['tracking','navigation'],function(tracking,navigation) {
 
 
     var init = function() {

@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+define(function() {
 
     var init = function() {
         // search for paragraph tags with 'data-more-text' attribute

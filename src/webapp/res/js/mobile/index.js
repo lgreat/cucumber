@@ -1,4 +1,7 @@
-define(['jquery', 'uri', 'geocoder'], function($, uri, geocoder) {
+define(['uri', 'geocoder'], function(uri, geocoder) {
+    var JS_GRADE_LEVELS_CONTAINER = '#js-gradeLevels';
+
+
     // copied from findASchool.js
     var isTermState = function(term) {
         var stateTermList = new Array
@@ -83,9 +86,45 @@ define(['jquery', 'uri', 'geocoder'], function($, uri, geocoder) {
         return false;
     };
 
+    var setAllGrades = function() {
+        var gradeCheckboxes = jQuery('#js-gradeLevels .jq-grade-level');
+
+        var numGradeLevels = gradeCheckboxes.size();
+        var numGradeLevelsChecked = gradeCheckboxes.filter(':checked').size();
+        if (numGradeLevelsChecked === numGradeLevels) {
+            jQuery('#js-grade-level-all').prop('checked', true);
+            jQuery('#js-grade-level-label').empty().append('All grades')
+        } else if (numGradeLevelsChecked === 0) {
+            jQuery('#js-grade-level-all').prop('checked', false);
+            jQuery('#js-grade-level-label').empty().append('No grades');
+        } else {
+            jQuery('#js-grade-level-all').prop('checked', false);
+            jQuery('#js-grade-level-label').empty().append('Some grades');
+        }
+    };
+
+
+
 
     var init = function() {
         $(function() {
+            jQuery('#js-gradeLevels input').click(function () {
+                var cssId = jQuery(this).attr('id');
+
+                var gradeCheckboxes = jQuery('#js-gradeLevels .jq-grade-level');
+
+                if (cssId === 'js-grade-level-all') {
+                    if (jQuery(this).is(':checked')) {
+                        gradeCheckboxes.prop('checked',true);
+                    } else {
+                        gradeCheckboxes.prop('checked', false);
+                    }
+                }
+
+                setAllGrades();
+            });
+
+
             $('#js-searchByLocation').on('click', '.js-submitButton', function() {
                 submitByLocationSearch();
             })

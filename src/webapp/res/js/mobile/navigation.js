@@ -1,5 +1,5 @@
 //when 'navigation' module is "require()d", execution will begin as soon as 'jquery' is available
-define(['jquery'], function($) {
+define(function() {
     var $container = $('.js-mobile-header');
     var $goToButton = $('.top-nav-goto');
 

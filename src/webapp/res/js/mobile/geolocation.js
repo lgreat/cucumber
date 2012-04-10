@@ -1,4 +1,4 @@
-define(['jquery','sessionStorage'], function($, sessionStorage) {
+define(['sessionStorage'], function(sessionStorage) {
 
     var deferred = new $.Deferred();
     var COORDINATES_KEY = 'coordinates';

@@ -1,4 +1,4 @@
-define(['jquery','search/nearbyCities', 'geolocation'],function($, nearbyCitiesModule, geolocation) {
+define(['search/nearbyCities', 'geolocation'],function(nearbyCitiesModule, geolocation) {
     var container = null;
 
     var init = function(selector) {

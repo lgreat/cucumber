@@ -1,4 +1,4 @@
-define (['jquery','jquery.mobile', 'uri'], function($, jQueryMobile, uri) {
+define (['uri'], function(uri) {
 
     // set value each time module is initialized
     var $sortSelect = undefined;

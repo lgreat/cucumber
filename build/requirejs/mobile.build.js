@@ -7,7 +7,8 @@
     // for each jspx page, enter page-specific module name below so that it gets compile/minified
     modules: [
         {
-            name: "main"
+            name: "main",
+            include: ['nearbyCitiesList','nearbyDistrictsList']
         },
         {
             name: "index"
