@@ -43,7 +43,7 @@ import java.util.*;
  */
 public class ParentReviewController extends AbstractController implements IDeviceSpecificControllerPartOfPair {
 
-    public static final String BEAN_ID = "parentReviews";
+    public static final String BEAN_ID = "desktopParentReviewsController";
 
     private IReviewDao _reviewDao;
     private String _viewName;
