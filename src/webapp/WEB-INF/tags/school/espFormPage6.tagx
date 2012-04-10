@@ -145,18 +145,16 @@
                 </div>
             </div>
 
-            <c:if test="${school.databaseState.abbreviation eq 'DC' or school.databaseState.abbreviation eq 'IN' or school.databaseState.abbreviation eq 'WI'}">
-                <div class="lal clearfix">
-                    <div class="alpha grid_7">
-                        <p class="labelGroup">Is there anything else you would like parents and students to know about your school?</p>
-                    </div>
-                    <div class="grid_16 omega">
-                        <textarea id="form_anything_else" class="js_otherField text input_8" type="text"
-                               name="anything_else" maxlength="500" cols="80" rows="4">${responseMap['anything_else'].value}</textarea>
-                        <p class="hint js-charactersLeft"><!-- no collapse --></p>
-                    </div>
+            <div class="lal clearfix">
+                <div class="alpha grid_7">
+                    <p class="labelGroup">Is there anything else you would like parents and students to know about your school?</p>
                 </div>
-            </c:if>
+                <div class="grid_16 omega">
+                    <textarea id="form_anything_else" class="js_otherField text input_8" type="text"
+                           name="anything_else" maxlength="500" cols="80" rows="4">${responseMap['anything_else'].value}</textarea>
+                    <p class="hint js-charactersLeft"><!-- no collapse --></p>
+                </div>
+            </div>
         </fieldset>
 
     </school:espFormTemplate>

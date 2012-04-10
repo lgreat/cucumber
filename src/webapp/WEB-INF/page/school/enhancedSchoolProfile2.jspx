@@ -519,7 +519,7 @@
                 </tr>
             </c:if>
 
-            <school:espTableRow label="More about the school’s culture" list="${responses.anything_else}" hideIfEmpty="true" pretty="false"/>
+            <school:espTableRow label="More about the school's culture" list="${responses.anything_else}" hideIfEmpty="true" pretty="false"/>
 
             </tbody>
         </table>
