@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.121 2012/03/08 18:32:41 droy Exp $
+ * $Id: UrlUtil.java,v 1.122 2012/04/10 22:02:26 cshumway Exp $
  */
 
 package gs.web.util;
@@ -389,6 +389,8 @@ public final class UrlUtil {
         "qa.",
         "sw1-pub.",
         "sw1-pre.",
+        "sw2-pub.",
+        "sw2-pre.",
         "app1a",
         "app1b",
         "app1c",
