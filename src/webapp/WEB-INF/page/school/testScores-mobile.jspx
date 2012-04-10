@@ -87,7 +87,7 @@
 
         <!--TODO refactor this into a tag also.-->
         <div>
-            <a href="javascript:return false;" data-role="button" data-inline="true">Reviews ></a>
+            <a href="javascript:return false;" data-role="button">Reviews ></a>
         </div>
 
         <div>
