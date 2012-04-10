@@ -25,7 +25,8 @@
 
     paths: {
         'global':'empty:',
-        'sCode':'empty:'
+        'sCode':'empty:',
+        'async':'./plugins/async'
     },
 
     packages: ["tracking"]
