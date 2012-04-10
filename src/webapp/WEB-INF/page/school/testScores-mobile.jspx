@@ -13,6 +13,16 @@
 
     <head>
         <meta name="decorator" content="standardMobileDecorator"/>
+
+        <c:choose>
+            <c:when test="${school.databaseState.abbreviationLowerCase eq 'dc'}">
+                <c:set var="addr" value="Washington, DC"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="addr"
+                       value="${school.city}, ${school.databaseState.longName} - ${school.databaseState}"/>
+            </c:otherwise>
+        </c:choose>
         <title>${school.name} Test Scores - ${addr}</title>
         <c:set var="pageName" value="Test Scores"/>
 
@@ -24,7 +34,70 @@
     </head>
     <body>
     <pageHelper:mobilePage id="schoolTestScrores">
-        ${school.name}
+        <div><strong>Test Scores</strong></div>
+        <!--TODO refactor this into a tag,since its used on school overview also.-->
+        <div>
+            <div><strong>${school.name}</strong></div>
+            <div>
+                <c:if test="${not school.preschoolOnly}">
+                    <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
+                </c:if>
+                <!-- Grade levels -->
+                <c:choose>
+                    <c:when test="${school.preschoolOnly}">
+                        <c:set var="gradeLevels">Preschool</c:set>
+                    </c:when>
+                    <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
+                        <!-- Leave blank -->
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
+                    </c:otherwise>
+                </c:choose>
+                <!-- Enrollment -->
+                <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
+                <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                    <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
+                </c:if>
+                ${schoolType}${gradeLevels}${enrollment}
+            </div>
+        </div>
+
+        <c:if test="${not empty gs_rating}">
+            <div>
+                <a href="javascript:return false;" data-role="button" data-inline="true">
+                    GreatSchools Rating<br/>
+                    ${gs_rating} out of 10
+                </a>
+            </div>
+        </c:if>
+
+
+        <!-- TODO: Replace with tagx since its used in over view page as well -->
+        <div style="text-align: center">
+            <a href="javascript:return false;" data-role="button" data-inline="true">SMS</a>
+            <a href="javascript:return false;" data-role="button" data-inline="true">Email</a>
+            <a href="javascript:return false;" data-role="button" data-inline="true">Save</a>
+        </div>
+
+        <!--TODO refactor this into a tag also.-->
+        <div>
+            <a href="javascript:return false;" data-role="button" >School overview ></a>
+        </div>
+
+        <!--TODO refactor this into a tag also.-->
+        <div>
+            <a href="javascript:return false;" data-role="button" data-inline="true">Reviews ></a>
+        </div>
+
+        <div>
+            About the tests
+        </div>
+
+        <div>
+            About GS Ratings
+        </div>
+
     </pageHelper:mobilePage>
     <mod:mobileTracking pageName="${pageName}"
                         hier1="School,TestScores,MainTestScorePage" schoolGSRating="${gs_rating}"/>
