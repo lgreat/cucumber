@@ -27,6 +27,9 @@
         <property name="geoDao" ref="geoDao"/>
     </bean>
 
+    <bean id="parentReviewHelper" class="gs.web.school.review.ParentReviewHelper">
+    </bean>
+
     <bean id="schoolFinderWidgetEmail"
           class="gs.web.widget.SchoolFinderWidgetEmail">
         <property name="subject" value="Your customized School Finder Widget code"/>

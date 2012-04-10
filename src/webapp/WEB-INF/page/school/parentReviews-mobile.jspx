@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod" xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:link="urn:www.greatschools.org/taglib/link" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        >
+    <html lang="en">
+    <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
+    <jsp:output omit-xml-declaration="true" />
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+
+    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+    <c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState.longName} - ${stateAbbrev}"/>
+
+    <head>
+        <meta name="decorator" content="standardMobileDecorator"/>
+
+        <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
+        <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
+
+        <title>Parent Reviews of ${school.name} - ${addr}</title>
+        <c:if test="${not empty relCanonical}">
+            <link rel="canonical" href="${relCanonical}"/>
+        </c:if>
+
+        <script type="text/javascript">
+            require(['parentReviews'], function(parentReviews) {
+                parentReviews.init();
+            });
+
+            function go() {
+                var sort = document.getElementById('sltRatingSort');
+                var option = sort.options[sort.selectedIndex].value;
+                if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=' + option + '';
+            }
+        </script>
+
+    </head>
+
+    <body>
+
+    <pageHelper:mobilePage id="parentReview">
+        <div>
+            <div><strong>${school.name}</strong></div>
+            <div>
+                <c:if test="${not school.preschoolOnly}">
+                    <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
+                </c:if>
+                <!-- Grade levels -->
+                <c:choose>
+                    <c:when test="${school.preschoolOnly}">
+                        <c:set var="gradeLevels">Preschool</c:set>
+                    </c:when>
+                    <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
+                        <!-- Leave blank -->
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
+                    </c:otherwise>
+                </c:choose>
+                <!-- Enrollment -->
+                <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
+                <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                    <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
+                </c:if>
+                ${schoolType}${gradeLevels}${enrollment}
+            </div>
+        </div>
+
+        <div>
+            <a href="#overview" data-inline="true" data-role="button" data-icon="arrow-r" data-mini="true" data-iconpos="right">School overview</a>
+            <a href="#testscores" data-inline="true" data-role="button" data-icon="arrow-r" data-mini="true" data-iconpos="right">Test scores</a>
+        </div>
+
+        <hr/>
+
+        <c:if test="${fn:length(cmd.reviews)>0}">
+            <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
+            <c:if test="${!empty principalReview}">
+                <div class="ui-body ui-body-c" style="margin-bottom: 10px;">
+                    <h3>The Principal's point of view</h3>
+                    <p>
+                        ${principalReview.comments}
+                    </p>
+                </div>
+            </c:if>
+        </c:if>
+
+        <c:if test="${not empty ratings.overall}">
+            <div style="margin-bottom: 10px;">
+                <span>${cmd.totalReviews} star(s)</span><span> community rating</span>
+            </div>
+        </c:if>
+
+        <div class="ui-body ui-body-c">
+            <div>Reviews (${cmd.totalReviews})</div>
+            <div>
+                <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort"
+                             onchange="go();">
+                    <form:option value="dd">Date: newest to oldest</form:option>
+                    <form:option value="da">Date: oldest to newest</form:option>
+                    <form:option value="rd">Rating: highest to lowest</form:option>
+                    <form:option value="ra">Rating: lowest to highest</form:option>
+                </form:select>
+            </div>
+        </div>
+
+
+        <c:forEach var="review" items="${reviewsToShow}">
+            <c:set var="who" value=""/>
+            <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+                <c:set var="who" value="${review.who}"/>
+            </c:if>
+
+            <c:choose>
+                <c:when test="${review.who ne 'principal'}">
+                    <div>
+                        <div>
+                            <a name="ps${review.id}"><!-- not empty--></a>
+
+                            <!-- star rating -->
+                            <c:set var="curStarRating" value="${review.quality.name}"/>
+                            <c:if test="${school.levelCode eq 'p'}">
+                                <c:set var="curStarRating" value="${review.POverall.name}"/>
+                            </c:if>
+                            <c:if test="${(curStarRating ne 'decline')}">
+                                <span>${curStarRating} star(s)</span>
+                            </c:if>
+
+                            <span> Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
+                        </div>
+                        <p  data-more-text="true">
+                            <c:out value="${review.comments}" escapeXml="true"/>
+                        </p>
+                    </div>
+                </c:when>
+            </c:choose>
+        </c:forEach>
+
+        <!-- TODO: check pagination -->
+
+        <c:choose>
+            <c:when test="${reviewsTotalPages>1}">
+                <div>
+                    <a href="#more" data-role="button">View more reviews</a>
+                </div>
+            </c:when>
+        </c:choose>
+
+        <div class="ui-body ui-body-c">
+            <h3>About community rating</h3>
+            <p>The Community Rating is the school&amp;apos;s average rating from its community members (e.g., parents, students, and school staff). The highest possible rating is five stars; the lowest is one star.</p>
+        </div>
+
+
+        <hr/>
+        <div class="">
+            <a href="#overview" data-inline="true" data-role="button" data-icon="arrow-r" data-mini="true" data-iconpos="right">School overview</a>
+            <a href="#testscores" data-inline="true" data-role="button" data-icon="arrow-r" data-mini="true" data-iconpos="right">Test scores</a>
+        </div>
+
+
+    </pageHelper:mobilePage>
+
+    </body>
+    </html>
+</jsp:root>

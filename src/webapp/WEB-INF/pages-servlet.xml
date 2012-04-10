@@ -2011,12 +2011,33 @@
         </constructor-arg>
     </bean>
 
-    <bean name="parentReviews"
+    <bean name="desktopParentReviewsController"
           class="gs.web.school.review.ParentReviewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>school/parentReviews</value>
         </property>
+        <property name="controllerHandlesDesktopRequests" value="true"/>
+        <property name="controllerHandlesMobileRequests" value="false"/>
+    </bean>
+
+    <bean name="mobileParentReviewsController"
+          class="gs.web.school.review.ParentReviewMobileController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>school/parentReviews-mobile</value>
+        </property>
+        <property name="controllerHandlesDesktopRequests" value="false"/>
+        <property name="controllerHandlesMobileRequests" value="true"/>
+    </bean>
+
+    <bean name="parentReviews" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="mobileParentReviewsController"/>
+                <ref bean="desktopParentReviewsController"/>
+            </list>
+        </constructor-arg>
     </bean>
 
     <!-- This bean is for the add comments hover, but posts happen to jsonAddParentReviews bean -->
