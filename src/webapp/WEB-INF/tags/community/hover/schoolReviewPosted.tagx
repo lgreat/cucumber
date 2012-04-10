@@ -15,8 +15,8 @@
             we are looking to change the modal/hover and add default layout for consistency -->
             <h2 style="color: #2b2b2b;font: normal 24px/30px Arial, Helvetica, sans-serif; margin-bottom: 20px;">Thank you. Your review has been posted.</h2>
 
-            <p style="font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px;"><strong>Care to share? </strong>
-                Let your friends know how you felt about ${schoolName}.</p>
+            <p style="font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px;"><strong>Share with friends! </strong>
+                Post your opinion of ${schoolName} on Facebook.</p>
 
             <div>
                 <!-- this is a hack to resize the facebook button.  It is being set to the small style and I am overriding this -->

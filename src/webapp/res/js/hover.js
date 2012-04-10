@@ -1683,6 +1683,7 @@ jQuery(function() {
             pageTracking.successEvents = "event61";
             pageTracking.send();
         }
+        GSType.hover.schoolReviewPosted.hide();
     });
 
 });
