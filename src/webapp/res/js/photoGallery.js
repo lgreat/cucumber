@@ -181,8 +181,6 @@ GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
     }.gs_bind(this));
     jQuery('#' + this.closeButtonDomId).click(function() {
         this.hide();
-        document.getElementById("fade").style.display="none";
-        document.getElementById("mainWrap").style.zIndex="0";
     }.gs_bind(this));
 };
 
@@ -192,6 +190,8 @@ GS.photoGallery.PhotoGallery.prototype.show = function() {
 };
 GS.photoGallery.PhotoGallery.prototype.hide = function() {
    jQuery('#' + this.id).hide();
+    document.getElementById("fade").style.display="none";
+    document.getElementById("mainWrap").style.zIndex="0";
 };
 
 /**
