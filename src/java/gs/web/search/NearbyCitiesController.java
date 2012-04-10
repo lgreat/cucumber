@@ -32,7 +32,7 @@ public class NearbyCitiesController implements BeanFactoryAware {
     public void list(
             @RequestParam(value="lat", required=true) float latitude,
             @RequestParam(value="lon", required=true) float longitude,
-            @RequestParam(value="radius", required=false, defaultValue = "5") float radiusInMiles,
+            @RequestParam(value="radius", required=false, defaultValue = "50") float radiusInMiles,
             @RequestParam(value="count", required=false, defaultValue = "5") int count,
             ModelMap modelMap
     ) {
