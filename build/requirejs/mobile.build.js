@@ -8,7 +8,7 @@
     modules: [
         {
             name: "main",
-            include: ['nearbyCitiesList','nearbyDistrictsList']
+            include: ['subCookie','nearbyCitiesList','nearbyDistrictsList']
         },
         {
             name: "index"
@@ -25,9 +25,9 @@
     ],
 
     paths: {
-        'global':'empty:',
         'sCode':'empty:',
-        'async':'./plugins/async'
+        'async':'./plugins/async',
+        'order':'./plugins/order'
     },
 
     packages: ["tracking"]

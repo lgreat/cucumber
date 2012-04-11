@@ -132,6 +132,10 @@
 
         <search:nearbyDistricts />
 
+        <div>
+            <a class="js-linkToTop" href="javascript:return false;" data-role="button"
+               data-icon="arrow-u">Top of page</a>
+        </div>
     </pageHelper:mobilePage>
 
     <pageHelper:mobilePage id="searchByName">
@@ -215,8 +219,13 @@
 
         <search:nearbyDistricts />
 
+
+        <div>
+            <a class="js-linkToTop" href="javascript:return false;"
+               data-inline="true" data-theme="a" style="color:blue">Top of page</a>
+        </div>
     </pageHelper:mobilePage>
-<!--    <mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home"/>-->
+    <mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home"/>
 
 
 

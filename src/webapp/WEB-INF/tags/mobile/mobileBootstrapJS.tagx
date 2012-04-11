@@ -34,9 +34,9 @@
         GS.requireConfig = {
             baseUrl: '/res/js/mobile/',
             paths: {
-                'global':'/res/js/global',
                 'sCode':'/res/js/' + GS.sCodeModuleName,
-                'async':'./plugins/async'
+                'async':'./plugins/async',
+                'order':'./plugins/order'
             },
             packages:["tracking"]
         };

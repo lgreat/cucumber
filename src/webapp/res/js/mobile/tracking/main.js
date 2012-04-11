@@ -1,4 +1,4 @@
-define(['require','exports','./clickCapture', 'properties', 'sCode','global'], function(require, exports, clickCapture, properties, sCode) {
+define(['require','exports','./clickCapture', 'properties', 'sCode'], function(require, exports, clickCapture, properties, sCode) {
 
     // put clickCapture into global scope to avoid rewriting GSWeb for now:
     GS.log('copying clickCapture module to global scope');
