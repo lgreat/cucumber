@@ -19,6 +19,7 @@ import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,9 +41,8 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
     public static final Subject[] TEST_DATA_SUBJECT_IDS = {Subject.READING, Subject.ENGLISH_LANGUAGE_ARTS, Subject.MATH, Subject.GENERAL_MATHEMATICS_GRADES_6_7_STANDARDS};
     //the list of grades that will be returned with the API test data
     public static final Grade[] TEST_DATA_GRADES = {Grade.G_4, Grade.G_8, Grade.G_10, Grade.ALL};
+    public static final String HAS_TEST_SCORES = "hasTestScores";
 
-    private boolean _controllerHandlesMobileRequests;
-    private boolean _controllerHandlesDesktopRequests;
     private ISchoolDao _schoolDao;
     private RatingHelper _ratingHelper;
     private IReviewDao _reviewDao;
@@ -104,20 +104,35 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
         model.put("numberOfReviews", numberOfReviews);
         Ratings ratings = _reviewDao.findRatingsBySchool(school);
         model.put("ratings", ratings);
-        model.put("testScores", getSchoolTestValues(school));
+        boolean hasTestScores = hasTestScores(school);
+        model.put(HAS_TEST_SCORES, hasTestScores);
+        if (hasTestScores) {
+            model.put("testScores", getSchoolTestValues(school));
+        }
 
         return new ModelAndView("school/overview-mobile", model);
     }
 
+    public boolean hasTestScores(School school) {
+        boolean hasTestScores = true;
+        if (StringUtils.equals("private", school.getType().getSchoolTypeName())) {
+            hasTestScores = school.getStateAbbreviation().isPrivateTestScoresState() &&
+                    _testDataSetDao.hasDisplayableData(school);
+        } else if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            hasTestScores = false;
+        }
+        return hasTestScores;
+    }
+
     public List<SchoolTestValue> getSchoolTestValues(School school) {
+        List<SchoolTestValue> schoolValues = new ArrayList<SchoolTestValue>();
         if (school == null) {
-            throw new IllegalArgumentException("state and ID must not be null");
+            return schoolValues;
         }
 
         List<TestDataSet> testDataSets = _testDataSetDao.findTestDataSetsForMobileApi
                 (school.getDatabaseState(), TEST_DATA_SUBJECT_IDS, TEST_DATA_GRADES);
 
-        List<SchoolTestValue> schoolValues = new ArrayList<SchoolTestValue>();
         for (TestDataSet testData : testDataSets) {
             SchoolTestValue schoolValue = _testDataSetDao.findValue(testData, school.getDatabaseState(), school.getId());
             if (schoolValue != null) {
@@ -203,18 +218,18 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
     }
 
     public boolean controllerHandlesMobileRequests() {
-        return _controllerHandlesMobileRequests;
+        return true;
     }
 
     public void setControllerHandlesMobileRequests(boolean controllerHandlesMobileRequests) {
-        _controllerHandlesMobileRequests = controllerHandlesMobileRequests;
+        // no-op
     }
 
     public boolean controllerHandlesDesktopRequests() {
-        return _controllerHandlesDesktopRequests;
+        return false;
     }
 
     public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
-        _controllerHandlesDesktopRequests = controllerHandlesDesktopRequests;
+        // no-op
     }
 }

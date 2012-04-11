@@ -73,7 +73,10 @@ public class MobileViewResolverInterceptor implements HandlerInterceptor {
             if (requestInfo.isMobileSiteEnabled()) {
                 // allows view to render link to alternate (mobile | desktop) version if desired
                 if (modelAndView.getView() == null || !(modelAndView.getView() instanceof RedirectView)) {
-                    modelAndView.getModel().put(HAS_MOBILE_VIEW_MODEL_KEY, controllerSupportsMobile || handler instanceof IDeviceSpecificControllerPartOfPair);
+                    // only set when true, to prevent overriding a controller that KNOWS it supports mobile
+                    if (controllerSupportsMobile || handler instanceof IDeviceSpecificControllerPartOfPair) {
+                        modelAndView.getModel().put(HAS_MOBILE_VIEW_MODEL_KEY, true);
+                    }
                 }
             }
         }

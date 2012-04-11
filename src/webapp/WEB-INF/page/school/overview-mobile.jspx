@@ -22,9 +22,6 @@
 
         <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
         <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
-        <c:if test="${noIndexFlag}">
-            <meta name="robots" content="follow,noindex"/>
-        </c:if>
         <title>${gsweb:schoolPageTitle(school)}</title>
         <c:if test="${not empty relCanonical}">
             <link rel="canonical" href="${relCanonical}"/>
@@ -92,22 +89,32 @@
             </div>
         </c:if>
         <hr/>
+        <!-- Address / Phone / District block -->
         <div>
-            ${school.physicalAddress.street}<br/>
-            ${school.physicalAddress.cityStateZip}
-            <c:if test="${not empty school.phone}"><br/>Phone: ${school.phone}</c:if>
+            <div>
+                ${school.physicalAddress.street}<br/>
+                ${school.physicalAddress.cityStateZip}
+            </div>
+            <c:if test="${not empty school.district}">
+                <div>District: <a href="javascript:return false;">${school.district.name}</a></div>
+            </c:if>
+            <c:if test="${not empty school.phone}">
+                <span data-role="button" data-inline="true">
+                    <a href="tel:${school.phone}">${school.phone}</a>
+                </span>
+                <br/>
+            </c:if>
         </div>
-        <c:if test="${not empty school.district}">
-            <div>District: ${school.district.name}</div>
-        </c:if>
+
+        <!-- Map -->
         <c:set var="schoolAddressQuery" value="${gsweb:escapeHtml(school.physicalAddress)}+${gsweb:escapeHtml(school.physicalAddress.cityStateZip)}+(${gsweb:escapeHtml(school.name)})"/>
-        <a href="http://maps.google.com/?q=${schoolAddressQuery}">
-            <div style="height: 150px;">Map</div>
-        </a>
         <div>
             <a href="http://maps.google.com/?saddr=Current+Location&amp;daddr=${schoolAddressQuery}">Directions</a>
             | <a href="javascript:return false;">See schools nearby</a>
         </div>
+        <a href="http://maps.google.com/?q=${schoolAddressQuery}">
+            <div style="height: 150px; background-color:#DDDDDD">Map</div>
+        </a>
 
         <!-- TODO: Replace with tagx probably -->
         <div style="text-align: center">
@@ -115,6 +122,10 @@
             <a href="javascript:return false;" data-role="button" data-inline="true">Email</a>
             <a href="javascript:return false;" data-role="button" data-inline="true">Save</a>
         </div>
+
+        <c:if test="${hasTestScores}">
+            <div><link:schoolProfileTestscore school="${school}">View this school's test scores</link:schoolProfileTestscore></div>
+        </c:if>
 
         <c:if test="${numberOfReviews gt 0}">
             <div>
@@ -125,6 +136,20 @@
                 </div>
                 <div>
                     <c:forEach items="${reviews}" var="review">
+                        <c:choose>
+                            <c:when test="${empty review.who or review.who eq 'other'}">
+                                <c:set var="who" value=""/>
+                            </c:when>
+                            <c:when test="${review.who eq 'staff'}">
+                                <c:set var="who" value="A staff member"/>
+                            </c:when>
+                            <c:when test="${review.who eq 'administrator'}">
+                                <c:set var="who" value="An administrator"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="who" value="A ${review.who}"/>
+                            </c:otherwise>
+                        </c:choose>
                         <div>
                             <div>
                                 <a name="ps${review.id}"><!-- not empty--></a>
@@ -135,22 +160,24 @@
                                     <c:set var="curStarRating" value="${review.POverall.name}"/>
                                 </c:if>
                                 <c:if test="${(curStarRating ne 'decline')}">
-                                    <span>${curStarRating} star(s)</span>
+                                    <div>${curStarRating} star(s)</div>
                                 </c:if>
 
-                                <span> Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
+                                <c:if test="${not empty who}">
+                                    <span><strong>${who}</strong></span>
+                                </c:if>
+                                <span> Posted <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
                             </div>
                             <p>
                                 <!-- GS-12650 75 words at 5 chars/word plus spaces gives 449 chars. -->
                                 <c:out value="${gsweb:abbreviateAtWhitespace(review.comments, 449)}" escapeXml="true"/>
                             </p>
+                            <hr/>
                         </div>
                     </c:forEach>
                 </div>
                 <div>
-                    <link:schoolProfileParentReview school="${school}">
-                        <span data-role="button">View more reviews</span>
-                    </link:schoolProfileParentReview>
+                    <link:schoolProfileParentReview school="${school}">View more reviews &amp;raquo;</link:schoolProfileParentReview>
                 </div>
             </div>
         </c:if>
@@ -167,14 +194,12 @@
                         <div>
                             <h3>Grade ${testScore.dataSet.grade.name}</h3>
                             <h3>${testScore.dataSet.subject}</h3>
-                            <div>${testScore.valueInteger}%</div>
+                            <div>${testScore.dataSet.year} ${testScore.valueInteger}%</div>
                         </div>
                     </c:forEach>
                 </div>
                 <div>
-                    <link:schoolProfileTestscore school="${school}">
-                        <span data-role="button">View more test scores</span>
-                    </link:schoolProfileTestscore>
+                    <link:schoolProfileTestscore school="${school}">View more test scores &amp;raquo;</link:schoolProfileTestscore>
                 </div>
             </div>
         </c:if>
@@ -184,13 +209,7 @@
         <search:nearbyDistricts />
 
         <div>
-            <link:home>
-                <span data-role="button" data-icon="search">Find a School</span>
-            </link:home>
-        </div>
-
-        <div>
-            <a class="js-linkToTop" href="#" data-role="button" data-icon="arrow-u" onclick="return false;">Top of page</a>
+            <a class="js-linkToTop" href="#" onclick="return false;">Top of page</a>
         </div>
     </pageHelper:mobilePage>
 

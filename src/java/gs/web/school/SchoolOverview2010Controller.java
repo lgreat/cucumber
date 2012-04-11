@@ -184,6 +184,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             addSchoolPhotosToModel(school, model, request);
         }
 
+        model.put("hasMobileView", true);
         return new ModelAndView(_viewName, model);
     }
 
