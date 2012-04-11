@@ -88,7 +88,7 @@
                             <span class="navSprite dropDown-hover fltrt"><!--Do not Collapse--></span>
                         </a>
                     </div>
-                    <div id="dropDown-FAS-2" class="dropDown-FAS">
+                    <div>
                         <div class="col_2">
                             <div>
                                 <input type="checkbox" checked="checked" name="gradeLevels"
@@ -120,9 +120,6 @@
                                        id="js-grade-level-h" value="h"/>
                                 <label for="js-grade-level-h">High School (9-12)</label>
                             </div>
-                            <button class="button-1  mtm" id="hideDropDown-2" type="button" data-inline="true"
-                                    onclick="javascript:void(0)">Done
-                            </button>
                         </div>
                     </div>
                     <!--</div>-->

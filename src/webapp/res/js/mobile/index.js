@@ -1,5 +1,5 @@
 define(['uri', 'geocoder'], function(uri, geocoder) {
-    var JS_GRADE_LEVELS_CONTAINER = '#js-gradeLevels';
+    var JS_GRADE_LEVELS_CONTAINER_SELECTOR = '#js-gradeLevels';
 
 
     // copied from findASchool.js
@@ -34,9 +34,10 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
     };
 
     var buildQueryString = function(queryString) {
+        var $gradeLevelsContainer = $(JS_GRADE_LEVELS_CONTAINER_SELECTOR);
         //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
         queryString = uri.removeFromQueryString(queryString, "gradeLevels");
-        var checkedGradeLevels = jQuery('#js-gradeLevels :checked');
+        var checkedGradeLevels = $gradeLevelsContainer.find(':checked');
         var overwriteGradeLevels = true;
         checkedGradeLevels.each(function() {
             if (jQuery(this).val() !== '') {
@@ -87,7 +88,8 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
     };
 
     var setAllGrades = function() {
-        var gradeCheckboxes = jQuery('#js-gradeLevels .jq-grade-level');
+        var $gradeLevelsContainer = $(JS_GRADE_LEVELS_CONTAINER_SELECTOR);
+        var gradeCheckboxes = $gradeLevelsContainer.find('.jq-grade-level');
 
         var numGradeLevels = gradeCheckboxes.size();
         var numGradeLevelsChecked = gradeCheckboxes.filter(':checked').size();
@@ -112,6 +114,7 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
                 var cssId = jQuery(this).attr('id');
 
                 var gradeCheckboxes = jQuery('#js-gradeLevels .jq-grade-level');
+                GS.log('checkbox clicked:', cssId);
 
                 if (cssId === 'js-grade-level-all') {
                     if (jQuery(this).is(':checked')) {
@@ -119,6 +122,7 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
                     } else {
                         gradeCheckboxes.prop('checked', false);
                     }
+                    gradeCheckboxes.checkboxradio("refresh");
                 }
 
                 setAllGrades();
