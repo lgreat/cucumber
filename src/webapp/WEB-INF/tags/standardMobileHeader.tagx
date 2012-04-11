@@ -56,7 +56,7 @@
 
 
     <ul class="mobile-sub-nav" data-role="listview" data-theme="e" style="display:none">
-        <li data-icon="search" class="ui-btn-icon-left"><a href="#">Find a School</a></li>
+        <li data-icon="search" class="ui-btn-icon-left"><link:home>Find a School</link:home></li>
         <li data-icon="home" class="ui-btn-icon-left"><a href="#">My Saved Schools</a></li>
         <li data-icon="check" class="ui-btn-icon-left"><a href="#">Subscribe to Newsletter</a></li>
     </ul>
