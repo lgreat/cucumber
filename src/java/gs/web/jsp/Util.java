@@ -483,7 +483,7 @@ public class Util {
                 lastCharWhitespace = false;
             }
         }
-        if (value[0].isEmpty() ) {
+        if (StringUtils.isBlank(value[0])) {
             value[0] = operatingString;
             value[1] = "";
         }
@@ -500,7 +500,7 @@ public class Util {
     public static String boldifyFirstXWords(String input, int numWords) {
         String[] result = splitAfterXWords(input, numWords);
         // return original string under these conditions
-        if ( numWords < 1 || (result.length == 2 && StringUtils.isEmpty(result[0])) ){
+        if ( numWords < 1 || (result.length == 2 && StringUtils.isBlank(result[0])) ){
             return input;
         }
         return "<strong>" + result[0] + "</strong>" + result[1];
