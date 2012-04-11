@@ -2,6 +2,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
@@ -69,16 +70,24 @@
         <c:if test="${not empty gs_rating or not empty ratings.overall}">
             <div>
                 <c:if test="${not empty gs_rating}">
-                    <a href="javascript:return false;" data-role="button" data-inline="true">
-                        GreatSchools Rating<br/>
-                        ${gs_rating} out of 10
-                    </a>
+                    <span>
+                        <link:schoolProfileTestscore school="${school}">
+                            <span data-role="button" data-inline="true">
+                                GreatSchools Rating<br/>
+                                ${gs_rating} out of 10
+                            </span>
+                        </link:schoolProfileTestscore>
+                    </span>
                 </c:if>
                 <c:if test="${not empty ratings.overall}">
-                    <a href="javascript:return false;" data-role="button" data-inline="true">
-                        Community Rating<c:if test="${numberOfReviews gt 0}"> (${numberOfReviews})</c:if><br/>
-                        ${ratings.overall} stars
-                    </a>
+                    <span>
+                        <link:schoolProfileParentReview school="${school}">
+                            <span data-role="button" data-inline="true">
+                                Community Rating<c:if test="${numberOfReviews gt 0}"> (${numberOfReviews})</c:if><br/>
+                                ${ratings.overall} stars
+                            </span>
+                        </link:schoolProfileParentReview>
+                    </span>
                 </c:if>
             </div>
         </c:if>
@@ -96,7 +105,7 @@
             <div style="height: 150px;">Map</div>
         </a>
         <div>
-            <a href="http://maps.google.com/?saddr=&amp;daddr=${schoolAddressQuery}">Directions</a>
+            <a href="http://maps.google.com/?saddr=Current+Location&amp;daddr=${schoolAddressQuery}">Directions</a>
             | <a href="javascript:return false;">See schools nearby</a>
         </div>
 
@@ -110,8 +119,9 @@
         <c:if test="${numberOfReviews gt 0}">
             <div>
                 <div>
-                    <a href="javascript:return false;" data-role="button" data-icon="arrow-r"
-                       data-iconpos="right">Reviews (${numberOfReviews})</a>
+                    <link:schoolProfileParentReview school="${school}">
+                        <span data-role="button" data-icon="arrow-r" data-iconpos="right">Reviews (${numberOfReviews})</span>
+                    </link:schoolProfileParentReview>
                 </div>
                 <div>
                     <c:forEach items="${reviews}" var="review">
@@ -138,8 +148,9 @@
                     </c:forEach>
                 </div>
                 <div>
-                    <a href="javascript:return false;" data-role="button"
-                       data-iconpos="right">View more reviews</a>
+                    <link:schoolProfileParentReview school="${school}">
+                        <span data-role="button">View more reviews</span>
+                    </link:schoolProfileParentReview>
                 </div>
             </div>
         </c:if>
@@ -147,8 +158,9 @@
         <c:if test="${not empty testScores}">
             <div>
                 <div>
-                    <a href="javascript:return false;" data-role="button" data-icon="arrow-r"
-                       data-iconpos="right">Test scores</a>
+                    <link:schoolProfileTestscore school="${school}">
+                        <span data-role="button" data-icon="arrow-r" data-iconpos="right">Test scores</span>
+                    </link:schoolProfileTestscore>
                 </div>
                 <div>
                     <c:forEach items="${testScores}" var="testScore">
@@ -160,8 +172,9 @@
                     </c:forEach>
                 </div>
                 <div>
-                    <a href="javascript:return false;" data-role="button"
-                       data-iconpos="right">View more test scores</a>
+                    <link:schoolProfileTestscore school="${school}">
+                        <span data-role="button">View more test scores</span>
+                    </link:schoolProfileTestscore>
                 </div>
             </div>
         </c:if>
@@ -171,12 +184,13 @@
         <search:nearbyDistricts />
 
         <div>
-            <a href="javascript:return false;" data-role="button" data-icon="search">Find a School</a>
+            <link:home>
+                <span data-role="button" data-icon="search">Find a School</span>
+            </link:home>
         </div>
 
         <div>
-            <a class="js-linkToTop" href="javascript:return false;" data-role="button"
-               data-icon="arrow-u">Top of page</a>
+            <a class="js-linkToTop" href="#" data-role="button" data-icon="arrow-u" onclick="return false;">Top of page</a>
         </div>
     </pageHelper:mobilePage>
 
