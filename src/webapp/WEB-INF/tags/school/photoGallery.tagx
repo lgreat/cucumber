@@ -61,7 +61,7 @@
                             <c:choose>
                                 <c:when test="${requestScope.photoReports ne null and requestScope.photoReports[images[index].id] eq true}">
                                     <div class="reportPhoto mediaExt1-1">
-                                        <div class="bk reported  small_bold bottom make-d61">You've reported this photo.</div>
+                                        <div class="bk reported tar small_bold bottom make-d61">You've reported this photo.</div>
                                     </div>
                                 </c:when>
                                 <c:otherwise>

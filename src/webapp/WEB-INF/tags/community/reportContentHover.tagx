@@ -119,7 +119,7 @@
                     contentTypeNormalized = 'review';
                 } else if (contentTypeNormalized == 'schoolMedia') {
                     contentTypeNormalized = 'photo';
-                    jQuery('#' + GS.reportContent_idOfOpeningElement).parent().addClass('smallAlertTextBold');
+                    jQuery('#' + GS.reportContent_idOfOpeningElement).parent().addClass('small_bold tar bottom make-d61');
                 }
                 jQuery('#' + GS.reportContent_idOfOpeningElement).replaceWith("You've reported this " + contentTypeNormalized + ".");
                 return false;                
