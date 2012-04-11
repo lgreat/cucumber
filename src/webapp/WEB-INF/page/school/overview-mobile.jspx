@@ -26,10 +26,12 @@
         <c:if test="${not empty relCanonical}">
             <link rel="canonical" href="${relCanonical}"/>
         </c:if>
-
+        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"><!--Do not collapse--></script>
+        <c:set var="schoolAddressQuery" value="${gsweb:escapeHtml(school.physicalAddress)}+${gsweb:escapeHtml(school.physicalAddress.cityStateZip)}+(${gsweb:escapeHtml(school.name)})"/>
         <script type="text/javascript">
             require(['schoolOverview'], function(schoolOverview) {
                 schoolOverview.init();
+                schoolOverview.initializeMap("${gsweb:escapeJavaScript(school.name)}","${school.lat}","${school.lon}","${gs_rating}","${school.type.schoolTypeName}","${gsweb:escapeJavaScript(schoolAddressQuery)}");
             });
         </script>
 
@@ -107,14 +109,21 @@
         </div>
 
         <!-- Map -->
-        <c:set var="schoolAddressQuery" value="${gsweb:escapeHtml(school.physicalAddress)}+${gsweb:escapeHtml(school.physicalAddress.cityStateZip)}+(${gsweb:escapeHtml(school.name)})"/>
+        <!--<c:set var="schoolAddressQuery" value="${gsweb:escapeHtml(school.physicalAddress)}+${gsweb:escapeHtml(school.physicalAddress.cityStateZip)}+(${gsweb:escapeHtml(school.name)})"/>-->
         <div>
             <a href="http://maps.google.com/?saddr=Current+Location&amp;daddr=${schoolAddressQuery}">Directions</a>
             | <a href="javascript:return false;">See schools nearby</a>
         </div>
-        <a href="http://maps.google.com/?q=${schoolAddressQuery}">
-            <div style="height: 150px; background-color:#DDDDDD">Map</div>
-        </a>
+        <!--<a href="http://maps.google.com/?q=${schoolAddressQuery}">-->
+            <!--<div style="height: 150px; background-color:#DDDDDD">Map</div>-->
+        <!--</a>-->
+        <div id="js_schoolMap"><!--do not collapse--></div>
+        <style type="text/css">
+            #js_schoolMap {
+                height: 25em;
+                width: 25em;
+            }
+        </style>
 
         <!-- TODO: Replace with tagx probably -->
         <div style="text-align: center">
