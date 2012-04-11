@@ -22,6 +22,12 @@
         <link rel="stylesheet" href="/res/css/jquery-mobile-gs.css"/>
         <script src="/res/js/mobile/jquery.js" type="text/javascript"><!-- do not collapse --></script>
         <script src="/res/js/mobile/jquery.mobile.js" type="text/javascript"><!-- do not collapse --></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                // disable ajax nav
+                $.mobile.ajaxEnabled = false;
+            });
+        </script>
         <mod:mobileBootstrapJS/>
         <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
         <decorator:head/>
