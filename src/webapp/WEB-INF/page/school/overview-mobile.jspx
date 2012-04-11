@@ -8,6 +8,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
         >
 <html lang="en">
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -29,9 +30,10 @@
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"><!--Do not collapse--></script>
         <c:set var="schoolAddressQuery" value="${gsweb:escapeHtml(school.physicalAddress)}+${gsweb:escapeHtml(school.physicalAddress.cityStateZip)}+(${gsweb:escapeHtml(school.name)})"/>
         <script type="text/javascript">
-            require(['schoolOverview'], function(schoolOverview) {
+            require(['schoolOverview', 'truncate'], function(schoolOverview, truncate) {
                 schoolOverview.init();
                 schoolOverview.initializeMap("${gsweb:escapeJavaScript(school.name)}","${school.lat}","${school.lon}","${gs_rating}","${school.type.schoolTypeName}","${gsweb:escapeJavaScript(schoolAddressQuery)}");
+                truncate.init();
             });
         </script>
 
@@ -125,6 +127,7 @@
             }
         </style>
 
+        <!-- SMS / Email / Save buttons -->
         <!-- TODO: Replace with tagx probably -->
         <div style="text-align: center">
             <a href="javascript:return false;" data-role="button" data-inline="true">SMS</a>
@@ -136,6 +139,7 @@
             <div><link:schoolProfileTestscore school="${school}">View this school's test scores</link:schoolProfileTestscore></div>
         </c:if>
 
+        <!-- Parent reviews -->
         <c:if test="${numberOfReviews gt 0}">
             <div>
                 <div>
@@ -178,8 +182,8 @@
                                 <span> Posted <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
                             </div>
                             <p>
-                                <!-- GS-12650 75 words at 5 chars/word plus spaces gives 449 chars. -->
-                                <c:out value="${gsweb:abbreviateAtWhitespace(review.comments, 449)}" escapeXml="true"/>
+                                <c:set var="input"><c:out value="${review.comments}" escapeXml="true" /></c:set>
+                                <util:truncate value="${input}" words="70" />
                             </p>
                             <hr/>
                         </div>
@@ -191,6 +195,7 @@
             </div>
         </c:if>
 
+        <!-- Test scores -->
         <c:if test="${not empty testScores}">
             <div>
                 <div>
