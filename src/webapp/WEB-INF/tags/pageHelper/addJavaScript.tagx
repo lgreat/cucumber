@@ -22,7 +22,7 @@
         <c:when test="${(not empty uncompressedScripts or serverName eq 'localhost' or serverName eq '172.18.1.218' or serverName eq '172.18.1.149' or serverName eq '172.18.1.129' or serverName eq '127.0.0.1' or fn:contains(serverName,'samson')) and empty compressedScripts}">
             <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
 
-            <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.7.1.min.js" allowCdn="true"/>
+            <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.7.2.min.js" allowCdn="true"/>
             <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.8.18.custom.min.js" allowCdn="true"/>
             <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
             <gsml:url var="jqueryautocomplete" value="/res/js/jquery/jquery.autocomplete.js" allowCdn="true"/> <!-- autocomplete is wrapped into jquery-ui in jquery-ui 1.8, so delete this afterwards -->
