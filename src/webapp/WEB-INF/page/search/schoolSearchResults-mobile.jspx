@@ -85,11 +85,21 @@
                                         </c:when>
                                         <c:otherwise>
                                             <select data-inline="true" data-icon="arrow-d" class="js-sort-select">
-                                                <c:if test="${isFromByLocation}">
-                                                    <option value="distance">Distance</option>
-                                                </c:if>
-                                                <option value="SCHOOL_NAME_DESCENDING">Name</option>
-                                                <option value="GS_RATING_ASCENDING">Rating</option>
+                                                <c:choose>
+                                                    <c:when test="${isFromByLocation}">
+                                                        <option value="distance">Distance</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="">Relevance</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+
+                                                <option value="SCHOOL_NAME_ASCENDING">School name: A-Z</option>
+                                                <option value="SCHOOL_NAME_DESCENDING">School name: Z-A</option>
+                                                <option value="GS_RATING_DESCENDING">GreatSchools Rating: High to Low</option>
+                                                <option value="GS_RATING_ASCENDING">GreatSchools Rating: Low to High</option>
+                                                <option value="PARENT_RATING_DESCENDING">Community Rating: High to Low</option>
+                                                <option value="PARENT_RATING_ASCENDING">Community Rating: Low to High</option>
                                             </select>
                                         </c:otherwise>
                                     </c:choose>
