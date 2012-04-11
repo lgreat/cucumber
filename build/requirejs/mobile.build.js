@@ -20,6 +20,9 @@
             name: "testScores"
         },
         {
+            name: "truncate"
+        },
+        {
             name: "schoolOverview"
         }
     ],

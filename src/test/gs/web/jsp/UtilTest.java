@@ -261,6 +261,25 @@ public class UtilTest extends TestCase {
                      "This is some text to display.", Util.generateTeaserText("This is some text to display.", 29, 40));
     }
 
+    public void testSplitAfterFirstXWords() {
+        String[] result = Util.splitAfterXWords("", 5);
+        assertEquals(2, result.length);
+        assertEquals("", result[0]);
+        assertEquals("", result[1]);
+        result = Util.splitAfterXWords("Testing testing", 0);
+        assertEquals("Testing testing", result[0]);
+        assertEquals("", result[1]);
+        result = Util.splitAfterXWords("Testing testing", 2);
+        assertEquals("Testing testing", result[0]);
+        assertEquals("", result[1]);
+        result = Util.splitAfterXWords("Testing testing", 1);
+        assertEquals("Testing", result[0]);
+        assertEquals(" testing", result[1]);
+        result = Util.splitAfterXWords("Testing testing", Integer.MAX_VALUE);
+        assertEquals("Testing testing", result[0]);
+        assertEquals("", result[1]);
+    }
+
     public void testBoldifyFirstXWords() {
         String input = "This is a  sentence.\nThis is another sentence.";
         String expected1 = "<strong>This</strong> is a  sentence.\nThis is another sentence.";

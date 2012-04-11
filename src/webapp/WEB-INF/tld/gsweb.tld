@@ -8,6 +8,12 @@
     <short-name>gsweb</short-name>
     <uri>gstaglib</uri>
 
+    <function>
+        <name>splitAfterXWords</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>java.lang.String[] splitAfterXWords(java.lang.String,int)</function-signature>
+    </function>
+
 
     <function>
         <name>toDelimitedString</name>

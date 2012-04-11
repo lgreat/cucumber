@@ -449,15 +449,23 @@ public class Util {
         return null;
     }
 
-    public static String boldifyFirstXWords(String input, int numWords) {
+    /**
+     * Take an input string and splits the string after the first x number of
+     * words, returning a string array with two elements.  Will always return
+     * empty strings instead of nulls
+     * @param input
+     * @param numWords
+     * @return
+     */
+    public static String[] splitAfterXWords(String input, int numWords) {
+        String[] value = new String[]{"",""};
         String operatingString = StringUtils.trim(input);
 
         if (StringUtils.isBlank(operatingString) || StringUtils.length(operatingString) == 0 || numWords < 1) {
-            return input;
+            value[0] = input;
+            return value;
         }
 
-        String headPortion = null;
-        String tailPortion = null;
         int wordCount = 0;
         boolean lastCharWhitespace = false;
         for (int x=1; x < operatingString.length(); x++) {
@@ -465,8 +473,9 @@ public class Util {
                 if (!lastCharWhitespace) {
                     wordCount++;
                     if (wordCount == numWords) {
-                        headPortion = StringUtils.substring(operatingString, 0, x);
-                        tailPortion = StringUtils.substring(operatingString, x);
+                        value[0] = StringUtils.substring(operatingString, 0, x);
+                        value[1] = StringUtils.substring(operatingString, x);
+                        break;
                     }
                 }
                 lastCharWhitespace = true;
@@ -474,12 +483,27 @@ public class Util {
                 lastCharWhitespace = false;
             }
         }
-        if (headPortion == null) {
-            headPortion = operatingString;
-            tailPortion = "";
+        if (value[0].isEmpty() ) {
+            value[0] = operatingString;
+            value[1] = "";
         }
 
-        return "<strong>" + headPortion + "</strong>" + tailPortion;
+        return value;
+    }
+
+    /**
+     * boldify the frist words in an input string
+     * @param input
+     * @param numWords
+     * @return
+     */
+    public static String boldifyFirstXWords(String input, int numWords) {
+        String[] result = splitAfterXWords(input, numWords);
+        // return original string under these conditions
+        if ( numWords < 1 || (result.length == 2 && StringUtils.isEmpty(result[0])) ){
+            return input;
+        }
+        return "<strong>" + result[0] + "</strong>" + result[1];
     }
 
     public static boolean contains(Set set, Object o) {
