@@ -115,6 +115,8 @@ GS.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug) {
     this.chosenTimeout = 50; //ms
     this.debug = debug;
     this.photoMargins = [];
+
+    this.shownOnce = false;
 };
 
 GS.photoGallery.PhotoGallery.prototype.showFullSizeImage = function(index) {
@@ -126,13 +128,14 @@ GS.photoGallery.PhotoGallery.prototype.showFullSizeImage = function(index) {
         }
         id = this.fullSizeImageIdPrefix + '-' + i;
         jQuery('#' + id).hide();
-        jQuery('#' + this.thumbnailIdPrefix + '-' + i).removeClass(this.thumbnailSelectedCssClass);
+        jQuery('.' + this.thumbnailIdPrefix + '-' + i).removeClass(this.thumbnailSelectedCssClass);
     }
     //show desired image
     id = this.fullSizeImageIdPrefix + '-' + index;
     jQuery('#' + id).show();
 
-    jQuery('#' + this.thumbnailIdPrefix + '-' + index).addClass(this.thumbnailSelectedCssClass);
+    jQuery('.' + this.thumbnailIdPrefix + '-' + index).addClass(this.thumbnailSelectedCssClass);
+    jQuery('.' + this.thumbnailIdPrefix + index).trigger('itemSelected'); // custom infiniteCarousel event
 
     //track change
     this.currentFullSizeImage = index;
@@ -160,7 +163,7 @@ GS.photoGallery.PhotoGallery.prototype.showPreviousImage = function() {
 GS.photoGallery.PhotoGallery.prototype.loadThumbnail = function(index) {
     var image = this.multiSizeImageArray[index].thumbnailImage;
     if (!image.loaded) {
-        var container = jQuery('#' + this.thumbnailIdPrefix + '-' + index);
+        var container = jQuery('.' + this.thumbnailIdPrefix + '-' + index);
         container.find('img').attr('src', image.src);
         image.loaded = true;
         if (this.debug) {
@@ -233,19 +236,18 @@ GS.photoGallery.PhotoGallery.prototype.loadImages = function() {
     this.loadFullSizeImages();
 };
 
+GS.photoGallery.PhotoGallery.prototype.getThumbnailClickHandler = function(self, index) {
+    return function() {
+        self.showFullSizeImage(index);
+        self.sendOmnitureTrackingInfo();
+    }
+};
+
 GS.photoGallery.PhotoGallery.prototype.applyThumbnailClickHandlers = function() {
-    var self = this; //click handler will have reference through closure; this is probably bad and needs refactoring
+    var myContainer = jQuery('#' + this.id);
     for (var i = 0; i < this.multiSizeImageArray.length; i++) {
-        var id = '#' + this.thumbnailIdPrefix + '-' + i;
-        var container = jQuery(id);
-        container.click(function() {
-            var item = jQuery(this);
-            var id = item.attr('id');
-            var tokens = id.split('-');
-            var index = tokens[tokens.length - 1];
-            self.showFullSizeImage(index);
-            self.sendOmnitureTrackingInfo();
-        });
+        var selector = '.' + this.thumbnailIdPrefix +'-'+ i;
+        myContainer.on('click', selector, this.getThumbnailClickHandler(this, i));
     }
 };
 
@@ -282,7 +284,7 @@ GS.photoGallery.PhotoGallery.prototype.hide = function() {
  * Make the gallery open when provided dom node is clicked
  * @param id
  */
-GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass) {
+GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass, initialCallback) {
     jQuery("#js_photo_gallery_container ." + cssClass).click(function() {
         this.loadFullSizeImages();
         document.getElementById("mainWrap").style.zIndex="5";
@@ -291,6 +293,10 @@ GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass) {
         var photoNumToShow = (photoNumVar !== undefined && photoNumVar !== null) ? (isNaN(photoNumVar - 1) ? 0 : (photoNumVar - 1)) : 0;
         this.showFullSizeImage(photoNumToShow); //load the first full size image into gallery
         this.show();
+        if (initialCallback && typeof(initialCallback) === 'function' && !this.shownOnce) {
+            this.shownOnce = true;
+            initialCallback();
+        }
         return false;
     }.gs_bind(this));
 };

@@ -38,7 +38,7 @@
                         <!--<div id="${prefix}-gallery-fullsize-${index}" class="galleryPhotoFullsize">-->
                         <div id="${prefix}-gallery-fullsize-${index}" class="gallery-fullsize">
                             <img src="/res/img/pixel.gif"/>
-                            <span class="small quiet">${photoCaptions[index]}</span>
+                            <div class="small quiet">${photoCaptions[index]}</div>
                         </div>
                     </c:forEach>
                     <div id="${prefix}-photo-gallery-back"
@@ -57,7 +57,7 @@
                             <ul class="unordered-carousel">
                                 <c:forEach begin="0" end="${numberOfImages-1}" var="index">
                                     <li>
-                                        <div id="${prefix}-gallery-thumbnail-${index}" class="gallery-thumbnail">
+                                        <div class="gallery-thumbnail ${prefix}-gallery-thumbnail-${index}">
                                             <img src="/res/img/pixel.gif" width="68" height="68"/>
                                         </div>
                                     </li>
@@ -96,7 +96,7 @@
         </c:forEach>
 
         jQuery(function() {
-            gallery.attachShowEvent('${cssClass}');
+            gallery.attachShowEvent('${cssClass}', function() {jQuery('.infiniteCarousel8').infiniteCarousel();});
             gallery.loadThumbnails(); //start loading the gallery thumbnails
             gallery.applyThumbnailClickHandlers(); //attach click handlers to thumbnails
             gallery.applyButtonClickHandlers(); //attach handlers to next and back buttons
