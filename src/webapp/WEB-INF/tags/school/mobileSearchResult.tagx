@@ -5,15 +5,19 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:gsweb="gstaglib"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 
 
     <jsp:directive.attribute name="school" required="true" description="School search result" type="gs.data.search.beans.ISchoolSearchResult"/>
+    <c:if test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
+        <div style="float:right"><fmt:formatNumber value="${school.distance}" maxFractionDigits="2"/> miles</div>
+    </c:if>
     <h3>
         <link:schoolProfileOverviewForPrimitives schoolId="${school.id}" databaseState="${school.databaseState}" name="${school.name}" physicalAddress="${school.address}" levelCode="${school.levelCode}">
             ${school.name}
         </link:schoolProfileOverviewForPrimitives>
     </h3>
+
 
     <p>${school.schoolType} ${school.grades.rangeString}
         |
@@ -68,5 +72,13 @@
 
             </span>
     </p>
+
+    <c:if test="${not empty school.greatSchoolsRating}">
+        <p style="float:left;padding-right:8px;">${school.greatSchoolsRating} of 10</p>
+    </c:if>
+    <c:if test="${not empty school.parentRating}">
+        <p style="float:left;">Community rating: ${school.parentRating}</p>
+    </c:if>
+
 
 </jsp:root>
