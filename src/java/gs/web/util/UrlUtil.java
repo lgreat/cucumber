@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.122 2012/04/10 22:02:26 cshumway Exp $
+ * $Id: UrlUtil.java,v 1.123 2012/04/12 17:31:25 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -236,6 +236,10 @@ public final class UrlUtil {
             buffer.append(":").append(String.valueOf(port));
         }
         return buffer;
+    }
+    
+    public static StringBuffer buildHostAndPortString(HttpServletRequest request) {
+        return buildHostAndPortString(request.getScheme(), request.getServerName(), request.getServerPort());
     }
 
     /**
