@@ -20,7 +20,6 @@ General comments:
     z-index: 3;
     position: relative;
     list-style: none;
-    width: 968px;
     margin: 0 auto;
     height: 32px;
     padding: 0;
@@ -30,8 +29,7 @@ General comments:
     background-color: white;
 
     /* Borders */
-    border: 1px solid #157daa;
-    border-bottom:0 none transparent;
+    border-top: 1px solid #157daa;
 }
 
 /* Menu Items */

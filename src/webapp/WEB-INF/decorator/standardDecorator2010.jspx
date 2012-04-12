@@ -81,6 +81,9 @@
 
 <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
       onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="${requestScope.bodyClass}">
+
+<div class="container_24">
+
 <!--<p>User agent is: <c:out value="${agent}" default="not set"/>.</p>-->
 <cobrand:framebuster/>
 <meebo:javascriptInclude/>
@@ -109,27 +112,28 @@
     </c:if>
     <cobrand:header/>
 
-    <div id="pageGS">
+    <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
+        <mod:header/>
+    </c:if>
 
+    <div class="page-shadow clearfix">
         <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
-            <!--<mod:topNav/>-->
-            <mod:header/>
             <mod:primaryNav/>
             <mod:secondaryNav/>
             <mod:belowNavAds/>
         </c:if>
 
-        <div id="mainWrap">
-            <div id="contentGS" class="clearfix">
-                <decorator:body/>
-            </div>
+        <div id="contentGS" class="clearfix">
+            <decorator:body/>
         </div>
 
         <div class="clearfloat"><!-- do not collapse --></div>
         <cobrand:numberoneexpertFooter/>
         <mod:footer showAd="true" showSeoFooter="true"/>
+        <div style="text-align:center"><cobrand:footer/></div>
+
     </div>
-    <div style="text-align:center"><cobrand:footer/></div>
+
 </div>
 ${modTracking}
 <ad:hideGhostText/>
@@ -140,6 +144,8 @@ ${modTracking}
 <c:if test="${requestInfo.mobileSiteEnabled and hasMobileView}">
     <a href="${requestInfo.sitePreferenceUrlForAlternateSite}">View mobile version</a>
 </c:if>
+
+</div>
 
 </body>
 </html>

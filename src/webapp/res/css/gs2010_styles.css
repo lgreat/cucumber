@@ -2384,7 +2384,6 @@ body.cobranded #pageGS {
 }
 
 #contentGS {
-    width: 968px;
     border-top: 2px solid #aaa;
     margin: 0 auto;
     overflow: visible;
@@ -8367,7 +8366,7 @@ div#YahooRealEstateLink {
 }
 
 #footer {
-    background: url(/res/img/gs_content_bg.png) repeat-y;
+    background-color: #ffffff;
     font-size: 11px;
     color: #666;
 }
@@ -8375,7 +8374,6 @@ div#YahooRealEstateLink {
 #footnav {
     border-top: 3px dotted #ccc;
     list-style: none;
-    width: 928px;
     padding: 10px 0 0;
     margin: 0 auto;
     text-align: center;
@@ -8406,7 +8404,6 @@ div#YahooRealEstateLink {
 .cities {
     margin: 20px auto 0;
     padding: 12px 54px;
-    width: 860px;
     background: #ebebeb;
     overflow: hidden;
 }
