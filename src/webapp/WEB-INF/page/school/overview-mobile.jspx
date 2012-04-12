@@ -31,8 +31,10 @@
         <c:set var="schoolAddressQuery" value="${gsweb:escapeHtml(school.physicalAddress)}+${gsweb:escapeHtml(school.physicalAddress.cityStateZip)}+(${gsweb:escapeHtml(school.name)})"/>
         <script type="text/javascript">
             require(['schoolOverview', 'truncate'], function(schoolOverview, truncate) {
-                schoolOverview.init();
-                schoolOverview.initializeMap("${gsweb:escapeJavaScript(school.name)}","${school.lat}","${school.lon}","${gs_rating}","${school.type.schoolTypeName}","${gsweb:escapeJavaScript(schoolAddressQuery)}");
+                $(function() {
+                    schoolOverview.init();
+                    schoolOverview.initializeMap("${gsweb:escapeJavaScript(school.name)}","${school.lat}","${school.lon}","${gs_rating}","${school.type.schoolTypeName}","${gsweb:escapeJavaScript(schoolAddressQuery)}");
+                });
                 truncate.init();
             });
         </script>
@@ -122,8 +124,8 @@
         <div id="js_schoolMap"><!--do not collapse--></div>
         <style type="text/css">
             #js_schoolMap {
-                height: 25em;
-                width: 25em;
+                height: 10em;
+                width: 100%;
             }
         </style>
 
@@ -223,7 +225,7 @@
         <search:nearbyDistricts />
 
         <div>
-            <a class="js-linkToTop" href="#" onclick="return false;">Top of page</a>
+            <a class="js-linkToTop" href="#">Top of page</a>
         </div>
     </pageHelper:mobilePage>
 
