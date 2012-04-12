@@ -139,7 +139,6 @@
             gallery.applyButtonClickHandlers(); //attach handlers to next and back buttons
         });
 
-        //<gsml:ifUserCanDeleteContent pageUser="${validUser}">
         // code
         var GS_disablePhotoConfirmDialog = null;
         function showDisablePhotoHover(photoId) {
@@ -172,7 +171,6 @@
         jQuery('#photo-gallery').find('.reportIt').on('click', function() {
             gallery.hide();
         });
-        // </gsml:ifUserCanDeleteContent>
     </script>
 
 </jsp:root>
