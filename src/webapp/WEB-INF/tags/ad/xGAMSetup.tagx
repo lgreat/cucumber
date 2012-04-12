@@ -139,7 +139,7 @@
         ]]></jsp:scriptlet>
 
     <c:choose>
-    <c:when test="${requestScope.context.gptEnabled}">
+    <c:when test="${requestScope.context.gptEnabled or requestScope.gptEnabled}">
         <!-- TODO-12415 ghost text -->
         <!-- TODO-12415 expandable ads -->
         <!-- TODO-12415 widgets expecting JS, CSS from GSWeb, e.g. Primrose/Kindercare lead gen widgets, BTS -->
@@ -183,6 +183,11 @@
             <![CDATA[
                 googletag.pubads().collapseEmptyDivs();
                 googletag.pubads().enableSingleRequest();
+            ]]>
+            <c:if test="${requestScope.context.gptSynchronousModeEnabled or requestScope.gptSynchronousModeEnabled}">
+                googletag.pubads().enableSyncRendering();
+            </c:if>
+            <![CDATA[
                 googletag.enableServices();
             });
         </script>

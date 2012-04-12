@@ -29,6 +29,10 @@
         <pattern>*/sandbox/*</pattern>
     </decorator>
 
+    <decorator name="gptDecorator" page="gptDecorator.jspx">
+        <pattern>/demo/gpt/*</pattern>
+    </decorator>
+
     <decorator name="houseAdsDecorator" page="houseAdsDecorator.jspx">
         <pattern>/demo/house-ads/*</pattern>
     </decorator>

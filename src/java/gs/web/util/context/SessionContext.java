@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.65 2012/04/07 01:52:48 yfan Exp $
+ * $Id: SessionContext.java,v 1.66 2012/04/12 21:16:52 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -407,8 +407,47 @@ public class SessionContext implements ApplicationContextAware, Serializable {
         return randomValue0To100 < interstitialDisplayRate;
     }
 
+    /**
+     * Returns true if Google Publisher Tags are enabled globally
+     * @return
+     */
     public boolean isGptEnabled() {
         return "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY, "false"));
+    }
+
+    /**
+     * Returns true if Google Publisher Tags should always be served using synchronous mode.
+     * @return
+     */
+    public boolean isGptSynchronousModeEnabled() {
+        return "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_SYNCHRONOUS_MODE_ENABLED_KEY, "false"));
+    }
+
+    /**
+     * Returns a set of fully-qualified ad slot names (including the ad slot prefix) whose presence on a webpage
+     * should force all GPT ads on that page to use synchronous mode
+     * @return
+     */
+    public Set<String> getAdSlotsRequiringSynchronousMode() {
+        String adSlotsProperty = _propertyDao.getProperty(IPropertyDao.AD_SLOTS_REQUIRING_SYNCHRONOUS_MODE_KEY, "");
+        String[] adSlots = adSlotsProperty.split(",");
+        List<String> adSlotsList = Arrays.asList(adSlots);
+        Set<String> slots = new HashSet<String>(adSlotsList);
+        return slots;
+    }
+
+    /**
+     * Returns a set of fully-qualified ad slot names (including the ad slot prefix) whose presence on a webpage
+     * should force GPT to be used even if isGptEnabled() returns false. This allows us to incrementally roll out
+     * GPT on individual pages.
+     * @return
+     */
+    public Set<String> getAdSlotsThatEnableGpt() {
+        String adSlotsProperty = _propertyDao.getProperty(IPropertyDao.AD_SLOTS_REQUIRING_SYNCHRONOUS_MODE_KEY, "");
+        String[] adSlots = adSlotsProperty.split(",");
+        List<String> adSlotsList = Arrays.asList(adSlots);
+        Set<String> slots = new HashSet<String>(adSlotsList);
+        return slots;
     }
 
     /**

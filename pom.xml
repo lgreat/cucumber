@@ -315,75 +315,10 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.samaxes.maven</groupId>
-                <artifactId>maven-minify-plugin</artifactId>
-                <version>1.2</version>
-                <configuration>
-                    <webappSourceDir>${basedir}/src/webapp</webappSourceDir>
-                    <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
-                    <cssSourceDir>/res/css</cssSourceDir>
-                    <cssSourceFiles>
-                        <param>00_reset/reset.css</param>
-                        <param>00_reset/z_index_reset.css</param>
-                        <param>01_grids/grid_960.css</param>
-                        <param>01_grids/grid_oocss.css</param>
-                        <param>02_module/mod.css</param>
-                        <param>02_module/mod_skins.css</param>
-                        <param>03_media/media.css</param>
-                        <param>04_text/typography.css</param>
-                        <param>05_forms/forms.css</param>
-                        <param>06_sprites/icon_x16.css</param>
-                        <param>06_sprites/icon_x24.css</param>
-                        <param>06_sprites/icon_x32.css</param>
-                        <param>06_sprites/icon_x48.css</param>
-                        <param>06_sprites/icon_x64.css</param>
-                        <param>06_sprites/icons.css</param>
-                        <param>06_sprites/ui.css</param>
-                        <param>07_navigation/primary.css</param>
-                        <param>07_navigation/secondary.css</param>
-                        <param>07_navigation/osp.css</param>
-                        <param>08_buttons/buttons.css</param>
-                        <param>09_spacing/spacing.css</param>
-                        <param>10_css3/rounded_corners.css</param>
-                        <param>10_css3/linear_gradients.css</param>
-                        <param>10_css3/opacity_shadow.css</param>
-                        <param>38_special/cms_content.css</param>
-                        <param>38_special/community_hover.css</param>
-                        <param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>
-                        <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
-                        <param>99_debugging/debug.css</param>
-                        <param>gs2010_styles.css</param>
-                        <param>jquery.autocomplete.css</param>
-                    </cssSourceFiles>
-                    <cssFinalFile>gs2010_styles.combined.css</cssFinalFile>
-                    <jsSourceDir>/res/js</jsSourceDir>
-                    <jsSourceFiles>
-                        <param>jquery/jquery-1.7.2.min.js</param>
-                        <param>jquery/jquery-ui-1.8.18.custom.min.js</param>
-                        <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
-                        <param>jquery/jquery.autocomplete.js</param>
-                        <param>uri/uri.js</param>
-                        <param>search/schoolAutocomplete.js</param>
-                        <param>jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js</param>
-                        <param>jquery/plugins/timepicker/jquery.ptTimeSelect.js</param>
-                        <param>global.js</param>
-                        <param>topnavpromo.js</param>
-                        <param>topnav.js</param>
-                        <param>gs_jquery_extensions.js</param>
-                        <param>hover.js</param>
-                        <param>deferredcontent.js</param>
-                        <param>externalTracking.js</param>
-                    </jsSourceFiles>
-                    <jsFinalFile>combined.js</jsFinalFile>
-                    <!--<verbose>true</verbose>-->
-                </configuration>
-            </plugin>
 
             <!-- http://maven-samaxes-plugin.googlecode.com/svn/sites/maven-minify-plugin/usage.html -->
             <!-- http://maven.apache.org/guides/mini/guide-configuring-plugins.html#Using_the_executions_Tag -->
             <!-- http://maven-samaxes-plugin.googlecode.com/svn-history/r180/sites/maven-minify-plugin/faq.html#question -->
-<!--
             <plugin>
                 <groupId>com.samaxes.maven</groupId>
                 <artifactId>maven-minify-plugin</artifactId>
@@ -402,7 +337,6 @@
                                 <param>01_grids/grid_oocss.css</param>
                                 <param>02_module/mod.css</param>
                                 <param>02_module/mod_skins.css</param>
-                                <param>02_module/house_ads_skins.css</param>
                                 <param>03_media/media.css</param>
                                 <param>04_text/typography.css</param>
                                 <param>05_forms/forms.css</param>
@@ -427,13 +361,16 @@
                                 <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
                                 <param>99_debugging/debug.css</param>
                                 <param>gs2010_styles.css</param>
+                                <param>house_ads.css</param>
                                 <param>jquery.autocomplete.css</param>
                             </cssSourceFiles>
                             <cssFinalFile>gs2010_styles.combined.css</cssFinalFile>
+                            <cssTargetDir>/res/css</cssTargetDir>
                             <jsSourceDir>/res/js</jsSourceDir>
                             <jsSourceFiles>
-                                <param>jquery/jquery-1.7.1.min.js</param>
+                                <param>jquery/jquery-1.7.2.min.js</param>
                                 <param>jquery/jquery-ui-1.8.18.custom.min.js</param>
+                                <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
                                 <param>jquery/jquery.autocomplete.js</param>
                                 <param>uri/uri.js</param>
                                 <param>search/schoolAutocomplete.js</param>
@@ -449,6 +386,8 @@
                                 <param>externalTracking.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.js</jsFinalFile>
+                            <jsTargetDir>/res/css</jsTargetDir>
+                            <!--<verbose>true</verbose>-->
                         </configuration>
                         <goals>
                             <goal>minify</goal>
@@ -464,18 +403,21 @@
                                 <param>00_reset/neutral_reset.css</param>
                                 <param>01_grids/grid_oocss.css</param>
                                 <param>02_module/mod.css</param>
-                                <param>02_module/house_ads_skins.css</param>
                                 <param>04_text/typography.css</param>
                                 <param>09_spacing/spacing.css</param>
+                                <param>house_ads.css</param>
                             </cssSourceFiles>
                             <cssFinalFile>combined.house_ads.css</cssFinalFile>
+                            <cssTargetDir>/res/css</cssTargetDir>
                             <jsSourceDir>/res/js</jsSourceDir>
                             <jsSourceFiles>
-                                <param>jquery/jquery-1.7.1.min.js</param>
+                                <param>jquery/jquery-1.7.2.min.js</param>
                                 <param>global.js</param>
                                 <param>house_ads.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.house_ads.js</jsFinalFile>
+                            <jsTargetDir>/res/css</jsTargetDir>
+                            <!--<verbose>true</verbose>-->
                         </configuration>
                         <goals>
                             <goal>minify</goal>
@@ -483,7 +425,6 @@
                     </execution>
                 </executions>
             </plugin>
--->
         </plugins>
     </build>
 
@@ -613,7 +554,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
+            <version>4.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
