@@ -65,12 +65,10 @@
                 // That way FB.share file gets loaded before all.js.This was a quick an dirty way to do this.
 
 
-                jQuery(window).load(function() {
-                    $.ajax({
-                        url: "http://connect.facebook.net/en_US/all.js",
-                        async: false,
-                        dataType: "script"
-                    });
+                $.ajax({
+                    url: "http://connect.facebook.net/en_US/all.js",
+                    async: false,
+                    dataType: "script"
                 });
 
                 window.fbAsyncInit = function() {

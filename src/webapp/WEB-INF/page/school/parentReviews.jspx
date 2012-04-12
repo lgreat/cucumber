@@ -623,8 +623,9 @@ If the FB.share file gets loaded before the all.js then there are javascript err
 Therefore took out the asynchronous loading of all.js. And the code below loads the FB.share asynchronously.
 FB.share file gets loaded before all.js.This was a quick an dirty way to do this.-->
 <script type="text/javascript">
-    jQuery(window).load(function() {
-        jQuery.getScript("http://static.ak.fbcdn.net/connect.php/js/FB.Share");
+    jQuery.getScript("http://static.ak.fbcdn.net/connect.php/js/FB.Share", function() {
+        jQuery('#js_fbshare_div').css('display', 'inline');
+        jQuery('#js_fbshare_div').show();
     });
 </script>
 
