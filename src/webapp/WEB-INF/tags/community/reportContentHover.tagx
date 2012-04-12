@@ -34,10 +34,15 @@
                 contentTypeNormalized = 'review';
             } else if (contentTypeNormalized == 'schoolMedia') {
                 contentTypeNormalized = 'photo';
-                var thumbnailContainer = jQuery('.js_gallery_thumbnail_id_' + reportContentId);
-                jQuery('#reportItDialog_thumbnail').find('img').attr('src', thumbnailContainer.find('img').attr('src'));
-                jQuery('#reportItDialog_flag').hide();
-                jQuery('#reportItDialog_thumbnail').show();
+                var hiddenSrc = jQuery('#js_thumbnailSrc_' + reportContentId);
+                if (hiddenSrc != undefined) {
+                    var thumbnailSrc = hiddenSrc.val();
+                    if (thumbnailSrc !== '') {
+                        jQuery('#reportItDialog_thumbnail').find('img').attr('src', thumbnailSrc);
+                        jQuery('#reportItDialog_flag').hide();
+                        jQuery('#reportItDialog_thumbnail').show();
+                    }
+                }
             }
             jQuery('#reportHoverIntroContentType').html(contentTypeNormalized);
             jQuery('#reportHoverHeader').html(contentTypeNormalized);

@@ -74,6 +74,7 @@
                                     </div>
                                 </c:otherwise>
                             </c:choose>
+                            <input id="js_thumbnailSrc_${images[index].id}" value="" type="hidden"/>
                         </div>
                     </div>
                 </c:forEach>
@@ -115,8 +116,8 @@
 //        <c:forEach begin="0" end="${numberOfImages-1}" var="index">
             imageArray.push(
                 new GS.photoGallery.MultiSizeImage(
-                        new GS.photoGallery.Image('${basePhotoPath}${images[index].smallSizeFile}'),
-                        new GS.photoGallery.Image('${basePhotoPath}${images[index].largeSizeFile}')
+                        new GS.photoGallery.Image('${basePhotoPath}${images[index].smallSizeFile}','${images[index].id}'),
+                        new GS.photoGallery.Image('${basePhotoPath}${images[index].largeSizeFile}','${images[index].id}')
                 )
             );
         //</c:forEach>
@@ -145,9 +146,13 @@
             if (GS_disablePhotoConfirmDialog == null) {
                 GS_disablePhotoConfirmDialog = new GSType.hover.HoverDialog('disablePhotoConfirmDialog',640);
             }
-            jQuery('#disablePhotoConfirmDialog').
-                    find('.js_imageThumbnail img').
-                    attr('src', jQuery('.js_gallery_thumbnail_id_' + photoId).find('img').attr('src'));
+            var hiddenSrc = jQuery('#js_thumbnailSrc_' + photoId);
+            if (hiddenSrc != undefined) {
+                var thumbnailSrc = hiddenSrc.val();
+                jQuery('#disablePhotoConfirmDialog').
+                        find('.js_imageThumbnail img').
+                        attr('src', thumbnailSrc);
+            }
             var disableButton = jQuery('#disablePhotoConfirmDialog').find('.js_disablePhotoButton');
             disableButton.off('click');
             disableButton.on('click', function() {

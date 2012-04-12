@@ -80,6 +80,9 @@ GS.photoGallery.PhotoGallery.prototype.loadThumbnail = function(index) {
         var container = jQuery('.' + this.thumbnailIdPrefix + index);
         container.find('img').attr('src',image.src);
         image.loaded = true;
+        //Used in photo moderation.
+        jQuery('#js_thumbnailSrc_' + image.id).val(image.src);
+
         if (this.debug) {
             console.log("thumbnail " + index + " loaded.");
         }
