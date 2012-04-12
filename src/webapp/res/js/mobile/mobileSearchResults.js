@@ -15,7 +15,7 @@ define (['uri'], function(uri) {
             var newQueryString = uri.putIntoQueryString(document.location.search, 'sortBy', value, true);
             var newUrl = window.location.pathname + newQueryString;
             lastSort = value;
-            $.mobile.changePage(newUrl);
+            window.location.href = newUrl;
         });
     };
 
