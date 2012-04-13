@@ -342,7 +342,7 @@
                     <div class="line terms">
                         <div class="unit size1of1 lastUnit">
                             <gsml:checkbox name="mssSub" styleClass="checkbox" styleId="rememberMeBox" checked="true"/>
-                            <label for="mssSub"
+                            <label for="rememberMeBox"
                                    class="smallText1 frmPRLabel-2">Yes, send me monthly email updates about this school.
                             </label>
                         </div>
