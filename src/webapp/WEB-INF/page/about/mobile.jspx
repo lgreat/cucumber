@@ -22,8 +22,6 @@
 
 <gsml:body adPageName="aboutUs" pageLayout="leftside iPhoneApp">
 
-    <div class="container_24">
-
         <div class="grid_24 mvm smallAlertText">
             <link:home>Home</link:home> &amp;gt; <link:aboutUs>About Us</link:aboutUs>
         </div>
@@ -57,8 +55,6 @@
         <div class="grid_7 iPhoneImage">
             <gsml:img src="/res/img/about/iPhoneApp/aboutiPhoneApp.png" width="258" height="568" alt="iPhone App GreatSchools Finder"/>
         </div>
-
-    </div>
 
 <div id="tracking">
     <ad:setSlotPrefix slotPrefix="AboutUs_Management"/>

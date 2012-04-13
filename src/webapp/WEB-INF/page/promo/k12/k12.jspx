@@ -51,7 +51,8 @@
 
     <!-- TODO-11797 -->
 
-    <div class="container_24" id="k12AdPage">
+    <!--<div class="container_24">-->
+        <div id="k12AdPage">
         <div class="grid_16">
 
             <div class="mrm mtl phs">
@@ -120,6 +121,7 @@
             </div>
         </div>
     </div>
+    <!--</div>-->
 
     <mod:tracking pageName="Online Education Landing Page"
                   hier1="Topic Centers,Online Education,Sponsored K12"

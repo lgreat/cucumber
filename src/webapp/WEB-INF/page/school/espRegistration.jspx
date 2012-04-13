@@ -30,7 +30,8 @@
 <gsml:body adPageName="OSP/registration" pageLayout="nocol">
 <communityHover:espPreApprovalEmail/>
 <div class="spacer_20"><!-- do not collapse --></div>
-<div class="container_24 slStylesV1-0 slFormsV1-0">
+<!--<div class="container_24">-->
+<div class="slStylesV1-0 slFormsV1-0">
 
 <c:if test="${userLoggedIn}">
     <c:set var="isReadOnly" value="true"/>
@@ -468,6 +469,7 @@
 
 </div>
 </div>
+<!--</div>-->
 <div class="spacer_60"><!-- do not collapse --></div>
 
 <div style="display:none;">

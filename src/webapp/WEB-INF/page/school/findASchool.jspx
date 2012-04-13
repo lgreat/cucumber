@@ -34,7 +34,7 @@
     <c:set var="adSlotPrefix" value="Find_Schools_Home"/>
     <ad:setSlotPrefix slotPrefix="${adSlotPrefix}"/>
 
-    <div class="container_24">
+    <!--<div class="container_24">-->
     <div class="grid_16 slStylesV1-0">
     <div class="spacer_20"><!--Do  not collapse --></div>
     <h1>Find a School</h1>
@@ -455,7 +455,7 @@
 
         <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PERCENT_FIND_A_SCHOOL"/>
     </div>
-    </div>
+    <!--</div>-->
 
     <mod:tracking pageName="${omniturePageName}"
                   hier1="Home, Find a School Home"/>

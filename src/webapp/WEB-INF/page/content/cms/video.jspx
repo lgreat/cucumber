@@ -71,7 +71,7 @@
 </head>
 <body>
 
-<div class="container_24">
+<!--<div class="container_24">-->
 <div class="grid_16">
 
     <div class="mrm phs">
@@ -318,7 +318,7 @@
         </c:otherwise>
     </c:choose>
 </div>
-</div>
+<!--</div>-->
 
 <!--<div id="main">-->
     <!--<div id="content">-->

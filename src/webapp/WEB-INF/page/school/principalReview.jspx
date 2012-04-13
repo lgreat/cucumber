@@ -28,7 +28,8 @@
 
 <gsml:body adPageName="Principal feedback form " pageLayout="nocol">
 
-    <div id="principalReviewFormContainer" class="container_24 slStylesV1-0 slFormsV1-0">
+<!--<div class="container_24">-->
+    <div id="principalReviewFormContainer" class="slStylesV1-0 slFormsV1-0">
         <div class="spacer_20"><!-- do not collapse --></div>
         <div class="grid_24">
             <h1>School Official: Respond to reviews about ${school.name}</h1>
@@ -167,6 +168,7 @@
             </div>
         </div>
     </div>
+<!--</div>-->
 
     <script type="text/javascript">
 

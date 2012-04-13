@@ -40,7 +40,7 @@
 </head>
 <body>
 
-<div class="container_24">
+<!--<div class="container_24">-->
     <div class="grid_16 zir-2">
 
         <div class="smallText1 mtm pbs">
@@ -227,7 +227,7 @@
             </gsweb:adTagGenerator>
         </div>
     </div>
-</div>
+<!--</div>-->
 
 <c:set var="pageName" value="WorksheetSingle"/>
 

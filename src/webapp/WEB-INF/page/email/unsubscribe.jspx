@@ -25,7 +25,8 @@
 
     <div class="spacer_20"><!-- do not collapse --></div>
 
-    <div class="container_24 slStylesV1-0 slFormsV1-0">
+    <!--<div class="container_24">-->
+    <div class="slStylesV1-0 slFormsV1-0">
         <div class="grid_24">
         <div class="mod form">
             <div class="inner">
@@ -84,6 +85,7 @@
         </div>
         </div>
     </div>
+    <!--</div>-->
 
     <mod:tracking pageName="Email Unsubscribe"
                       hier1="Email,Unsubscribe"/>

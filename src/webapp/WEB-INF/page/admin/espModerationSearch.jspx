@@ -43,7 +43,7 @@
 
 </head>
 <gsml:body adPageName="school/esp" pageLayout="nocol">
-  <div class="container_24">
+  <!--<div class="container_24">-->
     <div class="grid_24 slStylesV1-0 espModerationTable">
       
       <div>
@@ -192,7 +192,7 @@
         </c:choose>
       </form:form>
     </div>
-  </div>
+  <!--</div>-->
   <div style="display: none;">
     <mod:tracking pageName="OSP Moderation" hier1="ESP" />
   </div>

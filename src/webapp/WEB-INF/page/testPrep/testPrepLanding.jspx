@@ -24,7 +24,7 @@
 </head>
 <gsml:body adPageName="testPrep" pageLayout="nocol">
 
-<div class="container_24">
+<!--<div class="container_24">-->
     <div class="grid_19 mtl">
         <div class="mbm">
 
@@ -199,7 +199,7 @@
             <ad:AboveFold_Right_160x600/>
         </div>
     </div>
-</div>
+<!--</div>-->
 
 <script type="text/javascript">
 GS = GS || {};

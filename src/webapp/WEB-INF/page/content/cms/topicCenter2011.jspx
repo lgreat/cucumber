@@ -81,7 +81,7 @@
 
 <gsml:body adPageName="${pageName}" pageLayout="nocol">
 
-<div class="container_24">
+<!--<div class="container_24">-->
 
 <div class="grid_16 slStylesV1-0">
 
@@ -342,7 +342,7 @@
 </div>
 <!-- end right sidebarGS -->
 
-</div>
+<!--</div>-->
 
 
 <mod:tracking pageName="${pageName}"

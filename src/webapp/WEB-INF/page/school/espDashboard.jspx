@@ -33,7 +33,8 @@
             <school:espOtherEditorsHover otherEspMemberships="${allEspMemberships}"/>
             <c:set value="true" var="showOtherEditorsHover"/>
         </c:if>
-        <div class="container_24 slStylesV1-0 slFormsV1-0">
+        <!--<div class="container_24">-->
+        <div class="slStylesV1-0 slFormsV1-0">
             <div class="spacer_20"><!-- do not collapse --></div>
             <div class="grid_21">
                 <h1 class="fltlft">Your Official School Profile</h1>
@@ -380,6 +381,7 @@
                 <button class="button-1 confirmEspSaveHover_hideHover" type="button">OK</button>
             </div>
         </div>
+        <!--</div>-->
 
         <div class="spacer_60"><!-- do not collapse --></div>
 

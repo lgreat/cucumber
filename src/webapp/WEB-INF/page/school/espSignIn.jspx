@@ -43,7 +43,8 @@
     <gsml:body adPageName="ESP/signin" pageLayout="nocol">
         <communityHover:espPreApprovalEmail/>
         <div class="spacer_20"><!-- do not collapse --></div>
-        <div class="container_24 slStylesV1-0 slFormsV1-0">
+        <!--<div class="container_24">-->
+        <div class="slStylesV1-0 slFormsV1-0">
             <div class="grid_24">
                 <h1 class="fltlft">Sign in to your Official School Profile</h1>
 
@@ -173,6 +174,8 @@
 
             </div>
         </div>
+        <!--</div>-->
+
         <div class="spacer_60"><!-- do not collapse --></div>
 
         <div style="display:none;">

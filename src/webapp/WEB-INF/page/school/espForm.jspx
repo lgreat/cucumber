@@ -60,7 +60,8 @@
     </head>
 
     <gsml:body adPageName="school/esp" pageLayout="nocol osp">
-        <div class="container_24 slStylesV1-0 slFormsV1-0">
+        <!--<div class="container_24">-->
+        <div class="slStylesV1-0 slFormsV1-0">
             <div class="spacer_20"><!-- do not collapse --></div>
             <div class="grid_21">
                 <h1 class="fltlft">Your Official School Profile</h1>
@@ -184,6 +185,7 @@
                 </div>
             </div>
         </div>
+        <!--</div>-->
 
         <div style="display:none;">
             <mod:tracking school="${school}" pageName="OSP Form Page ${page}" hier1="ESP"/>

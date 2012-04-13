@@ -22,7 +22,7 @@
 </head>
 
 <gsml:body adPageName="school/esp" pageLayout="nocol">
-    <div class="container_24">
+    <!--<div class="container_24">-->
         <div class="grid_24 slStylesV1-0 slFormsV1-0">
             <div>
                 <a href="/admin/espModerationForm.page">View Main Requests</a>
@@ -252,7 +252,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!--</div>-->
     <mod:tracking pageName="OSP Moderation Membership Details"
                   hier1="ESP"/>
 </gsml:body>

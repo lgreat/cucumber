@@ -31,8 +31,6 @@
 
     <gsml:body adPageName="aboutUs" pageLayout="leftside">
 
-        <div class="container_24">
-
             <div class="grid_24 mvm smallAlertText">
                 <link:home>Home</link:home> &amp;gt; <link:aboutUs>About Us</link:aboutUs>
             </div>
@@ -165,8 +163,6 @@
                     </div>
                 </div>
             </div>
-
-        </div>
 
         <div id="tracking">
             <ad:setSlotPrefix slotPrefix="AboutUs"/>

@@ -88,7 +88,7 @@
 
 <gsml:body adPageName="${pageName}" pageLayout="">
 
-    <div class="container_24">
+    <!--<div class="container_24">-->
         <div class="grid_16 zir-2">
 
             <school:miniStateLauncherHover/>
@@ -190,7 +190,7 @@
             <cms:topicCenterSidebar topicCenter="${topicCenter}"/>
         </div>
 
-    </div>
+    <!--</div>-->
 
 <mod:tracking pageName="${pageName}"
               events="event7"
