@@ -36,20 +36,19 @@ define(['truncate','hogan'], function(truncate, hogan) {
             }
 
             // make the ajax call and render results
-            $.ajax({
+            var request = $.ajax({
                 url: url,
                 type:'get',
-                data: {page: ( cur + 1 )},
-                success: function(data){
-                    render(data);
-                    // scroll to the top of the new page
-                    window.location = String(window.location).replace(/\#.*$/, "") + '#page' + cur;
-                    cur++;
-                },
-                error: function(){
-                    // show the pagination element again
-                    $(next).show();
-                }
+                data: {page: ( cur + 1 )}
+            });
+
+            request.done(function(data){
+                render(data);
+                cur++;
+            });
+
+            request.fail(function(xhr, txt){
+                $(next).show();
             });
         }
     };

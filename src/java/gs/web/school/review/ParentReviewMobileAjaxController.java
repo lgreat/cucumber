@@ -55,6 +55,9 @@ public class ParentReviewMobileAjaxController extends AbstractController {
             Set<Poster> reviewsBy = new HashSet<Poster>();
             List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school, reviewsBy);
 
+            // presort the list
+            _parentReviewHelper.handleSortReviews(request, reviews);
+
             // reviews to show
             int page = _parentReviewHelper.findCurrentPage(request);
             int fromIndex = _parentReviewHelper.findFromIndex(page, reviews);
