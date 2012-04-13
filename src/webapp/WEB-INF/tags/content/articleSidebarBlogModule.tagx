@@ -13,7 +13,7 @@
 
     <c:if test="${not empty blogEntries}">
         <div class="mod articleSidebarBlogModule">
-            <div class="inner rnd4 mtl">
+            <div class="inner rnd4 mvm">
                 <div class="hd">
                     <h6>GreatSchools Blog</h6>
                 </div>

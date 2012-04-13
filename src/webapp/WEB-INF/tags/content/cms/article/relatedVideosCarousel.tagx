@@ -6,7 +6,7 @@
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
 
     <c:if test="${feature.relatedVideos != null and fn:length(feature.relatedVideos) >0 }">
-    <div class="infiniteCarousel6 rnd3 mtl">
+    <div class="infiniteCarousel6 rnd3 mvm">
 
             <div class="ic_hd">
                 <p class="ic_title medium_bold">Videos</p>

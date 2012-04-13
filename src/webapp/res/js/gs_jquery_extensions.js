@@ -114,6 +114,8 @@ jQuery(document).ready(function() {
     jQuery('.infiniteCarousel4').disableSelection();
     // disable selection of Photo-gallery on school overview page
     jQuery('#photo-gallery').disableSelection();
+    // disable selection of Photo-gallery on articles page
+    jQuery('#article-photo-gallery').disableSelection();
 
 });
 

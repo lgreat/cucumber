@@ -1180,6 +1180,7 @@ body.ie8 .btsSupplyListsTag .arrow {
 
 div .gallery-thumbnail:hover {
     border: 2px solid #999;
+    cursor: pointer;
 }
 
 div .gallery-thumbnail:hover img {
