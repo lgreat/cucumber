@@ -73,7 +73,7 @@ TODO-12415 -->
 
 <school:miniStateLauncherHover/>
 
-<div id="mainGS" class="col">
+<div class="grid_16">
 
     <!--<p>Is IE6: <c:out value="${isIE6}"/></p>-->
 
@@ -195,7 +195,7 @@ TODO-12415 -->
 </div>
 <!-- end mainGS -->
 
-<div id="sidebarGS" class="col">
+<div class="grid_8">
 
     <school:findOrCompare
             isHomePage="${true}"

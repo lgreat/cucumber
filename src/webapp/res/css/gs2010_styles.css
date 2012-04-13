@@ -839,7 +839,7 @@ h4.subhead2 a {
 .recentDiscussions .hd h3 {padding: 0;background: none;color: #d61;font: 20px/1.7 Georgia, "Times New Roman", Times, serif;}
 .recentDiscussions .ft p{margin:0 0 10px;}
 /* -------- findSchool (extends mod) --------- */
-.findCompare .inner{background-color:#fc6;border-bottom:1px solid white;padding: 15px 0 20px 15px;}
+.findCompare .inner{background-color:#fc6;border-bottom:1px solid white;padding: 15px 0 20px 15px;position:relative;}
 .findCompare .hd {position:relative;z-index:1;padding-bottom: 10px;}
 .findCompare .hd h3 {letter-spacing: -0.25px;}
 .findCompare .bd .formExt1{padding-bottom:10px;}
