@@ -1,19 +1,17 @@
 package gs.web.school.review;
 
-import gs.data.community.*;
-import gs.data.community.local.ILocalBoardDao;
-import gs.data.geo.IGeoDao;
-import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.review.*;
 import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.school.*;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -85,44 +83,28 @@ public class ParentReviewMobileController extends AbstractController implements 
             _parentReviewHelper.handleSubcategoryRatings(model, school, ratings);
 
             // reviews to show
-            List<Review> reviewsToShow = reviews;
+            int page = _parentReviewHelper.findCurrentPage(request);
+            int fromIndex = _parentReviewHelper.findFromIndex(page, reviews);
+            int toIndex = _parentReviewHelper.findToIndex(page, fromIndex, reviews);
 
-            // TODO: enable pagination again once method for pagination is determined
+            // in the mobile controller, we need to display everything prior to
+            // the requested page as well because of the ajax-based scroll
+            if (page>1) {
+                fromIndex = 0;
+            }
 
-            int page = 1;
-//            if (reviews.size() == 0 || sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(PARAM_VIEW_ALL))) {
-//                reviewsToShow = reviews;
-//            } else {
-//                String pageParam = request.getParameter(PARAM_PAGE);
-//                if (pageParam != null) {
-//                    try {
-//                        page = Integer.parseInt(pageParam);
-//                    } catch (Exception e) {
-//                        // do nothing
-//                    }
-//                }
-//                int fromIndex = (page - 1) * MAX_REVIEWS_PER_PAGE;
-//                int toIndex = fromIndex + MAX_REVIEWS_PER_PAGE;
-//
-//                if ("principal".equals(reviews.get(0).getWho())) {
-//                    fromIndex++;
-//                    toIndex++;
-//                }
-//
-//                toIndex = Math.min(toIndex, reviews.size());
-//
-//                if (fromIndex >= toIndex || fromIndex < 0) {
-//                    String queryString = request.getQueryString();
-//                    if (queryString != null) {
-//                        queryString = UrlUtil.putQueryParamIntoQueryString(queryString, "page", "1");
-//                    }
-//                    return new ModelAndView(new RedirectView(request.getRequestURI() + (queryString != null ? "?" + queryString : "")));
-//                }
-//
-//                reviewsToShow = reviews.subList(fromIndex, toIndex);
-//            }
+            List<Review> reviewsToShow = _parentReviewHelper.handlePagination(request, reviews, page, fromIndex, toIndex);
+            if (reviewsToShow.size()!=reviews.size()){
+                if (fromIndex >= toIndex || fromIndex < 0) {
+                    String queryString = request.getQueryString();
+                    if (queryString != null) {
+                        queryString = UrlUtil.putQueryParamIntoQueryString(queryString, "page", "1");
+                    }
+                    return new ModelAndView(new RedirectView(request.getRequestURI() + (queryString != null ? "?" + queryString : "")));
+                }
+            }
+
             model.put("reviewsToShow", reviewsToShow);
-
             model.put("page", page);
 
             // GS-10709

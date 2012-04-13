@@ -17,6 +17,9 @@
             name: "mobileSearchResults"
         },
         {
+            name: "parentReviews"
+        },
+        {
             name: "testScores"
         },
         {

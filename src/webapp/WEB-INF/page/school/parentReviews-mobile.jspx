@@ -29,19 +29,23 @@
             <link rel="canonical" href="${relCanonical}"/>
         </c:if>
 
-        <script type="text/javascript">
-            require(['truncate'], function(truncate) {
+        <script type="text/javascript"><![CDATA[
+            require(['truncate','parentReviews'], function(truncate, parentReviews) {
                 truncate.init();
+
+                $(document).ready(function(){
+                    parentReviews.init($('div.js-paginate-next'), $('div.js-paginate-container'), ${reviewsTotalPages}, ${page}, $('#reviewTemplate').html());
+                });
             });
 
             function sortParentReviews(schoolId, stateAbbrev, sortBy) {
                 var sort = document.getElementById('sltRatingSort');
                 var option = sort.options[sort.selectedIndex].value;
                 if (option) location.href = 'http://' + location.host + location.pathname +
-                        '?id=' + schoolId + '&amp;state=' + stateAbbrev + '&amp;' + sortBy + '=' + option + '';
+                        '?id=' + schoolId + '&state=' + stateAbbrev + '&' + sortBy + '=' + option + '';
             };
 
-        </script>
+        ]]></script>
 
     </head>
 
@@ -117,47 +121,79 @@
         </div>
 
 
-        <c:forEach var="review" items="${reviewsToShow}">
-            <c:set var="who" value=""/>
-            <c:if test="${!(empty(review.who) or review.who eq 'other')}">
-                <c:set var="who" value="${review.who}"/>
-            </c:if>
+        <div class="js-paginate-container">
 
-            <c:choose>
-                <c:when test="${review.who ne 'principal'}">
+            <!--
+                NOTE!  When you are updating the view logic for reviews,
+                you must also update jspx to match the
+                same display logic.  Pagination occurs via Ajax calls but
+                first portion of list is rendered.
+            -->
+            <script id="reviewTemplate" type="text/html">
+                {{#review}}
+                <div>
                     <div>
-                        <div>
-                            <a name="ps${review.id}"><!-- not empty--></a>
-
-                            <!-- star rating -->
-                            <c:set var="curStarRating" value="${review.quality.name}"/>
-                            <c:if test="${school.levelCode eq 'p'}">
-                                <c:set var="curStarRating" value="${review.POverall.name}"/>
-                            </c:if>
-                            <c:if test="${(curStarRating ne 'decline')}">
-                                <span>${curStarRating} star(s)</span>
-                            </c:if>
-
-                            <span> Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
-                        </div>
-
-                        <c:set var="input"><c:out value="${review.comments}" escapeXml="true" /></c:set>
-                        <util:truncate value="${input}" words="70" />
-
+                        <a name="ps{{id}}"></a>
+                        <span>{{curStarRating}} star(s)</span>
+                        <span> Posted on {{postedFormatted}}</span>
                     </div>
-                </c:when>
-            </c:choose>
-        </c:forEach>
+                    {{#isTruncated}}
+                        <p class="js-truncate">
+                            <span>{{part1}} </span>
+                            <span style="display: none;">{{part2}} </span>
+                            <a href="#" class="js-truncate-more">more...</a>
+                        </p>
+                    {{/isTruncated}}
+                    {{^isTruncated}}
+                        <p>{{comments}}</p>
+                    {{/isTruncated}}
+                </div>
+                {{/review}}
+            </script>
+            <c:forEach var="review" items="${reviewsToShow}">
+                <c:set var="who" value=""/>
+                <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+                    <c:set var="who" value="${review.who}"/>
+                </c:if>
+
+                <!--
+                    NOTE!  When you are updating the view logic for reviews,
+                    you must also update the above script tag to match the
+                    same display logic.  Pagination occurs via Ajax calls.
+                -->
+                <c:choose>
+                    <c:when test="${review.who ne 'principal'}">
+                        <div>
+                            <div>
+                                <a name="ps${review.id}"><!-- not empty--></a>
+
+                                <!-- star rating -->
+                                <c:set var="curStarRating" value="${review.quality.name}"/>
+                                <c:if test="${school.levelCode eq 'p'}">
+                                    <c:set var="curStarRating" value="${review.POverall.name}"/>
+                                </c:if>
+                                <c:if test="${(curStarRating ne 'decline')}">
+                                    <span>${curStarRating} star(s)</span>
+                                </c:if>
+
+                                <span> Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
+                            </div>
+
+                            <c:set var="input"><c:out value="${review.comments}" escapeXml="true" /></c:set>
+                            <util:truncate value="${input}" words="70" />
+
+                        </div>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+        </div>
 
         <!-- TODO: check pagination -->
 
-        <c:choose>
-            <c:when test="${reviewsTotalPages>1}">
-                <div>
+
+                <div class="js-paginate-next">
                     <a href="#more" data-role="button">View more reviews</a>
                 </div>
-            </c:when>
-        </c:choose>
 
         <div class="ui-body ui-body-c">
             <h3>About community rating</h3>

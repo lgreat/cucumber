@@ -9,6 +9,9 @@ import gs.data.util.NameValuePair;
 import gs.web.request.RequestInfo;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +22,12 @@ import java.util.*;
  */
 public class ParentReviewHelper {
 
+    public static final int MAX_REVIEWS_PER_PAGE = 4; //number of reviews per page
+
     public static final String PARAM_SORT_BY = "sortBy";
+    public static final String PARAM_VIEW_ALL = "lr";
+    public static final String PARAM_PAGE = "page";
+
 
     private IReviewDao _reviewDao;
 
@@ -128,6 +136,52 @@ public class ParentReviewHelper {
         model.put("communityRatings", communityRatings);
         model.put("parentRatings", parentRatings);
         model.put("studentRatings", studentRatings);
+    }
+
+    public int findCurrentPage(HttpServletRequest request){
+        int page = 1;
+        String pageParam = request.getParameter(PARAM_PAGE);
+        if (pageParam != null) {
+            try {
+                page = Integer.parseInt(pageParam);
+                if (page <= 1)
+                    page = 1;
+            } catch (Exception e) {
+                // do nothing
+            }
+        }
+        return page;
+    }
+
+    public int findFromIndex(int page, List<Review> reviews){
+        int fromIndex = (page - 1) * MAX_REVIEWS_PER_PAGE;
+        if ("principal".equals(reviews.get(0).getWho())) {
+            fromIndex++;
+        }
+        return fromIndex;
+    }
+
+    public int findToIndex(int page, int fromIndex, List<Review> reviews){
+        int toIndex = fromIndex + MAX_REVIEWS_PER_PAGE;
+        toIndex = Math.min(toIndex, reviews.size());
+        return toIndex;
+    }
+
+
+    public List<Review> handlePagination(HttpServletRequest request, List<Review> reviews, int page, int fromIndex, int toIndex) {
+        List<Review> reviewsToShow = new ArrayList<Review>();
+
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+
+        if (reviews.size() == 0 || sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(ParentReviewHelper.PARAM_VIEW_ALL))) {
+            reviewsToShow = reviews;
+            return reviewsToShow;
+        } else {
+            if ( fromIndex < toIndex )
+                reviewsToShow = reviews.subList(fromIndex, toIndex);
+
+        }
+        return reviewsToShow;
     }
 
     private void addNameValueToRatingsList(String displayString, Integer numStars, List<NameValuePair<String, Integer>> communityRatings) {
