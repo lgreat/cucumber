@@ -9,6 +9,8 @@
     <style type="text/css">
         .mobile-header {
             height: 40px;
+            background-color: #4CA5D5;
+            position: relative;
         }
 
         .mobile-logo-link {
@@ -18,23 +20,31 @@
         }
 
         .mobile-header-nav {
-            margin: 5px 4px 0px 0px;
+            margin: 5px 4px 0 0;
             float: right;
         }
 
         .mobile-header-nav a {
             margin-right: 4px;
+            display: inline;
         }
 
-            /*make list item icon appear on left side (in subnav)*/
-        .mobile-sub-nav.ui-listview .ui-btn-icon-left .ui-btn-inner {
-            padding-left: 25px;
+        .mobile-sub-nav {
+            background-color: #EEE;
+            border: 1px solid #CCC;
+            color: #333;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
         }
-
+        .mobile-sub-nav li {
+            border: 1px solid #CCC;
+            padding: 0.5em;
+        }
     </style>
 
     <!-- there might be more than one header (hidden) on a page-->
-    <div data-role="header" class="mobile-header js-mobile-header">
+    <div class="mobile-header js-mobile-header">
         <div class="mobile-logo-link">
             <link:home>
                 <gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"
@@ -44,21 +54,25 @@
 
         <div class="mobile-header-nav">
             <link:home>
-                <div data-role="button" data-icon="search" data-iconpos="notext" data-inline="true"
-                     data-corners="false"><!-- --></div>
+                <span class="sprite search"><!-- --></span>
             </link:home>
             <a href="#" class="top-nav-goto">
-                <div data-role="button" data-icon="grid" data-iconpos="notext" data-inline="true"
-                     data-corners="false"><!-- --></div>
+                <span class="sprite menu"><!-- --></span>
             </a>
         </div>
     </div>
 
 
-    <ul class="mobile-sub-nav" data-role="listview" data-theme="e" style="display:none">
-        <li data-icon="search" class="ui-btn-icon-left"><link:home>Find a School</link:home></li>
-        <li data-icon="home" class="ui-btn-icon-left"><a href="#">My Saved Schools</a></li>
-        <li data-icon="check" class="ui-btn-icon-left"><a href="#">Subscribe to Newsletter</a></li>
+    <ul class="mobile-sub-nav" style="display:none">
+        <li>
+            <link:home><span class="sprite search"><!-- --></span>Find a School</link:home>
+        </li>
+        <li>
+            <a href="#"><span class="sprite home"><!-- --></span>My Saved Schools</a>
+        </li>
+        <li>
+            <a href="#"><span class="sprite check"><!-- --></span>Subscribe to Newsletter</a>
+        </li>
     </ul>
 
 </jsp:root>
