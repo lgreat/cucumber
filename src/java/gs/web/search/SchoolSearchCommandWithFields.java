@@ -5,14 +5,22 @@ import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.search.FieldSort;
 import gs.data.state.State;
+import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.Map;
 
 class SchoolSearchCommandWithFields {
     
     private final SchoolSearchCommand _command;
     private final DirectoryStructureUrlFields _fields;
+
+    // This has to be added since getting the correct state for the search requires looking in this map
+    // that was added to the HttpServletRequest
+    private Map<String,Object> _nearbySearchInfo;
 
     private District _district;
     private City _cityFromUrl;
@@ -20,9 +28,17 @@ class SchoolSearchCommandWithFields {
     private IDistrictDao _districtDao;
     private IGeoDao _geoDao;
 
+    private boolean _hasAlreadyLookedForCityInSearchString;
+
     public SchoolSearchCommandWithFields(SchoolSearchCommand command, DirectoryStructureUrlFields fields) {
         _command = command;
         _fields = fields;
+    }
+
+    public SchoolSearchCommandWithFields(SchoolSearchCommand command, DirectoryStructureUrlFields fields, Map<String,Object> nearbySearchInfo) {
+        _command = command;
+        _fields = fields;
+        _nearbySearchInfo = nearbySearchInfo;
     }
 
     public String[] getSchoolTypes() {
@@ -68,6 +84,34 @@ class SchoolSearchCommandWithFields {
     }
 
     /**
+     * Copied from SchoolSearchController
+     * @return
+     */
+    public boolean isSearch() {
+        return !isCityBrowse() && !isDistrictBrowse();
+    }
+
+    public boolean isNearbySearch() {
+        return _command.isNearbySearch();
+    }
+
+    public boolean isNearbySearchByLocation() {
+        return _command.isNearbySearchByLocation();
+    }
+
+    public boolean isAjaxRequest() {
+        return _command.isAjaxRequest();
+    }
+
+    public String getNormalizedAddress() {
+        return _command.getNormalizedAddress();
+    }
+
+    public RequestedPage getRequestedPage() {
+        return _command.getRequestedPage();
+    }
+
+    /**
      * @return a <code>District</code> if one is found, otherwise null.
      */
     public District getDistrict() {
@@ -106,13 +150,22 @@ class SchoolSearchCommandWithFields {
     }
 
     public City getCityFromSearchString() {
-        if (_cityFromSearchString == null) {
+        if (_cityFromSearchString == null && !_hasAlreadyLookedForCityInSearchString) {
             if (_command != null && _command.getSearchString() != null) {
                 State state = getState();
                 _cityFromSearchString = getCity(state, _command.getSearchString());
+                _hasAlreadyLookedForCityInSearchString = true;
             }
         }
         return _cityFromSearchString;
+    }
+
+    public City getCity() {
+        if (isDistrictBrowse() || isCityBrowse()) {
+            return getCityFromUrl();
+        } else {
+            return getCityFromSearchString();
+        }
     }
 
     protected City getCity(State state, String cityName) {
@@ -126,6 +179,15 @@ class SchoolSearchCommandWithFields {
 
     public State getState() {
         State state = null;
+
+        // copied over from code near the top of SchoolSearchController.handle()
+        if (isNearbySearch()) {
+            if (_nearbySearchInfo != null && _nearbySearchInfo.get("state") != null && _nearbySearchInfo.get("state") instanceof State) {
+                state = (State) _nearbySearchInfo.get("state");
+                return state; // early exit
+            }
+        }
+
         if (_command != null && _command.getState() != null) {
             try {
                 state = State.fromString(_command.getState());
@@ -181,6 +243,19 @@ class SchoolSearchCommandWithFields {
         return longitude;
     }
 
+    public FieldSort getFieldSort() {
+        boolean sortChanged = _command.isSortChanged();
+        FieldSort sort = _command.getSortBy() == null ? ((isCityBrowse() || isDistrictBrowse()) && !sortChanged ? FieldSort.GS_RATING_DESCENDING : null) : FieldSort.valueOf(_command.getSortBy());
+
+        // TODO: find better place to do this. Just copied over existing logic as-is for now. See line 293 in SchoolSearchController
+        if (sort != null) {
+            _command.setSortBy(sort.name());
+        } else {
+            _command.setSortBy(null);
+        }
+        return sort;
+    }
+
     public String getSearchString() {
         return _command.getSearchString();
     }
@@ -215,5 +290,13 @@ class SchoolSearchCommandWithFields {
 
     public String getSchoolSize() {
         return _command.getSchoolSize();
+    }
+
+    public SchoolSearchCommand getSchoolSearchCommand() {
+        return _command;
+    }
+
+    public Map getNearbySearchInfo() {
+        return _nearbySearchInfo;
     }
 }

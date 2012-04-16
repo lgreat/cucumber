@@ -21,6 +21,7 @@ public class SchoolSearchCommand {
     private String _studentTeacherRatio;
     private String _schoolSize;
     private String _normalizedAddress;
+    private boolean _sortChanged;
 
     private RequestedPage requestedPage;
 
@@ -267,5 +268,13 @@ public class SchoolSearchCommand {
 
     public void setNormalizedAddress(String normalizedAddress) {
         _normalizedAddress = normalizedAddress;
+    }
+
+    public boolean isSortChanged() {
+        return _sortChanged;
+    }
+
+    public void setSortChanged(boolean sortChanged) {
+        _sortChanged = sortChanged;
     }
 }
