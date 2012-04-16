@@ -8,7 +8,7 @@
     modules: [
         {
             name: "main",
-            include: ['subCookie','nearbyCitiesList','nearbyDistrictsList']
+            include: ['subCookie','nearbyCitiesList','nearbyDistrictsList','jQuery']
         },
         {
             name: "index"
@@ -33,7 +33,8 @@
     paths: {
         'sCode':'empty:',
         'async':'./plugins/async',
-        'order':'./plugins/order'
+        'order':'./plugins/order',
+        'jQuery':'./jquery-1.7.2.min'
     },
 
     packages: ["tracking"]

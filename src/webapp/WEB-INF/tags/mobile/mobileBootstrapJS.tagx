@@ -36,7 +36,8 @@
             paths: {
                 'sCode':'/res/js/' + GS.sCodeModuleName,
                 'async':'./plugins/async',
-                'order':'./plugins/order'
+                'order':'./plugins/order',
+                'jQuery':'./jquery-1.7.2.min'
             },
             packages:["tracking"]
         };

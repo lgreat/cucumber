@@ -30,13 +30,6 @@
         <c:if test="${isSearch}">
             <meta name="robots" content="follow,noindex"/>
         </c:if>
-
-
-
-        <pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
-        <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
-        <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
-        <pageHelper:externalJavascript file="/res/js/history.min.js"/> <!-- TODO: Move this to bottom of page? -->
     </head>
 
     <c:choose>
