@@ -9,7 +9,7 @@
                 s.src = "http://edge.quantserve.com/quant.js";
 
                 var s2 = document.createElement("script");
-                s2.innerHTML = '_qacct="p-93S1TiA81rkd-";quantserve();';
+                s2.innerHTML = '_qacct="p-93S1TiA81rkd-";$(function(){setTimeout(function(){window.quantserve();},2000);});';
 
                 head.appendChild(s);
                 head.appendChild(s2);

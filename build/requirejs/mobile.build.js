@@ -33,8 +33,7 @@
     paths: {
         'sCode':'empty:',
         'async':'./plugins/async',
-        'order':'./plugins/order',
-        'jQuery':'./jquery-1.7.2.min'
+        'order':'./plugins/order'
     },
 
     packages: ["tracking"]
