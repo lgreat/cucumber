@@ -42,11 +42,8 @@ public class AdUtil {
                                               AdPosition adPosition, String slotPrefix, boolean includeSlotPrefix) {
         if (adNameAdPositionMap == null || adNames == null || adPosition == null) {
             throw new IllegalArgumentException("Required argument is null; the only argument that can be null is slotPrefix");
-        } else if (includeSlotPrefix && slotPrefix != null) {
-            // blank is okay though, e.g. homepage has blank slot prefix
-            throw new IllegalArgumentException("Slot prefix cannot be null if included in ad name");
         }
-        String adName = (includeSlotPrefix ? slotPrefix : "") + adPosition.getName();
+        String adName = (includeSlotPrefix && slotPrefix != null ? slotPrefix : "") + adPosition.getName();
         adNameAdPositionMap.put(adName, adPosition);
         adNames.add(adName);
     }

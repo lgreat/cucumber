@@ -23,7 +23,7 @@
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         Logger _log = Logger.getLogger("xGAMsetup.tagx");
         // GS-12415 map for getting width and height of ad
-        Map<String,AdPosition> adNameAdPositionMap = new java.util.HashMap<String,AdPosition>();
+        Map<String,AdPosition> adNameAdPositionMap = new HashMap<String,AdPosition>();
         if (null != pageHelper) {
             List<String> adNames = new ArrayList<String>();
             Set adPositions = pageHelper.getAdPositions();
@@ -152,9 +152,12 @@
         ]]>
         </c:if>
 
-        <!-- TODO-12415 multiple sizes e.g. 300x250 and 300x600, Custom_Peelback_Ad and Custom_Welcome_Ad - no width and height determinable - default to 1x1? -->
             <c:forEach var="slotName" items="${GAMadNames}">
-                googletag.defineSlot('/1002894/${slotName}', [${GPTadNameAdPositionMap[slotName].width}, ${GPTadNameAdPositionMap[slotName].height}], 'ad${slotName}')
+                <c:set var="adPosition" value="${GPTadNameAdPositionMap[slotName]}"/>
+                googletag.defineSlot('/1002894/${slotName}', <c:choose>
+                    <c:when test="${fn:length(adPosition.sizes) > 1}">[<c:forEach var="size" items="${adPosition.sizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
+                    <c:otherwise>[${adPosition.size.width},${adPosition.size.height}]</c:otherwise>
+                </c:choose>, 'ad${slotName}')
                     .addService(googletag.pubads());
             </c:forEach>
 
