@@ -7,6 +7,7 @@
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -195,6 +196,8 @@
                 </c:if>
             </div>
         </c:if>
+        <mod:tracking pageName="School Review List Admin"
+                      hier1="Admin"/>
     </gsml:body>
     </html>
 </jsp:root>

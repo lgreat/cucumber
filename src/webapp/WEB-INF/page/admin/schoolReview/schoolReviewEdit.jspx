@@ -7,6 +7,7 @@
         xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:link="urn:www.greatschools.org/taglib/link" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html"
@@ -271,6 +272,8 @@
         <a href="/admin/schoolReview/bannedIp/list.page">Banned IP Addresses</a>
     </p>
     <br/><br/>
+    <mod:tracking pageName="School Review Details Admin"
+                  hier1="Admin"/>
 </gsml:body>
 </html>
 </jsp:root>
