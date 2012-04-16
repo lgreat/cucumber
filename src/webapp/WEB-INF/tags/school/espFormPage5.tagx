@@ -202,11 +202,11 @@
               <school:espCheckboxWithLabel key="student_clubs" value="drum_line" label="Drum line"/>
               <school:espCheckboxWithLabel key="student_clubs" value="fca" label="Fellowship of Christian Athletes (FCA)"/>
               <school:espCheckboxWithLabel key="student_clubs" value="flag_girls" label="Flag girls"/>
+              <school:espCheckboxWithLabel key="student_clubs" value="language_club" label="Foreign language and culture club" styleClass="js_otherField_form_student_clubs_language"/>
+              <label for="form_student_clubs_language" class="checkbox mll">Languages: </label>
+              <input id="form_student_clubs_language" class="mls js_otherField text-smaller input_3" type="text" name="student_clubs_language" value="${responseMap['student_clubs_language'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
             </div>
             <div class="grid_6">
-              <school:espCheckboxWithLabel key="student_clubs" value="language_club" label="Foreign language and culture club" styleClass="js_otherField_form_student_clubs_language"/>
-               <label for="form_student_clubs_language" class="checkbox mll">Languages: </label>
-              <input id="form_student_clubs_language" class="mls js_otherField text-smaller input_3" type="text" name="student_clubs_language" value="${responseMap['student_clubs_language'].value}" maxlength="30" placeholder="[Please indicate]"/><br />
               <school:espCheckboxWithLabel key="student_clubs" value="forensics" label="Forensics club"/>
               <school:espCheckboxWithLabel key="student_clubs" value="fbla" label="Future Business Leaders of America (FBLA)"/>
               <school:espCheckboxWithLabel key="student_clubs" value="game_club" label="Game club"/>
@@ -219,6 +219,7 @@
               <school:espCheckboxWithLabel key="student_clubs" value="jrotc" label="JROTC"/>
               <school:espCheckboxWithLabel key="student_clubs" value="lesbian_gay_transgender" label="Lesbian, gay, transgender club"/>
               <school:espCheckboxWithLabel key="student_clubs" value="literary_mag" label="Literary magazine"/>
+              <school:espCheckboxWithLabel key="student_clubs" value="marching_band" label="Marching band"/>
               <school:espCheckboxWithLabel key="student_clubs" value="martial_arts" label="Martial arts (judo, tae kwon do, karate, etc)"/>
               <school:espCheckboxWithLabel key="student_clubs" value="math_club" label="Math club"/>
               <school:espCheckboxWithLabel key="student_clubs" value="mime" label="Mime club"/>
