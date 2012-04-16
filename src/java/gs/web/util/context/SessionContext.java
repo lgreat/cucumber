@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.66 2012/04/12 21:16:52 yfan Exp $
+ * $Id: SessionContext.java,v 1.67 2012/04/16 14:41:53 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -112,6 +112,9 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private boolean _ipod = false;
     private boolean _ios = false;
     private boolean _iosSafari = false;
+
+    private boolean _gptEnabled = false;
+    private boolean _gptSynchronousModeEnabled = false;
 
     /**
      * Created by Spring as needed.
@@ -408,19 +411,29 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     }
 
     /**
-     * Returns true if Google Publisher Tags are enabled globally
+     * Returns true if Google Publisher Tags are enabled globally in database properties or just for this SessionContext
      * @return
      */
     public boolean isGptEnabled() {
-        return "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY, "false"));
+        return _gptEnabled || "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY, "false"));
+    }
+
+    public void setGptEnabled(boolean gptEnabled) {
+        _gptEnabled = gptEnabled;
     }
 
     /**
-     * Returns true if Google Publisher Tags should always be served using synchronous mode.
+     * Returns true if Google Publisher Tags should be served using synchronous mode either globally in database
+     * properties or just for this SessionContext
      * @return
      */
     public boolean isGptSynchronousModeEnabled() {
-        return "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_SYNCHRONOUS_MODE_ENABLED_KEY, "false"));
+        return _gptSynchronousModeEnabled ||
+                "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_SYNCHRONOUS_MODE_ENABLED_KEY, "false"));
+    }
+
+    public void setGptSynchronousModeEnabled(boolean gptSynchronousModeEnabled) {
+        _gptSynchronousModeEnabled = gptSynchronousModeEnabled;
     }
 
     /**
@@ -429,20 +442,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      * @return
      */
     public Set<String> getAdSlotsRequiringSynchronousMode() {
-        String adSlotsProperty = _propertyDao.getProperty(IPropertyDao.AD_SLOTS_REQUIRING_SYNCHRONOUS_MODE_KEY, "");
-        String[] adSlots = adSlotsProperty.split(",");
-        List<String> adSlotsList = Arrays.asList(adSlots);
-        Set<String> slots = new HashSet<String>(adSlotsList);
-        return slots;
-    }
-
-    /**
-     * Returns a set of fully-qualified ad slot names (including the ad slot prefix) whose presence on a webpage
-     * should force GPT to be used even if isGptEnabled() returns false. This allows us to incrementally roll out
-     * GPT on individual pages.
-     * @return
-     */
-    public Set<String> getAdSlotsThatEnableGpt() {
         String adSlotsProperty = _propertyDao.getProperty(IPropertyDao.AD_SLOTS_REQUIRING_SYNCHRONOUS_MODE_KEY, "");
         String[] adSlots = adSlotsProperty.split(",");
         List<String> adSlotsList = Arrays.asList(adSlots);

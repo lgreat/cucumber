@@ -35,13 +35,6 @@
     request.setAttribute("showExtendedFooter", true);
 </jsp:scriptlet>
 
-<!--
-TODO-12415 -->
-<!--
-<ad:enableGpt/>
-<ad:enableGptSynchronousMode/>
--->
-
 <head>
     <title>GreatSchools - Public and Private School Ratings, Reviews and Parent Community</title>
 

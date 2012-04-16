@@ -1,7 +1,11 @@
 package gs.web.util;
 
 import gs.data.state.StateManager;
+import gs.web.ads.AdPosition;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.List;
+import java.util.Map;
 
 public class AdUtil {
     final private static StateManager STATE_MANAGER = new StateManager();
@@ -32,5 +36,18 @@ public class AdUtil {
         }
 
         return K12_CLICK_THROUGH_URL_PREFIX + "&page=" + page + "&school=" + school;
+    }
+
+    public static void adPositionAdNameHelper(Map<String,AdPosition> adNameAdPositionMap, List<String> adNames,
+                                              AdPosition adPosition, String slotPrefix, boolean includeSlotPrefix) {
+        if (adNameAdPositionMap == null || adNames == null || adPosition == null) {
+            throw new IllegalArgumentException("Required argument is null; the only argument that can be null is slotPrefix");
+        } else if (includeSlotPrefix && slotPrefix != null) {
+            // blank is okay though, e.g. homepage has blank slot prefix
+            throw new IllegalArgumentException("Slot prefix cannot be null if included in ad name");
+        }
+        String adName = (includeSlotPrefix ? slotPrefix : "") + adPosition.getName();
+        adNameAdPositionMap.put(adName, adPosition);
+        adNames.add(adName);
     }
 }

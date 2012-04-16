@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.43 2012/04/12 21:16:52 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.44 2012/04/16 14:41:53 yfan Exp $
  */
 package gs.web.ads;
 
@@ -174,16 +174,15 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 jsMethodName = JS_METHOD_NAME_24_7;
             }
             StringBuilder adCodeBuffer = new StringBuilder();
-            adCodeBuffer.append("<div id=\"div-gpt-ad-").append(slotName).append("\">");
             adCodeBuffer.append("<script type=\"text/javascript\">");
-            adCodeBuffer.append("googletag.cmd.push(function() {");
-            adCodeBuffer.append("googletag.display(\"div-gpt-ad-").append(slotName).append("\");");
-            // TODO-12415 ghost text
-            //adCodeBuffer.append("console.log('Displaying ad: ").append(slotName).append("');");
-            //adCodeBuffer.append("jQuery('#ad").append(slotName).append(" .jq-ghostText').hide();");
-            adCodeBuffer.append("});");
+            if (!(sc != null && sc.isGptSynchronousModeEnabled())) {
+                adCodeBuffer.append("googletag.cmd.push(function() {");
+            }
+            adCodeBuffer.append("googletag.display(\"ad").append(slotName).append("\");");
+            if (!(sc != null && sc.isGptSynchronousModeEnabled())) {
+                adCodeBuffer.append("});");
+            }
             adCodeBuffer.append("</script>");
-            adCodeBuffer.append("</div>");
 
             // TODO - currently only works from a JSP; if needed, refactor to allow extracting for non-JSP situations
             if (null != body) {
@@ -209,10 +208,7 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
-        Object gptEnabledAttr = request.getAttribute("gptEnabled");
-        boolean gptEnabled = (gptEnabledAttr != null && gptEnabledAttr instanceof Boolean && ((Boolean)gptEnabledAttr).booleanValue());
-
-        if ((sc != null && sc.isGptEnabled()) || gptEnabled) {
+        if (sc != null && sc.isGptEnabled()) {
             return getGptContent(request, sc, getJspBody());
         } else {
             return getContent(request, sc, getJspBody());

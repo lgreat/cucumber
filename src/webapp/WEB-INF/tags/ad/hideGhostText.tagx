@@ -24,7 +24,7 @@
                             <c:set var="slotPosition" value="${not empty gamSlotPrefix ? fn:replace(jsEscapedSlotName,gamSlotPrefix,'') : jsEscapedSlotName}"/>
                             <!-- check for existence of element inserted by GAM when an ad is targeted;
                                  note that the div id may or may not have '_ad_container' at the end, so check for both -->
-                            if (jQuery('#google_ads_div_${jsEscapedSlotName}, #google_ads_div_${jsEscapedSlotName}_ad_container, #div-gpt-ad-${jsEscapedSlotName} > iframe').length == 0) {
+                            if (jQuery('#google_ads_div_${jsEscapedSlotName}, #google_ads_div_${jsEscapedSlotName}_ad_container, #ad${jsEscapedSlotName} > iframe, #ad${jsEscapedSlotName}_ad_container').length == 0) {
                                 <c:choose>
                                         <!-- hide header ad ghost text if header ad is not targeted -->
                                         <c:when test="${fn:contains(slotName,'Header_728x90')}">
