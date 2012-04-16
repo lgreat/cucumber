@@ -913,11 +913,14 @@ h4.subhead2 a {
 /* ----------- photoGalleryWrapper ----------- */
 .photoGalleryWrapper{display: none;position: absolute;top: 110px;left: 215px;width: 530px;z-index: 1002; border: 1px solid #8CDEED; box-shadow: 0px 0px 24px rgba(0,0,0,0.5);}
 .photoGalleryWrapper .inner{background-color: #fff;}
+.photoGalleryWrapper .article-photo-gallery-close{cursor: pointer;}
 .photoGalleryWrapper .photoGalleryViewer{text-align: center;}
 .photoGalleryWrapper .galleryPhotoFullsize{width:390px;margin:0 auto;}
 .photoGalleryWrapper .galleryPhotoFullsize img{display:block;padding: 0;margin:0 0 5px;}
 .photoGalleryWrapper .galleryPhotoFullsize span{clear:both;display:block;width:100%;height:25px;margin:0;padding: 0;overflow: hidden;}
 .photoGalleryWrapper .photoGalleryControls{margin:0;padding:0;text-align:center;}
+.photoGalleryWrapper .article-photo-gallery-back{position: absolute; top: 176.5px;left: 11px;cursor: pointer;}
+.photoGalleryWrapper .article-photo-gallery-next{position: absolute; top: 176.5px; left: 471px;cursor: pointer;}
 /* --------------- authorBios ---------------- */
 .authorBios {color: #2b2b2b;margin-bottom:20px;}
 .authorBios .inner {background-color: #fff;border: 1px solid #DDDDDD;padding: 20px 20px 4px;}
@@ -1225,11 +1228,30 @@ div .gallery-thumbnail-selected:hover {
     zoom: 1;
 }
 
+.overview-photo-gallery-close{
+    cursor: pointer;
+}
+
 #photo-gallery-viewer {
     width: 530px;
     height: 534px;
     display: table-cell;
 }
+
+.overview-photo-gallery-back{
+    position: absolute;
+    top: 267px;
+    left: 32px;
+    cursor: pointer;
+}
+
+.overview-photo-gallery-next{
+    position: absolute;
+    top: 267px;
+    left: 448px;
+    cursor: pointer;
+}
+
 
 .deletePhotoConfirm {
     background: #ebebeb;

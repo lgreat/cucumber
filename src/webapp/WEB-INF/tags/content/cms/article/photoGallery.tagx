@@ -28,7 +28,7 @@
     <div id="${prefix}-photo-gallery" class="mod photoGalleryWrapper slStylesV1-0 rnd12">
         <div class="inner rnd12">
             <div class="hd rnd-top-12">
-                <div id="${prefix}-photo-gallery-close" class="fltrt mtm mrm">
+                <div id="${prefix}-photo-gallery-close" class="fltrt mtm mrm article-photo-gallery-close">
                     <span class="iconx24 i-24-close"><!--Do not collapse--></span>
                 </div>
             </div>
@@ -38,15 +38,13 @@
                         <!--<div id="${prefix}-gallery-fullsize-${index}" class="galleryPhotoFullsize">-->
                         <div id="${prefix}-gallery-fullsize-${index}" class="gallery-fullsize">
                             <img src="/res/img/pixel.gif"/>
-                            <div class="small quiet">${photoCaptions[index]}</div>
+                            <div class="small quiet mtm bottom">${photoCaptions[index]}</div>
                         </div>
                     </c:forEach>
-                    <div id="${prefix}-photo-gallery-back"
-                         style="position: absolute; top: 176.5px;left: 11px;">
+                    <div id="${prefix}-photo-gallery-back" class="article-photo-gallery-back">
                         <span class="iconx48 i-48-gallery-back-default"><!--Do not collapse--></span>
                     </div>
-                    <div id="${prefix}-photo-gallery-next"
-                         style="position: absolute; top: 176.5px; left: 471px;">
+                    <div id="${prefix}-photo-gallery-next" class="article-photo-gallery-next">
                         <span class="iconx48 i-48-gallery-next-default"><!--Do not collapse--></span>
                     </div>
                 </div>

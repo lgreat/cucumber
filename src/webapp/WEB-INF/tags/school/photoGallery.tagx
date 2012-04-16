@@ -19,7 +19,7 @@
     <div id="photo-gallery" class="slStylesV1-0">
         <div class="photo-gallery-module rnd12">
             <div class="heading rnd-top-12">
-                <div id="photo-gallery-close" class="fltrt mtm mrm">
+                <div id="photo-gallery-close" class="fltrt mtm mrm overview-photo-gallery-close">
                     <span class="iconx24 i-24-close"><!--Do not collapse--></span>
                 </div>
             </div>
@@ -32,14 +32,14 @@
                 </c:forEach>
                 <c:choose>
                     <c:when test="${fn:length(images) > 1}">
-                        <div id="photo-gallery-back" style="position: absolute; top: 267px;left: 32px;">
+                        <div id="photo-gallery-back" class="overview-photo-gallery-back">
                             <span class="iconx48 i-48-gallery-back-default"><!--Do not collapse--></span>
                         </div>
                     </c:when>
                 </c:choose>
                 <c:choose>
                     <c:when test="${fn:length(images) > 1}">
-                        <div id="photo-gallery-next" style="position: absolute; top: 267px; left: 440px;">
+                        <div id="photo-gallery-next" class="overview-photo-gallery-next">
                             <span class="iconx48 i-48-gallery-next-default"><!--Do not collapse--></span>
                         </div>
                     </c:when>

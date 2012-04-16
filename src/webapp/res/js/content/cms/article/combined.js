@@ -268,7 +268,7 @@ GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
     jQuery('#' + this.closeButtonDomId).click(function() {
         this.hide();
         document.getElementById("fade").style.display = "none";
-        document.getElementById("mainWrap").style.zIndex="0";
+//        document.getElementById("mainWrap").style.zIndex="0";
     }.gs_bind(this));
 };
 
@@ -287,7 +287,7 @@ GS.photoGallery.PhotoGallery.prototype.hide = function() {
 GS.photoGallery.PhotoGallery.prototype.attachShowEvent = function(cssClass, initialCallback) {
     jQuery("#js_photo_gallery_container ." + cssClass).click(function() {
         this.loadFullSizeImages();
-        document.getElementById("mainWrap").style.zIndex="5";
+//        document.getElementById("mainWrap").style.zIndex="5";
         document.getElementById("fade").style.display = "block";
         var photoNumVar = jQuery('input.js_photoNum').val();
         var photoNumToShow = (photoNumVar !== undefined && photoNumVar !== null) ? (isNaN(photoNumVar - 1) ? 0 : (photoNumVar - 1)) : 0;
