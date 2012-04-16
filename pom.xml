@@ -386,7 +386,7 @@
                                 <param>externalTracking.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.js</jsFinalFile>
-                            <jsTargetDir>/res/css</jsTargetDir>
+                            <jsTargetDir>/res/js</jsTargetDir>
                             <!--<verbose>true</verbose>-->
                         </configuration>
                         <goals>
@@ -416,7 +416,7 @@
                                 <param>house_ads.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.house_ads.js</jsFinalFile>
-                            <jsTargetDir>/res/css</jsTargetDir>
+                            <jsTargetDir>/res/js</jsTargetDir>
                             <!--<verbose>true</verbose>-->
                         </configuration>
                         <goals>
