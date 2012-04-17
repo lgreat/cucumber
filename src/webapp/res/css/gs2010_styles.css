@@ -655,7 +655,7 @@ h4.subhead2 a {
 .mediaExt1-1 .imgExt{float: right;margin-left: 5px;}
 
 /* Ext1-2 margin: 0; gutter: 15px; */
-.mediaExt1-2{overflow:hidden;*overflow:visible;zoom:1;margin: 0;}
+.mediaExt1-2{overflow:visible;*overflow:visible;zoom:1;margin: 0;}
 .mediaExt1-2:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
 .mediaExt1-2 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
 .mediaExt1-2 .bk > :first-child{margin-top:0;}
@@ -1280,8 +1280,8 @@ div .gallery-thumbnail-selected:hover {
 .worksheet-popup-contents{margin-left: 15px;}
 .worksheet-popup-contents .inner {width:auto;border:1px solid #ccc;background-color: #f4f4f4;color: #f4f4f4;}
 .worksheet-popup-contents .bd p {width:auto;margin: 15px;}
-.worksheet-popup-contents .inner .arrow-outline-left{position:absolute;top:42px;left:-15px;*top:39px;}
-.worksheet-popup-contents .inner .arrow-left{position:absolute;top:42px;left:-13px;*top:39px;border-right-color:#f4f4f4;}
+.worksheet-popup-contents .inner .arrow-outline-left{position:absolute;top:42px;left:-1px;*top:39px;}
+.worksheet-popup-contents .inner .arrow-left{position:absolute;top:42px;left:1px;*top:39px;border-right-color:#f4f4f4;}
 
 /*----------------GS-11926 starts(FAS)----------------*/
 .tabBar{
