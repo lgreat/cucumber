@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.46 2012/04/17 15:32:33 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.47 2012/04/17 21:21:33 yfan Exp $
  */
 package gs.web.ads;
 
@@ -173,11 +173,11 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
             StringBuilder adCodeBuffer = new StringBuilder();
             adCodeBuffer.append("<div id=\"gpt").append(slotName).append("\">");
             adCodeBuffer.append("<script type=\"text/javascript\">");
-            if (!(sc != null && sc.isGptSynchronousModeEnabled())) {
+            if (sc != null && sc.isGptAsynchronousModeEnabled()) {
                 adCodeBuffer.append("googletag.cmd.push(function() {");
             }
             adCodeBuffer.append("googletag.display(\"gpt").append(slotName).append("\");");
-            if (!(sc != null && sc.isGptSynchronousModeEnabled())) {
+            if (sc != null && sc.isGptAsynchronousModeEnabled()) {
                 adCodeBuffer.append("});");
             }
             adCodeBuffer.append("</script>");

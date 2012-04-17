@@ -9,7 +9,7 @@
 <jsp:scriptlet>
     <![CDATA[
     SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-    sessionContext.setGptSynchronousModeEnabled(true);
+    sessionContext.setGptAsynchronousModeEnabled(true);
     ]]>
     </jsp:scriptlet>
 </jsp:root>

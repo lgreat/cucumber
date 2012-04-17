@@ -111,18 +111,7 @@
     <c:choose>
     <c:when test="${requestScope.context.gptEnabled}">
         <c:choose>
-            <c:when test="${requestScope.context.gptSynchronousModeEnabled}">
-                <![CDATA[
-                <script type="text/javascript">
-                  (function() {
-                    var useSSL = 'https:' == document.location.protocol;
-                    var src = (useSSL ? 'https:' : 'http:') +       '//www.googletagservices.com/tag/js/gpt.js';
-                    document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
-                  })();
-                </script>
-                ]]>
-            </c:when>
-            <c:otherwise>
+            <c:when test="${requestScope.context.gptAsynchronousModeEnabled}">
                 <![CDATA[
                 <script type="text/javascript">
                     var googletag = googletag || {};
@@ -139,6 +128,17 @@
                     })();
                 </script>
                 ]]>
+            </c:when>
+            <c:otherwise>
+                <![CDATA[
+                <script type="text/javascript">
+                  (function() {
+                    var useSSL = 'https:' == document.location.protocol;
+                    var src = (useSSL ? 'https:' : 'http:') +       '//www.googletagservices.com/tag/js/gpt.js';
+                    document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+                  })();
+                </script>
+                ]]>
             </c:otherwise>
         </c:choose>
 
@@ -146,7 +146,7 @@
         <script type="text/javascript">
         ]]>
 
-        <c:if test="${!requestScope.context.gptSynchronousModeEnabled}">
+        <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
         <![CDATA[
             googletag.cmd.push(function() {
         ]]>
@@ -172,14 +172,14 @@
                 googletag.pubads().collapseEmptyDivs();
                 googletag.pubads().enableSingleRequest();
             ]]>
-            <c:if test="${requestScope.context.gptSynchronousModeEnabled}">
+            <c:if test="${!requestScope.context.gptAsynchronousModeEnabled}">
                 googletag.pubads().enableSyncRendering();
             </c:if>
             <![CDATA[
                 googletag.enableServices();
             ]]>
 
-            <c:if test="${!requestScope.context.gptSynchronousModeEnabled}">
+            <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
             <![CDATA[
                 });
             ]]>

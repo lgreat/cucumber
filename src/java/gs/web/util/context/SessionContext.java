@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.67 2012/04/16 14:41:53 yfan Exp $
+ * $Id: SessionContext.java,v 1.68 2012/04/17 21:21:32 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -114,7 +114,7 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private boolean _iosSafari = false;
 
     private boolean _gptEnabled = false;
-    private boolean _gptSynchronousModeEnabled = false;
+    private boolean _gptAsynchronousModeEnabled = false;
 
     /**
      * Created by Spring as needed.
@@ -423,30 +423,17 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     }
 
     /**
-     * Returns true if Google Publisher Tags should be served using synchronous mode either globally in database
+     * Returns true if Google Publisher Tags should be served using asynchronous mode either globally in database
      * properties or just for this SessionContext
      * @return
      */
-    public boolean isGptSynchronousModeEnabled() {
-        return _gptSynchronousModeEnabled ||
-                "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_SYNCHRONOUS_MODE_ENABLED_KEY, "false"));
+    public boolean isGptAsynchronousModeEnabled() {
+        return _gptAsynchronousModeEnabled ||
+                "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ASYNCHRONOUS_MODE_ENABLED_KEY, "false"));
     }
 
-    public void setGptSynchronousModeEnabled(boolean gptSynchronousModeEnabled) {
-        _gptSynchronousModeEnabled = gptSynchronousModeEnabled;
-    }
-
-    /**
-     * Returns a set of fully-qualified ad slot names (including the ad slot prefix) whose presence on a webpage
-     * should force all GPT ads on that page to use synchronous mode
-     * @return
-     */
-    public Set<String> getAdSlotsRequiringSynchronousMode() {
-        String adSlotsProperty = _propertyDao.getProperty(IPropertyDao.AD_SLOTS_REQUIRING_SYNCHRONOUS_MODE_KEY, "");
-        String[] adSlots = adSlotsProperty.split(",");
-        List<String> adSlotsList = Arrays.asList(adSlots);
-        Set<String> slots = new HashSet<String>(adSlotsList);
-        return slots;
+    public void setGptAsynchronousModeEnabled(boolean gptAsynchronousModeEnabled) {
+        _gptAsynchronousModeEnabled = gptAsynchronousModeEnabled;
     }
 
     /**
