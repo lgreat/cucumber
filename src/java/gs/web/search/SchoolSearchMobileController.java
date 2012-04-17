@@ -12,6 +12,7 @@ import gs.data.search.beans.ISchoolSearchResult;
 import gs.data.search.filters.FilterGroup;
 import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
+import gs.web.pagination.Page;
 import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -82,8 +83,37 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         // Common: Set a cookie to record that a search has occurred;
         PageHelper.setHasSearchedCookie(request, response);
 
+        String format = request.getParameter("format");
+        if (format != null && format.equals("json")) {
+            response.setContentType("application/json");
+            // patch the model for now to remove data we don't want to send with json response.
+            // TODO: skip logic not necessary for ajax response
+            ModelAndView ajax = adaptModelForAjax(modelAndView);
+            return ajax;
+        }
 
         return modelAndView;
+    }
+
+    // TODO: this is not very good, since we're still doing tons of unnecessary work for ajax calls
+    // Do more refactoring on this controller to allow an easy-to-maintain separate execution path for ajax
+    // Or perhaps a different controller that reuses helper methods
+    protected ModelAndView adaptModelForAjax(ModelAndView modelAndView) {
+        Map<String,Object> existingModel = modelAndView.getModel();
+        Map<String,Object> ajaxModel = new HashMap<String,Object>();
+        ajaxModel.put(MODEL_TOTAL_RESULTS, existingModel.get(MODEL_TOTAL_RESULTS));
+        List<ISchoolSearchResult> schoolSearchResults = (List<ISchoolSearchResult>)existingModel.get(MODEL_SCHOOL_SEARCH_RESULTS);
+        if (schoolSearchResults != null) {
+            List<SchoolSearchResultAjaxView> schoolSearchResultsAjax = new ArrayList<SchoolSearchResultAjaxView>(schoolSearchResults.size());
+            for (ISchoolSearchResult result : schoolSearchResults) {
+                schoolSearchResultsAjax.add(new SchoolSearchResultAjaxView(result));
+            }
+            ajaxModel.put(MODEL_SCHOOL_SEARCH_RESULTS, schoolSearchResultsAjax);
+            Page page = (Page) existingModel.get(MODEL_PAGE);
+            ajaxModel.put(MODEL_PAGE, page.getMap());
+        }
+
+        return new ModelAndView("json", ajaxModel);
     }
 
     private ModelAndView handleQueryStringAndNearbySearch(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
@@ -244,13 +274,13 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         putDistrictBrowseRelCanonicalIntoModel(request, model, commandAndFields);
 
 
-        // District Browse Specific:  Use a city browse helper to calculate title and description and put them into model
+        // District Browse Specific:  Use a district browse helper to calculate title and description and put them into model
        // TODO: Make CityBrowseHelper a spring singleton bean
         DistrictBrowseHelper districtBrowseHelper = new DistrictBrowseHelper(commandAndFields);
         model.putAll(districtBrowseHelper.getMetaData());
 
 
-        // District Browse Specific: Use a city browse helper to calculate omniture page name and hierarchy and put them into model
+        // District Browse Specific: Use a district browse helper to calculate omniture page name and hierarchy and put them into model
         RequestedPage requestedPage = commandAndFields.getRequestedPage();
         String omniturePageName = districtBrowseHelper.getOmniturePageName(request, requestedPage.pageNumber);
         String omnitureHierarchy = districtBrowseHelper.getOmnitureHierarchy(requestedPage.pageNumber, summary.searchResultsPage.getTotalResults());
@@ -481,10 +511,10 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
     protected void putMetaDataInModel(Map<String, Object> model, SchoolSearchCommandWithFields commandAndFields, Map nearbySearchInfo) {
         if (commandAndFields.isNearbySearch()) {
             if (nearbySearchInfo != null) {
-               // nearby zip code search
+                // nearby zip code search
                 model.putAll(new NearbyMetaDataHelper().getMetaData(nearbySearchInfo));
             } else {
-               // Find a School by location search
+                // Find a School by location search
                 model.putAll(new NearbyMetaDataHelper().getMetaData(commandAndFields));
             }
         } else {

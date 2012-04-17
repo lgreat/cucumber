@@ -7,77 +7,90 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:gsweb="gstaglib"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 
+    <jsp:directive.attribute name="schoolId" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="databaseState" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="schoolName" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="address" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="city" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="zipCode" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="levelCode" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="schoolType" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="gradeRangeString" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="greatSchoolsRating" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="parentRating" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="distance" required="true" type="java.lang.String"/>
 
-    <jsp:directive.attribute name="school" required="true" description="School search result" type="gs.data.search.beans.ISchoolSearchResult"/>
+
     <c:if test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
         <div style="float:right"><fmt:formatNumber value="${school.distance}" maxFractionDigits="2"/> miles</div>
     </c:if>
     <h3>
-        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}" databaseState="${school.databaseState}" name="${school.name}" physicalAddress="${school.address}" levelCode="${school.levelCode}">
+        <!--<link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}" name="${schoolName}" physicalAddress="${schoolAddress}" levelCode="${levelCode}">
             ${school.name}
-        </link:schoolProfileOverviewForPrimitives>
+        </link:schoolProfileOverviewForPrimitives>-->
+        ${schoolName}
     </h3>
 
 
-    <p>${school.schoolType} ${school.grades.rangeString}
+    <p>${schoolType} ${gradeRangeString}
         |
-        ${school.city}, ${school.databaseState}
+        ${city}, ${databaseState}
             <span style="display:block;">
 
                 <!-- GreatSchools Rating -->
                 <c:choose>
-                    <c:when test="${school.levelCode eq 'p' or school.schoolType eq 'private'}">
-                        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
-                                                                 databaseState="${school.databaseState}"
-                                                                 name="${school.name}"
-                                                                 physicalAddress="${school.address}"
-                                                                 levelCode="${school.levelCode}">
+                    <c:when test="${levelCode eq 'p' or schoolType eq 'private'}">
+                       <!-- <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}"
+                                                                 databaseState="${databaseState}"
+                                                                 name="${name}"
+                                                                 physicalAddress="${address}"
+                                                                 levelCode="${levelCode}">-->
                             <c:choose>
-                                <c:when test="${school.levelCode eq 'p'}">
+                                <c:when test="${levelCode eq 'p'}">
                                     <span class="badge_sm_ps"><!-- do not collapse --></span>
                                 </c:when>
-                                <c:when test="${school.schoolType eq 'private'}">
+                                <c:when test="${schoolType eq 'private'}">
                                     <span class="badge_sm_pr"><!-- do not collapse --></span>
                                 </c:when>
                             </c:choose>
-                        </link:schoolProfileOverviewForPrimitives>
+                        <!--</link:schoolProfileOverviewForPrimitives>-->
                     </c:when>
                     <c:otherwise>
-                        <link:schoolProfileRating2010 state="${school.databaseState}"
-                                                      schoolId="${school.id}"
-                                                      levelCode="${school.levelCode}">
+                        <!--<link:schoolProfileRating2010 state="${databaseState}"
+                                                      schoolId="${schoolId}"
+                                                      levelCode="${levelCode}">-->
                             <c:choose>
-                                <c:when test="${not empty school.greatSchoolsRating}">
-                                    <span class="badge_sm_${school.greatSchoolsRating} ui-li-count"><!-- do not collapse -->${school.greatSchoolsRating}</span>
+                                <c:when test="${not empty greatSchoolsRating}">
+                                    <span class="badge_sm_${greatSchoolsRating} ui-li-count"><!-- do not collapse -->${greatSchoolsRating}</span>
                                 </c:when>
                                 <c:otherwise>
                                     <span class="badge_sm_na"><!-- do not collapse --></span>
                                 </c:otherwise>
                             </c:choose>
-                        </link:schoolProfileRating2010>
+                        <!--</link:schoolProfileRating2010>-->
                     </c:otherwise>
                 </c:choose>
 
 
                 <!-- Parent Rating -->
-                <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
-                                                    state="${school.databaseState}"
-                                                    schoolId="${school.id}"
+                <!--<link:schoolProfileParentReview2010 levelCode="${levelCode}"
+                                                    state="${databaseState}"
+                                                    schoolId="${schoolId}"
                                                     styleClass="block"
-                                                    anchor="revPagination">
-                    <c:if test="${not empty school.parentRating}">
-                        <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
+                                                    anchor="revPagination">-->
+                    <c:if test="${not empty parentRating}">
+                        <span class="sprite stars_sm_${parentRating}"><!-- do not collapse --></span>
                     </c:if>
-                </link:schoolProfileParentReview2010>
+                <!--</link:schoolProfileParentReview2010>-->
 
             </span>
     </p>
 
-    <c:if test="${not empty school.greatSchoolsRating}">
-        <p style="float:left;padding-right:8px;">${school.greatSchoolsRating} of 10</p>
+    <c:if test="${not empty greatSchoolsRating}">
+        <p style="float:left;padding-right:8px;">${greatSchoolsRating} of 10</p>
     </c:if>
-    <c:if test="${not empty school.parentRating}">
-        <p style="float:left;">Community rating: ${school.parentRating}</p>
+    <c:if test="${not empty parentRating}">
+        <p style="float:left;">Community rating: ${parentRating}</p>
     </c:if>
 
 

@@ -110,11 +110,14 @@
                             </div>-->
 
                             <div data-role="content" style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
-                                <ul data-role="listview" data-theme="e" data-inset="true" data-count-theme="b" style="font-size:12px;">
+                                <ul id="js-schoolSearchResultsList" data-role="listview" data-theme="e" data-inset="true" data-count-theme="b" style="font-size:12px;">
                                     <li data-role="list-divider">${fn:length(schoolSearchResults)} results for ${schoolResultsFor}</li>
+                                    <div id="schoolSearchResultMobileTemplate" style="display:none">
+                                        <school:mobileSearchResult schoolId="{{schoolId}}" databaseState="{{schoolDatabaseState}}" schoolName="{{schoolName}}" address="{{address}}" city="{{city}}" zipCode="{{zipCode}}" schoolType="{{schoolType}}" levelCode="{{levelCode}}" gradeRangeString="{{gradeRangeString}}" greatSchoolsRating="{{greatSchoolsRating}}" parentRating="{{parentRating}}" distance="{{distance}}" />
+                                    </div>
                                     <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
                                         <li>
-                                            <school:mobileSearchResult school="${school}" />
+                                            <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" />
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -124,12 +127,30 @@
                 </c:when>
             </c:choose>
 
+            <c:set var="pageMap" value="${page.map}"/>
             <script type="text/javascript">
                 require(['mobileSearchResults'], function(mobileSearchResults) {
                     console.log('mobile-search-results loaded', mobileSearchResults);
-                    mobileSearchResults.init();
+
+                    var page = {};
+                    page['isFirstPage'] = ${pageMap.isFirstPage};
+                    page['isLastPage'] = ${pageMap.isLastPage};
+                    page['offset'] = ${pageMap.offset};
+                    page['pageNumber'] = ${pageMap.pageNumber};
+                    page['lastOffsetOnPage'] = ${pageMap.lastOffsetOnPage};
+                    page['firstOffset'] = ${pageMap.firstOffset};
+                    page['lastOffset'] = ${pageMap.lastOffset};
+                    page['firstPageNumber'] = ${pageMap.firstPageNumber};
+                    page['lastPageNumber'] = ${pageMap.lastPageNumber};
+
+                    mobileSearchResults.init(page);
                 });
             </script>
+
+
+            <button id="loadMore">
+                Load more
+            </button>
 
         </pageHelper:mobilePage>
     </body>

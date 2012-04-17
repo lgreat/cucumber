@@ -3,7 +3,9 @@ package gs.web.pagination;
 import gs.data.pagination.DefaultPaginationConfig;
 import gs.data.pagination.PaginationConfig;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 /**
@@ -110,5 +112,19 @@ public class Page {
 
     public Pager getPager() {
         return _pager;
+    }
+
+    public Map<String,Object> getMap() {
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("isFirstPage", isFirstPage());
+        map.put("isLastPage", isLastPage());
+        map.put("offset", _offset);
+        map.put("pageNumber", _pageNumber);
+        map.put("lastOffsetOnPage", getLastOffsetOnPage());
+        map.put("firstOffset", _pager.getFirstOffset());
+        map.put("lastOffset", _pager.getLastOffset());
+        map.put("firstPageNumber", _pager.getFirstPageNumber());
+        map.put("lastPageNumber", _pager.getLastPageNumber());
+        return map;
     }
 }
