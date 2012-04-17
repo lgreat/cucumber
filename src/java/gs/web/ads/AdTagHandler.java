@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.44 2012/04/16 14:41:53 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.45 2012/04/17 15:24:53 yfan Exp $
  */
 package gs.web.ads;
 
@@ -174,15 +174,17 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 jsMethodName = JS_METHOD_NAME_24_7;
             }
             StringBuilder adCodeBuffer = new StringBuilder();
+            adCodeBuffer.append("<div id=\"gpt").append(slotName).append("\">");
             adCodeBuffer.append("<script type=\"text/javascript\">");
             if (!(sc != null && sc.isGptSynchronousModeEnabled())) {
                 adCodeBuffer.append("googletag.cmd.push(function() {");
             }
-            adCodeBuffer.append("googletag.display(\"ad").append(slotName).append("\");");
+            adCodeBuffer.append("googletag.display(\"gpt").append(slotName).append("\");");
             if (!(sc != null && sc.isGptSynchronousModeEnabled())) {
                 adCodeBuffer.append("});");
             }
             adCodeBuffer.append("</script>");
+            adCodeBuffer.append("</div>");
 
             // TODO - currently only works from a JSP; if needed, refactor to allow extracting for non-JSP situations
             if (null != body) {
