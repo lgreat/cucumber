@@ -26,7 +26,6 @@
             <gsml:url var="gridoocss" value="/res/css/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="module" value="/res/css/02_module/mod.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="moduleskin" value="/res/css/02_module/mod_skins.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="houseadsskin" value="/res/css/02_module/house_ads_skins.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="media" value="/res/css/03_media/media.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="text" value="/res/css/04_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="forms" value="/res/css/05_forms/forms.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -51,6 +50,7 @@
             <gsml:url var="timepicker" value="/res/css/97_jQueryUI/timepicker/jquery.ptTimeSelect.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="debug" value="/res/css/99_debugging/debug.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="houseadscss" value="/res/css/house_ads.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="jquery_autocomplete_css" value="/res/css/jquery.autocomplete.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${reset}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${zindexreset}" type="text/css" />]]>
@@ -58,7 +58,6 @@
             <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${module}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${moduleskin}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${houseadsskin}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${media}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${text}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${forms}" type="text/css" />]]>
@@ -84,6 +83,7 @@
             <![CDATA[<link rel="stylesheet" href="${timepicker}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${debug}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${houseadscss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
