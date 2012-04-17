@@ -108,15 +108,15 @@
                             <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
                         </div>-->
 
-                        <div data-role="content" style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
-                            <ul id="js-schoolSearchResultsList" data-role="listview" data-theme="e" data-inset="true" data-count-theme="b" style="font-size:12px;">
-                                <li data-role="list-divider">${fn:length(schoolSearchResults)} results for ${schoolResultsFor}</li>
+                        <div style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
+                            <ul id="js-schoolSearchResultsList" style="font-size:12px;">
+                                <li>${fn:length(schoolSearchResults)} results for ${schoolResultsFor}</li>
                                 <div id="schoolSearchResultMobileTemplate" style="display:none">
-                                    <school:mobileSearchResult schoolId="{{schoolId}}" databaseState="{{schoolDatabaseState}}" schoolName="{{schoolName}}" address="{{address}}" city="{{city}}" zipCode="{{zipCode}}" schoolType="{{schoolType}}" levelCode="{{levelCode}}" gradeRangeString="{{gradeRangeString}}" greatSchoolsRating="{{greatSchoolsRating}}" parentRating="{{parentRating}}" distance="{{distance}}" />
+                                    <school:mobileSearchResult isTemplate="${true}" schoolId="{{schoolId}}" databaseState="{{schoolDatabaseState}}" schoolName="{{schoolName}}" address="{{address}}" city="{{city}}" zipCode="{{zipCode}}" schoolType="{{schoolType}}" levelCode="{{levelCode}}" gradeRangeString="{{gradeRangeString}}" greatSchoolsRating="{{greatSchoolsRating}}" parentRating="{{parentRating}}" distance="{{distance}}" />
                                 </div>
                                 <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
                                     <li>
-                                        <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" />
+                                        <school:mobileSearchResult isTemplate="${false}" schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" schoolAddress="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" />
                                     </li>
                                 </c:forEach>
                             </ul>

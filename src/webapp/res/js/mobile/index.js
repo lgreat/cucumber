@@ -131,7 +131,30 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
 
             $('#js-searchByLocation').on('click', '.js-submitButton', function() {
                 submitByLocationSearch();
-            })
+            });
+
+            $('#js-search-tabs').find('.js-by-location').on('click', function() {
+                var $byLocationTab = $('#js-search-tabs').find('.js-by-location');
+                var $byNameTab = $('#js-search-tabs').find('.js-by-name');
+                $byLocationTab.addClass('selected');
+                $byNameTab.removeClass('selected');
+
+                var $byLocationBody = $('#js-searchByLocation');
+                var $byNameBody = $('#js-searchByName');
+                $byNameBody.hide();
+                $byLocationBody.show();
+            });
+            $('#js-search-tabs').find('.js-by-name').on('click', function() {
+                var $byLocationTab = $('#js-search-tabs').find('.js-by-location');
+                var $byNameTab = $('#js-search-tabs').find('.js-by-name');
+                $byLocationTab.removeClass('selected');
+                $byNameTab.addClass('selected');
+
+                var $byLocationBody = $('#js-searchByLocation');
+                var $byNameBody = $('#js-searchByName');
+                $byNameBody.show();
+                $byLocationBody.hide();
+            });
         });
 
     };

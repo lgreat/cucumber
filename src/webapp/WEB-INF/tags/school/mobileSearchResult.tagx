@@ -2,10 +2,9 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:gsweb="gstaglib"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        >
 
     <jsp:directive.attribute name="schoolId" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="databaseState" required="true" type="java.lang.String"/>
@@ -19,78 +18,53 @@
     <jsp:directive.attribute name="greatSchoolsRating" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="parentRating" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="distance" required="true" type="java.lang.String"/>
+    <!-- temporary to get linking working -->
+    <jsp:directive.attribute name="isTemplate" required="true" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="schoolAddress" required="false" type="gs.data.util.Address"/>
 
 
-    <c:if test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
-        <div style="float:right"><fmt:formatNumber value="${school.distance}" maxFractionDigits="2"/> miles</div>
+    <c:if test="${empty greatSchoolsRating}">
+        <c:set var="greatSchoolsRating" value="na"/>
+    </c:if>
+    <c:if test="${not empty distance and (not empty param.zipCode or not empty param.lat)}">
+        <div><fmt:formatNumber value="${distance}" maxFractionDigits="2"/> miles</div>
     </c:if>
     <h3>
-        <!--<link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}" name="${schoolName}" physicalAddress="${schoolAddress}" levelCode="${levelCode}">
-            ${school.name}
-        </link:schoolProfileOverviewForPrimitives>-->
-        ${schoolName}
+        <c:choose>
+            <c:when test="${isTemplate}">${schoolName}</c:when>
+            <c:otherwise>
+                <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"
+                                                         name="${schoolName}" physicalAddress="${schoolAddress}"
+                                                         levelCode="${levelCode}">
+                ${schoolName}
+                </link:schoolProfileOverviewForPrimitives>
+            </c:otherwise>
+        </c:choose>
     </h3>
 
 
-    <p>${schoolType} ${gradeRangeString}
-        |
-        ${city}, ${databaseState}
-            <span style="display:block;">
+    <p>${schoolType} ${gradeRangeString} | ${city}, ${databaseState}</p>
 
-                <!-- GreatSchools Rating -->
-                <c:choose>
-                    <c:when test="${levelCode eq 'p' or schoolType eq 'private'}">
-                       <!-- <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}"
-                                                                 databaseState="${databaseState}"
-                                                                 name="${name}"
-                                                                 physicalAddress="${address}"
-                                                                 levelCode="${levelCode}">-->
-                            <c:choose>
-                                <c:when test="${levelCode eq 'p'}">
-                                    <span class="badge_sm_ps"><!-- do not collapse --></span>
-                                </c:when>
-                                <c:when test="${schoolType eq 'private'}">
-                                    <span class="badge_sm_pr"><!-- do not collapse --></span>
-                                </c:when>
-                            </c:choose>
-                        <!--</link:schoolProfileOverviewForPrimitives>-->
-                    </c:when>
-                    <c:otherwise>
-                        <!--<link:schoolProfileRating2010 state="${databaseState}"
-                                                      schoolId="${schoolId}"
-                                                      levelCode="${levelCode}">-->
-                            <c:choose>
-                                <c:when test="${not empty greatSchoolsRating}">
-                                    <span class="badge_sm_${greatSchoolsRating} ui-li-count"><!-- do not collapse -->${greatSchoolsRating}</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="badge_sm_na"><!-- do not collapse --></span>
-                                </c:otherwise>
-                            </c:choose>
-                        <!--</link:schoolProfileRating2010>-->
-                    </c:otherwise>
-                </c:choose>
-
-
-                <!-- Parent Rating -->
-                <!--<link:schoolProfileParentReview2010 levelCode="${levelCode}"
-                                                    state="${databaseState}"
-                                                    schoolId="${schoolId}"
-                                                    styleClass="block"
-                                                    anchor="revPagination">-->
-                    <c:if test="${not empty parentRating}">
-                        <span class="sprite stars_sm_${parentRating}"><!-- do not collapse --></span>
-                    </c:if>
-                <!--</link:schoolProfileParentReview2010>-->
-
-            </span>
-    </p>
-
-    <c:if test="${not empty greatSchoolsRating}">
-        <p style="float:left;padding-right:8px;">${greatSchoolsRating} of 10</p>
+    <c:if test="${greatSchoolsRating ne 'na'}">
+        <c:choose>
+            <c:when test="${isTemplate}"><p>${greatSchoolsRating} of 10</p></c:when>
+            <c:otherwise>
+                <link:schoolProfileRating2010 state="${databaseState}" schoolId="${schoolId}" levelCode="${levelCode}">
+                    <p>${greatSchoolsRating} of 10</p>
+                </link:schoolProfileRating2010>
+            </c:otherwise>
+        </c:choose>
     </c:if>
     <c:if test="${not empty parentRating}">
-        <p style="float:left;">Community rating: ${parentRating}</p>
+        <c:choose>
+            <c:when test="${isTemplate}"><p>Community rating: ${parentRating}</p></c:when>
+            <c:otherwise>
+                <link:schoolProfileParentReview2010 levelCode="${levelCode}" state="${databaseState}"
+                                                    schoolId="${schoolId}">
+                    <p>Community rating: ${parentRating}</p>
+                </link:schoolProfileParentReview2010>
+            </c:otherwise>
+        </c:choose>
     </c:if>
 
 

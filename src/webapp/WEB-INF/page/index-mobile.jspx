@@ -32,25 +32,44 @@
         });
     </script>
 
+    <style type="text/css">
+        #searchTabs {
+            margin-bottom: 10px;
+        }
+        #searchTabs span {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        #searchTabs span.selected {
+            font-weight: bold;
+        }
+        .tabBody {
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+
 </head>
 
 <body>
     <c:set var="searchString"><c:out value="${searchString}" escapeXml="true"/></c:set>
 
-    <div id="searchByLocation">
-        <c:if test="${not empty param.noResults}">
-            <div>
-                <p>No schools match your search for <br/> ${param.searchString}</p>
-                <p>Please check the spelling or try different locations or keywords.</p>
-            </div>
-        </c:if>
-
-        <div data-role="controlgroup" data-type="horizontal" data-theme="c">
-            <a href="#searchByLocation">By location</a>
-            <a href="#searchByName">By name</a>
+    <c:if test="${not empty param.noResults}">
+        <div>
+            <p>No schools match your search for <br/> ${param.searchString}</p>
+            <p>Please check the spelling or try different locations or keywords.</p>
         </div>
+    </c:if>
 
-        <div id="js-searchByLocation" style="margin-top: 0;">
+    <div id="searchTabs">
+        <div id="js-search-tabs">
+            <span id="byLocationTab" class="js-by-location selected">By location</span>
+            <span id="byNameTab" class="js-by-name">By name</span>
+        </div>
+    </div>
+
+    <div id="searchByLocation">
+        <div id="js-searchByLocation" class="tabBody">
             <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
                 <input type="hidden" name="lat"/>
                 <input type="hidden" name="lon"/>
@@ -114,30 +133,10 @@
                 <button type="button" class="button-1 js-submitButton" onclick="javascript:void(0);">Search</button>
             </form>
         </div>
-
-        <search:nearbyCities />
-
-        <search:nearbyDistricts />
-
-        <div>
-            <a class="js-linkToTop" href="javascript:return false;">Top of page</a>
-        </div>
     </div>
 
     <div id="searchByName">
-        <c:if test="${not empty param.noResults}">
-            <div>
-                <p>No schools match your search for <br/> ${param.searchString}</p>
-                <p>Please check the spelling or try different locations or keywords.</p>
-            </div>
-        </c:if>
-
-        <div>
-            <a href="#searchByLocation">By location</a>
-            <a href="#searchByName">By name</a>
-        </div>
-
-        <div id="js-searchByName" style="overflow:hidden;margin-top: -18px;">
+        <div id="js-searchByName" class="tabBody" style="display:none;">
 
             <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
                 <gsml:input type="text" name="q" value="${searchString}" placeholder="School or district..." />
@@ -200,21 +199,18 @@
             </form>
 
         </div>
-
-        <search:nearbyCities />
-
-        <search:nearbyDistricts />
-
-
-        <div>
-            <a class="js-linkToTop" href="javascript:return false;" style="color:blue">Top of page</a>
-        </div>
     </div>
+
+
+    <search:nearbyCities />
+
+    <search:nearbyDistricts />
+
+    <div>
+        <a class="js-linkToTop" href="#">Top of page</a>
+    </div>
+
     <mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home"/>
-
-
-
-
 </body>
 </html>
 </jsp:root>
