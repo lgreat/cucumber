@@ -45,7 +45,7 @@
                     </c:forEach>
                 };
                 jQuery(function() {
-                    // TODO-12415 GHOST TEXT NOT DONE. setInterval or setTimeout and have the function call it again and change it to an unhide?
+                    // GS-12415 - this is effective for GAM and GPT Synchronous Mode, but not for GPT Asynchronous Mode (which has a longer delay before ads are rendered)
                     setTimeout("GS.ads.hideGhostText();", 1000);
                 });
             </script>

@@ -19,6 +19,7 @@
 
     <!-- TODO-12415 add JS condition to wrap around adding CSS and JavaScript if using synchronous mode not in iframes?
                     but maybe do this somewhere else? -->
+    <!-- this is not complete because we're not moving ahead with GPT Asynchronous Mode at this time -->
 
     <pageHelper:addHouseAdsCss/>
     <pageHelper:addHouseAdsJavaScript

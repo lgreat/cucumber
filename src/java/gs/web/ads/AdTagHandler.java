@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.45 2012/04/17 15:24:53 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.46 2012/04/17 15:32:33 yfan Exp $
  */
 package gs.web.ads;
 
@@ -148,8 +148,9 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 buffer.append(customAdTag);
             }
         } else {
-            // TODO-12415 GPT, unlike GAM tags, allows the same position to be used multiple times on the same page -- but keep logic for backwards compatibility?
             //make sure position has not been previously used on this page.
+            // GPT, unlike GAM tags, allows the same ad slot to be used multiple times on the same page,
+            // but let's keep the same logic for backwards compatibility
             Set <AdPosition> adPositions = pageHelper.getAdPositions();
             if (adPositions.contains(_adPosition)) {
                 throw new IllegalArgumentException("Ad Position already defined: " + _adPosition);
@@ -157,11 +158,9 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 pageHelper.addAdPosition(_adPosition);
             }
 
-            String jsMethodName;
             String slotName = _adPosition.getName();
 
             if (_adPosition.isGAMPosition()) {
-                jsMethodName = JS_METHOD_NAME_GAM;
                 String slotPrefix = (String) request.getAttribute(REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
                 if (!"Global_NavPromo_968x30".equals(slotName) &&
                         !"Global_HeaderPromo_88x31".equals(slotName) &&
@@ -170,8 +169,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                         StringUtils.isNotBlank(slotPrefix)) {
                     slotName = slotPrefix + slotName ;
                 }
-            } else {
-                jsMethodName = JS_METHOD_NAME_24_7;
             }
             StringBuilder adCodeBuffer = new StringBuilder();
             adCodeBuffer.append("<div id=\"gpt").append(slotName).append("\">");
