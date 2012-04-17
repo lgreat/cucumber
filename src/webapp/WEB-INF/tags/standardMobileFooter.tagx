@@ -5,11 +5,13 @@
         >
 
 
-    <div data-theme="d" data-role="footer" class="mobile-footer" style="font-size:10px;" align="center">
-
+    <div id="mobile-footer" align="center">
         <!-- TODO: move styles into stylesheet -->
         <style type="text/css">
-            .mobile-footer a.ui-btn {
+            #mobile-footer {
+                font-size: 10px;
+            }
+            #mobile-footer a.ui-btn {
                 font-size:10px;
                 margin:5px 2px 0px 2px;
             }

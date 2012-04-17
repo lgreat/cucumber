@@ -56,103 +56,101 @@
 
 
     <body>
-        <pageHelper:mobilePage id="schoolSearchResults-mobile">
-            <c:choose>
-                <c:when test="${page.pager.totalItems gt 0}">
-                    <div id="js-school-search-results-table">
-                        <c:set var="totalResults" value="${page.pager.totalItems}"/>
+        <c:choose>
+            <c:when test="${page.pager.totalItems gt 0}">
+                <div id="js-school-search-results-table">
+                    <c:set var="totalResults" value="${page.pager.totalItems}"/>
 
-                        <c:set var="count" value="0"/>
+                    <c:set var="count" value="0"/>
 
-                        <c:if test="${fn:length(schoolSearchResults) gt 0}">
-                            <div style="float:left;font-size:12px;">
-                                    <c:choose>
-                                        <c:when test="${fn:containsIgnoreCase(param.sort, 'DESC')}">
-                                            <select data-inline="true" data-icon="arrow-u" class="js-sort-select">
-                                                <c:if test="${isFromByLocation}">
+                    <c:if test="${fn:length(schoolSearchResults) gt 0}">
+                        <div style="float:left;font-size:12px;">
+                                <c:choose>
+                                    <c:when test="${fn:containsIgnoreCase(param.sort, 'DESC')}">
+                                        <select data-inline="true" data-icon="arrow-u" class="js-sort-select">
+                                            <c:if test="${isFromByLocation}">
+                                                <option value="distance">Distance</option>
+                                            </c:if>
+                                            <option value="SCHOOL_NAME_ASCENDING">Name</option>
+                                            <option value="GS_RATING_DESCENDING">Rating</option>
+                                        </select>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <select data-inline="true" data-icon="arrow-d" class="js-sort-select">
+                                            <c:choose>
+                                                <c:when test="${isFromByLocation}">
                                                     <option value="distance">Distance</option>
-                                                </c:if>
-                                                <option value="SCHOOL_NAME_ASCENDING">Name</option>
-                                                <option value="GS_RATING_DESCENDING">Rating</option>
-                                            </select>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <select data-inline="true" data-icon="arrow-d" class="js-sort-select">
-                                                <c:choose>
-                                                    <c:when test="${isFromByLocation}">
-                                                        <option value="distance">Distance</option>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <option value="">Relevance</option>
-                                                    </c:otherwise>
-                                                </c:choose>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="">Relevance</option>
+                                                </c:otherwise>
+                                            </c:choose>
 
-                                                <option value="SCHOOL_NAME_ASCENDING">School name: A-Z</option>
-                                                <option value="SCHOOL_NAME_DESCENDING">School name: Z-A</option>
-                                                <option value="GS_RATING_DESCENDING">GreatSchools Rating: High to Low</option>
-                                                <option value="GS_RATING_ASCENDING">GreatSchools Rating: Low to High</option>
-                                                <option value="PARENT_RATING_DESCENDING">Community Rating: High to Low</option>
-                                                <option value="PARENT_RATING_ASCENDING">Community Rating: Low to High</option>
-                                            </select>
-                                        </c:otherwise>
-                                    </c:choose>
-                            </div>
-                            <div style="padding-left:148px;font-size:12px">
-                                <a data-role="button" data-inline="true" href="${requestInfo.requestURL}" class="ui-btn-active">List</a>
-                                <a data-role="button" data-inline="true" href="/search/mapresults.page?${pageContext.request.queryString}">Map</a>
-                            </div>
+                                            <option value="SCHOOL_NAME_ASCENDING">School name: A-Z</option>
+                                            <option value="SCHOOL_NAME_DESCENDING">School name: Z-A</option>
+                                            <option value="GS_RATING_DESCENDING">GreatSchools Rating: High to Low</option>
+                                            <option value="GS_RATING_ASCENDING">GreatSchools Rating: Low to High</option>
+                                            <option value="PARENT_RATING_DESCENDING">Community Rating: High to Low</option>
+                                            <option value="PARENT_RATING_ASCENDING">Community Rating: Low to High</option>
+                                        </select>
+                                    </c:otherwise>
+                                </c:choose>
+                        </div>
+                        <div style="padding-left:148px;font-size:12px">
+                            <a data-role="button" data-inline="true" href="${requestInfo.requestURL}" class="ui-btn-active">List</a>
+                            <a data-role="button" data-inline="true" href="/search/mapresults.page?${pageContext.request.queryString}">Map</a>
+                        </div>
 
-                            <br style="clear:both;height:0px;"/>
-                            <!--<div>
-                                <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
-                                <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
-                                <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
-                            </div>-->
+                        <br style="clear:both;height:0px;"/>
+                        <!--<div>
+                            <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
+                            <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
+                            <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
+                        </div>-->
 
-                            <div data-role="content" style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
-                                <ul id="js-schoolSearchResultsList" data-role="listview" data-theme="e" data-inset="true" data-count-theme="b" style="font-size:12px;">
-                                    <li data-role="list-divider">${fn:length(schoolSearchResults)} results for ${schoolResultsFor}</li>
-                                    <div id="schoolSearchResultMobileTemplate" style="display:none">
-                                        <school:mobileSearchResult schoolId="{{schoolId}}" databaseState="{{schoolDatabaseState}}" schoolName="{{schoolName}}" address="{{address}}" city="{{city}}" zipCode="{{zipCode}}" schoolType="{{schoolType}}" levelCode="{{levelCode}}" gradeRangeString="{{gradeRangeString}}" greatSchoolsRating="{{greatSchoolsRating}}" parentRating="{{parentRating}}" distance="{{distance}}" />
-                                    </div>
-                                    <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
-                                        <li>
-                                            <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" />
-                                        </li>
-                                    </c:forEach>
-                                </ul>
-                            </div>
-                        </c:if>
-                    </div>
-                </c:when>
-            </c:choose>
+                        <div data-role="content" style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
+                            <ul id="js-schoolSearchResultsList" data-role="listview" data-theme="e" data-inset="true" data-count-theme="b" style="font-size:12px;">
+                                <li data-role="list-divider">${fn:length(schoolSearchResults)} results for ${schoolResultsFor}</li>
+                                <div id="schoolSearchResultMobileTemplate" style="display:none">
+                                    <school:mobileSearchResult schoolId="{{schoolId}}" databaseState="{{schoolDatabaseState}}" schoolName="{{schoolName}}" address="{{address}}" city="{{city}}" zipCode="{{zipCode}}" schoolType="{{schoolType}}" levelCode="{{levelCode}}" gradeRangeString="{{gradeRangeString}}" greatSchoolsRating="{{greatSchoolsRating}}" parentRating="{{parentRating}}" distance="{{distance}}" />
+                                </div>
+                                <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
+                                    <li>
+                                        <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" />
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </c:if>
+                </div>
+            </c:when>
+        </c:choose>
 
-            <c:set var="pageMap" value="${page.map}"/>
-            <script type="text/javascript">
-                require(['mobileSearchResults'], function(mobileSearchResults) {
-                    console.log('mobile-search-results loaded', mobileSearchResults);
+        <c:set var="pageMap" value="${page.map}"/>
+        <script type="text/javascript">
+            require(['mobileSearchResults'], function(mobileSearchResults) {
+                console.log('mobile-search-results loaded', mobileSearchResults);
 
-                    var page = {};
-                    page['isFirstPage'] = ${pageMap.isFirstPage};
-                    page['isLastPage'] = ${pageMap.isLastPage};
-                    page['offset'] = ${pageMap.offset};
-                    page['pageNumber'] = ${pageMap.pageNumber};
-                    page['lastOffsetOnPage'] = ${pageMap.lastOffsetOnPage};
-                    page['firstOffset'] = ${pageMap.firstOffset};
-                    page['lastOffset'] = ${pageMap.lastOffset};
-                    page['firstPageNumber'] = ${pageMap.firstPageNumber};
-                    page['lastPageNumber'] = ${pageMap.lastPageNumber};
+                var page = {};
+                page['isFirstPage'] = ${pageMap.isFirstPage};
+                page['isLastPage'] = ${pageMap.isLastPage};
+                page['offset'] = ${pageMap.offset};
+                page['pageNumber'] = ${pageMap.pageNumber};
+                page['lastOffsetOnPage'] = ${pageMap.lastOffsetOnPage};
+                page['firstOffset'] = ${pageMap.firstOffset};
+                page['lastOffset'] = ${pageMap.lastOffset};
+                page['firstPageNumber'] = ${pageMap.firstPageNumber};
+                page['lastPageNumber'] = ${pageMap.lastPageNumber};
 
-                    mobileSearchResults.init(page);
-                });
-            </script>
+                mobileSearchResults.init(page);
+            });
+        </script>
 
 
-            <button id="loadMore">
-                Load more
-            </button>
+        <button id="loadMore">
+            Load more
+        </button>
 
-        </pageHelper:mobilePage>
     </body>
 
     <c:set var="omnitureLocale">

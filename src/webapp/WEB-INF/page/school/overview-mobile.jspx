@@ -4,7 +4,6 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
@@ -43,7 +42,6 @@
 
     <body>
 
-    <pageHelper:mobilePage id="schoolOverview">
         <div>
             <div><strong>${school.name}</strong></div>
             <div>
@@ -227,7 +225,6 @@
         <div>
             <a class="js-linkToTop" href="#">Top of page</a>
         </div>
-    </pageHelper:mobilePage>
 
     <!--- Omniture -->
     <c:set var="pageName" value="Overview" scope="request"/>

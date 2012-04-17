@@ -27,7 +27,7 @@
                 background-color: #666;
                 margin: 0;
             }
-            .mobile-footer {
+            #mobile-footer {
                 background-color: #999;
             }
             #content {
@@ -35,39 +35,41 @@
                 padding: 1em;
             }
 
+            /* BEGIN SPRITES */
             .sprite {
                 display: inline-block;
                 background-image: url(/res/img/sprites/iconSprite_2012-01-18.png);
             }
-
             .search {
                 width: 16px;
                 height: 17px;
                 background-position: -40px -300px;
             }
-
             .menu {
                 width: 14px;
                 height: 13px;
                 background-position: 0 -140px;
             }
-
             .home {
                 width: 16px;
                 height: 16px;
                 background-position: 0 -180px;
             }
-
             .check {
                 width: 16px;
                 height: 13px;
                 background-position: -20px -180px;
             }
+            /* END SPRITES */
         </style>
         <decorator:head/>
     </head>
     <body>
-        <decorator:body/>
+        <tags:standardMobileHeader />
+        <div id="content" class="js-page-content">
+            <decorator:body/>
+        </div>
+        <tags:standardMobileFooter />
     </body>
 </html>
 

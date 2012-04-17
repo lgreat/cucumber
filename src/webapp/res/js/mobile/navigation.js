@@ -9,7 +9,7 @@ define(function() {
     var setupEventHandlers = function() {
         $(function() {
             $('.top-nav-goto').on('click', ':visible', function() {
-                $('.mobilePage:visible .mobile-sub-nav').toggle();
+                $('#mobile-sub-nav').toggle();
                 return false;
             });
         })

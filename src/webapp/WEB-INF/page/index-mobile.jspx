@@ -3,21 +3,8 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:content="urn:www.greatschools.org/taglib/content"
-          xmlns:moreContent="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
-          xmlns:gsweb="gstaglib"
-          xmlns:cache="http://jakarta.apache.org/taglibs/cache-1.0"
-          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
-          xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search">
-<jsp:directive.page import="gs.web.util.PageHelper"/>
 <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
 
 <html lang="en">
@@ -50,7 +37,7 @@
 <body>
     <c:set var="searchString"><c:out value="${searchString}" escapeXml="true"/></c:set>
 
-    <pageHelper:mobilePage id="searchByLocation">
+    <div id="searchByLocation">
         <c:if test="${not empty param.noResults}">
             <div>
                 <p>No schools match your search for <br/> ${param.searchString}</p>
@@ -59,12 +46,12 @@
         </c:if>
 
         <div data-role="controlgroup" data-type="horizontal" data-theme="c">
-            <a href="#searchByLocation" data-role="button"  data-theme="c" data-icon="search" data-iconshadow="false" class="ui-btn-active">By location</a>
-            <a href="#searchByName" data-role="button" data-transition="fade"  data-theme="c" data-iconshadow="false" data-icon="search">By name</a>
+            <a href="#searchByLocation">By location</a>
+            <a href="#searchByName">By name</a>
         </div>
 
-        <div id="js-searchByLocation" data-theme="c" style="margin-top: 0px;">
-            <form method="GET" data-theme="c" action="/search/search.page" id="search-form" accept-charset="UTF-8" data-ajax="false">
+        <div id="js-searchByLocation" style="margin-top: 0;">
+            <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
                 <input type="hidden" name="lat"/>
                 <input type="hidden" name="lon"/>
                 <input type="hidden" name="state"/>
@@ -124,7 +111,7 @@
                     </div>
                     <!--</div>-->
                 </div>
-                <button type="button" class="button-1 js-submitButton" data-inline="true" data-theme="b" onclick="javascript:void(0);">Search</button>
+                <button type="button" class="button-1 js-submitButton" onclick="javascript:void(0);">Search</button>
             </form>
         </div>
 
@@ -133,12 +120,11 @@
         <search:nearbyDistricts />
 
         <div>
-            <a class="js-linkToTop" href="javascript:return false;" data-role="button"
-               data-icon="arrow-u">Top of page</a>
+            <a class="js-linkToTop" href="javascript:return false;">Top of page</a>
         </div>
-    </pageHelper:mobilePage>
+    </div>
 
-    <pageHelper:mobilePage id="searchByName">
+    <div id="searchByName">
         <c:if test="${not empty param.noResults}">
             <div>
                 <p>No schools match your search for <br/> ${param.searchString}</p>
@@ -146,17 +132,17 @@
             </div>
         </c:if>
 
-        <div data-role="controlgroup" data-type="horizontal" data-theme="c">
-            <a href="#searchByLocation" data-role="button"  data-theme="c" data-icon="search" data-iconshadow="false" data-shadow="false" >By location</a>
-            <a href="#searchByName" data-role="button" data-transition="fade"  data-theme="c" data-icon="search" data-iconshadow="false" class="ui-btn-active">By name</a>
+        <div>
+            <a href="#searchByLocation">By location</a>
+            <a href="#searchByName">By name</a>
         </div>
 
-        <div id="js-searchByName" data-theme="c" data-role="content" style="overflow:hidden;margin-top: -18px;">
+        <div id="js-searchByName" style="overflow:hidden;margin-top: -18px;">
 
-            <form method="GET" data-theme="c" action="/search/search.page" id="search-form" accept-charset="UTF-8" data-ajax="false">
+            <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
                 <gsml:input type="text" name="q" value="${searchString}" placeholder="School or district..." />
 
-                <select class="stateSelect" name="state" id="stateSelector" data-inline="true" >
+                <select class="stateSelect" name="state" id="stateSelector">
                     <option selected="selected" value="">State</option>
                     <option value="AK">AK</option>
                     <option value="AL">AL</option>
@@ -210,7 +196,7 @@
                     <option value="WV">WV</option>
                     <option value="WY">WY</option>
                 </select>
-                <button type="submit" class="button-1" data-inline="true" data-theme="b">Search</button>
+                <button type="submit" class="button-1">Search</button>
             </form>
 
         </div>
@@ -221,10 +207,9 @@
 
 
         <div>
-            <a class="js-linkToTop" href="javascript:return false;"
-               data-inline="true" data-theme="a" style="color:blue">Top of page</a>
+            <a class="js-linkToTop" href="javascript:return false;" style="color:blue">Top of page</a>
         </div>
-    </pageHelper:mobilePage>
+    </div>
     <mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home"/>
 
 

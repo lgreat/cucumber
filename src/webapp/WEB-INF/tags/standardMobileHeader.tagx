@@ -7,7 +7,7 @@
         >
 
     <style type="text/css">
-        .mobile-header {
+        #mobile-header {
             height: 40px;
             background-color: #4CA5D5;
             position: relative;
@@ -29,7 +29,7 @@
             display: inline;
         }
 
-        .mobile-sub-nav {
+        #mobile-sub-nav {
             background-color: #EEE;
             border: 1px solid #CCC;
             color: #333;
@@ -37,14 +37,13 @@
             margin: 0;
             padding: 0;
         }
-        .mobile-sub-nav li {
+        #mobile-sub-nav li {
             border: 1px solid #CCC;
             padding: 0.5em;
         }
     </style>
 
-    <!-- there might be more than one header (hidden) on a page-->
-    <div class="mobile-header js-mobile-header">
+    <div id="mobile-header" class="js-mobile-header">
         <div class="mobile-logo-link">
             <link:home>
                 <gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"
@@ -63,7 +62,7 @@
     </div>
 
 
-    <ul class="mobile-sub-nav" style="display:none">
+    <ul id="mobile-sub-nav" style="display:none">
         <li>
             <link:home><span class="sprite search"><!-- --></span>Find a School</link:home>
         </li>

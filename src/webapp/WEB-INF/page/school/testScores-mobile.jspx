@@ -3,7 +3,6 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:link="urn:www.greatschools.org/taglib/link"
         >
@@ -34,7 +33,6 @@
         </script>
     </head>
     <body>
-    <pageHelper:mobilePage id="schoolTestScrores">
         <div><strong>Test Scores</strong></div>
         <!--TODO refactor this into a tag,since its used on school overview also.-->
         <div>
@@ -101,7 +99,6 @@
             About GS Ratings
         </div>
 
-    </pageHelper:mobilePage>
     <mod:mobileTracking pageName="${pageName}"
                         hier1="School,TestScores,MainTestScorePage" schoolGSRating="${gs_rating}"/>
     </body>

@@ -16,15 +16,15 @@ define (['uri','hogan'], function(uri,hogan) {
     var init = function(page) {
         currentPage = page;
 
-        $sortSelect = $('.js-sort-select'); // module might need to be reinitialized after an ajax page load
-
-        var $loadMore = $(loadMoreSelector);
-        $loadMore.on('click', function(){
-            loadMore();
-        });
-        attachEventHandlers();
-
         $(function() {
+            $sortSelect = $('.js-sort-select'); // module might need to be reinitialized after an ajax page load
+
+            var $loadMore = $(loadMoreSelector);
+            $loadMore.on('click', function(){
+                loadMore();
+            });
+            attachEventHandlers();
+
             template = hogan.compile($(templateSelector).html());
         });
     };
