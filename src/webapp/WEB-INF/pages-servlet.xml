@@ -561,6 +561,9 @@
         <property name="noResultsViewName" value="search/schoolSearchNoResults-mobile"/>
     </bean>
 
+
+    <!-- allow automatric retrieval of json -->
+    <alias name="/search/search.page" alias="/search/search.json"/>
     <bean name="/search/search.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
