@@ -717,16 +717,6 @@
         </dependency>
 
         <!--
-            Spring MVC for Portlet Environments (depends on spring-core, spring-beans, spring-context, spring-web)
-            Define this if you use Spring MVC with a Portlet Container (org.springframework.web.portlet.*)
-        -->
-        <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-webmvc-portlet</artifactId>
-          <version>${org.springframework.version}</version>
-        </dependency>
-
-        <!--
             Support for testing Spring applications with tools such as JUnit and TestNG
             This artifact is generally always defined with a 'test' scope for the integration testing framework and unit testing stubs
         -->
