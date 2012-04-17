@@ -1873,8 +1873,8 @@ body.cobranded #pageGS {
 }
 
 #Global_NavPromo_968x30{
-    padding:0 5px;
-    background: url(/res/img/gs_content_bg.png) repeat-y;
+    /*background: url(/res/img/gs_content_bg.png) repeat-y;*/
+    background-color: #ffffff;
 }
 
 .ad_88x31{
@@ -6614,14 +6614,14 @@ body.hover #startADiscussion .submit {
 /* =12k school profile 2010
 -------------------------------------------------------------------------------------------*/
 /* school profile page */
-#schoolProfileGS {
-    padding: 15px 0 0 20px;
-}
+/*#schoolProfileGS {*/
+/*padding: 15px 0 0 20px;*/
+/*}*/
 
 /* school profile header */
 #schoolProfileHeaderGS {
-    width: 931px;
-    padding-right: 17px;
+    /*width: 931px;*/
+    /*padding-right: 17px;*/
 }
 
 #schoolHeaderInfoLeft {
@@ -6664,6 +6664,14 @@ body.hover #startADiscussion .submit {
     padding: 15px;
     border: 1px solid #83bbd9;
     background-color: #f4fafd;
+}
+
+.schoolInfo{
+    min-height: 88px;
+    padding: 15px;
+    border: 1px solid #83bbd9;
+    background-color: #f4fafd;
+    overflow:hidden; *overflow:visible; zoom:1;
 }
 
 #schoolHeaderInfoRight p {
@@ -6759,7 +6767,7 @@ body.hover #startADiscussion .submit {
 #schoolInaccuracy {
     position: absolute;
     top: 8px;
-    right: 0;
+    right: 10px;
 }
 
 #schoolProfileTabBar {
@@ -8370,13 +8378,15 @@ div#YahooRealEstateLink {
 
 #footerAd,
 #homepageFooterAd {
-    background: url(/res/img/gs_content_bg.png) repeat-y;
+    /*background: url(/res/img/gs_content_bg.png) repeat-y;*/
     padding: 15px 0;
+    background-color: #ffffff;
 }
 
 #footerFrm {
-    background: url(/res/img/gs_content_bg.png) repeat-y;
+    /*background: url(/res/img/gs_content_bg.png) repeat-y;*/
     padding: 0 5px;
+    background-color: #ffffff;
 }
 
 #footerFrm #footerAd {

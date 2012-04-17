@@ -31,79 +31,81 @@
 
 <school:hovers school="${school}" tab="${tab}"/>
 
-<div id="schoolProfileGS" class="${(tab eq 'overview')? 'overview' : ''}">
+<div id="breadcrumbs" class="grid_24 mvm">
+    <ul class="utility-navigation-999">
+        <li><link:home>Home</link:home> &amp;gt; </li>
+        <c:choose>
+            <c:when test="${state eq 'DC'}">
+                <li><link:research state="${state}"
+                                   title="District of Columbia">District of Columbia</link:research> &amp;gt;
+                </li>
+                <li>
+                    <c:choose>
+                        <c:when test="${school.levelCode eq 'p'}">
+                            <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p"
+                                          title="Washington, D.C. preschools">Washington, D.C. Preschools</link:schools>&amp;#160;
+                        </c:when>
+                        <c:otherwise>
+                            <link:city city="${city}" state="${school.physicalAddress.state}"
+                                       title="${city} schools">Washington, D.C. Schools</link:city>&amp;#160;
+                        </c:otherwise>
+                    </c:choose>
+                </li>
+                <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
+                    <li>&amp;gt; <link:districtHome district="${school.district}"
+                                                    title="District information">DCPS</link:districtHome>
+                    </li>
+                </c:if>
+            </c:when>
+            <c:otherwise>
+                <li>
+                    <c:choose>
+                        <c:when test="${state eq 'NY' and city eq 'New York'}">
+                            <link:research state="${state}"
+                                           title="${state.longName}">${state.longName}</link:research> &amp;gt;
+                        </c:when>
+                        <c:otherwise>
+                            <link:research state="${state}"
+                                           title="${state.longName} schools">${state.longName} Schools</link:research> &amp;gt;
+                        </c:otherwise>
+                    </c:choose>
+                </li>
+                <li>
+                    <c:choose>
+                        <c:when test="${school.levelCode eq 'p' and state eq 'NY' and city eq 'New York'}">
+                            <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools">NYC Preschools</link:schools>&amp;#160;
+                        </c:when>
+                        <c:when test="${school.levelCode eq 'p'}">
+                            <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools">${city} Preschools</link:schools>&amp;#160;
+                        </c:when>
+                        <c:when test="${state eq 'NY' and city eq 'New York'}">
+                            <link:city city="${city}" state="${school.physicalAddress.state}"
+                                       title="NYC schools">NYC Schools</link:city>&amp;#160;
+                        </c:when>
+                        <c:otherwise>
+                            <link:city city="${city}" state="${school.physicalAddress.state}"
+                                       title="${city} schools">${city} Schools</link:city>&amp;#160;
+                        </c:otherwise>
+                    </c:choose>
+                </li>
+                <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
+                    <li>&amp;gt; <link:districtHome district="${school.district}"
+                                                    title="District information"><c:out value="${school.district.name}" escapeXml="true"/></link:districtHome>
+                    </li>
+                </c:if>
+            </c:otherwise>
+        </c:choose>
+    </ul>
+</div>
+<!-- end: breadcrumbs -->
 
-    <div id="schoolProfileHeaderGS" class="clearfix vcard">
-        <div id="schoolHeaderInfoLeft" class="col">
+<div class="${(tab eq 'overview')? 'overview' : ''}">
+
+    <!--<div id="schoolProfileHeaderGS" class="clearfix vcard">-->
+        <!--<div id="schoolHeaderInfoLeft" class="col">-->
+        <div class="grid_13">
         <!--<gslink:backToSearchResults/>-->
             <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-        <div id="breadcrumbs">
-            <ul class="utility-navigation-999">
-                <li><link:home>Home</link:home> &amp;gt; </li>
-                <c:choose>
-                    <c:when test="${state eq 'DC'}">
-                        <li><link:research state="${state}"
-                                           title="District of Columbia">District of Columbia</link:research> &amp;gt;
-                        </li>
-                        <li>
-                            <c:choose>
-                                <c:when test="${school.levelCode eq 'p'}">
-                                    <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p"
-                                                  title="Washington, D.C. preschools">Washington, D.C. Preschools</link:schools>&amp;#160;
-                                </c:when>
-                                <c:otherwise>
-                                    <link:city city="${city}" state="${school.physicalAddress.state}"
-                                               title="${city} schools">Washington, D.C. Schools</link:city>&amp;#160;
-                                </c:otherwise>
-                            </c:choose>
-                        </li>
-                        <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
-                            <li>&amp;gt; <link:districtHome district="${school.district}"
-                                                            title="District information">DCPS</link:districtHome>
-                            </li>
-                        </c:if>
-                    </c:when>
-                    <c:otherwise>
-                        <li>
-                            <c:choose>
-                                <c:when test="${state eq 'NY' and city eq 'New York'}">
-                                    <link:research state="${state}"
-                                           title="${state.longName}">${state.longName}</link:research> &amp;gt;
-                                </c:when>
-                                <c:otherwise>
-                                    <link:research state="${state}"
-                                                   title="${state.longName} schools">${state.longName} Schools</link:research> &amp;gt;
-                                </c:otherwise>
-                            </c:choose>
-                        </li>
-                        <li>
-                            <c:choose>
-                                <c:when test="${school.levelCode eq 'p' and state eq 'NY' and city eq 'New York'}">
-                                    <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools">NYC Preschools</link:schools>&amp;#160;
-                                </c:when>
-                                <c:when test="${school.levelCode eq 'p'}">
-                                    <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools">${city} Preschools</link:schools>&amp;#160;
-                                </c:when>
-                                <c:when test="${state eq 'NY' and city eq 'New York'}">
-                                    <link:city city="${city}" state="${school.physicalAddress.state}"
-                                               title="NYC schools">NYC Schools</link:city>&amp;#160;
-                                </c:when>
-                                <c:otherwise>
-                                    <link:city city="${city}" state="${school.physicalAddress.state}"
-                                               title="${city} schools">${city} Schools</link:city>&amp;#160;
-                                </c:otherwise>
-                            </c:choose>
-                        </li>
-                        <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
-                            <li>&amp;gt; <link:districtHome district="${school.district}"
-                                                               title="District information"><c:out value="${school.district.name}" escapeXml="true"/></link:districtHome>
-                            </li>
-                        </c:if>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
-        </div>
-        <!-- end: breadcrumbs -->
 
         <!-- School name -->
         <div id="schoolName">
@@ -204,7 +206,9 @@
         </div>
         </div>
 
-        <div id="schoolHeaderInfoRight" class="col">
+        <!--<div id="schoolHeaderInfoRight" class="col">-->
+        <div class="grid_11">
+            <div class="schoolInfo clearfix">
             <c:if test="${not empty school.phone or not empty school.fax or not empty school.webSite}">
                 <div id="schoolInfoLeftColumn" class="text3">
                     <c:if test="${not empty school.phone}">
@@ -262,14 +266,16 @@
             <!--<div id="schoolInfoFooter" class="smallAlertText">-->
                 <!--<p>Like <span class="sprite facebook">&lt;!&ndash; do not collapse &ndash;&gt;</span> 12.932 people like Lowell High School</p>-->
             <!--</div>-->
+            </div>
 
         </div>
-    </div>
+    <!--</div>-->
     <!-- end schoolProfileHeader -->
 
     <div class="spacer_15"><!-- do not collapse --></div>
-    <div id="schoolProfileBody" class="clearfix">
-        <div id="schoolProfileLeftColumn" class="col">
+    <!--<div id="schoolProfileBody" class="clearfix">-->
+        <!--<div id="schoolProfileLeftColumn" class="col">-->
+        <div class="grid_16">
             <div id="schoolInaccuracy" class="smallAlertText">Notice an inaccuracy? <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}">Let us know</link:schoolFeedback>!</div>
 
             <div id="schoolProfileTabsWrapper">
@@ -467,7 +473,8 @@
             </c:set>
         </c:if>
 
-        <div id="schoolProfileRightColumn" class="col">
+        <!--<div id="schoolProfileRightColumn" class="col">-->
+        <div class="grid_8">
             <!--<p>tab is: <c:out value="${tab}" default="not set"/></p>-->
             <!--<p>caller is: <c:out value="${caller}" default="not set"/></p>-->
             <!--<p>school levelCode is: <c:out value="${school.levelCode}" default="not set"/></p>-->
@@ -617,7 +624,7 @@
         </div>
         <!-- end schoolProfileRightColumn -->
 
-    </div>
+    <!--</div>-->
     <!-- end schoolProfileBody -->
 
 </div>

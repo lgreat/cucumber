@@ -14,6 +14,20 @@ General comments:
 
 */
 
+.site-gradient{
+    background-color: #71c2f7; /* Old browsers */
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0%,#71c2f7), color-stop(100%,#2a81ea)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(left,  #71c2f7 0%, #2a81ea 100%); /* Chrome10+,Safari5.1+ */
+    background-image:    -moz-linear-gradient(left,  #71c2f7 0%, #2a81ea 100%); /* FF3.6+ */
+    background-image:     -ms-linear-gradient(left,  #71c2f7 0%, #2a81ea 100%); /* IE10+ */
+    background-image:      -o-linear-gradient(left,  #71c2f7 0%, #2a81ea 100%); /* Opera 11.10+ */
+    background-image:         linear-gradient(left,  #71c2f7 0%, #2a81ea 100%); /* W3C */
+              filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF71C2F7', endColorstr='#FF2A81EA',GradientType=1 ); /* IE6-9 */
+              /*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF6DC8FD', endColorstr='#FF1187B8',GradientType=0 ); *//* IE6-9 */
+          /*-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#71c2f7', EndColorStr='#2a81ea')"; *//* IE8 */
+              /*filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#71c2f7', endColorStr = '#2a81ea'); *//* IE6,IE7 */
+}
+
 .gradient-1 {
     background-color: #149; /* for non-css3 browsers */
     background-image: -webkit-gradient(linear, left top, left bottom, from(#276ab3), to(#143e90)); /* Saf4+, Chrome */
