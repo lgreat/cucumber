@@ -160,20 +160,24 @@
 </head>
 
 <gsml:body adPageName="contactUs" pageLayout="leftside">
+
+<div class="grid_24">
 <p class="breadcrumbs smallAlertText">
     <link:home>Home</link:home>
     &amp;gt;
     <link:contactUs>Contact Us</link:contactUs>
 </p>
 
-<div id="mainGS">
-
 <h1>Contact Us</h1>
+
+</div>
+
 <div class="spacer_15"><!-- do not collapse --></div>
-<div id="aboutNav" class="col">
+<div class="grid_5">
     <about:aboutGreatSchools selected="contactUs"/>
 </div>
-<div id="contactUsMainGS" class="col">
+
+<div class="grid_19">
 
 <p class="text2">
     <span class="text1bold">Do you have questions or feedback for us?</span> Make sure you check out the
@@ -1249,7 +1253,7 @@
 </div>
 
 </div>
-</div>
+
 
     <mod:tracking pageName="contactUs" hier1="Home,Corporate,AboutUs,Feedback"/>
 </gsml:body>
