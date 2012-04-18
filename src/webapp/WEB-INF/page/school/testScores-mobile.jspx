@@ -24,6 +24,8 @@
             </c:otherwise>
         </c:choose>
         <title>${school.name} Test Scores - ${addr}</title>
+        <meta name="description"
+              content="See test scores and view results for ${school.name} students - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}"/>
         <c:set var="pageName" value="Test Scores"/>
 
         <script type="text/javascript">
@@ -71,6 +73,27 @@
             </div>
         </c:if>
 
+        <c:if test="${not empty schoolTestScores}">
+            <div>
+                <br/>
+                <br/>
+                <c:forEach var="gradeToSubjects" items="${schoolTestScores}" varStatus="index">
+                    <strong>${gradeToSubjects.gradeLabel}</strong>
+                    <br/>
+                    <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}" varStatus="index">
+                        <strong>${subjectToYears.subjectLabel}</strong>
+                        <br/>
+                        <c:forEach var="yearToTestScore" items="${subjectToYears.years}" varStatus="index">
+                            ${yearToTestScore.year}
+                            ${yearToTestScore.testScore}
+                            <br/>
+                        </c:forEach>
+                    </c:forEach>
+                    <br/>
+                    <br/>
+                </c:forEach>
+            </div>
+        </c:if>
 
         <!-- TODO: Replace with tagx since its used in over view page as well -->
         <div style="text-align: center">
