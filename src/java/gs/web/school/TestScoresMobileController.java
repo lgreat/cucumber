@@ -189,7 +189,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         //TOdO think about what if adding new test.
         //TODO think about if 3 grades have 3 data type ids.
         List<Integer> dataTypeIds = new ArrayList<Integer>();
-        dataTypeIds.add(18);
+        dataTypeIds.add(49);
         return dataTypeIds;
     }
 
