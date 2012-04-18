@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="photoGalleryControls">
-                    <div class="infiniteCarousel8">
+                    <div class="infiniteCarousel8 js_infiniteCarousel">
                         <div class="wrapper" style="overflow:hidden;">
                             <ul class="unordered-carousel">
                                 <c:forEach begin="0" end="${numberOfImages-1}" var="index">

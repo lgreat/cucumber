@@ -82,7 +82,7 @@
 
             <c:choose>
                 <c:when test="${fn:length(images) > 1}">
-                    <div class="infiniteCarousel7">
+                    <div class="infiniteCarousel7 js_infiniteCarousel">
                         <div class="wrapper" style="overflow:hidden;">
                             <ul class="unordered-carousel">
                                 <c:forEach begin="0" end="${numberOfImages-1}" var="index">

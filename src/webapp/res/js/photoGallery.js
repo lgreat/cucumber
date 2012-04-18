@@ -189,7 +189,9 @@ GS.photoGallery.PhotoGallery.prototype.applyButtonClickHandlers = function() {
 
 GS.photoGallery.PhotoGallery.prototype.show = function() {
    this.sendOmnitureTrackingInfo();
-   jQuery('#' + this.id).show();
+   var $me = jQuery('#' + this.id);
+   $me.show();
+   $me.find('.js_infiniteCarousel').trigger('shown'); // custom infiniteCarousel event
 };
 GS.photoGallery.PhotoGallery.prototype.hide = function() {
    jQuery('#' + this.id).hide();

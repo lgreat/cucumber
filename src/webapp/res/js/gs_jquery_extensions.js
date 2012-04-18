@@ -423,12 +423,11 @@ function debug(what) {
                 // 4. paging function
                 function gotoPage(page) {
 //                    console.log('Current Page: '+currentPage);
-                    var dir = page < currentPage ? -1 : 1,
-                        n = Math.abs(currentPage - page),
-                        left = singleWidth * dir * visible * n;
+                    var newScrollLeft = page * singleWidth * visible;
+                    var scrollLeftDelta = newScrollLeft - $wrapper.scrollLeft();
 
                     $wrapper.filter(':not(:animated)').animate({
-                            scrollLeft : '+=' + left
+                            scrollLeft : '+=' + scrollLeftDelta
                         }, 500, function () {
                         if (page == 0) {
                             $wrapper.scrollLeft(singleWidth * visible * pages);
@@ -473,6 +472,12 @@ function debug(what) {
                     if (myPage != currentPage && myPage > 0 && myPage <= pages) {
                         gotoPage(myPage);
                     }
+                });
+
+                // Bind a custom event that listens for this carousel being shown (after being hidden)
+                $(this).on('shown', function() {
+                    // re-calculate scrollLeft in case being hidden reset it to 0
+                    $wrapper.scrollLeft(currentPage * singleWidth * visible);
                 });
 
                 // create a public interface to move to a specific page
