@@ -241,7 +241,21 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         //TOdO think about what if adding new test.
         //TODO think about if 3 grades have 3 data type ids.
         List<Integer> dataTypeIds = new ArrayList<Integer>();
-        dataTypeIds.add(49);
+        if ((school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)
+                || school.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL))) {
+            if (school.getType().equals(SchoolType.PRIVATE)) {
+                dataTypeIds.add(143);
+            } else if (school.getType().equals(SchoolType.PUBLIC)) {
+                dataTypeIds.add(49);
+            }
+        } else if ((school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL))) {
+            if (school.getType().equals(SchoolType.PRIVATE)) {
+                dataTypeIds.add(155);
+            } else if (school.getType().equals(SchoolType.PUBLIC)) {
+                dataTypeIds.add(154);
+            }
+        }
+
         return dataTypeIds;
     }
 
