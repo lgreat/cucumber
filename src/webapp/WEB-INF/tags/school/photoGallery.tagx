@@ -174,7 +174,7 @@
                     });
         }
         jQuery('#photo-gallery').find('.reportIt').on('click', function() {
-            window.setTimeout(function() {gallery.hide();}, 1);
+            gallery.hide();
         });
     </script>
 
