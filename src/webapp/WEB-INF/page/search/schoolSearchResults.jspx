@@ -87,7 +87,7 @@
     </c:otherwise>
 </c:choose>
 
-<div id="mainGS" class="col">
+<div class="grid_16">
 
     <div class="spacer_15"><!-- do not collapse --></div>
     <c:set var="schoolResultsFor">
@@ -277,7 +277,7 @@
     <div class="spacer_15"><!-- do not collapse --></div>
     </c:if>
 
-    <div id="topicbarGS" class="col">
+    <div class="alpha grid_5">
         <form id="filtersForm" action="">
         <!-- FILTER CHECKED LOGIC:
             Generally, a filter is pre-checked if there is no param specifying the filter.
@@ -505,7 +505,7 @@
 
     </div>
 
-    <div id="topicMainGS" class="col">
+    <div class="grid_11 omega">
         <ad:adTag position="SponsoredSearch_Top_423x120"/>
         <ad:adTag position="SponsoredSearch_Top_423x68"/>
         <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
@@ -523,7 +523,7 @@
     </div>
 </div>
 
-<div id="sidebarGS" class="col">
+<div class="grid_8">
     <ad:AboveFold_300x250/>
 
     <div class="mod">
