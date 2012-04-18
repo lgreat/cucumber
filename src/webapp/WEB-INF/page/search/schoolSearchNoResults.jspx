@@ -49,7 +49,7 @@
 <pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
 <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
 
-    <div id="mainGS" class="col">
+    <div class="grid_16">
 
         <div class="spacer_10"><!-- do not collapse --></div>
 
@@ -205,7 +205,7 @@
         </div>
     </div>
 
-<div id="sidebarGS" class="col">
+<div class="grid_8">
     <ad:AboveFold_300x600/>
 
     <jsp:include page="/promo/emailSignUp.module"/>

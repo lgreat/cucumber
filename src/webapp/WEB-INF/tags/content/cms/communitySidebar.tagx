@@ -18,7 +18,7 @@
 
     <c:set var="xmlEscapedSearchQuery"><c:out value="${pageScope.searchQuery}" escapeXml="true"/></c:set>
 
-    <div id="sidebarGS" class="col">
+    <div class="grid_8">
         <div id="commSearch" class="mod">
             <div class="mod_hd">
                 <h3>

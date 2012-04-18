@@ -52,7 +52,7 @@
 </head>
 <body>
 
-<div id="mainGS" class="col">
+<div class="grid_16">
    <div id="srchResults">
     <c:set var="searchQueryForXml" scope="page"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></c:set>
 
