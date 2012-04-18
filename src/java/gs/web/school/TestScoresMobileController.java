@@ -248,14 +248,14 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             } else if (school.getType().equals(SchoolType.PUBLIC)) {
                 dataTypeIds.add(49);
             }
-        } else if ((school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL))) {
+        }
+        if ((school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL))) {
             if (school.getType().equals(SchoolType.PRIVATE)) {
                 dataTypeIds.add(155);
             } else if (school.getType().equals(SchoolType.PUBLIC)) {
                 dataTypeIds.add(154);
             }
         }
-
         return dataTypeIds;
     }
 
@@ -263,6 +263,8 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         List<Subject> subjects = new ArrayList<Subject>();
         subjects.add(Subject.MATH);
         subjects.add(Subject.ENGLISH_LANGUAGE_ARTS);
+        subjects.add(Subject.ALGEBRA_I);
+        subjects.add(Subject.ENGLISH);
         return subjects;
     }
 
@@ -300,6 +302,10 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             } else if (Subject.ENGLISH_LANGUAGE_ARTS.equals(subject)) {
                 subjectLabel = "English Language Arts";
             }
+        } else if (Subject.ENGLISH.equals(subject)) {
+            subjectLabel = "English";
+        } else if (Subject.ALGEBRA_I.equals(subject)) {
+            subjectLabel = "Algebra";
         } else {
             throw new IllegalStateException("Invalid subject: " + subject.getSubjectId() + " " + Subject.getName(subject));
         }
