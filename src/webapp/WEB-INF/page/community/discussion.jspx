@@ -211,9 +211,9 @@
     </c:otherwise>
 </c:choose>
 
-<div id="mainGS" class="col ${mainDivClassSuppl}">
+<div class="grid_16 ${mainDivClassSuppl}">
 
-<p class="breadCrumbs smallAlertText">
+<p class="mvm smallAlertText">
     <link:home styleClass="link">Home</link:home>
     &amp;gt;
 
