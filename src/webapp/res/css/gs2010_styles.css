@@ -6050,7 +6050,7 @@ body.hover #startADiscussion .submit {
 =12e-6 data and widgets
 --------------------------------------------------------------------------------------------
 */
-#dwt {
+/*#dwt {
     width: 750px;
     margin: 0 0 0 15px;
 }
@@ -6073,7 +6073,7 @@ body.hover #startADiscussion .submit {
 #dwt .gadget {
     float: left;
     margin: 0 20px 15px 0;
-}
+}*/
 
 /* =12f- schools
 -------------------------------------------------------------------------------------------*/
