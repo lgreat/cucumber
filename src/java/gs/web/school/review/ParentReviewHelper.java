@@ -155,8 +155,10 @@ public class ParentReviewHelper {
 
     public int findFromIndex(int page, List<Review> reviews){
         int fromIndex = (page - 1) * MAX_REVIEWS_PER_PAGE;
-        if ("principal".equals(reviews.get(0).getWho())) {
-            fromIndex++;
+        if ( reviews!=null && reviews.size()>0 ) {
+            if ("principal".equals(reviews.get(0).getWho())) {
+                fromIndex++;
+            }
         }
         return fromIndex;
     }
