@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.56 2011/10/22 00:01:39 ssprouse Exp $
+ * $Id: PageHelperSaTest.java,v 1.57 2012/04/19 00:01:33 droy Exp $
  */
 
 package gs.web.util;
@@ -228,11 +228,36 @@ public class PageHelperSaTest extends TestCase {
         PageHelper.addJavascriptSource(_request, "/res/js/something.js");
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\"></script>", pageHelper.getHeadElements());
 
+        // add a new script to put at bottom of page, this should not affect the head JS at all
+        PageHelper.addJavascriptSource(_request, "/res/js/bottom1.js", false);
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\"></script>", pageHelper.getHeadElements());
 
         PageHelper.addJavascriptSource(_request, "/res/js/somethingElse.js");
         assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
                 "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>",
                 pageHelper.getHeadElements());
+
+        // Check that the bottom js is as specified, with none of the head js
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/bottom1.js?v=8.3\"></script>", pageHelper.getBottomJavaScript());
+
+        // Add a duplicate bottom script
+        PageHelper.addJavascriptSource(_request, "/res/js/bottom1.js", false);
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/bottom1.js?v=8.3\"></script>", pageHelper.getBottomJavaScript());
+
+        // Add a head duplicate script, but now for the bottom
+        PageHelper.addJavascriptSource(_request, "/res/js/something.js", false);
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>",
+                pageHelper.getHeadElements());
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/bottom1.js?v=8.3\"></script>", pageHelper.getBottomJavaScript());
+
+        // Add another bottom js file, which again won't change the head section
+        PageHelper.addJavascriptSource(_request, "/res/js/bottom2.js", false);
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/something.js?v=8.3\">" +
+                "</script><script type=\"text/javascript\" src=\"/res/js/somethingElse.js?v=8.3\"></script>",
+                pageHelper.getHeadElements());
+        assertEquals("<script type=\"text/javascript\" src=\"/res/js/bottom1.js?v=8.3\"></script>" +
+                "<script type=\"text/javascript\" src=\"/res/js/bottom2.js?v=8.3\"></script>", pageHelper.getBottomJavaScript());
 
         PageHelper.addExternalCss(_request, "/res/css/special.css", null);
         assertEquals("<link rel=\"stylesheet\" type=\"text/css\" href=\"/res/css/special.css?v=8.3\"></link>" +

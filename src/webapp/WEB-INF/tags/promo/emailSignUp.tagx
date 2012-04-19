@@ -11,7 +11,7 @@
                              description="Whether or not the user has already signed up for the newsletter"/>
 
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
-    <pageHelper:externalJavascript file="/res/js/promo/emailSignUp.js"/>
+    <pageHelper:externalJavascript file="/res/js/promo/emailSignUp.js" head="false"/>
 
     <div class="mod standard emailSignUp jq-emailSignUpWrapper">
         <div class="inner">

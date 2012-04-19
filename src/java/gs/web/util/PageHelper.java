@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.105 2011/11/11 01:19:01 rcox Exp $
+ * $Id: PageHelper.java,v 1.106 2012/04/19 00:01:33 droy Exp $
  */
 
 package gs.web.util;
@@ -142,18 +142,30 @@ public class PageHelper {
     }
 
     /**
+     * Adds the referenced code file to the list of files to be included. The sitemsh decorator
+     * is responsible for retrieving these and including them.
+     *
+     * @param request The HTTP request
+     * @param javascriptSrc exact url to be included
+     * @param head Boolean to control whether the JS is included in the HEAD or later
+     */
+    public static void addJavascriptSource(HttpServletRequest request, String javascriptSrc, boolean head) {
+        PageHelper pageHelper = getInstance(request);
+        if (pageHelper != null) {
+            pageHelper.addJavascriptSource(javascriptSrc, head);
+        } else {
+            _log.error("No PageHelper object available.");
+        }
+    }
+
+    /**
      * Adds the referenced code file to the list of files to be included at the top of the file. The sitemsh decorator
      * is responsible for retrieving these and including them.
      *
      * @param javascriptSrc exact url to be included
      */
     public static void addJavascriptSource(HttpServletRequest request, String javascriptSrc) {
-        PageHelper pageHelper = getInstance(request);
-        if (pageHelper != null) {
-            pageHelper.addJavascriptSource(javascriptSrc);
-        } else {
-            _log.error("No PageHelper object available.");
-        }
+        PageHelper.addJavascriptSource(request, javascriptSrc, true);
     }
 
     /**
@@ -256,7 +268,8 @@ public class PageHelper {
     private boolean _showingNthGraderHover = false;
 
 
-    private Set<String> _javascriptFiles;   //Insertion order is important so we'll used LinkedHashSet
+    private Set<String> _javascriptFileSources; // Unique set of files to include on page
+    private List<JavaScriptInclude> _javascriptFiles;   // Insertion order is important so we'll use a list
     private Set<String> _cssFiles;          //Insertion order is important so we'll used LinkedHashSet
     private Map<String,String> _cssMediaMap; // map of css src to which media to use
     private Map<String,String> _metaProperties; //meta tags with the property attribute. Used for Facebook's implementation of OpenGraph API
@@ -365,7 +378,7 @@ public class PageHelper {
      * @return Empty string or
      */
     public String getOASKeywords() {
-        StringBuffer buffer = new StringBuffer(_adKeywords.size()*12);
+        StringBuilder buffer = new StringBuilder(_adKeywords.size()*12);
         for (Iterator it = new TreeMap(_adKeywords).keySet().iterator(); it.hasNext();) {
             String key = (String) it.next();
             Collection values = (Collection)_adKeywords.get(key);
@@ -613,12 +626,12 @@ public class PageHelper {
             if (_XMLNSes == null) {
                 _XMLNSes = new HashMap<String,String>();
             }
-            _XMLNSes.put(name,href);
+            _XMLNSes.put(name, href);
         }
     }
 
     public String getXmlnsList() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (Map.Entry<String, String> entry : _XMLNSes.entrySet()) {
             try {
@@ -648,18 +661,56 @@ public class PageHelper {
         }
     }
 
-    private void addJavascriptSource(String src) {
-        if (_javascriptFiles == null) {
-            _javascriptFiles = new LinkedHashSet<String>();
+    private void addJavascriptSource(String src, boolean head) {
+        if (_javascriptFileSources == null) {
+            _javascriptFileSources = new HashSet<String>();
         }
-        if (!_javascriptFiles.contains(src)) {
-            if(!(src.indexOf("http") >-1)){
-                if((src.indexOf('?') > -1)){
-                    src = src.substring(0,src.indexOf('?'));
+        if (_javascriptFiles == null) {
+            _javascriptFiles = new LinkedList<JavaScriptInclude>();
+        }
+
+        if (!_javascriptFileSources.contains(src)) {
+            if(!src.contains("http")){
+                if(src.contains("?")){
+                    src = src.substring(0, src.indexOf('?'));
                 }
                 src = src + "?v=" + getVersionProperties().getProperty("gsweb.version");
             }
-            _javascriptFiles.add(src);
+
+            if (!_javascriptFileSources.contains(src)){
+                _javascriptFileSources.add(src);
+                _javascriptFiles.add(new JavaScriptInclude(src, head));
+            }
+        }
+    }
+
+    private void addJavascriptSource(String src) {
+        addJavascriptSource(src, true);
+    }
+
+    /**
+     * Class for javascript include scripts.
+     */
+    private class JavaScriptInclude {
+        /** Source of the script used in the src attribute */
+        private String src;
+        /** Should the javascript be included in the HEAD or not */
+        private boolean head = true;
+
+        public JavaScriptInclude (String src, boolean head) {
+            this.src = src;
+            this.head = head;
+        }
+        public JavaScriptInclude (String src) {
+            this.src = src;
+        }
+
+        public String getSrc() {
+            return src;
+        }
+
+        public boolean isHead() {
+            return head;
         }
     }
 
@@ -710,7 +761,7 @@ public class PageHelper {
     }
 
     public String getHeadCssElements() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if (_cssFiles != null && _cssMediaMap != null) {
             for (String _cssFile : _cssFiles) {
                 String src = _cssFile;
@@ -755,18 +806,13 @@ public class PageHelper {
      */
     public String getHeadElements(boolean includeCss) {
         if (_javascriptFiles != null || _cssFiles != null || _cssMediaMap != null) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             if (includeCss) {
                 sb.append(getHeadCssElements());
             }
 
-            if (_javascriptFiles != null) {
-                for (String _javascriptFile : _javascriptFiles) {
-                    String src = _javascriptFile;
-                    src = StringUtils.replace(src, "&", "&amp;");
-                    sb.append("<script type=\"text/javascript\" src=\"").append(src).append("\"></script>");
-                }
-            }
+            outputScriptTags(sb, true);
+
             if (_metaProperties != null) {
                 //sb.append("<!-- facebook ignores comments");
                 for (Map.Entry entry : _metaProperties.entrySet()) {
@@ -781,6 +827,29 @@ public class PageHelper {
             return sb.toString();
         }
         return "";
+    }
+
+    /**
+     * Examines all the javascript includes and dumps out the ones that did not want to be in the head.
+     *
+     * @return non-null String.
+     */
+    public String getBottomJavaScript() {
+        StringBuilder sb = new StringBuilder();
+        outputScriptTags(sb, false);
+        return sb.toString();
+    }
+
+    private void outputScriptTags(StringBuilder sb, boolean head) {
+        if (_javascriptFiles != null) {
+            for (JavaScriptInclude _javascriptFile : _javascriptFiles) {
+                if (_javascriptFile.isHead() == head) {
+                    String src = _javascriptFile.getSrc();
+                    src = StringUtils.replace(src, "&", "&amp;");
+                    sb.append("<script type=\"text/javascript\" src=\"").append(src).append("\"></script>");
+                }
+            }
+        }
     }
 
     /**

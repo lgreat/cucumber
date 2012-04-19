@@ -55,20 +55,14 @@
 
     <c:if test="${fn:contains(header['user-agent'], 'MSIE')}">
         <gsml:url var="minmaxjs" value="/res/js/minmax.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <gsml:url var="ieShimHoverfix" value="/res/js/ieShimHoverfix.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <![CDATA[
         <!--[if lte IE 6]>
             <script type="text/javascript" src="${minmaxjs}"></script>
+            <script type="text/javascript" src="${ieShimHoverfix}"></script>
         <![endif]-->
         ]]>
     </c:if>
-
-    <gsml:url var="ieShimHoverfix" value="/res/js/ieShimHoverfix.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-    <![CDATA[
-    <!--[if lte IE 6]>
-        <script type="text/javascript" src="${ieShimHoverfix}"></script>
-    <![endif]-->
-    ]]>
-
 
     <pageHelper:addOnLoadHandler handler="relocateDeferredContent()" />
 
@@ -147,6 +141,7 @@ ${modTracking}
 
 </div>
 
+${requestScope.pageHelper.bottomJavaScript}
 </body>
 </html>
 </jsp:root>
