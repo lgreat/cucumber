@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<div id="mainGS" class="col">
+<div class="grid_16">
 
     <c:set var="localCommunityBoardId" value="${requestScope.localBoardId}"/>
     <c:set var="localCommunityCityName" value="${requestScope.cityName}"/>
