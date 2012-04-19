@@ -142,7 +142,7 @@
 
 </head>
 <body>
-<div id="mainGS" class="col">
+<div class="grid_16">
 
 <div class="spacer_15"><!--do not collapse--></div>
 
