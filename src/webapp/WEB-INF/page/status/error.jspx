@@ -13,13 +13,13 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         >
-<html lang="en">
-<jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <html lang="en">
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-<jsp:directive.page contentType="text/html"/>
- <pageHelper:hideFooterAd/>
+    <jsp:directive.page contentType="text/html"/>
+    <pageHelper:hideFooterAd/>
     <c:set var="errorCode" value=""/>
     <c:if test="${not empty errors.globalError.code}">
         <c:set var="errorCode" value="${errors.globalError.code} "/>
@@ -33,23 +33,25 @@
     </jsp:scriptlet>
 
     <gsml:body adPageName="www" pageLayout="nocol">
-        <mod:tracking pageName="Error:${errorCode} ${requestURI}" hier1="Error,${errorCode}"/>
+        <div class="slStylesV1-0">
+            <mod:tracking pageName="Error:${errorCode} ${requestURI}" hier1="Error,${errorCode}"/>
 
-<div id="mainGS">
-    <div class="mod" style="margin: 1em 20px 0;">
-        <div style="height:300px;text-align:center;padding:10px;">
-            <div class="error">
-                <c:forEach var="error" items="${errors.allErrors}">
-                    <p><spring:message arguments="${error.arguments}" code="${error.code}"/></p>
-                </c:forEach>
+            <div class="grid_24">
+                <div class="mod standard_2-1">
+                    <div class="inner mtl">
+                        <div class="bd error">
+                            <c:forEach var="error" items="${errors.allErrors}">
+                                <p><spring:message arguments="${error.arguments}" code="${error.code}"/></p>
+                            </c:forEach>
+                        </div>
+
+                        <c:if test="${showSearchControl != null}">
+                            <search:searchControl/>
+                        </c:if>
+                    </div>
+                </div>
             </div>
-
-            <c:if test="${showSearchControl != null}">
-                <search:searchControl />
-            </c:if>
-        </div>
-        </div>
         </div>
     </gsml:body>
-</html>
+    </html>
 </jsp:root>

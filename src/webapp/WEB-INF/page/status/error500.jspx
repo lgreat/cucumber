@@ -15,10 +15,10 @@
     <jsp:directive.page import="java.io.PrintWriter"/>
     <jsp:directive.page import="java.io.StringWriter"/>
     <page:apply-decorator name="cobrandHeaderGsFooter">
-    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+        <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
-    <jsp:directive.page contentType="text/html"/>
-    <pageHelper:hideFooterAd/>
+        <jsp:directive.page contentType="text/html"/>
+        <pageHelper:hideFooterAd/>
 
         <head>
             <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
@@ -48,35 +48,52 @@
 
             <mod:tracking pageName="Error:500 ${requestURI}" hier1="Error,500"/>
 
-<div id="mainGS">
-    <div class="mod" style="margin: 1em 20px 0;">
+            <div class="slStylesV1-0">
+                <div class="grid_24">
+                    <div class="mod standard_2-1">
+                        <div class="inner mtl">
+                            <div class="hd">
+                                <h3>Error</h3>
+                            </div>
+                            <div class="bd">
+                                <p>
+                                    We're sorry.
+                                    An unexpected error has occurred that prevents us from delivering the page you requested.
+                                </p>
 
-            <h3>Error</h3>
+                                <p>
+                                    We are constantly working to improve the information we provide. We have
+                                    been notified that this occurred, and are working to solve the error.
+                                </p>
 
-            <p>
-                We're sorry.
-                An unexpected error has occurred that prevents us from delivering the page you requested.
-            </p>
-
-            <p>
-                We are constantly working to improve the information we provide. We have
-                been notified that this occurred, and are working to solve the error.
-            </p>
-
-            <p>Please accept our apologies.</p>
-
-            <h3>What now?</h3>
-
-            <p><a href="javascript:history.back()">Go back</a> and hit refresh to try again, or visit our
-                <gsml:a href="/">Homepage</gsml:a>
-                .
-            </p>
-        <div class="stackTrace">
-            <pre>${printme}</pre>
-        </div>
-    </div>
-</div>
+                                <p>Please accept our apologies.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mod standard_2-1">
+                        <div class="inner">
+                            <div class="hd">
+                                <h3>What now?</h3>
+                            </div>
+                            <div class="bd">
+                                <p>
+                                    <a href="javascript:history.back()">Go back</a> and hit refresh to try again, or visit our
+                                    <gsml:a href="/">Homepage</gsml:a>
+                                    .
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mod standard_2-1">
+                        <div class="inner">
+                            <div class="bd stackTrace">
+                                <pre>${printme}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </gsml:body>
-    </html>
+        </html>
     </page:apply-decorator>
 </jsp:root>

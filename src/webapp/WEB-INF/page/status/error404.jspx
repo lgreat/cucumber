@@ -47,36 +47,53 @@
                 </head>
 
                 <gsml:body adPageName="www" pageLayout="nocol">
+                    <div class="slStylesV1-0">
 
-                    <mod:tracking pageType="errorPage" pageName="" hier1="Error,404"/>
+                        <mod:tracking pageType="errorPage" pageName="" hier1="Error,404"/>
 
-                    <div id="mainGS" class="col" style="margin-top: 1em">
-                        <!--<div class="col">-->
-                            <h3>Page Not Found</h3>
+                        <div class="grid_16">
+                            <div class="mod standard_2-1">
+                                <div class="inner mtl">
+                                    <div class="hd">
+                                        <h3>Page Not Found</h3>
+                                    </div>
+                                    <div class="bd">
+                                        <p>For some reason, the link you clicked or the URL you typed into your browser did not work.
+                                            The page might have been renamed, moved, or is just temporarily unavailable.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
 
-                            <p>For some reason, the link you clicked or the URL you typed into your browser did not work.
-                                The page might have been renamed, moved, or is just temporarily unavailable.
-                            </p>
+                            <div class="mod standard_2-1">
+                                <div class="inner">
+                                    <div class="hd">
+                                        <h3>What now?</h3>
+                                    </div>
+                                    <div class="bd">
+                                        <ol>
+                                        <li>If you followed a link, you can <a
+                                                href="javascript:history.back()">go back</a> and try again. </li>
 
-                            <h3>What now?</h3>
+                                        <li>If you typed the address yourself, please make sure it is spelled correctly.</li>
 
-                            <p>1) If you followed a link, you can <a
-                                    href="javascript:history.back()">go back</a> and try again. </p>
+                                        <li>Have an idea what you are looking for? Try a search at the top of the page.</li>
 
-                            <p>2) If you typed the address yourself, please make sure it is spelled correctly.</p>
+                                        <li>Try visiting <gsml:a
+                                                href="/">our homepage</gsml:a> and see if you can find what you are looking for from there.
+                                        </li>
 
-                            <p>3) Have an idea what you are looking for? Try a search at the top of the page.</p>
-
-                            <p>4) Try visiting <gsml:a
-                                    href="/">our homepage</gsml:a> and see if you can find what you are looking for from there.
-                            </p>
-
-                            <p>5) If those options don't help,
-                                <link:contactUs>Contact Us</link:contactUs> and let us know. Be sure to tell us
-                                the address that didn't work and how you got here.</p>
+                                        <li>If those options don't help,
+                                            <link:contactUs>Contact Us</link:contactUs> and let us know. Be sure to tell us
+                                            the address that didn't work and how you got here.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                <div id="sidebarGS" class="col">
-                    <ad:AboveFold_300x250/>
+                        <div class="grid_8">
+                            <ad:AboveFold_300x250/>
+                        </div>
                     </div>
                 </gsml:body>
                 </html>
