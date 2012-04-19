@@ -6371,22 +6371,12 @@ body.hover #startADiscussion .submit {
     line-height: 1.6;
 }
 
-#changeEmail fieldset input,
-#changePassword fieldset input {
+#changeEmail fieldset input[type=text],
+#changePassword fieldset input[type=text] {
     width: 178px;
     padding: 3px 0;
     border: 1px solid #a8cedf;
     outline:0;
-}
-
-#changeEmail #submitButton,
-#changePassword #submitButton {
-    margin-left: -3px;
-}
-
-#changeEmail #cancelButton,
-#changePassword #cancelButton {
-    padding-left: 10px;
 }
 
 #changeEmail p.formErrorText,

@@ -33,7 +33,7 @@ General comments:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
-    height: 23px;
+    /*height: 23px;*/
     color: white;
     text-decoration: none;
     font: bold 14px/21px Arial, Helvetica, sans-serif;
