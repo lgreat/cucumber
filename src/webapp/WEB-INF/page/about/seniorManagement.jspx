@@ -26,7 +26,7 @@
     <meta name="description" content="An introduction to the Senior Management team at GreatSchools."/>
     <meta name="keywords" content="Bill Jackson, founder, GreatSchools CEO, senior management"/>
 
-    <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
+    <!--<pageHelper:externalCss file="/res/css/about/aboutUs.css"/>-->
 
     <jsp:scriptlet>
         try {
@@ -54,28 +54,29 @@
 
 <gsml:body adPageName="aboutUs" pageLayout="leftside seniorManagement">
 
-<p class="breadcrumbs smallAlertText">
+<div class="grid_24">
+<p class="mvm smallAlertText">
     <link:home>Home</link:home>
     &amp;gt;
     <link:aboutUs>About Us</link:aboutUs>
 </p>
 
-<h1>Senior Management</h1>
+<h1 class="mbl">Senior Management</h1>
+</div>
 
-<div id="mainGS">
-
-<div id="aboutNav" class="col">
+<div class="grid_5">
     <about:aboutGreatSchools selected="management"/>
 </div>
-<div class="main">
+
+<div class="grid_19">
 
 <table cellpadding="0" cellspacing="0">
     <tr>
-        <td valign="top"><img src="/res/img/about/seniormanagement_bill.jpg" width="97" height="108"
+        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_bill.jpg" width="97" height="108"
                               alt="Bill Jackson"/></td>
         <td valign="top">
-            <div class="text3boldOrange">Bill Jackson, Founder, President, and CEO</div>
-            <div class="text3">
+            <div class="text3bold-d61">Bill Jackson, Founder, President, and CEO</div>
+            <div class="text3 mbm">
                 As a teacher in the U.S. and China in the late 1980s, Bill came to recognize
                 the extraordinary influence that parents have over their children's
                 education. Then, as an Internet entrepreneur in the 1990s, he recognized
@@ -106,11 +107,11 @@
         </td>
     </tr>
     <tr>
-        <td valign="top"><img src="/res/img/about/seniormanagement_matthew.jpg" width="97" height="108"
+        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_matthew.jpg" width="97" height="108"
                               alt="Matthew Nelson"/></td>
         <td valign="top">
-            <div class="text3boldOrange">Matthew Nelson, Chief Operating Officer</div>
-            <div class="text3">
+            <div class="text3bold-d61">Matthew Nelson, Chief Operating Officer</div>
+            <div class="text3 mbm">
                 Prior to joining GreatSchools, Matthew cut his online teeth as a founding member of Wired
                 Digital, where he launched one of the first ad-supported websites, HotWired. Later he
                 co-founded Organic, an interactive communications and advertising agency, where he helped
@@ -136,11 +137,11 @@
     </tr>
 
     <tr>
-        <td valign="top"><img src="/res/img/about/seniormanagement_gretchen.jpg" width="97" height="108"
+        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_gretchen.jpg" width="97" height="108"
                               alt="Gretchen Anderson"/></td>
         <td valign="top">
-            <div class="text3boldOrange">Gretchen Anderson, Vice President, Product</div>
-            <div class="text3">
+            <div class="text3bold-d61">Gretchen Anderson, Vice President, Product</div>
+            <div class="text3 mbm">
                 As a design leader, Gretchen has an extensive background creating experiences that delight people.
                 Gretchen has designed and developed a wide array of interactive education, healthcare, technology, and
                 consumer lifestyle products during her career. For GreatSchools' parents and user community, Gretchen
@@ -165,11 +166,11 @@
     </tr>
 
     <tr>
-        <td valign="top"><img src="/res/img/about/seniormanagement_lilly.jpg" width="97" height="108" alt="Lilly Fu"/>
+        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_lilly.jpg" width="97" height="108" alt="Lilly Fu"/>
         </td>
         <td valign="top">
-            <div class="text3boldOrange">Lilly Fu, Chief Financial Officer</div>
-            <div class="text3">
+            <div class="text3bold-d61">Lilly Fu, Chief Financial Officer</div>
+            <div class="text3 mbm">
                 Lilly was one of the first recruits of Teach
                 for America, where she taught second grade in Oakland, California. Lilly
                 earned her BA in political science and economics from Wellesley College
@@ -195,11 +196,11 @@
         </td>
     </tr>
     <tr>
-        <td valign="top"><img src="/res/img/about/seniormanagement_carol.jpg" width="97" height="108" alt="Lisa Fung"/>
+        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_carol.jpg" width="97" height="108" alt="Lisa Fung"/>
         </td>
         <td valign="top">
-            <div class="text3boldOrange">Carol Lloyd, Executive Editor</div>
-            <div class="text3">
+            <div class="text3bold-d61">Carol Lloyd, Executive Editor</div>
+            <div class="text3 mbm">
                 As the Executive Editor for GreatSchools, Carol brings a wealth of editorial expertise to the
                 organization. Prior to GreatSchools, Carol was an award-winning weekly columnist from the San Francisco
                 Chronicle for ten years and headed the education section as an editor at Salon.com. In 2009, she
@@ -225,11 +226,11 @@
         </td>
     </tr>
     <tr>
-        <td valign="top"><img src="/res/img/about/seniormanagement_karissa.jpg" width="97" height="108"
+        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_karissa.jpg" width="97" height="108"
                               alt="Karissa Sparks"/></td>
         <td valign="top">
-            <div class="text3boldOrange">Karissa Sparks, Vice President, Marketing and Research</div>
-            <div class="text3">
+            <div class="text3bold-d61">Karissa Sparks, Vice President, Marketing and Research</div>
+            <div class="text3 mbm">
                 Karissa has over 16 years of experience in the web analytics, online marketing, SEO/SEM, and web
                 production fields. Her keen analytical sense combined with her marketing intelligence help make
                 GreatSchools one of the leading technology nonprofits in the education sector today. Prior to joining
@@ -253,11 +254,11 @@
     </tr>
 
     <tr>
-        <td valign="top"><img src="/res/img/about/seniormanagement_vidya.jpg" width="97" height="108"
+        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_vidya.jpg" width="97" height="108"
                               alt="Vidya Sundaram"/></td>
         <td valign="top">
-            <div class="text3boldOrange">Vidya Sundaram, Vice President, Business Insights</div>
-            <div class="text3">
+            <div class="text3bold-d61">Vidya Sundaram, Vice President, Business Insights</div>
+            <div class="text3 mbm">
                 Vidya has an extensive background in business leadership and program strategy. She leads GreatSchools'
                 market research and social impact assessments. Joining GreatSchools in 2006, she has also been
                 responsible for new product development and fund development activities. Prior to joining GreatSchools,
@@ -281,11 +282,11 @@
     </tr>
 
     <tr>
-        <td valign="top"><img src="/res/img/about/seniormanagement_molly.jpg" width="97" height="108"
+        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_molly.jpg" width="97" height="108"
                               alt="Molly Vitorte"/></td>
         <td valign="top">
-            <div class="text3boldOrange">Molly Vitorte, Vice President and Managing Director, College Bound</div>
-            <div class="text3">
+            <div class="text3bold-d61">Molly Vitorte, Vice President and Managing Director, College Bound</div>
+            <div class="text3 mbm">
                 Molly brings to GreatSchools over 20 years of experience in the nonprofit,
                 for-profit and higher education sectors, with a focus on improving college
                 access for minority and low-income students. Previously, she was the
@@ -300,7 +301,6 @@
         </td>
     </tr>
 </table>
-</div>
 </div>
 
 <div id="tracking">

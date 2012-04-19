@@ -20,30 +20,31 @@
         <meta name="description" content="An introduction to the GreatSchools advisory panel."/>
         <meta name="keywords" content="GreatSchools advisors, advisory panel"/>
 
-        <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
+        <!--<pageHelper:externalCss file="/res/css/about/aboutUs.css"/>-->
     </head>
 
     <gsml:body adPageName="aboutUs" pageLayout="leftside meetOurAdvisors">
 
-        <p class="breadcrumbs smallAlertText">
+        <div class="grid_24">
+        <p class="mvm smallAlertText">
             <link:home>Home</link:home>
             &amp;gt;
             <link:aboutUs>About Us</link:aboutUs>
         </p>
 
-        <h1>Meet Our Advisors</h1>
-        <div id="mainGS">
+        <h1 class="mbl">Meet Our Advisors</h1>
+        </div>
 
-        <div id="aboutNav" class="col">
+        <div class="grid_5">
             <about:aboutGreatSchools selected="advisors"/>
         </div>
-        <div class="main">
+        <div class="grid_19">
             <h4 class="subhead2">National Advisory Board</h4>
 
             <hr class="dotted"/>
 
-            <div class="text3">
-                <span class="text3boldOrange">Michael Carter</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Michael Carter</span>
                 is the director of special projects at the Monterey Institute for Technology and
                 Education and a principal at Twin Learning. Prior to making educational math games
                 for the Hewlett and Gates Foundations, he directed education research at Apple and
@@ -53,8 +54,8 @@
                 world for children. He received his BA, MA, and PhD from Stanford University.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Angela Duckworth</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Angela Duckworth</span>
                 is an assistant professor of psychology at the University of Pennsylvania. Her
                 research centers on self-control (the ability to regulate emotions, thoughts, and
                 feelings in the service of valued goals) and grit (perseverance and sustained
@@ -64,8 +65,8 @@
                 Harvard University and her PhD from the University of Pennsylvania.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Bonny Forrest</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Bonny Forrest</span>
                  is the creator of Project SKIP, an online service that assesses cognitive and
                  other developmental issues in children, and has been an advocate for children
                  for over 20 years. Also the former director of clinical programs and developmental
@@ -78,8 +79,8 @@
                  developmental issues in children since 2001.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Patricia B. Martel</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Patricia B. Martel</span>
                 is an educational consultant and has been an educator for more than 44 years.
                 A specialist in literacy acquisition, Martel served for 10 years as principal
                 of George Moscone Elementary in San Francisco. Under her leadership, the
@@ -91,8 +92,8 @@
                 from San Jose State University and her MA from the University of San Francisco.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Preston Smith</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Preston Smith</span>
                 is the cofounder and chief academic officer of Rocketship Education. Before
                 starting Rocketship, he was the founder and principal of LUCHA, a small
                 elementary school in San Jose, Calif. In 2007 it received an API score of
@@ -104,8 +105,8 @@
                 Phi Beta Kappa from the University of North Carolina at Chapel Hill.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Alan Tripp</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Alan Tripp</span>
                 has made a career of enhancing student motivation, success, and
                 achievement. As founder and CEO of InsideTrack, his attention is currently focused
                 on the success of college students, as reflected in academic performance, persistence,
@@ -117,8 +118,8 @@
                 Business and Education from 1999-2004, where he co-taught the core course for education entrepreneurs.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Guadalupe Vald&amp;eacute;s</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Guadalupe Vald&amp;eacute;s</span>
                 is the Bonnie Katz Tenenbaum Professor of Education at Stanford University and
                 specializes in language pedagogy and applied linguistics, focusing on the
                 English-Spanish bilingualism of U.S. Latinos. Her research on Latino students
@@ -129,8 +130,8 @@
                 Florida State University.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Dr. Jerry Wartgow</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Dr. Jerry Wartgow</span>
                 is the Chancellor for the University of Colorado Denver and the
                 University of Colorado Anschutz Medical Center campuses. He has served as a
                 superintendent of Denver Public Schools, was president of the Colorado Community
@@ -147,42 +148,41 @@
 
             <hr class="dotted"/>
 
-            <div class="text3">
-                <span class="text3boldOrange">Candace Cortiella's</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Candace Cortiella's</span>
                 work as Director of the nonprofit The Advocacy Institute focuses on improving the lives of people with learning disabilities, through public policy and other initiatives. The mother of a young adult with learning disabilities, she lives in the Washington, D.C., area.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Guinevere Eden, Ph.D.</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Guinevere Eden, Ph.D.</span>
                 is an associate professor at Georgetown University and directs the Center for the Study of Learning. Supported by NIH and NSF, her research focuses on the brain-basis of dyslexia. Dr. Eden has published widely and is a frequent speaker. She is President-Elect of the International Dyslexia Association and serves on several editorial boards.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Dave L. Edyburn, Ph.D.</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Dave L. Edyburn, Ph.D.</span>
                 is a Professor in the Department of Exceptional Education at the University of Wisconsin-Milwaukee. His teaching and research interests focus on the use of technology to enhance teaching, learning, and performance. He has authored over 150 articles and book chapters on the use of technology in special education.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Sam Goldstein, Ph.D.</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Sam Goldstein, Ph.D.</span>
                 is a Clinical Professor of Psychiatry at the University of Utah, a Research Professor of Psychology at George Mason University and Director of the Neurology, Learning and Behavior Center in Salt Lake City, Utah. He is Editor-in-Chief of the
                 <em>Journal of Attention Disorders</em>, author, co-author or editor of 26 books and dozens of book chapters and peer reviewed research articles.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Sheldon H. Horowitz, Ed.D.</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Sheldon H. Horowitz, Ed.D.</span>
                 has served as the Director of Professional Services at the National Center for Learning Disabilities (NCLD) since 1996. Before that he directed hospital-based evaluation and treatment programs in psychiatry and developmental and behavioral pediatrics. He has taught at primary, middle-school, and college levels, and is widely published on topics relating to LD across the lifespan.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Arlyn Roffman, Ph.D.</span>,
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Arlyn Roffman, Ph.D.</span>,
                 an expert on transition issues in special education, is a Professor at Lesley University, where she served as founding director of Threshold, a transition program for young adults with learning disabilities, from 1981 to 1996. She has served on the professional advisory boards of several national LD organizations and maintains a private practice in psychology.
             </div>
 
-            <div class="text3">
-                <span class="text3boldOrange">Wayne Steedman</span>
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Wayne Steedman</span>
                 is a co-founder and President of Callegary &amp;amp; Steedman, P.A., a law firm located in Baltimore, which primarily focuses on disability law. He is a graduate of the University of Maryland Law School and the School of Social Work, and has practiced law for 19 years with his primary focus on special education. Wayne has represented his clients in due process hearing, state and federal court, and the Third and Fourth Circuit Courts of Appeals. He is admitted to practice before the United States Supreme Court. He has presented nationwide on special education law and written numerous articles which have been published on-line and in print journals.
             </div>
-        </div>
         </div>
 
         <div id="tracking">
