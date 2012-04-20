@@ -15,11 +15,11 @@
     </head>
     <body>
 
-    <div id="mainGS" class="col">
+    <div class="grid_16">
         <p>Multiple forms on one page are not usually expected, but the code should allow it.</p>
     </div>
 
-    <div id="sidebarGS" class="col">
+    <div class="grid_8">
         <jsp:include page="/promo/emailSignUp.module"/>
         <jsp:include page="/promo/emailSignUp.module"/>
     </div>
