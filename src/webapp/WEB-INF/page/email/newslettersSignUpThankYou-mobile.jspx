@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
+    <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
+
+    <html lang="en">
+
+    <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
+    <jsp:output omit-xml-declaration="true" />
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+
+    <head>
+        <title>GreatSchools - Public and Private School Ratings, Reviews and Parent Community</title>
+
+        <meta name="description"
+              content="Compare K-12 school ratings nationwide to find the best schools. View parent ratings, reviews and test scores and choose the right preschool, elementary, middle or high school for public or private education."/>
+        <meta name="keywords"
+              content="school ratings, public schools, public school ratings, private schools, private school ratings, charter schools, charter school ratings, school reviews, school rankings, test scores, preschool, elementary school, middle school, high school, parent community, education resource, find school, great schools, greatschools"/>
+        <meta name="decorator" content="standardMobileDecorator"/>
+
+        <meta name="verify-v1" content="8wIYiSgpVxmFXAqa0o9m/kbv8p0enMoVmBn0d7Tq3z8="/>
+
+        <title>GreatSchools - Newsletters Sign Up Thank You</title>
+
+        <style type="text/css">
+            #hd {
+                background-color: #999;
+                height: 20px;
+            }
+            #bd {
+                padding: 1em;
+            }
+            .input_8 {
+                width: 298px;
+            }
+        </style>
+
+    </head>
+
+    <body>
+    <div id="hd">
+        <h4>Subscribe to Newsletter</h4>
+    </div>
+
+    <div id="bd">
+        <h3>Thank you</h3>
+
+        <p>You've successfully subscribed to the GreatSchools newsletter.</p>
+
+        <a href="/?site_preference=mobile">Find a school</a>
+
+        <div class="form">
+
+        </div>
+    </div>
+    <!--<mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home"/>-->
+
+    </body>
+    </html>
+</jsp:root>
