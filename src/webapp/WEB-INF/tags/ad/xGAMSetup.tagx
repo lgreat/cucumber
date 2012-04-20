@@ -167,6 +167,9 @@
                       <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
                   </c:choose>);
             </c:forEach>
+            <![CDATA[
+                googletag.pubads().setTargeting("compfilter", "${gsweb:randomNumber(4)+1}");
+            ]]>
 
             <![CDATA[
                 googletag.pubads().collapseEmptyDivs();
