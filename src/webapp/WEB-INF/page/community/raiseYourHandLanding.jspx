@@ -25,10 +25,7 @@
 </head>
 <body>
 
-<div id="container">
-<div id="mainContent" class="fltlft">
-
-    <div id="mainGS" class="col ryh-landing">
+    <div class="grid_16">
         <h1>Raise Your Hand</h1>
 
         <div class="">
@@ -82,14 +79,10 @@
 
     </div>
 
-</div>
-<!-- end mainContent -->
 
 <!-- sidebar that shows More-In: -->
 <cms:communitySidebar searchType="community"/>
 
-</div>
-<!-- end container -->
 <mod:tracking pageName="Raise Your Hand Landing Page"
               hier1="Community,Discussions,Raise Your Hand Landing Page"
               community="true"
