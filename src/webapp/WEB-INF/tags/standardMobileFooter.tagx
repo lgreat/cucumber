@@ -36,7 +36,7 @@
                 <a href="/about/aboutUs-mobile.page" data-role="link" data-theme="d">About Us</a> |
                 <a href="/terms/">Terms of Use</a> |
                 <a href="/privacy/">Privacy Policy</a> <br/>
-            <a href="/email/management.page">Subscribe to Newsletter</a> |
+            <a href="/email/newslettersSignUp-mobile.page">Subscribe to Newsletter</a> |
             <a href="#">My Saved Schools</a>
         </div>
 
