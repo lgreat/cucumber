@@ -66,38 +66,48 @@ public class NewslettersSignUpMobileAjaxController implements ReadWriteAnnotatio
             return;
         }
 
+        //logic based on newsletterSignUpController.java
         boolean isSubscribedToWeeklyNl = false;
+        boolean shouldSendVerificationEmail = false;
         List<Subscription> subscriptions = new ArrayList<Subscription>();
 
         User user = _userDao.findUserFromEmailIfExists(email);
-        if (user != null) {
-            Set<Subscription> userSubscriptions = user.getSubscriptions();
-
-            if (userSubscriptions != null) {
-                for (Subscription subscription: userSubscriptions) {
-                    if (SubscriptionProduct.PARENT_ADVISOR.equals(subscription.getProduct())) {
-                        isSubscribedToWeeklyNl = true;
-                    }
-                }
-            }
-
-            if (!isSubscribedToWeeklyNl) {
-                addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
-
-                _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
-            }
-        }
-
-        else {
+        Calendar double_opt_in_release_date = Calendar.getInstance();
+        double_opt_in_release_date.set(2010, 3, 14, 23, 0, 0);
+        if (user == null) {
             user = new User();
             user.setEmail(email);
             user.setHow("mobile_newsletter");
             user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
             _userDao.saveUser(user);
 
+            shouldSendVerificationEmail = true;
+        }
+        else if (user != null && user.getTimeAdded() != null && (user.getEmailVerified() == null || !user.getEmailVerified())) {
+            Date time_added = user.getTimeAdded();
+
+            if (time_added.after(double_opt_in_release_date.getTime()) && (user.getEmailVerified() == null || !user.getEmailVerified())) {
+                shouldSendVerificationEmail = true;
+            }
+        }
+
+        Set<Subscription> userSubscriptions = user.getSubscriptions();
+
+        if (userSubscriptions != null) {
+            for (Subscription subscription: userSubscriptions) {
+                if (SubscriptionProduct.PARENT_ADVISOR.equals(subscription.getProduct())) {
+                    isSubscribedToWeeklyNl = true;
+                }
+            }
+        }
+
+        if (!isSubscribedToWeeklyNl) {
             addSubscription(subscriptions, user, SubscriptionProduct.PARENT_ADVISOR);
 
             _subscriptionDao.addNewsletterSubscriptions(user, subscriptions);
+        }
+
+        if(shouldSendVerificationEmail) {
             sendVerificationEmail(request, user, true);
         }
 
@@ -116,9 +126,10 @@ public class NewslettersSignUpMobileAjaxController implements ReadWriteAnnotatio
 
     private void sendVerificationEmail(HttpServletRequest request, User user, boolean addedParentAdvisorSubscription)
             throws IOException, MessagingException, NoSuchAlgorithmException {
+        String redirectUrl = "/email/newslettersEmailVerified-mobile.page";
         Map<String,String> otherParams = new HashMap<String,String>();
         otherParams.put(ExactTargetUtil.EMAIL_SUB_WELCOME_PARAM,ExactTargetUtil.getEmailSubWelcomeParamValue(addedParentAdvisorSubscription,false,false,false));
-        getEmailVerificationEmail().sendVerificationEmail(request, user, "", otherParams);
+        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl, otherParams);
     }
 
     protected boolean validateEmail(String email) {
