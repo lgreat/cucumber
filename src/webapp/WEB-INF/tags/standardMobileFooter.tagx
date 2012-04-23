@@ -33,7 +33,7 @@
         <hr/>
 
         <div data-theme="d" class="mobile-footer-links">
-                <a href="/about/aboutUs.page" data-role="link" data-theme="d">About Us</a> |
+                <a href="/about/aboutUs-mobile.page" data-role="link" data-theme="d">About Us</a> |
                 <a href="/terms/">Terms of Use</a> |
                 <a href="/privacy/">Privacy Policy</a> <br/>
             <a href="/email/management.page">Subscribe to Newsletter</a> |

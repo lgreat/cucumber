@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml">
+    <html lang="en">
+    <jsp:output omit-xml-declaration="true" />
+    <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+        <meta name="Description" content="Terms of Use"/>
+        <title>About Us</title>
+        <meta name="decorator" content="standardMobileDecorator"/>
+
+        <style type="text/css">
+            #hd {
+                height: 20px;
+            }
+            #bd {
+                padding: 1em 0 0 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="hd">
+            <h3>About Us</h3>
+        </div>
+
+        <div id="bd">
+            GreatSchools is the country's leading source of information on school performance. With listings of 200,000
+            public and private schools serving students from preschool through high school and more than 800,000 parent
+            ratings and reviews, GreatSchools has become the go-to guide for parents aiming to make a smart school
+            choice.
+        </div>
+    </body>
+    </html>
+</jsp:root>

@@ -17,7 +17,7 @@
 
 
     <body>
-        <about:termsOfUse/>
+        <about:privacyStatement/>
         <a class="js-linkToTop" href="#">Top of page</a>
     </body>
 

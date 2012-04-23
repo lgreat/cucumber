@@ -904,6 +904,14 @@
         </property>
     </bean>
 
+    <bean name="/about/aboutUs-mobile.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/aboutUs-mobile</value>
+        </property>
+    </bean>
+
     <bean name="/about/supportUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
@@ -1094,10 +1102,13 @@
     </bean>
 
     <bean name="/privacy/"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.mobile.ParameterizableViewControllerWithMobileAndDesktopViews"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/privacyStatement</value>
+        </property>
+        <property name="mobileViewName">
+            <value>about/privacyStatement-mobile</value>
         </property>
     </bean>
 
