@@ -34,12 +34,13 @@
 
     <c:choose>
         <c:when test="${feature.currentSlideIndex == 0}">
-            <link rel="canonical" href="${contentUrl}"/>
+            <c:set var="slideShowUrl" value="${contentUrl}"/>
         </c:when>
         <c:otherwise>
-            <link rel="canonical" href="${contentUrl}?page=${feature.currentSlideIndex + 1}"/>
+            <c:set var="slideShowUrl" value="${contentUrl}?page=${feature.currentSlideIndex + 1}"/>
         </c:otherwise>
     </c:choose>
+    <link rel="canonical" href="${slideShowUrl}"/>
 
     <c:if test="${prevPageNum != -1}">
         <link rel="prev" href="${prevPageContentUrl}"/>
@@ -71,7 +72,7 @@
                 <!-- Byline -->
 
                 <!-- 2012 03 26 - mitch added comment to parameter list so I could access it in the toolbar -->
-                <article:toolsLayout2 feature="${feature}" uri="${uri}" comments="${comments}"/>
+                <article:toolsLayout2 feature="${feature}" uri="${uri}" comments="${comments}" slideShowUrl="${slideShowUrl}" slideShowTitle="${feature.currentSlide.title}" slideShowImage="${feature.currentSlide.imageUrl}"/>
 
                 <!-- TODO! make sure these 610x ads look right -->
                 <ad:adTag position="Sponsor_610x16"/>

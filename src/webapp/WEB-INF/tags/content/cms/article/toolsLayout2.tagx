@@ -9,13 +9,19 @@
     <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
     <jsp:directive.attribute name="uri" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="comments" required="false" type="java.util.List"/>
+    <jsp:directive.attribute name="slideShowUrl" required="true" type="java.lang.String"
+                             description="URL of the individual slide to be pinned"/>
+    <jsp:directive.attribute name="slideShowTitle" required="true" type="java.lang.String"
+                             description="Title of the individual slide to be pinned"/>
+    <jsp:directive.attribute name="slideShowImage" required="true" type="java.lang.String"
+                             description="Image of the individual slide to be pinned"/>
 
     <div class="mod articleDistribution2">
         <div class="inner">
             <div class="bd">
                 <div class="line">
                     <div class="unit size50of100">
-                        <article:socialToolsLayout3 includeFbSendBtn="true" includeShareBtn="false"/>
+                        <article:socialToolsLayout3 includeFbSendBtn="true" includeShareBtn="false" slideShowUrl="${pageScope.slideShowUrl}" slideShowTitle="${feature.currentSlide.title}" slideShowImage="${feature.currentSlide.imageUrl}"/>
                     </div>
                     <div class="unit size50of100 lastUnit flrt">
                     <!-- DONE! switch to correct button design (or ask to use same icons as in article:toolsLayout1 -->

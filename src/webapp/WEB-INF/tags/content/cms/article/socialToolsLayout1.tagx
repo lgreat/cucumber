@@ -18,13 +18,25 @@
         </div>
 
         <div class="mtm">
-                <span class="mrs">
-            <promo:tweetButtonArticle/>
-                </span>
+            <span class="mrs">
+                <promo:tweetButtonArticle/>
+            </span>
 
-                <span class="mls">
-            <community:addGooglePlusOne url="${fullUrl}"/>
-                </span>
+            <span class="mls">
+                <community:addGooglePlusOne url="${fullUrl}"/>
+            </span>
+            <span class="mls">
+                <c:choose>
+                    <c:when test="${not empty feature.imageUrl}">
+                        <promo:addPinItButton url="${requestInfo.requestURL}" title="${feature.title}"
+                                              image="${feature.imageUrl}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <promo:addPinItButton url="${requestInfo.requestURL}" title="${feature.title}"
+                                              image="http://www.greatschools.org/res/img/content/article/GS_FB_logo_200x200.jpg"/>
+                    </c:otherwise>
+                </c:choose>
+            </span>
         </div>
     </div>
 
