@@ -1,6 +1,7 @@
 package gs.web.school;
 
 import gs.data.school.*;
+import gs.data.source.DataSetContentType;
 import gs.data.test.*;
 import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -25,6 +26,14 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
     public static final Integer TEST_DATA_PROFICIENCY_BAND_ID = null;
 
+    public static final String DATA_TYPE_CONTENT_TYPE = "school";
+
+    public static final String KEY_DATA_TYPE_IDS = "dataTypeIds";
+
+    public static final String KEY_SUBJECTS = "subjects";
+
+    public static final String KEY_YEARS = "years";
+
     public static final String VIEW = "school/testScores-mobile";
 
     private boolean _controllerHandlesMobileRequests;
@@ -33,6 +42,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     private ISchoolDao _schoolDao;
     private ITestDataSetDao _testDataSetDao;
     private ITestDataTypeDao _testDataTypeDao;
+    private ITestScoresConfigDao _testScoresConfigDao;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String schoolId = request.getParameter(PARAM_SCHOOL_ID);
@@ -56,21 +66,29 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param school
      * @return This returns a list of TestToGrades bean, which is used to present data in the view.
      */
-
     protected List<TestToGrades> getTestScores(School school) {
 
         List<TestToGrades> rval = new ArrayList<TestToGrades>();
         if (school == null) {
             return rval;
         }
+
+        //Get the configurations for a school.The configurations specify the tests, the years and subjects to display.
+        Map configurationMap = getTestScoresConfigurationMap(school);
         //Get the Data Type Ids.This specifies what test to show for a given school.
-        List<Integer> dataTypeIds = getDataTypeIds(school);
-        if (dataTypeIds == null || dataTypeIds.isEmpty()) {
+        Set<Integer> dataTypeIds = getDataTypeIds(configurationMap);
+        //Get the Subjects.This specifies what subjects to show for a given school.
+        Set<Subject> subjects = getSubjects(configurationMap);
+        //Get the years.This specifies what years to show the data for.
+        Set<Integer> years = getYears(configurationMap);
+        if (dataTypeIds == null || dataTypeIds.isEmpty() || subjects == null || subjects.isEmpty() || years == null || years.isEmpty()) {
             return rval;
         }
 
         //Get the Test Data sets.
-        List<TestDataSet> testDataSets = getTestDataSets(school, dataTypeIds);
+        //TODO look at all the params.
+        List<TestDataSet> testDataSets = getTestDataSets(school, dataTypeIds, years, subjects, getGrades(), getBreakDownIds(),
+                TEST_DATA_PROFICIENCY_BAND_ID, true, TEST_DATA_LEVEL_CODE);
         if (testDataSets == null || testDataSets.isEmpty()) {
             return rval;
         }
@@ -81,11 +99,73 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             return rval;
         }
 
-        //A temporary map used to store the grade subjects testDataSet and value.
+        //A temporary map used to store the testDataType, grade, subjects, testDataSet and value.
         //We use this map later to construct a list to display in the view.
         Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
-                new HashMap<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>>();
+                getTestDataTypeToGradeToSubjectsToDataSetToValueMap(school, testDataSets, testDataTypeIdToTestDataType);
 
+        //Convert the temporaryMap :- 'testDataTypeToGradeToSubjectsToDataSetToValueMap' to a list of TestToGrades bean to use in the view.
+        rval = populateTestScoresBean(testDataTypeToGradeToSubjectsToDataSetToValueMap);
+        return rval;
+    }
+
+    /**
+     * Get the configurations for a school.The configurations specify the tests, the years and subjects to display.
+     *
+     * @param school
+     * @return Map of String to a Set.For example for the subjects the key would be 'subjects'
+     *         and value would be Set<Subject> that represent the subjects to display.
+     */
+    protected Map getTestScoresConfigurationMap(School school) {
+        List<TestScoresConfig> configs = new ArrayList<TestScoresConfig>();
+        if (school != null) {
+            configs = _testScoresConfigDao.getConfiguration(school.getDatabaseState(), school.getLevelCode().getIndividualLevelCodes(),
+                    true, DataSetContentType.getInstance(DATA_TYPE_CONTENT_TYPE), school.getType());
+        }
+
+        Set<Integer> dataTypeIds = new HashSet<Integer>();
+        Set<Subject> subjects = new HashSet<Subject>();
+        Set<Integer> years = new HashSet<Integer>();
+        for (TestScoresConfig config : configs) {
+            dataTypeIds.add(config.getDataTypeId());
+            subjects.add(config.getSubject());
+            years.add(config.getYear());
+        }
+
+        Map info = new HashMap();
+        info.put(KEY_DATA_TYPE_IDS, dataTypeIds);
+        info.put(KEY_SUBJECTS, subjects);
+        info.put(KEY_YEARS, years);
+        return info;
+    }
+
+    /**
+     * Method to get the TestDataSets for a given school
+     *
+     * @param school
+     * @return
+     */
+    protected List<TestDataSet> getTestDataSets(School school, Set<Integer> dataTypeIds, Set<Integer> years,
+                                                Set<Subject> subjects, Set<Grade> grades, Set<Integer> breakdownIds,
+                                                Integer proficiencyBandId, Boolean activeOnly, LevelCode levelCode) {
+
+        List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(school.getDatabaseState(),
+                years, dataTypeIds, subjects, grades, breakdownIds,
+                proficiencyBandId, activeOnly, levelCode);
+        return testDataSets;
+    }
+
+    /**
+     * Helper Method to populate a map used to store the testDataType, grade, subjects, testDataSet and value.
+     *
+     * @param school
+     * @param testDataSets
+     * @param testDataTypeIdToTestDataType
+     * @return
+     */
+    protected Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>> getTestDataTypeToGradeToSubjectsToDataSetToValueMap(School school, List<TestDataSet> testDataSets, Map<Integer, TestDataType> testDataTypeIdToTestDataType) {
+        Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
+                new HashMap<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>>();
         for (TestDataSet testDataSet : testDataSets) {
             //todo maybe do a batch fetch.
             //Get the test scores for the testDataSet.
@@ -139,12 +219,8 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                 }
             }
         }
-
-        //Convert the temporaryMap - 'testDataTypeToGradeToSubjectsToDataSetToValueMap' to a list of TestToGrades bean to use in the view.
-        rval = populateBeansForTestScores(testDataTypeToGradeToSubjectsToDataSetToValueMap);
-        return rval;
+        return testDataTypeToGradeToSubjectsToDataSetToValueMap;
     }
-
 
     /**
      * Helper Method to populate the TestToGrades bean from a Map.
@@ -152,7 +228,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param map
      * @return This returns a list of TestToGrades bean, which is used to present data in the view.
      */
-    protected List<TestToGrades> populateBeansForTestScores(Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>> map) {
+    protected List<TestToGrades> populateTestScoresBean(Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>> map) {
         List<TestToGrades> testToGradesList = new ArrayList<TestToGrades>();
         for (TestDataType testDataType : map.keySet()) {
             TestToGrades testToGrades = new TestToGrades();
@@ -200,26 +276,12 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     }
 
     /**
-     * Method to get the TestDataSets for a given school
-     *
-     * @param school
-     * @return
-     */
-
-    protected List<TestDataSet> getTestDataSets(School school, List<Integer> dataTypeIds) {
-        List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(school.getDatabaseState(),
-                getYears(), dataTypeIds, getSubjects(), null, getBreakDownIds(),
-                TEST_DATA_PROFICIENCY_BAND_ID, true, TEST_DATA_LEVEL_CODE);
-        return testDataSets;
-    }
-
-    /**
      * Method to get the TestDataTypes for a list testDataTypeIds
      *
      * @param testDataTypeIds
      * @return
      */
-    protected Map<Integer, TestDataType> getTestDataTypes(List<Integer> testDataTypeIds) {
+    protected Map<Integer, TestDataType> getTestDataTypes(Set<Integer> testDataTypeIds) {
         //TODO make a batch call?
         Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
         for (Integer testDataTypeId : testDataTypeIds) {
@@ -229,55 +291,27 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         return testDataTypeIdToTestDataType;
     }
 
-    protected List<Integer> getYears() {
-        List<Integer> years = new ArrayList<Integer>();
-        years.add(2011);
-        years.add(2010);
-        years.add(2009);
-        return years;
+    protected Set<Integer> getYears(Map configurationMap) {
+        return (Set<Integer>) configurationMap.get(KEY_YEARS);
     }
 
-    protected List<Integer> getDataTypeIds(School school) {
-        //TOdO think about what if adding new test.
-        //TODO think about if 3 grades have 3 data type ids.
-        List<Integer> dataTypeIds = new ArrayList<Integer>();
-        if ((school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)
-                || school.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL))) {
-            if (school.getType().equals(SchoolType.PRIVATE)) {
-                dataTypeIds.add(143);
-            } else if (school.getType().equals(SchoolType.PUBLIC)) {
-                dataTypeIds.add(49);
-            }
-        }
-        if ((school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL))) {
-            if (school.getType().equals(SchoolType.PRIVATE)) {
-                dataTypeIds.add(155);
-            } else if (school.getType().equals(SchoolType.PUBLIC)) {
-                dataTypeIds.add(154);
-            }
-        }
-        return dataTypeIds;
+    protected Set<Integer> getDataTypeIds(Map configurationMap) {
+        return (Set<Integer>) configurationMap.get(KEY_DATA_TYPE_IDS);
     }
 
-    protected List<Subject> getSubjects() {
-        List<Subject> subjects = new ArrayList<Subject>();
-        subjects.add(Subject.MATH);
-        subjects.add(Subject.ENGLISH_LANGUAGE_ARTS);
-        subjects.add(Subject.ALGEBRA_I);
-        subjects.add(Subject.ENGLISH);
-        return subjects;
+
+    protected Set<Subject> getSubjects(Map configurationMap) {
+        return (Set<Subject>) configurationMap.get(KEY_SUBJECTS);
     }
 
-    protected List<Grade> getGrades() {
-        List<Grade> grades = new ArrayList<Grade>();
-        grades.add(Grade.G_4);
-        return grades;
-    }
-
-    protected List<Integer> getBreakDownIds() {
-        List<Integer> breakdownIds = new ArrayList<Integer>();
+    protected Set<Integer> getBreakDownIds() {
+        Set<Integer> breakdownIds = new HashSet<Integer>();
         breakdownIds.add(TEST_DATA_BREAKDOWN_ID);
         return breakdownIds;
+    }
+
+    protected Set<Grade> getGrades() {
+        return null;
     }
 
     /**
@@ -286,7 +320,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param subject
      * @return
      */
-    //TODO this method is used in mobile api also.Therefore refactor into gsdata.
+    //TODO this method is used in mobile api also.Therefore refactor into gsdata.Also think about if its needed.
     protected String getSubjectLabel(Subject subject) {
         String subjectLabel = null;
 
@@ -319,7 +353,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param testData
      * @return
      */
-    //TODO this method is used in mobile api also.Therefore refactor into gsdata.
+    //TODO this method is used in mobile api also.Therefore refactor into gsdata.Also think about if its needed.
     protected String getGradeLabel(TestDataSet testData) {
         if (testData.getGrade().getName() != null) {
             String gradeLabel;
@@ -512,6 +546,14 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
     public void setTestDataTypeDao(ITestDataTypeDao testDataTypeDao) {
         _testDataTypeDao = testDataTypeDao;
+    }
+
+    public ITestScoresConfigDao getTestScoresConfigDao() {
+        return _testScoresConfigDao;
+    }
+
+    public void setTestScoresConfigDao(ITestScoresConfigDao testScoresConfigDao) {
+        _testScoresConfigDao = testScoresConfigDao;
     }
 
     public boolean controllerHandlesMobileRequests() {
