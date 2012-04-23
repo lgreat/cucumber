@@ -113,6 +113,10 @@ public class RequestInfo {
             && getSitePreference() != SitePreference.NORMAL;
     }
 
+    public boolean isShouldRenderMobileView() {
+        return shouldRenderMobileView();
+    }
+
     /******************************************************************************/
     /* Methods for working with hostnames                                         */
     /******************************************************************************/
