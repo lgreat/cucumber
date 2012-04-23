@@ -810,6 +810,14 @@ h4.subhead2 a {
     -moz-border-radius: 4px; /* FF1-3.6 */
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
+/* -------------- interstitialBG -------------- */
+.interstitialBG{}
+.interstitialBG .inner{background-color: #d2e9f3;margin: 0 20px 18px;}
+/* --------------- interstitial --------------- */
+.interstitial{}
+.interstitial .inner{width:670px;background-color: #79bedc;margin:11px auto 16px;text-align: center;}
+.interstitial .hd p{color:#ffffff;padding-top: 5px;}
+.interstitial .bd .interstitialContainer {padding: 0 15px 15px;}
 /* -------------- osp-dashboard -------------- */
 .osp-dashboard {}
 .osp-dashboard .inner { border-top: 1px solid #e5e5e5; background-color: #f9f9f9; padding: 5px 20px 7px 10px; }
@@ -2392,9 +2400,9 @@ body.cobranded #pageGS {
     z-index: 0;
 }
 
-.interstitial #mainWrap {
+/*.interstitial #mainWrap {
     margin-top: 36px;
-}
+}*/
 
 .col {
     position: relative;
@@ -2410,7 +2418,7 @@ body.cobranded #pageGS {
     border-top: 2px solid #aaa;
     margin: 0 auto;
     overflow: visible;
-    background: url(/res/img/discussion_boards/db_background.gif) 40px 0;
+    background-color: #ffffff;
     clear:both;
     position:relative;
 }
@@ -2426,12 +2434,14 @@ body.cobranded #pageGS {
 .framed #pageGS,
 .framed #footerFrm,
 .overview #contentGS {
-    background: #fff;
+    background-color: #ffffff;
     padding: 0;
 }
 
-.interstitial #contentGS {
-    background: none;
+.interstitialGS{margin-top: 36px;}
+
+.interstitialGS #contentGS {
+    background-color: #ffffff;
     border: 0;
 }
 

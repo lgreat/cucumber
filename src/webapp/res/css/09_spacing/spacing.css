@@ -88,12 +88,12 @@ General comments:
     white-space:nowrap;
 }
 
-.fltlft {
+.fltlft, .fl {
 /* this class can be used to float an element left in your page */
     float: left;
 }
 
-.fltrt {
+.fltrt, .fr {
 /* this class can be used to float an element right in your page. */
 /* The floated element must precede the element it should be next to on the page. */
     float: right;

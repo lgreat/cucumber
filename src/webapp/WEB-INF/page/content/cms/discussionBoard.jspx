@@ -72,8 +72,8 @@
 
 <c:choose>
 <c:when test="${raiseYourHand}">
-<div id="mainGS" class="col discussionBrd">
-    <p class="breadCrumbs smallAlertText">
+<div class="grid_16">
+    <p class="mvm smallAlertText">
         <c:if test="${!raiseYourHandFeaturedQuestions}">
             <link:home>Home</link:home>
 
@@ -138,8 +138,8 @@
 </c:when>
 <c:otherwise>
 
-<div id="mainGS" class="col discussionBrd">
-<p class="breadCrumbs smallAlertText">
+<div class="grid_16">
+<p class="mvm smallAlertText">
     <link:home>Home</link:home>
 
     <c:choose>
