@@ -1,24 +1,18 @@
 package gs.web.email;
 
-import com.google.gdata.data.extensions.Email;
-import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIConversion;
 import gs.data.community.*;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.web.community.registration.EmailVerificationEmail;
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
+import gs.web.request.RequestInfo;
 import gs.web.util.ExactTargetUtil;
 import gs.web.util.ReadWriteAnnotationController;
-import gs.web.util.UrlBuilder;
-import org.apache.axis.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,10 +33,12 @@ import java.util.*;
 @RequestMapping("/email/")
 public class NewslettersSignUpMobileAjaxController implements ReadWriteAnnotationController {
     private static final String SIGNUP_VIEW = "/email/newslettersSignUp-mobile";
+    private static final String EMAIL_VERIFIED_VIEW = "/email/newslettersEmailVerified.page";
     private static final String EMAIL = "email";
 
+    @Autowired
+    @Qualifier("emailVerificationEmail")
     private EmailVerificationEmail _emailVerificationEmail;
-
     @Autowired
     private IUserDao _userDao;
     @Autowired
@@ -50,7 +46,11 @@ public class NewslettersSignUpMobileAjaxController implements ReadWriteAnnotatio
 
     @RequestMapping (value="newslettersSignUp-mobile.page", method=RequestMethod.GET)
     public String showForm (HttpServletRequest request,
-                           HttpServletResponse response) {
+                           HttpServletResponse response) throws IOException {
+        RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
+        if (!requestInfo.shouldRenderMobileView()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
         return SIGNUP_VIEW;
     }
 
@@ -126,10 +126,9 @@ public class NewslettersSignUpMobileAjaxController implements ReadWriteAnnotatio
 
     private void sendVerificationEmail(HttpServletRequest request, User user, boolean addedParentAdvisorSubscription)
             throws IOException, MessagingException, NoSuchAlgorithmException {
-        String redirectUrl = "/email/newslettersEmailVerified-mobile.page";
         Map<String,String> otherParams = new HashMap<String,String>();
         otherParams.put(ExactTargetUtil.EMAIL_SUB_WELCOME_PARAM,ExactTargetUtil.getEmailSubWelcomeParamValue(addedParentAdvisorSubscription,false,false,false));
-        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl, otherParams);
+        _emailVerificationEmail.sendVerificationEmail(request, user, EMAIL_VERIFIED_VIEW, otherParams);
     }
 
     protected boolean validateEmail(String email) {
@@ -142,13 +141,5 @@ public class NewslettersSignUpMobileAjaxController implements ReadWriteAnnotatio
         errorObj.put("error", emailError);
         errorObj.write(response.getWriter());
         response.getWriter().flush();
-    }
-
-    public EmailVerificationEmail getEmailVerificationEmail() {
-        return _emailVerificationEmail;
-    }
-
-    public void setEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
-        _emailVerificationEmail = emailVerificationEmail;
     }
 }

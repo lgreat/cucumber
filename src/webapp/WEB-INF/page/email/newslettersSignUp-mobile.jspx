@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search">
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
     <jsp:useBean id="communityUtil" class="gs.data.util.CommunityUtilBean"/>
 
     <html lang="en">
@@ -13,16 +11,12 @@
     <jsp:output omit-xml-declaration="true" />
     <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
-    <head>
-        <title>GreatSchools - Public and Private School Ratings, Reviews and Parent Community</title>
-
-        <meta name="description"
-              content="Compare K-12 school ratings nationwide to find the best schools. View parent ratings, reviews and test scores and choose the right preschool, elementary, middle or high school for public or private education."/>
-        <meta name="keywords"
-              content="school ratings, public schools, public school ratings, private schools, private school ratings, charter schools, charter school ratings, school reviews, school rankings, test scores, preschool, elementary school, middle school, high school, parent community, education resource, find school, great schools, greatschools"/>
+    <head>\
+        <!--<meta name="description"-->
+              <!--content="Compare K-12 school ratings nationwide to find the best schools. View parent ratings, reviews and test scores and choose the right preschool, elementary, middle or high school for public or private education."/>-->
+        <!--<meta name="keywords"-->
+              <!--content="school ratings, public schools, public school ratings, private schools, private school ratings, charter schools, charter school ratings, school reviews, school rankings, test scores, preschool, elementary school, middle school, high school, parent community, education resource, find school, great schools, greatschools"/>-->
         <meta name="decorator" content="standardMobileDecorator"/>
-
-        <meta name="verify-v1" content="8wIYiSgpVxmFXAqa0o9m/kbv8p0enMoVmBn0d7Tq3z8="/>
 
         <title>GreatSchools - Newsletters Sign Up</title>
 
@@ -35,11 +29,11 @@
         </script>
 
         <style type="text/css">
-            .form #hd {
+            #hd {
                 background-color: #999;
                 height: 20px;
             }
-            .form #bd {
+            #bd {
                 padding: 1em;
             }
             .form .error {
@@ -49,6 +43,10 @@
             }
             .form .input_8 {
                 width: 298px;
+            }
+
+            .form .thankYou {
+                display: none;
             }
         </style>
 
@@ -62,14 +60,24 @@
             </div>
 
             <div id="bd">
-                <p>Sign up for daily tips and ideas that will enrich your child's education.</p>
-                <div class="error">
-                    <p></p>
+                <div class="signUp">
+                    <p>Sign up for daily tips and ideas that will enrich your child's education.</p>
+                    <div class="error">
+                        <!--error-->
+                    </div>
+
+                    <gsml:input type="text" name="email" placeholder="Type your email address" styleClass="input_8"/>
+                    <br/>
+                    <input type="submit" value="Sign Up" onclick="javascript:void(0);" id="js-submit"/>
                 </div>
 
-                <gsml:input type="text" name="email" placeholder="Type your email address" styleClass="input_8"/>
-                <br/>
-                <input type="submit" value="Sign Up" onclick="javascript:void(0);" id="button-1"/>
+                <div class="thankYou">
+                    <h3>Thank you</h3>
+
+                    <p>Please confirm your subscription by clicking the link in the email we just sent you.</p>
+
+                    <a href="/?site_preference=mobile">Find a school</a>
+                </div>
             </div>
         </form>
     </div>

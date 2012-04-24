@@ -1077,27 +1077,11 @@
         </property>
     </bean>
 
-    <bean name="/email/newslettersSignUp-mobile.page"
+    <bean name="/email/newslettersEmailVerified.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
         <property name="viewName">
-            <value>email/newslettersSignUp-mobile</value>
-        </property>
-    </bean>
-
-    <bean name="/email/newslettersSignUpThankYou-mobile.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>email/newslettersSignUpThankYou-mobile</value>
-        </property>
-    </bean>
-
-    <bean name="/email/newslettersEmailVerified-mobile.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>email/newslettersEmailVerified-mobile</value>
+            <value>email/newslettersEmailVerified</value>
         </property>
     </bean>
 
