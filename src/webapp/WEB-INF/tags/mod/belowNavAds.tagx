@@ -6,7 +6,7 @@
     <jsp:directive.tag body-content="empty"/>
 
     <c:if test="${!requestScope.pageHelper.adFree and !requestScope.pageHelper.adServedByCobrand}">
-        <ad:adTag position="Global_NavPromo_960x30"/>
+        <ad:adTag position="Global_NavPromo_970x30"/>
         <ad:adTag position="Custom_Peelback_Ad"/>
         <ad:adTag position="Custom_Welcome_Ad"/>
     </c:if>
