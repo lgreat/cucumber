@@ -23,7 +23,7 @@
         <div class="spacer_5"><!-- Do not collapse --></div>
         <div class="line">
             <div class="unit size4of7">
-                <div class="schoolInfo smallText1-333">
+                <div class="smallText1-333">
                     <p>${school.type}, ${school.gradeLevels}</p>
                     <p>${school.street}</p>
                     <p>${school.cityStateZip}</p>

@@ -49,7 +49,7 @@ height += heightMultiplier * 13;
         <div class="line">
 
             <div class="unit size1of1 lastUnit">
-                <div class="schoolInfo smallText1-333">
+                <div class="smallText1-333">
                     <p>${school.address.street}</p>
 
                     <p>${school.address.city}, ${school.address.state} ${school.address.zip}</p>
