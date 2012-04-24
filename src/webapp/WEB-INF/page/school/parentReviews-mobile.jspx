@@ -139,6 +139,10 @@
             </c:if>
         </div>
 
+        <div>
+            <a class="js-linkToTop" href="#">Top of page</a>
+        </div>
+
     <!--- Omniture -->
     <c:set var="pageName" value="Parent Reviews" scope="request"/>
     <mod:mobileTracking pageName="${pageName}"
