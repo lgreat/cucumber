@@ -5,16 +5,8 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
 
-    <div class="adBox">
-		<div class="wrapper-outer">
-			<div class="wrapper-inner">
-				<div class="wrapper-content">
-					<gsweb:adTagGenerator position="Homepage_300x250">
-                        <span id="jq-ghostText-Homepage_300x250" class="jq-ghostText">ADVERTISEMENT</span>$AD
-                    </gsweb:adTagGenerator>
-				</div>
-			</div>
-		</div>
+    <gsweb:adTagGenerator position="Homepage_300x250">
+        <span id="jq-ghostText-Homepage_300x250" class="jq-ghostText">ADVERTISEMENT</span>$AD
+    </gsweb:adTagGenerator>
 
-	</div>
 </jsp:root>

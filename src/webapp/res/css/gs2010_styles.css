@@ -1753,6 +1753,11 @@ div .gallery-thumbnail-selected:hover {
     margin: 0 0 0 -30px;
 }
 
+#Homepage_300x250{
+    width:300px;
+    margin: 0 auto 10px;
+}
+
 #AboveFold_Left_160x600{
     width:160px;
     margin:10px auto;
@@ -1832,7 +1837,7 @@ div .gallery-thumbnail-selected:hover {
 }
 
 .adBox .wrapper-content {
-    padding: 1px 13px 10px;
+    padding: 0;
 }
 
 .gsAd,
@@ -2420,6 +2425,7 @@ body.cobranded #pageGS {
     background-color: #ffffff;
     clear:both;
     position:relative;
+    padding-left:5px;
 }
 
 .leftside #contentGS,

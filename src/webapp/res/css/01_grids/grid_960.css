@@ -34,7 +34,7 @@ General comments:
 */
 
 body {
-  min-width: 960px;
+  min-width: 970px;
 }
 
 /* `Container >> 24 Columns
@@ -42,7 +42,7 @@ body {
 .container_24 {
   margin-left: auto;
   margin-right: auto;
-  width: 960px;
+  width: 970px;
 }
 
 /* `Grid >> Global
