@@ -4,7 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
-          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod" xmlns:form="http://www.springframework.org/tags/form"
           xmlns:link="urn:www.greatschools.org/taglib/link" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         >
@@ -78,9 +78,8 @@
 
         <div>
             <link:schoolProfileOverview school="${school}" anchor="${headerLinkAnchor}">Overview</link:schoolProfileOverview>
-            <c:if test="${school.levelCode ne 'p' and requestScope.hasTestScores}">
-                <c:set var="sptab3_name" value="Test Scores &amp;amp; Stats"/>
-                <c:set var="sptab3_link"><link:schoolProfileTestscore anchor="${headerLinkAnchor}" school="${school}">${sptab3_name}</link:schoolProfileTestscore></c:set>
+            <c:if test="${hasTestScores}">
+                <div><link:schoolProfileTestscore school="${school}">Test scores</link:schoolProfileTestscore></div>
             </c:if>
         </div>
 
@@ -119,78 +118,12 @@
 
 
         <div class="js-paginate-container">
-
-            <!--
-                NOTE!  When you are updating the view logic for reviews,
-                you must also update jspx to match the
-                same display logic.  Pagination occurs via Ajax calls but
-                first portion of list is rendered.
-            -->
-            <script id="reviewTemplate" type="text/html">
-                {{#review}}
-                <div>
-                    <div>
-                        <a name="ps{{id}}"></a>
-                        <span>{{curStarRating}} star(s)</span>
-                        <span> Posted on {{postedFormatted}}</span>
-                    </div>
-                    {{#isTruncated}}
-                        <p class="js-truncate">
-                            <span>{{part1}} </span>
-                            <span style="display: none;">{{part2}} </span>
-                            <a href="#" class="js-truncate-more">more...</a>
-                        </p>
-                    {{/isTruncated}}
-                    {{^isTruncated}}
-                        <p>{{comments}}</p>
-                    {{/isTruncated}}
-                </div>
-                {{/review}}
-            </script>
-            <c:forEach var="review" items="${reviewsToShow}">
-                <c:set var="who" value=""/>
-                <c:if test="${!(empty(review.who) or review.who eq 'other')}">
-                    <c:set var="who" value="${review.who}"/>
-                </c:if>
-
-                <!--
-                    NOTE!  When you are updating the view logic for reviews,
-                    you must also update the above script tag to match the
-                    same display logic.  Pagination occurs via Ajax calls.
-                -->
-                <c:choose>
-                    <c:when test="${review.who ne 'principal'}">
-                        <div>
-                            <div>
-                                <a name="ps${review.id}"><!-- not empty--></a>
-
-                                <!-- star rating -->
-                                <c:set var="curStarRating" value="${review.quality.name}"/>
-                                <c:if test="${school.levelCode eq 'p'}">
-                                    <c:set var="curStarRating" value="${review.POverall.name}"/>
-                                </c:if>
-                                <c:if test="${(curStarRating ne 'decline')}">
-                                    <span>${curStarRating} star(s)</span>
-                                </c:if>
-
-                                <span> Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
-                            </div>
-
-                            <c:set var="input"><c:out value="${review.comments}" escapeXml="true" /></c:set>
-                            <util:truncate value="${input}" words="70" />
-
-                        </div>
-                    </c:when>
-                </c:choose>
-            </c:forEach>
+            <school:parentReviewsMobile reviews="${reviewsToShow}" />
         </div>
 
-        <!-- TODO: check pagination -->
-
-
-                <div class="js-paginate-next">
-                    <a href="#more" data-role="button">View more reviews</a>
-                </div>
+        <div class="js-paginate-next">
+            <a href="#">View more reviews</a>
+        </div>
 
         <div class="ui-body ui-body-c">
             <h3>About community rating</h3>
@@ -200,10 +133,9 @@
 
         <hr/>
         <div>
-            <link:schoolProfileOverview school="${school}" anchor="${headerLinkAnchor}">Overview</link:schoolProfileOverview>
-            <c:if test="${school.levelCode ne 'p' and requestScope.hasTestScores}">
-                <c:set var="sptab3_name" value="Test Scores &amp;amp; Stats"/>
-                <c:set var="sptab3_link"><link:schoolProfileTestscore anchor="${headerLinkAnchor}" school="${school}">${sptab3_name}</link:schoolProfileTestscore></c:set>
+            <div><link:schoolProfileOverview school="${school}" anchor="${headerLinkAnchor}">Overview</link:schoolProfileOverview></div>
+            <c:if test="${hasTestScores}">
+                <div><link:schoolProfileTestscore school="${school}">Test scores</link:schoolProfileTestscore></div>
             </c:if>
         </div>
 

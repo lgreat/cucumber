@@ -200,7 +200,6 @@
         <property name="urlMap">
             <map>
                 <entry key="/school/parentReviews.page" value="parentReviews"/>
-                <entry key="/school/parentReviews.json" value="parentReviewsAjaxController"/>
                 <entry key="/school/addComments.page" value="parentReviews"/>
                 <entry key="/school/updateRatings.page" value="parentReviews"/>
                 <entry key="/survey/form.page" value="surveyController"/>
@@ -2045,13 +2044,11 @@
         <property name="viewName">
             <value>school/parentReviews-mobile</value>
         </property>
+        <property name="ajaxViewName">
+            <value>school/parentReviews-mobile-ajax</value>
+        </property>
         <property name="controllerHandlesDesktopRequests" value="false"/>
         <property name="controllerHandlesMobileRequests" value="true"/>
-    </bean>
-
-    <bean name="parentReviewsAjaxController"
-          class="gs.web.school.review.ParentReviewMobileAjaxController"
-          autowire="byName" lazy-init="true">
     </bean>
 
     <bean name="parentReviews" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">

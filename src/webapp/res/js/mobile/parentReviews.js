@@ -1,13 +1,12 @@
-define(['truncate','hogan'], function(truncate, hogan) {
+define(function() {
 
-    var next,container,pages,template={},cur=1;
+    var next,container,pages,cur=1;
 
-    var init = function(nextEl, containerEl, totalPages, currentPage, templateHtml) {
+    var init = function(nextEl, containerEl, totalPages, currentPage) {
         next = nextEl;
         container = containerEl;
         pages = totalPages;
         cur = currentPage;
-        template = hogan.compile(templateHtml);
 
         // hide next element if there are no more pages
         if ( cur >= pages ) {
@@ -17,6 +16,7 @@ define(['truncate','hogan'], function(truncate, hogan) {
         else if ( pages > 1 ) {
             $(next).click(function(){
                 nextPage();
+                return false;
             });
         }
     };
@@ -27,7 +27,7 @@ define(['truncate','hogan'], function(truncate, hogan) {
         if ( cur < pages ){
 
             // remove page related params
-            url = String(window.location).replace(/[\&\?](page=)([^\&]+)/, "").replace(/\.page/, '.json');
+            var url = String(window.location).replace(/[\&\?](page=)([^\&]+)/, "");
 
             // if this is the last page, hide the
             // view more button immediately
@@ -39,31 +39,17 @@ define(['truncate','hogan'], function(truncate, hogan) {
             var request = $.ajax({
                 url: url,
                 type:'get',
-                data: {page: ( cur + 1 )}
+                data: { page: ( cur + 1 ), ajax: true, decorator: 'emptyDecorator', confirm: true }
             });
 
             request.done(function(data){
-                render(data);
+                $(container).html($(container).html() + data);
                 cur++;
             });
 
             request.fail(function(xhr, txt){
                 $(next).show();
             });
-        }
-    };
-
-    // handle rendering of the next page
-    var render = function(data) {
-        // append anchor tag
-        $(container).append($('<a></a>')
-            .attr('name','page' + cur));
-
-        for (i=0; i<data.reviews.length; i++){
-            review = data.reviews[i];
-            html = $('<div></div>').append(template.render({review:review}));
-            truncate.init(html);
-            $(container).append(html);
         }
     };
 

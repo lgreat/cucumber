@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+        >
+
+    <jsp:directive.attribute name="reviews" required="true" description="Collection of reviews" type="java.util.List"/>
+
+    <c:forEach var="review" items="${reviewsToShow}">
+        <c:set var="who" value=""/>
+        <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+            <c:set var="who" value="${review.who}"/>
+        </c:if>
+
+
+        <c:if test="${review.who ne 'principal'}">
+            <div>
+                <div>
+                    <a name="ps${review.id}"><!-- not empty--></a>
+
+                    <!-- star rating -->
+                    <c:set var="curStarRating" value="${review.quality.name}"/>
+                    <c:if test="${school.levelCode eq 'p'}">
+                        <c:set var="curStarRating" value="${review.POverall.name}"/>
+                    </c:if>
+                    <c:if test="${(curStarRating ne 'decline')}">
+                        <span>${curStarRating} star(s)</span>
+                    </c:if>
+
+                    <span> Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
+                </div>
+
+                <c:set var="input"><c:out value="${review.comments}" escapeXml="true" /></c:set>
+                <util:truncate value="${input}" words="70" />
+
+            </div>
+        </c:if>
+    </c:forEach>
+
+
+
+</jsp:root>

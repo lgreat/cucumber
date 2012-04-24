@@ -1,12 +1,15 @@
 package gs.web.school.review;
 
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.*;
+import gs.data.test.ITestDataSetDao;
 import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.school.*;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,7 +25,9 @@ public class ParentReviewMobileController extends AbstractController implements 
     public static final String BEAN_ID = "mobileParentReviewsController";
 
     private IReviewDao _reviewDao;
+    private ITestDataSetDao _testDataSetDao;
     private String _viewName;
+    private String _ajaxViewName;
     private RatingHelper _ratingHelper;
     private ParentReviewHelper _parentReviewHelper;
     private boolean _controllerHandlesDesktopRequests;
@@ -62,6 +67,7 @@ public class ParentReviewMobileController extends AbstractController implements 
             List<Review> reviews = _reviewDao.getPublishedReviewsBySchool(school, reviewsBy);
 
             ParentReviewCommand cmd = new ParentReviewCommand();
+            cmd.setAjaxRequest((request.getParameter("ajax")!=null && request.getParameter("ajax").equals("true")));
 
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
             cmd.setRatings(ratings);
@@ -89,7 +95,7 @@ public class ParentReviewMobileController extends AbstractController implements 
 
             // in the mobile controller, we need to display everything prior to
             // the requested page as well because of the ajax-based scroll
-            if (page>1) {
+            if (page>1 && !cmd.isAjaxRequest()) {
                 fromIndex = 0;
             }
 
@@ -120,10 +126,26 @@ public class ParentReviewMobileController extends AbstractController implements 
 
             model.put("gs_rating", gsRating);
             model.put("ratings", ratings);
+            model.put("hasTestScores", hasTestScores(school));
+
+            if (cmd.isAjaxRequest()){
+                return new ModelAndView(getAjaxViewName(), model);
+            }
 
         }
 
         return new ModelAndView(getViewName(), model);
+    }
+
+    public boolean hasTestScores(School school) {
+        boolean hasTestScores = true;
+        if (StringUtils.equals("private", school.getType().getSchoolTypeName())) {
+            hasTestScores = school.getStateAbbreviation().isPrivateTestScoresState() &&
+                    _testDataSetDao.hasDisplayableData(school);
+        } else if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            hasTestScores = false;
+        }
+        return hasTestScores;
     }
 
     protected static int getReviewsTotalPages(int numReviews) {
@@ -146,6 +168,7 @@ public class ParentReviewMobileController extends AbstractController implements 
         private int _totalReviews = 0;
         private String _sortBy;
         private Ratings _ratings;
+        private boolean _ajaxRequest;
 
         public School getSchool() {
             return _school;
@@ -195,6 +218,14 @@ public class ParentReviewMobileController extends AbstractController implements 
         public void setRatings(Ratings ratings) {
             _ratings = ratings;
         }
+
+        public boolean isAjaxRequest() {
+            return _ajaxRequest;
+        }
+
+        public void setAjaxRequest(boolean ajaxRequest) {
+            _ajaxRequest = ajaxRequest;
+        }
     }
 
     public IReviewDao getReviewDao() {
@@ -243,5 +274,17 @@ public class ParentReviewMobileController extends AbstractController implements 
 
     public void setParentReviewHelper(ParentReviewHelper parentReviewHelper) {
         _parentReviewHelper = parentReviewHelper;
+    }
+
+    public String getAjaxViewName() {
+        return _ajaxViewName;
+    }
+
+    public void setAjaxViewName(String ajaxViewName) {
+        _ajaxViewName = ajaxViewName;
+    }
+
+    public void setTestDataSetDao(ITestDataSetDao testDataSetDao) {
+        _testDataSetDao = testDataSetDao;
     }
 }
