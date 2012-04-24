@@ -48,7 +48,7 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
     private IReviewDao _reviewDao;
     private ITestDataSetDao _testDataSetDao;
 
-    protected School getSchool(HttpServletRequest request) {
+    protected School getActiveSchoolFromDirectoryStructureUrlFields(HttpServletRequest request) {
         School school = null;
         State state = SessionContextUtil.getSessionContext(request).getState();
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
@@ -82,7 +82,7 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        School school = getSchool(request);
+        School school = getActiveSchoolFromDirectoryStructureUrlFields(request);
         if (school == null) {
             return new ModelAndView(new RedirectView301(new UrlBuilder(UrlBuilder.HOME).asSiteRelative(request)));
         }
@@ -104,6 +104,7 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
         model.put("numberOfReviews", numberOfReviews);
         Ratings ratings = _reviewDao.findRatingsBySchool(school);
         model.put("ratings", ratings);
+        model.put("numberOfRatings", (ratings == null)?0:ratings.getCount());
         boolean hasTestScores = hasTestScores(school);
         model.put(HAS_TEST_SCORES, hasTestScores);
         if (hasTestScores) {
