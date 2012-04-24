@@ -254,15 +254,20 @@ public class ParentReviewController extends AbstractController implements IDevic
 
                 toIndex = Math.min(toIndex, reviews.size());
 
-                if (fromIndex >= toIndex || fromIndex < 0) {
+                if (fromIndex == 1 && toIndex == 1) {
+                    // the only published review is a principal review, so no other reviews to show
+                    reviewsToShow = new ArrayList<Review>();
+                } else if (fromIndex >= toIndex || fromIndex < 0) {
+                    // page param is invalid number -- too high or too low, so redirect to first page and preserve any request params
                     String queryString = request.getQueryString();
                     if (queryString != null) {
                         queryString = UrlUtil.putQueryParamIntoQueryString(queryString, "page", "1");
                     }
                     return new ModelAndView(new RedirectView(request.getRequestURI() + (queryString != null ? "?" + queryString : "")));
+                } else {
+                    // valid page
+                    reviewsToShow = reviews.subList(fromIndex, toIndex);
                 }
-
-                reviewsToShow = reviews.subList(fromIndex, toIndex);
             }
             model.put("reviewsToShow", reviewsToShow);
             model.put("page", page);
