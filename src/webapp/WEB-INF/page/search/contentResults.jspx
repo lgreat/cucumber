@@ -53,7 +53,7 @@
 <body>
 
 <div class="grid_16">
-   <div id="srchResults">
+   <div id="srchResults" class="standard">
     <c:set var="searchQueryForXml" scope="page"><c:out value="${requestScope.searchQuery}" escapeXml="true"/></c:set>
 
     <c:choose>
@@ -192,7 +192,9 @@
         </div>
 
             <c:if test="${showArticles}">
-                <h3 class="srchCat">Articles</h3>
+                <div class="hd">
+                    <h3 class="srchCat">Articles</h3>
+                </div>
 
                 <ul class="srchRslts srchCatArticles">
                     <c:forEach var="result" items="${requestScope.articleResults}" varStatus="status">
@@ -243,7 +245,9 @@
             </c:if>
 
             <c:if test="${showWorksheets}">
-                <h3 class="srchCat">Worksheets</h3>
+                <div class="hd">
+                    <h3 class="srchCat">Worksheets</h3>
+                </div>
 
                 <ul class="srchRslts srchCatArticles">
                     <c:forEach var="result" items="${requestScope.worksheetResults}" varStatus="status">
@@ -294,7 +298,9 @@
             </c:if>
 
             <c:if test="${showVideos}">
-                <h3 class="srchCat">Videos</h3>
+                <div class="hd">
+                    <h3 class="srchCat">Videos</h3>
+                </div>
 
                 <ul class="srchRslts srchCatArticles">
                     <c:forEach var="result" items="${requestScope.videoResults}" varStatus="status">
@@ -345,7 +351,9 @@
             </c:if>
 
             <c:if test="${showCommunity}">
-                <h3 class="srchCat">Community</h3>
+                <div class="hd">
+                    <h3 class="srchCat">Community</h3>
+                </div>
 
                 <ul class="srchRslts srchCatComm">
                     <c:forEach var="result" items="${requestScope.communityResults}" varStatus="status">

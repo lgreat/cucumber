@@ -162,9 +162,9 @@
 
 <!-- display either default or 160x600 skyscraper realtorDotCom here -->
 <c:if test="${requestScope.size ne '300x137'}">
-    <div class="mod ${alternateStyle}" id="realtorDotCom">
+    <div class="mod standard ${alternateStyle}" id="realtorDotCom">
         <c:if test="${requestScope.size ne '160x600'}">
-            <div class="mod_hd">
+            <div class="hd">
                 <h3>Find a Home</h3>
             </div>
         </c:if>

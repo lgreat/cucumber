@@ -31,16 +31,18 @@
 </c:if>
 <!-- begin Parent Reviews -->
 
-<div id="parentReviewsContainer">
-<div class="mod_hd">
-    <h3>Recent Reviews
+<div id="parentReviewsContainer" class="standard">
+<div class="hd">
+    <h3>
+        <span class="fltlft">Recent Reviews</span>
         <c:if test="${numberOfReviews gt 0}">
-                <div class="smallAlertText">
-                    <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText-fff">Read all reviews <span
+                <div class="smallAlertText fltrt mts">
+                    <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText-fff">Read all reviews<span
                             class="alertDoubleArrow-fff">&amp;#187;</span>
                     </link:schoolProfileParentReview>
                 </div>
         </c:if>
+        <br class="clearfix"/>
     </h3>
 </div>
 

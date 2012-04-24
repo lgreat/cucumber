@@ -136,8 +136,9 @@
     <div id="reportItDialog" style="display:none;">
         <div id="sd_header">
             <span id="reportItDialog_flag">
-                <img class="sd_icon fltlft" src="/res/img/discussion_boards/db_flag_54x66.png" width="54"
-                     height="66" alt="report it flag" align="middle"/>
+                <span class="prm pbs fltlft">
+                    <span class="sprite i-rept-hover-flag"><!-- do not collapse --></span>
+                </span>
             </span>
             <span id="reportItDialog_thumbnail" style="display:none;">
                 <img class="sd_thumb fltlft" src="/res/img/pixel.gif" width="70"

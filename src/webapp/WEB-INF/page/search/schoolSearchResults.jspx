@@ -526,8 +526,8 @@
 <div class="grid_8">
     <ad:AboveFold_300x250/>
 
-    <div class="mod">
-        <div class="mod_hd">
+    <div class="mod standard">
+        <div class="hd">
             <h3>Map of Results</h3>
         </div>
         <div class="mod_bd"><!-- do not collapse --></div>

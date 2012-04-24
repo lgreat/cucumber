@@ -34,7 +34,7 @@ Viewport: the defines width and height of each icon
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2012-01-18.png);
+    background-image: url(/res/img/sprites/iconSprite_2012-04-24.png);
 }
 
 /* **************** VIEWPORT ***************** */
@@ -265,6 +265,12 @@ Viewport: the defines width and height of each icon
     background-position: -20px -330px;
 }
 
+.i-sponsor-trans{
+    width: 7px;
+    height: 90px;
+    background-position: -20px -350px;
+}
+
 /* column 40 */
 .community {
     width: 33px;
@@ -365,6 +371,12 @@ Viewport: the defines width and height of each icon
     width: 18px;
     height: 15px;
     background-position: -40px -320px;
+}
+
+.i-sponsor-white{
+    width: 13px;
+    height: 90px;
+    background-position: -40px -340px;
 }
 
 /* column 60 */
@@ -679,6 +691,12 @@ span.i-right-photoGallery-default:hover {
     width: 69px;
     height: 49px;
     background-position: -130px -410px;
+}
+
+.i-rept-hover-flag {
+    width: 54px;
+    height: 69px;
+    background-position: -130px -460px;
 }
 
 /* column 200 */
