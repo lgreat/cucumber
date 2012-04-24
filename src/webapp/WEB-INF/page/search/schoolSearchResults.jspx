@@ -358,7 +358,7 @@
                     <div>
                         <c:choose>
                             <c:when test="${empty param.lat and (schoolType eq null or fn:length(schoolType) eq 0) or
-                            (fn:contains(schoolType,'public') and fn:contains(schoolType,'charter') and fn:contains(schoolType,'private'))}">
+                            (fn:contains(schoolType,'public') and fn:contains(schoolType,'charter') and (fn:contains(schoolType,'private') or isDistrictBrowse))}">
                                 <input type="checkbox" checked="checked" name="st" id="school-type-all" value=""/>
                             </c:when>
                             <c:otherwise>
