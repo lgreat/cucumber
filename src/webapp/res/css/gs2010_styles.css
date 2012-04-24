@@ -3218,7 +3218,6 @@ body.cobranded #pageGS {
 }
 
 #gbgHandle {
-    background: url(/res/img/gradeByGrade/gbg-handle-2.gif) no-repeat left top;
     cursor: pointer;
     z-index: 100;
     position: absolute; /*left: 15px;*/

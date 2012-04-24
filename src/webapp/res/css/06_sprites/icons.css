@@ -162,6 +162,12 @@ Viewport: the defines width and height of each icon
     background-position: 0 -340px;
 }
 
+.i-gbg-handle {
+    width: 19px;
+    height: 20px;
+    background-position: 0 -380px;
+}
+
 /* column 20 */
 .twitter {
     width: 16px;

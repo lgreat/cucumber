@@ -327,7 +327,7 @@
             </div>
             <!-- end gbgTabs -->
             <div id="gbgSlider">
-                <div id="gbgHandle"><!-- do not collapse --></div>
+                <div id="gbgHandle"><span class="sprite i-gbg-handle"><!-- do not collapse --></span></div>
                 <span id="gbg-marker-p"><!-- do not collapse --></span>
                 <span id="gbg-marker-k"><!-- do not collapse --></span>
                 <span id="gbg-marker-1"><!-- do not collapse --></span>
