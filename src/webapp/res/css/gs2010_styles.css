@@ -2440,7 +2440,7 @@ body.cobranded #pageGS {
 .framed #footerFrm,
 .overview #contentGS {
     background-color: #ffffff;
-    padding: 0;
+    padding-left:5px;
 }
 
 .interstitialGS{margin-top: 36px;}
