@@ -26,7 +26,7 @@
     <c:if test="${empty greatSchoolsRating}">
         <c:set var="greatSchoolsRating" value="na"/>
     </c:if>
-    <c:if test="${not empty distance and (not empty param.zipCode or not empty param.lat)}">
+    <c:if test="${not isTemplate and not empty distance and (not empty param.zipCode or not empty param.lat)}">
         <div><fmt:formatNumber value="${distance}" maxFractionDigits="2"/> miles</div>
     </c:if>
     <h3>
