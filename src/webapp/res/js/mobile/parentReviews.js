@@ -3,6 +3,21 @@ define(function() {
     var next,container,pages,cur=1;
 
     var init = function(nextEl, containerEl, totalPages, currentPage) {
+
+        // make sure that the ratings is hidden
+        // and display when the community is clicked
+        var $community = $('#js-community-ratings');
+        var $subratings = $('#js-sub-ratings');
+
+        $subratings.hide();
+        $subratings.click(function(){
+            $(this).hide();
+        });
+        $community.click(function(){
+            $subratings.toggle();
+        });
+
+
         next = nextEl;
         container = containerEl;
         pages = totalPages;

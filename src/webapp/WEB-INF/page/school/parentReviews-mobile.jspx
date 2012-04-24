@@ -98,9 +98,32 @@
         </c:if>
 
         <c:if test="${not empty ratings.overall}">
-            <div style="margin-bottom: 10px;">
+            <div id="js-community-ratings" style="margin-bottom: 10px;">
                 <span>${cmd.ratings.overall} star(s)</span><span> community rating</span>
             </div>
+
+            <div id="js-sub-ratings" style="display: none;">
+                <c:choose>
+                    <c:when test="${not empty parentRatings and not empty studentRatings}">
+                        <div class="reviewSubRatings">
+                            <div id="parentRatings">
+                                <school:parentReviewsSubcategoryRatings ratings="${parentRatings}"/>
+                            </div>
+                            <div id="studentRatings" class="hidden">
+                                <school:parentReviewsSubcategoryRatings ratings="${studentRatings}"/>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:when test="${not empty communityRatings}">
+                        <div class="reviewSubRatings">
+                            <div id="communityRatings">
+                                <school:parentReviewsSubcategoryRatings ratings="${communityRatings}"/>
+                            </div>
+                        </div>
+                    </c:when>
+                </c:choose>
+            </div>
+
         </c:if>
 
         <div class="ui-body ui-body-c">
