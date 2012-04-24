@@ -70,7 +70,7 @@
             <a href="#"><span class="sprite home"><!-- --></span>My Saved Schools</a>
         </li>
         <li>
-            <a href="#"><span class="sprite check"><!-- --></span>Subscribe to Newsletter</a>
+            <a href="/email/newslettersSignUp-mobile.page"><span class="sprite check"><!-- --></span>Subscribe to Newsletter</a>
         </li>
     </ul>
 

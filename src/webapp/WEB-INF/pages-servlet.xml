@@ -897,17 +897,12 @@
     </bean>
 
     <bean name="/about/aboutUs.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.mobile.ParameterizableViewControllerWithMobileAndDesktopViews"
           autowire="byName" lazy-init="true">
         <property name="viewName">
             <value>about/aboutUs</value>
         </property>
-    </bean>
-
-    <bean name="/about/aboutUs-mobile.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
+        <property name="mobileViewName">
             <value>about/aboutUs-mobile</value>
         </property>
     </bean>
