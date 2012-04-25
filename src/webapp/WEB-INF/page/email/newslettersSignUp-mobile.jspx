@@ -83,7 +83,6 @@
 
     <mod:mobileTracking pageName="NL Sign-up Landing Page"
                         hier1="Newsletters, NLLandingPage"
-                        mobilePage="Mobile Page"
             />
 
     </body>

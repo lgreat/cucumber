@@ -4,6 +4,7 @@ import gs.web.mobile.Device;
 import gs.web.mobile.MobileHelper;
 import gs.web.mobile.UnknownDevice;
 import gs.web.util.CookieUtil;
+import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContextUtil;
 import net.sourceforge.wurfl.core.WURFLManager;
@@ -97,8 +98,14 @@ public class RequestInfo {
         } else {
             chosenSitePreference = SitePreference.MOBILE;
         }
-        
-        newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
+
+        if(getRequest().getRequestURI().equals("/email/newslettersSignUp-mobile.page")) {
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, null, "");
+            newUrl = UrlUtil.putQueryParamIntoUrl(urlBuilder.asSiteRelative(getRequest()), MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
+        }
+        else {
+            newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
+        }
 
         return newUrl;
     }
