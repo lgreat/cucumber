@@ -218,8 +218,7 @@
             <a href="http://www.realtor.com/?gate=gs&amp;amp;cid=PRT300014"
                onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_${requestScope.size}_searchLogo');} return true;"
                target="_blank" rel="nofollow">
-                <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_thin.png" alt="Powered by Realtor.com"
-                     class="logo"/>
+                <span class="sprite i-RDC-thin logo"><!-- do not collapse --></span>
             </a>
         </div>
     </div>
@@ -259,8 +258,7 @@
             <a href="http://www.realtor.com/?gate=gs&amp;amp;cid=PRT300014"
                onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_${requestScope.omniturePageName}_${requestScope.size}_browseLogo');} return true;"
                target="_blank" rel="nofollow">
-                <img src="/res/img/promo/realtorDotCom/RDC_logo_poweredBy_small.gif" alt="Powered by Realtor.com"
-                     class="logo"/>
+                <span class="sprite i-RDC-small logo"><!-- do not collapse --></span>
             </a>
         </div>
     </div>

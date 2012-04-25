@@ -34,7 +34,7 @@ Viewport: the defines width and height of each icon
 
 .sprite {
     display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2012-04-24.png);
+    background-image: url(/res/img/sprites/iconSprite_2012-04-25.png);
 }
 
 /* **************** VIEWPORT ***************** */
@@ -910,6 +910,18 @@ span.i-right-photoGallery-default:hover {
     width: 124px;
     height: 25px;
     background-position: -310px -330px;
+}
+
+.i-RDC-thin{
+    width: 113px;
+    height: 77px;
+    background-position: -310px -360px;
+}
+
+.i-RDC-small{
+    width: 115px;
+    height: 33px;
+    background-position: -310px -450px;
 }
 
 /* column 440 */
