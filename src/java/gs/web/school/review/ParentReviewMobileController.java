@@ -101,7 +101,7 @@ public class ParentReviewMobileController extends AbstractController implements 
 
             List<Review> reviewsToShow = _parentReviewHelper.handlePagination(request, reviews, page, fromIndex, toIndex);
             if (reviewsToShow.size()!=reviews.size()){
-                if (fromIndex >= toIndex || fromIndex < 0) {
+                if (reviews.size()!=1 && (fromIndex >= toIndex || fromIndex < 0)) {
                     String queryString = request.getQueryString();
                     if (queryString != null) {
                         queryString = UrlUtil.putQueryParamIntoQueryString(queryString, "page", "1");
