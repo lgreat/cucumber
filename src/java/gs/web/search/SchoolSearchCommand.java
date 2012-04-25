@@ -22,6 +22,8 @@ public class SchoolSearchCommand {
     private String _schoolSize;
     private String _normalizedAddress;
     private boolean _sortChanged;
+    private Integer _minEnrollment;
+    private Integer _maxEnrollment;
 
     private RequestedPage requestedPage;
 
@@ -196,6 +198,10 @@ public class SchoolSearchCommand {
         _lon = lon;
     }
 
+    public boolean hasLatLon() {
+        return _lat != null && _lon != null;
+    }
+
     public String getDistance() {
         return _distance;
     }
@@ -253,6 +259,26 @@ public class SchoolSearchCommand {
             requestedPage = Pagination.getRequestedPage(getPageSize(), getStart(), null, SchoolSearchController.SCHOOL_SEARCH_PAGINATION_CONFIG);
         }
         return requestedPage;
+    }
+
+    public Integer getMinEnrollment() {
+        return _minEnrollment;
+    }
+
+    public void setMinEnrollment(Integer minEnrollment) {
+        _minEnrollment = minEnrollment;
+    }
+
+    public Integer getMaxEnrollment() {
+        return _maxEnrollment;
+    }
+
+    public void setMaxEnrollment(Integer maxEnrollment) {
+        _maxEnrollment = maxEnrollment;
+    }
+
+    public boolean hasMinMaxEnrollment() {
+        return (_minEnrollment != null && _maxEnrollment != null && _maxEnrollment > _minEnrollment && _minEnrollment > 0 && _maxEnrollment > 0);
     }
 
     public void setRequestedPage(RequestedPage requestedPage) {

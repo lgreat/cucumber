@@ -557,6 +557,7 @@
         <property name="beanSupportsMobileRequests" value="true"/>
         <property name="beanSupportsDesktopRequests" value="true"/>
         <property name="viewName" value="search/schoolSearchResults-mobile" />
+        <property name="ajaxViewName" value="search/schoolSearchAjaxResults-mobile" />
         <property name="noResultsViewName" value="search/schoolSearchNoResults-mobile"/>
     </bean>
 

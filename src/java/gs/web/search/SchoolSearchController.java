@@ -19,7 +19,8 @@ import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
 import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.IDistrictSearchResult;
-import gs.data.search.beans.ISchoolSearchResult;
+import gs.data.search.beans.SolrSchoolSearchResult;
+import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.filters.FilterFactory;
 import gs.data.search.filters.FilterGroup;
 import gs.data.search.filters.SchoolFilters;
@@ -298,7 +299,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         RequestedPage requestedPage = schoolSearchCommand.getRequestedPage();
 
-        SearchResultsPage<ISchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
+        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<SolrSchoolSearchResult>());
         // allow nearby searches to go through even if they specify no school types or grade levels, per GS-11931
         if (state != null && (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels())) &&
                 (!schoolSearchCommand.isNearbySearchByLocation() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels()))) {
@@ -326,7 +327,7 @@ public class SchoolSearchController extends AbstractCommandController implements
                     String didYouMean = SpellChecking.getSearchSuggestion(searchString, searchResultsPage.getSpellCheckResponse());
 
                     if (didYouMean != null) {
-                        SearchResultsPage<ISchoolSearchResult> didYouMeanResultsPage = service.search(
+                        SearchResultsPage<SolrSchoolSearchResult> didYouMeanResultsPage = service.search(
                                 didYouMean,
                                 fieldConstraints,
                                 filterGroups,
@@ -467,7 +468,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         return new ModelAndView(getViewName(schoolSearchCommand, searchResultsPage), model);
     }
 
-    private String getViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<ISchoolSearchResult> searchResultsPage) {
+    private String getViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
         if (schoolSearchCommand.isAjaxRequest()) {
             if (searchResultsPage.getTotalResults() == 0) {
                 return getNoResultsAjaxViewName();
@@ -735,7 +736,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     protected void addGamAttributes(HttpServletRequest request, HttpServletResponse response, PageHelper pageHelper,
                                     Map<FieldConstraint,String> constraints, List<FilterGroup> filterGroups, String searchString,
-                                    List<ISchoolSearchResult> schoolResults,
+                                    List<SolrSchoolSearchResult> schoolResults,
                                     City city, District district) {
         if (pageHelper == null || constraints == null || filterGroups == null || schoolResults == null) {
             // search string can be null
@@ -786,7 +787,7 @@ public class SchoolSearchController extends AbstractCommandController implements
         // GS-10448 - search results
         if (StringUtils.isNotBlank(searchString) && schoolResults != null) {
             Set<String> cityNames = new HashSet<String>();
-            for (ISchoolSearchResult schoolResult : schoolResults) {
+            for (SolrSchoolSearchResult schoolResult : schoolResults) {
                 Address address = schoolResult.getAddress();
                 if (address != null) {
                     String cityName = address.getCity();

@@ -5,7 +5,9 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:gsweb="gstaglib"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:tags="urn:jsptagdir:/WEB-INF/tags"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
 
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
     <jsp:output omit-xml-declaration="true" />
@@ -54,7 +56,6 @@
         </c:choose>
     </c:set>
 
-
     <body>
         <c:choose>
             <c:when test="${page.pager.totalItems gt 0}">
@@ -65,36 +66,23 @@
 
                     <c:if test="${fn:length(schoolSearchResults) gt 0}">
                         <div style="float:left;font-size:12px;">
+                            <select class="js-sort-select">
                                 <c:choose>
-                                    <c:when test="${fn:containsIgnoreCase(param.sort, 'DESC')}">
-                                        <select data-inline="true" data-icon="arrow-u" class="js-sort-select">
-                                            <c:if test="${isFromByLocation}">
-                                                <option value="distance">Distance</option>
-                                            </c:if>
-                                            <option value="SCHOOL_NAME_ASCENDING">Name</option>
-                                            <option value="GS_RATING_DESCENDING">Rating</option>
-                                        </select>
+                                    <c:when test="${isFromByLocation}">
+                                        <gsml:selectOption value="distance" selected="${sort eq 'distance'}">Distance</gsml:selectOption>
                                     </c:when>
                                     <c:otherwise>
-                                        <select data-inline="true" data-icon="arrow-d" class="js-sort-select">
-                                            <c:choose>
-                                                <c:when test="${isFromByLocation}">
-                                                    <option value="distance">Distance</option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <option value="">Relevance</option>
-                                                </c:otherwise>
-                                            </c:choose>
-
-                                            <option value="SCHOOL_NAME_ASCENDING">School name: A-Z</option>
-                                            <option value="SCHOOL_NAME_DESCENDING">School name: Z-A</option>
-                                            <option value="GS_RATING_DESCENDING">GreatSchools Rating: High to Low</option>
-                                            <option value="GS_RATING_ASCENDING">GreatSchools Rating: Low to High</option>
-                                            <option value="PARENT_RATING_DESCENDING">Community Rating: High to Low</option>
-                                            <option value="PARENT_RATING_ASCENDING">Community Rating: Low to High</option>
-                                        </select>
+                                        <option value="">Relevance</option>
                                     </c:otherwise>
                                 </c:choose>
+
+                                <gsml:selectOption value="SCHOOL_NAME_ASCENDING" selected="${sort eq 'SCHOOL_NAME_ASCENDING'}">School name: A-Z</gsml:selectOption>
+                                <gsml:selectOption value="SCHOOL_NAME_DESCENDING" selected="${sort eq 'SCHOOL_NAME_DESCENDING'}">School name: Z-A</gsml:selectOption>
+                                <gsml:selectOption value="GS_RATING_DESCENDING" selected="${sort eq 'GS_RATING_DESCENDING'}">GreatSchools Rating: High to Low</gsml:selectOption>
+                                <gsml:selectOption value="GS_RATING_ASCENDING" selected="${sort eq 'GS_RATING_ASCENDING'}">GreatSchools Rating: Low to High</gsml:selectOption>
+                                <gsml:selectOption value="PARENT_RATING_DESCENDING" selected="${sort eq 'PARENT_RATING_DESCENDING'}">Community Rating: High to Low</gsml:selectOption>
+                                <gsml:selectOption value="PARENT_RATING_ASCENDING" selected="${sort eq 'PARENT_RATING_ASCENDING'}">Community Rating: Low to High</gsml:selectOption>
+                            </select>
                         </div>
                         <div style="padding-left:148px;font-size:12px">
                             <a data-role="button" data-inline="true" href="${requestInfo.requestURL}" class="ui-btn-active">List</a>
@@ -111,14 +99,7 @@
                         <div style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
                             <ul id="js-schoolSearchResultsList" style="font-size:12px;">
                                 <li>${fn:length(schoolSearchResults)} results for ${schoolResultsFor}</li>
-                                <div id="schoolSearchResultMobileTemplate" style="display:none">
-                                    <school:mobileSearchResult isTemplate="${true}" schoolId="{{schoolId}}" databaseState="{{schoolDatabaseState}}" schoolName="{{schoolName}}" address="{{address}}" city="{{city}}" zipCode="{{zipCode}}" schoolType="{{schoolType}}" levelCode="{{levelCode}}" gradeRangeString="{{gradeRangeString}}" greatSchoolsRating="{{greatSchoolsRating}}" parentRating="{{parentRating}}" distance="{{distance}}" />
-                                </div>
-                                <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
-                                    <li>
-                                        <school:mobileSearchResult isTemplate="${false}" schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" schoolAddress="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" />
-                                    </li>
-                                </c:forEach>
+                                <search:schoolSearchResultsMobileList/>
                             </ul>
                         </div>
                     </c:if>
@@ -129,7 +110,7 @@
         <c:set var="pageMap" value="${page.map}"/>
         <script type="text/javascript">
             require(['mobileSearchResults'], function(mobileSearchResults) {
-                console.log('mobile-search-results loaded', mobileSearchResults);
+                GS.log('mobile-search-results loaded', mobileSearchResults);
 
                 var page = {};
                 page['isFirstPage'] = ${pageMap.isFirstPage};
@@ -141,16 +122,56 @@
                 page['lastOffset'] = ${pageMap.lastOffset};
                 page['firstPageNumber'] = ${pageMap.firstPageNumber};
                 page['lastPageNumber'] = ${pageMap.lastPageNumber};
+                page['pageSize'] = ${pageMap.pageSize};
 
                 mobileSearchResults.init(page);
             });
         </script>
 
+        <c:if test="${not page.lastPage}">
+            <button id="loadMore">
+                Load more
+            </button>
+        </c:if>
 
-        <button id="loadMore">
-            Load more
-        </button>
 
+        <style type="text/css">
+            .mobile-button-pressed {
+                background-color:#ccc;
+            }
+            #school-filters div {
+                border:1px solid grey;
+            }
+        </style>
+        <div id="school-filters" class="js-searchResultFilters">
+            <span>Cancel</span>
+            <span data-school-filter-action="apply">Apply</span>
+
+            <h3>Filter Results</h3>
+            <p>
+                <a href="javascript:void(0);" data-school-filter-action="reset">Reset</a>
+            </p>
+
+            <div data-school-boolean-filter-group="schoolType">
+                <span class="mobile-button-pressed" data-school-boolean-filter="public">Public</span>
+                <span class="mobile-button-pressed" data-school-boolean-filter="charter">Public charter</span>
+                <span class="mobile-button-pressed" data-school-boolean-filter="private">Private</span>
+            </div>
+
+            <div data-school-boolean-filter-group="gradeLevel">
+                <span class="mobile-button-pressed" data-school-boolean-filter="preschool">Preschool</span>
+                <span class="mobile-button-pressed" data-school-boolean-filter="elementary">Elementary (K-5)</span>
+                <span class="mobile-button-pressed" data-school-boolean-filter="middle">Middle (6-8)</span>
+                <span class="mobile-button-pressed" data-school-boolean-filter="high">High (9-12)</span>
+            </div>
+
+            <select data-school-range-filter-group="enrollment">
+                <option data-school-range-filter-low="1" data-school-range-filter-high="10000" data-school-range-filter-default="true">Any</option>
+                <option data-school-range-filter-low="1" data-school-range-filter-high="20">Under 20</option>
+                <option data-school-range-filter-low="1" data-school-range-filter-high="50">Under 50</option>
+                <option data-school-range-filter-low="1" data-school-range-filter-high="200">Under 200</option>
+            </select>
+        </div>
     </body>
 
     <c:set var="omnitureLocale">

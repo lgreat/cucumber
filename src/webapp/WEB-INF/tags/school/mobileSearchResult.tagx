@@ -18,8 +18,6 @@
     <jsp:directive.attribute name="greatSchoolsRating" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="parentRating" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="distance" required="true" type="java.lang.String"/>
-    <!-- temporary to get linking working -->
-    <jsp:directive.attribute name="isTemplate" required="true" type="java.lang.Boolean"/>
     <jsp:directive.attribute name="schoolAddress" required="false" type="gs.data.util.Address"/>
 
 
@@ -30,42 +28,24 @@
         <div><fmt:formatNumber value="${distance}" maxFractionDigits="2"/> miles</div>
     </c:if>
     <h3>
-        <c:choose>
-            <c:when test="${isTemplate}">${schoolName}</c:when>
-            <c:otherwise>
-                <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"
-                                                         name="${schoolName}" physicalAddress="${schoolAddress}"
-                                                         levelCode="${levelCode}">
-                ${schoolName}
-                </link:schoolProfileOverviewForPrimitives>
-            </c:otherwise>
-        </c:choose>
+            <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"
+                                                     name="${schoolName}" physicalAddress="${schoolAddress}"
+                                                     levelCode="${levelCode}">
+            ${schoolName}
+            </link:schoolProfileOverviewForPrimitives>
     </h3>
-
 
     <p>${schoolType} ${gradeRangeString} | ${city}, ${databaseState}</p>
 
     <c:if test="${greatSchoolsRating ne 'na'}">
-        <c:choose>
-            <c:when test="${isTemplate}"><p>${greatSchoolsRating} of 10</p></c:when>
-            <c:otherwise>
-                <link:schoolProfileRating2010 state="${databaseState}" schoolId="${schoolId}" levelCode="${levelCode}">
-                    <p>${greatSchoolsRating} of 10</p>
-                </link:schoolProfileRating2010>
-            </c:otherwise>
-        </c:choose>
+        <link:schoolProfileRating2010 state="${databaseState}" schoolId="${schoolId}" levelCode="${levelCode}">
+            <p>${greatSchoolsRating} of 10</p>
+        </link:schoolProfileRating2010>
     </c:if>
     <c:if test="${not empty parentRating}">
-        <c:choose>
-            <c:when test="${isTemplate}"><p>Community rating: ${parentRating}</p></c:when>
-            <c:otherwise>
-                <link:schoolProfileParentReview2010 levelCode="${levelCode}" state="${databaseState}"
-                                                    schoolId="${schoolId}">
-                    <p>Community rating: ${parentRating}</p>
-                </link:schoolProfileParentReview2010>
-            </c:otherwise>
-        </c:choose>
+        <link:schoolProfileParentReview2010 levelCode="${levelCode}" state="${databaseState}"
+                                            schoolId="${schoolId}">
+            <p>Community rating: ${parentRating}</p>
+        </link:schoolProfileParentReview2010>
     </c:if>
-
-
 </jsp:root>

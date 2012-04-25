@@ -1,4 +1,4 @@
-define (['uri','hogan'], function(uri,hogan) {
+define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
 
     // set value each time module is initialized
     var $sortSelect = undefined;
@@ -10,11 +10,18 @@ define (['uri','hogan'], function(uri,hogan) {
     var template = null;
 
     // paging related items
-    var currentPage = {}; // a hash with various paging information. See Page.java's getMap();
+    var firstPage = {}; // a hash with various paging information. See Page.java's getMap();
     var offsetKey = 'start';
 
+    var currentOffset = 0;
+
+    // filters info
+    var filtersSelector = '.js-searchResultFilters';
+
     var init = function(page) {
-        currentPage = page;
+        searchResultFilters.init(filtersSelector);
+        firstPage = page;
+        currentOffset = firstPage.offset;
 
         $(function() {
             $sortSelect = $('.js-sort-select'); // module might need to be reinitialized after an ajax page load
@@ -24,15 +31,17 @@ define (['uri','hogan'], function(uri,hogan) {
                 loadMore();
             });
             attachEventHandlers();
-
-            template = hogan.compile($(templateSelector).html());
         });
     };
 
     var attachEventHandlers = function() {
         $sortSelect.on('change', function() {
             var value = $(this).val();
-            var newQueryString = uri.putIntoQueryString(document.location.search, 'sortBy', value, true);
+            if (value.length > 0) {
+                var newQueryString = uri.putIntoQueryString(document.location.search, 'sortBy', value, true);
+            } else {
+                var newQueryString = uri.removeFromQueryString(document.location.search, 'sortBy');
+            }
             var newUrl = window.location.pathname + newQueryString;
             lastSort = value;
             window.location.href = newUrl;
@@ -41,63 +50,45 @@ define (['uri','hogan'], function(uri,hogan) {
 
     var loadMore = function() {
         var queryString = window.location.search;
+        GS.log('current offset: ', currentOffset);
 
         // get offset of next page
-        var nextOffset = currentPage.offset;
-        if (!currentPage.isLastPage) {
-            nextOffset = currentPage.lastOffsetOnPage + 1;
-        } else {
+
+        var nextOffset = currentOffset + firstPage.pageSize;
+        if (nextOffset > firstPage.lastOffset) {
+            $('#loadMore').hide();
             return false;
         }
 
         // change offset in url
         queryString = uri.putIntoQueryString(queryString, offsetKey, nextOffset, true);
-        queryString = uri.putIntoQueryString(queryString, 'format', 'json', true);
+        queryString = uri.putIntoQueryString(queryString, 'ajax', 'true', true);
 
         var url = window.location.protocol + '//' + window.location.host + window.location.pathname + queryString;
-        url = url.replace('.page','.json');
 
         GS.log('searching using url:', url);
 
         $.ajax({
             url:url,
-            type:'get',
-            dataType:'json'
+            type:'get'
         }).done(function(data) {
             GS.log('search got data back from ajax call: ', data);
 
-            if (data.totalResults > 0) {
+            if (data) {
                 var $list = $("#js-schoolSearchResultsList");
-                for (var i = 0; i < data.schoolSearchResults.length; i++) {
-                    var result = data.schoolSearchResults[i];
-                    var html = template.render({
-                        schoolId:result.id,
-                        schoolDatabaseState:result.databaseState,
-                        schoolName:result.name,
-                        address:result.address,
-                        city:result.city,
-                        zipCode:result.zip,
-                        schoolType:result.schoolType,
-                        levelCode:result.levelCode,
-                        gradeRangeString:result.grades.rangeString,
-                        greatSchoolsRating:result.greatSchoolsRating,
-                        parentRating:result.parentRating,
-                        distance:result.distance
-                    });
-
-                    $list.append(html);
-                }
+                $list.append(data);
             }
 
-            currentPage = data.page;
-            if (currentPage.isLastPage === true) {
+            if (nextOffset + firstPage.pageSize > firstPage.lastOffset) {
                 $('#loadMore').hide();
             }
+
+            currentOffset = nextOffset;
+            GS.log('new current offset: ', currentOffset);
 
         }).fail(function(data) {
             GS.log('paging failed', data);
         });
-
     };
 
     return {

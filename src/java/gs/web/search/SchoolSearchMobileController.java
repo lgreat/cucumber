@@ -2,15 +2,13 @@ package gs.web.search;
 
 import gs.data.geo.ICounty;
 import gs.data.school.LevelCode;
-import gs.data.search.FieldConstraint;
-import gs.data.search.FieldSort;
-import gs.data.search.SearchException;
-import gs.data.search.SearchResultsPage;
+import gs.data.search.*;
 import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.IDistrictSearchResult;
-import gs.data.search.beans.ISchoolSearchResult;
+import gs.data.search.beans.SolrSchoolSearchResult;
+import gs.data.search.fields.DocumentType;
+import gs.data.search.fields.SchoolFields;
 import gs.data.search.filters.FilterGroup;
-import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
 import gs.web.pagination.Page;
 import gs.web.pagination.RequestedPage;
@@ -34,6 +32,8 @@ import java.util.*;
 public class SchoolSearchMobileController extends SchoolSearchController implements IDirectoryStructureUrlController {
 
     private static final Logger _log = Logger.getLogger(SchoolSearchController.class);
+
+    private GsSolrSearcher _gsSolrSearcher;
 
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException e) throws Exception {
 
@@ -102,10 +102,10 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         Map<String,Object> existingModel = modelAndView.getModel();
         Map<String,Object> ajaxModel = new HashMap<String,Object>();
         ajaxModel.put(MODEL_TOTAL_RESULTS, existingModel.get(MODEL_TOTAL_RESULTS));
-        List<ISchoolSearchResult> schoolSearchResults = (List<ISchoolSearchResult>)existingModel.get(MODEL_SCHOOL_SEARCH_RESULTS);
+        List<SolrSchoolSearchResult> schoolSearchResults = (List<SolrSchoolSearchResult>)existingModel.get(MODEL_SCHOOL_SEARCH_RESULTS);
         if (schoolSearchResults != null) {
             List<SchoolSearchResultAjaxView> schoolSearchResultsAjax = new ArrayList<SchoolSearchResultAjaxView>(schoolSearchResults.size());
-            for (ISchoolSearchResult result : schoolSearchResults) {
+            for (SolrSchoolSearchResult result : schoolSearchResults) {
                 schoolSearchResultsAjax.add(new SchoolSearchResultAjaxView(result));
             }
             ajaxModel.put(MODEL_SCHOOL_SEARCH_RESULTS, schoolSearchResultsAjax);
@@ -316,7 +316,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
 
         // Common: Perform a search. Search might find spelling suggestions and then run another search to see if the
         // spelling suggestion actually yieleded results. If so, record the "didYouMean" suggestion into the model
-        SearchResultsPage<ISchoolSearchResult> searchResultsPage = searchForSchools(schoolSearchCommand, commandAndFields.getState(), fieldConstraints, filterGroups, sort);
+        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = searchForSchools(schoolSearchCommand, commandAndFields.getState(), fieldConstraints, filterGroups, sort);
         model.put(MODEL_DID_YOU_MEAN, searchResultsPage.getDidYouMeanQueryString());
 
 
@@ -343,11 +343,11 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         public final List<FilterGroup> filterGroups;
         public final FieldSort fieldSort;
 
-        public final SearchResultsPage<ISchoolSearchResult> searchResultsPage;
+        public final SearchResultsPage<SolrSchoolSearchResult> searchResultsPage;
         public final List<ICitySearchResult> citySearchResults;
         public final List<IDistrictSearchResult> districtSearchResults;
 
-        public SchoolCityDistrictSearchSummary(Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filterGroups, FieldSort fieldSort, SearchResultsPage<ISchoolSearchResult> searchResultsPage, List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
+        public SchoolCityDistrictSearchSummary(Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filterGroups, FieldSort fieldSort, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage, List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
             this.fieldConstraints = fieldConstraints;
             this.filterGroups = filterGroups;
             this.fieldSort = fieldSort;
@@ -434,10 +434,17 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         return nearbySearchInfo;
     }
 
-    private String determineViewName(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, SearchResultsPage<ISchoolSearchResult> searchResultsPage) {
+    private String determineViewName(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
 
         // Determine View name
         String viewName;
+
+        String ajax = request.getParameter("ajax");
+        if (ajax != null && ajax.equals("true")) {
+            return getAjaxViewName();
+        }
+
+
         if (searchResultsPage.getTotalResults() == 0) {
             UrlBuilder builder = new UrlBuilder(UrlBuilder.HOME);
             builder.addParameter("noResults","true");
@@ -451,7 +458,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         return viewName;
     }
 
-    private void putSearchResultInfoIntoModel(Map<String, Object> model, SearchResultsPage<ISchoolSearchResult> searchResultsPage) {
+    private void putSearchResultInfoIntoModel(Map<String, Object> model, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
         model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
         model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
     }
@@ -555,51 +562,79 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         return districtSearchResults;
     }
 
-    protected SearchResultsPage<ISchoolSearchResult> searchForSchools(SchoolSearchCommand schoolSearchCommand, State state, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filterGroups, FieldSort sort) {
+    public GsSolrQuery createGsSolrQuery() {
+        return new GsSolrQuery(QueryType.SCHOOL_SEARCH);
+    }
+    protected SearchResultsPage<SolrSchoolSearchResult> searchForSchools(SchoolSearchCommand schoolSearchCommand, State state, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filterGroups, FieldSort sort) {
         RequestedPage requestedPage = schoolSearchCommand.getRequestedPage();
-        SearchResultsPage<ISchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<ISchoolSearchResult>());
+        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<SolrSchoolSearchResult>());
         String searchString = schoolSearchCommand.getSearchString();
 
-        // allow nearby searches to go through even if they specify no school types or grade levels, per GS-11931
-        if (state != null && (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels())) &&
-                (!schoolSearchCommand.isNearbySearchByLocation() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels()))) {
-            try {
-                SchoolSearchService service = getSchoolSearchService();
-                if (schoolSearchCommand.getSearchType() == SchoolSearchType.LOOSE) {
-                    service = getLooseSchoolSearchService();
-                }
+        GsSolrQuery q = createGsSolrQuery();
 
-                searchResultsPage = service.search(
-                        // for nearby searches, do not search by name
-                        schoolSearchCommand.isNearbySearch()?null:searchString,
-                        fieldConstraints,
-                        filterGroups,
-                        sort,
-                        schoolSearchCommand.getLat(),
-                        schoolSearchCommand.getLon(),
-                        schoolSearchCommand.getDistanceAsFloat(),
-                        requestedPage.offset,
-                        requestedPage.pageSize,
-                        (!schoolSearchCommand.isNearbySearch())
-                );
+        q.filter(DocumentType.SCHOOL).page(requestedPage.offset, requestedPage.pageSize);
 
-                if (searchResultsPage.isDidYouMeanResults()) {
-                    // adapting old existing logic to new code: If the search results we got back are the result
-                    // of an automatic second search using a Solr spelling suggestion, then we want it to appear
-                    // that we never received any results so the site will display the No Results page with the
-                    // "did you mean" suggestion
-                    searchResultsPage.setTotalResults(0);
-                    searchResultsPage.setSearchResults(new ArrayList<ISchoolSearchResult>());
-                }
-
-            } catch (SearchException e) {
-                _log.debug("something when wrong when attempting to use SchoolSearchService. Eating exception", e);
-            }
+        /*if (minCommunityRating != null && minCommunityRating != null && minCommunityRating >= minCommunityRating) {
+            q.filter(SchoolFields.COMMUNITY_RATING, String.valueOf(minCommunityRating), String.valueOf(maxCommunityRating));
         }
+        if (minGsRating != null && maxGsRating != null && maxGsRating >= minGsRating) {
+            q.filter(SchoolFields.OVERALL_GS_RATING, String.valueOf(minGsRating), String.valueOf(maxGsRating));
+        }*/
+
+        // TODO: In Mobile api, we don't filter by state if a lat/lon is specified. Should that logic apply here as well?
+        q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
+
+        // filter school types and grade levels
+        for (FilterGroup schoolTypeFilter : filterGroups) {
+            q.filter(schoolTypeFilter);
+        }
+
+        // handle old existing FieldConstraints
+        for (Map.Entry<FieldConstraint, String> entry : fieldConstraints.entrySet()) {
+            q.filter(entry.getKey().getFieldName(), StringUtils.lowerCase(entry.getValue()));
+        }
+
+        // min/max enrollment filter
+        if (schoolSearchCommand.hasMinMaxEnrollment()) {
+            q.filter(SchoolFields.SCHOOL_ENROLLMENT, String.valueOf(schoolSearchCommand.getMinEnrollment()), String.valueOf(schoolSearchCommand.getMaxEnrollment()));
+        }
+
+        // filter by location
+        if (schoolSearchCommand.hasLatLon()) {
+            q.restrictToRadius(schoolSearchCommand.getLat().floatValue(), schoolSearchCommand.getLon().floatValue(), schoolSearchCommand.getDistanceAsFloat());
+        }
+
+        if (schoolSearchCommand.getSearchType() != SchoolSearchType.LOOSE) {
+            // require all words in the query to be present unless it's configured as an optional word
+            q.requireNonOptionalWords();
+        }
+
+        // set the solr query's q parameter (querystring) to be the user search string
+        q.query(searchString);
+
+        // apply sorting
+        q.sort(sort);
+
+        try {
+            searchResultsPage = getGsSolrSearcher().search(q, SolrSchoolSearchResult.class, true);
+
+            if (searchResultsPage.isDidYouMeanResults()) {
+                // adapting old existing logic to new code: If the search results we got back are the result
+                // of an automatic second search using a Solr spelling suggestion, then we want it to appear
+                // that we never received any results so the site will display the No Results page with the
+                // "did you mean" suggestion
+                searchResultsPage.setTotalResults(0);
+                searchResultsPage.setSearchResults(new ArrayList<SolrSchoolSearchResult>());
+            }
+
+        } catch (SearchException e) {
+            _log.error("Problem occured while getting schools or reviews: ", e);
+        }
+
         return searchResultsPage;
     }
 
-    private void putCommonOmnitureAttributesInModel(HttpServletRequest request, Map<String, Object> model, SchoolSearchCommandWithFields commandAndFields, SearchResultsPage<ISchoolSearchResult> searchResultsPage) {
+    private void putCommonOmnitureAttributesInModel(HttpServletRequest request, Map<String, Object> model, SchoolSearchCommandWithFields commandAndFields, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
         String[] schoolSearchTypes = commandAndFields.getSchoolTypes();
         boolean sortChanged = commandAndFields.getSchoolSearchCommand().isSortChanged();
         String omnitureQuery = commandAndFields.isSearch()? getOmnitureQuery(commandAndFields.getSearchString()) : null;
@@ -670,5 +705,11 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         return nearbySearchTitlePrefix;
     }
 
+    public GsSolrSearcher getGsSolrSearcher() {
+        return _gsSolrSearcher;
+    }
 
+    public void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
+        _gsSolrSearcher = gsSolrSearcher;
+    }
 }

@@ -125,6 +125,7 @@ public class Page {
         map.put("lastOffset", _pager.getLastOffset());
         map.put("firstPageNumber", _pager.getFirstPageNumber());
         map.put("lastPageNumber", _pager.getLastPageNumber());
+        map.put("pageSize", _pager.getPageSize());
         return map;
     }
 }

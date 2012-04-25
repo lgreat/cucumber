@@ -14,6 +14,7 @@ import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
 import gs.data.search.beans.IDistrictSearchResult;
 import gs.data.search.beans.ISchoolSearchResult;
+import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.services.DistrictSearchService;
 import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
@@ -395,13 +396,13 @@ public class BoundaryAjaxController {
             SearchException, JSONException, IOException {
         long start = System.currentTimeMillis();
         long solrStart = System.currentTimeMillis();
-        SearchResultsPage<ISchoolSearchResult> resultsPage =
+        SearchResultsPage<SolrSchoolSearchResult> resultsPage =
                 _schoolSearchService.getNonDistrictSchoolsNear(lat, lon, radius, schoolLevel, schoolType, 0, limit);
         long solrDuration = System.currentTimeMillis() - solrStart;
         long jsonStart = System.currentTimeMillis();
         JSONObject rval = new JSONObject();
         JSONArray features = new JSONArray();
-        for (ISchoolSearchResult searchResult: resultsPage.getSearchResults()) {
+        for (SolrSchoolSearchResult searchResult: resultsPage.getSearchResults()) {
             int rating = 0;
             if (searchResult.getGreatSchoolsRating() != null) {
                 rating = searchResult.getGreatSchoolsRating();
