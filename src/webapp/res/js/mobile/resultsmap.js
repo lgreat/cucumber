@@ -12,6 +12,16 @@ define(function() {
             infoWindow: infoWindow
         };
 
+        // TODO: readjust height of map window to device size.
+        // need to change the difference based on design or
+        // if frontend can do the same with css, then remove this block
+        var height = 200;
+        if (window.innerHeight){
+            height = window.innerHeight - 130;
+        }
+        $('#js-map-canvas').css({height:height});
+
+
         var map = new google.maps.Map(document.getElementById("js-map-canvas"),
             myOptions);
 
