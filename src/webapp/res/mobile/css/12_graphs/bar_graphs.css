@@ -1,0 +1,23 @@
+/* How to use
+***************************************************************************************
+
+   <div class="bar_container"><div style="width:85%"><!-- not empty --></div></div>
+
+*/
+
+.bar_container{
+    border:solid thin #B8B8B8;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4);
+    height:14px;
+    width:100%;
+}
+
+.bar_container div{
+    background: #FF8000; /* for non-css3 browsers */
+    width:0;
+    height:100%;
+    background: -moz-linear-gradient(top, #FFB366, #FF8000); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFB366), color-stop(1, #FF8000)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#FFB366', EndColorStr='#FF8000')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FFB366', endColorStr = '#FF8000'); /* IE6,IE7 */
+}
