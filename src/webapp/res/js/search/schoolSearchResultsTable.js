@@ -464,34 +464,34 @@ jQuery(function() {
     GS.search.schoolSearchResultsTable = new GS.search.SchoolSearchResultsTable();
     GS.search.filterTracking = new GS.search.FilterTracking();
 
-    jQuery('#topicbarGS input').click(function() {
+    jQuery('#js-searchFilterBox input').click(function() {
         var cssId = jQuery(this).attr('id');
 
         // may need to change checkbox checking in jQuery 1.6+
         // http://stackoverflow.com/questions/426258/how-do-i-check-a-checkbox-with-jquery-or-javascript
         if (cssId === 'grade-level-all') {
             if (jQuery('#grade-level-all').is(':checked')) {
-                jQuery('#topicbarGS .jq-grade-level').prop('checked',true);
+                jQuery('#js-searchFilterBox .jq-grade-level').prop('checked',true);
             } else {
-                jQuery('#topicbarGS .jq-grade-level').prop('checked', false);
+                jQuery('#js-searchFilterBox .jq-grade-level').prop('checked', false);
             }
         } else if (cssId === 'school-type-all') {
             if (jQuery('#school-type-all').is(':checked')) {
-                jQuery('#topicbarGS .jq-school-type').prop('checked',true);
+                jQuery('#js-searchFilterBox .jq-school-type').prop('checked',true);
             } else {
-                jQuery('#topicbarGS .jq-school-type').prop('checked', false);
+                jQuery('#js-searchFilterBox .jq-school-type').prop('checked', false);
             }
         }
-        var numGradeLevels = jQuery('#topicbarGS .jq-grade-level').size();
-        var numGradeLevelsChecked = jQuery('#topicbarGS .jq-grade-level:checked').size();
+        var numGradeLevels = jQuery('#js-searchFilterBox .jq-grade-level').size();
+        var numGradeLevelsChecked = jQuery('#js-searchFilterBox .jq-grade-level:checked').size();
         if (numGradeLevels == numGradeLevelsChecked) {
             jQuery('#grade-level-all').prop('checked',true);
         } else {
             jQuery('#grade-level-all').prop('checked', false);
         }
 
-        var numSchoolTypes = jQuery('#topicbarGS .jq-school-type').size();
-        var numSchoolTypesChecked = jQuery('#topicbarGS .jq-school-type:checked').size();
+        var numSchoolTypes = jQuery('#js-searchFilterBox .jq-school-type').size();
+        var numSchoolTypesChecked = jQuery('#js-searchFilterBox .jq-school-type:checked').size();
         if (numSchoolTypes == numSchoolTypesChecked) {
             jQuery('#school-type-all').prop('checked',true);
         } else {
@@ -502,7 +502,7 @@ jQuery(function() {
         GS.search.schoolSearchResultsTable.update();
     });
 
-    jQuery('#topicbarGS select').change(function() {
+    jQuery('#js-searchFilterBox select').change(function() {
         var cssId = jQuery(this).attr('id');
         GS.search.filterTracking.trackSelectBox(cssId);
         GS.search.schoolSearchResultsTable.update();
