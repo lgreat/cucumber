@@ -129,8 +129,9 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
             });
 
 
-            $('#js-searchByLocation').on('click', '.js-submitButton', function() {
+            $('#js-searchByLocation').on('submit', 'form', function() {
                 submitByLocationSearch();
+                return false;
             });
 
             $('#js-search-tabs').find('.js-by-location').on('click', function() {
