@@ -50,58 +50,56 @@
         <school:espFieldError text="Please specify a response" styleId="js_form_foreign_language_other_error" styleClass="grid_6 omega"/>
     </div>
 
-    <c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
-        <div class="lal clearfix">
-            <div class="alpha grid_7">
-                <p class="labelGroup">Select one of these options to best describe the ESL/ELL programming at your school</p>
-                <div id="js_form_esl_ell_programming_error" class="error" style="display: none">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                        <div class="bk">Please specify the ESL/ELL programming at your school.</div>
-                    </div>
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">Select one of these options to best describe the ESL/ELL programming at your school</p>
+            <div id="js_form_esl_ell_programming_error" class="error" style="display: none">
+                <div class="mediaExt1-1">
+                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                    <div class="bk">Please specify the ESL/ELL programming at your school.</div>
                 </div>
-            </div>
-            <div class="grid_16 omega">
-                <c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
-                    <school:espRadioWithLabel key="ell_level" value="none" label="None - we offer no services"/>
-                </c:if>
-                <school:espRadioWithLabel key="ell_level" value="basic"
-                                          label="Basic - we offer or partner to provide services based on the needs of individual students"/>
-                <school:espRadioWithLabel key="ell_level" value="moderate"
-                                          label="Moderate - we consistently offer a full program for particular ESL/ELL needs"/>
-                <school:espRadioWithLabel key="ell_level" value="intensive"
-                                          label="Intensive - we offer a full program for many languages and/or we offer at least one very comprehensive program school-wide for at least 25% of our population"/>
-
-
-                <div id="js_ell_languages" class="mtm">
-                    <div class="grid_5 alpha">
-                        <school:espCheckboxWithLabel key="ell_languages" value="arabic" label="Arabic languages"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="amharic" label="Amharic"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="cantonese" label="Chinese (Cantonese)"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="mandarin" label="Chinese (Mandarin)"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="dutch" label="Dutch"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="french" label="French"/>
-                    </div>
-                    <div class="grid_5">
-                        <school:espCheckboxWithLabel key="ell_languages" value="german" label="German"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="hmong" label="Hmong"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="italian" label="Italian"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="japanese" label="Japanese"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="korean" label="Korean"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="russian" label="Russian"/>
-                    </div>
-                    <div class="grid_6 omega">
-                        <school:espCheckboxWithLabel key="ell_languages" value="spanish" label="Spanish"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="tagalog" label="Tagalog"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="urdu" label="Urdu"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="vietnamese" label="Vietnamese"/>
-                        <school:espCheckboxWithLabel key="ell_languages" value="other" label="Other"/>
-                    </div>
-                </div>
-
             </div>
         </div>
-    </c:if>
+        <div class="grid_16 omega">
+            <c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
+                <school:espRadioWithLabel key="ell_level" value="none" label="None - we offer no services"/>
+            </c:if>
+            <school:espRadioWithLabel key="ell_level" value="basic"
+                                      label="Basic - we offer or partner to provide services based on the needs of individual students"/>
+            <school:espRadioWithLabel key="ell_level" value="moderate"
+                                      label="Moderate - we consistently offer a full program for particular ESL/ELL needs"/>
+            <school:espRadioWithLabel key="ell_level" value="intensive"
+                                      label="Intensive - we offer a full program for many languages and/or we offer at least one very comprehensive program school-wide for at least 25% of our population"/>
+
+
+            <div id="js_ell_languages" class="mtm">
+                <div class="grid_5 alpha">
+                    <school:espCheckboxWithLabel key="ell_languages" value="arabic" label="Arabic languages"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="amharic" label="Amharic"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="cantonese" label="Chinese (Cantonese)"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="mandarin" label="Chinese (Mandarin)"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="dutch" label="Dutch"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="french" label="French"/>
+                </div>
+                <div class="grid_5">
+                    <school:espCheckboxWithLabel key="ell_languages" value="german" label="German"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="hmong" label="Hmong"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="italian" label="Italian"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="japanese" label="Japanese"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="korean" label="Korean"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="russian" label="Russian"/>
+                </div>
+                <div class="grid_6 omega">
+                    <school:espCheckboxWithLabel key="ell_languages" value="spanish" label="Spanish"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="tagalog" label="Tagalog"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="urdu" label="Urdu"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="vietnamese" label="Vietnamese"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="other" label="Other"/>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
