@@ -1,4 +1,4 @@
-define(function() {
+define(['tracking'],function(tracking) {
     var init = function() {
             jQuery('#js-submit').click(function () {
                 var newslettersSignUpForm = $('#newslettersSignUpForm');
@@ -15,6 +15,9 @@ define(function() {
     var submitForm = function(newslettersSignUpForm) {
         var masterDeferred = new jQuery.Deferred();
         var data = newslettersSignUpForm.serializeArray();
+        tracking.clear();
+        tracking.successEvents = 'event64';
+        tracking.send();
         jQuery.ajax({type: 'POST', url: document.location, data: data}
         ).done(function(data) {
                 if (data.error !== undefined) {
