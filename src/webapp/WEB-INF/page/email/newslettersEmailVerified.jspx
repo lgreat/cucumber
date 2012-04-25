@@ -49,7 +49,6 @@
                         <a href="/?site_preference=mobile">Find a school</a>
                         <mod:mobileTracking pageName="NL Email Verified"
                                             hier1="Newsletters, NLEmailVerified"
-                                            mobilePage="Mobile Page"
                                 />
                     </c:when>
                     <c:otherwise>

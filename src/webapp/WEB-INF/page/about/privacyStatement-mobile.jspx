@@ -23,7 +23,6 @@
 
         <mod:mobileTracking pageName="privacyStatement"
                             hier1="Home,Corporate,PrivacyPolicy"
-                            mobilePage="Mobile Page"
                 />
     </body>
 

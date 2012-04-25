@@ -23,7 +23,6 @@
 
         <mod:mobileTracking pageName="TermsOfUse"
                             hier1="Home,Corporate,TermsOfUse"
-                            mobilePage="Mobile Page"
                 />
     </body>
 

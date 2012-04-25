@@ -141,11 +141,6 @@
         name="contentSearchQuery"
         description="The query that the user typed, presumably for searching article, worksheets and more. Ends up in prop41."
         required="false"/>
-    <!--GS-12656-->
-    <jsp:directive.attribute
-        name="mobilePage"
-        description="For all mobile pages. Ends up in prop42."
-        required="false"/>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
@@ -244,7 +239,7 @@
             tracking.s.prop39 = clickCapture.getProp(39,"${isContentPage ? contentId : ''}");
             tracking.s.prop40 = clickCapture.getProp(40,"${worksheetLicensorName != null ? worksheetLicensorName : ''}");
             tracking.s.prop41 = clickCapture.getProp(41,"${contentSearchQuery}");
-            tracking.s.prop42 = clickCapture.getProp(42,"${mobilePage}");
+            tracking.s.prop42 = clickCapture.getProp(42,"Mobile Page");
 
             tracking.s.events = clickCapture.getEvents("${events}");
             tracking.s.hier1 = "${hier1}";
