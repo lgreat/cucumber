@@ -8,11 +8,8 @@ import gs.data.geo.bestplaces.BpCounty;
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
-import gs.data.search.beans.CitySearchResult;
-import gs.data.search.beans.ICitySearchResult;
+import gs.data.search.beans.*;
 import gs.data.search.*;
-import gs.data.search.beans.ISchoolSearchResult;
-import gs.data.search.beans.LuceneSchoolSearchResult;
 import gs.data.search.filters.FilterGroup;
 import gs.data.search.filters.SchoolFilters;
 import gs.data.search.services.CitySearchService;
@@ -107,7 +104,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         List<ISchoolSearchResult> listResults = new ArrayList<ISchoolSearchResult>();
         int i = 0;
         while (i++ < schoolSearchCommand.getPageSize()) {
-            listResults.add(new LuceneSchoolSearchResult(new Document()));
+            listResults.add(new SolrSchoolSearchResult());
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
         SearchResultsPage cityPage = new SearchResultsPage(0, null);
@@ -149,7 +146,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         List<ISchoolSearchResult> listResults = new ArrayList<ISchoolSearchResult>();
         int i = 0;
         while (i++ < schoolSearchCommand.getPageSize()) {
-            listResults.add(new LuceneSchoolSearchResult(new Document()));
+            listResults.add(new SolrSchoolSearchResult());
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
         SearchResultsPage cityPage = new SearchResultsPage(0, null);
@@ -191,7 +188,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         List<ISchoolSearchResult> listResults = new ArrayList<ISchoolSearchResult>();
         int i = 0;
         while (i++ < SchoolSearchCommand.DEFAULT_PAGE_SIZE) {
-            listResults.add(new LuceneSchoolSearchResult(new Document()));
+            listResults.add(new SolrSchoolSearchResult());
         }
         SearchResultsPage page = new SearchResultsPage(50, listResults);
         SearchResultsPage cityPage = new SearchResultsPage(0, null);
@@ -219,7 +216,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         List<FilterGroup> filterGroups = new ArrayList<FilterGroup>();
         List<SchoolFilters> filters = new ArrayList<SchoolFilters>();
         String searchString = null;
-        List<ISchoolSearchResult> schoolResults = new ArrayList<ISchoolSearchResult>();
+        List<SolrSchoolSearchResult> schoolResults = new ArrayList<SolrSchoolSearchResult>();
         PageHelper referencePageHelper;
         PageHelper actualPageHelper;
 
@@ -363,27 +360,22 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         schoolResults.clear();
 
         Document doc;
-        ISchoolSearchResult result;
+        MockSolrSchoolSearchResult result;
 
-        doc = new Document();
-        doc.add(new Field(Indexer.CITY, "San Francisco", Field.Store.YES, Field.Index.TOKENIZED));
-        result = new LuceneSchoolSearchResult(doc);
+        result = new MockSolrSchoolSearchResult();
+        result.setCity("San Francisco");
         schoolResults.add(result);
-        doc = new Document();
-        doc.add(new Field(Indexer.CITY, "San Francisco", Field.Store.YES, Field.Index.TOKENIZED));
-        result = new LuceneSchoolSearchResult(doc);
+        result = new MockSolrSchoolSearchResult();
+        result.setCity("San Francisco");
         schoolResults.add(result);
-        doc = new Document();
-        doc.add(new Field(Indexer.CITY, "Bolinas", Field.Store.YES, Field.Index.TOKENIZED));
-        result = new LuceneSchoolSearchResult(doc);
+        result = new MockSolrSchoolSearchResult();
+        result.setCity("Bolinas");
         schoolResults.add(result);
-        doc = new Document();
-        doc.add(new Field(Indexer.CITY, "Sacramento", Field.Store.YES, Field.Index.TOKENIZED));
-        result = new LuceneSchoolSearchResult(doc);
+        result = new MockSolrSchoolSearchResult();
+        result.setCity("Sacramento");
         schoolResults.add(result);
-        doc = new Document();
-        doc.add(new Field(Indexer.CITY, "Berkeley", Field.Store.YES, Field.Index.TOKENIZED));
-        result = new LuceneSchoolSearchResult(doc);
+        result = new MockSolrSchoolSearchResult();
+        result.setCity("Berkeley");
         schoolResults.add(result);
 
         DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(getRequest());
@@ -393,7 +385,7 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
 
         resetAllMocks();
         replayAllMocks();
-        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, schoolResults, null, null);
+        _controller.addGamAttributes(getRequest(), getResponse(), actualPageHelper, constraints, filterGroups, searchString, (List<SolrSchoolSearchResult>) schoolResults, null, null);
         verifyAllMocks();
 
         Collection actualCityKeywords = (Collection)actualPageHelper.getAdKeywords().get("city");
@@ -891,6 +883,19 @@ public class SchoolSearchControllerTest extends BaseControllerTestCase {
         String result = _controller.getRelCanonicalForSearch(request, searchString, State.CA, citySearchResults);
 
         assertEquals(result, "http://localhost/california/");
+    }
+
+    public class MockSolrSchoolSearchResult extends SolrSchoolSearchResult {
+        private String _city;
+
+        @Override
+        public String getCity() {
+            return _city;
+        }
+
+        public void setCity(String city) {
+            _city = city;
+        }
     }
 
 
