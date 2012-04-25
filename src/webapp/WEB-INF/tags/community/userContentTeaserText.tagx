@@ -103,7 +103,7 @@
                 <link:discussion discussionId="${discussionId}"
                                  fullUri="${discussionFullUri}"
                                  styleClass="${linkClass}">${moreLink}</link:discussion>
-                </span>&amp;nbsp;<span class="alertDoubleArrow">&amp;raquo;</span>
+                </span>&amp;nbsp;<!--<span class="alertDoubleArrow">&amp;raquo;</span>-->
             </c:when>
         </c:choose>
     </c:if>

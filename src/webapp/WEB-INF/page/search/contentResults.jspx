@@ -207,8 +207,9 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix" >
-                            <div class="sprite cms fltlft padrt_5"><!-- icon --></div>
-                            <div class="results fltrt">
+                            <div class="mediaExt1-1">
+                            <div class="sprite cms img"><!-- icon --></div>
+                            <div class="bk">
                             <p><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="text3bold">
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
@@ -232,6 +233,7 @@
                               More&amp;nbsp;<span class="go">&amp;#187;</span>
                             </link:cmsContent>
                             </p>
+                            </div>
                             </div>
                         </li>
                     </c:forEach>
@@ -260,8 +262,9 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix" >
-                            <div class="sprite i-worksheets fltlft"><!-- icon --></div>
-                            <div class="results fltrt">
+                            <div class="mediaExt1-1">
+                            <div class="sprite i-worksheets img"><!-- icon --></div>
+                            <div class="bk">
                             <p><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="text3bold">
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
@@ -285,6 +288,7 @@
                               More&amp;nbsp;<span class="go">&amp;#187;</span>
                             </link:cmsContent>
                             </p>
+                            </div>
                             </div>
                         </li>
                     </c:forEach>
@@ -313,8 +317,9 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix" >
-                            <div class="sprite video fltlft"><!-- icon --></div>
-                            <div class="results fltrt">
+                            <div class="mediaExt1-1">
+                            <div class="sprite video img"><!-- icon --></div>
+                            <div class="bk">
                             <p><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="text3bold">
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
@@ -338,6 +343,7 @@
                               Watch&amp;nbsp;<span class="go">&amp;#187;</span>
                             </link:cmsContent>
                             </p>
+                            </div>
                             </div>
                         </li>
                     </c:forEach>
@@ -374,8 +380,9 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix">
-                            <div class="sprite ${srchRsltSupplClass2} fltlft padrt_5"><!-- icon --></div>
-                            <div class="results fltrt">
+                            <div class="mediaExt1-1">
+                            <div class="sprite ${srchRsltSupplClass2} img"><!-- icon --></div>
+                            <div class="bk">
                             <c:if test="${result.raiseYourHand}">
                                 <p class="smallAlertText">RAISE YOUR HAND</p>
                             </c:if>
@@ -412,7 +419,7 @@
                                         linkClass="smallText1bold"
                                         />
                             </p>
-                                <br class="clearfloat"/>
+                                </div>
                             </div>
                         </li>
                     </c:forEach>
