@@ -44,13 +44,6 @@
         <property name="fromName" value="GreatSchools"/>
     </bean>
 
-    <bean id="registrationConfirmationEmail"
-          class="gs.web.community.registration.RegistrationConfirmationEmail">
-        <property name="subject" value="Welcome to GreatSchools"/>
-        <property name="fromEmail" value="gs-batch@greatschools.org"/>
-        <property name="fromName" value="GreatSchools"/>
-    </bean>
-
     <bean id="emailVerificationEmail" class="gs.web.community.registration.EmailVerificationEmail">
         <property name="fromEmail" value="gs-batch@greatschools.org"/>
         <property name="fromName" value="GreatSchools"/>

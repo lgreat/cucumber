@@ -1658,19 +1658,6 @@
         </property>
     </bean>
 
-    <!--
-    <bean name="/community/registration2.page"
-          class="gs.web.community.registration.RegistrationFollowUpController"
-          autowire="byName" lazy-init="true">
-        <property name="bindOnNewForm" value="true"/>
-        <property name="commandName" value="followUpCmd"/>
-        <property name="commandClass" value="gs.web.community.registration.FollowUpCommand"/>
-        <property name="formView" value="/community/registration/registration2"/>
-        <property name="successView" value="redirect:/community/loginOrRegister.page"/>
-        <property name="errorView" value="/community/registration/registrationSoapError"/>
-    </bean>
-    -->
-
     <bean name="/community/registrationSoapError.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">

@@ -20,7 +20,7 @@ import java.util.List;
 import static org.easymock.EasyMock.*;
 
 /**
- * Provides testing for the RegistrationConfirmationEmail bean.
+ * Provides testing for the SchoolFinderWidgetEmail bean.
  *
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
