@@ -63,13 +63,13 @@
 
 
     <ul id="mobile-sub-nav" style="display:none">
-        <li>
+        <li id="sub-nav-findSchool">
             <link:home><span class="sprite search"><!-- --></span>Find a School</link:home>
         </li>
-        <li>
+        <li id="sub-nav-mss">
             <a href="#"><span class="sprite home"><!-- --></span>My Saved Schools</a>
         </li>
-        <li>
+        <li id="sub-nav-nlSubscribe">
             <a href="/email/newslettersSignUp-mobile.page"><span class="sprite check"><!-- --></span>Subscribe to Newsletter</a>
         </li>
     </ul>

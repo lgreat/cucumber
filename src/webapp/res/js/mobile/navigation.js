@@ -12,6 +12,20 @@ define(function() {
                 $('#mobile-sub-nav').toggle();
                 return false;
             });
+
+            $('#sub-nav-findSchool').click( function(){
+                if (s.tl) {s.tl(this,'o', 'Mobile_Global_Search');}
+            });
+
+            $('#sub-nav-mss').click( function(){
+                if (s.tl) {s.tl(this,'o', 'Mobile_Global_Saved_Schools');}
+            });
+
+            $('#sub-nav-nlSubscribe').click( function(){
+                if (s.tl) {s.tl(this,'o', 'Mobile_Global_Newsletter');}
+            });
+
+
         })
     };
 

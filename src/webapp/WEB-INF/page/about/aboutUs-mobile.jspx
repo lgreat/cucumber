@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3.org/1999/xhtml">
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        >
     <html lang="en">
     <jsp:output omit-xml-declaration="true" />
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -33,6 +35,11 @@
             ratings and reviews, GreatSchools has become the go-to guide for parents aiming to make a smart school
             choice.
         </div>
+
+        <mod:mobileTracking pageName="aboutUs"
+                            hier1="Home,Corporate,AboutUs,AboutUsOverview"
+                            mobilePage="Mobile Page"
+                />
     </body>
     </html>
 </jsp:root>

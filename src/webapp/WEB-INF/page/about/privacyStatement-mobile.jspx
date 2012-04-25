@@ -2,6 +2,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
     <html lang="en">
     <jsp:output omit-xml-declaration="true" />
@@ -19,6 +20,11 @@
     <body>
         <about:privacyStatement/>
         <a class="js-linkToTop" href="#">Top of page</a>
+
+        <mod:mobileTracking pageName="privacyStatement"
+                            hier1="Home,Corporate,PrivacyPolicy"
+                            mobilePage="Mobile Page"
+                />
     </body>
 
     </html>
