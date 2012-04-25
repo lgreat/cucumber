@@ -32,16 +32,13 @@ Misc classes
 -------------------------------------------------------------- */
 
 body{
-  font-size: 100%;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #2B2B2B;
-  background: #fff;
+    font-size: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #2B2B2B;
+    background: #fff;
 }
 
-.ntext{font-size: 1em;}
-.stext{font-size: .875em;}
-.sstext{font-size: .75em;}
-.cltext{color: #999;}
+
 
 /* Headings
 -------------------------------------------------------------- */
@@ -52,14 +49,13 @@ h3,
 h4,
 h5,
 h6 { font-weight: normal; color: #2b2b2b; margin-bottom: 12px;}
-h1 {color: #d61; }
 
-h1 { font-size: 30px/33px;  }
-h2 { font: normal 24px/33px Arial, Helvetica, sans-serif; margin-bottom: 33px; }
-h3 { font: normal 18px/25px Arial, Helvetica, sans-serif; margin-bottom: 25px; }
-h4 { font: normal 16px/22px Arial, Helvetica, sans-serif; margin-bottom: 22px; }
-h5 { font: bold 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-h6 { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h1 { font-size: 1.3125em; }
+h2 { font-size: 1.125em; }
+h3 { font-size: 1em; font-weight: bold; }
+h4 { font-size: 1em; font-weight: bold; font-style: italic; }
+h5 { font-size: .875em; letter-spacing:.05em; }
+h6 { font-size: .875em; letter-spacing:.05em; }
 
 h1 img,
 h2 img,
@@ -68,21 +64,47 @@ h4 img,
 h5 img,
 h6 img { margin: 0; }
 
-hr.keyline1 {background:#bcdeed;color:#bcdeed;clear:both;float:none;width:100%;height:1px;margin:0 0 8px;border:none;}
-hr.keyline2 {background:#e6e6e6;color:#e6e6e6;clear:both;float:none;width:100%;height:1px;margin:0 0 8px;border:none;}
+hr.keyline1 {background:#E6E6E6;color:#E6E6E6;clear:both;float:none;width:100%;height:1px;margin:0 0 8px;border:none;}
+hr.keyline2 {background:#F1F1F1;color:#F1F1F1;clear:both;float:none;width:100%;height:1px;margin:0 0 8px;border:none;}
 hr.space {background:#fff;color:#fff;visibility:hidden;}
 
 
 /* Text elements
 -------------------------------------------------------------- */
-
 p,
 .default {font-size: 1em;}
-.small { font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
-.smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
-.default-lt {font-size: 1em;}
-.small-lt { font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
-.smaller-lt { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.small { font-size: .875em; }
+.smaller { font-size: .75em;}
+.default-lt {font-size: 1em; color: #999;}
+.small-lt { font-size: .875em; color: #999; }
+.smaller-lt { font-size: .75em; color: #999;}
+
+/*  Lists
+****************************************************************************/
+
+ul,
+ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.0em; }
+
+ul li       { list-style-type: disc; padding-left: 8px; }
+ol li       { list-style-type: decimal; }
+
+ul.list1 li { list-style-type: none; border-bottom: thin solid #E6E6E6; font-size: 1em; line-height: 36px; }
+ul.list1 li.header{ list-style-type: none; border-bottom: thin solid #E6E6E6; font-size: 1em; line-height: 44px; font-weight: bold; }
+
+ul.list2 li{ list-style-type: none; border-bottom: thin solid #E6E6E6; font-size: .875em; line-height: 36px; }
+ul.list2 li.header{ list-style-type: none; border-bottom: thin solid #E6E6E6; font-size: 1em; line-height: 44px; font-weight: bold; }
+
+/****************************************************************************
+
+This is for definition list,  currently not used.
+
+
+dl          { margin: 0 0 1.5em 0; }
+dl dt       { font-weight: bold; }
+dd          { margin-left: 1.5em;}
+
+*/
+
 
 /*
 	These can be used to pull an image at the start of a paragraph, so
@@ -114,67 +136,3 @@ pre         { margin: 1.5em 0; white-space: pre; }
 pre,
 code,
 tt { font: 1em/1.5 'andale mono','lucida console', monospace; }
-
-
-/* Lists
--------------------------------------------------------------- */
-
-li ul,
-li ol       { margin: 0; }
-ul,
-ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.0em; }
-
-ul li       { list-style-type: disc; }
-ol li       { list-style-type: decimal; }
-
-dl          { margin: 0 0 1.5em 0; }
-dl dt       { font-weight: bold; }
-dd          { margin-left: 1.5em;}
-
-
-/* Tables
--------------------------------------------------------------- */
-
-/*
-	Because of the need for padding on TH and TD, the vertical rhythm
-	on table cells has to be 27px, instead of the standard 18px or 36px
-	of other elements.
- */
-table       { margin-bottom: 1.4em; width:100%; }
-th          { font-weight: bold; }
-thead th    { background: #bcdeed; }
-th,
-td,
-caption     { padding: 4px 10px 4px 5px; }
-/*
-	You can zebra-stripe your tables in outdated browsers by adding
-	the class "even" to every other table row.
- */
-tbody tr:nth-child(even) td,
-tbody tr.even td  { background: #e2f1f7; }
-tfoot        { font-style: italic; }
-caption      { background: #e6e6e6; }
-
-
-/* Misc classes
--------------------------------------------------------------- */
-
-.box         {padding:1.5em;margin-bottom:1.5em;background:#e5eCf9;}
-
-.hide        { display: none; }
-
-.quiet       { color: #787878; }
-.loud        { color: #2b2b2b; }
-.make-06b    { color: #06b; }
-.make-d61 { color: #d61; }
-.error_msg   { color: #900; }
-.highlight   { background:#ff0; }
-.added       { background:#060; color: #fff; }
-.removed     { background:#900; color: #fff; }
-
-.first       { margin-left:0; padding-left:0; }
-.last        { margin-right:0; padding-right:0; }
-.top         { margin-top:0; padding-top:0; }
-.bottom      { margin-bottom:0; padding-bottom:0; }
-
-.make-uppercase   { text-transform: uppercase; }
