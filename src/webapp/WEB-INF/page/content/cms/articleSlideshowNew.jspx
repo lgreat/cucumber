@@ -72,7 +72,7 @@
                 <!-- Byline -->
 
                 <!-- 2012 03 26 - mitch added comment to parameter list so I could access it in the toolbar -->
-                <article:toolsLayout2 feature="${feature}" uri="${uri}" comments="${comments}" slideShowUrl="${slideShowUrl}" slideShowTitle="${feature.currentSlide.title}" slideShowImage="${feature.currentSlide.imageUrl}"/>
+                <article:toolsLayout2 feature="${feature}" uri="${uri}" comments="${comments}" slideShowUrl="${slideShowUrl}" slideShowImage="${feature.currentSlide.imageUrl}"/>
 
                 <!-- TODO! make sure these 610x ads look right -->
                 <ad:adTag position="Sponsor_610x16"/>

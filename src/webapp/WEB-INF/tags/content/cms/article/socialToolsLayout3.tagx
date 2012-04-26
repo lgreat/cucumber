@@ -13,8 +13,6 @@
                              description="Whether to include the share button"/>
     <jsp:directive.attribute name="slideShowUrl" required="true" type="java.lang.String"
                              description="URL of the individule slide ot be pinned"/>
-     <jsp:directive.attribute name="slideShowTitle" required="true" type="java.lang.String"
-                             description="URL of the individule slide ot be pinned"/>
     <jsp:directive.attribute name="slideShowImage" required="true" type="java.lang.String"
                              description="Image of the individual slide to be pinned"/>
 
@@ -24,10 +22,10 @@
             <span class="mrs">
                 <c:choose>
                     <c:when test="${not empty pageScope.slideShowImage}">
-                        <promo:addPinItButton url="${pageScope.slideShowUrl}" title="${pageScope.slideShowTitle}" image="${pageScope.slideShowImage}"/>
+                        <promo:addPinItButton url="${pageScope.slideShowUrl}" title="${feature.title}" image="${pageScope.slideShowImage}"/>
                     </c:when>
                     <c:otherwise>
-                        <promo:addPinItButton url="${pageScope.slideShowUrl}" title="${pageScope.slideShowImage}" image="http://www.greatschools.org/res/img/content/article/GS_FB_logo_200x200.jpg"/>
+                        <promo:addPinItButton url="${pageScope.slideShowUrl}" title="${feature.title}" image="http://www.greatschools.org/res/img/content/article/GS_FB_logo_200x200.jpg"/>
                     </c:otherwise>
                 </c:choose>
             </span>
