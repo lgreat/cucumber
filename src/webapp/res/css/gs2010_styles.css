@@ -7413,6 +7413,7 @@ body.ie7 #frmPRModule .helperMessage {
 
 /* =12n-1 school search results
 -------------------------------------------------------------------------------------------*/
+.school-search-results-table{position: relative;}
 
 #school-search-results-table-header {
     border-top: 1px solid #c6c6c6;
@@ -7460,8 +7461,8 @@ body.ie7 #frmPRModule .helperMessage {
     float: left;
     z-index: 101;
     position: absolute;
-    left: 230px;
-    top: 250px;
+    left: 202px;
+    top: 140px;
     background-color: white;
     display: none;
 }

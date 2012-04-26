@@ -19,7 +19,7 @@
 
 <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
 
-    <div id="js-school-search-results-table">
+    <div id="js-school-search-results-table" class="school-search-results-table">
 <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
 
 <!-- DONE: Hi Randall! Can you relocate this and move styles to css, thx -->
