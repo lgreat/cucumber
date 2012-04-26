@@ -458,7 +458,7 @@ public class EspRegistrationController implements ReadWriteAnnotationController 
     protected String getSchoolNameForEspMembership(EspMembership espMembership) {
         String schoolName = "";
         if (espMembership != null) {
-            School school = _schoolDao.getSchoolById(espMembership.getState(), espMembership.getId());
+            School school = _schoolDao.getSchoolById(espMembership.getState(), espMembership.getSchoolId());
             if (school != null) {
                 schoolName = school.getName();
             }
