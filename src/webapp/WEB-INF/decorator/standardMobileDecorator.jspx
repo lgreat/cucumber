@@ -17,10 +17,20 @@
 <html lang="en">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+        <title><decorator:title default="GreatSchools Mobile"/></title>
+
         <meta name="HandheldFriendly" content="true" />
         <meta name="MobileOptimized" content="320" />
         <meta name="Viewport" content="width=device-width" />
-        <title><decorator:title default="GreatSchools Mobile"/></title>
+
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/00_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/00_reset/z_index_reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/05_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/11_tables/tables.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/12_graphs/bar_graphs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+
         <script src="/res/js/jquery/jquery-1.7.1.min.js" type="text/javascript"><!-- do not collapse --></script>
         <mod:mobileBootstrapJS/>
         <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
