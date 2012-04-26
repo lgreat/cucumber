@@ -2439,14 +2439,14 @@ body.cobranded #pageGS {
 .framed #pageGS,
 .framed #footerFrm,
 .overview #contentGS {
-    background-color: #ffffff;
+    background: #ffffff;
     padding-left:5px;
 }
 
 .interstitialGS{margin-top: 36px;}
 
 .interstitialGS #contentGS {
-    background-color: #ffffff;
+    background: #ffffff;
     border: 0;
 }
 
