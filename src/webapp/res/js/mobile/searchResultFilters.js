@@ -1,6 +1,7 @@
 define(['uri','ui'],function(uri, ui) {
 
     var filtersSelector;
+    var applyCallback; // gets called when filter Apply button is pressed
 
     // defines the generic state/behavior for each group of boolean filters
     var BooleanFilter = function(key, defaultFilters) {
@@ -74,9 +75,12 @@ define(['uri','ui'],function(uri, ui) {
             }
             var $booleanFilters = $jq.find('[data-'+dataAttributes.booleanFilter + ']');
 
+            var filters = this.filter; // allow below anonymous function in each call to access filters without
+                                       // prefixing with "this."
+
             $booleanFilters.each(function() {
                 var filterName = $(this).data(dataAttributes.booleanFilter);
-                this.filters[filterName] = $(this).hasClass(ui.buttonPressed);
+                filters[filterName] = $(this).hasClass(ui.buttonPressed);
             });
         };
 
@@ -160,6 +164,9 @@ define(['uri','ui'],function(uri, ui) {
         };
     };
 
+
+
+
     // create the filters
     var schoolType = new BooleanFilter('st', {
         public:true,
@@ -178,6 +185,7 @@ define(['uri','ui'],function(uri, ui) {
     var minGreatSchoolsRating = new SelectFilter('minGreatSchoolsRating', undefined);
     var minCommunityRating = new SelectFilter('minCommunityRating', undefined);
     var schoolSize = new SelectFilter('schoolSize', 'All');
+
 
     // put the filters into an array for easy iterating
     var filters = [schoolType, gradeLevel, distance, minGreatSchoolsRating, minCommunityRating, schoolSize];
@@ -296,13 +304,14 @@ define(['uri','ui'],function(uri, ui) {
             if (action === 'reset') {
                 reset();
             } else if (action === 'apply') {
-                updateUrl();
+                applyCallback();
             }
         });
     };
 
-    var init = function(selector) {
+    var init = function(selector, callback) {
         filtersSelector = selector;
+        applyCallback = callback;
 
         selectors = {
             booleanFilters: filtersSelector + ' [data-' + dataAttributes.booleanFilter + ']',
@@ -327,9 +336,6 @@ define(['uri','ui'],function(uri, ui) {
     return {
         init:init,
         toQueryString:toQueryString,
-        schoolType:schoolType,
-        gradeLevel:gradeLevel,
-        schoolSize:schoolSize,
         getUpdatedQueryString:getUpdatedQueryString
     };
 

@@ -19,10 +19,26 @@
 
     <search:schoolSearchResultsMobileList/>
 
+    <c:set var="pageMap" value="${page.map}"/>
 
+    <script type="text/javascript">
+        require(GS.requireConfig, ['mobileSearchResults'], function(mobileSearchResults) {
+            GS.log('mobile-search-results loaded', mobileSearchResults);
 
+            var page = {};
+            page['isFirstPage'] = ${pageMap.isFirstPage};
+            page['isLastPage'] = ${pageMap.isLastPage};
+            page['offset'] = ${pageMap.offset};
+            page['pageNumber'] = ${pageMap.pageNumber};
+            page['lastOffsetOnPage'] = ${pageMap.lastOffsetOnPage};
+            page['firstOffset'] = ${pageMap.firstOffset};
+            page['lastOffset'] = ${pageMap.lastOffset};
+            page['firstPageNumber'] = ${pageMap.firstPageNumber};
+            page['lastPageNumber'] = ${pageMap.lastPageNumber};
+            page['pageSize'] = ${pageMap.pageSize};
 
-
-
+            mobileSearchResults.reset(page);
+        });
+    </script>
 
 </jsp:root>

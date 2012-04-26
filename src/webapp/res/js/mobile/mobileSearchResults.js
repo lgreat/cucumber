@@ -19,7 +19,7 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
     var filtersSelector = '.js-searchResultFilters';
 
     var init = function(page) {
-        searchResultFilters.init(filtersSelector);
+        searchResultFilters.init(filtersSelector, applyFilters);
         firstPage = page;
         currentOffset = firstPage.offset;
 
@@ -34,6 +34,21 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
         });
     };
 
+    // when we load in results via ajax after filters are applied, we lose track of how many pages there are, etc
+    // there only way to know (since we're returning html from the ajax call) is to embed the values into the dom
+    // and extract them, or include a script block within the html that will get executed and set the page data
+    // on this module
+    var reset = function(page) {
+        firstPage = page;
+        currentOffset = 0;
+
+        if (page.isLastPage != true) {
+            $(loadMoreSelector).show();
+        } else {
+            $(loadMoreSelector).hide();
+        }
+    };
+
     var attachEventHandlers = function() {
         $sortSelect.on('change', function() {
             var value = $(this).val();
@@ -45,6 +60,24 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
             var newUrl = window.location.pathname + newQueryString;
             lastSort = value;
             window.location.href = newUrl;
+        });
+    };
+
+    var applyFilters = function() {
+        var queryString = searchResultFilters.getUpdatedQueryString();
+        queryString = uri.putIntoQueryString(queryString, 'ajax', true);
+        var url = window.location.protocol + '//' + window.location.host + window.location.pathname + queryString;
+
+        $.ajax({
+            url:url,
+            type:'get'
+        }).done(function(data) {
+            GS.log('search got data back from filtering ajax call: ', data);
+            if (data) {
+                var $list = $("#js-schoolSearchResultsList");
+                $list.html(data);
+            }
+
         });
     };
 
@@ -92,6 +125,7 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
     };
 
     return {
+        reset:reset,
         init:init
     }
 });
