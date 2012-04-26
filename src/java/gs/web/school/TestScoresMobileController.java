@@ -10,7 +10,6 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
-import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +36,8 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     public static final String KEY_YEARS = "years";
 
     public static final String VIEW = "school/testScores-mobile";
+
+    public static final String LABEL_DATA_NOT_AVAILABLE ="Data not available";
 
     private boolean _controllerHandlesMobileRequests;
     private boolean _controllerHandlesDesktopRequests;
@@ -106,7 +107,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
                 getTestDataTypeToGradeToSubjectsToDataSetToValueMap(school, testDataSets, testDataTypeIdToTestDataType);
 
-        //Convert the temporaryMap :- 'testDataTypeToGradeToSubjectsToDataSetToValueMap' to a list of TestToGrades bean to use in the view.
+        //Convert the temporaryMap that was constructed above, to a list of TestToGrades bean thats used in the view.
         rval = populateTestScoresBean(testDataTypeToGradeToSubjectsToDataSetToValueMap);
         return rval;
     }
@@ -165,14 +166,18 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param testDataTypeIdToTestDataType
      * @return
      */
-    protected Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> getTestDataTypeToGradeToSubjectsToDataSetToValueMap(School school, List<TestDataSet> testDataSets, Map<Integer, TestDataType> testDataTypeIdToTestDataType) {
+    protected Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>>
+    getTestDataTypeToGradeToSubjectsToDataSetToValueMap(School school, List<TestDataSet> testDataSets,
+                                                        Map<Integer, TestDataType> testDataTypeIdToTestDataType) {
+
         Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
                 new HashMap<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>>();
+
         for (TestDataSet testDataSet : testDataSets) {
             //todo maybe do a batch fetch.
             //Get the test scores for the testDataSet.
             SchoolTestValue testValue = _testDataSetDao.findValue(testDataSet, school.getDatabaseState(), school.getId());
-            String testValueStr = testValue != null ? testValue.getValueFloat().toString() : "";
+            String testValueStr = testValue != null ? testValue.getValueFloat().toString() : LABEL_DATA_NOT_AVAILABLE;
 
 //            if (testValue != null && testDataSet != null && testDataSet.getGrade() != null && testDataSet.getSubject() != null) {
 
@@ -252,18 +257,19 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
                     for (TestDataSet testDataSet : dataSetsMap.keySet()) {
                         String value = dataSetsMap.get(testDataSet);
-                        if (StringUtils.isNotBlank(value)) {
+                        if (!LABEL_DATA_NOT_AVAILABLE.equals(value)) {
                             dataPresent = true;
                         }
                     }
                     if (!dataPresent) {
-                        //There is no data present for any of the dataSets.Therefore add it to the removal list.
+                        //There is no data present for any of the dataSets.Therefore add it to the subject removal list.
                         subjectsToRemove.add(subject);
                     }
                 }
 
                 if (subjectsToRemove.size() == subjectsMap.keySet().size()) {
-                    //If all the subjects within a grade have been removed then remove the grade itself should be removed.Therefore add it to the removal list.
+                    //If all the subjects within a grade have been removed then the grade itself should be removed.
+                    //Therefore add it to the grade removal list.
                     gradesToRemove.add(grade);
                 }
                 //Remove subjects
@@ -290,24 +296,27 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         for (TestDataType testDataType : map.keySet()) {
             TestToGrades testToGrades = new TestToGrades();
             testToGrades.setTestLabel(testDataType.getName());
+
             //For every test construct a list of grades.
             List<GradeToSubjects> gradeToSubjectsList = new ArrayList<GradeToSubjects>();
             for (Grade grade : map.get(testDataType).keySet()) {
                 GradeToSubjects gradeToSubjects = new GradeToSubjects();
+
                 //For every grade construct a list of subjects.
                 List<SubjectToYears> subjectToYearsList = new ArrayList<SubjectToYears>();
                 for (Subject subject : map.get(testDataType).get(grade).keySet()) {
                     SubjectToYears subjectToYears = new SubjectToYears();
                     //TODO do not get subject labels like this.
                     subjectToYears.setSubjectLabel(getSubjectLabel(subject));
+
                     //For every subject construct a list of years.
                     List<YearToTestScore> yearToTestScoreList = new ArrayList<YearToTestScore>();
                     for (TestDataSet testDataSet : map.get(testDataType).get(grade).get(subject).keySet()) {
+
                         //For a year set the test score.
                         YearToTestScore yearToTestScore = new YearToTestScore();
                         yearToTestScore.setYear(testDataSet.getYear());
                         yearToTestScore.setTestScoreStr(map.get(testDataType).get(grade).get(subject).get(testDataSet));
-//                        yearToTestScore.setTestScore(map.get(testDataType).get(grade).get(subject).get(testDataSet));
                         yearToTestScoreList.add(yearToTestScore);
 
                         //TODO this seems like the wrong place.
@@ -442,7 +451,6 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
     public static class TestToGrades {
         String _testLabel;
-        //        Integer _dataTypeId;
         List<GradeToSubjects> _grades;
 
         public String getTestLabel() {
