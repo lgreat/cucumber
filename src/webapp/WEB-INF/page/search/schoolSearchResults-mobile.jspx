@@ -9,7 +9,7 @@
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:tags="urn:jsptagdir:/WEB-INF/tags"
           xmlns:form="http://www.springframework.org/tags/form"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile">
 
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
     <jsp:output omit-xml-declaration="true" />
@@ -145,10 +145,28 @@
 
         <c:if test="${not page.lastPage}">
             <button id="loadMore">
-                Load more
+                View more results
             </button>
         </c:if>
 
+        <c:if test="${isNearbySearch}">
+            <h3>Nearby Cities</h3>
+            <c:if test="${fn:length(citySearchResults) gt 0}">
+                <c:set var="lastCityIndex" value="${fn:length(citySearchResults)-1}"/>
+                <c:if test="${lastCityIndex gt 5}">
+                    <c:set var="lastCityIndex" value="5"/>
+                </c:if>
+                <ul>
+                    <c:forEach var="city" items="${citySearchResults}" begin="1" end="${lastCityIndex}" varStatus="status">
+                        <li>
+                            <link:schools cityName="${city.city}" state="${city.state}">${city.city}, ${city.state}</link:schools>
+                        </li>
+                    </c:forEach>
+                </ul>
+                </c:if>
+        </c:if>
+
+        <mobile:topOfPage/>
 
 
         <c:set var="buttonPressedClass" value="button-pressed"/>
@@ -164,16 +182,16 @@
             </p>
 
             <div data-school-boolean-filter-group="schoolType">
-                <span class="${fn:contains(schoolType,'public')? buttonPressedClass : buttonClass}" data-school-boolean-filter="public">Public</span>
-                <span class="${fn:contains(schoolType,'charter')? buttonPressedClass : buttonClass}" data-school-boolean-filter="charter">Public charter</span>
-                <span class="${fn:contains(schoolType,'private')? buttonPressedClass : buttonClass}" data-school-boolean-filter="private">Private</span>
+                <span class="${fn:contains(schoolType,'public') or empty schoolType? buttonPressedClass : buttonClass}" data-school-boolean-filter="public">Public</span>
+                <span class="${fn:contains(schoolType,'charter') or empty schoolType? buttonPressedClass : buttonClass}" data-school-boolean-filter="charter">Public charter</span>
+                <span class="${fn:contains(schoolType,'private') or empty schoolType? buttonPressedClass : buttonClass}" data-school-boolean-filter="private">Private</span>
             </div>
 
             <div data-school-boolean-filter-group="gradeLevel">
-                <span class="${fn:contains(levelCode,'p')? buttonPressedClass : buttonClass}" data-school-boolean-filter="preschool">Preschool</span>
-                <span class="${fn:contains(levelCode,'e')? buttonPressedClass : buttonClass}" data-school-boolean-filter="elementary">Elementary (K-5)</span>
-                <span class="${fn:contains(levelCode,'m')? buttonPressedClass : buttonClass}" data-school-boolean-filter="middle">Middle (6-8)</span>
-                <span class="${fn:contains(levelCode,'h')? buttonPressedClass : buttonClass}" data-school-boolean-filter="high">High (9-12)</span>
+                <span class="${fn:contains(levelCode,'p') or empty levelCode? buttonPressedClass : buttonClass}" data-school-boolean-filter="preschool">Preschool</span>
+                <span class="${fn:contains(levelCode,'e') or empty levelCode? buttonPressedClass : buttonClass}" data-school-boolean-filter="elementary">Elementary (K-5)</span>
+                <span class="${fn:contains(levelCode,'m') or empty levelCode? buttonPressedClass : buttonClass}" data-school-boolean-filter="middle">Middle (6-8)</span>
+                <span class="${fn:contains(levelCode,'h') or empty levelCode? buttonPressedClass : buttonClass}" data-school-boolean-filter="high">High (9-12)</span>
             </div>
 
             Distance

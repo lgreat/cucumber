@@ -619,7 +619,9 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         }
 
         // apply sorting
-        q.sort(sort);
+        if (sort != null) {
+            q.sort(sort);
+        }
 
         try {
             searchResultsPage = getGsSolrSearcher().search(q, SolrSchoolSearchResult.class, true);
