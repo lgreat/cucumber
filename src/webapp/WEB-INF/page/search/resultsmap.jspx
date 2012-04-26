@@ -5,7 +5,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:gsweb="gstaglib"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
     <jsp:output omit-xml-declaration="true" />
@@ -36,7 +36,13 @@
             var points = [];
             <c:forEach var="school" items="${schoolSearchResults}">
                 <c:set var="infoWindowMarkup">
-                    <h3>${school.name}</h3>
+                    <h3>
+                        <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link" schoolId="${school.id}" databaseState="${school.databaseState}"
+                             name="${school.name}" physicalAddress="${school.address}"
+                             levelCode="${school.levelCode}">
+                            ${school.name}
+                        </link:schoolProfileOverviewForPrimitives>
+                    </h3>
                     <p>${school.schoolType} ${school.grades.rangeString} | ${school.city}, ${school.databaseState}</p>
 
                     <c:if test="${not empty school.greatSchoolsRating}">
@@ -113,7 +119,7 @@
                         </div>-->
 
                         <div data-role="content" style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
-                            <input class="js-redobtn" style="display: none; font-size: 16px; font-weight: bold; margin: 0 auto; width: 200px; padding: 10px;" type="submit" value="Redo Search in this area"/>
+                            <input class="js-redobtn" style="display: none;" type="submit" value="Redo Search in this area"/>
                             <div id="js-map-canvas" style="width:100%; height:200px;"></div>
                         </div>
                     </c:if>
@@ -121,14 +127,26 @@
             </c:when>
         </c:choose>
 
-    </body>
-
-    <c:set var="omnitureLocale">
-        <c:choose>
+        <!--- Omniture -->
+        <c:set var="pageName" value="School Search:Map" scope="request"/>
+        <c:set var="omnitureLocale"><c:choose>
             <c:when test="${isCityBrowse}">${city.name}</c:when>
             <c:when test="${isDistrictBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
             <c:otherwise>${null}</c:otherwise>
-        </c:choose>
-    </c:set>
+        </c:choose></c:set>
+
+        <mod:tracking pageName="${pageName}"
+                      query="${omnitureQuery}"
+                      hier1="Search"
+                      schoolType="${omnitureSchoolType}"
+                      schoolLevel="${omnitureSchoolLevel}"
+                      sortSelection="${omnitureSortSelection}"
+                      nearbySearchZipCode="${nearbySearchZipCode}"
+                      resultsPerPage="${omnitureResultsPerPage}"
+                      findASchoolByAddress="${omnitureAddressSearch}"
+                      findASchoolByName="${omnitureNameSearch}"
+                      locale="${omnitureLocale}"
+                />
+    </body>
 
 </jsp:root>

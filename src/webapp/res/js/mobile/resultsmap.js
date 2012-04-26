@@ -3,6 +3,7 @@ define(function() {
         var centerPoint = new google.maps.LatLng(0, 0);
         var bounds = new google.maps.LatLngBounds();
         var infoWindow = new google.maps.InfoWindow();
+        var $redoBtn = $('.js-redobtn');
 
         var myOptions = {
             center: centerPoint,
@@ -24,6 +25,14 @@ define(function() {
 
         var map = new google.maps.Map(document.getElementById("js-map-canvas"),
             myOptions);
+
+        // perform a new search if the user wants to
+        // search in a new area
+        $redoBtn.click(function(){
+            var latLng = map.getCenter();
+            var url = String(window.location).replace(/([\&\?])(lat=)([^\&]+)/, "$1lat=" + latLng.lat()).replace(/([\&\?])(lon=)([^\&]+)/,"$1lon=" + latLng.lng());
+            window.location = url;
+        });
 
         var markerShadow = new google.maps.MarkerImage(
             "/res/img/map/GS_gsr_1_backgroundshadow.png", // url
@@ -74,7 +83,16 @@ define(function() {
                 infoWindow.setContent(this.infoWindowMarkup);
                 infoWindow.open(map, this);
             });
+
+            google.maps.event.addListener(map, 'dragend', function(){
+                $redoBtn.show().css('display','block');
+            });
         }
+
+        // register onclick for link tracking
+        $('body').on('click','.js-overview-link', function(){
+            if (s.tl) {s.tl(this,'o', 'Mobile_map_click_bubble');} return true;
+        });
 
         map.fitBounds(bounds);
     }
