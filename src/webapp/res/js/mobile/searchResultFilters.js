@@ -5,7 +5,12 @@ define(['uri','ui'],function(uri, ui) {
     // defines the generic state/behavior for each group of boolean filters
     var BooleanFilter = function(key, defaultFilters) {
         this.key = key;
-        this.filters = defaultFilters;
+        this.filters = {};
+        for (var prop in defaultFilters) {
+            if (defaultFilters.hasOwnProperty(prop)) {
+                this.filters[prop] = defaultFilters[prop];
+            }
+        }
         this.defaultFilters = defaultFilters;
         this.toggle = function(filter) {
             if (this.filters.hasOwnProperty(filter)) {
@@ -52,7 +57,7 @@ define(['uri','ui'],function(uri, ui) {
             var values = queryData[this.key];
             if (values !== undefined) {
                 for (var filter in this.filters) {
-                    if (this.hasOwnProperty(filter)) {
+                    if (this.filters.hasOwnProperty(filter)) {
                         if (values instanceof Array) {
                             this.filters[filter] = (values.indexOf(filter) > -1);
                         } else {
@@ -76,8 +81,8 @@ define(['uri','ui'],function(uri, ui) {
         };
 
         this.reset = function() {
-            filters = this.defaultFilters;
-        }
+            this.filters = this.defaultFilters;
+        };
     };
 
     /*var RangeFilter = function(minKey, maxKey, defaultMinValue, defaultMaxValue) {
@@ -163,17 +168,18 @@ define(['uri','ui'],function(uri, ui) {
         high:true
     });
 
-    var schoolSize = new SelectFilter('distance', '25');
+    var distance = new SelectFilter('distance', '25');
     var minGreatSchoolsRating = new SelectFilter('minGreatSchoolsRating', undefined);
     var minCommunityRating = new SelectFilter('minCommunityRating', undefined);
     var schoolSize = new SelectFilter('schoolSize', 'All');
 
     // put the filters into an array for easy iterating
-    var filters = [schoolType, gradeLevel, minGreatSchoolsRating, minCommunityRating, schoolSize];
+    var filters = [schoolType, gradeLevel, distance, minGreatSchoolsRating, minCommunityRating, schoolSize];
     // TODO: remove redundancy here and/or at module return value
     var filtersHash = {
         schoolType:schoolType,
         gradeLevel:gradeLevel,
+        distance:distance,
         minGreatSchoolsRating:minGreatSchoolsRating,
         minCommunityRating:minCommunityRating,
         schoolSize:schoolSize
