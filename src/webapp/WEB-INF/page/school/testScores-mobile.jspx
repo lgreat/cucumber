@@ -88,7 +88,7 @@
                         <br/>
                         <c:forEach var="yearToTestScore" items="${subjectToYears.years}" varStatus="index">
                             ${yearToTestScore.year}
-                            ${yearToTestScore.testScore}
+                            ${yearToTestScore.testScoreStr}
                             <br/>
                         </c:forEach>
                     </c:forEach>

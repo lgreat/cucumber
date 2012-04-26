@@ -1,6 +1,7 @@
 package gs.web.school;
 
 import gs.data.school.*;
+import gs.data.school.Grade;
 import gs.data.source.DataSetContentType;
 import gs.data.test.*;
 import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
@@ -9,6 +10,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -101,7 +103,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
         //A temporary map used to store the testDataType, grade, subjects, testDataSet and value.
         //We use this map later to construct a list to display in the view.
-        Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
+        Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
                 getTestDataTypeToGradeToSubjectsToDataSetToValueMap(school, testDataSets, testDataTypeIdToTestDataType);
 
         //Convert the temporaryMap :- 'testDataTypeToGradeToSubjectsToDataSetToValueMap' to a list of TestToGrades bean to use in the view.
@@ -163,63 +165,118 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param testDataTypeIdToTestDataType
      * @return
      */
-    protected Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>> getTestDataTypeToGradeToSubjectsToDataSetToValueMap(School school, List<TestDataSet> testDataSets, Map<Integer, TestDataType> testDataTypeIdToTestDataType) {
-        Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
-                new HashMap<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>>();
+    protected Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> getTestDataTypeToGradeToSubjectsToDataSetToValueMap(School school, List<TestDataSet> testDataSets, Map<Integer, TestDataType> testDataTypeIdToTestDataType) {
+        Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
+                new HashMap<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>>();
         for (TestDataSet testDataSet : testDataSets) {
             //todo maybe do a batch fetch.
             //Get the test scores for the testDataSet.
             SchoolTestValue testValue = _testDataSetDao.findValue(testDataSet, school.getDatabaseState(), school.getId());
-            if (testValue != null && testDataSet != null && testDataSet.getGrade() != null && testDataSet.getSubject() != null) {
+            String testValueStr = testValue != null ? testValue.getValueFloat().toString() : "";
 
-                Grade grade = testDataSet.getGrade();
-                Subject subject = testDataSet.getSubject();
-                TestDataType testDataType = testDataTypeIdToTestDataType.get(testDataSet.getDataTypeId());
+//            if (testValue != null && testDataSet != null && testDataSet.getGrade() != null && testDataSet.getSubject() != null) {
 
-                //Check if the test is already in the map.
-                if (testDataTypeToGradeToSubjectsToDataSetToValueMap.get(testDataType) != null) {
-                    //Test already present.
-                    Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>> gradeToSubjectsToDataSetToValueMap = testDataTypeToGradeToSubjectsToDataSetToValueMap.get(testDataType);
-                    //Check if grade is already in the map.
-                    if (gradeToSubjectsToDataSetToValueMap != null && gradeToSubjectsToDataSetToValueMap.get(grade) != null) {
-                        //Grade already present.
-                        Map<Subject, Map<TestDataSet, SchoolTestValue>> subjectToDataSet = gradeToSubjectsToDataSetToValueMap.get(grade);
-                        //Check if subject is already in the map.
-                        if (subjectToDataSet != null && subjectToDataSet.get(subject) != null) {
-                            //Subject already present.
-                            Map<TestDataSet, SchoolTestValue> dataSetToValue = subjectToDataSet.get(subject);
-                            //Check if DataSet is not in the map.We dont care if its already there.That should never happen.
-                            if (dataSetToValue != null && dataSetToValue.get(testDataSet) == null) {
-                                dataSetToValue.put(testDataSet, testValue);
-                            }
-                        } else {
-                            //Subject not present.
-                            Map<TestDataSet, SchoolTestValue> dataSetToValue = new HashMap<TestDataSet, SchoolTestValue>();
-                            dataSetToValue.put(testDataSet, testValue);
-                            subjectToDataSet.put(subject, dataSetToValue);
+            Grade grade = testDataSet.getGrade();
+            Subject subject = testDataSet.getSubject();
+            TestDataType testDataType = testDataTypeIdToTestDataType.get(testDataSet.getDataTypeId());
+
+            //Check if the test is already in the map.
+            if (testDataTypeToGradeToSubjectsToDataSetToValueMap.get(testDataType) != null) {
+                //Test already present.
+                Map<Grade, Map<Subject, Map<TestDataSet, String>>> gradeToSubjectsToDataSetToValueMap = testDataTypeToGradeToSubjectsToDataSetToValueMap.get(testDataType);
+                //Check if grade is already in the map.
+                if (gradeToSubjectsToDataSetToValueMap != null && gradeToSubjectsToDataSetToValueMap.get(grade) != null) {
+                    //Grade already present.
+                    Map<Subject, Map<TestDataSet, String>> subjectToDataSet = gradeToSubjectsToDataSetToValueMap.get(grade);
+                    //Check if subject is already in the map.
+                    if (subjectToDataSet != null && subjectToDataSet.get(subject) != null) {
+                        //Subject already present.
+                        Map<TestDataSet, String> dataSetToValue = subjectToDataSet.get(subject);
+                        //Check if DataSet is not in the map.We dont care if its already there.That should never happen.
+                        if (dataSetToValue != null && dataSetToValue.get(testDataSet) == null) {
+                            dataSetToValue.put(testDataSet, testValueStr);
                         }
                     } else {
-                        //Grade not present.
-                        Map<TestDataSet, SchoolTestValue> dataSetToValue = new HashMap<TestDataSet, SchoolTestValue>();
-                        dataSetToValue.put(testDataSet, testValue);
-                        Map<Subject, Map<TestDataSet, SchoolTestValue>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, SchoolTestValue>>();
+                        //Subject not present.
+                        Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
+                        dataSetToValue.put(testDataSet, testValueStr);
                         subjectToDataSet.put(subject, dataSetToValue);
-                        gradeToSubjectsToDataSetToValueMap.put(grade, subjectToDataSet);
-
                     }
                 } else {
-                    //Test not present.
-                    Map<TestDataSet, SchoolTestValue> dataSetToValue = new HashMap<TestDataSet, SchoolTestValue>();
-                    dataSetToValue.put(testDataSet, testValue);
-                    Map<Subject, Map<TestDataSet, SchoolTestValue>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, SchoolTestValue>>();
+                    //Grade not present.
+                    Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
+                    dataSetToValue.put(testDataSet, testValueStr);
+                    Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
                     subjectToDataSet.put(subject, dataSetToValue);
-                    Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>> gradeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>();
                     gradeToSubjectsToDataSetToValueMap.put(grade, subjectToDataSet);
-                    testDataTypeToGradeToSubjectsToDataSetToValueMap.put(testDataType, gradeToSubjectsToDataSetToValueMap);
+
+                }
+            } else {
+                //Test not present.
+                Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
+                dataSetToValue.put(testDataSet, testValueStr);
+                Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
+                subjectToDataSet.put(subject, dataSetToValue);
+                Map<Grade, Map<Subject, Map<TestDataSet, String>>> gradeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<Subject, Map<TestDataSet, String>>>();
+                gradeToSubjectsToDataSetToValueMap.put(grade, subjectToDataSet);
+                testDataTypeToGradeToSubjectsToDataSetToValueMap.put(testDataType, gradeToSubjectsToDataSetToValueMap);
+            }
+//            }
+        }
+
+        //Remove the data points that do not have data.
+        return removeEmptyDataPoints(testDataTypeToGradeToSubjectsToDataSetToValueMap);
+    }
+
+    /**
+     * Helper method that removes the parent elements if the test value is empty.
+     * For example: if all the years for a given subject have no values, then remove/do not show the subject.
+     * If all the subjects within a grade have no values, remove/do not show the grade.
+     *
+     * @param map
+     * @return
+     */
+
+    protected Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> removeEmptyDataPoints(Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> map) {
+        for (TestDataType testDataType : map.keySet()) {
+            Map<Grade, Map<Subject, Map<TestDataSet, String>>> gradesMap = map.get(testDataType);
+            List<Grade> gradesToRemove = new ArrayList<Grade>();
+
+            for (Grade grade : gradesMap.keySet()) {
+                Map<Subject, Map<TestDataSet, String>> subjectsMap = gradesMap.get(grade);
+                List<Subject> subjectsToRemove = new ArrayList<Subject>();
+
+                for (Subject subject : subjectsMap.keySet()) {
+                    Map<TestDataSet, String> dataSetsMap = subjectsMap.get(subject);
+                    boolean dataPresent = false;
+
+                    for (TestDataSet testDataSet : dataSetsMap.keySet()) {
+                        String value = dataSetsMap.get(testDataSet);
+                        if (StringUtils.isNotBlank(value)) {
+                            dataPresent = true;
+                        }
+                    }
+                    if (!dataPresent) {
+                        //There is no data present for any of the dataSets.Therefore add it to the removal list.
+                        subjectsToRemove.add(subject);
+                    }
+                }
+
+                if (subjectsToRemove.size() == subjectsMap.keySet().size()) {
+                    //If all the subjects within a grade have been removed then remove the grade itself should be removed.Therefore add it to the removal list.
+                    gradesToRemove.add(grade);
+                }
+                //Remove subjects
+                for (Subject sub : subjectsToRemove) {
+                    subjectsMap.remove(sub);
                 }
             }
+            //Remove grades
+            for (Grade grade : gradesToRemove) {
+                gradesMap.remove(grade);
+            }
         }
-        return testDataTypeToGradeToSubjectsToDataSetToValueMap;
+        return map;
     }
 
     /**
@@ -228,30 +285,29 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param map
      * @return This returns a list of TestToGrades bean, which is used to present data in the view.
      */
-    protected List<TestToGrades> populateTestScoresBean(Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, SchoolTestValue>>>> map) {
+    protected List<TestToGrades> populateTestScoresBean(Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> map) {
         List<TestToGrades> testToGradesList = new ArrayList<TestToGrades>();
         for (TestDataType testDataType : map.keySet()) {
             TestToGrades testToGrades = new TestToGrades();
             testToGrades.setTestLabel(testDataType.getName());
-
             //For every test construct a list of grades.
             List<GradeToSubjects> gradeToSubjectsList = new ArrayList<GradeToSubjects>();
             for (Grade grade : map.get(testDataType).keySet()) {
                 GradeToSubjects gradeToSubjects = new GradeToSubjects();
-
                 //For every grade construct a list of subjects.
                 List<SubjectToYears> subjectToYearsList = new ArrayList<SubjectToYears>();
                 for (Subject subject : map.get(testDataType).get(grade).keySet()) {
                     SubjectToYears subjectToYears = new SubjectToYears();
+                    //TODO do not get subject labels like this.
                     subjectToYears.setSubjectLabel(getSubjectLabel(subject));
-
                     //For every subject construct a list of years.
                     List<YearToTestScore> yearToTestScoreList = new ArrayList<YearToTestScore>();
                     for (TestDataSet testDataSet : map.get(testDataType).get(grade).get(subject).keySet()) {
                         //For a year set the test score.
                         YearToTestScore yearToTestScore = new YearToTestScore();
                         yearToTestScore.setYear(testDataSet.getYear());
-                        yearToTestScore.setTestScore(map.get(testDataType).get(grade).get(subject).get(testDataSet).getValueFloat());
+                        yearToTestScore.setTestScoreStr(map.get(testDataType).get(grade).get(subject).get(testDataSet));
+//                        yearToTestScore.setTestScore(map.get(testDataType).get(grade).get(subject).get(testDataSet));
                         yearToTestScoreList.add(yearToTestScore);
 
                         //TODO this seems like the wrong place.
@@ -370,10 +426,9 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             } else {
                 try {
                     Integer i = Integer.valueOf(testData.getGrade().getName());
-                    //this logic must be changed if we begin to offer more grades
-                    gradeLabel = String.valueOf(i) + "th grade";
+                    gradeLabel = "Grade " + String.valueOf(i);
                 } catch (NumberFormatException e) {
-                    gradeLabel = "All grades";//GS-11883
+                    gradeLabel = "All grades";
                 }
             }
             return gradeLabel;
@@ -496,16 +551,25 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     }
 
     public static class YearToTestScore implements Comparable<YearToTestScore> {
-        float _testScore;
+        //        float _testScore;
+        String _testScoreStr;
         Integer _year;
 
-        public float getTestScore() {
-            return _testScore;
+        public String getTestScoreStr() {
+            return _testScoreStr;
         }
 
-        public void setTestScore(float testScore) {
-            _testScore = testScore;
+        public void setTestScoreStr(String testScoreStr) {
+            _testScoreStr = testScoreStr;
         }
+
+        //        public float getTestScore() {
+//            return _testScore;
+//        }
+//
+//        public void setTestScore(float testScore) {
+//            _testScore = testScore;
+//        }
 
         public Integer getYear() {
             return _year;
