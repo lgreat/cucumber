@@ -82,6 +82,7 @@ define(['uri','ui'],function(uri, ui) {
 
         this.reset = function() {
             this.filters = this.defaultFilters;
+            this.updateDom();
         };
     };
 
@@ -131,6 +132,7 @@ define(['uri','ui'],function(uri, ui) {
         };
         this.reset = function() {
             this.value = this.defaultValue;
+            this.updateDom();
         };
         this.toQueryString = function() {
             var queryString = "";
@@ -151,7 +153,11 @@ define(['uri','ui'],function(uri, ui) {
                 $jq = $(filtersSelector + ' [name=' + this.key + ']');
             }
             this.value = $jq.val();
-        }
+        };
+        this.updateDom = function() {
+            var $jq = $(filtersSelector + ' [name=' + this.key + ']');
+            $jq.val(this.value);
+        };
     };
 
     // create the filters
