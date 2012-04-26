@@ -3,14 +3,15 @@ define(['uri','ui'],function(uri, ui) {
     var filtersSelector;
 
     // defines the generic state/behavior for each group of boolean filters
-    var BooleanFilter = function(key, filters) {
+    var BooleanFilter = function(key, defaultFilters) {
         this.key = key;
-        this.filters = filters;
-        this.defaultFilters = filters;
+        this.filters = defaultFilters;
+        this.defaultFilters = defaultFilters;
         this.toggle = function(filter) {
-            if (filters.hasOwnProperty(filter)) {
-                filters[filter] = !filters[filter];
+            if (this.filters.hasOwnProperty(filter)) {
+                this.filters[filter] = !this.filters[filter];
             }
+            this.updateDomForOne(filter);
         };
         // does not prepend question mark
         this.toQueryString = function() {
@@ -26,32 +27,126 @@ define(['uri','ui'],function(uri, ui) {
             return queryString;
         };
 
+        this.updateDom = function() {
+            for (var filter in this.filters) {
+                if (this.filters.hasOwnProperty(filter)) {
+                    this.updateDomForOne(filter);
+                }
+            }
+        };
+
+        this.updateDomForOne = function(filter) {
+            var $filter = $(filtersSelector + ' [data-'+dataAttributes.booleanFilter+'=' + filter + ']');
+            GS.log('updating dom for ', $filter);
+            if (this.filters[filter] === true) {
+                $filter.removeClass(ui.buttonClass);
+                $filter.addClass(ui.buttonPressedClass);
+            } else {
+                $filter.addClass(ui.buttonClass);
+                $filter.removeClass(ui.buttonPressedClass);
+            }
+        };
+
+        this.readFromQueryString = function() {
+            var queryData = uri.getQueryData();
+            var values = queryData[this.key];
+            if (values !== undefined) {
+                for (var filter in this.filters) {
+                    if (this.hasOwnProperty(filter)) {
+                        if (values instanceof Array) {
+                            this.filters[filter] = (values.indexOf(filter) > -1);
+                        } else {
+                            this.filters[filter] = (filter === values);
+                        }
+                    }
+                }
+            }
+        };
+
+        this.readFromDom = function($jq) {
+            if ($jq === undefined) {
+                $jq = $(filtersSelector + ' [data-'+dataAttributes.booleanFilterGroup + '=' + this.key + ']');
+            }
+            var $booleanFilters = $jq.find('[data-'+dataAttributes.booleanFilter + ']');
+
+            $booleanFilters.each(function() {
+                var filterName = $(this).data(dataAttributes.booleanFilter);
+                this.filters[filterName] = $(this).hasClass(ui.buttonPressed);
+            });
+        };
+
         this.reset = function() {
             filters = this.defaultFilters;
         }
     };
 
-    var RangeFilter = function(lowKey, highKey) {
-        this.lowKey = lowKey;
-        this.highKey = highKey;
-        this.lowValue = undefined;
-        this.highValue = undefined;
-        this.defaultLowValue = undefined;
-        this.defaultHighValue = undefined;
-        this.init = function(lowValue, highValue) {
-            this.lowValue = lowValue;
-            this.defaultLowValue = lowValue;
-            this.highValue = highValue;
-            this.defaultHighValue = highValue;
-        };
+    /*var RangeFilter = function(minKey, maxKey, defaultMinValue, defaultMaxValue) {
+        this.minKey = minKey;
+        this.maxKey = maxKey;
+        this.minValue = defaultMinValue;
+        this.maxValue = defaultMaxValue;
+        this.defaultMinValue = defaultMinValue;
+        this.defaultMaxValue = defaultMaxValue;
         this.reset = function() {
-            this.lowValue = this.defaultLowValue;
-            this.highValue = this.defaultHighValue;
+            this.minValue = this.defaultMinValue;
+            this.maxValue = this.defaultMaxValue;
         };
         this.toQueryString = function() {
-            var queryString = this.lowKey + "=" + this.lowValue + "&" + this.highKey + "=" + this.highValue;
+            var queryString = this.minKey + "=" + this.minValue + "&" + this.maxKey + "=" + this.maxValue;
             return queryString;
         };
+        this.readFromQueryString = function() {
+            var queryData = uri.getQueryData();
+            var maxValue = queryData[this.maxKey];
+            if (maxValue !== undefined) {
+                this.maxValue = maxValue;
+            }
+            var minValue = queryData[this.minKey];
+            if (minValue !== undefined) {
+                this.minValue = minValue;
+            }
+        };
+        this.readFromDom = function($jq) {
+            if ($jq === undefined) {
+                $jq = $(filtersSelector + ' [data-' + dataAttributes.rangeFilterMin +'] :selected');
+            }
+
+            this.minValue = $jq.data(dataAttributes.rangeFilterMin);
+            this.maxValue = $jq.data(dataAttributes.rangeFilterMax);
+        }
+    };*/
+
+    var SelectFilter = function(key, defaultValue) {
+        this.key = key;
+        this.value = defaultValue;
+        this.defaultValue = defaultValue;
+        this.init = function(value) {
+            this.value = value;
+            this.defaultValue = value;
+        };
+        this.reset = function() {
+            this.value = this.defaultValue;
+        };
+        this.toQueryString = function() {
+            var queryString = "";
+            if (this.value !== undefined && this.value.length > 0) {
+                var queryString = this.key + "=" + this.value;
+            }
+            return queryString;
+        };
+        this.readFromQueryString = function() {
+            var queryData = uri.getQueryData();
+            var value = queryData[this.key];
+            if (value !== undefined) {
+                this.value = value;
+            }
+        };
+        this.readFromDom = function($jq) {
+            if ($jq === undefined) {
+                $jq = $(filtersSelector + ' [name=' + this.key + ']');
+            }
+            this.value = $jq.val();
+        }
     };
 
     // create the filters
@@ -68,25 +163,34 @@ define(['uri','ui'],function(uri, ui) {
         high:true
     });
 
-    var enrollment = new RangeFilter('minEnrollment','maxEnrollment');
+    var schoolSize = new SelectFilter('distance', '25');
+    var minGreatSchoolsRating = new SelectFilter('minGreatSchoolsRating', undefined);
+    var minCommunityRating = new SelectFilter('minCommunityRating', undefined);
+    var schoolSize = new SelectFilter('schoolSize', 'All');
 
     // put the filters into an array for easy iterating
-    var filters = [schoolType, gradeLevel, enrollment];
+    var filters = [schoolType, gradeLevel, minGreatSchoolsRating, minCommunityRating, schoolSize];
     // TODO: remove redundancy here and/or at module return value
     var filtersHash = {
         schoolType:schoolType,
         gradeLevel:gradeLevel,
-        enrollment:enrollment
+        minGreatSchoolsRating:minGreatSchoolsRating,
+        minCommunityRating:minCommunityRating,
+        schoolSize:schoolSize
     };
 
     // some methods for the searchResultFilters module
     var toQueryString = function() {
         var queryString = "";
         for (var i = 0; i < filters.length; i++) {
-            if (queryString.length > 0) {
-                queryString += "&";
+            var filterQs = filters[i].toQueryString();
+            if (filterQs.length > 0) {
+                if (queryString.length > 0) {
+                    queryString += "&";
+                }
+
+                queryString += filterQs;
             }
-            queryString += filters[i].toQueryString();
         }
         return queryString;
     };
@@ -97,17 +201,11 @@ define(['uri','ui'],function(uri, ui) {
         }
     };
 
-    // make the state of the dom reflect the state of filters when arriving on a page with filters pre-chosen
-    var updateDomClasses = function() {
-        // for each filter set up in this JS file, get the filter object
-        // if the filter is a boolean filter, get the boolean filters (key values) from query string, and update the state of the filter obj
-        // if the filter is a range filter, get the high/low values from the query string and update the state of the filter obj
-        // other filter types
-        /*for (var i = 0; i < filters.length; i++) {
-            $('[data-school-filter-group]').each(function() {
-
-            });
-        }*/
+    var initFiltersFromQueryString = function() {
+        for (var i = 0; i < filters.length; i++) {
+            var filter = filters[i];
+            filter.readFromQueryString();
+        }
     };
 
     var getUpdatedQueryString = function() {
@@ -116,11 +214,8 @@ define(['uri','ui'],function(uri, ui) {
 
         for (var i = 0; i < filters.length; i++) {
             var filter = filters[i];
-            if (filter instanceof BooleanFilter) {
+            if (filter instanceof BooleanFilter || filter instanceof SelectFilter) {
                 currentQueryString = uri.removeFromQueryString(currentQueryString, filter.key);
-            } else if (filter instanceof RangeFilter) {
-                currentQueryString = uri.removeFromQueryString(currentQueryString, filter.lowKey);
-                currentQueryString = uri.removeFromQueryString(currentQueryString, filter.highKey);
             }
         }
 
@@ -133,15 +228,18 @@ define(['uri','ui'],function(uri, ui) {
         return newQueryString;
     };
 
+    // a hash to look up short keys to GS html5 custom data attributes
     var dataAttributes = {
         booleanFilter: 'school-boolean-filter',
         booleanFilterGroup: 'school-boolean-filter-group',
         rangeFilterGroup: 'school-range-filter-group',
-        rangeFilterLow: 'school-range-filter-low',
-        rangeFilterHigh: 'school-range-filter-high',
-        rangeFilterDefault: 'school-range-filter-default',
+        rangeFilterMin: 'school-range-filter-min',
+        rangeFilterMax: 'school-range-filter-max',
+        selectFilter: 'school-select-filter',
         filterAction: 'school-filter-action'
     };
+
+    var selectors = {};
 
     var updateUrl = function() {
         window.location.search = getUpdatedQueryString();
@@ -149,29 +247,39 @@ define(['uri','ui'],function(uri, ui) {
 
     var setupBooleanFilterHandlers = function() {
         // when a boolean filter button is pressed, toggle associated boolean filter in JS module
-        $(filtersSelector + ' [data-'+dataAttributes.booleanFilterGroup+']').on('click', '[data-' + dataAttributes.booleanFilter + ']', function() {
+        $(selectors.booleanFilterGroups).on('click', '[data-' + dataAttributes.booleanFilter + ']', function() {
             var booleanGroupName = $(this).parent().data(dataAttributes.booleanFilterGroup);
             var booleanFilter = $(this).data(dataAttributes.booleanFilter);
-            GS.log(booleanGroupName, booleanFilter, filtersHash);
             filtersHash[booleanGroupName].toggle(booleanFilter);
         });
     };
 
-    var setupRangeFilterHandlers = function() {
-        // when an option in a select dropdown is chosen, set the associated low/high values into a JS object
-        $(filtersSelector + ' [data-'+dataAttributes.rangeFilterGroup+']').on('click', '[data-' + dataAttributes.rangeFilterLow +']', function() {
+    /*var setupRangeFilterHandlers = function() {
+        // when an option in a select dropdown is chosen, set the associated min/max values into a JS object
+        $(selectors.rangeFilterGroups).on('click', '[data-' + dataAttributes.rangeFilterMin +']', function() {
             var $this = $(this);
             var rangeGroupName = $this.parent().data(dataAttributes.rangeFilterGroup);
             var rangeFilter = filtersHash[rangeGroupName];
 
-            rangeFilter.lowValue = $this.data(dataAttributes.rangeFilterLow);
-            rangeFilter.highValue = $this.data(dataAttributes.rangeFilterHigh);
+            rangeFilter.minValue = $this.data(dataAttributes.rangeFilterMin);
+            rangeFilter.maxValue = $this.data(dataAttributes.rangeFilterMax);
+        });
+    };*/
+
+    var setupSelectFilterHandlers = function() {
+        // when an option in a select dropdown is chosen, set the associated min/max values into a JS object
+        $(filtersSelector + ' .js-selectFilter').on('change', function() {
+            var $this = $(this);
+            var filterName = $this.attr('name');
+            var filter = filtersHash[filterName];
+
+            filter.value = $this.val();
         });
     };
 
     var setupButtonEvents = function() {
         // when a button/link/other is clicked, perform associated action
-        $(filtersSelector + ' [data-'+dataAttributes.filterAction+']').on('click', function() {
+        $(selectors.filterActions).on('click', function() {
             var action = $(this).data(dataAttributes.filterAction);
             if (action === 'reset') {
                 reset();
@@ -184,25 +292,23 @@ define(['uri','ui'],function(uri, ui) {
     var init = function(selector) {
         filtersSelector = selector;
 
+        selectors = {
+            booleanFilters: filtersSelector + ' [data-' + dataAttributes.booleanFilter + ']',
+            booleanFilterGroups: filtersSelector + ' [data-' + dataAttributes.booleanFilterGroup + ']',
+            rangeFilterGroups: filtersSelector + ' [data-' + dataAttributes.rangeFilterGroup + ']',
+            rangeFilters: filtersSelector + ' [data-' + dataAttributes.rangeFilterMin + ']',
+            selectFilters: filtersSelector + ' [data-' + dataAttributes.selectFilter + ']',
+            filterActions: filtersSelector + ' [data-' + dataAttributes.filterAction + ']'
+        };
+
         $(function() {
-            // when the page is loaded, read the default values for range filter from the dom and set them onto JS object
-            $(filtersSelector + ' [data-'+dataAttributes.rangeFilterDefault+']').each(function() {
-                var $this = $(this);
-                var rangeGroupName = $this.parent().data('school-range-filter-group');
-                filtersHash[rangeGroupName].init(
-                        $this.data(dataAttributes.rangeFilterLow),
-                        $this.data(dataAttributes.rangeFilterHigh)
-                );
-            });
+            initFiltersFromQueryString();
 
             setupBooleanFilterHandlers();
 
-            setupRangeFilterHandlers();
+            setupSelectFilterHandlers();
 
             setupButtonEvents();
-
-            // make the state of the dom reflect the state of filters when arriving on a page with filters pre-chosen
-            // TODO: updateDomClasses();
         });
     };
 
@@ -211,7 +317,7 @@ define(['uri','ui'],function(uri, ui) {
         toQueryString:toQueryString,
         schoolType:schoolType,
         gradeLevel:gradeLevel,
-        enrollment:enrollment,
+        schoolSize:schoolSize,
         getUpdatedQueryString:getUpdatedQueryString
     };
 

@@ -6,7 +6,9 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:gsweb="gstaglib"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:spring="http://www.springframework.org/tags"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:tags="urn:jsptagdir:/WEB-INF/tags"
+          xmlns:form="http://www.springframework.org/tags/form"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml">
 
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -32,6 +34,19 @@
         <c:if test="${isSearch}">
             <meta name="robots" content="follow,noindex"/>
         </c:if>
+        <style type="text/css">
+            .button-pressed {
+                background-color:#ccc;
+                border: 2px solid black;
+            }
+            .button {
+                background-color:#fff;
+                border:1px solid grey;
+            }
+            #school-filters div {
+                border:1px solid grey;
+            }
+        </style>
     </head>
 
     <c:choose>
@@ -135,14 +150,10 @@
         </c:if>
 
 
-        <style type="text/css">
-            .mobile-button-pressed {
-                background-color:#ccc;
-            }
-            #school-filters div {
-                border:1px solid grey;
-            }
-        </style>
+
+        <c:set var="buttonPressedClass" value="button-pressed"/>
+        <c:set var="buttonClass" value="button"/>
+
         <div id="school-filters" class="js-searchResultFilters" style="border:1px solid grey; padding:5px;">
             <span>Cancel</span>
             <span data-school-filter-action="apply">Apply</span>
@@ -153,25 +164,72 @@
             </p>
 
             <div data-school-boolean-filter-group="schoolType">
-                <span class="mobile-button-pressed" data-school-boolean-filter="public">Public</span>
-                <span class="mobile-button-pressed" data-school-boolean-filter="charter">Public charter</span>
-                <span class="mobile-button-pressed" data-school-boolean-filter="private">Private</span>
+                <span class="${fn:contains(schoolType,'public')? buttonPressedClass : buttonClass}" data-school-boolean-filter="public">Public</span>
+                <span class="${fn:contains(schoolType,'charter')? buttonPressedClass : buttonClass}" data-school-boolean-filter="charter">Public charter</span>
+                <span class="${fn:contains(schoolType,'private')? buttonPressedClass : buttonClass}" data-school-boolean-filter="private">Private</span>
             </div>
 
             <div data-school-boolean-filter-group="gradeLevel">
-                <span class="mobile-button-pressed" data-school-boolean-filter="preschool">Preschool</span>
-                <span class="mobile-button-pressed" data-school-boolean-filter="elementary">Elementary (K-5)</span>
-                <span class="mobile-button-pressed" data-school-boolean-filter="middle">Middle (6-8)</span>
-                <span class="mobile-button-pressed" data-school-boolean-filter="high">High (9-12)</span>
+                <span class="${fn:contains(levelCode,'p')? buttonPressedClass : buttonClass}" data-school-boolean-filter="preschool">Preschool</span>
+                <span class="${fn:contains(levelCode,'e')? buttonPressedClass : buttonClass}" data-school-boolean-filter="elementary">Elementary (K-5)</span>
+                <span class="${fn:contains(levelCode,'m')? buttonPressedClass : buttonClass}" data-school-boolean-filter="middle">Middle (6-8)</span>
+                <span class="${fn:contains(levelCode,'h')? buttonPressedClass : buttonClass}" data-school-boolean-filter="high">High (9-12)</span>
             </div>
 
+            Distance
+            <form:select path="schoolSearchCommand.distance" name="distance" class="js-selectFilter">
+                <form:option value="1" label="1"/>
+                <form:option value="2" label="2"/>
+                <form:option value="3" label="3"/>
+                <form:option value="4" label="4"/>
+                <form:option value="5" label="5"/>
+                <form:option value="10" label="10"/>
+                <form:option value="15" label="15"/>
+                <form:option value="20" label="20"/>
+                <form:option value="25" label="25"/>
+                <form:option value="30" label="30"/>
+                <form:option value="60" label="60"/>
+            </form:select>
+            <br/>
+
+            GreatSchools Rating
+            <form:select path="schoolSearchCommand.minGreatSchoolsRating" name="minGreatSchoolsRating" class="js-selectFilter">
+                <form:option value="" label="Any"/>
+                <form:option value="1" label="1"/>
+                <form:option value="2" label="2"/>
+                <form:option value="3" label="3"/>
+                <form:option value="4" label="4"/>
+                <form:option value="5" label="5"/>
+                <form:option value="6" label="6"/>
+                <form:option value="7" label="7"/>
+                <form:option value="8" label="8"/>
+                <form:option value="9" label="9"/>
+                <form:option value="10" label="10"/>
+            </form:select>
+            <br/>
+
+            Community Rating
+            <form:select path="schoolSearchCommand.minCommunityRating" name="minCommunityRating" class="js-selectFilter">
+                <form:option value="" label="Any"/>
+                <form:option value="1" label="1"/>
+                <form:option value="2" label="2"/>
+                <form:option value="3" label="3"/>
+                <form:option value="4" label="4"/>
+                <form:option value="5" label="5"/>
+            </form:select>
+            <br/>
+
             Enrollment
-            <select data-school-range-filter-group="enrollment">
-                <option data-school-range-filter-low="1" data-school-range-filter-high="10000" data-school-range-filter-default="true">Any</option>
-                <option data-school-range-filter-low="1" data-school-range-filter-high="20">Under 20</option>
-                <option data-school-range-filter-low="1" data-school-range-filter-high="50">Under 50</option>
-                <option data-school-range-filter-low="1" data-school-range-filter-high="200">Under 200</option>
-            </select>
+            <form:select path="schoolSearchCommand.schoolSize" id="schoolSizeSelect" name="schoolSize" class="js-selectFilter">
+                <form:option value="All" label="All school sizes"/>
+                <form:option value="UNDER_20" label="Under 20"/>
+                <form:option value="UNDER_50" label="Under 50"/>
+                <form:option value="UNDER_200" label="Under 200"/>
+                <form:option value="UNDER_500" label="Under 500"/>
+                <form:option value="UNDER_1000" label="Under 1000"/>
+                <form:option value="OVER_1000" label="1000 or more"/>
+            </form:select>
+            <br/>
         </div>
     </body>
 

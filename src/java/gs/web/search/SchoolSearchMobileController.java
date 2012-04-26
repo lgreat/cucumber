@@ -8,6 +8,7 @@ import gs.data.search.beans.IDistrictSearchResult;
 import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.fields.DocumentType;
 import gs.data.search.fields.SchoolFields;
+import gs.data.search.fields.SolrField;
 import gs.data.search.filters.FilterGroup;
 import gs.data.state.State;
 import gs.web.pagination.Page;
@@ -584,7 +585,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         // TODO: In Mobile api, we don't filter by state if a lat/lon is specified. Should that logic apply here as well?
         q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
 
-        // filter school types and grade levels
+        // filter school types and grade levels and enrollment
         for (FilterGroup schoolTypeFilter : filterGroups) {
             q.filter(schoolTypeFilter);
         }
@@ -594,9 +595,12 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
             q.filter(entry.getKey().getFieldName(), StringUtils.lowerCase(entry.getValue()));
         }
 
-        // min/max enrollment filter
-        if (schoolSearchCommand.hasMinMaxEnrollment()) {
-            q.filter(SchoolFields.SCHOOL_ENROLLMENT, String.valueOf(schoolSearchCommand.getMinEnrollment()), String.valueOf(schoolSearchCommand.getMaxEnrollment()));
+        if (schoolSearchCommand.getMinCommunityRating() != null) {
+            q.filter(SchoolFields.COMMUNITY_RATING, String.valueOf(schoolSearchCommand.getMinCommunityRating()), "5");
+        }
+
+        if (schoolSearchCommand.getMinGreatSchoolsRating() != null) {
+            q.filter(SchoolFields.OVERALL_GS_RATING, String.valueOf(schoolSearchCommand.getMinGreatSchoolsRating()), "10");
         }
 
         // filter by location
@@ -610,7 +614,9 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         }
 
         // set the solr query's q parameter (querystring) to be the user search string
-        q.query(searchString);
+        if (!schoolSearchCommand.hasLatLon()) {
+            q.query(searchString);
+        }
 
         // apply sorting
         q.sort(sort);

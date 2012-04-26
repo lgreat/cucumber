@@ -122,15 +122,34 @@ GS.uri.Uri.removeFromQueryString = function(queryString, key) {
 
 /**
  * Converts URL's querystring into a hash
- * *Warnging: does not work if querystring contains multiple pairs with the same key*
+ * Now works with queryStrings that contain multiple key=value pairs with the same key
  */
 GS.uri.Uri.getQueryData = function() {
     var vars = [], hash;
     var data = {};
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
     for (var i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split('=');
-        data[hash[0]] = hash[1];
+        var hash = hashes[i].split('=');
+        var key = hash[0];
+        var value = hash[1];
+
+        // if the querystring key is already in the data hash, then the querystring had multiple key=value pairs
+        // with the same key. Make the key point to an array with all the values
+        if (data.hasOwnProperty(key)) {
+            // if the value in the data hash is _already_ an array, just push on the value
+            if (data[key] instanceof Array) {
+                data[key].push(value);
+
+            // otherwise we need to copy the existing value that's on the data hash into a new array
+            } else {
+                var anArray = [];
+                anArray.push(data[key]);
+                anArray.push(hash[1]);
+                data[hash[0]] = anArray;
+            }
+        } else {
+            data[hash[0]] = hash[1];
+        }
     }
     return data;
 };
@@ -139,4 +158,3 @@ GS.uri.Uri.getQueryData = function() {
     return GS.uri.Uri;
 
 });
-
