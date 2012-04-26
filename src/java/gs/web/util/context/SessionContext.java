@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.68 2012/04/17 21:21:32 yfan Exp $
+ * $Id: SessionContext.java,v 1.69 2012/04/26 05:47:32 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -115,6 +115,9 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     private boolean _gptEnabled = false;
     private boolean _gptAsynchronousModeEnabled = false;
+
+    private Boolean _gptEnabledOverride = null;
+    private Boolean _gptAsynchronousModeEnabledOverride = null;
 
     /**
      * Created by Spring as needed.
@@ -415,11 +418,19 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      * @return
      */
     public boolean isGptEnabled() {
-        return _gptEnabled || "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY, "false"));
+        if (_gptEnabledOverride != null) {
+            return _gptEnabledOverride;
+        } else {
+            return _gptEnabled || "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY, "false"));
+        }
     }
 
     public void setGptEnabled(boolean gptEnabled) {
         _gptEnabled = gptEnabled;
+    }
+
+    public void setGptEnabledOverride(boolean gptEnabledOverride) {
+        _gptEnabledOverride = gptEnabledOverride;
     }
 
     /**
@@ -428,12 +439,20 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      * @return
      */
     public boolean isGptAsynchronousModeEnabled() {
-        return _gptAsynchronousModeEnabled ||
-                "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ASYNCHRONOUS_MODE_ENABLED_KEY, "false"));
+        if (_gptAsynchronousModeEnabledOverride != null) {
+            return _gptAsynchronousModeEnabledOverride;
+        } else {
+            return _gptAsynchronousModeEnabled ||
+                    "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ASYNCHRONOUS_MODE_ENABLED_KEY, "false"));
+        }
     }
 
     public void setGptAsynchronousModeEnabled(boolean gptAsynchronousModeEnabled) {
         _gptAsynchronousModeEnabled = gptAsynchronousModeEnabled;
+    }
+
+    public void setGptAsynchronousModeEnabledOverride(boolean gptAsynchronousModeEnabledOverride) {
+        _gptAsynchronousModeEnabledOverride = gptAsynchronousModeEnabledOverride;
     }
 
     /**

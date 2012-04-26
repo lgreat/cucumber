@@ -16,11 +16,11 @@
     <body>
 
     <![CDATA[
-    <script type='text/javascript'>
-        if (typeof GS == 'undefined' || typeof GS.closeDialogs === "undefined") {
-            document.write('<link rel="stylesheet" type="text/css" href="http://localhost:8080/res/css/combined.house_ads.min.css"/>');
-            document.write('<scr'+'ipt type="text/javascript" src="http://localhost:8080/res/js/combined.house_ads.min.js"></sc'+'ript>');
-            document.write('<scr'+'ipt type="text/javascript" src="http://localhost:8080/res/js/s_code_dev.js"></sc'+'ript>');
+    <script type="text/javascript">
+        if (typeof GS === 'undefined' || typeof GS.closeDialogs === "undefined") {
+            document.write('<link rel="stylesheet" type="text/css" href="/res/css/combined.house_ads.min.css"/>');
+            document.write('<scr'+'ipt type="text/javascript" src="/res/js/combined.house_ads.min.js"></sc'+'ript>');
+            document.write('<scr'+'ipt type="text/javascript" src="/res/js/s_code_dev.js"></sc'+'ript>');
         }
     </script>
     ]]>

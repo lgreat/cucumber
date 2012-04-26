@@ -2885,6 +2885,14 @@
     </bean>
 
 
+    <!-- START demo pages for house ads and other widgets to be served from ad slots -->
+    <bean name="/demo/gpt/integratedAd-1.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/demo/gpt/integratedAd-1</value>
+        </property>
+    </bean>
+    <!-- END demo pages -->
 
 
 </beans>

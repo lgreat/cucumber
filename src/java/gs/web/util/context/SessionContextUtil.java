@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.86 2011/09/13 03:47:04 ssprouse Exp $
+ * $Id: SessionContextUtil.java,v 1.87 2012/04/26 05:47:32 yfan Exp $
  */
 
 package gs.web.util.context;
@@ -375,6 +375,8 @@ public class SessionContextUtil implements ApplicationContextAware {
 
         updateStateFromParam(context, request, response);
 
+        updateGptFromParams(context, request);
+
         // Set state, or change, if necessary
         String paramPathwayStr = request.getParameter(PATHWAY_PARAM);
         if (StringUtils.isNotEmpty(paramPathwayStr)) {
@@ -572,6 +574,20 @@ public class SessionContextUtil implements ApplicationContextAware {
             State state = _stateManager.getState(paramStateStr.substring(0, 2));
 
             updateStateHelper(context, httpServletRequest, httpServletResponse, currState, state);
+        }
+    }
+
+    public void updateGptFromParams(SessionContext context,
+                                   HttpServletRequest request) {
+        String paramGptEnabled = request.getParameter("gptEnabled");
+        String paramGptMode = request.getParameter("gptMode");
+
+        if (StringUtils.isNotBlank(paramGptEnabled)) {
+            context.setGptEnabledOverride("true".equals(paramGptEnabled));
+        }
+
+        if (StringUtils.isNotBlank(paramGptMode)) {
+            context.setGptAsynchronousModeEnabledOverride("async".equals(paramGptMode));
         }
     }
 
