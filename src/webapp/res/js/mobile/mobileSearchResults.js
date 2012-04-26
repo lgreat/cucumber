@@ -4,6 +4,7 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
     var $sortSelect = undefined;
     var lastSort = undefined;
 
+    var searchResultsSelector = '#js-schoolSearchResultsList';
     var loadMoreSelector = '#loadMore';
 
     var templateSelector = '#schoolSearchResultMobileTemplate';
@@ -74,10 +75,11 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
         }).done(function(data) {
             GS.log('search got data back from filtering ajax call: ', data);
             if (data) {
-                var $list = $("#js-schoolSearchResultsList");
+                var $list = $(searchResultsSelector);
                 $list.html(data);
             }
-
+        }).fail(function(data) {
+            GS.log('filtering failed', data);
         });
     };
 
@@ -108,12 +110,12 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
             GS.log('search got data back from ajax call: ', data);
 
             if (data) {
-                var $list = $("#js-schoolSearchResultsList");
+                var $list = $(searchResultsSelector);
                 $list.append(data);
             }
 
             if (nextOffset + firstPage.pageSize > firstPage.lastOffset) {
-                $('#loadMore').hide();
+                $(loadMoreSelector).hide();
             }
 
             currentOffset = nextOffset;
