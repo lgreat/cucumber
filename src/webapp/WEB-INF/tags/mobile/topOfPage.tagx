@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+    <jsp:directive.tag body-content="empty"/>
+
+    <div>
+        <a href="#" onclick="$('html,body').animate({scrollTop:0}, 'medium'); return false;">Top of page</a>
+    </div>
+
+</jsp:root>
