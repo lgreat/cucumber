@@ -4,9 +4,20 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
 
-    <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
-        <li>
-            <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" schoolAddress="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" ></school:mobileSearchResult>
-        </li>
-    </c:forEach>
+
+    <c:choose>
+        <c:when test="${totalResults > 0}">
+            <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
+                <li>
+                    <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" schoolAddress="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" ></school:mobileSearchResult>
+                </li>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <div class="alert">
+                No results match your selection. Please change your search filter settings.
+            </div>
+        </c:otherwise>
+    </c:choose>
+
 </jsp:root>
