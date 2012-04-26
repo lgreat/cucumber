@@ -236,7 +236,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param map
      * @return
      */
-
+    //TODO better way to remove elements from the map.
     protected Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> removeEmptyDataPoints(Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> map) {
         for (TestDataType testDataType : map.keySet()) {
             Map<Grade, Map<Subject, Map<TestDataSet, String>>> gradesMap = map.get(testDataType);
@@ -453,14 +453,6 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             _testLabel = testLabel;
         }
 
-//        public Integer getDataTypeId() {
-//            return _dataTypeId;
-//        }
-//
-//        public void setDataTypeId(Integer dataTypeId) {
-//            _dataTypeId = dataTypeId;
-//        }
-
         public List<GradeToSubjects> getGrades() {
             return _grades;
         }
@@ -471,9 +463,6 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     }
 
     public static class GradeToSubjects implements Comparable<GradeToSubjects> {
-        //TODO remove the grade the levelCode
-        //        Grade _grade;
-//        LevelCode _levelCode;
         String _gradeLabel;
         List<SubjectToYears> _subjects;
 
@@ -484,22 +473,6 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         public void setGradeLabel(String gradeLabel) {
             _gradeLabel = gradeLabel;
         }
-
-//        public Grade getGrade() {
-//            return _grade;
-//        }
-//
-//        public void setGrade(Grade grade) {
-//            _grade = grade;
-//        }
-//
-//        public LevelCode getLevelCode() {
-//            return _levelCode;
-//        }
-//
-//        public void setLevelCode(LevelCode levelCode) {
-//            _levelCode = levelCode;
-//        }
 
         public List<SubjectToYears> getSubjects() {
             return _subjects;
@@ -516,18 +489,8 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     }
 
     public static class SubjectToYears implements Comparable<SubjectToYears> {
-        //TODO remove subject
-//        Subject _subject;
         String _subjectLabel;
         List<YearToTestScore> _years;
-
-//        public Subject getSubject() {
-//            return _subject;
-//        }
-//
-//        public void setSubject(Subject subject) {
-//            _subject = subject;
-//        }
 
         public String getSubjectLabel() {
             return _subjectLabel;
@@ -551,7 +514,6 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     }
 
     public static class YearToTestScore implements Comparable<YearToTestScore> {
-        //        float _testScore;
         String _testScoreStr;
         Integer _year;
 
@@ -562,14 +524,6 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         public void setTestScoreStr(String testScoreStr) {
             _testScoreStr = testScoreStr;
         }
-
-        //        public float getTestScore() {
-//            return _testScore;
-//        }
-//
-//        public void setTestScore(float testScore) {
-//            _testScore = testScore;
-//        }
 
         public Integer getYear() {
             return _year;
