@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsweb="gstaglib"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="smsBody" required="false" type="java.lang.String"
+                             description="Body for SMS message."/>
+    <jsp:directive.attribute name="emailBody" required="false" type="java.lang.String"
+                             description="Body for email message."/>
+    <jsp:directive.attribute name="emailSubject" required="false" type="java.lang.String"
+                             description="Subject for email message."/>
+    <jsp:directive.attribute name="school" required="false" type="gs.data.school.School"
+                             description="School for saving to MSL."/>
+    <!-- Set up some defaults. Probably helpful for SMS, maybe not for email -->
+    <c:if test="${empty smsBody}">
+        <c:set var="smsBody" value="${requestInfo.requestURL}"/>
+    </c:if>
+    <c:if test="${empty emailBody}">
+        <c:set var="emailBody" value="${requestInfo.requestURL}"/>
+    </c:if>
+
+    <div style="text-align: center">
+        <a href="sms:?body=${fn:escapeXml(gsweb:encodeWithinQuery(smsBody))}">SMS</a>
+        <a href="mailto:?subject=${fn:escapeXml(gsweb:encodeWithinQuery(emailSubject))}&amp;body=${fn:escapeXml(gsweb:encodeWithinQuery(emailBody))}">Email</a>
+        <c:if test="${not empty school}">
+            <a href="javascript:void(0);">Save</a>
+        </c:if>
+    </div>
+
+</jsp:root>
