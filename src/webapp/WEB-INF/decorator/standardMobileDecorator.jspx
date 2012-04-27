@@ -39,47 +39,7 @@
         <script src="/res/js/jquery/jquery-1.7.1.min.js" type="text/javascript"><!-- do not collapse --></script>
         <mod:mobileBootstrapJS/>
         <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
-        <style type="text/css">
-            /* Temporary styles */
-            body {
-                background-color: #666;
-                margin: 0;
-            }
-            #mobile-footer {
-                background-color: #999;
-            }
-            #content {
-                background-color: #F9F9F9;
-                padding: 1em;
-            }
 
-            /* BEGIN SPRITES */
-            .sprite {
-                display: inline-block;
-                background-image: url(/res/img/sprites/iconSprite_2012-01-18.png);
-            }
-            .search {
-                width: 16px;
-                height: 17px;
-                background-position: -40px -300px;
-            }
-            .menu {
-                width: 14px;
-                height: 13px;
-                background-position: 0 -140px;
-            }
-            .home {
-                width: 16px;
-                height: 16px;
-                background-position: 0 -180px;
-            }
-            .check {
-                width: 16px;
-                height: 13px;
-                background-position: -20px -180px;
-            }
-            /* END SPRITES */
-        </style>
         <decorator:head/>
     </head>
     <body>
