@@ -10248,6 +10248,10 @@ p#btsBubbleOpts {
     width:auto;
 }
 
+.articleDistribution span{
+    width: 150px;
+}
+
 .googlePlusOne {
     float: left;
     margin-right: 8px;
