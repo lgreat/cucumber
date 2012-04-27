@@ -245,7 +245,7 @@ class SchoolSearchCommandWithFields {
 
     public FieldSort getFieldSort() {
         boolean sortChanged = _command.isSortChanged();
-        FieldSort sort = _command.getSortBy() == null ? ((isCityBrowse() || isDistrictBrowse()) && !sortChanged ? FieldSort.GS_RATING_DESCENDING : null) : FieldSort.valueOf(_command.getSortBy());
+        FieldSort sort = _command.getSortBy() == null ? ((isCityBrowse() || isDistrictBrowse()) && !sortChanged ? FieldSort.GS_RATING_DESCENDING : null) : FieldSort.valueOf(_command.getSortBy().toUpperCase());
 
         // TODO: find better place to do this. Just copied over existing logic as-is for now. See line 293 in SchoolSearchController
         if (sort != null) {
