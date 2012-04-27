@@ -14,7 +14,7 @@
 <jsp:output omit-xml-declaration="true" />
 <jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
 
-<html lang="en">
+<html lang="en" class="no-js">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -35,6 +35,7 @@
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/11_tables/tables.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/12_graphs/bar_graphs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
 
+        <script src="/res/mobile/js/modernizr.js" type="text/javascript"><!-- do not collapse --></script>
         <script src="/res/js/jquery/jquery-1.7.1.min.js" type="text/javascript"><!-- do not collapse --></script>
         <mod:mobileBootstrapJS/>
         <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
