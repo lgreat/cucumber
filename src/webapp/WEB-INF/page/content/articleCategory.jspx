@@ -51,7 +51,7 @@
 
 <!--<gsml:equalizeColumns ids="'col_left','col_right'"/>-->
 
-<div id="mainGS" class="col">
+<div class="grid_16">
 
 <div id="contentLeft">
     <content:librarySidebar cssClass="white" />
@@ -124,7 +124,7 @@
 
 </div>
 
-<div id="sidebarGS" class="col">
+<div class="grid_8">
     <ad:setSlotPrefix slotPrefix="Browse_Articles"/>
     <!-- aroy: GS-7191 comment out related posts module until further notice -->
     <!--<jsp:include page="/community/relatedPostsCategoryBrowse.module">-->
