@@ -1,7 +1,15 @@
+/**********
+
+Created by Mitchell Seltzer
+
+***************************************/
+
 /* How to use
 ***************************************************************************************
 
    <div class="bar_container"><div style="width:85%"><!-- not empty --></div></div>
+
+   Needs to be placed in a grid as width is 100%
 
 */
 
