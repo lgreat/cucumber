@@ -13,8 +13,7 @@
     <c:set var="maxEditors" value="4"/>
     <c:set var="numEditors" value="${fn:length(otherEspMemberships)}"/>
 
-    <!--<div class="container_24">-->
-    <div id="espOtherEditors" class="slStylesV1-0 slFormsV1-0 clearfix espOtherEditorHover">
+    <div id="espOtherEditors" class="container_24 slStylesV1-0 slFormsV1-0 clearfix espOtherEditorHover">
         <div class="alpha grid_16 omega">
             <h2>View and add editors to this Official School Profile</h2>
         </div>
@@ -164,5 +163,4 @@
                 </div>
             </c:if>
     </div>
-    <!--</div>-->
 </jsp:root>
