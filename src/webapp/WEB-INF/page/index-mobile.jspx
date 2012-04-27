@@ -61,143 +61,141 @@
         </div>
     </c:if>
 
-    <div id="searchTabs">
-        <div id="js-search-tabs">
-            <span id="byLocationTab" class="js-by-location selected">By location</span>
-            <span id="byNameTab" class="js-by-name">By name</span>
-        </div>
-    </div>
 
-    <div id="searchByLocation">
-        <div id="js-searchByLocation" class="tabBody">
-            <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
-                <input type="hidden" name="lat"/>
-                <input type="hidden" name="lon"/>
-                <input type="hidden" name="state"/>
-                <input type="hidden" name="locationType" value=""/>
-                <input type="hidden" name="sortBy" value="DISTANCE"/>
-                <input type="hidden" name="normalizedAddress" value=""/>
-                <input type="hidden" name="totalResults" value="0"/>
-                <input type="hidden" name="distance" value="25"/>
-                <input type="hidden" name="st" value="public"/>
-                <input type="hidden" name="st" value="charter"/>
-                <input type="hidden" name="st" value="private"/>
-                <gsml:input type="text" name="searchString" value="${searchString}" placeholder="City AND states, zip or address ..." />
+    <div class="gsTabs">
+        <ul class="tabStyle-3">
+            <li><a>By location</a></li>
+            <li><a>By name</a></li>
+        </ul>
+        <div class="mod mod standard_5-1">
+            <div class="inner">
+                <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
+                    <input type="hidden" name="lat"/>
+                    <input type="hidden" name="lon"/>
+                    <input type="hidden" name="state"/>
+                    <input type="hidden" name="locationType" value=""/>
+                    <input type="hidden" name="sortBy" value="DISTANCE"/>
+                    <input type="hidden" name="normalizedAddress" value=""/>
+                    <input type="hidden" name="totalResults" value="0"/>
+                    <input type="hidden" name="distance" value="25"/>
+                    <input type="hidden" name="st" value="public"/>
+                    <input type="hidden" name="st" value="charter"/>
+                    <input type="hidden" name="st" value="private"/>
+                    <gsml:input type="text" name="searchString" value="${searchString}" placeholder="City AND states, zip or address ..." />
 
-                <div id="js-gradeLevels" class="unit size1of3">
-                    <div class="small_bold bottom">Grade level</div>
-                    <!--<div class="triggerMouseLeave">-->
-                    <div id="category-2" class="filterCategory small bottom">
-                        <span id="js-grade-level-label" class="fltlft vert-align-mid defaultText">All grades</span>
-                        <a href="javascript:void(0)">
-                            <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
-                            <span class="navSprite dropDown-hover fltrt"><!--Do not Collapse--></span>
-                        </a>
-                    </div>
-                    <div>
-                        <div class="col_2">
-                            <div>
-                                <input type="checkbox" checked="checked" name="gradeLevels"
-                                       id="js-grade-level-all"
-                                       value=""/>
-                                <label for="js-grade-level-all">All Grade Levels</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" class="jq-grade-level" checked="checked"
-                                       name="gradeLevels"
-                                       id="js-grade-level-p" value="p"/>
-                                <label for="js-grade-level-p">Preschool</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" class="jq-grade-level" checked="checked"
-                                       name="gradeLevels"
-                                       id="js-grade-level-e" value="e"/>
-                                <label for="js-grade-level-e">Elementary School (K-5)</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" class="jq-grade-level" checked="checked"
-                                       name="gradeLevels"
-                                       id="js-grade-level-m" value="m"/>
-                                <label for="js-grade-level-m">Middle School (6-8)</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" class="jq-grade-level" checked="checked"
-                                       name="gradeLevels"
-                                       id="js-grade-level-h" value="h"/>
-                                <label for="js-grade-level-h">High School (9-12)</label>
+                    <div id="js-gradeLevels" class="unit size1of3">
+                        <div class="small_bold bottom">Grade level</div>
+                        <!--<div class="triggerMouseLeave">-->
+                        <div id="category-2" class="filterCategory small bottom">
+                            <span id="js-grade-level-label" class="fltlft vert-align-mid defaultText">All grades</span>
+                            <a href="javascript:void(0)">
+                                <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
+                                <span class="navSprite dropDown-hover fltrt"><!--Do not Collapse--></span>
+                            </a>
+                        </div>
+                        <div>
+                            <div class="col_2">
+                                <div>
+                                    <input type="checkbox" checked="checked" name="gradeLevels"
+                                           id="js-grade-level-all"
+                                           value=""/>
+                                    <label for="js-grade-level-all">All Grade Levels</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="jq-grade-level" checked="checked"
+                                           name="gradeLevels"
+                                           id="js-grade-level-p" value="p"/>
+                                    <label for="js-grade-level-p">Preschool</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="jq-grade-level" checked="checked"
+                                           name="gradeLevels"
+                                           id="js-grade-level-e" value="e"/>
+                                    <label for="js-grade-level-e">Elementary School (K-5)</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="jq-grade-level" checked="checked"
+                                           name="gradeLevels"
+                                           id="js-grade-level-m" value="m"/>
+                                    <label for="js-grade-level-m">Middle School (6-8)</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" class="jq-grade-level" checked="checked"
+                                           name="gradeLevels"
+                                           id="js-grade-level-h" value="h"/>
+                                    <label for="js-grade-level-h">High School (9-12)</label>
+                                </div>
                             </div>
                         </div>
+                        <!--</div>-->
                     </div>
-                    <!--</div>-->
-                </div>
-                <button type="submit" class="button-1 js-submitButton">Search</button>
-            </form>
+                    <button type="submit" class="button-1 js-submitButton">Search</button>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div id="searchByName">
-        <div id="js-searchByName" class="tabBody" style="display:none;">
+        <div class="mod mod standard_5-1">
+            <div class="inner">
+                <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
+                    <gsml:input type="text" name="q" value="${searchString}" placeholder="School or district..." />
 
-            <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
-                <gsml:input type="text" name="q" value="${searchString}" placeholder="School or district..." />
-
-                <select class="stateSelect" name="state" id="stateSelector">
-                    <option selected="selected" value="">State</option>
-                    <option value="AK">AK</option>
-                    <option value="AL">AL</option>
-                    <option value="AR">AR</option>
-                    <option value="AZ">AZ</option>
-                    <option value="CA">CA</option>
-                    <option value="CO">CO</option>
-                    <option value="CT">CT</option>
-                    <option value="DC">DC</option>
-                    <option value="DE">DE</option>
-                    <option value="FL">FL</option>
-                    <option value="GA">GA</option>
-                    <option value="HI">HI</option>
-                    <option value="IA">IA</option>
-                    <option value="ID">ID</option>
-                    <option value="IL">IL</option>
-                    <option value="IN">IN</option>
-                    <option value="KS">KS</option>
-                    <option value="KY">KY</option>
-                    <option value="LA">LA</option>
-                    <option value="MA">MA</option>
-                    <option value="MD">MD</option>
-                    <option value="ME">ME</option>
-                    <option value="MI">MI</option>
-                    <option value="MN">MN</option>
-                    <option value="MO">MO</option>
-                    <option value="MS">MS</option>
-                    <option value="MT">MT</option>
-                    <option value="NC">NC</option>
-                    <option value="ND">ND</option>
-                    <option value="NE">NE</option>
-                    <option value="NH">NH</option>
-                    <option value="NJ">NJ</option>
-                    <option value="NM">NM</option>
-                    <option value="NV">NV</option>
-                    <option value="NY">NY</option>
-                    <option value="OH">OH</option>
-                    <option value="OK">OK</option>
-                    <option value="OR">OR</option>
-                    <option value="PA">PA</option>
-                    <option value="RI">RI</option>
-                    <option value="SC">SC</option>
-                    <option value="SD">SD</option>
-                    <option value="TN">TN</option>
-                    <option value="TX">TX</option>
-                    <option value="UT">UT</option>
-                    <option value="VA">VA</option>
-                    <option value="VT">VT</option>
-                    <option value="WA">WA</option>
-                    <option value="WI">WI</option>
-                    <option value="WV">WV</option>
-                    <option value="WY">WY</option>
-                </select>
-                <button type="submit" class="button-1">Search</button>
-            </form>
-
+                    <select class="stateSelect" name="state" id="stateSelector">
+                        <option selected="selected" value="">State</option>
+                        <option value="AK">AK</option>
+                        <option value="AL">AL</option>
+                        <option value="AR">AR</option>
+                        <option value="AZ">AZ</option>
+                        <option value="CA">CA</option>
+                        <option value="CO">CO</option>
+                        <option value="CT">CT</option>
+                        <option value="DC">DC</option>
+                        <option value="DE">DE</option>
+                        <option value="FL">FL</option>
+                        <option value="GA">GA</option>
+                        <option value="HI">HI</option>
+                        <option value="IA">IA</option>
+                        <option value="ID">ID</option>
+                        <option value="IL">IL</option>
+                        <option value="IN">IN</option>
+                        <option value="KS">KS</option>
+                        <option value="KY">KY</option>
+                        <option value="LA">LA</option>
+                        <option value="MA">MA</option>
+                        <option value="MD">MD</option>
+                        <option value="ME">ME</option>
+                        <option value="MI">MI</option>
+                        <option value="MN">MN</option>
+                        <option value="MO">MO</option>
+                        <option value="MS">MS</option>
+                        <option value="MT">MT</option>
+                        <option value="NC">NC</option>
+                        <option value="ND">ND</option>
+                        <option value="NE">NE</option>
+                        <option value="NH">NH</option>
+                        <option value="NJ">NJ</option>
+                        <option value="NM">NM</option>
+                        <option value="NV">NV</option>
+                        <option value="NY">NY</option>
+                        <option value="OH">OH</option>
+                        <option value="OK">OK</option>
+                        <option value="OR">OR</option>
+                        <option value="PA">PA</option>
+                        <option value="RI">RI</option>
+                        <option value="SC">SC</option>
+                        <option value="SD">SD</option>
+                        <option value="TN">TN</option>
+                        <option value="TX">TX</option>
+                        <option value="UT">UT</option>
+                        <option value="VA">VA</option>
+                        <option value="VT">VT</option>
+                        <option value="WA">WA</option>
+                        <option value="WI">WI</option>
+                        <option value="WV">WV</option>
+                        <option value="WY">WY</option>
+                    </select>
+                    <button type="submit" class="button-1">Search</button>
+                </form>
+            </div>
         </div>
     </div>
 
