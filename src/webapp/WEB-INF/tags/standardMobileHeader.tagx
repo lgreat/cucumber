@@ -43,7 +43,7 @@
         }
     </style>
 
-    <div id="mobile-header" class="js-mobile-header">
+    <div id="mobile-header" class="js-mobile-header hd">
         <div class="mobile-logo-link">
             <link:home>
                 <gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"

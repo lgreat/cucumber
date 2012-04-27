@@ -5,34 +5,17 @@
         >
 
 
-    <div id="mobile-footer" align="center">
-        <!-- TODO: move styles into stylesheet -->
-        <style type="text/css">
-            #mobile-footer {
-                font-size: 10px;
-            }
-            #mobile-footer a.ui-btn {
-                font-size:10px;
-                margin:5px 2px 0px 2px;
-            }
-            .mobile-footer-links .ui-link, .mobile-footer-links .ui-link:visited{
-                color:#eee;
-                text-shadow:0 0px 0 #eee;
-            }
-            .copyright {
-                text-shadow:0 0px 0 #eee;
-            }
-        </style>
+    <div id="mobile-footer" class="ft">
 
         <a href="${requestInfo.sitePreferenceUrlForAlternateSite}" data-role="button" data-inline="true"
-           class="mobile-footer-button" id="mobile-footer-view-full-site" data-ajax="false">View full site</a>
+           class="but but-sm but-3" id="mobile-footer-view-full-site" data-ajax="false">View full site</a>
 
         <c:if test="${requestInfo.device.iphone}">
             <a href="/splash/iphone.page" data-role="button" data-inline="true"
-               class="mobile-footer-button" id="mobile-footer-iphone-app">Get iPhone app</a>
+               class="but but-sm but-3" id="mobile-footer-iphone-app">Get iPhone app</a>
         </c:if>
 
-        <hr/>
+        <hr class="keyline2"/>
 
         <div data-theme="d" class="mobile-footer-links">
                 <a href="/about/aboutUs.page" data-role="link" data-theme="d">About Us</a> |

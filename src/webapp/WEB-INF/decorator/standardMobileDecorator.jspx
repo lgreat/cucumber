@@ -44,11 +44,15 @@
         <decorator:head/>
     </head>
     <body>
+    <div class="mod page_1-1">
+        <div class="inner">
         <tags:standardMobileHeader />
-        <div id="content" class="js-page-content">
+        <div id="content" class="bd js-page-content">
             <decorator:body/>
         </div>
         <tags:standardMobileFooter />
+        </div>
+    </div>
     </body>
 </html>
 

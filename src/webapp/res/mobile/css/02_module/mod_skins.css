@@ -31,6 +31,26 @@ Example:
 
 -------------------------------------------------------------- */
 
+/* Module Page 1
+-----------------------------------------------------------------------------*/
+
+.page_1-1{}
+
+.page_1-1 .inner{}
+
+.page_1-1 .hd {
+background-color: #2092c4; /* Old browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(30%,#4da8d0), color-stop(100%,#0578aa)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top,  #4da8d0 30%, #0578aa 100%); /* Chrome10+,Safari5.1+ */
+    background-image:    -moz-linear-gradient(top,  #4da8d0 30%, #0578aa 100%); /* FF3.6+ */
+    background-image:     -ms-linear-gradient(top,  #4da8d0 30%, #0578aa 100%); /* IE10+ */
+    background-image:      -o-linear-gradient(top,  #4da8d0 30%, #0578aa 100%); /* Opera 11.10+ */
+    background-image:         linear-gradient(top,  #4da8d0 30%, #0578aa 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FF4DA8D0', endColorstr='#FF0578AA',GradientType=0 ); /* IE6-9 */
+}
+.page_1-1 .bd{background-color: #ffffff;}
+.page_1-1 .ft{background-color: #555555;padding: 15px 10px;}
+
 /* Module 1
 -----------------------------------------------------------------------------*/
 .standard_1-1{}
