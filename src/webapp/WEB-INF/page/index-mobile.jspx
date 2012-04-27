@@ -129,7 +129,7 @@
                         </div>
                         <!--</div>-->
                     </div>
-                    <button type="submit" class="button-1 js-submitButton">Search</button>
+                    <button type="submit" class="but but-lg but-1 js-submitButton">Search</button>
                 </form>
             </div>
         </div>
@@ -193,7 +193,7 @@
                         <option value="WV">WV</option>
                         <option value="WY">WY</option>
                     </select>
-                    <button type="submit" class="button-1">Search</button>
+                    <button type="submit" class="but but-lg but-1 js-submitButton">Search</button>
                 </form>
             </div>
         </div>
