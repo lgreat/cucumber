@@ -72,9 +72,9 @@ General comments:
 .di { display: inline; }
 .dib { display: inline-block; }
 
-.tar { text-align: right; }
 .tal { text-align: left; }
 .tac { text-align: center; }
+.tar { text-align: right; }
 
 .vat { vertical-align: top; }
 .vam { vertical-align: middle; }

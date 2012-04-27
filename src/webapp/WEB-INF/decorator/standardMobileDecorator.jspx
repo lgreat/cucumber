@@ -32,6 +32,7 @@
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/03_media/media.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/04_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/05_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/09_spacing/spacing.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/11_tables/tables.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/12_graphs/bar_graphs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/13_tabs/tabs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
