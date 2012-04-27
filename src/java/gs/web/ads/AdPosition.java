@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.103 2012/04/27 14:57:10 yfan Exp $
+ * $Id: AdPosition.java,v 1.104 2012/04/27 15:14:26 yfan Exp $
  */
 package gs.web.ads;
 
@@ -171,7 +171,7 @@ public class AdPosition extends Enum {
         this(s, isGamControlled, (Set<AdSize>)null);
     }
 
-    private AdPosition(String s, boolean isGamControlled, Set<AdSize> sizes) {
+    public  AdPosition(String s, boolean isGamControlled, Set<AdSize> sizes) {
         super(s);
         _isGAMPosition = isGamControlled;
 
