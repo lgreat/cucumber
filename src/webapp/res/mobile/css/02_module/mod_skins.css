@@ -37,65 +37,54 @@ Example:
 -----------------------------------------------------------------------------*/
 .standard_1-1{}
 
-.standard_1-1 .outer{
+.standard_1-1 .inner{
     border-top: solid 1px #FFFFFF;
     border-bottom: solid 1px #E6E6E6;
     background:#F8F8F8;
-}
-.standard_1-1 .inner{
     padding:8px;
 }
 
 /* Module 2
 -----------------------------------------------------------------------------*/
 .standard_2-1{}
-.standard_2-1 .outer{
+
+.standard_2-1 .inner{
+    border: solid 1px #BCDEED;
+    background-color:#F3F9FD;
+    padding:8px;
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
     -moz-border-radius: 4px; /* FF1-3.6 */
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
     background-color:#F3F9FD;
     margin:8px;
-}
-.standard_2-1 .inner{
-    border: solid 1px #BCDEED;
-    background-color:#F3F9FD;
-    padding:8px;
 }
 
 /* Module 3
 -----------------------------------------------------------------------------*/
 .standard_3-1{}
 
-.standard_3-1 .outer{
+.standard_3-1 .inner{
+    border: solid 1px #BCDEED;
+    padding:8px;
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
     -moz-border-radius: 4px; /* FF1-3.6 */
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-    background-color:#FFFFFF;
+    background:#FFFFFF;
     margin:8px;
-}
-
-.standard_3-1 .inner{
-    border: solid 1px #BCDEED;
-    background-color:#ffffff;
-    padding:8px;
 }
 
 /* Module 4
 -----------------------------------------------------------------------------*/
 .standard_4-1{}
 
-.standard_4-1 .outer{
+.standard_4-1 .inner{
     -moz-box-shadow: inset 0 2px 12px rgba(120, 120, 120, 0.5);
     -webkit-box-shadow: inset 0 2px 12px rgba(120, 120, 120, 0.5);
     box-shadow: inset 0 2px 12px rgba(120, 120, 120, 0.5);
-
     background:#CCCCCC;
     background: -moz-linear-gradient(top, #E5E5E5, #CCCCCC); /* FF3.6 */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #E5E5E5),color-stop(1, #CCCCCC)); /* Saf4+, Chrome */
     -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#E5E5E5', EndColorStr='#CCCCCC')"; /* IE8 */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#E5E5E5', endColorStr = '#CCCCCC'); /* IE6,IE7 */
-}
-
-.standard_4-1 .inner{
     padding:8px;
 }
