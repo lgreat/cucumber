@@ -50,12 +50,12 @@
     <c:choose>
         <c:when test="${includeFbSendBtn== true}">
             <![CDATA[
-    <fb:like href="${pageUrlOnFacebook}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light" font="arial" send="true"></fb:like>
+    <fb:like href="${pageUrlOnFacebook}" layout="button_count" show_faces="false" width="150" action="like" colorscheme="light" font="arial" send="true"></fb:like>
     ]]>
         </c:when>
         <c:otherwise>
             <![CDATA[
-    <fb:like href="${pageUrlOnFacebook}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light" font="arial" ></fb:like>
+    <fb:like href="${pageUrlOnFacebook}" layout="button_count" show_faces="false" width="150" action="like" colorscheme="light" font="arial" ></fb:like>
     ]]>
         </c:otherwise>
     </c:choose>
