@@ -23,7 +23,7 @@ General comments:
 
 /* ************** BLOCK STRUCTURES *************** */
 /* --------------------- mod --------------------- */
-.mod{margin:0;}
+.mod{margin:0;width:100%}
 .mod .outer{}
 .mod .inner{}
 .bd, .ft, .hd{overflow:hidden; *overflow:visible; zoom:1;}
