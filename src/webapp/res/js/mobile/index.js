@@ -134,6 +134,8 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
                 return false;
             });
 
+
+            /*
             $('#js-search-tabs').find('.js-by-location').on('click', function() {
                 var $byLocationTab = $('#js-search-tabs').find('.js-by-location');
                 var $byNameTab = $('#js-search-tabs').find('.js-by-name');
@@ -155,7 +157,7 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
                 var $byNameBody = $('#js-searchByName');
                 $byNameBody.show();
                 $byLocationBody.hide();
-            });
+            });*/
         });
 
     };
@@ -163,4 +165,23 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
     return {
         init:init
     }
+});
+$(document).ready( function() {
+    $('.gsTabs').each(function(){
+        var tab = $(this);
+        tab.children('div').hide(); // Hide all content divs
+        var tabNav = tab.find('ul:first'); // get only the first ul not all of the descendents
+        tab.children('div:first').show(); // Show the first div
+        tabNav.find('li:first a').addClass('selected'); // Set the class of the first link to active
+        tabNav.find('li').each(function(){
+            $(this).find('a').click(function(){ //When any link is clicked
+                tab.children('div').hide(); // hide all layers
+                var tabNum = tabNav.find('li').index($(this).parent());// find reference to the content
+                tab.children('div').eq(tabNum).show();// show the content
+                tabNav.find('li a').removeClass('selected');// turn all of them off
+                $(this).addClass('selected');// turn selected on
+                return false;
+            });
+        });
+    });
 });
