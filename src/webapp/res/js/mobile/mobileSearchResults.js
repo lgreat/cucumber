@@ -53,10 +53,13 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
     var attachEventHandlers = function() {
         $sortSelect.on('change', function() {
             var value = $(this).val();
+            // TODO: consider using history API to rewrite url when filters are applied rather than rebuild
+            // query string each time
+            var queryString = searchResultFilters.getUpdatedQueryString();
             if (value.length > 0) {
-                var newQueryString = uri.putIntoQueryString(document.location.search, 'sortBy', value, true);
+                var newQueryString = uri.putIntoQueryString(queryString, 'sortBy', value, true);
             } else {
-                var newQueryString = uri.removeFromQueryString(document.location.search, 'sortBy');
+                var newQueryString = uri.removeFromQueryString(queryString, 'sortBy');
             }
             var newUrl = window.location.pathname + newQueryString;
             lastSort = value;
