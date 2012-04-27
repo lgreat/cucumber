@@ -64,13 +64,6 @@
         </c:otherwise>
     </c:choose>
 
-    <c:set var="schoolResultsFor">
-        <c:choose>
-            <c:when test="${not empty searchString}"><c:out value="${searchString}" escapeXml="true"/></c:when>
-            <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
-        </c:choose>
-    </c:set>
-
     <body>
         <c:choose>
             <c:when test="${page.pager.totalItems gt 0}">
@@ -111,11 +104,8 @@
                             <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
                         </div>-->
 
-                        <div style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
-                            <ul id="js-schoolSearchResultsList" style="font-size:12px;">
-                                <li>${totalResults} results for ${schoolResultsFor}</li>
-                                <search:schoolSearchResultsMobileList/>
-                            </ul>
+                        <div id="js-schoolSearchResultsList" style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
+                            <search:schoolSearchResultsMobileList/>
                         </div>
                     </c:if>
                 </div>

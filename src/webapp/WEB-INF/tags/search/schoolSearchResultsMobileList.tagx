@@ -7,11 +7,21 @@
 
     <c:choose>
         <c:when test="${totalResults > 0}">
-            <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
-                <li>
-                    <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" schoolAddress="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" ></school:mobileSearchResult>
-                </li>
-            </c:forEach>
+            <c:set var="schoolResultsFor">
+                <c:choose>
+                    <c:when test="${not empty searchString}"><c:out value="${searchString}" escapeXml="true"/></c:when>
+                    <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
+                </c:choose>
+            </c:set>
+
+            ${totalResults} results for ${schoolResultsFor}
+            <ul style="font-size:12px;">
+                <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
+                    <li>
+                        <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" schoolAddress="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" ></school:mobileSearchResult>
+                    </li>
+                </c:forEach>
+            </ul>
         </c:when>
         <c:otherwise>
             <div class="alert">
