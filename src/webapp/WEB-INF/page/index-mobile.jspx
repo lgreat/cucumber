@@ -61,7 +61,7 @@
         </div>
     </c:if>
 
-
+    <div style="background: #CCCCCC; padding: 8px;"><h1>Find a School</h1>
     <div class="gsTabs">
         <ul class="tabStyle-3">
             <li><a>By location</a></li>
@@ -198,7 +198,7 @@
             </div>
         </div>
     </div>
-
+</div>
 
     <search:nearbyCities />
 
