@@ -60,8 +60,6 @@ BUTTONS
 }
 
 
-
-
 /* Button Themes
 ******************************************************************************/
 /* Button 1
@@ -123,11 +121,11 @@ BUTTONS
 **********************************************************************/
 .but-2{
     background: #F8F8F8; /* for non-css3 browsers */
-    color: #555;
-    background: -moz-linear-gradient(top, #F8F8F8, #DDD); /* FF3.6 */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F8F8F8),color-stop(1, #DDD)); /* Saf4+, Chrome */
-    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#F8F8F8', EndColorStr='#DDD')"; /* IE8 */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#F8F8F8', endColorStr = '#DDD'); /* IE6,IE7 */
+    color: #555555;
+    background: -moz-linear-gradient(top, #F8F8F8, #DDDDDD); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #F8F8F8),color-stop(1, #DDDDDD)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#F8F8F8', EndColorStr='#DDDDDD')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#F8F8F8', endColorStr = '#DDDDDD'); /* IE6,IE7 */
 
     border: 1px solid #B8B8B8;
     /* border-top-color: #2092C4; /* highlight */
@@ -140,28 +138,28 @@ BUTTONS
 }
 
 .but-2:hover{
-    background: #CCC; /* for non-css3 browsers */
+    background: #CCCCCC; /* for non-css3 browsers */
 
-    background: -moz-linear-gradient(top, #FFF, #DDD); /* FF3.6 */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFF),color-stop(1, #DDD)); /* Saf4+, Chrome */
-    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#FFF', EndColorStr='#DDD')"; /* IE8 */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FFF', endColorStr = '#DDD'); /* IE6,IE7 */
+    background: -moz-linear-gradient(top, #FFFFFF, #DDDDDD); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFFFFF),color-stop(1, #DDDDDD)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#FFFFFF', EndColorStr='#DDDDDD')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FFFFFF', endColorStr = '#DDDDDD'); /* IE6,IE7 */
 }
 
 .but-2:active{
-    color:#777;
+    color:#777777;
     background: #F1F1F1; /* for non-css3 browsers */
 
-    background: -moz-linear-gradient(top, #CCC, #F8F8F8); /* FF3.6 */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #CCC), color-stop(1, #F8F8F8)); /* Saf4+, Chrome */
-    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#CCC', EndColorStr='#F8F8F8')"; /* IE8 */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#CCC', endColorStr = '#F8F8F8'); /* IE6,IE7 */
+    background: -moz-linear-gradient(top, #CCCCCC, #F8F8F8); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #CCCCCC), color-stop(1, #F8F8F8)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#CCCCCC', EndColorStr='#F8F8F8')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#CCCCCC', endColorStr = '#F8F8F8'); /* IE6,IE7 */
 }
 
 .but-2-inactive{
     background: #F1F1F1; /* for non-css3 browsers */
-    color: #999;
-    border: 1px solid #CCC;
+    color: #999999;
+    border: 1px solid #CCCCCC;
 }
 /* IE7 bug: vertical centering */
 *+html button.but-2,
@@ -179,13 +177,13 @@ BUTTONS
 /*Button 3
 **********************************************************************/
 .but-3{
-    background: #555; /* for non-css3 browsers */
-    color: #FFF;
+    background: #555555; /* for non-css3 browsers */
+    color: #FFFFFF;
 
-    background: -moz-linear-gradient(top, #999, #555); /* FF3.6 */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #999),color-stop(1, #555)); /* Saf4+, Chrome */
-    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#999', EndColorStr='#555')"; /* IE8 */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#999', endColorStr = '#555'); /* IE6,IE7 */
+    background: -moz-linear-gradient(top, #999999, #555555); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #999999),color-stop(1, #555555)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#999999', EndColorStr='#555555')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#999999', endColorStr = '#555555'); /* IE6,IE7 */
 
     border: 1px solid #2B2B2B;
 
@@ -198,24 +196,24 @@ BUTTONS
 .but-3:hover{
     background: #B8B8B8; /* for non-css3 browsers */
 
-    background: -moz-linear-gradient(top, #B8B8B8, #555); /* FF3.6 */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B8B8B8),color-stop(1, #555)); /* Saf4+, Chrome */
-    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#B8B8B8', EndColorStr='#555')"; /* IE8 */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#B8B8B8', endColorStr = '#555'); /* IE6,IE7 */
+    background: -moz-linear-gradient(top, #B8B8B8, #555555); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B8B8B8),color-stop(1, #555555)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#B8B8B8', EndColorStr='#555555')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#B8B8B8', endColorStr = '#555555'); /* IE6,IE7 */
 }
 
 .but-3:active{
     color:#F8F8F8;
     background: #B8B8B8; /* for non-css3 browsers */
 
-    background: -moz-linear-gradient(top, #B8B8B8, #555); /* FF3.6 */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B8B8B8), color-stop(1, #555)); /* Saf4+, Chrome */
-    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#B8B8B8', EndColorStr='#555')"; /* IE8 */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#B8B8B8', endColorStr = '#555'); /* IE6,IE7 */
+    background: -moz-linear-gradient(top, #B8B8B8, #555555); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #B8B8B8), color-stop(1, #555555)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#B8B8B8', EndColorStr='#555555')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#B8B8B8', endColorStr = '#555555'); /* IE6,IE7 */
 }
 
 .but-3-inactive{
-    background: #777; /* for non-css3 browsers */
+    background: #777777; /* for non-css3 browsers */
     color: #B8B8B8;
     border: 1px solid #2B2B2B;
 
