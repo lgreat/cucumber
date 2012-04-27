@@ -130,15 +130,24 @@
                 ]]>
             </c:when>
             <c:otherwise>
-                <![CDATA[
-                <script type="text/javascript">
-                  (function() {
-                    var useSSL = 'https:' == document.location.protocol;
-                    var src = (useSSL ? 'https:' : 'http:') +       '//www.googletagservices.com/tag/js/gpt.js';
-                    document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
-                  })();
-                </script>
-                ]]>
+                <c:choose>
+                    <c:when test="${requestScope.context.gptSyncModeUseStandardJsInclude}">
+                        <![CDATA[
+                        <script type="text/javascript">
+                          (function() {
+                            var useSSL = 'https:' == document.location.protocol;
+                            var src = (useSSL ? 'https:' : 'http:') +       '//www.googletagservices.com/tag/js/gpt.js';
+                            document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+                          })();
+                        </script>
+                        ]]>
+                    </c:when>
+                    <c:otherwise>
+                        <![CDATA[
+                        <script type="text/javascript" src="//www.googletagservices.com/tag/js/gpt.js"></script>
+                        ]]>
+                    </c:otherwise>
+                </c:choose>
             </c:otherwise>
         </c:choose>
 
@@ -155,7 +164,7 @@
             <c:forEach var="slotName" items="${GAMadNames}">
                 <c:set var="adPosition" value="${GPTadNameAdPositionMap[slotName]}"/>
                 googletag.defineSlot('/1002894/${slotName}', <c:choose>
-                    <c:when test="${fn:length(adPosition.sizes) > 1}">[<c:forEach var="size" items="${adPosition.sizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
+                    <c:when test="${fn:length(adPosition.allSizes) > 1}">[<c:forEach var="size" items="${adPosition.allSizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
                     <c:otherwise>[${adPosition.size.width},${adPosition.size.height}]</c:otherwise>
                 </c:choose>, 'gpt${slotName}')
                     .addService(googletag.pubads());

@@ -1,11 +1,12 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.102 2012/04/24 21:26:53 yfan Exp $
+ * $Id: AdPosition.java,v 1.103 2012/04/27 14:57:10 yfan Exp $
  */
 package gs.web.ads;
 
 import org.apache.commons.lang.enums.Enum;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
@@ -162,6 +163,7 @@ public class AdPosition extends Enum {
     private boolean _isGAMPosition;
     private String _baseName = null;
     private Set<AdSize> _sizes = new HashSet<AdSize>();
+    private Set<AdSize> _companionSizes = new HashSet<AdSize>();
 
     private boolean _isActive;
 
@@ -204,6 +206,17 @@ public class AdPosition extends Enum {
         return _sizes;
     }
 
+    public Set<AdSize> getCompanionSizes() {
+        return _companionSizes;
+    }
+
+    public List<AdSize> getAllSizes() {
+        List<AdSize> allSizes = new ArrayList<AdSize>();
+        allSizes.addAll(_sizes);
+        allSizes.addAll(_companionSizes);
+        return allSizes;
+    }
+
     private void addCompanionSizes() {
         Set<AdSize> companionSizes = new HashSet<AdSize>();
         for (AdSize size : _sizes) {
@@ -212,7 +225,8 @@ public class AdPosition extends Enum {
                 companionSizes.add(companionSize);
             }
         }
-        _sizes.addAll(companionSizes);
+        companionSizes.removeAll(_sizes);
+        _companionSizes = companionSizes;
     }
 
     /**
