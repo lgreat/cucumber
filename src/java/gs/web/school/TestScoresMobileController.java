@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.*;
 import gs.data.school.Grade;
+import org.apache.commons.lang.StringUtils;
 import gs.data.source.DataSetContentType;
 import gs.data.test.*;
 import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
@@ -37,15 +38,16 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
     public static final String VIEW = "school/testScores-mobile";
 
-    public static final String LABEL_DATA_NOT_AVAILABLE ="Data not available";
+    public static final String LABEL_DATA_NOT_AVAILABLE = "Data not available";
 
     private boolean _controllerHandlesMobileRequests;
     private boolean _controllerHandlesDesktopRequests;
 
     private ISchoolDao _schoolDao;
-    private ITestDataSetDao _testDataSetDao;
-    private ITestDataTypeDao _testDataTypeDao;
     private ITestScoresConfigDao _testScoresConfigDao;
+    private ITestDataTypeDao _testDataTypeDao;
+    private ITestDataSetDao _testDataSetDao;
+    private ITestDataSchoolValueDao _testDataSchoolValueDao;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String schoolId = request.getParameter(PARAM_SCHOOL_ID);
@@ -76,78 +78,166 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             return rval;
         }
 
-        //Get the configurations for a school.The configurations specify the tests, the years and subjects to display.
-        Map configurationMap = getTestScoresConfigurationMap(school);
-        //Get the Data Type Ids.This specifies what test to show for a given school.
-        Set<Integer> dataTypeIds = getDataTypeIds(configurationMap);
-        //Get the Subjects.This specifies what subjects to show for a given school.
-        Set<Subject> subjects = getSubjects(configurationMap);
-        //Get the years.This specifies what years to show the data for.
-        Set<Integer> years = getYears(configurationMap);
-        if (dataTypeIds == null || dataTypeIds.isEmpty() || subjects == null || subjects.isEmpty() || years == null || years.isEmpty()) {
-            return rval;
+        //Get the configurations for each level of the school.The configurations specify the tests, the years and subjects to display.
+        Map<LevelCode.Level, Map> configurationMap = getTestScoresConfigurationMap(school);
+        //List of testDataSets.Used to query the schoolValue.
+        List<TestDataSet> testDataSetList = new ArrayList<TestDataSet>();
+
+        //Map of testDataTypeId to testDataType object.
+        Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
+
+        for (LevelCode.Level level : configurationMap.keySet()) {
+            //Get the Data Type Ids for a level.This specifies what test to show for a given school.
+            Set<Integer> dataTypeIds = getDataTypeIds(configurationMap, level);
+            //Get the Subjects for a level.This specifies what subjects to show for a given school.
+            Set<Subject> subjects = getSubjects(configurationMap, level);
+            //Get the years for a level.This specifies what years to show the data for.
+            Set<Integer> years = getYears(configurationMap, level);
+
+            if (dataTypeIds == null || dataTypeIds.isEmpty() || subjects == null || subjects.isEmpty() || years == null || years.isEmpty()) {
+                continue;
+            }
+
+            testDataTypeIdToTestDataType.putAll(getTestDataTypes(dataTypeIds));
+            //Get the Test Data sets for each level.
+            //TODO look at all the params.
+            List<TestDataSet> testDataSets = getTestDataSets(school, dataTypeIds, years, subjects, getGrades(), getBreakDownIds(),
+                    TEST_DATA_PROFICIENCY_BAND_ID, true, TEST_DATA_LEVEL_CODE);
+            if (testDataSets != null && !testDataSets.isEmpty()) {
+                testDataSetList.addAll(testDataSets);
+            }
         }
 
-        //Get the Test Data sets.
-        //TODO look at all the params.
-        List<TestDataSet> testDataSets = getTestDataSets(school, dataTypeIds, years, subjects, getGrades(), getBreakDownIds(),
-                TEST_DATA_PROFICIENCY_BAND_ID, true, TEST_DATA_LEVEL_CODE);
-        if (testDataSets == null || testDataSets.isEmpty()) {
-            return rval;
+        if (testDataSetList != null && !testDataSetList.isEmpty()) {
+            //A temporary map used to store the testDataType, grade, subjects, testDataSet and value.
+            //This map is used later to construct a list to display in the view.
+            Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
+                    getTestDataTypeToGradeToSubjectsToDataSetToValueMap(testDataSetList, testDataTypeIdToTestDataType);
+
+            // Fill in the test value in the Map populated above.
+            populateTestValues(school, testDataSetList, testDataTypeIdToTestDataType, testDataTypeToGradeToSubjectsToDataSetToValueMap);
+
+            //Convert the temporaryMap that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
+            rval = populateTestScoresBean(testDataTypeToGradeToSubjectsToDataSetToValueMap);
         }
-
-        //Get the Map of dataTypeId to TestDataType.
-        Map<Integer, TestDataType> testDataTypeIdToTestDataType = getTestDataTypes(dataTypeIds);
-        if (testDataTypeIdToTestDataType == null || testDataTypeIdToTestDataType.isEmpty()) {
-            return rval;
-        }
-
-        //A temporary map used to store the testDataType, grade, subjects, testDataSet and value.
-        //We use this map later to construct a list to display in the view.
-        Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
-                getTestDataTypeToGradeToSubjectsToDataSetToValueMap(school, testDataSets, testDataTypeIdToTestDataType);
-
-        //Convert the temporaryMap that was constructed above, to a list of TestToGrades bean thats used in the view.
-        rval = populateTestScoresBean(testDataTypeToGradeToSubjectsToDataSetToValueMap);
         return rval;
     }
 
     /**
-     * Get the configurations for a school.The configurations specify the tests, the years and subjects to display.
+     * Get the configurations for a school.The configurations specify the tests, the years and subjects to display for each level.
      *
      * @param school
-     * @return Map of String to a Set.For example for the subjects the key would be 'subjects'
+     * @return Map of Level to a map.For example for level 'e' the key will be 'e' to map of the subjects.The key would be 'subjects'
      *         and value would be Set<Subject> that represent the subjects to display.
      */
-    protected Map getTestScoresConfigurationMap(School school) {
+    protected Map<LevelCode.Level, Map> getTestScoresConfigurationMap(School school) {
         List<TestScoresConfig> configs = new ArrayList<TestScoresConfig>();
         if (school != null) {
             configs = _testScoresConfigDao.getConfiguration(school.getDatabaseState(), school.getLevelCode().getIndividualLevelCodes(),
                     true, DataSetContentType.getInstance(DATA_TYPE_CONTENT_TYPE), school.getType());
         }
 
-        Set<Integer> dataTypeIds = new HashSet<Integer>();
-        Set<Subject> subjects = new HashSet<Subject>();
-        Set<Integer> years = new HashSet<Integer>();
+        Map<LevelCode.Level, Map> configMap = new HashMap<LevelCode.Level, Map>();
+
+        //TODO is there a better way?
         for (TestScoresConfig config : configs) {
+            Set<Integer> dataTypeIds = new HashSet<Integer>();
+            Set<Subject> subjects = new HashSet<Subject>();
+            Set<Integer> years = new HashSet<Integer>();
+
+            if (configMap.containsKey(config.getLevel())) {
+                Map info = configMap.get(config.getLevel());
+                dataTypeIds = (Set<Integer>) info.get(KEY_DATA_TYPE_IDS);
+                subjects = (Set<Subject>) info.get(KEY_SUBJECTS);
+                years = (Set<Integer>) info.get(KEY_YEARS);
+            }
+
             dataTypeIds.add(config.getDataTypeId());
             subjects.add(config.getSubject());
             years.add(config.getYear());
+
+            if (!configMap.containsKey(config.getLevel())) {
+                Map info = new HashMap();
+                info.put(KEY_DATA_TYPE_IDS, dataTypeIds);
+                info.put(KEY_SUBJECTS, subjects);
+                info.put(KEY_YEARS, years);
+                configMap.put(config.getLevel(), info);
+            }
         }
 
-        Map info = new HashMap();
-        info.put(KEY_DATA_TYPE_IDS, dataTypeIds);
-        info.put(KEY_SUBJECTS, subjects);
-        info.put(KEY_YEARS, years);
-        return info;
+        return configMap;
     }
 
     /**
-     * Method to get the TestDataSets for a given school
+     * Helper method that gets the Set of years for a level from the configuration map.
      *
-     * @param school
+     * @param configurationMap
+     * @param level
      * @return
      */
+    protected Set<Integer> getYears(Map configurationMap, LevelCode.Level level) {
+        Set<Integer> years = new HashSet<Integer>();
+        if (configurationMap.containsKey(level)) {
+            Map info = (HashMap) configurationMap.get(level);
+            if (info != null && info.containsKey(KEY_YEARS)) {
+                years = (Set<Integer>) info.get(KEY_YEARS);
+            }
+        }
+        return years;
+    }
+
+    /**
+     * Helper method that gets the Set of data type Ids for a level from the configuration map.
+     *
+     * @param configurationMap
+     * @param level
+     * @return
+     */
+    protected Set<Integer> getDataTypeIds(Map configurationMap, LevelCode.Level level) {
+        Set<Integer> dataTypeIds = new HashSet<Integer>();
+        if (configurationMap.containsKey(level)) {
+            Map info = (HashMap) configurationMap.get(level);
+            if (info != null && info.containsKey(KEY_DATA_TYPE_IDS)) {
+                dataTypeIds = (Set<Integer>) info.get(KEY_DATA_TYPE_IDS);
+            }
+        }
+        return dataTypeIds;
+    }
+
+    /**
+     * Helper method that gets the Set of subjects for a level from the configuration map.
+     *
+     * @param configurationMap
+     * @param level
+     * @return
+     */
+    protected Set<Subject> getSubjects(Map configurationMap, LevelCode.Level level) {
+        Set<Subject> subjects = new HashSet<Subject>();
+        if (configurationMap.containsKey(level)) {
+            Map info = (HashMap) configurationMap.get(level);
+            if (info != null && info.containsKey(KEY_SUBJECTS)) {
+                subjects = (Set<Subject>) info.get(KEY_SUBJECTS);
+            }
+        }
+        return subjects;
+    }
+
+    /**
+     * Method to get the TestDataTypes for a list testDataTypeIds
+     *
+     * @param testDataTypeIds
+     * @return
+     */
+    protected Map<Integer, TestDataType> getTestDataTypes(Set<Integer> testDataTypeIds) {
+        //TODO make a batch call?
+        Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
+        for (Integer testDataTypeId : testDataTypeIds) {
+            TestDataType testDataType = _testDataTypeDao.getDataType(testDataTypeId);
+            testDataTypeIdToTestDataType.put(testDataType.getId(), testDataType);
+        }
+        return testDataTypeIdToTestDataType;
+    }
+
     protected List<TestDataSet> getTestDataSets(School school, Set<Integer> dataTypeIds, Set<Integer> years,
                                                 Set<Subject> subjects, Set<Grade> grades, Set<Integer> breakdownIds,
                                                 Integer proficiencyBandId, Boolean activeOnly, LevelCode levelCode) {
@@ -159,28 +249,20 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     }
 
     /**
-     * Helper Method to populate a map used to store the testDataType, grade, subjects, testDataSet and value.
+     * Generate a temporary map to hold the TestDataType to Grade to Subject to TestDataSet to value.This map is used to populate the bean for the view.
+     * The test value is not put in yet.A empty string is used instead.
      *
-     * @param school
      * @param testDataSets
      * @param testDataTypeIdToTestDataType
-     * @return
+     * @return a map to hold the TestDataType to Grade to Subject to TestDataSet to value.
      */
     protected Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>>
-    getTestDataTypeToGradeToSubjectsToDataSetToValueMap(School school, List<TestDataSet> testDataSets,
-                                                        Map<Integer, TestDataType> testDataTypeIdToTestDataType) {
+    getTestDataTypeToGradeToSubjectsToDataSetToValueMap(List<TestDataSet> testDataSets, Map<Integer, TestDataType> testDataTypeIdToTestDataType) {
 
         Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap =
                 new HashMap<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>>();
 
         for (TestDataSet testDataSet : testDataSets) {
-            //todo maybe do a batch fetch.
-            //Get the test scores for the testDataSet.
-            SchoolTestValue testValue = _testDataSetDao.findValue(testDataSet, school.getDatabaseState(), school.getId());
-            String testValueStr = testValue != null ? testValue.getValueFloat().toString() : LABEL_DATA_NOT_AVAILABLE;
-
-//            if (testValue != null && testDataSet != null && testDataSet.getGrade() != null && testDataSet.getSubject() != null) {
-
             Grade grade = testDataSet.getGrade();
             Subject subject = testDataSet.getSubject();
             TestDataType testDataType = testDataTypeIdToTestDataType.get(testDataSet.getDataTypeId());
@@ -199,18 +281,18 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                         Map<TestDataSet, String> dataSetToValue = subjectToDataSet.get(subject);
                         //Check if DataSet is not in the map.We dont care if its already there.That should never happen.
                         if (dataSetToValue != null && dataSetToValue.get(testDataSet) == null) {
-                            dataSetToValue.put(testDataSet, testValueStr);
+                            dataSetToValue.put(testDataSet, "");
                         }
                     } else {
                         //Subject not present.
                         Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
-                        dataSetToValue.put(testDataSet, testValueStr);
+                        dataSetToValue.put(testDataSet, "");
                         subjectToDataSet.put(subject, dataSetToValue);
                     }
                 } else {
                     //Grade not present.
                     Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
-                    dataSetToValue.put(testDataSet, testValueStr);
+                    dataSetToValue.put(testDataSet, "");
                     Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
                     subjectToDataSet.put(subject, dataSetToValue);
                     gradeToSubjectsToDataSetToValueMap.put(grade, subjectToDataSet);
@@ -219,19 +301,49 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             } else {
                 //Test not present.
                 Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
-                dataSetToValue.put(testDataSet, testValueStr);
+                dataSetToValue.put(testDataSet, "");
                 Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
                 subjectToDataSet.put(subject, dataSetToValue);
                 Map<Grade, Map<Subject, Map<TestDataSet, String>>> gradeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<Subject, Map<TestDataSet, String>>>();
                 gradeToSubjectsToDataSetToValueMap.put(grade, subjectToDataSet);
                 testDataTypeToGradeToSubjectsToDataSetToValueMap.put(testDataType, gradeToSubjectsToDataSetToValueMap);
             }
-//            }
         }
 
-        //Remove the data points that do not have data.
-        return removeEmptyDataPoints(testDataTypeToGradeToSubjectsToDataSetToValueMap);
+        return testDataTypeToGradeToSubjectsToDataSetToValueMap;
     }
+
+    /**
+     * Method that puts a test score value in the Map of TestDataType to Grade to Subject to TestDataSet to value.
+     *
+     * @param school
+     * @param testDataSets
+     * @param testDataTypeIdToTestDataType
+     * @param testDataTypeToGradeToSubjectsToDataSetToValueMap
+     *
+     */
+    protected void populateTestValues(School school, List<TestDataSet> testDataSets, Map<Integer, TestDataType> testDataTypeIdToTestDataType,
+                                      Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap) {
+
+        List<SchoolTestValue> values = _testDataSchoolValueDao.findValues(testDataSets, school.getDatabaseState(), school);
+
+        for (SchoolTestValue value : values) {
+            Grade grade = value.getDataSet().getGrade();
+            Subject subject = value.getDataSet().getSubject();
+            TestDataSet testDataSet = value.getDataSet();
+            TestDataType testDataType = testDataTypeIdToTestDataType.get(value.getDataSet().getDataTypeId());
+
+            String val = value.getValueFloat().toString();
+
+            Map<TestDataSet, String> mp = testDataTypeToGradeToSubjectsToDataSetToValueMap.get(testDataType).get(grade).get(subject);
+            mp.put(testDataSet, val);
+
+        }
+
+        //Remove the empty data points.
+        removeEmptyDataPoints(testDataTypeToGradeToSubjectsToDataSetToValueMap);
+    }
+
 
     /**
      * Helper method that removes the parent elements if the test value is empty.
@@ -239,10 +351,9 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * If all the subjects within a grade have no values, remove/do not show the grade.
      *
      * @param map
-     * @return
      */
     //TODO better way to remove elements from the map.
-    protected Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> removeEmptyDataPoints(Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> map) {
+    protected void removeEmptyDataPoints(Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> map) {
         for (TestDataType testDataType : map.keySet()) {
             Map<Grade, Map<Subject, Map<TestDataSet, String>>> gradesMap = map.get(testDataType);
             List<Grade> gradesToRemove = new ArrayList<Grade>();
@@ -257,7 +368,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
                     for (TestDataSet testDataSet : dataSetsMap.keySet()) {
                         String value = dataSetsMap.get(testDataSet);
-                        if (!LABEL_DATA_NOT_AVAILABLE.equals(value)) {
+                        if (StringUtils.isNotBlank(value)) {
                             dataPresent = true;
                         }
                     }
@@ -282,7 +393,6 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                 gradesMap.remove(grade);
             }
         }
-        return map;
     }
 
     /**
@@ -338,35 +448,6 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             testToGradesList.add(testToGrades);
         }
         return testToGradesList;
-    }
-
-    /**
-     * Method to get the TestDataTypes for a list testDataTypeIds
-     *
-     * @param testDataTypeIds
-     * @return
-     */
-    protected Map<Integer, TestDataType> getTestDataTypes(Set<Integer> testDataTypeIds) {
-        //TODO make a batch call?
-        Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
-        for (Integer testDataTypeId : testDataTypeIds) {
-            TestDataType testDataType = _testDataTypeDao.getDataType(testDataTypeId);
-            testDataTypeIdToTestDataType.put(testDataType.getId(), testDataType);
-        }
-        return testDataTypeIdToTestDataType;
-    }
-
-    protected Set<Integer> getYears(Map configurationMap) {
-        return (Set<Integer>) configurationMap.get(KEY_YEARS);
-    }
-
-    protected Set<Integer> getDataTypeIds(Map configurationMap) {
-        return (Set<Integer>) configurationMap.get(KEY_DATA_TYPE_IDS);
-    }
-
-
-    protected Set<Subject> getSubjects(Map configurationMap) {
-        return (Set<Subject>) configurationMap.get(KEY_SUBJECTS);
     }
 
     protected Set<Integer> getBreakDownIds() {
@@ -580,6 +661,14 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
     public void setTestScoresConfigDao(ITestScoresConfigDao testScoresConfigDao) {
         _testScoresConfigDao = testScoresConfigDao;
+    }
+
+    public ITestDataSchoolValueDao getTestDataSchoolValueDao() {
+        return _testDataSchoolValueDao;
+    }
+
+    public void setTestDataSchoolValueDao(ITestDataSchoolValueDao testDataSchoolValueDao) {
+        _testDataSchoolValueDao = testDataSchoolValueDao;
     }
 
     public boolean controllerHandlesMobileRequests() {
