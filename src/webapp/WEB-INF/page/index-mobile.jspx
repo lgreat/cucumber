@@ -69,7 +69,7 @@
         </ul>
         <div class="mod mod standard_5-1">
             <div class="inner">
-                <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
+                <form method="get" action="/search/search.page" id="js-searchByLocation" accept-charset="UTF-8">
                     <input type="hidden" name="lat"/>
                     <input type="hidden" name="lon"/>
                     <input type="hidden" name="state"/>

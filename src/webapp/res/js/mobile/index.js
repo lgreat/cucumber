@@ -1,5 +1,6 @@
 define(['uri', 'geocoder'], function(uri, geocoder) {
     var JS_GRADE_LEVELS_CONTAINER_SELECTOR = '#js-gradeLevels';
+    var BY_LOCATION_FORM_SELECTOR = '#js-searchByLocation';
 
 
     // copied from findASchool.js
@@ -28,7 +29,7 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
     };
 
     var loadResultsPage = function() {
-        var queryString = $('#js-searchByLocation form').serialize();
+        var queryString = $(BY_LOCATION_FORM_SELECTOR).serialize();
         queryString = buildQueryString(queryString);
         window.location.href = '/search/search.page' + queryString;
     };
@@ -50,7 +51,7 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
     };
 
     var submitByLocationSearch = function() {
-        var byLocationForm = $('#js-searchByLocation form');
+        var byLocationForm = $(BY_LOCATION_FORM_SELECTOR);
         var searchQuery = byLocationForm.find('input[name="searchString"]').val();
         searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
 
@@ -129,7 +130,8 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
             });
 
 
-            $('#js-searchByLocation').on('submit', 'form', function() {
+            $(BY_LOCATION_FORM_SELECTOR).on('submit', function() {
+                alert('hi');
                 submitByLocationSearch();
                 return false;
             });
