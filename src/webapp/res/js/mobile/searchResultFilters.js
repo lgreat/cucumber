@@ -7,12 +7,19 @@ define(['uri','ui'],function(uri, ui) {
     var BooleanFilter = function(key, defaultFilters) {
         this.key = key;
         this.filters = {};
-        for (var prop in defaultFilters) {
-            if (defaultFilters.hasOwnProperty(prop)) {
-                this.filters[prop] = defaultFilters[prop];
-            }
-        }
         this.defaultFilters = defaultFilters;
+
+        this.setFiltersToDefault = function() {
+            for (var prop in this.defaultFilters) {
+                if (this.defaultFilters.hasOwnProperty(prop)) {
+                    this.filters[prop] = this.defaultFilters[prop];
+                }
+            }
+        };
+
+        // set filters to default as part of the constructor function
+        this.setFiltersToDefault();
+
         this.toggle = function(filter) {
             if (this.filters.hasOwnProperty(filter)) {
                 this.filters[filter] = !this.filters[filter];
@@ -85,7 +92,7 @@ define(['uri','ui'],function(uri, ui) {
         };
 
         this.reset = function() {
-            this.filters = this.defaultFilters;
+            this.setFiltersToDefault();
             this.updateDom();
         };
     };
@@ -309,6 +316,16 @@ define(['uri','ui'],function(uri, ui) {
         });
     };
 
+    var sendOmnitureCustomEvents = function() {
+        var customEvents = [];
+        var gradeLevelFilters = gradeLevel.filters;
+        if (gradeLevelFilters.preschool === true) {
+           customEvents.push("Mobile_filter_grade_PK");
+        }
+
+
+    };
+
     var init = function(selector, callback) {
         filtersSelector = selector;
         applyCallback = callback;
@@ -336,6 +353,8 @@ define(['uri','ui'],function(uri, ui) {
     return {
         init:init,
         toQueryString:toQueryString,
+        gradeLevel:gradeLevel,
+        distance:distance,
         getUpdatedQueryString:getUpdatedQueryString
     };
 
