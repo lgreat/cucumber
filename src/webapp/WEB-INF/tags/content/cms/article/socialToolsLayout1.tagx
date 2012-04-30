@@ -19,13 +19,6 @@
 
         <div class="mtm">
             <span class="mrs">
-                <promo:tweetButtonArticle/>
-            </span>
-
-            <span class="mls">
-                <community:addGooglePlusOne url="${fullUrl}"/>
-            </span>
-            <span class="mls">
                 <c:choose>
                     <c:when test="${not empty feature.imageUrl}">
                         <promo:addPinItButton url="${requestInfo.requestURL}" title="${feature.title}"
@@ -37,6 +30,14 @@
                     </c:otherwise>
                 </c:choose>
             </span>
+            <span class="mls">
+                <promo:tweetButtonArticle/>
+            </span>
+
+            <span class="mls">
+                <community:addGooglePlusOne url="${fullUrl}"/>
+            </span>
+
         </div>
     </div>
 
