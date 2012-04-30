@@ -6,7 +6,7 @@
         xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 
-    <style type="text/css">
+   <!-- <style type="text/css">
         #mobile-header {
             height: 40px;
             background-color: #4CA5D5;
@@ -41,13 +41,14 @@
             border: 1px solid #CCC;
             padding: 0.5em;
         }
-    </style>
+    </style>-->
 
     <div id="mobile-header" class="js-mobile-header hd">
         <div class="mobile-logo-link">
             <link:home>
-                <gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"
-                          alt="GreatSchools: Involved Parents. Successful Kids"/>
+                <div class="logo"><!-- do not collapse --></div>
+                <!--<gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"
+                          alt="GreatSchools: Involved Parents. Successful Kids"/>-->
             </link:home>
         </div>
 
