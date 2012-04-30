@@ -33,6 +33,7 @@ General comments:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
+    margin:0;
     /*height: 23px;*/
     color: white;
     text-decoration: none;
@@ -103,6 +104,7 @@ General comments:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
+    margin:0;
     height: 23px;
     color: white;
     text-decoration: none;
@@ -161,6 +163,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 5px;
+    margin:0;
     height: 23px;
     color: white;
     text-decoration: none;
@@ -227,6 +230,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 5px;
+    margin:0;
     height: auto;
     color: white;
     text-decoration: none;
@@ -294,6 +298,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 5px;
+    margin:0;
     height: auto;
     color: white;
     text-decoration: none;
@@ -360,6 +365,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 5px;
+    margin:0;
     height: auto;
     color: white;
     text-decoration: none;
@@ -414,6 +420,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 8px;
+    margin:0;
     height: 22px;
     color: white;
     text-decoration: none;
@@ -466,6 +473,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
+    margin:0;
     height: 33px;
     color: white;
     text-decoration: none;
@@ -532,6 +540,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
+    margin:0;
     height: 233px;
     color: white;
     text-decoration: none;
@@ -586,6 +595,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
+    margin:0;
     height: 37px;
     color: white;
     text-decoration: none;
@@ -652,6 +662,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
+    margin:0;
     height: 233px;
     color: white;
     text-decoration: none;
@@ -706,6 +717,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 4px 0 3px;
+    margin:0;
     height: 18px;
     color: #0066bb;
     text-decoration: none;
@@ -767,6 +779,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 4px 0 3px;
+    margin:0;
     height: 18px;
     color: white;
     text-decoration: none;
@@ -822,6 +835,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 1px 12px;
+    margin:0;
     height: 18px;
     color: #0066bb;
     text-decoration: none;
@@ -883,6 +897,7 @@ Extends button-1 by changing:
     width: auto;
     overflow: visible; /* for button width bug in IE */
     padding: 0 4px 0 3px;
+    margin:0;
     height: 18px;
     color: white;
     text-decoration: none;
