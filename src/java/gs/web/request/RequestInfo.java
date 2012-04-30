@@ -1,5 +1,6 @@
 package gs.web.request;
 
+import gs.web.email.NewslettersSignUpMobileController;
 import gs.web.mobile.Device;
 import gs.web.mobile.MobileHelper;
 import gs.web.mobile.UnknownDevice;
@@ -99,7 +100,7 @@ public class RequestInfo {
             chosenSitePreference = SitePreference.MOBILE;
         }
 
-        if(getRequest().getRequestURI().equals("/email/newslettersSignUp-mobile.page")) {
+        if(getRequest().getRequestURI().equals(NewslettersSignUpMobileController.SIGNUP_MOBILE_VIEW)) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, null, "");
             newUrl = UrlUtil.putQueryParamIntoUrl(urlBuilder.asSiteRelative(getRequest()), MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
         }

@@ -31,10 +31,12 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/email/")
-public class NewslettersSignUpMobileAjaxController implements ReadWriteAnnotationController {
-    private static final String SIGNUP_VIEW = "/email/newslettersSignUp-mobile";
+public class NewslettersSignUpMobileController implements ReadWriteAnnotationController {
+    public static final String SIGNUP_VIEW = "/email/newslettersSignUp-mobile";
+    public static final String SIGNUP_MOBILE_VIEW = "/email/newslettersSignUp-mobile.page";
     private static final String EMAIL_VERIFIED_VIEW = "/email/newslettersEmailVerified.page";
     private static final String EMAIL = "email";
+    private static final String SITE_PREFERENCE = "site_preference";
 
     @Autowired
     @Qualifier("emailVerificationEmail")
@@ -46,7 +48,8 @@ public class NewslettersSignUpMobileAjaxController implements ReadWriteAnnotatio
 
     @RequestMapping (value="newslettersSignUp-mobile.page", method=RequestMethod.GET)
     public String showForm (HttpServletRequest request,
-                           HttpServletResponse response) throws IOException {
+                           HttpServletResponse response,
+                           @RequestParam (value=SITE_PREFERENCE, required=false) String sitePreference) throws IOException {
         RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
         if (!requestInfo.shouldRenderMobileView()) {
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
