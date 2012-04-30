@@ -85,61 +85,83 @@
         </div>
 
         <div class="grid_11 omega">
-            <div class="mod recentPressReleases">
-                <div class="mod_hd">
-                    <h3>Recent Press Releases</h3>
-                </div>
-                <div class="mod_bd">
-                    <jsp:include page="/about/pressReleases.module?first=4&amp;display=about"/>
-                    <div class="fltrt moveUp"><link:pressReleases
-                            styleClass="smallAlertText">See more press releases <span class="go">&amp;#187;</span></link:pressReleases></div>
-                    <br class="clearfloat"/>
+            <div class="mod mediaRoom-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h3>Recent Press Releases</h3>
+                    </div>
+                    <div class="bd">
+                        <jsp:include page="/about/pressReleases.module?first=4&amp;display=about"/>
+                        <div class="fltrt moveUp"><link:pressReleases
+                                styleClass="smallAlertText">See more press releases <span
+                                class="go">&amp;#187;</span></link:pressReleases></div>
+                        <br class="clearfloat"/>
+                    </div>
                 </div>
             </div>
-            <div class="spacer_15"><!-- do not collapse --></div>
-            <div class="mod gsInTheNews">
-                <div class="mod_hd">
+
+            <div class="mod mediaRoom-1">
+                <div class="inner">
+                <div class="hd">
                     <h3>GreatSchools in the News</h3>
                 </div>
-                <div class="mod_bd">
+                <div class="bd">
                     <jsp:include page="/about/pressClippings.module?first=5&amp;display=about"/>
                     <div class="fltrt moveUp"><link:pressClippings
                             styleClass="smallAlertText">See more news stories <span class="go">&amp;#187;</span></link:pressClippings></div>
                     <br class="clearfloat"/>
                 </div>
-            </div>
-            <div class="spacer_15"><!-- do not collapse --></div>
-            <div class="mod downloadLogos">
-                <div class="mod_hd">
-                    <h3>Download GreatSchools Logos</h3>
                 </div>
-                <div class="mod_bd">
-                    <div class="text3">
-                        Before downloading these logos, please read our
-                        <gsml:popupWindow width="800" height="600" left="50" top="50"
-                                          title="GreatSchools Terms of Use"
-                                          href="/terms/?state=$STATE">Terms of Use</gsml:popupWindow>
-                    </div>
+            </div>
 
-                    <ul>
-                        <li class="smallText1 small">
-                            <img src="/res/img/logo/logo_GS_200x50.gif" alt="logo"/>
-                            <a href="/about/downloadLogo.page?size=small&amp;amp;extension=png&amp;amp;type=new">200x50.png</a>
-                            <br/>
-                            <a href="/about/downloadLogo.page?size=small&amp;amp;extension=gif&amp;amp;type=new">200x50.gif</a>
-                        </li>
-                        <li class="smallText1 medium">
-                            <img src="/res/img/logo/logo_GS_233x46.gif" alt="logo"/>
-                            <a href="/about/downloadLogo.page?size=medium&amp;amp;extension=png&amp;amp;type=new">233x46.png</a>
-                            <br/>
-                            <a href="/about/downloadLogo.page?size=medium&amp;amp;extension=gif&amp;amp;type=new">233x46.gif</a>
-                        </li>
-                        <li class="smallText1 large">
-                            <img src="/res/img/logo/logo_GS_330x110.gif" alt="logo"/>
-                            <a href="/about/downloadLogo.page?size=large&amp;amp;extension=png&amp;amp;type=new">330x110.png</a>
-                            <a class="marginLeft" href="/about/downloadLogo.page?size=large&amp;amp;extension=gif&amp;amp;type=new">330x110.gif</a>
-                        </li>
-                    </ul>
+            <div class="mod mediaRoom-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h3>Download GreatSchools Logos</h3>
+                    </div>
+                    <div class="bd">
+                        <div class="text3 mbm">
+                            Before downloading these logos, please read our
+                            <gsml:popupWindow width="800" height="600" left="50" top="50"
+                                              title="GreatSchools Terms of Use"
+                                              href="/terms/?state=$STATE">Terms of Use</gsml:popupWindow>
+                        </div>
+
+                        <div class="smallText1">
+                            <div class="mediaExt1-1">
+                                <img class="img" src="/res/img/logo/logo_GS_200x50.gif" alt="logo"/>
+
+                                <div class="bk">
+                                    <div class="spacer_15"><!-- do not collapse --></div>
+                                    <a href="/about/downloadLogo.page?size=small&amp;amp;extension=png&amp;amp;type=new">200x50.png</a>
+                                    <br/>
+                                    <a href="/about/downloadLogo.page?size=small&amp;amp;extension=gif&amp;amp;type=new">200x50.gif</a>
+                                </div>
+                            </div>
+
+                            <div class="mediaExt1-1">
+                                <img class="img" src="/res/img/logo/logo_GS_233x46.gif" alt="logo"/>
+
+                                <div class="bk">
+                                    <div class="spacer_20"><!-- do not collapse --></div>
+                                    <a href="/about/downloadLogo.page?size=medium&amp;amp;extension=png&amp;amp;type=new">233x46.png</a>
+                                    <br/>
+                                    <a href="/about/downloadLogo.page?size=medium&amp;amp;extension=gif&amp;amp;type=new">233x46.gif</a>
+                                </div>
+                            </div>
+
+                            <div class="mediaExt1-1">
+                                <img class="img" src="/res/img/logo/logo_GS_330x110.gif" alt="logo"/>
+
+                                <div class="bk">
+                                    <div class="spacer_60"><!-- do not collapse --></div>
+                                    <a href="/about/downloadLogo.page?size=large&amp;amp;extension=png&amp;amp;type=new">330x110.png</a>
+                                    <br/>
+                                    <a href="/about/downloadLogo.page?size=large&amp;amp;extension=gif&amp;amp;type=new">330x110.gif</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,37 +192,45 @@
             <!--</div>-->
         <!--</div>-->
         <gsweb:cache key="gsweb_pressroompage_blog">
-        <div class="mod fromBlog">
-            <div class="mod_hd">
-                <h3>From Our Blog</h3>
+            <div class="mod mediaRoom-2">
+                <div class="inner">
+                    <div class="hd">
+                        <h3>From Our Blog</h3>
+                    </div>
+                    <div class="bd">
+                        <content:blogModule/>
+                        <a href="http://blogs.greatschools.org/greatschoolsblog" target="_blank"
+                           class="fltrt smallAlertText moveUp">View more <span class="go">&amp;#187;</span></a>
+                        <br class="clearfloat"/>
+                    </div>
+                </div>
             </div>
-            <div class="mod_bd">
-                <content:blogModule/>
-                <a href="http://blogs.greatschools.org/greatschoolsblog" target="_blank"
-                   class="fltrt smallAlertText moveUp">View more <span class="go">&amp;#187;</span></a>
-                <br class="clearfloat"/>
-            </div>
-        </div>
         </gsweb:cache>
-        <div class="mod mediaTwitter">
-            <div class="mod_hd">
-                <h3>Twitter</h3>
-            </div>
-            <div class="mod_bd">
-                <div id="twitter_div">
-                    <ul id="twitter_update_list"><!-- do not collapse --></ul>
-                    <a href="http://twitter.com/greatschools" target="_blank"
-                       class="fltrt smallAlertText moveUp" id="twitter-link">View more <span class="go">&amp;#187;</span></a>
-                    <br class="clearfloat"/>
+
+        <div class="mod mediaRoom-2">
+            <div class="inner">
+                <div class="hd">
+                    <h3>Twitter</h3>
+                </div>
+                <div class="bd">
+                    <div id="twitter_div">
+                        <ul id="twitter_update_list"><!-- do not collapse --></ul>
+                        <a href="http://twitter.com/greatschools" target="_blank"
+                           class="fltrt smallAlertText moveUp" id="twitter-link">View more <span
+                                class="go">&amp;#187;</span></a>
+                        <br class="clearfloat"/>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="mod mediaFacebook">
-            <div class="mod_hd">
-                <h3>Facebook</h3>
-            </div>
-            <div class="mod_bd">
-                <ad:adTag position="Facebook_Promo_300x250"/>
+        <div class="mod mediaRoom-2">
+            <div class="inner">
+                <div class="hd">
+                    <h3>Facebook</h3>
+                </div>
+                <div class="bd">
+                    <ad:adTag position="Facebook_Promo_300x250"/>
+                </div>
             </div>
         </div>
     </div>

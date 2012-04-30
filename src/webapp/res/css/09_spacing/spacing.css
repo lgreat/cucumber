@@ -210,6 +210,9 @@ General comments:
     line-height: 35px;
 }
 
+.bas1-ccc { border: 1px solid #ccc; }
+.brs1-ccc { border-right: 1px solid #ccc; }
+
 .dotted {
     border: 1px dotted #333;
 }

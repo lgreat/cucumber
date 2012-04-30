@@ -869,6 +869,19 @@ h4.subhead2 a {
 .collRes li {margin-bottom: 20px;}
 .collRes li.last {margin-bottom: 0;}
 
+/*  mediaRoom-1  */
+.mediaRoom-1 { margin-bottom: 15px; }
+.mediaRoom-1 .inner {}
+.mediaRoom-1 .hd h3 { background: #149;/* for non-css3 browsers */background: -moz-linear-gradient(top, #276ab3, #143e90);/* FF3.6 */background: -webkit-gradient(linear, left top, left bottom, from(#276ab3), to(#143e90));/* Saf4+, Chrome */-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#276ab3', EndColorStr='#143e90')";/* IE8 */filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#276ab3', endColorStr = '#143e90');/* IE6,IE7 */color: #fff;font: normal 20px Georgia, "Times New Roman", Times, serif;padding: 6px 15px;zoom:1; }
+.mediaRoom-1 .bd { border: 1px solid #CCCCCC; padding: 15px; }
+.mediaRoom-1 .bd li { border-bottom: 1px dotted #999999; padding-bottom: 15px; margin-bottom: 15px; }
+/*  mediaSocial-2  */
+.mediaRoom-2 { margin-bottom: 15px; }
+.mediaRoom-2 .inner {}
+.mediaRoom-2 .hd h3 { background: #149;/* for non-css3 browsers */background: -moz-linear-gradient(top, #276ab3, #143e90);/* FF3.6 */background: -webkit-gradient(linear, left top, left bottom, from(#276ab3), to(#143e90));/* Saf4+, Chrome */-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#276ab3', EndColorStr='#143e90')";/* IE8 */filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#276ab3', endColorStr = '#143e90');/* IE6,IE7 */color: #fff;font: normal 20px Georgia, "Times New Roman", Times, serif;padding: 6px 15px;zoom:1; }
+.mediaRoom-2 .bd { padding: 15px; }
+.mediaRoom-2 .bd li { border-bottom: 1px dotted #999999; padding-bottom: 15px; margin-bottom: 15px; }
+
 /* ---------------- GS-12260 ----------------- */
 /* ------ articleText (extends standard) ----- */
 .articleText {}
