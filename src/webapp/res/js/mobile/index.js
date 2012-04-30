@@ -111,6 +111,7 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
 
     var init = function() {
         $(function() {
+            /* initiate tabs  */
             $('.gsTabs').each(function(){
                 var tab = $(this);
                 tab.children('div').hide(); // Hide all content divs
@@ -151,33 +152,7 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
                 submitByLocationSearch();
                 return false;
             });
-
-
-            /*
-            $('#js-search-tabs').find('.js-by-location').on('click', function() {
-                var $byLocationTab = $('#js-search-tabs').find('.js-by-location');
-                var $byNameTab = $('#js-search-tabs').find('.js-by-name');
-                $byLocationTab.addClass('selected');
-                $byNameTab.removeClass('selected');
-
-                var $byLocationBody = $('#js-searchByLocation');
-                var $byNameBody = $('#js-searchByName');
-                $byNameBody.hide();
-                $byLocationBody.show();
-            });
-            $('#js-search-tabs').find('.js-by-name').on('click', function() {
-                var $byLocationTab = $('#js-search-tabs').find('.js-by-location');
-                var $byNameTab = $('#js-search-tabs').find('.js-by-name');
-                $byLocationTab.removeClass('selected');
-                $byNameTab.addClass('selected');
-
-                var $byLocationBody = $('#js-searchByLocation');
-                var $byNameBody = $('#js-searchByName');
-                $byNameBody.show();
-                $byLocationBody.hide();
-            });*/
         });
-
     };
 
     return {
