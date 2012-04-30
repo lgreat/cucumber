@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.105 2012/04/30 15:22:45 yfan Exp $
+ * $Id: AdPosition.java,v 1.106 2012/04/30 17:50:15 yfan Exp $
  */
 package gs.web.ads;
 
@@ -97,7 +97,7 @@ public class AdPosition extends Enum {
     public static final AdPosition BelowFold2_300x250 = new AdPosition("BelowFold2_300x250", true);
     public static final AdPosition BelowFold_Top_300x125 = new AdPosition("BelowFold_Top_300x125", true);
     public static final AdPosition BelowFold_Bottom_300x125 = new AdPosition("BelowFold_Bottom_300x125", true);
-    public static final AdPosition AboveFold_Right_120x600 = new AdPosition("AboveFold_Right_120x600", true, getSizesSet(new AdSize(160,600)));
+    public static final AdPosition AboveFold_Right_120x600 = new AdPosition("AboveFold_Right_120x600", true, new AdSize(160,600));
     public static final AdPosition AboveFold_Left_160x600 = new AdPosition("AboveFold_Left_160x600", true);
     public static final AdPosition AboveFold_Right_160x600 = new AdPosition("AboveFold_Right_160x600", true);
     public static final AdPosition AboveFold_Left_160x600_A_Test = new AdPosition("AboveFold_Left_160x600_A_Test", true, AboveFold_Left_160x600);
@@ -171,6 +171,15 @@ public class AdPosition extends Enum {
         this(s, isGamControlled, (Set<AdSize>)null);
     }
 
+    public AdPosition(String s, boolean isGamControlled, AdSize size) {
+        super(s);
+        _isGAMPosition = isGamControlled;
+        Set<AdSize> sizes = new HashSet<AdSize>();
+        sizes.add(size);
+        _sizes = sizes;
+        addCompanionSizes();
+    }
+
     public AdPosition(String s, boolean isGamControlled, Set<AdSize> sizes) {
         super(s);
         _isGAMPosition = isGamControlled;
@@ -192,15 +201,6 @@ public class AdPosition extends Enum {
     public AdPosition(String s, boolean isGamControlled, AdPosition baseAdPosition, Set<AdSize> sizes) {
         this(s,isGamControlled, sizes);
         _baseName = baseAdPosition.getName();
-    }
-
-    private static Set<AdSize> getSizesSet(AdSize size) {
-        if (size == null) {
-            throw new IllegalArgumentException("size cannot be null");
-        }
-        Set<AdSize> sizes = new HashSet<AdSize>();
-        sizes.add(size);
-        return sizes;
     }
 
     public AdSize getSize() {
