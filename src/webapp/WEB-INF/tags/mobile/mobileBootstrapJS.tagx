@@ -35,8 +35,8 @@
             baseUrl: '/res/js/mobile/',
             paths: {
                 'sCode':'/res/js/' + GS.sCodeModuleName,
-                'async':'./plugins/async',
-                'order':'./plugins/order'
+                'async':'/res/js/mobile/plugins/async',
+                'order':'/res/js/mobile/plugins/order'
             },
             packages:["tracking"]
         };
