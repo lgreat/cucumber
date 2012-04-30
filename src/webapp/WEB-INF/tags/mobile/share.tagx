@@ -18,12 +18,29 @@
     <c:if test="${empty smsBody}">
         <c:set var="smsBody" value="${requestInfo.requestURL}"/>
     </c:if>
+    <c:if test="${empty emailBody and not empty school}">
+        <c:set var="emailBody">${school.name}: ${requestInfo.requestURL}
+
+${school.physicalAddress.city}'s ${school.name} is a ${school.type.schoolTypeName} <c:choose>
+                <c:when test="${school.preschoolOnly}">Preschool.
+                </c:when>
+                <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">school.
+                </c:when>
+                <c:otherwise>school that serves grades ${school.gradeLevels}.
+                </c:otherwise>
+            </c:choose>
+        </c:set>
+    </c:if>
     <c:if test="${empty emailBody}">
         <c:set var="emailBody" value="${requestInfo.requestURL}"/>
     </c:if>
+    <c:if test="${empty emailSubject}">
+        <c:set var="emailSubject" value="GreatSchools Link: ${school.name}"/>
+    </c:if>
 
     <div style="text-align: center">
-        <a href="sms:?body=${fn:escapeXml(gsweb:encodeWithinQuery(smsBody))}">SMS</a>
+        <!-- GS-12650 SMS protocol does not allow us the flexibility we want. De-scoping this for now -->
+        <!--<a href="sms:?body=${fn:escapeXml(gsweb:encodeWithinQuery(smsBody))}">SMS</a>-->
         <a href="mailto:?subject=${fn:escapeXml(gsweb:encodeWithinQuery(emailSubject))}&amp;body=${fn:escapeXml(gsweb:encodeWithinQuery(emailBody))}">Email</a>
         <c:if test="${not empty school}">
             <a href="javascript:void(0);">Save</a>
