@@ -168,6 +168,7 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
     }
 });
 $(document).ready( function() {
+
     $('.gsTabs').each(function(){
         var tab = $(this);
         tab.children('div').hide(); // Hide all content divs
