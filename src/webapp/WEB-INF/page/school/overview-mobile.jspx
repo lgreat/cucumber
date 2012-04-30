@@ -42,10 +42,9 @@
     </head>
 
     <body>
+    <div class="mod standard_1-1">
+        <div class="inner"><h1>${school.name}</h1>
 
-        <div>
-            <div><strong>${school.name}</strong></div>
-            <div>
                 <c:if test="${not school.preschoolOnly}">
                     <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
                 </c:if>
@@ -67,33 +66,29 @@
                     <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
                 </c:if>
                 ${schoolType}${gradeLevels}${enrollment}
-            </div>
-        </div>
+
+            <div class="clearfloat"><!-- empty not delete --></div>
         <c:if test="${not empty gs_rating or not empty ratings.overall}">
-            <div>
+
+            <div class="fl">
                 <c:if test="${not empty gs_rating}">
-                    <span>
-                        <link:schoolProfileTestscore school="${school}">
-                            <span>
-                                GreatSchools Rating<br/>
-                                ${gs_rating} out of 10
-                            </span>
-                        </link:schoolProfileTestscore>
-                    </span>
+                    <link:schoolProfileTestscore school="${school}">
+                        <a href="" class="but but-sm but-2" style="line-height: 1.40em; padding: 5px;">${gs_rating} GreatSchools<br />Rating</a>
+                    </link:schoolProfileTestscore>
                 </c:if>
+            </div>
+            <div class="fl mlm">
                 <c:if test="${not empty ratings.overall}">
-                    <span>
                         <link:schoolProfileParentReview school="${school}">
-                            <span data-role="button" data-inline="true">
-                                Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>
-                                ${ratings.overall} stars
-                            </span>
+                            <a href="" class="but but-sm but-2" style="line-height: 1.40em; padding: 5px;">Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>
+                                ${ratings.overall} stars</a>
                         </link:schoolProfileParentReview>
-                    </span>
                 </c:if>
             </div>
         </c:if>
-        <hr/>
+            <div class="clearfloat"><!-- empty not delete --></div>
+        </div>  </div>
+    <div class="clearfloat"><!-- empty not delete --></div>
         <!-- Address / Phone / District block -->
         <div>
             <div>
