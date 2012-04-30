@@ -47,6 +47,8 @@ textarea { width: 100%; background-color: #fff;border: solid 1px #4DA8D0;
     -moz-box-shadow: inset 0 0 3px rgba(184, 184, 184, 0.5);
     -webkit-box-shadow: inset 0 0 3px rgba(184, 184, 184, 0.5);
     box-shadow: inset 0 0 3px rgba(184, 184, 184, 0.5);
+    margin: 5px 0;
+   /* padding-left: 10px;*/
 }
 input[type=text],
 input[type=password],
@@ -58,15 +60,9 @@ input.text:focus,
 textarea:focus { border-color: #555;outline: none; }
 
 /* select {background-color:#fff;border-width:1px;border-style:solid;}*/
-input[type=text], 
-input[type=password], 
-input.text, 
-textarea,
-select { margin: 5px 0; }
 
-input.text { padding: 5px; }
+select { width:50%; margin: 5px 0;font: normal 1em/1.25em Arial, Helvetica, sans-serif; }
 
-textarea { padding: 5px; }
 
 /* Misc classes
 -------------------------------------------------------------- */
