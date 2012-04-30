@@ -131,7 +131,6 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
 
 
             $(BY_LOCATION_FORM_SELECTOR).on('submit', function() {
-                alert('hi');
                 submitByLocationSearch();
                 return false;
             });
