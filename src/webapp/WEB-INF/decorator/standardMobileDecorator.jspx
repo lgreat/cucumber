@@ -32,6 +32,9 @@
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/03_media/media.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/04_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/05_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/06_sprites/icon_x16.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/06_sprites/icon_x24.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/06_sprites/icon_x32.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/07_forms/forms.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/09_spacing/spacing.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/11_tables/tables.css?v=$RELEASE_NUMBER" allowCdn="true"/>

@@ -1,0 +1,93 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Mobile large Icons
+Description: Specific styles for the GreatSchools website
+Author: Priyanshi Deshwal
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+/* implementation pattern eg */
+/*
+<span class="iconx32 i-32-example"><!-- do not collapse --></span>
+*/
+
+/*
+NOTE:
+If space is required around an icon, please use a CSS margin property.
+
+WARNING:
+The padding property will increase the size of the viewport and reveal
+additional icons on the sprite.
+
+Viewport: the width and height of each icon is 32px x 32px, the background position varies.
+*/
+
+/* **************** SPRITE ***************** */
+
+.iconx32 {
+    display: inline-block;
+    background-image: url(/res/mobile/img/32x32.png);
+    width: 32px;
+    height: 32px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-32-map-rating-10 {
+    background-position: 0 0;
+}
+
+.i-32-map-rating-9 {
+    background-position: -32px 0;
+}
+
+.i-32-map-rating-8 {
+    background-position: -64px 0;
+}
+
+.i-32-map-rating-7 {
+    background-position: -96px 0;
+}
+
+.i-32-map-rating-6 {
+    background-position: -128px 0;
+}
+
+.i-32-map-rating-5 {
+    background-position: -162px 0;
+}
+
+.i-32-map-rating-4 {
+    background-position: -194px 0;
+}
+
+.i-32-map-rating-3 {
+    background-position: -226px 0;
+}
+
+.i-32-map-rating-2 {
+    background-position: -258px 0;
+}
+
+.i-32-map-rating-1 {
+    background-position: -290px 0;
+}
+
+.i-32-map-rating-na {
+    background-position: -322px 0;
+}
+
+.i-32-map-rating-private {
+    background-position: -354px 0;
+}
+
+/* row 32 */

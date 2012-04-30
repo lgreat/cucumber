@@ -1,0 +1,64 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Mobile small Icons
+Description: Specific styles for the GreatSchools website
+Author: Priyanshi Deshwal
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+/* implementation pattern eg */
+/*
+<span class="iconx16 i-16-example"><!-- do not collapse --></span>
+*/
+
+/*
+NOTE:
+If space is required around an icon, please use a CSS margin property.
+
+WARNING:
+The padding property will increase the size of the viewport and reveal
+additional icons on the sprite.
+
+Viewport: the width and height of each icon is 16px x 16px, the background position varies.
+*/
+
+/* **************** SPRITE ***************** */
+
+.iconx16 {
+    display: inline-block;
+    background-image: url(/res/mobile/img/16x16.png);
+    width: 16px;
+    height: 16px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-16-alert {
+    background-position: 0 0;
+}
+
+.i-16-right-arrow {
+    background-position: -16px 0;
+}
+
+.i-16-down-arrow {
+    background-position: -32px 0;
+}
+
+.i-16-white-star {
+    background-position: -48px 0;
+}
+
+.i-16-grey-star {
+    background-position: -64px 0;
+}
+

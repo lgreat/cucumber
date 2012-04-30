@@ -1,0 +1,77 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Mobile medium Icons
+Description: Specific styles for the GreatSchools website
+Author: Priyanshi Deshwal
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+/* implementation pattern eg */
+/*
+<span class="iconx24 i-24-example"><!-- do not collapse --></span>
+*/
+
+/*
+NOTE:
+If space is required around an icon, please use a CSS margin property.
+
+WARNING:
+The padding property will increase the size of the viewport and reveal
+additional icons on the sprite.
+
+Viewport: the width and height of each icon is 24px x 24px, the background position varies.
+*/
+
+/* **************** SPRITE ***************** */
+
+.iconx24 {
+    display: inline-block;
+    background-image: url(/res/mobile/img/24x24.png);
+    width: 24px;
+    height: 24px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-24-home {
+    background-position: 0 0;
+}
+
+.i-24-checkbox {
+    background-position: -24px 0;
+}
+
+.i-24-map {
+    background-position: -48px 0;
+}
+
+.i-24-map-pin {
+    background-position: -72px 0;
+}
+
+.i-24-stats {
+    background-position: -96px 0;
+}
+
+.i-24-magnifying-glass {
+    background-position: -120px 0;
+}
+
+.i-24-expand {
+    background-position: -144px 0;
+}
+
+/*row 24 */
+
+.i-24-collapse {
+    background-position: -144px -24px;
+}
