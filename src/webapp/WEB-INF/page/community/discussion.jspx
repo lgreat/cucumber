@@ -160,7 +160,7 @@
                 return true;
             }
 
-            $j('#mainGS').on('click', '.btn_preview', function() {
+            $j('#contentGS').on('click', '.btn_preview', function() {
                 if (validPost(this)) {
                     var previewBody = escapeHTML($j(this).parent().find(".db_textarea textarea").val());
                     <![CDATA[
