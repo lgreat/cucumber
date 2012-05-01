@@ -86,7 +86,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
         Set<Integer> dataTypeIds = new HashSet<Integer>();
         for (TestDataSet testDataSet : testDataSets) {
-          dataTypeIds.add(testDataSet.getDataTypeId());
+            dataTypeIds.add(testDataSet.getDataTypeId());
         }
 
         //Map of testDataTypeId to testDataType object.
@@ -356,7 +356,6 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                         yearToTestScore.setTestScoreStr(map.get(testDataType).get(grade).get(subject).get(testDataSet));
                         yearToTestScoreList.add(yearToTestScore);
 
-                        //TODO this seems like the wrong place.
                         gradeToSubjects.setGradeLabel(getGradeLabel(testDataSet));
                     }
                     //Sort in order of years.
@@ -404,7 +403,8 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         } else if (Subject.ALGEBRA_I.equals(subject)) {
             subjectLabel = "Algebra";
         } else {
-            throw new IllegalStateException("Invalid subject: " + subject.getSubjectId() + " " + Subject.getName(subject));
+            subjectLabel = Subject.getName(subject);
+//            throw new IllegalStateException("Invalid subject: " + subject.getSubjectId() + " " + Subject.getName(subject));
         }
 
         return subjectLabel;
@@ -416,20 +416,27 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param testData
      * @return
      */
-    //TODO this method is used in mobile api also.Therefore refactor into gsdata.Also think about if its needed.
     protected String getGradeLabel(TestDataSet testData) {
         if (testData.getGrade().getName() != null) {
-            String gradeLabel;
+            String gradeLabel = "";
             if (Grade.ALL.equals(testData.getGrade())) {
-                if (LevelCode.ELEMENTARY.equals(testData.getLevelCode())) {
-                    gradeLabel = "Elementary school";
-                } else if (LevelCode.MIDDLE.equals(testData.getLevelCode())) {
-                    gradeLabel = "Middle school";
-                } else if (LevelCode.HIGH.equals(testData.getLevelCode())) {
-                    gradeLabel = "High school";
-                } else {
-                    gradeLabel = "All grades";
+                List<String> levelsList = new ArrayList<String>();
+                if (testData.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                    levelsList.add("Elementary");
                 }
+                if (testData.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                    levelsList.add("Middle");
+                }
+                if (testData.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                    levelsList.add("High");
+                }
+                if (levelsList.size() >= 3) {
+                    gradeLabel = "All grades";
+                } else if (levelsList.size() > 0 && levelsList.size() <= 2) {
+                    gradeLabel = StringUtils.join(levelsList, "and");
+                    gradeLabel += levelsList.size() == 1 ? "school" : "schools";
+                }
+
             } else {
                 try {
                     Integer i = Integer.valueOf(testData.getGrade().getName());

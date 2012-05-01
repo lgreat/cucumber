@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:gsweb="gstaglib"
+          xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:link="urn:www.greatschools.org/taglib/link"
         >
@@ -99,12 +100,8 @@
         </div>
     </c:if>
 
-    <!-- TODO: Replace with tagx since its used in over view page as well -->
-    <div style="text-align: center">
-        <a href="javascript:return false;" data-role="button" data-inline="true">SMS</a>
-        <a href="javascript:return false;" data-role="button" data-inline="true">Email</a>
-        <a href="javascript:return false;" data-role="button" data-inline="true">Save</a>
-    </div>
+    <!-- SMS / Email / Save buttons -->
+    <mobile:share school="${school}"/>
 
 
     <div data-role="button" data-icon="arrow-r" data-iconpos="right">
