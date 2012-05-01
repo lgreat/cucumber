@@ -44,7 +44,7 @@
     <body>
     <div class="mod standard_1-1">
         <div class="inner"><h1>${school.name}</h1>
-
+                <p class="small pbm" style="color: #999999;">
                 <c:if test="${not school.preschoolOnly}">
                     <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
                 </c:if>
@@ -66,7 +66,7 @@
                     <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
                 </c:if>
                 ${schoolType}${gradeLevels}${enrollment}
-
+                </p>
             <div class="clearfloat"><!-- empty not delete --></div>
         <c:if test="${not empty gs_rating or not empty ratings.overall}">
 
@@ -90,27 +90,30 @@
         </div>  </div>
     <div class="clearfloat"><!-- empty not delete --></div>
         <!-- Address / Phone / District block -->
-        <div>
-            <div>
+        <div class="pam">
+            <p>
                 ${school.physicalAddress.street}<br/>
                 ${school.physicalAddress.cityStateZip}
-            </div>
             <c:if test="${not empty school.district}">
                 <div>District: <a href="javascript:return false;">${school.district.name}</a></div>
             </c:if>
+            </p>
+        </div>
+        <div class="pam">
             <c:if test="${not empty school.phone}">
-                <span data-role="button" data-inline="true">
-                    <a href="tel:${school.phone}">${school.phone}</a>
-                </span>
+
+                    <a href="tel:${school.phone}" class="but but-sm but-2">${school.phone}</a>
+
                 <br/>
             </c:if>
         </div>
 
         <!-- Map -->
         <!--<c:set var="schoolAddressQuery" value="${gsweb:escapeHtml(school.physicalAddress)}+${gsweb:escapeHtml(school.physicalAddress.cityStateZip)}+(${gsweb:escapeHtml(school.name)})"/>-->
-        <div>
-            <a href="http://maps.google.com/?saddr=Current+Location&amp;daddr=${schoolAddressQuery}">Directions</a>
-            | <a href="javascript:return false;">See schools nearby</a>
+        <div class="pam">
+            <span class="iconx24 i-24-map vam mrs"><!-- do not collapse --></span>
+            <a href="http://maps.google.com/?saddr=Current+Location&amp;daddr=${schoolAddressQuery}" class="small">Directions</a>
+            <span class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span><a href="javascript:return false;" class="small">See schools nearby</a>
         </div>
         <!--<a href="http://maps.google.com/?q=${schoolAddressQuery}">-->
             <!--<div style="height: 150px; background-color:#DDDDDD">Map</div>-->
