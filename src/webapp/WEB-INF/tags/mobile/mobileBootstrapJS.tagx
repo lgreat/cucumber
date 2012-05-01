@@ -20,7 +20,7 @@
         GS.properties.jsLoggingEnabled = ('${param.jslogging}' === 'true');
 
         if (GS.properties.isDevEnvironment === true) {
-            GS.sCodeModuleName = 's_code_dev';
+            GS.sCodeModuleName = 'mobile/s_code_mobile';
         } else {
             GS.sCodeModuleName = 's_code';
         }
