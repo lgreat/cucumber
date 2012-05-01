@@ -84,9 +84,9 @@ p,
 ****************************************************************************/
 
 ul,
-ol          { margin: 0 1.5em 1.5em 0; padding-left: 1.0em; }
+ol          { margin: 0 1.5em 1.5em 0; }
 
-ul li       { list-style-type: disc; padding-left: 8px; }
+ul li       { list-style-type: disc; padding-left: 10px; }
 ol li       { list-style-type: decimal; }
 
 ul.list1 li { list-style-type: none; border-bottom: thin solid #E6E6E6; font-size: 1em; line-height: 36px; }

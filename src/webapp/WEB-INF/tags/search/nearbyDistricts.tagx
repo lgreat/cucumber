@@ -7,10 +7,9 @@
     <jsp:directive.attribute name="lat" required="false" type="java.lang.Float"/>
     <jsp:directive.attribute name="lon" required="false" type="java.lang.Float"/>
 
-    <div class="js-nearby-districts" style="display:none;">
-        <p>Nearby districts</p>
-        <ul><!-- do not collapse -->
-
+    <div class="js-nearby-districts">
+        <ul class="list2"><!-- do not collapse -->
+            <li class="header">Nearby districts</li>
         </ul>
     </div>
 

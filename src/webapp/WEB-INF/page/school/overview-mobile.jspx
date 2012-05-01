@@ -202,7 +202,7 @@
 
         <!-- Test scores -->
         <c:if test="${not empty testScores}">
-            <div class="mod standard_6-1">
+            <div class="mod standard_6-1 mbm">
                 <div class="inner">
                     <div class="hd">
                         <h2 class="plm"><link:schoolProfileTestscore school="${school}">

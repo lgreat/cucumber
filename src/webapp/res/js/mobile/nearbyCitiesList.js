@@ -18,7 +18,7 @@ define(['search/nearbyCities', 'geolocation'],function(nearbyCitiesModule, geolo
 
     var populateFromArray = function(arrayOfObjects) {
         $(function() {
-            var $listElement = $(container).find('ul:empty');
+            var $listElement = $(container).find('ul');
 
             for (var i = 0; i < arrayOfObjects.length; i++) {
                 $listElement.append(buildListItem(arrayOfObjects[i]));

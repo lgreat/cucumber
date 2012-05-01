@@ -8,10 +8,9 @@
     <jsp:directive.attribute name="lon" required="false" type="java.lang.Float"/>
 
 
-    <div class="js-nearby-cities" style="display:none;">
-        <p>Nearby cities</p>
-        <ul><!-- do not collapse -->
-
+    <div class="js-nearby-cities">
+        <ul class="list2"><!-- do not collapse -->
+            <li class="header">Nearby cities</li>
         </ul>
     </div>
 
