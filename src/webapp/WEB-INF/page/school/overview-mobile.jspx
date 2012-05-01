@@ -226,8 +226,7 @@
                                     <div class="unit size10of100 lastUnit tal pls">
                                          ${testScore.valueInteger}%
                                      </div>
-                                    </div>
-
+                                </div>
                             </div>
                         </c:forEach>
                     </div>

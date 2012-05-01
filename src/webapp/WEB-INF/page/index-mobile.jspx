@@ -67,51 +67,44 @@
                             <div>
                                 <gsml:input type="text" name="searchString" value="${searchString}" placeholder=" City AND states, zip or address ..." />
                             </div>
-                            <div id="js-gradeLevels" class="unit size1of3">
-                                <div class="small_bold bottom">Grade level</div>
+                            <div id="js-gradeLevels">
+                                <h2>Grade level</h2>
                                 <!--<div class="triggerMouseLeave">-->
-                                <div id="category-2" class="filterCategory small bottom">
-                                    <span id="js-grade-level-label" class="fltlft vert-align-mid defaultText">All grades</span>
-                                    <a href="javascript:void(0)">
-                                        <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
-                                        <span class="navSprite dropDown-hover fltrt"><!--Do not Collapse--></span>
-                                    </a>
-                                </div>
+
                                 <div>
-                                    <div class="col_2">
-                                        <div>
-                                            <input type="checkbox" checked="checked" name="gradeLevels"
+
+                                        <div class="pts plm">
+                                            <div class="di"><input type="checkbox" checked="checked" name="gradeLevels"
                                                    id="js-grade-level-all"
-                                                   value=""/>
-                                            <label for="js-grade-level-all">All Grade Levels</label>
+                                                   value="" /></div>
+                                            <div class="di"><label for="js-grade-level-all">All Grade Levels</label></div>
                                         </div>
-                                        <div>
-                                            <input type="checkbox" class="jq-grade-level" checked="checked"
+                                        <div class="pts plm">
+                                            <div class="di"><input type="checkbox" class="jq-grade-level" checked="checked"
                                                    name="gradeLevels"
-                                                   id="js-grade-level-p" value="p"/>
-                                            <label for="js-grade-level-p">Preschool</label>
+                                                   id="js-grade-level-p" value="p"/></div>
+                                            <div class="di"><label for="js-grade-level-p">Preschool</label></div>
                                         </div>
-                                        <div>
-                                            <input type="checkbox" class="jq-grade-level" checked="checked"
+                                        <div class="pts plm">
+                                            <div class="di"><input type="checkbox" class="jq-grade-level" checked="checked"
                                                    name="gradeLevels"
-                                                   id="js-grade-level-e" value="e"/>
-                                            <label for="js-grade-level-e">Elementary School (K-5)</label>
+                                                   id="js-grade-level-e" value="e"/></div>
+                                            <div class="di"><label for="js-grade-level-e">Elementary School (K-5)</label></div>
                                         </div>
-                                        <div>
-                                            <input type="checkbox" class="jq-grade-level" checked="checked"
+                                        <div class="pts plm">
+                                            <div class="di"><input type="checkbox" class="jq-grade-level" checked="checked"
                                                    name="gradeLevels"
-                                                   id="js-grade-level-m" value="m"/>
-                                            <label for="js-grade-level-m">Middle School (6-8)</label>
+                                                   id="js-grade-level-m" value="m"/></div>
+                                                <div class="di"><label for="js-grade-level-m">Middle School (6-8)</label></div>
                                         </div>
-                                        <div>
-                                            <input type="checkbox" class="jq-grade-level" checked="checked"
+                                        <div class="pts plm">
+                                            <div class="di"><input type="checkbox" class="jq-grade-level" checked="checked"
                                                    name="gradeLevels"
-                                                   id="js-grade-level-h" value="h"/>
-                                            <label for="js-grade-level-h">High School (9-12)</label>
+                                                   id="js-grade-level-h" value="h"/></div>
+                                                <div class="di"><label for="js-grade-level-h">High School (9-12)</label></div>
                                         </div>
                                     </div>
-                                </div>
-                                <!--</div>-->
+
                             </div>
                             <div>
                                 <button type="submit" class="but but-rg but-1 js-submitButton">Search</button>

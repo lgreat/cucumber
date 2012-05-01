@@ -68,7 +68,7 @@ select { width:50%; margin: 5px 0;font: normal 1em/1.25em Arial, Helvetica, sans
 -------------------------------------------------------------- */
 
 form div { clear:left;margin: 0;padding: 0;padding-bottom: 0.5em; }
-form div label { float: left; }
+/*form div label { float: left; }*/
 
 .error, 
 .alert, 
