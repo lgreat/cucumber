@@ -40,7 +40,7 @@
     <body>
     <div class="mod standard_1-1">
         <div class="inner"><h1>${school.name}</h1>
-                <p class="small pbm" style="color: #999999;">
+                <p class="small pbm ac1">
                 <c:if test="${not school.preschoolOnly}">
                     <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
                 </c:if>
@@ -142,79 +142,98 @@
 
         <!-- Parent reviews -->
         <c:if test="${numberOfReviews gt 0}">
-            <div>
-                <div>
-                    <link:schoolProfileParentReview school="${school}">
-                        <span data-role="button" data-icon="arrow-r" data-iconpos="right">Reviews (${numberOfReviews})</span>
-                    </link:schoolProfileParentReview>
-                </div>
-                <div>
-                    <c:forEach items="${reviews}" var="review">
-                        <c:choose>
-                            <c:when test="${empty review.who or review.who eq 'other'}">
-                                <c:set var="who" value=""/>
-                            </c:when>
-                            <c:when test="${review.who eq 'staff'}">
-                                <c:set var="who" value="A staff member"/>
-                            </c:when>
-                            <c:when test="${review.who eq 'administrator'}">
-                                <c:set var="who" value="An administrator"/>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="who" value="A ${review.who}"/>
-                            </c:otherwise>
-                        </c:choose>
-                        <div>
-                            <div>
-                                <a name="ps${review.id}"><!-- not empty--></a>
 
-                                <!-- star rating -->
-                                <c:set var="curStarRating" value="${review.quality.name}"/>
-                                <c:if test="${school.levelCode eq 'p'}">
-                                    <c:set var="curStarRating" value="${review.POverall.name}"/>
-                                </c:if>
-                                <c:if test="${(curStarRating ne 'decline')}">
-                                    <div>${curStarRating} star(s)</div>
-                                </c:if>
+            <div class="mod standard_6-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h2 class="plm"><link:schoolProfileParentReview school="${school}">
+                            Reviews (${numberOfReviews})
+                        </link:schoolProfileParentReview></h2>
+                    </div>
+                    <div class="bd pam small">
+                        <c:forEach items="${reviews}" var="review">
+                            <c:choose>
+                                <c:when test="${empty review.who or review.who eq 'other'}">
+                                    <c:set var="who" value=""/>
+                                </c:when>
+                                <c:when test="${review.who eq 'staff'}">
+                                    <c:set var="who" value="A staff member"/>
+                                </c:when>
+                                <c:when test="${review.who eq 'administrator'}">
+                                    <c:set var="who" value="An administrator"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="who" value="A ${review.who}"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <div class="pvm">
+                                <div>
+                                    <a name="ps${review.id}"><!-- not empty--></a>
 
-                                <c:if test="${not empty who}">
-                                    <span><strong>${who}</strong></span>
-                                </c:if>
-                                <span> Posted <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
+                                    <!-- star rating -->
+                                    <c:set var="curStarRating" value="${review.quality.name}"/>
+                                    <c:if test="${school.levelCode eq 'p'}">
+                                        <c:set var="curStarRating" value="${review.POverall.name}"/>
+                                    </c:if>
+                                    <c:if test="${(curStarRating ne 'decline')}">
+                                        <div>${curStarRating} star(s)</div>
+                                    </c:if>
+
+                                    <c:if test="${not empty who}">
+                                        <strong>${who}</strong>
+                                    </c:if>
+                                    <span class="ac1"> Posted <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
+                                </div>
+                                <p>
+                                    <c:set var="input"><c:out value="${review.comments}" escapeXml="true" /></c:set>
+                                    <util:truncate value="${input}" words="70" />
+                                </p>
+
                             </div>
-                            <p>
-                                <c:set var="input"><c:out value="${review.comments}" escapeXml="true" /></c:set>
-                                <util:truncate value="${input}" words="70" />
-                            </p>
-                            <hr/>
+                            <hr class="keyline1" />
+                        </c:forEach>
                         </div>
-                    </c:forEach>
-                </div>
+                    </div>
                 <div>
-                    <link:schoolProfileParentReview school="${school}">View more reviews &amp;raquo;</link:schoolProfileParentReview>
-                </div>
+                <div class="plm"><link:schoolProfileParentReview school="${school}">View more reviews &amp;raquo;</link:schoolProfileParentReview></div>
             </div>
+        </div>
         </c:if>
 
         <!-- Test scores -->
         <c:if test="${not empty testScores}">
-            <div>
-                <div>
-                    <link:schoolProfileTestscore school="${school}">
-                        <span data-role="button" data-icon="arrow-r" data-iconpos="right">Test scores</span>
-                    </link:schoolProfileTestscore>
-                </div>
-                <div>
-                    <c:forEach items="${testScores}" var="testScore">
-                        <div>
-                            <h3>Grade ${testScore.dataSet.grade.name}</h3>
-                            <h3>${testScore.dataSet.subject}</h3>
-                            <div>${testScore.dataSet.year} ${testScore.valueInteger}%</div>
-                        </div>
-                    </c:forEach>
-                </div>
-                <div>
-                    <link:schoolProfileTestscore school="${school}">View more test scores &amp;raquo;</link:schoolProfileTestscore>
+            <div class="mod standard_6-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h2 class="plm"><link:schoolProfileTestscore school="${school}">
+                           Test scores
+                        </link:schoolProfileTestscore></h2>
+                    </div>
+                    <div>
+                        <c:forEach items="${testScores}" var="testScore">
+                            <div class="pam">
+                                <h4>Grade ${testScore.dataSet.grade.name}</h4>
+                                <h5 class="pbm">${testScore.dataSet.subject}</h5>
+                                <div class="line small">
+                                    <div class="unit size10of100 prs tar">
+                                        ${testScore.dataSet.year}
+                                     </div>
+
+                                    <div class="unit size80of100 pts">
+                                        <div class="bar_container"><div style="width:${testScore.valueInteger}%"><!-- not empty --></div></div>
+                                    </div>
+
+                                    <div class="unit size10of100 lastUnit tal pls">
+                                         ${testScore.valueInteger}%
+                                     </div>
+                                    </div>
+
+                            </div>
+                        </c:forEach>
+                    </div>
+                    <div class="pam">
+                        <link:schoolProfileTestscore school="${school}">View more test scores &amp;raquo;</link:schoolProfileTestscore>
+                    </div>
                 </div>
             </div>
         </c:if>

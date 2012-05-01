@@ -72,7 +72,8 @@ BUTTONS
 
     border: 1px solid #0578AA;
 
-    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6); /* Box Shadow */
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    /* Box Shadow */
     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
     -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);

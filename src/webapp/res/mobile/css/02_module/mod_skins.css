@@ -125,3 +125,22 @@ Example:
     -moz-border-radius: 4px; /* FF1-3.6 */
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
+
+/* Module 6 - blue gradient header white content area
+-----------------------------------------------------------------------------*/
+.standard_6-1{ margin-top: 20px;}
+
+.standard_6-1 .inner{
+    background:#FFFFFF;
+}
+.standard_6-1 .hd{
+    text-shadow: 0 0 2px rgba(238, 246, 250, 0.6);
+    line-height: 44px;
+    background:#D2E9F3;
+    background: -moz-linear-gradient(top, #D2E9F3, #A6D3E7); /* FF3.6 */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #D2E9F3),color-stop(1, #A6D3E7)); /* Saf4+, Chrome */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#D2E9F3', EndColorStr='#A6D3E7')"; /* IE8 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#D2E9F3', endColorStr = '#A6D3E7'); /* IE6,IE7 */
+    border-bottom: solid 1px #79BEDC;
+    border-top: solid 1px #EEF6FA;
+}
