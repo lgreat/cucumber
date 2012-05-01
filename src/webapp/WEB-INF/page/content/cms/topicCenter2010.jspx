@@ -76,7 +76,7 @@
 
 <school:miniStateLauncherHover/>
 
-    <div id="mainGS" class="col">
+    <div class="grid_16">
 
     <cms:topicCenterBreadcrumbs topicCenter="${topicCenter}"/>
         
@@ -115,9 +115,8 @@
     <div class="spacer_5"><!-- don't collapse --></div>
     <!--<gsweb:adTagGenerator position="Inline_598x50"/>-->
     <!-- Subtopics -->
-    <div id="topicContentGS" class="clearfix">
 
-        <div id="topicbarGS" class="col">
+        <div class="alpha grid_5">
             <cms:topicCenterTopicBar topicCenter="${topicCenter}"/>
 
             <div class="skyscraperAd">
@@ -126,7 +125,7 @@
         </div>
         <!-- end #topicbarGS -->
 
-                <div id="topicMainGS" class="col">
+                <div class="grid_11 omega">
 
                     <c:if test="${!topicCenter.k12SponsorshipPage}">
                         <div id="featured">
@@ -293,9 +292,6 @@
 
             <!--end #topicMainGS -->
 
-    </div>
-    <!-- end #topicContentGS -->
-
     <!-- begin Raise Your Hand by Topic block -->
     <gsml:ifUserCanManageRaiseYourHand pageUser="${requestScope.context.user}">
         <c:if test="${not empty allRaiseYourHandDiscussions}">
@@ -320,7 +316,7 @@
 </div>
 <!-- end #mainGS -->
 
-<div id="sidebarGS" class="col">
+<div class="grid_8">
     <cms:topicCenterSidebar topicCenter="${topicCenter}" adSlotPrefix="${slotPrefixName}"/>
 </div>
 <!-- end #sidebarGS -->
