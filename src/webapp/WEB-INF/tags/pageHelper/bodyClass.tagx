@@ -24,10 +24,10 @@
     <c:set var="osClass" value="${fn:contains(agent, 'macintosh') ? ' mac ' : ''}"/>
     <c:set var="osClass" value="${osClass}${fn:contains(agent, 'windows') ? ' win ' : ''}"/>
 
-    <c:set var="scopeClass" value="${requestScope.context.cobranded ? 'cobranded ' : 'www site-gradient'}"/>
+    <c:set var="scopeClass" value="${requestScope.context.cobranded ? 'cobranded ' : 'www '}"/>
     <c:set var="scopeClass" value="${scopeClass}${requestScope.context.cobranded ?  requestScope.context.cobrand : ''}"/>
     <c:set var="scopeClass" value="${scopeClass} ${requestScope.pageHelper.framed ? 'framed' : 'unframed'}"/>
     <c:set var="scopeClass" value="${scopeClass} ${requestScope.pageLayout}"/>
 
-    <c:set var="bodyClass" value="${scopeClass}${osClass}${browserClass}" scope="request"/>
+    <c:set var="bodyClass" value="${scopeClass}${osClass}${browserClass} site-gradient" scope="request"/>
 </jsp:root>
