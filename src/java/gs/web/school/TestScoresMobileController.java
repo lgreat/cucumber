@@ -3,6 +3,7 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.data.school.Grade;
 import gs.data.test.Subject;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import gs.data.source.DataSetContentType;
 import gs.data.test.*;
@@ -50,6 +51,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     private ITestDataTypeDao _testDataTypeDao;
     private ITestDataSetDao _testDataSetDao;
     private ITestDataSchoolValueDao _testDataSchoolValueDao;
+    private ITestDescriptionDao _testDescriptionDao;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String schoolId = request.getParameter(PARAM_SCHOOL_ID);
@@ -108,7 +110,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             fillInMissingDataPoints(mapOfDataPointsToShow, testDataTypeToGradeToSubjectsToDataSetToValueMap);
 
             //Convert the temporaryMap that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
-            rval = populateTestScoresBean(testDataTypeToGradeToSubjectsToDataSetToValueMap);
+            rval = populateTestScoresBean(school, testDataTypeToGradeToSubjectsToDataSetToValueMap);
         }
         return rval;
     }
@@ -170,7 +172,8 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             //TODO maybe the dao should not join.
             TestDataSet testDataSet = value.getDataSet();
             TestDataType testDataType = testDataTypeIdToTestDataType.get(value.getDataSet().getDataTypeId());
-            String testScoreValue = StringUtils.isNotBlank(value.getValueText()) ? value.getValueText() : value.getValueFloat().toString();
+            //For masking.
+            String testScoreValue = StringUtils.isNotBlank(value.getValueText()) ? StringEscapeUtils.escapeHtml(value.getValueText()) : value.getValueFloat().toString();
 
             if (testDataTypeToGradeToSubjectsToDataSetToValueMap.get(testDataType) != null) {
                 //Test already present.
@@ -327,11 +330,21 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param map
      * @return This returns a list of TestToGrades bean, which is used to present data in the view.
      */
-    protected List<TestToGrades> populateTestScoresBean(Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> map) {
+    protected List<TestToGrades> populateTestScoresBean(School school, Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> map) {
         List<TestToGrades> testToGradesList = new ArrayList<TestToGrades>();
         for (TestDataType testDataType : map.keySet()) {
             TestToGrades testToGrades = new TestToGrades();
             testToGrades.setTestLabel(testDataType.getName());
+            TestDescription testDescription = _testDescriptionDao.findTestDescriptionByStateAndDataTypeId(school.getDatabaseState(), testDataType.getId());
+
+              String description = "";
+                String scale = "";
+                String source = "";
+            if (testDescription != null) {
+                description = StringUtils.isNotBlank(testDescription.getDescription()) ? testDescription.getDescription() : "";
+                scale = StringUtils.isNotBlank(testDescription.getScale()) ? StringEscapeUtils.escapeHtml(testDescription.getScale()) : "";
+                source = StringUtils.isNotBlank(testDescription.getSource()) ? StringEscapeUtils.escapeHtml(testDescription.getSource()) : "";
+            }
 
             //For every test construct a list of grades.
             List<GradeToSubjects> gradeToSubjectsList = new ArrayList<GradeToSubjects>();
@@ -382,7 +395,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * @param subject
      * @return
      */
-    //TODO this method is used in mobile api also.Therefore refactor into gsdata.Also think about if its needed.
+
     protected String getSubjectLabel(Subject subject) {
         String subjectLabel = null;
 
@@ -457,6 +470,9 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     public static class TestToGrades {
         String _testLabel;
         List<GradeToSubjects> _grades;
+        String _description;
+        String _source;
+        String _scale;
 
         public String getTestLabel() {
             return _testLabel;
@@ -472,6 +488,30 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
         public void setGrades(List<GradeToSubjects> grades) {
             _grades = grades;
+        }
+
+        public String getDescription() {
+            return _description;
+        }
+
+        public void setDescription(String description) {
+            _description = description;
+        }
+
+        public String getSource() {
+            return _source;
+        }
+
+        public void setSource(String source) {
+            _source = source;
+        }
+
+        public String getScale() {
+            return _scale;
+        }
+
+        public void setScale(String scale) {
+            _scale = scale;
         }
     }
 
@@ -604,6 +644,14 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
     public void setTestDataSchoolValueDao(ITestDataSchoolValueDao testDataSchoolValueDao) {
         _testDataSchoolValueDao = testDataSchoolValueDao;
+    }
+
+    public ITestDescriptionDao getTestDescriptionDao() {
+        return _testDescriptionDao;
+    }
+
+    public void setTestDescriptionDao(ITestDescriptionDao testDescriptionDao) {
+        _testDescriptionDao = testDescriptionDao;
     }
 
     public boolean controllerHandlesMobileRequests() {
