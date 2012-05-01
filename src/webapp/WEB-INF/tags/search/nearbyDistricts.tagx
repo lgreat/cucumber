@@ -2,12 +2,10 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsweb="gstaglib">
-
-    <!--
-    TODO: This tag can be augmented with lat and lon attributes if lat/lon are known on the server
-          For example, if you want to list the districts near another district
-    -->
+        >
+    <!-- This tag can be augmented with lat and lon attributes for a specific location -->
+    <jsp:directive.attribute name="lat" required="false" type="java.lang.Float"/>
+    <jsp:directive.attribute name="lon" required="false" type="java.lang.Float"/>
 
     <div class="js-nearby-districts" style="display:none;">
         <p>Nearby districts</p>
@@ -20,7 +18,12 @@
         require(GS.requireConfig, ['nearbyDistrictsList'], function(nearbyDistrictsList) {
             GS.log('got nearby districts module');
             nearbyDistrictsList.init('.js-nearby-districts');
+            //<c:choose><c:when test="${not empty lat and not empty lon}">
+            nearbyDistrictsList.populateFromLatLon(${lat}, ${lon});
+            //</c:when><c:otherwise>
             nearbyDistrictsList.populate();
+            //</c:otherwise></c:choose>
+
         });
     </script>
 </jsp:root>

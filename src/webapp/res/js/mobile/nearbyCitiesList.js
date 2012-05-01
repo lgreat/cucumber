@@ -17,13 +17,15 @@ define(['search/nearbyCities', 'geolocation'],function(nearbyCitiesModule, geolo
     };
 
     var populateFromArray = function(arrayOfObjects) {
-        var $listElement = $(container).find('ul:empty');
+        $(function() {
+            var $listElement = $(container).find('ul:empty');
 
-        for (var i = 0; i < arrayOfObjects.length; i++) {
-            $listElement.append(buildListItem(arrayOfObjects[i]));
-        }
+            for (var i = 0; i < arrayOfObjects.length; i++) {
+                $listElement.append(buildListItem(arrayOfObjects[i]));
+            }
 
-        show();
+            show();
+        });
     };
 
     var populateFromLatLon = function(lat, lon) {

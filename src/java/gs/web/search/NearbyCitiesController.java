@@ -4,16 +4,17 @@ package gs.web.search;
 import gs.data.search.*;
 import gs.data.search.beans.CitySearchResult;
 import gs.data.search.beans.ICitySearchResult;
-import org.apache.log4j.Logger;
+import gs.web.util.Url;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 @Controller
@@ -47,9 +48,7 @@ public class NearbyCitiesController implements BeanFactoryAware {
 
         List<CitySearchResult> results = _gsSolrSearcher.simpleSearch(gsSolrQuery, CitySearchResult.class);
 
-        Iterator<CitySearchResult> i = results.iterator();
-        while(i.hasNext()) {
-            CitySearchResult result = i.next();
+        for (CitySearchResult result : results) {
             maps.add(buildOneMap(result));
         }
 
@@ -60,9 +59,14 @@ public class NearbyCitiesController implements BeanFactoryAware {
         Map<String,String> map = new HashMap<String,String>();
         map.put("state", citySearchResult.getState().getAbbreviation());
         map.put("name", citySearchResult.getCity());
-        map.put("url", "about:blank");
-        //TODO: city url
-        
+        try {
+            map.put("url", Url.SEARCH_SCHOOLS_BY_NAME.relative
+                    (URLEncoder.encode(citySearchResult.getCity(), "UTF-8"),
+                            citySearchResult.getState().getAbbreviation()));
+        } catch (UnsupportedEncodingException e) {
+            map.put("url", "javascript:void(0);");
+        }
+
         return map;
     }
 

@@ -23,6 +23,7 @@ public enum Url {
     CITY_BROWSE("/{state}/{city}/schools/", DefaultUrlProcessor.INSTANCE),
     DISTRICT_HOME("/{state}/{city}/{district}/"),
     DISTRICT_BROWSE("/{state}/{city}/{district}/schools/", DefaultUrlProcessor.INSTANCE),
+    SEARCH_SCHOOLS_BY_NAME("/search/search.page?search_type=0&q={query}&state={stateAbbreviation}&c=school"),
 
 
 
