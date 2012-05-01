@@ -137,7 +137,7 @@
         <mobile:share school="${school}"/>
 
         <c:if test="${hasTestScores}">
-            <div><link:schoolProfileTestscore school="${school}">View this school's test scores</link:schoolProfileTestscore></div>
+            <span class="iconx24 i-24-stats vam mam"><!-- do not collapse --></span><link:schoolProfileTestscore school="${school}">View this school's test scores</link:schoolProfileTestscore>
         </c:if>
 
         <!-- Parent reviews -->
