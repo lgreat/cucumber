@@ -2408,19 +2408,6 @@ body.cobranded #pageGS {
 /* =12 page layouts
 -------------------------------------------------------------------------------------------*/
 
-#mainWrap {
-    /*position: relative;*/
-    margin: 0 auto;
-    background: url(/res/img/gs_content_bg.png) repeat-y;
-    /*padding: 0 5px;*/
-    min-height: 400px;
-    z-index: 0;
-}
-
-/*.interstitial #mainWrap {
-    margin-top: 36px;
-}*/
-
 .col {
     position: relative;
     float: left;
