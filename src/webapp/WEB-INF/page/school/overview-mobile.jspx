@@ -110,7 +110,8 @@
         <div class="pam">
             <span class="iconx24 i-24-map vam mrs"><!-- do not collapse --></span>
             <a href="http://maps.google.com/?saddr=Current+Location&amp;daddr=${schoolAddressWithName}" class="small">Directions</a>
-            <span class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span><a href="javascript:return false;" class="small">See schools nearby</a>
+            <span class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span>
+            <a href="/search/search.page?state=${school.databaseState}&amp;lat=${school.lat}&amp;lon=${school.lon}&amp;distance=25&amp;searchString=${gsweb:urlEncode(school.name)}" class="small">See schools nearby</a>
         </div>
         <div id="js_schoolMap">
             <c:choose>
