@@ -215,9 +215,9 @@ body.ie7 #pickGrade, * + html #pickGrade {
 -------------------------------------------------------------------------------------------*/
 
 
-*html body.cobranded {
+/**html body.cobranded {
     background-image: none;
-}
+}*/
 
 body.ie6 #contentGS {
     margin: 0;

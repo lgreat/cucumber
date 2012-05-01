@@ -4,9 +4,9 @@ body {
     background-color: #acd;
     margin-top: 0;
 }
-body.cobranded {
+/*body.cobranded {
     background-color: #fff;
-}
+}*/
 
 /* Overall page placement */
 #marginGS {
@@ -39,5 +39,4 @@ body.cobranded {
     border-top: 1px solid #fff; /* IE hack */
     border-bottom: 1px solid #fff;
 }
-
 
