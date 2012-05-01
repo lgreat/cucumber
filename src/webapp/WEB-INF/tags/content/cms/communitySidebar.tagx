@@ -19,60 +19,91 @@
     <c:set var="xmlEscapedSearchQuery"><c:out value="${pageScope.searchQuery}" escapeXml="true"/></c:set>
 
     <div class="grid_8">
-        <div id="commSearch" class="mod">
-            <div class="mod_hd">
-                <h3>
-                    Search
-                    <c:choose>
-                        <c:when test="${pageScope.searchType eq 'all'}">
-                            Articles &amp;amp; Community
-                        </c:when>
-                        <c:when test="${pageScope.searchType eq 'articles'}">
-                            Articles
-                        </c:when>
-                        <c:when test="${pageScope.searchType eq 'community'}">
-                            Community
-                        </c:when>
-                    </c:choose>
-                </h3>
-            </div>
-            <div class="mod_bd srchFrm">
-                <form class="srch" action="/search/contentSearch.page">
-                    <c:choose>
-                        <c:when test="${pageScope.searchType eq 'articles'}">
-                            <input type="hidden" name="type" value="articles"/>
-                        </c:when>
-                        <c:when test="${pageScope.searchType eq 'community'}">
-                            <input type="hidden" name="type" value="community"/>
-                        </c:when>
-                    </c:choose>
-                    <input class="fltlft db_search_input formText2 tint_777"
-                           type="text" name="q"
-                           value="${pageScope.xmlEscapedSearchQuery}"/>
 
-                    <button class="button-1 fltlt" type="submit">Search</button>
-                </form>
+            <div class="mod communitySearch">
+                <div class="inner">
+                    <div class="hd">
+                        <h3>
+                            Search
+                            <c:choose>
+                                <c:when test="${pageScope.searchType eq 'all'}">
+                                    Articles &amp;amp; Community
+                                </c:when>
+                                <c:when test="${pageScope.searchType eq 'articles'}">
+                                    Articles
+                                </c:when>
+                                <c:when test="${pageScope.searchType eq 'community'}">
+                                    Community
+                                </c:when>
+                            </c:choose>
+                        </h3>
+                    </div>
+                    <div class="bd srchFrm">
+                        <form class="srch" action="/search/contentSearch.page">
+                            <c:choose>
+                                <c:when test="${pageScope.searchType eq 'articles'}">
+                                    <input type="hidden" name="type" value="articles"/>
+                                </c:when>
+                                <c:when test="${pageScope.searchType eq 'community'}">
+                                    <input type="hidden" name="type" value="community"/>
+                                </c:when>
+                            </c:choose>
+                            <input class="text fl"
+                                   type="text" name="q"
+                                   value="${pageScope.xmlEscapedSearchQuery}"/>
+
+                            <button class="button-1 fl mlm" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="mod_bd brwse">
-                <h4 class="subhead2">Browse by topic</h4>
-                    <ul class="col topics text2_180">
-                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636" fullUri="/preschool">Preschool</link:cmsContent></li>
-                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1637"
-                                             fullUri="/elementary-school">Elementary School</link:cmsContent></li>
-                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1638" fullUri="/middle-school">Middle School</link:cmsContent></li>
-                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1639" fullUri="/high-school">High School</link:cmsContent></li>
-                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#2420" fullUri="/general">General Parenting</link:cmsContent></li>
-                    </ul>
-                    <ul class="col topics text2_180">
-                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1640" fullUri="/parenting">Health &amp;amp; Development</link:cmsContent></li>
-                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1641" fullUri="/students">Academics &amp;amp; Activities</link:cmsContent></li>
-                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/special-education">Special Education</link:cmsContent></li>
-                        <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1643" fullUri="/improvement">Improve Your School</link:cmsContent></li>
-                    </ul>
+
+        <div class="mod browseByTopic">
+            <div class="inner">
+                <div class="hd">
+                    <h4>Browse by topic</h4>
+                </div>
+                <div class="bd">
+                    <div class="line">
+                        <div class="unit size47of100">
+                            <ul>
+                                <li><link:cmsContent contentKey="DiscussionBoard#1636"
+                                                     fullUri="/preschool">Preschool</link:cmsContent></li>
+                                <li><link:cmsContent contentKey="DiscussionBoard#1637"
+                                                     fullUri="/elementary-school">Elementary School</link:cmsContent>
+                                </li>
+                                <li><link:cmsContent contentKey="DiscussionBoard#1638"
+                                                     fullUri="/middle-school">Middle School</link:cmsContent>
+                                </li>
+                                <li><link:cmsContent contentKey="DiscussionBoard#1639"
+                                                     fullUri="/high-school">High School</link:cmsContent></li>
+                                <li><link:cmsContent contentKey="DiscussionBoard#2420"
+                                                     fullUri="/general">General Parenting</link:cmsContent>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="unit size53of100 lastUnit">
+                            <ul>
+                                <li><link:cmsContent contentKey="DiscussionBoard#1640"
+                                                     fullUri="/parenting">Health &amp;amp; Development</link:cmsContent>
+                                </li>
+                                <li><link:cmsContent contentKey="DiscussionBoard#1641"
+                                                     fullUri="/students">Academics &amp;amp; Activities</link:cmsContent>
+                                </li>
+                                <li><link:cmsContent contentKey="DiscussionBoard#1642"
+                                                     fullUri="/special-education">Special Education</link:cmsContent>
+                                </li>
+                                <li><link:cmsContent contentKey="DiscussionBoard#1643"
+                                                     fullUri="/improvement">Improve Your School</link:cmsContent>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
 
             <c:import url="/community/browseLocalBoards.module"/>
-        </div>
         <!-- end module -->
 
         <ad:AboveFold_300x250/>
