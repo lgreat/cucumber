@@ -27,15 +27,11 @@
         <c:if test="${not empty relCanonical}">
             <link rel="canonical" href="${relCanonical}"/>
         </c:if>
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"><!--Do not collapse--></script>
-        <c:set var="schoolAddressQuery" value="${gsweb:escapeHtml(school.physicalAddress)}+${gsweb:escapeHtml(school.physicalAddress.cityStateZip)}+(${gsweb:escapeHtml(school.name)})"/>
         <script type="text/javascript">
-            require(['schoolOverview', 'truncate'], function(schoolOverview, truncate) {
+            require(['truncate'], function(truncate) {
                 $(function() {
-                    schoolOverview.init();
-                    schoolOverview.initializeMap("${gsweb:escapeJavaScript(school.name)}","${school.lat}","${school.lon}","${gs_rating}","${school.type.schoolTypeName}","${gsweb:escapeJavaScript(schoolAddressQuery)}");
+                    truncate.init();
                 });
-                truncate.init();
             });
         </script>
 
@@ -109,22 +105,32 @@
         </div>
 
         <!-- Map -->
-        <!--<c:set var="schoolAddressQuery" value="${gsweb:escapeHtml(school.physicalAddress)}+${gsweb:escapeHtml(school.physicalAddress.cityStateZip)}+(${gsweb:escapeHtml(school.name)})"/>-->
+        <c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress)}"/>
+        <c:set var="schoolAddressWithName" value="${gsweb:escapeHtml(school.physicalAddress)}+(${gsweb:escapeHtml(school.name)})"/>
         <div class="pam">
             <span class="iconx24 i-24-map vam mrs"><!-- do not collapse --></span>
-            <a href="http://maps.google.com/?saddr=Current+Location&amp;daddr=${schoolAddressQuery}" class="small">Directions</a>
+            <a href="http://maps.google.com/?saddr=Current+Location&amp;daddr=${schoolAddressWithName}" class="small">Directions</a>
             <span class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span><a href="javascript:return false;" class="small">See schools nearby</a>
         </div>
-        <!--<a href="http://maps.google.com/?q=${schoolAddressQuery}">-->
-            <!--<div style="height: 150px; background-color:#DDDDDD">Map</div>-->
-        <!--</a>-->
-        <div id="js_schoolMap"><!--do not collapse--></div>
-        <style type="text/css">
-            #js_schoolMap {
-                height: 10em;
-                width: 100%;
-            }
-        </style>
+        <div id="js_schoolMap">
+            <c:choose>
+                <c:when test="${not empty gs_rating}">
+                    <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_${gs_rating}_forground.png"/>
+                </c:when>
+                <c:when test="${school.type.schoolTypeName eq 'private'}">
+                    <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_private_forground.png"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_na_forground.png"/>
+                </c:otherwise>
+            </c:choose>
+            <c:set var="mapMarkerUrl" value="http://www.greatschools.org${mapMarkerUrl}"/>
+            <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
+
+            <a href="http://maps.google.com/?q=${schoolAddressWithName}">
+                <img height="160" width="320" src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=320x160&amp;maptype=roadmap&amp;scale=2&amp;sensor=false"/>
+            </a>
+        </div>
 
         <!-- SMS / Email / Save buttons -->
         <mobile:share school="${school}"/>
