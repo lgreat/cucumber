@@ -85,15 +85,6 @@
                     Scale: ${testToGrades.scale}
                     <br/>
                 </c:if>
-                <c:if test="${not empty testToGrades.source}">
-                    Source: ${testToGrades.source}
-                    <br/>
-                </c:if>
-
-                <c:if test="${not empty testToGrades.description}">
-                    Description: ${testToGrades.description}
-                    <br/>
-                </c:if>
 
                 <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
                     <strong>${gradeToSubjects.gradeLabel}</strong>
@@ -110,6 +101,14 @@
                     <br/>
                     <br/>
                 </c:forEach>
+                <c:if test="${not empty testToGrades.source}">
+                    Source: ${testToGrades.source}
+                    <br/>
+                </c:if>
+                <c:if test="${not empty testToGrades.description}">
+                    Description: ${testToGrades.description}
+                    <br/>
+                </c:if>
             </c:forEach>
         </div>
     </c:if>
