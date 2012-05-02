@@ -8,12 +8,16 @@
     <jsp:directive.attribute name="lon" required="false" type="java.lang.Float"/>
 
 
-    <div class="js-nearby-cities">
-        <ul class="list2"><!-- do not collapse -->
-            <li class="header">Nearby cities</li>
-        </ul>
+    <div class="mod standard_7-1">
+        <div class="inner">
+            <div class="hd">
+                <h3>Nearby cities</h3>
+            </div>
+            <div class="bd js-nearby-cities">
+                <ul class="list2"><!-- do not collapse --></ul>
+            </div>
+        </div>
     </div>
-
 
     <script type="text/javascript">
         require(GS.requireConfig, ['nearbyCitiesList'], function(nearbyCitiesList) {

@@ -27,3 +27,4 @@ General comments:
 .mod .outer{}
 .mod .inner{}
 .bd, .ft, .hd{overflow:hidden; *overflow:visible; zoom:1;}
+.body, .footer, .header{overflow:hidden; *overflow:visible; zoom:1;}

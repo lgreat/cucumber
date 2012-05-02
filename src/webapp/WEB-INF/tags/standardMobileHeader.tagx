@@ -43,7 +43,7 @@
         }
     </style>-->
 
-    <div id="mobile-header" class="js-mobile-header hd">
+    <div id="mobile-header" class="js-mobile-header header">
         <div class="mobile-logo-link">
             <link:home>
                 <div class="logo"><!-- do not collapse --></div>

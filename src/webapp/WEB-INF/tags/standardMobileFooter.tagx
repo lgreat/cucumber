@@ -5,7 +5,7 @@
         >
 
 
-    <div id="mobile-footer" class="ft">
+    <div id="mobile-footer" class="footer">
 
         <div class="mha pbl tac">
         <a href="${requestInfo.sitePreferenceUrlForAlternateSite}" data-role="button" data-inline="true"
