@@ -352,6 +352,9 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                 scale = StringUtils.isNotBlank(testDescription.getScale()) ? StringEscapeUtils.escapeHtml(testDescription.getScale()) : "";
                 source = StringUtils.isNotBlank(testDescription.getSource()) ? StringEscapeUtils.escapeHtml(testDescription.getSource()) : "";
             }
+            testToGrades.setDescription(description);
+            testToGrades.setScale(scale);
+            testToGrades.setSource(source);
 
             //For every test construct a list of grades.
             List<GradeToSubjects> gradeToSubjectsList = new ArrayList<GradeToSubjects>();
