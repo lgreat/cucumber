@@ -73,7 +73,7 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 /* Text elements
 -------------------------------------------------------------- */
 p,
-.default {font-size: 1em;}
+.default {font-size: 1em;} /* 1em = 16px */
 .small { font-size: .875em; }
 .smaller { font-size: .75em;}
 .default-lt {font-size: 1em; color: #999;}
