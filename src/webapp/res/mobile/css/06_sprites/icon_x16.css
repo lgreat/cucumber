@@ -34,7 +34,7 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 
 .iconx16 {
     display: inline-block;
-    background-image: url(/res/mobile/img/20120430-16x16.png);
+    background-image: url(/res/mobile/img/16x16.png);
     width: 16px;
     height: 16px;
 }
@@ -47,25 +47,25 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 }
 
 .i-16-right-arrow {
-    background-position: -16px 0;
+    background-position: 0 -16px;
 }
 
 .i-16-down-arrow {
-    background-position: -32px 0;
+    background-position: 0 -32px;
 }
 
 .i-16-orange-star {
-    background-position: -48px 0;
+    background-position: 0 -48px;
 }
 
 .i-16-grey-star {
-    background-position: -64px 0;
+    background-position: 0 -64px;
 }
 
-.i-16-orange-star-sm {
-    background-position: -80px 0;
-}
-
-.i-16-grey-star-sm {
-    background-position: -96px 0;
-}
+/* This is for the stars grey or orange */
+.i-16-star-0{width:0px}
+.i-16-star-1{width:16px}
+.i-16-star-2{width:32px; repeat-x;}
+.i-16-star-3{width:48px; repeat-x;}
+.i-16-star-4{width:64px; repeat-x;}
+.i-16-star-5{width:80px; repeat-x;}

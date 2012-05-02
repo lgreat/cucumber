@@ -74,10 +74,7 @@
                 <div class="ptm">
                     <hr class="keyline1" />
                     <div>
-                        <a href="javascript:return false;" data-role="button" data-inline="true">
-                            ${gs_rating}<span class="ac1"> out of 10</span><span class="strong"> GreatSchools Rating</span>
-
-                        </a>
+                            ${gs_rating}<span class="ac1"> of 10</span><span class="strong"> GreatSchools Rating</span>
                     </div>
                 </div>
                 </c:if>

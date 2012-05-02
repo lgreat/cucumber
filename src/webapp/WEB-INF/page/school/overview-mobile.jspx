@@ -181,13 +181,20 @@
                                         <c:set var="curStarRating" value="${review.POverall.name}"/>
                                     </c:if>
                                     <c:if test="${(curStarRating ne 'decline')}">
-                                        <div>${curStarRating} star(s)</div>
-                                    </c:if>
 
+                                        <div>
+                                            <c:set var="starOff" value="${5 - curStarRating}"/>
+                                            <div class="iconx16 i-16-orange-star  i-16-star-${curStarRating}"><!-- not empty--></div>
+                                            <div class="iconx16 i-16-grey-star  i-16-star-${starOff}"><!-- not empty--></div>
+
+                                        </div>
+                                    </c:if>
+                                    <div class="clearfix">
                                     <c:if test="${not empty who}">
-                                        <strong>${who}</strong>
+                                       <strong>${who}</strong>
                                     </c:if>
                                     <span class="ac1"> Posted <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
+                                    </div>
                                 </div>
                                 <p>
                                     <c:set var="input"><c:out value="${review.comments}" escapeXml="true" /></c:set>
