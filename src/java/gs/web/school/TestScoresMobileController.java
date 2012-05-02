@@ -5,7 +5,6 @@ import gs.data.school.Grade;
 import gs.data.test.Subject;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-import gs.data.source.DataSetContentType;
 import gs.data.test.*;
 import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -83,18 +82,23 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         }
 
         Set<Integer> dataSetIds = getTestDataSetIds(school);
-        //List of testDataSets.Used to query the schoolValue.
-        List<TestDataSet> testDataSets = getTestDataSets(school, dataSetIds);
 
-        Set<Integer> dataTypeIds = new HashSet<Integer>();
-        for (TestDataSet testDataSet : testDataSets) {
-            dataTypeIds.add(testDataSet.getDataTypeId());
+        //List of testDataSets.Used to query the schoolValue.
+        List<TestDataSet> testDataSets = new ArrayList<TestDataSet>();
+        if (dataSetIds != null && !dataSetIds.isEmpty()) {
+            testDataSets = getTestDataSets(school, dataSetIds);
         }
 
-        //Map of testDataTypeId to testDataType object.
-        Map<Integer, TestDataType> testDataTypeIdToTestDataType = getTestDataTypes(dataTypeIds);
-
         if (testDataSets != null && !testDataSets.isEmpty()) {
+            //Data TypeIds
+            Set<Integer> dataTypeIds = new HashSet<Integer>();
+            for (TestDataSet testDataSet : testDataSets) {
+                dataTypeIds.add(testDataSet.getDataTypeId());
+            }
+
+            //Map of testDataTypeId to testDataType object.
+            Map<Integer, TestDataType> testDataTypeIdToTestDataType = getTestDataTypes(dataTypeIds);
+
             //A map used to store the testDataType, grade, subjects, testDataSet and test score value for the school.
             //If a school does not have a test score value, then it will not be in this map.
             Map<TestDataType, Map<Grade, Map<Subject, Map<TestDataSet, String>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap
@@ -136,6 +140,9 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         Set<Integer> dataSetIds = new HashSet<Integer>();
         if (school.getDatabaseState().equals(State.CA)) {
             Integer[] arr = {77058, 77238, 76518, 71298, 71478, 71658, 71838, 72018, 72198, 72378, 72558, 72918, 73098, 73278, 73458, 73818, 73998, 74898, 75258, 86102, 86282, 85562, 80342, 80522, 80702, 80882, 81062, 81242, 81422, 81602, 81962, 82142, 82322, 82502, 82862, 83042, 83942, 84302, 121909, 122089, 121369, 116149, 116329, 116509, 116689, 116869, 117049, 117229, 117409, 117769, 117949, 118129, 118309, 118669, 118849, 119749, 120109};
+            dataSetIds = new HashSet<Integer>(Arrays.asList(arr));
+        } else if (school.getDatabaseState().equals(State.IN)) {
+            Integer[] arr = {2076, 2116, 2081, 2121, 2086, 2126, 2091, 2131, 2096, 2136, 2101, 2141, 3358, 3363, 3508, 3513, 3658, 3663, 3808, 3813, 3958, 3963, 4108, 4113, 2158, 2163, 2308, 2313, 2458, 2463, 2608, 2613, 2758, 2763, 2908, 2913, 5909, 5914, 6059, 6064, 6209, 6214, 6359, 6364, 6509, 6514, 6659, 6664, 7266, 7276, 7281, 7291, 4559, 4564, 4709, 4714, 4859, 4864, 5009, 5014, 5159, 5164, 5309, 5314};
             dataSetIds = new HashSet<Integer>(Arrays.asList(arr));
         }
         return dataSetIds;
@@ -337,9 +344,9 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             testToGrades.setTestLabel(testDataType.getName());
             TestDescription testDescription = _testDescriptionDao.findTestDescriptionByStateAndDataTypeId(school.getDatabaseState(), testDataType.getId());
 
-              String description = "";
-                String scale = "";
-                String source = "";
+            String description = "";
+            String scale = "";
+            String source = "";
             if (testDescription != null) {
                 description = StringUtils.isNotBlank(testDescription.getDescription()) ? testDescription.getDescription() : "";
                 scale = StringUtils.isNotBlank(testDescription.getScale()) ? StringEscapeUtils.escapeHtml(testDescription.getScale()) : "";
@@ -446,8 +453,8 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                 if (levelsList.size() >= 3) {
                     gradeLabel = "All grades";
                 } else if (levelsList.size() > 0 && levelsList.size() <= 2) {
-                    gradeLabel = StringUtils.join(levelsList, "and");
-                    gradeLabel += levelsList.size() == 1 ? "school" : "schools";
+                    gradeLabel = StringUtils.join(levelsList, " and ");
+                    gradeLabel += levelsList.size() == 1 ? " school" : " schools";
                 }
 
             } else {
