@@ -54,7 +54,7 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
     background-position: -32px 0;
 }
 
-.i-16-white-star {
+.i-16-orange-star {
     background-position: -48px 0;
 }
 
@@ -62,3 +62,10 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
     background-position: -64px 0;
 }
 
+.i-16-orange-star-sm {
+    background-position: -80px 0;
+}
+
+.i-16-grey-star-sm {
+    background-position: -96px 0;
+}
