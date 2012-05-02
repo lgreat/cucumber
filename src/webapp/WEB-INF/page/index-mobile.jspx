@@ -121,7 +121,7 @@
                         <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
                     <div class="clearfix prm"><gsml:input type="text" styleClass="size100of100" name="q" value="${searchString}" placeholder=" School or district..." /></div>
 
-                            <div><select class="stateSelect" name="state" id="stateSelector">
+                            <div><select class="stateSelect" name="state" id="stateSelector" data-validation="state" data-validation-type="required">
                                 <option selected="selected" value="">State</option>
                                 <option value="AK">AK</option>
                                 <option value="AL">AL</option>
@@ -175,6 +175,7 @@
                                 <option value="WV">WV</option>
                                 <option value="WY">WY</option>
                             </select></div>
+                            <div class="error" data-validation="state" data-validation-error-message="required" style="display: none;">Please select a state</div>
                             <div><button type="submit" class="but but-rg but-1 js-submitButton">Search</button></div>
                         </form>
                         </div>

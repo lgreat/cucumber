@@ -1,4 +1,4 @@
-define(['uri', 'geocoder'], function(uri, geocoder) {
+define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
     var JS_GRADE_LEVELS_CONTAINER_SELECTOR = '#js-gradeLevels';
     var BY_LOCATION_FORM_SELECTOR = '#js-searchByLocation';
 
@@ -152,6 +152,10 @@ define(['uri', 'geocoder'], function(uri, geocoder) {
                 submitByLocationSearch();
                 return false;
             });
+
+            validation.init();
+            validation.attachValidationHandlers('#search-form');
+
         });
     };
 
