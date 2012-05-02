@@ -24,8 +24,12 @@ Created by Mitchell Seltzer
     background: #FF8000; /* for non-css3 browsers */
     width:0;
     height:100%;
-    background: -moz-linear-gradient(top, #FFB366, #FF8000); /* FF3.6 */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #FFB366), color-stop(1, #FF8000)); /* Saf4+, Chrome */
-    -ms-filter: "progid:DXImageTransform.Microsoft.Gradient(StartColorStr='#FFB366', EndColorStr='#FF8000')"; /* IE8 */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FFB366', endColorStr = '#FF8000'); /* IE6,IE7 */
+
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FFB366), to(#FF8000)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #FFB366, #FF8000); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #FFB366, #FF8000); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #FFB366, #FF8000); /* IE10 */
+    background-image:      -o-linear-gradient(top, #FFB366, #FF8000); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #FFB366, #FF8000); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFB366', EndColorStr='#FF8000'); /* IE6�IE9 */
 }
