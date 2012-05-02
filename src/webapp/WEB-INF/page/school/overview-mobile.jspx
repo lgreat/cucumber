@@ -215,15 +215,15 @@
                                 <h4>Grade ${testScore.dataSet.grade.name}</h4>
                                 <h5 class="pbm">${testScore.dataSet.subject}</h5>
                                 <div class="line small">
-                                    <div class="unit size12of100 prs tar">
+                                    <div class="unit size12of100 tar">
                                         ${testScore.dataSet.year}
                                      </div>
 
-                                    <div class="unit size74of100 pts">
+                                    <div class="unit size74of100 pts phm">
                                         <div class="bar_container"><div style="width:${testScore.valueInteger}%"><!-- not empty --></div></div>
                                     </div>
 
-                                    <div class="unit size14of100 lastUnit tal phs">
+                                    <div class="unit size14of100 lastUnit tal">
                                          ${testScore.valueInteger}%
                                      </div>
 

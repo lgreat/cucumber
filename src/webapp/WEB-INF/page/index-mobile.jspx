@@ -52,6 +52,7 @@
                 </ul>
                 <div class="mod standard_5-1">
                     <div class="inner">
+                        <div class="bd">
                         <form method="get" action="/search/search.page" id="js-searchByLocation" accept-charset="UTF-8">
                             <input type="hidden" name="lat"/>
                             <input type="hidden" name="lon"/>
@@ -64,8 +65,8 @@
                             <input type="hidden" name="st" value="public"/>
                             <input type="hidden" name="st" value="charter"/>
                             <input type="hidden" name="st" value="private"/>
-                            <div>
-                                <gsml:input type="text" name="searchString" value="${searchString}" placeholder=" City AND states, zip or address ..." />
+                            <div class="clearfix prm">
+                                <gsml:input type="text" styleClass="size100of100"  name="searchString" value="${searchString}" placeholder=" City AND states, zip or address ..." />
                             </div>
                             <div id="js-gradeLevels">
                                 <h2>Grade level</h2>
@@ -110,13 +111,15 @@
                                 <button type="submit" class="but but-rg but-1 js-submitButton">Search</button>
                             </div>
                         </form>
+                        </div>
                     </div>
                 </div>
 
-                <div class="mod mod standard_5-1">
+                <div class="mod standard_5-1">
                     <div class="inner">
+                        <div class="bd">
                         <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
-                    <div><gsml:input type="text" name="q" value="${searchString}" placeholder=" School or district..." /></div>
+                    <div class="clearfix prm"><gsml:input type="text" styleClass="size100of100" name="q" value="${searchString}" placeholder=" School or district..." /></div>
 
                             <div><select class="stateSelect" name="state" id="stateSelector">
                                 <option selected="selected" value="">State</option>
@@ -174,6 +177,7 @@
                             </select></div>
                             <div><button type="submit" class="but but-rg but-1 js-submitButton">Search</button></div>
                         </form>
+                        </div>
                     </div>
                 </div>
             </div>
