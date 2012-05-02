@@ -24,22 +24,23 @@
     <c:if test="${empty greatSchoolsRating}">
         <c:set var="greatSchoolsRating" value="na"/>
     </c:if>
+
+    <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"
+                                             name="${schoolName}" physicalAddress="${schoolAddress}"
+                                             levelCode="${levelCode}">
+        <h3>${schoolName}</h3>
+    </link:schoolProfileOverviewForPrimitives>
+
     <c:if test="${not isTemplate and not empty distance and (not empty param.zipCode or not empty param.lat)}">
         <div><fmt:formatNumber value="${distance}" maxFractionDigits="2"/> miles</div>
     </c:if>
-    <h3>
-            <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"
-                                                     name="${schoolName}" physicalAddress="${schoolAddress}"
-                                                     levelCode="${levelCode}">
-            ${schoolName}
-            </link:schoolProfileOverviewForPrimitives>
-    </h3>
 
     <p>${schoolType} ${gradeRangeString} | ${city}, ${databaseState}</p>
 
     <c:if test="${greatSchoolsRating ne 'na'}">
         <link:schoolProfileRating2010 state="${databaseState}" schoolId="${schoolId}" levelCode="${levelCode}">
-            <p>${greatSchoolsRating} of 10</p>
+            <button class="ratings-round ratings-small round-small">${greatSchoolsRating}</button>
+            of 10
         </link:schoolProfileRating2010>
     </c:if>
     <c:if test="${not empty parentRating}">

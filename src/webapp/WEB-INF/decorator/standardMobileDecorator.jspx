@@ -40,6 +40,7 @@
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/11_tables/tables.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/12_graphs/bar_graphs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/13_tabs/tabs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/14_ratings/ratings.css?v=$RELEASE_NUMBER" allowCdn="true"/>
 
         <script src="/res/mobile/js/modernizr.js" type="text/javascript"><!-- do not collapse --></script>
         <script src="/res/js/jquery/jquery-1.7.1.min.js" type="text/javascript"><!-- do not collapse --></script>

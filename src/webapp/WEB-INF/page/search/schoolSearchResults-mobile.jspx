@@ -73,39 +73,52 @@
                     <c:set var="count" value="0"/>
 
                     <c:if test="${fn:length(schoolSearchResults) gt 0}">
-                        <div style="float:left;font-size:12px;">
-                            <select class="js-sort-select">
-                                <c:choose>
-                                    <c:when test="${isFromByLocation}">
-                                        <gsml:selectOption value="distance" selected="${sort eq 'distance'}">Distance</gsml:selectOption>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="">Relevance</option>
-                                    </c:otherwise>
-                                </c:choose>
+                        <div class="mod standard_1-1">
+                            <div class="inner">
+                                <div class="fl">
+                                    <a data-role="button" data-inline="true" href="${requestInfo.requestURL}"
+                                       class="ui-btn-active but but-sm but-2 mrm">List</a>
+                                    <a data-role="button" data-inline="true"
+                                       href="/search/mapresults.page?${pageContext.request.queryString}"
+                                       class="but but-sm but-2">Map</a>
+                                </div>
+                                <div class="fr">
+                                    <select class="js-sort-select">
+                                        <c:choose>
+                                            <c:when test="${isFromByLocation}">
+                                                <gsml:selectOption value="distance"
+                                                                   selected="${sort eq 'distance'}">Distance</gsml:selectOption>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="">Relevance</option>
+                                            </c:otherwise>
+                                        </c:choose>
 
-                                <gsml:selectOption value="SCHOOL_NAME_ASCENDING" selected="${sort eq 'SCHOOL_NAME_ASCENDING'}">School name: A-Z</gsml:selectOption>
-                                <gsml:selectOption value="SCHOOL_NAME_DESCENDING" selected="${sort eq 'SCHOOL_NAME_DESCENDING'}">School name: Z-A</gsml:selectOption>
-                                <gsml:selectOption value="GS_RATING_DESCENDING" selected="${sort eq 'GS_RATING_DESCENDING'}">GreatSchools Rating: High to Low</gsml:selectOption>
-                                <gsml:selectOption value="GS_RATING_ASCENDING" selected="${sort eq 'GS_RATING_ASCENDING'}">GreatSchools Rating: Low to High</gsml:selectOption>
-                                <gsml:selectOption value="PARENT_RATING_DESCENDING" selected="${sort eq 'PARENT_RATING_DESCENDING'}">Community Rating: High to Low</gsml:selectOption>
-                                <gsml:selectOption value="PARENT_RATING_ASCENDING" selected="${sort eq 'PARENT_RATING_ASCENDING'}">Community Rating: Low to High</gsml:selectOption>
-                            </select>
-                        </div>
-                        <div style="padding-left:148px;font-size:12px">
-                            <a data-role="button" data-inline="true" href="${requestInfo.requestURL}" class="ui-btn-active">List</a>
-                            <a data-role="button" data-inline="true" href="/search/mapresults.page?${pageContext.request.queryString}">Map</a>
-                        </div>
+                                        <gsml:selectOption value="SCHOOL_NAME_ASCENDING"
+                                                           selected="${sort eq 'SCHOOL_NAME_ASCENDING'}">School name: A-Z</gsml:selectOption>
+                                        <gsml:selectOption value="SCHOOL_NAME_DESCENDING"
+                                                           selected="${sort eq 'SCHOOL_NAME_DESCENDING'}">School name: Z-A</gsml:selectOption>
+                                        <gsml:selectOption value="GS_RATING_DESCENDING"
+                                                           selected="${sort eq 'GS_RATING_DESCENDING'}">GreatSchools Rating: High to Low</gsml:selectOption>
+                                        <gsml:selectOption value="GS_RATING_ASCENDING"
+                                                           selected="${sort eq 'GS_RATING_ASCENDING'}">GreatSchools Rating: Low to High</gsml:selectOption>
+                                        <gsml:selectOption value="PARENT_RATING_DESCENDING"
+                                                           selected="${sort eq 'PARENT_RATING_DESCENDING'}">Community Rating: High to Low</gsml:selectOption>
+                                        <gsml:selectOption value="PARENT_RATING_ASCENDING"
+                                                           selected="${sort eq 'PARENT_RATING_ASCENDING'}">Community Rating: Low to High</gsml:selectOption>
+                                    </select>
+                                </div>
+                                <br style="clear:both;"/>
+                            </div>
+                            <!--<div>
+                                <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
+                                <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
+                                <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
+                            </div>-->
 
-                        <br style="clear:both;height:0px;"/>
-                        <!--<div>
-                            <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
-                            <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
-                            <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
-                        </div>-->
-
-                        <div id="js-schoolSearchResultsList" style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
-                            <search:schoolSearchResultsMobileList/>
+                            <div id="js-schoolSearchResultsList">
+                                <search:schoolSearchResultsMobileList/>
+                            </div>
                         </div>
                     </c:if>
                 </div>
