@@ -1,6 +1,8 @@
 package gs.web.path;
 
 import org.apache.log4j.Logger;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,20 +14,19 @@ import java.util.List;
 public class DirectoryStructureUrlControllerFactory implements IDirectoryStructureUrlControllerFactory {
     private static Logger _log = Logger.getLogger(DirectoryStructureUrlControllerFactory.class);
 
-    private HttpServletRequest _request;
-
     private List<IDirectoryStructureUrlController> _controllers;
 
     public IDirectoryStructureUrlController getController() {
-        if (_request == null) {
+        HttpServletRequest request = getHttpServletRequest();
+        if (request == null) {
             throw new IllegalStateException("Request was null.");
         }
 
         // extract request information from the request uri
-        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(_request);
+        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(request);
         // set the fields in the request instead of in the controller itself or else different requests would
         // be using each others' fields!
-        _request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+        request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
 
         // pick the appropriate controller to handle the request
         for (IDirectoryStructureUrlController controller : _controllers) {
@@ -37,9 +38,8 @@ public class DirectoryStructureUrlControllerFactory implements IDirectoryStructu
         return null;
     }
 
-    // auto-wired
-    public void setRequest(HttpServletRequest request) {
-        _request = request;
+    public HttpServletRequest getHttpServletRequest() {
+        return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
     }
 
     // explicitly set in spring config file

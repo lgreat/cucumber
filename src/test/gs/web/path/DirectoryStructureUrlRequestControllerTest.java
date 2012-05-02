@@ -13,6 +13,7 @@ import gs.data.geo.IGeoDao;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -27,7 +28,7 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
     private DirectoryStructureUrlRequestController _controller;
     private SessionContextUtil _sessionContextUtil;
 
-    private DirectoryStructureUrlControllerFactory _controllerFactory;
+    private MockDirectoryStructureUrlControllerFactory _controllerFactory;
 
     private SchoolsController _schoolsController =
         (SchoolsController) getApplicationContext().getBean(SchoolsController.BEAN_ID);
@@ -46,8 +47,21 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
         _controllers.add(_schoolsController);
         _controllers.add(_schoolOverviewController);
 
-        _controllerFactory = new DirectoryStructureUrlControllerFactory();
+        _controllerFactory = new MockDirectoryStructureUrlControllerFactory();
         _controllerFactory.setControllers(_controllers);
+    }
+
+    public class MockDirectoryStructureUrlControllerFactory extends DirectoryStructureUrlControllerFactory {
+        private HttpServletRequest _request;
+
+        @Override
+        public HttpServletRequest getHttpServletRequest() {
+            return _request;
+        }
+
+        public void setRequest(HttpServletRequest request) {
+            _request = request;
+        }
     }
 
     public void testHandleRequestInternalRedirects() throws Exception {
