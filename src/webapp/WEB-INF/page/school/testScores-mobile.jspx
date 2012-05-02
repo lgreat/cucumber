@@ -39,50 +39,53 @@
     <div class="mod standard_1-1">
         <div class="inner">
             <div class="bd">
-    <div><h6>Test Scores</h6></div>
-    <!--TODO refactor this into a tag,since its used on school overview also.-->
-    <div>
-        <div><h1><link:schoolProfileOverview school="${school}">
-            ${school.name}
-        </link:schoolProfileOverview></h1></div>
+                <div><h6>Test Scores</h6></div>
+                <!--TODO refactor this into a tag,since its used on school overview also.-->
+                <div>
+                    <div><h1><link:schoolProfileOverview school="${school}">
+                        ${school.name}
+                    </link:schoolProfileOverview></h1></div>
 
-        <div>
-            <c:if test="${not school.preschoolOnly}">
-                <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
-            </c:if>
-            <!-- Grade levels -->
-            <c:choose>
-                <c:when test="${school.preschoolOnly}">
-                    <c:set var="gradeLevels">Preschool</c:set>
-                </c:when>
-                <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
-                    <!-- Leave blank -->
-                </c:when>
-                <c:otherwise>
-                    <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
-                </c:otherwise>
-            </c:choose>
-            <!-- Enrollment -->
-            <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
-            <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
-                <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
-            </c:if>
-            <span class="ac1 small">${schoolType}${gradeLevels}${enrollment}</span>
+                    <div>
+                        <c:if test="${not school.preschoolOnly}">
+                            <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
+                        </c:if>
+                        <!-- Grade levels -->
+                        <c:choose>
+                            <c:when test="${school.preschoolOnly}">
+                                <c:set var="gradeLevels">Preschool</c:set>
+                            </c:when>
+                            <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
+                                <!-- Leave blank -->
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
+                            </c:otherwise>
+                        </c:choose>
+                        <!-- Enrollment -->
+                        <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
+                        <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                            <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
+                        </c:if>
+                        <span class="ac1 small">${schoolType}${gradeLevels}${enrollment}</span>
+                    </div>
+                </div>
+                <c:if test="${not empty gs_rating}">
+                <div class="ptm">
+                    <hr class="keyline1" />
+                    <div>
+                        <a href="javascript:return false;" data-role="button" data-inline="true">
+                            ${gs_rating}<span class="ac1"> out of 10</span><span class="strong"> GreatSchools Rating</span>
+
+                        </a>
+                    </div>
+                </div>
+                </c:if>
+            </div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
 
-    <c:if test="${not empty gs_rating}">
-        <hr class="keyline1" />
-        <div>
-            <a href="javascript:return false;" data-role="button" data-inline="true">
-                ${gs_rating}<span class="ac1"> out of 10</span><span class="strong"> GreatSchools Rating</span>
 
-            </a>
-        </div>
-    </c:if>
 
     <c:if test="${not empty schoolTestScores}">
         <div>
