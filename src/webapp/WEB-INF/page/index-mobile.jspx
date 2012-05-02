@@ -50,7 +50,7 @@
                     <li><a>By location</a></li>
                     <li><a>By name</a></li>
                 </ul>
-                <div class="mod mod standard_5-1">
+                <div class="mod standard_5-1">
                     <div class="inner">
                         <form method="get" action="/search/search.page" id="js-searchByLocation" accept-charset="UTF-8">
                             <input type="hidden" name="lat"/>
