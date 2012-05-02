@@ -28,22 +28,6 @@
     <context:component-scan base-package="gs.web.admin" />
     <context:component-scan base-package="gs.web.email" />
 
-    <mvc:annotation-driven />
-    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-        <property name="alwaysUseFullPath" value="true"/>
-    </bean>
-
-    <mvc:interceptors>
-        <bean class="gs.web.api.admin.AuthInterceptor"/>
-        <bean class="gs.web.util.ReadWriteInterceptor"/>
-        <bean class="gs.web.util.HttpCacheInterceptor" autowire="byName"/>
-        <bean class="gs.web.util.context.RequestInfoInitializingInterceptor" autowire="byName"/>
-        <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
-        <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
-        <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
-    </mvc:interceptors>
-
     <!--
     - Application context definition for "springapp" DispatcherServlet.
     -->
@@ -74,6 +58,7 @@
                 <bean class="gs.web.api.admin.AuthInterceptor"/>
                 <bean class="gs.web.util.ReadWriteInterceptor"/>
                 <bean class="gs.web.util.HttpCacheInterceptor" autowire="byName"/>
+                <bean class="gs.web.util.context.RequestInfoInitializingInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
