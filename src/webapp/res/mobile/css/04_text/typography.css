@@ -38,8 +38,6 @@ body{
     background: #fff;
 }
 
-
-
 /* Headings
 -------------------------------------------------------------- */
 
@@ -69,7 +67,6 @@ hr.keyline2 {background:#F1F1F1;color:#F1F1F1;clear:both;float:none;width:100%;h
 hr.keyline3 {background:#777777;color:#777777;clear:both;float:none;width:100%;height:1px;margin:0 0 8px;border:none;}
 hr.space {background:#fff;color:#fff;visibility:hidden;}
 
-
 /* Text elements
 -------------------------------------------------------------- */
 p,
@@ -84,7 +81,7 @@ p,
 ****************************************************************************/
 
 ul,
-ol          { margin: 0 1.5em 1.5em 0; }
+ol          { margin: 0; }
 
 ul li       { list-style-type: disc; padding-left: 10px; }
 ol li       { list-style-type: decimal; }
@@ -97,13 +94,10 @@ ul.list2 li{ list-style-type: none; border-bottom: thin solid #E6E6E6; font-size
 
 This is for definition list,  currently not used.
 
-
 dl          { margin: 0 0 1.5em 0; }
 dl dt       { font-weight: bold; }
 dd          { margin-left: 1.5em;}
-
 */
-
 
 /*
 	These can be used to pull an image at the start of a paragraph, so
