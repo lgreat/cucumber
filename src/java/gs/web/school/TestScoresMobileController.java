@@ -3,6 +3,7 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.data.school.Grade;
 import gs.data.test.Subject;
+import gs.web.util.PageHelper;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import gs.data.test.*;
@@ -45,6 +46,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     private boolean _controllerHandlesMobileRequests;
     private boolean _controllerHandlesDesktopRequests;
 
+    private RatingHelper _ratingHelper;
     private ISchoolDao _schoolDao;
     private ITestScoresConfigDao _testScoresConfigDao;
     private ITestDataTypeDao _testDataTypeDao;
@@ -62,6 +64,10 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             School school = _schoolDao.getSchoolById(state, new Integer(schoolId));
             model.put("school", school);
             model.put("schoolTestScores", getTestScores(school));
+            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+            boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
+            Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
+            model.put("gs_rating", gsRating);
         } catch (ObjectRetrievalFailureException e) {
             //TODO what?
         }
@@ -191,6 +197,14 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             //For masking.
             String testScoreValue = StringUtils.isNotBlank(value.getValueText()) ? StringEscapeUtils.escapeHtml(value.getValueText()) : value.getValueFloat().toString();
 
+//            System.out.println("-grade--------------------" + grade);
+//            System.out.println("-subject--------------------" + subject);
+//            System.out.println("-testDataSet--------------------" + testDataSet.getId());
+//            System.out.println("-year--------------------" + testDataSet.getYear());
+//            System.out.println("-testDataType--------------------" + testDataType.getName());
+//            System.out.println("-testScoreValue--------------------" + testScoreValue);
+
+
             if (testDataTypeToGradeToSubjectsToDataSetToValueMap.get(testDataType) != null) {
                 //Test already present.
                 Map<Grade, Map<Subject, Map<TestDataSet, String>>> gradeToSubjectsToDataSetToValueMap = testDataTypeToGradeToSubjectsToDataSetToValueMap.get(testDataType);
@@ -255,16 +269,6 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             Subject subject = testDataSet.getSubject();
             TestDataType testDataType = testDataTypeIdToTestDataType.get(testDataSet.getDataTypeId());
             Integer year = testDataSet.getYear();
-
-//            Map<Integer, String> map1 = new HashMap<Integer, String>();
-//            map1.put(year, "");
-//            Map<Subject, Map<Integer, String>> map2 = new HashMap<Subject, Map<Integer, String>>();
-//            map2.put(subject, map1);
-//            Map<Grade, Map<Subject, Map<Integer, String>>> map3 = new HashMap<Grade, Map<Subject, Map<Integer, String>>>();
-//            map3.put(grade, map2);
-//            Map<TestDataType, Map<Grade, Map<Subject, Map<Integer, String>>>> map4 = new HashMap<TestDataType, Map<Grade, Map<Subject, Map<Integer, String>>>>();
-//            map4.put(testDataType, map3);
-//            temp.put(testDataSet,map4);
 
             //Check if the test is already in the map.
             if (mapOfDataPointsToShow.get(testDataType) != null) {
@@ -623,6 +627,14 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
     public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
         return true;
+    }
+
+    public RatingHelper getRatingHelper() {
+        return _ratingHelper;
+    }
+
+    public void setRatingHelper(RatingHelper ratingHelper) {
+        _ratingHelper = ratingHelper;
     }
 
     public ISchoolDao getSchoolDao() {
