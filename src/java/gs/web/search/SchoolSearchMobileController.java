@@ -70,6 +70,10 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         // and allow it to simplify retrieval of various search request attributes
         SchoolSearchCommandWithFields commandAndFields = createSchoolSearchCommandWithFields(schoolSearchCommand, fields, nearbySearchInfo);
 
+        // validate the request data
+        if (commandAndFields.getState() == null) {
+            return new ModelAndView(getNoResultsView(request, commandAndFields), model);
+        }
 
         ModelAndView modelAndView;
         if (commandAndFields.isCityBrowse()) {
@@ -80,18 +84,8 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
             modelAndView = handleQueryStringAndNearbySearch(request, response, commandAndFields, model);
         }
 
-
         // Common: Set a cookie to record that a search has occurred;
         PageHelper.setHasSearchedCookie(request, response);
-
-        String format = request.getParameter("format");
-        if (format != null && format.equals("json")) {
-            response.setContentType("application/json");
-            // patch the model for now to remove data we don't want to send with json response.
-            // TODO: skip logic not necessary for ajax response
-            ModelAndView ajax = adaptModelForAjax(modelAndView);
-            return ajax;
-        }
 
         return modelAndView;
     }
@@ -445,17 +439,21 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
             return getAjaxViewName();
         }
 
-
         if (searchResultsPage.getTotalResults() == 0) {
-            UrlBuilder builder = new UrlBuilder(UrlBuilder.HOME);
-            builder.addParameter("noResults","true");
-            if (commandAndFields.isSearch()) {
-                builder.addParameter("searchString",commandAndFields.getSearchString());
-            }
-            viewName = "redirect:" + builder.asSiteRelative(request);
+            viewName = getNoResultsView(request, commandAndFields);
         } else {
             viewName = getMobileViewName();
         }
+        return viewName;
+    }
+
+    private String getNoResultsView(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {
+        String viewName;UrlBuilder builder = new UrlBuilder(UrlBuilder.HOME);
+        builder.addParameter("noResults","true");
+        if (commandAndFields.isSearch()) {
+            builder.addParameter("searchString",commandAndFields.getSearchString());
+        }
+        viewName = "redirect:" + builder.asSiteRelative(request);
         return viewName;
     }
 
