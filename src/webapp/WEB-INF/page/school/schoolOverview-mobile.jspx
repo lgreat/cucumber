@@ -28,9 +28,10 @@
             <link rel="canonical" href="${relCanonical}"/>
         </c:if>
         <script type="text/javascript">
-            require(['truncate'], function(truncate) {
+            require(['schoolOverview', 'truncate'], function(schoolOverview, truncate) {
                 $(function() {
                     truncate.init();
+                    schoolOverview.init('${school.databaseState}', '${school.id}');
                 });
             });
         </script>
@@ -213,7 +214,7 @@
         </c:if>
 
         <!-- Test scores -->
-        <c:if test="${not empty testScores}">
+        <c:if test="${hasTestScores}">
             <div class="mod standard_6-1 mbm">
                 <div class="inner">
                     <div class="hd">
@@ -221,30 +222,28 @@
                            Test scores
                         </link:schoolProfileTestscore></h2>
                     </div>
-                    <div>
-                        <c:forEach items="${testScores}" var="testScore">
-                            <div class="pam">
-                                <h4>Grade ${testScore.dataSet.grade.name}</h4>
-                                <h5 class="pbm">${testScore.dataSet.subject}</h5>
-                                <div class="line small">
-                                    <div class="unit size12of100 tar">
-                                        ${testScore.dataSet.year}
-                                     </div>
+                    <div id="js_testScoreSnippetOuterDiv" style="display: none;">
+                        <div id="js_testScoreSnippetInnerDiv">
+                            <!-- WARNING: THE FOLLOWING DIV IS A TEMPLATE AND SHOULD NEVER BE SHOWN AS WRITTEN BELOW -->
+                            <!-- The following div is cloned for each test score pulled in and the populated with the real data -->
+                            <div id="js_testScoreSnippetTemplate" class="pam" style="display:none;">
+                                <h4 class="js_grade"><!-- not empty --></h4>
+                                <h5 class="js_subject pbm"><!-- not empty --></h5>
+                                <div class="js_valueLine line small">
+                                    <div class="js_year unit size12of100 tar"><!-- not empty --></div>
 
-                                    <div class="unit size74of100 pts phm">
-                                        <div class="bar_container"><div style="width:${testScore.valueInteger}%"><!-- not empty --></div></div>
+                                    <div class="js_bar unit size74of100 pts phm">
+                                        <!-- That 50% below is just a placeholder!! The JS sets the real value -->
+                                        <div class="bar_container"><div style="width:50%"><!-- not empty --></div></div>
                                     </div>
 
-                                    <div class="unit size14of100 lastUnit tal">
-                                         ${testScore.valueInteger}%
-                                     </div>
-
+                                    <div class="js_value unit size14of100 lastUnit tal"><!-- not empty --></div>
                                 </div>
                             </div>
-                        </c:forEach>
-                    </div>
-                    <div class="pam">
-                        <link:schoolProfileTestscore school="${school}">View more test scores &amp;raquo;</link:schoolProfileTestscore>
+                        </div>
+                        <div class="pam">
+                            <link:schoolProfileTestscore school="${school}">View more test scores &amp;raquo;</link:schoolProfileTestscore>
+                        </div>
                     </div>
                 </div>
             </div>

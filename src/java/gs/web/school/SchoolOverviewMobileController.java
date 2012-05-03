@@ -1,6 +1,5 @@
 package gs.web.school;
 
-import gs.data.school.Grade;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
@@ -9,9 +8,6 @@ import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.test.ITestDataSetDao;
-import gs.data.test.SchoolTestValue;
-import gs.data.test.Subject;
-import gs.data.test.TestDataSet;
 import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -37,10 +33,6 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
     protected static final Log _log = LogFactory.getLog(SchoolOverviewMobileController.class.getName());
 
     public static final int MAX_SCHOOL_REVIEWS = 3;
-    //the list of subjects that will be returned with API test data (aka proficiency data)
-    public static final Subject[] TEST_DATA_SUBJECT_IDS = {Subject.READING, Subject.ENGLISH_LANGUAGE_ARTS, Subject.MATH, Subject.GENERAL_MATHEMATICS_GRADES_6_7_STANDARDS};
-    //the list of grades that will be returned with the API test data
-    public static final Grade[] TEST_DATA_GRADES = {Grade.G_4, Grade.G_8, Grade.G_10, Grade.ALL};
     public static final String HAS_TEST_SCORES = "hasTestScores";
 
     private ISchoolDao _schoolDao;
@@ -107,9 +99,6 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
         model.put("numberOfRatings", (ratings == null)?0:ratings.getCount());
         boolean hasTestScores = hasTestScores(school);
         model.put(HAS_TEST_SCORES, hasTestScores);
-        if (hasTestScores) {
-            model.put("testScores", getSchoolTestValues(school));
-        }
 
         return new ModelAndView("school/schoolOverview-mobile", model);
     }
@@ -123,55 +112,6 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
             hasTestScores = false;
         }
         return hasTestScores;
-    }
-
-    public List<SchoolTestValue> getSchoolTestValues(School school) {
-        List<SchoolTestValue> schoolValues = new ArrayList<SchoolTestValue>();
-        if (school == null) {
-            return schoolValues;
-        }
-
-        List<TestDataSet> testDataSets = _testDataSetDao.findTestDataSetsForMobileApi
-                (school.getDatabaseState(), TEST_DATA_SUBJECT_IDS, TEST_DATA_GRADES);
-
-        for (TestDataSet testData : testDataSets) {
-            SchoolTestValue schoolValue = _testDataSetDao.findValue(testData, school.getDatabaseState(), school.getId());
-            if (schoolValue != null) {
-                schoolValues.add(schoolValue);
-            }
-        }
-
-        filterProficiencyResultsByEnglishSubject(schoolValues);
-        return schoolValues;
-    }
-
-    /**
-     * For each grade, if there is a proficiency result for Reading, use that;
-     * otherwise, use English Language Arts. Do not include both.
-     */
-    public static void filterProficiencyResultsByEnglishSubject(List<SchoolTestValue> schoolTestValues) {
-        if (schoolTestValues != null) {
-            Set<Grade> hasEla = new HashSet<Grade>();
-            Set<Grade> hasReading = new HashSet<Grade>();
-            for (SchoolTestValue value : schoolTestValues) {
-                if (Subject.READING.equals(value.getDataSet().getSubject())) {
-                    hasReading.add(value.getDataSet().getGrade());
-                } else if (Subject.ENGLISH_LANGUAGE_ARTS.equals(value.getDataSet().getSubject())) {
-                    hasEla.add(value.getDataSet().getGrade());
-                }
-            }
-
-            Iterator<SchoolTestValue> it = schoolTestValues.iterator();
-            while (it.hasNext()) {
-                SchoolTestValue result = it.next();
-                if (Subject.ENGLISH_LANGUAGE_ARTS.equals(result.getDataSet().getSubject())) {
-                    if (hasReading.contains(result.getDataSet().getGrade())
-                            && hasEla.contains(result.getDataSet().getGrade())) {
-                        it.remove();
-                    }
-                }
-            }
-        }
     }
 
     public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
