@@ -142,7 +142,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         } else if (school.getDatabaseState().equals(State.KY)) {
             Integer[] arr = {143, 153, 193, 203, 168, 178, 673, 683, 723, 733, 698, 708, 748, 758, 798, 808, 773, 783};
             dataSetIds = new HashSet<Integer>(Arrays.asList(arr));
-        } else if (school.getDatabaseState().equals(State.KY)) {
+        } else if (school.getDatabaseState().equals(State.NY)) {
             Integer[] arr = {265, 270, 336, 341, 3327, 3332, 3366, 3371, 3376, 3381, 3386, 3391, 3396, 3401, 3406, 3411, 3416, 3421};
             dataSetIds = new HashSet<Integer>(Arrays.asList(arr));
         }
