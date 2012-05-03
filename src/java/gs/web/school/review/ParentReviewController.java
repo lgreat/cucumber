@@ -351,9 +351,8 @@ public class ParentReviewController extends AbstractController implements IDevic
         if (numReviews > 0 && reviewsBy.isEmpty()) {
             int i = 0;
             // skip principal or non-published reviews
-            while (("principal".equals(reviews.get(i).getWho()) ||
-                    !Review.ReviewStatus.PUBLISHED.getStatusCode().equals(reviews.get(i).getStatus())) &&
-                   i < numReviews) {
+            while (i < numReviews && ("principal".equals(reviews.get(i).getWho()) ||
+                    !Review.ReviewStatus.PUBLISHED.getStatusCode().equals(reviews.get(i).getStatus()))) {
                 i++;
             }
             // the ith review might still be principal or non-published, so only use the date if that's not the case
