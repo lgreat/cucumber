@@ -4,6 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
         >
 
     <jsp:directive.attribute name="schoolId" required="true" type="java.lang.String"/>
@@ -25,28 +26,43 @@
         <c:set var="greatSchoolsRating" value="na"/>
     </c:if>
 
-    <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"
-                                             name="${schoolName}" physicalAddress="${schoolAddress}"
-                                             levelCode="${levelCode}">
-        <h3>${schoolName}</h3>
-    </link:schoolProfileOverviewForPrimitives>
+    <div class="pas">
+        <div class="fl">
+            <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"
+                                                     name="${schoolName}" physicalAddress="${schoolAddress}"
+                                                     levelCode="${levelCode}">
+                <h3>${schoolName}</h3>
+            </link:schoolProfileOverviewForPrimitives>
 
-    <c:if test="${not isTemplate and not empty distance and (not empty param.zipCode or not empty param.lat)}">
-        <div><fmt:formatNumber value="${distance}" maxFractionDigits="2"/> miles</div>
-    </c:if>
+            <p class="small-lt"
+               style="text-transform:capitalize;}">${schoolType} ${gradeRangeString} | ${city}, ${databaseState}</p>
+        </div>
+        <div class="fr prm">
+            <c:if test="${not isTemplate and not empty distance and (not empty param.zipCode or not empty param.lat)}">
+                <span class="small-lt"><fmt:formatNumber value="${distance}" maxFractionDigits="2"/> miles</span>
+            </c:if>
+        </div>
+        <br class="clearfloat"/>
+    </div>
 
-    <p>${schoolType} ${gradeRangeString} | ${city}, ${databaseState}</p>
-
-    <c:if test="${greatSchoolsRating ne 'na'}">
-        <link:schoolProfileRating2010 state="${databaseState}" schoolId="${schoolId}" levelCode="${levelCode}">
-            <button class="ratings-round ratings-small round-small">${greatSchoolsRating}</button>
-            of 10
-        </link:schoolProfileRating2010>
-    </c:if>
-    <c:if test="${not empty parentRating}">
-        <link:schoolProfileParentReview2010 levelCode="${levelCode}" state="${databaseState}"
-                                            schoolId="${schoolId}">
-            <p>Community rating: ${parentRating}</p>
-        </link:schoolProfileParentReview2010>
-    </c:if>
+    <div class="pas">
+        <div class="fl">
+            <c:if test="${greatSchoolsRating ne 'na'}">
+                <link:schoolProfileRating2010 state="${databaseState}" schoolId="${schoolId}" levelCode="${levelCode}">
+                    <button class="ratings-round ratings-small round-small">${greatSchoolsRating}</button>
+                    <span class="small-lt"> of 10</span>
+                </link:schoolProfileRating2010>
+            </c:if>
+        </div>
+        <div class="fr prm">
+            <c:if test="${not empty parentRating}">
+                <link:schoolProfileParentReview2010 levelCode="${levelCode}" state="${databaseState}"
+                                                    schoolId="${schoolId}">
+                    <span class="small-lt">Community rating: </span>
+                    <mobile:stars curSR="${parentRating}"/>
+                </link:schoolProfileParentReview2010>
+            </c:if>
+        </div>
+        <br class="clearfloat"/>
+    </div>
 </jsp:root>

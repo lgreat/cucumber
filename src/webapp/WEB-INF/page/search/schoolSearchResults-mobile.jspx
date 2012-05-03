@@ -76,7 +76,7 @@
                     <c:set var="count" value="0"/>
 
                     <c:if test="${fn:length(schoolSearchResults) gt 0}">
-                        <div class="mod standard_1-1">
+                        <div class="mod standard_8-1">
                             <div class="inner">
                                 <div class="fl">
                                     <a data-role="button" data-inline="true" href="${requestInfo.requestURL}"
@@ -118,10 +118,9 @@
                                 <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
                                 <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
                             </div>-->
-
-                            <div id="js-schoolSearchResultsList">
-                                <search:schoolSearchResultsMobileList/>
-                            </div>
+                        </div>
+                        <div id="js-schoolSearchResultsList">
+                            <search:schoolSearchResultsMobileList/>
                         </div>
                     </c:if>
                 </div>
@@ -150,19 +149,21 @@
         </script>
 
         <c:if test="${not page.lastPage}">
-            <button id="loadMore">
+            <button id="loadMore" class="but but-infinite but-2 mam">
                 View more results
             </button>
         </c:if>
 
         <c:if test="${isNearbySearch}">
-            <h3>Nearby Cities</h3>
+            <ul class="list1">
+                <li><h3>Nearby Cities</h3></li>
+            </ul>
             <c:if test="${fn:length(citySearchResults) gt 0}">
                 <c:set var="lastCityIndex" value="${fn:length(citySearchResults)-1}"/>
                 <c:if test="${lastCityIndex gt 5}">
                     <c:set var="lastCityIndex" value="5"/>
                 </c:if>
-                <ul>
+                <ul class="list1">
                     <c:forEach var="city" items="${citySearchResults}" begin="1" end="${lastCityIndex}" varStatus="status">
                         <li>
                             <link:schools cityName="${city.city}" state="${city.state}">${city.city}, ${city.state}</link:schools>

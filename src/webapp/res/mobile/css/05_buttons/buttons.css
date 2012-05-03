@@ -56,6 +56,11 @@ BUTTONS
     font: bold .75em/2.333em Arial, Helvetica, sans-serif;
 }
 
+.but-infinite{
+    width: 99%;
+    padding: 0 16px;
+    font: bold 1em/2.75em Arial, Helvetica, sans-serif;
+}
 
 /* Button Themes
 ******************************************************************************/

@@ -14,11 +14,22 @@
                 </c:choose>
             </c:set>
 
-            <div class="plm"><span class="ac1">${totalResults} results for </span><strong>${schoolResultsFor}</strong></div>
-            <ul class="list1">
+            <div class="standard_1-1">
+                <div class="inner"><span
+                        class="ac1">${totalResults} results for </span><strong>${schoolResultsFor}</strong></div>
+            </div>
+            <ul class="list3">
                 <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
                     <li>
-                        <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}" schoolName="${school.name}" address="${school.address}" schoolAddress="${school.address}" city="${school.city}" zipCode="${school.address.zip}" schoolType="${school.schoolType}" levelCode="${school.levelCode}" gradeRangeString="${school.grades.rangeString}" greatSchoolsRating="${school.greatSchoolsRating}" parentRating="${school.parentRating}" distance="${school.distance}" ></school:mobileSearchResult>
+                        <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}"
+                                                   schoolName="${school.name}" address="${school.address}"
+                                                   schoolAddress="${school.address}" city="${school.city}"
+                                                   zipCode="${school.address.zip}" schoolType="${school.schoolType}"
+                                                   levelCode="${school.levelCode}"
+                                                   gradeRangeString="${school.grades.rangeString}"
+                                                   greatSchoolsRating="${school.greatSchoolsRating}"
+                                                   parentRating="${school.parentRating}"
+                                                   distance="${school.distance}"></school:mobileSearchResult>
                     </li>
                 </c:forEach>
             </ul>

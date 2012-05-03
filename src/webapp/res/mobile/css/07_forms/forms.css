@@ -61,7 +61,7 @@ textarea:focus { border-color: #555;outline: none; }
 
 /* select {background-color:#fff;border-width:1px;border-style:solid;}*/
 
-select { width:50%; margin: 5px 0;font: normal 1em/1.25em Arial, Helvetica, sans-serif; }
+select { width:50%; margin: 0;font: normal 1em/1.25em Arial, Helvetica, sans-serif; }
 
 
 /* Misc classes

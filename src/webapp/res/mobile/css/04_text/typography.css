@@ -90,6 +90,8 @@ ul.list1 li { list-style-type: none; border-bottom: thin solid #E6E6E6; font-siz
 
 ul.list2 li{ list-style-type: none; border-bottom: thin solid #E6E6E6; font-size: .875em; line-height: 36px; }
 
+ul.list3 li { list-style-type: none; border-bottom: thin solid #E6E6E6; font-size: 1em; line-height: 21px; }
+
 /****************************************************************************
 
 This is for definition list,  currently not used.
@@ -108,8 +110,6 @@ p .left			{ margin: 1.5em 1.5em 1.5em 0; padding: 0; }
 .right 			{ float: right !important; }
 p .right 		{ margin: 1.5em 0 1.5em 1.5em; padding: 0; }*/
 
-a:focus,
-a:hover     { text-decoration: underline; }
 a           { color: #06b; text-decoration: none; }
 
 blockquote  { margin: 20px; color: #555; font-style: italic; }
