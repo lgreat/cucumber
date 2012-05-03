@@ -9,7 +9,10 @@
           xmlns:spring="http://www.springframework.org/tags"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:tags="urn:jsptagdir:/WEB-INF/tags"
           xmlns:form="http://www.springframework.org/tags/form"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile">
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
+
+<html lang="en">
 
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
     <jsp:output omit-xml-declaration="true" />
@@ -252,14 +255,30 @@
             </form:select>
             <br/>
         </div>
-    </body>
 
-    <c:set var="omnitureLocale">
-        <c:choose>
-            <c:when test="${isCityBrowse}">${city.name}</c:when>
-            <c:when test="${isDistrictBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
-            <c:otherwise>${null}</c:otherwise>
-        </c:choose>
-    </c:set>
+        <c:set var="omnitureLocale">
+            <c:choose>
+                <c:when test="${isCityBrowse}">${city.name}</c:when>
+                <c:when test="${isDistrictBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
+                <c:otherwise>${null}</c:otherwise>
+            </c:choose>
+        </c:set>
+
+        <mod:tracking pageName="mobile ${omniturePageName}"
+                      query="${omnitureQuery}"
+                      hier1="Mobile,${omnitureHierarchy}"
+                      schoolType="${omnitureSchoolType}"
+                      schoolLevel="${omnitureSchoolLevel}"
+                      sortSelection="${omnitureSortSelection}"
+                      nearbySearchZipCode="${nearbySearchZipCode}"
+                      resultsPerPage="${omnitureResultsPerPage}"
+                      findASchoolByAddress="${omnitureAddressSearch}"
+                      findASchoolByName="${omnitureNameSearch}"
+                      locale="${omnitureLocale}"
+                />
+    </body>
+</html>
+
+
 
 </jsp:root>
