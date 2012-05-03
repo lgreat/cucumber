@@ -120,22 +120,11 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     }
 
     /**
-     * Method to get the TestDataTypes for a list testDataTypeIds
+     * Get the test data set Ids to show for the school.
      *
-     * @param testDataTypeIds
+     * @param school
      * @return
      */
-    protected Map<Integer, TestDataType> getTestDataTypes(Set<Integer> testDataTypeIds) {
-        Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
-
-        List<TestDataType> testDataTypes = _testDataTypeDao.getDataTypes(testDataTypeIds);
-
-        for (TestDataType testDataType : testDataTypes) {
-            testDataTypeIdToTestDataType.put(testDataType.getId(), testDataType);
-        }
-        return testDataTypeIdToTestDataType;
-    }
-
     protected Set<Integer> getTestDataSetIds(School school) {
         Set<Integer> dataSetIds = new HashSet<Integer>();
         if (school.getDatabaseState().equals(State.CA)) {
@@ -153,18 +142,44 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         } else if (school.getDatabaseState().equals(State.KY)) {
             Integer[] arr = {143, 153, 193, 203, 168, 178, 673, 683, 723, 733, 698, 708, 748, 758, 798, 808, 773, 783};
             dataSetIds = new HashSet<Integer>(Arrays.asList(arr));
+        } else if (school.getDatabaseState().equals(State.KY)) {
+            Integer[] arr = {265, 270, 336, 341, 3327, 3332, 3366, 3371, 3376, 3381, 3386, 3391, 3396, 3401, 3406, 3411, 3416, 3421};
+            dataSetIds = new HashSet<Integer>(Arrays.asList(arr));
         }
         return dataSetIds;
     }
 
-    protected List<TestDataSet> getTestDataSets(School school, Set<Integer> ids) {
-
-        List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(school.getDatabaseState(), ids);
-        return testDataSets;
+    /**
+     * Get the test data sets given a school and test data set ids.
+     *
+     * @param school
+     * @param testDataSetIds
+     * @return
+     */
+    protected List<TestDataSet> getTestDataSets(School school, Set<Integer> testDataSetIds) {
+        return _testDataSetDao.findDataSets(school.getDatabaseState(), testDataSetIds);
     }
 
     /**
-     * A map used to store the testDataType, grade, subjects, testDataSet and test score value for the school.
+     * Method to get the TestDataTypes for a list testDataTypeIds
+     *
+     * @param testDataTypeIds
+     * @return
+     */
+    protected Map<Integer, TestDataType> getTestDataTypes(Set<Integer> testDataTypeIds) {
+        Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
+        if (testDataTypeIds != null && !testDataTypeIds.isEmpty()) {
+            List<TestDataType> testDataTypes = _testDataTypeDao.getDataTypes(testDataTypeIds);
+
+            for (TestDataType testDataType : testDataTypes) {
+                testDataTypeIdToTestDataType.put(testDataType.getId(), testDataType);
+            }
+        }
+        return testDataTypeIdToTestDataType;
+    }
+
+    /**
+     * A map used to store the test data type, grade, level code, subjects, test data set and test score value for the school.
      * If a school does not have a test score value, then it will not be in this map.
      *
      * @param school
@@ -189,9 +204,10 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             //TODO maybe the dao should not join.
             TestDataSet testDataSet = value.getDataSet();
             TestDataType testDataType = testDataTypeIdToTestDataType.get(value.getDataSet().getDataTypeId());
-            //For masking.
+            //For masking the test score.
             String testScoreValue = StringUtils.isNotBlank(value.getValueText()) ? StringEscapeUtils.escapeHtml(value.getValueText()) : value.getValueInteger().toString();
 
+            //Check if the test is already in the Map.
             if (testDataTypeToGradeToLevelCodeToSubjectsToDataSetToValueMap.get(testDataType) != null) {
                 //Test already present.
                 Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = testDataTypeToGradeToLevelCodeToSubjectsToDataSetToValueMap.get(testDataType);
@@ -199,9 +215,9 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                 if (gradeToLevelCodeToSubjectsToDataSetToValueMap != null && gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade) != null) {
                     //Grade already present.
                     Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectToDataSet = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
-                    //Check if levelCode is already in the map.
+                    //Check if level code is already in the map.
                     if (levelCodeToSubjectToDataSet != null && levelCodeToSubjectToDataSet.get(levelCode) != null) {
-                        //Levelcode already present
+                        //Level code already present
                         Map<Subject, Map<TestDataSet, String>> subjectToDataSet = levelCodeToSubjectToDataSet.get(levelCode);
                         //Check if subject is already in the map.
                         if (subjectToDataSet != null && subjectToDataSet.get(subject) != null) {
@@ -219,7 +235,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                         }
 
                     } else {
-                        //Levelcode not present.
+                        //Level code not present.
                         Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
                         dataSetToValue.put(testDataSet, testScoreValue);
                         Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
@@ -255,7 +271,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     }
 
     /**
-     * A map used to store the testDataType, grade, subjects, testDataSet that should be
+     * A map used to store the test data type, grade, level code, subjects, test data set that should be
      * displayed for a given school irrespective of, if the school has test score value or not.
      *
      * @param testDataSets
@@ -285,7 +301,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                     Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
                     //Check if level code is already in the map.
                     if (levelCodeToSubjectsToDataSetToValueMap != null && levelCodeToSubjectsToDataSetToValueMap.get(levelCode) != null) {
-                        //Levelcode already present.
+                        //Level code already present.
                         Map<Subject, Map<TestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
                         //Check if subject is already in the map.
                         if (subjectToDataSet != null && subjectToDataSet.get(subject) != null) {
@@ -302,7 +318,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                             subjectToDataSet.put(subject, dataSetToValue);
                         }
                     } else {
-                        //Levelcode not present
+                        //Level code not present
                         Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
                         dataSetToValue.put(testDataSet, "");
                         Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
@@ -337,7 +353,12 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     }
 
     /**
-     * Based on the data points that should be displayed for a school, fill in the 'DataNotAvailable' if school does not have test score values.
+     * Based on the data points that should be displayed for a school, fill in the 'DataNotAvailable'
+     * if school does not have test score values.
+     * The reuirement for mobile is : If any one of the year for a subject has a value then display all the years with 'Data not available'.
+     * If all the years in a subject dont have data, do not show the subject itself.
+     * If all the subjects in a grade dont have values then do not show the grade itself.
+     * If all the grades in a test dont have values then do not show the test itself.
      *
      * @param mapOfDataPointsToShow
      * @param testDataTypeToGradeToSubjectsToDataSetToValueMap
@@ -355,6 +376,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                         Map<TestDataSet, String> existingDataSets = subjects.get(subject);
                         Map<TestDataSet, String> dataSetsToShow = mapOfDataPointsToShow.get(dataType).get(grade).get(levelCode).get(subject);
 
+                        //If any one of the year for a subject has a value then display all the years with 'Data not available'.
                         for (TestDataSet dataSet : dataSetsToShow.keySet()) {
                             if (!existingDataSets.containsKey(dataSet)) {
                                 existingDataSets.put(dataSet, LABEL_DATA_NOT_AVAILABLE);
@@ -377,8 +399,9 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         for (TestDataType testDataType : map.keySet()) {
             TestToGrades testToGrades = new TestToGrades();
             testToGrades.setTestLabel(testDataType.getName());
-            TestDescription testDescription = _testDescriptionDao.findTestDescriptionByStateAndDataTypeId(school.getDatabaseState(), testDataType.getId());
 
+            //Get the test information, like the source, scale and description.
+            TestDescription testDescription = _testDescriptionDao.findTestDescriptionByStateAndDataTypeId(school.getDatabaseState(), testDataType.getId());
             String description = "";
             String scale = "";
             String source = "";
@@ -394,6 +417,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             //For every test construct a list of grades.
             List<GradeToSubjects> gradeToSubjectsList = new ArrayList<GradeToSubjects>();
             for (Grade grade : map.get(testDataType).keySet()) {
+
                 //Set the lowest grade for the test to be able to sort multiple tests.
                 if (testToGrades.getLowestGradeInTest() == null) {
                     testToGrades.setLowestGradeInTest(grade);
@@ -409,7 +433,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                         gradeToSubjects.setGrade(grade);
                     }
 
-                    //For every grade construct a list of subjects.
+                    //For every level code construct a list of subjects.
                     List<SubjectToYears> subjectToYearsList = new ArrayList<SubjectToYears>();
                     for (Subject subject : map.get(testDataType).get(grade).get(levelCode).keySet()) {
                         SubjectToYears subjectToYears = new SubjectToYears();
@@ -431,6 +455,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                             yearToTestScore.setTestScoreStr(map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
                             yearToTestScoreList.add(yearToTestScore);
 
+                            //Set the grade label.
                             gradeToSubjects.setGradeLabel(getGradeLabel(testDataSet));
                         }
                         //Sort in order of years.
@@ -450,30 +475,9 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             testToGrades.setGrades(gradeToSubjectsList);
             testToGradesList.add(testToGrades);
         }
+        //Sort the tests in order of lowest grades.
         Collections.sort(testToGradesList);
         return testToGradesList;
-    }
-
-
-    protected void printAllData(Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> map) {
-
-        for (TestDataType testDataType : map.keySet()) {
-            System.out.println("--testDataType---------------------" + testDataType.getName());
-            for (Grade grade : map.get(testDataType).keySet()) {
-                System.out.println("--grade--------------" + grade);
-                for (LevelCode levelCode : map.get(testDataType).get(grade).keySet()) {
-                    System.out.println("--levelCode----------" + levelCode.getCommaSeparatedString());
-                    for (Subject subject : map.get(testDataType).get(grade).get(levelCode).keySet()) {
-                        System.out.println("--subject------" + subject);
-
-                        for (TestDataSet testDataSet : map.get(testDataType).get(grade).get(levelCode).get(subject).keySet()) {
-                            System.out.println("--dataSetId--" + testDataSet.getId());
-                            System.out.println("year:" + testDataSet.getYear() + " value:" + map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
-                        }
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -516,6 +520,39 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         return "";
     }
 
+    /**
+     * A method to help print the map of test data type, grade, level code, subjects, test data set for debugging purposes.
+     *
+     * @param map
+     */
+
+    protected void printAllData(Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> map) {
+
+        for (TestDataType testDataType : map.keySet()) {
+            System.out.println("--testDataType---------------------" + testDataType.getName());
+            for (Grade grade : map.get(testDataType).keySet()) {
+                System.out.println("--grade--------------" + grade);
+                for (LevelCode levelCode : map.get(testDataType).get(grade).keySet()) {
+                    System.out.println("--levelCode----------" + levelCode.getCommaSeparatedString());
+                    for (Subject subject : map.get(testDataType).get(grade).get(levelCode).keySet()) {
+                        System.out.println("--subject------" + subject);
+
+                        for (TestDataSet testDataSet : map.get(testDataType).get(grade).get(levelCode).get(subject).keySet()) {
+                            System.out.println("--dataSetId--" + testDataSet.getId());
+                            System.out.println("year:" + testDataSet.getYear() + " value:" + map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * A method to return a number when the Grade is of type 'All..'.This number is used to sort.
+     *
+     * @param grade
+     * @return
+     */
     public static Integer getGradeNum(Grade grade) {
         if (Grade.ALL.equals(grade)) {
             return 13;
@@ -530,14 +567,13 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         } else if (Grade.ALLH.equals(grade)) {
             return 17;
         }
-
+        //If the grade is of not type 'All..', then return the grade value.
         return grade.getValue();
     }
 
     /**
      * Beans to encapsulate the test scores for the school.This bean is used to present data to the view.
      */
-
     public static class TestToGrades implements Comparable<TestToGrades> {
         String _testLabel;
         List<GradeToSubjects> _grades;
