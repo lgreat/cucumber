@@ -107,7 +107,9 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
             //Convert the temporaryMap that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
             rval = populateTestScoresBean(school, testDataTypeToGradeToSubjectsToDataSetToValueMap);
-            printAllData(testDataTypeToGradeToSubjectsToDataSetToValueMap);
+
+            //use this for debugging
+//            printAllData(testDataTypeToGradeToSubjectsToDataSetToValueMap);
         }
         return rval;
     }
@@ -387,6 +389,12 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             //For every test construct a list of grades.
             List<GradeToSubjects> gradeToSubjectsList = new ArrayList<GradeToSubjects>();
             for (Grade grade : map.get(testDataType).keySet()) {
+                //Set the lowest grade for the test to be able to sort multiple tests.
+                if (testToGrades.getLowestGradeInTest() == null) {
+                    testToGrades.setLowestGradeInTest(grade);
+                } else if (getGradeNum(testToGrades.getLowestGradeInTest()).compareTo(getGradeNum(grade)) > 0) {
+                    testToGrades.setLowestGradeInTest(grade);
+                }
 
                 for (LevelCode levelCode : map.get(testDataType).get(grade).keySet()) {
                     GradeToSubjects gradeToSubjects = new GradeToSubjects();
@@ -432,6 +440,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             testToGrades.setGrades(gradeToSubjectsList);
             testToGradesList.add(testToGrades);
         }
+        Collections.sort(testToGradesList);
         return testToGradesList;
     }
 
@@ -555,12 +564,13 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
      * Beans to encapsulate the test scores for the school.This bean is used to present data to the view.
      */
 
-    public static class TestToGrades {
+    public static class TestToGrades implements Comparable<TestToGrades> {
         String _testLabel;
         List<GradeToSubjects> _grades;
         String _description;
         String _source;
         String _scale;
+        Grade _lowestGradeInTest;
 
         public String getTestLabel() {
             return _testLabel;
@@ -600,6 +610,18 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
         public void setScale(String scale) {
             _scale = scale;
+        }
+
+        public Grade getLowestGradeInTest() {
+            return _lowestGradeInTest;
+        }
+
+        public void setLowestGradeInTest(Grade lowestGradeInTest) {
+            _lowestGradeInTest = lowestGradeInTest;
+        }
+
+        public int compareTo(TestToGrades testToGrades) {
+            return getGradeNum(getLowestGradeInTest()).compareTo(getGradeNum(testToGrades.getLowestGradeInTest()));
         }
     }
 
