@@ -5,6 +5,7 @@ import gs.data.search.*;
 import gs.data.search.beans.CitySearchResult;
 import gs.data.search.beans.ICitySearchResult;
 import gs.web.util.Url;
+import gs.web.util.UrlUtil;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.stereotype.Controller;
@@ -60,9 +61,16 @@ public class NearbyCitiesController implements BeanFactoryAware {
         map.put("state", citySearchResult.getState().getAbbreviation());
         map.put("name", citySearchResult.getCity());
         try {
-            map.put("url", Url.SEARCH_SCHOOLS_BY_NAME.relative
-                    (URLEncoder.encode(citySearchResult.getCity(), "UTF-8"),
-                            citySearchResult.getState().getAbbreviation()));
+            String url = Url.SEARCH_SCHOOLS_NEARBY.relative(
+                    citySearchResult.getLatitude().toString(),
+                    citySearchResult.getLongitude().toString(),
+                    "25",
+                    URLEncoder.encode(citySearchResult.getCity() + ", " + citySearchResult.getState().getAbbreviation
+                            (), "UTF-8"),
+                    citySearchResult.getState().getAbbreviation()
+            );
+            url = UrlUtil.addParameter(url, "sortBy=GS_RATING_DESCENDING");
+            map.put("url", url);
         } catch (UnsupportedEncodingException e) {
             map.put("url", "javascript:void(0);");
         }

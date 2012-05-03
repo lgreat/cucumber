@@ -9,12 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Map.Entry;
 
 public enum Url {
 
     // example of a static URL
-    HOME("/index.page"),
+    HOME("/"),
     // example of a static URL that uses a query parameter
     RECENT_ACTIVITY("/account/?viewAllActivity=true"),
     // example of a dynamic url that requires parameter replacement
@@ -24,10 +23,8 @@ public enum Url {
     DISTRICT_HOME("/{state}/{city}/{district}/"),
     DISTRICT_BROWSE("/{state}/{city}/{district}/schools/", DefaultUrlProcessor.INSTANCE),
     SEARCH_SCHOOLS_BY_NAME("/search/search.page?search_type=0&q={query}&state={stateAbbreviation}&c=school"),
-
-
-
-    DISTRICTS_PAGE("/schools/districts/{state}/{stateAbbreviation}/")
+    SEARCH_SCHOOLS_NEARBY("/search/search.page?lat={lat}&lon={lon}&distance={distance}&searchString={searchString}&state={stateAbbreviation}"),
+    DISTRICTS_PAGE("/schools/districts/{state}/{stateAbbreviation}/"),
     ;
 
     // the url path
@@ -74,20 +71,6 @@ public enum Url {
         return _template;
     }
     
-    public String relative(Map<String, String> keyVals, boolean putExtrasInQueryString) {
-        String path = _template;
-        
-        for (Entry<String,String> entry : keyVals.entrySet()) {
-            if (_keys.contains(entry.getKey())) {
-                path.replaceAll("{" + entry.getKey() + "}", entry.getValue());
-            } else if (putExtrasInQueryString) {
-                path = UrlUtil.addParameter(path, keyVals + "=" + entry.getValue());
-            }
-        }
-        
-        return path;
-    }
-
     public String relative(String... replacements) {
         return _urlBuilder.process(_template, replacements);
     }

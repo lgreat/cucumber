@@ -4,10 +4,10 @@ package gs.web.search;
 import gs.data.search.GsSolrQuery;
 import gs.data.search.GsSolrSearcher;
 import gs.data.search.QueryType;
-import gs.data.search.beans.CitySearchResult;
 import gs.data.search.beans.DistrictSearchResult;
-import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.IDistrictSearchResult;
+import gs.web.util.Url;
+import gs.web.util.UrlUtil;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 
 @Controller
@@ -49,9 +51,7 @@ public class NearbyDistrictsController implements BeanFactoryAware {
 
         List<DistrictSearchResult> results = _gsSolrSearcher.simpleSearch(gsSolrQuery, DistrictSearchResult.class);
 
-        Iterator<DistrictSearchResult> i = results.iterator();
-        while(i.hasNext()) {
-            DistrictSearchResult result = i.next();
+        for (DistrictSearchResult result : results) {
             maps.add(buildOneMap(result));
         }
 
@@ -62,9 +62,17 @@ public class NearbyDistrictsController implements BeanFactoryAware {
         Map<String,String> map = new HashMap<String,String>();
         map.put("state", districtSearchResult.getState().getAbbreviation());
         map.put("name", districtSearchResult.getName());
-        map.put("url", "about:blank");
-        //TODO: district url
-        
+
+        try {
+            String url = Url.SEARCH_SCHOOLS_BY_NAME.relative(
+                    URLEncoder.encode(districtSearchResult.getName(), "UTF-8"),
+                    districtSearchResult.getState().getAbbreviation());
+            url = UrlUtil.addParameter(url, "sortBy=GS_RATING_DESCENDING");
+            map.put("url", url);
+        } catch (UnsupportedEncodingException e) {
+            map.put("url", "javascript:void(0);");
+        }
+
         return map;
     }
 
