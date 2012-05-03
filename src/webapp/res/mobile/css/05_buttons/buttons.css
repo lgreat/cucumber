@@ -272,3 +272,5 @@ BUTTONS
 .button-3-inactive::-moz-focus-inner {
     border: none;
 }
+
+.but-overview{line-height: 1.40em; padding: 5px;}

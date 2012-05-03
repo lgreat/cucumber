@@ -69,16 +69,16 @@
 
             <div class="fl">
                 <c:if test="${not empty gs_rating}">
-                    <link:schoolProfileTestscore school="${school}">
-                        <span class="but but-sm but-2" style="line-height: 1.40em; padding: 5px;">${gs_rating} GreatSchools<br />Rating</span>
+                    <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
+                        <button class="ratings-round ratings-medium round-medium vam fl">${gs_rating}</button> <div class="tal pls fl">GreatSchools<br />Rating</div>
                     </link:schoolProfileTestscore>
                 </c:if>
             </div>
             <div class="fl mlm">
                 <c:if test="${not empty ratings.overall}">
-                        <link:schoolProfileParentReview school="${school}">
-                            <span class="but but-sm but-2" style="line-height: 1.40em; padding: 5px;">Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>
-                                ${ratings.overall} stars</span>
+                        <link:schoolProfileParentReview school="${school}" styleClass="but but-sm but-2 but-overview">
+                            Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>
+                                <mobile:stars curSR="${ratings.overall}" smStars="1"/>
                         </link:schoolProfileParentReview>
                 </c:if>
             </div>
