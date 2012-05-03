@@ -16,6 +16,7 @@
 
 <html lang="en" class="no-js">
     <head>
+        <mod:weinre />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
         <title><decorator:title default="GreatSchools Mobile"/></title>
