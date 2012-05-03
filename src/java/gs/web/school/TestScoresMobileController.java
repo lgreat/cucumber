@@ -74,44 +74,48 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             return rval;
         }
 
-        Set<Integer> dataSetIds = getTestDataSetIds(school);
-
-        //List of testDataSets.Used to query the schoolValue.
-        List<TestDataSet> testDataSets = new ArrayList<TestDataSet>();
-        if (dataSetIds != null && !dataSetIds.isEmpty()) {
-            testDataSets = getTestDataSets(school, dataSetIds);
+        //Get the list of test data set Ids to pull out for a school.
+        Set<Integer> testDataSetIds = getTestDataSetIds(school);
+        if (testDataSetIds == null || testDataSetIds.isEmpty()) {
+            return rval;
         }
 
-        if (testDataSets != null && !testDataSets.isEmpty()) {
-            //Data TypeIds
-            Set<Integer> dataTypeIds = new HashSet<Integer>();
-            for (TestDataSet testDataSet : testDataSets) {
-                dataTypeIds.add(testDataSet.getDataTypeId());
-            }
-
-            //Map of testDataTypeId to testDataType object.
-            Map<Integer, TestDataType> testDataTypeIdToTestDataType = getTestDataTypes(dataTypeIds);
-
-            //A map used to store the testDataType, grade, subjects, testDataSet and test score value for the school.
-            //If a school does not have a test score value, then it will not be in this map.
-            Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap
-                    = getTestDataTypeToGradeToSubjectsToDataSetToValueMap(school, testDataSets, testDataTypeIdToTestDataType);
-
-            //A map used to store the testDataType, grade, subjects, testDataSet that should be
-            //displayed for a given school irrespective of if the school has test score value or not.
-            Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> mapOfDataPointsToShow
-                    = getMapOfDataPointsToShow(testDataSets, testDataTypeIdToTestDataType);
-
-            //Based on the data points that should be displayed for a school, fill in
-            //the 'DataNotAvailable' if school does not have test score values.
-            fillInMissingDataPoints(mapOfDataPointsToShow, testDataTypeToGradeToSubjectsToDataSetToValueMap);
-
-            //Convert the temporaryMap that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
-            rval = populateTestScoresBean(school, testDataTypeToGradeToSubjectsToDataSetToValueMap);
-
-            //use this for debugging
-//            printAllData(testDataTypeToGradeToSubjectsToDataSetToValueMap);
+        //Get the list of testDataSet objects from the list of test data set Ids.This is used to query the school values.
+        List<TestDataSet> testDataSets = getTestDataSets(school, testDataSetIds);
+        if (testDataSets == null || testDataSets.isEmpty()) {
+            return rval;
         }
+
+        //Get a list of data type Ids.Data type Ids represent a test.
+        Set<Integer> dataTypeIds = new HashSet<Integer>();
+        for (TestDataSet testDataSet : testDataSets) {
+            dataTypeIds.add(testDataSet.getDataTypeId());
+        }
+
+        //Get a Map of test data type Id to test data type object.
+        Map<Integer, TestDataType> testDataTypeIdToTestDataType = getTestDataTypes(dataTypeIds);
+
+        //A map used to store the test data type, grade, level code, subjects, test data set and test score value for the school.
+        //If a school does not have a test score value, then it will not be in this map.
+        Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> testDataTypeToGradeToSubjectsToDataSetToValueMap
+                = getTestDataTypeToGradeToSubjectsToDataSetToValueMap(school, testDataSets, testDataTypeIdToTestDataType);
+
+        //A map used to store the test data type, grade, level code, subjects, test data set that should be
+        //displayed for a given school irrespective of if the school has test score value or not.In other words,
+        //this map represents what information we expect to show for a school.
+        Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> mapOfDataPointsToShow
+                = getMapOfDataPointsToShow(testDataSets, testDataTypeIdToTestDataType);
+
+        //Based on the data points that should be displayed for a school, fill in
+        //the 'DataNotAvailable' if school does not have test score values.
+        fillInMissingDataPoints(mapOfDataPointsToShow, testDataTypeToGradeToSubjectsToDataSetToValueMap);
+
+        //Convert the temporaryMap that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
+        rval = populateTestScoresBean(school, testDataTypeToGradeToSubjectsToDataSetToValueMap);
+
+        //use this for debugging
+        //printAllData(testDataTypeToGradeToSubjectsToDataSetToValueMap);
+
         return rval;
     }
 
