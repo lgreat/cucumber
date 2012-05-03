@@ -43,17 +43,22 @@ Viewport: the width and height of each icon is 12px x 12px, the background posit
 
 /* row 0 */
 .i-12-orange-star {
-    background-position: 0px 0;
+    background-position: 0 0;
 }
 
 .i-12-grey-star {
-    background-position: 0px -12;
+    background-position: 0 -12px;
 }
 
 /* This is for the stars grey or orange */
-.i-12-star-0{width:0px}
+.i-12-star-0{width:0}
 .i-12-star-1{width:12px}
 .i-12-star-2{width:24px; repeat-x;}
 .i-12-star-3{width:36px; repeat-x;}
 .i-12-star-4{width:48px; repeat-x;}
 .i-12-star-5{width:60px; repeat-x;}
+.i-12-star-6{width:72px; repeat-x;}
+.i-12-star-7{width:84px; repeat-x;}
+.i-12-star-8{width:96px; repeat-x;}
+.i-12-star-9{width:108px; repeat-x;}
+.i-12-star-10{width:120px; repeat-x;}
