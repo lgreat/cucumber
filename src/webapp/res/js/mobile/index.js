@@ -1,6 +1,7 @@
 define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
     var JS_GRADE_LEVELS_CONTAINER_SELECTOR = '#js-gradeLevels';
     var BY_LOCATION_FORM_SELECTOR = '#js-searchByLocation';
+    var BY_NAME_FORM_SELECTOR = '#search-form';
 
 
     // copied from findASchool.js
@@ -151,6 +152,13 @@ define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
             $(BY_LOCATION_FORM_SELECTOR).on('submit', function() {
                 submitByLocationSearch();
                 return false;
+            });
+
+            $(BY_NAME_FORM_SELECTOR).on('submit', function() {
+                var valid = validation.validateOne($('#stateSelector'), BY_NAME_FORM_SELECTOR);
+                if (!valid) {
+                    return false;
+                }
             });
 
             validation.init();
