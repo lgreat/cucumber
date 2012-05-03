@@ -360,9 +360,8 @@ public class ParentReviewController extends AbstractController implements IDevic
             // the index i might also be out of bounds if there were no non-principal, published reviews,
             // so check for that too
             Date mostRecentPublishedNonPrincipalReview = null;
-            if (!"principal".equals(reviews.get(i).getWho()) &&
-                Review.ReviewStatus.PUBLISHED.getStatusCode().equals(reviews.get(i).getStatus()) &&
-                i < numReviews) {
+            if (i < numReviews && !"principal".equals(reviews.get(i).getWho()) &&
+                Review.ReviewStatus.PUBLISHED.getStatusCode().equals(reviews.get(i).getStatus())) {
                 mostRecentPublishedNonPrincipalReview = reviews.get(i).getPosted();
             }
 
