@@ -38,6 +38,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     private ITestDataSetDao _testDataSetDao;
     private ITestDataSchoolValueDao _testDataSchoolValueDao;
     private ITestDescriptionDao _testDescriptionDao;
+    private ISubjectDao _subjectDao;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
         String schoolId = request.getParameter(PARAM_SCHOOL_ID);
@@ -408,8 +409,13 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                     List<SubjectToYears> subjectToYearsList = new ArrayList<SubjectToYears>();
                     for (Subject subject : map.get(testDataType).get(grade).get(levelCode).keySet()) {
                         SubjectToYears subjectToYears = new SubjectToYears();
-                        //TODO do not get subject labels like this.
-                        subjectToYears.setSubjectLabel(getSubjectLabel(subject));
+                        String subjectLabel = "";
+                        try {
+                            subjectLabel = _subjectDao.findSubjectName(subject, school.getDatabaseState());
+                        } catch (IllegalArgumentException e) {
+                            subjectLabel = Subject.getName(subject);
+                        }
+                        subjectToYears.setSubjectLabel(subjectLabel);
 
                         //For every subject construct a list of years.
                         List<YearToTestScore> yearToTestScoreList = new ArrayList<YearToTestScore>();
@@ -450,56 +456,20 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         for (TestDataType testDataType : map.keySet()) {
             System.out.println("--testDataType---------------------" + testDataType.getName());
             for (Grade grade : map.get(testDataType).keySet()) {
-                System.out.println("--grade---------------------" + grade);
+                System.out.println("--grade--------------" + grade);
                 for (LevelCode levelCode : map.get(testDataType).get(grade).keySet()) {
-                    System.out.println("--levelCode---------------------" + levelCode.getCommaSeparatedString());
+                    System.out.println("--levelCode----------" + levelCode.getCommaSeparatedString());
                     for (Subject subject : map.get(testDataType).get(grade).get(levelCode).keySet()) {
-                        System.out.println("--subject---------------------" + subject);
+                        System.out.println("--subject------" + subject);
 
                         for (TestDataSet testDataSet : map.get(testDataType).get(grade).get(levelCode).get(subject).keySet()) {
-                            System.out.println("--datasetID------" + testDataSet.getId());
-                            System.out.println("--year------" + testDataSet.getYear() + "--value-------" + map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
+                            System.out.println("--dataSetId--" + testDataSet.getId());
+                            System.out.println("year:" + testDataSet.getYear() + " value:" + map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
                         }
                     }
-
                 }
-
             }
         }
-    }
-
-    /**
-     * Helper method to get the Subject Label to display
-     *
-     * @param subject
-     * @return
-     */
-
-    protected String getSubjectLabel(Subject subject) {
-        String subjectLabel = null;
-
-        if (Subject.MATH.equals(subject) || Subject.GENERAL_MATHEMATICS_GRADES_6_7_STANDARDS.equals(subject)) {
-            if (Subject.MATH.equals(subject)) {
-                subjectLabel = "Math";
-            } else if (Subject.GENERAL_MATHEMATICS_GRADES_6_7_STANDARDS.equals(subject)) {
-                subjectLabel = "General Math";
-            }
-        } else if (Subject.READING.equals(subject) || Subject.ENGLISH_LANGUAGE_ARTS.equals(subject)) {
-            if (Subject.READING.equals(subject)) {
-                subjectLabel = "Reading";
-            } else if (Subject.ENGLISH_LANGUAGE_ARTS.equals(subject)) {
-                subjectLabel = "English Language Arts";
-            }
-        } else if (Subject.ENGLISH.equals(subject)) {
-            subjectLabel = "English";
-        } else if (Subject.ALGEBRA_I.equals(subject)) {
-            subjectLabel = "Algebra";
-        } else {
-            subjectLabel = Subject.getName(subject);
-//            throw new IllegalStateException("Invalid subject: " + subject.getSubjectId() + " " + Subject.getName(subject));
-        }
-
-        return subjectLabel;
     }
 
     /**
@@ -762,6 +732,14 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
     public void setTestDescriptionDao(ITestDescriptionDao testDescriptionDao) {
         _testDescriptionDao = testDescriptionDao;
+    }
+
+    public ISubjectDao getSubjectDao() {
+        return _subjectDao;
+    }
+
+    public void setSubjectDao(ISubjectDao subjectDao) {
+        _subjectDao = subjectDao;
     }
 
     public boolean controllerHandlesMobileRequests() {
