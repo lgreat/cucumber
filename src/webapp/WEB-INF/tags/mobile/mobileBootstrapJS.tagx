@@ -74,9 +74,13 @@
 
         <script type="text/javascript" src="http://${address}${port}/target/target-script-min.js#${client}"><!-- do not collapse --></script>
         <!-- write out to the console the debug uuid -->
-        <script type="text/javascript">
-            document.cookie = 'debugClient=${client}; expires=Thu, 10 Aug 2022 20:47:11 UTC; path=/';
-            alert('Remote debugging enabled at http://${address}${port}/client/#${client}');
+        <script type="text/javascript"><![CDATA[
+            document.cookie = 'debugClient=${client}; expires=Tue, 10 Aug 2022 20:47:11 UTC; path=/';
+            $(document).ready(function(){
+                $('body').append(
+                    $('<a></a>').attr('href','http://${address}${port}/client/#${client}').html("web remote inspector (http://${address}${port}/client/#${client})"));
+            });
+        ]]>
         </script>
     </c:if>
 
