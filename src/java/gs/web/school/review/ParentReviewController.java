@@ -352,7 +352,7 @@ public class ParentReviewController extends AbstractController implements IDevic
             int i = 0;
             // skip principal or non-published reviews
             while (("principal".equals(reviews.get(i).getWho()) ||
-                    !Review.ReviewStatus.PUBLISHED.equals(reviews.get(i).getStatusAsEnum())) &&
+                    !Review.ReviewStatus.PUBLISHED.getStatusCode().equals(reviews.get(i).getStatus())) &&
                    i < numReviews) {
                 i++;
             }
@@ -361,7 +361,7 @@ public class ParentReviewController extends AbstractController implements IDevic
             // so check for that too
             Date mostRecentPublishedNonPrincipalReview = null;
             if (!"principal".equals(reviews.get(i).getWho()) &&
-                Review.ReviewStatus.PUBLISHED.equals(reviews.get(i).getStatusAsEnum()) &&
+                Review.ReviewStatus.PUBLISHED.getStatusCode().equals(reviews.get(i).getStatus()) &&
                 i < numReviews) {
                 mostRecentPublishedNonPrincipalReview = reviews.get(i).getPosted();
             }
