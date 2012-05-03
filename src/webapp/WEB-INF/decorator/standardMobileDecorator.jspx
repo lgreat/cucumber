@@ -33,6 +33,7 @@
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/03_media/media.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/04_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/05_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <link rel="stylesheet" type="text/css" href="/res/mobile/css/06_sprites/icon_x12.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/06_sprites/icon_x16.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/06_sprites/icon_x24.css?v=$RELEASE_NUMBER" allowCdn="true"/>
         <link rel="stylesheet" type="text/css" href="/res/mobile/css/06_sprites/icon_x32.css?v=$RELEASE_NUMBER" allowCdn="true"/>
