@@ -128,6 +128,8 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
             model.put("noIndexFlag", !shouldIndex(school, numberOfReviews));
 
+            setLastModifiedDateInModel(model, school, reviews, numberOfReviews);
+
             /*
              * get PQ data to find quote if it exists
              */
@@ -186,6 +188,23 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
         model.put("hasMobileView", true);
         return new ModelAndView(_viewName, model);
+    }
+
+    private static void setLastModifiedDateInModel(Map<String, Object> model, School school, List<Review> reviews, Long numberOfReviews) {
+        // get the most recent of these two dates: school.getModified(), and the most recent published non-principal review
+        // see similar logic in ParentReviewController.java
+        Date lastModifiedDate = school.getModified();
+        if (numberOfReviews > 0) {
+            Date mostRecentPublishedNonPrincipalReview = reviews.get(0).getPosted();
+            if (lastModifiedDate == null ||
+                (mostRecentPublishedNonPrincipalReview != null &&
+                lastModifiedDate.compareTo(mostRecentPublishedNonPrincipalReview) < 0)) {
+                lastModifiedDate = mostRecentPublishedNonPrincipalReview;
+            }
+        }
+        if (lastModifiedDate != null) {
+            model.put("lastModifiedDate", lastModifiedDate);
+        }
     }
 
     private void addSchoolPhotosToModel(School school, Map<String, Object> model, HttpServletRequest request) {

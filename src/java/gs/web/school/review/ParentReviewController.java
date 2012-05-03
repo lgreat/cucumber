@@ -154,6 +154,8 @@ public class ParentReviewController extends AbstractController implements IDevic
             Ratings ratings = _reviewDao.findRatingsBySchool(school);            
             cmd.setRatings(ratings);
 
+            setLastModifiedDateInModel(model, school, reviewsBy, reviews);
+
             /**
              * dd - date descending: newer to older
              * da - date ascending: older to newer
@@ -326,6 +328,55 @@ public class ParentReviewController extends AbstractController implements IDevic
 
         }
         return new ModelAndView(getViewName(), model);
+    }
+
+    /**
+     * GS-12750
+     * Get the most recent of these two dates: school.getModified(), and the most recent published non-principal review
+     * Use date of most recent non-principal review instead of any review to stay consistent with last-modified
+     * date shown on school overview page.
+     * Assumption: reviews list is ORDER BY POSTED DESC. technically, it's fragile to assume this, but the
+     *   last-modified date is not critical. If we do have to change that order by in reviewDao, then we could
+     *   simply sort reviews in Java using comparator PRINCIPAL_DATE_DESC. opted not to do this even though it
+     *   might be more reliable, strictly for performance reasons
+     * @param model model for view
+     * @param school school for which we want the last-modified date
+     * @param reviewsBy who we're filtering reviews by
+     * @param reviews list of reviews
+     */
+    private static void setLastModifiedDateInModel(Map<String, Object> model, School school, Set<Poster> reviewsBy, List<Review> reviews) {
+        Date lastModifiedDate = school.getModified();
+        int numReviews = reviews.size();
+        // ignore most recently posted review if no reviews or if we're filtering what kind of reviewer we're including reviews by
+        if (numReviews > 0 && reviewsBy.isEmpty()) {
+            int i = 0;
+            // skip principal or non-published reviews
+            while (("principal".equals(reviews.get(i).getWho()) ||
+                    !Review.ReviewStatus.PUBLISHED.equals(reviews.get(i).getStatusAsEnum())) &&
+                   i < numReviews) {
+                i++;
+            }
+            // the ith review might still be principal or non-published, so only use the date if that's not the case
+            // the index i might also be out of bounds if there were no non-principal, published reviews,
+            // so check for that too
+            Date mostRecentPublishedNonPrincipalReview = null;
+            if (!"principal".equals(reviews.get(i).getWho()) &&
+                Review.ReviewStatus.PUBLISHED.equals(reviews.get(i).getStatusAsEnum()) &&
+                i < numReviews) {
+                mostRecentPublishedNonPrincipalReview = reviews.get(i).getPosted();
+            }
+
+            // get most recent of school modified date and most recent published non-principal review
+            if (lastModifiedDate == null ||
+                (mostRecentPublishedNonPrincipalReview != null &&
+                 lastModifiedDate.compareTo(mostRecentPublishedNonPrincipalReview) < 0)) {
+                lastModifiedDate = mostRecentPublishedNonPrincipalReview;
+            }
+        }
+
+        if (lastModifiedDate != null) {
+            model.put("lastModifiedDate", lastModifiedDate);
+        }
     }
 
     // GS-10633

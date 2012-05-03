@@ -615,6 +615,11 @@
 
 <!-- end reviewContainer -->
 
+<c:if test="${not empty lastModifiedDate}">
+    <br/>
+    <div class="smallText1">Last modified <fmt:formatDate type="date" value="${lastModifiedDate}" pattern="MMMM dd, yyyy"/></div>
+</c:if>
+
 </school:profile2010>
 
 <!--GS-12508.Prior to GS-12508 the all.js file was getting loaded asynchronously as part of A,B testing.

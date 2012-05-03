@@ -429,6 +429,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 </div>
 
+<c:if test="${not empty lastModifiedDate}">
+    <br/>
+    <div class="smallText1">Last modified <fmt:formatDate type="date" value="${lastModifiedDate}" pattern="MMMM dd, yyyy"/></div>
+</c:if>
+
 </school:profile2010>
 
 <c:if test="${not empty requestScope.pageHelper.yahooRealEstateCity and not requestScope.context.cobranded}">
