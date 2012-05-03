@@ -111,7 +111,7 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
             model.put("testScores", getSchoolTestValues(school));
         }
 
-        return new ModelAndView("school/overview-mobile", model);
+        return new ModelAndView("school/schoolOverview-mobile", model);
     }
 
     public boolean hasTestScores(School school) {
