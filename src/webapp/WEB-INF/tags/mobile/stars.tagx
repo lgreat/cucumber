@@ -20,18 +20,14 @@
         <c:set var="totSR" value="5"/>
     </c:if>
     <c:set var="starOff" value="${totSR - curSR}"/>
-    <div>
-        <c:choose>
-            <c:when test="${empty smStars}">
-                <div class="iconx16 i-16-orange-star  i-16-star-${curSR}"><!-- not empty--></div>
-                <div class="iconx16 i-16-grey-star  i-16-star-${starOff}"><!-- not empty--></div>
-            </c:when>
-            <c:otherwise>
-                <div class="iconx12 i-12-orange-star  i-12-star-${curSR}"><!-- not empty--></div>
-                <div class="iconx12 i-12-grey-star  i-12-star-${starOff}"><!-- not empty--></div>
-            </c:otherwise>
-        </c:choose>
-    </div>
-
-
+    <c:choose>
+        <c:when test="${empty smStars}">
+            <div class="iconx16 i-16-orange-star  i-16-star-${curSR}"><!-- not empty--></div>
+            <div class="iconx16 i-16-grey-star  i-16-star-${starOff}"><!-- not empty--></div>
+        </c:when>
+        <c:otherwise>
+            <div class="iconx12 i-12-orange-star  i-12-star-${curSR}"><!-- not empty--></div>
+            <div class="iconx12 i-12-grey-star  i-12-star-${starOff}"><!-- not empty--></div>
+        </c:otherwise>
+    </c:choose>
 </jsp:root>
