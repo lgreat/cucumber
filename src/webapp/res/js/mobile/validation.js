@@ -63,6 +63,7 @@ define(function(){
         var $errorMessage = $(createMessageSelector(parentSelector, validationName, validationType));
         var valid = validationFunctions[validationType]($element);
         $errorMessage.toggle(!valid);
+        return valid;
     };
 
     var validateAll = function(parentSelector) {

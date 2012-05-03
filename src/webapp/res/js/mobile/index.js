@@ -156,9 +156,7 @@ define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
 
             $(BY_NAME_FORM_SELECTOR).on('submit', function() {
                 var valid = validation.validateOne($('#stateSelector'), BY_NAME_FORM_SELECTOR);
-                if (!valid) {
-                    return false;
-                }
+                return valid;
             });
 
             validation.init();
