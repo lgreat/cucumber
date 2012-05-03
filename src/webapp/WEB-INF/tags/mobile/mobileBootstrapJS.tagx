@@ -7,6 +7,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
     <jsp:directive.tag import="gs.web.util.CookieUtil"/>
+    <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
 
     <jsp:directive.tag body-content="empty"/>
 
@@ -49,7 +50,7 @@
         <!-- get debug uuid from cookie or generate a new one -->
         <jsp:scriptlet>
             Cookie cookie = gs.web.util.CookieUtil.getCookie(request, "debugClient");
-            if (cookie == null || cookie.getValue().isEmpty()) {
+            if (cookie == null || org.apache.commons.lang.StringUtils.isBlank(cookie.getValue())) {
                 request.setAttribute("debugClient", java.util.UUID.randomUUID().toString());
             } else {
                 request.setAttribute("debugClient", cookie.getValue());
