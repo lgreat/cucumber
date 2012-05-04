@@ -55,6 +55,7 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
             boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
             Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
             model.put("gs_rating", gsRating);
+            System.out.println("-gs_rating--------------"+gsRating);
         } catch (ObjectRetrievalFailureException e) {
             //TODO what?
         }
