@@ -109,15 +109,15 @@
         <c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress)}"/>
         <c:set var="schoolAddressWithName" value="${gsweb:escapeHtml(school.physicalAddress)}+(${gsweb:escapeHtml(school.name)})"/>
         <div class="pam">
-            <span class="iconx24 i-24-map vam mrs"><!-- do not collapse --></span>
+
             <!-- iPhones require the string "Current Location" to have the maps app pull your location.
                  Android seems to require the address to be blank for the same behavior -->
             <c:if test="${requestInfo.device.iphone}">
                 <c:set var="sourceAddr" value="saddr=Current+Location&amp;"/>
             </c:if>
-            <a href="http://maps.google.com/?${sourceAddr}daddr=${schoolAddressWithName}" class="small">Directions</a>
-            <span class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span>
-            <a href="/search/search.page?state=${school.databaseState}&amp;lat=${school.lat}&amp;lon=${school.lon}&amp;distance=25&amp;searchString=${gsweb:urlEncode(school.name)}" class="small">See schools nearby</a>
+            <a href="http://maps.google.com/?${sourceAddr}daddr=${schoolAddressWithName}" class="small"><span class="iconx24 i-24-map vam mrs"><!-- do not collapse --></span>Directions</a>
+
+            <a href="/search/search.page?state=${school.databaseState}&amp;lat=${school.lat}&amp;lon=${school.lon}&amp;distance=25&amp;searchString=${gsweb:urlEncode(school.name)}" class="small"><span class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span>See schools nearby</a>
         </div>
         <div id="js_schoolMap">
             <c:choose>
@@ -143,7 +143,9 @@
         <mobile:share school="${school}"/>
 
         <c:if test="${hasTestScores}">
-            <span class="iconx24 i-24-stats vam mam"><!-- do not collapse --></span><link:schoolProfileTestscore school="${school}">View this school's test scores</link:schoolProfileTestscore>
+            <link:schoolProfileTestscore school="${school}">
+                <span class="iconx24 i-24-stats vam mam"><!-- do not collapse --></span>View this school's test scores
+            </link:schoolProfileTestscore>
         </c:if>
 
         <!-- Parent reviews -->
@@ -151,11 +153,13 @@
 
             <div class="mod standard_6-1">
                 <div class="inner">
-                    <div class="hd">
-                        <h2 class="plm"><link:schoolProfileParentReview school="${school}">
-                            Reviews (${numberOfReviews})  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
-                        </link:schoolProfileParentReview></h2>
-                    </div>
+                    <link:schoolProfileParentReview school="${school}">
+                        <div class="hd">
+                            <h2 class="plm">
+                                Reviews (${numberOfReviews})  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                            </h2>
+                        </div>
+                    </link:schoolProfileParentReview>
                     <div class="bd pam small">
                         <c:forEach items="${reviews}" var="review">
                             <c:choose>
@@ -212,12 +216,14 @@
         <c:if test="${hasTestScores}">
             <div class="mod standard_6-1 mbm">
                 <div class="inner">
-                    <div class="hd">
-                        <h2 class="plm"><link:schoolProfileTestscore school="${school}">
-                           Test scores
-                            <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
-                        </link:schoolProfileTestscore></h2>
-                    </div>
+                    <link:schoolProfileTestscore school="${school}">
+                        <div class="hd">
+                            <h2 class="plm">
+                               Test scores
+                                <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                            </h2>
+                        </div>
+                    </link:schoolProfileTestscore>
                     <div id="js_testScoreSnippetOuterDiv" style="display: none;">
                         <div id="js_testScoreSnippetInnerDiv">
                             <!-- WARNING: THE FOLLOWING DIV IS A TEMPLATE AND SHOULD NEVER BE SHOWN AS WRITTEN BELOW -->
