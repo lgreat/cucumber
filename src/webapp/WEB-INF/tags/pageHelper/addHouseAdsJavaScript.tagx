@@ -31,7 +31,7 @@
             <![CDATA[<script type="text/javascript" src="${houseadsjs}"></script>]]>
         </c:when>
         <c:otherwise>
-            <gsml:url var="combinedjs" value="/res/js/combined.hous_ads.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="combinedjs" value="/res/js/combined.house_ads.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
         </c:otherwise>
     </c:choose>
