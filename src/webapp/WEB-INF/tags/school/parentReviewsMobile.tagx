@@ -42,38 +42,5 @@
 
         </div>
         <hr class="keyline1" />
-
-
-        <!--<c:set var="who" value=""/>-->
-        <!--<c:if test="${!(empty(review.who) or review.who eq 'other')}">-->
-            <!--<c:set var="who" value="${review.who}"/>-->
-        <!--</c:if>-->
-
-
-        <!--<c:if test="${review.who ne 'principal'}">-->
-            <!--<div>-->
-                <!--<div>-->
-                    <!--<a name="ps${review.id}">&lt;!&ndash; not empty&ndash;&gt;</a>-->
-
-                    <!--&lt;!&ndash; star rating &ndash;&gt;-->
-                    <!--<c:set var="curStarRating" value="${review.quality.name}"/>-->
-                    <!--<c:if test="${school.levelCode eq 'p'}">-->
-                        <!--<c:set var="curStarRating" value="${review.POverall.name}"/>-->
-                    <!--</c:if>-->
-                    <!--<c:if test="${(curStarRating ne 'decline')}">-->
-                        <!--<mobile:stars curSR="${curStarRating}" />-->
-                    <!--</c:if>-->
-
-                    <!--<span> Posted on <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>-->
-                <!--</div>-->
-
-                <!--<c:set var="input"><c:out value="${review.comments}" escapeXml="true" /></c:set>-->
-                <!--<util:truncate value="${input}" words="70" />-->
-
-            <!--</div>-->
-        <!--</c:if>-->
     </c:forEach>
-
-
-
 </jsp:root>
