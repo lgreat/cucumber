@@ -89,27 +89,6 @@ define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
         return false;
     };
 
-    var setAllGrades = function() {
-        var $gradeLevelsContainer = $(JS_GRADE_LEVELS_CONTAINER_SELECTOR);
-        var gradeCheckboxes = $gradeLevelsContainer.find('.jq-grade-level');
-
-        var numGradeLevels = gradeCheckboxes.size();
-        var numGradeLevelsChecked = gradeCheckboxes.filter(':checked').size();
-        if (numGradeLevelsChecked === numGradeLevels) {
-            jQuery('#js-grade-level-all').prop('checked', true);
-            jQuery('#js-grade-level-label').empty().append('All grades')
-        } else if (numGradeLevelsChecked === 0) {
-            jQuery('#js-grade-level-all').prop('checked', false);
-            jQuery('#js-grade-level-label').empty().append('No grades');
-        } else {
-            jQuery('#js-grade-level-all').prop('checked', false);
-            jQuery('#js-grade-level-label').empty().append('Some grades');
-        }
-    };
-
-
-
-
     var init = function() {
         $(function() {
             /* initiate tabs  */
@@ -144,10 +123,7 @@ define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
                         gradeCheckboxes.prop('checked', false);
                     }
                 }
-
-                setAllGrades();
             });
-
 
             $(BY_LOCATION_FORM_SELECTOR).on('submit', function() {
                 submitByLocationSearch();
