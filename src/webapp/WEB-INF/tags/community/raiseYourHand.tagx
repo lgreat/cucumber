@@ -589,7 +589,7 @@
         </c:choose>
 
         <textarea name="ryhAnswer"
-                  class="ryhAnswer fltrt"
+                  class="ryhAnswer"
                   id="ryhAnswer" rows="3" cols="50"
                   style="width: ${textareaWidth}; height: ${textareaHeight};"><!-- do not collapse --></textarea>
         <input type="hidden" id="ryhDiscussionId" value="${discussion.id}"/>
