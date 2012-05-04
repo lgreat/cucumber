@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
         >
     <html lang="en">
     <jsp:output omit-xml-declaration="true" />
@@ -18,8 +19,8 @@
 
 
     <body>
-        <about:termsOfUse/>
-        <a class="js-linkToTop" href="#">Top of page</a>
+        <about:termsOfUse-mobile/>
+        <mobile:topOfPage/>
 
         <mod:mobileTracking pageName="TermsOfUse"
                             hier1="Home,Corporate,TermsOfUse"

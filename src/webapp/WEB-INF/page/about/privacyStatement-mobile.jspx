@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
         >
     <html lang="en">
     <jsp:output omit-xml-declaration="true" />
@@ -12,14 +13,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="Description" content="Terms of Use"/>
-        <title>GreatSchools.org Terms of Use</title>
+        <title>GreatSchools.org Privacy Statement</title>
         <meta name="decorator" content="standardMobileDecorator"/>
     </head>
 
 
     <body>
-        <about:privacyStatement/>
-        <a class="js-linkToTop" href="#">Top of page</a>
+        <about:privacyStatement-mobile/>
+        <mobile:topOfPage/>
 
         <mod:mobileTracking pageName="privacyStatement"
                             hier1="Home,Corporate,PrivacyPolicy"

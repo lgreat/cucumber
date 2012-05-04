@@ -13,32 +13,24 @@
         <meta name="Description" content="Terms of Use"/>
         <title>About Us</title>
         <meta name="decorator" content="standardMobileDecorator"/>
-
-        <style type="text/css">
-            #hd {
-                height: 20px;
-            }
-            #bd {
-                padding: 1em 0 0 0;
-            }
-        </style>
     </head>
 
     <body>
-        <div id="hd">
-            <h3>About Us</h3>
+    <div class="mod standard_1-1">
+        <div class="inner">
+            <h1 id="top">About Us</h1>
         </div>
+    </div>
+    <div class="pam">
+        <p>GreatSchools is the country's leading source of information on school performance. With listings of 200,000
+        public and private schools serving students from preschool through high school and more than 800,000 parent
+        ratings and reviews, GreatSchools has become the go-to guide for parents aiming to make a smart school
+        choice.</p>
+    </div>
 
-        <div id="bd">
-            GreatSchools is the country's leading source of information on school performance. With listings of 200,000
-            public and private schools serving students from preschool through high school and more than 800,000 parent
-            ratings and reviews, GreatSchools has become the go-to guide for parents aiming to make a smart school
-            choice.
-        </div>
-
-        <mod:mobileTracking pageName="aboutUs"
-                            hier1="Home,Corporate,AboutUs,AboutUsOverview"
-                />
+    <mod:mobileTracking pageName="aboutUs"
+                        hier1="Home,Corporate,AboutUs,AboutUsOverview"
+            />
     </body>
     </html>
 </jsp:root>
