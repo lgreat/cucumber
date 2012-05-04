@@ -81,10 +81,10 @@
                             <div id="js-gradeLevels">
                                 <select name="gradeLevels">
                                     <option value="">All Grade Levels</option>
-                                    <option value="p">Preschool</option>
-                                    <option value="e">Elementary School (K-5)</option>
-                                    <option value="m">Middle School (6-8)</option>
-                                    <option value="h">High School (9-12)</option>
+                                    <option value="preschool">Preschool</option>
+                                    <option value="elementary">Elementary School (K-5)</option>
+                                    <option value="middle">Middle School (6-8)</option>
+                                    <option value="high">High School (9-12)</option>
                                 </select>
                             </div>
                             <div>
