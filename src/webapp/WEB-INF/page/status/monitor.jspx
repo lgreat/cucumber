@@ -47,6 +47,7 @@
             color: #AA3333;
         }
     </style>
+    <![CDATA[<script type="text/javascript" src="/res/js/jquery/jquery-1.7.2.min.js"></script>]]>
 </head>
 
 <body>
@@ -249,6 +250,69 @@
     </form>
 </table>
 
+<br/>
+<table id="js_localStorage" class="statusbox" style="display:none">
+    <tr>
+        <th colspan="2" class="statustitle">
+            Local Storage
+            <button id="js_localStorageClear">Clear Local Storage!</button>
+        </th>
+    </tr>
+    <tr>
+        <td class="statustitle">Number of Items</td>
+        <td id="js_localStorageSize" class="statusvalue"><!-- not empty --></td>
+    </tr>
+    <tr>
+        <th>Key</th>
+        <th>Value</th>
+    </tr>
+</table>
+
+<br/>
+<table id="js_sessionStorage" class="statusbox" style="display:none">
+    <tr>
+        <th colspan="2" class="statustitle">
+            Session Storage
+            <button id="js_sessionStorageClear">Clear Session Storage!</button>
+        </th>
+    </tr>
+    <tr>
+        <td class="statustitle">Number of Items</td>
+        <td id="js_sessionStorageSize" class="statusvalue"><!-- not empty --></td>
+    </tr>
+    <tr>
+        <th>Key</th>
+        <th>Value</th>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    <![CDATA[
+    var enabled = typeof(Storage) !== "undefined";
+    if (enabled) {
+        function dumpStorage(storageType) {
+            var storage = eval(storageType);
+            var numKeys = storage.length;
+            $('#js_' + storageType + 'Size').html(numKeys);
+            var $table = $('#js_' + storageType);
+            for (var counter=0; counter < numKeys; counter++) {
+                var key = storage.key(counter);
+                var value = storage.getItem(key);
+                var $keyTd = $('<td></td>').addClass('statustitle').html(key);
+                var $valueTd = $('<td></td>').addClass('statusvalue').html(value);
+                var $row = $('<tr></tr>').append($keyTd).append($valueTd);
+                $table.append($row);
+            }
+            $table.show();
+            $('#js_' + storageType + 'Clear').click(function() {
+                storage.clear();
+            });
+        }
+        dumpStorage('localStorage');
+        dumpStorage('sessionStorage');
+    }
+    ]]>
+</script>
 <br/>
 </body>
 </html>
