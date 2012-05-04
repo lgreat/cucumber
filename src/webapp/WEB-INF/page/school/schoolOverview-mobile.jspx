@@ -153,7 +153,7 @@
                 <div class="inner">
                     <div class="hd">
                         <h2 class="plm"><link:schoolProfileParentReview school="${school}">
-                            Reviews (${numberOfReviews})
+                            Reviews (${numberOfReviews})  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
                         </link:schoolProfileParentReview></h2>
                     </div>
                     <div class="bd pam small">
@@ -215,6 +215,7 @@
                     <div class="hd">
                         <h2 class="plm"><link:schoolProfileTestscore school="${school}">
                            Test scores
+                            <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
                         </link:schoolProfileTestscore></h2>
                     </div>
                     <div id="js_testScoreSnippetOuterDiv" style="display: none;">

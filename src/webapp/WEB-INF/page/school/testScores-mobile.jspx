@@ -74,7 +74,7 @@
                 <div class="ptm">
                     <hr class="keyline1" />
                     <div>
-                            ${gs_rating}<span class="ac1"> of 10</span><span class="strong"> GreatSchools Rating</span>
+                        <button class="ratings-round ratings-medium round-medium fl">${gs_rating}</button> <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong class="small"> GreatSchools Rating</strong></div>
                     </div>
                 </div>
                 </c:if>
@@ -95,7 +95,11 @@
                         </div>
                         <div class="bd">
                             <c:if test="${not empty testToGrades.scale}">
-                                Scale: ${testToGrades.scale}
+                                <div class="mod standard_2-1">
+                                    <div class="inner">
+                                        <strong>Scale:</strong> ${testToGrades.scale}
+                                    </div>
+                                </div>
                             </c:if>
                             <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
                                 <div class="pam">
@@ -131,19 +135,25 @@
 
     <!-- SMS / Email / Save buttons -->
     <mobile:share school="${school}"/>
-
-
-    <div data-role="button" data-icon="arrow-r" data-iconpos="right">
-        <link:schoolProfileOverview school="${school}">
-            School overview
-        </link:schoolProfileOverview>
+    <div class="mod standard_6-1 mts">
+        <div class="inner">
+            <div class="hd">
+                <h2 class="plm"><link:schoolProfileOverview school="${school}">
+                    School overview  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                </link:schoolProfileOverview></h2>
+            </div>
+        </div>
     </div>
-
-    <div data-role="button" data-icon="arrow-r" data-iconpos="right">
-        <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" schoolId="${school.id}"
-                                            state="${school.databaseState}">Reviews</link:schoolProfileParentReview2010>
+    <div class="mod standard_6-1 mtn">
+        <div class="inner">
+            <div class="hd">
+                <h2 class="plm"><link:schoolProfileParentReview2010 levelCode="${school.levelCode}" schoolId="${school.id}"
+                                                                    state="${school.databaseState}">
+                    Reviews  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                </link:schoolProfileParentReview2010></h2>
+            </div>
+        </div>
     </div>
-
     <div>
         About the tests
     </div>
@@ -151,6 +161,7 @@
     <div>
         About GS Ratings
     </div>
+    <mobile:topOfPage/>
     <mod:mobileTracking pageName="${pageName}"
                         hier1="School,TestScores,MainTestScorePage" schoolGSRating="${gs_rating}"/>
     </body>
