@@ -151,7 +151,7 @@ Example:
 }
 .standard_6-1 .hd a {color:#000000;}
 .standard_6-1 .hd .arrow {padding-right:16px; float: right;}
-.standard_6-1 .hd .selectbox {padding: 8px; float: right;}
+.standard_6-1 .hd .selectbox {padding-right: 8px; float: right;}
 
 
 /* Module 7 - Nearby cities or districts

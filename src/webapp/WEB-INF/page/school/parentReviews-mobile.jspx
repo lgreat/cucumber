@@ -49,94 +49,104 @@
     </head>
 
     <body>
+        <div class="mod standard_1-1">
+            <div class="inner">
+                <div class="bd">
+                    <div><h6>Ratings &amp; Reviews</h6></div>
 
-        <div>
-            <div><strong>${school.name}</strong></div>
-            <div>
-                <c:if test="${not school.preschoolOnly}">
-                    <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
-                </c:if>
-                <!-- Grade levels -->
-                <c:choose>
-                    <c:when test="${school.preschoolOnly}">
-                        <c:set var="gradeLevels">Preschool</c:set>
-                    </c:when>
-                    <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
-                        <!-- Leave blank -->
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
-                    </c:otherwise>
-                </c:choose>
-                <!-- Enrollment -->
-                <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
-                <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
-                    <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
-                </c:if>
-                ${schoolType}${gradeLevels}${enrollment}
-            </div>
-        </div>
+                    <div>
+                        <div><h1><link:schoolProfileOverview school="${school}">
+                            ${school.name}
+                        </link:schoolProfileOverview></h1></div>
 
-        <div>
-            <link:schoolProfileOverview school="${school}" anchor="${headerLinkAnchor}">Overview</link:schoolProfileOverview>
-            <c:if test="${hasTestScores}">
-                <div><link:schoolProfileTestscore school="${school}">Test scores</link:schoolProfileTestscore></div>
-            </c:if>
-        </div>
+                    </div>
 
-        <hr/>
-
-        <c:if test="${fn:length(cmd.reviews)>0}">
-            <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
-            <c:if test="${!empty principalReview}">
-                <div class="ui-body ui-body-c" style="margin-bottom: 10px;">
-                    <h3>The Principal's point of view</h3>
-                    <p>
-                        ${principalReview.comments}
-                    </p>
+                    <div>
+                        <c:if test="${not school.preschoolOnly}">
+                            <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
+                        </c:if>
+                        <!-- Grade levels -->
+                        <c:choose>
+                            <c:when test="${school.preschoolOnly}">
+                                <c:set var="gradeLevels">Preschool</c:set>
+                            </c:when>
+                            <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
+                                <!-- Leave blank -->
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
+                            </c:otherwise>
+                        </c:choose>
+                        <!-- Enrollment -->
+                        <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
+                        <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                            <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
+                        </c:if>
+                        <span class="ac1 small">${schoolType}${gradeLevels}${enrollment}</span>
+                    </div>
                 </div>
-            </c:if>
-        </c:if>
 
-        <c:if test="${not empty ratings.overall}">
-            <div id="js-community-ratings" style="margin-bottom: 10px;">
-                <span>${cmd.ratings.overall} star(s)</span><span> community rating</span>
-            </div>
-
-            <div id="js-sub-ratings" style="display: none;">
-                <c:choose>
-                    <c:when test="${not empty parentRatings and not empty studentRatings}">
-                        <div class="reviewSubRatings">
-                            <div id="parentRatings">
-                                <school:parentReviewsSubcategoryRatings ratings="${parentRatings}"/>
-                            </div>
-                            <div id="studentRatings" class="hidden">
-                                <school:parentReviewsSubcategoryRatings ratings="${studentRatings}"/>
+                <c:if test="${fn:length(cmd.reviews)>0}">
+                    <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
+                    <c:if test="${!empty principalReview}">
+                        <div class="mod standard_2-1">
+                            <div class="inner">
+                                <strong>The Principal's point of view</strong>
+                                <p>
+                                    ${principalReview.comments}
+                                </p>
                             </div>
                         </div>
-                    </c:when>
-                    <c:when test="${not empty communityRatings}">
-                        <div class="reviewSubRatings">
-                            <div id="communityRatings">
-                                <school:parentReviewsSubcategoryRatings ratings="${communityRatings}"/>
-                            </div>
+                    </c:if>
+                </c:if>
+
+                <c:if test="${not empty ratings.overall}">
+                    <div class="ptm">
+                        <hr class="keyline1" />
+                        <div>
+                            <div class="fl" style="padding-top: 2px;"><mobile:stars curSR="${ratings.overall}"/></div>
+                            <div class="plm fl"><strong class="small">Community Rating</strong></div>
                         </div>
-                    </c:when>
-                </c:choose>
+                    </div>
+                    <div class="clearfloat"><!-- not empty --></div>
+                    <div id="js-sub-ratings" style="display: none;">
+                        <c:choose>
+                            <c:when test="${not empty parentRatings and not empty studentRatings}">
+                                <div class="reviewSubRatings">
+                                    <div id="parentRatings">
+                                        <school:parentReviewsSubcategoryRatings ratings="${parentRatings}"/>
+                                    </div>
+                                    <div id="studentRatings" class="hidden">
+                                        <school:parentReviewsSubcategoryRatings ratings="${studentRatings}"/>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:when test="${not empty communityRatings}">
+                                <div class="reviewSubRatings">
+                                    <div id="communityRatings">
+                                        <school:parentReviewsSubcategoryRatings ratings="${communityRatings}"/>
+                                    </div>
+                                </div>
+                            </c:when>
+                        </c:choose>
+                    </div>
+                </c:if>
             </div>
-
-        </c:if>
-
-        <div class="ui-body ui-body-c">
-            <div>Reviews (${cmd.totalReviews})</div>
-            <div>
-                <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort"
-                             onchange="sortParentReviews('${school.id}','${stateAbbrev}','${param_sortby}');">
-                    <form:option value="dd">Date: newest to oldest</form:option>
-                    <form:option value="da">Date: oldest to newest</form:option>
-                    <form:option value="rd">Rating: highest to lowest</form:option>
-                    <form:option value="ra">Rating: lowest to highest</form:option>
-                </form:select>
+        </div>
+        <div class="mod standard_6-1 mtn ptn">
+            <div class="inner">
+                <div class="hd plm">
+                    <div class="fl">Reviews (${cmd.totalReviews})</div>
+                    <div class="selectbox vam">
+                        <form:select path="cmd.sortBy" id="sltRatingSort"
+                                     onchange="sortParentReviews('${school.id}','${stateAbbrev}','${param_sortby}');">
+                            <form:option value="dd">Date: newest to oldest</form:option>
+                            <form:option value="da">Date: oldest to newest</form:option>
+                            <form:option value="rd">Rating: highest to lowest</form:option>
+                            <form:option value="ra">Rating: lowest to highest</form:option>
+                        </form:select>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -146,29 +156,42 @@
         </div>
 
         <div class="js-paginate-next">
-            <a href="#">View more reviews</a>
+            <div class="plm"><a href="#" class="small"><strong>View more reviews &amp;raquo;</strong></a></div>
         </div>
-
+        <div class="pts"><hr class="keyline1" /></div>
         <!-- SMS / Email / Save buttons -->
         <mobile:share school="${school}"/>
 
-        <div class="ui-body ui-body-c">
+        <div class="mod standard_6-1 mts">
+            <div class="inner">
+                <div class="hd">
+                    <h2 class="plm"><link:schoolProfileOverview school="${school}">
+                        School overview  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                    </link:schoolProfileOverview></h2>
+                </div>
+            </div>
+        </div>
+        <c:if test="${hasTestScores}">
+            <div class="mod standard_6-1 mtn">
+                <div class="inner">
+                    <div class="hd">
+                        <h2 class="plm"><link:schoolProfileTestscore school="${school}">
+                            Test Scores  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                        </link:schoolProfileTestscore></h2>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+
+
+        <div class="pam">
             <h3>About community rating</h3>
             <p>The Community Rating is the school&amp;apos;s average rating from its community members (e.g., parents, students, and school staff). The highest possible rating is five stars; the lowest is one star.</p>
         </div>
 
 
-        <hr/>
-        <div>
-            <div><link:schoolProfileOverview school="${school}" anchor="${headerLinkAnchor}">Overview</link:schoolProfileOverview></div>
-            <c:if test="${hasTestScores}">
-                <div><link:schoolProfileTestscore school="${school}">Test scores</link:schoolProfileTestscore></div>
-            </c:if>
-        </div>
+        <mobile:topOfPage/>
 
-        <div>
-            <a class="js-linkToTop" href="#">Top of page</a>
-        </div>
 
     <!--- Omniture -->
     <c:set var="pageName" value="Parent Reviews" scope="request"/>

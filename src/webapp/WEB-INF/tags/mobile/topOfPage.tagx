@@ -5,7 +5,7 @@
     <jsp:directive.tag body-content="empty"/>
 
     <div class="fr pam">
-        <a href="#" onclick="$('html,body').animate({scrollTop:0}, 'medium'); return false;">&#8593; Top of page</a>
+        <a href="#" class="small" onclick="$('html,body').animate({scrollTop:0}, 'medium'); return false;">&#8593; Top of page</a>
     </div>
 
 </jsp:root>
