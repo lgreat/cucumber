@@ -265,7 +265,7 @@
             </c:choose>
         </c:set>
 
-        <mod:tracking pageName="mobile ${omniturePageName}"
+        <mod:mobileTracking pageName="mobile ${omniturePageName}"
                       query="${omnitureQuery}"
                       hier1="Mobile,${omnitureHierarchy}"
                       schoolType="${omnitureSchoolType}"
