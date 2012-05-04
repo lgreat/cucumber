@@ -97,7 +97,6 @@
                             <c:if test="${not empty testToGrades.scale}">
                                 Scale: ${testToGrades.scale}
                             </c:if>
-
                             <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
                                 <div class="pam">
                                     <h4>${gradeToSubjects.gradeLabel}</h4>
@@ -106,20 +105,8 @@
                                         <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
 
                                         <c:forEach var="yearToTestScore" items="${subjectToYears.years}" varStatus="index">
-                                            <div class="line small">
-                                                <div class="unit size12of100 tar">
-                                                    ${yearToTestScore.year}
-                                                </div>
 
-                                                <div class="unit size70of100 pts phm">
-                                                    <div class="bar_container"><div style="width:${yearToTestScore.testScoreStr}%"><!-- not empty --></div></div>
-                                                </div>
-
-                                                <div class="unit size18of100 lastUnit tal">
-                                                    ${yearToTestScore.testScoreStr}%
-                                                </div>
-
-                                            </div>
+                                            <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}" testScoreYear="${yearToTestScore.year}"/>
                                         </c:forEach>
                                         <div class="ptm"><!-- not empty --></div>
                                     </c:forEach>

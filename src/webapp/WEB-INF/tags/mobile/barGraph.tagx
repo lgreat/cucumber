@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+
+    <!--
+        How to call _________ <mobile:stars curSR="${curStarRating}" totSR="7" smStars="1"/>
+        totalSR defaults to 5 and star size defaults to 16x16 size.  smStars makes them 12x12
+    -->
+
+    <jsp:directive.attribute name="testScoreYear" required="false" type="java.lang.String"
+                             description="The year of the test"/>
+    <jsp:directive.attribute name="testScoreValue" required="false" type="java.lang.String"
+                             description="Test value"/>
+    <jsp:directive.attribute name="loadJS" required="false" type="java.lang.Integer"
+                             description="Load with javscript on overview page"/>
+
+    <c:choose>
+        <c:when test="${empty loadJS}">
+
+                <div class="line small">
+                    <div class="unit size12of100 tar">
+                        ${testScoreYear}
+                    </div>
+                    <c:choose>
+                        <c:when test="${testScoreValue != 'Data not available'}">
+                            <div class="unit size70of100 pts phm">
+                                <div class="bar_container"><div style="width:${testScoreValue}%"><!-- not empty --></div></div>
+                            </div>
+
+                            <div class="unit size18of100 lastUnit tal">
+                                ${testScoreValue}%
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="unit size80of100 lastUnit pls">
+                                ${testScoreValue}
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+
+        </c:when>
+        <c:otherwise>
+            <div class="js_valueLine line small">
+                <div class="js_year unit size12of100 tar"><!-- not empty --></div>
+
+                <div class="js_bar unit size74of100 pts phm">
+                    <!-- That 50% below is just a placeholder!! The JS sets the real value -->
+                    <div class="bar_container"><div style="width:50%"><!-- not empty --></div></div>
+                </div>
+
+                <div class="js_value unit size14of100 lastUnit tal"><!-- not empty --></div>
+            </div>
+        </c:otherwise>
+    </c:choose>
+</jsp:root>
