@@ -31,6 +31,16 @@
             index.init();
         });
     </script>
+    <style type="text/css">
+        .ac_results ul li {
+            list-style: none;
+            line-height: 14px;
+            border-bottom:1px solid grey;
+            background:#EEE;
+            padding:10px;
+            margin-left:-4px;
+        }
+    </style>
 </head>
 
 <body>
@@ -66,7 +76,7 @@
                             <input type="hidden" name="st" value="charter"/>
                             <input type="hidden" name="st" value="private"/>
                             <div class="clearfix prm">
-                                <gsml:input type="text" styleClass="size100of100"  name="searchString" value="${searchString}" placeholder=" City AND states, zip or address ..." />
+                                <gsml:input type="text" styleClass="size100of100 js-searchByLocationQuery"  name="searchString" value="${searchString}" placeholder=" City AND states, zip or address ..." />
                             </div>
                             <div id="js-gradeLevels">
                                 <select name="gradeLevels">

@@ -71,7 +71,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         SchoolSearchCommandWithFields commandAndFields = createSchoolSearchCommandWithFields(schoolSearchCommand, fields, nearbySearchInfo);
 
         // validate the request data
-        if (commandAndFields.getState() == null) {
+        if (!commandAndFields.isNearbySearch() && commandAndFields.getState() == null) {
             return new ModelAndView(getNoResultsView(request, commandAndFields), model);
         }
 
@@ -450,7 +450,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
     private String getNoResultsView(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {
         String viewName;UrlBuilder builder = new UrlBuilder(UrlBuilder.HOME);
         builder.addParameter("noResults","true");
-        if (commandAndFields.isSearch()) {
+        if (commandAndFields.getSearchString() != null) {
             builder.addParameter("searchString",commandAndFields.getSearchString());
         }
         viewName = "redirect:" + builder.asSiteRelative(request);
@@ -581,7 +581,11 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         }*/
 
         // TODO: In Mobile api, we don't filter by state if a lat/lon is specified. Should that logic apply here as well?
-        q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
+        // maybe not, since someone might want all schools in a 10 mile radius that are only in their state if they live
+        // near a state border
+        if (state != null) {
+            q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
+        }
 
         // filter school types and grade levels and enrollment
         for (FilterGroup schoolTypeFilter : filterGroups) {

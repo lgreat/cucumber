@@ -31,6 +31,7 @@ public class CityAutocompleteController {
 
     @RequestMapping(method= RequestMethod.GET)
     public void handleRequestInternal(@RequestParam(value = "q", required = false) String searchString,
+                                      @RequestParam(value = "prependCurrentLocation", required = false) boolean prependCurrentLocation,
                                       HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         try {
@@ -41,6 +42,12 @@ public class CityAutocompleteController {
 
             response.setContentType("application/json");
             _cacheInterceptor.setCacheHeaders(response);
+
+            // the controller probably shouldn't do this, but it was the easiest solution since we use a jquery plugin
+            // to populate autocomplete results
+            if (prependCurrentLocation) {
+                suggestions.add(0, "Current Location");
+            }
 
             PrintWriter writer = response.getWriter();
             for (String suggestion : suggestions) {

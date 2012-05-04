@@ -88,7 +88,7 @@
                                 <div class="fr">
                                     <select class="js-sort-select">
                                         <c:choose>
-                                            <c:when test="${isFromByLocation}">
+                                            <c:when test="${isNearbySearch}">
                                                 <gsml:selectOption value="distance"
                                                                    selected="${sort eq 'distance'}">Distance</gsml:selectOption>
                                             </c:when>

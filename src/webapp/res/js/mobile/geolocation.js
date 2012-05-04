@@ -68,6 +68,11 @@ define(['sessionStorage'], function(sessionStorage) {
         }
     };
 
+    var hasGeolocation = function() {
+        var coordinates = sessionStorage.getItem(COORDINATES_KEY);
+        return (coordinates !== undefined && coordinates !== null);
+    };
+
     var init = function() {
 
     };
@@ -75,7 +80,8 @@ define(['sessionStorage'], function(sessionStorage) {
     return {
         init:init,
         getGeolocation:getGeolocation,
-        getCoordinates:getCoordinates
+        getCoordinates:getCoordinates,
+        hasGeolocation:hasGeolocation
     }
 
 });

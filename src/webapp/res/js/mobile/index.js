@@ -1,4 +1,4 @@
-define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
+define(['uri', 'geocoder', 'validation', 'geolocation', 'uri', 'jquery.autocomplete'], function(uri, geocoder, validation, geolocation, uri) {
     var JS_GRADE_LEVELS_CONTAINER_SELECTOR = '#js-gradeLevels';
     var BY_LOCATION_FORM_SELECTOR = '#js-searchByLocation';
     var BY_NAME_FORM_SELECTOR = '#search-form';
@@ -31,6 +31,10 @@ define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
 
     var loadResultsPage = function() {
         var queryString = $(BY_LOCATION_FORM_SELECTOR).serialize();
+        if (queryString.indexOf('Current+Location') >= 0) {
+            queryString = queryString.replace('searchString=Current+Location','');
+            queryString = queryString.replace('&&','&');
+        }
         queryString = buildQueryString(queryString);
         window.location.href = '/search/search.page' + queryString;
     };
@@ -56,7 +60,7 @@ define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
         var searchQuery = byLocationForm.find('input[name="searchString"]').val();
         searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
 
-        if (searchQuery != '' &&
+        if (searchQuery != '' && searchQuery !== 'Current Location' &&
                 searchQuery != 'Search by city AND state or address ...' && !isTermState(searchQuery)) {
             byLocationForm.find('input[name="searchString"]').val(searchQuery);
 
@@ -82,6 +86,8 @@ define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
                     alert("Location not found. Please enter a valid address, city, or ZIP.");
                 }
             });
+        } else if (searchQuery === 'Current Location') {
+            window.setTimeout(loadResultsPage, 1); // lat and lon have already been set
         } else {
             alert("Please enter an address, zip code or city and state");
         }
@@ -138,6 +144,47 @@ define(['uri', 'geocoder', 'validation'], function(uri, geocoder, validation) {
             validation.init();
             validation.attachValidationHandlers('#search-form');
 
+            geolocation.getCoordinates(function(coordinates) {
+                var byLocationForm = $(BY_LOCATION_FORM_SELECTOR);
+                byLocationForm.find('input[name="lat"]').val(coordinates.latitude);
+                byLocationForm.find('input[name="lon"]').val(coordinates.longitude);
+            });
+
+            attachCityAutocomplete('.js-searchByLocationQuery');
+
+        });
+    };
+
+    var attachCityAutocomplete = function(queryBoxSelector) {
+        var searchBox = $(queryBoxSelector);
+        var url = "/search/cityAutocomplete.page";
+        var prependCurrentLocation = geolocation.hasGeolocation();
+
+        var locationFormatter = function(row) {
+            if (row != null && row.length > 0) {
+                var suggestion = row[0];
+                if (suggestion === "Current Location") {
+                    return suggestion;
+                }
+                // capitalize first letter of all words but the last
+                // capitalize the entire last word (state)
+                return suggestion.substr(0, suggestion.length-2).replace(/\w+/g, function(word) { return word.charAt(0).toUpperCase() + word.substr(1); }) + suggestion.substr(suggestion.length-2).toUpperCase();
+            }
+            return row;
+        };
+        searchBox.autocomplete2(url, {
+            minChars: 3,
+            selectFirst: false,
+            cacheLength: 150,
+            matchSubset: true,
+            max: 6,
+            autoFill: false,
+            dataType: "text",
+            formatItem: locationFormatter,
+            formatResult: locationFormatter,
+            extraParams: {
+                prependCurrentLocation:prependCurrentLocation
+            }
         });
     };
 
