@@ -37,7 +37,7 @@
             <div class="mod standard_1-1">
                 <div class="inner"><div class="pvs"><h1>Subscribe to Newsletter</h1></div></div>
             </div>
-            <div class=" signUp pam">
+            <div class=" signUp pam ">
 
             <div><p>Sign up for daily tips and ideas that will enrich your child's education.</p></div>
             <div class="error dn">
@@ -48,13 +48,14 @@
 
             <div><button type="submit" value="Sign Up" onclick="javascript:void(0);" class="but but-rg but-1 js-submitButton">Sign up</button></div>
 
-                <div class="thankYou dn pam">
-                    <h3>Thank you</h3>
 
-                    <p>Please confirm your subscription by clicking the link in the email we just sent you.</p>
+        </div>
+        <div class="thankYou pam dn">
+            <div class="pvm"><h3>Thank you</h3></div>
 
-                    <a href="/?site_preference=mobile" class="but but-rg but-1">Find a school</a>
-                </div>
+            <div class="pvm"><p>Please confirm your subscription by clicking the link in the email we just sent you.</p></div>
+
+            <div class="pvm"><a href="/?site_preference=mobile" class="but but-rg but-1">Find a school</a></div>
         </div>
         </form>
         <div class="pbl"><!-- this is not empty --></div>
