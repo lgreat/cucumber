@@ -164,7 +164,7 @@
 
     <div class="pam">
         <strong>About GS Ratings</strong><br />Our ratings provide an overview of a school's test performance by comparing the school's state standardized test results to those of other schools in the state.
-        For more information, go to the full website to <a href="/find-a-school/defining-your-ideal/2423-ratings.gs">read our FAQs</a>.
+        For more information, go to the full website to <link:cmsContent contentKey="Article#2423" fullUri="/find-a-school/defining-your-ideal/ratings">read our FAQs</link:cmsContent>.
     </div>
     <mobile:topOfPage/>
     <mod:mobileTracking pageName="${pageName}"
