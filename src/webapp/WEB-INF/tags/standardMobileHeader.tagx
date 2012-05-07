@@ -6,73 +6,22 @@
         xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 
-   <!-- <style type="text/css">
-        #mobile-header {
-            height: 40px;
-            background-color: #4CA5D5;
-            position: relative;
-        }
-
-        .mobile-logo-link {
-            position: absolute;
-            top: 5px;
-            left: 1px;
-        }
-
-        .mobile-header-nav {
-            margin: 5px 4px 0 0;
-            float: right;
-        }
-
-        .mobile-header-nav a {
-            margin-right: 4px;
-            display: inline;
-        }
-
-        #mobile-sub-nav {
-            background-color: #EEE;
-            border: 1px solid #CCC;
-            color: #333;
-            font-weight: bold;
-            margin: 0;
-            padding: 0;
-        }
-        #mobile-sub-nav li {
-            border: 1px solid #CCC;
-            padding: 0.5em;
-        }
-    </style>-->
-
-    <div id="mobile-header" class="js-mobile-header header">
-        <div class="mobile-logo-link">
-            <link:home>
-                <div class="logo"><!-- do not collapse --></div>
-                <!--<gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"
-                          alt="GreatSchools: Involved Parents. Successful Kids"/>-->
-            </link:home>
-        </div>
-
-        <div class="mobile-header-nav">
-            <link:home>
-                <span class="sprite search"><!-- --></span>
-            </link:home>
-            <a href="#" class="top-nav-goto">
-                <span class="sprite menu"><!-- --></span>
-            </a>
-        </div>
+    <div class="header">
+        <link:home>
+            <div class="logo"><!-- do not collapse --></div>
+            <!--<gsml:img id="mobileLogo2" src="/res/img/logo/logo_GS2010_330x110.png" height="30"
+                      alt="GreatSchools: Involved Parents. Successful Kids"/>-->
+        </link:home>
+        <ul id="navbar">
+        <!-- The strange spacing herein prevents an IE6 whitespace bug. -->
+            <li><a href="#" class="topnav tac ptm"><div class="iconx24 i-24-expand"><!-- --></div></a>
+                <ul>
+                    <a href="#"><li><div class="fl default" style="color: #555555;">My Saved Schools</div><div class="fr iconx24 i-24-home mrl mtm"><!--  --></div></li></a>
+                    <a href="/email/newslettersSignUp-mobile.page"><li><div class="fl default" style="color: #555555;">Subscribe to Newsletter</div><div class="fr iconx24 i-24-checkbox mrl mtm"><!--  --></div></li></a>
+                </ul>
+            </li>
+            <li><link:home styleClass="topnav tac ptm"><div class="iconx24 i-24-magnifying-glass"><!-- --></div></link:home>
+            </li>
+        </ul>
     </div>
-
-
-    <ul id="mobile-sub-nav" style="display:none">
-        <li id="sub-nav-findSchool">
-            <link:home><span class="sprite search"><!-- --></span>Find a School</link:home>
-        </li>
-        <li id="sub-nav-mss">
-            <a href="#"><span class="sprite home"><!-- --></span>My Saved Schools</a>
-        </li>
-        <li id="sub-nav-nlSubscribe">
-            <a href="/email/newslettersSignUp-mobile.page"><span class="sprite check"><!-- --></span>Subscribe to Newsletter</a>
-        </li>
-    </ul>
-
 </jsp:root>
