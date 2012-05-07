@@ -19,8 +19,8 @@
 
         <script type="text/javascript" src="/res/js/global.js"><!--Do not collapse--></script>
         <link rel="stylesheet" type="text/css" href="/res/css/00_reset/neutral_reset.css" />
-        <link rel="stylesheet" type="text/css" href="/res/css/06_spacing/spacing.css" />
-        <link rel="stylesheet" type="text/css" href="/res/css/08_css3/rounded_corners.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/09_spacing/spacing.css" />
+        <link rel="stylesheet" type="text/css" href="/res/css/10_css3/rounded_corners.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/38_special/cms_content.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/98_print/printGrid_640.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/98_print/printTypography.css" />
