@@ -127,7 +127,7 @@
                     </div>
                 </c:if>
                 <c:if test="${not empty testToGrades.description}">
-                    <div class="phm pbm small">
+                    <div class="phm pbm">
                         <strong>Description:</strong> ${testToGrades.description}
                     </div>
                 </c:if>
@@ -163,7 +163,8 @@
 
 
     <div class="pam">
-        <strong>About GS Ratings</strong>
+        <strong>About GS Ratings</strong><br />Our ratings provide an overview of a school's test performance by comparing the school's state standardized test results to those of other schools in the state.
+        For more information, go to the full website to <a href="/find-a-school/defining-your-ideal/2423-ratings.gs">read our FAQs</a>.
     </div>
     <mobile:topOfPage/>
     <mod:mobileTracking pageName="${pageName}"
