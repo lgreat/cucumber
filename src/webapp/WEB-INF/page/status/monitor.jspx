@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
-          xmlns="http://www.w3c.org/1999/xhtml"
+          xmlns="http://www.w3.org/1999/xhtml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
@@ -9,7 +9,7 @@
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3c.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
 <jsp:directive.page contentType="text/html"/>
 
@@ -250,66 +250,69 @@
     </form>
 </table>
 
-<br/>
-<table id="js_localStorage" class="statusbox" style="display:none">
-    <tr>
-        <th colspan="2" class="statustitle">
-            Local Storage
-            <button id="js_localStorageClear">Clear Local Storage!</button>
-        </th>
-    </tr>
-    <tr>
-        <td class="statustitle">Number of Items</td>
-        <td id="js_localStorageSize" class="statusvalue"><!-- not empty --></td>
-    </tr>
-    <tr>
-        <th>Key</th>
-        <th>Value</th>
-    </tr>
-</table>
-
-<br/>
-<table id="js_sessionStorage" class="statusbox" style="display:none">
-    <tr>
-        <th colspan="2" class="statustitle">
-            Session Storage
-            <button id="js_sessionStorageClear">Clear Session Storage!</button>
-        </th>
-    </tr>
-    <tr>
-        <td class="statustitle">Number of Items</td>
-        <td id="js_sessionStorageSize" class="statusvalue"><!-- not empty --></td>
-    </tr>
-    <tr>
-        <th>Key</th>
-        <th>Value</th>
-    </tr>
-</table>
+<c:forEach items="local,session" var="storageType">
+    <br/>
+    <table id="js_${storageType}Storage" class="statusbox">
+        <tr>
+            <th colspan="3" class="statustitle">
+                ${storageType} storage
+                <button id="js_${storageType}StorageClear">Clear ${storageType} storage!</button>
+            </th>
+        </tr>
+        <tr>
+            <td class="statustitle">Number of Items</td>
+            <td class="statusvalue js_storageSize" colspan="2"><!-- not empty --></td>
+        </tr>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+            <th>Delete</th>
+        </tr>
+        <tr style="display:none;" class="template">
+            <td class="statustitle">Template</td>
+            <td class="statusvalue"><span class="js_value">Template</span><span>Click to show/hide</span></td>
+            <td class="js_delete"><button>Delete</button></td>
+        </tr>
+    </table>
+</c:forEach>
 
 <script type="text/javascript">
     <![CDATA[
     var enabled = typeof(Storage) !== "undefined";
     if (enabled) {
-        function dumpStorage(storageType) {
+        var deleteKey = function(storage, key) {
+            return function() {
+                storage.removeItem(key);
+                window.location.reload();
+            }
+        };
+        var dumpStorage = function(storageType) {
             var storage = eval(storageType);
             var numKeys = storage.length;
-            $('#js_' + storageType + 'Size').html(numKeys);
             var $table = $('#js_' + storageType);
+            $table.find('.js_storageSize').html(numKeys);
             for (var counter=0; counter < numKeys; counter++) {
                 var key = storage.key(counter);
                 var value = storage.getItem(key);
-                var $keyTd = $('<td></td>').addClass('statustitle').html(key);
-                var $valueTd = $('<td></td>').addClass('statusvalue').html(value);
-                var $row = $('<tr></tr>').append($keyTd).append($valueTd);
-                $table.append($row);
+                var $newRow = $table.find('.template').clone().removeClass('template').show();
+                $newRow.find('.statustitle').html(key);
+                $newRow.find('td').not('.js_delete').click(function() {
+                    $(this).parent().children('td.statusvalue').find('span').toggle();
+                });
+                $newRow.find('.js_delete button').click(deleteKey(storage, key));
+                $newRow.find('.js_value').html(value).hide();
+                $table.append($newRow);
             }
-            $table.show();
             $('#js_' + storageType + 'Clear').click(function() {
                 storage.clear();
+                window.location.reload();
             });
-        }
+        };
         dumpStorage('localStorage');
         dumpStorage('sessionStorage');
+    } else {
+        $('#js_localStorage').hide();
+        $('#js_sessionStorage').hide();
     }
     ]]>
 </script>
