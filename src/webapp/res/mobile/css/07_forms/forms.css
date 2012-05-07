@@ -77,7 +77,7 @@ form div { clear:left;margin: 0;padding: 0;padding-bottom: 0.5em; }
 .alert, 
 .notice, 
 .success, 
-.info {padding: 0.8em;margin-bottom: 1em;border: 2px solid #ddd;}
+.info {padding: 0.8em;margin-bottom: 1em;border: 2px solid #ddd; width: 89%}
 
 .error, 
 .alert {background: #fbe3e4;color: #8a1f11;border-color: #fbc2c4;}
