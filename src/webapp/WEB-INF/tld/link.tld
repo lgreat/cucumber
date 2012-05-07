@@ -685,6 +685,13 @@
             <type>java.lang.String</type>
             <description>Link title</description>
         </attribute>
+        <attribute>
+            <name>markUpWithItemScopeUrl</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>whether or not to use attribute itemscope="url" for rich snippets breadcrumbs markup</description>
+        </attribute>
     </tag>
 
     <tag>
@@ -1167,6 +1174,13 @@
             <type>java.lang.String</type>
             <description>Anchor value</description>
         </attribute>
+        <attribute>
+            <name>markUpWithItemScopeUrl</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>whether or not to use attribute itemscope="url" for rich snippets breadcrumbs markup</description>
+        </attribute>
     </tag>
     <tag>
         <name>cities</name>
@@ -1576,7 +1590,14 @@
             <rtexprvalue>true</rtexprvalue>
             <type>java.lang.String</type>
             <description>rel attribute, for nofollow links</description>
-        </attribute>        
+        </attribute>
+        <attribute>
+            <name>markUpWithItemScopeUrl</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
+            <description>whether or not to use attribute itemscope="url" for rich snippets breadcrumbs markup</description>
+        </attribute>
     </tag>
     <tag>
         <name>schoolSearch</name>

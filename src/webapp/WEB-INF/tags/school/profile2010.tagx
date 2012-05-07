@@ -36,21 +36,22 @@
         <li><link:home>Home</link:home> &amp;gt; </li>
         <c:choose>
             <c:when test="${state eq 'DC'}">
-                <li><link:research state="${state}"
-                                   title="District of Columbia">District of Columbia</link:research> &amp;gt;
-                </li>
-                <li>
+                <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
+                    <link:research state="${state}"
+                                   title="District of Columbia" markUpWithItemScopeUrl="true"><span itemprop="title">District of Columbia</span></link:research> &amp;gt;
+                <![CDATA[</li>]>
+                <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
                     <c:choose>
                         <c:when test="${school.levelCode eq 'p'}">
                             <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p"
-                                          title="Washington, D.C. preschools">Washington, D.C. Preschools</link:schools>&amp;#160;
+                                          title="Washington, D.C. preschools" markUpWithItemScopeUrl="true"><span itemprop="title">Washington, D.C. Preschools</span></link:schools>&amp;#160;
                         </c:when>
                         <c:otherwise>
                             <link:city city="${city}" state="${school.physicalAddress.state}"
-                                       title="${city} schools">Washington, D.C. Schools</link:city>&amp;#160;
+                                       title="${city} schools" markUpWithItemScopeUrl="true"><span itemprop="title">Washington, D.C. Schools</span></link:city>&amp;#160;
                         </c:otherwise>
                     </c:choose>
-                </li>
+                <![CDATA[</li>]]>
                 <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
                     <li>&amp;gt; <link:districtHome district="${school.district}"
                                                     title="District information">DCPS</link:districtHome>
@@ -58,36 +59,36 @@
                 </c:if>
             </c:when>
             <c:otherwise>
-                <li>
+                <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
                     <c:choose>
                         <c:when test="${state eq 'NY' and city eq 'New York'}">
                             <link:research state="${state}"
-                                           title="${state.longName}">${state.longName}</link:research> &amp;gt;
+                                           title="${state.longName}" markUpWithItemScopeUrl="true"><span itemprop="title">${state.longName}</span></link:research> &amp;gt;
                         </c:when>
                         <c:otherwise>
                             <link:research state="${state}"
-                                           title="${state.longName} schools">${state.longName} Schools</link:research> &amp;gt;
+                                           title="${state.longName} schools" markUpWithItemScopeUrl="true"><span itemprop="title">${state.longName} Schools</span></link:research> &amp;gt;
                         </c:otherwise>
                     </c:choose>
-                </li>
-                <li>
+                <![CDATA[</li>]]>
+                <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
                     <c:choose>
                         <c:when test="${school.levelCode eq 'p' and state eq 'NY' and city eq 'New York'}">
-                            <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools">NYC Preschools</link:schools>&amp;#160;
+                            <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools" markUpWithItemScopeUrl="true"><span itemprop="title">NYC Preschools</span></link:schools>&amp;#160;
                         </c:when>
                         <c:when test="${school.levelCode eq 'p'}">
-                            <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools">${city} Preschools</link:schools>&amp;#160;
+                            <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools" markUpWithItemScopeUrl="true"><span itemprop="title">${city} Preschools</span></link:schools>&amp;#160;
                         </c:when>
                         <c:when test="${state eq 'NY' and city eq 'New York'}">
                             <link:city city="${city}" state="${school.physicalAddress.state}"
-                                       title="NYC schools">NYC Schools</link:city>&amp;#160;
+                                       title="NYC schools" markUpWithItemScopeUrl="true"><span itemprop="title">NYC Schools</span></link:city>&amp;#160;
                         </c:when>
                         <c:otherwise>
                             <link:city city="${city}" state="${school.physicalAddress.state}"
-                                       title="${city} schools">${city} Schools</link:city>&amp;#160;
+                                       title="${city} schools" markUpWithItemScopeUrl="true"><span itemprop="title">${city} Schools</span></link:city>&amp;#160;
                         </c:otherwise>
                     </c:choose>
-                </li>
+                <![CDATA[</li>]]>
                 <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
                     <li>&amp;gt; <link:districtHome district="${school.district}"
                                                     title="District information"><c:out value="${school.district.name}" escapeXml="true"/></link:districtHome>

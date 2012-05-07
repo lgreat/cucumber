@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandler.java,v 1.21 2011/09/15 00:36:23 ssprouse Exp $
+ * $Id: LinkTagHandler.java,v 1.22 2012/05/07 22:30:50 yfan Exp $
  */
 
 package gs.web.jsp.link;
@@ -45,6 +45,7 @@ public abstract class LinkTagHandler extends TagSupport {
     private String _onMouseOut;
     private String _onclick;
     private boolean _absolute = false;
+    private boolean _markUpWithItemScopeUrl = false;
 
     /**
      * Create a UrlBuilder object pointing to the correct page.
@@ -135,6 +136,10 @@ public abstract class LinkTagHandler extends TagSupport {
             pageContext.getOut().print(" onclick=\"");
             pageContext.getOut().print(_onclick);
             pageContext.getOut().print("\"");
+        }
+
+        if (isMarkUpWithItemScopeUrl()) {
+            pageContext.getOut().print(" itemprop=\"url\"");
         }
 
         String href;
@@ -260,5 +265,13 @@ public abstract class LinkTagHandler extends TagSupport {
 
     public void setOnclick(String onclick) {
         _onclick = onclick;
+    }
+
+    public boolean isMarkUpWithItemScopeUrl() {
+        return _markUpWithItemScopeUrl;
+    }
+
+    public void setMarkUpWithItemScopeUrl(boolean markUpWithItemScopeUrl) {
+        _markUpWithItemScopeUrl = markUpWithItemScopeUrl;
     }
 }

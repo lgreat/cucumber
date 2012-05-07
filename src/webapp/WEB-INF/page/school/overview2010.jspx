@@ -431,7 +431,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
 <c:if test="${not empty lastModifiedDate}">
     <br/>
-    <div class="smallText1">Last modified <fmt:formatDate type="date" value="${lastModifiedDate}" pattern="MMMM dd, yyyy"/></div>
+    <c:set var="lastModifiedDateMarkupFormat"><fmt:formatDate type="date" value="${lastModifiedDate}" pattern="yyyy-MM-dd"/></c:set>
+    <![CDATA[<div class="smallText1" itemscope itemtype="http://www.schema.org/ProfilePage">]]>
+      Last modified <![CDATA[<time itemprop="dateModified" datetime="${lastModifiedDateMarkupFormat}">]]><fmt:formatDate type="date" value="${lastModifiedDate}" pattern="MMMM d, yyyy"/><![CDATA[</time>]]>
+    <![CDATA[</div>]]>
 </c:if>
 
 </school:profile2010>
