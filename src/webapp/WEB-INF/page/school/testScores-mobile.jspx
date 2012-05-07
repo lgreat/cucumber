@@ -122,17 +122,19 @@
                     </div>
                 </div>
                 <c:if test="${not empty testToGrades.source}">
-                    Source: ${testToGrades.source}
-                    <br/>
+                    <div class="pam">
+                        <strong>Source:</strong> ${testToGrades.source}
+                    </div>
                 </c:if>
                 <c:if test="${not empty testToGrades.description}">
-                    Description: ${testToGrades.description}
-                    <br/>
+                    <div class="phm pbm small">
+                        <strong>Description:</strong> ${testToGrades.description}
+                    </div>
                 </c:if>
             </c:forEach>
         </div>
     </c:if>
-
+    <hr class="keyline1" />
     <!-- SMS / Email / Save buttons -->
     <mobile:share school="${school}"/>
     <link:schoolProfileOverview school="${school}">
@@ -158,12 +160,10 @@
             </div>
         </div>
     </link:schoolProfileParentReview2010>
-    <div>
-        About the tests
-    </div>
 
-    <div>
-        About GS Ratings
+
+    <div class="pam">
+        <strong>About GS Ratings</strong>
     </div>
     <mobile:topOfPage/>
     <mod:mobileTracking pageName="${pageName}"
