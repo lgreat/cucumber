@@ -39,23 +39,35 @@
 
 .round-small {
     border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
 }
 
 .round-medium {
     border-radius: 16px;
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
 }
 
 .round-large {
     border-radius: 22px;
+    -moz-border-radius: 22px;
+    -webkit-border-radius: 22px;
 }
 
 .square-small {
     border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
 }
 
 .square-medium {
     border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
 }
 .square-large {
     border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
 }

@@ -52,10 +52,19 @@ BUTTONS
     font: bold .75em/2.333em Arial, Helvetica, sans-serif;
 }
 
+/*Buttons which stretches to whole length of screen*/
 .but-infinite{
     width: 100%;
     padding: 0 16px;
     font: bold 1em/2.75em Arial, Helvetica, sans-serif;
+}
+
+/*Filter buttons*/
+.but-list{
+    min-width:60px;
+    height:38px;
+    padding: 0 16px;
+    font: bold .75em/3.4em Arial, Helvetica, sans-serif;
 }
 
 /* Button Themes

@@ -194,19 +194,20 @@
             </div>
 
 
-            <div data-school-boolean-filter-group="schoolType" class="mas ">
+            <div data-school-boolean-filter-group="schoolType" class="mas">
                 <h3>School type</h3>
-                <span class="but but-sm ${fn:contains(schoolType,'public') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-right" data-school-boolean-filter="public">Public</span>
-                <span class="but but-sm ${fn:contains(schoolType,'charter') or empty schoolType? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="charter">Public charter</span>
-                <span class="but but-sm ${fn:contains(schoolType,'private') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-left" data-school-boolean-filter="private">Private</span>
+
+                <span class="but but-list vat ${fn:contains(schoolType,'public') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-right" data-school-boolean-filter="public">Public</span>
+                <span style="line-height: 1.6em;" class="but but-list ${fn:contains(schoolType,'charter') or empty schoolType? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="charter">Public<br/>charter</span>
+                <span class="but but-list vat ${fn:contains(schoolType,'private') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-left" data-school-boolean-filter="private">Private</span>
             </div>
 
             <div data-school-boolean-filter-group="gradeLevel" class="mas">
                 <h3>Grade level</h3>
-                <span class="but but-sm ${fn:contains(levelCode,'p') or empty levelCode? buttonPressedClass : buttonClass} noBorder noBorder-right" data-school-boolean-filter="preschool">Preschool</span>
-                <span class="but but-sm ${fn:contains(levelCode,'e') or empty levelCode? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="elementary">Elementary (K-5)</span>
-                <span class="but but-sm ${fn:contains(levelCode,'m') or empty levelCode? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="middle">Middle (6-8)</span>
-                <span class="but but-sm ${fn:contains(levelCode,'h') or empty levelCode? buttonPressedClass : buttonClass} noBorder noBorder-left" data-school-boolean-filter="high">High (9-12)</span>
+                <span style="" class="but but-list vat ${fn:contains(levelCode,'p') or empty levelCode? buttonPressedClass : buttonClass} noBorder noBorder-right" data-school-boolean-filter="preschool">Preschool</span>
+                <span style="line-height: 1.6em;" class="but but-list ${fn:contains(levelCode,'e') or empty levelCode? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="elementary">Elementary<br/>(K-5)</span>
+                <span style="line-height: 1.6em;" class="but but-list ${fn:contains(levelCode,'m') or empty levelCode? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="middle">Middle<br/>(6-8)</span>
+                <span style="line-height: 1.6em;" class="but but-list ${fn:contains(levelCode,'h') or empty levelCode? buttonPressedClass : buttonClass} noBorder noBorder-left" data-school-boolean-filter="high">High<br/>(9-12)</span>
             </div>
 
             <div class="mas">
