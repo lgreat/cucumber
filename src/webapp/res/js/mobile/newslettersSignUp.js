@@ -22,7 +22,7 @@ define(['tracking'],function(tracking) {
         ).done(function(data) {
                 if (data.error !== undefined) {
                     masterDeferred.reject();
-                    newslettersSignUpForm.find('div.error').html('<p>' + data.error + '</p>');
+                    newslettersSignUpForm.find('div.error').html('<p>' + data.error + '</p>').css("display", "block");
                     return;
                 }
                 masterDeferred.resolve();
