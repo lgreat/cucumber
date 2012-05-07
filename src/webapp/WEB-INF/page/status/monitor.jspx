@@ -301,6 +301,10 @@
                 });
                 $newRow.find('.js_delete button').click(deleteKey(storage, key));
                 $newRow.find('.js_value').html(value).hide();
+                if (value.length < 75) {
+                    $newRow.find('.statusvalue span.js_value').show();
+                    $newRow.find('.statusvalue span').not('.js_value').hide();
+                }
                 $table.append($newRow);
             }
             $('#js_' + storageType + 'Clear').click(function() {
