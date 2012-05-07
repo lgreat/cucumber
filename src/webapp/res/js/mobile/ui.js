@@ -1,6 +1,6 @@
 define(function(){
    return {
-       buttonClass:'button',
-       buttonPressedClass:'button-pressed'
+       buttonClass:'but-2',
+       buttonPressedClass:'but-2-selected'
    }
 });
