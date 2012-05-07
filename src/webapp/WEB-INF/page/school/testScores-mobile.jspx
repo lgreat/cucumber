@@ -135,25 +135,29 @@
 
     <!-- SMS / Email / Save buttons -->
     <mobile:share school="${school}"/>
-    <div class="mod standard_6-1 mts">
-        <div class="inner">
-            <div class="hd">
-                <h2 class="plm"><link:schoolProfileOverview school="${school}">
-                    School overview  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
-                </link:schoolProfileOverview></h2>
+    <link:schoolProfileOverview school="${school}">
+        <div class="mod standard_6-1 mts">
+            <div class="inner">
+                <div class="hd">
+                    <h2 class="plm">
+                        School overview  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                    </h2>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="mod standard_6-1 mtn">
-        <div class="inner">
-            <div class="hd">
-                <h2 class="plm"><link:schoolProfileParentReview2010 levelCode="${school.levelCode}" schoolId="${school.id}"
-                                                                    state="${school.databaseState}">
-                    Reviews  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
-                </link:schoolProfileParentReview2010></h2>
+    </link:schoolProfileOverview>
+    <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" schoolId="${school.id}"
+                                        state="${school.databaseState}">
+        <div class="mod standard_6-1 mtn">
+            <div class="inner">
+                <div class="hd">
+                    <h2 class="plm">
+                        Reviews  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                    </h2>
+                </div>
             </div>
         </div>
-    </div>
+    </link:schoolProfileParentReview2010>
     <div>
         About the tests
     </div>

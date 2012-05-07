@@ -162,25 +162,26 @@
         <!-- SMS / Email / Save buttons -->
         <mobile:share school="${school}"/>
 
+        <link:schoolProfileOverview school="${school}">
         <div class="mod standard_6-1 mts">
             <div class="inner">
                 <div class="hd">
-                    <h2 class="plm"><link:schoolProfileOverview school="${school}">
+                    <h2 class="plm">
                         School overview  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
-                    </link:schoolProfileOverview></h2>
+                    </h2>
                 </div>
             </div>
-        </div>
+        </div></link:schoolProfileOverview>
         <c:if test="${hasTestScores}">
-            <div class="mod standard_6-1 mtn">
+            <link:schoolProfileTestscore school="${school}"><div class="mod standard_6-1 mtn">
                 <div class="inner">
                     <div class="hd">
-                        <h2 class="plm"><link:schoolProfileTestscore school="${school}">
+                        <h2 class="plm">
                             Test Scores  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
-                        </link:schoolProfileTestscore></h2>
+                        </h2>
                     </div>
                 </div>
-            </div>
+            </div></link:schoolProfileTestscore>
         </c:if>
 
 

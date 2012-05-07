@@ -5,6 +5,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
@@ -160,50 +161,8 @@
                             </h2>
                         </div>
                     </link:schoolProfileParentReview>
-                    <div class="bd pam small">
-                        <c:forEach items="${reviews}" var="review">
-                            <c:choose>
-                                <c:when test="${empty review.who or review.who eq 'other'}">
-                                    <c:set var="who" value=""/>
-                                </c:when>
-                                <c:when test="${review.who eq 'staff'}">
-                                    <c:set var="who" value="A staff member"/>
-                                </c:when>
-                                <c:when test="${review.who eq 'administrator'}">
-                                    <c:set var="who" value="An administrator"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="who" value="A ${review.who}"/>
-                                </c:otherwise>
-                            </c:choose>
-                            <div class="pvm">
-                                <div>
-                                    <a name="ps${review.id}"><!-- not empty--></a>
-
-                                    <!-- star rating -->
-                                    <c:set var="curStarRating" value="${review.quality.name}"/>
-                                    <c:if test="${school.levelCode eq 'p'}">
-                                        <c:set var="curStarRating" value="${review.POverall.name}"/>
-                                    </c:if>
-                                    <c:if test="${(curStarRating ne 'decline')}">
-                                        <!-- Star Display -->
-                                        <mobile:stars curSR="${curStarRating}" />
-                                    </c:if>
-                                    <div class="clearfix">
-                                    <c:if test="${not empty who}">
-                                       <strong>${who}</strong>
-                                    </c:if>
-                                    <span class="ac1"> Posted <fmt:formatDate dateStyle="medium" value="${review.posted}"/></span>
-                                    </div>
-                                </div>
-                                <p>
-                                    <c:set var="input"><c:out value="${review.comments}" escapeXml="true" /></c:set>
-                                    <util:truncate value="${input}" words="70" />
-                                </p>
-
-                            </div>
-                            <hr class="keyline1" />
-                        </c:forEach>
+                    <div class="bd">
+                        <school:parentReviewsMobile reviews="${reviewsToShow}" />
                         </div>
                     </div>
                 <div>
