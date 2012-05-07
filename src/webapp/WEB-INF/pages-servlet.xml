@@ -1065,6 +1065,14 @@
         </property>
     </bean>
 
+    <bean name="/community/mySchoolList-mobile.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>community/mySchoolList-mobile</value>
+        </property>
+    </bean>
+
     <bean name="/testPrep/testPrepLanding.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">

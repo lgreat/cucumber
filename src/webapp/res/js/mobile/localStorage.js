@@ -24,10 +24,15 @@ define(function() {
         return value;
     };
 
+    var removeItem = function(key) {
+        localStorage.removeItem(namespace + key);
+    };
+
     return {
         enabled:enabled,
         setItem:setItem,
-        getItem:getItem
+        getItem:getItem,
+        removeItem:removeItem
     }
 
 });

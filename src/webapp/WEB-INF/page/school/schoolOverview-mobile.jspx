@@ -29,10 +29,14 @@
             <link rel="canonical" href="${relCanonical}"/>
         </c:if>
         <script type="text/javascript">
-            require(['schoolOverview', 'truncate'], function(schoolOverview, truncate) {
+            require(['schoolOverview', 'truncate', 'schoolSave'], function(schoolOverview, truncate, schoolSave) {
                 $(function() {
                     truncate.init();
                     schoolOverview.init('${school.databaseState}', '${school.id}');
+
+                    var state = '${school.databaseState}';
+                    var schoolId = '${school.id}';
+                    schoolSave.init(state + '_' + schoolId);
                 });
             });
         </script>

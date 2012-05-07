@@ -42,9 +42,21 @@ ${school.physicalAddress.city}'s ${school.name} is a ${school.type.schoolTypeNam
         <!-- GS-12650 SMS protocol does not allow us the flexibility we want. De-scoping this for now -->
         <!--<a href="sms:?body=${fn:escapeXml(gsweb:encodeWithinQuery(smsBody))}">SMS</a>-->
         <a  class="but but-rg but-2 phl" href="mailto:?subject=${fn:escapeXml(gsweb:encodeWithinQuery(emailSubject))}&amp;body=${fn:escapeXml(gsweb:encodeWithinQuery(emailBody))}">Email</a>
-        <c:if test="${not empty school}">
-            <a href="javascript:void(0);" class="but but-rg but-2 mlm phl">Save</a>
-        </c:if>
+        <span id="saveSchool">
+            <c:if test="${not empty school}">
+                <a href="javascript:void(0);" class="but but-rg but-2 mlm phl" id="saveSchoolButton">Save</a>
+                <form id = "saveSchoolForm">
+                    <input type="hidden" name="id" value="${school.id}"/>
+                    <input type="hidden" name="state" value="${school.stateAbbreviation.abbreviation}"/>
+                    <input type="hidden" name="name" value="${school.name}"/>
+                    <input type="hidden" name="type" value="${school.type.schoolTypeName}"/>
+                    <input type="hidden" name="gradeLevels" value="${school.gradeLevels}"/>
+                    <input type="hidden" name="city" value="${school.city}"/>
+                    <input type="hidden" name="gsRating" value="${gs_rating}"/>
+                    <input type="hidden" name="commRating" value="${ratings.overall}"/>
+                </form>
+            </c:if>
+        </span>
     </div>
 
 </jsp:root>
