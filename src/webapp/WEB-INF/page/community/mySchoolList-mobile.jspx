@@ -64,8 +64,8 @@
                             </div>
                         </div>
                        </div>
-                      <div class="unit size20of100 lastUnit">
-                          <div class="fr phm"><a class="but but-sm but-2 pan deleteSchool but-overview" id="delete-{{state_schoolId}}">Delete</a></div>
+                      <div class="unit size20of100 lastUnit fr">
+                          <a class="but but-sm but-2 pan deleteSchool but-overview" id="delete-{{state_schoolId}}">Delete</a>
                       </div>
                 </div>
 
@@ -79,12 +79,14 @@
                         <div class="iconx12 i-12-orange-star  i-12-star-{{commRating}}"><!-- not empty--></div>
                         <div class="iconx12 i-12-grey-star  i-12-star-{{starOff}}"><!-- not empty--></div>
                     </div>
-                    <div class="clearfloat ptm pbn"><hr class="keyline1 mtl" /></div>
+
                 </div>
+
             </div>
+            <div class="clearfloat ptm pbn"><hr class="keyline1 mtl" /></div>
         </div>
 
-    <div class="emailAndDeleteAll dn">
+    <div class="emailAndDeleteAll dn ptn">
         <div class="contain_6-1">
             <div class="fl" id="email"><a class="but but-rg but-1 phl">Email my list</a></div>
             <div class="fr" id="deleteAll"><a  class="but but-rg but-2 phl">Delete All</a></div>
