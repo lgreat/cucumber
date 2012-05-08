@@ -6,6 +6,7 @@
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -128,7 +129,7 @@
                 </c:if>
                 <c:if test="${not empty testToGrades.description}">
                     <div class="phm pbm">
-                        <strong>Description:</strong> ${testToGrades.description}
+                        <strong>Description:</strong> <util:truncate value="${testToGrades.description}" words="40" />
                     </div>
                 </c:if>
             </c:forEach>
