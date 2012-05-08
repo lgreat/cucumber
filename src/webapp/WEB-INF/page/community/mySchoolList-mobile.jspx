@@ -53,12 +53,19 @@
 
         <div  id="schoolTemplate" style="display: none;">
             <div class="pvs phm ">
-                <div class="fl"><strong>{{schoolName}}</strong>
-                    <div>
-                        <p class="small ac1">{{schoolType}}, {{schoolGradeLevels}} | {{schoolCity}}, {{schoolState}}</p>
-                    </div>
+                <div class="line">
+                       <div class="unit size74of100">
+                        <div class="fl "><strong>{{schoolName}}</strong>
+                            <div>
+                                <p class="small ac1">{{schoolType}}, {{schoolGradeLevels}} | {{schoolCity}}, {{schoolState}}</p>
+                            </div>
+                        </div>
+                       </div>
+                      <div class="unit size20of100 lastUnit">
+                          <div class="fr phm"><a class="but but-sm but-2 pan deleteSchool but-overview" id="delete-{{state_schoolId}}">Delete</a></div>
+                      </div>
                 </div>
-                <div class="fr phm"><a class="but but-sm but-2 pan deleteSchool but-overview" id="delete-{{state_schoolId}}">Delete</a></div>
+
                 <div class="clearfloat"><!-- empty not delete --></div>
                 <div class="pas">
                     <div class="fl">
