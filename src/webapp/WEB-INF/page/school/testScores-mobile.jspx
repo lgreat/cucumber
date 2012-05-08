@@ -123,13 +123,13 @@
                     </div>
                 </div>
                 <c:if test="${not empty testToGrades.source}">
-                    <div class="pam">
-                        <strong>Source:</strong> ${testToGrades.source}
+                    <div class="pam ac1">
+                        Source: ${testToGrades.source}
                     </div>
                 </c:if>
                 <c:if test="${not empty testToGrades.description}">
                     <div class="phm pbm">
-                        <strong>Description:</strong> <util:truncate value="${testToGrades.description}" words="40" />
+                        <strong>Description:</strong><br /><util:truncate value="${testToGrades.description}" words="40" />
                     </div>
                 </c:if>
             </c:forEach>
