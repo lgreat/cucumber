@@ -39,7 +39,7 @@
                 <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
                     <link:research state="${state}"
                                    title="District of Columbia" markUpWithItemScopeUrl="true"><span itemprop="title">District of Columbia</span></link:research> &amp;gt;
-                <![CDATA[</li>]>
+                <![CDATA[</li>]]>
                 <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
                     <c:choose>
                         <c:when test="${school.levelCode eq 'p'}">
