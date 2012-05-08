@@ -43,7 +43,7 @@
                 <!--error-->
             </div>
             <div class="clearfix prm">
-                <gsml:input type="text" name="email" placeholder="Type your email address" styleClass="input_8"/>
+                <gsml:input type="text" name="email" placeholder=" Type your email address" styleClass="input_8"/>
             </div>
 
             <div><button type="submit" value="Sign Up" onclick="javascript:void(0);" class="but but-rg but-1 js-submitButton"  id="js-submit">Sign up</button></div>

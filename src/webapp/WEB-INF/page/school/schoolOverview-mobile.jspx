@@ -73,14 +73,14 @@
             <div class="clearfloat"><!-- empty not delete --></div>
         <c:if test="${not empty gs_rating or not empty ratings.overall}">
 
-            <div class="fl">
+            <div class="fl mrm">
                 <c:if test="${not empty gs_rating}">
                     <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
                         <button class="ratings-round ratings-medium round-medium vam fl">${gs_rating}</button> <div class="tal pls fl">GreatSchools<br />Rating</div>
                     </link:schoolProfileTestscore>
                 </c:if>
             </div>
-            <div class="fl mlm">
+            <div class="fl ">
                 <c:if test="${not empty ratings.overall}">
                         <link:schoolProfileParentReview school="${school}" styleClass="but but-sm but-2 but-overview">
                             Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>
