@@ -80,7 +80,7 @@ public class TestScoresHelper {
         //Removes empty data points.If all the years for a given subject do not have test values then do not display the subject.
         //If all the subjects in a given grade do not have test values then do not display the grade.
         //If all the grades in a given given test do not have test values then do not display the test.
-        //Example : In ECA test for grade 4 for Math for year 2009 and 2010 and 2011 do not have data and grade 5 Math for year 2009 and 2010 has data.
+        //Example : If ECA test for grade 4 for Math for years 2009,2010 and 2011 does not have data and grade 5 Math for year 2009 and 2010 has data.
         //Then do not display Math and grade 4.
         pruneEmpties(rval);
 
@@ -152,7 +152,6 @@ public class TestScoresHelper {
 
     /**
      * A map used to store the test data type, grade, level code, subjects, test data set and test score value for the school.
-     * If a school does not have a test score value, then it will not be in this map.
      *
      * @param school
      * @param testDataSets
@@ -162,10 +161,15 @@ public class TestScoresHelper {
     populateSchoolValues(School school, List<TestDataSet> testDataSets,
                          Map<Integer, TestDataType> testDataTypeIdToTestDataType) {
 
+        //Get a Map to represent the test data type, grade, level code, subjects, test data set and test score value for the school.
+        //The test score values are all filled in with "Data not available" string temporarily.
         Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> schoolValueMap = createSchoolValuesMap(testDataSets, testDataTypeIdToTestDataType);
-        //Query the for school test score values.
-        List<SchoolTestValue> values = _testDataSchoolValueDao.findValues(testDataSets, school.getDatabaseState(), school);
 
+        //Query the for school test score values.
+        List<SchoolTestValue> values = _testDataSchoolValueDao.findValues(testDataSets, school);
+
+        //For every test score value, put it in the map constructed above i.e replace the
+        //temporary string "Data not available"  with the actual test score value.
         for (SchoolTestValue value : values) {
             //TODO maybe the dao should not join.
             TestDataSet testDataSet = value.getDataSet();
@@ -173,27 +177,30 @@ public class TestScoresHelper {
             Grade grade = testDataSet.getGrade();
             LevelCode levelCode = testDataSet.getLevelCode();
             Subject subject = testDataSet.getSubject();
-            //For masking the test score.
+            //For masking the test score.Masking : - sometimes the state does not give exact numbers, it saves <5% passed etc.
+            //AK has a lot of masked school values.
             String testScoreValue = StringUtils.isNotBlank(value.getValueText()) ? StringEscapeUtils.escapeHtml(value
                     .getValueText()) : value.getValueInteger().toString();
 
+            //Replace the temporary string "Data not available"  with the actual test score value.
             schoolValueMap.get(testDataType).get(grade).get(levelCode).get(subject).put(testDataSet, testScoreValue);
         }
         return schoolValueMap;
     }
 
     /**
-     * A map used to store the test data type, grade, level code, subjects, test data set that should be
-     * displayed for a given school irrespective of, if the school has test score value or not.
+     * Creates a map used to store the test data type, grade, level code, subjects, test data set that should be
+     * displayed for a given school irrespective of, if the school has test score value or not.The test score values are all
+     * filled in temporarily with "Data not available" string.
      *
      * @param testDataSets
      * @param testDataTypeIdToTestDataType
-     * @return a map to hold the TestDataType to Grade to Subject to TestDataSet to value.
+     * @return a map to hold the est data type, grade, level code, subjects, test data set to value.
      */
     protected Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>>
     createSchoolValuesMap(List<TestDataSet> testDataSets, Map<Integer, TestDataType> testDataTypeIdToTestDataType) {
 
-        Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> mapOfDataPointsToShow =
+        Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> schoolValueMap =
                 new HashMap<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>>();
 
         for (TestDataSet testDataSet : testDataSets) {
@@ -201,27 +208,30 @@ public class TestScoresHelper {
             LevelCode levelCode = testDataSet.getLevelCode();
             Subject subject = testDataSet.getSubject();
             TestDataType testDataType = testDataTypeIdToTestDataType.get(testDataSet.getDataTypeId());
-            Integer year = testDataSet.getYear();
 
             //Check if the test is already in the map.
-            if (mapOfDataPointsToShow.get(testDataType) != null) {
+            if (schoolValueMap.get(testDataType) != null) {
                 //Test already present.
-                Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = mapOfDataPointsToShow.get(testDataType);
+                Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(testDataType);
                 //Check if grade is already in the map.
-                if (gradeToLevelCodeToSubjectsToDataSetToValueMap != null && gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade) != null) {
+                if (gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade) != null) {
                     //Grade already present.
                     Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
                     //Check if level code is already in the map.
-                    if (levelCodeToSubjectsToDataSetToValueMap != null && levelCodeToSubjectsToDataSetToValueMap.get(levelCode) != null) {
+                    if (levelCodeToSubjectsToDataSetToValueMap.get(levelCode) != null) {
                         //Level code already present.
                         Map<Subject, Map<TestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
                         //Check if subject is already in the map.
-                        if (subjectToDataSet != null && subjectToDataSet.get(subject) != null) {
+                        if (subjectToDataSet.get(subject) != null) {
                             //Subject already present.
                             Map<TestDataSet, String> dataSetToValue = subjectToDataSet.get(subject);
+
                             //Check if DataSet is not in the map.We dont care if its already there.That should never happen.
-                            if (dataSetToValue != null && dataSetToValue.get(testDataSet) == null) {
+                            if (dataSetToValue.get(testDataSet) == null) {
+                                //The test score values are all filled in temporarily with "Data not available" string.
                                 dataSetToValue.put(testDataSet, LABEL_DATA_NOT_AVAILABLE);
+                            } else {
+                                _log.warn("Data set:" + testDataSet.getId() + " already in the map");
                             }
                         } else {
                             //Subject not present.
@@ -258,14 +268,14 @@ public class TestScoresHelper {
                 levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
                 Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>();
                 gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
-                mapOfDataPointsToShow.put(testDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
+                schoolValueMap.put(testDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
             }
         }
-        return mapOfDataPointsToShow;
+        return schoolValueMap;
     }
 
     /**
-     * Helper Method to populate the TestToGrades bean from a Map.
+     * Helper Method to populate the TestToGrades bean from a Map.This bean is used to present data in the view.
      *
      * @param map
      * @return This returns a list of TestToGrades bean, which is used to present data in the view.
@@ -447,7 +457,19 @@ public class TestScoresHelper {
         return grade.getValue();
     }
 
+    /**
+     * Removes empty data points.If all the years for a given subject do not have test values then do not display the subject.
+     * If all the subjects in a given grade do not have test values then do not display the grade.
+     * If all the grades in a given given test do not have test values then do not display the test.
+     * Example : If ECA test for grade 4 for Math for years 2009,2010 and 2011 does not have data and grade 5 Math for year 2009 and 2010 has data.
+     * Then do not display Math and grade 4.
+     *
+     * @param testToGradesList
+     */
+
     public void pruneEmpties(List<TestToGrades> testToGradesList) {
+
+        //For every test, remove the test from the list if there is no data for the test.
         List<TestToGrades> testToGradesListToRemove = new ArrayList<TestToGrades>();
         for (TestToGrades testToGrades : testToGradesList) {
             testToGrades.pruneEmpties();
@@ -521,6 +543,7 @@ public class TestScoresHelper {
             return getGradeNum(getLowestGradeInTest()).compareTo(getGradeNum(testToGrades.getLowestGradeInTest()));
         }
 
+        //For every grade in the test, remove the grade from the list if there is no data for the grade.
         public void pruneEmpties() {
             List<GradeToSubjects> gradesToSubjectsToRemove = new ArrayList<GradeToSubjects>();
             for (GradeToSubjects gradeToSubjects : getGrades()) {
@@ -570,6 +593,7 @@ public class TestScoresHelper {
             return 0;
         }
 
+        //For every subject in the grade, remove the subject from the list if there is no data for the subject.
         public void pruneEmpties() {
             List<SubjectToYears> subjectToYearsToRemove = new ArrayList<SubjectToYears>();
             for (SubjectToYears subjectToYears : getSubjects()) {
@@ -607,6 +631,7 @@ public class TestScoresHelper {
             return getSubjectLabel().compareTo(subjectToYears.getSubjectLabel());
         }
 
+        //Return false if there is data for at least one year in the subject.
         public boolean isUnavailable() {
             for (YearToTestScore yearToTestScore : getYears()) {
                 if (!yearToTestScore.isUnavailable()) {
@@ -616,7 +641,7 @@ public class TestScoresHelper {
             return true;
         }
 
-
+        //If there no data for at least one year in the subject then remove/clear all the years.
         public void pruneEmpties() {
             if (isUnavailable()) {
                 getYears().clear();
@@ -649,6 +674,7 @@ public class TestScoresHelper {
             return yearToTestScore.getYear().compareTo(getYear());
         }
 
+        //Return false if there is test value for the year.
         public boolean isUnavailable() {
             return getTestScoreStr().equals(LABEL_DATA_NOT_AVAILABLE);
         }
