@@ -278,6 +278,30 @@ define(['uri','ui'],function(uri, ui) {
             var booleanGroupName = $(this).parent().data(dataAttributes.booleanFilterGroup);
             var booleanFilter = $(this).data(dataAttributes.booleanFilter);
             filtersHash[booleanGroupName].toggle(booleanFilter);
+
+            if(s.tl) {
+                if(booleanFilter === 'public') {
+                    s.tl(this,'o', 'Mobile_filter_type_public');
+                }
+                else if(booleanFilter === 'private') {
+                    s.tl(this,'o', 'Mobile_filter_type_private');
+                }
+                else if(booleanFilter === 'charter') {
+                    s.tl(this,'o', 'Mobile_filter_type_charter');
+                }
+                else if(booleanFilter === 'preschool') {
+                    s.tl(this,'o', 'Mobile_filter_grade_PK');
+                }
+                else if(booleanFilter === 'elementary') {
+                    s.tl(this,'o', 'Mobile_filter_grade_elem');
+                }
+                else if(booleanFilter === 'middle') {
+                    s.tl(this,'o', 'Mobile_filter_grade_middle');
+                }
+                else if(booleanFilter === 'high') {
+                    s.tl(this,'o', 'Mobile_filter_grade_high');
+                }
+            }
         });
     };
 
@@ -301,6 +325,36 @@ define(['uri','ui'],function(uri, ui) {
             var filter = filtersHash[filterName];
 
             filter.value = $this.val();
+
+            if (s.tl) {
+                if (filterName === 'distance') {
+                    s.tl(this,'o', 'Mobile_filter_distance_' + distance.value);
+                }
+                else if (filterName === 'minGreatSchoolsRating') {
+                    if(minGreatSchoolsRating.value === undefined || minGreatSchoolsRating.value === '') {
+                        s.tl(this,'o', 'Mobile_filter_GSrating_any');
+                    }
+                    else {
+                        s.tl(this,'o', 'Mobile_filter_GSrating_' + minGreatSchoolsRating.value.toLowerCase());
+                    }
+                }
+                else if (filterName === 'minCommunityRating') {
+                    if(minCommunityRating.value === undefined || minCommunityRating.value === '') {
+                        s.tl(this,'o', 'Mobile_filter_CommRating_any');
+                    }
+                    else {
+                        s.tl(this,'o', 'Mobile_filter_CommRating_' + minCommunityRating.value.toLowerCase());
+                    }
+                }
+                else if (filterName === 'schoolSize') {
+                    if(schoolSize.value === undefined || schoolSize.value === '') {
+                        s.tl(this,'o', 'Mobile_filter_size_all');
+                    }
+                    else {
+                        s.tl(this,'o', 'Mobile_filter_size_' + schoolSize.value.toLowerCase());
+                    }
+                }
+            }
         });
     };
 
@@ -314,16 +368,6 @@ define(['uri','ui'],function(uri, ui) {
                 applyCallback();
             }
         });
-    };
-
-    var sendOmnitureCustomEvents = function() {
-        var customEvents = [];
-        var gradeLevelFilters = gradeLevel.filters;
-        if (gradeLevelFilters.preschool === true) {
-           customEvents.push("Mobile_filter_grade_PK");
-        }
-
-
     };
 
     var init = function(selector, callback) {
