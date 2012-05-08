@@ -37,9 +37,8 @@
         </script>
     </head>
     <body>
-    <div class="mod standard_1-1">
-        <div class="inner">
-            <div class="bd">
+    <div class="contain_1-1">
+
                 <div><h6>Test Scores</h6></div>
                 <!--TODO refactor this into a tag,since its used on school overview also.-->
                 <div>
@@ -79,8 +78,7 @@
                     </div>
                 </div>
                 </c:if>
-            </div>
-        </div>
+
     </div>
 
 
@@ -96,10 +94,8 @@
                         </div>
                         <div class="bd">
                             <c:if test="${not empty testToGrades.scale}">
-                                <div class="mod standard_2-1">
-                                    <div class="inner">
-                                        <strong>Scale:</strong> ${testToGrades.scale}
-                                    </div>
+                                <div class="contain_2-1">
+                                   <strong>Scale:</strong> ${testToGrades.scale}
                                 </div>
                             </c:if>
                             <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">

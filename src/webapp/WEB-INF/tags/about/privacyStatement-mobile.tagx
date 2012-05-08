@@ -6,11 +6,9 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 
-<div class="mod standard_1-1">
-    <div class="inner">
+<div class="contain_1-1">
         <h1>Privacy Statement</h1>
         <p class="small  ac1">Updated January 17, 2012</p>
-    </div>
 </div>
 
 

@@ -44,8 +44,9 @@
     </head>
 
     <body>
-    <div class="mod standard_1-1">
-        <div class="inner"><h1>${school.name}</h1>
+    <div class="contain_1-1">
+
+            <h1>${school.name}</h1>
                 <p class="small pbm ac1">
                 <c:if test="${not school.preschoolOnly}">
                     <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
@@ -89,7 +90,8 @@
             </div>
         </c:if>
             <div class="clearfloat"><!-- empty not delete --></div>
-        </div>  </div>
+        </div>
+
     <div class="clearfloat"><!-- empty not delete --></div>
         <!-- Address / Phone / District block -->
         <div class="pam">

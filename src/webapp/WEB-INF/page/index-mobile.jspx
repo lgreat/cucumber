@@ -53,8 +53,8 @@
         </div>
     </c:if>
 
-    <div class="mod standard_1-1">
-        <div class="inner"><h1>Find a School</h1>
+    <div class="contain_1-1">
+            <h1>Find a School</h1>
             <div class="gsTabs">
                 <ul class="tabStyle-3">
                     <li><a>By location</a></li>
@@ -163,7 +163,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
 
     <search:nearbyCities />
 

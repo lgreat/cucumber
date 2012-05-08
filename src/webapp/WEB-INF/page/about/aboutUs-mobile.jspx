@@ -16,10 +16,10 @@
     </head>
 
     <body>
-    <div class="mod standard_1-1">
-        <div class="inner">
+    <div class="contain_1-1">
+
             <h1 id="top">About Us</h1>
-        </div>
+
     </div>
     <div class="pam">
         <p>GreatSchools is the country's leading source of information on school performance. With listings of 200,000

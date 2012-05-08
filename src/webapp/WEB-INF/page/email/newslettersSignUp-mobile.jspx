@@ -34,9 +34,8 @@
     <body>
 
         <form method="post" action="/email/newslettersSignUp-mobile.page" id="newslettersSignUpForm">
-            <div class="mod standard_1-1">
-                <div class="inner"><div class="pvs"><h1>Subscribe to Newsletter</h1></div></div>
-            </div>
+            <div class="contain_1-1"><div class="pvs"><h1>Subscribe to Newsletter</h1></div></div>
+
             <div class="signUp pam">
 
             <div><p>Sign up for daily tips and ideas that will enrich your child's education.</p></div>

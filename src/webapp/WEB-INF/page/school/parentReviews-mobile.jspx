@@ -49,9 +49,7 @@
     </head>
 
     <body>
-        <div class="mod standard_1-1">
-            <div class="inner">
-                <div class="bd">
+                <div class="contain-_1-1 pam">
                     <div><h6>Ratings &amp; Reviews</h6></div>
 
                     <div>
@@ -84,23 +82,24 @@
                         </c:if>
                         <span class="ac1 small">${schoolType}${gradeLevels}${enrollment}</span>
                     </div>
-                </div>
+
 
                 <c:if test="${fn:length(cmd.reviews)>0}">
                     <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
                     <c:if test="${!empty principalReview}">
-                        <div class="mod standard_2-1">
-                            <div class="inner">
+                        <div class="contain_2-1">
+
                                 <strong>The Principal's point of view</strong>
                                 <p>
                                     ${principalReview.comments}
                                 </p>
-                            </div>
+
                         </div>
                     </c:if>
                 </c:if>
 
                 <c:if test="${not empty ratings.overall}">
+
                     <div class="ptm">
                         <hr class="keyline1" />
                         <div>
@@ -131,8 +130,7 @@
                         </c:choose>
                     </div>
                 </c:if>
-            </div>
-        </div>
+                </div>
         <div class="mod standard_6-1 mtn ptn">
             <div class="inner">
                 <div class="hd plm">

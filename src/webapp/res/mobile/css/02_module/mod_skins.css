@@ -58,78 +58,6 @@ Example:
 .page_1-1 .footer{background-color: #555555;padding: 15px 10px;}
 .page_1-1 .footer a{color: #e5e5e5;}
 
-/* Module 1
------------------------------------------------------------------------------*/
-.standard_1-1{}
-
-.standard_1-1 .inner{
-    border-top: solid 1px #FFFFFF;
-    border-bottom: solid 1px #E6E6E6;
-    background:#F8F8F8;
-    padding:8px;
-}
-
-
-
-/* Module 2
------------------------------------------------------------------------------*/
-.standard_2-1{}
-
-.standard_2-1 .inner{
-    border: solid 1px #BCDEED;
-    padding:8px;
-    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-    -moz-border-radius: 4px; /* FF1-3.6 */
-    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-    margin:8px;
-    background:#F3F9FD;
-}
-
-/* Module 3
------------------------------------------------------------------------------*/
-.standard_3-1{}
-
-.standard_3-1 .inner{
-    border: solid 1px #BCDEED;
-    padding:8px;
-    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-    -moz-border-radius: 4px; /* FF1-3.6 */
-    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-    background:#FFFFFF;
-    margin:8px;
-}
-
-/* Module 4
------------------------------------------------------------------------------*/
-.standard_4-1{}
-
-.standard_4-1 .inner{
-    -moz-box-shadow: inset 0 2px 12px rgba(120, 120, 120, 0.5);
-    -webkit-box-shadow: inset 0 2px 12px rgba(120, 120, 120, 0.5);
-    box-shadow: inset 0 2px 12px rgba(120, 120, 120, 0.5);
-    background:#CCCCCC;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#E5E5E5), to(#CCCCCC)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(top, #E5E5E5, #CCCCCC); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image:    -moz-linear-gradient(top, #E5E5E5, #CCCCCC); /* FF3.6 */
-    background-image:     -ms-linear-gradient(top, #E5E5E5, #CCCCCC); /* IE10 */
-    background-image:      -o-linear-gradient(top, #E5E5E5, #CCCCCC); /* Opera 11.10+ */
-    background-image:         linear-gradient(top, #E5E5E5, #CCCCCC); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#E5E5E5', EndColorStr='#CCCCCC'); /* IE6�IE9 */
-    padding:8px;
-}
-
-/* Module 5 - Home Search
------------------------------------------------------------------------------*/
-.standard_5-1{}
-
-.standard_5-1 .inner{
-    background:#BCDEED;
-    border: solid 1px #A6D3E7;
-    padding:8px;
-    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-    -moz-border-radius: 4px; /* FF1-3.6 */
-    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-}
 
 /* Module 6 - blue gradient header white content area
 -----------------------------------------------------------------------------*/
@@ -162,13 +90,3 @@ Example:
 .standard_7-1 .hd {border-bottom: thin solid #E6E6E6;}
 .standard_7-1 .hd h3{padding-left: 10px;line-height: 44px;}
 
-/* Module 8 - Subheader
------------------------------------------------------------------------------*/
-.standard_8-1{}
-
-.standard_8-1 .inner{
-    padding: 5px;
-    border-top: solid 1px #F1F1F1;
-    border-bottom: solid 1px #DDD;
-    background:#E6E6E6;
-}
