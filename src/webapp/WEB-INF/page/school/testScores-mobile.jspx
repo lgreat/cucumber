@@ -31,10 +31,14 @@
         <c:set var="pageName" value="Test Scores"/>
 
         <script type="text/javascript">
-            require(['testScores'], function(testScores) {
+            require(['testScores', 'schoolSave'], function(testScores, schoolSave) {
                 $(function() {
                     testScores.init();
                 });
+
+                var state = '${school.databaseState}';
+                var schoolId = '${school.id}';
+                schoolSave.init(state + '_' + schoolId);
             });
         </script>
     </head>

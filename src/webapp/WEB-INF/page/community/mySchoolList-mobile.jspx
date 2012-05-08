@@ -3,7 +3,8 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
-          xmlns:link="urn:www.greatschools.org/taglib/link">
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <html lang="en">
 
@@ -44,15 +45,18 @@
     <div class="emailAndDeleteAll  dn ">
         <div class="contain_6-1">
 
-             <a  class="but but-rg but-1 phl">Email my list</a>
+            <a class="but but-rg but-1 phl emailMyList">
+                Email my list
+            </a>
          </div>
     </div>
         <div class="contain_1-1">
                 <h1>My Saved Schools</h1>
         </div>
-        <div id="savedSchools">
-            <p class="pam" id="noSavedSchools" style="display: none">No schools have been saved to your list</p>
-        </div>
+    <div id="noSavedSchools" class="pam" style="display: none">
+        <p>No schools have been saved to your list</p>
+    </div>
+    <div id="savedSchools"><!-- empty not delete --></div>
 
         <div  id="schoolTemplate" style="display: none;">
             <div class="pvs phm ">
@@ -88,7 +92,7 @@
 
     <div class="emailAndDeleteAll dn ptn">
         <div class="contain_6-1">
-            <div class="fl" id="email"><a class="but but-rg but-1 phl">Email my list</a></div>
+            <div class="fl" id="email"><a class="but but-rg but-1 phl emailMyList">Email my list</a></div>
             <div class="fr" id="deleteAll"><a  class="but but-rg but-2 phl">Delete All</a></div>
 
             <div class="clearfloat"><!-- --></div>
@@ -99,7 +103,7 @@
         <link:home styleClass="but but-rg but-1">Find a School</link:home>
      </div>
         <div class="clearfloat"></div>
-        <mod:tracking pageName="MSL Mobile"
+        <mod:mobileTracking pageName="MSL Mobile"
                       hier1="MySchoolList"/>
     </body>
     </html>

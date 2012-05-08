@@ -1,6 +1,8 @@
 define(['localStorage', 'hogan'], function(localStorage, hogan) {
     var schoolsKey = "Schools";
     var schoolMapKey = "SchoolMap";
+    var emailSubject = "My Saved Schools from GreatSchools.org";
+    var emailBody = "My Saved Schools List from GreatSchools.org:\n\n";
     
     var init = function(state_schoolId) {
         var schoolSave = $('div.mam #saveSchool');
@@ -12,8 +14,9 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
             disabled = true;
         }
 
-        saveSchoolButton.click( function(){
+        saveSchoolButton.click( function() {
             if(disabled === false && localStorage.enabled === true) {
+                disabled = true;
                 saveSchoolButton.removeClass('but-2').addClass('but-2-inactive').text('Saving...');
                 saveSchool(schoolSave, saveSchoolButton, state_schoolId);
             }
@@ -32,6 +35,7 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
         saveSchoolFormInput.each(function() {
             newSchool[this.name] = this.value;
         });
+
         var schools = localStorage.getItem(schoolsKey);
         var schoolMap = localStorage.getItem(schoolMapKey);
 
@@ -65,11 +69,8 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
     var getSavedSchools = function() {
         var savedSchools = localStorage.getItem(schoolsKey);
         if(savedSchools == null || savedSchools[schoolsKey].length == 0) {
-            $('div #savedSchools #noSavedSchools').css('display', 'block');
+            $('div #noSavedSchools').css('display', 'block');
             return;
-        }
-        else {
-            $('div.emailAndDeleteAll').css('display', 'block');
         }
 
         var schools = savedSchools[schoolsKey];
@@ -80,16 +81,30 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
                 schoolName: schools[i].name,
                 schoolType: schools[i].type,
                 schoolGradeLevels: schools[i].gradeLevels,
-                schoolCity: schools[i].city ,
+                schoolCity: schools[i].city,
                 schoolState: schools[i].state,
                 gsRating: schools[i].gsRating,
                 commRating: schools[i].commRating,
                 starOff: 5 - parseInt(schools[i].commRating),
-                state_schoolId: schools[i].state + '_' + schools[i].id
+                state_schoolId: schools[i].state + '_' + schools[i].id,
+                schoolUrl: schools[i].schoolUrl,
+                enrollment: schools[i].enrollment,
+                address: schools[i].address,
+                zip: schools[i].zip
             });
             $('#savedSchools').append(html);
             $('div #savedSchools .schoolTemplate').last().attr('id', schools[i].state + '_' + schools[i].id);
+
+            emailBody += schools[i].name + " " + schools[i].schoolUrl + "\n";
+            emailBody += schools[i].type + ", " + schools[i].gradeLevels + "\n";
+            emailBody += "Enrollment: " + schools[i].enrollment + "\n";
+            emailBody += "Great Schools Rating: " + schools[i].gsRating + "\n";
+            emailBody += schools[i].address + "\n\n";
         }
+
+        var emailAndDeleteAll = $('div.emailAndDeleteAll');
+        emailAndDeleteAll.css('display', 'block');
+        emailAndDeleteAll.find('.emailMyList').attr('href', 'mailto:?subject=' + emailSubject + '&amp;body=' + emailBody);
     };
 
     var deleteSchool = function(delete_school) {
@@ -127,8 +142,8 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
         if(deleteAll == true) {
             localStorage.removeItem(schoolsKey);
             localStorage.removeItem(schoolMapKey);
-            var savedSchools = $('div #savedSchools');
-            savedSchools.empty().find('#noSavedSchools').css('display', 'block');
+            $('div #savedSchools').empty();
+            $('div #noSavedSchools').css('display', 'block');
             $('div.emailAndDeleteAll').css('display', 'none');
         }
     };

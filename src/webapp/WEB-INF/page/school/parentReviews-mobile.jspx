@@ -29,8 +29,12 @@
         </c:if>
 
         <script type="text/javascript"><![CDATA[
-            require(['truncate','parentReviews'], function(truncate, parentReviews) {
+            require(['truncate','parentReviews', 'schoolSave'], function(truncate, parentReviews, schoolSave) {
                 truncate.init();
+
+                var state = '${school.databaseState}';
+                var schoolId = '${school.id}';
+                schoolSave.init(state + '_' + schoolId);
 
                 $(document).ready(function(){
                     parentReviews.init($('div.js-paginate-next'), $('div.js-paginate-container'), ${reviewsTotalPages}, ${page}, $('#reviewTemplate').html());
