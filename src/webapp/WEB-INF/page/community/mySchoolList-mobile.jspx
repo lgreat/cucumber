@@ -86,8 +86,8 @@
 
     <div class="emailAndDeleteAll dn">
         <div class="contain_6-1">
-            <div class="fl pam" id="email"><a class="but but-rg but-1 phl">Email my list</a></div>
-            <div class="fr pam" id="deleteAll"><a  class="but but-rg but-2 phl">Delete All</a></div>
+            <div class="fl" id="email"><a class="but but-rg but-1 phl">Email my list</a></div>
+            <div class="fr" id="deleteAll"><a  class="but but-rg but-2 phl">Delete All</a></div>
 
             <div class="clearfloat"><!-- --></div>
         </div>
