@@ -46,12 +46,12 @@
             <div class="js_valueLine line small">
                 <div class="js_year unit size12of100 tar"><!-- not empty --></div>
 
-                <div class="js_bar unit size74of100 pts phm">
+                <div class="js_bar unit size70of100 pts phm">
                     <!-- That 50% below is just a placeholder!! The JS sets the real value -->
                     <div class="bar_container"><div style="width:50%"><!-- not empty --></div></div>
                 </div>
 
-                <div class="js_value unit size14of100 lastUnit tal"><!-- not empty --></div>
+                <div class="js_value unit size18of100 lastUnit tal"><!-- not empty --></div>
             </div>
         </c:otherwise>
     </c:choose>
