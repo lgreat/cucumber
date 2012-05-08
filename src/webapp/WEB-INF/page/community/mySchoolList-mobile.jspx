@@ -41,9 +41,12 @@
     </head>
 
     <body>
-        <div class="contain_6-1 ">
+    <div class="emailAndDeleteAll  dn ">
+        <div class="contain_6-1">
+
              <a  class="but but-rg but-1 phl">Email my list</a>
-        </div>
+         </div>
+    </div>
         <div class="contain_1-1">
                 <h1>My Saved Schools</h1>
         </div>
@@ -77,20 +80,23 @@
                         <div class="iconx12 i-12-grey-star  i-12-star-{{starOff}}"><!-- not empty--></div>
                     </div>
                     <div class="clearfloat ptm pbn"><hr class="keyline1 mtl" /></div>
-
-
                 </div>
             </div>
         </div>
-        <div class="clearfloat"><!-- empty not delete --></div>
-    <div class="emailAndDeleteAll  dn ">
-        <div class="fl pam" id="email"><a class="but but-rg but-1 phl">Email my list</a></div>
-        <div class="fr pam" id="deleteAll"><a  class="but but-rg but-2 phl">Delete All</a></div>
+
+    <div class="emailAndDeleteAll dn">
+        <div class="contain_6-1">
+            <div class="fl pam" id="email"><a class="but but-rg but-1 phl">Email my list</a></div>
+            <div class="fr pam" id="deleteAll"><a  class="but but-rg but-2 phl">Delete All</a></div>
+
+            <div class="clearfloat"><!-- --></div>
+        </div>
     </div>
-    <div class="clearfloat"></div>
-    <div>
-        <link:home><span class="sprite search"><!-- --></span>Find a School</link:home>
+
+    <div class="pam tac">
+        <link:home styleClass="but but-rg but-1">Find a School</link:home>
      </div>
+        <div class="clearfloat"></div>
         <mod:tracking pageName="MSL Mobile"
                       hier1="MySchoolList"/>
     </body>
