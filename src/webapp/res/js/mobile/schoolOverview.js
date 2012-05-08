@@ -8,25 +8,40 @@ define(function() {
             "/school/testScoresAjax.page",
             {state:state, schoolId:schoolId}
         ).done(function(data) {
-                if (data.testScores && data.testScores.length > 0) {
-                    var $snippetInnerDiv = $('#js_testScoreSnippetInnerDiv');
-                    for (var index = 0; index < data.testScores.length; index++) {
-                        $snippetInnerDiv.append(getTestScoreDiv(data.testScores[index]));
-                    }
-                    $('#js_testScoreSnippetOuterDiv').show();
+            if (data.testSubjects && data.testSubjects.length > 0) {
+                var $snippetInnerDiv = $('#js_testScoreSnippetInnerDiv');
+                var $newDiv = $('#js_testScoreSnippetTemplate').clone().removeAttr('id');
+                $newDiv.find('.js_grade').html(data.testLabel + ' ' + data.gradeLabel);
+                for (var index = 0; index < data.testSubjects.length; index++) {
+                    appendTestSubjectDiv($newDiv, data.testSubjects[index]);
                 }
-            });
+                // clean up templates
+                $newDiv.find('.js_testScoreSnippetSubjectTemplate').remove();
+                $newDiv.find('.js_testScoreSnippetValueTemplate').remove();
+                // append and show
+                $snippetInnerDiv.append($newDiv.show());
+                $('#js_testScoreSnippetOuterDiv').show();
+            }
+        });
     };
 
-    var getTestScoreDiv = function(testScore) {
-        var newDiv = $('#js_testScoreSnippetTemplate').clone();
-        newDiv.removeAttr('id');
-        newDiv.find('.js_grade').html('Grade ' + testScore.gradeName);
-        newDiv.find('.js_subject').html(testScore.subject);
-        newDiv.find('.js_year').html(testScore.year);
-        newDiv.find('.js_bar > div > div').css('width', testScore.value + '%');
-        newDiv.find('.js_value').html(testScore.value + '%');
-        return newDiv.show();
+    var appendTestSubjectDiv = function($parentDiv, testSubject) {
+        var $newDiv = $parentDiv.find('.js_testScoreSnippetSubjectTemplate').clone();
+        $newDiv.removeClass('js_testScoreSnippetSubjectTemplate');
+        $newDiv.find('.js_subject').html(testSubject.label);
+        for (var index = 0; index < testSubject.values.length; index++) {
+            appendTestValueDiv($newDiv, testSubject.values[index]);
+        }
+        $parentDiv.append($newDiv.show());
+    };
+
+    var appendTestValueDiv = function($parentDiv, testValue) {
+        var $newDiv = $parentDiv.find('.js_testScoreSnippetValueTemplate').clone();
+        $newDiv.removeClass('js_testScoreSnippetValueTemplate');
+        $newDiv.find('.js_year').html(testValue.year);
+        $newDiv.find('.js_bar > div > div').css('width', testValue.value + '%');
+        $newDiv.find('.js_value').html(testValue.value + '%');
+        $parentDiv.append($newDiv.show());
     };
 
     return {

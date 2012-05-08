@@ -193,8 +193,14 @@
                             <!-- The following div is cloned for each test score pulled in and the populated with the real data -->
                             <div id="js_testScoreSnippetTemplate" class="pam" style="display:none;">
                                 <h4 class="js_grade"><!-- not empty --></h4>
-                                <h5 class="js_subject pbm"><!-- not empty --></h5>
-                                <mobile:barGraph loadJS="1" />
+                                <div class="js_testScoreSnippetSubjectTemplate" style="display:none;">
+                                    <h5 class="js_subject pbm"><!-- not empty --></h5>
+
+                                    <div class="js_testScoreSnippetValueTemplate" style="display:none;">
+                                        <mobile:barGraph loadJS="1" />
+                                    </div>
+                                    <div class="ptm"><!-- not empty --></div>
+                                </div>
                             </div>
                         </div>
                         <div class="pam">
