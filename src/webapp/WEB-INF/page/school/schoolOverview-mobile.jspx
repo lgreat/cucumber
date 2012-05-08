@@ -196,16 +196,17 @@
                             <div id="js_testScoreSnippetTemplate" class="pam" style="display:none;">
                                 <h4 class="js_grade"><!-- not empty --></h4>
                                 <div class="js_testScoreSnippetSubjectTemplate" style="display:none;">
-                                    <h5 class="js_subject pbm"><!-- not empty --></h5>
+                                    <div><h5 class="js_subject pbm"><!-- not empty --></h5></div>
 
                                     <div class="js_testScoreSnippetValueTemplate" style="display:none;">
+
                                         <mobile:barGraph loadJS="1" />
                                     </div>
-                                    <div class="ptm"><!-- not empty --></div>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="pam">
+                        <div class="phm ">
                             <link:schoolProfileTestscore school="${school}">View more test scores &amp;raquo;</link:schoolProfileTestscore>
                         </div>
                     </div>

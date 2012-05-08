@@ -32,6 +32,7 @@ define(function() {
         for (var index = 0; index < testSubject.values.length; index++) {
             appendTestValueDiv($newDiv, testSubject.values[index]);
         }
+        $newDiv.append('<div class="ptm"><!-- not empty --></div>')
         $parentDiv.append($newDiv.show());
     };
 
