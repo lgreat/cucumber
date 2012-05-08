@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.106 2012/04/30 17:50:15 yfan Exp $
+ * $Id: AdPosition.java,v 1.107 2012/05/08 21:55:36 yfan Exp $
  */
 package gs.web.ads;
 
@@ -103,12 +103,12 @@ public class AdPosition extends Enum {
     public static final AdPosition AboveFold_Left_160x600_A_Test = new AdPosition("AboveFold_Left_160x600_A_Test", true, AboveFold_Left_160x600);
     public static final AdPosition AboveFold_Left_160x600_B_Test = new AdPosition("AboveFold_Left_160x600_B_Test", true, AboveFold_Left_160x600);
     public static final AdPosition AboveFold_Left_160x600_C_Test = new AdPosition("AboveFold_Left_160x600_C_Test", true, AboveFold_Left_160x600);
-    public static final AdPosition Interstitial = new AdPosition("Interstitial", true);
-    public static final AdPosition Interstitial_RC = new AdPosition("Interstitial_RC", true); // GS-6114
-    public static final AdPosition Interstitial_City = new AdPosition("Interstitial_City", true); // GS-6114
-    public static final AdPosition Interstitial_Search = new AdPosition("Interstitial_Search", true); // GS-6114
-    public static final AdPosition Interstitial_School = new AdPosition("Interstitial_School", true); // GS-7589
-    public static final AdPosition Interstitial_ContentSearch = new AdPosition("Interstitial_ContentSearch", true); // GS-10345
+    public static final AdPosition Interstitial = new AdPosition("Interstitial", true, new AdSize(640,480));
+    public static final AdPosition Interstitial_RC = new AdPosition("Interstitial_RC", true, new AdSize(640,480)); // GS-6114
+    public static final AdPosition Interstitial_City = new AdPosition("Interstitial_City", true, new AdSize(640,480)); // GS-6114
+    public static final AdPosition Interstitial_Search = new AdPosition("Interstitial_Search", true, new AdSize(640,480)); // GS-6114
+    public static final AdPosition Interstitial_School = new AdPosition("Interstitial_School", true, new AdSize(640,480)); // GS-7589
+    public static final AdPosition Interstitial_ContentSearch = new AdPosition("Interstitial_ContentSearch", true, new AdSize(640,480)); // GS-10345
     public static final AdPosition PageSponsor_99x40 = new AdPosition("PageSponsor_99x40", true);
     public static final AdPosition ModuleBoxLeft_166x45 = new AdPosition("ModuleBoxLeft_166x45", true);
     public static final AdPosition ModuleBoxMiddle_166x45 = new AdPosition("ModuleBoxMiddle_166x45", true);
