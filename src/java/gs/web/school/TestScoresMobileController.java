@@ -3,7 +3,8 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.web.util.PageHelper;
 import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
-import gs.web.path.DirectoryStructureUrlFields;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import gs.data.state.State;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,6 +22,8 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
     public static final String VIEW = "school/testScores-mobile";
 
+    private static final String ERROR_VIEW = "/school/error";
+
     private boolean _controllerHandlesMobileRequests;
     private boolean _controllerHandlesDesktopRequests;
     private TestScoresHelper _testScoresHelper;
@@ -28,30 +31,49 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
     private RatingHelper _ratingHelper;
     private ISchoolDao _schoolDao;
 
+    private static final Logger _log = Logger.getLogger(TestScoresMobileController.class);
+
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
-        String schoolId = request.getParameter(PARAM_SCHOOL_ID);
+        String schoolIdStr = request.getParameter(PARAM_SCHOOL_ID);
         String stateStr = request.getParameter(PARAM_STATE);
-
         Map<String, Object> model = new HashMap<String, Object>();
-        try {
-            State state = State.fromString(stateStr);
-            School school = _schoolDao.getSchoolById(state, new Integer(schoolId));
-            model.put("school", school);
-            model.put("schoolTestScores", _testScoresHelper.getTestScores(school));
-            //TODO do I need all this for the rating?
-            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-            boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
-            Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
-            model.put("gs_rating", gsRating);
-            System.out.println("-gs_rating--------------" + gsRating);
-        } catch (ObjectRetrievalFailureException e) {
-            //TODO what?
-        }
-        return new ModelAndView(VIEW, model);
-    }
 
-    public boolean shouldHandleRequest(DirectoryStructureUrlFields fields) {
-        return true;
+        if (StringUtils.isNotBlank(stateStr) && StringUtils.isNotBlank(schoolIdStr) && (StringUtils.isNumeric(schoolIdStr))) {
+
+            int schoolId = new Integer(schoolIdStr);
+            State state = State.fromString(stateStr);
+
+            try {
+                School school = _schoolDao.getSchoolById(state, new Integer(schoolId));
+
+                if (school.isActive()) {
+                    model.put("school", school);
+                    model.put("schoolTestScores", _testScoresHelper.getTestScores(school));
+
+                    PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+                    boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
+                    Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
+                    model.put("gs_rating", gsRating);
+                    System.out.println("-gs_rating--------------" + gsRating);
+
+                } else {
+                    _log.error("School id: " + schoolIdStr + " in state: " + stateStr + " is inactive.");
+                    return new ModelAndView(ERROR_VIEW, model);
+                }
+
+            } catch (ObjectRetrievalFailureException ex) {
+                _log.warn("Could not get a valid or active school: " +
+                        schoolIdStr + " in state: " + stateStr, ex);
+                return new ModelAndView(ERROR_VIEW, model);
+            }
+
+        } else {
+            _log.warn("Could not get a valid or active school: " +
+                    schoolIdStr + " in state: " + stateStr);
+            return new ModelAndView(ERROR_VIEW, model);
+        }
+
+        return new ModelAndView(VIEW, model);
     }
 
     public RatingHelper getRatingHelper() {

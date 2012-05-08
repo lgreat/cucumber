@@ -7,6 +7,7 @@ import gs.data.state.State;
 import gs.data.test.*;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import java.util.*;
 @Component
 public class TestScoresHelper {
     public static final String LABEL_DATA_NOT_AVAILABLE = "Data not available";
+    private static final Logger _log = Logger.getLogger(TestScoresHelper.class);
 
     @Autowired
     private ITestDataTypeDao _testDataTypeDao;
@@ -40,18 +42,21 @@ public class TestScoresHelper {
 
         List<TestToGrades> rval = new ArrayList<TestToGrades>();
         if (school == null) {
+            _log.warn("School is null.");
             return rval;
         }
 
-        //Get the list of test data set Ids to pull out for a school.
+        //Get the list of test data set Ids to pull out for a school.Queries the test_data_sets table.
         Set<Integer> testDataSetIds = getTestDataSetIds(school);
         if (testDataSetIds == null || testDataSetIds.isEmpty()) {
+            _log.warn("No test data set ids to display for school id: " + school.getId());
             return rval;
         }
 
-        //Get the list of testDataSet objects from the list of test data set Ids.This is used to query the school values.
+        //Get the list of testDataSet objects from the list of test data set Ids.Queries the testDataSet table.
         List<TestDataSet> testDataSets = getTestDataSets(school, testDataSetIds);
         if (testDataSets == null || testDataSets.isEmpty()) {
+            _log.warn("No test data sets to display for school id: " + school.getId());
             return rval;
         }
 
@@ -61,17 +66,22 @@ public class TestScoresHelper {
             dataTypeIds.add(testDataSet.getDataTypeId());
         }
 
-        //Get a Map of test data type Id to test data type object.
+        //Get a Map of test data type Id to test data type object.Queries the testDataType table.
         Map<Integer, TestDataType> testDataTypeIdToTestDataType = getTestDataTypes(dataTypeIds);
 
         //A map used to store the test data type, grade, level code, subjects, test data set and test score value for the school.
-        //If a school does not have a test score value, then it will not be in this map.
+        //Queries the TestDataSchoolValue table.
         Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> schoolValues
                 = populateSchoolValues(school, testDataSets, testDataTypeIdToTestDataType);
 
-        //Convert the temporaryMap that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
+        //Convert the map that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
         rval = populateTestScoresBean(school, schoolValues);
 
+        //Removes empty data points.If all the years for a given subject do not have test values then do not display the subject.
+        //If all the subjects in a given grade do not have test values then do not display the grade.
+        //If all the grades in a given given test do not have test values then do not display the test.
+        //Example : In ECA test for grade 4 for Math for year 2009 and 2010 and 2011 do not have data and grade 5 Math for year 2009 and 2010 has data.
+        //Then do not display Math and grade 4.
         pruneEmpties(rval);
 
         //use this for debugging
@@ -87,6 +97,7 @@ public class TestScoresHelper {
      * @return
      */
     protected Set<Integer> getTestDataSetIds(School school) {
+        //TODO remove hard coded values.
         Set<Integer> dataSetIds = new HashSet<Integer>();
         if (school.getDatabaseState().equals(State.CA)) {
             Integer[] arr = {77058, 76518, 79038, 78318, 71298, 71478, 71658, 71838, 72018, 72198, 72378, 72558, 72918, 73098, 73278, 73458, 73818, 73998, 74898, 75258, 86102, 85562, 88082, 87362, 80342, 80522, 80702, 80882, 81062, 81242, 81422, 81602, 81962, 82142, 82322, 82502, 82862, 83042, 83942, 84302, 121909, 121369, 123889, 123169, 116149, 116329, 116509, 116689, 116869, 117049, 117229, 117409, 117769, 117949, 118129, 118309, 118669, 118849, 119749, 120109};
@@ -118,11 +129,11 @@ public class TestScoresHelper {
      * @return
      */
     protected List<TestDataSet> getTestDataSets(School school, Set<Integer> testDataSetIds) {
-        return _testDataSetDao.findDataSets(school.getDatabaseState(), testDataSetIds);
+        return _testDataSetDao.findDataSets(school.getDatabaseState(), testDataSetIds, true);
     }
 
     /**
-     * Method to get the TestDataTypes for a list testDataTypeIds
+     * Method to get the TestDataTypes for a list of test data type Ids
      *
      * @param testDataTypeIds
      * @return
