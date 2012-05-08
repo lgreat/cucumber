@@ -61,7 +61,6 @@
                     <li><a>By name</a></li>
                 </ul>
                 <div class="contain_5-1">
-
                         <form method="get" action="/search/search.page" id="js-searchByLocation" accept-charset="UTF-8">
                             <input type="hidden" name="lat"/>
                             <input type="hidden" name="lon"/>
