@@ -1,6 +1,6 @@
-define(function() {
+define(['truncate'], function(truncate) {
     var init = function() {
-
+        truncate.init();
     };
 
     return {

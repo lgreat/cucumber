@@ -32,7 +32,9 @@
 
         <script type="text/javascript">
             require(['testScores'], function(testScores) {
-                testScores.init();
+                $(function() {
+                    testScores.init();
+                });
             });
         </script>
     </head>
