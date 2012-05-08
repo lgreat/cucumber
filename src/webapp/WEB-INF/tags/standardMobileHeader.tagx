@@ -16,7 +16,7 @@
         <!-- The strange spacing herein prevents an IE6 whitespace bug. -->
             <li><a href="#" class="topnav tac ptm"><div class="iconx24 i-24-expand"><!-- --></div></a>
                 <ul>
-                    <a href="#"><li><div class="fl default" style="color: #555555;">My Saved Schools</div><div class="fr iconx24 i-24-home mrl mtm"><!--  --></div></li></a>
+                    <a href="/community/mySchoolList-mobile.page"><li><div class="fl default" style="color: #555555;">My Saved Schools</div><div class="fr iconx24 i-24-home mrl mtm"><!--  --></div></li></a>
                     <a href="/email/newslettersSignUp-mobile.page"><li><div class="fl default" style="color: #555555;">Subscribe to Newsletter</div><div class="fr iconx24 i-24-checkbox mrl mtm"><!--  --></div></li></a>
                 </ul>
             </li>
