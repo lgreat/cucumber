@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.70 2012/04/27 14:57:10 yfan Exp $
+ * $Id: SessionContext.java,v 1.71 2012/05/09 13:24:31 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -453,17 +453,6 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setGptAsynchronousModeEnabledOverride(boolean gptAsynchronousModeEnabledOverride) {
         _gptAsynchronousModeEnabledOverride = gptAsynchronousModeEnabledOverride;
-    }
-
-    /**
-     * Return true if we should use the standard document.write JavaScript for including gpt.js in GPT Synchronous Mode;
-     * Otherwise, use script DOM element. Default, for performance reasons, is to use script DOM element.
-     * This database property is provided in case we discover problems with using the DOM element and want to switch
-     * back to the standard way of including gpt.js as shown in Google's documentation.
-     * @return
-     */
-    public boolean isGptSyncModeUseStandardJsInclude() {
-        return "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_SYNC_MODE_USE_STANDARD_JS_INCLUDE_KEY, "false"));
     }
 
     /**

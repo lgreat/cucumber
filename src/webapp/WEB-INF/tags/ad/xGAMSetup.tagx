@@ -130,24 +130,15 @@
                 ]]>
             </c:when>
             <c:otherwise>
-                <c:choose>
-                    <c:when test="${requestScope.context.gptSyncModeUseStandardJsInclude}">
-                        <![CDATA[
-                        <script type="text/javascript">
-                          (function() {
-                            var useSSL = 'https:' == document.location.protocol;
-                            var src = (useSSL ? 'https:' : 'http:') +       '//www.googletagservices.com/tag/js/gpt.js';
-                            document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
-                          })();
-                        </script>
-                        ]]>
-                    </c:when>
-                    <c:otherwise>
-                        <![CDATA[
-                        <script type="text/javascript" src="//www.googletagservices.com/tag/js/gpt.js"></script>
-                        ]]>
-                    </c:otherwise>
-                </c:choose>
+                <![CDATA[
+                <script type="text/javascript">
+                  (function() {
+                    var useSSL = 'https:' == document.location.protocol;
+                    var src = (useSSL ? 'https:' : 'http:') +       '//www.googletagservices.com/tag/js/gpt.js';
+                    document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+                  })();
+                </script>
+                ]]>
             </c:otherwise>
         </c:choose>
 
