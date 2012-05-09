@@ -76,7 +76,7 @@
             <div class="fl mrm">
                 <c:if test="${not empty gs_rating}">
                     <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
-                        <button class="ratings-round ratings-medium round-medium vam fl">${gs_rating}</button> <div class="tal pls fl">GreatSchools<br />Rating</div>
+                        <div class="ratings-round ratings-medium round-medium vam fl"><div class="ratings-number number-medium">${gs_rating}</div></div> <div class="tal pls fl">GreatSchools<br />Rating</div>
                     </link:schoolProfileTestscore>
                 </c:if>
             </div>
