@@ -75,8 +75,9 @@
                 <div class="clearfloat"><!-- empty not delete --></div>
                 <div class="pas">
                     <div class="fl">
-                        <button class="ratings-round ratings-small round-small">{{gsRating}}</button>
-                        <span class="small-lt"> of 10</span></div>
+                        <div class="ratings-round ratings-small round-small fl vam"><div class="ratings-number number-small">{{gsRating}}</div></div>
+                        <div class="small-lt fl pls"> of 10</div>
+                    </div>
                     <div class="fr prm"><span class="small-lt">Community rating: </span>
                         <!--<mobile:stars curSR="{{commRating}}" smStars="1"/>-->
                         <div class="iconx12 i-12-orange-star  i-12-star-{{commRating}}"><!-- not empty--></div>
