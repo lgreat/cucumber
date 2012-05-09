@@ -63,9 +63,8 @@ BUTTONS
 
 /*Filter buttons*/
 .but-list{
-    min-width:60px;
     height:38px;
-    padding: 0 16px;
+    padding: 0 10px;
     font: bold .75em/3.4em Arial, Helvetica, sans-serif;
 }
 

@@ -14,17 +14,15 @@
                 </c:choose>
             </c:set>
 
-            <div class="standard_1-1">
-                <div class="inner">
-                    <c:choose>
-                        <c:when test="${empty searchString and isNearbySearch}">
-                            <span class="ac1">${totalResults} results near your location</span>
-                        </c:when>
-                        <c:otherwise>
-                            <span class="ac1">${totalResults} results for </span><strong>${schoolResultsFor}</strong>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
+            <div class="contain_1-1">
+                <c:choose>
+                    <c:when test="${empty searchString and isNearbySearch}">
+                        <span class="ac1">${totalResults} results near your location</span>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="ac1">${totalResults} results for </span><strong>${schoolResultsFor}</strong>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <ul class="list3">
                 <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">

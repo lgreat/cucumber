@@ -63,43 +63,41 @@
                     <c:set var="count" value="0"/>
 
                     <c:if test="${fn:length(schoolSearchResults) gt 0}">
-                        <div class="mod standard_8-1">
-                            <div class="inner">
-                                <div class="fl">
-                                    <a data-role="button" data-inline="true" href="${requestInfo.requestURL}"
-                                       class="ui-btn-active but but-sm but-2 mrm">List</a>
-                                    <a data-role="button" data-inline="true"
-                                       href="/search/mapresults.page?${pageContext.request.queryString}"
-                                       class="but but-sm but-2">Map</a>
-                                </div>
-                                <div class="fr">
-                                    <select class="js-sort-select">
-                                        <c:choose>
-                                            <c:when test="${isNearbySearch}">
-                                                <gsml:selectOption value="distance"
-                                                                   selected="${sort eq 'distance'}">Distance</gsml:selectOption>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="">Relevance</option>
-                                            </c:otherwise>
-                                        </c:choose>
-
-                                        <gsml:selectOption value="SCHOOL_NAME_ASCENDING"
-                                                           selected="${sort eq 'SCHOOL_NAME_ASCENDING'}">School name: A-Z</gsml:selectOption>
-                                        <gsml:selectOption value="SCHOOL_NAME_DESCENDING"
-                                                           selected="${sort eq 'SCHOOL_NAME_DESCENDING'}">School name: Z-A</gsml:selectOption>
-                                        <gsml:selectOption value="GS_RATING_DESCENDING"
-                                                           selected="${sort eq 'GS_RATING_DESCENDING'}">GreatSchools Rating: High to Low</gsml:selectOption>
-                                        <gsml:selectOption value="GS_RATING_ASCENDING"
-                                                           selected="${sort eq 'GS_RATING_ASCENDING'}">GreatSchools Rating: Low to High</gsml:selectOption>
-                                        <gsml:selectOption value="PARENT_RATING_DESCENDING"
-                                                           selected="${sort eq 'PARENT_RATING_DESCENDING'}">Community Rating: High to Low</gsml:selectOption>
-                                        <gsml:selectOption value="PARENT_RATING_ASCENDING"
-                                                           selected="${sort eq 'PARENT_RATING_ASCENDING'}">Community Rating: Low to High</gsml:selectOption>
-                                    </select>
-                                </div>
-                                <br style="clear:both;"/>
+                        <div class="contain_6-1">
+                            <div class="fl">
+                                <a data-role="button" data-inline="true" href="${requestInfo.requestURL}"
+                                   class="ui-btn-active but but-sm but-2 mrm">List</a>
+                                <a data-role="button" data-inline="true"
+                                   href="/search/mapresults.page?${pageContext.request.queryString}"
+                                   class="but but-sm but-2">Map</a>
                             </div>
+                            <div class="fr">
+                                <select class="js-sort-select">
+                                    <c:choose>
+                                        <c:when test="${isNearbySearch}">
+                                            <gsml:selectOption value="distance"
+                                                               selected="${sort eq 'distance'}">Distance</gsml:selectOption>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="">Relevance</option>
+                                        </c:otherwise>
+                                    </c:choose>
+
+                                    <gsml:selectOption value="SCHOOL_NAME_ASCENDING"
+                                                       selected="${sort eq 'SCHOOL_NAME_ASCENDING'}">School name: A-Z</gsml:selectOption>
+                                    <gsml:selectOption value="SCHOOL_NAME_DESCENDING"
+                                                       selected="${sort eq 'SCHOOL_NAME_DESCENDING'}">School name: Z-A</gsml:selectOption>
+                                    <gsml:selectOption value="GS_RATING_DESCENDING"
+                                                       selected="${sort eq 'GS_RATING_DESCENDING'}">GreatSchools Rating: High to Low</gsml:selectOption>
+                                    <gsml:selectOption value="GS_RATING_ASCENDING"
+                                                       selected="${sort eq 'GS_RATING_ASCENDING'}">GreatSchools Rating: Low to High</gsml:selectOption>
+                                    <gsml:selectOption value="PARENT_RATING_DESCENDING"
+                                                       selected="${sort eq 'PARENT_RATING_DESCENDING'}">Community Rating: High to Low</gsml:selectOption>
+                                    <gsml:selectOption value="PARENT_RATING_ASCENDING"
+                                                       selected="${sort eq 'PARENT_RATING_ASCENDING'}">Community Rating: Low to High</gsml:selectOption>
+                                </select>
+                            </div>
+                            <br style="clear:both;"/>
                             <!--<div>
                                 <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
                                 <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
@@ -169,37 +167,46 @@
 
 
         <div id="school-filters" class="js-searchResultFilters">
-            <div class="mod standard_8-1">
-                <div class="inner">
-                    <div class="fl">
-                        <span class="but but-sm but-2">Cancel</span>
-                    </div>
-                    <div class="fr">
-                        <span data-school-filter-action="apply" class="but but-sm but-2">Apply</span>
-                    </div>
-                    <br class="clearfloat"/>
+            <div class="contain_6-1">
+                <div class="fl">
+                    <span class="but but-sm but-2">Cancel</span>
                 </div>
+                <div class="fr">
+                    <span data-school-filter-action="apply" class="but but-sm but-2">Apply</span>
+                </div>
+                <br class="clearfloat"/>
             </div>
 
-            <div class="standard_1-1">
-                <div class="inner">
-                    <div class="fl">
-                        <h1>Filter Results</h1>
-                    </div>
-                    <div class="fl pts pll">
-                        <a href="javascript:void(0);" data-school-filter-action="reset">Reset</a>
-                    </div>
-                    <br class="clearfloat"/>
+            <div class="contain_1-1">
+                <div class="fl">
+                    <h1>Filter Results</h1>
                 </div>
+                <div class="fl pts pll">
+                    <a href="javascript:void(0);" data-school-filter-action="reset">Reset</a>
+                </div>
+                <br class="clearfloat"/>
             </div>
-
 
             <div data-school-boolean-filter-group="schoolType" class="mas">
                 <h3>School type</h3>
 
-                <span class="but but-list vat ${fn:contains(schoolType,'public') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-right" data-school-boolean-filter="public">Public</span>
-                <span style="line-height: 1.6em;" class="but but-list ${fn:contains(schoolType,'charter') or empty schoolType? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="charter">Public<br/>charter</span>
-                <span class="but but-list vat ${fn:contains(schoolType,'private') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-left" data-school-boolean-filter="private">Private</span>
+                <div class="line">
+                    <div class="unit size30of100">
+                        <span style="width:100%;" class="fl but but-list vat ${fn:contains(schoolType,'public') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-right" data-school-boolean-filter="public">Public</span>
+                    </div>
+                    <div class="unit size30of100">
+                        <span style="width:100%; line-height: 1.6em;" class="fl but but-list ${fn:contains(schoolType,'charter') or empty schoolType? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="charter">Public<br/>charter</span>
+                    </div>
+                    <div class="unit size30of100">
+                        <span style="width:100%;" class=" fl but but-list vat ${fn:contains(schoolType,'private') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-left" data-school-boolean-filter="private">Private</span>
+                    </div>
+                </div>
+                <!--<div style="width:100%">-->
+                <!--<span style="width:32%;" class="but but-list vat ${fn:contains(schoolType,'public') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-right" data-school-boolean-filter="public">Public</span>-->
+                <!--<span style="width:32%; line-height: 1.6em;" class="but but-list ${fn:contains(schoolType,'charter') or empty schoolType? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="charter">Public<br/>charter</span>-->
+                <!--<span style="width:32%" class="but but-list vat ${fn:contains(schoolType,'private') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-left" data-school-boolean-filter="private">Private</span>-->
+                <!--&lt;!&ndash;<br class="clearfloat"/>&ndash;&gt;-->
+                    <!--</div>-->
             </div>
 
             <div data-school-boolean-filter-group="gradeLevel" class="mas">
@@ -268,9 +275,7 @@
                 <form:option value="OVER_1000" label="1000 or more"/>
             </form:select>
             </div>
-        </div>
-        <div class="mod standard_8-1">
-            <div class="inner">
+            <div class="contain_6-1">
                 <div class="fl">
                     <span class="but but-sm but-2">Cancel</span>
                 </div>
@@ -303,7 +308,4 @@
                 />
     </body>
 </html>
-
-
-
 </jsp:root>

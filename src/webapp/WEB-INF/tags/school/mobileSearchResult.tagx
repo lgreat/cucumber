@@ -26,8 +26,8 @@
         <c:set var="greatSchoolsRating" value="na"/>
     </c:if>
 
-    <div class="pas">
-        <div class="fl">
+    <div class="line">
+        <div class="unit size74of100">
             <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"
                                                      name="${schoolName}" physicalAddress="${schoolAddress}"
                                                      levelCode="${levelCode}">
@@ -37,32 +37,64 @@
             <p class="small-lt"
                style="text-transform:capitalize;}">${schoolType} ${gradeRangeString} | ${city}, ${databaseState}</p>
         </div>
-        <div class="fr prm">
+        <div class="unit size20of100 lastUnit">
             <c:if test="${not isTemplate and not empty distance and (not empty param.zipCode or not empty param.lat)}">
                 <span class="small-lt"><fmt:formatNumber value="${distance}" maxFractionDigits="2"/> miles</span>
             </c:if>
         </div>
-        <br class="clearfloat"/>
     </div>
 
-    <div class="pas">
-        <div class="fl">
-            <c:if test="${greatSchoolsRating ne 'na'}">
-                <link:schoolProfileRating2010 state="${databaseState}" schoolId="${schoolId}" levelCode="${levelCode}">
-                    <button class="ratings-round ratings-small round-small">${greatSchoolsRating}</button>
-                    <span class="small-lt"> of 10</span>
-                </link:schoolProfileRating2010>
-            </c:if>
+    <!--<div class="pas">-->
+        <!---->
+        <!--<div class="fl">-->
+            <!--<link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"-->
+                                                     <!--name="${schoolName}" physicalAddress="${schoolAddress}"-->
+                                                     <!--levelCode="${levelCode}">-->
+                <!--<h3>${schoolName}</h3>-->
+            <!--</link:schoolProfileOverviewForPrimitives>-->
+
+            <!--<p class="small-lt"-->
+               <!--style="text-transform:capitalize;}">${schoolType} ${gradeRangeString} | ${city}, ${databaseState}</p>-->
+        <!--</div>-->
+        <!--<div class="fr prm">-->
+            <!--<c:if test="${not isTemplate and not empty distance and (not empty param.zipCode or not empty param.lat)}">-->
+                <!--<span class="small-lt"><fmt:formatNumber value="${distance}" maxFractionDigits="2"/> miles</span>-->
+            <!--</c:if>-->
+        <!--</div>-->
+        <!--<br class="clearfloat"/>-->
+    <!--</div>-->
+    <c:if test="${greatSchoolsRating ne 'na' or not empty parentRating}">
+        <div class="mbs">
+            <div class="fl">
+                <c:if test="${greatSchoolsRating ne 'na'}">
+                    <link:schoolProfileRating2010 state="${databaseState}" schoolId="${schoolId}"
+                                                  levelCode="${levelCode}">
+                        <div class="vam">
+                        <div class="fl">
+                        <div class="ratings-round ratings-small round-small">
+                            <div class="ratings-number number-small">
+                                ${greatSchoolsRating}
+                            </div>
+                        </div>
+                        </div>
+                        <div class="fl plm">
+                        <span class="small-lt"> of 10</span>
+                        </div>
+                        <br class="cleafloat"/>
+                        </div>
+                    </link:schoolProfileRating2010>
+                </c:if>
+            </div>
+            <div class="fr mrm">
+                <c:if test="${not empty parentRating}">
+                    <link:schoolProfileParentReview2010 levelCode="${levelCode}" state="${databaseState}"
+                                                        schoolId="${schoolId}">
+                        <span class="small-lt">Community rating: </span>
+                        <mobile:stars curSR="${parentRating}"/>
+                    </link:schoolProfileParentReview2010>
+                </c:if>
+            </div>
+            <br class="clearfloat"/>
         </div>
-        <div class="fr prm">
-            <c:if test="${not empty parentRating}">
-                <link:schoolProfileParentReview2010 levelCode="${levelCode}" state="${databaseState}"
-                                                    schoolId="${schoolId}">
-                    <span class="small-lt">Community rating: </span>
-                    <mobile:stars curSR="${parentRating}"/>
-                </link:schoolProfileParentReview2010>
-            </c:if>
-        </div>
-        <br class="clearfloat"/>
-    </div>
+    </c:if>
 </jsp:root>
