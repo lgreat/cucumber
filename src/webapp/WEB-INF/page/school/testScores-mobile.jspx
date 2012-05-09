@@ -80,13 +80,13 @@
                 <div class="ptm">
                     <hr class="keyline1" />
                     <div>
-                        <button class="ratings-round ratings-medium round-medium fl">${gs_rating}</button> <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong class="small"> GreatSchools Rating</strong></div>
+                        <div class="ratings-round ratings-medium round-medium fl"><div class="ratings-number number-medium">${gs_rating}</div></div> <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong class="small"> GreatSchools Rating</strong></div>
                     </div>
                 </div>
                 </c:if>
 
     </div>
-
+    <div class="clearfloat"><!--  --></div>
 
 
     <c:if test="${not empty schoolTestScores}">
@@ -132,7 +132,8 @@
                 </c:if>
                 <c:if test="${not empty testToGrades.description}">
                     <div class="phm pbm">
-                        <strong>Description:</strong><br /><util:truncate value="${testToGrades.description}" words="40" />
+                        <strong>Description:</strong><br />
+                        <util:truncate value="${testToGrades.description}" words="40" />
                     </div>
                 </c:if>
             </c:forEach>
