@@ -54,6 +54,9 @@
         </div>
     <div id="noSavedSchools" class="pam" style="display: none">
         <p>No schools have been saved to your list</p>
+        <div class="pvm">
+            <link:home styleClass="but but-rg but-1">Find a School</link:home>
+        </div>
     </div>
     <div id="savedSchools"><!-- empty not delete --></div>
 
@@ -99,9 +102,7 @@
         </div>
     </div>
 
-    <div class="pam tac">
-        <link:home styleClass="but but-rg but-1">Find a School</link:home>
-     </div>
+
         <div class="clearfloat"></div>
         <mod:mobileTracking pageName="MSL Mobile"
                       hier1="MySchoolList"/>
