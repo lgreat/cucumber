@@ -8,7 +8,7 @@ define(['sessionStorage'], function(browserStorage) {
         return key;
     };
 
-    var fetchFromServer = function(lat, lon, successCallback) {
+    var fetchFromServer = function(lat, lon, successCallback, options) {
         $.ajax({
             url:controllerUri,
             data: {
@@ -19,8 +19,10 @@ define(['sessionStorage'], function(browserStorage) {
         }).done(function(data) {
             GS.log('got nearby districts from server: ', data);
 
-            // persist data from server
-            browserStorage.setItem(getCacheKey(lat,lon), data);
+            if (!options || !options['noStorage']) {
+                // persist data from server
+                browserStorage.setItem(getCacheKey(lat,lon), data);
+            }
 
             successCallback(data);
 
@@ -29,14 +31,18 @@ define(['sessionStorage'], function(browserStorage) {
         });
     };
 
-    var getDistricts = function(lat,lon, callback) {
-        var data = browserStorage.getItem(getCacheKey(lat,lon));
+    var getDistricts = function(lat,lon, callback, options) {
+        var data = null;
+        options = options || {};
+        if (!options['noStorage']) {
+            data = browserStorage.getItem(getCacheKey(lat,lon));
+        }
 
         if (data !== null) {
             GS.log('got districts from storage: ', data);
             callback(data);
         } else {
-            fetchFromServer(lat,lon, callback);
+            fetchFromServer(lat,lon, callback, options);
         }
     };
 

@@ -28,13 +28,14 @@ define(['search/nearbyCities', 'geolocation'],function(nearbyCitiesModule, geolo
         });
     };
 
-    var populateFromLatLon = function(lat, lon) {
+    var populateFromLatLon = function(lat, lon, options) {
         GS.log('nearbyCitiesList populateFromLatLon');
+        options = options || {};
         nearbyCitiesModule.getCities(lat,lon, function(data) {
             if (data && data.cities && data.cities.length > 0) {
                 populateFromArray(data.cities);
             }
-        });
+        }, options);
     };
 
     var populate = function() {

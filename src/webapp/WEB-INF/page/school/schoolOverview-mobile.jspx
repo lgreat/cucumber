@@ -214,9 +214,9 @@
             </div>
         </c:if>
 
-        <search:nearbyCities lat="${school.lat}" lon="${school.lon}"/>
+        <search:nearbyCities lat="${school.lat}" lon="${school.lon}" noStorage="true"/>
 
-        <search:nearbyDistricts lat="${school.lat}" lon="${school.lon}"/>
+        <search:nearbyDistricts lat="${school.lat}" lon="${school.lon}" noStorage="true"/>
 
         <mobile:topOfPage/>
     <!--- Omniture -->

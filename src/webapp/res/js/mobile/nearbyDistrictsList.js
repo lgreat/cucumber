@@ -28,13 +28,14 @@ define(['search/nearbyDistricts', 'geolocation'],function(nearbyDistrictsModule,
         });
     };
 
-    var populateFromLatLon = function(lat, lon) {
+    var populateFromLatLon = function(lat, lon, options) {
         GS.log('nearbyDistrictsList populateFromLatLon');
+        options = options || {};
         nearbyDistrictsModule.getDistricts(lat,lon, function(data) {
             if (data && data.districts && data.districts.length > 0) {
                 populateFromArray(data.districts);
             }
-        });
+        }, options);
     };
 
     var populate = function() {

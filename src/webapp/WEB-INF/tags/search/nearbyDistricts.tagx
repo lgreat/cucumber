@@ -6,6 +6,7 @@
     <!-- This tag can be augmented with lat and lon attributes for a specific location -->
     <jsp:directive.attribute name="lat" required="false" type="java.lang.Float"/>
     <jsp:directive.attribute name="lon" required="false" type="java.lang.Float"/>
+    <jsp:directive.attribute name="noStorage" required="false" type="java.lang.Boolean"/>
 
     <div class="mod standard_7-1">
         <div class="inner">
@@ -23,7 +24,7 @@
             GS.log('got nearby districts module');
             nearbyDistrictsList.init('.js-nearby-districts');
             //<c:choose><c:when test="${not empty lat and not empty lon}">
-            nearbyDistrictsList.populateFromLatLon(${lat}, ${lon});
+            nearbyDistrictsList.populateFromLatLon(${lat}, ${lon}, {noStorage:${noStorage eq true?true:false}});
             //</c:when><c:otherwise>
             nearbyDistrictsList.populate();
             //</c:otherwise></c:choose>
