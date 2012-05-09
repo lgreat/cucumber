@@ -27,11 +27,11 @@
                     </div>
                     <c:choose>
                         <c:when test="${testScoreValue != 'Data not available'}">
-                            <div class="unit size70of100 pts phm">
+                            <div class="unit size68of100 pts phm">
                                 <div class="bar_container"><div style="width:${testScoreValue}%"><!-- not empty --></div></div>
                             </div>
 
-                            <div class="unit size18of100 lastUnit tal">
+                            <div class="unit size20of100 lastUnit tal">
                                 ${testScoreLabel}%
                             </div>
                         </c:when>
@@ -48,12 +48,12 @@
             <div class="js_valueLine line small">
                 <div class="js_year unit size12of100 tar"><!-- not empty --></div>
 
-                <div class="js_bar unit size70of100 pts phm">
+                <div class="js_bar unit size68of100 pts phm">
                     <!-- That 50% below is just a placeholder!! The JS sets the real value -->
                     <div class="bar_container"><div style="width:50%"><!-- not empty --></div></div>
                 </div>
 
-                <div class="js_value unit size18of100 lastUnit tal"><!-- not empty --></div>
+                <div class="js_value unit size20of100 lastUnit tal"><!-- not empty --></div>
             </div>
         </c:otherwise>
     </c:choose>
