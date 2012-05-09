@@ -26,8 +26,8 @@
         <c:set var="greatSchoolsRating" value="na"/>
     </c:if>
 
-    <div class="line">
-        <div class="unit size74of100">
+    <div class="line ptm pbs">
+        <div class="unit size74of100 fl">
             <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"
                                                      name="${schoolName}" physicalAddress="${schoolAddress}"
                                                      levelCode="${levelCode}">
@@ -37,7 +37,7 @@
             <p class="small-lt"
                style="text-transform:capitalize;}">${schoolType} ${gradeRangeString} | ${city}, ${databaseState}</p>
         </div>
-        <div class="unit size20of100 lastUnit">
+        <div class="unit size26of100 lastUnit fr prm">
             <c:if test="${not isTemplate and not empty distance and (not empty param.zipCode or not empty param.lat)}">
                 <span class="small-lt"><fmt:formatNumber value="${distance}" maxFractionDigits="2"/> miles</span>
             </c:if>
