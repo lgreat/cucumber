@@ -8,6 +8,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod" xmlns:form="http://www.springframework.org/tags/form"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -93,10 +94,11 @@
                     <c:if test="${!empty principalReview}">
                         <div class="contain_2-1">
 
-                                <strong>The Principal's point of view</strong>
-                                <p>
-                                    ${principalReview.comments}
-                                </p>
+                                <!--<strong>The Principal's point of view</strong>-->
+                                <!--<p>-->
+                                    <!--${principalReview.comments}-->
+                                <!--</p>-->
+                            <util:truncate value="${principalReview.comments}" words="40" />
 
                         </div>
                     </c:if>
