@@ -275,7 +275,7 @@ define(['uri','ui'],function(uri, ui) {
     var setupBooleanFilterHandlers = function() {
         // when a boolean filter button is pressed, toggle associated boolean filter in JS module
         $(selectors.booleanFilterGroups).on('click', '[data-' + dataAttributes.booleanFilter + ']', function() {
-            var booleanGroupName = $(this).parent().parent().parent().data(dataAttributes.booleanFilterGroup);
+            var booleanGroupName = $(this).parent().parent().parent().parent().data(dataAttributes.booleanFilterGroup);
             var booleanFilter = $(this).data(dataAttributes.booleanFilter);
             filtersHash[booleanGroupName].toggle(booleanFilter);
 

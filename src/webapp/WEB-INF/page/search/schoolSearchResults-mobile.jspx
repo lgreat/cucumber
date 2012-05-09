@@ -65,8 +65,9 @@
                     <c:if test="${fn:length(schoolSearchResults) gt 0}">
                         <div class="contain_6-1">
                             <div class="fl">
-                                <a data-role="button" data-inline="true" href="${requestInfo.requestURL}"
-                                   class="ui-btn-active but but-sm but-2 mrm">List</a>
+                                <!--<a data-role="button" data-inline="true" href="${requestInfo.requestURL}"-->
+                                   <!--class="ui-btn-active but but-sm but-2 mrm">List</a>-->
+                                <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
                                 <a data-role="button" data-inline="true"
                                    href="/search/mapresults.page?${pageContext.request.queryString}"
                                    class="but but-sm but-2">Map</a>
@@ -133,32 +134,36 @@
             });
         </script>
 
-        <c:if test="${not page.lastPage}">
-            <div class="mam">
-                <button id="loadMore" class="but but-infinite but-2">
-                    View more results
-                </button>
-            </div>
-        </c:if>
+        <div class="js-nearbyMoreResults">
+            <c:if test="${not page.lastPage}">
+                <div class="mam">
+                    <button id="loadMore" class="but but-infinite but-2">
+                        View more results
+                    </button>
+                </div>
+            </c:if>
 
-        <c:if test="${isNearbySearch}">
-            <ul class="list1">
-                <li><h3>Nearby Cities</h3></li>
-            </ul>
-            <c:if test="${fn:length(citySearchResults) gt 0}">
-                <c:set var="lastCityIndex" value="${fn:length(citySearchResults)-1}"/>
-                <c:if test="${lastCityIndex gt 5}">
-                    <c:set var="lastCityIndex" value="5"/>
-                </c:if>
+            <c:if test="${isNearbySearch}">
                 <ul class="list1">
-                    <c:forEach var="city" items="${citySearchResults}" begin="1" end="${lastCityIndex}" varStatus="status">
-                        <li>
-                            <link:schools cityName="${city.city}" state="${city.state}">${city.city}, ${city.state}</link:schools>
-                        </li>
-                    </c:forEach>
+                    <li><h3>Nearby Cities</h3></li>
                 </ul>
+                <c:if test="${fn:length(citySearchResults) gt 0}">
+                    <c:set var="lastCityIndex" value="${fn:length(citySearchResults)-1}"/>
+                    <c:if test="${lastCityIndex gt 5}">
+                        <c:set var="lastCityIndex" value="5"/>
+                    </c:if>
+                    <ul class="list1">
+                        <c:forEach var="city" items="${citySearchResults}" begin="1" end="${lastCityIndex}"
+                                   varStatus="status">
+                            <li>
+                                <link:schools cityName="${city.city}"
+                                              state="${city.state}">${city.city}, ${city.state}</link:schools>
+                            </li>
+                        </c:forEach>
+                    </ul>
                 </c:if>
-        </c:if>
+            </c:if>
+        </div>
 
         <!--<mobile:topOfPage/>-->
 
@@ -166,10 +171,10 @@
         <c:set var="buttonPressedClass" value="but-2-selected"/>
 
 
-        <div id="school-filters" class="js-searchResultFilters">
+        <div id="school-filters" class="js-searchResultFilters" style="display:none;">
             <div class="contain_6-1">
                 <div class="fl">
-                    <span class="but but-sm but-2">Cancel</span>
+                    <div class="js-searchCancel but but-sm but-2">Cancel</div>
                 </div>
                 <div class="fr">
                     <span data-school-filter-action="apply" class="but but-sm but-2">Apply</span>
@@ -187,34 +192,56 @@
                 <br class="clearfloat"/>
             </div>
 
-            <div data-school-boolean-filter-group="schoolType" class="mas">
-                <h3>School type</h3>
-
-                <div class="line">
-                    <div class="unit size30of100">
-                        <span style="width:100%;" class="fl but but-list vat ${fn:contains(schoolType,'public') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-right" data-school-boolean-filter="public">Public</span>
-                    </div>
-                    <div class="unit size30of100">
-                        <span style="width:100%; line-height: 1.6em;" class="fl but but-list ${fn:contains(schoolType,'charter') or empty schoolType? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="charter">Public<br/>charter</span>
-                    </div>
-                    <div class="unit size30of100">
-                        <span style="width:100%;" class=" fl but but-list vat ${fn:contains(schoolType,'private') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-left" data-school-boolean-filter="private">Private</span>
+            <div data-school-boolean-filter-group="schoolType">
+                <div class="mas"><h3>School type</h3></div>
+                <div class="pas">
+                    <div class="line">
+                        <div class="unit size31of100">
+                            <span style="width:100%;"
+                                  class="fl but but-list vat ${fn:contains(schoolType,'public') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-right"
+                                  data-school-boolean-filter="public">Public</span>
+                        </div>
+                        <div class="unit size31of100">
+                            <span style="width:100%; line-height: 1.6em;"
+                                  class="fl but but-list ${fn:contains(schoolType,'charter') or empty schoolType? buttonPressedClass : buttonClass} noBorder"
+                                  data-school-boolean-filter="charter">Public<br/>charter</span>
+                        </div>
+                        <div class="unit size31of100">
+                            <span style="width:100%;"
+                                  class=" fl but but-list vat ${fn:contains(schoolType,'private') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-left"
+                                  data-school-boolean-filter="private">Private</span>
+                        </div>
                     </div>
                 </div>
-                <!--<div style="width:100%">-->
-                <!--<span style="width:32%;" class="but but-list vat ${fn:contains(schoolType,'public') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-right" data-school-boolean-filter="public">Public</span>-->
-                <!--<span style="width:32%; line-height: 1.6em;" class="but but-list ${fn:contains(schoolType,'charter') or empty schoolType? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="charter">Public<br/>charter</span>-->
-                <!--<span style="width:32%" class="but but-list vat ${fn:contains(schoolType,'private') or empty schoolType? buttonPressedClass : buttonClass} noBorder noBorder-left" data-school-boolean-filter="private">Private</span>-->
-                <!--&lt;!&ndash;<br class="clearfloat"/>&ndash;&gt;-->
-                    <!--</div>-->
             </div>
 
-            <div data-school-boolean-filter-group="gradeLevel" class="mas">
-                <h3>Grade level</h3>
-                <span style="" class="but but-list vat ${fn:contains(levelCode,'p') or empty levelCode? buttonPressedClass : buttonClass} noBorder noBorder-right" data-school-boolean-filter="preschool">Preschool</span>
-                <span style="line-height: 1.6em;" class="but but-list ${fn:contains(levelCode,'e') or empty levelCode? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="elementary">Elementary<br/>(K-5)</span>
-                <span style="line-height: 1.6em;" class="but but-list ${fn:contains(levelCode,'m') or empty levelCode? buttonPressedClass : buttonClass} noBorder" data-school-boolean-filter="middle">Middle<br/>(6-8)</span>
-                <span style="line-height: 1.6em;" class="but but-list ${fn:contains(levelCode,'h') or empty levelCode? buttonPressedClass : buttonClass} noBorder noBorder-left" data-school-boolean-filter="high">High<br/>(9-12)</span>
+
+            <div data-school-boolean-filter-group="gradeLevel">
+                <div  class="mas"><h3>Grade level</h3></div>
+                <div class="pas">
+                    <div class="line">
+                        <div class="unit size24of100">
+                        <span style="width:100%;"
+                              class="but but-list vat ${fn:contains(levelCode,'p') or empty levelCode? buttonPressedClass : buttonClass} noBorder noBorder-right"
+                              data-school-boolean-filter="preschool">Preschool</span>
+                        </div>
+                        <div class="unit size24of100">
+                        <span style="width:100%; line-height: 1.6em;"
+                              class="but but-list ${fn:contains(levelCode,'e') or empty levelCode? buttonPressedClass : buttonClass} noBorder"
+                              data-school-boolean-filter="elementary">Elementary<br/>(K-5)</span>
+                        </div>
+                        <div class="unit size24of100">
+                        <span style="width:100%; line-height: 1.6em;"
+                              class="but but-list ${fn:contains(levelCode,'m') or empty levelCode? buttonPressedClass : buttonClass} noBorder"
+                              data-school-boolean-filter="middle">Middle<br/>(6-8)</span>
+                        </div>
+                        <div class="unit size24of100">
+                        <span style="width:100%; line-height: 1.6em;"
+                              class="but but-list ${fn:contains(levelCode,'h') or empty levelCode? buttonPressedClass : buttonClass} noBorder noBorder-left"
+                              data-school-boolean-filter="high">High<br/>(9-12)</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mas">
@@ -277,7 +304,7 @@
             </div>
             <div class="contain_6-1">
                 <div class="fl">
-                    <span class="but but-sm but-2">Cancel</span>
+                    <div class="js-searchCancel but but-sm but-2">Cancel</div>
                 </div>
                 <div class="fr">
                     <span data-school-filter-action="apply" class="but but-sm but-2">Apply</span>

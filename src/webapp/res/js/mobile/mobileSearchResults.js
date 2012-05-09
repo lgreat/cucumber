@@ -65,6 +65,12 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
             lastSort = value;
             window.location.href = newUrl;
         });
+        $('#searchFilter').on('click', function(){
+            listFilterToggle();
+        });
+        $('.js-searchCancel').on('click',function(){
+            listFilterToggle();
+        });
     };
 
     var applyFilters = function() {
@@ -80,11 +86,18 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
             if (data) {
                 var $list = $(searchResultsSelector);
                 $list.html(data);
+                listFilterToggle();
             }
         }).fail(function(data) {
             GS.log('filtering failed', data);
         });
     };
+
+    var listFilterToggle = function(){
+        $('#js-school-search-results-table').toggle();
+        $('.js-nearbyMoreResults').toggle();
+        $('.js-searchResultFilters').toggle();
+    }
 
     var loadMore = function() {
         var queryString = window.location.search;
