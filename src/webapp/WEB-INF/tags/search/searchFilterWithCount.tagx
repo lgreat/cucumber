@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:gsweb="gstaglib" xmlns:spring="http://www.springframework.org/tags/form">
+
+    <jsp:directive.attribute name="name" required="true" description="the name attribute"/>
+    <jsp:directive.attribute name="checked" required="false" description="checked or not - defaults to not checked"/>
+    <jsp:directive.attribute name="styleClass" required="false" description="CSS class"/>
+    <jsp:directive.attribute name="styleId" required="false" description="CSS id"/>
+    <jsp:directive.attribute name="tabIndex" required="false" description="Tab index"/>
+    <jsp:directive.attribute name="value" required="false" description="value of the checkbox"/>
+    <jsp:directive.attribute name="onclick" required="false" description="Javascript onclick function"/>
+    <jsp:directive.attribute name="disabled" required="false" description="disable the control"/>
+    <jsp:directive.attribute name="label" required="false" description="Label to display next to the checkbox"/>
+
+    <jsp:directive.attribute name="facetCountsMap" type="java.util.Map" required="true" description="Map where key = field name and value is the Solr facet count"/>
+
+    <!--<c:if test="${not empty facetCountsMap}">
+        <c:set var="label" value="${label} (${facetCountsMap[value]})"/>
+    </c:if>-->
+
+    <spring:checkbox name="${name}" checked="${checked}" styleClass="${styleClass}" styleId="${styleId}" tabIndex = "${tabIndex}"
+                   value="${value}" onclick="${onclick}" disabled="${disabled}" path="schoolSearchCommand.${name}"/>${label}<br/>
+
+</jsp:root>
