@@ -571,7 +571,7 @@
         </constructor-arg>
     </bean>
 
-    <bean name="/search/mapresults.page" class="gs.web.search.SchoolSearchController" autowire="byName" lazy-init="true">
+    <bean name="/search/mapresults.page" class="gs.web.search.SchoolSearchMobileController" autowire="byName" lazy-init="true">
         <property name="commandName">
             <value>schoolSearchCommand</value>
         </property>
