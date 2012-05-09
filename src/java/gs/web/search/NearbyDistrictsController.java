@@ -1,13 +1,12 @@
 package gs.web.search;
 
-
 import gs.data.search.GsSolrQuery;
 import gs.data.search.GsSolrSearcher;
 import gs.data.search.QueryType;
 import gs.data.search.beans.DistrictSearchResult;
 import gs.data.search.beans.IDistrictSearchResult;
 import gs.web.util.Url;
-import gs.web.util.UrlUtil;
+import gs.web.util.UrlBuilder;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.stereotype.Controller;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
@@ -33,7 +33,7 @@ public class NearbyDistrictsController implements BeanFactoryAware {
     private static final int MAX_COUNT = 100;
 
     @RequestMapping(method=RequestMethod.GET)
-    public void list(
+    public void list(HttpServletRequest request,
             @RequestParam(value="lat", required=true) float latitude,
             @RequestParam(value="lon", required=true) float longitude,
             @RequestParam(value="radius", required=false, defaultValue = "50") float radiusInMiles,
@@ -52,26 +52,20 @@ public class NearbyDistrictsController implements BeanFactoryAware {
         List<DistrictSearchResult> results = _gsSolrSearcher.simpleSearch(gsSolrQuery, DistrictSearchResult.class);
 
         for (DistrictSearchResult result : results) {
-            maps.add(buildOneMap(result));
+            maps.add(buildOneMap(request, result));
         }
 
         modelMap.put(MODEL_DATA_KEY, maps);
     }
     
-    Map<String,String> buildOneMap(IDistrictSearchResult districtSearchResult) {
+    Map<String,String> buildOneMap(HttpServletRequest request, IDistrictSearchResult districtSearchResult) {
         Map<String,String> map = new HashMap<String,String>();
         map.put("state", districtSearchResult.getState().getAbbreviation());
         map.put("name", districtSearchResult.getName());
 
-        try {
-            String url = Url.SEARCH_SCHOOLS_BY_NAME.relative(
-                    URLEncoder.encode(districtSearchResult.getName(), "UTF-8"),
-                    districtSearchResult.getState().getAbbreviation());
-            url = UrlUtil.addParameter(url, "sortBy=GS_RATING_DESCENDING");
-            map.put("url", url);
-        } catch (UnsupportedEncodingException e) {
-            map.put("url", "javascript:void(0);");
-        }
+        UrlBuilder districtHome = new UrlBuilder(districtSearchResult.getState(), districtSearchResult.getId(),
+                districtSearchResult.getName(), districtSearchResult.getCity(), UrlBuilder.DISTRICT_HOME);
+        map.put("url",districtHome.asSiteRelative(request));
 
         return map;
     }

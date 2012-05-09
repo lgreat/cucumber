@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.73 2011/08/02 01:10:18 ssprouse Exp $
+ * $Id: CityController.java,v 1.74 2012/05/09 00:15:34 aroy Exp $
  */
 
 package gs.web.geo;
@@ -21,12 +21,12 @@ import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.web.content.cms.CmsHomepageController;
+import gs.web.request.RequestInfo;
+import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.web.util.list.AnchorListModel;
 import gs.web.util.list.AnchorListModelFactory;
-import gs.web.util.UrlBuilder;
-import gs.web.util.RedirectView301;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.path.DirectoryStructureUrlFields;
 import org.apache.commons.lang.StringUtils;
@@ -40,6 +40,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -143,6 +144,24 @@ public class CityController extends AbstractController  implements IDirectoryStr
             return new ModelAndView(redirectView);
         }
 
+        Map<String, Object> model = new HashMap<String, Object>();
+        try {
+            RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
+            if (requestInfo != null && requestInfo.isShouldRenderMobileView()) {
+                String url = Url.SEARCH_SCHOOLS_NEARBY.relative(
+                        String.valueOf(city.getLatLon().getLat()), String.valueOf(city.getLatLon().getLon()),
+                        "25",
+                        URLEncoder.encode(city.getName() + ", " + city.getState().getAbbreviation(), "UTF-8"),
+                        city.getState().getAbbreviation()
+                );
+                url = UrlUtil.addParameter(url, "sortBy=distance");
+                return new ModelAndView(new RedirectView(url));
+            }
+        } catch (Exception e) {
+            _log.error("Error rendering mobile redirect, defaulting to desktop view.");
+        }
+        model.put("hasMobileView", true);
+
         if (redirectToNewStyleUrl || "/new-york/new-york/".equals(request.getRequestURI())) {
             // Redirect to the new city url if we got here via the old one
             UrlBuilder urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
@@ -161,8 +180,6 @@ public class CityController extends AbstractController  implements IDirectoryStr
         if (iPhoneRedirect != null) {
             return iPhoneRedirect;
         }
-
-        Map<String, Object> model = new HashMap<String, Object>();
 
         if (!StringUtils.isEmpty(cityNameParam) && city != null && state != null) {
             model.put(PARAM_CITY_CANONICAL_PATH, "http://" + request.getServerName() + ((request.getServerPort() != 80) ? ":" + request.getServerPort() : "") + DirectoryStructureUrlFactory.createNewCityBrowseURIRoot(state, city.getName()));

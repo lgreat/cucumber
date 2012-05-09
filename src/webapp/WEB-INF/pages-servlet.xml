@@ -489,6 +489,15 @@
         </property>
     </bean>
 
+    <bean name="schoolBrowseController" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="schoolSearchMobileController"/>
+                <ref bean="schoolSearchController"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
     <bean name="schoolSearchController" class="gs.web.search.SchoolSearchController">
         <property name="controllerHandlesDesktopRequests" value="true" />
         <property name="controllerHandlesMobileRequests" value="false" />
@@ -2345,7 +2354,8 @@
                 <!-- TODO-10701 comment the following to use OLD search -->
                 <!--ref bean="/search/schoolSearch.page"/-->
 
-                <ref bean="schoolSearchController"/>
+                <!--<ref bean="schoolSearchController"/>-->
+                <ref bean="schoolBrowseController"/>
                 <ref bean="/school/overview.page"/>
                 <ref bean="/district/districtHome.page"/>
                 <ref bean="/city.page"/>

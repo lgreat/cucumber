@@ -5,7 +5,6 @@ import gs.data.search.*;
 import gs.data.search.beans.CitySearchResult;
 import gs.data.search.beans.ICitySearchResult;
 import gs.web.util.Url;
-import gs.web.util.UrlUtil;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.stereotype.Controller;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.*;
 
 @Controller
@@ -60,20 +57,8 @@ public class NearbyCitiesController implements BeanFactoryAware {
         Map<String,String> map = new HashMap<String,String>();
         map.put("state", citySearchResult.getState().getAbbreviation());
         map.put("name", citySearchResult.getCity());
-        try {
-            String url = Url.SEARCH_SCHOOLS_NEARBY.relative(
-                    citySearchResult.getLatitude().toString(),
-                    citySearchResult.getLongitude().toString(),
-                    "25",
-                    URLEncoder.encode(citySearchResult.getCity() + ", " + citySearchResult.getState().getAbbreviation
-                            (), "UTF-8"),
-                    citySearchResult.getState().getAbbreviation()
-            );
-            url = UrlUtil.addParameter(url, "sortBy=GS_RATING_DESCENDING");
-            map.put("url", url);
-        } catch (UnsupportedEncodingException e) {
-            map.put("url", "javascript:void(0);");
-        }
+        String url = Url.CITY_HOME.relative(citySearchResult.getState(), citySearchResult.getCity());
+        map.put("url", url);
 
         return map;
     }

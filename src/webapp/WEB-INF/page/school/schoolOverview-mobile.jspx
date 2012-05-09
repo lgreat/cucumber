@@ -99,7 +99,7 @@
                 ${school.physicalAddress.street}<br/>
                 ${school.physicalAddress.cityStateZip}
             <c:if test="${not empty school.district}">
-                <div>District: <a href="javascript:void(0);">${school.district.name}</a></div>
+                <div>District: <link:districtHome district="${school.district}">${school.district.name}</link:districtHome></div>
             </c:if>
             </p>
         </div>

@@ -21,10 +21,8 @@ import gs.data.util.table.ITableRow;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
-import gs.web.util.BadRequestLogger;
-import gs.web.util.PageHelper;
-import gs.web.util.UrlBuilder;
-import gs.web.util.UrlUtil;
+import gs.web.request.RequestInfo;
+import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.util.google.GoogleSpreadsheetDao;
@@ -138,6 +136,17 @@ public class DistrictHomeController extends AbstractController  implements IDire
             model.put("title", "City not found in state");
             return new ModelAndView("status/error", model);
         }
+
+        try {
+            RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
+            if (requestInfo != null && requestInfo.isShouldRenderMobileView()) {
+                UrlBuilder districtBrowse = new UrlBuilder(district, UrlBuilder.SCHOOLS_IN_DISTRICT);
+                return new ModelAndView(new RedirectView(districtBrowse.asSiteRelative(request)));
+            }
+        } catch (Exception e) {
+            _log.error("Error rendering mobile redirect, defaulting to desktop view.");
+        }
+        model.put("hasMobileView", true);
 
         model.put("district", district);
         pageModel.put("city", district.getPhysicalAddress().getCity());

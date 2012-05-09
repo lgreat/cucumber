@@ -465,6 +465,9 @@ public class SchoolSearchController extends AbstractCommandController implements
         } else if (StringUtils.equals(request.getParameter("search_type"), "1")) {
             model.put(MODEL_OMNITURE_NAME_SEARCH, true);
         }
+        if ((commandAndFields.isCityBrowse() || commandAndFields.isDistrictBrowse()) && !commandAndFields.isAjaxRequest()) {
+            model.put("hasMobileView", true);
+        }
         return new ModelAndView(getViewName(schoolSearchCommand, searchResultsPage), model);
     }
 
