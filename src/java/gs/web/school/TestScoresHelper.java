@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author aroy@greatschools.org
@@ -116,6 +118,9 @@ public class TestScoresHelper {
             dataSetIds = new HashSet<Integer>(Arrays.asList(arr));
         } else if (school.getDatabaseState().equals(State.NY)) {
             Integer[] arr = {265, 270, 336, 341, 3327, 3332, 3366, 3371, 3376, 3381, 3386, 3391, 3396, 3401, 3406, 3411, 3416, 3421};
+            dataSetIds = new HashSet<Integer>(Arrays.asList(arr));
+        } else if(school.getDatabaseState().equals(State.AK)){
+            Integer[] arr = {21351, 21355, 20637, 20641, 20739, 20743, 20841, 20845, 20943, 20947, 21045, 21049, 21147, 21151, 21249, 21253, 22167, 22171, 21453, 21457, 21555, 21559, 21657, 21661, 21759, 21763, 21861, 21865, 21963, 21967, 22065, 22069, 22983, 22987, 22269, 22273, 22371, 22375, 22473, 22477, 22575, 22579, 22677, 22681, 22779, 22783, 22881, 22885};
             dataSetIds = new HashSet<Integer>(Arrays.asList(arr));
         }
         return dataSetIds;
@@ -335,10 +340,20 @@ public class TestScoresHelper {
                         List<YearToTestScore> yearToTestScoreList = new ArrayList<YearToTestScore>();
                         for (TestDataSet testDataSet : map.get(testDataType).get(grade).get(levelCode).get(subject).keySet()) {
 
+                            String testScoreValue = map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet);
+                            //For masking the test score.Masking : - sometimes the state does not give exact numbers, it saves <5% passed etc.
+                            //AK has a lot of masked school values.
+                            Pattern p = Pattern.compile("\\d*(\\.*\\d+)");
+                            Matcher m = p.matcher(testScoreValue);
+                            if (m.find()) {
+                                testScoreValue = m.group();
+                            }
+
                             //For a year set the test score.
                             YearToTestScore yearToTestScore = new YearToTestScore();
                             yearToTestScore.setYear(testDataSet.getYear());
-                            yearToTestScore.setTestScoreStr(map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
+                            yearToTestScore.setTestScoreStr(testScoreValue);
+                            yearToTestScore.setTestScoreLabel(map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
                             yearToTestScoreList.add(yearToTestScore);
 
                             //Set the grade label.
@@ -652,6 +667,7 @@ public class TestScoresHelper {
 
     public static class YearToTestScore implements Comparable<YearToTestScore> {
         String _testScoreStr;
+        String _testScoreLabel;
         Integer _year;
 
         public String getTestScoreStr() {
@@ -660,6 +676,14 @@ public class TestScoresHelper {
 
         public void setTestScoreStr(String testScoreStr) {
             _testScoreStr = testScoreStr;
+        }
+
+        public String getTestScoreLabel() {
+            return _testScoreLabel;
+        }
+
+        public void setTestScoreLabel(String testScoreLabel) {
+            _testScoreLabel = testScoreLabel;
         }
 
         public Integer getYear() {

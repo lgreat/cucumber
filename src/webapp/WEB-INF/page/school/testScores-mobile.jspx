@@ -113,7 +113,8 @@
 
                                         <c:forEach var="yearToTestScore" items="${subjectToYears.years}" varStatus="index">
 
-                                            <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}" testScoreYear="${yearToTestScore.year}"/>
+                                            <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}" testScoreLabel="${yearToTestScore.testScoreLabel}"
+                                                             testScoreYear="${yearToTestScore.year}"/>
                                         </c:forEach>
                                         <div class="ptm"><!-- not empty --></div>
                                     </c:forEach>

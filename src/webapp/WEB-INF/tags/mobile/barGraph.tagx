@@ -13,6 +13,8 @@
                              description="The year of the test"/>
     <jsp:directive.attribute name="testScoreValue" required="false" type="java.lang.String"
                              description="Test value"/>
+    <jsp:directive.attribute name="testScoreLabel" required="false" type="java.lang.String"
+                             description="Test value"/>
     <jsp:directive.attribute name="loadJS" required="false" type="java.lang.Integer"
                              description="Load with javscript on overview page"/>
 
@@ -30,12 +32,12 @@
                             </div>
 
                             <div class="unit size18of100 lastUnit tal">
-                                ${testScoreValue}%
+                                ${testScoreLabel}%
                             </div>
                         </c:when>
                         <c:otherwise>
                             <div class="unit size80of100 lastUnit pls">
-                                ${testScoreValue}
+                                ${testScoreLabel}
                             </div>
                         </c:otherwise>
                     </c:choose>
