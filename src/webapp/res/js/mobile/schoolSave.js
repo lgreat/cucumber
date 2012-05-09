@@ -78,12 +78,25 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
         var savedSchoolsDiv = $('#savedSchools');
 
         for(var i = 0; i < numOfSavedSchools; i++) {
+            var type_school = schools[i].type;
+            var display_gs_rating = "";
+            if(type_school == "private" || schools[i].gsRating == ""){
+                display_gs_rating = " dn"
+            }
+            var community_rating = schools[i].commRating;
+            var display_comm_rating = "";
+            if(community_rating == ""){
+                display_comm_rating = " dn"
+            }
+
             var html = template.render({
                 schoolName: schools[i].name,
                 schoolType: schools[i].type,
                 schoolGradeLevels: schools[i].gradeLevels,
                 schoolCity: schools[i].city,
                 schoolState: schools[i].state,
+                displayGSRating: display_gs_rating,
+                displayCommRating: display_comm_rating,
                 gsRating: schools[i].gsRating,
                 commRating: schools[i].commRating,
                 starOff: 5 - parseInt(schools[i].commRating),

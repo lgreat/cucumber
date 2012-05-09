@@ -74,12 +74,12 @@
 
                 <div class="clearfloat"><!-- empty not delete --></div>
                 <div class="pas">
-                    <div class="fl">
+                    <div class="fl{{displayGSRating}}">
                         <div class="ratings-round ratings-small round-small fl vam"><div class="ratings-number number-small">{{gsRating}}</div></div>
                         <div class="small-lt fl pls"> of 10</div>
                     </div>
-                    <div class="fr prm"><span class="small-lt">Community rating: </span>
-                        <!--<mobile:stars curSR="{{commRating}}" smStars="1"/>-->
+                    <div class="fr prm{{displayCommRating}}"><span class="small-lt">Community rating: </span>
+
                         <div class="iconx12 i-12-orange-star  i-12-star-{{commRating}}"><!-- not empty--></div>
                         <div class="iconx12 i-12-grey-star  i-12-star-{{starOff}}"><!-- not empty--></div>
                     </div>
