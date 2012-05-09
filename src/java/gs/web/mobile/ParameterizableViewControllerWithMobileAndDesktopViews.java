@@ -1,7 +1,6 @@
 package gs.web.mobile;
 
 import gs.web.request.RequestInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
@@ -40,7 +39,15 @@ public class ParameterizableViewControllerWithMobileAndDesktopViews extends Para
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
-        return new ModelAndView(resolveViewName(requestInfo));
+        if (requestInfo == null) {
+            return new ModelAndView(getViewName());
+        }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName(resolveViewName(requestInfo));
+        if (!requestInfo.shouldRenderMobileView()) {
+            modelAndView.getModel().put("hasMobileView", true);
+        }
+        return modelAndView;
     }
 
     public String getMobileViewName() {

@@ -280,20 +280,24 @@
         <aop:scoped-proxy proxy-target-class="false"/>
     </bean>
 
+    <bean name="mobileHomepageController" class="gs.web.MobileHomepageController">
+        <property name="controllerHandlesDesktopRequests" value="false" />
+        <property name="controllerHandlesMobileRequests" value="true" />
+    </bean>
+
+    <bean name="cmsHomepageController" class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
+        <property name="controllerHandlesDesktopRequests" value="true" />
+        <property name="controllerHandlesMobileRequests" value="false" />
+        <property name="viewName">
+            <value>index</value>
+        </property>
+    </bean>
+
     <bean name="/index.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
-                <bean name="mobileHomepageController" class="gs.web.MobileHomepageController">
-                    <property name="controllerHandlesDesktopRequests" value="false" />
-                    <property name="controllerHandlesMobileRequests" value="true" />
-                </bean>
-                <bean name="cmsHomepageController" class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
-                    <property name="controllerHandlesDesktopRequests" value="true" />
-                    <property name="controllerHandlesMobileRequests" value="false" />
-                    <property name="viewName">
-                        <value>index</value>
-                    </property>
-                </bean>
+                <ref bean="mobileHomepageController"/>
+                <ref bean="cmsHomepageController"/>
             </list>
         </constructor-arg>
     </bean>
@@ -2818,11 +2822,19 @@
         </property>
     </bean>
 
-    <bean name="/school/findASchool.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
-        <property name="viewName">
-            <value>/school/findASchool</value>
-        </property>
+    <bean name="desktopFindASchoolController" class="gs.web.school.FindASchoolController" lazy-init="true">
+        <property name="viewName" value="/school/findASchool"/>
+    </bean>
+
+    <bean name="/school/findASchool.page" class="org.springframework.stereotype.Controller"
+          factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController"
+          lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="mobileHomepageController"/>
+                <ref bean="desktopFindASchoolController"/>
+            </list>
+        </constructor-arg>
     </bean>
 
     <bean name="nbcQuizController"
