@@ -73,7 +73,7 @@
                                    class="but but-sm but-2">Map</a>
                             </div>
                             <div class="fr">
-                                <select class="js-sort-select">
+                                <select class="js-sort-select searchSelect">
                                     <c:choose>
                                         <c:when test="${isNearbySearch}">
                                             <gsml:selectOption value="distance"

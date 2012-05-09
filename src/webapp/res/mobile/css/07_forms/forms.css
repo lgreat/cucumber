@@ -64,8 +64,11 @@ textarea:focus { border-color: #555;outline: none; }
 select {  margin:  0;font: normal .875em/1.25em Arial, Helvetica, sans-serif;
     border: 1px solid #999;
     height: 32px;
-    padding:4px; min-width: 150px}
+    padding:4px;}
 
+select.searchSelect {
+    width: 105px;
+}
 
 /* Misc classes
 -------------------------------------------------------------- */
