@@ -223,22 +223,22 @@
                         <div class="unit size24of100">
                         <span style="width:100%;"
                               class="but but-list vat ${fn:contains(levelCode,'p') or empty levelCode? buttonPressedClass : buttonClass} noBorder noBorder-right"
-                              data-school-boolean-filter="preschool">Preschool</span>
+                              data-school-boolean-filter="p">Preschool</span>
                         </div>
                         <div class="unit size24of100">
                         <span style="width:100%; line-height: 1.6em;"
                               class="but but-list ${fn:contains(levelCode,'e') or empty levelCode? buttonPressedClass : buttonClass} noBorder"
-                              data-school-boolean-filter="elementary">Elementary<br/>(K-5)</span>
+                              data-school-boolean-filter="e">Elementary<br/>(K-5)</span>
                         </div>
                         <div class="unit size24of100">
                         <span style="width:100%; line-height: 1.6em;"
                               class="but but-list ${fn:contains(levelCode,'m') or empty levelCode? buttonPressedClass : buttonClass} noBorder"
-                              data-school-boolean-filter="middle">Middle<br/>(6-8)</span>
+                              data-school-boolean-filter="m">Middle<br/>(6-8)</span>
                         </div>
                         <div class="unit size24of100">
                         <span style="width:100%; line-height: 1.6em;"
                               class="but but-list ${fn:contains(levelCode,'h') or empty levelCode? buttonPressedClass : buttonClass} noBorder noBorder-left"
-                              data-school-boolean-filter="high">High<br/>(9-12)</span>
+                              data-school-boolean-filter="h">High<br/>(9-12)</span>
                         </div>
                     </div>
                 </div>

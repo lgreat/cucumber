@@ -182,10 +182,10 @@ define(['uri','ui'],function(uri, ui) {
     });
 
     var gradeLevel = new BooleanFilter('gradeLevels', {
-        preschool:true,
-        elementary:true,
-        middle:true,
-        high:true
+        p:true,
+        e:true,
+        m:true,
+        h:true
     });
 
     var distance = new SelectFilter('distance', '25');
@@ -289,16 +289,16 @@ define(['uri','ui'],function(uri, ui) {
                 else if(booleanFilter === 'charter') {
                     s.tl(this,'o', 'Mobile_filter_type_charter');
                 }
-                else if(booleanFilter === 'preschool') {
+                else if(booleanFilter === 'p') {
                     s.tl(this,'o', 'Mobile_filter_grade_PK');
                 }
-                else if(booleanFilter === 'elementary') {
+                else if(booleanFilter === 'e') {
                     s.tl(this,'o', 'Mobile_filter_grade_elem');
                 }
-                else if(booleanFilter === 'middle') {
+                else if(booleanFilter === 'm') {
                     s.tl(this,'o', 'Mobile_filter_grade_middle');
                 }
-                else if(booleanFilter === 'high') {
+                else if(booleanFilter === 'h') {
                     s.tl(this,'o', 'Mobile_filter_grade_high');
                 }
             }
