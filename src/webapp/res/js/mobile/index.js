@@ -144,13 +144,17 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], 
             validation.init();
             validation.attachValidationHandlers('#search-form');
 
+            attachCityAutocomplete('.js-searchByLocationQuery'); // add autocomplete right away. geolocation might never happen
+
             geolocation.getCoordinates(function(coordinates) {
                 var byLocationForm = $(BY_LOCATION_FORM_SELECTOR);
                 byLocationForm.find('input[name="lat"]').val(coordinates.latitude);
                 byLocationForm.find('input[name="lon"]').val(coordinates.longitude);
+                // geolocation worked, unbind and re-bind autocomplete since we know current location now, and the
+                // "current location" autocomplete option comes back from the server within autocomplete results.
+                $('.js-searchByLocationQuery').unbind(".autocomplete");
+                attachCityAutocomplete('.js-searchByLocationQuery');
             });
-
-            attachCityAutocomplete('.js-searchByLocationQuery');
 
         });
     };
