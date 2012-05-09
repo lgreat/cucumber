@@ -82,6 +82,7 @@
                     <div>
                         <div class="ratings-round ratings-medium round-medium fl"><div class="ratings-number number-medium">${gs_rating}</div></div> <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong class="small"> GreatSchools Rating</strong></div>
                     </div>
+                    <div class="clearfloat"><!--  --></div>
                 </div>
                 </c:if>
 
