@@ -15,35 +15,37 @@
                              description="Subject for email message."/>
     <jsp:directive.attribute name="school" required="false" type="gs.data.school.School"
                              description="School for saving to MSL."/>
+
+    <jsp:useBean id="school" type="gs.data.school.School" />
+    <jsp:scriptlet><![CDATA[
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        request.setAttribute("schoolUrl", urlBuilder.asFullUrlXml(request));
+        ]]>
+    </jsp:scriptlet>
+
     <!-- Set up some defaults. Probably helpful for SMS, maybe not for email -->
     <c:if test="${empty smsBody}">
         <c:set var="smsBody" value="${requestInfo.requestURL}"/>
     </c:if>
     <c:if test="${empty emailBody and not empty school}">
-        <c:set var="emailBody">${school.name}: ${requestInfo.requestURL}
-
-${school.physicalAddress.city}'s ${school.name} is a ${school.type.schoolTypeName} <c:choose>
-                <c:when test="${school.preschoolOnly}">Preschool.
-                </c:when>
-                <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">school.
-                </c:when>
-                <c:otherwise>school that serves grades ${school.gradeLevels}.
-                </c:otherwise>
-            </c:choose>
+        <c:set var="emailBody">${school.name}: ${requestScope.schoolUrl}
+${gsweb:capitalize(school.type.schoolTypeName)}<c:choose>
+<c:when test="${not school.preschoolOnly and not (empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A')}">, ${school.gradeLevels}</c:when>
+</c:choose>.
+<c:if test="${not empty school.enrollment}">Enrollment: ${school.enrollment}
+</c:if>
+<c:if test="${not empty gs_rating}">GreatSchools Rating: ${gs_rating}
+</c:if>
+${school.physicalAddress.street}
+${school.physicalAddress.cityStateZip}
         </c:set>
     </c:if>
     <c:if test="${empty emailBody}">
         <c:set var="emailBody" value="${requestInfo.requestURL}"/>
     </c:if>
     <c:if test="${empty emailSubject}">
-        <c:set var="emailSubject" value="GreatSchools Link: ${school.name}"/>
+        <c:set var="emailSubject" value="${school.name} on GreatSchools"/>
     </c:if>
-
-    <jsp:useBean id="school" type="gs.data.school.School" />
-    <jsp:scriptlet><![CDATA[
-        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        request.setAttribute("schoolUrl", urlBuilder.asFullUrlXml(request));
-        ]]></jsp:scriptlet>
 
     <div class="mam">
         <!-- GS-12650 SMS protocol does not allow us the flexibility we want. De-scoping this for now -->
