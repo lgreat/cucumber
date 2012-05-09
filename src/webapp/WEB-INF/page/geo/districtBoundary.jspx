@@ -623,9 +623,14 @@ new (function() {
         var schools = new Array();
         for (var key in stuffOnMap) {
             if (stuffOnMap.hasOwnProperty(key)) {
-                // making sure that charter schools are not included in school list div
-                if (stuffOnMap[key].isSchool() && stuffOnMap[key].isMarkerShown() || isCharterWithDistrict(stuffOnMap[key])) {
-                    schools.push(stuffOnMap[key]);
+                if (stuffOnMap[key].isSchool() && stuffOnMap[key].isMarkerShown()) {
+                    // making sure that charter schools are not included in school list div
+                    if (stuffOnMap[key].schoolType!='charter' && stuffOnMap[key].schoolType!='private') {
+                        schools.push(stuffOnMap[key]);
+                    }
+                    else if (stuffOnMap[key].districtId) {
+                        schools.push(stuffOnMap[key]);
+                    }
                 }
             }
         }
