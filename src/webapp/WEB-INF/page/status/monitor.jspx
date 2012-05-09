@@ -46,6 +46,11 @@
             text-transform: capitalize;
             color: #AA3333;
         }
+
+        .statusvalue-2 {
+            text-align: left;
+            color: #AA3333;
+        }
     </style>
     <![CDATA[<script type="text/javascript" src="/res/js/jquery/jquery-1.7.2.min.js"></script>]]>
 </head>
@@ -268,9 +273,9 @@
             <th>Value</th>
             <th>Delete</th>
         </tr>
-        <tr style="display:none;" class="template">
-            <td class="statustitle">Template</td>
-            <td class="statusvalue"><span class="js_value">Template</span><span>Click to show/hide</span></td>
+        <tr style="display:none;" class="js_template">
+            <td class="statustitle js_keyRow">Template</td>
+            <td class="statusvalue-2 js_valueRow"><span class="js_value">Template</span><span>Click to show/hide</span></td>
             <td class="js_delete"><button>Delete</button></td>
         </tr>
     </table>
@@ -294,16 +299,16 @@
             for (var counter=0; counter < numKeys; counter++) {
                 var key = storage.key(counter);
                 var value = storage.getItem(key);
-                var $newRow = $table.find('.template').clone().removeClass('template').show();
-                $newRow.find('.statustitle').html(key);
+                var $newRow = $table.find('.js_template').clone().removeClass('js_template').show();
+                $newRow.find('.js_keyRow').html(key);
                 $newRow.find('td').not('.js_delete').click(function() {
-                    $(this).parent().children('td.statusvalue').find('span').toggle();
+                    $(this).parent().children('td.js_valueRow').find('span').toggle();
                 });
                 $newRow.find('.js_delete button').click(deleteKey(storage, key));
                 $newRow.find('.js_value').html(value).hide();
                 if (value.length < 75) {
-                    $newRow.find('.statusvalue span.js_value').show();
-                    $newRow.find('.statusvalue span').not('.js_value').hide();
+                    $newRow.find('.js_valueRow span.js_value').show();
+                    $newRow.find('.js_valueRow span').not('.js_value').hide();
                 }
                 $table.append($newRow);
             }
