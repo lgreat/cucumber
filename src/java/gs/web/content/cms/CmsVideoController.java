@@ -146,8 +146,8 @@ public class CmsVideoController extends AbstractController {
 
         model.put("uri", uri + "?content=" + feature.getContentKey().getIdentifier());
 
-        // GS-11430 Allow for companion ads on articles with Delve Networks videos
-        if (StringUtils.contains(feature.getCurrentPage(), "http://assets.delvenetworks.com/player/loader.swf")) {
+        // GS-11430 GS-12734 Allow for companion ads on articles with Delve Networks videos
+        if (StringUtils.contains(feature.getEmbedVideoCode(), "http://assets.delvenetworks.com/player/loader.swf")) {
             model.put("showCompanionAd", true);
         }
 
