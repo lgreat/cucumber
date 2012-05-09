@@ -24,6 +24,19 @@ public class SchoolSearchCommand {
     private boolean _sortChanged;
     private Integer minGreatSchoolsRating;
     private Integer minCommunityRating;
+    private String _zipCode;
+
+    // osp filters
+    private String[] _beforeAfterCare;
+    private Boolean _transportation;
+    private Boolean _ell;
+    private Boolean _studentsVouchers;
+    private String[] _specialEdPrograms;
+    private String[] _schoolFocus;
+    private String[] _sports;
+    private String[] _artsAndMusic;
+    private String[] _studentClubs;
+
 
     private RequestedPage requestedPage;
 
@@ -298,5 +311,85 @@ public class SchoolSearchCommand {
 
     public void setSortChanged(boolean sortChanged) {
         _sortChanged = sortChanged;
+    }
+
+    public String getZipCode() {
+        return _zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        _zipCode = zipCode;
+    }
+
+    public String[] getBeforeAfterCare() {
+        return _beforeAfterCare;
+    }
+
+    public void setBeforeAfterCare(String[] beforeAfterCare) {
+        _beforeAfterCare = beforeAfterCare;
+    }
+
+    public Boolean getTransportation() {
+        return _transportation;
+    }
+
+    public void setTransportation(Boolean transportation) {
+        _transportation = transportation;
+    }
+
+    public Boolean getEll() {
+        return _ell;
+    }
+
+    public void setEll(Boolean ell) {
+        _ell = ell;
+    }
+
+    public Boolean getStudentsVouchers() {
+        return _studentsVouchers;
+    }
+
+    public void setStudentsVouchers(Boolean studentsVouchers) {
+        _studentsVouchers = studentsVouchers;
+    }
+
+    public String[] getSpecialEdPrograms() {
+        return _specialEdPrograms;
+    }
+
+    public void setSpecialEdPrograms(String[] specialEdPrograms) {
+        _specialEdPrograms = specialEdPrograms;
+    }
+
+    public String[] getSchoolFocus() {
+        return _schoolFocus;
+    }
+
+    public void setSchoolFocus(String[] schoolFocus) {
+        _schoolFocus = schoolFocus;
+    }
+
+    public String[] getSports() {
+        return _sports;
+    }
+
+    public void setSports(String[] sports) {
+        _sports = sports;
+    }
+
+    public String[] getArtsAndMusic() {
+        return _artsAndMusic;
+    }
+
+    public void setArtsAndMusic(String[] artsAndMusic) {
+        _artsAndMusic = artsAndMusic;
+    }
+
+    public String[] getStudentClubs() {
+        return _studentClubs;
+    }
+
+    public void setStudentClubs(String[] studentClubs) {
+        _studentClubs = studentClubs;
     }
 }
