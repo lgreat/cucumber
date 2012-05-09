@@ -3,8 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:c="http://java.sun.com/jsp/jstl/core">
+          xmlns:link="urn:www.greatschools.org/taglib/link">
 
     <html lang="en">
 
@@ -42,7 +41,7 @@
     </head>
 
     <body>
-    <div class="emailAndDeleteAll  dn ">
+    <div class="emailAndDeleteAll dn">
         <div class="contain_6-1">
 
             <a class="but but-rg but-1 phl emailMyList">
@@ -59,10 +58,10 @@
     <div id="savedSchools"><!-- empty not delete --></div>
 
         <div  id="schoolTemplate" style="display: none;">
-            <div class="pvs phm ">
+            <div class="pvs phm schoolTemplate">
                 <div class="line">
                        <div class="unit size74of100">
-                        <div class="fl "><strong>{{schoolName}}</strong>
+                           <div class="fl"><strong><a id="schoolUrl-{{state_schoolId}}" href="{{schoolUrl}}">{{schoolName}}</a></strong>
                             <div>
                                 <p class="small ac1">{{schoolType}}, {{schoolGradeLevels}} | {{schoolCity}}, {{schoolState}}</p>
                             </div>

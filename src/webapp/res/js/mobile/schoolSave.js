@@ -75,6 +75,7 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
 
         var schools = savedSchools[schoolsKey];
         var numOfSavedSchools = schools.length;
+        var savedSchoolsDiv = $('#savedSchools');
 
         for(var i = 0; i < numOfSavedSchools; i++) {
             var html = template.render({
@@ -92,8 +93,10 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
                 address: schools[i].address,
                 zip: schools[i].zip
             });
-            $('#savedSchools').append(html);
-            $('div #savedSchools .schoolTemplate').last().attr('id', schools[i].state + '_' + schools[i].id);
+            savedSchoolsDiv.append(html);
+            savedSchoolsDiv.find('.schoolTemplate').last().addClass(schools[i].state + '_' + schools[i].id);
+//            savedSchoolsDiv.find('#schoolUrl-' + schools[i].state + '_' + schools[i].id).attr('href', schools[i].schoolUrl);
+            savedSchoolsDiv.find('div.clearfloat').last().addClass(schools[i].state + '_' + schools[i].id);
 
             emailBody += schools[i].name + " " + schools[i].schoolUrl + "\n";
             emailBody += schools[i].type + ", " + schools[i].gradeLevels + "\n";
@@ -104,7 +107,7 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
 
         var emailAndDeleteAll = $('div.emailAndDeleteAll');
         emailAndDeleteAll.css('display', 'block');
-        emailAndDeleteAll.find('.emailMyList').attr('href', 'mailto:?subject=' + emailSubject + '&amp;body=' + emailBody);
+        emailAndDeleteAll.find('.emailMyList').attr('href', 'mailto:?subject=' + emailSubject + '&body=' + encodeURI(emailBody));
     };
 
     var deleteSchool = function(delete_school) {
@@ -128,11 +131,11 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
             savedSchoolMap[schoolMapKey] = schoolMap;
             localStorage.setItem(schoolsKey, savedSchools);
             localStorage.setItem(schoolMapKey, savedSchoolMap);
-            $('div #' + state_schoolId).remove();
+            $('div .' + state_schoolId).remove();
 
-            var savedSchools = $('div #savedSchools');
-            if(savedSchools.is(':empty')) {
-                savedSchools.find('#noSavedSchools').css('display', 'block');
+            if($('div #savedSchools').is(':empty')) {
+                $('div .emailAndDeleteAll').css('display', 'none');
+                $('div #noSavedSchools').css('display', 'block');
             }
         }
     };
@@ -143,8 +146,8 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
             localStorage.removeItem(schoolsKey);
             localStorage.removeItem(schoolMapKey);
             $('div #savedSchools').empty();
-            $('div #noSavedSchools').css('display', 'block');
             $('div.emailAndDeleteAll').css('display', 'none');
+            $('div #noSavedSchools').css('display', 'block');
         }
     };
 
