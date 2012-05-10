@@ -69,8 +69,14 @@ define(['sessionStorage'], function(sessionStorage) {
     };
 
     var hasGeolocation = function() {
-        var coordinates = sessionStorage.getItem(COORDINATES_KEY);
-        return (coordinates !== undefined && coordinates !== null);
+        if (_geolocation !== null) {
+            return true;
+        } else {
+            var coordinates = sessionStorage.getItem(COORDINATES_KEY);
+            if (coordinates !== undefined && coordinates !== null) {
+                return true;
+            }
+        }
     };
 
     var init = function() {
