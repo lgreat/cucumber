@@ -43,6 +43,7 @@
                 <bean class="gs.web.util.context.RequestInfoInitializingInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
+                <bean class="gs.web.mobile.PkMobileRedirectHandlerInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
                 <bean class="gs.web.mobile.GsSitePreferenceHandlerInterceptor" autowire="byName" />
                 <bean class="gs.web.mobile.MobileViewResolverInterceptor" autowire="byName" />
@@ -61,6 +62,7 @@
                 <bean class="gs.web.util.context.RequestInfoInitializingInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.context.SessionContextInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.SeoCobrandRedirectInterceptor" autowire="byName"/>
+                <bean class="gs.web.mobile.PkMobileRedirectHandlerInterceptor" autowire="byName"/>
                 <bean class="gs.web.util.CookieInterceptor" autowire="byName"/>
             </list>
         </property>

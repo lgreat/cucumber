@@ -72,6 +72,12 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
         return null;
     }
 
+    protected void addCanonicalUrlToModel(Map<String,Object> model, School school, HttpServletRequest request) {
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        String fullCanonicalUrl = urlBuilder.asFullUrl(request);
+        model.put("relCanonical", fullCanonicalUrl);
+    }
+
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         School school = getActiveSchoolFromDirectoryStructureUrlFields(request);
@@ -99,6 +105,8 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
         model.put("numberOfRatings", (ratings == null)?0:ratings.getCount());
         boolean hasTestScores = hasTestScores(school);
         model.put(HAS_TEST_SCORES, hasTestScores);
+
+        addCanonicalUrlToModel(model, school, request);
 
         return new ModelAndView("school/schoolOverview-mobile", model);
     }

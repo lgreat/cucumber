@@ -111,6 +111,10 @@ public class RequestInfo {
             newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
         }
 
+        if (chosenSitePreference == SitePreference.MOBILE && isOnPkSubdomain()) {
+            newUrl = newUrl.replaceFirst("pk.", "");
+        }
+
         return newUrl;
     }
 
@@ -231,7 +235,7 @@ public class RequestInfo {
      */
     public boolean isPkSubdomainSupported() {
         //Developer workstations can set up a virtual host and specify it here
-        return (!isDeveloperWorkstation() && !isCobranded());
+        return (!isDeveloperWorkstation() && !isCobranded() && !shouldRenderMobileView());
     }
 
     /******************************************************************************/
