@@ -594,7 +594,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
 
         // handle old existing FieldConstraints
         for (Map.Entry<FieldConstraint, String> entry : fieldConstraints.entrySet()) {
-            q.filter(entry.getKey().getFieldName(), StringUtils.lowerCase(entry.getValue()));
+            q.filter(entry.getKey().getFieldName(), "\"" + StringUtils.lowerCase(entry.getValue()) + "\"");
         }
 
         if (schoolSearchCommand.getMinCommunityRating() != null) {
