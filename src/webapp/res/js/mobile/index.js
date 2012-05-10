@@ -43,14 +43,17 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], 
         var $gradeLevelsContainer = $(JS_GRADE_LEVELS_CONTAINER_SELECTOR);
         //to populate an array inside a Spring command, Spring requires data in format gradeLevels[0]=e,gradeLevels[1]=m
         queryString = uri.removeFromQueryString(queryString, "gradeLevels");
-        var checkedGradeLevels = $gradeLevelsContainer.find(':checked');
-        var overwriteGradeLevels = true;
-        checkedGradeLevels.each(function() {
-            if (jQuery(this).val() !== '') {
-                queryString = uri.putIntoQueryString(queryString, "gradeLevels", jQuery(this).val(), overwriteGradeLevels);
-                overwriteGradeLevels = false;
-            }
-        });
+
+        var gradeLevel = $gradeLevelsContainer.find('[name=gradeLevels]').val();
+        // if no grade levels were chosen, then pass all grade levels to search results (required to be consistent with desktop search)
+        if (gradeLevel == '') {
+            queryString = uri.putIntoQueryString(queryString, "gradeLevels", 'p', true);
+            queryString = uri.putIntoQueryString(queryString, "gradeLevels", 'e', false);
+            queryString = uri.putIntoQueryString(queryString, "gradeLevels", 'm', false);
+            queryString = uri.putIntoQueryString(queryString, "gradeLevels", 'h', false);
+        } else {
+            queryString = uri.putIntoQueryString(queryString, "gradeLevels", gradeLevel);
+        }
 
         return queryString;
     };
