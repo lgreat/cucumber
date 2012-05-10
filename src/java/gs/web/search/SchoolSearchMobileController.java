@@ -300,7 +300,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         // Common: calculate the field "constraints" a.k.a. filters that will be added to the search query
         // TODO: Get rid of fieldConstraints and use GsSolrSearcher redirectly. Create a GsSolrQuery factory for
         // common or complicated queries
-        Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(commandAndFields.getState(), commandAndFields.getCity(), commandAndFields.getDistrict());
+        Map<FieldConstraint,String> fieldConstraints = getFieldConstraints(commandAndFields.getState(), commandAndFields.getCityFromUrl(), commandAndFields.getDistrict());
         List<FilterGroup> filterGroups = createFilterGroups(commandAndFields);
 
 

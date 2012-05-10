@@ -140,10 +140,12 @@ class SchoolSearchCommandWithFields {
 
     public City getCityFromUrl() {
         if (_cityFromUrl == null) {
-            State state = _fields.getState();
-            String cityName = _fields.getCityName();
-            if (StringUtils.isNotBlank(cityName) && state != null) {
-                _cityFromUrl = getCity(state, cityName);
+            if (_fields != null) {
+                State state = _fields.getState();
+                String cityName = _fields.getCityName();
+                if (StringUtils.isNotBlank(cityName) && state != null) {
+                    _cityFromUrl = getCity(state, cityName);
+                }
             }
         }
         return _cityFromUrl;
