@@ -64,6 +64,8 @@
             <![CDATA[<link rel="stylesheet" href="${ratings}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
+            <gsml:url var="moduleskin" value="/res/mobile/css/02_module/mod_skins.css"/>
+            <![CDATA[<link rel="stylesheet" href="${moduleskin}" type="text/css" />]]>
             <gsml:url var="gs_mobile_stylescss" value="/res/mobile/css/gs_mobile_styles.combined.css"/>
             <![CDATA[<link rel="stylesheet" href="${gs_mobile_stylescss}" type="text/css" />]]>
         </c:otherwise>
