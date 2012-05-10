@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.49 2012/04/24 21:26:53 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.50 2012/05/10 22:25:47 cauer Exp $
  */
 package gs.web.ads;
 
@@ -122,8 +122,13 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     public String getGptContent(HttpServletRequest request, SessionContext sc, JspFragment body) throws JspException, IOException {
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 
-        if (pageHelper.isAdContentFree() || (!_alwaysShow && pageHelper.isAdFree())) {
-            return ""; //early exit
+        // exit early if mobile ad and mobile ads are offline
+        if (isMobileAdAndOffline(sc)){
+            return "";
+        }
+        // exit early if not mobile and page is ad free
+        else if (!isMobileAd() && (pageHelper.isAdContentFree() || (!_alwaysShow && pageHelper.isAdFree()))){
+            return "";
         }
 
         StringBuffer buffer = new StringBuffer();
@@ -173,11 +178,13 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
             StringBuilder adCodeBuffer = new StringBuilder();
             adCodeBuffer.append("<div id=\"gpt").append(slotName).append("\">");
             adCodeBuffer.append("<script type=\"text/javascript\">");
-            if (sc != null && sc.isGptAsynchronousModeEnabled()) {
+
+            if (isAsyncMode(sc)) {
                 adCodeBuffer.append("googletag.cmd.push(function() {");
             }
+
             adCodeBuffer.append("googletag.display(\"gpt").append(slotName).append("\");");
-            if (sc != null && sc.isGptAsynchronousModeEnabled()) {
+            if (isAsyncMode(sc)) {
                 adCodeBuffer.append("});");
             }
             adCodeBuffer.append("</script>");
@@ -207,11 +214,51 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
         PageContext pageContext = (PageContext) getJspContext();
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
 
-        if (sc != null && sc.isGptEnabled()) {
+        // if this is a mobile ad, we will always
+        // want to display GPT tag regardless of
+        // if GPT is enabled for the desktop
+        if ( isMobileAd() ){
             return getGptContent(request, sc, getJspBody());
-        } else {
+        }
+        // if GPT is enabled on the desktop,
+        // show the GPT tag
+        else if (sc != null && sc.isGptEnabled()) {
+            return getGptContent(request, sc, getJspBody());
+        }
+        // fallback to old tags
+        else {
             return getContent(request, sc, getJspBody());
         }
+    }
+
+    public boolean isMobileAd(){
+        return (_adPosition!=null && _adPosition.isMobileSpecific());
+    }
+
+    /**
+     * Return true if the ad position is mobile
+     * but advertising for mobile devices is offline
+     * @param sc
+     * @return
+     */
+    public boolean isMobileAdAndOffline(SessionContext sc){
+        return (isMobileAd() && sc != null && !sc.isAdvertisingOnMobileOnline());
+    }
+
+    /**
+     * Return true if mobile device and mobile in async mode
+     * or not mobile device and gpt is enabled and gpt is in async mode
+     * @param sc
+     * @return
+     */
+    public boolean isAsyncMode(SessionContext sc) {
+        if (isMobileAd() && sc!=null && sc.isGptAsynchronousModeOnMobileEnabled()){
+            return true;
+        }
+        else if (!isMobileAd() && sc!=null && sc.isGptEnabled() && sc.isGptAsynchronousModeEnabled()){
+            return true;
+        }
+        return false;
     }
 
     public String getPosition() {

@@ -4,12 +4,16 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
         >
 
     <jsp:directive.attribute name="reviews" required="true" description="Collection of reviews" type="java.util.List"/>
+    <jsp:directive.attribute name="ads" required="false" description="Include ad call after first review" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="adPosition" required="false" description="Position name for the ad call" type="java.lang.String"/>
 
-        <c:forEach items="${reviews}" var="review">
+
+        <c:forEach items="${reviews}" var="review" varStatus="status">
             <c:choose>
                 <c:when test="${empty review.who or review.who eq 'other'}">
                     <c:set var="who" value=""/>
@@ -53,14 +57,8 @@
                 </div>
                 <hr class="keyline1" />
             </c:if>
+            <c:if test="${status.first and ads and !empty adPosition}">
+                <ad:adTag position="${adPosition}"/>
+            </c:if>
         </c:forEach>
-
-
-
-
-
-
-
-
-
 </jsp:root>

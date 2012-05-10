@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.87 2012/04/26 05:47:32 yfan Exp $
+ * $Id: SessionContextUtil.java,v 1.88 2012/05/10 22:25:47 cauer Exp $
  */
 
 package gs.web.util.context;
@@ -581,6 +581,7 @@ public class SessionContextUtil implements ApplicationContextAware {
                                    HttpServletRequest request) {
         String paramGptEnabled = request.getParameter("gptEnabled");
         String paramGptMode = request.getParameter("gptMode");
+        String paramGptModeMobile = request.getParameter("gptModeMobile");
 
         if (StringUtils.isNotBlank(paramGptEnabled)) {
             context.setGptEnabledOverride("true".equals(paramGptEnabled));
@@ -588,6 +589,10 @@ public class SessionContextUtil implements ApplicationContextAware {
 
         if (StringUtils.isNotBlank(paramGptMode)) {
             context.setGptAsynchronousModeEnabledOverride("async".equals(paramGptMode));
+        }
+
+        if (StringUtils.isNotBlank(paramGptModeMobile)) {
+            context.setGptAsynchronousModeOnMobileEnabledOverride("async".equals(paramGptModeMobile));
         }
     }
 

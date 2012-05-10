@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.108 2012/05/08 22:18:19 yfan Exp $
+ * $Id: AdPosition.java,v 1.109 2012/05/10 22:25:47 cauer Exp $
  */
 package gs.web.ads;
 
@@ -166,7 +166,15 @@ public class AdPosition extends Enum {
     public static final AdPosition House_Ad_300x210 = new AdPosition("House_Ad_300x210", true); // GS-12049
     public static final AdPosition Sponsor_320x50 = new AdPosition("Sponsor_320x50", true); //GS-12366
 
+    // mobile specific ad positions
+    public static final AdPosition AboveMap_320x50 = new AdPosition("AboveMap_320x50", true, new AdSize(320, 50), true);
+    public static final AdPosition Pos1_320x50 = new AdPosition("Pos1_320x50", true, new AdSize(320, 50), true);
+    public static final AdPosition Pos2_320x50 = new AdPosition("Pos2_320x50", true, new AdSize(320, 50), true);
+    public static final AdPosition Pos3_320x50 = new AdPosition("Pos3_320x50", true, new AdSize(320, 50), true);
+    public static final AdPosition Pos4_320x50 = new AdPosition("Pos4_320x50", true, new AdSize(320, 50), true);
+
     private boolean _isGAMPosition;
+    private boolean _isMobileSpecific = false;
     private String _baseName = null;
     private Set<AdSize> _sizes = new HashSet<AdSize>();
     private Set<AdSize> _companionSizes = new HashSet<AdSize>();
@@ -185,6 +193,17 @@ public class AdPosition extends Enum {
         _sizes = sizes;
         addCompanionSizes();
     }
+
+    public AdPosition(String s, boolean isGamControlled, AdSize size, boolean isMobileSpecific) {
+        super(s);
+        _isGAMPosition = isGamControlled;
+        _isMobileSpecific = isMobileSpecific;
+        Set<AdSize> sizes = new HashSet<AdSize>();
+        sizes.add(size);
+        _sizes = sizes;
+        addCompanionSizes();
+    }
+
 
     public AdPosition(String s, boolean isGamControlled, Set<AdSize> sizes) {
         super(s);
@@ -268,6 +287,13 @@ public class AdPosition extends Enum {
      */
     public boolean isGAMPosition() {
         return _isGAMPosition;
+    }
+
+    /**
+     * @return true if the ad position is specific to mobile only
+     */
+    public boolean isMobileSpecific() {
+        return _isMobileSpecific;
     }
 
     /**

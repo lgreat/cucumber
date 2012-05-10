@@ -7,6 +7,7 @@
         xmlns:tags="urn:jsptagdir:/WEB-INF/tags"
         xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         version="2.0"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mobile"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
@@ -30,6 +31,7 @@
 
         <script src="/res/mobile/js/modernizr.js" type="text/javascript"><!-- do not collapse --></script>
         <script src="/res/js/jquery/jquery-1.7.1.min.js" type="text/javascript"><!-- do not collapse --></script>
+        <ad:xGPTMobileSetup />
         <mod:mobileBootstrapJS/>
         <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
 

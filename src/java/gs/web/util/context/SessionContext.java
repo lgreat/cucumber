@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.71 2012/05/09 13:24:31 yfan Exp $
+ * $Id: SessionContext.java,v 1.72 2012/05/10 22:25:47 cauer Exp $
  */
 package gs.web.util.context;
 
@@ -115,9 +115,11 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     private boolean _gptEnabled = false;
     private boolean _gptAsynchronousModeEnabled = false;
+    private boolean _gptAsynchronousModeOnMobileEnabled = false;
 
     private Boolean _gptEnabledOverride = null;
     private Boolean _gptAsynchronousModeEnabledOverride = null;
+    private Boolean _gptAsynchronousModeOnMobileEnabledOverride = null;
 
     /**
      * Created by Spring as needed.
@@ -267,6 +269,10 @@ public class SessionContext implements ApplicationContextAware, Serializable {
      */
     public boolean isAdvertisingOnline() {
         return "true".equals(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true"));
+    }
+
+    public boolean isAdvertisingOnMobileOnline(){
+        return "true".equals(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ON_MOBILE_ENABLED_KEY, "true"));
     }
 
     public boolean isShowRealtorDotComPromos() {
@@ -453,6 +459,28 @@ public class SessionContext implements ApplicationContextAware, Serializable {
 
     public void setGptAsynchronousModeEnabledOverride(boolean gptAsynchronousModeEnabledOverride) {
         _gptAsynchronousModeEnabledOverride = gptAsynchronousModeEnabledOverride;
+    }
+
+    /**
+     * Returns true if Google Publisher Tags should be served using asynchronous mode for mobile devices
+     * either globally in database properties or just for this SessionContext
+     * @return
+     */
+    public boolean isGptAsynchronousModeOnMobileEnabled() {
+        if (_gptAsynchronousModeOnMobileEnabledOverride != null) {
+            return _gptAsynchronousModeOnMobileEnabledOverride;
+        } else {
+            return _gptAsynchronousModeOnMobileEnabled ||
+                    "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ASYNCHRONOUS_MODE_ON_MOBILE_ENABLED_KEY, "true"));
+        }
+    }
+
+    public void setGptAsynchronousModeOnMobileEnabled(boolean gptAsynchronousModeOnMobileEnabled) {
+        _gptAsynchronousModeOnMobileEnabled = gptAsynchronousModeOnMobileEnabled;
+    }
+
+    public void setGptAsynchronousModeOnMobileEnabledOverride(boolean gptAsynchronousModeOnMobileEnabledOverride) {
+        _gptAsynchronousModeOnMobileEnabledOverride = gptAsynchronousModeOnMobileEnabledOverride;
     }
 
     /**

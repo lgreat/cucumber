@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandlerTest.java,v 1.23 2012/04/07 04:16:07 yfan Exp $
+ * $Id: AdTagHandlerTest.java,v 1.24 2012/05/10 22:25:47 cauer Exp $
  */
 package gs.web.ads;
 
@@ -317,6 +317,88 @@ public class AdTagHandlerTest extends BaseTestCase {
                 "</div>";
 
         XMLAssert.assertXMLEqual(expectedOutput, _tag.getContent());
+    }
+
+    public void testIsMobileAdAndOffline() throws Exception {
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        final JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+        _tag.setJspContext(jspContext);
+
+        // get a mobile specific position
+        _tag.setPosition("Pos1_320x50");
+
+        // answer that mobile advertising is online
+        _sessionContext.setAdvertisingOnline(false);
+        _sessionContext.setAdvertisingOnMobileOnline(true);
+        assertFalse(_tag.isMobileAdAndOffline(_sessionContext));
+
+        // answer that mobile advertising is offline
+        _sessionContext.setAdvertisingOnMobileOnline(false);
+        assertTrue(_tag.isMobileAdAndOffline(_sessionContext));
+
+        // use a non mobile ad slot
+        _tag.setPosition("Sponsor_610x30");
+        _sessionContext.setAdvertisingOnline(true);
+
+        // should answer false for both mobile advertising online and offline
+        _sessionContext.setAdvertisingOnMobileOnline(true);
+        assertFalse(_tag.isMobileAdAndOffline(_sessionContext));
+        _sessionContext.setAdvertisingOnMobileOnline(false);
+        assertFalse(_tag.isMobileAdAndOffline(_sessionContext));
+    }
+
+    public void testIsAsyncMode() throws Exception {
+        PageHelper pageHelper = new PageHelper(_sessionContext, _request);
+        _request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
+        final JspContext jspContext = new MockPageContext(new MockServletContext(), _request);
+        jspContext.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, _sessionContext);
+        _tag.setJspContext(jspContext);
+
+        // get a mobile specific position
+        _tag.setPosition("Pos1_320x50");
+
+        // test mobile async mode
+        resetAll();
+        expect(_propertyDao.getProperty(IPropertyDao.GPT_ASYNCHRONOUS_MODE_ON_MOBILE_ENABLED_KEY, "true")).andReturn("true");
+        replayAll();
+        assertTrue(_tag.isAsyncMode(_sessionContext));
+
+        // test mobile sync mode
+        resetAll();
+        expect(_propertyDao.getProperty(IPropertyDao.GPT_ASYNCHRONOUS_MODE_ON_MOBILE_ENABLED_KEY, "true")).andReturn("false").atLeastOnce();
+        replayAll();
+        assertFalse(_tag.isAsyncMode(_sessionContext));
+        verifyAll();
+
+        // get a desktop specific position
+        _tag.setPosition("Sponsor_610x30");
+
+        // test desktop async mode
+        resetAll();
+        expect(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY, "false")).andReturn("true").atLeastOnce();
+        expect(_propertyDao.getProperty(IPropertyDao.GPT_ASYNCHRONOUS_MODE_ENABLED_KEY, "false")).andReturn("true").atLeastOnce();
+        replayAll();
+        assertTrue(_tag.isAsyncMode(_sessionContext));
+        verifyAll();
+
+        // test desktop sync mode
+        resetAll();
+        expect(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY, "false")).andReturn("true").atLeastOnce();
+        expect(_propertyDao.getProperty(IPropertyDao.GPT_ASYNCHRONOUS_MODE_ENABLED_KEY, "false")).andReturn("false").atLeastOnce();
+        replayAll();
+        assertFalse(_tag.isAsyncMode(_sessionContext));
+        verifyAll();
+
+        // test desktop GPT off
+        resetAll();
+        expect(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY, "false")).andReturn("false").atLeastOnce();
+        replayAll();
+        assertFalse(_tag.isAsyncMode(_sessionContext));
+        verifyAll();
+
+
     }
 
     /**

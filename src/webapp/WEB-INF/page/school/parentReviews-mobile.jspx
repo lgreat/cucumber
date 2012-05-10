@@ -5,6 +5,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod" xmlns:form="http://www.springframework.org/tags/form"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
@@ -50,6 +51,9 @@
             };
 
         ]]></script>
+
+        <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Reviews_BelowFirstReview" />
+        <ad:xGPTMobileSetup />
 
     </head>
 
@@ -156,7 +160,7 @@
 
 
         <div class="js-paginate-container">
-            <school:parentReviewsMobile reviews="${reviewsToShow}" />
+            <school:parentReviewsMobile reviews="${reviewsToShow}" ads="true" adPosition="Pos1_320x50" />
         </div>
 
         <div class="js-paginate-next">
