@@ -75,9 +75,12 @@ public class RequestInfo {
         return _device;
     }
 
+    /**
+     * Returns true if mobile versions of pages are allowed to be served (if "mobile enabled" cookie is set, if this is not a cobranded page, etc)
+     */
     public boolean isMobileSiteEnabled() {
         Cookie cookie = CookieUtil.getCookie(_hostData.getRequest(), MOBILE_SITE_ENABLED_COOKIE_NAME);
-        return (isDevEnvironment() && cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue())));
+        return (isDevEnvironment() && !_hostData.isCobranded() && cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue())));
     }
 
     public boolean isFromMobileDevice() {
@@ -115,6 +118,9 @@ public class RequestInfo {
         return _hostData.getHostname().startsWith(Subdomain.MOBILE.toString() + ".");
     }
 
+    /**
+     * Returns true if the mobile view (if any) should be served for this request
+     */
     public boolean shouldRenderMobileView() {
         return isMobileSiteEnabled()
             && (isFromMobileDevice() || getSitePreference() == SitePreference.MOBILE)
