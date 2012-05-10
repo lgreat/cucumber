@@ -352,3 +352,7 @@ General comments:
 .top_5 {
     top: 5px;
 }
+/* used on the raise your hand page to handle character count alignment */
+.prll{
+    padding-right: 28px;
+}
