@@ -5,6 +5,7 @@ import gs.data.search.*;
 import gs.data.search.beans.CitySearchResult;
 import gs.data.search.beans.ICitySearchResult;
 import gs.web.util.Url;
+import gs.web.util.UrlBuilder;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Controller
@@ -28,7 +30,7 @@ public class NearbyCitiesController implements BeanFactoryAware {
     private static final int MAX_COUNT = 100;
 
     @RequestMapping(method=RequestMethod.GET)
-    public void list(
+    public void list(HttpServletRequest request,
             @RequestParam(value="lat", required=true) float latitude,
             @RequestParam(value="lon", required=true) float longitude,
             @RequestParam(value="radius", required=false, defaultValue = "50") float radiusInMiles,
@@ -47,18 +49,18 @@ public class NearbyCitiesController implements BeanFactoryAware {
         List<CitySearchResult> results = _gsSolrSearcher.simpleSearch(gsSolrQuery, CitySearchResult.class);
 
         for (CitySearchResult result : results) {
-            maps.add(buildOneMap(result));
+            maps.add(buildOneMap(request, result));
         }
 
         modelMap.put(MODEL_DATA_KEY, maps);
     }
     
-    Map<String,String> buildOneMap(ICitySearchResult citySearchResult) {
+    Map<String,String> buildOneMap(HttpServletRequest request, ICitySearchResult citySearchResult) {
         Map<String,String> map = new HashMap<String,String>();
         map.put("state", citySearchResult.getState().getAbbreviation());
         map.put("name", citySearchResult.getCity());
-        String url = Url.CITY_HOME.relative(citySearchResult.getState(), citySearchResult.getCity());
-        map.put("url", url);
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, citySearchResult.getState(), citySearchResult.getCity());
+        map.put("url", urlBuilder.asSiteRelative(request));
 
         return map;
     }

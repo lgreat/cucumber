@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.74 2012/05/09 00:15:34 aroy Exp $
+ * $Id: CityController.java,v 1.75 2012/05/10 20:19:34 aroy Exp $
  */
 
 package gs.web.geo;
@@ -148,13 +148,8 @@ public class CityController extends AbstractController  implements IDirectoryStr
         try {
             RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
             if (requestInfo != null && requestInfo.isShouldRenderMobileView()) {
-                String url = Url.SEARCH_SCHOOLS_NEARBY.relative(
-                        String.valueOf(city.getLatLon().getLat()), String.valueOf(city.getLatLon().getLon()),
-                        "25",
-                        URLEncoder.encode(city.getName() + ", " + city.getState().getAbbreviation(), "UTF-8"),
-                        city.getState().getAbbreviation()
-                );
-                url = UrlUtil.addParameter(url, "sortBy=distance");
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, city.getName(), new HashSet<SchoolType>(), null);
+                String url = urlBuilder.asSiteRelative(request);
                 return new ModelAndView(new RedirectView(url));
             }
         } catch (Exception e) {
