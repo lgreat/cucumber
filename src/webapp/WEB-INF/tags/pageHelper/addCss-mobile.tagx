@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+
+    <!-- Begin CSS files.  All CSS should be above JS files. -->
+    <!--<c:if test="${!requestScope.pageHelper.adFree}">
+        <gsml:url var="adscss" value="/res/mobile/css/ads.css"/>
+        <![CDATA[<link rel="stylesheet" type="text/css" href="${adscss}"></link>]]>
+    </c:if>-->
+
+    <c:choose>
+        <c:when test="${(not empty param.uncompressedScripts
+                         or pageContext.request.serverName eq 'localhost'
+                         or fn:contains(pageContext.request.serverName, 'samson')
+                         or fn:startsWith(pageContext.request.serverName, '172.18.1.')
+                         or pageContext.request.serverName eq '127.0.0.1')
+                         and empty param.compressedScripts}">
+
+            <gsml:url var="reset" value="/res/mobile/css/00_reset/reset.css"/>
+            <gsml:url var="zindexreset" value="/res/mobile/css/00_reset/z_index_reset.css"/>
+            <gsml:url var="gridoocss" value="/res/mobile/css/01_grids/grid_oocss.css"/>
+            <gsml:url var="module" value="/res/mobile/css/02_module/mod.css"/>
+            <gsml:url var="moduleskin" value="/res/mobile/css/02_module/mod_skins.css"/>
+            <gsml:url var="contain" value="/res/mobile/css/02_module/container.css"/>
+            <gsml:url var="media" value="/res/mobile/css/03_media/media.css"/>
+            <gsml:url var="text" value="/res/mobile/css/04_text/typography.css"/>
+            <gsml:url var="buttons" value="/res/mobile/css/05_buttons/buttons.css"/>
+            <gsml:url var="iconx12" value="/res/mobile/css/06_sprites/icon_x12.css"/>
+            <gsml:url var="iconx16" value="/res/mobile/css/06_sprites/icon_x16.css"/>
+            <gsml:url var="iconx24" value="/res/mobile/css/06_sprites/icon_x24.css"/>
+            <gsml:url var="iconx32" value="/res/mobile/css/06_sprites/icon_x32.css"/>
+            <gsml:url var="forms" value="/res/mobile/css/07_forms/forms.css"/>
+            <gsml:url var="topnavigation" value="/res/mobile/css/08_navigation/top.css"/>
+            <gsml:url var="spacing" value="/res/mobile/css/09_spacing/spacing.css"/>
+            <gsml:url var="tables" value="/res/mobile/css/11_tables/tables.css"/>
+            <gsml:url var="bar_graphs" value="/res/mobile/css/12_graphs/bar_graphs.css"/>
+            <gsml:url var="tabs" value="/res/mobile/css/13_tabs/tabs.css"/>
+            <gsml:url var="ratings" value="/res/mobile/css/14_ratings/ratings.css"/>
+
+            <![CDATA[<link rel="stylesheet" href="${reset}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${zindexreset}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${module}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${moduleskin}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${contain}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${media}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${text}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${buttons}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${iconx12}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${iconx16}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${iconx24}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${iconx32}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${forms}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${topnavigation}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${spacing}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${tables}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${bar_graphs}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${tabs}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${ratings}" type="text/css" />]]>
+        </c:when>
+        <c:otherwise>
+            <gsml:url var="gs2010_stylescss" value="/res/mobile/css/gs_mobile_styles.combined.min.css"/>
+            <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+        </c:otherwise>
+    </c:choose>
+</jsp:root>
