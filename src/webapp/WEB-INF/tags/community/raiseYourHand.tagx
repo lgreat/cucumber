@@ -241,12 +241,10 @@
                 <label for="ryhAnswer" class="text1 fltlft">Your reply: </label>
             </div>
             <div class="unit size1of2 lastUnit">
-                <div class="formHelperText fltrt prll" id="ryhAnswerCount"><!-- don't collapse --></div>
+                <div class="formHelperText fltrt" id="ryhAnswerCount"><!-- don't collapse --></div>
             </div>
-        </div>
 
-        <div class="line">
-            <div class="unit size1of1 lastUnit">
+            <div class="size2of2 ">
                 <textarea name="ryhAnswer"
                           class="ryhAnswer"
                           id="ryhAnswer" rows="3" cols="3"><!-- do not collapse --></textarea>
