@@ -64,8 +64,8 @@
             <![CDATA[<link rel="stylesheet" href="${ratings}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
-            <gsml:url var="gs2010_stylescss" value="/res/mobile/css/gs_mobile_styles.combined.min.css"/>
-            <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+            <gsml:url var="gs_mobile_stylescss" value="/res/mobile/css/gs_mobile_styles.combined.css"/>
+            <![CDATA[<link rel="stylesheet" href="${gs_mobile_stylescss}" type="text/css" />]]>
         </c:otherwise>
     </c:choose>
 </jsp:root>
