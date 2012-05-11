@@ -45,15 +45,16 @@
 <body>
     <c:set var="searchString"><c:out value="${searchString}" escapeXml="true"/></c:set>
 
-    <c:if test="${not empty param.noResults}">
-        <div>
-            <p>No schools match your search for <br/> ${param.searchString}</p>
-            <p>Please check the spelling or try different locations or keywords.</p>
-        </div>
-    </c:if>
+
 
     <div class="contain_1-1">
             <h1>Find a School</h1>
+            <c:if test="${not empty param.noResults}">
+                <div class="pvm">
+                    <p class="ac2">No schools match your search for <br/><strong>${param.searchString}</strong></p>
+                    <p>Please check the spelling or try different locations or keywords.</p>
+                </div>
+            </c:if>
             <div class="gsTabs">
                 <ul class="tabStyle-3">
                     <li><a>By location</a></li>
