@@ -42,7 +42,7 @@
             <div class="error dn">
                 <!--error-->
             </div>
-            <div class="clearfix prm">
+            <div class="clearfix prl">
                 <gsml:input type="text" name="email" placeholder=" Type your email address" styleClass="input_8"/>
             </div>
 
