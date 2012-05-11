@@ -13,7 +13,7 @@
 
         <c:if test="${requestInfo.device.iphone}">
             <a href="/splash/iphone.page" data-role="button" data-inline="true"
-               class="but but-sm but-3" id="mobile-footer-iphone-app">Get iPhone app</a>
+               class="but but-sm but-3 mls" id="mobile-footer-iphone-app">Get iPhone app</a>
         </c:if>
         </div>
 
