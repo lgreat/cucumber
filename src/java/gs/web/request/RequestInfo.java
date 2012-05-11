@@ -145,6 +145,15 @@ public class RequestInfo {
      * unrecognized subdomain, returns current hostname;
      */
     public String getHostnameForTargetSubdomain(Subdomain targetSubdomain) {
+        return getHostnameForTargetSubdomain(targetSubdomain, true);
+    }
+
+    /**
+     * Generates a hostname for the target Subdomain. Output depends on what the current request's hostname is.
+     * If checkifSupported is set to true, will check if provided subdomain is supported. If it's not supported,
+     * curren hostname will be returned
+     */
+    public String getHostnameForTargetSubdomain(Subdomain targetSubdomain, boolean checkIfSupported) {
         String newHostname = _hostData.getHostname();
 
         if (targetSubdomain == null) {
@@ -162,7 +171,7 @@ public class RequestInfo {
                     newHostname = _hostData.getHostname().replaceFirst(_hostData.getCurrentSubdomain() + ".", Subdomain.WWW.toString() + ".");
                 }
             } else {
-                if (isSubdomainSupported(targetSubdomain)) {
+                if (!checkIfSupported || isSubdomainSupported(targetSubdomain)) {
                     if (!isProductionHostname()) {
                         newHostname = targetSubdomain.toString() + "." + _hostData.getHostname();
                     } else {
@@ -235,7 +244,7 @@ public class RequestInfo {
      */
     public boolean isPkSubdomainSupported() {
         //Developer workstations can set up a virtual host and specify it here
-        return (!isDeveloperWorkstation() && !isCobranded() && !shouldRenderMobileView());
+        return (!isDeveloperWorkstation() && !isCobranded());
     }
 
     /******************************************************************************/

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.288 2012/03/30 01:51:49 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.289 2012/05/11 23:21:47 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -1812,6 +1812,28 @@ public class UrlBuilder {
         return url;
     }
 
+    // Does the same thing as asFullUrl, but doesn't disable pk for URLs generated for mobile, since the canonical URL for a mobile page might
+    // be a pk subdomain URL
+    public String asFullCanonicalUrl(HttpServletRequest request) {
+        String serverName;
+        int serverPort = request.getServerPort();
+
+        RequestInfo requestInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+
+        //get a new hostname for _subdomain, since subdomain might be pk or www
+        if (requestInfo != null) {
+            serverName = requestInfo.getHostnameForTargetSubdomain(_subdomain, false);
+        } else {
+            serverName = request.getServerName();
+        }
+
+        String url = "http://" +
+                serverName +
+                ((serverPort != 80) ? ":" + serverPort : "") +
+                asSiteRelative(request);
+        return url;
+    }
+
     public static String getCommunitySiteBaseUrl(HttpServletRequest request) {
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         return "http://" + sessionContext.getSessionContextUtil().getCommunityHost(request);
@@ -1832,7 +1854,15 @@ public class UrlBuilder {
 
         //get a new hostname for _subdomain, since subdomain might be pk or www
         if (requestInfo != null) {
-            serverName = requestInfo.getHostnameForTargetSubdomain(_subdomain);
+            // hack to disable pk for mobile
+            // isPkSubdomainSupported() could have been modified in RequestInfo to return false if a mobile template
+            // would be rendered. However, this would make it difficult to set a rel canonical URL on mobile that contains
+            // the pk subdomain
+            Subdomain subdomain = _subdomain;
+            if (subdomain == Subdomain.PK && requestInfo.shouldRenderMobileView()) {
+                subdomain = Subdomain.WWW;
+            }
+            serverName = requestInfo.getHostnameForTargetSubdomain(subdomain);
         } else {
             serverName = request.getServerName();
         }
