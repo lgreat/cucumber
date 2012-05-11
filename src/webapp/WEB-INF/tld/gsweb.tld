@@ -197,9 +197,23 @@
     </function>
 
     <function>
+        <name>schoolPageTitleMobile</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generatePageTitleMobile(gs.data.school.School)</function-signature>
+    </function>
+
+
+    <function>
         <name>schoolPageDescription</name>
         <function-class>gs.data.seo.SeoUtil</function-class>
         <function-signature>java.lang.String generateMetaDescription(gs.data.school.School)
+        </function-signature>
+    </function>
+
+    <function>
+        <name>schoolPageDescriptionMobile</name>
+        <function-class>gs.data.seo.SeoUtil</function-class>
+        <function-signature>java.lang.String generateMetaDescriptionMobile(gs.data.school.School)
         </function-signature>
     </function>
 

@@ -13,9 +13,7 @@
 
     <head>
         <meta name="decorator" content="standardMobileDecorator"/>
-        <c:if test="${not empty title}">
-            <title>${title}</title>
-        </c:if>
+        <title>Map Search Results</title>
         <c:if test="${not empty metaDescription}">
             <meta name="description" content="${metaDescription}"/>
         </c:if>

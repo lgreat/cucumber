@@ -22,12 +22,12 @@
             </c:when>
             <c:otherwise>
                 <c:set var="addr"
-                       value="${school.city}, ${school.databaseState.longName} - ${school.databaseState}"/>
+                       value="${school.city}, ${school.databaseState}"/>
             </c:otherwise>
         </c:choose>
-        <title>${school.name} Test Scores - ${addr}</title>
+        <title>Test Scores for ${school.name} in ${addr}</title>
         <meta name="description"
-              content="See test scores and view results for ${school.name} students - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}"/>
+              content="See test scores for ${school.name} in ${addr}"/>
         <c:set var="pageName" value="Test Scores"/>
 
         <script type="text/javascript">

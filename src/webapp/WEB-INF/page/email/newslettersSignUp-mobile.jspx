@@ -17,7 +17,7 @@
               <!--content="school ratings, public schools, public school ratings, private schools, private school ratings, charter schools, charter school ratings, school reviews, school rankings, test scores, preschool, elementary school, middle school, high school, parent community, education resource, find school, great schools, greatschools"/>-->
         <meta name="decorator" content="standardMobileDecorator"/>
 
-        <title>GreatSchools - Newsletters Sign Up</title>
+        <title>Email Sign Up | GreatSchools</title>
 
         <script type="text/javascript">
             require(['newslettersSignUp'], function(newslettersSignUp) {

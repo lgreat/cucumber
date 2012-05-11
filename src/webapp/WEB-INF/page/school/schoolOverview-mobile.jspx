@@ -22,9 +22,9 @@
     <head>
         <meta name="decorator" content="standardMobileDecorator"/>
 
-        <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
-        <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
-        <title>${gsweb:schoolPageTitle(school)}</title>
+        <meta name="description" content="${gsweb:schoolPageDescriptionMobile(school)}"/>
+
+        <title>${gsweb:schoolPageTitleMobile(school)}</title>
         <c:if test="${not empty relCanonical}">
             <link rel="canonical" href="${relCanonical}"/>
         </c:if>

@@ -38,6 +38,7 @@ public class CityBrowseHelperTest {
         assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", CityBrowseHelper.getTitle("San Francisco", State.CA, null, null));
         assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", CityBrowseHelper.getTitle("San Francisco", State.CA, LevelCode.ELEMENTARY_MIDDLE, null));
         assertEquals("San Francisco Schools - San Francisco, CA | GreatSchools", CityBrowseHelper.getTitle("San Francisco", State.CA, LevelCode.MIDDLE_HIGH, null));
+        assertEquals("Search Results for San Francisco, CA", CityBrowseHelper.getTitle("San Francisco", State.CA, null, null, true));
 
         // These useful views get nice SEO friendly titles
         assertEquals("San Francisco Elementary Schools - San Francisco, CA | GreatSchools", CityBrowseHelper.getTitle("San Francisco", State.CA, LevelCode.ELEMENTARY, null));

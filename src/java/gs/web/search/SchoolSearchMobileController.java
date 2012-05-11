@@ -208,7 +208,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         // City Browse Specific:  Use a city browse helper to calculate title and description and put them into model
        // TODO: Make CityBrowseHelper a spring singleton bean
         CityBrowseHelper cityBrowseHelper = new CityBrowseHelper(commandAndFields);
-        model.putAll(cityBrowseHelper.getMetaData());
+        model.putAll(cityBrowseHelper.getMetaData(true));
 
 
         // City Browse Specific: Use a city browse helper to calculate omniture page name and hierarchy and put them into model
@@ -222,7 +222,6 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         // Common: put common omniture attributes into model
         // Must happen after search is complete
         putCommonOmnitureAttributesInModel(request, model, commandAndFields, summary.searchResultsPage);
-
 
         // Common: Calculate the view name
         String viewName = determineViewName(request, commandAndFields, summary.searchResultsPage);
@@ -272,7 +271,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         // District Browse Specific:  Use a district browse helper to calculate title and description and put them into model
        // TODO: Make CityBrowseHelper a spring singleton bean
         DistrictBrowseHelper districtBrowseHelper = new DistrictBrowseHelper(commandAndFields);
-        model.putAll(districtBrowseHelper.getMetaData());
+        model.putAll(districtBrowseHelper.getMetaData(true));
 
 
         // District Browse Specific: Use a district browse helper to calculate omniture page name and hierarchy and put them into model
@@ -518,13 +517,13 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         if (commandAndFields.isNearbySearch()) {
             if (nearbySearchInfo != null) {
                 // nearby zip code search
-                model.putAll(new NearbyMetaDataHelper().getMetaData(nearbySearchInfo));
+                model.putAll(new NearbyMetaDataMobileHelper().getMetaData(nearbySearchInfo));
             } else {
                 // Find a School by location search
-                model.putAll(new NearbyMetaDataHelper().getMetaData(commandAndFields));
+                model.putAll(new NearbyMetaDataMobileHelper().getMetaData(commandAndFields));
             }
         } else {
-            model.putAll(new MetaDataHelper().getMetaData(commandAndFields));
+            model.putAll(new MetaDataMobileHelper().getMetaData(commandAndFields));
         }
     }
 

@@ -4,7 +4,7 @@ define(['tracking'],function(tracking) {
                 var newslettersSignUpForm = $('#newslettersSignUpForm');
                 submitForm(newslettersSignUpForm)
                     .done(function() {
-                        document.title = 'GreatSchools - Newsletters Sign Up Thank You';
+                        document.title = 'Email Confirmation | GreatSchools';
                         newslettersSignUpForm.find('div.signUp').hide();
                         newslettersSignUpForm.find('div.thankYou').show();
                     });

@@ -21,19 +21,28 @@ class DistrictBrowseHelper {
         this.commandWithFields = commandWithFields;
     }
 
-    public Map<String,Object> getMetaData() {
+    public Map<String, Object> getMetaData() {
+        return getMetaData(false);
+    }
+
+    public Map<String,Object> getMetaData(boolean mobile) {
         District district = commandWithFields.getDistrict();
         String[] schoolSearchTypes = commandWithFields.getSchoolTypes();
         LevelCode levelCode = commandWithFields.getLevelCode();
         Map<String,Object> model = new HashMap<String,Object>();
-        model.put(SchoolSearchController.MODEL_TITLE, SeoUtil.generatePageTitle(district, levelCode, schoolSearchTypes));
-        model.put(SchoolSearchController.MODEL_META_DESCRIPTION, SeoUtil.generateMetaDescription(district));
+        if (!mobile){
+            model.put(SchoolSearchController.MODEL_TITLE, SeoUtil.generatePageTitle(district, levelCode, schoolSearchTypes));
+            model.put(SchoolSearchController.MODEL_META_DESCRIPTION, SeoUtil.generateMetaDescription(district));
         
-        String metaKeywords = null;
-        if (district != null) {
-            metaKeywords = SeoUtil.generateMetaKeywords(district);
+            String metaKeywords = null;
+            if (district != null) {
+                metaKeywords = SeoUtil.generateMetaKeywords(district);
+            }
+            model.put(SchoolSearchController.MODEL_META_KEYWORDS, metaKeywords);
         }
-        model.put(SchoolSearchController.MODEL_META_KEYWORDS, metaKeywords);
+        else {
+            model.put(SchoolSearchController.MODEL_TITLE, "School District Search Results");
+        }
         return model;
     }
 

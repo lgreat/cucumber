@@ -537,6 +537,15 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
     }
 
+    protected class MetaDataMobileHelper {
+        public Map<String, Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
+            String searchString = commandWithFields.getSearchString();
+            Map<String, Object> model = new HashMap<String, Object>();
+            model.put(MODEL_TITLE, getTitleMobile(searchString));
+            return model;
+        }
+    }
+
     protected class NearbyMetaDataHelper {
         public Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
             String searchString = commandWithFields.getSearchString();
@@ -552,6 +561,28 @@ public class SchoolSearchController extends AbstractCommandController implements
                 Object zipCodeObj = nearbySearchInfo.get("zipCode");
                 if (zipCodeObj != null && zipCodeObj instanceof String) {
                     model.put(MODEL_TITLE, getTitle((String) zipCodeObj));
+                }
+            }
+
+            return model;
+        }
+    }
+
+    protected class NearbyMetaDataMobileHelper {
+        public Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
+            String searchString = commandWithFields.getSearchString();
+            Map<String,Object> model = new HashMap<String,Object>();
+            model.put(MODEL_TITLE, getTitleMobile(searchString));
+            return model;
+        }
+
+        public Map<String,Object> getMetaData(Map nearbySearchInfo) {
+            Map<String,Object> model = new HashMap<String,Object>();
+
+            if (nearbySearchInfo != null) {
+                Object zipCodeObj = nearbySearchInfo.get("zipCode");
+                if (zipCodeObj != null && zipCodeObj instanceof String) {
+                    model.put(MODEL_TITLE, getTitleMobile((String) zipCodeObj));
                 }
             }
 
@@ -699,6 +730,16 @@ public class SchoolSearchController extends AbstractCommandController implements
             title = "GreatSchools.org Search: " + StringEscapeUtils.escapeHtml(searchString);
         } else {
             title = "GreatSchools.org Search";
+        }
+        return title;
+    }
+
+    protected static String getTitleMobile(String searchString) {
+        String title;
+        if (StringUtils.isNotBlank(searchString)){
+            title = "Search Results for " + searchString;
+        } else {
+            title = "Search Results";
         }
         return title;
     }

@@ -23,20 +23,38 @@ public class CityBrowseHelper {
         this.commandWithFields = commandWithFields;
     }
 
-    public Map<String,Object> getMetaData() {
+    public Map<String, Object> getMetaData(){
+        return getMetaData(false);
+    }
+
+    public Map<String,Object> getMetaData(boolean mobile) {
         City city = commandWithFields.getCityFromUrl();
         String[] schoolSearchTypes = commandWithFields.getSchoolTypes();
         LevelCode levelCode = commandWithFields.getLevelCode();
 
         Map<String,Object> model = new HashMap<String,Object>();
-        model.put(SchoolSearchController.MODEL_TITLE, getTitle(city.getDisplayName(), city.getState(), levelCode, schoolSearchTypes));
+        model.put(SchoolSearchController.MODEL_TITLE, getTitle(city.getDisplayName(), city.getState(), levelCode, schoolSearchTypes, mobile));
         model.put(SchoolSearchController.MODEL_META_DESCRIPTION, getMetaDescription(city, levelCode, schoolSearchTypes));
         return model;
     }
 
     public static String getTitle(String cityDisplayName, State cityState, LevelCode levelCode, String[] schoolType) {
+        return getTitle(cityDisplayName, cityState, levelCode, schoolType, false);
+    }
+
+    public static String getTitle(String cityDisplayName, State cityState, LevelCode levelCode, String[] schoolType, boolean mobile) {
         StringBuffer sb = new StringBuffer();
-        sb.append(cityDisplayName);
+        if (mobile) {
+            sb.append("Search Results for ");
+            if ("Washington, DC".equals(cityDisplayName)) {
+                sb.append(cityDisplayName);
+            } else {
+                sb.append(cityDisplayName).append(", ").append(cityState.getAbbreviation());
+            }
+        } else {
+            sb.append(cityDisplayName);
+        }
+
         if (schoolType != null && (schoolType.length == 1 || schoolType.length == 2)) {
             for (int x=0; x < schoolType.length; x++) {
                 if (x == 1) {
@@ -67,16 +85,19 @@ public class CityBrowseHelper {
                 levelCode.getCommaSeparatedString().length() == 1 &&
                 levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL)) {
             sb.append("s and Daycare Centers");
-        } else {
+        } else if (!mobile) {
             sb.append(" Schools");
         }
-        sb.append(" - ");
-        if ("Washington, DC".equals(cityDisplayName)) {
-            sb.append(cityDisplayName);
-        } else {
-            sb.append(cityDisplayName).append(", ").append(cityState.getAbbreviation());
+
+        if (!mobile) {
+            sb.append(" - ");
+            if ("Washington, DC".equals(cityDisplayName)) {
+                sb.append(cityDisplayName);
+            } else {
+                sb.append(cityDisplayName).append(", ").append(cityState.getAbbreviation());
+            }
+            sb.append(" | GreatSchools");
         }
-        sb.append(" | GreatSchools");
         return sb.toString();
     }
 
