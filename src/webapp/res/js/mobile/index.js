@@ -145,8 +145,16 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], 
             });
 
             $(BY_NAME_FORM_SELECTOR).on('submit', function() {
-                var valid = validation.validateOne($('#stateSelector'), BY_NAME_FORM_SELECTOR);
-                return valid;
+                var validations = [];
+                validations.push(validation.validateOne($('#stateSelector'), BY_NAME_FORM_SELECTOR));
+                validations.push(validation.validateOne($(BY_NAME_FORM_SELECTOR + ' [name=q]'), BY_NAME_FORM_SELECTOR));
+
+                for (var arrayIndex in validations) {
+                    if (validations[arrayIndex] === false) {
+                        return false;
+                    }
+                }
+                return true;
             });
 
             validation.init();
