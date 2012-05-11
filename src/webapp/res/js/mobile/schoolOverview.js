@@ -40,8 +40,15 @@ define(function() {
         var $newDiv = $parentDiv.find('.js_testScoreSnippetValueTemplate').clone();
         $newDiv.removeClass('js_testScoreSnippetValueTemplate');
         $newDiv.find('.js_year').html(testValue.year);
-        $newDiv.find('.js_bar > div > div').css('width', testValue.value + '%');
-        $newDiv.find('.js_value').html(testValue.value + '%');
+        if (testValue.value === 'Data not available') {
+            $newDiv.find('.js_bar').hide();
+            $newDiv.find('.js_value').hide();
+            $newDiv.find('.js_notData').html(testValue.value);
+            $newDiv.find('.js_notData').show();
+        } else {
+            $newDiv.find('.js_bar > div > div').css('width', testValue.value + '%');
+            $newDiv.find('.js_value').html(testValue.value + '%');
+        }
         $parentDiv.append($newDiv.show());
     };
 

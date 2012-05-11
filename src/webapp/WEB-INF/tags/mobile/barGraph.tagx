@@ -54,6 +54,7 @@
                 </div>
 
                 <div class="js_value unit size20of100 lastUnit tal"><!-- not empty --></div>
+                <div class="js_notData unit size80of100 lastUnit pls" style="display: none"><!-- not empty --></div>
             </div>
         </c:otherwise>
     </c:choose>
