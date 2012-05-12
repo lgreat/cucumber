@@ -1,10 +1,12 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.123 2012/04/12 17:31:25 ssprouse Exp $
+ * $Id: UrlUtil.java,v 1.124 2012/05/12 01:54:45 ssprouse Exp $
  */
 
 package gs.web.util;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import gs.data.state.State;
 import gs.data.util.CdnUtil;
 import gs.web.util.context.SessionContextUtil;
@@ -33,21 +35,29 @@ import java.util.*;
 public final class UrlUtil {
     private static final Log _log = LogFactory.getLog(UrlUtil.class);
 
-    public static String putQueryParamIntoQueryString(String queryString, String key, String value) {
+    public static String putQueryParamIntoQueryString(String queryString, String key, String value, boolean overwrite) {
         if (key == null) {
             throw new IllegalArgumentException("Key cannot be null");
         }
 
-        Map<String,String> keysValues = getParamsFromQueryString(queryString);
+        Multimap<String, String> keysValues = getParamsFromQueryStringPreserveAll(queryString);
+
+        if (overwrite) {
+            keysValues.removeAll(key);
+        }
 
         keysValues.put(key,value);
 
-        String newQueryString = getQueryStringFromMap(keysValues);
+        String newQueryString = getQueryStringFromMultiMap(keysValues);
 
         return newQueryString;
     }
 
-    public static String putQueryParamIntoUrl(String url, String key, String value) {
+    public static String putQueryParamIntoQueryString(String queryString, String key, String value) {
+        return putQueryParamIntoQueryString(queryString, key, value, true);
+    }
+
+    public static String putQueryParamIntoUrl(String url, String key, String value, boolean overwrite) {
         if (key == null) {
             throw new IllegalArgumentException("Key cannot be null");
         }
@@ -63,11 +73,15 @@ public final class UrlUtil {
             queryString = parts[1];
         }
 
-        queryString = putQueryParamIntoQueryString(queryString, key, value);
+        queryString = putQueryParamIntoQueryString(queryString, key, value, overwrite);
 
         String newUrl = base + "?" + queryString;
 
         return newUrl;
+    }
+
+    public static String putQueryParamIntoUrl(String url, String key, String value) {
+        return putQueryParamIntoUrl(url, key, value, true);
     }
 
     /**
@@ -93,8 +107,32 @@ public final class UrlUtil {
         return params;
     }
 
+    /**
+     * Returns a map of param name to param value extracted from the provided query string.
+     * The query string should not start with a question mark! Works with query strings that contain multiple pairs
+     * with the same key
+     */
+    public static Multimap<String, String> getParamsFromQueryStringPreserveAll(String queryString) {
+        Multimap<String, String> params = HashMultimap.create();
+        if (StringUtils.isNotBlank(queryString)) {
+            queryString = queryString.replaceAll("&amp;", "&");
+            String[] nameValuePairs = queryString.split("&");
+            for (String nameValuePair: nameValuePairs) {
+                String[] nameAndValue = nameValuePair.split("=");
+                if (nameAndValue.length > 1) {
+                    try {
+                        params.put(nameAndValue[0], URLDecoder.decode(nameAndValue[1], "UTF-8"));
+                    } catch (UnsupportedEncodingException uee) {
+                        _log.warn("Can't decode param: " + nameValuePair);
+                    }
+                }
+            }
+        }
+        return params;
+    }
+
     public static String removeParamsFromQueryString(String queryString, String... keys) {
-        Map<String,String> map = getParamsFromQueryString(queryString);
+        Multimap<String, String> map = getParamsFromQueryStringPreserveAll(queryString);
 
         Set<String> keySet = map.keySet();
         Iterator<String> iterator = keySet.iterator();
@@ -107,7 +145,7 @@ public final class UrlUtil {
             }
         }
 
-        return getQueryStringFromMap(map);
+        return getQueryStringFromMultiMap(map);
     }
 
     public static String removeQueryParamsFromUrl(String url, String key) {
@@ -145,6 +183,33 @@ public final class UrlUtil {
         StringBuffer queryString = new StringBuffer();
 
         for (Map.Entry<String,String> entry : keysAndValues.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+            if (key != null && value != null) {
+                if (queryString.length() > 0) {
+                    queryString.append("&");
+                }
+                try {
+                    queryString.append(key).append("=").append(URLEncoder.encode(value, "UTF-8"));
+                } catch (UnsupportedEncodingException uee) {
+                    _log.warn("Can't encode value: " + value);
+                }
+            }
+        }
+
+        return queryString.toString();
+    }
+
+    /**
+     * Creates a queryString from a map of key-value pairs. Question mark not included.
+     * @param keysAndValues
+     * @return
+     */
+    public static String getQueryStringFromMultiMap(Multimap<String, String> keysAndValues) {
+        StringBuffer queryString = new StringBuffer();
+
+        for (Map.Entry<String,String> entry : keysAndValues.entries()) {
             String key = entry.getKey();
             String value = entry.getValue();
 

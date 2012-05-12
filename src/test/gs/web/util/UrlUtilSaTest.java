@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtilSaTest.java,v 1.91 2012/03/08 18:32:41 droy Exp $
+ * $Id: UrlUtilSaTest.java,v 1.92 2012/05/12 01:54:45 ssprouse Exp $
  */
 
 package gs.web.util;
@@ -509,6 +509,12 @@ public class UrlUtilSaTest extends TestCase {
 
         assertTrue("param1=newone&param2=two".equals(newUrl) || "param2=two&param1=newone".equals(newUrl));
 
+        newUrl = UrlUtil.putQueryParamIntoQueryString("http://www.host.com/path", "gradeLevel", "p", false);
+        newUrl = UrlUtil.putQueryParamIntoQueryString(newUrl, "gradeLevel", "e", false);
+
+        assertTrue("gradeLevel=p&gradeLevel=e".equals(newUrl) || "gradeLevel=e&gradeLevel=p".equals(newUrl));
+
+
     }
 
     public void testPutQueryParamIntoUrl() {
@@ -521,6 +527,11 @@ public class UrlUtilSaTest extends TestCase {
         newUrl = UrlUtil.putQueryParamIntoUrl(url, "param1","newone");
 
         assertTrue("http://www.host.com/path?param1=newone&param2=two".equals(newUrl) || "http://www.host.com/path?param2=two&param1=newone".equals(newUrl));
+
+        newUrl = UrlUtil.putQueryParamIntoUrl("http://www.host.com/path", "gradeLevel", "p", false);
+        newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, "gradeLevel", "e", false);
+
+        assertTrue("http://www.host.com/path?gradeLevel=p&gradeLevel=e".equals(newUrl) || "http://www.host.com/path?gradeLevel=e&gradeLevel=p".equals(newUrl));
 
     }
 
