@@ -7,9 +7,7 @@
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
-          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
         >
 <html lang="en">
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -29,14 +27,9 @@
             <link rel="canonical" href="${relCanonical}"/>
         </c:if>
         <script type="text/javascript">
-            require(['schoolOverview', 'truncate', 'schoolSave'], function(schoolOverview, truncate, schoolSave) {
+            require(['schoolOverview'], function(schoolOverview) {
                 $(function() {
-                    truncate.init();
                     schoolOverview.init('${school.databaseState}', '${school.id}');
-
-                    var state = '${school.databaseState}';
-                    var schoolId = '${school.id}';
-                    schoolSave.init(state + '_' + schoolId);
                 });
             });
         </script>

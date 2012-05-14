@@ -1,5 +1,8 @@
-define(function() {
+define(['truncate', 'schoolSave'], function(truncate, schoolSave) {
     var init = function(state, schoolId) {
+        truncate.init();
+        schoolSave.init(state + '_' + schoolId);
+
         fetchAndDisplayTestScoreSnippet(state, schoolId);
     };
 
@@ -32,7 +35,7 @@ define(function() {
         for (var index = 0; index < testSubject.values.length; index++) {
             appendTestValueDiv($newDiv, testSubject.values[index]);
         }
-        $newDiv.append('<div class="ptm"><!-- not empty --></div>')
+        $newDiv.append('<div class="ptm"></div>');
         $parentDiv.append($newDiv.show());
     };
 
