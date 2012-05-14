@@ -23,13 +23,9 @@
         <script type="text/javascript">
             require(['schoolSave'], function(schoolSave) {
                 schoolSave.mySchoolListInit();
-                $(document).ready(function (){
-                    schoolSave.getSavedSchools();
 
-                    var deleteSchool = $('a.deleteSchool');
-                    deleteSchool.click(function() {
-                        schoolSave.deleteSchool(this.id);
-                    });
+                $(document).ready(function () {
+                    schoolSave.getSavedSchools();
 
                     var deleteAll = $('div.emailAndDeleteAll #deleteAll');
                     deleteAll.click(function() {
@@ -71,7 +67,8 @@
                         </div>
                        </div>
                       <div class="unit size20of100 lastUnit fr">
-                          <a class="but but-sm but-2 pan deleteSchool but-overview" id="delete-{{state_schoolId}}">Delete</a>
+                          <a class="but but-sm but-2 pan but-overview deleteSchool" id="delete-{{state_schoolId}}">Delete</a>
+
                       </div>
                 </div>
 
@@ -105,7 +102,8 @@
 
         <div class="clearfloat"></div>
         <mod:mobileTracking pageName="MSL Mobile"
-                      hier1="MySchoolList"/>
+                      hier1="MySchoolList"
+                schoolsSaved="${true}"/>
     </body>
     </html>
 </jsp:root>

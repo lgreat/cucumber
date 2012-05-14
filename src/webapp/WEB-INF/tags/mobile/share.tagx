@@ -5,7 +5,6 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
-    <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="smsBody" required="false" type="java.lang.String"
                              description="Body for SMS message."/>
@@ -17,11 +16,6 @@
                              description="School for saving to MSL."/>
 
     <jsp:useBean id="school" type="gs.data.school.School" />
-    <jsp:scriptlet><![CDATA[
-        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        request.setAttribute("schoolUrl", urlBuilder.asFullUrlXml(request));
-        ]]>
-    </jsp:scriptlet>
 
     <!-- Set up some defaults. Probably helpful for SMS, maybe not for email -->
     <c:if test="${empty smsBody}">
@@ -58,16 +52,6 @@ ${school.physicalAddress.cityStateZip}
                 <form id = "saveSchoolForm">
                     <input type="hidden" name="id" value="${school.id}"/>
                     <input type="hidden" name="state" value="${school.stateAbbreviation.abbreviation}"/>
-                    <input type="hidden" name="name" value="${school.name}"/>
-                    <input type="hidden" name="type" value="${school.type.schoolTypeName}"/>
-                    <input type="hidden" name="gradeLevels" value="${school.gradeLevels}"/>
-                    <input type="hidden" name="city" value="${school.city}"/>
-                    <input type="hidden" name="gsRating" value="${gs_rating}"/>
-                    <input type="hidden" name="commRating" value="${ratings.overall}"/>
-                    <input type="hidden" name="schoolUrl" value="${requestScope.schoolUrl}"/>
-                    <input type="hidden" name="enrollment" value="${school.enrollment}"/>
-                    <input type="hidden" name="address" value="${school.physicalAddress}"/>
-                    <input type="hidden" name="zip" value="${school.zipcode}"/>
                 </form>
             </c:if>
         </span>

@@ -1,4 +1,4 @@
-define(['localStorage', 'hogan'], function(localStorage, hogan) {
+define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, tracking) {
     var schoolsKey = "Schools";
     var schoolMapKey = "SchoolMap";
     var emailSubject = "My Saved Schools from GreatSchools.org";
@@ -66,18 +66,17 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
         saveSchoolButton.text('Saved');
     }
 
-    var getSavedSchools = function() {
-        var savedSchools = localStorage.getItem(schoolsKey);
-        if(savedSchools == null || savedSchools[schoolsKey].length == 0) {
+    var renderSchools = function(data) {
+        if(data == undefined || data.NumSavedSchools == 0) {
             $('div #noSavedSchools').css('display', 'block');
             return;
         }
 
-        var schools = savedSchools[schoolsKey];
-        var numOfSavedSchools = schools.length;
+        var schools = data.Schools;
+        var numOfSavedSchools = data.NumSavedSchools;
         var savedSchoolsDiv = $('#savedSchools');
 
-        for(var i = 0; i < numOfSavedSchools; i++) {
+        for(var i = 1; i <= numOfSavedSchools; i++) {
             var type_school = schools[i].type;
             var display_gs_rating = "";
             if(type_school == "private" || schools[i].gsRating == ""){
@@ -108,7 +107,6 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
             });
             savedSchoolsDiv.append(html);
             savedSchoolsDiv.find('.schoolTemplate').last().addClass(schools[i].state + '_' + schools[i].id);
-//            savedSchoolsDiv.find('#schoolUrl-' + schools[i].state + '_' + schools[i].id).attr('href', schools[i].schoolUrl);
             savedSchoolsDiv.find('div.clearfloat').last().addClass(schools[i].state + '_' + schools[i].id);
 
             emailBody += schools[i].name + " " + schools[i].schoolUrl + "\n";
@@ -121,6 +119,38 @@ define(['localStorage', 'hogan'], function(localStorage, hogan) {
         var emailAndDeleteAll = $('div.emailAndDeleteAll');
         emailAndDeleteAll.css('display', 'block');
         emailAndDeleteAll.find('.emailMyList').attr('href', 'mailto:?subject=' + emailSubject + '&body=' + encodeURI(emailBody));
+    }
+
+    var getSavedSchools = function() {
+        var savedSchools = localStorage.getItem(schoolsKey);
+        if(savedSchools != null) {
+            var savedSchoolsJson = savedSchools[schoolsKey];
+            $.ajax({
+                type: 'POST',
+                url: document.location,
+                dataType: 'json',
+                data: {savedSchoolsJson: JSON.stringify({ schools : savedSchoolsJson})},
+                success: function(data) {
+                    renderSchools(data);
+
+                    $('#savedSchools .deleteSchool').click(function(){
+                        deleteSchool(this.id);
+                    });
+
+                    $('.emailMyList').click(function() {
+                        tracking.clear();
+                        tracking.successEvents = 'event69';
+                        tracking.send();
+                    });
+                },
+                error: function() {
+                    console.log('error');
+                }
+            });
+        }
+        else {
+            renderSchools(undefined);
+        }
     };
 
     var deleteSchool = function(delete_school) {
