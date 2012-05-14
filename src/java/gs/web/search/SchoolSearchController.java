@@ -280,8 +280,8 @@ public class SchoolSearchController extends AbstractCommandController implements
         }
 
         //if user did not enter search term (and this is not a nearby search), redirect to state browse
-        if (!schoolSearchCommand.isNearbySearch() && isSearch && StringUtils.isBlank(searchString)) {
-            return stateBrowseRedirect(request, sessionContext);
+        if (!commandAndFields.isNearbySearch() && commandAndFields.isSearch() && StringUtils.isBlank(commandAndFields.getSearchString())) {
+            return stateBrowseRedirect(request, SessionContextUtil.getSessionContext(request));
         }
 
         // if district browse *and* lc parameter was specified, 301-redirect to use directory-structure schools label instead of lc parameter
@@ -310,7 +310,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<SolrSchoolSearchResult>());
         // allow nearby searches to go through even if they specify no school types or grade levels, per GS-11931
-        if (state != null && (!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels())) &&
+        if ((!schoolSearchCommand.isAjaxRequest() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels())) &&
                 (!schoolSearchCommand.isNearbySearchByLocation() || (schoolSearchCommand.hasSchoolTypes() && schoolSearchCommand.hasGradeLevels()))) {
             try {
                 SchoolSearchService service = getSchoolSearchService();
