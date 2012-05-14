@@ -58,7 +58,7 @@
                 <hr class="keyline1" />
             </c:if>
             <c:if test="${status.first and ads and !empty adPosition}">
-                <ad:adTag position="${adPosition}"/>
+                <ad:adTag-mobile position="${adPosition}"/>
             </c:if>
         </c:forEach>
 </jsp:root>
