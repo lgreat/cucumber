@@ -19,6 +19,22 @@ define(['tracking','navigation'],function(tracking,navigation) {
             $('input, select, textarea').bind('focus blur', function(event) {
                 $viewportMeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=' + (event.type == 'blur' ? 10 : 1));
             });
+            $('#shownav').hide();
+            var showNavigation = 0;
+            $('#topnav_link').click(function(){
+                if(showNavigation){
+                    $('#shownav').hide('fast');
+                    $('#topnav_link').find(".iconx24").removeClass('i-24-collapse').addClass('i-24-expand');
+                    $('#topnav_link').removeClass('but-topnav-on').addClass('but-topnav');
+                    showNavigation = 0;
+                }
+                else{
+                    $('#shownav').show('fast');
+                    $('#topnav_link').find(".iconx24").removeClass('i-24-expand').addClass('i-24-collapse');
+                    $('#topnav_link').removeClass('but-topnav').addClass('but-topnav-on');
+                    showNavigation = 1;
+                }
+            });
         });
 
         navigation.init();
