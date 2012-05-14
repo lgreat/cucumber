@@ -34,21 +34,25 @@
             var points = [];
             <c:forEach var="school" items="${schoolSearchResults}">
                 <c:set var="infoWindowMarkup">
-                    <h3>
-                        <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link" schoolId="${school.id}" databaseState="${school.databaseState}"
-                             name="${school.name}" physicalAddress="${school.address}"
-                             levelCode="${school.levelCode}">
-                            ${school.name}
-                        </link:schoolProfileOverviewForPrimitives>
-                    </h3>
-                    <p>${school.schoolType} ${school.grades.rangeString} | ${school.city}, ${school.databaseState}</p>
+                    <div>
+                            <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link"
+                                                                     schoolId="${school.id}"
+                                                                     databaseState="${school.databaseState}"
+                                                                     name="${school.name}"
+                                                                     physicalAddress="${school.address}"
+                                                                     levelCode="${school.levelCode}">
+                                <h3>${school.name}</h3>
+                            </link:schoolProfileOverviewForPrimitives>
 
-                    <c:if test="${not empty school.greatSchoolsRating}">
-                        <p>${school.greatSchoolsRating} of 10</p>
-                    </c:if>
-                    <c:if test="${not empty school.parentRating}">
-                        <p>Community rating: ${school.parentRating}</p>
-                    </c:if>
+                        <p>${school.schoolType} ${school.grades.rangeString} | ${school.city}, ${school.databaseState}</p>
+
+                        <c:if test="${not empty school.greatSchoolsRating}">
+                            <p>${school.greatSchoolsRating} of 10</p>
+                        </c:if>
+                        <c:if test="${not empty school.parentRating}">
+                            <p>Community rating: ${school.parentRating}</p>
+                        </c:if>
+                    </div>
                 </c:set>
             points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude}, lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}', infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}'});
             </c:forEach>
@@ -61,6 +65,8 @@
                 });
             });
         </script>
+
+
     </head>
 
     <body>
@@ -72,53 +78,70 @@
                     <c:set var="count" value="0"/>
 
                     <c:if test="${fn:length(schoolSearchResults) gt 0}">
-                        <div style="float:left;font-size:12px;">
-                            <c:choose>
-                                <c:when test="${fn:containsIgnoreCase(param.sort, 'DESC')}">
-                                    <select data-inline="true" data-icon="arrow-u" class="js-sort-select">
-                                        <c:if test="${isFromByLocation}">
-                                            <option value="distance">Distance</option>
-                                        </c:if>
-                                        <option value="SCHOOL_NAME_ASCENDING">Name</option>
-                                        <option value="GS_RATING_DESCENDING">Rating</option>
-                                    </select>
-                                </c:when>
-                                <c:otherwise>
-                                    <select data-inline="true" data-icon="arrow-d" class="js-sort-select">
-                                        <c:choose>
-                                            <c:when test="${isFromByLocation}">
+                        <div class="contain_6-1 pbs">
+                            <div class="fl">
+                                <!--<div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>-->
+                                <a data-role="button" data-inline="true" class="but but-sm but-2"
+                                   href="/search/search.page?${pageContext.request.queryString}">List</a>
+                            </div>
+                            <div class="fr">
+                                <c:choose>
+                                    <c:when test="${fn:containsIgnoreCase(param.sort, 'DESC')}">
+                                        <select data-inline="true" data-icon="arrow-u" class="js-sort-select">
+                                            <c:if test="${isFromByLocation}">
                                                 <option value="distance">Distance</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="">Relevance</option>
-                                            </c:otherwise>
-                                        </c:choose>
+                                            </c:if>
+                                            <option value="SCHOOL_NAME_ASCENDING">Name</option>
+                                            <option value="GS_RATING_DESCENDING">Rating</option>
+                                        </select>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <select data-inline="true" data-icon="arrow-d" class="js-sort-select">
+                                            <c:choose>
+                                                <c:when test="${isFromByLocation}">
+                                                    <option value="distance">Distance</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="">Relevance</option>
+                                                </c:otherwise>
+                                            </c:choose>
 
-                                        <option value="SCHOOL_NAME_ASCENDING">School name: A-Z</option>
-                                        <option value="SCHOOL_NAME_DESCENDING">School name: Z-A</option>
-                                        <option value="GS_RATING_DESCENDING">GreatSchools Rating: High to Low</option>
-                                        <option value="GS_RATING_ASCENDING">GreatSchools Rating: Low to High</option>
-                                        <option value="PARENT_RATING_DESCENDING">Community Rating: High to Low</option>
-                                        <option value="PARENT_RATING_ASCENDING">Community Rating: Low to High</option>
-                                    </select>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                        <div style="padding-left:148px;font-size:12px">
-                            <a data-role="button" data-inline="true" href="/search/search.page?${pageContext.request.queryString}" >List</a>
-                            <a data-role="button" data-inline="true" class="ui-btn-active" href="/search/mapresults.page?${pageContext.request.queryString}">Map</a>
+                                            <option value="SCHOOL_NAME_ASCENDING">School name: A-Z</option>
+                                            <option value="SCHOOL_NAME_DESCENDING">School name: Z-A</option>
+                                            <option value="GS_RATING_DESCENDING">GreatSchools Rating: High to Low</option>
+                                            <option value="GS_RATING_ASCENDING">GreatSchools Rating: Low to High</option>
+                                            <option value="PARENT_RATING_DESCENDING">Community Rating: High to Low</option>
+                                            <option value="PARENT_RATING_ASCENDING">Community Rating: Low to High</option>
+                                        </select>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                            <br class="clearfloat"/>
                         </div>
 
-                        <br style="clear:both;height:0px;"/>
                         <!--<div>
                             <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
                             <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
                             <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
                         </div>-->
 
-                        <div data-role="content" style="margin-left:-10px;margin-top:-10px;padding-top:0px;">
-                            <input class="js-redobtn" style="display: none;" type="submit" value="Redo Search in this area"/>
-                            <div id="js-map-canvas" style="width:100%; height:200px;"></div>
+                        <div data-role="content">
+                            <div style="position: relative;">
+                                <div style="width: 100%; position: absolute; top: 0; bottom:0; z-index: 1;">
+                                    <div class="mha tac">
+                                    <span class="js-redobtn but but-rg but-2"
+                                          style="display:none;">Redo Search in this area</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="mha tac">-->
+                                <!--<input class="js-redobtn but but-lg but-2"-->
+                                       <!--style="display: none;"-->
+                                       <!--type="submit" value="Redo Search in this area"/>-->
+                            <!--</div>-->
+
+                            <div id="js-map-canvas"  class="" style=""></div>
                         </div>
                     </c:if>
                 </div>
