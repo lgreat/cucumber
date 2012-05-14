@@ -18,6 +18,9 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
             if(disabled === false && localStorage.enabled === true) {
                 disabled = true;
                 saveSchoolButton.removeClass('but-2').addClass('but-2-inactive').text('Saving...');
+                tracking.clear();
+                tracking.successEvents = 'event68';
+                tracking.send();
                 saveSchool(schoolSave, saveSchoolButton, state_schoolId);
             }
         });
