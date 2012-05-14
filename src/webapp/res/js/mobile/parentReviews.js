@@ -1,8 +1,10 @@
-define(function() {
+define(['truncate', 'schoolSave'], function(truncate, schoolSave) {
 
     var next,container,pages,cur=1;
 
-    var init = function(nextEl, containerEl, totalPages, currentPage) {
+    var init = function(nextEl, containerEl, totalPages, currentPage, state, schoolId) {
+        truncate.init();
+        schoolSave.init(state + '_' + schoolId);
 
         // make sure that the ratings is hidden
         // and display when the community is clicked

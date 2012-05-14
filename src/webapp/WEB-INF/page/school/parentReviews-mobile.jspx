@@ -30,15 +30,11 @@
         </c:if>
 
         <script type="text/javascript"><![CDATA[
-            require(['truncate','parentReviews', 'schoolSave'], function(truncate, parentReviews, schoolSave) {
-                truncate.init();
-
-                var state = '${school.databaseState}';
-                var schoolId = '${school.id}';
-                schoolSave.init(state + '_' + schoolId);
-
+            require(['parentReviews'], function(parentReviews) {
                 $(document).ready(function(){
-                    parentReviews.init($('div.js-paginate-next'), $('div.js-paginate-container'), ${reviewsTotalPages}, ${page}, $('#reviewTemplate').html());
+                    parentReviews.init
+                            ($('div.js-paginate-next'), $('div.js-paginate-container'), ${reviewsTotalPages}, ${page},
+                                    $('#reviewTemplate').html(), '${school.databaseState}', '${school.id}');
                 });
             });
 
@@ -47,7 +43,7 @@
                 var option = sort.options[sort.selectedIndex].value;
                 if (option) location.href = 'http://' + location.host + location.pathname +
                         '?id=' + schoolId + '&state=' + stateAbbrev + '&' + sortBy + '=' + option + '';
-            };
+            }
 
         ]]></script>
 
