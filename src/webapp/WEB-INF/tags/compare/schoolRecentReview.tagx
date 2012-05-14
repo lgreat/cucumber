@@ -34,7 +34,9 @@
             <p class="smallText1">
                 <link:schoolProfileParentReview school="${school}">
                     <c:choose>
-                        <c:when test="${numReviews eq 1}">Read the review</c:when>
+                        <!-- Handle zero the same as one because the count is non-principal reviews, but the
+                           recentReview can be froma principal GS-12776 -->
+                        <c:when test="${numReviews le 1}">Read the review</c:when>
                         <c:otherwise>Read all <span
                                 class="count">${numReviews}</span> reviews</c:otherwise>
                     </c:choose>
