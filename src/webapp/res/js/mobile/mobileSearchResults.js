@@ -1,4 +1,4 @@
-define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
+define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilters) {
 
     // set value each time module is initialized
     var $sortSelect = undefined;
@@ -53,9 +53,8 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
     var attachEventHandlers = function() {
         $sortSelect.on('change', function() {
             var value = $(this).val();
-            // TODO: consider using history API to rewrite url when filters are applied rather than rebuild
-            // query string each time
-            var queryString = searchResultFilters.getUpdatedQueryString();
+
+            var queryString = searchResultFilters.getUpdatedQueryString(true);
             if (value.length > 0) {
                 var newQueryString = uri.putIntoQueryString(queryString, 'sortBy', value, true);
             } else {
@@ -74,7 +73,14 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
     };
 
     var applyFilters = function() {
-        var queryString = searchResultFilters.getUpdatedQueryString();
+        var queryString = searchResultFilters.getUpdatedQueryString(true);
+
+        // rewrite URL using history API
+        if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+            // use HTML 5 history API to rewrite the current URL to represent the new state.
+            window.History.replaceState(null, document.title, queryString);
+        }
+
         queryString = uri.putIntoQueryString(queryString, 'ajax', true);
         var url = window.location.protocol + '//' + window.location.host + window.location.pathname + queryString;
 
@@ -87,6 +93,7 @@ define (['uri','searchResultFilters'], function(uri,searchResultFilters) {
                 var $list = $(searchResultsSelector);
                 $list.html(data);
                 listFilterToggle();
+
             }
         }).fail(function(data) {
             GS.log('filtering failed', data);

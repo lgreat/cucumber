@@ -26,15 +26,45 @@ define(['uri','ui'],function(uri, ui) {
             }
             this.updateDomForOne(filter);
         };
+
+        this.allAreOff = function() {
+            var allAreOff = true;
+            for (var filter in this.filters) {
+                if (this.filters.hasOwnProperty(filter)) {
+                    allAreOff = allAreOff && (this.filters[filter] === false);
+                }
+            }
+            return allAreOff;
+        };
+
         // does not prepend question mark
-        this.toQueryString = function() {
+        this.toQueryString = function(allIfNone) {
+            var queryString = "";
+
+            if (allIfNone === true && this.allAreOff()) {
+                // actually set the filters all back to true so that interface reflects the truth
+                this.setFiltersToDefault();
+                this.updateDom();
+                queryString = this.serializeAll();
+            } else {
+                for (var filter in this.filters) {
+                    if (this.filters.hasOwnProperty(filter) && this.filters[filter] === true) {
+                        if (queryString.length > 0) {
+                            queryString += "&";
+                        }
+                        queryString += this.key + "=" + filter;
+                    }
+                }
+            }
+
+            return queryString;
+        };
+
+        this.serializeAll = function() {
             var queryString = "";
             for (var filter in this.filters) {
                 if (this.filters.hasOwnProperty(filter) && this.filters[filter] === true) {
-                    if (queryString.length > 0) {
-                        queryString += "&";
-                    }
-                    queryString += this.key + "=" + filter;
+                    queryString += "&" + this.key + "=" + filter;
                 }
             }
             return queryString;
@@ -207,10 +237,10 @@ define(['uri','ui'],function(uri, ui) {
     };
 
     // some methods for the searchResultFilters module
-    var toQueryString = function() {
+    var toQueryString = function(allIfNone) {
         var queryString = "";
         for (var i = 0; i < filters.length; i++) {
-            var filterQs = filters[i].toQueryString();
+            var filterQs = filters[i].toQueryString(allIfNone);
             if (filterQs.length > 0) {
                 if (queryString.length > 0) {
                     queryString += "&";
@@ -235,8 +265,8 @@ define(['uri','ui'],function(uri, ui) {
         }
     };
 
-    var getUpdatedQueryString = function() {
-        var newQueryString = toQueryString();
+    var getUpdatedQueryString = function(allIfNone) {
+        var newQueryString = toQueryString(allIfNone);
         var currentQueryString = window.location.search;
 
         for (var i = 0; i < filters.length; i++) {
