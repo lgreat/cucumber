@@ -267,7 +267,7 @@ public class TestScoresHelper {
         List<TestToGrades> testToGradesList = new ArrayList<TestToGrades>();
         for (TestDataType testDataType : map.keySet()) {
             TestToGrades testToGrades = new TestToGrades();
-            testToGrades.setTestLabel(testDataType.getName());
+            testToGrades.setTestLabel(testDataType.getDisplayName());
 
             //Get the test information, like the source, scale and description.
             TestDescription testDescription = _testDescriptionDao.findTestDescriptionByStateAndDataTypeId(school.getDatabaseState(), testDataType.getId());
