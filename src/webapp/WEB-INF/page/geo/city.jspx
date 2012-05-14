@@ -13,7 +13,6 @@
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:link="urn:www.greatschools.org/taglib/link"
         xmlns:gsweb="gstaglib"
-        xmlns:meebo="urn:jsptagdir:/WEB-INF/tags/promo/meebo"
         >
 <jsp:directive.page import="gs.data.geo.City"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
@@ -398,9 +397,6 @@
 <jsp:include page="/test/testScoreLandingLinks.module">
     <jsp:param name="state" value="${stateAbbrev}"/>
 </jsp:include>
-
-
-<meebo:localButton city="${cityObject}"/>
 
 <mod:tracking pageName="${pageName}"
               locale="${cityObject.name}"

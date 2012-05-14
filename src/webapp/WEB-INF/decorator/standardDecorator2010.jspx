@@ -13,7 +13,6 @@
         xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
         xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
-        xmlns:meebo="urn:jsptagdir:/WEB-INF/tags/promo/meebo"
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <pageHelper:bodyClass/>
@@ -80,7 +79,6 @@
 
 <!--<p>User agent is: <c:out value="${agent}" default="not set"/>.</p>-->
 <cobrand:framebuster/>
-<meebo:javascriptInclude/>
 
 <communityHover:subscriptionEmailValidated/>
 <communityHover:validateEmail/>

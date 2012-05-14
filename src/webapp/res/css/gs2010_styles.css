@@ -107,7 +107,6 @@ General comments:
 =Back to School 2010
 =Back to School 2011
 =About Us
-=Meebo
 =video gallery (GS-11651)
 =z-index resets
 =samson's random stylings
@@ -10228,18 +10227,6 @@ p#btsBubbleOpts {
     padding:1px 0;
     color:#d61;
     line-height:1.3;
-}
-
-/* =Meebo
--------------------------------------------------------------------------------------------*/
-
-/*****************
- * Meebo Toolbar *
- *****************/
-
-#meeboLocalGuide {
-    font: 11px/1.25 Tahoma,Arial,sans-serif;
-    padding: 3px;
 }
 
 /***********************

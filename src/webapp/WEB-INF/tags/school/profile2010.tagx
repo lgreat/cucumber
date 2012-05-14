@@ -11,7 +11,6 @@
           xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
-          xmlns:meebo="urn:jsptagdir:/WEB-INF/tags/promo/meebo"
         >
 <jsp:directive.tag body-content="scriptless"/>
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
@@ -122,8 +121,6 @@
             </h1>
         </div>
         <!-- End School name -->
-
-        <meebo:localButton school="${school}"/>
 
         <p id="schoolTypeInfo">
             <!-- School Type -->
