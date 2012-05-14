@@ -74,7 +74,7 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
 
     protected void addCanonicalUrlToModel(Map<String,Object> model, School school, HttpServletRequest request) {
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        String fullCanonicalUrl = urlBuilder.asFullUrl(request);
+        String fullCanonicalUrl = urlBuilder.asFullCanonicalUrl(request);
         model.put("relCanonical", fullCanonicalUrl);
     }
 
