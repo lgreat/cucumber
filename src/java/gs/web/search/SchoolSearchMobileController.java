@@ -37,6 +37,8 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
 
     private GsSolrSearcher _gsSolrSearcher;
 
+    public static final String MODEL_KEY_HIDE_ALTERNATE_SITE_BUTTON = "hideAlternateSiteButton";
+
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException e) throws Exception {
 
         SchoolSearchCommand schoolSearchCommand = (SchoolSearchCommand) command;
@@ -44,6 +46,8 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         Map<String,Object> model = new HashMap<String,Object>();
         model.put("schoolSearchCommand", schoolSearchCommand);
 
+        // hide the "view mobile version" and "view desktop version" links, since search page behaviors have diverted
+        model.put(MODEL_KEY_HIDE_ALTERNATE_SITE_BUTTON, true);
 
         /*
         commenting out for mobile
