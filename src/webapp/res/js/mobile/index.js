@@ -45,15 +45,7 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], 
         queryString = uri.removeFromQueryString(queryString, "gradeLevels");
 
         var gradeLevel = $gradeLevelsContainer.find('[name=gradeLevels]').val();
-        // if no grade levels were chosen, then pass all grade levels to search results (required to be consistent with desktop search)
-        if (gradeLevel == '') {
-            queryString = uri.putIntoQueryString(queryString, "gradeLevels", 'p', true);
-            queryString = uri.putIntoQueryString(queryString, "gradeLevels", 'e', false);
-            queryString = uri.putIntoQueryString(queryString, "gradeLevels", 'm', false);
-            queryString = uri.putIntoQueryString(queryString, "gradeLevels", 'h', false);
-        } else {
-            queryString = uri.putIntoQueryString(queryString, "gradeLevels", gradeLevel);
-        }
+        queryString = uri.putIntoQueryString(queryString, "gradeLevels", gradeLevel);
 
         return queryString;
     };

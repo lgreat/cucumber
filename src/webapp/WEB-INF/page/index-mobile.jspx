@@ -79,9 +79,6 @@
                             <input type="hidden" name="normalizedAddress" value=""/>
                             <input type="hidden" name="totalResults" value="0"/>
                             <input type="hidden" name="distance" value="25"/>
-                            <input type="hidden" name="st" value="public"/>
-                            <input type="hidden" name="st" value="charter"/>
-                            <input type="hidden" name="st" value="private"/>
                             <div class="clearfix prm">
                                 <gsml:input type="text" styleClass="size100of100 js-searchByLocationQuery"  name="searchString" value="${searchString}" placeholder=" City AND states, zip or address ..." />
                             </div>

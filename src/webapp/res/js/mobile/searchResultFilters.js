@@ -42,18 +42,16 @@ define(['uri','ui'],function(uri, ui) {
             var queryString = "";
 
             if (allIfNone === true && this.allAreOff()) {
-                // actually set the filters all back to true so that interface reflects the truth
-                this.setFiltersToDefault();
-                this.updateDom();
-                queryString = this.serializeAll();
-            } else {
-                for (var filter in this.filters) {
-                    if (this.filters.hasOwnProperty(filter) && this.filters[filter] === true) {
-                        if (queryString.length > 0) {
-                            queryString += "&";
-                        }
-                        queryString += this.key + "=" + filter;
+                // actually set the filters all back to default so that interface reflects the truth
+                this.reset();
+            }
+
+            for (var filter in this.filters) {
+                if (this.filters.hasOwnProperty(filter) && this.filters[filter] === true) {
+                    if (queryString.length > 0) {
+                        queryString += "&";
                     }
+                    queryString += this.key + "=" + filter;
                 }
             }
 
@@ -206,16 +204,16 @@ define(['uri','ui'],function(uri, ui) {
 
     // create the filters
     var schoolType = new BooleanFilter('st', {
-        public:true,
-        charter:true,
-        private:true
+        public:false,
+        charter:false,
+        private:false
     });
 
     var gradeLevel = new BooleanFilter('gradeLevels', {
-        p:true,
-        e:true,
-        m:true,
-        h:true
+        p:false,
+        e:false,
+        m:false,
+        h:false
     });
 
     var distance = new SelectFilter('distance', '25');

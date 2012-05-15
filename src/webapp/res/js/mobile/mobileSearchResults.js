@@ -54,7 +54,7 @@ define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilte
         $sortSelect.on('change', function() {
             var value = $(this).val();
 
-            var queryString = searchResultFilters.getUpdatedQueryString(true);
+            var queryString = searchResultFilters.getUpdatedQueryString();
             if (value.length > 0) {
                 var newQueryString = uri.putIntoQueryString(queryString, 'sortBy', value, true);
             } else {
@@ -79,7 +79,7 @@ define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilte
     };
 
     var applyFilters = function() {
-        var queryString = searchResultFilters.getUpdatedQueryString(true);
+        var queryString = searchResultFilters.getUpdatedQueryString();
 
         // rewrite URL using history API
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
