@@ -38,61 +38,6 @@
                 <c:set var="infoWindowMarkup">
                     <div class="contain_7-1">
                         <div class="inner">
-                            <!--<h1>${school.name}</h1>-->
-                            <!--<p class="small pbm ac1">-->
-                                <!--<c:if test="${not school.preschoolOnly}">-->
-                                    <!--<c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>-->
-                                <!--</c:if>-->
-                                <!--&lt;!&ndash; Grade levels &ndash;&gt;-->
-                                <!--<c:choose>-->
-                                    <!--<c:when test="${school.preschoolOnly}">-->
-                                        <!--<c:set var="gradeLevels">Preschool</c:set>-->
-                                    <!--</c:when>-->
-                                    <!--<c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">-->
-                                        <!--&lt;!&ndash; Leave blank &ndash;&gt;-->
-                                    <!--</c:when>-->
-                                    <!--<c:otherwise>-->
-                                        <!--<c:set var="gradeLevels">, ${school.gradeLevels}</c:set>-->
-                                    <!--</c:otherwise>-->
-                                <!--</c:choose>-->
-                                <!--&lt;!&ndash; Enrollment &ndash;&gt;-->
-                                <!--<c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>-->
-                                <!--<c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">-->
-                                    <!--<c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>-->
-                                <!--</c:if>-->
-                                <!--${schoolType}${gradeLevels}${enrollment}-->
-                            <!--</p>-->
-                            <!--<div class="clearfloat">&lt;!&ndash; empty not delete &ndash;&gt;</div>-->
-                            <!--<c:if test="${not empty gs_rating or not empty ratings.overall}">-->
-
-                                <div class="fl mrm">
-                                    <c:if test="${not empty gs_rating}">
-                                        <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
-                                            <div class="ratings-round ratings-medium round-medium vam fl"><div class="ratings-number number-medium">${gs_rating}</div></div> <div class="tal pls fl">GreatSchools<br />Rating</div>
-                                        </link:schoolProfileTestscore>
-                                    </c:if>
-                                </div>
-                                <!--<div class="fl ">-->
-                                    <!--<c:if test="${not empty ratings.overall}">-->
-                                        <!--<link:schoolProfileParentReview school="${school}" styleClass="but but-sm but-2 but-overview">-->
-                                            <!--Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>-->
-                                            <!--<mobile:stars curSR="${ratings.overall}" smStars="1"/>-->
-                                        <!--</link:schoolProfileParentReview>-->
-                                    <!--</c:if>-->
-                                <!--</div>-->
-                            <!--</c:if>-->
-
-
-
-
-
-
-
-
-
-
-
-
 
                             <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link"
                                                                      schoolId="${school.id}"
@@ -100,43 +45,33 @@
                                                                      name="${school.name}"
                                                                      physicalAddress="${school.address}"
                                                                      levelCode="${school.levelCode}">
-                            <div class="pam">
-                                <p><strong>${school.name}</strong></p>
-                            <p class="small pbm ac1">
-                            ${school.schoolType} ${school.grades.rangeString} | ${school.city}, ${school.databaseState}</p>
+                                <div class="pam">
+                                    <p><strong>${school.name}</strong></p>
+                                    <p class="small pbm ac1">
+                                        ${school.schoolType} ${school.grades.rangeString} | ${school.city}, ${school.databaseState}</p>
 
 
-                                <!--<div class="fl mrm">-->
-                                    <!--<c:if test="${not empty gs_rating}">-->
-                                        <!--<link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">-->
-                                            <!--<div class="ratings-round ratings-medium round-medium vam fl"><div class="ratings-number number-medium">${gs_rating}</div></div> <div class="tal pls fl">GreatSchools<br />Rating</div>-->
-                                        <!--</link:schoolProfileTestscore>-->
-                                    <!--</c:if>-->
-                                <!--</div>-->
-
-
-                            <c:if test="${not empty school.greatSchoolsRating}">
-                                <div class="fl">
-                                    <div class="ratings-round ratings-small round-small vab fl"><div class="ratings-number number-small">${school.greatSchoolsRating}</div></div> <div class="smaller ac1 fl pls mts"> of 10</div>
+                                    <c:if test="${not empty school.greatSchoolsRating}">
+                                        <div class="fl">
+                                            <div class="ratings-round ratings-small round-small vab fl"><div class="ratings-number number-small">${school.greatSchoolsRating}</div></div> <div class="smaller ac1 fl pls pt3"> of 10</div>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${not empty school.parentRating}">
+                                        <div class="fr">
+                                            <div class="smaller ac1 fl pt3 prs">Community Rating:</div><div class="fl"><mobile:stars curSR="${school.parentRating}" smStars="1"/></div>
+                                        </div>
+                                    </c:if>
                                 </div>
-                            </c:if>
-                            <c:if test="${not empty school.parentRating}">
-                                <div class="fr">
-                                    <div class="smaller ac1 fl pts prs">Community Rating:</div><div class="fl"><mobile:stars curSR="${school.parentRating}" smStars="1"/></div>
-                                </div>
-                            </c:if>
-                            </div>
-                            <div class="clearfloat pbm"><!-- --></div>
+                                <div class="clearfloat pbm"><!-- --></div>
                             </link:schoolProfileOverviewForPrimitives>
                         </div>
-
-
-
+                        <div id="arrow">
+                            <div id="arrow-down-bg"><!-- not empty --></div>
                             <div id="arrow-down"><!-- not empty --></div>
-
+                        </div>
                     </div>
                 </c:set>
-            points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude}, lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}', infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}'});
+                points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude}, lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}', infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}'});
             </c:forEach>
         </c:set>
         <script type="text/javascript">
@@ -153,75 +88,75 @@
     </head>
 
     <body>
-        <c:choose>
-            <c:when test="${page.pager.totalItems gt 0}">
-                <div id="js-school-search-results-table">
-                    <c:set var="totalResults" value="${page.pager.totalItems}"/>
+    <c:choose>
+        <c:when test="${page.pager.totalItems gt 0}">
+            <div id="js-school-search-results-table">
+                <c:set var="totalResults" value="${page.pager.totalItems}"/>
 
-                    <c:set var="count" value="0"/>
+                <c:set var="count" value="0"/>
 
-                    <c:if test="${fn:length(schoolSearchResults) gt 0}">
-                        <div class="contain_6-1 pbs">
-                            <div class="fl">
-                                <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
-                                <a data-role="button" data-inline="true" class="but but-sm but-2"
-                                   href="/search/search.page?${pageContext.request.queryString}">List</a>
-                            </div>
-
-                            <br class="clearfloat"/>
+                <c:if test="${fn:length(schoolSearchResults) gt 0}">
+                    <div class="contain_6-1 pbs">
+                        <div class="fl">
+                            <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
+                            <a data-role="button" data-inline="true" class="but but-sm but-2"
+                               href="/search/search.page?${pageContext.request.queryString}">List</a>
                         </div>
 
-                        <!--<div>
-                            <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
-                            <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
-                            <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
-                        </div>-->
+                        <br class="clearfloat"/>
+                    </div>
 
-                        <div data-role="content">
-                            <div style="position: relative;">
-                                <div style="width: 100%; position: absolute; top: 0; bottom:0; z-index: 1;">
-                                    <div class="mha tac">
+                    <!--<div>
+                        <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
+                        <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
+                        <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
+                    </div>-->
+
+                    <div data-role="content">
+                        <div style="position: relative;">
+                            <div style="width: 100%; position: absolute; top: 0; bottom:0; z-index: 1;">
+                                <div class="mha tac">
                                     <span class="js-redobtn but but-rg but-2"
                                           style="display:none;">Redo Search in this area</span>
-                                    </div>
                                 </div>
                             </div>
-
-                            <!--<div class="mha tac">-->
-                                <!--<input class="js-redobtn but but-lg but-2"-->
-                                       <!--style="display: none;"-->
-                                       <!--type="submit" value="Redo Search in this area"/>-->
-                            <!--</div>-->
-
-                            <div id="js-map-canvas"  class="" style=""><!-- no collapse --></div>
                         </div>
-                    </c:if>
-                </div>
-            </c:when>
-        </c:choose>
 
-        <search:searchResultFiltersMobile/>
+                        <!--<div class="mha tac">-->
+                        <!--<input class="js-redobtn but but-lg but-2"-->
+                        <!--style="display: none;"-->
+                        <!--type="submit" value="Redo Search in this area"/>-->
+                        <!--</div>-->
 
-        <!--- Omniture -->
-        <c:set var="pageName" value="School Search:Map" scope="request"/>
-        <c:set var="omnitureLocale"><c:choose>
-            <c:when test="${isCityBrowse}">${city.name}</c:when>
-            <c:when test="${isDistrictBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
-            <c:otherwise>${null}</c:otherwise>
-        </c:choose></c:set>
+                        <div id="js-map-canvas"  class="" style=""><!-- no collapse --></div>
+                    </div>
+                </c:if>
+            </div>
+        </c:when>
+    </c:choose>
 
-        <mod:mobileTracking pageName="${pageName}"
-                      query="${omnitureQuery}"
-                      hier1="Search"
-                      schoolType="${omnitureSchoolType}"
-                      schoolLevel="${omnitureSchoolLevel}"
-                      sortSelection="${omnitureSortSelection}"
-                      nearbySearchZipCode="${nearbySearchZipCode}"
-                      resultsPerPage="${omnitureResultsPerPage}"
-                      findASchoolByAddress="${omnitureAddressSearch}"
-                      findASchoolByName="${omnitureNameSearch}"
-                      locale="${omnitureLocale}"
-                />
+    <search:searchResultFiltersMobile/>
+
+    <!--- Omniture -->
+    <c:set var="pageName" value="School Search:Map" scope="request"/>
+    <c:set var="omnitureLocale"><c:choose>
+        <c:when test="${isCityBrowse}">${city.name}</c:when>
+        <c:when test="${isDistrictBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
+        <c:otherwise>${null}</c:otherwise>
+    </c:choose></c:set>
+
+    <mod:mobileTracking pageName="${pageName}"
+                        query="${omnitureQuery}"
+                        hier1="Search"
+                        schoolType="${omnitureSchoolType}"
+                        schoolLevel="${omnitureSchoolLevel}"
+                        sortSelection="${omnitureSortSelection}"
+                        nearbySearchZipCode="${nearbySearchZipCode}"
+                        resultsPerPage="${omnitureResultsPerPage}"
+                        findASchoolByAddress="${omnitureAddressSearch}"
+                        findASchoolByName="${omnitureNameSearch}"
+                        locale="${omnitureLocale}"
+            />
     </body>
 
 </jsp:root>
