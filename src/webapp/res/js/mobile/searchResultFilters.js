@@ -78,7 +78,6 @@ define(['uri','ui'],function(uri, ui) {
 
         this.updateDomForOne = function(filter) {
             var $filter = $(filtersSelector + ' [data-'+dataAttributes.booleanFilter+'=' + filter + ']');
-            GS.log('updating dom for ', $filter);
             if (this.filters[filter] === true) {
                 $filter.removeClass(ui.buttonClass);
                 $filter.addClass(ui.buttonPressedClass);
@@ -101,6 +100,11 @@ define(['uri','ui'],function(uri, ui) {
                         }
                     }
                 }
+            } else {
+                // when reading filters from query string, if filter doesn't exist in query string, then set
+                // filter to default, since it might have been manipulated by the user, if this method is being called
+                // later on (e.g. after the cancel button has been clicked)
+                this.setFiltersToDefault();
             }
         };
 
@@ -185,6 +189,8 @@ define(['uri','ui'],function(uri, ui) {
             var value = queryData[this.key];
             if (value !== undefined) {
                 this.value = value;
+            } else {
+                this.value = this.defaultValue;
             }
         };
         this.readFromDom = function($jq) {
@@ -399,6 +405,8 @@ define(['uri','ui'],function(uri, ui) {
     };
 
     var init = function(selector, callback) {
+        var cancelButtonSelector = '.js-searchCancel';
+
         filtersSelector = selector;
         applyCallback = callback;
 
@@ -413,6 +421,13 @@ define(['uri','ui'],function(uri, ui) {
 
         $(function() {
             initFiltersFromQueryString();
+
+            $(cancelButtonSelector).on('click', function() {
+                initFiltersFromQueryString(); // this works because we rewrite the URL when applying filters
+                for (var index in filters) {
+                    filters[index].updateDom();
+                }
+            });
 
             setupBooleanFilterHandlers();
 
