@@ -4,9 +4,12 @@ import gs.data.community.*;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.web.community.registration.EmailVerificationEmail;
+import gs.web.mobile.MobileHelper;
 import gs.web.request.RequestInfo;
 import gs.web.util.ExactTargetUtil;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -47,12 +50,11 @@ public class NewslettersSignUpMobileController implements ReadWriteAnnotationCon
     private ISubscriptionDao _subscriptionDao;
 
     @RequestMapping (value="newslettersSignUp-mobile.page", method=RequestMethod.GET)
-    public String showForm (HttpServletRequest request,
-                           HttpServletResponse response,
-                           @RequestParam (value=SITE_PREFERENCE, required=false) String sitePreference) throws IOException {
+    public String showForm (HttpServletRequest request) throws IOException {
         RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
         if (!requestInfo.shouldRenderMobileView()) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, null, "");
+            return "redirect:" + urlBuilder.asSiteRelative(request);
         }
         return SIGNUP_VIEW;
     }
