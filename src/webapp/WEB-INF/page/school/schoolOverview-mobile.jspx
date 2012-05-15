@@ -82,12 +82,11 @@
                 </c:if>
             </div>
         </c:if>
-            <div class="clearfloat"><!-- empty not delete --></div>
-        </div>
 
-    <div class="clearfloat"><!-- empty not delete --></div>
+        </div>
+        <div class="clearfloat pvm"><hr class="keyline1" /></div>
         <!-- Address / Phone / District block -->
-        <div class="pam">
+        <div class="phm pbm">
             <p>
                 ${school.physicalAddress.street}<br/>
                 ${school.physicalAddress.cityStateZip}
