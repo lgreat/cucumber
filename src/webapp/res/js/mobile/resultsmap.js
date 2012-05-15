@@ -17,6 +17,9 @@ define(['searchResultFilters'], function(searchResultFilters) {
         var bounds = new google.maps.LatLngBounds();
         var infoWindow = new google.maps.InfoWindow();
         var $redoBtn = $('.js-redobtn');
+        var newMarkers = [];
+        var p_length = points.length;
+
 
         var myOptions = {
             center: centerPoint,
@@ -61,7 +64,7 @@ define(['searchResultFilters'], function(searchResultFilters) {
             type: 'poly'
         };
 
-        for ( var i = 0; i < points.length; i++ ) {
+        for ( var i = 0; i < p_length; i++ ) {
             var position = new google.maps.LatLng(points[i].lat, points[i].lng);
             var markerOptions = {
                 map: map,
@@ -92,16 +95,44 @@ define(['searchResultFilters'], function(searchResultFilters) {
 
             bounds.extend(position);
 
-            google.maps.event.addListener(marker, 'click', function() {
-                infoWindow.setContent(this.infoWindowMarkup);
-                infoWindow.open(map, this);
-            });
+            newMarkers.push(marker);
 
-            google.maps.event.addListener(map, 'dragend', function(){
-                $redoBtn.show().css('display','block');
-            });
+            var myOptions2 = {
+                content: marker.infoWindowMarkup,
+                disableAutoPan: false,
+                maxWidth: 0,
+                pixelOffset: new google.maps.Size(-150, -39),
+                zIndex: null,
+                boxStyle: {
+                  //  background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
+                    opacity: 1,
+                    width: "300px"
+                },
+                closeBoxMargin: "8px 8px",
+                closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+                infoBoxClearance: new google.maps.Size(1, 1),
+                isHidden: false,
+                pane: "floatPane",
+                alignBottom:true,
+                enableEventPropagation: false};
+
+            //Define the infobox
+            newMarkers[i].infobox = new InfoBox(myOptions2);
+
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    for(j=0; j < p_length; j++) newMarkers[j].infobox.close();
+                    newMarkers[i].infobox.open(map, this);
+                    marker.setZIndex(9999);
+                    map.panTo(marker.position);
+                }
+            })(marker, i));
         }
 
+        google.maps.event.addListener(map, 'dragend', function(){
+            $redoBtn.show().css('display','block');
+        });
         // register onclick for link tracking
         $('body').on('click','.js-overview-link', function(){
             if (s.tl) {s.tl(this,'o', 'Mobile_map_click_bubble');} return true;
