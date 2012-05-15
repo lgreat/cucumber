@@ -10,7 +10,7 @@ GS.uri.Uri = function() {
 };
 
 GS.uri.Uri.appendQueryString = function(url, queryString) {
-    if (queryString.startsWith('?')) {
+    if (queryString.substring(0,1) === '?') {
         queryString = queryString.substring(1);
     }
     if (url.indexOf('?') > 0) {
