@@ -1,6 +1,7 @@
 package gs.web.school;
 
 import gs.web.geo.StateSpecificFooterHelper;
+import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.util.PageHelper;
 import gs.web.util.Redirect301Controller;
 import gs.web.util.RedirectView301;
@@ -36,7 +37,7 @@ import gs.data.util.table.ITableRow;
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
-public class ResearchController extends AbstractController implements IDirectoryStructureUrlController {
+public class ResearchController extends AbstractController implements IDirectoryStructureUrlController, IDeviceSpecificControllerPartOfPair {
 
     /** Used to identify which form on the page was submitted */
     public final static String FORM_PARAM = "form";
@@ -309,4 +310,16 @@ public class ResearchController extends AbstractController implements IDirectory
     public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
         _stateSpecificFooterHelper = stateSpecificFooterHelper;
     }
+
+    public boolean controllerHandlesMobileRequests() {
+        return false;
+    }
+
+    public boolean controllerHandlesDesktopRequests() {
+        return true;
+    }
+
+    public void setControllerHandlesMobileRequests(boolean handlesMobileRequests) {}
+
+    public void setControllerHandlesDesktopRequests(boolean handlesDesktopRequests) {}
 }

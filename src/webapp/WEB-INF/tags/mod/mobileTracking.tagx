@@ -146,6 +146,11 @@
         description="True only for my saved schools page. Sets prop 43 to number of saved schools only if this is true."
         type="java.lang.Boolean"
         required="false"/>
+    <jsp:directive.attribute
+        name="incomingMobileQuery"
+        description="Tracks an incoming request that was for a different URL but was redirected to the current page."
+        type="java.lang.String"
+        required="false"/>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
@@ -246,13 +251,19 @@
             tracking.s.prop41 = clickCapture.getProp(41,"${contentSearchQuery}");
             tracking.s.prop42 = clickCapture.getProp(42,"Mobile Page");
 
-            if(${schoolsSaved}){
-                var savedSchools = localStorage.getItem('GS.Schools');
-                if(savedSchools !== null && savedSchools[0] ==='{') {
-                    var numSavedSchools = JSON.parse(savedSchools)['Schools'].length.toString();
-                    tracking.s.prop43 = clickCapture.getProp(43, numSavedSchools);
+            var numSavedSchools = '';
+            try {
+                if (${schoolsSaved?'true':'false'} && typeof(Storage) !== "undefined" && localStorage){
+                    numSavedSchools = '0';
+                    var savedSchools = localStorage.getItem('GS.Schools');
+                    if(savedSchools !== null && savedSchools[0] ==='{') {
+                        numSavedSchools = JSON.parse(savedSchools)['Schools'].length.toString();
+                    }
                 }
-            }
+            } catch (e) {}
+            tracking.s.prop43 = clickCapture.getProp(43, numSavedSchools);
+
+            tracking.s.prop44 = clickCapture.getProp(44, "${incomingMobileQuery}");
 
             tracking.s.events = clickCapture.getEvents("${events}");
             tracking.s.hier1 = "${hier1}";

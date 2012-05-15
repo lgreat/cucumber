@@ -64,6 +64,11 @@
                     </p>
                 </c:if>
             </c:if>
+        <c:if test="${isFromStateHome}">
+            <div class="pvm">
+                <p>To find schools in ${context.stateOrDefault.longName}, enter both a city and state below:</p>
+            </div>
+        </c:if>
             <div class="gsTabs">
                 <ul class="tabStyle-3">
                     <li><a>By location</a></li>
@@ -80,7 +85,7 @@
                             <input type="hidden" name="totalResults" value="0"/>
                             <input type="hidden" name="distance" value="25"/>
                             <div class="clearfix prm">
-                                <gsml:input type="text" styleClass="size100of100 js-searchByLocationQuery"  name="searchString" value="${searchString}" placeholder="City AND states, zip or address ..." />
+                                <gsml:input type="text" styleClass="size100of100 js-searchByLocationQuery"  name="searchString" value="${searchString}" placeholder="City AND state, zip or address ..." />
                             </div>
                             <div id="js-gradeLevels">
                                 <select name="gradeLevels">
@@ -175,7 +180,7 @@
         <a class="js-linkToTop" href="#">Top of page</a>
     </div>-->
 
-    <mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home"/>
+    <mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home" incomingMobileQuery="${isFromStateHome?'State Home':''}"/>
 </body>
 </html>
 </jsp:root>

@@ -1341,7 +1341,7 @@
         <property name="redirectPath" value="/LD.topic?content=1541"/>
     </bean>
 
-    <bean name="/school/research.page"
+    <bean name="stateHomeController"
           class="gs.web.school.ResearchController"
           autowire="byName" lazy-init="true">
         <property name="tableDao">
@@ -1350,6 +1350,21 @@
         <property name="viewName">
             <value>/school/research</value>
         </property>
+    </bean>
+
+    <bean name="/school/research.page" class="org.springframework.stereotype.Controller"
+          factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController"
+          lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="stateHomeController"/>
+                <bean name="mobileHomepageFromStateHomeController" class="gs.web.MobileHomepageController">
+                    <property name="controllerHandlesDesktopRequests" value="false" />
+                    <property name="controllerHandlesMobileRequests" value="true" />
+                    <property name="fromStateHome" value="true"/>
+                </bean>
+            </list>
+        </constructor-arg>
     </bean>
 
     <!--<bean name="/content/backToSchool.page"-->
