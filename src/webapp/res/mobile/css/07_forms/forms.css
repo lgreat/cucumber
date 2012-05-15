@@ -62,9 +62,8 @@ textarea:focus { border-color: #555;outline: none; cursor:text; }
 input:focus {
     color: #2B2B2B;
     border:solid 1px #2092C4;
-    -webkit-transition: all 0.15s ease-in;}
-
-
+    -webkit-transition: all 0.15s ease-in;
+}
 
 select {  margin:  0;font: normal .875em/1.25em Arial, Helvetica, sans-serif;
     border: 1px solid #999;
@@ -89,7 +88,7 @@ form div { clear:left;margin: 0;padding: 0;padding-bottom: 0.5em; }
 .info {padding: 0.8em;margin-bottom: 1em;border: 2px solid #ddd; width: 89%}
 
 .error, 
-.alert {background: #fbe3e4;color: #8a1f11;border-color: #fbc2c4;}
+.alert {font: .875em; background: #fbe3e4;color: #C03C03; border-color: #C03C03;}
 
 .notice {background: #fff6bf;color: #514721;border-color: #ffd324;}
 

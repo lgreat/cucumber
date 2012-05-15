@@ -96,7 +96,7 @@
                                     <option value="h">High School (9-12)</option>
                                 </select>
                             </div>
-                            <div>
+                            <div class="pts">
                                 <button type="submit" class="but but-lg but-1 js-submitButton">Search</button>
                             </div>
                         </form>
@@ -107,9 +107,9 @@
 
                         <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
                     <div class="clearfix prm"><input type="text" class="size100of100" name="q" value="${searchString}" placeholder="School or district..." data-validation="searchString" data-validation-type="required" /></div>
-                            <div class="error" data-validation="searchString" data-validation-error-message="required" style="display: none;">Please enter a school name</div>
+                            <div class="error dn" data-validation="searchString" data-validation-error-message="required">Please enter a school name</div>
 
-                            <div><select class="stateSelect" name="state" id="stateSelector" data-validation="state" data-validation-type="required">
+                            <div class="pbm mvn"><select class="stateSelect" name="state" id="stateSelector" data-validation="state" data-validation-type="required">
                                 <option selected="selected" value="">State</option>
                                 <option value="AK">AK</option>
                                 <option value="AL">AL</option>
@@ -163,8 +163,8 @@
                                 <option value="WV">WV</option>
                                 <option value="WY">WY</option>
                             </select></div>
-                            <div class="error" data-validation="state" data-validation-error-message="required" style="display: none;">Please select a state</div>
-                            <div><button type="submit" class="but but-lg but-1 js-submitButton">Search</button></div>
+                            <div class="error dn" data-validation="state" data-validation-error-message="required">Please select a state</div>
+                            <div class="pts"><button type="submit" class="but but-lg but-1 js-submitButton">Search</button></div>
                         </form>
 
                 </div>
