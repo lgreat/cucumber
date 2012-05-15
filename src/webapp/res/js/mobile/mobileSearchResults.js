@@ -42,7 +42,7 @@ define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilte
     var reset = function(page) {
         firstPage = page;
         currentOffset = 0;
-
+        $('.js_searchResultsCount').html(page.totalResults);
         if (page.isLastPage != true) {
             $(loadMoreSelector).show();
         } else {

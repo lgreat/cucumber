@@ -7,23 +7,7 @@
 
     <c:choose>
         <c:when test="${totalResults > 0}">
-            <c:set var="schoolResultsFor">
-                <c:choose>
-                    <c:when test="${not empty searchString}"><c:out value="${searchString}" escapeXml="true"/></c:when>
-                    <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
-                </c:choose>
-            </c:set>
 
-            <div class="contain_1-1">
-                <c:choose>
-                    <c:when test="${empty searchString and isNearbySearch}">
-                        <span class="ac1">${totalResults} results near your location</span>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="ac1">${totalResults} results for </span><strong>${schoolResultsFor}</strong>
-                    </c:otherwise>
-                </c:choose>
-            </div>
             <ul class="list3">
                 <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
                     <li>

@@ -36,6 +36,7 @@
             page['firstPageNumber'] = ${pageMap.firstPageNumber};
             page['lastPageNumber'] = ${pageMap.lastPageNumber};
             page['pageSize'] = ${pageMap.pageSize};
+            page['totalResults'] = ${totalResults};
 
             mobileSearchResults.reset(page);
         });

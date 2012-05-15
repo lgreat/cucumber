@@ -105,6 +105,26 @@
                                 <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
                             </div>-->
                         </div>
+
+                        <c:set var="schoolResultsFor">
+                            <c:choose>
+                                <c:when test="${not empty searchString}"><c:out value="${searchString}"
+                                                                                escapeXml="true"/></c:when>
+                                <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
+                            </c:choose>
+                        </c:set>
+
+                        <div class="contain_1-1">
+                            <c:choose>
+                                <c:when test="${empty searchString and isNearbySearch}">
+                                    <span class="ac1"><span class="js_searchResultsCount">${totalResults}</span> results near your location</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="ac1"><span class="js_searchResultsCount">${totalResults}</span> results for </span><strong>${schoolResultsFor}</strong>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+
                         <div id="js-schoolSearchResultsList">
                             <search:schoolSearchResultsMobileList/>
                         </div>
