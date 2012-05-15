@@ -101,7 +101,7 @@ define(['searchResultFilters'], function(searchResultFilters) {
                 content: marker.infoWindowMarkup,
                 disableAutoPan: false,
                 maxWidth: 0,
-                pixelOffset: new google.maps.Size(-150, -39),
+                pixelOffset: new google.maps.Size(-150, -45),
                 zIndex: null,
                 boxStyle: {
                   //  background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",

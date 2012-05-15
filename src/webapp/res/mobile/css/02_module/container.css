@@ -130,13 +130,30 @@ Example:
     box-shadow:0 0 8px rgba(0, 0, 0, .8);
 }
 .contain_7-1 .inner a p strong { color:#000000;}
-.contain_7-1 #arrow-down {
 
+.contain_7-1 #arrow{
     position: relative;
-    left: 130px;
+    z-index: 1000;
+}
+
+.contain_7-1 #arrow #arrow-down-bg {
+    position: absolute;
+    left: 136px;
     width: 0;
     height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-top: 20px solid #000;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 14px solid #666666;
+    opacity: .75;
+}
+
+.contain_7-1 #arrow #arrow-down {
+    position: absolute;
+    left: 136px;
+    top:-2px;
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 14px solid #FFFFFF;
 }
