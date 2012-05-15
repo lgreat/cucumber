@@ -94,7 +94,7 @@ public class RequestInfo {
      */
     public String getSitePreferenceUrlForAlternateSite() {
         String newUrl = getRequestURL();
-        
+
         SitePreference chosenSitePreference;
 
         if (shouldRenderMobileView()) {
@@ -106,8 +106,11 @@ public class RequestInfo {
         if(getRequest().getRequestURI().equals(NewslettersSignUpMobileController.SIGNUP_MOBILE_VIEW)) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, null, "");
             newUrl = UrlUtil.putQueryParamIntoUrl(urlBuilder.asSiteRelative(getRequest()), MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
-        }
-        else {
+        } else if (getRequest().getRequestURI().contains("/school/testScores.page")) {
+            String queryStr = getRequest().getQueryString();
+            queryStr = UrlUtil.removeParamsFromQueryString(queryStr, MobileHelper.SITE_PREFERENCE_KEY_NAME);
+            newUrl = getRequest().getRequestURI() + "?" + UrlUtil.putQueryParamIntoQueryString(queryStr, MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
+        } else {
             newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
         }
 
