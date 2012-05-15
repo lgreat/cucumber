@@ -61,6 +61,9 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 .i-16-grey-star {
     background-position: 0 -64px;
 }
+.i-16-right-arrow-bg {
+    background-position: 0 -80px;
+}
 
 /* This is for the stars grey or orange */
 .i-16-star-0{width:0px}
