@@ -142,7 +142,7 @@ define(['searchResultFilters'], function(searchResultFilters) {
     };
 
     var listFilterToggle = function(){
-        $('#js-map-canvas').toggle();
+        $('#js-school-search-results-table').toggle();
         $('.js-searchResultFilters').toggle();
     };
 
