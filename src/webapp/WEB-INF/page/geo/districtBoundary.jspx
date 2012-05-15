@@ -14,12 +14,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>School Boundaries | GreatSchools</title>
 <style type="text/css">
-    div.leftSide {
-        width: 233px;
-    }
-    div.rightSide {
-        width: 720px;
-    }
+    /*div.leftSide {*/
+        /*width: 233px;*/
+    /*}*/
+    /*}*/
+    /*div.rightSide {*/
+        /*width: 720px;*/
+    /*}*/
     #districtListDiv select {
         width: 233px;
     }
@@ -52,9 +53,9 @@
     }
 
     #map-canvas{
-        width:700px;
-        height:500px;
-        border:2px solid #999;
+        width:670px;
+        height:510px;
+        /*border:2px solid #999;*/
         position: relative;
     }
     #map-wrapper {
@@ -607,7 +608,7 @@ new (function() {
     var updateDistrictHeader = function(district) {
 
         var $districtHeader = $('#js_districtHeader').removeClass('hidden').html('');
-        var districtHeaderTemplate = "<h4></h4>";
+        var districtHeaderTemplate = "<h4 class='bottom'></h4>";
         // TODO update gs rating image
         var districtGSRatingTemplate = "<img/>";
 
@@ -904,114 +905,142 @@ new (function() {
 
 </head>
 <gsml:body adPageName="districtBoundary" pageLayout="leftside">
-    <h3>School &amp; District Map Tool</h3>
-    <div class="">
-        <form action="" id="searchLocationForm" onsubmit="return false;">
-            <input type="text" alt="Search location" name="addressQuery" id="js_mapAddressQuery" placeholder="Search by city and state or address"  />
-            <button type="submit" name="loadAddress" id="js_loadAddress">Search</button>
-        </form>
-    </div>
+    <div class="slStylesV1-0  slFormsV1-0 mtl mrs">
+        <h1>School &amp; District Map Tool</h1>
 
-    <div class="leftSide fltlft">
-        <div class="js_showWithMap hidden">
-            <div id="js_districtHeader" class="hidden"><!-- not empty --></div>
-            <div id="districtListDiv">
-                <p>District name</p>
-                <select id="districtList"><!-- not empty --></select>
+        <div class="standard_4-1">
+            <div class="hd">
+                <form action="" id="searchLocationForm" onsubmit="return false;">
+                    <input type="text" alt="Search location" name="addressQuery" id="js_mapAddressQuery" class="text input_8 mrm"
+                           placeholder="Search by city and state or address"/>
+                    <button type="submit" name="loadAddress" id="js_loadAddress" class="button-1">Search</button>
+                </form>
             </div>
+            <div class="bd">
+                <div class="alpha grid_7 omega ptm">
+                    <div class="js_showWithMap hidden">
+                        <div id="js_districtHeader" class="hidden mlm"><!-- not empty --></div>
+                        <div id="districtListDiv" class="mlm">
+                            <h6 class="bottom">District name</h6>
+                            <hr class="keyline2"/>
+                            <div class="mvm">
+                                <select id="districtList"><!-- not empty --></select>
+                            </div>
+                        </div>
 
-            <div>
-                <p>Grade level</p>
-                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_e" value="e" checked="${empty param.level or param.level == 'e'}"/>
-                <label for="mapLevelCode_e">Elementary </label>
-                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_m" value="m" checked="${param.level == 'm'}"/>
-                <label for="mapLevelCode_m">Middle </label>
-                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_h" value="h" checked="${param.level == 'h'}"/>
-                <label for="mapLevelCode_h">High </label>
-            </div>
+                        <div class="mlm">
+                            <h6 class="bottom">Grade level</h6>
+                            <hr class="keyline2"/>
+                            <div class="mvm">
+                                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_e"
+                                            value="e"
+                                            checked="${empty param.level or param.level == 'e'}"/>
+                                <label for="mapLevelCode_e" class="radio">Elementary </label>
+                                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_m"
+                                            value="m"
+                                            checked="${param.level == 'm'}"/>
+                                <label for="mapLevelCode_m" class="radio">Middle </label>
+                                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_h"
+                                            value="h"
+                                            checked="${param.level == 'h'}"/>
+                                <label for="mapLevelCode_h" class="radio">High </label>
+                            </div>
+                        </div>
 
-            <div id="schoolListWrapper" class="hidden">
-                <div>Schools:</div>
-                <div id="schoolListDiv">
-                    <ul id="schoolList"><!-- not empty --></ul>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <!--TODO: remove-->
-            <!--<p>Show on map:</p>-->
-            <!--<gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" checked="${true}"/>-->
-            <!--<label for="js_schoolType_public">Public/Charter schools (in district)</label>-->
-            <!--<br/>-->
-            <!--<gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"/>-->
-            <!--<label for="js_schoolType_charter">Charter schools (not part of district)</label>-->
-            <!--<br/>-->
-            <!--<gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"/>-->
-            <!--<label for="js_schoolType_private">Private schools (not part of district)</label>-->
-        </div>
-
-        <!--<div class="js_showWithMap hidden">-->
-        <!--<div id="districtListDiv">-->
-        <!--<p>Nearby districts:</p>-->
-        <!--<select id="districtList">&lt;!&ndash; not empty &ndash;&gt;</select>-->
-        <!--</div>-->
-        <!--<div id="schoolListWrapper" class="hidden">-->
-        <!--<div>Schools:</div>-->
-        <!--<div id="schoolListDiv">-->
-        <!--<ul id="schoolList">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-    </div>
-    <div class="rightSide fltrt">
-        <div class="js_showWithMap hidden">
-            <div id="map-wrapper">
-                <div id="map-canvas"><!-- not empty --></div>
-                <div id="js_loading" class="hidden">Loading ...</div>
-                <button name="reload" class="hidden" id="js_reloadMap">Redo search at this location</button>
-            </div>
-            <c:if test="${param.debug}">
-                <button name="reload" id="js_reloadMap">Reload at this location</button>
-                <button name="clearAll" id="js_clearAll">Debug: Clear All</button>
-                <button name="clearPolygons" id="js_clearPolygons">Debug: Clear Polygons</button>
-                <button name="drawAllDistricts" id="js_drawAllDistricts" class="">Debug: Draw all districts</button>
-                <button name="getSAZ" id="js_getSAZ" class="hidden">Debug: Load SAZ for selected district</button>
-                <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ" class="hidden">Debug: Draw all districts and SAZ (Warning!)</button>
-                <div class="options">
-                    Map click behavior:
-                    <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior" id="mapClickLoadSchool" value="loadSchool" checked="checked"/><label for="mapClickLoadSchool">Show Boundaries</label>
-                    <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior" id="mapClickLoadDistrict" value="loadDistrict"/><label for="mapClickLoadDistrict">Show Only District Boundary</label>
-                </div>
-            </c:if>
-
-
-        </div>
-        <div class="hidden">
-            <div id="boundaryMapDistrictInfoWindow">
-                <div class="line">
-                    <div class="unit size6of7">
-                        <div class="js_name"><!-- not empty --></div>
-                        <div class="js_address"><!-- not empty --></div>
+                        <div id="schoolListWrapper" class="hidden">
+                            <h6 class="mlm bottom">Public/Charter Schools in District</h6>
+                            <div id="schoolListDiv">
+                                <ul id="schoolList"><!-- not empty --></ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="unit size1of7 lastUnit">
-                        <div class="js_rating"><!-- not empty --></div>
+
+                    <div>
+                        <!--TODO: remove-->
+                        <!--<p>Show on map:</p>-->
+                        <!--<gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" checked="${true}"/>-->
+                        <!--<label for="js_schoolType_public">Public/Charter schools (in district)</label>-->
+                        <!--<br/>-->
+                        <!--<gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"/>-->
+                        <!--<label for="js_schoolType_charter">Charter schools (not part of district)</label>-->
+                        <!--<br/>-->
+                        <!--<gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"/>-->
+                        <!--<label for="js_schoolType_private">Private schools (not part of district)</label>-->
                     </div>
+
+                    <!--<div class="js_showWithMap hidden">-->
+                    <!--<div id="districtListDiv">-->
+                    <!--<p>Nearby districts:</p>-->
+                    <!--<select id="districtList">&lt;!&ndash; not empty &ndash;&gt;</select>-->
+                    <!--</div>-->
+                    <!--<div id="schoolListWrapper" class="hidden">-->
+                    <!--<div>Schools:</div>-->
+                    <!--<div id="schoolListDiv">-->
+                    <!--<ul id="schoolList">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
                 </div>
-            </div>
-            <div id="boundaryMapSchoolInfoWindow">
-                <div class="line">
-                    <div class="unit size6of7">
-                        <div class="js_name"><!-- not empty --></div>
-                        <div class="js_address"><!-- not empty --></div>
+                <div class="alpha grid_17 omega fltrt">
+                    <div class="js_showWithMap hidden">
+                        <div id="map-wrapper">
+                            <div id="map-canvas"><!-- not empty --></div>
+                            <div id="js_loading" class="hidden">Loading ...</div>
+                            <button name="reload" class="hidden" id="js_reloadMap">Redo search at this location</button>
+                        </div>
+                        <c:if test="${param.debug}">
+                            <button name="reload" id="js_reloadMap">Reload at this location</button>
+                            <button name="clearAll" id="js_clearAll">Debug: Clear All</button>
+                            <button name="clearPolygons" id="js_clearPolygons">Debug: Clear Polygons</button>
+                            <button name="drawAllDistricts" id="js_drawAllDistricts" class="">Debug: Draw all districts
+                            </button>
+                            <button name="getSAZ" id="js_getSAZ" class="hidden">Debug: Load SAZ for selected district
+                            </button>
+                            <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ"
+                                    class="hidden">Debug: Draw all districts and SAZ (Warning!)
+                            </button>
+                            <div class="options">
+                                Map click behavior:
+                                <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior"
+                                       id="mapClickLoadSchool"
+                                       value="loadSchool" checked="checked"/><label
+                                    for="mapClickLoadSchool">Show Boundaries</label>
+                                <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior"
+                                       id="mapClickLoadDistrict" value="loadDistrict"/><label
+                                    for="mapClickLoadDistrict">Show Only District Boundary</label>
+                            </div>
+                        </c:if>
+
+
                     </div>
-                    <div class="unit size1of7 lastUnit">
-                        <div class="js_rating"><!-- not empty --></div>
-                    </div>
-                </div>
-                <div class="line">
-                    <div class="unit size7of7 lastUnit">
-                        <div class="js_comments"><!-- not empty --></div>
+                    <div class="hidden">
+                        <div id="boundaryMapDistrictInfoWindow">
+                            <div class="line">
+                                <div class="unit size6of7">
+                                    <div class="js_name"><!-- not empty --></div>
+                                    <div class="js_address"><!-- not empty --></div>
+                                </div>
+                                <div class="unit size1of7 lastUnit">
+                                    <div class="js_rating"><!-- not empty --></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="boundaryMapSchoolInfoWindow">
+                            <div class="line">
+                                <div class="unit size6of7">
+                                    <div class="js_name"><!-- not empty --></div>
+                                    <div class="js_address"><!-- not empty --></div>
+                                </div>
+                                <div class="unit size1of7 lastUnit">
+                                    <div class="js_rating"><!-- not empty --></div>
+                                </div>
+                            </div>
+                            <div class="line">
+                                <div class="unit size7of7 lastUnit">
+                                    <div class="js_comments"><!-- not empty --></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1020,7 +1049,8 @@ new (function() {
         <div>
             <div>
                 <strong>Show schools that are not part of a district</strong>
-                <gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="hidden" checked="${true}"/>
+                <gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="hidden"
+                               checked="${true}"/>
                 <label style="display:none;" for="js_schoolType_public">Public/Charter schools (in district)</label>
                 <gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"/>
                 <label for="js_schoolType_charter">Charter</label>
@@ -1033,9 +1063,10 @@ new (function() {
                 <img src="/res/img/map/pushpin_7.png"/> District
             </div>
         </div>
-    </div>
-    <div style="display:none;">
-        <mod:tracking pageName="Attendance Zones" hier1="TBD"/>
+
+        <div style="display:none;">
+            <mod:tracking pageName="Attendance Zones" hier1="TBD"/>
+        </div>
     </div>
 </gsml:body>
 </html>
