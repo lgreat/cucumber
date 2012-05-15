@@ -3,6 +3,7 @@ package gs.web.search;
 import gs.data.geo.ICounty;
 import gs.data.school.LevelCode;
 import gs.data.search.*;
+import gs.data.search.SpellChecking;
 import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.IDistrictSearchResult;
 import gs.data.search.beans.SolrSchoolSearchResult;
@@ -311,7 +312,9 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         // Common: Perform a search. Search might find spelling suggestions and then run another search to see if the
         // spelling suggestion actually yieleded results. If so, record the "didYouMean" suggestion into the model
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = searchForSchools(schoolSearchCommand, commandAndFields.getState(), fieldConstraints, filterGroups, sort);
-        model.put(MODEL_DID_YOU_MEAN, searchResultsPage.getDidYouMeanQueryString());
+        if (searchResultsPage.getSpellCheckResponse() != null) {
+            model.put(MODEL_DID_YOU_MEAN, SpellChecking.getSearchSuggestion(commandAndFields.getSearchString(), searchResultsPage.getSpellCheckResponse()));
+        }
 
 
         // Common: Search for nearby cities and place them into the model
@@ -447,13 +450,14 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
     }
 
     private String getNoResultsView(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {
-        String viewName;UrlBuilder builder = new UrlBuilder(UrlBuilder.HOME);
+        /*String viewName;UrlBuilder builder = new UrlBuilder(UrlBuilder.HOME);
         builder.addParameter("noResults","true");
         if (commandAndFields.getSearchString() != null) {
             builder.addParameter("searchString",commandAndFields.getSearchString());
         }
         viewName = "redirect:" + builder.asSiteRelative(request);
-        return viewName;
+        return viewName;*/
+        return "index-mobile";
     }
 
     private void putSearchResultInfoIntoModel(Map<String, Object> model, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
