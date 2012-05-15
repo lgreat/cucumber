@@ -216,7 +216,7 @@ define(['uri','ui'],function(uri, ui) {
         h:false
     });
 
-    var distance = new SelectFilter('distance', '25');
+    var distance = new SelectFilter('distance', undefined);
     var minGreatSchoolsRating = new SelectFilter('minGreatSchoolsRating', undefined);
     var minCommunityRating = new SelectFilter('minCommunityRating', undefined);
     var schoolSize = new SelectFilter('schoolSize', 'All');
