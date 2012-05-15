@@ -31,7 +31,26 @@ Example:
     padding:8px;
 }
 
+/* container 1
+-----------------------------------------------------------------------------*/
 
+.contain_1-2 {
+    border-top: solid 1px #FFFFFF;
+    border-bottom: solid 1px #E6E6E6;
+    background:#FFFFFF;
+    padding:8px;
+}
+
+/* container 1
+-----------------------------------------------------------------------------*/
+
+.contain_1-3 {
+    border-top: solid 1px #E6E6E6;
+    border-bottom: solid 1px #E6E6E6;
+    background:#F8F8F8;
+    padding:5px 0 3px 0;
+    text-align: center;
+}
 
 
 /* Container 2

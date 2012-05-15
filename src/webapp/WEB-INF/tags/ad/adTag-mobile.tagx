@@ -5,7 +5,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="position" required="true" description="Ad slot position" />
-    <div class="contain_1-2">
+    <div class="contain_1-3">
         <ad:adTag position="${position}"/>
     </div>
 </jsp:root>

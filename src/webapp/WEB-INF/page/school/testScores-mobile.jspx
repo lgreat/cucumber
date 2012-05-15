@@ -43,7 +43,7 @@
         </script>
     </head>
     <body>
-    <div class="contain_1-1">
+    <div class="contain_1-2">
 
                 <div><h6>Test Scores</h6></div>
                 <!--TODO refactor this into a tag,since its used on school overview also.-->
@@ -77,13 +77,13 @@
                     </div>
                 </div>
                 <c:if test="${not empty gs_rating}">
-                <div class="ptm">
-                    <hr class="keyline1" />
-                    <div>
-                        <div class="ratings-round ratings-medium round-medium fl"><div class="ratings-number number-medium">${gs_rating}</div></div> <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong class="small"> GreatSchools Rating</strong></div>
+                    <div class="ptm">
+                        <hr class="keyline1" />
+                        <div>
+                            <div class="ratings-round ratings-medium round-medium fl"><div class="ratings-number number-medium">${gs_rating}</div></div> <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong class="small"> GreatSchools Rating</strong></div>
+                        </div>
+                        <div class="clearfloat"><!--  --></div>
                     </div>
-                    <div class="clearfloat"><!--  --></div>
-                </div>
                 </c:if>
 
     </div>
@@ -92,58 +92,54 @@
 
     <c:choose>
         <c:when test="${not empty schoolTestScores}">
-            <div>
+        <div>
 
-                <c:forEach var="testToGrades" items="${schoolTestScores}" varStatus="index">
-                    <div class="mod standard_6-1 mtn ptn">
-                        <div class="inner">
-                            <div class="hd plm">
-                                ${testToGrades.testLabel}
-                            </div>
-                            <div class="bd">
-                                <c:if test="${not empty testToGrades.scale}">
-                                    <div class="contain_2-1">
-                                        <strong>Scale:</strong> ${testToGrades.scale}
-                                    </div>
-                                </c:if>
-                                <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
-                                    <div class="pam">
-                                        <h4>${gradeToSubjects.gradeLabel}</h4>
+            <c:forEach var="testToGrades" items="${schoolTestScores}" varStatus="index">
+                <div class="mod standard_6-1 mtn ptn">
+                    <div class="inner">
+                        <div class="hd plm">
+                            ${testToGrades.testLabel}
+                        </div>
+                        <div class="bd">
+                            <c:if test="${not empty testToGrades.scale}">
+                                <div class="contain_2-1">
+                                   <strong>Scale:</strong> ${testToGrades.scale}
+                                </div>
+                            </c:if>
+                            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
+                                <div class="pam">
+                                    <h4>${gradeToSubjects.gradeLabel}</h4>
 
-                                        <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}"
-                                                   varStatus="index">
-                                            <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
+                                    <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}" varStatus="index">
+                                        <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
 
-                                            <c:forEach var="yearToTestScore" items="${subjectToYears.years}"
-                                                       varStatus="index">
+                                        <c:forEach var="yearToTestScore" items="${subjectToYears.years}" varStatus="index">
 
-                                                <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}"
-                                                                 testScoreLabel="${yearToTestScore.testScoreLabel}"
-                                                                 testScoreYear="${yearToTestScore.year}"/>
-                                            </c:forEach>
-
-                                            <div class="ptm"><!-- not empty --></div>
+                                            <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}" testScoreLabel="${yearToTestScore.testScoreLabel}"
+                                                             testScoreYear="${yearToTestScore.year}"/>
                                         </c:forEach>
-                                    </div>
-                                    <hr class="keyline1"/>
-                                </c:forEach>
+                                        <div class="ptm"><!-- not empty --></div>
+                                    </c:forEach>
+                                </div>
+                                <hr class="keyline1" />
+                            </c:forEach>
 
-                            </div>
                         </div>
                     </div>
-                    <c:if test="${not empty testToGrades.source}">
-                        <div class="pam ac1">
-                            Source: ${testToGrades.source}
-                        </div>
-                    </c:if>
-                    <c:if test="${not empty testToGrades.description}">
-                        <div class="phm pbm">
-                            <strong>Description:</strong><br/>
-                            <util:truncate value="${testToGrades.description}" words="40"/>
-                        </div>
-                    </c:if>
-                </c:forEach>
-            </div>
+                </div>
+                <c:if test="${not empty testToGrades.source}">
+                    <div class="pam ac1">
+                        Source: ${testToGrades.source}
+                    </div>
+                </c:if>
+                <c:if test="${not empty testToGrades.description}">
+                    <div class="phm pbm">
+                        <strong>Description:</strong><br />
+                        <util:truncate value="${testToGrades.description}" words="40" />
+                    </div>
+                </c:if>
+            </c:forEach>
+        </div>
         </c:when>
         <c:otherwise>
             No test score data is available for this school
