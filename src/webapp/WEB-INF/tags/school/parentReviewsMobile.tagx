@@ -55,10 +55,15 @@
                     </p>
 
                 </div>
-                <hr class="keyline1" />
+
             </c:if>
-            <c:if test="${status.first and ads and !empty adPosition}">
-                <ad:adTag-mobile position="${adPosition}"/>
-            </c:if>
+            <c:choose>
+                <c:when test="${status.first and ads and !empty adPosition}">
+                    <ad:adTag-mobile position="${adPosition}"/>
+                </c:when>
+                <c:otherwise>
+                    <hr class="keyline1" />
+                </c:otherwise>
+            </c:choose>
         </c:forEach>
 </jsp:root>
