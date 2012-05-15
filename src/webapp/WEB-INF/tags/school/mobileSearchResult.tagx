@@ -46,24 +46,24 @@
             <div class="fl">
                 <c:if test="${greatSchoolsRating ne 'na'}">
                     <div class="vam">
-                    <div class="fl">
-                    <div class="ratings-round ratings-small round-small">
-                        <div class="ratings-number number-small">
-                            ${greatSchoolsRating}
+                        <div class="fl">
+                            <div class="ratings-round ratings-small round-small">
+                                <div class="ratings-number number-small">
+                                    ${greatSchoolsRating}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    </div>
-                    <div class="fl plm">
-                    <span class="small-lt"> of 10</span>
-                    </div>
-                    <br class="cleafloat"/>
+                        <div class="fl plm pt2">
+                            <span class="small-lt"> of 10</span>
+                        </div>
+                        <br class="cleafloat"/>
                     </div>
                 </c:if>
             </div>
             <div class="fr mrm">
                 <c:if test="${not empty parentRating}">
-                    <span class="small-lt">Community rating: </span>
-                    <mobile:stars curSR="${parentRating}"/>
+                    <div class="small-lt fl pt2">Community rating: </div>
+                    <div class="pls pts fl"><mobile:stars curSR="${parentRating}"/></div>
                 </c:if>
             </div>
             <br class="clearfloat"/>

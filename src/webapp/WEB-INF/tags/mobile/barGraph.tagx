@@ -27,7 +27,7 @@
                     </div>
                     <c:choose>
                         <c:when test="${testScoreValue != 'Data not available'}">
-                            <div class="unit size72of100 pts phm">
+                            <div class="unit size72of100 pt3 phm">
                                 <div class="bar_container"><div style="width:${testScoreValue}%"><!-- not empty --></div></div>
                             </div>
 
@@ -48,12 +48,12 @@
             <div class="js_valueLine line small pbs">
                 <div class="js_year fl tal" style="width:2em;"><!-- not empty --></div>
 
-                <div class="js_bar unit size74of100 pts phm">
+                <div class="js_bar unit size72of100 pt3 phm">
                     <!-- That 50% below is just a placeholder!! The JS sets the real value -->
                     <div class="bar_container"><div style="width:50%"><!-- not empty --></div></div>
                 </div>
 
-                <div class="js_value unit size20of100 lastUnit tal"><!-- not empty --></div>
+                <div class="js_value unit size22of100 lastUnit tal"><!-- not empty --></div>
                 <div class="js_notData fl plm" style="display: none"><!-- not empty --></div>
             </div>
         </c:otherwise>
