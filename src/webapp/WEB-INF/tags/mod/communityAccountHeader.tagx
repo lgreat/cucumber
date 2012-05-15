@@ -16,6 +16,9 @@
                              description="True if topnav is loaded via community iframe"/>
 
     <ul id="utilLinks">
+        <c:if test="${hasMobileView and not empty hideAlternateSiteButton and not empty requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
+            <li><a href="${requestInfo.sitePreferenceUrlForAlternateSite}">Go to Mobile Site</a></li>
+        </c:if>
         <li>
             Welcome,
             <link:userProfile
