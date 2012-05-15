@@ -247,7 +247,7 @@
             <div class="infoBox1 smallText1">
                 <div id="js-bubbleInfo-1">
                     <div class="mediaExt1">
-                    <span class="js-trigger sprite info img"><!-- do not collapse --></span>
+                    <span class="js-trigger sprite i-info img"><!-- do not collapse --></span>
 
                     <div class="bk">About these ratings</div>
                     </div>
