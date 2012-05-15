@@ -43,7 +43,7 @@
         </script>
     </head>
     <body>
-    <div class="contain_1-2">
+    <div class="contain_1-2 pbn" style="border-bottom: none">
 
                 <div><h6>Test Scores</h6></div>
                 <!--TODO refactor this into a tag,since its used on school overview also.-->
@@ -79,7 +79,7 @@
                 <c:if test="${not empty gs_rating}">
                     <div class="ptm">
                         <hr class="keyline1" />
-                        <div>
+                        <div class="pts">
                             <div class="ratings-round ratings-medium round-medium fl"><div class="ratings-number number-medium">${gs_rating}</div></div> <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong class="small"> GreatSchools Rating</strong></div>
                         </div>
                         <div class="clearfloat"><!--  --></div>
@@ -87,7 +87,7 @@
                 </c:if>
 
     </div>
-    <div class="clearfloat"><!--  --></div>
+
 
 
     <c:choose>
@@ -154,7 +154,7 @@
             <div class="inner">
                 <div class="hd">
                     <h2 class="plm">
-                        School overview  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                        School overview  <span class="arrow"><span class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
                     </h2>
                 </div>
             </div>
@@ -166,7 +166,7 @@
             <div class="inner">
                 <div class="hd">
                     <h2 class="plm">
-                        Reviews  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                        Reviews  <span class="arrow"><span class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
                     </h2>
                 </div>
             </div>
