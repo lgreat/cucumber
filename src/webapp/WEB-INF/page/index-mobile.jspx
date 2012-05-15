@@ -71,10 +71,10 @@
         </c:if>
             <div class="gsTabs">
                 <ul class="tabStyle-3">
-                    <li><a>By location</a></li>
-                    <li><a>By name</a></li>
+                    <li><a class="${(isFromByLocation || isNearbySearch || empty isSearch || isSearch eq false)? 'selected':''}">By location</a></li>
+                    <li><a class="${(isSearch)? 'selected':''}">By name</a></li>
                 </ul>
-                <div class="contain_5-1">
+                <div class="contain_5-1 ${(isSearch)? 'dn':''}">
                         <form method="get" action="/search/search.page" id="js-searchByLocation" accept-charset="UTF-8">
                             <input type="hidden" name="lat"/>
                             <input type="hidden" name="lon"/>
@@ -103,7 +103,7 @@
 
                 </div>
 
-                <div class="contain_5-1 dn">
+                <div class="contain_5-1 ${(isFromByLocation || isNearbySearch || empty isSearch || isSearch eq false)? 'dn':''}">
 
                         <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
                     <div class="clearfix prm"><input type="text" class="size100of100" name="q" value="${searchString}" placeholder="School or district..." data-validation="searchString" data-validation-type="required" /></div>

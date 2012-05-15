@@ -2,6 +2,7 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], 
     var JS_GRADE_LEVELS_CONTAINER_SELECTOR = '#js-gradeLevels';
     var BY_LOCATION_FORM_SELECTOR = '#js-searchByLocation';
     var BY_NAME_FORM_SELECTOR = '#search-form';
+    var TABS_SELECTOR = '.gsTabs';
 
 
     // copied from findASchool.js
@@ -95,10 +96,7 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], 
             /* initiate tabs  */
             $('.gsTabs').each(function(){
                 var tab = $(this);
-                tab.children('div').hide(); // Hide all content divs
                 var tabNav = tab.find('ul:first'); // get only the first ul not all of the descendents
-                tab.children('div:first').show(); // Show the first div
-                tabNav.find('li:first a').addClass('selected'); // Set the class of the first link to active
                 tabNav.find('li').each(function(){
                     $(this).find('a').click(function(){ //When any link is clicked
                         tab.children('div').hide(); // hide all layers
