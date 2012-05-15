@@ -70,6 +70,12 @@ define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilte
         $('.js-searchCancel').on('click',function(){
             listFilterToggle();
         });
+        $('.js-mapResultsLink').on('click', function() {
+            var href = $(this).attr('href');
+            var newHref = uri.appendQueryString(href, searchResultFilters.getUpdatedQueryString());
+            window.location.href = newHref;
+            return false;
+        });
     };
 
     var applyFilters = function() {

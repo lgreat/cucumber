@@ -69,8 +69,7 @@
                                    <!--class="ui-btn-active but but-sm but-2 mrm">List</a>-->
                                 <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
                                 <a data-role="button" data-inline="true"
-                                   href="/search/mapresults.page?${pageContext.request.queryString}"
-                                   class="but but-sm but-2">Map</a>
+                                   href="/search/mapresults.page" class="but but-sm but-2 js-mapResultsLink">Map</a>
                             </div>
                             <div class="fr">
                                 <select class="js-sort-select searchSelect">

@@ -9,6 +9,13 @@ GS.uri.Uri = function() {
 
 };
 
+GS.uri.Uri.appendQueryString = function(url, queryString) {
+    if (url.indexOf('?') > 0) {
+        return url + '&' + queryString;
+    } else {
+        return url + '?' + queryString;
+    }
+};
 
 /**
  * Written for GS-12127. When necessary, make ajax calls prepend result of this method to relative path, in order
