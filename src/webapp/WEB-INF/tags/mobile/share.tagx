@@ -41,20 +41,24 @@ ${school.physicalAddress.cityStateZip}
         <c:set var="emailSubject" value="${school.name} on GreatSchools"/>
     </c:if>
 
-    <div class="mam">
+    <div class="pam size100of100">
         <!-- GS-12650 SMS protocol does not allow us the flexibility we want. De-scoping this for now -->
         <!--<a href="sms:?body=${fn:escapeXml(gsweb:encodeWithinQuery(smsBody))}">SMS</a>-->
-        <a href="mailto:?subject=${fn:escapeXml(gsweb:encodeWithinQuery(emailSubject))}&amp;body=${fn:escapeXml(gsweb:encodeWithinQuery(emailBody))}"
-           class="but but-rg but-2 phl">Email a link</a>
+        <div class="fl">
+            <a href="mailto:?subject=${fn:escapeXml(gsweb:encodeWithinQuery(emailSubject))}&amp;body=${fn:escapeXml(gsweb:encodeWithinQuery(emailBody))}"
+             class="but but-rg but-2 " style="min-width: 95px;">Email a link</a>
+        </div>
         <span id="saveSchool">
             <c:if test="${not empty school}">
-                <a href="javascript:void(0);" class="but but-rg but-2 mlm phl" id="saveSchoolButton">Save</a>
+                <div class="fr mhm prs">
+                <a href="javascript:void(0);" class="but but-rg but-2" style="min-width: 95px;" id="saveSchoolButton">Save</a>
                 <form id = "saveSchoolForm">
                     <input type="hidden" name="id" value="${school.id}"/>
                     <input type="hidden" name="state" value="${school.stateAbbreviation.abbreviation}"/>
                 </form>
+                </div>
             </c:if>
         </span>
     </div>
-
+    <div class="clearfloat"><!-- --></div>
 </jsp:root>
