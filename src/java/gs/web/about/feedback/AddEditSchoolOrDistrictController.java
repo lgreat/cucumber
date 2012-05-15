@@ -43,7 +43,7 @@ import java.util.Map;
 public class AddEditSchoolOrDistrictController extends SimpleFormController implements ReadWriteAnnotationController {
     protected final Log _log = LogFactory.getLog(getClass());
 
-    private IQueueDao _queueDao;
+    private INewEntityQueueDao _newEntityQueueDao;
 
     public IGeoDao getGeoDao() {
         return _geoDao;
@@ -55,12 +55,12 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
 
     private IGeoDao _geoDao;
 
-    public IQueueDao getQueueDao() {
-        return _queueDao;
+    public INewEntityQueueDao getQueueDao() {
+        return _newEntityQueueDao;
     }
 
-    public void setQueueDao(IQueueDao _queueDao) {
-        this._queueDao = _queueDao;
+    public void setQueueDao(INewEntityQueueDao _queueDao) {
+        this._newEntityQueueDao = _queueDao;
     }
 
     public ISchoolDao getSchoolDao() {
@@ -110,22 +110,22 @@ public class AddEditSchoolOrDistrictController extends SimpleFormController impl
         model.put("name",command.getSubmitterName());
         model.put("schoolOrDistrict",command.getSchoolOrDistrict());
 
-        Queue queue = new Queue();
+        NewEntityQueue newEntityQueue = new NewEntityQueue();
         char[] digits = {0,1,2,3,4,5,6,7,8,9};
         if(command.getSchoolId() != null && StringUtils.containsAny(command.getSchoolId(),digits) && StringUtils.containsOnly(command.getSchoolId(),digits)){
             model.put("schoolId",command.getSchoolId());
             School school = _schoolDao.getSchoolById(command.getState(),new Integer(command.getSchoolId()));
             model.put("name",school.getName());
         }else{
-            queue.setOriginalId(0);
+            newEntityQueue.setOriginalId(0);
         }
         //School school = _schoolDao.findSchool(State.fromString(command.getState()),)
-        queue.setContactName(command.getSubmitterName());
-        queue.setContactEmail(command.getSubmitterEmail());
-        queue.setContactConnection(command.getSubmitterConnectionToSchool());
-        queue.setType(SchoolType.CHARTER);
-        queue.setName("Test School");
-        _queueDao.saveQueue(queue,"web form");
+        newEntityQueue.setContactName(command.getSubmitterName());
+        newEntityQueue.setContactEmail(command.getSubmitterEmail());
+        newEntityQueue.setContactConnection(command.getSubmitterConnectionToSchool());
+        newEntityQueue.setType(SchoolType.CHARTER);
+        newEntityQueue.setName("Test School");
+        _newEntityQueueDao.saveNewEntityQueue(newEntityQueue,"web form");
 
 
         return new ModelAndView(getSuccessView(), model);
