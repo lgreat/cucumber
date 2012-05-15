@@ -193,7 +193,7 @@
                                        <!--type="submit" value="Redo Search in this area"/>-->
                             <!--</div>-->
 
-                            <div id="js-map-canvas"  class="" style=""></div>
+                            <div id="js-map-canvas"  class="" style=""><!-- no collapse --></div>
                         </div>
                     </c:if>
                 </div>
