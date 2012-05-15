@@ -92,13 +92,7 @@
                     <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
                     <c:if test="${!empty principalReview}">
                         <div class="contain_2-1">
-
-                                <!--<strong>The Principal's point of view</strong>-->
-                                <!--<p>-->
-                                    <!--${principalReview.comments}-->
-                                <!--</p>-->
                             <util:truncate value="${principalReview.comments}" words="40" />
-
                         </div>
                     </c:if>
                 </c:if>
@@ -112,7 +106,7 @@
                             <div class="plm fl"><strong class="small">Community Rating</strong></div>
                         </div>
                     </div>
-                    <div class="clearfloat"><!-- not empty --></div>
+                    <div class="clearfloat pts"><!-- not empty --></div>
                     <div id="js-sub-ratings" style="display: none;">
                         <c:choose>
                             <c:when test="${not empty parentRatings and not empty studentRatings}">
@@ -168,9 +162,11 @@
         <c:if test="${cmd.totalReviews gt 0}">
             <div class="js-paginate-next">
                 <div class="plm"><a href="#" class="small"><strong>View more reviews &amp;raquo;</strong></a></div>
+                <div class="pts"><hr class="keyline1" /></div>
             </div>
+
         </c:if>
-        <div class="pts"><hr class="keyline1" /></div>
+
         <!-- SMS / Email / Save buttons -->
         <mobile:share school="${school}"/>
 

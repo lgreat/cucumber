@@ -167,7 +167,7 @@
             </div>
             <c:if test="${numberOfReviews gt 2}">
                 <div>
-                    <div class="plm"><link:schoolProfileParentReview
+                    <div class="plm pbm"><link:schoolProfileParentReview
                             school="${school}">View more reviews &amp;raquo;</link:schoolProfileParentReview></div>
                 </div>
             </c:if>
