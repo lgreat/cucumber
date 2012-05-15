@@ -149,26 +149,30 @@
         </c:if>
 
         <!-- Parent reviews -->
-        <c:if test="${numberOfReviews gt 0}">
 
-            <div class="mod standard_6-1">
-                <div class="inner">
-                    <link:schoolProfileParentReview school="${school}">
-                        <div class="hd">
-                            <h2 class="plm">
-                                Reviews (${numberOfReviews})  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
-                            </h2>
-                        </div>
-                    </link:schoolProfileParentReview>
-                    <div class="bd">
-                        <school:parentReviewsMobile reviews="${reviewsToShow}" />
-                        </div>
+        <div class="mod standard_6-1">
+            <div class="inner">
+                <link:schoolProfileParentReview school="${school}">
+                    <div class="hd">
+                        <h2 class="plm">
+                            Reviews<c:if test="${numberOfReviews gt 0}"> (${numberOfReviews})</c:if> <span class="arrow"><span
+                                class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                        </h2>
                     </div>
-                <div>
-                <div class="plm"><link:schoolProfileParentReview school="${school}">View more reviews &amp;raquo;</link:schoolProfileParentReview></div>
+                </link:schoolProfileParentReview>
+                <c:if test="${numberOfReviews gt 0}">
+                    <div class="bd">
+                        <school:parentReviewsMobile reviews="${reviewsToShow}"/>
+                    </div>
+                </c:if>
             </div>
+            <c:if test="${numberOfReviews gt 2}">
+                <div>
+                    <div class="plm"><link:schoolProfileParentReview
+                            school="${school}">View more reviews &amp;raquo;</link:schoolProfileParentReview></div>
+                </div>
+            </c:if>
         </div>
-        </c:if>
 
         <!-- Test scores -->
         <c:if test="${hasTestScores}">

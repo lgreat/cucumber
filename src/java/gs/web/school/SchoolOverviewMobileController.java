@@ -32,7 +32,7 @@ import java.util.*;
 public class SchoolOverviewMobileController implements Controller, IDirectoryStructureUrlController, IDeviceSpecificControllerPartOfPair {
     protected static final Log _log = LogFactory.getLog(SchoolOverviewMobileController.class.getName());
 
-    public static final int MAX_SCHOOL_REVIEWS = 3;
+    public static final int MAX_SCHOOL_REVIEWS = 2;
     public static final String HAS_TEST_SCORES = "hasTestScores";
 
     private ISchoolDao _schoolDao;

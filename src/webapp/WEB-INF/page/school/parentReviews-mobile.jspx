@@ -154,13 +154,22 @@
         </div>
 
 
-        <div class="js-paginate-container">
-            <school:parentReviewsMobile reviews="${reviewsToShow}" ads="true" adPosition="Pos1_320x50" />
-        </div>
+        <c:choose>
+            <c:when test="${cmd.totalReviews gt 0}">
+                <div class="js-paginate-container">
+                    <school:parentReviewsMobile reviews="${reviewsToShow}" ads="true" adPosition="Pos1_320x50" />
+                </div>
+            </c:when>
+            <c:otherwise>
+                <p>There are no reviews yet for this school.</p>
+            </c:otherwise>
+        </c:choose>
 
-        <div class="js-paginate-next">
-            <div class="plm"><a href="#" class="small"><strong>View more reviews &amp;raquo;</strong></a></div>
-        </div>
+        <c:if test="${cmd.totalReviews gt 0}">
+            <div class="js-paginate-next">
+                <div class="plm"><a href="#" class="small"><strong>View more reviews &amp;raquo;</strong></a></div>
+            </div>
+        </c:if>
         <div class="pts"><hr class="keyline1" /></div>
         <!-- SMS / Email / Save buttons -->
         <mobile:share school="${school}"/>
