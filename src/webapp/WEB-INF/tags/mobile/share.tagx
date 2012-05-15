@@ -46,12 +46,12 @@ ${school.physicalAddress.cityStateZip}
         <!--<a href="sms:?body=${fn:escapeXml(gsweb:encodeWithinQuery(smsBody))}">SMS</a>-->
         <div class="fl">
             <a href="mailto:?subject=${fn:escapeXml(gsweb:encodeWithinQuery(emailSubject))}&amp;body=${fn:escapeXml(gsweb:encodeWithinQuery(emailBody))}"
-             class="but but-rg but-2 " style="min-width: 95px;">Email a link</a>
+             class="but but-rg but-2 " style="min-width: 106px;">Email a link</a>
         </div>
         <span id="saveSchool">
             <c:if test="${not empty school}">
                 <div class="fr mhm prs">
-                <a href="javascript:void(0);" class="but but-rg but-2" style="min-width: 95px;" id="saveSchoolButton">Save</a>
+                <a href="javascript:void(0);" class="but but-rg but-2" style="min-width: 106px;" id="saveSchoolButton">Save</a>
                 <form id = "saveSchoolForm">
                     <input type="hidden" name="id" value="${school.id}"/>
                     <input type="hidden" name="state" value="${school.stateAbbreviation.abbreviation}"/>
