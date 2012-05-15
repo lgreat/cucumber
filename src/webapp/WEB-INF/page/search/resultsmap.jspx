@@ -5,7 +5,8 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:gsweb="gstaglib"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search">
 
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
     <jsp:output omit-xml-declaration="true" />
@@ -60,6 +61,7 @@
         <script type="text/javascript">
             require(['resultsmap'], function( resultsmap ) {
                 $(function(){
+                    resultsmap.init();
                     ${pointsArray}
                     resultsmap.initializeMap(points);
                 });
@@ -80,7 +82,7 @@
                     <c:if test="${fn:length(schoolSearchResults) gt 0}">
                         <div class="contain_6-1 pbs">
                             <div class="fl">
-                                <!--<div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>-->
+                                <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
                                 <a data-role="button" data-inline="true" class="but but-sm but-2"
                                    href="/search/search.page?${pageContext.request.queryString}">List</a>
                             </div>
@@ -147,6 +149,8 @@
                 </div>
             </c:when>
         </c:choose>
+
+        <search:searchResultFiltersMobile/>
 
         <!--- Omniture -->
         <c:set var="pageName" value="School Search:Map" scope="request"/>

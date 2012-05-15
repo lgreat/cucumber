@@ -1,4 +1,17 @@
-define(function() {
+define(['searchResultFilters'], function(searchResultFilters) {
+    // filters info
+    var filtersSelector = '.js-searchResultFilters';
+
+    var init = function() {
+        attachEventHandlers();
+        searchResultFilters.init(filtersSelector, applyFilters);
+    };
+
+    var applyFilters = function() {
+        var queryString = searchResultFilters.getUpdatedQueryString();
+        window.location.search = queryString;
+    };
+
     var initializeMap = function(points) {
         var centerPoint = new google.maps.LatLng(0, 0);
         var bounds = new google.maps.LatLngBounds();
@@ -95,9 +108,30 @@ define(function() {
         });
 
         map.fitBounds(bounds);
-    }
+    };
+
+    var listFilterToggle = function(){
+        $('#js-map-canvas').toggle();
+        $('.js-searchResultFilters').toggle();
+    };
+
+    var attachEventHandlers = function() {
+        $('#searchFilter').on('click', function(){
+            listFilterToggle();
+        });
+        $('.js-searchCancel').on('click',function(){
+            listFilterToggle();
+        });
+        $('.js-listResultsLink').on('click', function() {
+            var href = $(this).attr('href');
+            var newHref = uri.appendQueryString(href, searchResultFilters.getUpdatedQueryString());
+            window.location.href = newHref;
+            return false;
+        });
+    };
 
     return {
+        init:init,
         initializeMap:initializeMap
     }
 });

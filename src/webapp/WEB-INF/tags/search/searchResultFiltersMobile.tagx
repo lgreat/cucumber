@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:tags="urn:jsptagdir:/WEB-INF/tags"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod" xmlns:jsp="http://java.sun.com/JSP/Page">
+<c:set var="buttonClass" value="but-2"/>
+        <c:set var="buttonPressedClass" value="but-2-selected"/>
+
+
+        <div id="school-filters" class="js-searchResultFilters" style="display:none;">
+            <div class="contain_6-1">
+                <div class="fl">
+                    <div class="js-searchCancel but but-sm but-2">Cancel</div>
+                </div>
+                <div class="fr">
+                    <span data-school-filter-action="apply" class="but but-sm but-2">Apply</span>
+                </div>
+                <br class="clearfloat"/>
+            </div>
+
+            <div class="contain_1-1">
+                <div class="fl">
+                    <h1>Filter Results</h1>
+                </div>
+                <div class="fl pts pll">
+                    <a href="javascript:void(0);" data-school-filter-action="reset">Reset</a>
+                </div>
+                <br class="clearfloat"/>
+            </div>
+
+            <div data-school-boolean-filter-group="schoolType">
+                <div class="mas"><h3>School type</h3></div>
+                <div class="pas">
+                    <div class="line">
+                        <div class="unit size31of100">
+                            <span style="width:100%;"
+                                  class="fl but but-list vat ${fn:contains(schoolType,'public')? buttonPressedClass : buttonClass} noBorder noBorder-right"
+                                  data-school-boolean-filter="public">Public</span>
+                        </div>
+                        <div class="unit size31of100">
+                            <span style="width:100%; line-height: 1.6em;"
+                                  class="fl but but-list ${fn:contains(schoolType,'charter')? buttonPressedClass : buttonClass} noBorder"
+                                  data-school-boolean-filter="charter">Public<br/>charter</span>
+                        </div>
+                        <div class="unit size31of100">
+                            <span style="width:100%;"
+                                  class=" fl but but-list vat ${fn:contains(schoolType,'private')? buttonPressedClass : buttonClass} noBorder noBorder-left"
+                                  data-school-boolean-filter="private">Private</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div data-school-boolean-filter-group="gradeLevel">
+                <div  class="mas"><h3>Grade level</h3></div>
+                <div class="pas">
+                    <div class="line">
+                        <div class="unit size24of100">
+                        <span style="width:100%;"
+                              class="but but-list vat ${fn:contains(levelCode,'p')? buttonPressedClass : buttonClass} noBorder noBorder-right"
+                              data-school-boolean-filter="p">Preschool</span>
+                        </div>
+                        <div class="unit size24of100">
+                        <span style="width:100%;"
+                              class="but but-list vat ${fn:contains(levelCode,'e')? buttonPressedClass : buttonClass} noBorder"
+                              data-school-boolean-filter="e">Elementary</span>
+                        </div>
+                        <div class="unit size24of100">
+                        <span style="width:100%;"
+                              class="but but-list vat ${fn:contains(levelCode,'m')? buttonPressedClass : buttonClass} noBorder"
+                              data-school-boolean-filter="m">Middle</span>
+                        </div>
+                        <div class="unit size24of100">
+                        <span style="width:100%;"
+                              class="but but-list vat ${fn:contains(levelCode,'h')? buttonPressedClass : buttonClass} noBorder noBorder-left"
+                              data-school-boolean-filter="h">High</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <c:if test="${isFromByLocation || isNearbySearch}">
+                <div class="mas">
+                <form:select path="schoolSearchCommand.distance" name="distance" class="js-selectFilter size100of100">
+                    <form:option value="" label="Distance" selected="selected"/>
+                    <form:option value="1" label="1"/>
+                    <form:option value="2" label="2"/>
+                    <form:option value="3" label="3"/>
+                    <form:option value="4" label="4"/>
+                    <form:option value="5" label="5"/>
+                    <form:option value="10" label="10"/>
+                    <form:option value="15" label="15"/>
+                    <form:option value="20" label="20"/>
+                    <form:option value="25" label="25"/>
+                    <form:option value="30" label="30"/>
+                    <form:option value="60" label="60"/>
+                </form:select>
+                </div>
+            </c:if>
+
+            <div class="mas">
+            <form:select path="schoolSearchCommand.minGreatSchoolsRating" name="minGreatSchoolsRating" class="js-selectFilter size100of100">
+                <form:option value="" label="GreatSchools Rating" selected="selected"/>
+                <form:option value="" label="Any"/>
+                <form:option value="1" label="1"/>
+                <form:option value="2" label="2"/>
+                <form:option value="3" label="3"/>
+                <form:option value="4" label="4"/>
+                <form:option value="5" label="5"/>
+                <form:option value="6" label="6"/>
+                <form:option value="7" label="7"/>
+                <form:option value="8" label="8"/>
+                <form:option value="9" label="9"/>
+                <form:option value="10" label="10"/>
+            </form:select>
+            </div>
+
+            <div class="mas">
+            <form:select path="schoolSearchCommand.minCommunityRating" name="minCommunityRating" class="js-selectFilter size100of100">
+                <form:option value="" label="Community Rating" selected="selected"/>
+                <form:option value="" label="Any"/>
+                <form:option value="1" label="1"/>
+                <form:option value="2" label="2"/>
+                <form:option value="3" label="3"/>
+                <form:option value="4" label="4"/>
+                <form:option value="5" label="5"/>
+            </form:select>
+            </div>
+
+            <div class="mas">
+            <form:select path="schoolSearchCommand.schoolSize" id="schoolSizeSelect" name="schoolSize" class="js-selectFilter size100of100">
+                <form:option value="" label="Enrollment" selected="selected"/>
+                <form:option value="All" label="All school sizes"/>
+                <form:option value="UNDER_20" label="Under 20"/>
+                <form:option value="UNDER_50" label="Under 50"/>
+                <form:option value="UNDER_200" label="Under 200"/>
+                <form:option value="UNDER_500" label="Under 500"/>
+                <form:option value="UNDER_1000" label="Under 1000"/>
+                <form:option value="OVER_1000" label="1000 or more"/>
+            </form:select>
+            </div>
+            <div class="contain_6-1">
+                <div class="fl">
+                    <div class="js-searchCancel but but-sm but-2">Cancel</div>
+                </div>
+                <div class="fr">
+                    <span data-school-filter-action="apply" class="but but-sm but-2">Apply</span>
+                </div>
+                <br class="clearfloat"/>
+            </div>
+        </div>
+</jsp:root>
