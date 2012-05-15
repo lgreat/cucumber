@@ -48,7 +48,7 @@
 
 
     <div class="contain_1-1">
-            <h1>Find a School</h1>
+            <h1 class="pbs">Find a School</h1>
             <c:if test="${totalResults eq 0}">
                 <c:set var="badSearch"><c:out value="${searchString}" escapeXml="true"/></c:set>
                 <div class="pvm">
@@ -80,7 +80,7 @@
                             <input type="hidden" name="totalResults" value="0"/>
                             <input type="hidden" name="distance" value="25"/>
                             <div class="clearfix prm">
-                                <gsml:input type="text" styleClass="size100of100 js-searchByLocationQuery"  name="searchString" value="${searchString}" placeholder=" City AND states, zip or address ..." />
+                                <gsml:input type="text" styleClass="size100of100 js-searchByLocationQuery"  name="searchString" value="${searchString}" placeholder="City AND states, zip or address ..." />
                             </div>
                             <div id="js-gradeLevels">
                                 <select name="gradeLevels">
@@ -92,7 +92,7 @@
                                 </select>
                             </div>
                             <div>
-                                <button type="submit" class="but but-rg but-1 js-submitButton">Search</button>
+                                <button type="submit" class="but but-lg but-1 js-submitButton">Search</button>
                             </div>
                         </form>
 
@@ -101,7 +101,7 @@
                 <div class="contain_5-1 dn">
 
                         <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
-                    <div class="clearfix prm"><input type="text" class="size100of100" name="q" value="${searchString}" placeholder=" School or district..." data-validation="searchString" data-validation-type="required" /></div>
+                    <div class="clearfix prm"><input type="text" class="size100of100" name="q" value="${searchString}" placeholder="School or district..." data-validation="searchString" data-validation-type="required" /></div>
                             <div class="error" data-validation="searchString" data-validation-error-message="required" style="display: none;">Please enter a school name</div>
 
                             <div><select class="stateSelect" name="state" id="stateSelector" data-validation="state" data-validation-type="required">
@@ -159,7 +159,7 @@
                                 <option value="WY">WY</option>
                             </select></div>
                             <div class="error" data-validation="state" data-validation-error-message="required" style="display: none;">Please select a state</div>
-                            <div><button type="submit" class="but but-rg but-1 js-submitButton">Search</button></div>
+                            <div><button type="submit" class="but but-lg but-1 js-submitButton">Search</button></div>
                         </form>
 
                 </div>
