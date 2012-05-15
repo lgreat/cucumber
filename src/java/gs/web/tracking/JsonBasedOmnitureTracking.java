@@ -19,10 +19,12 @@ public class JsonBasedOmnitureTracking extends OmnitureTracking{
 
     private Set<SuccessEvent> _successEvents;
     private Set<Evar> _eVars;
+    private Set<Prop> _props;
 
     public JsonBasedOmnitureTracking(){
         this._successEvents = new HashSet<SuccessEvent>();
         this._eVars = new HashSet<Evar>();
+        this._props = new HashSet<Prop>();
     }
 
     /**
@@ -40,6 +42,11 @@ public class JsonBasedOmnitureTracking extends OmnitureTracking{
         addObjectToSet(successEvent, this._successEvents);
     }
 
+    @Override
+    public void addProp(Prop prop) {
+        addObjectToSet(prop, this._props);
+    }
+
     public String toJsonObject(){
         StringBuilder sb = new StringBuilder();
 
@@ -51,6 +58,9 @@ public class JsonBasedOmnitureTracking extends OmnitureTracking{
         // eVars
         sb.append("\"eVars\":");
         sb.append(eVarsToJson());
+        // props
+        sb.append("\"props\":");
+        sb.append(propsToJson());
 
         sb.append("}");
         return sb.toString();
@@ -80,6 +90,32 @@ public class JsonBasedOmnitureTracking extends OmnitureTracking{
 
         return sb.toString();
     }
+
+    protected String propsToJson(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+
+        boolean first = true;
+        for (Prop prop: _props){
+            if (!first){
+                sb.append(",");
+            }
+            first = false;
+
+            sb.append("\"");
+            sb.append("prop");
+            sb.append(prop.getNumber()) ;
+            sb.append("\"");
+            sb.append(":");
+            sb.append("\"");
+            sb.append(prop.toOmnitureString());
+            sb.append("\"");
+        }
+        sb.append("}");
+
+        return sb.toString();
+    }
+
     protected String eventsToJson(){
         StringBuilder sb = new StringBuilder();
         sb.append("\"");

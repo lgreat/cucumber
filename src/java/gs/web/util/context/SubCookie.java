@@ -7,9 +7,11 @@ import javax.servlet.http.Cookie;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
-import java.net.URLEncoder;
 import java.net.URLDecoder;
 import java.io.UnsupportedEncodingException;
+
+import org.apache.commons.httpclient.URIException;
+import org.apache.commons.httpclient.util.URIUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.util.CookieGenerator;
@@ -80,8 +82,8 @@ public class SubCookie {
         String cookieValue = encodeProperties(this.properties);
 
         try {
-            cookieValue = URLEncoder.encode(cookieValue, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+            cookieValue = URIUtil.encodeWithinQuery(cookieValue);
+        } catch (URIException e) {
             _log.warn("Unable to encode parameter");
         }
         CookieGenerator generator = getCookieGenerator();
@@ -93,7 +95,8 @@ public class SubCookie {
         } else {
             generator.setCookieDomain(".greatschools.org");
         }
-        _log.debug("setting sub cookie: " + cookieValue + ", " + generator.getCookieName() + ", " + generator.getCookieDomain());
+        _log.error("setting sub cookie: " + cookieValue + ", " + generator.getCookieName() + ", " +
+                "" + generator.getCookieDomain());
         generator.addCookie(response,cookieValue);
     }
 
@@ -121,8 +124,8 @@ public class SubCookie {
 
 
         try {
-            value = URLDecoder.decode(value, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+            value = URIUtil.decode(value);
+        } catch (URIException e) {
             _log.warn("Unable to decode cookie");
         }
 

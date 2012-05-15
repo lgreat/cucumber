@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.75 2012/05/10 20:19:34 aroy Exp $
+ * $Id: CityController.java,v 1.76 2012/05/15 23:59:44 aroy Exp $
  */
 
 package gs.web.geo;
@@ -22,6 +22,8 @@ import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.web.content.cms.CmsHomepageController;
 import gs.web.request.RequestInfo;
+import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -148,6 +150,8 @@ public class CityController extends AbstractController  implements IDirectoryStr
         try {
             RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
             if (requestInfo != null && requestInfo.isShouldRenderMobileView()) {
+                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                ot.addProp(new OmnitureTracking.Prop(OmnitureTracking.PropNumber.IncomingMobileQuery, "City Home"));
                 UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, city.getName(), new HashSet<SchoolType>(), null);
                 String url = urlBuilder.asSiteRelative(request);
                 return new ModelAndView(new RedirectView(url));

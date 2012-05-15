@@ -15,6 +15,18 @@ public class OmnitureTrackingTest  extends BaseControllerTestCase {
         _tracking = new CookieBasedOmnitureTracking(getRequest(), getResponse());
     }
 
+    public void testAddProp() {
+        _tracking.addProp(new OmnitureTracking.Prop(OmnitureTracking.PropNumber.IncomingMobileQuery, "unittest"));
+        assertNotNull("Expect property to be set", _tracking.getSubCookie().getProperty("prop44"));
+        assertEquals("unittest", _tracking.getSubCookie().getProperty("prop44"));
+        _tracking.addProp(new OmnitureTracking.Prop(OmnitureTracking.PropNumber.IncomingMobileQuery, "overwrite"));
+        assertEquals("overwrite", _tracking.getSubCookie().getProperty("prop44"));
+
+        // test that spaces are encoded/decoded in compatible ways
+        _tracking.addProp(new OmnitureTracking.Prop(OmnitureTracking.PropNumber.IncomingMobileQuery, "A string with spaces"));
+        assertEquals("A string with spaces", _tracking.getSubCookie().getProperty("prop44"));
+    }
+
     public void testAddEvar() {
         _tracking.addEvar(new OmnitureTracking.Evar(OmnitureTracking.EvarNumber.RegistrationSegment, "unittest"));
         assertNotNull("Expect property to be set", _tracking.getSubCookie().getProperty("eVar7"));

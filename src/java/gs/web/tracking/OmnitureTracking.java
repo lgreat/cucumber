@@ -12,6 +12,28 @@ public abstract class  OmnitureTracking {
         public String toOmnitureString();
     }
 
+    public static class Prop implements OmnitureInformation {
+        private String _value;
+        private PropNumber _number;
+
+        public Prop(PropNumber number, String value) {
+            _number = number;
+            _value = value;
+        }
+
+        public String getValue() {
+            return _value;
+        }
+
+        public int getNumber() {
+            return _number.getNumber();
+        }
+
+        public String toOmnitureString() {
+            return _value;
+        }
+    }
+
     /**
      * An Omniture eVar, consisting of an EvarNumber and a value. For example, eVar 7 may be set to "foo".
      */
@@ -62,6 +84,19 @@ public abstract class  OmnitureTracking {
         }
     }
 
+    public enum PropNumber {
+        IncomingMobileQuery(44);
+
+        private int _number;
+
+        PropNumber(int num) {
+            _number = num;
+        }
+
+        public int getNumber() {
+            return _number;
+        }
+    }
     /**
      * Typesafe SuccessEvent definitions.
      */
@@ -124,6 +159,11 @@ public abstract class  OmnitureTracking {
      * success events.
      */
     public abstract void addSuccessEvent(SuccessEvent successEvent);
+
+    /**
+     * Add an sprop. This will overwrite any existing value for that prop.
+     */
+    public abstract void addProp(Prop prop);
 
     /**
      * Null-safe method that appends info.toOmnitureString() to destination.

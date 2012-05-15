@@ -61,6 +61,11 @@ public class CookieBasedOmnitureTracking extends OmnitureTracking{
         _subCookie.setProperty("events", _events);
     }
 
+    @Override
+    public void addProp(Prop prop) {
+        _subCookie.setProperty("prop" + prop.getNumber(), prop.toOmnitureString());
+    }
+
     /**
      * For unit tests.
      */
