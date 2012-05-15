@@ -175,7 +175,7 @@
             <div class="inner">
                 <div class="hd">
                     <h2 class="plm">
-                        School overview  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                        School overview  <span class="arrow"><span class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
                     </h2>
                 </div>
             </div>
@@ -185,7 +185,7 @@
                 <div class="inner">
                     <div class="hd">
                         <h2 class="plm">
-                            Test Scores  <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                            Test Scores  <span class="arrow"><span class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
                         </h2>
                     </div>
                 </div>

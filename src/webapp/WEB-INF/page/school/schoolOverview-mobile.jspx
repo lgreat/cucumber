@@ -155,7 +155,7 @@
                     <div class="hd">
                         <h2 class="plm">
                             Reviews<c:if test="${numberOfReviews gt 0}"> (${numberOfReviews})</c:if> <span class="arrow"><span
-                                class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                                class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
                         </h2>
                     </div>
                 </link:schoolProfileParentReview>
@@ -181,7 +181,7 @@
                         <div class="hd">
                             <h2 class="plm">
                                Test scores
-                                <span class="arrow"><span class=" iconx16 i-16-right-arrow"><!-- not empty --></span></span>
+                                <span class="arrow"><span class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
                             </h2>
                         </div>
                     </link:schoolProfileTestscore>
