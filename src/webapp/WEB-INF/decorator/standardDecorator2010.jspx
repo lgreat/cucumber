@@ -13,6 +13,7 @@
         xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
         xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+        xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
         >
     <jsp:directive.page import="gs.web.util.PageHelper"/>
     <pageHelper:bodyClass/>
@@ -140,6 +141,7 @@ ${modTracking}
 </div>
 
 ${requestScope.pageHelper.bottomJavaScript}
+<mobile:desktopSiteSwitchJS/>
 </body>
 </html>
 </jsp:root>

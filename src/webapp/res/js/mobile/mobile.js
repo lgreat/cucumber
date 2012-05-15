@@ -7,7 +7,16 @@ define(['tracking','navigation'],function(tracking,navigation) {
                 tracking.clear();
                 tracking.successEvents = 'event70';
                 tracking.send();
-            });
+
+                var domain = "; domain=greatschools.org";
+                if (location.hostname == "localhost" || location.hostname == "") {
+                    domain = "";
+                }
+                document.cookie =
+                    "org.springframework.mobile.device.site.CookieSitePreferenceRepository.SITE_PREFERENCE=NORMAL; path=/" + domain;
+                window.location.reload();
+                return false;
+            }).show();
 
             $('#mobile-footer-iphone-app').click( function(){
                 tracking.clear();

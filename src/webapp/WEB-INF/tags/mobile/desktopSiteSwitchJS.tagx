@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+<c:if test="${hasMobileView and empty hideAlternateSiteButton and not empty requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
+    <script type="text/javascript">
+        $(document).ready(function (){
+            $('#js_header_view_mobile_site').click( function(){
+                var domain = "; domain=greatschools.org";
+                if (location.hostname == "localhost" || location.hostname == "") {
+                    domain = "";
+                }
+                document.cookie =
+                        "org.springframework.mobile.device.site.CookieSitePreferenceRepository.SITE_PREFERENCE=MOBILE; path=/" + domain;
+                window.location.reload();
+                return false;
+            }).show();
+        });
+    </script>
+</c:if>
+</jsp:root>
