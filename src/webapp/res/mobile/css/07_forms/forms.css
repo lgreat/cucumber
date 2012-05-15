@@ -59,7 +59,10 @@ input[type=password]:focus,
 input.text:focus, 
 textarea:focus { border-color: #555;outline: none; cursor:text; }
 
-input:focus {background-color:yellow;}
+input:focus {
+    color: #2B2B2B;
+    border:solid 1px #2092C4;
+    -webkit-transition: all 0.15s ease-in;}
 
 
 
