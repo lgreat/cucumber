@@ -46,7 +46,7 @@
         <ad:xGPTMobileSetup />
     </head>
     <body>
-    <div class="contain_1-2 pbn" style="border-bottom: none">
+    <div class="contain_1-2 pbm" style="border-bottom: none">
 
                 <div><h6>Test Scores</h6></div>
                 <!--TODO refactor this into a tag,since its used on school overview also.-->
