@@ -41,17 +41,18 @@ ${school.physicalAddress.cityStateZip}
         <c:set var="emailSubject" value="${school.name} on GreatSchools"/>
     </c:if>
 
-    <div class="pam size100of100">
+    <div class="pam" style="width:320px;">
         <!-- GS-12650 SMS protocol does not allow us the flexibility we want. De-scoping this for now -->
         <!--<a href="sms:?body=${fn:escapeXml(gsweb:encodeWithinQuery(smsBody))}">SMS</a>-->
         <div class="fl">
             <a href="mailto:?subject=${fn:escapeXml(gsweb:encodeWithinQuery(emailSubject))}&amp;body=${fn:escapeXml(gsweb:encodeWithinQuery(emailBody))}"
-             class="but but-rg but-2 " style="min-width: 106px;">Email a link</a>
+             class="but but-rg but-2 phn" style="min-width: 140px;">Email a link</a>
         </div>
+
         <span id="saveSchool">
             <c:if test="${not empty school}">
-                <div class="fr mhm prs">
-                <a href="javascript:void(0);" class="but but-rg but-2" style="min-width: 106px;" id="saveSchoolButton">Save</a>
+                <div class="fr mhm prm">
+                <a href="javascript:void(0);" class="but but-rg but-2 phn" style="min-width: 140px;" id="saveSchoolButton">Save</a>
                 <form id = "saveSchoolForm">
                     <input type="hidden" name="id" value="${school.id}"/>
                     <input type="hidden" name="state" value="${school.stateAbbreviation.abbreviation}"/>
@@ -60,5 +61,5 @@ ${school.physicalAddress.cityStateZip}
             </c:if>
         </span>
     </div>
-    <div class="clearfloat"><!-- --></div>
+    <div class="clearfloat ptm"><!-- --></div>
 </jsp:root>
