@@ -8,8 +8,8 @@
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod" xmlns:jsp="http://java.sun.com/JSP/Page">
-<c:set var="buttonClass" value="but-2"/>
-        <c:set var="buttonPressedClass" value="but-2-selected"/>
+<c:set var="buttonClass" value="filt-off"/>
+        <c:set var="buttonPressedClass" value="filt-on"/>
 
 
         <div id="school-filters" class="js-searchResultFilters" style="display:none;">
@@ -33,62 +33,55 @@
                 <br class="clearfloat"/>
             </div>
 
+
+            <!--<div data-school-boolean-filter-group="schoolType">-->
+                <!--<div class="mas"><h3>School type</h3></div>-->
+                <!--<div class="pas">-->
+                    <!--<div class="line">-->
+                        <!--<div class="unit size31of100">-->
+                            <!--<span style="width:100%;"-->
+                                  <!--class="fl but but-list vat ${fn:contains(schoolType,'public')? buttonPressedClass : buttonClass} noBorder noBorder-right"-->
+                                  <!--data-school-boolean-filter="public">Public</span>-->
+                        <!--</div>-->
+                        <!--<div class="unit size31of100">-->
+                            <!--<span style="width:100%; line-height: 1.6em;"-->
+                                  <!--class="fl but but-list ${fn:contains(schoolType,'charter')? buttonPressedClass : buttonClass} noBorder"-->
+                                  <!--data-school-boolean-filter="charter">Public<br/>charter</span>-->
+                        <!--</div>-->
+                        <!--<div class="unit size31of100">-->
+                            <!--<span style="width:100%;"-->
+                                  <!--class=" fl but but-list vat ${fn:contains(schoolType,'private')? buttonPressedClass : buttonClass} noBorder noBorder-left"-->
+                                  <!--data-school-boolean-filter="private">Private</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
             <div data-school-boolean-filter-group="schoolType">
-                <div class="mas"><h3>School type</h3></div>
+                <div class="mas"><strong>School type</strong></div>
                 <div class="pas">
                     <div class="line">
-                        <div class="unit size31of100">
-                            <span style="width:100%;"
-                                  class="fl but but-list vat ${fn:contains(schoolType,'public')? buttonPressedClass : buttonClass} noBorder noBorder-right"
-                                  data-school-boolean-filter="public">Public</span>
-                        </div>
-                        <div class="unit size31of100">
-                            <span style="width:100%; line-height: 1.6em;"
-                                  class="fl but but-list ${fn:contains(schoolType,'charter')? buttonPressedClass : buttonClass} noBorder"
-                                  data-school-boolean-filter="charter">Public<br/>charter</span>
-                        </div>
-                        <div class="unit size31of100">
-                            <span style="width:100%;"
-                                  class=" fl but but-list vat ${fn:contains(schoolType,'private')? buttonPressedClass : buttonClass} noBorder noBorder-left"
-                                  data-school-boolean-filter="private">Private</span>
-                        </div>
+                        <div class="filt ${fn:contains(schoolType,'public')? buttonPressedClass : buttonClass} rdl size32of100" data-school-boolean-filter="public"><div class="mtm small">Public</div></div>
+                        <div class="filt ${fn:contains(schoolType,'charter')? buttonPressedClass : buttonClass} size32of100" data-school-boolean-filter="charter"><div class="mtm small">Public charter</div></div>
+                        <div class="filt ${fn:contains(schoolType,'private')? buttonPressedClass : buttonClass} rdr size32of100" data-school-boolean-filter="private"><div class="mtm small">Private</div></div>
                     </div>
                 </div>
             </div>
-
-
             <div data-school-boolean-filter-group="gradeLevel">
-                <div  class="mas"><h3>Grade level</h3></div>
+                <div  class="mas"><strong>Grade level</strong></div>
                 <div class="pas">
                     <div class="line">
-                        <div class="unit size24of100">
-                        <span style="width:100%;"
-                              class="but but-list vat ${fn:contains(levelCode,'p')? buttonPressedClass : buttonClass} noBorder noBorder-right"
-                              data-school-boolean-filter="p">Preschool</span>
-                        </div>
-                        <div class="unit size24of100">
-                        <span style="width:100%;"
-                              class="but but-list vat ${fn:contains(levelCode,'e')? buttonPressedClass : buttonClass} noBorder"
-                              data-school-boolean-filter="e">Elementary</span>
-                        </div>
-                        <div class="unit size24of100">
-                        <span style="width:100%;"
-                              class="but but-list vat ${fn:contains(levelCode,'m')? buttonPressedClass : buttonClass} noBorder"
-                              data-school-boolean-filter="m">Middle</span>
-                        </div>
-                        <div class="unit size24of100">
-                        <span style="width:100%;"
-                              class="but but-list vat ${fn:contains(levelCode,'h')? buttonPressedClass : buttonClass} noBorder noBorder-left"
-                              data-school-boolean-filter="h">High</span>
-                        </div>
+                        <div class="filt ${fn:contains(levelCode,'p')? buttonPressedClass : buttonClass} rdl size24of100" data-school-boolean-filter="p"><div class="mtm small">Preschool</div></div>
+                        <div class="filt ${fn:contains(levelCode,'e')? buttonPressedClass : buttonClass} size24of100" data-school-boolean-filter="e"><div class="mtm small">Elementary</div></div>
+                        <div class="filt ${fn:contains(levelCode,'m')? buttonPressedClass : buttonClass} size24of100" data-school-boolean-filter="m"><div class="mtm small">Middle</div></div>
+                        <div class="filt ${fn:contains(levelCode,'h')? buttonPressedClass : buttonClass} rdr size24of100" data-school-boolean-filter="h"><div class="mtm small">High</div></div>
                     </div>
                 </div>
             </div>
 
             <c:if test="${isFromByLocation || isNearbySearch}">
                 <div class="mas line">
-                    <h3 class="size45of100 unit">Distance</h3>
-                    <form:select path="schoolSearchCommand.distance" name="distance" class="js-selectFilter size55of100 unit">
+                    <strong class="size55of100 unit">Distance</strong>
+                    <form:select path="schoolSearchCommand.distance" name="distance" class="js-selectFilter size40of100 unit">
                         <form:option value="1" label="1 mile"/>
                         <form:option value="2" label="2 miles"/>
                         <form:option value="3" label="3 miles"/>
@@ -105,8 +98,8 @@
             </c:if>
 
             <div class="mas line">
-                <h3 class="size45of100 unit">GreatSchools Rating</h3>
-                <form:select path="schoolSearchCommand.minGreatSchoolsRating" name="minGreatSchoolsRating" class="js-selectFilter size55of100 unit">
+                <strong class="size55of100 unit">GreatSchools Rating</strong>
+                <form:select path="schoolSearchCommand.minGreatSchoolsRating" name="minGreatSchoolsRating" class="js-selectFilter size40of100 unit">
                     <form:option value="" label="Any"/>
                     <form:option value="1" label="1+"/>
                     <form:option value="2" label="2+"/>
@@ -122,8 +115,8 @@
             </div>
 
             <div class="mas line">
-                <h3 class="size45of100 unit">Community Rating</h3>
-                <form:select path="schoolSearchCommand.minCommunityRating" name="minCommunityRating" class="js-selectFilter size55of100 unit">
+                <strong class="size55of100 unit">Community Rating</strong>
+                <form:select path="schoolSearchCommand.minCommunityRating" name="minCommunityRating" class="js-selectFilter size40of100 unit">
                     <form:option value="" label="Any"/>
                     <form:option value="1" label="1+ stars"/>
                     <form:option value="2" label="2+ stars"/>
@@ -134,8 +127,8 @@
             </div>
 
             <div class="mas">
-                <h3 class="size45of100 unit">Enrollment</h3>
-                <form:select path="schoolSearchCommand.schoolSize" id="schoolSizeSelect" name="schoolSize" class="js-selectFilter size55of100 unit">
+                <strong class="size55of100 unit">Enrollment</strong>
+                <form:select path="schoolSearchCommand.schoolSize" id="schoolSizeSelect" name="schoolSize" class="js-selectFilter size40of100 unit">
                     <form:option value="" label="All school sizes"/>
                     <form:option value="UNDER_20" label="Under 20"/>
                     <form:option value="UNDER_50" label="Under 50"/>
