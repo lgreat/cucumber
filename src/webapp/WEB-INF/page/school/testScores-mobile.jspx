@@ -6,7 +6,7 @@
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -41,6 +41,9 @@
                 schoolSave.init(state + '_' + schoolId);
             });
         </script>
+
+        <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Test_Scores" />
+        <ad:xGPTMobileSetup />
     </head>
     <body>
     <div class="contain_1-2 pbn" style="border-bottom: none">
@@ -95,6 +98,9 @@
         <div>
 
             <c:forEach var="testToGrades" items="${schoolTestScores}" varStatus="index">
+                <c:if test="${index.index eq 1}">
+                    <ad:adTag-mobile position="Pos1_320x50"/>
+                </c:if>
                 <div class="mod standard_6-1 mtn ptn">
                     <div class="inner">
                         <div class="hd plm">

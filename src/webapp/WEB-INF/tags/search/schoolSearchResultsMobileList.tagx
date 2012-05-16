@@ -2,14 +2,26 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 
 
     <c:choose>
         <c:when test="${totalResults > 0}">
 
             <ul class="list3">
-                <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}">
+                <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}" varStatus="status">
+                    <c:set var="indexOfCurrentResult" value="${page.offset + status.index}"/>
+                    <c:if test="${(indexOfCurrentResult-3) mod 10 eq 0}">
+                        <c:set var="lastPos" value="4"/>
+                        <c:set var="pos" value="${((indexOfCurrentResult-3) / 10) + 1}"/>
+                        <c:set var="pos">
+                            <fmt:formatNumber value="${pos}" type="number" maxFractionDigits="0"/>
+                        </c:set>
+                        <c:if test="${pos le lastPos}">
+                            <ad:adTag-mobile position="Pos${pos}_320x50"/>
+                        </c:if>
+                    </c:if>
                     <li>
                         <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}"
                                                    schoolName="${school.name}" address="${school.address}"

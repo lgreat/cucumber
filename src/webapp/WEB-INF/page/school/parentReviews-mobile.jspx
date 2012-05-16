@@ -47,7 +47,7 @@
 
         ]]></script>
 
-        <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Reviews_BelowFirstReview" />
+        <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Reviews" />
         <ad:xGPTMobileSetup />
 
     </head>
@@ -151,7 +151,7 @@
         <c:choose>
             <c:when test="${cmd.totalReviews gt 0}">
                 <div class="js-paginate-container">
-                    <school:parentReviewsMobile reviews="${reviewsToShow}" ads="true" adPosition="Pos1_320x50" />
+                    <school:parentReviewsMobile reviews="${reviewsToShow}" ads="true" adPosition="BelowFirstReview_320x50" />
                 </div>
             </c:when>
             <c:otherwise>

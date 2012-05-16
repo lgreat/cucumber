@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.109 2012/05/10 22:25:47 cauer Exp $
+ * $Id: AdPosition.java,v 1.110 2012/05/16 18:23:44 ssprouse Exp $
  */
 package gs.web.ads;
 
@@ -172,6 +172,8 @@ public class AdPosition extends Enum {
     public static final AdPosition Pos2_320x50 = new AdPosition("Pos2_320x50", true, new AdSize(320, 50), true);
     public static final AdPosition Pos3_320x50 = new AdPosition("Pos3_320x50", true, new AdSize(320, 50), true);
     public static final AdPosition Pos4_320x50 = new AdPosition("Pos4_320x50", true, new AdSize(320, 50), true);
+    public static final AdPosition BelowFirstReview_320x50 = new AdPosition("BelowFirstReview_320x50", true, new AdSize(320,50),true);
+
 
     private boolean _isGAMPosition;
     private boolean _isMobileSpecific = false;

@@ -7,7 +7,8 @@
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
 <html lang="en">
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -34,6 +35,22 @@
             });
         </script>
 
+        <c:choose>
+            <c:when test="${fn:contains(school.levelCode, 'p')}">
+                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Preschool_School_Overview" />
+            </c:when>
+            <c:when test="${school.type eq 'private'}">
+                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Private_School_Overview" />
+            </c:when>
+            <c:when test="${school.type eq 'public'}">
+                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Public_School_Overview" />
+            </c:when>
+            <c:otherwise>
+                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Public_School_Overview" />
+            </c:otherwise>
+        </c:choose>
+
+        <ad:xGPTMobileSetup />
     </head>
 
     <body>
@@ -118,6 +135,9 @@
 
             <a href="/search/search.page?state=${school.databaseState}&amp;lat=${school.lat}&amp;lon=${school.lon}&amp;distance=25&amp;searchString=${gsweb:urlEncode(school.name)}" class="small"><span class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span>See schools nearby</a>
         </div>
+
+        <ad:adTag-mobile position="AboveMap_320x50"/>
+
         <div id="js_schoolMap">
             <c:choose>
                 <c:when test="${not empty gs_rating}">
