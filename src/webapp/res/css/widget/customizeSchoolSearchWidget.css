@@ -195,7 +195,7 @@ div.question {
 }
 
 div.answer {
-    margin-bottom: 15px;
+    padding-bottom: 15px;
 }
 
 form.customize {
@@ -261,4 +261,3 @@ div.slider div.handle {
     cursor: move;
     position: absolute;
 }
-
