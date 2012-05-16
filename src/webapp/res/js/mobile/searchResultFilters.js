@@ -225,7 +225,7 @@ define(['uri','ui'],function(uri, ui) {
     var distance = new SelectFilter('distance', undefined);
     var minGreatSchoolsRating = new SelectFilter('minGreatSchoolsRating', undefined);
     var minCommunityRating = new SelectFilter('minCommunityRating', undefined);
-    var schoolSize = new SelectFilter('schoolSize', 'All');
+    var schoolSize = new SelectFilter('schoolSize', undefined);
 
 
     // put the filters into an array for easy iterating
