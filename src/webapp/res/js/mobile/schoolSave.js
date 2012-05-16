@@ -4,7 +4,7 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
     var emailSubject = "My Saved Schools from GreatSchools.org";
     var emailBody = "My Saved Schools List from GreatSchools.org:\n\n";
     var noSavedSchools = "No schools have been saved to your list";
-    var errorFetchingSchools = "Sorry. We couldn't retrieve the saved schools. Please try again later.";
+    var errorFetchingSchools = "We are not able to display your saved schools at this time. Please try again later.";
     
     var init = function(state_schoolId) {
         var schoolSave = $('#js-saveSchool');

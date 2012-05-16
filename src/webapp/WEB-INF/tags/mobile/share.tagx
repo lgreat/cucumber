@@ -52,8 +52,8 @@ ${school.physicalAddress.cityStateZip}
         <span id="js-saveSchool">
             <c:if test="${not empty school}">
                 <div class="fl mlm">
-                <a href="javascript:void(0);" class="but but-rg but-2 phn button-share" id="saveSchoolButton">Save</a>
-                <form id = "saveSchoolForm">
+                <a href="javascript:void(0);" class="but but-rg but-2 phn button-share" id="js-saveSchoolButton">Save</a>
+                <form id = "js-saveSchoolForm">
                     <input type="hidden" name="id" value="${school.id}"/>
                     <input type="hidden" name="state" value="${school.stateAbbreviation.abbreviation}"/>
                 </form>
