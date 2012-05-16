@@ -5,7 +5,8 @@
         >
 
     <div id="signInHover" style="display:none;">
-        <h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="signInHover_launchJoin" onclick="">Join GreatSchools</a>.</span></h2>
+        <h2 class="fl">Sign in to GreatSchools</h2><h2 class="fr prl mrl"><span>Not a member? <a href="#" id="signInHover_launchJoin" onclick="">Join GreatSchools</a>.</span></h2>
+        <div class="clearfloat"><!-- do not collapse --></div>
 
         <div class="messages">
             <p class="error"><!-- message --></p>

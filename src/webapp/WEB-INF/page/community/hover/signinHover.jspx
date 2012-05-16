@@ -26,29 +26,34 @@
 </head>
 <gsml:body adPageName="community/join">
 
+    <div id="signin_dialog">
 
-<div id="signin_dialog" >
-		<h2>Sign in to GreatSchools <span>Not a member? <a href="#" id="lnchJoin">Join GreatSchools</a>.</span></h2>
-    <div class="messages">
-        <p id="forgot_password" class="error"><!-- message --></p>
+                <h2 class="fl">Sign in to GreatSchools</h2><h2 class="fr prl mrl"><span>Not a member? <a href="javascript:void(0);" id="lnchJoin">Join GreatSchools</a>.</span>
+                </h2>
+        <div class="clearfloat"><!-- do not collapse --></div>
+
+                <div class="messages">
+                    <p id="forgot_password" class="error"><!-- message --></p>
+                </div>
+                <form id="signin">
+                    <fieldset class="signin">
+                        <h3>Sign in with an existing GreatSchools account:</h3>
+                        <ul>
+                            <li><label for="semail">Email address</label><input type="text" id="semail" name="semail"/>
+                            </li>
+                            <li><label for="spword">Password</label><input type="password" id="spword" name="spword"/>
+                            </li>
+                        </ul>
+                    </fieldset>
+                    <fieldset class="btns">
+                        <button class="button" type="submit" name="signinBtn" id="signinBtn">
+                            <span><span>Sign in</span></span>
+                        </button>
+                        <p><a href="#" id="lnchPword">Forgot your password?</a></p>
+                    </fieldset>
+                </form>
+
     </div>
-        <form id="signin">
-        	<fieldset class="signin">
-            	<h3>Sign in with an existing GreatSchools account:</h3>
-                <ul>
-                	<li><label for="semail">Email address</label><input type="text" id="semail" name="semail" /></li>
-                  <li><label for="spword">Password</label><input type="password" id="spword" name="spword" /></li>
-                </ul>
-            </fieldset>
-            <fieldset class="btns">
-                <button class="button" type="submit" name="signinBtn" id="signinBtn">
-                    <span><span>Sign in</span></span>
-                </button>
-                <p><a href="#" id="lnchPword">Forgot your password?</a></p>
-            </fieldset>
-        </form>
-
-</div>
 
 
 

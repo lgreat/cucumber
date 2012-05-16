@@ -5228,7 +5228,6 @@ a.ui-dialog-titlebar-close .ui-icon {
 }
 
 #signInHover h2 {
-    width: 480px;
 }
 
 .ui-dialog-content h2 span {
@@ -5656,7 +5655,7 @@ button#hover_forgotPasswordSubmit {
 }
 
 #signin .btns {
-    padding: 0 0 0 104px;
+    padding: 0 0 0 115px;
     display: inline;
 }
 
