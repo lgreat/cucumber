@@ -38,13 +38,8 @@ define(['uri','ui'],function(uri, ui) {
         };
 
         // does not prepend question mark
-        this.toQueryString = function(allIfNone) {
+        this.toQueryString = function() {
             var queryString = "";
-
-            if (allIfNone === true && this.allAreOff()) {
-                // actually set the filters all back to default so that interface reflects the truth
-                this.reset();
-            }
 
             for (var filter in this.filters) {
                 if (this.filters.hasOwnProperty(filter) && this.filters[filter] === true) {
@@ -124,7 +119,7 @@ define(['uri','ui'],function(uri, ui) {
         };
 
         this.reset = function() {
-            this.setFiltersToDefault();
+            this.readFromQueryString();
             this.updateDom();
         };
     };
@@ -174,7 +169,7 @@ define(['uri','ui'],function(uri, ui) {
             this.defaultValue = value;
         };
         this.reset = function() {
-            this.value = this.defaultValue;
+            this.readFromQueryString();
             this.updateDom();
         };
         this.toQueryString = function() {
