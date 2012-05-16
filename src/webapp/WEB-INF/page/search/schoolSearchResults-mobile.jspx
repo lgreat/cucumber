@@ -14,215 +14,215 @@
 
 <html lang="en">
 
-    <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
-    <jsp:output omit-xml-declaration="true" />
-    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+<jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
+<jsp:output omit-xml-declaration="true"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
-    <head>
-        <meta name="decorator" content="standardMobileDecorator"/>
-        <c:if test="${not empty title}">
-            <title>${title}</title>
-        </c:if>
-        <c:if test="${not empty metaDescription}">
-            <meta name="description" content="${metaDescription}"/>
-        </c:if>
-        <c:if test="${not empty metaKeywords}">
-            <meta name="keywords" content="${metaKeywords}"/>
-        </c:if>
+<head>
+    <meta name="decorator" content="standardMobileDecorator"/>
+    <c:if test="${not empty title}">
+        <title>${title}</title>
+    </c:if>
+    <c:if test="${not empty metaDescription}">
+        <meta name="description" content="${metaDescription}"/>
+    </c:if>
+    <c:if test="${not empty metaKeywords}">
+        <meta name="keywords" content="${metaKeywords}"/>
+    </c:if>
 
-        <c:if test="${not empty relCanonical}">
-            <link rel="canonical" href="${relCanonical}"/>
-        </c:if>
+    <c:if test="${not empty relCanonical}">
+        <link rel="canonical" href="${relCanonical}"/>
+    </c:if>
 
-        <c:if test="${isSearch}">
-            <meta name="robots" content="follow,noindex"/>
-        </c:if>
-
-        <c:choose>
-            <c:when test="${isCityBrowse}">
-                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_City_Browse" />
-            </c:when>
-            <c:when test="${isDistrictBrowse}">
-                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_District_Browse" />
-            </c:when>
-            <c:otherwise>
-                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Search_Results_List"/>
-            </c:otherwise>
-        </c:choose>
-
-        <ad:xGPTMobileSetup />
-    </head>
+    <c:if test="${isSearch}">
+        <meta name="robots" content="follow,noindex"/>
+    </c:if>
 
     <c:choose>
-        <c:when test="${isCityBrowse || isDistrictBrowse || isFromByLocation}">
-            <c:set var="nearbyCitiesLabel" value="Nearby cities:"/>
-            <c:set var="moreNearbyCitiesLabel" value="more nearby cities"/>
-            <c:set var="nearbyDistrictsLabel" value="Nearby districts:"/>
-            <c:set var="moreNearbyDistrictsLabel" value="more nearby districts"/>
+        <c:when test="${isCityBrowse}">
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_City_Browse"/>
+        </c:when>
+        <c:when test="${isDistrictBrowse}">
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_District_Browse"/>
         </c:when>
         <c:otherwise>
-            <c:set var="nearbyCitiesLabel" value="Schools in city:"/>
-            <c:set var="moreNearbyCitiesLabel" value="more cities"/>
-            <c:set var="nearbyDistrictsLabel" value="Schools in district:"/>
-            <c:set var="moreNearbyDistrictsLabel" value="more districts"/>
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Search_Results_List"/>
         </c:otherwise>
     </c:choose>
 
-    <body>
-        <c:choose>
-            <c:when test="${page.pager.totalItems gt 0}">
-                <div id="js-school-search-results-table">
-                    <c:set var="totalResults" value="${page.pager.totalItems}"/>
+</head>
 
-                    <c:set var="count" value="0"/>
+<c:choose>
+    <c:when test="${isCityBrowse || isDistrictBrowse || isFromByLocation}">
+        <c:set var="nearbyCitiesLabel" value="Nearby cities:"/>
+        <c:set var="moreNearbyCitiesLabel" value="more nearby cities"/>
+        <c:set var="nearbyDistrictsLabel" value="Nearby districts:"/>
+        <c:set var="moreNearbyDistrictsLabel" value="more nearby districts"/>
+    </c:when>
+    <c:otherwise>
+        <c:set var="nearbyCitiesLabel" value="Schools in city:"/>
+        <c:set var="moreNearbyCitiesLabel" value="more cities"/>
+        <c:set var="nearbyDistrictsLabel" value="Schools in district:"/>
+        <c:set var="moreNearbyDistrictsLabel" value="more districts"/>
+    </c:otherwise>
+</c:choose>
 
-                    <c:if test="${fn:length(schoolSearchResults) gt 0}">
-                        <div class="contain_6-1">
-                            <div class="fl">
-                                <!--<a data-role="button" data-inline="true" href="${requestInfo.requestURL}"-->
-                                   <!--class="ui-btn-active but but-sm but-2 mrm">List</a>-->
-                                <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
-                                <a data-role="button" data-inline="true"
-                                   href="/search/mapresults.page"
-                                   class="but but-sm but-2 js-mapResultsLink">Map</a>
-                            </div>
-                            <div class="fr">
-                                <select class="js-sort-select searchSelect">
-                                    <c:choose>
-                                        <c:when test="${isNearbySearch}">
-                                            <gsml:selectOption value="distance"
-                                                               selected="${sort eq 'distance'}">Distance</gsml:selectOption>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <option value="">Relevance</option>
-                                        </c:otherwise>
-                                    </c:choose>
+<body>
+<c:choose>
+    <c:when test="${page.pager.totalItems gt 0}">
+        <div id="js-school-search-results-table">
+            <c:set var="totalResults" value="${page.pager.totalItems}"/>
 
-                                    <gsml:selectOption value="SCHOOL_NAME_ASCENDING"
-                                                       selected="${sort eq 'SCHOOL_NAME_ASCENDING'}">School name: A-Z</gsml:selectOption>
-                                    <gsml:selectOption value="SCHOOL_NAME_DESCENDING"
-                                                       selected="${sort eq 'SCHOOL_NAME_DESCENDING'}">School name: Z-A</gsml:selectOption>
-                                    <gsml:selectOption value="GS_RATING_DESCENDING"
-                                                       selected="${sort eq 'GS_RATING_DESCENDING'}">GreatSchools Rating: High to Low</gsml:selectOption>
-                                    <gsml:selectOption value="GS_RATING_ASCENDING"
-                                                       selected="${sort eq 'GS_RATING_ASCENDING'}">GreatSchools Rating: Low to High</gsml:selectOption>
-                                    <gsml:selectOption value="PARENT_RATING_DESCENDING"
-                                                       selected="${sort eq 'PARENT_RATING_DESCENDING'}">Community Rating: High to Low</gsml:selectOption>
-                                    <gsml:selectOption value="PARENT_RATING_ASCENDING"
-                                                       selected="${sort eq 'PARENT_RATING_ASCENDING'}">Community Rating: Low to High</gsml:selectOption>
-                                </select>
-                            </div>
-                            <br style="clear:both;"/>
-                            <!--<div>
-                                <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
-                                <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
-                                <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
-                            </div>-->
-                        </div>
+            <c:set var="count" value="0"/>
 
-                        <c:set var="schoolResultsFor">
+            <c:if test="${fn:length(schoolSearchResults) gt 0}">
+                <div class="contain_6-1">
+                    <div class="fl">
+                        <!--<a data-role="button" data-inline="true" href="${requestInfo.requestURL}"-->
+                        <!--class="ui-btn-active but but-sm but-2 mrm">List</a>-->
+                        <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
+                        <a data-role="button" data-inline="true"
+                           href="/search/mapresults.page"
+                           class="but but-sm but-2 js-mapResultsLink">Map</a>
+                    </div>
+                    <div class="fr">
+                        <select class="js-sort-select searchSelect">
                             <c:choose>
-                                <c:when test="${not empty searchString}"><c:out value="${searchString}"
-                                                                                escapeXml="true"/></c:when>
-                                <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
-                            </c:choose>
-                        </c:set>
-
-                        <div class="contain_1-1">
-                            <c:choose>
-                                <c:when test="${empty searchString and isNearbySearch}">
-                                    <span class="ac1"><span class="js_searchResultsCount">${totalResults}</span> results near your location</span>
+                                <c:when test="${isNearbySearch}">
+                                    <gsml:selectOption value="distance"
+                                                       selected="${sort eq 'distance'}">Distance</gsml:selectOption>
                                 </c:when>
                                 <c:otherwise>
-                                    <span class="ac1"><span class="js_searchResultsCount">${totalResults}</span> results for </span><strong>${schoolResultsFor}</strong>
+                                    <option value="">Relevance</option>
                                 </c:otherwise>
                             </c:choose>
-                        </div>
 
-                        <div id="js-schoolSearchResultsList">
-                            <search:schoolSearchResultsMobileList/>
-                        </div>
-                    </c:if>
+                            <gsml:selectOption value="SCHOOL_NAME_ASCENDING"
+                                               selected="${sort eq 'SCHOOL_NAME_ASCENDING'}">School name: A-Z</gsml:selectOption>
+                            <gsml:selectOption value="SCHOOL_NAME_DESCENDING"
+                                               selected="${sort eq 'SCHOOL_NAME_DESCENDING'}">School name: Z-A</gsml:selectOption>
+                            <gsml:selectOption value="GS_RATING_DESCENDING"
+                                               selected="${sort eq 'GS_RATING_DESCENDING'}">GreatSchools Rating: High to Low</gsml:selectOption>
+                            <gsml:selectOption value="GS_RATING_ASCENDING"
+                                               selected="${sort eq 'GS_RATING_ASCENDING'}">GreatSchools Rating: Low to High</gsml:selectOption>
+                            <gsml:selectOption value="PARENT_RATING_DESCENDING"
+                                               selected="${sort eq 'PARENT_RATING_DESCENDING'}">Community Rating: High to Low</gsml:selectOption>
+                            <gsml:selectOption value="PARENT_RATING_ASCENDING"
+                                               selected="${sort eq 'PARENT_RATING_ASCENDING'}">Community Rating: Low to High</gsml:selectOption>
+                        </select>
+                    </div>
+                    <br style="clear:both;"/>
+                    <!--<div>
+                        <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
+                        <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
+                        <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
+                    </div>-->
                 </div>
-            </c:when>
-        </c:choose>
 
-        <c:set var="pageMap" value="${page.map}"/>
-        <script type="text/javascript">
-            require(['mobileSearchResults'], function(mobileSearchResults) {
-                GS.log('mobile-search-results loaded', mobileSearchResults);
+                <c:set var="schoolResultsFor">
+                    <c:choose>
+                        <c:when test="${not empty searchString}"><c:out value="${searchString}"
+                                                                        escapeXml="true"/></c:when>
+                        <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
+                    </c:choose>
+                </c:set>
 
-                var page = {};
-                page['isFirstPage'] = ${pageMap.isFirstPage};
-                page['isLastPage'] = ${pageMap.isLastPage};
-                page['offset'] = ${pageMap.offset};
-                page['pageNumber'] = ${pageMap.pageNumber};
-                page['lastOffsetOnPage'] = ${pageMap.lastOffsetOnPage};
-                page['firstOffset'] = ${pageMap.firstOffset};
-                page['lastOffset'] = ${pageMap.lastOffset};
-                page['firstPageNumber'] = ${pageMap.firstPageNumber};
-                page['lastPageNumber'] = ${pageMap.lastPageNumber};
-                page['pageSize'] = ${pageMap.pageSize};
-
-                mobileSearchResults.init(page);
-            });
-        </script>
-
-        <div class="js-nearbyMoreResults">
-            <c:if test="${not page.lastPage}">
-                <div class="mam">
-                    <button id="loadMore" class="but but-infinite but-2">
-                        View more results
-                    </button>
+                <div class="contain_1-1">
+                    <c:choose>
+                        <c:when test="${empty searchString and isNearbySearch}">
+                            <span class="ac1"><span class="js_searchResultsCount">${totalResults}</span> results near your location</span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="ac1"><span
+                                    class="js_searchResultsCount">${totalResults}</span> results for </span><strong>${schoolResultsFor}</strong>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
-            </c:if>
 
-            <c:if test="${isNearbySearch}">
-                <ul class="list1">
-                    <li><h3>Nearby Cities</h3></li>
-                </ul>
-                <c:if test="${fn:length(citySearchResults) gt 0}">
-                    <c:set var="lastCityIndex" value="${fn:length(citySearchResults)-1}"/>
-                    <c:if test="${lastCityIndex gt 5}">
-                        <c:set var="lastCityIndex" value="5"/>
-                    </c:if>
-                    <ul class="list1">
-                        <c:forEach var="city" items="${citySearchResults}" begin="1" end="${lastCityIndex}"
-                                   varStatus="status">
-                            <li>
-                                <link:schools cityName="${city.city}"
-                                              state="${city.state}">${city.city}, ${city.state}</link:schools>
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </c:if>
+                <div id="js-schoolSearchResultsList">
+                    <search:schoolSearchResultsMobileList/>
+                </div>
             </c:if>
         </div>
+    </c:when>
+</c:choose>
 
-        <!--<mobile:topOfPage/>-->
+<c:set var="pageMap" value="${page.map}"/>
+<script type="text/javascript">
+    require(['mobileSearchResults'], function (mobileSearchResults) {
+        GS.log('mobile-search-results loaded', mobileSearchResults);
 
-        <search:searchResultFiltersMobile/>
+        var page = {};
+        page['isFirstPage'] = ${pageMap.isFirstPage};
+        page['isLastPage'] = ${pageMap.isLastPage};
+        page['offset'] = ${pageMap.offset};
+        page['pageNumber'] = ${pageMap.pageNumber};
+        page['lastOffsetOnPage'] = ${pageMap.lastOffsetOnPage};
+        page['firstOffset'] = ${pageMap.firstOffset};
+        page['lastOffset'] = ${pageMap.lastOffset};
+        page['firstPageNumber'] = ${pageMap.firstPageNumber};
+        page['lastPageNumber'] = ${pageMap.lastPageNumber};
+        page['pageSize'] = ${pageMap.pageSize};
 
-        <c:set var="omnitureLocale">
-            <c:choose>
-                <c:when test="${isCityBrowse}">${city.name}</c:when>
-                <c:when test="${isDistrictBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
-                <c:otherwise>${null}</c:otherwise>
-            </c:choose>
-        </c:set>
+        mobileSearchResults.init(page);
+    });
+</script>
 
-        <mod:mobileTracking pageName="mobile ${omniturePageName}"
-                      query="${omnitureQuery}"
-                      hier1="Mobile,${omnitureHierarchy}"
-                      schoolType="${omnitureSchoolType}"
-                      schoolLevel="${omnitureSchoolLevel}"
-                      sortSelection="${omnitureSortSelection}"
-                      nearbySearchZipCode="${nearbySearchZipCode}"
-                      resultsPerPage="${omnitureResultsPerPage}"
-                      findASchoolByAddress="${omnitureAddressSearch}"
-                      findASchoolByName="${omnitureNameSearch}"
-                      locale="${omnitureLocale}"
-                />
-    </body>
+<div class="js-nearbyMoreResults">
+    <c:if test="${not page.lastPage}">
+        <div class="mam">
+            <button id="loadMore" class="but but-infinite but-2">
+                View more results
+            </button>
+        </div>
+    </c:if>
+
+    <c:if test="${isNearbySearch}">
+        <ul class="list1">
+            <li><h3>Nearby Cities</h3></li>
+        </ul>
+        <c:if test="${fn:length(citySearchResults) gt 0}">
+            <c:set var="lastCityIndex" value="${fn:length(citySearchResults)-1}"/>
+            <c:if test="${lastCityIndex gt 5}">
+                <c:set var="lastCityIndex" value="5"/>
+            </c:if>
+            <ul class="list1">
+                <c:forEach var="city" items="${citySearchResults}" begin="1" end="${lastCityIndex}"
+                           varStatus="status">
+                    <li>
+                        <link:schools cityName="${city.city}"
+                                      state="${city.state}">${city.city}, ${city.state}</link:schools>
+                    </li>
+                </c:forEach>
+            </ul>
+        </c:if>
+    </c:if>
+</div>
+
+<!--<mobile:topOfPage/>-->
+
+<search:searchResultFiltersMobile/>
+
+<c:set var="omnitureLocale">
+    <c:choose>
+        <c:when test="${isCityBrowse}">${city.name}</c:when>
+        <c:when test="${isDistrictBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
+        <c:otherwise>${null}</c:otherwise>
+    </c:choose>
+</c:set>
+
+<mod:mobileTracking pageName="mobile ${omniturePageName}"
+                    query="${omnitureQuery}"
+                    hier1="Mobile,${omnitureHierarchy}"
+                    schoolType="${omnitureSchoolType}"
+                    schoolLevel="${omnitureSchoolLevel}"
+                    sortSelection="${omnitureSortSelection}"
+                    nearbySearchZipCode="${nearbySearchZipCode}"
+                    resultsPerPage="${omnitureResultsPerPage}"
+                    findASchoolByAddress="${omnitureAddressSearch}"
+                    findASchoolByName="${omnitureNameSearch}"
+                    locale="${omnitureLocale}"
+        />
+</body>
 </html>
 </jsp:root>

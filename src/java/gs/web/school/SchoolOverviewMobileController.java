@@ -29,7 +29,8 @@ import java.util.*;
 /**
  * @author aroy@greatschools.org
  */
-public class SchoolOverviewMobileController implements Controller, IDirectoryStructureUrlController, IDeviceSpecificControllerPartOfPair {
+public class SchoolOverviewMobileController implements Controller, IDirectoryStructureUrlController,
+        IDeviceSpecificControllerPartOfPair {
     protected static final Log _log = LogFactory.getLog(SchoolOverviewMobileController.class.getName());
 
     public static final int MAX_SCHOOL_REVIEWS = 2;
@@ -39,11 +40,13 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
     private RatingHelper _ratingHelper;
     private IReviewDao _reviewDao;
     private ITestDataSetDao _testDataSetDao;
+    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
     protected School getActiveSchoolFromDirectoryStructureUrlFields(HttpServletRequest request) {
         School school = null;
         State state = SessionContextUtil.getSessionContext(request).getState();
-        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
+        DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute
+                (IDirectoryStructureUrlController.FIELDS);
         if (fields != null) {
             try {
                 Integer id = new Integer(fields.getSchoolID());
@@ -54,7 +57,8 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
                     _log.error("School " + s + " is inactive");
                 }
             } catch (Exception e) {
-                _log.error("Could not get a valid or active school: " + fields.getSchoolID() + " in state: " + state, e);
+                _log.error("Could not get a valid or active school: " + fields.getSchoolID() + " in state: " + state,
+                        e);
             }
         } else {
             _log.error("Fields is null");
@@ -72,7 +76,7 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
         return null;
     }
 
-    protected void addCanonicalUrlToModel(Map<String,Object> model, School school, HttpServletRequest request) {
+    protected void addCanonicalUrlToModel(Map<String, Object> model, School school, HttpServletRequest request) {
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         String fullCanonicalUrl = urlBuilder.asFullCanonicalUrl(request);
         model.put("relCanonical", fullCanonicalUrl);
@@ -95,6 +99,10 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
         boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
         Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
         model.put("gs_rating", gsRating);
+        if (pageHelper != null && gsRating != null && gsRating > 0 && gsRating < 11) {
+            pageHelper.addAdKeyword("gs_rating", String.valueOf(gsRating));
+        }
+        _schoolProfileHeaderHelper.handleAdKeywords(request, school);
 
         List<Review> reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school, MAX_SCHOOL_REVIEWS);
         Long numberOfReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school);
@@ -102,7 +110,7 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
         model.put("numberOfReviews", numberOfReviews);
         Ratings ratings = _reviewDao.findRatingsBySchool(school);
         model.put("ratings", ratings);
-        model.put("numberOfRatings", (ratings == null)?0:ratings.getCount());
+        model.put("numberOfRatings", (ratings == null) ? 0 : ratings.getCount());
         boolean hasTestScores = hasTestScores(school);
         model.put(HAS_TEST_SCORES, hasTestScores);
 
@@ -164,6 +172,14 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
 
     public void setTestDataSetDao(ITestDataSetDao testDataSetDao) {
         _testDataSetDao = testDataSetDao;
+    }
+
+    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
+        return _schoolProfileHeaderHelper;
+    }
+
+    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
+        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
 
     public boolean controllerHandlesMobileRequests() {

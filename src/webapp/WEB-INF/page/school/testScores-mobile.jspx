@@ -31,8 +31,8 @@
         <c:set var="pageName" value="Test Scores"/>
 
         <script type="text/javascript">
-            require(['testScores', 'schoolSave'], function(testScores, schoolSave) {
-                $(function() {
+            require(['testScores', 'schoolSave'], function (testScores, schoolSave) {
+                $(function () {
                     testScores.init();
                 });
 
@@ -42,117 +42,124 @@
             });
         </script>
 
-        <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Test_Scores" />
-        <ad:xGPTMobileSetup />
+        <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Test_Scores"/>
     </head>
     <body>
     <div class="contain_1-2 pbm" style="border-bottom: none">
 
-                <div><h6>Test Scores</h6></div>
-                <!--TODO refactor this into a tag,since its used on school overview also.-->
-                <div>
-                    <div><h1><link:schoolProfileOverview school="${school}">
-                        ${school.name}
-                    </link:schoolProfileOverview></h1></div>
+        <div><h6>Test Scores</h6></div>
+        <!--TODO refactor this into a tag,since its used on school overview also.-->
+        <div>
+            <div><h1><link:schoolProfileOverview school="${school}">
+                ${school.name}
+            </link:schoolProfileOverview></h1></div>
 
-                    <div>
-                        <c:if test="${not school.preschoolOnly}">
-                            <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
-                        </c:if>
-                        <!-- Grade levels -->
-                        <c:choose>
-                            <c:when test="${school.preschoolOnly}">
-                                <c:set var="gradeLevels">Preschool</c:set>
-                            </c:when>
-                            <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
-                                <!-- Leave blank -->
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
-                            </c:otherwise>
-                        </c:choose>
-                        <!-- Enrollment -->
-                        <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
-                        <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
-                            <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
-                        </c:if>
-                        <span class="ac1 small">${schoolType}${gradeLevels}${enrollment}</span>
-                    </div>
-                </div>
-                <c:if test="${not empty gs_rating}">
-                    <div class="ptm">
-                        <hr class="keyline1" />
-                        <div class="pts">
-                            <div class="ratings-round ratings-medium round-medium fl"><div class="ratings-number number-medium">${gs_rating}</div></div> <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong class="small"> GreatSchools Rating</strong></div>
-                        </div>
-                        <div class="clearfloat"><!--  --></div>
-                    </div>
+            <div>
+                <c:if test="${not school.preschoolOnly}">
+                    <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
                 </c:if>
+                <!-- Grade levels -->
+                <c:choose>
+                    <c:when test="${school.preschoolOnly}">
+                        <c:set var="gradeLevels">Preschool</c:set>
+                    </c:when>
+                    <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
+                        <!-- Leave blank -->
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
+                    </c:otherwise>
+                </c:choose>
+                <!-- Enrollment -->
+                <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
+                <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                    <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
+                </c:if>
+                <span class="ac1 small">${schoolType}${gradeLevels}${enrollment}</span>
+            </div>
+        </div>
+        <c:if test="${not empty gs_rating}">
+            <div class="ptm">
+                <hr class="keyline1"/>
+                <div class="pts">
+                    <div class="ratings-round ratings-medium round-medium fl">
+                        <div class="ratings-number number-medium">${gs_rating}</div>
+                    </div>
+                    <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong
+                            class="small"> GreatSchools Rating</strong></div>
+                </div>
+                <div class="clearfloat"><!--  --></div>
+            </div>
+        </c:if>
 
     </div>
 
 
-
     <c:choose>
         <c:when test="${not empty schoolTestScores}">
-        <div>
+            <div>
 
-            <c:forEach var="testToGrades" items="${schoolTestScores}" varStatus="index">
-                <c:if test="${index.index eq 1}">
-                    <ad:adTag-mobile position="Pos1_320x50"/>
-                </c:if>
-                <div class="mod standard_6-1 mtn ptn">
-                    <div class="inner">
-                        <div class="hd plm">
-                            ${testToGrades.testLabel}
-                        </div>
-                        <div class="bd">
-                            <c:if test="${not empty testToGrades.scale}">
-                                <div class="contain_2-1">
-                                   <strong>Scale:</strong> ${testToGrades.scale}
-                                </div>
-                            </c:if>
-                            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
-                                <div class="pam">
-                                    <h4>${gradeToSubjects.gradeLabel}</h4>
+                <c:forEach var="testToGrades" items="${schoolTestScores}" varStatus="index">
+                    <c:if test="${index.index eq 1}">
+                        <ad:adTag-mobile position="Pos1_320x50"/>
+                    </c:if>
 
-                                    <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}" varStatus="index">
-                                        <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
+                    <div class="mod standard_6-1 mtn ptn">
+                        <div class="inner">
+                            <div class="hd plm">
+                                ${testToGrades.testLabel}
+                            </div>
+                            <div class="bd">
+                                <c:if test="${not empty testToGrades.scale}">
+                                    <div class="contain_2-1">
+                                        <strong>Scale:</strong> ${testToGrades.scale}
+                                    </div>
+                                </c:if>
+                                <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
+                                    <div class="pam">
+                                        <h4>${gradeToSubjects.gradeLabel}</h4>
 
-                                        <c:forEach var="yearToTestScore" items="${subjectToYears.years}" varStatus="index">
+                                        <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}"
+                                                   varStatus="index">
+                                            <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
 
-                                            <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}" testScoreLabel="${yearToTestScore.testScoreLabel}"
-                                                             testScoreYear="${yearToTestScore.year}"/>
+                                            <c:forEach var="yearToTestScore" items="${subjectToYears.years}"
+                                                       varStatus="index">
+
+                                                <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}"
+                                                                 testScoreLabel="${yearToTestScore.testScoreLabel}"
+                                                                 testScoreYear="${yearToTestScore.year}"/>
+                                            </c:forEach>
+
+                                            <div class="ptm"><!-- not empty --></div>
                                         </c:forEach>
-                                        <div class="ptm"><!-- not empty --></div>
-                                    </c:forEach>
-                                </div>
-                                <hr class="keyline1" />
-                            </c:forEach>
+                                    </div>
+                                    <hr class="keyline1"/>
+                                </c:forEach>
 
+                            </div>
                         </div>
                     </div>
-                </div>
-                <c:if test="${not empty testToGrades.source}">
-                    <div class="pam ac1">
-                        Source: ${testToGrades.source}
-                    </div>
-                </c:if>
-                <c:if test="${not empty testToGrades.description}">
-                    <div class="phm pbm">
-                        <strong>Description:</strong><br />
-                        <util:truncate value="${testToGrades.description}" words="40" />
-                    </div>
-                </c:if>
-            </c:forEach>
-        </div>
+                    <c:if test="${not empty testToGrades.source}">
+                        <div class="pam ac1">
+                            Source: ${testToGrades.source}
+                        </div>
+                    </c:if>
+                    <c:if test="${not empty testToGrades.description}">
+                        <div class="phm pbm">
+                            <strong>Description:</strong><br/>
+                            <util:truncate value="${testToGrades.description}" words="40"/>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </div>
         </c:when>
         <c:otherwise>
             No test score data is available for this school
         </c:otherwise>
     </c:choose>
 
-    <hr class="keyline1" />
+    <hr class="keyline1"/>
     <!-- SMS / Email / Save buttons -->
     <mobile:share school="${school}"/>
     <link:schoolProfileOverview school="${school}">
@@ -160,7 +167,8 @@
             <div class="inner">
                 <div class="hd">
                     <h2 class="plm">
-                        School overview  <span class="arrow"><span class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
+                        School overview <span class="arrow"><span
+                            class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
                     </h2>
                 </div>
             </div>
@@ -172,7 +180,7 @@
             <div class="inner">
                 <div class="hd">
                     <h2 class="plm">
-                        Reviews  <span class="arrow"><span class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
+                        Reviews <span class="arrow"><span class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
                     </h2>
                 </div>
             </div>
@@ -181,8 +189,9 @@
 
 
     <div class="pam">
-        <strong>About GS Ratings</strong><br />Our ratings provide an overview of a school's test performance by comparing the school's state standardized test results to those of other schools in the state.
-        For more information, go to the full website to <link:cmsContent contentKey="Article#2423" fullUri="/find-a-school/defining-your-ideal/ratings">read our FAQs</link:cmsContent>.
+        <strong>About GS Ratings</strong><br/>Our ratings provide an overview of a school's test performance by comparing the school's state standardized test results to those of other schools in the state.
+        For more information, go to the full website to <link:cmsContent contentKey="Article#2423"
+                                                                         fullUri="/find-a-school/defining-your-ideal/ratings">read our FAQs</link:cmsContent>.
     </div>
     <mobile:topOfPage/>
     <mod:mobileTracking pageName="${pageName}"

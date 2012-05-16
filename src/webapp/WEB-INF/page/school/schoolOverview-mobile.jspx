@@ -11,245 +11,261 @@
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
 <html lang="en">
-    <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
-    <jsp:output omit-xml-declaration="true" />
-    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+<jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
+<jsp:output omit-xml-declaration="true"/>
+<jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
-    <c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
-    <c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState.longName} - ${stateAbbrev}"/>
+<c:set var="stateAbbrev" value="${requestScope.context.stateOrDefault.abbreviation}"/>
+<c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState.longName} - ${stateAbbrev}"/>
 
-    <head>
-        <meta name="decorator" content="standardMobileDecorator"/>
+<head>
+    <meta name="decorator" content="standardMobileDecorator"/>
 
-        <meta name="description" content="${gsweb:schoolPageDescriptionMobile(school)}"/>
+    <meta name="description" content="${gsweb:schoolPageDescriptionMobile(school)}"/>
 
-        <title>${gsweb:schoolPageTitleMobile(school)}</title>
-        <c:if test="${not empty relCanonical}">
-            <link rel="canonical" href="${relCanonical}"/>
-        </c:if>
-        <script type="text/javascript">
-            require(['schoolOverview'], function(schoolOverview) {
-                $(function() {
-                    schoolOverview.init('${school.databaseState}', '${school.id}');
-                });
+    <title>${gsweb:schoolPageTitleMobile(school)}</title>
+    <c:if test="${not empty relCanonical}">
+        <link rel="canonical" href="${relCanonical}"/>
+    </c:if>
+    <script type="text/javascript">
+        require(['schoolOverview'], function (schoolOverview) {
+            $(function () {
+                schoolOverview.init('${school.databaseState}', '${school.id}');
             });
-        </script>
+        });
+    </script>
 
-        <c:choose>
-            <c:when test="${fn:contains(school.levelCode, 'p')}">
-                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Preschool_School_Overview" />
-            </c:when>
-            <c:when test="${school.type eq 'private'}">
-                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Private_School_Overview" />
-            </c:when>
-            <c:when test="${school.type eq 'public'}">
-                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Public_School_Overview" />
-            </c:when>
-            <c:otherwise>
-                <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Public_School_Overview" />
-            </c:otherwise>
-        </c:choose>
-
-        <ad:xGPTMobileSetup />
-    </head>
-
-    <body>
-    <div class="contain_1-2">
-
-            <h1>${school.name}</h1>
-                <p class="small pbm ac1">
-                <c:if test="${not school.preschoolOnly}">
-                    <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
-                </c:if>
-                <!-- Grade levels -->
-                <c:choose>
-                    <c:when test="${school.preschoolOnly}">
-                        <c:set var="gradeLevels">Preschool</c:set>
-                    </c:when>
-                    <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
-                        <!-- Leave blank -->
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
-                    </c:otherwise>
-                </c:choose>
-                <!-- Enrollment -->
-                <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
-                <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
-                    <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
-                </c:if>
-                ${schoolType}${gradeLevels}${enrollment}
-                </p>
-            <div class="clearfloat"><!-- empty not delete --></div>
-        <c:if test="${not empty gs_rating or not empty ratings.overall}">
-
-            <div class="fl mrm">
-                <c:if test="${not empty gs_rating}">
-                    <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
-                        <div class="ratings-round ratings-medium round-medium vam fl"><div class="ratings-number number-medium">${gs_rating}</div></div> <div class="tal pls fl">GreatSchools<br />Rating</div>
-                    </link:schoolProfileTestscore>
-                </c:if>
-            </div>
-            <div class="fl ">
-                <c:if test="${not empty ratings.overall}">
-                        <link:schoolProfileParentReview school="${school}" styleClass="but but-sm but-2 but-overview">
-                            Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>
-                                <mobile:stars curSR="${ratings.overall}" smStars="1"/>
-                        </link:schoolProfileParentReview>
-                </c:if>
-            </div>
-        </c:if>
-
-        </div>
-        <div class="clearfloat pvm"><hr class="keyline1" /></div>
-        <!-- Address / Phone / District block -->
-        <div class="phm pbm">
-            <p>
-                ${school.physicalAddress.street}<br/>
-                ${school.physicalAddress.cityStateZip}
-            <c:if test="${not empty school.district}">
-                <div>District: <link:districtHome district="${school.district}">${school.district.name}</link:districtHome></div>
-            </c:if>
-            </p>
-        </div>
-        <div class="pam">
-            <c:if test="${not empty school.phone}">
-
-                    <a href="tel:${school.phone}" class="but but-sm but-2">${school.phone}</a>
-
-                <br/>
-            </c:if>
-        </div>
-
-        <!-- Map -->
-        <c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress)}"/>
-        <c:set var="schoolAddressWithName" value="${gsweb:escapeHtml(school.physicalAddress)}+(${gsweb:escapeHtml(school.name)})"/>
-        <div class="pam">
-
-            <!-- iPhones require the string "Current Location" to have the maps app pull your location.
-                 Android seems to require the address to be blank for the same behavior -->
-            <c:if test="${requestInfo.device.iphone}">
-                <c:set var="sourceAddr" value="saddr=Current+Location&amp;"/>
-            </c:if>
-            <a href="http://maps.google.com/?${sourceAddr}daddr=${schoolAddressWithName}" class="small"><span class="iconx24 i-24-map vam mrs"><!-- do not collapse --></span>Directions</a>
-
-            <a href="/search/search.page?state=${school.databaseState}&amp;lat=${school.lat}&amp;lon=${school.lon}&amp;distance=25&amp;searchString=${gsweb:urlEncode(school.name)}" class="small"><span class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span>See schools nearby</a>
-        </div>
-
-        <ad:adTag-mobile position="AboveMap_320x50"/>
-
-        <div id="js_schoolMap">
-            <c:choose>
-                <c:when test="${not empty gs_rating}">
-                    <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_${gs_rating}_forground.png"/>
-                </c:when>
-                <c:when test="${school.type.schoolTypeName eq 'private'}">
-                    <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_private_forground.png"/>
-                </c:when>
-                <c:otherwise>
-                    <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_na_forground.png"/>
-                </c:otherwise>
-            </c:choose>
-            <c:set var="mapMarkerUrl" value="http://www.greatschools.org${mapMarkerUrl}"/>
-            <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
-
-            <a href="http://maps.google.com/?q=${schoolAddressWithName}">
-                <img height="160" width="320" src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=320x160&amp;maptype=roadmap&amp;scale=2&amp;sensor=false"/>
-            </a>
-        </div>
-
-        <!-- SMS / Email / Save buttons -->
-        <mobile:share school="${school}"/>
-
-        <c:if test="${hasTestScores}">
-            <link:schoolProfileTestscore school="${school}">
-                <span class="iconx24 i-24-stats vam mam"><!-- do not collapse --></span>View this school's test scores
-            </link:schoolProfileTestscore>
-        </c:if>
-
-        <!-- Parent reviews -->
-
-        <div class="mod standard_6-1">
-            <div class="inner">
-                <link:schoolProfileParentReview school="${school}">
-                    <div class="hd">
-                        <h2 class="plm">
-                            Reviews<c:if test="${numberOfReviews gt 0}"> (${numberOfReviews})</c:if> <span class="arrow"><span
-                                class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
-                        </h2>
-                    </div>
-                </link:schoolProfileParentReview>
-                <c:if test="${numberOfReviews gt 0}">
-                    <div class="bd">
-                        <school:parentReviewsMobile reviews="${reviewsToShow}"/>
-                    </div>
-                </c:if>
-            </div>
-            <c:if test="${numberOfReviews gt 2}">
-                <div>
-                    <div class="plm pbm"><link:schoolProfileParentReview
-                            school="${school}">View more reviews &amp;raquo;</link:schoolProfileParentReview></div>
-                </div>
-            </c:if>
-        </div>
-
-        <!-- Test scores -->
-        <c:if test="${hasTestScores}">
-            <div class="mod standard_6-1 mbm">
-                <div class="inner">
-                    <link:schoolProfileTestscore school="${school}">
-                        <div class="hd">
-                            <h2 class="plm">
-                               Test scores
-                                <span class="arrow"><span class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
-                            </h2>
-                        </div>
-                    </link:schoolProfileTestscore>
-                    <div id="js_testScoreSnippetOuterDiv" style="display: none;">
-                        <div id="js_testScoreSnippetInnerDiv">
-                            <!-- WARNING: THE FOLLOWING DIV IS A TEMPLATE AND SHOULD NEVER BE SHOWN AS WRITTEN BELOW -->
-                            <!-- The following div is cloned for each test score pulled in and the populated with the real data -->
-                            <div id="js_testScoreSnippetTemplate" class="pam" style="display:none;">
-                                <h4 class="js_grade"><!-- not empty --></h4>
-                                <div class="js_testScoreSnippetSubjectTemplate" style="display:none;">
-                                    <div><h5 class="js_subject pbm"><!-- not empty --></h5></div>
-
-                                    <div class="js_testScoreSnippetValueTemplate" style="display:none;">
-
-                                        <mobile:barGraph loadJS="1" />
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="phm ">
-                            <link:schoolProfileTestscore school="${school}">View more test scores &amp;raquo;</link:schoolProfileTestscore>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:if>
-
-        <search:nearbyCities lat="${school.lat}" lon="${school.lon}" noStorage="true"/>
-
-        <search:nearbyDistricts lat="${school.lat}" lon="${school.lon}" noStorage="true"/>
-
-        <mobile:topOfPage/>
-    <!--- Omniture -->
-    <c:set var="pageName" value="Overview" scope="request"/>
     <c:choose>
-        <c:when test="${school.levelCode == 'p'}">
-            <c:set var="pageName" value="Preschool Overview"/>
+        <c:when test="${school.preschoolOnly}">
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Preschool_School_Overview"/>
+        </c:when>
+        <c:when test="${school.type.schoolTypeName eq 'private'}">
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Private_School_Overview"/>
+        </c:when>
+        <c:when test="${school.type.schoolTypeName eq 'public'}">
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Public_School_Overview"/>
         </c:when>
         <c:otherwise>
-            <c:if test="${school.type.schoolTypeName == 'private'}">
-                <c:set var="pageName" value="Private School Overview"/>
-            </c:if>
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Public_School_Overview"/>
         </c:otherwise>
     </c:choose>
-    <mod:mobileTracking pageName="${pageName}"
-                        hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
-                        school="${school}" schoolGSRating="${gs_rating}" schoolPhotosTracking="${schoolPhotosTracking}"/>
-    </body>
+
+</head>
+
+<body>
+<div class="contain_1-2">
+
+    <h1>${school.name}</h1>
+
+    <p class="small pbm ac1">
+        <c:if test="${not school.preschoolOnly}">
+            <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
+        </c:if>
+        <!-- Grade levels -->
+        <c:choose>
+            <c:when test="${school.preschoolOnly}">
+                <c:set var="gradeLevels">Preschool</c:set>
+            </c:when>
+            <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
+                <!-- Leave blank -->
+            </c:when>
+            <c:otherwise>
+                <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
+            </c:otherwise>
+        </c:choose>
+        <!-- Enrollment -->
+        <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
+        <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+            <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
+        </c:if>
+        ${schoolType}${gradeLevels}${enrollment}
+    </p>
+
+    <div class="clearfloat"><!-- empty not delete --></div>
+    <c:if test="${not empty gs_rating or not empty ratings.overall}">
+
+        <div class="fl mrm">
+            <c:if test="${not empty gs_rating}">
+                <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
+                    <div class="ratings-round ratings-medium round-medium vam fl">
+                        <div class="ratings-number number-medium">${gs_rating}</div>
+                    </div>
+                    <div class="tal pls fl">GreatSchools<br/>Rating</div>
+                </link:schoolProfileTestscore>
+            </c:if>
+        </div>
+        <div class="fl ">
+            <c:if test="${not empty ratings.overall}">
+                <link:schoolProfileParentReview school="${school}" styleClass="but but-sm but-2 but-overview">
+                    Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>
+                    <mobile:stars curSR="${ratings.overall}" smStars="1"/>
+                </link:schoolProfileParentReview>
+            </c:if>
+        </div>
+    </c:if>
+
+</div>
+<div class="clearfloat pvm">
+    <hr class="keyline1"/>
+</div>
+<!-- Address / Phone / District block -->
+<div class="phm pbm">
+    <p>
+        ${school.physicalAddress.street}<br/>
+        ${school.physicalAddress.cityStateZip}
+        <c:if test="${not empty school.district}">
+            <div>District: <link:districtHome district="${school.district}">${school.district.name}</link:districtHome>
+            </div>
+        </c:if>
+    </p>
+</div>
+<div class="pam">
+    <c:if test="${not empty school.phone}">
+
+        <a href="tel:${school.phone}" class="but but-sm but-2">${school.phone}</a>
+
+        <br/>
+    </c:if>
+</div>
+
+<!-- Map -->
+<c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress)}"/>
+<c:set var="schoolAddressWithName"
+       value="${gsweb:escapeHtml(school.physicalAddress)}+(${gsweb:escapeHtml(school.name)})"/>
+
+<div class="pam">
+
+    <!-- iPhones require the string "Current Location" to have the maps app pull your location.
+Android seems to require the address to be blank for the same behavior -->
+    <c:if test="${requestInfo.device.iphone}">
+        <c:set var="sourceAddr" value="saddr=Current+Location&amp;"/>
+    </c:if>
+    <a href="http://maps.google.com/?${sourceAddr}daddr=${schoolAddressWithName}" class="small"><span
+            class="iconx24 i-24-map vam mrs"><!-- do not collapse --></span>Directions</a>
+
+    <a href="/search/search.page?state=${school.databaseState}&amp;lat=${school.lat}&amp;lon=${school.lon}&amp;distance=25&amp;searchString=${gsweb:urlEncode(school.name)}"
+       class="small"><span
+            class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span>See schools nearby</a>
+</div>
+
+<ad:adTag-mobile position="AboveMap_320x50"/>
+
+<div id="js_schoolMap">
+    <c:choose>
+        <c:when test="${not empty gs_rating}">
+            <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_${gs_rating}_forground.png"/>
+        </c:when>
+        <c:when test="${school.type.schoolTypeName eq 'private'}">
+            <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_private_forground.png"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_na_forground.png"/>
+        </c:otherwise>
+    </c:choose>
+    <c:set var="mapMarkerUrl" value="http://www.greatschools.org${mapMarkerUrl}"/>
+    <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
+
+    <a href="http://maps.google.com/?q=${schoolAddressWithName}">
+        <img height="160" width="320"
+             src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=320x160&amp;maptype=roadmap&amp;scale=2&amp;sensor=false"/>
+    </a>
+</div>
+
+<!-- SMS / Email / Save buttons -->
+<mobile:share school="${school}"/>
+
+<c:if test="${hasTestScores}">
+    <link:schoolProfileTestscore school="${school}">
+        <span class="iconx24 i-24-stats vam mam"><!-- do not collapse --></span>View this school's test scores
+    </link:schoolProfileTestscore>
+</c:if>
+
+<!-- Parent reviews -->
+
+<div class="mod standard_6-1">
+    <div class="inner">
+        <link:schoolProfileParentReview school="${school}">
+            <div class="hd">
+                <h2 class="plm">
+                    Reviews<c:if test="${numberOfReviews gt 0}"> (${numberOfReviews})</c:if> <span class="arrow"><span
+                        class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
+                </h2>
+            </div>
+        </link:schoolProfileParentReview>
+        <c:if test="${numberOfReviews gt 0}">
+            <div class="bd">
+                <school:parentReviewsMobile reviews="${reviewsToShow}"/>
+            </div>
+        </c:if>
+    </div>
+    <c:if test="${numberOfReviews gt 2}">
+        <div>
+            <div class="plm pbm"><link:schoolProfileParentReview
+                    school="${school}">View more reviews &amp;raquo;</link:schoolProfileParentReview></div>
+        </div>
+    </c:if>
+</div>
+
+<!-- Test scores -->
+<c:if test="${hasTestScores}">
+    <div class="mod standard_6-1 mbm">
+        <div class="inner">
+            <link:schoolProfileTestscore school="${school}">
+                <div class="hd">
+                    <h2 class="plm">
+                        Test scores
+                        <span class="arrow"><span class=" iconx16 i-16-right-arrow-bg"><!-- not empty --></span></span>
+                    </h2>
+                </div>
+            </link:schoolProfileTestscore>
+
+            <div id="js_testScoreSnippetOuterDiv" style="display: none;">
+                <div id="js_testScoreSnippetInnerDiv">
+                    <!-- WARNING: THE FOLLOWING DIV IS A TEMPLATE AND SHOULD NEVER BE SHOWN AS WRITTEN BELOW -->
+                    <!-- The following div is cloned for each test score pulled in and the populated with the real data -->
+                    <div id="js_testScoreSnippetTemplate" class="pam" style="display:none;">
+                        <h4 class="js_grade"><!-- not empty --></h4>
+
+                        <div class="js_testScoreSnippetSubjectTemplate" style="display:none;">
+                            <div><h5 class="js_subject pbm"><!-- not empty --></h5></div>
+
+                            <div class="js_testScoreSnippetValueTemplate" style="display:none;">
+
+                                <mobile:barGraph loadJS="1"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="phm ">
+                    <link:schoolProfileTestscore
+                            school="${school}">View more test scores &amp;raquo;</link:schoolProfileTestscore>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if>
+
+<search:nearbyCities lat="${school.lat}" lon="${school.lon}" noStorage="true"/>
+
+<search:nearbyDistricts lat="${school.lat}" lon="${school.lon}" noStorage="true"/>
+
+<mobile:topOfPage/>
+<!--- Omniture -->
+<c:set var="pageName" value="Overview" scope="request"/>
+<c:choose>
+    <c:when test="${school.levelCode == 'p'}">
+        <c:set var="pageName" value="Preschool Overview"/>
+    </c:when>
+    <c:otherwise>
+        <c:if test="${school.type.schoolTypeName == 'private'}">
+            <c:set var="pageName" value="Private School Overview"/>
+        </c:if>
+    </c:otherwise>
+</c:choose>
+<mod:mobileTracking pageName="${pageName}"
+                    hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
+                    school="${school}" schoolGSRating="${gs_rating}" schoolPhotosTracking="${schoolPhotosTracking}"/>
+</body>
 </html>
 </jsp:root>
