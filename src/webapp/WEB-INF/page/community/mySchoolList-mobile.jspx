@@ -78,7 +78,7 @@
                 <div class="pas">
                     <div class="fl{{displayGSRating}}">
                         <div class="ratings-round ratings-small round-small fl vam"><div class="ratings-number number-small">{{gsRating}}</div></div>
-                        <div class="small-lt fl pls"> of 10</div>
+                        <div class="small-lt fl pls pt4"> of 10</div>
                     </div>
                     <div class="fr prm{{displayCommRating}}"><span class="small-lt">Community rating: </span>
 
