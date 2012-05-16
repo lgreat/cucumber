@@ -30,6 +30,7 @@
             <gsml:url var="media" value="/res/mobile/css/03_media/media.css"/>
             <gsml:url var="text" value="/res/mobile/css/04_text/typography.css"/>
             <gsml:url var="buttons" value="/res/mobile/css/05_buttons/buttons.css"/>
+            <gsml:url var="filterbuttons" value="/res/mobile/css/05_buttons/filter.css"/>
             <gsml:url var="iconx12" value="/res/mobile/css/06_sprites/icon_x12.css"/>
             <gsml:url var="iconx16" value="/res/mobile/css/06_sprites/icon_x16.css"/>
             <gsml:url var="iconx24" value="/res/mobile/css/06_sprites/icon_x24.css"/>
@@ -51,6 +52,7 @@
             <![CDATA[<link rel="stylesheet" href="${media}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${text}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${buttons}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${filterbuttons}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${iconx12}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${iconx16}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${iconx24}" type="text/css" />]]>
