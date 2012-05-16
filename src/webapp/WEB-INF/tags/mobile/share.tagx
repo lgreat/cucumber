@@ -41,19 +41,19 @@ ${school.physicalAddress.cityStateZip}
         <c:set var="emailSubject" value="${school.name} on GreatSchools"/>
     </c:if>
 
-    <div class="pam" style="width:320px;">
+    <div class="pam ios-dw">
         <!-- GS-12650 SMS protocol does not allow us the flexibility we want. De-scoping this for now -->
         <!--<a href="sms:?body=${fn:escapeXml(gsweb:encodeWithinQuery(smsBody))}">SMS</a>-->
         <div class="fl">
             <a href="mailto:?subject=${fn:escapeXml(gsweb:encodeWithinQuery(emailSubject))}&amp;body=${fn:escapeXml(gsweb:encodeWithinQuery(emailBody))}"
-             class="but but-rg but-2 phn" style="min-width: 140px;">Email a link</a>
+             class="but but-rg but-2 phn button-share">Email a link</a>
         </div>
 
         <span id="js-saveSchool">
             <c:if test="${not empty school}">
-                <div class="fr mhm prm">
-                <a href="javascript:void(0);" class="but but-rg but-2 phn" style="min-width: 140px;" id="js-saveSchoolButton">Save</a>
-                <form id = "js-saveSchoolForm">
+                <div class="fl mlm">
+                <a href="javascript:void(0);" class="but but-rg but-2 phn button-share" id="saveSchoolButton">Save</a>
+                <form id = "saveSchoolForm">
                     <input type="hidden" name="id" value="${school.id}"/>
                     <input type="hidden" name="state" value="${school.stateAbbreviation.abbreviation}"/>
                 </form>
