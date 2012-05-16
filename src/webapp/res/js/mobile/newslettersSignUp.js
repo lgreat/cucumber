@@ -1,12 +1,12 @@
 define(['tracking'],function(tracking) {
     var init = function() {
             jQuery('#js-submit').click(function () {
-                var newslettersSignUpForm = $('#newslettersSignUpForm');
+                var newslettersSignUpForm = $('#js-newslettersSignUpForm');
                 submitForm(newslettersSignUpForm)
                     .done(function() {
                         document.title = 'Email Confirmation | GreatSchools';
-                        newslettersSignUpForm.find('div.signUp').hide();
-                        newslettersSignUpForm.find('div.thankYou').show();
+                        newslettersSignUpForm.find('.js-signUp').hide();
+                        newslettersSignUpForm.find('.js-thankYou').show();
                     });
                 return false;
             });
@@ -25,12 +25,13 @@ define(['tracking'],function(tracking) {
                     newslettersSignUpForm.find('div.error').html('<p>' + data.error + '</p>').css("display", "block");
                     return;
                 }
+                newslettersSignUpForm.find('.js-signUpSuccessMessage').html('<p>' + data.success + '</p>');
                 masterDeferred.resolve();
             });
         return masterDeferred.promise();
     }
 
     return {
-        init:init
-    }
+init:init
+}
 });

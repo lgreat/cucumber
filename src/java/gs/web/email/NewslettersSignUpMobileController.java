@@ -67,18 +67,16 @@ public class NewslettersSignUpMobileController implements ReadWriteAnnotationCon
 
         if (email == null || !validateEmail(email)) {
             String emailError = "Please enter your email address to sign up.";
-            outputJsonError(emailError, response);
+            outputJson("error", emailError, response);
             return;
         }
 
-        //logic based on newsletterSignUpController.java
         boolean isSubscribedToWeeklyNl = false;
         boolean shouldSendVerificationEmail = false;
         List<Subscription> subscriptions = new ArrayList<Subscription>();
 
         User user = _userDao.findUserFromEmailIfExists(email);
-        Calendar double_opt_in_release_date = Calendar.getInstance();
-        double_opt_in_release_date.set(2010, 3, 14, 23, 0, 0);
+
         if (user == null) {
             user = new User();
             user.setEmail(email);
@@ -88,20 +86,17 @@ public class NewslettersSignUpMobileController implements ReadWriteAnnotationCon
 
             shouldSendVerificationEmail = true;
         }
-        else if (user != null && user.getTimeAdded() != null && (user.getEmailVerified() == null || !user.getEmailVerified())) {
-            Date time_added = user.getTimeAdded();
-
-            if (time_added.after(double_opt_in_release_date.getTime()) && (user.getEmailVerified() == null || !user.getEmailVerified())) {
+        else {
+            if(user.getEmailVerified() == null || !user.getEmailVerified()) {
                 shouldSendVerificationEmail = true;
             }
-        }
+            Set<Subscription> userSubscriptions = user.getSubscriptions();
 
-        Set<Subscription> userSubscriptions = user.getSubscriptions();
-
-        if (userSubscriptions != null) {
-            for (Subscription subscription: userSubscriptions) {
-                if (SubscriptionProduct.PARENT_ADVISOR.equals(subscription.getProduct())) {
-                    isSubscribedToWeeklyNl = true;
+            if (userSubscriptions != null) {
+                for (Subscription subscription: userSubscriptions) {
+                    if (SubscriptionProduct.PARENT_ADVISOR.equals(subscription.getProduct())) {
+                        isSubscribedToWeeklyNl = true;
+                    }
                 }
             }
         }
@@ -114,11 +109,19 @@ public class NewslettersSignUpMobileController implements ReadWriteAnnotationCon
 
         if(shouldSendVerificationEmail) {
             sendVerificationEmail(request, user, true);
+            String message = "Please confirm your subscription by clicking the link in the email we just sent you.";
+            outputJson("success", message, response);
         }
-
-        JSONObject successObj = new JSONObject();
-        successObj.write(response.getWriter());
-        response.getWriter().flush();
+        else {
+            if (!isSubscribedToWeeklyNl) {
+                String message = "You have successfully subscribed to the GreatSchools weekly newsletter.";
+                outputJson("success", message, response);
+            }
+            else {
+                String message = "The email address is already signed up.";
+                outputJson("error", message, response);
+            }
+        }
     }
 
     protected void addSubscription(List<Subscription> subscriptions, User user, SubscriptionProduct subscriptionProduct) {
@@ -141,10 +144,10 @@ public class NewslettersSignUpMobileController implements ReadWriteAnnotationCon
         return emv.isValid(email);
     }
 
-    protected void outputJsonError(String emailError, HttpServletResponse response) throws JSONException, IOException {
-        JSONObject errorObj = new JSONObject();
-        errorObj.put("error", emailError);
-        errorObj.write(response.getWriter());
+    protected void outputJson(String type, String message, HttpServletResponse response) throws JSONException, IOException {
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put(type, message);
+        jsonResponse.write(response.getWriter());
         response.getWriter().flush();
     }
 }
