@@ -32,10 +32,10 @@ define(['searchResultFilters'], function(searchResultFilters) {
         // TODO: readjust height of map window to device size.
         // need to change the difference based on design or
         // if frontend can do the same with css, then remove this block
-        var height = 200;
-        if (window.innerHeight){
-            height = window.innerHeight - 130;
-        }
+        var height = 280;
+//        if (window.innerHeight){
+//            height = window.innerHeight - 130;
+//        }
         $('#js-map-canvas').css({height:height});
 
 
@@ -48,6 +48,10 @@ define(['searchResultFilters'], function(searchResultFilters) {
             var latLng = map.getCenter();
             var url = String(window.location).replace(/([\&\?])(lat=)([^\&]+)/, "$1lat=" + latLng.lat()).replace(/([\&\?])(lon=)([^\&]+)/,"$1lon=" + latLng.lng());
             window.location = url;
+        });
+
+        google.maps.event.addListener(map, 'dragend', function(){
+            $redoBtn.removeClass('dn').addClass('di');
         });
 
         var markerShadow = new google.maps.MarkerImage(
@@ -130,9 +134,7 @@ define(['searchResultFilters'], function(searchResultFilters) {
             })(marker, i));
         }
 
-        google.maps.event.addListener(map, 'dragend', function(){
-            $redoBtn.show().css('display','block');
-        });
+
         // register onclick for link tracking
         $('body').on('click','.js-overview-link', function(){
             if (s.tl) {s.tl(this,'o', 'Mobile_map_click_bubble');} return true;

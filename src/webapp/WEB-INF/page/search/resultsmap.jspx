@@ -99,35 +99,15 @@
                     <div class="contain_6-1 pbs">
                         <div class="fl">
                             <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
-                            <a data-role="button" data-inline="true" class="but but-sm but-2"
+                            <a data-role="button" data-inline="true" class="but but-sm but-2 mrm"
                                href="/search/search.page?${pageContext.request.queryString}">List</a>
+                            <div class="js-redobtn dn mvn pvn"><button class="but but-sm but-2">Redo Search</button></div>
                         </div>
 
                         <br class="clearfloat"/>
                     </div>
 
-                    <!--<div>
-                        <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','distance')}" class="ui-btn-active" data-inline="true">Distance</a>
-                        <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','SCHOOL_NAME_ASCENDING')}" data-inline="true">Name</a>
-                        <a data-role="button" href="${gsweb:putQueryParamIntoUrl(gsweb:getRequestURL(pageContext.request),'sortBy','GS_RATING_DESCENDING')}" data-inline="true">Rating</a>
-                    </div>-->
-
                     <div data-role="content">
-                        <div style="position: relative;">
-                            <div style="width: 100%; position: absolute; top: 0; bottom:0; z-index: 1;">
-                                <div class="mha tac">
-                                    <span class="js-redobtn but but-rg but-2"
-                                          style="display:none;">Redo Search in this area</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!--<div class="mha tac">-->
-                        <!--<input class="js-redobtn but but-lg but-2"-->
-                        <!--style="display: none;"-->
-                        <!--type="submit" value="Redo Search in this area"/>-->
-                        <!--</div>-->
-
                         <div id="js-map-canvas"  class="" style=""><!-- no collapse --></div>
                     </div>
                 </c:if>
