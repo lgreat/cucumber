@@ -52,13 +52,6 @@ public class ParentReviewMobileController extends AbstractController implements 
         School school = (School) request.getAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 
-        // handle preschool profile pages, redirect if not on preschool subdomain
-        // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
-        ModelAndView preschool = _parentReviewHelper.handlePreschool(request, school);
-        if (preschool!=null){
-            return preschool;
-        }
-
         // make sure school object is not null
         if (null != school) {
 
