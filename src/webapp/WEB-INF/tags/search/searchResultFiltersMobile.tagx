@@ -25,7 +25,7 @@
 
             <div class="contain_1-1">
                 <div class="fl">
-                    <h1>Filter Results</h1>
+                    <h1>Narrow Your Search</h1>
                 </div>
                 <div class="fl pts pll">
                     <a href="javascript:void(0);" data-school-filter-action="reset">Reset</a>
@@ -86,66 +86,68 @@
             </div>
 
             <c:if test="${isFromByLocation || isNearbySearch}">
-                <div class="mas">
-                <form:select path="schoolSearchCommand.distance" name="distance" class="js-selectFilter size100of100">
-                    <form:option value="" label="Distance" selected="selected"/>
-                    <form:option value="1" label="1"/>
-                    <form:option value="2" label="2"/>
-                    <form:option value="3" label="3"/>
-                    <form:option value="4" label="4"/>
-                    <form:option value="5" label="5"/>
-                    <form:option value="10" label="10"/>
-                    <form:option value="15" label="15"/>
-                    <form:option value="20" label="20"/>
-                    <form:option value="25" label="25"/>
-                    <form:option value="30" label="30"/>
-                    <form:option value="60" label="60"/>
-                </form:select>
+                <div class="mas line">
+                    <h3 class="size45of100 unit">Distance</h3>
+                    <form:select path="schoolSearchCommand.distance" name="distance" class="js-selectFilter size55of100 unit">
+                        <form:option value="1" label="1 mile"/>
+                        <form:option value="2" label="2 miles"/>
+                        <form:option value="3" label="3 miles"/>
+                        <form:option value="4" label="4 miles"/>
+                        <form:option value="5" label="5 miles"/>
+                        <form:option value="10" label="10 miles"/>
+                        <form:option value="15" label="15 miles"/>
+                        <form:option value="20" label="20 miles"/>
+                        <form:option value="25" label="25 miles"/>
+                        <form:option value="30" label="30 miles"/>
+                        <form:option value="60" label="60 miles"/>
+                    </form:select>
                 </div>
             </c:if>
 
-            <div class="mas">
-            <form:select path="schoolSearchCommand.minGreatSchoolsRating" name="minGreatSchoolsRating" class="js-selectFilter size100of100">
-                <form:option value="" label="GreatSchools Rating" selected="selected"/>
-                <form:option value="" label="Any"/>
-                <form:option value="1" label="1"/>
-                <form:option value="2" label="2"/>
-                <form:option value="3" label="3"/>
-                <form:option value="4" label="4"/>
-                <form:option value="5" label="5"/>
-                <form:option value="6" label="6"/>
-                <form:option value="7" label="7"/>
-                <form:option value="8" label="8"/>
-                <form:option value="9" label="9"/>
-                <form:option value="10" label="10"/>
-            </form:select>
+            <div class="mas line">
+                <h3 class="size45of100 unit">GreatSchools Rating</h3>
+                <form:select path="schoolSearchCommand.minGreatSchoolsRating" name="minGreatSchoolsRating" class="js-selectFilter size55of100 unit">
+                    <form:option value="" label="Any"/>
+                    <form:option value="1" label="1+"/>
+                    <form:option value="2" label="2+"/>
+                    <form:option value="3" label="3+"/>
+                    <form:option value="4" label="4+"/>
+                    <form:option value="5" label="5+"/>
+                    <form:option value="6" label="6+"/>
+                    <form:option value="7" label="7+"/>
+                    <form:option value="8" label="8+"/>
+                    <form:option value="9" label="9+"/>
+                    <form:option value="10" label="10"/>
+                </form:select>
+            </div>
+
+            <div class="mas line">
+                <h3 class="size45of100 unit">Community Rating</h3>
+                <form:select path="schoolSearchCommand.minCommunityRating" name="minCommunityRating" class="js-selectFilter size55of100 unit">
+                    <form:option value="" label="Any"/>
+                    <form:option value="1" label="1+ stars"/>
+                    <form:option value="2" label="2+ stars"/>
+                    <form:option value="3" label="3+ stars"/>
+                    <form:option value="4" label="4+ stars"/>
+                    <form:option value="5" label="5 stars"/>
+                </form:select>
             </div>
 
             <div class="mas">
-            <form:select path="schoolSearchCommand.minCommunityRating" name="minCommunityRating" class="js-selectFilter size100of100">
-                <form:option value="" label="Community Rating" selected="selected"/>
-                <form:option value="" label="Any"/>
-                <form:option value="1" label="1"/>
-                <form:option value="2" label="2"/>
-                <form:option value="3" label="3"/>
-                <form:option value="4" label="4"/>
-                <form:option value="5" label="5"/>
-            </form:select>
+                <h3 class="size45of100 unit">Enrollment</h3>
+                <form:select path="schoolSearchCommand.schoolSize" id="schoolSizeSelect" name="schoolSize" class="js-selectFilter size55of100 unit">
+                    <form:option value="" label="All school sizes"/>
+                    <form:option value="UNDER_20" label="Under 20"/>
+                    <form:option value="UNDER_50" label="Under 50"/>
+                    <form:option value="UNDER_200" label="Under 200"/>
+                    <form:option value="UNDER_500" label="Under 500"/>
+                    <form:option value="UNDER_1000" label="Under 1000"/>
+                    <form:option value="OVER_1000" label="1000 or more"/>
+                </form:select>
             </div>
+            <br class="clearfloat"/>
 
-            <div class="mas">
-            <form:select path="schoolSearchCommand.schoolSize" id="schoolSizeSelect" name="schoolSize" class="js-selectFilter size100of100">
-                <form:option value="" label="Enrollment" selected="selected"/>
-                <form:option value="All" label="All school sizes"/>
-                <form:option value="UNDER_20" label="Under 20"/>
-                <form:option value="UNDER_50" label="Under 50"/>
-                <form:option value="UNDER_200" label="Under 200"/>
-                <form:option value="UNDER_500" label="Under 500"/>
-                <form:option value="UNDER_1000" label="Under 1000"/>
-                <form:option value="OVER_1000" label="1000 or more"/>
-            </form:select>
-            </div>
-            <div class="contain_6-1">
+            <div class="contain_6-1 mts">
                 <div class="fl">
                     <div class="js-searchCancel but but-sm but-2">Cancel</div>
                 </div>
