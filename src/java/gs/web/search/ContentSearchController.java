@@ -139,7 +139,9 @@ public class ContentSearchController extends AbstractController {
                 // look for spellcheck suggestions
                 if (contentTypeFacetInfo.sumFacetCounts == 0) {
                     String suggestedQuery = getSpellcheckQuery(searchQuery, rsp);
-                    model.put(MODEL_SUGGESTED_SEARCH_QUERY, suggestedQuery);
+                    if (suggestedQuery != null) {
+                        model.put(MODEL_SUGGESTED_SEARCH_QUERY, suggestedQuery);
+                    }
                 } else {
                     // If we have a specific contentSearchType to search with, use that. Otherwise get results for all
                     // Known content search types that will yield results
@@ -387,21 +389,23 @@ public class ContentSearchController extends AbstractController {
         long sumFacetCounts = 0;
 
         List<FacetField.Count> facetFields = contentTypeFacet.getValues();
-        Iterator<FacetField.Count> iterator = facetFields.iterator();
+        if (facetFields != null) {
+            Iterator<FacetField.Count> iterator = facetFields.iterator();
 
-        // Iterate through the facet counts received from Solr
-        while (iterator.hasNext()) {
-            FacetField.Count facetCount = iterator.next();
-            // Find the ContentSearchType that matches the facet field's name
-            ContentSearchType matchingContentSearchType = ContentSearchType.findByContentType(facetCount.getName());
-            if (matchingContentSearchType != null) {
-                Long count = facetCount.getCount();
-                sumFacetCounts += count;
-                if (count > 0) {
-                    typesWithResults.add(matchingContentSearchType);
+            // Iterate through the facet counts received from Solr
+            while (iterator.hasNext()) {
+                FacetField.Count facetCount = iterator.next();
+                // Find the ContentSearchType that matches the facet field's name
+                ContentSearchType matchingContentSearchType = ContentSearchType.findByContentType(facetCount.getName());
+                if (matchingContentSearchType != null) {
+                    Long count = facetCount.getCount();
+                    sumFacetCounts += count;
+                    if (count > 0) {
+                        typesWithResults.add(matchingContentSearchType);
+                    }
+                    Long typeResultCount = contentSearchTypeCounts.get(matchingContentSearchType);
+                    contentSearchTypeCounts.put(matchingContentSearchType, typeResultCount + facetCount.getCount());
                 }
-                Long typeResultCount = contentSearchTypeCounts.get(matchingContentSearchType);
-                contentSearchTypeCounts.put(matchingContentSearchType, typeResultCount + facetCount.getCount());
             }
         }
 
@@ -426,9 +430,11 @@ public class ContentSearchController extends AbstractController {
     protected String getSpellcheckQuery(String searchQuery, QueryResponse rsp) {
         SpellCheckResponse spell = rsp.getSpellCheckResponse();
         String suggestedQuery = searchQuery;
-        for (SpellCheckResponse.Suggestion suggestion : spell.getSuggestions()) {
-            suggestedQuery =
-                    suggestedQuery.replaceAll(suggestion.getToken(), suggestion.getAlternatives().get(0));
+        if (spell != null) {
+            for (SpellCheckResponse.Suggestion suggestion : spell.getSuggestions()) {
+                suggestedQuery =
+                        suggestedQuery.replaceAll(suggestion.getToken(), suggestion.getAlternatives().get(0));
+            }
         }
         if (suggestedQuery.equals(searchQuery)) {
             suggestedQuery = null;
