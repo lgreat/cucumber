@@ -49,11 +49,11 @@ ${school.physicalAddress.cityStateZip}
              class="but but-rg but-2 phn" style="min-width: 140px;">Email a link</a>
         </div>
 
-        <span id="saveSchool">
+        <span id="js-saveSchool">
             <c:if test="${not empty school}">
                 <div class="fr mhm prm">
-                <a href="javascript:void(0);" class="but but-rg but-2 phn" style="min-width: 140px;" id="saveSchoolButton">Save</a>
-                <form id = "saveSchoolForm">
+                <a href="javascript:void(0);" class="but but-rg but-2 phn" style="min-width: 140px;" id="js-saveSchoolButton">Save</a>
+                <form id = "js-saveSchoolForm">
                     <input type="hidden" name="id" value="${school.id}"/>
                     <input type="hidden" name="state" value="${school.stateAbbreviation.abbreviation}"/>
                 </form>

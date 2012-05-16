@@ -3,10 +3,12 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
     var schoolMapKey = "SchoolMap";
     var emailSubject = "My Saved Schools from GreatSchools.org";
     var emailBody = "My Saved Schools List from GreatSchools.org:\n\n";
+    var noSavedSchools = "No schools have been saved to your list";
+    var errorFetchingSchools = "Sorry. We couldn't retrieve the saved schools. Please try again later.";
     
     var init = function(state_schoolId) {
-        var schoolSave = $('div.mam #saveSchool');
-        var saveSchoolButton = schoolSave.find('#saveSchoolButton');
+        var schoolSave = $('#js-saveSchool');
+        var saveSchoolButton = schoolSave.find('#js-saveSchoolButton');
         var disabled = false;
         var schoolMap = localStorage.getItem(schoolMapKey);
         if(schoolMap !== null && schoolMap.SchoolMap[0].hasOwnProperty(state_schoolId) === true) {
@@ -28,12 +30,12 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
 
     var mySchoolListInit = function() {
         $(function() {
-            template = hogan.compile($('#schoolTemplate').html());
+            template = hogan.compile($('#js-schoolTemplate').html());
         });
     };
 
     var saveSchool = function(schoolSave, saveSchoolButton, state_schoolId) {
-        var saveSchoolFormInput = schoolSave.find('#saveSchoolForm :input');
+        var saveSchoolFormInput = schoolSave.find('#js-saveSchoolForm :input');
         var newSchool = {};
         saveSchoolFormInput.each(function() {
             newSchool[this.name] = this.value;
@@ -70,25 +72,29 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
     }
 
     var renderSchools = function(data) {
-        if(data == undefined || data.NumSavedSchools == 0) {
-            $('div #noSavedSchools').css('display', 'block');
+        if(data == null || data.JsonError === true) {
+            showNoSchoolsToDisplay(errorFetchingSchools);
+            return;
+        }
+        if(data.NumSavedSchools == 0) {
+            showNoSchoolsToDisplay(noSavedSchools);
             return;
         }
 
         var schools = data.Schools;
         var numOfSavedSchools = data.NumSavedSchools;
-        var savedSchoolsDiv = $('#savedSchools');
+        var savedSchoolsDiv = $('#js-savedSchools');
 
         for(var i = 1; i <= numOfSavedSchools; i++) {
             var type_school = schools[i].type;
             var display_gs_rating = "";
             if(type_school == "private" || schools[i].gsRating == ""){
-                display_gs_rating = " dn"
+                display_gs_rating = " dn";
             }
             var community_rating = schools[i].commRating;
             var display_comm_rating = "";
             if(community_rating == ""){
-                display_comm_rating = " dn"
+                display_comm_rating = " dn";
             }
 
             var html = template.render({
@@ -109,8 +115,8 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
                 zip: schools[i].zip
             });
             savedSchoolsDiv.append(html);
-            savedSchoolsDiv.find('.schoolTemplate').last().addClass(schools[i].state + '_' + schools[i].id);
-            savedSchoolsDiv.find('div.clearfloat').last().addClass(schools[i].state + '_' + schools[i].id);
+            savedSchoolsDiv.find('.js-schoolTemplate').last().addClass('js-' + schools[i].state + '_' + schools[i].id);
+            savedSchoolsDiv.find('.js-keyline').last().addClass('js-' + schools[i].state + '_' + schools[i].id);
 
             emailBody += schools[i].name + " " + schools[i].schoolUrl + "\n";
             emailBody += schools[i].type + ", " + schools[i].gradeLevels + "\n";
@@ -119,47 +125,49 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
             emailBody += schools[i].address + "\n\n";
         }
 
-        var emailAndDeleteAll = $('div.emailAndDeleteAll');
-        emailAndDeleteAll.css('display', 'block');
-        emailAndDeleteAll.find('.emailMyList').attr('href', 'mailto:?subject=' + emailSubject + '&body=' + encodeURI(emailBody));
+        var emailAndDeleteAll = $('.js-emailAndDeleteAll');
+        emailAndDeleteAll.show();
+        emailAndDeleteAll.find('.js-emailMyList').attr('href', 'mailto:?subject=' + emailSubject + '&body=' + encodeURI(emailBody));
     }
 
     var getSavedSchools = function() {
         var savedSchools = localStorage.getItem(schoolsKey);
-        if(savedSchools != null) {
+        if(savedSchools != null && savedSchools[schoolsKey].length > 0) {
+            $('#js-loadingSchools').show();
             var savedSchoolsJson = savedSchools[schoolsKey];
             $.ajax({
                 type: 'POST',
                 url: document.location,
                 dataType: 'json',
-                data: {savedSchoolsJson: JSON.stringify({ schools : savedSchoolsJson})},
-                success: function(data) {
+                data: {savedSchoolsJson: JSON.stringify({ schools : savedSchoolsJson})}
+            }).done(function(data) {
+                    $('#js-loadingSchools').hide();
                     renderSchools(data);
 
-                    $('#savedSchools .deleteSchool').click(function(){
+                    $('#js-savedSchools .js-deleteSchool').click(function(){
                         deleteSchool(this.id);
                     });
 
-                    $('.emailMyList').click(function() {
+                    $('.js-emailMyList').click(function() {
                         tracking.clear();
                         tracking.successEvents = 'event69';
                         tracking.send();
                     });
-                },
-                error: function() {
-                    console.log('error');
                 }
-            });
+            ).fail(function() {
+                    showNoSchoolsToDisplay(errorFetchingSchools);
+                }
+            );
         }
         else {
-            renderSchools(undefined);
+            showNoSchoolsToDisplay(noSavedSchools);
         }
     };
 
     var deleteSchool = function(delete_school) {
         var savedSchoolMap = localStorage.getItem(schoolMapKey);
         var schoolMap = savedSchoolMap[schoolMapKey];
-        var state_schoolId = delete_school.split('-')[1];
+        var state_schoolId = delete_school.split('-')[2];
         if(schoolMap[0][state_schoolId] == 1) {
             var stateSchool = state_schoolId.split('_');
             var state = stateSchool[0];
@@ -177,11 +185,12 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
             savedSchoolMap[schoolMapKey] = schoolMap;
             localStorage.setItem(schoolsKey, savedSchools);
             localStorage.setItem(schoolMapKey, savedSchoolMap);
-            $('div .' + state_schoolId).remove();
+            var savedSchoolsDiv  = $('#js-savedSchools');
+            savedSchoolsDiv.find('.js-' + state_schoolId).remove();
 
-            if($('div #savedSchools').is(':empty')) {
-                $('div .emailAndDeleteAll').css('display', 'none');
-                $('div #noSavedSchools').css('display', 'block');
+            if(savedSchoolsDiv.is(':empty')) {
+                $('.js-emailAndDeleteAll').hide();
+                showNoSchoolsToDisplay(noSavedSchools);
             }
         }
     };
@@ -191,11 +200,17 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
         if(deleteAll == true) {
             localStorage.removeItem(schoolsKey);
             localStorage.removeItem(schoolMapKey);
-            $('div #savedSchools').empty();
-            $('div.emailAndDeleteAll').css('display', 'none');
-            $('div #noSavedSchools').css('display', 'block');
+            $('#js-savedSchools').empty();
+            $('.js-emailAndDeleteAll').hide();
+            showNoSchoolsToDisplay(noSavedSchools);
         }
     };
+
+    var showNoSchoolsToDisplay = function(message) {
+        var noSchoolsToDisplay = $('#js-noSchoolsToDisplay');
+        noSchoolsToDisplay.show();
+        noSchoolsToDisplay.find('p').text(message);
+    }
 
     return {
         init:init,

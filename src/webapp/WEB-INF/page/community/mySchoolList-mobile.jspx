@@ -2,7 +2,6 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:link="urn:www.greatschools.org/taglib/link">
 
     <html lang="en">
@@ -27,7 +26,7 @@
                 $(document).ready(function () {
                     schoolSave.getSavedSchools();
 
-                    var deleteAll = $('div.emailAndDeleteAll #deleteAll');
+                    var deleteAll = $('.js-emailAndDeleteAll #js-deleteAll');
                     deleteAll.click(function() {
                         schoolSave.deleteAllSchools();
                     });
@@ -37,10 +36,10 @@
     </head>
 
     <body>
-    <div class="emailAndDeleteAll dn">
+    <div class="js-emailAndDeleteAll dn">
         <div class="contain_6-1">
 
-            <a class="but but-rg but-1 phl emailMyList">
+            <a class="but but-rg but-1 phl js-emailMyList">
                 Email my list
             </a>
          </div>
@@ -48,26 +47,29 @@
         <div class="contain_1-1">
                 <h1>My Saved Schools</h1>
         </div>
-    <div id="noSavedSchools" class="pam" style="display: none">
-        <p>No schools have been saved to your list</p>
+    <div id="js-noSchoolsToDisplay" class="pam" style="display: none">
+        <p><!-- empty not delete --></p>
         <div class="pvm">
             <link:home styleClass="but but-rg but-1">Find a School</link:home>
         </div>
     </div>
-    <div id="savedSchools"><!-- empty not delete --></div>
+    <div id="js-loadingSchools" class = "pam" style="display: none;">
+        <p>Loading...</p>
+    </div>
+    <div id="js-savedSchools"><!-- empty not delete --></div>
 
-        <div  id="schoolTemplate" style="display: none;">
-            <div class="pvs phm schoolTemplate">
+        <div  id="js-schoolTemplate" style="display: none;">
+            <div class="pvs phm js-schoolTemplate">
                 <div class="line">
                        <div class="unit size74of100">
-                           <div class="fl"><strong><a id="schoolUrl-{{state_schoolId}}" href="{{schoolUrl}}">{{schoolName}}</a></strong>
+                           <div class="fl"><strong><a id="js-schoolUrl-{{state_schoolId}}" href="{{schoolUrl}}">{{schoolName}}</a></strong>
                             <div>
                                 <p class="small ac1">{{schoolType}}, {{schoolGradeLevels}} | {{schoolCity}}, {{schoolState}}</p>
                             </div>
                         </div>
                        </div>
                       <div class="unit size20of100 lastUnit fr">
-                          <a class="but but-sm but-2 pan but-overview deleteSchool" id="delete-{{state_schoolId}}">Delete</a>
+                          <a class="but but-sm but-2 pan but-overview js-deleteSchool" id="js-delete-{{state_schoolId}}">Delete</a>
 
                       </div>
                 </div>
@@ -87,20 +89,20 @@
                 </div>
 
             </div>
-            <div class="clearfloat ptm pbn"><hr class="keyline1 mtl" /></div>
+            <div class="clearfloat ptm pbn js-keyline"><hr class="keyline1 mtl" /></div>
         </div>
 
-    <div class="emailAndDeleteAll dn ptn">
+    <div class="js-emailAndDeleteAll dn ptn">
         <div class="contain_6-1">
-            <div class="fl" id="email"><a class="but but-rg but-1 phl emailMyList">Email my list</a></div>
-            <div class="fr" id="deleteAll"><a  class="but but-rg but-2 phl">Delete All</a></div>
+            <div class="fl" id="js-email"><a class="but but-rg but-1 phl js-emailMyList">Email my list</a></div>
+            <div class="fr" id="js-deleteAll"><a  class="but but-rg but-2 phl">Delete All</a></div>
 
-            <div class="clearfloat"><!-- --></div>
+            <div class="clearfloat"><!-- empty not delete --></div>
         </div>
     </div>
 
 
-        <div class="clearfloat"></div>
+        <div class="clearfloat"><!-- empty not delete --></div>
         <mod:mobileTracking pageName="MSL Mobile"
                       hier1="MySchoolList"
                 schoolsSaved="${true}"/>

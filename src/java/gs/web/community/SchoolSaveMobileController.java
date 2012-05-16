@@ -8,6 +8,7 @@ import gs.data.school.ISchoolDao;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
 import gs.data.school.review.IReviewDao;
+import gs.data.school.review.Ratings;
 import gs.data.state.State;
 import gs.data.util.Address;
 import gs.web.school.RatingHelper;
@@ -53,17 +54,29 @@ public class SchoolSaveMobileController implements ReadWriteAnnotationController
     public void showSchoolList (@RequestParam("savedSchoolsJson") String savedSchoolsJson,
                                 HttpServletRequest request,
                                 HttpServletResponse response) throws  JSONException, IOException {
-        JSONObject savedSchoolsJsonObject = new JSONObject(savedSchoolsJson, "UTF-8");
-        JSONArray savedSchoolsJsonArray = savedSchoolsJsonObject.getJSONArray("schools");
-        int numOfSavedSchools = savedSchoolsJsonArray.length();
-
+        JSONArray savedSchoolsJsonArray;
         JSONObject schoolsResponseJson = new JSONObject();
+        response.setContentType("application/json");
+
+        try {
+            JSONObject savedSchoolsJsonObject = new JSONObject(savedSchoolsJson, "UTF-8");
+            savedSchoolsJsonArray = savedSchoolsJsonObject.getJSONArray("schools");
+        }
+        catch (JSONException ex) {
+            schoolsResponseJson.accumulate("JsonError", true);
+            schoolsResponseJson.write(response.getWriter());
+            response.getWriter().flush();
+            return;
+        }
+        int numEntriesInRequestJson = savedSchoolsJsonArray.length();
+        int numSchoolsAddedToResponseJson = 0;
+
         schoolsResponseJson.accumulate("Schools", new HashMap<String, String>());
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
 
-        for(int i = 0; i < numOfSavedSchools; i++) {
+        for(int i = 0; i < numEntriesInRequestJson; i++) {
             JSONObject savedSchool = (JSONObject) savedSchoolsJsonArray.get(i);
             Map<String, String> schoolMap = new HashMap<String, String>();
             School school = new School();
@@ -97,23 +110,55 @@ public class SchoolSaveMobileController implements ReadWriteAnnotationController
             Integer gsRating = _ratingHelper.getGreatSchoolsOverallRating(school, useCache);
             schoolMap.put("gsRating", gsRating == null ? "" : Integer.toString(gsRating));
 
-            Integer commRating = _reviewDao.findRatingsBySchool(school).getOverall();
+            Ratings communityRatings = _reviewDao.findRatingsBySchool(school);
+            Integer commRating = communityRatings.getOverall();
             schoolMap.put("commRating", commRating == null ? "" : Integer.toString(commRating));
 
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
             schoolMap.put("schoolUrl", urlBuilder.asFullUrlXml(request));
 
-            Integer enrollment = school.getEnrollment();
+            Integer enrollment = null;
+            try {
+                enrollment = school.getEnrollment();
+            }
+            catch (NullPointerException ex) {
+
+            }
             schoolMap.put("enrollment", enrollment == null ? "" : Integer.toString(enrollment));
 
             Address address = school.getPhysicalAddress();
             schoolMap.put("address", address == null ? "" : address.toString());
 
             schoolsResponseJson.accumulate("Schools", schoolMap);
+            numSchoolsAddedToResponseJson++;
         }
 
-        schoolsResponseJson.accumulate("NumSavedSchools", numOfSavedSchools);
+        schoolsResponseJson.accumulate("NumSavedSchools", numSchoolsAddedToResponseJson);
         schoolsResponseJson.write(response.getWriter());
         response.getWriter().flush();
+    }
+
+    public ISchoolDao getSchoolDao() {
+        return _schoolDao;
+    }
+
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
+
+    public IReviewDao getReviewDao() {
+        return _reviewDao;
+    }
+
+    public void setReviewDao(IReviewDao reviewDao) {
+        _reviewDao = reviewDao;
+    }
+
+    public RatingHelper getRatingHelper() {
+        return _ratingHelper;
+    }
+
+    public void setRatingHelper(RatingHelper ratingHelper) {
+        _ratingHelper = ratingHelper;
     }
 }
