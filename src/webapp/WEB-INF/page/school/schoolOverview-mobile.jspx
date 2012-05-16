@@ -153,16 +153,18 @@ Android seems to require the address to be blank for the same behavior -->
 <div id="js_schoolMap">
     <c:choose>
         <c:when test="${not empty gs_rating}">
-            <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_${gs_rating}_forground.png"/>
+            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_${gs_rating}.png"/>
         </c:when>
         <c:when test="${school.type.schoolTypeName eq 'private'}">
-            <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_private_forground.png"/>
+            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_private.png"/>
         </c:when>
         <c:otherwise>
-            <c:set var="mapMarkerUrl" value="/res/img/map/GS_gsr_na_forground.png"/>
+            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_na.png"/>
         </c:otherwise>
     </c:choose>
-    <c:set var="mapMarkerUrl" value="http://www.greatschools.org${mapMarkerUrl}"/>
+    <!-- TODO: Change mapMarkerUrl from qa to www -->
+    <c:set var="mapMarkerUrl" value="http://qa.greatschools.org${mapMarkerUrl}"/>
+    <!--<c:set var="mapMarkerUrl" value="http://www.greatschools.org${mapMarkerUrl}"/>-->
     <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
 
     <a href="http://maps.google.com/?q=${schoolAddressWithName}">
