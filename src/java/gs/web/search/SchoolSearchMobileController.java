@@ -543,7 +543,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         if (commandAndFields.isCityBrowse() || commandAndFields.isDistrictBrowse()) {
             citySearchResults = nearbyCitiesFacade.getNearbyCities();
            //districtSearchResults = nearbyDistrictsFacade.getNearbyDistricts(); commented out until we figure out why district lat/lons are inaccurate
-        } else if (commandAndFields.isNearbySearchByLocation()) {
+        } else if (commandAndFields.isNearbySearch()) {
             citySearchResults = nearbyCitiesFacade.getNearbyCitiesByLatLon();
         } else if (commandAndFields.getSearchString() != null) {
             citySearchResults = nearbyCitiesFacade.searchForCities();
