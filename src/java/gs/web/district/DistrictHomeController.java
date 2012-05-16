@@ -22,6 +22,8 @@ import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestInfo;
+import gs.web.tracking.CookieBasedOmnitureTracking;
+import gs.web.tracking.OmnitureTracking;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -140,6 +142,8 @@ public class DistrictHomeController extends AbstractController  implements IDire
         try {
             RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
             if (requestInfo != null && requestInfo.isShouldRenderMobileView()) {
+                OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
+                ot.addProp(new OmnitureTracking.Prop(OmnitureTracking.PropNumber.IncomingMobileQuery, "District Home"));
                 UrlBuilder districtBrowse = new UrlBuilder(district, UrlBuilder.SCHOOLS_IN_DISTRICT);
                 return new ModelAndView(new RedirectView(districtBrowse.asSiteRelative(request)));
             }

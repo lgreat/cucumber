@@ -95,7 +95,7 @@ public class SubCookie {
         } else {
             generator.setCookieDomain(".greatschools.org");
         }
-        _log.error("setting sub cookie: " + cookieValue + ", " + generator.getCookieName() + ", " +
+        _log.debug("setting sub cookie: " + cookieValue + ", " + generator.getCookieName() + ", " +
                 "" + generator.getCookieDomain());
         generator.addCookie(response,cookieValue);
     }
