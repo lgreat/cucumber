@@ -174,6 +174,8 @@ public class ResearchController extends AbstractController implements IDirectory
             pageHelper.addAdKeywordMulti("editorial", "Find a School");
         }
 
+        mAndV.getModel().put("hasMobileView", true);
+
         return mAndV;
     }
 
