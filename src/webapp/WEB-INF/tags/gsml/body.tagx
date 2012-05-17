@@ -8,7 +8,7 @@
     <jsp:directive.attribute name="startAdHierarchyAtPage" required="false" type="java.lang.Boolean" description="Boolean that indicates whether the ad server should start its hierarchy at page name.  Pages that aren't state-aware or state-specific should set this flag to true.  Default value is false."/>
     <jsp:scriptlet>
         request.setAttribute("adPageName", adPageName);
-        request.setAttribute("pageLayout", pageLayout);
+        request.setAttribute("pageLayout", pageLayout+" ");
         request.setAttribute("startAdHierarchyAtPage", startAdHierarchyAtPage);
     </jsp:scriptlet>
     <jsp:element name="body">
