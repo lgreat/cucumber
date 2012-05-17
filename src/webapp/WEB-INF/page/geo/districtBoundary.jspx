@@ -25,31 +25,30 @@
         width: 233px;
     }
     #schoolListDiv {
-        height: 350px;
+        height: 295px;
         overflow-y: scroll;
-        border: 1px solid;
-        position: relative;
+        /*border: 1px solid;*/
+        /*position: relative;*/
     }
     #schoolList li span {
-        margin-right: 10px;
+        /*margin-right: 10px;*/
     }
     #schoolList li {
-        margin-bottom: 3px;
-        list-style: none;
+        /*margin-bottom: 3px;*/
+        /*list-style: none;*/
         /*background-color: #ddd;*/
-        font-size: 12px;
-        padding: 1px;
+        /*font-size: 12px;*/
+        /*padding: 1px;*/
         cursor: pointer;
-        cursor: hand;
     }
 
     #schoolList li:hover {
-        background-color: lightblue;
+        /*background-color: lightblue;*/
     }
 
     #schoolList li.selected {
-        border: 1px solid red;
-        padding: 0;
+        /*border: 1px solid red;*/
+        /*padding: 0;*/
     }
 
     #map-canvas{
@@ -605,19 +604,30 @@ new (function() {
 //                }
 //                districtListDiv.append(htmlString);
     };
+
+//    var updateDistrictHeader = function(district) {
+//
+//        var $districtHeader = $('#js_districtHeader').removeClass('hidden').html('');
+//        var districtHeaderTemplate = "<h4 class='bottom'></h4>";
+//        TODO update gs rating image
+//        var districtGSRatingTemplate = "<img/>";
+//
+//        if (district && district.name.length > 0 ){
+//            var $item = $(districtHeaderTemplate);
+//            var $rating = $(districtGSRatingTemplate).attr('src', '/res/img/map/pushpin_' + district.rating + '.png');
+//            $districtHeader.append($item.append($rating).append(district.name));
+//        }
+//    }
+
     var updateDistrictHeader = function(district) {
 
-        var $districtHeader = $('#js_districtHeader').removeClass('hidden').html('');
-        var districtHeaderTemplate = "<h4 class='bottom'></h4>";
-        // TODO update gs rating image
-        var districtGSRatingTemplate = "<img/>";
+        $('#js_districtHeader').removeClass('hidden');
+        $('#ratings-test').html(district.rating);
+        $('#school-name-test').html(district.name);
 
-        if (district && district.name.length > 0 ){
-            var $item = $(districtHeaderTemplate);
-            var $rating = $(districtGSRatingTemplate).attr('src', '/res/img/map/pushpin_' + district.rating + '.png');
-            $districtHeader.append($item.append($rating).append(district.name));
-        }
+
     }
+
     var updateSchoolList = function() {
         var schoolListDiv = $('#schoolList');
         schoolListDiv.empty();
@@ -917,9 +927,23 @@ new (function() {
                 </form>
             </div>
             <div class="bd">
-                <div class="alpha grid_7 omega ptm">
+                <div class="alpha grid_7 omega mtm">
                     <div class="js_showWithMap hidden">
-                        <div id="js_districtHeader" class="hidden mlm"><!-- not empty --></div>
+                        <div id="js_districtHeader" class="hidden mlm mbm"><!-- not empty -->
+                            <div class="mediaExt1 attribution">
+                                <div class="img">
+                                    <div class='ratings-square ratings-large square-large'>
+                                        <div id='ratings-test'
+                                             class='ratings-number number-large'><!--Do not collape--></div>
+                                    </div>
+                                </div>
+
+
+                                <div class="bk">
+                                    <h4 id="school-name-test"><!--School Name--></h4>
+                                </div>
+                            </div>
+                        </div>
                         <div id="districtListDiv" class="mlm">
                             <h6 class="bottom">District name</h6>
                             <hr class="keyline2"/>
@@ -949,8 +973,9 @@ new (function() {
 
                         <div id="schoolListWrapper" class="hidden">
                             <h6 class="mlm bottom">Public/Charter Schools in District</h6>
+
                             <div id="schoolListDiv">
-                                <ul id="schoolList"><!-- not empty --></ul>
+                                <ul id="schoolList" class="none"><!-- not empty --></ul>
                             </div>
                         </div>
                     </div>
