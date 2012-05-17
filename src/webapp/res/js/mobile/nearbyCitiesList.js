@@ -13,12 +13,12 @@ define(['search/nearbyCities', 'geolocation'],function(nearbyCitiesModule, geolo
     };
 
     var buildListItem = function(jsonObj) {
-        return '<li><a href="' + jsonObj.url + '">' + jsonObj.name + ', ' + jsonObj.state + '</a></li>';
+        return '<div class="listdiv"><a href="' + jsonObj.url + '">' + jsonObj.name + ', ' + jsonObj.state + '</a></div>';
     };
 
     var populateFromArray = function(arrayOfObjects) {
         $(function() {
-            var $listElement = $(container).find('ul');
+            var $listElement = $(container).find('.listcontainer');
 
             for (var i = 0; i < arrayOfObjects.length; i++) {
                 $listElement.append(buildListItem(arrayOfObjects[i]));

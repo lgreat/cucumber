@@ -92,4 +92,5 @@ Example:
 .standard_7-1 .inner{}
 .standard_7-1 .hd {border-bottom: thin solid #E6E6E6;}
 .standard_7-1 .hd h3{padding-left: 10px;line-height: 44px;}
+.standard_7-1 .bd .listcontainer .listdiv{ padding: 12px 10px 10px 10px; border-bottom: thin solid #E6E6E6; font-size: .875em;  }
 

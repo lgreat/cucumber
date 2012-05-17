@@ -14,7 +14,7 @@
                 <h3>Nearby cities</h3>
             </div>
             <div class="bd">
-                <ul class="list2"><!-- do not collapse --></ul>
+                <div class="listcontainer"><!-- not empty --></div>
             </div>
         </div>
     </div>
