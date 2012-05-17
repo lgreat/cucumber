@@ -2,7 +2,8 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns="http://www.w3.org/1999/xhtml"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <html lang="en">
 
@@ -10,6 +11,7 @@
     <jsp:output omit-xml-declaration="true" />
     <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
+    <c:set scope="request" var="hideAlternateSiteButton" value="${true}"/>
     <head>
         <!--<meta name="description"-->
               <!--content="Compare K-12 school ratings nationwide to find the best schools. View parent ratings, reviews and test scores and choose the right preschool, elementary, middle or high school for public or private education."/>-->
@@ -33,7 +35,7 @@
 
     <body>
 
-        <form method="post" action="/email/newslettersSignUp-mobile.page" id="js-newslettersSignUpForm">
+        <form method="post" action="/email/newslettersSignUp.page" id="js-newslettersSignUpForm">
             <div class="contain_1-1"><div class="pvs"><h1>Subscribe to Newsletter</h1></div></div>
 
             <div class="js-signUp pam">

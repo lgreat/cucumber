@@ -49,12 +49,7 @@ public class NewsletterSubscriptionMobileController implements ReadWriteAnnotati
     private ISubscriptionDao _subscriptionDao;
 
     @RequestMapping (value="newsletterSubscription.page", method=RequestMethod.GET)
-    public String showForm (HttpServletRequest request) throws IOException {
-        RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
-        if (!requestInfo.shouldRenderMobileView()) {
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, null, "");
-            return "redirect:" + urlBuilder.asSiteRelative(request);
-        }
+    public String showForm () {
         return SIGNUP_VIEW;
     }
 

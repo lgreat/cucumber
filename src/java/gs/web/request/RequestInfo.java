@@ -103,16 +103,7 @@ public class RequestInfo {
             chosenSitePreference = SitePreference.MOBILE;
         }
 
-        if(getRequest().getRequestURI().equals(NewsletterSubscriptionMobileController.SIGNUP_MOBILE_VIEW)) {
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.NEWSLETTER_MANAGEMENT, null, "");
-            newUrl = UrlUtil.putQueryParamIntoUrl(urlBuilder.asSiteRelative(getRequest()), MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
-        } else if (getRequest().getRequestURI().contains("/school/testScores.page")) {
-            String queryStr = getRequest().getQueryString();
-            queryStr = UrlUtil.removeParamsFromQueryString(queryStr, MobileHelper.SITE_PREFERENCE_KEY_NAME);
-            newUrl = getRequest().getRequestURI() + "?" + UrlUtil.putQueryParamIntoQueryString(queryStr, MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
-        } else {
-            newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
-        }
+        newUrl = UrlUtil.putQueryParamIntoUrl(newUrl, MobileHelper.SITE_PREFERENCE_KEY_NAME, chosenSitePreference.toString().toLowerCase());
 
         if (chosenSitePreference == SitePreference.MOBILE && isOnPkSubdomain()) {
             newUrl = newUrl.replaceFirst("pk.", "");
