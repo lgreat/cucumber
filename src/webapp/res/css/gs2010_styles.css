@@ -6693,6 +6693,15 @@ body.hover #startADiscussion .submit {
     overflow:hidden; *overflow:visible; zoom:1;
 }
 
+.schoolAddress{
+    float: left;
+    margin-left: 20px;
+}
+
+.schoolName{
+    margin-bottom: 5px;
+}
+
 #schoolHeaderInfoRight p {
     line-height: 1.5;
 }
@@ -6962,8 +6971,8 @@ body.ie8 #js-esp-info-popup b.esp-popup-arrow-outline {
 }
 
 .schoolRatings {
-    padding-left: 5px;
     text-align: center; /*border-right:1px solid #999;*/
+    float:left;
 }
 
 .schoolInfoWindow .schoolInfo {

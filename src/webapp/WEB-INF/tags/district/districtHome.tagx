@@ -21,7 +21,8 @@
     <c:set var="pageName" value="District Home Page"/>
     <c:set var="districtAcronymOrName" value="${model.acronymOrName}"/>
 
-    <div id="main">
+    <div class="grid_16">
+        <div class="spacer_10"><!-- do not collapse --></div>
         <c:if test="${empty school}">
             <div id="breadcrumbs">
                 <ul>
@@ -185,7 +186,7 @@
             <jsp:include page="/school/review/recentParentReviews.module?district_id=${district.id}&amp;state=${stateAbbrev}&amp;nofollow=1"/>
         </div>
     </div>
-    <div id="contentRight">
+    <div class="grid_8">
         <div id="ad_top">
             <ad:setSlotPrefix slotPrefix="District_Home_Page"/>
             <ad:AboveFold_300x250/>

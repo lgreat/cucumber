@@ -9,7 +9,6 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib">
     <jsp:directive.page import="gs.web.util.PageHelper"/>
-    <pageHelper:externalCss file="/res/css/widget/schoolSearchWidget.css"/>
     <c:if test="${numElementarySchools gt 0 or  numMiddleSchools gt 0 or numHighSchools gt 0}">
         <div id="nearbySchoolsInDistrict">
             <jsp:scriptlet>

@@ -365,7 +365,7 @@ function getSchoolInfoWindowHtml(school) {
     rval += school.ratingHtml;
     rval += school.parentRatingHtml;
     rval += '</div>';
-    rval += '<div class="schoolInfo">';
+    rval += '<div class="schoolAddress">';
     rval += '<div class="typeGrade">';
     if (school.levelCode == 'p') {
         rval += 'Preschool';

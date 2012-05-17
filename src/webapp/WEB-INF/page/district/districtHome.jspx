@@ -97,10 +97,8 @@
 
     <c:choose>
         <c:when test="${empty school}">
-            <div id="bodyContents">
             <district:districtHome omniturePageName="${pageName}" district="${district}" model="${model}"/>
-            </div>
-            <div id="districtHomeFooter">
+            <div class="grid_24">
             <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${district.physicalAddress.city}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopCitiesFooter=${'true'}&amp;linkToSchoolChoice=${'true'}&amp;putMoving=${'true'}" />
             </div>
           </c:when>
