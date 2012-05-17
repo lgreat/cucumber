@@ -20,7 +20,6 @@
         <meta name="description" content="An introduction to the GreatSchools advisory panel."/>
         <meta name="keywords" content="GreatSchools advisors, advisory panel"/>
 
-        <!--<pageHelper:externalCss file="/res/css/about/aboutUs.css"/>-->
     </head>
 
     <gsml:body adPageName="aboutUs" pageLayout="leftside meetOurAdvisors">
@@ -103,6 +102,18 @@
                 finalist for Teach for America's Sue Lehmann Award, given to corps members
                 with the highest classroom academic gains in the nation. Smith graduated
                 Phi Beta Kappa from the University of North Carolina at Chapel Hill.
+            </div>
+
+            <div class="text3 mbm">
+                <span class="text3bold-d61">Thomas Toch</span>
+                directs the Washington office of the Carnegie Foundation for the Advancement of Teaching. He is a
+                founder of Education Sector, a former guest scholar at the Brookings Institution, and has taught at the
+                Harvard Graduate School of Education. Toch helped launch Education Week in the 1980s. He spent a decade
+                as the senior education correspondent at U.S. News and World Report and has contributed to The Atlantic,
+                The New York Times, The Washington Post, The New Republic, and other national publications. His work has
+                twice been nominated for the National Magazine Award. He's the author of two books on American education,
+                In the Name of Excellence (Oxford University Press) and High Schools on a Human Scale (Beacon Press).
+                Toch is a graduate of Kenyon College and the University of Toronto and lives in Maryland.
             </div>
 
             <div class="text3 mbm">

@@ -96,7 +96,7 @@
                 from St. Francis College in Brooklyn, New York.
             </div>
 
-            <div class="text3bold-d61">Ann Fuell, Director</div>
+            <div class="text3bold-d61">Ann Fuell, Vice Chair</div>
             <div class="text3 mbm">
                 Ann Fuell's work as a board member for the Almaden Country School in Northern California has allowed
                 her to see the importance of strong school leadership and the crucial role of the Board in strategic
@@ -131,6 +131,7 @@
                 where he earned his BS degree. He received his PhD in economics from the Massachusetts
                 Institute of Technology.
             </div>
+
             <div class="text3bold-d61">Dr. Karen Hill-Scott, Director</div>
             <div class="text3 mbm">
                 Dr. Karen Hill-Scott is a nationally recognized child development expert for early education systems
@@ -144,9 +145,35 @@
                 from UCLA where she was a Danforth Fellow, a Chancellor’s Fellow, Outstanding Graduate Student of Year,
                 and was named the Tom Bradley Outstanding Alumnus of the Year Award in 2007.
             </div>
+
+            <div class="text3bold-d61">Matt Hill, Director</div>
+            <div class="text3 mbm">
+                Matt Hill is the Chief Strategy Officer for the Los Angeles Unified School District. In this role he
+                oversees the district's strategic planning process and heads the following departments: Budget Services
+                and Financial Planning, Data and Accountability, Charter Schools, and Information Technology. Before
+                taking his current job, Hill served as Administrative Officer in the Office of the Superintendent, where
+                he oversaw the District's strategic planning process and managed strategic initiatives for LAUSD. Hill
+                has also worked as Executive Officer for Strategic Projects for the Oakland Unified School District, and
+                Program Manager for Expect Success, the district's $43 million reform program. Previously, Hill worked
+                for Accenture in the financial services industry, where he focused on technology and strategy projects.
+                He holds a Bachelor of Science in Business Administration from the University of North Carolina and an
+                MBA from the UCLA Anderson School of Management. Hill has served on the Board of Directors for the
+                Children's Council of San Francisco. He is married and has two sons.
+            </div>
+
             <div class="text3bold-d61">Bill Jackson, Founder and CEO, GreatSchools</div>
             <div class="text3 mbm">
-                Bill Jackson is the Founder and Chief Executive Officer of GreatSchools, an independent, non-profit organization that helps parents be champions of their children's education. A former teacher in China and the U.S., Bill also spent time as a high-tech entrepreneur. He later felt the need to harness digital media to engage parents in their children's education by founding GreatSchools. Under his leadership, GreatSchools has become the premier source of education and parenting information on PreK-12th schools for parents nationally. He's deeply involved in the education of his own children, always seeking out the best new technology applications to help his children learn and serving as a member of the Parent Association at his children's school. He also serves on the board of directors of the Mandarin Institute and the Yale-China Association. Bill holds a degree in mechanical engineering from Yale University and is a graduate of the San Francisco Coro Fellows Program. As a high school student, Bill was the president of the Scientific Society at
+                Bill Jackson is the Founder and Chief Executive Officer of GreatSchools, an independent, non-profit
+                organization that helps parents be champions of their children's education. A former teacher in China
+                and the U.S., Bill also spent time as a high-tech entrepreneur. He later felt the need to harness digital
+                media to engage parents in their children's education by founding GreatSchools. Under his leadership,
+                GreatSchools has become the premier source of education and parenting information on PreK-12th schools
+                for parents nationally. He's deeply involved in the education of his own children, always seeking out
+                the best new technology applications to help his children learn and serving as a member of the Parent
+                Association at his children's school. He also serves on the board of directors of the Mandarin Institute
+                and the Yale-China Association. Bill holds a degree in mechanical engineering from Yale University and
+                is a graduate of the San Francisco Coro Fellows Program. As a high school student, Bill was the president
+                of the Scientific Society at
                 <c:choose>
                     <c:when test="${phillips_school ne null}">
                         <link:schoolProfileOverview
@@ -170,7 +197,7 @@
                 University School of Law and his BA from Columbia University.
             </div>
 
-            <div class="text3bold-d61">Leanna Landsmann, Co-Chair</div>
+            <div class="text3bold-d61">Leanna Landsmann, Chair</div>
             <div class="text3 mbm">
                 Leanna Landsmann was president of <span class="text3italic">Time for Kids</span>, a magazine reaching
                 more than 4.2 million students nationwide. Before joining Time, she was editor and publisher of
@@ -188,7 +215,17 @@
 
             <div class="text3bold-d61">Gilman Louie, Director</div>
             <div class="text3 mbm">
-                Gilman Louie is a partner of Alsop Louie Partners, a venture capital fund. He is the founder and former CEO of In-Q-Tel, a strategic venture fund created to help enhance national security by connecting the CIA and U.S. intelligence community with entrepreneurial companies. Gilman built a career as a pioneer in the interactive entertainment industry having developed the Falcon F-16 flight simulator as well as being the visionary who licensed Tetris, the world's most popular computer game, for the U.S. market. Gilman was also founder of Spectrum Holobyte which ultimately was acquired by Hasbro Corporation, where he served as chief creative officer of Hasbro Interactive. Gilman has a keen interest in education, serving on the boards of NewSchools.org, the Mandarin Institute and the Chinese American International School in San Francisco. He is also a former president of The San Francisco School Volunteers. Gilman has completed two advanced business programs at Harvard Business School and earned his BS in Business Administration from San Francisco State University.
+                Gilman Louie is a partner of Alsop Louie Partners, a venture capital fund. He is the founder and former
+                CEO of In-Q-Tel, a strategic venture fund created to help enhance national security by connecting the
+                CIA and U.S. intelligence community with entrepreneurial companies. Gilman built a career as a pioneer
+                in the interactive entertainment industry having developed the Falcon F-16 flight simulator as well as
+                being the visionary who licensed Tetris, the world's most popular computer game, for the U.S. market.
+                Gilman was also founder of Spectrum Holobyte which ultimately was acquired by Hasbro Corporation, where
+                he served as chief creative officer of Hasbro Interactive. Gilman has a keen interest in education,
+                serving on the boards of NewSchools.org, the Mandarin Institute and the Chinese American International
+                School in San Francisco. He is also a former president of The San Francisco School Volunteers. Gilman
+                has completed two advanced business programs at Harvard Business School and earned his BS in Business
+                Administration from San Francisco State University.
             </div>
 
             <div class="text3bold-d61">Clesont Mitchell, Director</div>
@@ -209,24 +246,28 @@
 
             <div class="text3bold-d61">Sean Ryan, Director</div>
             <div class="text3 mbm">
-                Sean Ryan is the Director of Game Partnerships at Facebook. He is also the non-executive chairman of Meez, a leading social entertainment company he founded which combines avatars, games, and a virtual world. Prior to Facebook and Meez, Sean served as Vice President of music services at RealNetworks, where he managed the music division after selling Listen.com to Real in August 2003. As CEO of Listen.com, Ryan helped lead the development and roll-out of the award-winning Rhapsody subscription music service. Sean has also ran business development for online game company SegaSoft Networks, spent several years at the GAP helping launch the successful Old Navy clothing line, and worked at Chemical Bank. Ryan holds an MBA from UCLA's Anderson Graduate School of Management and a BA from Columbia University.
+                Sean Ryan is the Director of Game Partnerships at Facebook. He is also the non-executive chairman of
+                Meez, a leading social entertainment company he founded which combines avatars, games, and a virtual
+                world. Prior to Facebook and Meez, Sean served as Vice President of music services at RealNetworks,
+                where he managed the music division after selling Listen.com to Real in August 2003. As CEO of
+                Listen.com, Ryan helped lead the development and roll-out of the award-winning Rhapsody subscription
+                music service. Sean has also ran business development for online game company SegaSoft Networks, spent
+                several years at the GAP helping launch the successful Old Navy clothing line, and worked at Chemical
+                Bank. Ryan holds an MBA from UCLA's Anderson Graduate School of Management and a BA from Columbia University.
             </div>
 
             <div class="text3bold-d61">Michael Schmier, Board Treasurer</div>
             <div class="text3 mbm">
-                Michael Schmier is vice president of media and audience products at Focus.com, a leading B2B media
-                company providing open, peer-powered expertise to all business and IT professionals. Previously,
-                Schmier held a wide range of executive positions including vice president of products and marketing
-                at BabyCenter, the leading online destination for new and expectant parents, and vice president of
-                product marketing and business development at Merced Systems, a market leader in enterprise
-                performance management and analytics systems. He has also served as practice manager at the Advisory
-                Board Company, an industry research and consulting company. He has extensive experience in developing
-                and marketing online products as well as managing online commerce, media, and SaaS business models.
-                Schmier received an MBA from the Stanford Graduate School of Business and a BA from the University
-                of North Carolina at Chapel Hill.
+                Michael Schmier is currently VP of Product at Thuuz, Inc., the leading developer of sports discovery
+                applications for mobile and connected TV. Schmier has extensive experience in developing, marketing and
+                managing Internet, mobile and software products at start up and venture-funded companies. His previous
+                executive roles include Vice President of Products and Marketing at BabyCenter (sold to Johnson &amp;
+                Johnson, Inc), and Vice President of Product Marketing and Business Development at Merced Systems (sold
+                to NICE Systems). He has also held executive roles at Focus, Inc. and The Advisory Board Company.
+                Schmier received an MBA from the Stanford Graduate School of Business and a BA from the University of
+                North Carolina at Chapel Hill.
             </div>
         </div>
-
 
         <div id="tracking">
             <ad:setSlotPrefix slotPrefix="AboutUs_Board"/>
