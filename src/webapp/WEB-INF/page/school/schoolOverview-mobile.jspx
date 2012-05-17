@@ -128,6 +128,8 @@
     </c:if>
 </div>
 
+<ad:adTag-mobile position="AboveMap_320x50"/>
+
 <!-- Map -->
 <c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress)}"/>
 <c:set var="schoolAddressWithName"
@@ -147,8 +149,6 @@ Android seems to require the address to be blank for the same behavior -->
        class="small"><span
             class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span>See schools nearby</a>
 </div>
-
-<ad:adTag-mobile position="AboveMap_320x50"/>
 
 <div id="js_schoolMap">
     <c:choose>
