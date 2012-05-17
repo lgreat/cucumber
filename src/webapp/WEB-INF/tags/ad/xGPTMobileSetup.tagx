@@ -24,7 +24,7 @@
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         Logger _log = Logger.getLogger("xGPTMobileSetup.tagx");
         // GS-12415 map for getting width and height of ad
-        Map<String,AdPosition> adNameAdPositionMap = new HashMap<String,AdPosition>();
+        Map<String, AdPosition> adNameAdPositionMap = new HashMap<String, AdPosition>();
         if (null != pageHelper) {
             List<String> adNames = new ArrayList<String>();
             Set adPositions = pageHelper.getAdPositions();
@@ -38,7 +38,7 @@
                 }
             }
 
-            for (Iterator iter = adPositions.iterator(); iter.hasNext();) {
+            for (Iterator iter = adPositions.iterator(); iter.hasNext(); ) {
                 AdPosition ad = (AdPosition) iter.next();
                 if (ad.isGAMPosition()) {
                     if (StringUtils.isEmpty(slotPrefix)) {
@@ -58,7 +58,7 @@
                 // e.g. in a controller. note that setting this in a jspx or tagx file
                 // which gets processed after xGAMSetup.tagx will still work because
                 // adding a non-multi value replaces any existing one
-                pageHelper.addAdKeyword("template","ros");
+                pageHelper.addAdKeyword("template", "ros");
             }
 
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -99,7 +99,7 @@
                 gads.type = 'text/javascript';
                 var useSSL = 'https:' == document.location.protocol;
                 gads.src = (useSSL ? 'https:' : 'http:') +
-                        '//www.googletagservices.com/tag/js/gpt.js';
+                        '//www.googletagservices.com/tag/js/gpt_mobile.js';
                 var node = document.getElementsByTagName('script')[0];
                 node.parentNode.insertBefore(gads, node);
             })();
@@ -110,7 +110,7 @@
         <script type="text/javascript">
           (function() {
             var useSSL = 'https:' == document.location.protocol;
-            var src = (useSSL ? 'https:' : 'http:') +       '//www.googletagservices.com/tag/js/gpt.js';
+            var src = (useSSL ? 'https:' : 'http:') +       '//www.googletagservices.com/tag/js/gpt_mobile.js';
             document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
           })();
         </script>
@@ -118,7 +118,8 @@
     </c:set>
 
     <!-- determine if async mode is enabled -->
-    <c:set var="asyncModeEnabled" value="${requestScope.context.advertisingOnMobileOnline and requestScope.context.gptAsynchronousModeOnMobileEnabled}"/>
+    <c:set var="asyncModeEnabled"
+           value="${requestScope.context.advertisingOnMobileOnline and requestScope.context.gptAsynchronousModeOnMobileEnabled}"/>
 
     <c:choose>
         <!-- mobile advertising is online -->
@@ -144,7 +145,10 @@
             <c:forEach var="slotName" items="${GAMadNames}">
                 <c:set var="adPosition" value="${GPTadNameAdPositionMap[slotName]}"/>
                 googletag.defineSlot('/1002894/${slotName}', <c:choose>
-                <c:when test="${fn:length(adPosition.allSizes) > 1}">[<c:forEach var="size" items="${adPosition.allSizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
+                <c:when test="${fn:length(adPosition.allSizes) > 1}">[<c:forEach var="size"
+                                                                                 items="${adPosition.allSizes}"
+                                                                                 varStatus="status">[${size.width},${size.height}]<c:if
+                        test="${!status.last}">, </c:if></c:forEach>]</c:when>
                 <c:otherwise>[${adPosition.size.width},${adPosition.size.height}]</c:otherwise>
             </c:choose>, 'gpt${slotName}')
                 .addService(googletag.pubads());
@@ -153,25 +157,34 @@
             <c:forEach var="keywordEntry" items="${GAMadKeywords}">
                 googletag.pubads().setTargeting("${keywordEntry.key}", <c:choose>
                 <c:when test="${fn:length(keywordEntry.value) == 1}">"${keywordEntry.value[0]}"</c:when>
-                <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
+                <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}"
+                                         varStatus="status">"${keywordValue}"<c:if
+                        test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
             </c:choose>);
             </c:forEach>
             <![CDATA[
                 googletag.pubads().setTargeting("compfilter", "${gsweb:randomNumber(4)+1}");
             ]]>
 
+            <!-- per http://support.google.com/dfp_sb/bin/answer.py?hl=en&answer=1700302&amp;topic=2519519&amp;ctx=topic
+                 gpt_mobile does not support enableSingleRequest -->
             <![CDATA[
                 googletag.pubads().collapseEmptyDivs();
-                googletag.pubads().enableSingleRequest();
+                //googletag.pubads().enableSingleRequest();
             ]]>
-            <c:if test="${!asyncModeEnabled}">
-                googletag.pubads().enableSyncRendering();
-            </c:if>
+            <c:choose>
+                <c:when test="${!asyncModeEnabled}">
+                    googletag.pubads().enableSyncRendering();
+                </c:when>
+                <c:otherwise>
+                    googletag.pubads().enableAsyncRendering();
+                </c:otherwise>
+            </c:choose>
             <![CDATA[
                 googletag.enableServices();
             ]]>
             <c:if test="${asyncModeEnabled}">
-            <![CDATA[
+                <![CDATA[
                 });
             ]]>
             </c:if>
@@ -179,13 +192,13 @@
             <![CDATA[
             </script>
             ]]>
-    </c:when>
-    <c:otherwise>
-        <jsp:scriptlet>
-            /*
-              OTHERWISE Display nothing for ads, Mobile is GPT only at this point.
-             */
-        </jsp:scriptlet>
-    </c:otherwise>
+        </c:when>
+        <c:otherwise>
+            <jsp:scriptlet>
+                /*
+                 OTHERWISE Display nothing for ads, Mobile is GPT only at this point.
+                */
+            </jsp:scriptlet>
+        </c:otherwise>
     </c:choose>
 </jsp:root>
