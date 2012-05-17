@@ -108,7 +108,8 @@ public class ParentReviewMobileController extends AbstractController implements 
 
             // GS-10709
             UrlBuilder builder = new UrlBuilder(school, page, UrlBuilder.SCHOOL_PARENT_REVIEWS);
-            model.put("relCanonical", builder.asFullUrlXml(request));
+            model.put("relCanonical", builder.asFullCanonicalUrl(request));
+            model.put("schoolUrl", new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE).asFullCanonicalUrl(request));
 
             model.put("cmd", cmd);
             model.put("param_sortby", PARAM_SORT_BY);

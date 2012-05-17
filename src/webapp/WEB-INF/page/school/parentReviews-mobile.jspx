@@ -34,7 +34,7 @@
         $(document).ready(function () {
             parentReviews.init
                     ($('div.js-paginate-next'), $('div.js-paginate-container'), ${reviewsTotalPages}, ${page},
-                            $('#reviewTemplate').html(), '${school.databaseState}', '${school.id}');
+                            '${school.databaseState}', '${school.id}');
         });
     });
 

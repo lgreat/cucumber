@@ -3,6 +3,7 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.web.util.PageHelper;
 import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -55,6 +56,8 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
                     Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
                     model.put("gs_rating", gsRating);
 
+                    addCanonicalUrlToModel(model, school, request);
+                    model.put("schoolUrl", new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE).asFullCanonicalUrl(request));
                 } else {
                     _log.error("School id: " + schoolIdStr + " in state: " + stateStr + " is inactive.");
                     return new ModelAndView(ERROR_VIEW, model);
@@ -73,6 +76,12 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         }
 
         return new ModelAndView(VIEW, model);
+    }
+
+    protected void addCanonicalUrlToModel(Map<String, Object> model, School school, HttpServletRequest request) {
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_TEST_SCORE);
+        String fullCanonicalUrl = urlBuilder.asFullCanonicalUrl(request);
+        model.put("relCanonical", fullCanonicalUrl);
     }
 
     public RatingHelper getRatingHelper() {

@@ -28,17 +28,16 @@
         <title>Test Scores for ${school.name} in ${addr}</title>
         <meta name="description"
               content="See test scores for ${school.name} in ${addr}"/>
+        <c:if test="${not empty relCanonical}">
+            <link rel="canonical" href="${relCanonical}"/>
+        </c:if>
         <c:set var="pageName" value="Test Scores"/>
 
         <script type="text/javascript">
-            require(['testScores', 'schoolSave'], function (testScores, schoolSave) {
+            require(['testScores'], function (testScores) {
                 $(function () {
-                    testScores.init();
+                    testScores.init('${school.databaseState}' + '_' + '${school.id}');
                 });
-
-                var state = '${school.databaseState}';
-                var schoolId = '${school.id}';
-                schoolSave.init(state + '_' + schoolId);
             });
         </script>
 

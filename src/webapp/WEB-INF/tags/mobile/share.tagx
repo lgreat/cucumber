@@ -22,7 +22,8 @@
         <c:set var="smsBody" value="${requestInfo.requestURL}"/>
     </c:if>
     <c:if test="${empty emailBody and not empty school}">
-        <c:set var="emailBody">${school.name}: ${requestScope.schoolUrl}
+        <c:set var="emailBody">${school.name}
+${requestScope.schoolUrl}
 ${gsweb:capitalize(school.type.schoolTypeName)}<c:choose>
 <c:when test="${not school.preschoolOnly and not (empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A')}">, ${school.gradeLevels}</c:when>
 </c:choose>.
