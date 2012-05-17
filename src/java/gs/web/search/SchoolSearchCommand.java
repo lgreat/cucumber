@@ -25,6 +25,8 @@ public class SchoolSearchCommand {
     private Integer minGreatSchoolsRating;
     private Integer minCommunityRating;
     private String _zipCode;
+    // a view override, that is needed to allow switching peacefully between city/district browse list view and map view
+    private String _view;
 
     // osp filters
     private String[] _beforeAfterCare;
@@ -391,5 +393,13 @@ public class SchoolSearchCommand {
 
     public void setStudentClubs(String[] studentClubs) {
         _studentClubs = studentClubs;
+    }
+
+    public String getView() {
+        return _view;
+    }
+
+    public void setView(String view) {
+        _view = view;
     }
 }

@@ -82,7 +82,7 @@
                         <!--class="ui-btn-active but but-sm but-2 mrm">List</a>-->
                         <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
                         <a data-role="button" data-inline="true"
-                           href="/search/mapresults.page"
+                           href="${requestInfo.requestURL}"
                            class="but but-sm but-2 js-mapResultsLink">Map</a>
                     </div>
                     <div class="fr">

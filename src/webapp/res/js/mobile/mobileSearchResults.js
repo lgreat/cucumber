@@ -71,9 +71,10 @@ define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilte
             listFilterToggle();
         });
         $('.js-mapResultsLink').on('click', function() {
-            var href = $(this).attr('href');
-            var newHref = uri.appendQueryString(href, searchResultFilters.getUpdatedQueryString());
-            window.location.href = newHref;
+            var newQueryString = searchResultFilters.getUpdatedQueryString();
+            newQueryString = uri.removeFromQueryString(newQueryString, 'view');
+            newQueryString = uri.putIntoQueryString(newQueryString, 'view', 'map');
+            window.location.search = newQueryString;
             return false;
         });
     };

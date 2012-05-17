@@ -1,4 +1,4 @@
-define(['searchResultFilters'], function(searchResultFilters) {
+define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
     // filters info
     var filtersSelector = '.js-searchResultFilters';
 
@@ -156,9 +156,9 @@ define(['searchResultFilters'], function(searchResultFilters) {
             listFilterToggle();
         });
         $('.js-listResultsLink').on('click', function() {
-            var href = $(this).attr('href');
-            var newHref = uri.appendQueryString(href, searchResultFilters.getUpdatedQueryString());
-            window.location.href = newHref;
+            var newQueryString = searchResultFilters.getUpdatedQueryString();
+            newQueryString = uri.removeFromQueryString(newQueryString, 'view');
+            window.location.search = newQueryString;
             return false;
         });
     };

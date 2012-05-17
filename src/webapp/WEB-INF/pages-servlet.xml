@@ -557,6 +557,7 @@
         <property name="beanSupportsMobileRequests" value="true"/>
         <property name="beanSupportsDesktopRequests" value="true"/>
         <property name="viewName" value="search/schoolSearchResults-mobile" />
+        <property name="mapViewName" value="/search/resultsmap"/>
         <property name="ajaxViewName" value="search/schoolSearchAjaxResults-mobile" />
         <property name="noResultsViewName" value="search/schoolSearchNoResults-mobile"/>
     </bean>
@@ -571,29 +572,6 @@
                 <ref bean="schoolSearchMobileController"/>
             </list>
         </constructor-arg>
-    </bean>
-
-    <bean name="/search/mapresults.page" class="gs.web.search.SchoolSearchMobileController" autowire="byName" lazy-init="true">
-        <property name="commandName">
-            <value>schoolSearchCommand</value>
-        </property>
-        <property name="validators">
-            <list>
-                <ref local="schoolSearchCommandValidator"/>
-            </list>
-        </property>
-        <property name="commandClass" value="gs.web.search.SchoolSearchCommand" />
-        <property name="schoolSearchService" ref="solrSchoolSearchService" />
-        <property name="looseSchoolSearchService" ref="looseSolrSchoolSearchService" />
-        <property name="citySearchService" ref="solrCitySearchService" />
-        <property name="districtSearchService" ref="solrDistrictSearchService" />
-        <property name="mobileViewName" value="search/resultsmap" />
-        <property name="beanSupportsMobileRequests" value="true"/>
-        <property name="beanSupportsDesktopRequests" value="false"/>
-        <property name="viewName" value="search/resultsmap" />
-        <property name="ajaxViewName" value="search/resultsmap" />
-        <property name="noResultsViewName" value="search/resultsmap"/>
-        <property name="noResultsAjaxViewName" value="search/resultsmap" />
     </bean>
 
     <bean name="/search/nearbySearch.page"

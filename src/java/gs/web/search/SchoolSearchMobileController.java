@@ -37,6 +37,8 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
 
     private GsSolrSearcher _gsSolrSearcher;
 
+    private String _mapViewName;
+
     public static final String MODEL_KEY_HIDE_ALTERNATE_SITE_BUTTON = "hideAlternateSiteButton";
 
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException e) throws Exception {
@@ -436,9 +438,14 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
     }
 
     private String determineViewName(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
-
         // Determine View name
         String viewName;
+
+        String viewOverride = commandAndFields.getSchoolSearchCommand().getView();
+        // if "view" URL query param is set to "map", use the map viewname
+        if ("map".equals(viewOverride)) {
+            return getMapViewName();
+        }
 
         String ajax = request.getParameter("ajax");
         if (ajax != null && ajax.equals("true")) {
@@ -728,5 +735,13 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
 
     public void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
         _gsSolrSearcher = gsSolrSearcher;
+    }
+
+    public String getMapViewName() {
+        return _mapViewName;
+    }
+
+    public void setMapViewName(String mapViewName) {
+        _mapViewName = mapViewName;
     }
 }

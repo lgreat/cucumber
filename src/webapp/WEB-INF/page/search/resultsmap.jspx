@@ -99,8 +99,8 @@
                     <div class="contain_6-1 pbs">
                         <div class="fl">
                             <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
-                            <a data-role="button" data-inline="true" class="but but-sm but-2 mrm"
-                               href="/search/search.page?${pageContext.request.queryString}">List</a>
+                            <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink"
+                               href="${requestInfo.requestURL}">List</a>
                             <div class="js-redobtn dn mvn pvn"><button class="but but-sm but-2">Redo Search</button></div>
                         </div>
 
