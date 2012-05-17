@@ -98,9 +98,9 @@
                 <c:if test="${fn:length(schoolSearchResults) gt 0}">
                     <div class="contain_6-1 pbs">
                         <div class="fl">
-                            <div id="searchFilter" class="but but-sm but-2 mrm">Filter</div>
-                            <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink"
-                               href="${requestInfo.requestURL}">List</a>
+                            <div class=" di mrm"><button id="searchFilter" class="but but-sm but-2">Filter</button></div>
+                            <div class="mrm di"><a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink"
+                               href="${requestInfo.requestURL}">List</a></div>
                             <div class="js-redobtn dn mvn pvn"><button class="but but-sm but-2">Redo Search</button></div>
                         </div>
 
