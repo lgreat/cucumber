@@ -34,12 +34,11 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/email/")
-public class NewslettersSignUpMobileController implements ReadWriteAnnotationController {
-    public static final String SIGNUP_VIEW = "/email/newslettersSignUp-mobile";
-    public static final String SIGNUP_MOBILE_VIEW = "/email/newslettersSignUp-mobile.page";
+public class NewsletterSubscriptionMobileController implements ReadWriteAnnotationController {
+    public static final String SIGNUP_VIEW = "/email/newsletterSubscription";
+    public static final String SIGNUP_MOBILE_VIEW = "/email/newsletterSubscription.page";
     private static final String EMAIL_VERIFIED_VIEW = "/email/newslettersEmailVerified.page";
     private static final String EMAIL = "email";
-    private static final String SITE_PREFERENCE = "site_preference";
 
     @Autowired
     @Qualifier("emailVerificationEmail")
@@ -49,7 +48,7 @@ public class NewslettersSignUpMobileController implements ReadWriteAnnotationCon
     @Autowired
     private ISubscriptionDao _subscriptionDao;
 
-    @RequestMapping (value="newslettersSignUp-mobile.page", method=RequestMethod.GET)
+    @RequestMapping (value="newsletterSubscription.page", method=RequestMethod.GET)
     public String showForm (HttpServletRequest request) throws IOException {
         RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
         if (!requestInfo.shouldRenderMobileView()) {
@@ -59,7 +58,7 @@ public class NewslettersSignUpMobileController implements ReadWriteAnnotationCon
         return SIGNUP_VIEW;
     }
 
-    @RequestMapping (value="newslettersSignUp-mobile.page", method = RequestMethod.POST)
+    @RequestMapping (value="newsletterSubscription.page", method = RequestMethod.POST)
     public void submitForm (HttpServletRequest request,
                            HttpServletResponse response,
                            @RequestParam (value=EMAIL, required=false) String email) throws Exception {
@@ -70,6 +69,8 @@ public class NewslettersSignUpMobileController implements ReadWriteAnnotationCon
             outputJson("error", emailError, response);
             return;
         }
+
+        //Similar to NewsletterSubscriptionController for the article pages hover
 
         boolean isSubscribedToWeeklyNl = false;
         boolean shouldSendVerificationEmail = false;
