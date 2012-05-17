@@ -1,4 +1,33 @@
-/*<button class="ratings-round ratings-small round-small">10</button>*/
+/* @charset "UTF-8"; */
+/* CSS Document */
+
+/*
+Theme Name: Text
+Description: All the specific styles for the GreatSchools website
+Author: Priyanshi Deshwal
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+
+*/
+
+/* implementation pattern eg */
+/*
+<div class="ratings-round ratings-small round-small">
+    <div class="ratings-number number-small">
+        9
+    </div>
+</div>
+*/
+/* --------------------------------------------------------------
+
+   * Sets up some sensible standard rating badges.
+
+-------------------------------------------------------------- */
 
 .ratings-round{
     color:#FFF;
