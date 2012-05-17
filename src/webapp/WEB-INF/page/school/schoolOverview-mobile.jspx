@@ -37,7 +37,7 @@
 
     <c:choose>
         <c:when test="${school.preschoolOnly}">
-            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Preschool_School_Overview"/>
+            <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Preschool_Overview"/>
         </c:when>
         <c:when test="${school.type.schoolTypeName eq 'private'}">
             <ad:setSlotPrefix slotPrefix="GreatSchools-MobileSite_Private_School_Overview"/>
