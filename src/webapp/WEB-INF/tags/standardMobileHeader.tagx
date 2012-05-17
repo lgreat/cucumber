@@ -28,7 +28,7 @@
             <div class="clearfloat"><!-- not empty -->
             <hr class="keyline4" />
             </div>
-            <a href="/email/newslettersSignUp-mobile.page">
+            <a href="/email/newsletterSubscription.page">
                  <div class="navline">
                     <div class="fl default navlinktext">Subscribe to Newsletter</div>
                     <div class="fr iconx24 i-24-checkbox mrm mtm"><!-- not empty  --></div>
