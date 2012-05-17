@@ -53,6 +53,13 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
         google.maps.event.addListener(map, 'dragend', function(){
             $redoBtn.removeClass('dn').addClass('di');
         });
+        google.maps.event.addListener(map, 'click', function(){
+            if($('#shownav').is(':visible')){
+                $('#shownav').hide('fast');
+                $('#topnav_link').find(".iconx24").removeClass('i-24-collapse').addClass('i-24-expand');
+                $('#topnav_link').removeClass('but-topnav-on').addClass('but-topnav');
+            }
+        });
 
         var markerShadow = new google.maps.MarkerImage(
             "/res/img/map/GS_gsr_1_backgroundshadow.png", // url
