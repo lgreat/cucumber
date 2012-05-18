@@ -57,10 +57,10 @@
 
     <mobile:schoolProfileIntro school="${school}" linkSchool="${false}"/>
 
-    <div class="clearfloat"><!-- empty not delete --></div>
+    <div class="clearfloat mtm"><!-- empty not delete --></div>
     <c:if test="${not empty gs_rating or not empty ratings.overall}">
 
-        <div class="fl mrm">
+        <div class="fl mrm ">
             <c:if test="${not empty gs_rating}">
                 <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
                     <div class="ratings-round ratings-medium round-medium vam fl">
@@ -70,7 +70,7 @@
                 </link:schoolProfileTestscore>
             </c:if>
         </div>
-        <div class="fl ">
+        <div class="fl">
             <c:if test="${not empty ratings.overall}">
                 <link:schoolProfileParentReview school="${school}" styleClass="but but-sm but-2 but-overview">
                     Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>

@@ -75,7 +75,9 @@
                     <div class="mod standard_6-1 mtn ptn">
                         <div class="inner">
                             <div class="hd plm">
-                                ${testToGrades.testLabel}
+                                <div class="titlediv">
+                                    ${testToGrades.testLabel}
+                                </div>
                             </div>
                             <div class="bd">
                                 <c:if test="${not empty testToGrades.scale}">

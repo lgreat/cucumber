@@ -102,7 +102,7 @@
 <div class="mod standard_6-1 mtn ptn">
     <div class="inner">
         <div class="hd plm">
-            <div class="fl">Reviews (${cmd.totalReviews})</div>
+            <div class="fl"><h2>Reviews (${cmd.totalReviews})</h2></div>
             <div class="selectbox vam">
                 <form:select path="cmd.sortBy" id="sltRatingSort"
                              onchange="sortParentReviews('${school.id}','${stateAbbrev}','${param_sortby}');">
