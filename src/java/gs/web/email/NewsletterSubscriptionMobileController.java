@@ -35,8 +35,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/email/")
 public class NewsletterSubscriptionMobileController implements ReadWriteAnnotationController {
-    public static final String SIGNUP_VIEW = "/email/newsletterSubscription";
-    public static final String SIGNUP_MOBILE_VIEW = "/email/newsletterSubscription.page";
+    public static final String SIGNUP_VIEW = "/email/newsletterSubscription-mobile";
     private static final String EMAIL_VERIFIED_VIEW = "/email/newslettersEmailVerified.page";
     private static final String EMAIL = "email";
 
