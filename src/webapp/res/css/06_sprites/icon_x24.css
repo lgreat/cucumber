@@ -34,7 +34,7 @@ Viewport: the width and height of each icon is 24px x 24px, the background posit
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/120326-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/120517-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -44,6 +44,26 @@ Viewport: the width and height of each icon is 24px x 24px, the background posit
 /* row 0 */
 .i-24-close {
     background-position: 0 0;
+}
+
+.i-24-district {
+    background-position: -24px 0;
+}
+
+.i-24-private-school {
+    background-position: -48px 0;
+}
+
+.i-24-public-charter-school {
+    background-position: -72px 0;
+}
+
+.i-24-school-enrollment {
+    background-position: -96px 0;
+}
+
+.i-24-district-boundary {
+    background-position: -120px 0;
 }
 
 /* row 24 */

@@ -14,16 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>School Boundaries | GreatSchools</title>
 <style type="text/css">
-    /*div.leftSide {*/
-        /*width: 233px;*/
-    /*}*/
-    /*}*/
-    /*div.rightSide {*/
-        /*width: 720px;*/
-    /*}*/
-    #districtListDiv select {
-        width: 233px;
-    }
+
     #schoolListDiv {
         height: 295px;
         overflow-y: scroll;
@@ -948,7 +939,7 @@ new (function() {
                             <h6 class="bottom">District name</h6>
                             <hr class="keyline2"/>
                             <div class="mvm">
-                                <select id="districtList"><!-- not empty --></select>
+                                <select id="districtList" class="input_7"><!-- not empty --></select>
                             </div>
                         </div>
 
@@ -1071,21 +1062,75 @@ new (function() {
             </div>
         </div>
 
-        <div>
-            <div>
-                <strong>Show schools that are not part of a district</strong>
-                <gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="hidden"
-                               checked="${true}"/>
-                <label style="display:none;" for="js_schoolType_public">Public/Charter schools (in district)</label>
-                <gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"/>
-                <label for="js_schoolType_charter">Charter</label>
-                <gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"/>
-                <label for="js_schoolType_private">Private</label>
+        <div class="prefix_7 grid_17">
+            <div class="lal clearfix">
+                <div class="alpha grid_7">
+                    <h6 class="bottom">Show schools that are not part of a district:</h6>
+                </div>
+                <div class="grid_10 omega">
+                    <gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="hidden"
+                                   checked="${true}"/>
+                    <label style="display:none;" for="js_schoolType_public"
+                           class="checkbox">Public/Charter schools (in district)</label>
+                    <gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"/>
+                    <label for="js_schoolType_charter" class="checkbox">Charter</label>
+                    <gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"/>
+                    <label for="js_schoolType_private" class="checkbox">Private</label>
+                </div>
             </div>
-            <hr/>
+            <hr class="keyline2"/>
             <!-- TODO: update legend -->
-            <div>
-                <img src="/res/img/map/pushpin_7.png"/> District
+            <div class="mtm">
+                <div class="alpha grid_2">
+                    <div class="mediaExt1 attribution">
+                        <div class="img">
+                            <span class="iconx24 i-24-district"><!-- do not collapse --></span>
+                        </div>
+                        <div class="bk">
+                            <span class="smaller">District</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid_3">
+                    <div class="mediaExt1 attribution">
+                        <div class="img">
+                            <span class="iconx24 i-24-private-school"><!-- do not collapse --></span>
+                        </div>
+                        <div class="bk">
+                            <span class="smaller">Private School</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid_4">
+                    <div class="mediaExt1 attribution">
+                        <div class="img">
+                            <span class="iconx24 i-24-public-charter-school"><!-- do not collapse --></span>
+                        </div>
+                        <div class="bk">
+                            <span class="smaller">Public/Charter School</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid_4">
+                    <div class="mediaExt1 attribution">
+                        <div class="img">
+                            <span class="iconx24 i-24-school-enrollment"><!-- do not collapse --></span>
+                        </div>
+                        <div class="bk">
+                            <span class="smaller">School Enrollment</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid_4 omega">
+                    <div class="mediaExt1 attribution">
+                        <div class="img">
+                            <span class="iconx24 i-24-district-boundary"><!-- do not collapse --></span>
+                        </div>
+                        <div class="bk">
+                            <span class="smaller">District Boundary</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
