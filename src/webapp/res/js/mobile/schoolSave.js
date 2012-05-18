@@ -1,4 +1,4 @@
-define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, tracking) {
+define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, hogan, tracking, modal) {
     var schoolsKey = "Schools";
     var schoolMapKey = "SchoolMap";
     var emailSubject = "My Saved Schools from GreatSchools.org";
@@ -133,7 +133,8 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
     var getSavedSchools = function() {
         var savedSchools = localStorage.getItem(schoolsKey);
         if(savedSchools != null && savedSchools[schoolsKey].length > 0) {
-            $('#js-loadingSchools').show();
+            //$('#js-loadingSchools').show();
+            modalLoading.getInstance().showModal();
             var savedSchoolsJson = savedSchools[schoolsKey];
             $.ajax({
                 type: 'POST',
@@ -141,7 +142,8 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
                 dataType: 'json',
                 data: {savedSchoolsJson: JSON.stringify({ schools : savedSchoolsJson})}
             }).done(function(data) {
-                    $('#js-loadingSchools').hide();
+                    modalLoading.getInstance().hideModal();
+                    //$('#js-loadingSchools').hide();
                     renderSchools(data);
 
                     $('#js-savedSchools .js-deleteSchool').click(function(){
@@ -155,6 +157,7 @@ define(['localStorage', 'hogan', 'tracking'], function(localStorage, hogan, trac
                     });
                 }
             ).fail(function() {
+                    modalLoading.getInstance().hideModal();
                     showNoSchoolsToDisplay(errorFetchingSchools);
                 }
             );

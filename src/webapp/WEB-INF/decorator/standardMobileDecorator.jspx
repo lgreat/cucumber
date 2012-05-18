@@ -48,6 +48,14 @@
         <tags:standardMobileFooter />
         </div>
     </div>
+
+    <!-- mitch this is used by the ajax loading code in modal.js -->
+    <div class="js-overlay"><!-- do not collapse --></div>
+    <div class="horizon tac">
+        <div class="js-modal dn">
+            <img alt="LOADING" src="/res/mobile/img/loading.gif" />
+        </div>
+    </div>
     </body>
 </html>
 

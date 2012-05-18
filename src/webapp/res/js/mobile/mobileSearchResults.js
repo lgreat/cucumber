@@ -1,4 +1,4 @@
-define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilters) {
+define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchResultFilters, modal) {
 
     // set value each time module is initialized
     var $sortSelect = undefined;
@@ -91,10 +91,12 @@ define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilte
         queryString = uri.putIntoQueryString(queryString, 'ajax', true);
         var url = window.location.protocol + '//' + window.location.host + window.location.pathname + queryString;
 
+        modalLoading.getInstance().showModal();
         $.ajax({
             url:url,
             type:'get'
         }).done(function(data) {
+            modalLoading.getInstance().hideModal();
             GS.log('search got data back from filtering ajax call: ', data);
             if (data) {
                 var $list = $(searchResultsSelector);
@@ -103,6 +105,7 @@ define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilte
 
             }
         }).fail(function(data) {
+                modalLoading.getInstance().hideModal();
             GS.log('filtering failed', data);
         });
     };
@@ -132,11 +135,12 @@ define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilte
         var url = window.location.protocol + '//' + window.location.host + window.location.pathname + queryString;
 
         GS.log('searching using url:', url);
-
+        modalLoading.getInstance().showModal();
         $.ajax({
             url:url,
             type:'get'
         }).done(function(data) {
+                modalLoading.getInstance().hideModal();
             GS.log('search got data back from ajax call: ', data);
 
             if (data) {
@@ -152,6 +156,7 @@ define (['uri','searchResultFilters', 'history'], function(uri,searchResultFilte
             GS.log('new current offset: ', currentOffset);
 
         }).fail(function(data) {
+                modalLoading.getInstance().hideModal();
             GS.log('paging failed', data);
         });
     };

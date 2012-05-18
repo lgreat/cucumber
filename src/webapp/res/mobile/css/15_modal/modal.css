@@ -9,6 +9,7 @@
     filter: alpha(opacity = 70);
     zoom: 1;
     display: none;
+    /*z-index: 4;*/
 }
 
 .horizon {
@@ -17,4 +18,5 @@
     left: 0;
     width: 100%;
     height: 1px;
+    /*z-index: 5;*/
 }

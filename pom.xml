@@ -452,6 +452,7 @@
                                 <param>12_graphs/bar_graphs.css</param>
                                 <param>13_tabs/tabs.css</param>
                                 <param>14_ratings/ratings.css</param>
+                                <param>15_modal/modal.css</param>
                             </cssSourceFiles>
                             <cssFinalFile>gs_mobile_styles.combined.css</cssFinalFile>
                             <cssTargetDir>/res/mobile/css</cssTargetDir>

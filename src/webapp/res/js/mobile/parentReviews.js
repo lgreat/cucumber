@@ -1,4 +1,4 @@
-define(['truncate', 'schoolSave'], function(truncate, schoolSave) {
+define(['truncate', 'schoolSave', 'modal'], function(truncate, schoolSave, modal) {
 
     var next,container,pages,cur=1;
 
@@ -53,6 +53,7 @@ define(['truncate', 'schoolSave'], function(truncate, schoolSave) {
             }
 
             // make the ajax call and render results
+            modalLoading.getInstance().showModal();
             var request = $.ajax({
                 url: url,
                 type:'get',
@@ -60,11 +61,13 @@ define(['truncate', 'schoolSave'], function(truncate, schoolSave) {
             });
 
             request.done(function(data){
+                modalLoading.getInstance().hideModal();
                 $(container).html($(container).html() + data);
                 cur++;
             });
 
             request.fail(function(xhr, txt){
+                modalLoading.getInstance().hideModal();
                 $(next).show();
             });
         }
