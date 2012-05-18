@@ -55,37 +55,7 @@
 <div class="contain_1-2">
     <div><h6>Ratings &amp; Reviews</h6></div>
 
-    <div>
-        <div><h1><link:schoolProfileOverview school="${school}">
-            ${school.name}
-        </link:schoolProfileOverview></h1></div>
-
-    </div>
-
-    <div>
-        <c:if test="${not school.preschoolOnly}">
-            <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
-        </c:if>
-        <!-- Grade levels -->
-        <c:choose>
-            <c:when test="${school.preschoolOnly}">
-                <c:set var="gradeLevels">Preschool</c:set>
-            </c:when>
-            <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
-                <!-- Leave blank -->
-            </c:when>
-            <c:otherwise>
-                <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
-            </c:otherwise>
-        </c:choose>
-        <!-- Enrollment -->
-        <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
-        <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
-            <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
-        </c:if>
-        <span class="ac1 small">${schoolType}${gradeLevels}${enrollment}</span>
-    </div>
-
+    <mobile:schoolProfileIntro school="${school}" linkSchool="${true}"/>
 
     <c:if test="${fn:length(cmd.reviews)>0}">
         <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>

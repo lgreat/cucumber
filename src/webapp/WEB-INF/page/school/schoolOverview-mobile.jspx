@@ -55,31 +55,7 @@
 <body>
 <div class="contain_1-2">
 
-    <h1>${school.name}</h1>
-
-    <p class="small pbm ac1">
-        <c:if test="${not school.preschoolOnly}">
-            <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
-        </c:if>
-        <!-- Grade levels -->
-        <c:choose>
-            <c:when test="${school.preschoolOnly}">
-                <c:set var="gradeLevels">Preschool</c:set>
-            </c:when>
-            <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
-                <!-- Leave blank -->
-            </c:when>
-            <c:otherwise>
-                <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
-            </c:otherwise>
-        </c:choose>
-        <!-- Enrollment -->
-        <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
-        <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
-            <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
-        </c:if>
-        ${schoolType}${gradeLevels}${enrollment}
-    </p>
+    <mobile:schoolProfileIntro school="${school}" linkSchool="${false}"/>
 
     <div class="clearfloat"><!-- empty not delete --></div>
     <c:if test="${not empty gs_rating or not empty ratings.overall}">

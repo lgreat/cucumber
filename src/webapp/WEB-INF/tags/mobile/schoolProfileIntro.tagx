@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsweb="gstaglib"
+        >
+    <jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="school" required="true" type="gs.data.school.School"
+                             description="School to print intro text"/>
+    <jsp:directive.attribute name="linkSchool" required="true" type="java.lang.Boolean"
+                             description="Whether name should link to overview"/>
+
+    <div>
+        <div>
+            <h1>
+                <c:choose>
+                    <c:when test="${linkSchool}">
+                        <link:schoolProfileOverview school="${school}">
+                            ${school.name}
+                        </link:schoolProfileOverview>
+                    </c:when>
+                    <c:otherwise>
+                        ${school.name}
+                    </c:otherwise>
+                </c:choose>
+            </h1>
+        </div>
+
+        <div>
+            <!-- Set schoolType label and gradeLevels label-->
+            <c:choose>
+                <c:when test="${school.preschoolOnly}">
+                    <c:set var="schoolType"></c:set>
+                    <c:set var="gradeLevels">Preschool</c:set>
+                </c:when>
+                <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
+                    <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
+                    <c:set var="gradeLevels"></c:set>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="schoolType">${gsweb:capitalize(school.type.schoolTypeName)}</c:set>
+                    <c:set var="gradeLevels">, ${school.gradeLevels}</c:set>
+                </c:otherwise>
+            </c:choose>
+            <!-- Enrollment -->
+            <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
+            <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                <c:set var="enrollment">, Enrollment: ${enrollmentOrCapacity}</c:set>
+            </c:if>
+            <span class="ac1 small">${schoolType}${gradeLevels}${enrollment}</span>
+        </div>
+    </div>
+
+</jsp:root>
