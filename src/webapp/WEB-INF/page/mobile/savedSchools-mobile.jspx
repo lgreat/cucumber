@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <html lang="en">
+
+    <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
+    <jsp:output omit-xml-declaration="true" />
+    <jsp:directive.page contentType="text/html; charset=UTF-8"/>
+
+    <c:set scope="request" var="hideAlternateSiteButton" value="${true}"/>
+
+    <head>
+        <!--<meta name="description"-->
+        <!--content="Compare K-12 school ratings nationwide to find the best schools. View parent ratings, reviews and test scores and choose the right preschool, elementary, middle or high school for public or private education."/>-->
+        <!--<meta name="keywords"-->
+        <!--content="school ratings, public schools, public school ratings, private schools, private school ratings, charter schools, charter school ratings, school reviews, school rankings, test scores, preschool, elementary school, middle school, high school, parent community, education resource, find school, great schools, greatschools"/>-->
+        <meta name="decorator" content="standardMobileDecorator"/>
+
+        <title>GreatSchools - My Saved Schools</title>
+
+        <script type="text/javascript">
+            require(['schoolSave'], function(schoolSave) {
+                schoolSave.mySchoolListInit();
+
+                $(document).ready(function () {
+                    schoolSave.getSavedSchools();
+
+                    var deleteAll = $('.js-emailAndDeleteAll #js-deleteAll');
+                    deleteAll.click(function() {
+                        schoolSave.deleteAllSchools();
+                    });
+                })
+            });
+        </script>
+    </head>
+
+    <body>
+    <div class="js-emailAndDeleteAll dn">
+        <div class="contain_6-1">
+
+            <a class="but but-rg but-1 phl js-emailMyList">
+                Email my list
+            </a>
+         </div>
+    </div>
+        <div class="contain_1-1">
+                <h1>My Saved Schools</h1>
+        </div>
+    <div id="js-noSchoolsToDisplay" class="pam" style="display: none">
+        <p><!-- empty not delete --></p>
+        <div class="pvm">
+            <link:home styleClass="but but-rg but-1">Find a School</link:home>
+        </div>
+    </div>
+    <div id="js-loadingSchools" class = "pam" style="display: none;">
+        <p>Loading...</p>
+    </div>
+    <div id="js-savedSchools"><!-- empty not delete --></div>
+
+        <div  id="js-schoolTemplate" style="display: none;">
+            <div class="pvs phm js-schoolTemplate">
+                <div class="line">
+                       <div class="unit size74of100">
+                           <div class="fl"><strong><a id="js-schoolUrl-{{state_schoolId}}" href="{{schoolUrl}}">{{schoolName}}</a></strong>
+                            <div>
+                                <p class="small ac1">{{schoolType}}, {{schoolGradeLevels}} | {{schoolCity}}, {{schoolState}}</p>
+                            </div>
+                        </div>
+                       </div>
+                      <div class="unit size20of100 lastUnit fr">
+                          <a class="but but-sm but-2 pan but-overview js-deleteSchool" id="js-delete-{{state_schoolId}}">Delete</a>
+
+                      </div>
+                </div>
+
+                <div class="clearfloat"><!-- empty not delete --></div>
+                <div class="pas">
+                    <div class="fl{{displayGSRating}}">
+                        <div class="ratings-round ratings-small round-small fl vam"><div class="ratings-number number-small">{{gsRating}}</div></div>
+                        <div class="small-lt fl pls pt4"> of 10</div>
+                    </div>
+                    <div class="fr prm{{displayCommRating}}"><span class="small-lt">Community rating: </span>
+
+                        <div class="iconx12 i-12-orange-star  i-12-star-{{commRating}}"><!-- not empty--></div>
+                        <div class="iconx12 i-12-grey-star  i-12-star-{{starOff}}"><!-- not empty--></div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="clearfloat ptm pbn js-keyline"><hr class="keyline1 mtl" /></div>
+        </div>
+
+    <div class="js-emailAndDeleteAll dn ptn">
+        <div class="contain_6-1">
+            <div class="fl" id="js-email"><a class="but but-rg but-1 phl js-emailMyList">Email my list</a></div>
+            <div class="fr" id="js-deleteAll"><a  class="but but-rg but-2 phl">Delete All</a></div>
+
+            <div class="clearfloat"><!-- empty not delete --></div>
+        </div>
+    </div>
+
+
+        <div class="clearfloat"><!-- empty not delete --></div>
+        <mod:mobileTracking pageName="MSL Mobile"
+                      hier1="MySchoolList"
+                schoolsSaved="${true}"/>
+    </body>
+    </html>
+</jsp:root>

@@ -1,4 +1,4 @@
-package gs.web.community;
+package gs.web.mobile;
 
 import gs.data.json.JSONException;
 import gs.data.school.ISchoolDao;

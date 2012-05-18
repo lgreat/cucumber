@@ -19,7 +19,7 @@
             <div class="vertical-separator"><!-- not empty --></div>
         </div>
         <div id="shownav">
-            <a href="/community/mySchoolList-mobile.page">
+            <a href="/mobile/savedSchools.page">
                  <div class="navline">
                     <div class="fl default navlinktext">My Saved Schools</div>
                     <div class="fr iconx24 i-24-home mrm mtm"><!-- not empty --></div>

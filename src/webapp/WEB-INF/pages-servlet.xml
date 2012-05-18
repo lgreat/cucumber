@@ -27,6 +27,7 @@
     <context:component-scan base-package="gs.web.geo" />
     <context:component-scan base-package="gs.web.admin" />
     <context:component-scan base-package="gs.web.email" />
+    <context:component-scan base-package="gs.web.mobile" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.

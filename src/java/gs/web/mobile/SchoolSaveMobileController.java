@@ -1,4 +1,4 @@
-package gs.web.community;
+package gs.web.mobile;
 
 import gs.data.json.JSONArray;
 import gs.data.json.JSONException;
@@ -34,9 +34,9 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping("/community/")
+@RequestMapping("/mobile/")
 public class SchoolSaveMobileController implements ReadWriteAnnotationController {
-    public static final String MY_SAVED_SCHOOLS_VIEW = "/community/mySchoolList-mobile";
+    public static final String MY_SAVED_SCHOOLS_VIEW = "/mobile/savedSchools-mobile";
 
     @Autowired
     private ISchoolDao _schoolDao;
@@ -45,12 +45,12 @@ public class SchoolSaveMobileController implements ReadWriteAnnotationController
     @Autowired
     private RatingHelper _ratingHelper;
 
-    @RequestMapping (value="mySchoolList-mobile.page", method= RequestMethod.GET)
+    @RequestMapping (value="savedSchools.page", method= RequestMethod.GET)
     public String showSchoolList (HttpServletRequest request) {
         return MY_SAVED_SCHOOLS_VIEW;
     }
 
-    @RequestMapping (value="mySchoolList-mobile.page", method= RequestMethod.POST)
+    @RequestMapping (value="savedSchools.page", method= RequestMethod.POST)
     public void showSchoolList (@RequestParam("savedSchoolsJson") String savedSchoolsJson,
                                 HttpServletRequest request,
                                 HttpServletResponse response) throws  JSONException, IOException {
