@@ -515,41 +515,7 @@ body.ie #contentRight #tpsTable, body.ie #contentRight #nbTable {
     text-align:right;
 }
 
-.outer {
-    background-image:url(/res/img/district/district_page_rightbox_top.gif);
-    background-position:left top;
-    background-repeat:no-repeat;
-    padding-top:6px;
-}
-
-.inner {
-    background-color:transparent;
-    background-image:url(/res/img/district/district_page_rightbox_sides.gif);
-    background-position:left top;
-    background-repeat:repeat-y;
-    padding:2px 0 6px 16px;
-}
-
 /* END top rated schools */
-
-/* BEGIN nearby districts module*/
-
-#nearbyDistricts{
-    background-image:url(/res/img/district/district_page_rightbox_bottom.gif);
-    background-position:left bottom;
-    background-repeat:no-repeat;
-    padding-bottom:6px;
-    margin: 10px auto;
-}
-
-#nearbyDistricts div.nameAndRating{
-    width:268px;
-}
-#nearbyDistrictsHeader{
-    height:50px;
-}
-
-/* END nearby districts module*/
 
 div#districtHomeFooter{
 padding-top:20px;

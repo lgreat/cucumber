@@ -21,8 +21,9 @@
     <c:set var="pageName" value="District Home Page"/>
     <c:set var="districtAcronymOrName" value="${model.acronymOrName}"/>
 
+    <div class="spacer_10"><!-- do not collapse --></div>
     <div class="grid_16">
-        <div class="spacer_10"><!-- do not collapse --></div>
+
         <c:if test="${empty school}">
             <div id="breadcrumbs">
                 <ul>
@@ -208,15 +209,9 @@
         <jsp:include page="/promo/emailSignUp.module"/>
 
         <c:if test="${not empty model.topRatedSchools and not empty model.topSchools}">
-        <div id="citySnapShot">
-            <div class="outer">
-                <div class="inner">
-                     <school:topRatedSchoolsInCityList city="${model.cityObject}"
-                                                      topRatedSchools="${model.topRatedSchools}"
-                                                      topSchools="${model.topSchools}"/>
-                </div>
-            </div>
-        </div>
+            <school:topRatedSchoolsInCityList city="${model.cityObject}"
+                                              topRatedSchools="${model.topRatedSchools}"
+                                              topSchools="${model.topSchools}"/>
         </c:if>
     </div>
 

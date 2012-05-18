@@ -8,46 +8,60 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         >
     <c:if test="${not empty nearbyDistricts}">
-    <div id="nearbyDistricts">
-    <div class="outer">
-    <div class="inner">
-                            <table id="nbTable" cellpadding="0" cellspacing="0">
-        <tr id="nearbyDistrictsHeader">
-                            <th class="col1"><h3>Nearby Districts</h3></th>
-                            <th class="col2 rightHeader">GreatSchools<br/>Rating</th>
-                        </tr>
-         <c:forEach items="${nearbyDistricts}" var="nd" varStatus="loopStatus">
-             <c:set var="ratingValue" value="na"/>
-             <c:if test="${nd.rating > 0}">
-                <c:set var="ratingValue" value="${nd.rating}"/>
-             </c:if>
-             <tr class="nameAndRating">
-                 <td class="name"><link:districtHome district="${nd.neighborDistrict}"
-                                                       title="${nd.neighborDistrict.name}">
-                                <c:out value="${nd.neighborDistrict.name}" escapeXml="true"/>
-                            </link:districtHome></td>
-                 <td class="rating"><gsml:img src="/res/img/geo/ratings/cities_sm_${ratingValue}.gif"
-                                            alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."
-                                            styleClass="ratingImage"/></td>
-             </tr>
-             <c:set var="roundedDistance">
-                <fmt:formatNumber maxFractionDigits='0' minFractionDigits='0' value='${nd.distance}'/>
-             </c:set>
-             <c:if test="${roundedDistance lt 1}">
-                 <c:set var="roundedDistance">
-                    <fmt:formatNumber maxFractionDigits='1' minFractionDigits='1' value='${nd.distance}'/>
-                 </c:set>
-             </c:if>
-             <tr>
-             <td colspan="2" class="${(loopStatus.last)?'':'dottedLineBottomBox'}">${nd.neighborDistrict.physicalAddress.city}, ${nd.neighborDistrict.physicalAddress.state} |
-                 ${roundedDistance eq 0.0 ? 0.1: roundedDistance} miles | ${nd.neighborDistrict.numberOfSchools} school${nd.neighborDistrict.numberOfSchools gt 1 ? 's':''}
-             </td>
-             </tr>
-        </c:forEach>
-      </table>
+        <div class="mod allyson-1">
+            <div class="inner">
 
-    </div>
-    </div>
-    </div>
+                <div class="hd">
+                    <div class="line">
+                        <div class="unit size75of100">
+                            <h3>Nearby Districts</h3>
+                        </div>
+                        <div class="unit size25of100 lastUnit">
+                            <h6 class="tar">GreatSchools<br/>Rating</h6>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bd">
+                    <c:forEach items="${nearbyDistricts}" var="nd" varStatus="loopStatus">
+                        <c:set var="ratingValue" value="na"/>
+                        <c:if test="${nd.rating > 0}">
+                            <c:set var="ratingValue" value="${nd.rating}"/>
+                        </c:if>
+
+                        <div class="line mvs text2bold">
+                            <div class="unit size75of100">
+                                <link:districtHome district="${nd.neighborDistrict}"
+                                                   title="${nd.neighborDistrict.name}">
+                                    <c:out value="${nd.neighborDistrict.name}" escapeXml="true"/>
+                                </link:districtHome>
+                            </div>
+                            <div class="unit size25of100 lastUnit tar">
+                                <gsml:img src="/res/img/geo/ratings/cities_sm_${ratingValue}.gif"
+                                          alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                            </div>
+                        </div>
+                        <c:set var="roundedDistance">
+                            <fmt:formatNumber maxFractionDigits='0' minFractionDigits='0' value='${nd.distance}'/>
+                        </c:set>
+                        <c:if test="${roundedDistance lt 1}">
+                            <c:set var="roundedDistance">
+                                <fmt:formatNumber maxFractionDigits='1' minFractionDigits='1' value='${nd.distance}'/>
+                            </c:set>
+                        </c:if>
+
+                        <div class="line">
+                            <div class="unit size1of1 lastUnit ${(loopStatus.last)?'':'brdbtm_dotted'}">
+                                <p class="mbs">
+                                    ${nd.neighborDistrict.physicalAddress.city}, ${nd.neighborDistrict.physicalAddress.state} |
+                                    ${roundedDistance eq 0.0 ? 0.1: roundedDistance} miles | ${nd.neighborDistrict.numberOfSchools} school${nd.neighborDistrict.numberOfSchools gt 1 ? 's':''}
+                                </p>
+                            </div>
+                        </div>
+                    </c:forEach>
+
+                </div>
+            </div>
+        </div>
     </c:if>
 </jsp:root>
