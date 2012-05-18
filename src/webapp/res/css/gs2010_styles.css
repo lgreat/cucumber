@@ -1511,7 +1511,7 @@ div .gallery-thumbnail-selected:hover {
 
 #dropDown-FAS-3 {
     width: 178px;
-    height: 123px;
+    /*height: 123px;*/
 }
 
 .win #dropDown-FAS-3 {
@@ -1527,7 +1527,7 @@ div .gallery-thumbnail-selected:hover {
     outline:0;
 }
 
-#dropDown-FAS-3 .doneButton{
+/*#dropDown-FAS-3 .doneButton{
     position: absolute;
     top: 100px;
     left: 15px;
@@ -1536,7 +1536,7 @@ div .gallery-thumbnail-selected:hover {
 
 .win #dropDown-FAS-3 .doneButton{
     top: 106px;
-}
+}*/
 
 
 /*----------------GS-11926 ends (FAS)----------------*/

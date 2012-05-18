@@ -98,12 +98,12 @@
                                            id="js-school-type-charter" value="charter"/>
                                     <label for="js-school-type-charter">Public charter</label>
                                 </div>
-                                <div>
+                                <div class="mbm">
                                     <input type="checkbox" class="jq-school-type" checked="checked" name="st"
                                            id="js-school-type-private" value="private"/>
                                     <label for="js-school-type-private">Private</label>
                                 </div>
-                                <button class="button-1 mtm" type="button" id="hideDropDown-1"
+                                <button class="button-1" type="button" id="hideDropDown-1"
                                         onclick="javascript:void(0)">Done
                                 </button>
                             </div>
@@ -146,13 +146,13 @@
                                            id="js-grade-level-m" value="m"/>
                                     <label for="js-grade-level-m">Middle School (6-8)</label>
                                 </div>
-                                <div>
+                                <div class="mbm">
                                     <input type="checkbox" class="jq-grade-level" checked="checked"
                                            name="gradeLevels"
                                            id="js-grade-level-h" value="h"/>
                                     <label for="js-grade-level-h">High School (9-12)</label>
                                 </div>
-                                <button class="button-1  mtm" id="hideDropDown-2" type="button"
+                                <button class="button-1" id="hideDropDown-2" type="button"
                                         onclick="javascript:void(0)">Done
                                 </button>
                             </div>
@@ -172,7 +172,8 @@
                         </div>
                         <div id="dropDown-FAS-3" class="dropDown-FAS">
 
-                            <div class="col_1">
+                            <div class="line mbm">
+                            <div class="unit size50of100">
                                 <div>
                                     <input type="radio" name="distance" value="1" id="js-radius-1"/>
                                     <label for="js-radius-1">1 mile</label>
@@ -195,7 +196,7 @@
                                     <label for="js-radius-5">5 miles</label>
                                 </div>
                             </div>
-                            <div class="col_1">
+                            <div class="unit size50of100 lastUnit">
                                 <div>
                                     <input type="radio" name="distance" value="10" id="js-radius-10"/>
                                     <label for="js-radius-10">10 miles</label>
@@ -222,10 +223,15 @@
                                     <label for="js-radius-60">60 miles</label>
                                 </div>
                             </div>
-                            <div class="col_1 doneButton">
+                            </div>
+                            <div class="line">
+                                <div class="unit size1of1 lastUnit">
+                            <div class="doneButton">
                                 <button class="button-1 mtm" id="hideDropDown-3" type="button"
                                         onclick="javascript:void(0)">Done
                                 </button>
+                            </div>
+                                </div>
                             </div>
 
                         </div>
