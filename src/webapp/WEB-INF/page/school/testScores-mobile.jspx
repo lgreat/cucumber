@@ -97,7 +97,7 @@
     <c:choose>
         <c:when test="${not empty schoolTestScores}">
             <div>
-
+                <c:set var="adShown" value="${false}"/>
                 <c:forEach var="testToGrades" items="${schoolTestScores}">
                     <div class="mod standard_6-1 mtn ptn">
                         <div class="inner">
@@ -111,8 +111,9 @@
                                     </div>
                                 </c:if>
                                 <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
-                                    <c:if test="${index.index eq 1}">
+                                    <c:if test="${index.index eq 1 and not adShown}">
                                         <ad:adTag-mobile position="Pos1_320x50"/>
+                                        <c:set var="adShown" value="${true}"/>
                                     </c:if>
 
                                     <div class="pam">
