@@ -18,10 +18,10 @@
         <div class="inner">
             <div class="bd">
                 <div class="line">
-                    <div class="unit size50of100">
+                    <div class="unit size55of100">
                         <article:socialToolsLayout3 includeFbSendBtn="true" includeShareBtn="false" slideShowUrl="${pageScope.slideShowUrl}" slideShowImage="${feature.currentSlide.imageUrl}"/>
                     </div>
-                    <div class="unit size50of100 lastUnit flrt">
+                    <div class="unit size45of100 lastUnit flrt">
                     <!-- DONE! switch to correct button design (or ask to use same icons as in article:toolsLayout1 -->
                     <!-- DONE! fix layout -->
                     <!-- TODO! make sure EN/ES toggle looks fine (not in mockup) -->
