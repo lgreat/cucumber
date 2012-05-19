@@ -1,26 +1,17 @@
 package gs.web.school;
 
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 
-public class TestScoresController extends PerlFetchController implements IDeviceSpecificControllerPartOfPair {
-    private boolean _controllerHandlesMobileRequests;
-    private boolean _controllerHandlesDesktopRequests;
+public class TestScoresController extends PerlFetchController implements IControllerFamilySpecifier {
 
+    private ControllerFamily _controllerFamily;
 
-    public boolean controllerHandlesMobileRequests() {
-        return _controllerHandlesMobileRequests;
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
     }
 
-    public boolean controllerHandlesDesktopRequests() {
-        return _controllerHandlesDesktopRequests;
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
-
-    public void setControllerHandlesMobileRequests(boolean controllerHandlesMobileRequests) {
-        _controllerHandlesMobileRequests = controllerHandlesMobileRequests;
-    }
-
-    public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
-        _controllerHandlesDesktopRequests = controllerHandlesDesktopRequests;
-    }
-
 }

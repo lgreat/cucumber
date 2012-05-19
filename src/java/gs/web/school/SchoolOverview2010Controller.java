@@ -15,9 +15,9 @@ import gs.data.survey.Survey;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.data.util.CommunityUtil;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.content.cms.CmsHomepageController;
-import gs.web.mobile.IControllerWithMobileSupport;
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestInfo;
 import gs.web.util.PageHelper;
@@ -39,7 +39,7 @@ import java.util.*;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
-public class SchoolOverview2010Controller extends AbstractSchoolController implements IDirectoryStructureUrlController, IDeviceSpecificControllerPartOfPair {
+public class SchoolOverview2010Controller extends AbstractSchoolController implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
     protected static final Log _log = LogFactory.getLog(SchoolOverview2010Controller.class.getName());
 
     public static final String BEAN_ID = "desktopSchoolOverviewController";
@@ -58,14 +58,14 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     private IReportedEntityDao _reportedEntityDao;
 
     private IEspResponseDao _espResponseDao;
-    private boolean _controllerHandlesMobileRequests;
-    private boolean _controllerHandlesDesktopRequests;
 
     protected static final long PRESCHOOL_CITY_POPULATION_BOUNDARY = 8000;
     private static final String[] SURVEY_ANSWERS_TO_SAMPLE = {"Arts", "Sports", "Other special programs"};
     public static String SCHOOL_HIGHLIGHTS_ATTRIBUTE = "schoolHighlights";
     public static final int MAX_SCHOOL_PHOTOS_IN_GALLERY = 10;
     public static final int MAX_SCHOOL_REVIEWS = 10;
+
+    private ControllerFamily _controllerFamily;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -360,22 +360,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         return false;
     }
 
-    public boolean controllerHandlesMobileRequests() {
-        return _controllerHandlesMobileRequests;
-    }
-
-    public boolean controllerHandlesDesktopRequests() {
-        return _controllerHandlesDesktopRequests;
-    }
-
-    public void setControllerHandlesMobileRequests(boolean controllerHandlesMobileRequests) {
-        _controllerHandlesMobileRequests = controllerHandlesMobileRequests;
-    }
-
-    public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
-        _controllerHandlesDesktopRequests = controllerHandlesDesktopRequests;
-    }
-
     public String getViewName() {
         return _viewName;
     }
@@ -470,5 +454,13 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
     public void setReportedEntityDao(IReportedEntityDao reportedEntityDao) {
         _reportedEntityDao = reportedEntityDao;
+    }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
+    }
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
 }

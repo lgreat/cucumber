@@ -8,7 +8,8 @@ import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.test.ITestDataSetDao;
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
@@ -29,8 +30,7 @@ import java.util.*;
 /**
  * @author aroy@greatschools.org
  */
-public class SchoolOverviewMobileController implements Controller, IDirectoryStructureUrlController,
-        IDeviceSpecificControllerPartOfPair {
+public class SchoolOverviewMobileController implements Controller, IDirectoryStructureUrlController, IControllerFamilySpecifier {
     protected static final Log _log = LogFactory.getLog(SchoolOverviewMobileController.class.getName());
 
     public static final int MAX_SCHOOL_REVIEWS = 2;
@@ -41,6 +41,7 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
     private IReviewDao _reviewDao;
     private ITestDataSetDao _testDataSetDao;
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
+    private ControllerFamily _controllerFamily;
 
     protected School getActiveSchoolFromDirectoryStructureUrlFields(HttpServletRequest request) {
         School school = null;
@@ -182,19 +183,11 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
         _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
     }
 
-    public boolean controllerHandlesMobileRequests() {
-        return true;
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
     }
 
-    public void setControllerHandlesMobileRequests(boolean controllerHandlesMobileRequests) {
-        // no-op
-    }
-
-    public boolean controllerHandlesDesktopRequests() {
-        return false;
-    }
-
-    public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
-        // no-op
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
 }

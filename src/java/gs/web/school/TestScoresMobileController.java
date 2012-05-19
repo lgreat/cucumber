@@ -1,8 +1,9 @@
 package gs.web.school;
 
 import gs.data.school.*;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.util.PageHelper;
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
-public class TestScoresMobileController implements Controller, IDeviceSpecificControllerPartOfPair {
+public class TestScoresMobileController implements Controller, IControllerFamilySpecifier {
 
     public static final String PARAM_SCHOOL_ID = "id";
 
@@ -25,12 +26,12 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
 
     private static final String ERROR_VIEW = "/school/error";
 
-    private boolean _controllerHandlesMobileRequests;
-    private boolean _controllerHandlesDesktopRequests;
     private TestScoresHelper _testScoresHelper;
 
     private RatingHelper _ratingHelper;
     private ISchoolDao _schoolDao;
+
+    private ControllerFamily _controllerFamily;
 
     private static final Logger _log = Logger.getLogger(TestScoresMobileController.class);
 
@@ -108,19 +109,11 @@ public class TestScoresMobileController implements Controller, IDeviceSpecificCo
         _testScoresHelper = testScoresHelper;
     }
 
-    public boolean controllerHandlesMobileRequests() {
-        return _controllerHandlesMobileRequests;
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
     }
 
-    public void setControllerHandlesMobileRequests(boolean controllerHandlesMobileRequests) {
-        _controllerHandlesMobileRequests = controllerHandlesMobileRequests;
-    }
-
-    public boolean controllerHandlesDesktopRequests() {
-        return _controllerHandlesDesktopRequests;
-    }
-
-    public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
-        _controllerHandlesDesktopRequests = controllerHandlesDesktopRequests;
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
 }

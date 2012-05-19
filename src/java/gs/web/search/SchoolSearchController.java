@@ -13,14 +13,14 @@ import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
-import gs.data.search.FieldConstraint;
-import gs.data.search.FieldSort;
-import gs.data.search.SearchException;
-import gs.data.search.SearchResultsPage;
+import gs.data.search.*;
 import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.IDistrictSearchResult;
 import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.beans.SolrSchoolSearchResult;
+import gs.data.search.fields.DocumentType;
+import gs.data.search.fields.SchoolFields;
+import gs.data.search.fields.SolrField;
 import gs.data.search.filters.FilterFactory;
 import gs.data.search.filters.FilterGroup;
 import gs.data.search.filters.SchoolFilters;
@@ -30,8 +30,8 @@ import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Address;
-import gs.web.mobile.IControllerWithMobileSupport;
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.pagination.Page;
 import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -41,6 +41,7 @@ import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -55,7 +56,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 
-public class SchoolSearchController extends AbstractCommandController implements IDirectoryStructureUrlController, IControllerWithMobileSupport, IDeviceSpecificControllerPartOfPair {
+public class SchoolSearchController extends AbstractCommandController implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
 
     private IDistrictDao _districtDao;
 
@@ -75,17 +76,14 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     private String _mobileViewName;
 
-    private boolean _beanSupportsMobileRequests;
-
-    private boolean _beanSupportsDesktopRequests;
-
     private String _noResultsViewName;
     private String _noResultsAjaxViewName;
     private String _viewName;
     private String _ajaxViewName;
 
-    private boolean _controllerHandlesMobileRequests;
-    private boolean _controllerHandlesDesktopRequests;
+    private GsSolrSearcher _gsSolrSearcher;
+
+    private ControllerFamily _controllerFamily;
 
     private static final Logger _log = Logger.getLogger(SchoolSearchController.class);
     public static final String BEAN_ID = "/search/search.page";
@@ -480,7 +478,147 @@ public class SchoolSearchController extends AbstractCommandController implements
         return new ModelAndView(getViewName(schoolSearchCommand, searchResultsPage), model);
     }
 
-    private String getViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
+    public void handleOspFilters(SchoolSearchCommand schoolSearchCommand, Map<String,Object> model) {
+        final String MODEL_SHOW_ADDITIONAL_FILTERS = "showAdditionalFilters";
+        if (ArrayUtils.contains(OSP_ZIPCODES, schoolSearchCommand.getZipCode())) {
+            model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+        }
+    }
+
+    public GsSolrQuery createGsSolrQuery() {
+        return new GsSolrQuery(QueryType.SCHOOL_SEARCH);
+    }
+    protected SearchResultsPage<SolrSchoolSearchResult> searchForSchools(SchoolSearchCommand schoolSearchCommand, State state, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filterGroups, FieldSort sort) {
+        RequestedPage requestedPage = schoolSearchCommand.getRequestedPage();
+        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<SolrSchoolSearchResult>());
+        String searchString = schoolSearchCommand.getSearchString();
+
+        GsSolrQuery q = createGsSolrQuery();
+
+        q.filter(DocumentType.SCHOOL).page(requestedPage.offset, requestedPage.pageSize);
+
+        // TODO: In Mobile api, we don't filter by state if a lat/lon is specified. Should that logic apply here as well?
+        q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
+
+        // filter school types and grade levels and enrollment
+        for (FilterGroup schoolTypeFilter : filterGroups) {
+            q.filter(schoolTypeFilter);
+        }
+
+        // handle old existing FieldConstraints
+        for (Map.Entry<FieldConstraint, String> entry : fieldConstraints.entrySet()) {
+            q.filter(entry.getKey().getFieldName(), StringUtils.lowerCase(entry.getValue()));
+        }
+
+        if (schoolSearchCommand.getMinCommunityRating() != null) {
+            q.filter(SchoolFields.COMMUNITY_RATING, String.valueOf(schoolSearchCommand.getMinCommunityRating()), "5");
+        }
+
+        if (schoolSearchCommand.getMinGreatSchoolsRating() != null) {
+            q.filter(SchoolFields.OVERALL_GS_RATING, String.valueOf(schoolSearchCommand.getMinGreatSchoolsRating()), "10");
+        }
+
+        if (schoolSearchCommand.getBeforeAfterCare() != null) {
+            for (String value : schoolSearchCommand.getBeforeAfterCare()) {
+                q.filter(SchoolFields.BEFORE_AFTER_CARE, value);
+            }
+        }
+
+        if (schoolSearchCommand.getTransportation() != null) {
+            if (schoolSearchCommand.getTransportation()) {
+                q.filterNotNull(SchoolFields.TRANSPORTATION);
+                q.filterNot(SchoolFields.TRANSPORTATION, "none");
+            }
+        }
+
+        if (schoolSearchCommand.getEll() != null) {
+            if (schoolSearchCommand.getEll()) {
+                q.filterNotNull(SchoolFields.ELL_LEVEL);
+                q.filterNot(SchoolFields.ELL_LEVEL, "none");
+            }
+        }
+
+        if (schoolSearchCommand.getStudentsVouchers() != null) {
+            if (schoolSearchCommand.getStudentsVouchers()) {
+                q.filter(SchoolFields.STUDENTS_VOUCHERS, "yes");
+            } else {
+                q.filter(SchoolFields.STUDENTS_VOUCHERS, "no");
+            }
+        }
+
+        if (schoolSearchCommand.getSpecialEdPrograms() != null) {
+            q.filter(SchoolFields.SPECIAL_ED_PROGRAMS, schoolSearchCommand.getSpecialEdPrograms());
+        }
+
+        if (schoolSearchCommand.getSchoolFocus() != null) {
+            q.filterAnyField(new SolrField[]{
+                    SchoolFields.ACADEMIC_FOCUS,
+                    SchoolFields.INSTRUCTIONAL_MODEL
+            }, schoolSearchCommand.getSchoolFocus());
+        }
+
+        if (schoolSearchCommand.getSports() != null) {
+            q.filterAnyField(new SolrField[]{
+                    SchoolFields.BOYS_SPORTS,
+                    SchoolFields.GIRLS_SPORTS
+            }, schoolSearchCommand.getSports());
+        }
+
+        if (schoolSearchCommand.getArtsAndMusic() != null) {
+            q.filterAnyField(new SolrField[]{
+                    SchoolFields.ARTS_VISUAL,
+                    SchoolFields.ARTS_PERFORMING_WRITTEN,
+                    SchoolFields.ARTS_MUSIC,
+                    SchoolFields.ARTS_MEDIA
+            }, schoolSearchCommand.getArtsAndMusic());
+        }
+
+        if (schoolSearchCommand.getStudentClubs() != null) {
+            q.filter(SchoolFields.STUDENT_CLUBS, schoolSearchCommand.getStudentClubs());
+        }
+
+        // filter by location
+        if (schoolSearchCommand.hasLatLon()) {
+            q.restrictToRadius(schoolSearchCommand.getLat().floatValue(), schoolSearchCommand.getLon().floatValue(), schoolSearchCommand.getDistanceAsFloat());
+        }
+
+        if (schoolSearchCommand.getSearchType() != SchoolSearchType.LOOSE) {
+            // require all words in the query to be present unless it's configured as an optional word
+            q.requireNonOptionalWords();
+        }
+
+        // set the solr query's q parameter (querystring) to be the user search string
+        if (!schoolSearchCommand.hasLatLon()) {
+            q.query(searchString);
+        }
+
+        // apply sorting
+        if (sort != null) {
+            q.sort(sort);
+        }
+
+        try {
+            searchResultsPage = getGsSolrSearcher().search(q, SolrSchoolSearchResult.class, true);
+
+            if (searchResultsPage.isDidYouMeanResults()) {
+                // adapting old existing logic to new code: If the search results we got back are the result
+                // of an automatic second search using a Solr spelling suggestion, then we want it to appear
+                // that we never received any results so the site will display the No Results page with the
+                // "did you mean" suggestion
+                searchResultsPage.setTotalResults(0);
+                searchResultsPage.setSearchResults(new ArrayList<SolrSchoolSearchResult>());
+            }
+
+        } catch (SearchException e) {
+            _log.error("Problem occured while getting schools or reviews: ", e);
+        }
+
+
+
+        return searchResultsPage;
+    }
+
+    public String getViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
         if (schoolSearchCommand.isAjaxRequest()) {
             if (searchResultsPage.getTotalResults() == 0) {
                 return getNoResultsAjaxViewName();
@@ -1154,22 +1292,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         _viewName = viewName;
     }
 
-    public boolean beanSupportsMobileRequests() {
-        return _beanSupportsMobileRequests;
-    }
-
-    public boolean beanSupportsDesktopRequests() {
-        return _beanSupportsDesktopRequests;
-    }
-
-    public void setBeanSupportsMobileRequests(boolean beanSupportsMobileRequests) {
-        _beanSupportsMobileRequests = beanSupportsMobileRequests;
-    }
-
-    public void setBeanSupportsDesktopRequests(boolean beanSupportsDesktopRequests) {
-        _beanSupportsDesktopRequests = beanSupportsDesktopRequests;
-    }
-
     public String getNoResultsViewName() {
         return _noResultsViewName;
     }
@@ -1194,19 +1316,19 @@ public class SchoolSearchController extends AbstractCommandController implements
         _ajaxViewName = ajaxViewName;
     }
 
-    public boolean controllerHandlesMobileRequests() {
-        return _controllerHandlesMobileRequests;
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
     }
 
-    public boolean controllerHandlesDesktopRequests() {
-        return _controllerHandlesDesktopRequests;
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
 
-    public void setControllerHandlesMobileRequests(boolean handlesMobileRequests) {
-        _controllerHandlesMobileRequests = handlesMobileRequests;
+    public GsSolrSearcher getGsSolrSearcher() {
+        return _gsSolrSearcher;
     }
 
-    public void setControllerHandlesDesktopRequests(boolean handlesDesktopRequests) {
-        _controllerHandlesDesktopRequests = handlesDesktopRequests;
+    public void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
+        _gsSolrSearcher = gsSolrSearcher;
     }
 }

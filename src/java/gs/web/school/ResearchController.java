@@ -1,7 +1,8 @@
 package gs.web.school;
 
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.geo.StateSpecificFooterHelper;
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.util.PageHelper;
 import gs.web.util.Redirect301Controller;
 import gs.web.util.RedirectView301;
@@ -37,7 +38,7 @@ import gs.data.util.table.ITableRow;
  *
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
-public class ResearchController extends AbstractController implements IDirectoryStructureUrlController, IDeviceSpecificControllerPartOfPair {
+public class ResearchController extends AbstractController implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
 
     /** Used to identify which form on the page was submitted */
     public final static String FORM_PARAM = "form";
@@ -79,6 +80,8 @@ public class ResearchController extends AbstractController implements IDirectory
     static Map<String, Map> _cache;
 
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
+
+    private ControllerFamily _controllerFamily;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -313,15 +316,11 @@ public class ResearchController extends AbstractController implements IDirectory
         _stateSpecificFooterHelper = stateSpecificFooterHelper;
     }
 
-    public boolean controllerHandlesMobileRequests() {
-        return false;
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
     }
 
-    public boolean controllerHandlesDesktopRequests() {
-        return true;
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
-
-    public void setControllerHandlesMobileRequests(boolean handlesMobileRequests) {}
-
-    public void setControllerHandlesDesktopRequests(boolean handlesDesktopRequests) {}
 }

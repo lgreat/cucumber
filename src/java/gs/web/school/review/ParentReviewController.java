@@ -14,7 +14,8 @@ import gs.data.school.School;
 import gs.data.school.review.*;
 import gs.data.security.Permission;
 import gs.data.util.NameValuePair;
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.request.RequestInfo;
 import gs.web.school.*;
 import gs.web.util.PageHelper;
@@ -41,7 +42,7 @@ import java.util.*;
  *
  * @author <a href="mailto:dlee@greatschools.org">David Lee</a>
  */
-public class ParentReviewController extends AbstractController implements IDeviceSpecificControllerPartOfPair {
+public class ParentReviewController extends AbstractController implements IControllerFamilySpecifier {
 
     public static final String BEAN_ID = "desktopParentReviewsController";
 
@@ -57,8 +58,7 @@ public class ParentReviewController extends AbstractController implements IDevic
     private ParentReviewHelper _parentReviewHelper;
     private IGeoDao _geoDao;
 
-    private boolean _controllerHandlesMobileRequests;
-    private boolean _controllerHandlesDesktopRequests;
+    private ControllerFamily _controllerFamily;
 
     protected static final int MAX_REVIEWS_PER_PAGE = 4; //number of reviews per page
     protected static final String PARAM_PAGE = "page";
@@ -734,27 +734,19 @@ public class ParentReviewController extends AbstractController implements IDevic
         _subscriptionDao = subscriptionDao;
     }
 
-    public boolean controllerHandlesMobileRequests() {
-        return _controllerHandlesMobileRequests;
-    }
-
-    public void setControllerHandlesMobileRequests(boolean controllerHandlesMobileRequests) {
-        _controllerHandlesMobileRequests = controllerHandlesMobileRequests;
-    }
-
-    public boolean controllerHandlesDesktopRequests() {
-        return _controllerHandlesDesktopRequests;
-    }
-
-    public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
-        _controllerHandlesDesktopRequests = controllerHandlesDesktopRequests;
-    }
-
     public ParentReviewHelper getParentReviewHelper() {
         return _parentReviewHelper;
     }
 
     public void setParentReviewHelper(ParentReviewHelper parentReviewHelper) {
         _parentReviewHelper = parentReviewHelper;
+    }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
+    }
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
 }

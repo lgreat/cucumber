@@ -1,22 +1,15 @@
 package gs.web.school;
 
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
 /**
  * @author aroy@greatschools.org
  */
-public class FindASchoolController extends ParameterizableViewController implements IDeviceSpecificControllerPartOfPair {
+public class FindASchoolController extends ParameterizableViewController implements IControllerFamilySpecifier {
 
-    public boolean controllerHandlesMobileRequests() {
-        return false;
+    public ControllerFamily getControllerFamily() {
+        return ControllerFamily.DESKTOP;
     }
-
-    public boolean controllerHandlesDesktopRequests() {
-        return true;
-    }
-
-    public void setControllerHandlesMobileRequests(boolean handlesMobileRequests) {}
-
-    public void setControllerHandlesDesktopRequests(boolean handlesDesktopRequests) {}
 }

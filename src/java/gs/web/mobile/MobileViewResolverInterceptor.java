@@ -1,6 +1,8 @@
 package gs.web.mobile;
 
 
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.request.RequestInfo;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -8,6 +10,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 
 /**
  * Handles cases where one controller will be used to serve multiple views depending on the Device the request came from
@@ -34,12 +37,12 @@ public class MobileViewResolverInterceptor implements HandlerInterceptor {
         if (modelAndView != null && modelAndView.getModel() != null) {
 
             IControllerWithMobileSupport controller;
-            boolean controllerSupportsMobile = false;
+            boolean controllerSupportsMobile = (handler instanceof IControllerFamilySpecifier) && ((IControllerFamilySpecifier)handler).getControllerFamily() == ControllerFamily.MOBILE;
             boolean controllerSupportsMobileOnly = false;
             boolean controllerSupportsDesktop = true;
             boolean controllerSupportsDesktopOnly = true;
 
-            if (handler instanceof IViewSelectionYieldedToInterceptor) {
+            /*if (handler instanceof IViewSelectionYieldedToInterceptor) {
                 controller = (IControllerWithMobileSupport) handler;
                 controllerSupportsMobile = controller.beanSupportsMobileRequests();
                 controllerSupportsMobileOnly = !controller.beanSupportsDesktopRequests();
@@ -69,12 +72,12 @@ public class MobileViewResolverInterceptor implements HandlerInterceptor {
                     }
                 }
             }
-
+*/
             if (requestInfo.isMobileSiteEnabled()) {
                 // allows view to render link to alternate (mobile | desktop) version if desired
                 if (modelAndView.getView() == null || !(modelAndView.getView() instanceof RedirectView)) {
                     // only set when true, to prevent overriding a controller that KNOWS it supports mobile
-                    if (controllerSupportsMobile || handler instanceof IDeviceSpecificControllerPartOfPair) {
+                    if (controllerSupportsMobile || request.getAttribute("controllerFamilies") != null && ((Collection)request.getAttribute("controllerFamilies")).contains(ControllerFamily.MOBILE)) {
                         modelAndView.getModel().put(HAS_MOBILE_VIEW_MODEL_KEY, true);
                     }
                 }

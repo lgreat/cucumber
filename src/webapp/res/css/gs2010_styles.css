@@ -1535,6 +1535,25 @@ div .gallery-thumbnail-selected:hover {
     outline:0;
 }
 
+.dropDown-checkboxes-container {
+    background-color: #fff;
+    position: absolute;
+    z-index: 100;
+    border: 1px solid #79BDDB;
+    padding: 10px;
+    height:250px;
+    width:250px;
+}
+
+.dropDown-checkboxes {
+    background-color: #fff;
+    z-index: 100;
+    height:190px;
+    width:245px;
+    overflow:scroll;
+}
+
+
 /*#dropDown-FAS-3 .doneButton{
     position: absolute;
     top: 100px;

@@ -16,7 +16,7 @@
     <jsp:directive.attribute name="disabled" required="false" description="disable the control"/>
     <jsp:directive.attribute name="label" required="false" description="Label to display next to the checkbox"/>
 
-    <jsp:directive.attribute name="facetCountsMap" type="java.util.Map" required="true" description="Map where key = field name and value is the Solr facet count"/>
+    <jsp:directive.attribute name="facetCountsMap" type="java.util.Map" required="false" description="Map where key = field name and value is the Solr facet count"/>
 
     <!--<c:if test="${not empty facetCountsMap}">
         <c:set var="label" value="${label} (${facetCountsMap[value]})"/>

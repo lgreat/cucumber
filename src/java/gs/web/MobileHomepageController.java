@@ -1,7 +1,5 @@
 package gs.web;
 
-
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.UrlUtil;
@@ -13,13 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MobileHomepageController implements Controller, IDeviceSpecificControllerPartOfPair, IDirectoryStructureUrlController {
+public class MobileHomepageController implements Controller, IDirectoryStructureUrlController, IControllerFamilySpecifier {
 
     private boolean _beanSupportsMobileRequests;
     private boolean _beanSupportsDesktopRequests;
     private boolean _controllerHandlesMobileRequests;
     private boolean _controllerHandlesDesktopRequests;
     private boolean _isFromStateHome = false;
+
+    private ControllerFamily _controllerFamily;
 
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
@@ -72,5 +72,13 @@ public class MobileHomepageController implements Controller, IDeviceSpecificCont
 
     public void setFromStateHome(boolean fromStateHome) {
         _isFromStateHome = fromStateHome;
+    }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
+    }
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
 }

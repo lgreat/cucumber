@@ -4,7 +4,8 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.review.*;
 import gs.data.test.ITestDataSetDao;
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.school.*;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
-public class ParentReviewMobileController extends AbstractController implements IDeviceSpecificControllerPartOfPair {
+public class ParentReviewMobileController extends AbstractController implements IControllerFamilySpecifier {
 
     public static final String BEAN_ID = "mobileParentReviewsController";
 
@@ -30,8 +31,7 @@ public class ParentReviewMobileController extends AbstractController implements 
     private String _ajaxViewName;
     private RatingHelper _ratingHelper;
     private ParentReviewHelper _parentReviewHelper;
-    private boolean _controllerHandlesDesktopRequests;
-    private boolean _controllerHandlesMobileRequests;
+    private ControllerFamily _controllerFamily;
 
     protected static final int MAX_REVIEWS_PER_PAGE = 4; //number of reviews per page
     protected static final String PARAM_PAGE = "page";
@@ -246,22 +246,6 @@ public class ParentReviewMobileController extends AbstractController implements 
         _viewName = viewName;
     }
 
-    public boolean controllerHandlesMobileRequests() {
-        return _controllerHandlesMobileRequests;
-    }
-
-    public void setControllerHandlesMobileRequests(boolean controllerHandlesMobileRequests) {
-        _controllerHandlesMobileRequests = controllerHandlesMobileRequests;
-    }
-
-    public boolean controllerHandlesDesktopRequests() {
-        return _controllerHandlesDesktopRequests;
-    }
-
-    public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
-        _controllerHandlesDesktopRequests = controllerHandlesDesktopRequests;
-    }
-
     public ParentReviewHelper getParentReviewHelper() {
         return _parentReviewHelper;
     }
@@ -280,5 +264,13 @@ public class ParentReviewMobileController extends AbstractController implements 
 
     public void setTestDataSetDao(ITestDataSetDao testDataSetDao) {
         _testDataSetDao = testDataSetDao;
+    }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
+    }
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
 }

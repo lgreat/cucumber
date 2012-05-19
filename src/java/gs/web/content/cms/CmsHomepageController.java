@@ -10,7 +10,8 @@ import gs.data.search.fields.DocumentType;
 import gs.data.security.Permission;
 import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
-import gs.web.mobile.IDeviceSpecificControllerPartOfPair;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.CookieUtil;
@@ -34,7 +35,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.*;
 
-public class CmsHomepageController extends AbstractController implements IDeviceSpecificControllerPartOfPair {
+public class CmsHomepageController extends AbstractController implements IControllerFamilySpecifier {
     private static final Logger _log = Logger.getLogger(CmsFeatureController.class);
 
     public static final String BEAN_ID = "/index.page";
@@ -73,6 +74,8 @@ public class CmsHomepageController extends AbstractController implements IDevice
     private boolean _beanSupportsDesktopRequests;
     private boolean _controllerHandlesMobileRequests;
     private boolean _controllerHandlesDesktopRequests;
+
+    private ControllerFamily _controllerFamily;
 
     static {
         // Preschool
@@ -565,5 +568,13 @@ public class CmsHomepageController extends AbstractController implements IDevice
 
     public void setControllerHandlesDesktopRequests(boolean controllerHandlesDesktopRequests) {
         _controllerHandlesDesktopRequests = controllerHandlesDesktopRequests;
+    }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
+    }
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
     }
 }

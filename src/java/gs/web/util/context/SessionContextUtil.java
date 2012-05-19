@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.88 2012/05/10 22:25:47 cauer Exp $
+ * $Id: SessionContextUtil.java,v 1.89 2012/05/19 04:34:03 ssprouse Exp $
  */
 
 package gs.web.util.context;
@@ -124,7 +124,7 @@ public class SessionContextUtil implements ApplicationContextAware {
     public static final String COMMUNITY_DEV_HOSTNAME = "community.dev.greatschools.org";
     public static final String COMMUNITY_PRERELEASE_HOSTNAME = "comgen1.greatschools.org:8000";
 
-    protected void readCookies(HttpServletRequest httpServletRequest,
+    public void readCookies(HttpServletRequest httpServletRequest,
                                final SessionContext context) {
         // Find the cookie that pertains to the user
         // We don't need to do this every time, but for now
