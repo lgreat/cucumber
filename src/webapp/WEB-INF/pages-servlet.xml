@@ -283,20 +283,30 @@
         <aop:scoped-proxy proxy-target-class="false"/>
     </bean>
 
+    <bean name="mobileControllerFamilyResolver" class="gs.web.DeviceSpecificControllerFamilyResolver" />
+    <bean name="fruitcakeControllerFamilyResolver" class="gs.web.FruitcakeControllerFamilyResolver" />
+    <bean name="controllerFamilyFactory" class="gs.web.GenericControllerFamilyFactory" lazy-init="true">
+        <property name="resolvers">
+            <list>
+                <ref bean="mobileControllerFamilyResolver"/>
+                <ref bean="fruitcakeControllerFamilyResolver"/>
+            </list>
+        </property>
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+
     <bean name="mobileHomepageController" class="gs.web.MobileHomepageController">
-        <property name="controllerHandlesDesktopRequests" value="false" />
-        <property name="controllerHandlesMobileRequests" value="true" />
+        <property name="controllerFamily" value="MOBILE"/>
     </bean>
 
     <bean name="cmsHomepageController" class="gs.web.content.cms.CmsHomepageController" lazy-init="true">
-        <property name="controllerHandlesDesktopRequests" value="true" />
-        <property name="controllerHandlesMobileRequests" value="false" />
+        <property name="controllerFamily" value="DESKTOP"/>
         <property name="viewName">
             <value>index</value>
         </property>
     </bean>
 
-    <bean name="/index.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
+    <bean name="/index.page" class="org.springframework.stereotype.Controller" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <ref bean="mobileHomepageController"/>
@@ -496,7 +506,7 @@
         </property>
     </bean>
 
-    <bean name="schoolBrowseController" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
+    <bean name="schoolBrowseController" class="gs.web.path.IDirectoryStructureUrlController" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <ref bean="schoolSearchMobileController"/>
@@ -506,8 +516,7 @@
     </bean>
 
     <bean name="schoolSearchController" class="gs.web.search.SchoolSearchController">
-        <property name="controllerHandlesDesktopRequests" value="true" />
-        <property name="controllerHandlesMobileRequests" value="false" />
+        <property name="controllerFamily" value="DESKTOP"/>
         <property name="commandName">
             <value>schoolSearchCommand</value>
         </property>
@@ -526,17 +535,14 @@
         <property name="mobileViewName">
             <value>search/schoolSearchResults-mobile</value>
         </property>
-        <property name="beanSupportsMobileRequests" value="true"/>
-        <property name="beanSupportsDesktopRequests" value="true"/>
         <property name="viewName" value="search/schoolSearchResults" />
         <property name="ajaxViewName" value="search/schoolSearchResultsTable" />
         <property name="noResultsViewName" value="search/schoolSearchNoResults"/>
         <property name="noResultsAjaxViewName" value="search/schoolSearchNoResultsTable" />
     </bean>
 
-    <bean name="schoolSearchMobileController" class="gs.web.search.SchoolSearchMobileController">
-        <property name="controllerHandlesDesktopRequests" value="false" />
-        <property name="controllerHandlesMobileRequests" value="true" />
+    <bean name="schoolSearchRedesignController" class="gs.web.search.SchoolSearchRedesignController">
+        <property name="controllerFamily" value="FRUITCAKE"/>
         <property name="commandName">
             <value>schoolSearchCommand</value>
         </property>
@@ -555,22 +561,46 @@
         <property name="mobileViewName">
             <value>search/schoolSearchResults-mobile</value>
         </property>
-        <property name="beanSupportsMobileRequests" value="true"/>
-        <property name="beanSupportsDesktopRequests" value="true"/>
+        <property name="viewName" value="search/schoolSearchResultsFruitcake" />
+        <property name="ajaxViewName" value="search/schoolSearchResultsTableFruitcake" />
+        <property name="noResultsViewName" value="search/schoolSearchNoResults"/>
+        <property name="noResultsAjaxViewName" value="search/schoolSearchNoResultsTable" />
+    </bean>
+
+    <bean name="schoolSearchMobileController" class="gs.web.search.SchoolSearchMobileController">
+        <property name="controllerFamily" value="MOBILE"/>
+        <property name="commandName">
+            <value>schoolSearchCommand</value>
+        </property>
+        <property name="validators">
+            <list>
+                <ref local="schoolSearchCommandValidator"/>
+            </list>
+        </property>
+        <property name="commandClass">
+            <value>gs.web.search.SchoolSearchCommand</value>
+        </property>
+        <property name="schoolSearchService" ref="solrSchoolSearchService" />
+        <property name="looseSchoolSearchService" ref="looseSolrSchoolSearchService" />
+        <property name="citySearchService" ref="solrCitySearchService" />
+        <property name="districtSearchService" ref="solrDistrictSearchService" />
+        <property name="mobileViewName">
+            <value>search/schoolSearchResults-mobile</value>
+        </property>
         <property name="viewName" value="search/schoolSearchResults-mobile" />
         <property name="mapViewName" value="/search/resultsmap"/>
         <property name="ajaxViewName" value="search/schoolSearchAjaxResults-mobile" />
         <property name="noResultsViewName" value="search/schoolSearchNoResults-mobile"/>
     </bean>
 
-
     <!-- allow automatric retrieval of json -->
     <alias name="/search/search.page" alias="/search/search.json"/>
-    <bean name="/search/search.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
+    <bean name="/search/search.page" class="org.springframework.stereotype.Controller" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <ref bean="schoolSearchController"/>
                 <ref bean="schoolSearchMobileController"/>
+                <ref bean="schoolSearchRedesignController"/>
             </list>
         </constructor-arg>
     </bean>
@@ -1323,6 +1353,7 @@
     <bean name="stateHomeController"
           class="gs.web.school.ResearchController"
           autowire="byName" lazy-init="true">
+        <property name="controllerFamily" value="DESKTOP"/>
         <property name="tableDao">
             <bean factory-bean="testScoreLandingPageTableFactory" factory-method="getTableDao"/>
         </property>
@@ -1331,15 +1362,14 @@
         </property>
     </bean>
 
-    <bean name="/school/research.page" class="org.springframework.stereotype.Controller"
-          factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController"
+    <bean name="/school/research.page" class="gs.web.path.IDirectoryStructureUrlController"
+          factory-bean="controllerFamilyFactory" factory-method="getController"
           lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <ref bean="stateHomeController"/>
                 <bean name="mobileHomepageFromStateHomeController" class="gs.web.MobileHomepageController">
-                    <property name="controllerHandlesDesktopRequests" value="false" />
-                    <property name="controllerHandlesMobileRequests" value="true" />
+                    <property name="controllerFamily" value="MOBILE"/>
                     <property name="fromStateHome" value="true"/>
                 </bean>
             </list>
@@ -1989,19 +2019,17 @@
     <!--</bean>-->
 
     <bean name="mobileSchoolOverviewController" class="gs.web.school.SchoolOverviewMobileController" lazy-init="true">
-        <property name="controllerHandlesDesktopRequests" value="false" />
-        <property name="controllerHandlesMobileRequests" value="true" />
+        <property name="controllerFamily" value="MOBILE"/>
     </bean>
 
     <bean name="desktopSchoolOverviewController" class="gs.web.school.SchoolOverview2010Controller" lazy-init="true">
-        <property name="controllerHandlesDesktopRequests" value="true" />
-        <property name="controllerHandlesMobileRequests" value="false" />
+        <property name="controllerFamily" value="DESKTOP"/>
         <property name="viewName">
             <value>school/overview2010</value>
         </property>
     </bean>
 
-    <bean name="/school/overview.page" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
+    <bean name="/school/overview.page" class="gs.web.path.IDirectoryStructureUrlController" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <ref bean="mobileSchoolOverviewController"/>
@@ -2016,8 +2044,7 @@
         <property name="viewName">
             <value>school/parentReviews</value>
         </property>
-        <property name="controllerHandlesDesktopRequests" value="true"/>
-        <property name="controllerHandlesMobileRequests" value="false"/>
+        <property name="controllerFamily" value="DESKTOP"/>
     </bean>
 
     <bean name="mobileParentReviewsController"
@@ -2029,11 +2056,10 @@
         <property name="ajaxViewName">
             <value>school/parentReviews-mobile-ajax</value>
         </property>
-        <property name="controllerHandlesDesktopRequests" value="false"/>
-        <property name="controllerHandlesMobileRequests" value="true"/>
+        <property name="controllerFamily" value="MOBILE"/>
     </bean>
 
-    <bean name="parentReviews" class="org.springframework.stereotype.Controller" factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true" scope="request">
+    <bean name="parentReviews" class="org.springframework.stereotype.Controller" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <ref bean="mobileParentReviewsController"/>
@@ -2716,20 +2742,18 @@
     <!--</bean>-->
 
     <bean name="mobileTestScoresController" class="gs.web.school.TestScoresMobileController" lazy-init="true">
-        <property name="controllerHandlesDesktopRequests" value="false"/>
-        <property name="controllerHandlesMobileRequests" value="true"/>
+        <property name="controllerFamily" value="MOBILE"/>
     </bean>
 
     <bean name="desktopTestScoresController" class="gs.web.school.TestScoresController" lazy-init="true">
-        <property name="controllerHandlesDesktopRequests" value="true"/>
-        <property name="controllerHandlesMobileRequests" value="false"/>
+        <property name="controllerFamily" value="DESKTOP"/>
         <property name="viewName" value="/school/testScores"/>
         <property name="perlContentPath" value="/gscache/achievement_simple/$STATE/$ID"/>
     </bean>
 
 
     <bean name="/school/testScores.page" class="org.springframework.stereotype.Controller"
-          factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController" lazy-init="true"
+          factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true"
           scope="request">
         <constructor-arg>
             <list>
@@ -2815,7 +2839,7 @@
     </bean>
 
     <bean name="/school/findASchool.page" class="org.springframework.stereotype.Controller"
-          factory-bean="deviceSpecificControllerFactory" factory-method="getDeviceSpecificController"
+          factory-bean="controllerFamilyFactory" factory-method="getController"
           lazy-init="true" scope="request">
         <constructor-arg>
             <list>
