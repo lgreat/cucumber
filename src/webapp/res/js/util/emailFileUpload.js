@@ -1,10 +1,3 @@
-Function.prototype.gs_bind = function(obj) {
-    var method = this;
-    return function() {
-        return method.apply(obj, arguments);
-    };
-};
-
 var GS = GS || {};
 GS.util = GS.util || {};
 
@@ -93,11 +86,12 @@ GS.util.EmailFileUpload = function() {
                         errorBlock.css("display", "block").find('p').text(data.error);
                         error = true;
                     }
-                }).fail(function() {
-                    errorBlock.css("display", "block").find('p').text('Error parsing file.');
-                    error = true;
-                    setButtonClass(false, 'button-1-inactive', 'button-1');
                 });
+//                }).fail(function() {
+//                    errorBlock.css("display", "block").find('p').text('Error parsing file.');
+//                    error = true;
+//                    setButtonClass(false, 'button-1-inactive', 'button-1');
+//                });
         }
     });
     
