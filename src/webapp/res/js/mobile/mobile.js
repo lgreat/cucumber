@@ -1,4 +1,4 @@
-define(['tracking','navigation'],function(tracking,navigation) {
+define(['tracking','navigation','orient'],function(tracking,navigation,orient) {
 
     var init = function() {
         $(document).ready(function (){
@@ -35,8 +35,13 @@ define(['tracking','navigation'],function(tracking,navigation) {
             $('input, select, textarea').bind('focus blur', function(event) {
                 $viewportMeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=' + (event.type == 'blur' ? 10 : 1));
             });
-            $('#shownav').hide();
+//            $(window).bind('orientationchange', function(event) {
+//                //alert("event");
+//                //$viewportMeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=1');
+//                //$viewportMeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=10');
+//            });
 
+            $('#shownav').hide();
             $('#topnav_link').click(function(){
                 if($('#shownav').is(':hidden')){
                     $('#shownav').show('fast');
@@ -52,6 +57,7 @@ define(['tracking','navigation'],function(tracking,navigation) {
         });
 
         navigation.init();
+        orient.init();
     };
 
     return {
