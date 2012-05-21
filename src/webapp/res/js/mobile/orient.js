@@ -1,7 +1,7 @@
-define([],function() {
+define( function() {
 
-    var init = function(w) {
-
+    var init = function() {
+        var w = window;
         // This fix addresses an iOS bug, so return early if the UA claims it's something else.
         if( !( /iPhone|iPad|iPod/.test( navigator.platform ) && navigator.userAgent.indexOf( "AppleWebKit" ) > -1 ) ){
             return;
