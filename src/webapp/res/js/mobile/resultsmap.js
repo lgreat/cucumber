@@ -46,8 +46,15 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
         // search in a new area
         $redoBtn.click(function(){
             var latLng = map.getCenter();
-            var url = String(window.location).replace(/([\&\?])(lat=)([^\&]+)/, "$1lat=" + latLng.lat()).replace(/([\&\?])(lon=)([^\&]+)/,"$1lon=" + latLng.lng());
-            window.location = url;
+            var currentQueryString = window.location.search;
+            currentQueryString = uri.putIntoQueryString(currentQueryString, 'lat', latLng.lat());
+            currentQueryString = uri.putIntoQueryString(currentQueryString, 'lon', latLng.lng());
+            // remove anything related to the original geocode and search string
+            currentQueryString = uri.removeFromQueryString(currentQueryString, 'locationType');
+            currentQueryString = uri.removeFromQueryString(currentQueryString, 'normalizedAddress');
+            currentQueryString = uri.removeFromQueryString(currentQueryString, 'totalResults');
+            currentQueryString = uri.removeFromQueryString(currentQueryString, 'searchString');
+            window.location.search = currentQueryString;
         });
 
         google.maps.event.addListener(map, 'dragend', function(){

@@ -130,7 +130,7 @@
                 <div class="contain_1-1">
                     <c:choose>
                         <c:when test="${empty searchString and isNearbySearch}">
-                            <span class="ac1"><span class="js_searchResultsCount">${totalResults}</span> results near your location</span>
+                            <span class="ac1"><span class="js_searchResultsCount">${totalResults}</span> results near this location</span>
                         </c:when>
                         <c:otherwise>
                             <span class="ac1"><span
