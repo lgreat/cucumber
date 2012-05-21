@@ -121,9 +121,9 @@ Android seems to require the address to be blank for the same behavior -->
     <a href="http://maps.google.com/?${sourceAddr}daddr=${schoolAddressWithName}" class="small"><span
             class="iconx24 i-24-map vam mrs"><!-- do not collapse --></span>Directions</a>
 
-    <a href="/search/search.page?state=${school.databaseState}&amp;lat=${school.lat}&amp;lon=${school.lon}&amp;distance=25&amp;searchString=${gsweb:urlEncode(school.name)}"
+    <a href="/search/search.page?state=${school.databaseState}&amp;lat=${school.lat}&amp;lon=${school.lon}&amp;distance=25&amp;searchString=${gsweb:urlEncode(school.name)}&amp;view=map&amp;sortBy=distance"
        class="small"><span
-            class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span>See schools nearby</a>
+            class="iconx24 i-24-map-pin vam mrs mlm"><!-- do not collapse --></span>See nearby schools</a>
 </div>
 
 <div id="js_schoolMap">
