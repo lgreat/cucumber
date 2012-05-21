@@ -27,7 +27,7 @@ ${requestScope.schoolUrl}
 ${gsweb:capitalize(school.type.schoolTypeName)}<c:choose>
 <c:when test="${not school.preschoolOnly and not (empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A')}">, ${school.gradeLevels}</c:when>
 </c:choose>.
-<c:if test="${not empty school.enrollment}">Enrollment: ${school.enrollment}
+<c:if test="${not empty school.enrollmentOrCapacity}">Enrollment: ${school.enrollmentOrCapacity}
 </c:if>
 <c:if test="${not empty gs_rating}">GreatSchools Rating: ${gs_rating}
 </c:if>
