@@ -138,8 +138,8 @@ Android seems to require the address to be blank for the same behavior -->
             <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_na.png"/>
         </c:otherwise>
     </c:choose>
-    <!-- TODO: Change mapMarkerUrl from qa to www -->
-    <c:set var="mapMarkerUrl" value="http://qa.greatschools.org${mapMarkerUrl}"/>
+    <!-- TODO: Change mapMarkerUrl from staging to www -->
+    <c:set var="mapMarkerUrl" value="http://staging.greatschools.org${mapMarkerUrl}"/>
     <!--<c:set var="mapMarkerUrl" value="http://www.greatschools.org${mapMarkerUrl}"/>-->
     <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
 
