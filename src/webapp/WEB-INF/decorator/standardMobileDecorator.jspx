@@ -29,10 +29,10 @@
 
         <pageHelper:addCss-mobile/>
 
-        <link rel="stylesheet" href="/res/mobile/css/02_module/mod_skins.css" type="text/css" />
+        <!--<link rel="stylesheet" href="/res/mobile/css/02_module/mod_skins.css" type="text/css" />-->
         <script src="/res/mobile/js/modernizr.js" type="text/javascript"><!-- do not collapse --></script>
         <script src="/res/js/jquery/jquery-1.7.1.min.js" type="text/javascript"><!-- do not collapse --></script>
-        <!--<script src="/res/js/mobile/ios-orientationchange-fix.js" type="text/javascript">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
+        <script src="/res/js/mobile/ios-orientationchange-fix.js" type="text/javascript"><!-- do not collapse --></script>
         <ad:xGPTMobileSetup />
         <mod:mobileBootstrapJS/>
         <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
