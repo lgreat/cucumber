@@ -12,7 +12,7 @@
             <ul class="list3">
                 <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}" varStatus="status">
                     <c:set var="indexOfCurrentResult" value="${page.offset + status.index}"/>
-                    <c:if test="${(indexOfCurrentResult-3) mod 10 eq 0}">
+                    <c:if test="${(indexOfCurrentResult-2) mod 10 eq 0}">
                         <c:set var="lastPos" value="4"/>
                         <c:set var="pos" value="${((indexOfCurrentResult-3) / 10) + 1}"/>
                         <c:set var="pos">
