@@ -120,7 +120,8 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
                     width: "300px"
                 },
                 closeBoxMargin: "8px",
-                closeBoxURL: "https://encrypted-tbn3.google.com/images?q=tbn:ANd9GcRY6-LN3wuV7sm6jc98OFRTd9Ri6E-q4JsGZwYfkadb0m9-Lc-1AA",
+                // TODO: Change closeBoxURL from staging to www
+                closeBoxURL: "http://staging.greatschools.org/res/mobile/img/icon_close_24x24.png",
                 infoBoxClearance: new google.maps.Size(1, 1),
                 isHidden: false,
                 pane: "floatPane",
