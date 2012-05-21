@@ -15,7 +15,13 @@ define(['tracking','navigation'],function(tracking,navigation) {
                 }
                 document.cookie =
                     "org.springframework.mobile.device.site.CookieSitePreferenceRepository.SITE_PREFERENCE=NORMAL; path=/" + domain;
-                window.location.reload();
+                var $this = $(this);
+                var alternateSitePath = $this.attr("data-alternate-site-path");
+                if (alternateSitePath) {
+                    window.location = alternateSitePath;
+                } else {
+                    window.location.reload();
+                }
                 return false;
             }).show();
 

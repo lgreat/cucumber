@@ -24,6 +24,9 @@ public class MobileHomepageController implements Controller, IDirectoryStructure
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("fromStateHome", _isFromStateHome);
+        if (!_isFromStateHome) {
+            model.put("alternateSitePath", "/find-schools/");
+        }
         return new ModelAndView("index-mobile", model);
     }
 

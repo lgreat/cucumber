@@ -9,7 +9,7 @@
 
         <div class="mha pbl tac">
             <c:if test="${empty hideAlternateSiteButton}">
-                <a href="javascript:void(0);" style="display:none;"
+                <a href="javascript:void(0);" style="display:none;" data-alternate-site-path="${alternateSitePath}"
                    class="but but-sm but-3" id="mobile-footer-view-full-site">View full site</a>
             </c:if>
         <c:if test="${requestInfo.device.iphone}">
