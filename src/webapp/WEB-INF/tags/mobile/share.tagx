@@ -60,6 +60,7 @@
         </c:set>
         <c:set var="emailBody">
             I found this school on GreatSchools.org:
+
             ${school.name}
             ${requestScope.schoolUrl}
             ${emailBodyTypeLine}
