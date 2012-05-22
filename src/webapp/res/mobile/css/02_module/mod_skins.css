@@ -82,7 +82,7 @@ Example:
     border-top: solid 1px #EEF6FA;
 }
 .standard_6-1 .hd a {color:#000000;}
-.standard_6-1 .hd .arrow {padding-right:16px; float: right;}
+.standard_6-1 .hd .arrow {padding-right:16px; margin-top: 2px; float: right;}
 .standard_6-1 .hd .selectbox {padding-right: 8px; float: right;}
 .standard_6-1 .hd .titlediv{ padding: 15px 10px 15px 0; font-size: 1.125em; line-height: 1.35em;text-shadow: 0 0 2px rgba(238, 246, 250, 0.6); color: #2b2b2b;}
 
