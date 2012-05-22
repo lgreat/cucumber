@@ -4,7 +4,6 @@ import gs.data.community.*;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.web.util.ReadWriteAnnotationController;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -99,14 +98,14 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                         if(data[i].toLowerCase().contains("email")) {
                             nameToCol.put("email", i);
                         }
-                        else if(data[i].toLowerCase().contains("weekly")) {
-                            nameToCol.put("weekly", i);
+                        else if(data[i].toLowerCase().contains(SubscriptionProduct.PARENT_ADVISOR.getName())) {
+                            nameToCol.put(SubscriptionProduct.PARENT_ADVISOR.getName(), i);
                         }
-                        else if(data[i].toLowerCase().contains("daily")) {
-                            nameToCol.put("daily", i);
+                        else if(data[i].toLowerCase().contains(SubscriptionProduct.DAILY_TIP.getName())) {
+                            nameToCol.put(SubscriptionProduct.DAILY_TIP.getName(), i);
                         }
-                        else if(data[i].toLowerCase().contains("sponsor")) {
-                            nameToCol.put("sponsor", i);
+                        else if(data[i].toLowerCase().contains(SubscriptionProduct.SPONSOR_OPT_IN.getName())) {
+                            nameToCol.put(SubscriptionProduct.SPONSOR_OPT_IN.getName(), i);
                         }
                     }
                     numColumns = data.length;
@@ -167,19 +166,19 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
     private void addSubscriptions(User user, String[] data, Map<String,Integer> nameToCol) throws Exception {
         List<Subscription> newSubscriptions = new ArrayList<Subscription>();
         Subscription subscription;
-        if("1".equals(data[nameToCol.get("weekly")])) {
+        if("1".equals(data[nameToCol.get(SubscriptionProduct.PARENT_ADVISOR.getName())])) {
             subscription = new Subscription();
             subscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
             subscription.setUser(user);
             newSubscriptions.add(subscription);
         }
-        if("1".equals(data[nameToCol.get("daily")])) {
+        if("1".equals(data[nameToCol.get(SubscriptionProduct.DAILY_TIP.getName())])) {
             subscription = new Subscription();
             subscription.setProduct(SubscriptionProduct.DAILY_TIP);
             subscription.setUser(user);
             newSubscriptions.add(subscription);
         }
-        if("1".equals(data[nameToCol.get("sponsor")])) {
+        if("1".equals(data[nameToCol.get(SubscriptionProduct.SPONSOR_OPT_IN.getName())])) {
             subscription = new Subscription();
             subscription.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
             subscription.setUser(user);
