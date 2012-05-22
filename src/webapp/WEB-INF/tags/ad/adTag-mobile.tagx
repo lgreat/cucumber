@@ -5,7 +5,17 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="position" required="true" description="Ad slot position" />
-    <div class="contain_1-3">
-        <ad:adTag position="${position}"/>
-    </div>
+    <jsp:directive.attribute name="noStyleAd" required="false" description="Style with the default style or show as it is in place with no styling" />
+    <c:choose>
+        <c:when test="${empty noStyleAd}">
+            <div class="contain_1-3">
+                <ad:adTag position="${position}"/>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <div>
+                <ad:adTag position="${position}"/>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </jsp:root>
