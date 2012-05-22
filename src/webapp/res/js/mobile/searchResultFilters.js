@@ -276,8 +276,12 @@ define(['uri','ui'],function(uri, ui) {
         }
 
         if (currentQueryString.length > 1) {
-            newQueryString = currentQueryString + '&' + newQueryString;
-        } else {
+            if (newQueryString.length > 0) {
+                newQueryString = currentQueryString + '&' + newQueryString;
+            } else {
+                newQueryString = currentQueryString;
+            }
+        } else if (newQueryString.length > 0) {
             newQueryString = '?' + newQueryString;
         }
 

@@ -46,15 +46,13 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
         // search in a new area
         $redoBtn.click(function(){
             var latLng = map.getCenter();
-            var currentQueryString = window.location.search;
-            currentQueryString = uri.putIntoQueryString(currentQueryString, 'lat', latLng.lat());
-            currentQueryString = uri.putIntoQueryString(currentQueryString, 'lon', latLng.lng());
-            // remove anything related to the original geocode and search string
-            currentQueryString = uri.removeFromQueryString(currentQueryString, 'locationType');
-            currentQueryString = uri.removeFromQueryString(currentQueryString, 'normalizedAddress');
-            currentQueryString = uri.removeFromQueryString(currentQueryString, 'totalResults');
-            currentQueryString = uri.removeFromQueryString(currentQueryString, 'searchString');
-            window.location.search = currentQueryString;
+            var newQueryString = searchResultFilters.getUpdatedQueryString();
+            newQueryString = uri.putIntoQueryString(newQueryString, 'lat', latLng.lat());
+            newQueryString = uri.putIntoQueryString(newQueryString, 'lon', latLng.lng());
+            // default distance to 25 if it isn't explicitly set already
+            newQueryString = uri.putIntoQueryString(newQueryString, 'distance', '25', false);
+            window.location.href = '/search/search.page' + newQueryString;
+            return false;
         });
 
         google.maps.event.addListener(map, 'dragend', function(){
