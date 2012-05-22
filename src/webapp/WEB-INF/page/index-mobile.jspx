@@ -85,7 +85,7 @@
                             <input type="hidden" name="totalResults" value="0"/>
                             <input type="hidden" name="distance" value="25"/>
                             <div class="clearfix prm">
-                                <gsml:input type="text" styleClass="size95of100 js-searchByLocationQuery"  name="searchString" value="${searchString}" placeholder="City AND state, zip or address ..." />
+                                <gsml:input type="text" styleClass="size92of100 js-searchByLocationQuery"  name="searchString" value="${searchString}" placeholder="City AND state, zip or address ..." />
                             </div>
                             <div id="js-gradeLevels">
                                 <select name="gradeLevels">
@@ -106,7 +106,7 @@
                 <div class="contain_5-1 ${(isFromByLocation || isNearbySearch || empty isSearch || isSearch eq false)? 'dn':''}">
 
                         <form method="get" action="/search/search.page" id="search-form" accept-charset="UTF-8">
-                    <div class="clearfix prm"><input type="text" class="size95of100" name="q" value="${searchString}" placeholder="School or district..." data-validation="searchString" data-validation-type="required" /></div>
+                    <div class="clearfix prm"><input type="text" class="size92of100" name="q" value="${searchString}" placeholder="School or district..." data-validation="searchString" data-validation-type="required" /></div>
                             <div class="error dn" data-validation="searchString" data-validation-error-message="required">Please enter a school name</div>
 
                             <div class="pbm mvn"><select class="stateSelect" name="state" id="stateSelector" data-validation="state" data-validation-type="required">
