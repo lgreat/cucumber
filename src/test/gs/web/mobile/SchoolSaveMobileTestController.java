@@ -77,7 +77,7 @@ public class SchoolSaveMobileTestController extends BaseControllerTestCase {
         expect(_schoolDao.getSchoolById(State.CA, 124)).andReturn(_school);
         expect(_ratingHelper.getGreatSchoolsOverallRating(_school, false)).andReturn(7);
         expect(_reviewDao.findRatingsBySchool(_school)).andReturn(ratings);
-        expect(_censusInfo.getEnrollmentAsInteger(_school)).andReturn(4);
+        expect(_censusInfo.getEnrollmentOrCapacity(_school)).andReturn(4);
 
         replayAll();
 
@@ -137,7 +137,7 @@ public class SchoolSaveMobileTestController extends BaseControllerTestCase {
         expect(_schoolDao.getSchoolById(State.CA, 124)).andReturn(_school);
         expect(_ratingHelper.getGreatSchoolsOverallRating(_school, false)).andReturn(7);
         expect(_reviewDao.findRatingsBySchool(_school)).andReturn(ratings);
-        expect(_censusInfo.getEnrollmentAsInteger(_school)).andReturn(4);
+        expect(_censusInfo.getEnrollmentOrCapacity(_school)).andReturn(4);
 
         replayAll();
         _schoolSaveMobileController.showSchoolList(json, getRequest(), getResponse());

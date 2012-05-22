@@ -119,7 +119,7 @@ public class SchoolSaveMobileController implements ReadWriteAnnotationController
 
             Integer enrollment = null;
             try {
-                enrollment = school.getEnrollment();
+                enrollment = school.getEnrollmentOrCapacity();
             }
             catch (NullPointerException ex) {
 

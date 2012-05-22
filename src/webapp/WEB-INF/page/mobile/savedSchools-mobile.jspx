@@ -29,7 +29,7 @@
                 $(document).ready(function () {
                     schoolSave.getSavedSchools();
 
-                    var deleteAll = $('.js-emailAndDeleteAll #js-deleteAll');
+                    var deleteAll = $('.js-emailAndDeleteAll .js-deleteAll');
                     deleteAll.click(function() {
                         schoolSave.deleteAllSchools();
                     });
@@ -45,6 +45,7 @@
             <a class="but but-rg but-1 phl js-emailMyList">
                 Email my list
             </a>
+            <div class="fr"><a class="but but-rg but-2 phl js-deleteAll">Delete All</a></div>
          </div>
     </div>
         <div class="contain_1-1">
@@ -98,7 +99,7 @@
     <div class="js-emailAndDeleteAll dn ptn">
         <div class="contain_6-1">
             <div class="fl" id="js-email"><a class="but but-rg but-1 phl js-emailMyList">Email my list</a></div>
-            <div class="fr" id="js-deleteAll"><a  class="but but-rg but-2 phl">Delete All</a></div>
+            <div class="fr" id="js-deleteAll"><a  class="but but-rg but-2 phl js-deleteAll">Delete All</a></div>
 
             <div class="clearfloat"><!-- empty not delete --></div>
         </div>
