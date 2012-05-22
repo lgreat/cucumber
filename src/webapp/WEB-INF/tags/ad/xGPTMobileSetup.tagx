@@ -177,7 +177,7 @@
                     googletag.pubads().enableSyncRendering();
                 </c:when>
                 <c:otherwise>
-                    //googletag.pubads().enableAsyncRendering();
+                    googletag.pubads().enableAsyncRendering();
                 </c:otherwise>
             </c:choose>
             <![CDATA[
