@@ -7,7 +7,29 @@
           xmlns:gsweb="gstaglib" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 
-        <div class="grid_16" style="background:#E1F1F7;z-index:999999;">
+        <div id="js-moreFiltersLine" class="grid_16 pas" style="background:#E1F1F7;z-index:999999;">
+            <div class="grid_14 alpha">
+                <strong>Refine your search here.</strong> Find the best fitted school for your child.
+            </div>
+            <div class="grid_2 omega js-moreFiltersLink">
+                <a href="javascript:void(0);">
+                    More filters
+                </a>
+            </div>
+        </div>
+
+        <div id="js-resetFiltersLine" class="grid_16 pas" style="display:none;background:#E1F1F7;z-index:999999;">
+            <div class="grid_14 alpha">
+                <strong>Narrow your selection.</strong> Other than local rating, the data comes directly from schools.
+            </div>
+            <div class="grid_2 omega js-resetFiltersLink">
+                <a href="javascript:void(0);">
+                    Reset filters
+                </a>
+            </div>
+        </div>
+
+        <div id="js-moreFiltersPanel" class="grid_16" style="background:#E1F1F7;z-index:999999;display:none;">
             <c:set var="buttonStyle" value="padding:3px;margin-top:3px;background-color:#EEE;border:1px solid grey"/>
             <c:set var="selectedStyle" value="padding:3px;margin-top:3px;background-color:#ccc;border:1px solid grey;"/>
 
@@ -62,268 +84,205 @@
 
             <div class="grid_7 omega">
                 <div class="pam">
+                    <mod:dropdownFilters id="schoolFocus" label="School Focus" selectedValueLabel="All">
+                        <p>
+                            <search:searchFilterWithCount name="schoolFocus" value="special_education" facetCountsMap="${academicFocusCounts}" label="Special Education" />
+                            <search:searchFilterWithCount name="schoolFocus" value="engineering" facetCountsMap="${academicFocusCounts}" label="Engineering" />
+                            <search:searchFilterWithCount name="schoolFocus" value="performing_arts" facetCountsMap="${academicFocusCounts}" label="Performing Arts" />
+                            <search:searchFilterWithCount name="schoolFocus" value="ap_courses" facetCountsMap="${instructionalModelCounts}" label="AP Courses" />
+                            <search:searchFilterWithCount name="schoolFocus" value="core_knowledge" facetCountsMap="${instructionalModelCounts}" label="Core Knowledge" />
+                            <search:searchFilterWithCount name="schoolFocus" value="ib" facetCountsMap="${instructionalModelCounts}" label="IB" />
+                            <search:searchFilterWithCount name="schoolFocus" value="waldorf" facetCountsMap="${instructionalModelCounts}" label="Waldorf" />
+                            <search:searchFilterWithCount name="schoolFocus" value="gifted" facetCountsMap="${instructionalModelCounts}" label="Gifted" />
+                            <search:searchFilterWithCount name="schoolFocus" value="virtual" facetCountsMap="${instructionalModelCounts}" label="Virtual" />
+                            <search:searchFilterWithCount name="schoolFocus" value="montessori" facetCountsMap="${instructionalModelCounts}" label="Montessori" />
+                            <search:searchFilterWithCount name="schoolFocus" value="projected_based" facetCountsMap="${instructionalModelCounts}" label="Projected Based" />
+                        </p>
+                    </mod:dropdownFilters>
 
-            <mod:dropdownCheckboxes id="schoolFocus" label="School Focus" selectedValueLabel="All">
-                <p>
-                        <search:searchFilterWithCount name="schoolFocus" value="special_education" facetCountsMap="${academicFocusCounts}" label="Special Education" />
-                        <search:searchFilterWithCount name="schoolFocus" value="engineering" facetCountsMap="${academicFocusCounts}" label="Engineering" />
-                        <search:searchFilterWithCount name="schoolFocus" value="performing_arts" facetCountsMap="${academicFocusCounts}" label="Performing Arts" />
-                        <search:searchFilterWithCount name="schoolFocus" value="ap_courses" facetCountsMap="${instructionalModelCounts}" label="AP Courses" />
-                        <search:searchFilterWithCount name="schoolFocus" value="core_knowledge" facetCountsMap="${instructionalModelCounts}" label="Core Knowledge" />
-                        <search:searchFilterWithCount name="schoolFocus" value="ib" facetCountsMap="${instructionalModelCounts}" label="IB" />
-                        <search:searchFilterWithCount name="schoolFocus" value="waldorf" facetCountsMap="${instructionalModelCounts}" label="Waldorf" />
-                        <search:searchFilterWithCount name="schoolFocus" value="gifted" facetCountsMap="${instructionalModelCounts}" label="Gifted" />
-                        <search:searchFilterWithCount name="schoolFocus" value="virtual" facetCountsMap="${instructionalModelCounts}" label="Virtual" />
-                        <search:searchFilterWithCount name="schoolFocus" value="montessori" facetCountsMap="${instructionalModelCounts}" label="Montessori" />
-                        <search:searchFilterWithCount name="schoolFocus" value="projected_based" facetCountsMap="${instructionalModelCounts}" label="Projected Based" />
-                </p>
-                
-            </mod:dropdownCheckboxes>
+                    <mod:dropdownFilters id="specialEducation" label="Special Education" selectedValueLabel="All">
+                        <p>
+                            <search:searchFilterWithCount name="specialEdPrograms" value="autism" facetCountsMap="${specialEdCounts}" label="Autism" />
+                            <search:searchFilterWithCount name="specialEdPrograms" value="blindness" facetCountsMap="${specialEdCounts}" label="Visual impairments" />
+                            <search:searchFilterWithCount name="specialEdPrograms" value="deafness" facetCountsMap="${specialEdCounts}" label="Hearing impairments" />
+                            <search:searchFilterWithCount name="specialEdPrograms" value="emotional" facetCountsMap="${specialEdCounts}" label="Emotional behavioral disabilities" />
+                            <search:searchFilterWithCount name="specialEdPrograms" value="speech" facetCountsMap="${specialEdCounts}" label="Speech and learning impairments" />
+                            <search:searchFilterWithCount name="specialEdPrograms" value="ld" facetCountsMap="${specialEdCounts}" label="Learning disabilities" />
+                            <search:searchFilterWithCount name="specialEdPrograms" value="developmental_delay" facetCountsMap="${specialEdCounts}" label="Developmental Delay" />
+                            <search:searchFilterWithCount name="specialEdPrograms" value="orthopedic" facetCountsMap="${specialEdCounts}" label="Orthopedic impairments" />
+                            <search:searchFilterWithCount name="specialEdPrograms" value="multiple" facetCountsMap="${specialEdCounts}" label="Multiple disabilities" />
+                            <search:searchFilterWithCount name="specialEdPrograms" value="cognitive" facetCountsMap="${specialEdCounts}" label="Cognitive disability" />
+                        </p>
+                    </mod:dropdownFilters>
 
-            <mod:dropdownCheckboxes id="specialEducation" label="Special Education" selectedValueLabel="All">
-                <p>
-                        <search:searchFilterWithCount name="specialEdPrograms" value="blindness" facetCountsMap="${specialEdCounts}" label="Blindness" />
-                        <search:searchFilterWithCount name="specialEdPrograms" value="deafness" facetCountsMap="${specialEdCounts}" label="Deafness" />
-                        <search:searchFilterWithCount name="specialEdPrograms" value="emotional" facetCountsMap="${specialEdCounts}" label="Emotional" />
-                        <search:searchFilterWithCount name="specialEdPrograms" value="speech" facetCountsMap="${specialEdCounts}" label="Speech" />
-                        <search:searchFilterWithCount name="specialEdPrograms" value="ld" facetCountsMap="${specialEdCounts}" label="Ld" />
-                        <search:searchFilterWithCount name="specialEdPrograms" value="developmental_delay" facetCountsMap="${specialEdCounts}" label="Developmental Delay" />
-                        <search:searchFilterWithCount name="specialEdPrograms" value="orthopedic" facetCountsMap="${specialEdCounts}" label="Orthopedic" />
-                        <search:searchFilterWithCount name="specialEdPrograms" value="multiple" facetCountsMap="${specialEdCounts}" label="Multiple" />
-                        <search:searchFilterWithCount name="specialEdPrograms" value="other" facetCountsMap="${specialEdCounts}" label="Other" />
-                    <search:searchFilterWithCount name="specialEdPrograms" value="cognitive" facetCountsMap="${specialEdCounts}" label="Cognitive" />
-                </p>
-                
-            </mod:dropdownCheckboxes>
+                    <br/>
+                    <mod:dropdownFilters id="Sports" label="Sports" selectedValueLabel="All">
+                        <p>
+                            <search:searchFilterWithCount name="sports" value="baseball" facetCountsMap="${sportsCounts}" label="Baseball"/>
+                            <search:searchFilterWithCount name="sports" value="basketball" facetCountsMap="${sportsCounts}" label="Basketball"/>
+                            <search:searchFilterWithCount name="sports" value="cheerleading" facetCountsMap="${sportsCounts}" label="Cheerleading"/>
+                            <search:searchFilterWithCount name="sports" value="cross_country" facetCountsMap="${sportsCounts}" label="Cross country"/>
+                            <search:searchFilterWithCount name="sports" value="crew" facetCountsMap="${sportsCounts}" label="Crew"/>
+                            <search:searchFilterWithCount name="sports" value="field_hockey" facetCountsMap="${sportsCounts}" label="Field hockey"/>
+                            <search:searchFilterWithCount name="sports" value="football" facetCountsMap="${sportsCounts}" label="Football"/>
+                            <search:searchFilterWithCount name="sports" value="golf" facetCountsMap="${sportsCounts}" label="Golf"/>
+                            <search:searchFilterWithCount name="sports" value="ice_hockey" facetCountsMap="${sportsCounts}" label="Ice hockey"/>
+                            <search:searchFilterWithCount name="sports" value="lacrosse" facetCountsMap="${sportsCounts}" label="Lacrosse"/>
+                            <search:searchFilterWithCount name="sports" value="martial_arts" facetCountsMap="${sportsCounts}" label="Judo / Other martial arts"/>
+                            <search:searchFilterWithCount name="sports" value="rugby" facetCountsMap="${sportsCounts}" label="Rugby"/>
+                            <search:searchFilterWithCount name="sports" value="sailing" facetCountsMap="${sportsCounts}" label="Sailing"/>
+                            <search:searchFilterWithCount name="sports" value="ski" facetCountsMap="${sportsCounts}" label="Skiing"/>
+                            <search:searchFilterWithCount name="sports" value="soccer" facetCountsMap="${sportsCounts}" label="Soccer"/>
+                            <search:searchFilterWithCount name="sports" value="softball" facetCountsMap="${sportsCounts}" label="Softball"/>
+                            <search:searchFilterWithCount name="sports" value="squash" facetCountsMap="${sportsCounts}" label="Squash"/>
+                            <search:searchFilterWithCount name="sports" value="surfing" facetCountsMap="${sportsCounts}" label="Surfing"/>
+                            <search:searchFilterWithCount name="sports" value="swimming" facetCountsMap="${sportsCounts}" label="Swimming"/>
+                            <search:searchFilterWithCount name="sports" value="tennis" facetCountsMap="${sportsCounts}" label="Tennis"/>
+                            <search:searchFilterWithCount name="sports" value="track" facetCountsMap="${sportsCounts}" label="Track"/>
+                            <search:searchFilterWithCount name="sports" value="volleyball" facetCountsMap="${sportsCounts}" label="Volleyball"/>
+                            <search:searchFilterWithCount name="sports" value="wrestling" facetCountsMap="${sportsCounts}" label="Wrestling"/>
+                        </p>
+                    </mod:dropdownFilters>
 
-            <br/>
-            <mod:dropdownCheckboxes id="Sports" label="Sports" selectedValueLabel="All">
-                <p id="sports">
-                    <search:searchFilterWithCount name="sports" value="None" facetCountsMap="${sportsCounts}" label="None"/>
-                    <search:searchFilterWithCount name="sports" value="badminton" facetCountsMap="${sportsCounts}" label="Badminton"/>
-                    <search:searchFilterWithCount name="sports" value="baseball" facetCountsMap="${sportsCounts}" label="Baseball"/>
-                    <search:searchFilterWithCount name="sports" value="basketball" facetCountsMap="${sportsCounts}" label="Basketball"/>
-                    <search:searchFilterWithCount name="sports" value="cheerleading" facetCountsMap="${sportsCounts}" label="Cheerleading"/>
-                    <search:searchFilterWithCount name="sports" value="crew" facetCountsMap="${sportsCounts}" label="Crew / Rowing"/>
-                    <search:searchFilterWithCount name="sports" value="cross_country" facetCountsMap="${sportsCounts}" label="Cross Country"/>
-                    <search:searchFilterWithCount name="sports" value="cycling" facetCountsMap="${sportsCounts}" label="Cycling"/>
-                    <search:searchFilterWithCount name="sports" value="diving" facetCountsMap="${sportsCounts}" label="Diving"/>
-                    <search:searchFilterWithCount name="sports" value="equestrian" facetCountsMap="${sportsCounts}" label="Equestrian"/>
-                    <search:searchFilterWithCount name="sports" value="fencing" facetCountsMap="${sportsCounts}" label="Fencing"/>
-                    <search:searchFilterWithCount name="sports" value="flag_football" facetCountsMap="${sportsCounts}" label="Flag Football"/>
-                    <search:searchFilterWithCount name="sports" value="football" facetCountsMap="${sportsCounts}" label="Football"/>
-                    <search:searchFilterWithCount name="sports" value="golf" facetCountsMap="${sportsCounts}" label="Golf"/>
-                    <search:searchFilterWithCount name="sports" value="gymnastics" facetCountsMap="${sportsCounts}" label="Gymnastics"/>
-                    <search:searchFilterWithCount name="sports" value="ice_hockey" facetCountsMap="${sportsCounts}" label="Ice Hockey"/>
-                    <search:searchFilterWithCount name="sports" value="martial_arts" facetCountsMap="${sportsCounts}" label="Judo / Other Martial Arts"/>
-                    <search:searchFilterWithCount name="sports" value="kayaking" facetCountsMap="${sportsCounts}" label="Kayaking"/>
-                    <search:searchFilterWithCount name="sports" value="kickball" facetCountsMap="${sportsCounts}" label="Kickball"/>
-                    <search:searchFilterWithCount name="sports" value="lacrosse" facetCountsMap="${sportsCounts}" label="Lacrosse"/>
-                    <search:searchFilterWithCount name="sports" value="weight_lifting" facetCountsMap="${sportsCounts}" label="Power lifting / Weight lifting"/>
-                    <search:searchFilterWithCount name="sports" value="rugby" facetCountsMap="${sportsCounts}" label="Rugby"/>
-                    <search:searchFilterWithCount name="sports" value="sailing" facetCountsMap="${sportsCounts}" label="Sailing"/>
-                    <search:searchFilterWithCount name="sports" value="ski" facetCountsMap="${sportsCounts}" label="Skiing"/>
-                    <search:searchFilterWithCount name="sports" value="soccer" facetCountsMap="${sportsCounts}" label="Soccer"/>
-                    <search:searchFilterWithCount name="sports" value="squash" facetCountsMap="${sportsCounts}" label="Squash"/>
-                    <search:searchFilterWithCount name="sports" value="surfing" facetCountsMap="${sportsCounts}" label="Surfing"/>
-                    <search:searchFilterWithCount name="sports" value="swimming" facetCountsMap="${sportsCounts}" label="Swimming"/>
-                    <search:searchFilterWithCount name="sports" value="tennis" facetCountsMap="${sportsCounts}" label="Tennis"/>
-                    <search:searchFilterWithCount name="sports" value="track" facetCountsMap="${sportsCounts}" label="Track"/>
-                    <search:searchFilterWithCount name="sports" value="ultimate" facetCountsMap="${sportsCounts}" label="Ultimate Frisbee"/>
-                    <search:searchFilterWithCount name="sports" value="volleyball" facetCountsMap="${sportsCounts}" label="Volleyball"/>
-                    <search:searchFilterWithCount name="sports" value="water_polo" facetCountsMap="${sportsCounts}" label="Water Polo"/>
-                    <search:searchFilterWithCount name="sports" value="wrestling" facetCountsMap="${sportsCounts}" label="Wrestling"/>
-                </p>
-                
-            </mod:dropdownCheckboxes>
+                    <br/>
+                    <mod:dropdownFilters id="artsAndMusic" label="Arts and Music" selectedValueLabel="All">
+                        <p>
+                            <search:searchFilterWithCount name="artsAndMusic" value="graphics" facetCountsMap="${artsMediaCounts}" label="Computer graphics" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="video" facetCountsMap="${artsMediaCounts}" label="Video / Film production" />
 
-            <br/>
-            <mod:dropdownCheckboxes id="artsAndMusic" label="Arts and Music" selectedValueLabel="All">
-            <p>
-                <search:searchFilterWithCount name="artsAndMusic" value="animation" facetCountsMap="${artsMediaCounts}" label="Computer animation" />
-                <search:searchFilterWithCount name="artsAndMusic" value="graphics" facetCountsMap="${artsMediaCounts}" label="Graphics" />
-                <search:searchFilterWithCount name="artsAndMusic" value="tech_design" facetCountsMap="${artsMediaCounts}" label="Technical design and production" />
-                <search:searchFilterWithCount name="artsAndMusic" value="video" facetCountsMap="${artsMediaCounts}" label="Video / Film production" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="band" facetCountsMap="${artsMusicCounts}" label="Band" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="chorus" facetCountsMap="${artsMusicCounts}" label="Choir / chorus" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="jazz_band" facetCountsMap="${artsMusicCounts}" label="Jazz band" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="orchestra" facetCountsMap="${artsMusicCounts}" label="Orchestra" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="music_lessons" facetCountsMap="${artsMusicCounts}" label="Instrumental music lessons" />
 
-                <search:searchFilterWithCount name="artsAndMusic" value="band" facetCountsMap="${artsMusicCounts}" label="Band" />
-                <search:searchFilterWithCount name="artsAndMusic" value="bells" facetCountsMap="${artsMusicCounts}" label="Bell / Handbell choir" />
-                <search:searchFilterWithCount name="artsAndMusic" value="chamber_music" facetCountsMap="${artsMusicCounts}" label="Chamber music" />
-                <search:searchFilterWithCount name="artsAndMusic" value="chorus" facetCountsMap="${artsMusicCounts}" label="Choir / chorus" />
-                <search:searchFilterWithCount name="artsAndMusic" value="music_lessons" facetCountsMap="${artsMusicCounts}" label="Instrumental music lessons" />
-                <search:searchFilterWithCount name="artsAndMusic" value="jazz_band" facetCountsMap="${artsMusicCounts}" label="Jazz band" />
-                <search:searchFilterWithCount name="artsAndMusic" value="opera" facetCountsMap="${artsMusicCounts}" label="Opera" />
-                <search:searchFilterWithCount name="artsAndMusic" value="orchestra" facetCountsMap="${artsMusicCounts}" label="Orchestra" />
-                <search:searchFilterWithCount name="artsAndMusic" value="rock_band" facetCountsMap="${artsMusicCounts}" label="Rock band" />
-                <search:searchFilterWithCount name="artsAndMusic" value="music_theory" facetCountsMap="${artsMusicCounts}" label="Music theory" />
-                <search:searchFilterWithCount name="artsAndMusic" value="voice" facetCountsMap="${artsMusicCounts}" label="Voice" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="creative_writing" facetCountsMap="${artsPerforming}" label="Creative writing" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="dance" facetCountsMap="${artsPerforming}" label="Dance" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="drama" facetCountsMap="${artsPerforming}" label="Drama" />
 
-                <search:searchFilterWithCount name="artsAndMusic" value="creative_writing" facetCountsMap="${artsPerforming}" label="Creative writing" />
-                <search:searchFilterWithCount name="artsAndMusic" value="dance" facetCountsMap="${artsPerforming}" label="Dance" />
-                <search:searchFilterWithCount name="artsAndMusic" value="drama" facetCountsMap="${artsPerforming}" label="Drama" />
-                <search:searchFilterWithCount name="artsAndMusic" value="improv" facetCountsMap="${artsPerforming}" label="Improv" />
-                <search:searchFilterWithCount name="artsAndMusic" value="poetry" facetCountsMap="${artsPerforming}" label="Poetry" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="ceramics" facetCountsMap="${artsVisualCounts}" label="Ceramics" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="drawing" facetCountsMap="${artsVisualCounts}" label="Drawing" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="painting" facetCountsMap="${artsVisualCounts}" label="Painting" />
+                            <search:searchFilterWithCount name="artsAndMusic" value="photography" facetCountsMap="${artsVisualCounts}" label="Photography" />
+                        </p>
+                    </mod:dropdownFilters>
 
-                <search:searchFilterWithCount name="artsAndMusic" value="architecture" facetCountsMap="${artsVisualCounts}" label="Architecture" />
-                <search:searchFilterWithCount name="artsAndMusic" value="ceramics" facetCountsMap="${artsVisualCounts}" label="Ceramics" />
-                <search:searchFilterWithCount name="artsAndMusic" value="design" facetCountsMap="${artsVisualCounts}" label="Design" />
-                <search:searchFilterWithCount name="artsAndMusic" value="drawing" facetCountsMap="${artsVisualCounts}" />Drawing / sketching<br/>
-                <search:searchFilterWithCount name="artsAndMusic" value="painting" facetCountsMap="${artsVisualCounts}" label="Painting" />
-                <search:searchFilterWithCount name="artsAndMusic" value="photography" facetCountsMap="${artsVisualCounts}" label="Photography" />
-                <search:searchFilterWithCount name="artsAndMusic" value="printmaking" facetCountsMap="${artsVisualCounts}" label="Printmaking" />
-                <search:searchFilterWithCount name="artsAndMusic" value="sculpture" facetCountsMap="${artsVisualCounts}" label="Sculpture" />
-                <search:searchFilterWithCount name="artsAndMusic" value="textiles" facetCountsMap="${artsVisualCounts}" label="Textile design" />
-            </p>
-                
-            </mod:dropdownCheckboxes>
+                    <br/>
+                    <mod:dropdownFilters id="clubs" label="Clubs" selectedValueLabel="All">
+                        <p>
 
-            <br/>
-            <mod:dropdownCheckboxes id="clubs" label="Clubs" selectedValueLabel="All">
-            <p>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="amnesty_international" label="Amnesty International"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="anime" label="Anime club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="art_club" label="Art club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="arts_crafts" label="Arts and crafts"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="book_club" label="Book/reading club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="boy_scouts" label="Boy Scouts"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="chess" label="Chess club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="cooking" label="Cooking club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="community_service" label="Community service"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="cub_scouts" label="Cub Scouts"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="dance" label="Dance club" styleClass="js_otherField_form_student_clubs_dance"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="debate" label="Debate"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="deca" label="DECA"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="drama_club" label="Drama club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="drill_team" label="Drill team"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="drum_line" label="Drum line"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="fca" label="Fellowship of Christian Athletes (FCA)"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="flag_girls" label="Flag girls"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="language_club" label="Foreign language and culture club" styleClass="js_otherField_form_student_clubs_language"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="forensics" label="Forensics club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="fbla" label="Future Business Leaders of America (FBLA)"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="game_club" label="Game club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="gardening" label="Gardening"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="girl_scouts" label="Girl Scouts"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="girls_on_the_run" label="Girls on the Run"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="habitat" label="Habitat for Humanity"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="homework_help" label="Homework help/study buddy club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="its_academic" label="It's Academic"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="jrotc" label="JROTC"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="lesbian_gay_transgender" label="Lesbian, gay, transgender club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="literary_mag" label="Literary magazine"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="marching_band" label="Marching band"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="martial_arts" label="Martial arts (judo, tae kwon do, karate, etc)"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="math_club" label="Math club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="mime" label="Mime club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="mock_trial" label="Mock trial competition club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="model_congress" label="Model Congress"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="model_oas" label="Model OAS"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="model_un" label="Model UN "/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="nhs" label="National Honor Society"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="origami" label="Origami club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="recycling" label="Recycling club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="robotics" label="Robotics club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="sadd" label="SADD"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="science_club" label="Science club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="sewing_knitting" label="Sewing/knitting club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="special_olympics" label="Special Olympics"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="step_team" label="Step team"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="student_govt" label="Student council/government"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="student_newspaper" label="Student newspaper"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="tech_club" label="Technology club"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="tv_radio_news" label="Television/Radio News"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="woodshop" label="Woodshop"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="yearbook" label="Yearbook"/>
-                <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="yoga" label="Yoga club"/>
-            </p>
-                
-            </mod:dropdownCheckboxes>
 
-                    </div>
+
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="amnesty_international" label="Amnesty International"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="anime" label="Anime club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="art_club" label="Art club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="arts_crafts" label="Arts and crafts"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="book_club" label="Book/reading club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="boy_scouts" label="Boy Scouts"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="chess" label="Chess club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="cooking" label="Cooking club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="community_service" label="Community service"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="cub_scouts" label="Cub Scouts"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="dance" label="Dance club" styleClass="js_otherField_form_student_clubs_dance"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="debate" label="Debate"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="deca" label="DECA"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="drama_club" label="Drama club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="drill_team" label="Drill team"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="drum_line" label="Drum line"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="fca" label="Fellowship of Christian Athletes (FCA)"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="flag_girls" label="Flag girls"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="language_club" label="Foreign language and culture club" styleClass="js_otherField_form_student_clubs_language"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="forensics" label="Forensics club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="fbla" label="Future Business Leaders of America (FBLA)"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="game_club" label="Game club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="gardening" label="Gardening"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="girl_scouts" label="Girl Scouts"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="girls_on_the_run" label="Girls on the Run"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="habitat" label="Habitat for Humanity"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="homework_help" label="Homework help/study buddy club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="its_academic" label="It's Academic"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="jrotc" label="JROTC"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="lesbian_gay_transgender" label="Lesbian, gay, transgender club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="literary_mag" label="Literary magazine"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="marching_band" label="Marching band"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="martial_arts" label="Martial arts (judo, tae kwon do, karate, etc)"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="math_club" label="Math club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="mime" label="Mime club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="mock_trial" label="Mock trial competition club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="model_congress" label="Model Congress"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="model_oas" label="Model OAS"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="model_un" label="Model UN "/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="nhs" label="National Honor Society"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="origami" label="Origami club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="recycling" label="Recycling club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="robotics" label="Robotics club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="sadd" label="SADD"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="science_club" label="Science club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="sewing_knitting" label="Sewing/knitting club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="special_olympics" label="Special Olympics"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="step_team" label="Step team"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="student_govt" label="Student council/government"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="student_newspaper" label="Student newspaper"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="tech_club" label="Technology club"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="tv_radio_news" label="Television/Radio News"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="woodshop" label="Woodshop"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="yearbook" label="Yearbook"/>
+                            <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="yoga" label="Yoga club"/>
+                        </p>
+                    </mod:dropdownFilters>
+
+
+                    <br/>
+                    <mod:dropdownFilters id="staffResources" label="Staff Resources and Facilities" selectedValueLabel="All">
+                        <p>
+                            <search:searchFilterWithCount name="staffResources" value="gifted_specialist" label="Gifted specialist"/>
+                            <search:searchFilterWithCount name="staffResources" value="priest" label="Priest, Pastor, or Religious personnel"/>
+                            <search:searchFilterWithCount name="staffResources" value="poetry_teacher" label="Poetry / Creative writing teacher"/>
+                            <search:searchFilterWithCount name="staffResources" value="robotics_teacher" label="Robotics / Technology specialist"/>
+                            <search:searchFilterWithCount name="staffResources" value="school_counselor" label="School social worker / counselor"/>
+                            <search:searchFilterWithCount name="staffResources" value="security" label="Security guards"/>
+                            <search:searchFilterWithCount name="staffResources" value="tutor" label="Tutors"/>
+                            <search:searchFilterWithCount name="staffResources" value="computers" label="Computer lab"/>
+                            <search:searchFilterWithCount name="staffResources" value="garden" label="Garden / Greenhouse"/>
+                            <search:searchFilterWithCount name="staffResources" value="kitchen" label="Kitchen"/>
+                            <search:searchFilterWithCount name="staffResources" value="parent" label="Parent center"/>
+                            <search:searchFilterWithCount name="staffResources" value="science" label="Science lab"/>
+                            <search:searchFilterWithCount name="staffResources" value="industrial" label="Industrial shop"/>
+                            <search:searchFilterWithCount name="staffResources" value="college_career" label="College / Career center"/>
+                        </p>
+                    </mod:dropdownFilters>
+
+                </div>
+
+                <div id="js-closeMoreFiltersLink" class="fltrt">
+                    <a href="javascript:void(0);">Close filters</a>
+                </div>
+
             </div>
-
-
-            <script type="text/javascript">
-                    /*var beforeAfterCare = {};
-                    beforeAfterCare.before = false;
-                    beforeAfterCare.after = false;
-
-                    var queryData = GS.uri.Uri.getQueryData();
-
-                    if (queryData.beforeAfterCare instanceof Array) {
-                        for (var i = 0; i &lt; queryData.beforeAfterCare.length; i++) {
-                            beforeAfterCare[queryData[i]] = true;
-                        }
-                    } else {
-                        beforeAfterCare[queryData.beforeAfterCare] = true;
-                    }*/
-/*
-                    $('#beforeCare').click(function() {
-                        var newQueryString = GS.uri.Uri.removeFromQueryString(window.location.search, 'beforeAfterCare');
-                        if (beforeAfterCare.before === false &amp;&amp; beforeAfterCare.after === true) {
-                            newQueryString = GS.uri.Uri.putIntoQueryString(newQueryString, 'beforeAfterCare', 'before,after');
-                        } else if (beforeAfterCare.before === false) {
-                            newQueryString = GS.uri.Uri.putIntoQueryString(newQueryString, 'beforeAfterCare', 'before');
-                        }
-                        window.location.search = newQueryString;
-                    });
-
-                    $('#afterCare').click(function() {
-                        var newQueryString = GS.uri.Uri.removeFromQueryString(window.location.search, 'beforeAfterCare');
-                        if (beforeAfterCare.before === true &amp;&amp; beforeAfterCare.after === false) {
-                            newQueryString = GS.uri.Uri.putIntoQueryString(newQueryString, 'beforeAfterCare', 'before,after');
-                        } else if (beforeAfterCare.after === false) {
-                            newQueryString = GS.uri.Uri.putIntoQueryString(newQueryString, 'beforeAfterCare', 'after');
-                        }
-                        window.location.search = newQueryString;
-                    });
-
-                    $('#transportation').click(function() {
-                        if (window.location.search.indexOf('transportation') !== -1) {
-                            var newQueryString = GS.uri.Uri.removeFromQueryString(window.location.search, 'transportation');
-                        } else {
-                            var newQueryString = GS.uri.Uri.putIntoQueryString(window.location.search, 'transportation', 'true');
-                        }
-                        window.location.search = newQueryString;
-                    });*/
-/*
-                    $('#ell').click(function() {
-                        if (window.location.search.indexOf('ell') !== -1) {
-                            var newQueryString = GS.uri.Uri.removeFromQueryString(window.location.search, 'ell');
-                        } else {
-                            var newQueryString = GS.uri.Uri.putIntoQueryString(window.location.search, 'ell', 'true');
-                        }
-                        window.location.search = newQueryString;
-                    });
-
-                    $('#studentsVouchersYes').click(function() {
-                        if (window.location.search.indexOf('studentsVouchers') !== -1) {
-                            var newQueryString = GS.uri.Uri.removeFromQueryString(window.location.search, 'studentsVouchers');
-                        } else {
-                            var newQueryString = GS.uri.Uri.putIntoQueryString(window.location.search, 'studentsVouchers', 'true');
-                        }
-                        window.location.search = newQueryString;
-                    });
-
-                    $('#studentsVouchersNo').click(function() {
-                        if (window.location.search.indexOf('studentsVouchers') !== -1) {
-                            var newQueryString = GS.uri.Uri.removeFromQueryString(window.location.search, 'studentsVouchers');
-                        } else {
-                            var newQueryString = GS.uri.Uri.putIntoQueryString(window.location.search, 'studentsVouchers', 'false');
-                        }
-                        window.location.search = newQueryString;
-                    });*/
-
-
-                    $('.js-applyFilters').on('click', function(){
-                        GS.search.schoolSearchResultsTable.update();
-                    });
-
-            </script>
 
         </div>
 
 
+        <script type="text/javascript">
+            $(function() {
+                $('.js-moreFiltersLink').on('click', function() {
+                    $('#js-moreFiltersLine').hide();
+                    $('#js-resetFiltersLine').show();
+                    $('#js-moreFiltersPanel').slideDown();
+                });
 
+                $('#js-closeMoreFiltersLink').on('click', function() {
+                    $('#js-moreFiltersPanel').slideUp(function() {
+                        $('#js-resetFiltersLine').hide();
+                        $('#js-moreFiltersLine').show();
+                    });
+                });
 
+                $('.js-applyFilters').on('click', function(){
+                    GS.search.schoolSearchResultsTable.update();
+                });
+
+            })
+        </script>
 
 </jsp:root>

@@ -38,6 +38,7 @@ public class SchoolSearchCommand {
     private String[] _sports;
     private String[] _artsAndMusic;
     private String[] _studentClubs;
+    private String[] _staffResources; // and facilities
 
 
     private RequestedPage requestedPage;
@@ -401,5 +402,13 @@ public class SchoolSearchCommand {
 
     public void setView(String view) {
         _view = view;
+    }
+
+    public String[] getStaffResources() {
+        return _staffResources;
+    }
+
+    public void setStaffResources(String[] staffResources) {
+        _staffResources = staffResources;
     }
 }
