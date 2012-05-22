@@ -147,7 +147,7 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                 }
                 else {
                     user = new User();
-                    user.setEmail(data[nameToCol.get("email")]);
+                    user.setEmail(data[nameToCol.get(EMAIL_ADDRESS_FIELD)]);
                     user.setEmailVerified(true);
                     _userDao.saveUser(user);
                 }
@@ -161,7 +161,7 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                     parseErrorMessage.append("Line " + lineNum + ": " + e.getMessage() + "\n");
                 }
                 else {
-                    parseErrorMessage.append("Line " + lineNum + ": " + e.getClass().getSimpleName() + "\n");
+                    parseErrorMessage.append("Line " + lineNum + ": " + e.getStackTrace().toString() + "\n");
                 }
                 lineNum++;
             }
