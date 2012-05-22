@@ -361,11 +361,14 @@ function getSchoolInfoWindowHtml(school) {
 
     var rval = '<div class="schoolInfoWindow" style="font: 11px/13px Trebuchet MS, Arial, sans-serif; height: ' + height + 'px; width: 240px;">';
     rval += '<div class="schoolName" style="width: 210px;"><a href="' + school.link + '" target="_blank">'+ school.name + '</a></div>';
-    rval += '<div class="schoolRatings">';
+    rval += '<div class="line">';
+    rval += '<div class="schoolRatings unit size49of100">';
     rval += school.ratingHtml;
     rval += school.parentRatingHtml;
     rval += '</div>';
-    rval += '<div class="schoolAddress">';
+    rval += '<div class="unit size1of100">&nbsp;'; //
+    rval += '</div>'; //
+    rval += '<div class="schoolAddress  unit size49of100">';
     rval += '<div class="typeGrade">';
     if (school.levelCode == 'p') {
         rval += 'Preschool';
@@ -373,16 +376,19 @@ function getSchoolInfoWindowHtml(school) {
         rval += school.type + ', ' + school.gradeLevel;
     }
     rval += '</div>';
-    rval += '<address>';
+    rval += '<p>';
     rval += school.street + '<br />';
     rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';
-    rval += '</address>';
+    rval += '</p>';
     if (school.phone == '') {
         rval += '<br/>';
     } else {
         rval += '<p class="schoolPhone">' + school.phone + '</p>';
     }
     rval += '</div>'; // schoolInfo
+    rval += '<div class="unit size1of100 lastUnit">&nbsp;'; //
+    rval += '</div>'; //
+    rval += '</div>'; // line
     rval += '</div>'; // schoolInfoWindow
     return rval;
 }

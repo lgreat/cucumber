@@ -6721,8 +6721,6 @@ body.hover #startADiscussion .submit {
 }
 
 .schoolAddress{
-    float: left;
-    margin-left: 20px;
 }
 
 .schoolName{
@@ -6999,7 +6997,6 @@ body.ie8 #js-esp-info-popup b.esp-popup-arrow-outline {
 
 .schoolRatings {
     text-align: center; /*border-right:1px solid #999;*/
-    float:left;
 }
 
 .schoolInfoWindow .schoolInfo {
