@@ -588,7 +588,7 @@
             <value>search/schoolSearchResults-mobile</value>
         </property>
         <property name="viewName" value="search/schoolSearchResults-mobile" />
-        <property name="mapViewName" value="/search/resultsmap"/>
+        <property name="mapViewName" value="/search/schoolSearchMapResults-mobile"/>
         <property name="ajaxViewName" value="search/schoolSearchAjaxResults-mobile" />
         <property name="noResultsViewName" value="search/schoolSearchNoResults-mobile"/>
     </bean>

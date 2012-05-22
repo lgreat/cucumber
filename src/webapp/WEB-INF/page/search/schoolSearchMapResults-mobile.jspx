@@ -75,7 +75,7 @@
             </c:forEach>
         </c:set>
         <script type="text/javascript">
-            require(['resultsmap'], function( resultsmap ) {
+            require(['schoolSearchMapResults'], function( resultsmap ) {
                 $(function(){
                     resultsmap.init();
                     ${pointsArray}
