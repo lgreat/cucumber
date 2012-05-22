@@ -96,201 +96,44 @@
     </c:otherwise>
 </c:choose>
 
-<div class="grid_16">
+<div class="grid_16 slStylesV1-0">
 
-<div class="spacer_15"><!-- do not collapse --></div>
 
-<div class="grid_16">
+    <div class="grid_10 alpha">
+        <search:schoolResultsFor_text/>
+    </div>
 
-<div class="grid_10 alpha">
-<c:set var="schoolResultsFor">
-    <c:choose>
-        <c:when test="${not empty searchString}"><c:out value="${searchString}" escapeXml="true"/></c:when>
-        <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
-    </c:choose>
-</c:set>
-<c:if test="${isSearch}">
-    <div class="title2-333">
+    <div class="text3 grid_6 omega">
+        <school:nearbyCitiesPopup/>
+        <school:nearbyDistrictsPopup/>
+    </div>
+
+    <div class="alpha grid_16 omega">
+        <school:findASchoolForm/>
+    </div>
+
+    <div class="alpha grid_16 omega">
+        <search:schoolSearchFiltersPanel/>
+    </div>
+
+    <div class="spacer_15"><!-- do not collapse --></div>
+
+    <div class="alpha grid_16 omega">
+        <ad:adTag position="SponsoredSearch_Top_423x120"/>
+        <ad:adTag position="SponsoredSearch_Top_423x68"/>
+        <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
         <c:choose>
-            <c:when test="${isNearbySearch and param.zipCode}">
-                ${nearbySearchTitlePrefix} near <span
-                    class="title2-d61">${param.zipCode}</span>
-            </c:when>
-            <c:when test="${isNearbySearch eq true and not empty normalizedAddress}">
-                ${nearbySearchTitlePrefix} near <span
-                    class="title2-d61">${normalizedAddress}</span>
+            <c:when test="${page.pager.totalItems gt 0}">
+                <search:schoolSearchResultsTableFruitcake omniturePageName="${omniturePageName}"/>
             </c:when>
             <c:otherwise>
-                School results for <span
-                    class="title2-d61">&amp;ldquo;${schoolResultsFor}&amp;rdquo;</span>
+                <!-- Allow this page to load with 0 results -->
+                <div id="js-school-search-results-table">
+                    <search:schoolSearchNoResultsTable/>
+                </div>
             </c:otherwise>
         </c:choose>
     </div>
-    <c:if test="${nearbySearchIsEstablishment eq true and not empty param.searchQuery}">
-        <div>
-            Did you mean to search for a school/district named
-            "<link:schoolSearch query="${param.searchQuery}" state="${state}">${param.searchQuery}</link:schoolSearch>"?
-        </div>
-    </c:if>
-
-    <div class="spacer_15 brdbtm_solid-c6c6c6"><!-- do not collapse --></div>
-    <div class="spacer_10"><!-- do not collapse --></div>
-</c:if>
-<c:if test="${isCityBrowse}">
-    <div class="line">
-        <div class="unit size1of2">
-            <div class="title2-d61">${schoolResultsFor} Schools</div>
-        </div>
-        <div class="unit size1of2 lastUnit">
-            <div class="smallAlertText fltrt">
-                View city information for <link:city city="${city.name}"
-                                                     state="${city.state}">${schoolResultsFor} </link:city><span
-                    class="alertDoubleArrow">&amp;raquo;</span>
-            </div>
-        </div>
-    </div>
-    <div class="spacer_10"><!-- do not collapse --></div>
-</c:if>
-<c:if test="${isDistrictBrowse}">
-    <div class="line">
-        <div class="unit size3of4">
-            <div class="title2-d61">${fn:escapeXml(district.name)} Schools</div>
-        </div>
-        <div class="unit size1of4 lastUnit">
-            <div class="smallAlertText fltrt">
-                <link:districtHome
-                        district="${district}">View district information <span
-                        class="alertDoubleArrow">&amp;raquo;</span></link:districtHome>
-            </div>
-        </div>
-    </div>
-    <div class="spacer_10"><!-- do not collapse --></div>
-</c:if>
-</div>
-
-<!-- nearby cities box -->
-<div class="text3 grid_3 fltrt">
-    <c:if test="${fn:length(citySearchResults) gt 3}">
-        <div id="js-bubbleInfo-8"><span id="nearby-cities-link"
-                                        class="js-trigger smallAlertText">${moreNearbyCitiesLabel} <span
-                class="alertDoubleArrow">&amp;raquo;</span></span>
-
-            <div id="nearby-cities" class="js-popup">
-                <div id="popup-contents-8">
-                    <span class="arrow-outline-top"><!-- do not collapse --></span>
-                    <span class="arrow-top"><!-- do not collapse --></span>
-                    <c:set var="openCloseTr">
-                        <![CDATA[</tr><tr>]]>
-                    </c:set>
-                    <c:choose>
-                        <c:when test="${fn:length(citySearchResults) lt 11}">
-                            <c:set var="cityTableColumns" value="${1}"/>
-                        </c:when>
-                        <c:when test="${fn:length(citySearchResults) ge 11 and fn:length(citySearchResults) lt 21}">
-                            <c:set var="cityTableColumns" value="${2}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="cityTableColumns" value="${3}"/>
-                        </c:otherwise>
-                    </c:choose>
-                    <c:set var="tableWidth" value="${132 * cityTableColumns}"/>
-                    <c:if test="${fn:length(citySearchResults) > 0}">
-                        <table cellspacing="0" width="${tableWidth}">
-                            <tbody>
-                            <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
-                            <tr>
-                                <c:forEach var="city" items="${citySearchResults}" begin="0"
-                                           end="${fn:length(citySearchResults)-1}" varStatus="status">
-                                    <td><link:schools cityName="${city.city}"
-                                                      state="${city.state}">${city.city}, ${city.state}</link:schools>
-                                    </td>
-                                    <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
-                                        ${openCloseTr}
-                                    </c:if>
-                                </c:forEach>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </c:if>
-                </div>
-            </div>
-        </div>
-    </c:if>
-</div>
-
-<div class="grid_3 omega">
-<!-- nearby districts box -->
-    <c:if test="${fn:length(districtSearchResults) gt 0}">
-        <div id="js-bubbleInfo-9"><span id="nearby-districts-link"
-                                        class="js-trigger smallAlertText">${moreNearbyDistrictsLabel} <span
-                class="alertDoubleArrow">&amp;raquo;</span></span>
-
-            <div id="nearby-districts" class="js-popup">
-                <div id="popup-contents-9">
-                    <span class="arrow-outline-top"><!-- do not collapse --></span>
-                    <span class="arrow-top"><!-- do not collapse --></span>
-                    <c:set var="openCloseTr">
-                        <![CDATA[</tr><tr>]]>
-                    </c:set>
-                    <c:choose>
-                        <c:when test="${fn:length(districtSearchResults) lt 5}">
-                            <c:set var="districtTableColumns" value="${1}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="districtTableColumns" value="${2}"/>
-                        </c:otherwise>
-                    </c:choose>
-                    <c:set var="tableWidth" value="${198 * districtTableColumns}"/>
-                    <c:if test="${fn:length(districtSearchResults) > 0}">
-                        <table cellspacing="0" width="${tableWidth}">
-                            <tbody>
-                            <tr>
-                                <c:forEach var="district" items="${districtSearchResults}" begin="0"
-                                           end="${fn:length(districtSearchResults)-1}" varStatus="status">
-                                    <td><link:schools state="${district.state}" districtId="${district.id}"
-                                                      districtName="${district.name}"
-                                                      cityName="${district.city}">${district.name}</link:schools></td>
-                                    <c:if test="${(status.count+districtTableColumns) % districtTableColumns == 0}">
-                                        ${openCloseTr}
-                                    </c:if>
-                                </c:forEach>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </c:if>
-                </div>
-            </div>
-        </div>
-    </c:if>
-</div>
-
-</div>
-
-<div class="spacer_15"><!-- do not collapse --></div>
-
-<school:findASchoolForm/>
-
-
-<search:schoolSearchFiltersPanel/>
-
-<div class="spacer_15"><!-- do not collapse --></div>
-
-<div class="alpha grid_16 omega">
-    <ad:adTag position="SponsoredSearch_Top_423x120"/>
-    <ad:adTag position="SponsoredSearch_Top_423x68"/>
-    <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
-    <c:choose>
-        <c:when test="${page.pager.totalItems gt 0}">
-            <search:schoolSearchResultsTableFruitcake omniturePageName="${omniturePageName}"/>
-        </c:when>
-        <c:otherwise>
-            <!-- Allow this page to load with 0 results -->
-            <div id="js-school-search-results-table">
-                <search:schoolSearchNoResultsTable/>
-            </div>
-        </c:otherwise>
-    </c:choose>
-</div>
 </div>
 
 <div class="grid_8">

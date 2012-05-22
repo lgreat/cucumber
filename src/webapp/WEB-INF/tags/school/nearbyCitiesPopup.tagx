@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        >
+
+<!-- nearby cities box -->
+
+    <c:if test="${fn:length(citySearchResults) gt 3}">
+        <div id="js-bubbleInfo-8"><span id="nearby-cities-link"
+                                        class="js-trigger smallAlertText">${moreNearbyCitiesLabel} <span
+                class="alertDoubleArrow">&amp;raquo;</span></span>
+
+            <div id="nearby-cities" class="js-popup">
+                <div id="popup-contents-8">
+                    <span class="arrow-outline-top"><!-- do not collapse --></span>
+                    <span class="arrow-top"><!-- do not collapse --></span>
+                    <c:set var="openCloseTr">
+                        <![CDATA[</tr><tr>]]>
+                    </c:set>
+                    <c:choose>
+                        <c:when test="${fn:length(citySearchResults) lt 11}">
+                            <c:set var="cityTableColumns" value="${1}"/>
+                        </c:when>
+                        <c:when test="${fn:length(citySearchResults) ge 11 and fn:length(citySearchResults) lt 21}">
+                            <c:set var="cityTableColumns" value="${2}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="cityTableColumns" value="${3}"/>
+                        </c:otherwise>
+                    </c:choose>
+                    <c:set var="tableWidth" value="${132 * cityTableColumns}"/>
+                    <c:if test="${fn:length(citySearchResults) > 0}">
+                        <table cellspacing="0" width="${tableWidth}">
+                            <tbody>
+                            <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
+                            <tr>
+                                <c:forEach var="city" items="${citySearchResults}" begin="0"
+                                           end="${fn:length(citySearchResults)-1}" varStatus="status">
+                                    <td><link:schools cityName="${city.city}"
+                                                      state="${city.state}">${city.city}, ${city.state}</link:schools>
+                                    </td>
+                                    <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
+                                        ${openCloseTr}
+                                    </c:if>
+                                </c:forEach>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </c:if>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
+</jsp:root>

@@ -11,7 +11,7 @@
 
     <div id="${id}" class="${cssClass} grid_7 pbs">
         <div class="small_bold bottom grid_4 alpha">${label}</div>
-        <div class="small bottom filterCategory grid_3 omega" data-gs-content-toggler="${id}">
+        <div class="small bottom filterCategory grid_3 omega" data-gs-dropdown-opener="${id}">
             <span class="fltlft vert-align-mid defaultText">${selectedValueLabel}</span>
             <a href="javascript:void(0)">
                 <span class="navSprite dropDown-default fltrt"><!-- no collapse --></span>
@@ -19,14 +19,14 @@
             </a>
         </div>
         <div style="display:none;" class="dropDown-checkboxes-container" data-gs-content="${id}">
-            <span class="fltrt pas" data-gs-content-hider="${id}">X</span>
+            <span class="fltrt pas" data-gs-dropdown-hider="${id}">X</span>
             <h5 class="pbs" style="border-bottom: 1px solid grey;">Results will show schools with at least one of these:</h5>
             <div class="pts dropDown-checkboxes">
                 <jsp:doBody/>
             </div>
             <div class="line">
                 <div class="unit size3of4">
-                    <button class="button-1 js-applyFilters" data-gs-content-hider="${id}">Apply</button>
+                    <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Apply</button>
                 </div>
                 <div class="unit lastUnit">
                     <a href="javascript:void(0);">Reset</a>
@@ -42,7 +42,7 @@
         GS.ui.setupDropdownHandlers = GS.ui.setupDropdownHandlers || function(dropdownId) {
             var dropdownSelector = '#' + dropdownId;
 
-            $(dropdownSelector + ' [data-gs-content-toggler=' + dropdownId + ']').on('click', function() {
+            $(dropdownSelector + ' [data-gs-dropdown-opener=' + dropdownId + ']').on('click', function() {
                 var $content = $(dropdownSelector + ' [data-gs-content=' + dropdownId + ']');
                 $content.toggle();
                 $(dropdownSelector + ' .dropDown-default').toggle();
@@ -60,9 +60,9 @@
                 }
             });
 
-            $(dropdownSelector + ' [data-gs-content-hider]').click(function() {
+            $(dropdownSelector + ' [data-gs-dropdown-hider]').click(function() {
                 var $this = $(this);
-                var targetId = $this.data('gs-content-hider');
+                var targetId = $this.data('gs-dropdown-hider');
                 $(dropdownSelector + ' [data-gs-content=' + targetId + ']').hide();
             });
         };

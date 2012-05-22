@@ -7,7 +7,7 @@
           xmlns:gsweb="gstaglib" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 
-        <div id="js-moreFiltersLine" class="grid_16 pas" style="background:#E1F1F7;z-index:999999;">
+        <div id="js-moreFiltersLine" class="grid_16 alpha omega" style="background:#E1F1F7;z-index:999999;">
             <div class="grid_14 alpha">
                 <strong>Refine your search here.</strong> Find the best fitted school for your child.
             </div>
@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <div id="js-resetFiltersLine" class="grid_16 pas" style="display:none;background:#E1F1F7;z-index:999999;">
+        <div id="js-resetFiltersLine" class="grid_16 alpha omega" style="display:none;background:#E1F1F7;z-index:999999;">
             <div class="grid_14 alpha">
                 <strong>Narrow your selection.</strong> Other than local rating, the data comes directly from schools.
             </div>
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div id="js-moreFiltersPanel" class="grid_16" style="background:#E1F1F7;z-index:999999;display:none;">
+        <div id="js-moreFiltersPanel" class="grid_16 alpha omega" style="background:#E1F1F7;z-index:999999;display:none;">
             <c:set var="buttonStyle" value="padding:3px;margin-top:3px;background-color:#EEE;border:1px solid grey"/>
             <c:set var="selectedStyle" value="padding:3px;margin-top:3px;background-color:#ccc;border:1px solid grey;"/>
 
