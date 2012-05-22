@@ -53,6 +53,7 @@
         <col align="right" width="114px"/>
         <col align="center" width="72px"/>
         <col align="center" width="9px"/>
+        <col align="center" width="75px"/>
     </colgroup>
     <thead>
     <tr class="smallText2bold">
@@ -63,6 +64,7 @@
         </c:if>
         <th align="center">GREATSCHOOLS RATING</th>
         <th align="center">COMMUNITY RATING</th>
+        <th align="center"><!-- do not collapse--></th>
         <th><!-- do not collapse --></th>
     </tr>
     </thead>
@@ -94,6 +96,7 @@
     <c:if test="${blankRows gt 0}">
         <c:forEach begin="0" end="${blankRows - 1}">
             <tr class="${nearbySchoolClass}">
+                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
                 <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
                 <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
                 <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>

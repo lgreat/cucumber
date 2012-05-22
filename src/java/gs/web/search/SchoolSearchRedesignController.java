@@ -30,6 +30,7 @@ import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.Address;
+import gs.data.util.CommunityUtil;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.pagination.Page;
@@ -74,6 +75,7 @@ public class SchoolSearchRedesignController extends SchoolSearchController {
         boolean foundDidYouMeanSuggestions = false;
 
         Map<String,Object> model = new HashMap<String,Object>();
+        model.put("basePhotoPath", CommunityUtil.getMediaPrefix());
         model.put("schoolSearchCommand", schoolSearchCommand);
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         User user = sessionContext.getUser();
