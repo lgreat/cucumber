@@ -34,7 +34,7 @@ Viewport: the width and height of each icon is 24px x 24px, the background posit
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/mobile/img/24x24.png);
+    /*background-image: url(/res/mobile/img/24x24.png);*/
     width: 24px;
     height: 24px;
 }
