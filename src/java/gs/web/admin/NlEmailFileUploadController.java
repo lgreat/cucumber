@@ -38,6 +38,7 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
     private static final String VIEW = "admin/nlEmailFileUpload";
     private static final String EMAIL_ADDRESS_FIELD = "email";
     private static final String SET_SUBSCRIPTION = "1";
+    private static final String LIST_MEMBER_HOW_FIELD = "manual_upload";
 
     @Autowired
     private IUserDao _userDao;
@@ -169,6 +170,7 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                     user = new User();
                     user.setEmail(data[nameToCol.get(EMAIL_ADDRESS_FIELD)]);
                     user.setEmailVerified(true);
+                    user.setHow(LIST_MEMBER_HOW_FIELD);
                     _userDao.saveUser(user);
                 }
                 addSubscriptions(user, data, nameToCol);
