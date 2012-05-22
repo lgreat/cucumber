@@ -89,10 +89,11 @@ GS.util.EmailFileUpload = function() {
                         errorBlock.css("display", "block").find('p').text(data.error);
                         error = true;
                     }
-//                });
                 }).fail(function() {
-                    errorBlock.css("display", "block").find('p').text('Error parsing file.');
+                    errorBlock.css("display", "block").find('p').text('Server timed out. Please wait for the status of' +
+                        ' the upload to be emailed to the address given in first line of the csv file.');
                     error = true;
+                    status.css('display', 'none');
                     setButtonClass(false, 'button-1-inactive', 'button-1');
                 });
         }

@@ -4,9 +4,12 @@ import gs.data.community.*;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
 import gs.web.util.ReadWriteAnnotationController;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.MailException;
@@ -31,8 +34,10 @@ import java.util.*;
 @Controller
 @RequestMapping("/admin/nlEmailFileUpload.page")
 public class NlEmailFileUploadController implements ReadWriteAnnotationController {
+    protected final Log _log = LogFactory.getLog(getClass());
     private static final String VIEW = "admin/nlEmailFileUpload";
     private static final String EMAIL_ADDRESS_FIELD = "email";
+    private static final String SET_SUBSCRIPTION = "1";
 
     @Autowired
     private IUserDao _userDao;
@@ -63,14 +68,24 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
         File file;
         try {
             List files = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-            DiskFileItem fileItem = (DiskFileItem) files.get(0);
+            if(files != null && !files.isEmpty()) {
+                DiskFileItem fileItem = (DiskFileItem) files.get(0);
 
-            String tempFilePath = System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + "Newsletters_Subscription_Email_List.csv";
-            file = new File(tempFilePath);
-            fileItem.write(file);
+                String tempFilePath = System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + "Newsletters_Subscription_Email_List.csv";
+                file = new File(tempFilePath);
+                fileItem.write(file);
+            }
+            else {
+                outputJson("error", "Unable to retrieve the uploaded file.", response);
+                return;
+            }
+        }
+        catch (FileUploadException ex) {
+            outputJson("error", "Unable to upload the file.", response);
+            return;
         }
         catch (Exception ex) {
-            outputJson("error", "Unable to upload the file.", response);
+            outputJson("error", "Unable to write file contents to a temp file.", response);
             return;
         }
 
@@ -78,7 +93,7 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
         String rowData, uploadNotificationRecipient = "";
         StringBuilder parseErrorMessage = new StringBuilder("Error parsing the following lines -\n");
         boolean hasParsingErrors = false;
-        int lineNum = 1, numColumns = 0;
+        int lineNum = 1, numFields = 0;
         Map<String, Integer> nameToCol = new HashMap<String, Integer>();
 
         while ((rowData = bufferedReader.readLine()) != null) {
@@ -91,16 +106,11 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                  error in the client.
                  */
                 if(lineNum == 1) {
-                    try {
-                        uploadNotificationRecipient = data[0];
-                        org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
-                        if(!emv.isValid(uploadNotificationRecipient)) {
-                            throw new Exception("Invalid email format in line 1.");
-                        }
-                    }
-                    catch (Exception e) {
-                        parseErrorMessage.append("Line " + lineNum + ": " + e.getMessage() + "\n");
-                        outputJson("error", parseErrorMessage.toString(), response);
+                    uploadNotificationRecipient = data[0];
+                    org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
+                    if(!emv.isValid(uploadNotificationRecipient)) {
+                        outputJson("error", "Line " + lineNum + ": Email address given for receiving the upload" +
+                                " status notification does not represent a valid format\n", response);
                         return;
                     }
                 }
@@ -123,7 +133,14 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                             nameToCol.put(SubscriptionProduct.SPONSOR_OPT_IN.getName(), i);
                         }
                     }
-                    numColumns = data.length;
+                    numFields = nameToCol.keySet().size();
+                    if(numFields != 4) {
+                        outputJson("error", "Please make sure that there are only 4 field names given in line 2 of the " +
+                                "csv file - email address, " + SubscriptionProduct.PARENT_ADVISOR.getName() + ", " +
+                                SubscriptionProduct.DAILY_TIP.getName() + ", " +
+                                SubscriptionProduct.SPONSOR_OPT_IN.getName(), response);
+                        return;
+                    }
                 }
                 lineNum++;
                 continue;
@@ -135,8 +152,11 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
             the next line.
              */
             try {
-                if(numColumns != data.length) {
-                    throw new Exception("Number of values does not match with line 1.");
+                if(numFields != data.length) {
+                    hasParsingErrors = true;
+                    parseErrorMessage.append("Line " + lineNum + ": Number of comma separated values not equal to 4\n");
+                    lineNum++;
+                    continue;
                 }
                 User user = _userDao.findUserFromEmailIfExists(data[nameToCol.get(EMAIL_ADDRESS_FIELD)]);
                 if(user != null) {
@@ -155,14 +175,15 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                 lineNum++;
             }
 
-            catch (Exception e) {
+            catch (NullPointerException e) {
                 hasParsingErrors = true;
-                if(e.getMessage() != null) {
-                    parseErrorMessage.append("Line " + lineNum + ": " + e.getMessage() + "\n");
-                }
-                else {
-                    parseErrorMessage.append("Line " + lineNum + ": " + e.getStackTrace().toString() + "\n");
-                }
+                parseErrorMessage.append("Line " + lineNum + ": Unable to match field name with the data\n");
+                lineNum++;
+            }
+
+            catch (ArrayIndexOutOfBoundsException e) {
+                hasParsingErrors = true;
+                parseErrorMessage.append("Line " + lineNum + ": Unable to match field name with the data\n");
                 lineNum++;
             }
         }
@@ -183,15 +204,16 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
 //        System.out.println("Duration: " + time + " seconds");
     }
 
-    private void addSubscriptions(User user, String[] data, Map<String,Integer> nameToCol) throws Exception {
+    private void addSubscriptions(User user, String[] data, Map<String,Integer> nameToCol)
+            throws NullPointerException, ArrayIndexOutOfBoundsException{
         List<Subscription> newSubscriptions = new ArrayList<Subscription>();
-        if("1".equals(data[nameToCol.get(SubscriptionProduct.PARENT_ADVISOR.getName())])) {
+        if(SET_SUBSCRIPTION.equals(data[nameToCol.get(SubscriptionProduct.PARENT_ADVISOR.getName())])) {
             newSubscriptions.add(newSubscription(user, SubscriptionProduct.PARENT_ADVISOR));
         }
-        if("1".equals(data[nameToCol.get(SubscriptionProduct.DAILY_TIP.getName())])) {
+        if(SET_SUBSCRIPTION.equals(data[nameToCol.get(SubscriptionProduct.DAILY_TIP.getName())])) {
             newSubscriptions.add(newSubscription(user, SubscriptionProduct.DAILY_TIP));
         }
-        if("1".equals(data[nameToCol.get(SubscriptionProduct.SPONSOR_OPT_IN.getName())])) {
+        if(SET_SUBSCRIPTION.equals(data[nameToCol.get(SubscriptionProduct.SPONSOR_OPT_IN.getName())])) {
             newSubscriptions.add(newSubscription(user, SubscriptionProduct.SPONSOR_OPT_IN));
         }
 
@@ -218,7 +240,7 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
             _mailSender.send(message);
         }
         catch (MailException me) {
-
+            _log.warn("Unable to send the message - \n" + message + "\n to the recipient " + email);
         }
     }
 
