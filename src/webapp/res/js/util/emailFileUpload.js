@@ -22,6 +22,9 @@ GS.util.EmailFileUpload = function() {
         formData = new FormData();
     }
 
+    /*
+    Trigger input file click on button click
+     */
     browseFile.click(function() {
         if(isClickDisabled == true) {
             return;

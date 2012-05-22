@@ -32,6 +32,7 @@ import java.util.*;
 @RequestMapping("/admin/nlEmailFileUpload.page")
 public class NlEmailFileUploadController implements ReadWriteAnnotationController {
     private static final String VIEW = "admin/nlEmailFileUpload";
+    private static final String EMAIL_ADDRESS_FIELD = "email";
 
     @Autowired
     private IUserDao _userDao;
@@ -55,6 +56,10 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                              HttpServletResponse response) throws JSONException, IOException {
         response.setContentType("application/json");
 //        long startTime = System.currentTimeMillis();
+
+        /*
+         Get the file from the request and write the contents to a temp file.
+         */
         File file;
         try {
             List files = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
@@ -70,7 +75,7 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
         }
 
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        String rowData, email = "";
+        String rowData, uploadNotificationRecipient = "";
         StringBuilder parseErrorMessage = new StringBuilder("Error parsing the following lines -\n");
         boolean hasParsingErrors = false;
         int lineNum = 1, numColumns = 0;
@@ -79,11 +84,17 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
         while ((rowData = bufferedReader.readLine()) != null) {
             String[] data = rowData.split(",");
             if (lineNum < 3) {
+                /*
+                Line 1 must have a string that has a valid email format. This email would receive a notification when the program finishes.
+                Since Apache would timeout in 20 s, for large data, it would be impossible to know if the upload was
+                complete. So it is necessary to have this email address, else the program will exit and would display an
+                 error in the client.
+                 */
                 if(lineNum == 1) {
                     try {
-                        email = data[0];
+                        uploadNotificationRecipient = data[0];
                         org.apache.commons.validator.EmailValidator emv = org.apache.commons.validator.EmailValidator.getInstance();
-                        if(!emv.isValid(email)) {
+                        if(!emv.isValid(uploadNotificationRecipient)) {
                             throw new Exception("Invalid email format in line 1.");
                         }
                     }
@@ -93,10 +104,14 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                         return;
                     }
                 }
+                /* Line 2 has the field headers - Email Address, greatnews, dailytip, sponsor.
+                   These field names are mapped to integers that would be used to access the values when they are stored
+                   in an array of comma separated words as each line is read.
+                 */
                 else {
                     for(int i = 0; i < data.length; i++) {
-                        if(data[i].toLowerCase().contains("email")) {
-                            nameToCol.put("email", i);
+                        if(data[i].toLowerCase().contains(EMAIL_ADDRESS_FIELD)) {
+                            nameToCol.put(EMAIL_ADDRESS_FIELD, i);
                         }
                         else if(data[i].toLowerCase().contains(SubscriptionProduct.PARENT_ADVISOR.getName())) {
                             nameToCol.put(SubscriptionProduct.PARENT_ADVISOR.getName(), i);
@@ -114,11 +129,16 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                 continue;
             }
 
+            /*
+            For all other lines, they are read into an array, and set in the database tables. If the number of comma
+            separated words do not match with line 2, this would display an error for the line, and the program moves to
+            the next line.
+             */
             try {
                 if(numColumns != data.length) {
                     throw new Exception("Number of values does not match with line 1.");
                 }
-                User user = _userDao.findUserFromEmailIfExists(data[nameToCol.get("email")]);
+                User user = _userDao.findUserFromEmailIfExists(data[nameToCol.get(EMAIL_ADDRESS_FIELD)]);
                 if(user != null) {
                     if(!user.getEmailVerified()) {
                         user.setEmailVerified(true);
@@ -150,11 +170,11 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
 
         if(hasParsingErrors) {
             outputJson("error", parseErrorMessage.toString(), response);
-            sendEmail(email, parseErrorMessage.toString());
+            sendEmail(uploadNotificationRecipient, parseErrorMessage.toString());
         }
         else {
             outputJson("success", "Successfully uploaded the file and set the subscriptions.", response);
-            sendEmail(email, "Signed up emails have been set with the subscriptions");
+            sendEmail(uploadNotificationRecipient, "Signed up emails have been set with the subscriptions");
         }
 
         file.delete();
@@ -165,29 +185,26 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
 
     private void addSubscriptions(User user, String[] data, Map<String,Integer> nameToCol) throws Exception {
         List<Subscription> newSubscriptions = new ArrayList<Subscription>();
-        Subscription subscription;
         if("1".equals(data[nameToCol.get(SubscriptionProduct.PARENT_ADVISOR.getName())])) {
-            subscription = new Subscription();
-            subscription.setProduct(SubscriptionProduct.PARENT_ADVISOR);
-            subscription.setUser(user);
-            newSubscriptions.add(subscription);
+            newSubscriptions.add(newSubscription(user, SubscriptionProduct.PARENT_ADVISOR));
         }
         if("1".equals(data[nameToCol.get(SubscriptionProduct.DAILY_TIP.getName())])) {
-            subscription = new Subscription();
-            subscription.setProduct(SubscriptionProduct.DAILY_TIP);
-            subscription.setUser(user);
-            newSubscriptions.add(subscription);
+            newSubscriptions.add(newSubscription(user, SubscriptionProduct.DAILY_TIP));
         }
         if("1".equals(data[nameToCol.get(SubscriptionProduct.SPONSOR_OPT_IN.getName())])) {
-            subscription = new Subscription();
-            subscription.setProduct(SubscriptionProduct.SPONSOR_OPT_IN);
-            subscription.setUser(user);
-            newSubscriptions.add(subscription);
+            newSubscriptions.add(newSubscription(user, SubscriptionProduct.SPONSOR_OPT_IN));
         }
 
         if(newSubscriptions.size() > 0) {
             _subscriptionDao.addNewsletterSubscriptions(user, newSubscriptions);
         }
+    }
+
+    private Subscription newSubscription(User user, SubscriptionProduct subscriptionProduct) {
+        Subscription subscription = new Subscription();
+        subscription.setProduct(subscriptionProduct);
+        subscription.setUser(user);
+        return subscription;
     }
 
     protected void sendEmail(String email, String mailBody) {
