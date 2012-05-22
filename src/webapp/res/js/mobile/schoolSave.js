@@ -44,6 +44,7 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
 
         var schools = localStorage.getItem(schoolsKey);
         var schoolMap = localStorage.getItem(schoolMapKey);
+        var savedSchoolMap = schoolMap[schoolMapKey];
 
         if(schools == null) {
             var newSchoolsObject = {};
@@ -51,7 +52,7 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
             newSchoolsObject.Schools.push(newSchool);
             localStorage.setItem(schoolsKey, newSchoolsObject);
         }
-        else {
+        else if (schoolMap.SchoolMap[0].hasOwnProperty(state_schoolId) === false) {
             schools.Schools.push(newSchool);
             localStorage.setItem(schoolsKey, schools);
         }
@@ -63,7 +64,7 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
             newSchoolMap.SchoolMap[0][state_schoolId] = 1;
             localStorage.setItem(schoolMapKey, newSchoolMap);
         }
-        else {
+        else if (schoolMap.SchoolMap[0].hasOwnProperty(state_schoolId) === false) {
             var state_schoolIds = schoolMap[schoolMapKey];
             state_schoolIds[0][state_schoolId] = 1;
             schoolMap[schoolMapKey] = state_schoolIds;
