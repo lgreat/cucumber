@@ -22,10 +22,9 @@
 
     </div>
     <div class="pam">
-        <p>GreatSchools is the country's leading source of information on school performance. With listings of 200,000
-        public and private schools serving students from preschool through high school and more than 800,000 parent
-        ratings and reviews, GreatSchools has become the go-to guide for parents aiming to make a smart school
-        choice.</p>
+        <p>With listings of over 200,000 public and private schools serving students from elementary through high school
+            and more than 1 million parent ratings and reviews,
+            GreatSchools is the go-to guide for parents aiming to make a smart school choice.</p>
     </div>
 
     <mod:mobileTracking pageName="aboutUs"
