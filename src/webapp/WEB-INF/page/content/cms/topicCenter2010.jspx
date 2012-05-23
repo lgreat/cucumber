@@ -83,7 +83,7 @@
     <div><h1 class="fltlft">${topicCenter.title}</h1></div>
 
     <!-- this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
-    <div class="logoAd fltrt mrgtop_5">
+    <div class="logoAd fltrt mrgtop_5 mrgrt_7">
         <c:if test="${not empty topicCenter.contentProviderLogoUrl}">
             <c:set var="licensorLogo">
                 <img src="${topicCenter.contentProviderLogoUrl}" alt="${topicCenter.contentProviderLogoAltText}"/>
@@ -104,9 +104,7 @@
                         </div>
                     </div>
                 </div>-->
-                <div class="fltrt">
                 <ad:adTag position="HeaderLogo_88x33"/>
-                </div>
             </c:otherwise>
         </c:choose>
     </div>

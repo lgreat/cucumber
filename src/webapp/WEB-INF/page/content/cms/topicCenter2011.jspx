@@ -85,10 +85,8 @@
 
 <div class="grid_16 slStylesV1-0">
 
-<h1 class="mtl">${topicCenter.title}</h1>
-
 <!-- Start LogoAd-->
-<div class="logoAd fltrt mrgtop_5">
+<div class="logoAd fltrt mtm pts">
     <c:if test="${not empty topicCenter.contentProviderLogoUrl}">
         <c:set var="licensorLogo">
             <img src="${topicCenter.contentProviderLogoUrl}" alt="${topicCenter.contentProviderLogoAltText}"/>
@@ -99,13 +97,15 @@
             ${licensorLogo}
         </c:when>
         <c:otherwise>
-            <div class="fltrt">
-                <ad:adTag position="HeaderLogo_88x33"/>
-            </div>
+            <ad:adTag position="HeaderLogo_88x33"/>
         </c:otherwise>
     </c:choose>
 </div>
 <!-- end logoAd -->
+
+<h1 class="mtl fl">${topicCenter.title}</h1>
+
+<div class="clearfloat"><!-- don't collapse --></div>
 
     <!--Start Top Story Box-->
     <div class="mod standard_1-2">
@@ -155,7 +155,7 @@
 <!-- Start Featured Content -->
     <div class="grid_11 omega">
 
-        <div class="inlineAd mbm">
+        <div class="inlineAd mbm tac">
             <ad:adTag position="Inline_423x60"/>
         </div>
 
