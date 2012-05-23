@@ -17,6 +17,7 @@
         <c:when test="${(not empty param.uncompressedScripts
                          or pageContext.request.serverName eq 'localhost'
                          or fn:contains(pageContext.request.serverName, 'samson')
+                         or fn:contains(pageContext.request.serverName, 'mitchtest')
                          or fn:startsWith(pageContext.request.serverName, '172.18.1.')
                          or pageContext.request.serverName eq '127.0.0.1')
                          and empty param.compressedScripts}">
