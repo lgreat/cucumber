@@ -32,7 +32,7 @@
             <ad:xGPTMobileSetup/>
         </pageHelper:ifAdsOnPage>
         <mobile:mobileBootstrapJS/>
-        <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
+        <script src="/res/js/require.min.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
 
         <decorator:head/>
     </head>
