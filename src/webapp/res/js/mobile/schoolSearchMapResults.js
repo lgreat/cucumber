@@ -171,6 +171,9 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
         $('.js-listResultsLink').on('click', function() {
             var newQueryString = searchResultFilters.getUpdatedQueryString();
             newQueryString = uri.removeFromQueryString(newQueryString, 'view');
+            if (newQueryString == '?') {
+                newQueryString = '';
+            }
             window.location.search = newQueryString;
             return false;
         });
