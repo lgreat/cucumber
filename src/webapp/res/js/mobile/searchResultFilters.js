@@ -1,4 +1,4 @@
-define(['uri','ui'],function(uri, ui) {
+define(['uri','ui', 'history'],function(uri, ui, history) {
 
     var filtersSelector;
     var applyCallback; // gets called when filter Apply button is pressed
@@ -109,12 +109,12 @@ define(['uri','ui'],function(uri, ui) {
             }
             var $booleanFilters = $jq.find('[data-'+dataAttributes.booleanFilter + ']');
 
-            var filters = this.filter; // allow below anonymous function in each call to access filters without
-                                       // prefixing with "this."
+            var filters = this.filters; // allow below anonymous function in each call to access filters without
+                                        // prefixing with "this."
 
             $booleanFilters.each(function() {
                 var filterName = $(this).data(dataAttributes.booleanFilter);
-                filters[filterName] = $(this).hasClass(ui.buttonPressed);
+                filters[filterName] = $(this).hasClass(ui.buttonPressedClass);
             });
         };
 
@@ -175,7 +175,7 @@ define(['uri','ui'],function(uri, ui) {
         this.toQueryString = function() {
             var queryString = "";
             if (this.value !== undefined && this.value.length > 0) {
-                var queryString = this.key + "=" + this.value;
+                queryString = this.key + "=" + this.value;
             }
             return queryString;
         };
@@ -210,7 +210,7 @@ define(['uri','ui'],function(uri, ui) {
         private:false
     });
 
-    var gradeLevel = new BooleanFilter('gradeLevels', {
+    var gradeLevels = new BooleanFilter('gradeLevels', {
         p:false,
         e:false,
         m:false,
@@ -224,11 +224,11 @@ define(['uri','ui'],function(uri, ui) {
 
 
     // put the filters into an array for easy iterating
-    var filters = [schoolType, gradeLevel, distance, minGreatSchoolsRating, minCommunityRating, schoolSize];
+    var filters = [schoolType, gradeLevels, distance, minGreatSchoolsRating, minCommunityRating, schoolSize];
     // TODO: remove redundancy here and/or at module return value
     var filtersHash = {
-        schoolType:schoolType,
-        gradeLevel:gradeLevel,
+        st:schoolType,
+        gradeLevels:gradeLevels,
         distance:distance,
         minGreatSchoolsRating:minGreatSchoolsRating,
         minCommunityRating:minCommunityRating,
@@ -261,6 +261,13 @@ define(['uri','ui'],function(uri, ui) {
         for (var i = 0; i < filters.length; i++) {
             var filter = filters[i];
             filter.readFromQueryString();
+        }
+    };
+
+    var initFiltersFromDom = function() {
+        for (var i = 0; i < filters.length; i++) {
+            var filter = filters[i];
+            filter.readFromDom();
         }
     };
 
@@ -419,7 +426,11 @@ define(['uri','ui'],function(uri, ui) {
         };
 
         $(function() {
-            initFiltersFromQueryString();
+            initFiltersFromDom();
+            var updatedQueryString = getUpdatedQueryString();
+            if (typeof(window.History) !== 'undefined' && window.History.enabled === true && updatedQueryString != window.location.search) {
+                window.History.pushState(null, null, getUpdatedQueryString());
+            }
 
             $(cancelButtonSelector).on('click', function() {
                 initFiltersFromQueryString(); // this works because we rewrite the URL when applying filters
@@ -439,7 +450,7 @@ define(['uri','ui'],function(uri, ui) {
     return {
         init:init,
         toQueryString:toQueryString,
-        gradeLevel:gradeLevel,
+        gradeLevel:gradeLevels,
         distance:distance,
         getUpdatedQueryString:getUpdatedQueryString
     };
