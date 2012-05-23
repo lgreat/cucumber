@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -72,7 +73,9 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
             if(files != null && !files.isEmpty()) {
                 DiskFileItem fileItem = (DiskFileItem) files.get(0);
 
-                String tempFilePath = System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + "Newsletters_Subscription_Email_List.csv";
+                Date date = new Date();
+                String tempFilePath = System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") +
+                        "Newsletters_Subscription_Email_List" + new Timestamp(date.getTime()).getTime() + ".csv";
                 file = new File(tempFilePath);
                 fileItem.write(file);
             }
