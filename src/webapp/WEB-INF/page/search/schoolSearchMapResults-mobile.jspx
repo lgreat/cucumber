@@ -5,8 +5,8 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:gsweb="gstaglib"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search">
 
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>

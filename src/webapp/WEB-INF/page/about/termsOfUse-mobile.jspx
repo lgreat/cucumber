@@ -11,7 +11,6 @@
     <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
     <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
         <meta name="Description" content="Terms of Use"/>
         <title>GreatSchools.org Terms of Use</title>
         <meta name="decorator" content="standardMobileDecorator"/>

@@ -2,14 +2,12 @@
 
 <jsp:root
         xmlns:jsp="http://java.sun.com/JSP/Page"
-        xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:tags="urn:jsptagdir:/WEB-INF/tags"
         xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
-        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         version="2.0"
-        xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mobile"
+        xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
 
 <jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
@@ -18,7 +16,7 @@
 
 <html lang="en" class="no-js">
     <head>
-        <mod:weinre />
+        <mobile:weinre />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
         <title><decorator:title default="GreatSchools Mobile"/></title>
@@ -30,8 +28,10 @@
         <pageHelper:addCss-mobile/>
 
         <script src="/res/js/jquery/jquery-1.7.1.min.js" type="text/javascript"><!-- do not collapse --></script>
-        <ad:xGPTMobileSetup />
-        <mod:mobileBootstrapJS/>
+        <pageHelper:ifAdsOnPage>
+            <ad:xGPTMobileSetup/>
+        </pageHelper:ifAdsOnPage>
+        <mobile:mobileBootstrapJS/>
         <script src="/res/js/require.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
 
         <decorator:head/>
