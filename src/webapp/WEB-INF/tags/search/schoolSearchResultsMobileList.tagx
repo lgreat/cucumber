@@ -5,6 +5,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 
+    <jsp:directive.attribute name="includeAds" required="false" type="java.lang.Boolean"/>
 
     <c:choose>
         <c:when test="${totalResults > 0}">
@@ -12,7 +13,7 @@
             <ul class="list3">
                 <c:forEach items="${schoolSearchResults}" var="school" begin="0" end="${totalResults - 1}" varStatus="status">
                     <c:set var="indexOfCurrentResult" value="${page.offset + status.index}"/>
-                    <c:if test="${(indexOfCurrentResult-2) mod 10 eq 0}">
+                    <c:if test="${includeAds eq true and (indexOfCurrentResult-2) mod 10 eq 0}">
                         <c:set var="lastPos" value="4"/>
                         <c:set var="pos" value="${((indexOfCurrentResult-3) / 10) + 1}"/>
                         <c:set var="pos">

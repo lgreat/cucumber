@@ -140,7 +140,7 @@
                 </div>
 
                 <div id="js-schoolSearchResultsList">
-                    <search:schoolSearchResultsMobileList/>
+                    <search:schoolSearchResultsMobileList includeAds="${true}"/>
                 </div>
             </c:if>
         </div>
