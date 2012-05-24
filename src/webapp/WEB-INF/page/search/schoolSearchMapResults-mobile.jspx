@@ -74,7 +74,7 @@
             </c:forEach>
         </c:set>
         <script type="text/javascript">
-            require(['schoolSearchMapResults', 'async!http://maps.googleapis.com/maps/api/js?sensor=false'], function( resultsmap ) {
+            require(['schoolSearchMapResults'], function( resultsmap ) {
                 $(function(){
                     resultsmap.init();
                     ${pointsArray}
