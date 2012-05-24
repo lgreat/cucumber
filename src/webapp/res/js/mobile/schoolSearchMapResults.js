@@ -47,11 +47,24 @@ define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api
         $redoBtn.click(function(){
             var latLng = map.getCenter();
             var newQueryString = searchResultFilters.getUpdatedQueryString();
-            newQueryString = uri.putIntoQueryString(newQueryString, 'lat', latLng.lat());
-            newQueryString = uri.putIntoQueryString(newQueryString, 'lon', latLng.lng());
+            if (newQueryString.length > 0) {
+                newQueryString = newQueryString.substring(1);
+            }
+            var queryData = uri.getQueryData(newQueryString);
+            queryData['lat'] = latLng.lat();
+            queryData['lon'] = latLng.lng();
+            // remove query parameters that are only relevant to the previous search
+            delete queryData['locationType'];
+            delete queryData['normalizedAddress'];
+            delete queryData['totalResults'];
+            delete queryData['searchString'];
+            delete queryData['state'];
             // default distance to 25 if it isn't explicitly set already
-            newQueryString = uri.putIntoQueryString(newQueryString, 'distance', '25', false);
-            window.location.href = '/search/search.page' + newQueryString;
+            if (queryData['distance'] === undefined) {
+                queryData['distance'] = '25';
+            }
+            queryData['sortBy'] = 'distance';
+            window.location.href = '/search/search.page' + uri.getQueryStringFromObject(queryData);
             return false;
         });
 

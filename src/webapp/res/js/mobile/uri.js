@@ -80,8 +80,8 @@ GS.uri.Uri.putIntoQueryString = function(queryString, key, value, overwrite) {
  * Static method that returns the value associated with a key in the current url's query string
  * @param key
  */
-GS.uri.Uri.getFromQueryString = function(key) {
-    var queryString = decodeURIComponent(window.location.search.substring(1));
+GS.uri.Uri.getFromQueryString = function(key, queryString) {
+    queryString = queryString || decodeURIComponent(window.location.search.substring(1));
     var vars = [];
     var result;
 
@@ -134,12 +134,13 @@ GS.uri.Uri.removeFromQueryString = function(queryString, key) {
  * Converts URL's querystring into a hash
  * Now works with queryStrings that contain multiple key=value pairs with the same key
  */
-GS.uri.Uri.getQueryData = function() {
-    var vars = [], hash;
+GS.uri.Uri.getQueryData = function(queryString) {
+    queryString = queryString || decodeURIComponent(window.location.search.substring(1));
+    var hash;
     var data = {};
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    var hashes = queryString.split('&');
     for (var i = 0; i < hashes.length; i++) {
-        var hash = hashes[i].split('=');
+        hash = hashes[i].split('=');
         var key = hash[0];
         var value = hash[1];
 
@@ -164,6 +165,38 @@ GS.uri.Uri.getQueryData = function() {
     return data;
 };
 
+    GS.uri.Uri.getQueryStringFromObject = function(obj) {
+        var queryString = '';
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                var value = obj[key];
+                if (value instanceof Array) {
+                    for (var i = 0; i < value.length; i++) {
+                        if (queryString.length > 0) {
+                            queryString = queryString + '&';
+                        }
+                        queryString = queryString + key + '=' + value[i];
+                    }
+                } else if (value instanceof Object) {
+                    if (queryString.length > 0) {
+                        queryString = queryString + '&';
+                    }
+                    queryString = queryString + GS.uri.Uri.getQueryStringFromObject(value); // recursion
+                } else {
+                    if (queryString.length > 0) {
+                        queryString = queryString + '&';
+                    }
+                    queryString = queryString + key + '=' + value;
+                }
+            }
+        }
+
+        if (queryString !== '') {
+            return '?' + queryString;
+        }
+
+        return '';
+    };
 
     return GS.uri.Uri;
 
