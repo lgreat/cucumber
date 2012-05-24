@@ -30,8 +30,7 @@
         <c:if test="${isSearch}">
             <meta name="robots" content="follow,noindex"/>
         </c:if>
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"><!--Do not collapse--></script>
-        <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"><!--Do not collapse--></script>
+
         <c:set var="pointsArray">
             var points = [];
             <c:forEach var="school" items="${schoolSearchResults}">
@@ -79,7 +78,9 @@
                 $(function(){
                     resultsmap.init();
                     ${pointsArray}
-                    resultsmap.initializeMap(points);
+                    $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function() {
+                        resultsmap.initializeMap(points);
+                    });
                 });
             });
         </script>
