@@ -83,7 +83,7 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
     var getSavedSchools = function() {
         var savedSchools = localStorage.getItem(schoolsKey);
         if(savedSchools != null && savedSchools[schoolsKey].length > 0) {
-            modalLoading.getInstance().showModal();
+            modal.showModal();
             var savedSchoolsJson = savedSchools[schoolsKey];
             $.ajax({
                 type: 'POST',
@@ -91,7 +91,7 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
                 dataType: 'json',
                 data: {savedSchoolsJson: JSON.stringify({ schools : savedSchoolsJson})}
             }).done(function(data) {
-                    modalLoading.getInstance().hideModal();
+                    modal.hideModal();
                     //$('#js-loadingSchools').hide();
                     renderSchools(data);
 
@@ -106,7 +106,7 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
                     });
                 }
             ).fail(function() {
-                    modalLoading.getInstance().hideModal();
+                    modal.hideModal();
                     showNoSchoolsToDisplay(errorFetchingSchools);
                 }
             );

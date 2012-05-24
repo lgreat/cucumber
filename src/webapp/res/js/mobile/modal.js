@@ -1,37 +1,44 @@
 /* =1 modal loading - can extend to more generic uses - Mitchell Seltzer
 
  // calling public methods is then as easy as:
- modalLoading.getInstance().showModal();
- modalLoading.getInstance().hideModal();
+ modal.showModal();
+ modal.hideModal();
 
  -------------------------------------------------------------------------------------------*/
 
-var modalLoading = (function () {
+define(function() {
     var instantiated;
 
     function init() {
         // singleton
+        var $modalOverlay = $('.js-overlay');
+        var $modal = $('.js-modal');
         return {
             showModal: function () {
-                $modal = $('.js-modal');
                 var modalHeight = $modal.outerHeight();
                 var horizonOffset = (modalHeight/2)*(-1);
                 $modal.css("top",horizonOffset);
-                $('.js-overlay').show();
-                $('.js-modal').show();
+                $modalOverlay.show();
+                $modal.show();
             },
             hideModal: function () {
-                $('.js-overlay').hide();
-                $('.js-modal').hide();
+                $modalOverlay.hide();
+                $modal.hide();
             }
         };
     }
+    function getInstance() {
+        if ( !instantiated ) {
+            instantiated = init();
+        }
+        return instantiated;
+    }
     return {
-        getInstance: function () {
-            if ( !instantiated ) {
-                instantiated = init();
-            }
-            return instantiated;
+        showModal: function() {
+            getInstance().showModal();
+        },
+        hideModal: function() {
+            getInstance().hideModal();
         }
     };
-})();
+});

@@ -91,12 +91,12 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
         queryString = uri.putIntoQueryString(queryString, 'ajax', true);
         var url = window.location.protocol + '//' + window.location.host + window.location.pathname + queryString;
 
-        modalLoading.getInstance().showModal();
+        modal.showModal();
         $.ajax({
             url:url,
             type:'get'
         }).done(function(data) {
-            modalLoading.getInstance().hideModal();
+            modal.hideModal();
             GS.log('search got data back from filtering ajax call: ', data);
             if (data) {
                 var $list = $(searchResultsSelector);
@@ -105,7 +105,7 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
 
             }
         }).fail(function(data) {
-                modalLoading.getInstance().hideModal();
+                modal.hideModal();
             GS.log('filtering failed', data);
         });
     };
@@ -135,12 +135,12 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
         var url = window.location.protocol + '//' + window.location.host + window.location.pathname + queryString;
 
         GS.log('searching using url:', url);
-        modalLoading.getInstance().showModal();
+        modal.showModal();
         $.ajax({
             url:url,
             type:'get'
         }).done(function(data) {
-                modalLoading.getInstance().hideModal();
+                modal.hideModal();
             GS.log('search got data back from ajax call: ', data);
 
             if (data) {
@@ -156,7 +156,7 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
             GS.log('new current offset: ', currentOffset);
 
         }).fail(function(data) {
-                modalLoading.getInstance().hideModal();
+                modal.hideModal();
             GS.log('paging failed', data);
         });
     };
