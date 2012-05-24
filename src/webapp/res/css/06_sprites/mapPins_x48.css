@@ -1,0 +1,90 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Dashboard Icons
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+/* implementation pattern eg */
+/*
+<span class="mapPinsx48 i-48-example"><!-- do not collapse --></span>
+*/
+
+/*
+NOTE:
+If space is required around an icon, please use a CSS margin property.
+
+WARNING:
+The padding property will increase the size of the viewport and reveal
+additional icons on the sprite.
+
+Viewport: the width and height of each icon is 32px x 32px, the background position varies.
+*/
+
+/* **************** SPRITE ***************** */
+
+.mapPinsx48 {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/mapPins/x48/120524-mapPinsx48.png);
+    width: 48px;
+    height: 48px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+
+.i-48-rating-10 {
+    background-position: 0 0;
+}
+
+.i-48-rating-9 {
+    background-position: -48px 0;
+}
+
+.i-48-rating-8 {
+    background-position: -96px 0;
+}
+
+.i-48-rating-7 {
+    background-position: -144px 0;
+}
+
+.i-48-rating-6 {
+    background-position: -192px 0;
+}
+
+.i-48-rating-5 {
+    background-position: -240px 0;
+}
+
+.i-48-rating-4 {
+    background-position: -288px 0;
+}
+
+.i-48-rating-3 {
+    background-position: -336px 0;
+}
+
+.i-48-rating-2 {
+    background-position: -384px 0;
+}
+
+.i-48-rating-1 {
+    background-position: -432px 0;
+}
+
+.i-48-rating-na{
+    background-position: -480px 0;
+}
+
+/* row 48 */

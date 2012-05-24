@@ -120,7 +120,7 @@ GS.Boundaries.boundaryHelper = (function() {
         this.setPolygon = function(polygon) {
             this.hidePolygon();
             this.polygon = polygon;
-            polygon.setOptions({strokeColor:'#FF7800', zIndex:1});
+            polygon.setOptions({strokeColor:'#2092C4', zIndex:1, fillColor:'rgba(0,0,0,0.2)'});
         };
         this.getKey = function() {
             return "district-" + this.state + "-" + this.id;
@@ -155,7 +155,7 @@ GS.Boundaries.boundaryHelper = (function() {
         this.setPolygon = function(polygon) {
             this.hidePolygon();
             this.polygon = polygon;
-            polygon.setOptions({strokeColor:'#78FF00', zIndex:2});
+            polygon.setOptions({strokeColor:'#FF8000', zIndex:2, fillColor:'rgba(255, 158, 0,0.4)'});
         };
         this.isSchool = function() {return true;};
     };

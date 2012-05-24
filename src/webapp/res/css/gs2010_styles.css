@@ -608,7 +608,7 @@ h4.subhead2 a {
   <div class="bk">
     Media block body content goes here.
   </div>
-</div>
+</div>                                                                                                                                 `
 */
 
 /* original version margin: 10px; gutter: 10px; */
@@ -631,6 +631,16 @@ h4.subhead2 a {
 .mediaExt0-1 .img{float: left;margin-right: 5px;}
 .mediaExt0-1 .img img {display: block;}
 .mediaExt0-1 .imgExt{float: right;margin-left: 5px;}
+
+/* Ext0-2 version margin: 8px 8px; gutter: 10px; */
+.mediaExt0-2{overflow:hidden;*overflow:visible;zoom:1;margin: 8px 8px;}
+.mediaExt0-2:after{clear:both;display:block;visibility:hidden;overflow:hidden;height:0 !important;line-height:0;font-size:xx-large;content:" x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x ";}
+.mediaExt0-2 .bk{display:table-cell; zoom:1;width:100%;*width:auto;}
+.mediaExt0-2 .bk > :first-child{margin-top:0;}
+.mediaExt0-2 .bk > :last-child{margin-bottom:0;}
+.mediaExt0-2 .img{float: left;margin-right: 10px;}
+.mediaExt0-2 .img img {display: block;}
+.mediaExt0-2 .imgExt{float: right;margin-left: 5px;}
 
 /* Ext1: No margin */
 /* Ext1 margin: 0; gutter: 10px; */
