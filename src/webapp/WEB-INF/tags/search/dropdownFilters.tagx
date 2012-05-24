@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+        >
+
+    <jsp:directive.attribute name="title" required="false" type="java.lang.String" description="title" />
+    <jsp:directive.attribute name="id" required="false" type="java.lang.String" description="DOM ID" />
+    <jsp:directive.attribute name="cssClass" required="false" type="java.lang.String" description="DOM class attribute" />
+    <jsp:directive.attribute name="label" required="true" type="java.lang.String"/>
+
+    <jsp:directive.attribute name="hideApplyReset" required="false" type="java.lang.Boolean"/>
+
+    <mod:contentDropdown title="${title}" id="${id}" cssClass="${cssClass}" label="${label}" hideApplyReset="${hideApplyReset}">
+
+        <span class="fltrt pas" data-gs-dropdown-hider="${id}">X</span>
+
+        <c:if test="not empty ${pageScope.title}">
+            <h5 class="pbs" style="border-bottom: 1px solid grey;">${title}</h5>
+        </c:if>
+
+        <div class="pts dropDown-checkboxes">
+            <jsp:doBody/>
+        </div>
+
+        <c:if test="${not hideApplyReset}">
+            <div class="line">
+                <div class="unit size3of4">
+                    <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Apply</button>
+                </div>
+                <div class="unit lastUnit">
+                    <a href="javascript:void(0);">Reset</a>
+                </div>
+            </div>
+        </c:if>
+    </mod:contentDropdown>
+
+
+</jsp:root>

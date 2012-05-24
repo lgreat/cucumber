@@ -5,8 +5,10 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:gsweb="gstaglib" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsweb="gstaglib" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:spring="http://www.springframework.org/tags/form" xmlns:form="http://www.springframework.org/tags/form"
         >
 <div id="findASchoolTabs">
     <div class="tabBar">
@@ -25,7 +27,6 @@
                 <input type="hidden" name="state"/>
                 <input type="hidden" name="locationType" value=""/>
                 <!--<input type="hidden" name="partialMatch" value=""/>-->
-                <input type="hidden" name="sortBy" value="DISTANCE"/>
                 <input type="hidden" name="normalizedAddress" value=""/>
                 <input type="hidden" name="totalResults" value="0"/>
 
@@ -42,160 +43,119 @@
                 <div id="jq-filterBar" class="line filterBar fltlft small bottom">
                     <div id="js-schoolTypes" class="unit size1of3">
                         <div class="small_bold bottom">School type</div>
-                        <!--<div class="triggerMouseLeave">-->
-                        <div id="category-1" class="filterCategory small bottom">
+                        <div>
+                            <search:dropdownFilters id="stDropdown" label="All types" title="Narrow results to specific school types">
 
-                            <span id="js-school-type-label" class="fltlft vert-align-mid defaultText">All types</span>
-                            <a href="javascript:void(0)">
-                                <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
-                                <span class="navSprite dropDown-hover fltrt"><!--Do not Collapse--></span>
-                            </a>
-                        </div>
-                        <div id="dropDown-FAS-1" class="dropDown-FAS">
                             <div class="col_2">
                                 <div>
-                                    <input type="checkbox" checked="checked" name="st" id="js-school-type-all"
-                                           value=""/>
-                                    <label for="js-school-type-all">All School Types</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st"
+                                    <input type="checkbox" class="jq-school-type" name="st"
                                            id="js-school-type-public" value="public"/>
                                     <label for="js-school-type-public">Public</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st"
+                                    <input type="checkbox" class="jq-school-type" name="st"
                                            id="js-school-type-charter" value="charter"/>
                                     <label for="js-school-type-charter">Public charter</label>
                                 </div>
                                 <div class="mbm">
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st"
+                                    <input type="checkbox" class="jq-school-type" name="st"
                                            id="js-school-type-private" value="private"/>
                                     <label for="js-school-type-private">Private</label>
                                 </div>
-                                <button class="button-1" type="button" id="hideDropDown-1"
-                                        onclick="javascript:void(0)">Done
-                                </button>
                             </div>
+                            </search:dropdownFilters>
+
                         </div>
                         <!--</div>-->
                     </div>
                     <div id="js-gradeLevels" class="unit size1of3">
                         <div class="small_bold bottom">Grade level</div>
                         <!--<div class="triggerMouseLeave">-->
-                        <div id="category-2" class="filterCategory small bottom">
-                            <span id="js-grade-level-label" class="fltlft vert-align-mid defaultText">All grades</span>
-                            <a href="javascript:void(0)">
-                                <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
-                                <span class="navSprite dropDown-hover fltrt"><!--Do not Collapse--></span>
-                            </a>
-                        </div>
-                        <div id="dropDown-FAS-2" class="dropDown-FAS">
+                        <div>
+                            <search:dropdownFilters id="gradeLevels" label="All grades" title="Narrow results to specific grade levels">
                             <div class="col_2">
                                 <div>
-                                    <input type="checkbox" checked="checked" name="gradeLevels" id="js-grade-level-all"
-                                           value=""/>
-                                    <label for="js-grade-level-all">All Grade Levels</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels"
+                                    <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-p" value="p"/>
                                     <label for="js-grade-level-p">Preschool</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels"
+                                    <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-e" value="e"/>
                                     <label for="js-grade-level-e">Elementary School (K-5)</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels"
+                                    <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-m" value="m"/>
                                     <label for="js-grade-level-m">Middle School (6-8)</label>
                                 </div>
                                 <div class="mbm">
-                                    <input type="checkbox" class="jq-grade-level" checked="checked" name="gradeLevels"
+                                    <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-h" value="h"/>
                                     <label for="js-grade-level-h">High School (9-12)</label>
                                 </div>
-                                <button class="button-1" id="hideDropDown-2" type="button"
-                                        onclick="javascript:void(0)">Done
-                                </button>
                             </div>
+                            </search:dropdownFilters>
                         </div>
                         <!--</div>-->
                     </div>
                     <div id="js-radius" class="unit size1of3 lastUnit">
                         <div class="small_bold bottom">Distance</div>
+                        <div>
 
-                        <div id="category-3" class="filterCategory small bottom">
-                            <span id="js-radius-label" class="fltlft vert-align-mid defaultText">25 miles</span>
-                            <a href="javascript:void(0)">
-                                <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
-                                <span class="navSprite dropDown-hover fltrt"><!--Do not Collapse--></span>
-                            </a>
-                        </div>
-                        <div id="dropDown-FAS-3" class="dropDown-FAS">
-
+                            <search:dropdownFilters id="distance" label="25 miles" title="Narrow results to specific grade levels">
                             <div class="line mbm">
                             <div class="unit size50of100">
                                 <div>
-                                    <input type="radio" name="distance" value="1" id="js-radius-1"/>
+                                    <form:radiobutton type="radio" name="distance" value="1" id="js-radius-1" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-1">1 mile</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="distance" value="2" id="js-radius-2"/>
+                                    <form:radiobutton type="radio" name="distance" value="2" id="js-radius-2" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-2">2 miles</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="distance" value="3" id="js-radius-3"/>
+                                    <form:radiobutton type="radio" name="distance" value="3" id="js-radius-3" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-3">3 miles</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="distance" value="4" id="js-radius-4"/>
+                                    <form:radiobutton type="radio" name="distance" value="4" id="js-radius-4" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-4">4 miles</label>
                                 </div>
 
                                 <div>
-                                    <input type="radio" name="distance" value="5" id="js-radius-5"/>
+                                    <form:radiobutton type="radio" name="distance" value="5" id="js-radius-5" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-5">5 miles</label>
                                 </div>
                             </div>
                             <div class="unit size50of100 lastUnit">
                                 <div>
-                                    <input type="radio" name="distance" value="10" id="js-radius-10"/>
+                                    <form:radiobutton type="radio" name="distance" value="10" id="js-radius-10" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-10">10 miles</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="distance" value="15" id="js-radius-15"/>
+                                    <form:radiobutton type="radio" name="distance" value="15" id="js-radius-15" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-15">15 miles</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="distance" value="20" id="js-radius-20"/>
+                                    <form:radiobutton type="radio" name="distance" value="20" id="js-radius-20" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-20">20 miles</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="distance" value="25" id="js-radius-25" checked="checked"/>
+                                    <form:radiobutton type="radio" name="distance" value="25" id="js-radius-25" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-25">25 miles</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="distance" value="30" id="js-radius-30"/>
+                                    <form:radiobutton type="radio" name="distance" value="30" id="js-radius-30" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-30">30 miles</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="distance" value="60" id="js-radius-60"/>
+                                    <form:radiobutton type="radio" name="distance" value="60" id="js-radius-60" path="schoolSearchCommand.distance"/>
                                     <label for="js-radius-60">60 miles</label>
                                 </div>
                             </div>
                             </div>
-                            <div class="line">
-                                <div class="unit size1of1 lastUnit">
-                                    <div class="doneButton">
-                                        <button class="button-1 mtm" id="hideDropDown-3" type="button"
-                                                onclick="javascript:void(0)">Done
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                            </search:dropdownFilters>
                         </div>
                     </div>
                 </div>

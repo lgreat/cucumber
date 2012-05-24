@@ -84,7 +84,7 @@
 
             <div class="grid_7 omega">
                 <div class="pam">
-                    <mod:dropdownFilters id="schoolFocus" label="School Focus" selectedValueLabel="All">
+                    <search:dropdownFiltersWithLabel id="schoolFocus" label="School Focus" selectedValueLabel="All">
                         <p>
                             <search:searchFilterWithCount name="schoolFocus" value="special_education" facetCountsMap="${academicFocusCounts}" label="Special Education" />
                             <search:searchFilterWithCount name="schoolFocus" value="engineering" facetCountsMap="${academicFocusCounts}" label="Engineering" />
@@ -98,9 +98,9 @@
                             <search:searchFilterWithCount name="schoolFocus" value="montessori" facetCountsMap="${instructionalModelCounts}" label="Montessori" />
                             <search:searchFilterWithCount name="schoolFocus" value="projected_based" facetCountsMap="${instructionalModelCounts}" label="Projected Based" />
                         </p>
-                    </mod:dropdownFilters>
+                    </search:dropdownFiltersWithLabel>
 
-                    <mod:dropdownFilters id="specialEducation" label="Special Education" selectedValueLabel="All">
+                    <search:dropdownFiltersWithLabel id="specialEducation" label="Special Education" selectedValueLabel="All">
                         <p>
                             <search:searchFilterWithCount name="specialEdPrograms" value="autism" facetCountsMap="${specialEdCounts}" label="Autism" />
                             <search:searchFilterWithCount name="specialEdPrograms" value="blindness" facetCountsMap="${specialEdCounts}" label="Visual impairments" />
@@ -113,10 +113,10 @@
                             <search:searchFilterWithCount name="specialEdPrograms" value="multiple" facetCountsMap="${specialEdCounts}" label="Multiple disabilities" />
                             <search:searchFilterWithCount name="specialEdPrograms" value="cognitive" facetCountsMap="${specialEdCounts}" label="Cognitive disability" />
                         </p>
-                    </mod:dropdownFilters>
+                    </search:dropdownFiltersWithLabel>
 
                     <br/>
-                    <mod:dropdownFilters id="Sports" label="Sports" selectedValueLabel="All">
+                    <search:dropdownFiltersWithLabel id="Sports" label="Sports" selectedValueLabel="All">
                         <p>
                             <search:searchFilterWithCount name="sports" value="baseball" facetCountsMap="${sportsCounts}" label="Baseball"/>
                             <search:searchFilterWithCount name="sports" value="basketball" facetCountsMap="${sportsCounts}" label="Basketball"/>
@@ -142,10 +142,10 @@
                             <search:searchFilterWithCount name="sports" value="volleyball" facetCountsMap="${sportsCounts}" label="Volleyball"/>
                             <search:searchFilterWithCount name="sports" value="wrestling" facetCountsMap="${sportsCounts}" label="Wrestling"/>
                         </p>
-                    </mod:dropdownFilters>
+                    </search:dropdownFiltersWithLabel>
 
                     <br/>
-                    <mod:dropdownFilters id="artsAndMusic" label="Arts and Music" selectedValueLabel="All">
+                    <search:dropdownFiltersWithLabel id="artsAndMusic" label="Arts and Music" selectedValueLabel="All">
                         <p>
                             <search:searchFilterWithCount name="artsAndMusic" value="graphics" facetCountsMap="${artsMediaCounts}" label="Computer graphics" />
                             <search:searchFilterWithCount name="artsAndMusic" value="video" facetCountsMap="${artsMediaCounts}" label="Video / Film production" />
@@ -165,10 +165,10 @@
                             <search:searchFilterWithCount name="artsAndMusic" value="painting" facetCountsMap="${artsVisualCounts}" label="Painting" />
                             <search:searchFilterWithCount name="artsAndMusic" value="photography" facetCountsMap="${artsVisualCounts}" label="Photography" />
                         </p>
-                    </mod:dropdownFilters>
+                    </search:dropdownFiltersWithLabel>
 
                     <br/>
-                    <mod:dropdownFilters id="clubs" label="Clubs" selectedValueLabel="All">
+                    <search:dropdownFiltersWithLabel id="clubs" label="Clubs" selectedValueLabel="All">
                         <p>
 
 
@@ -229,11 +229,11 @@
                             <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="yearbook" label="Yearbook"/>
                             <search:searchFilterWithCount name="studentClubs" facetCountsMap="${studentClubsCounts}" value="yoga" label="Yoga club"/>
                         </p>
-                    </mod:dropdownFilters>
+                    </search:dropdownFiltersWithLabel>
 
 
                     <br/>
-                    <mod:dropdownFilters id="staffResources" label="Staff Resources and Facilities" selectedValueLabel="All">
+                    <search:dropdownFiltersWithLabel id="staffResources" label="Staff Resources and Facilities" selectedValueLabel="All">
                         <p>
                             <search:searchFilterWithCount name="staffResources" value="gifted_specialist" label="Gifted specialist"/>
                             <search:searchFilterWithCount name="staffResources" value="priest" label="Priest, Pastor, or Religious personnel"/>
@@ -250,7 +250,7 @@
                             <search:searchFilterWithCount name="staffResources" value="industrial" label="Industrial shop"/>
                             <search:searchFilterWithCount name="staffResources" value="college_career" label="College / Career center"/>
                         </p>
-                    </mod:dropdownFilters>
+                    </search:dropdownFiltersWithLabel>
 
                 </div>
 
@@ -279,7 +279,7 @@
                 });
 
                 $('.js-applyFilters').on('click', function(){
-                    GS.search.schoolSearchResultsTable.update();
+                    GS.search.results.update();
                 });
 
             })

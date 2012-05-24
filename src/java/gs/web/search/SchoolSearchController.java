@@ -577,6 +577,13 @@ public class SchoolSearchController extends AbstractCommandController implements
             q.filter(SchoolFields.STUDENT_CLUBS, schoolSearchCommand.getStudentClubs());
         }
 
+        if(schoolSearchCommand.getStaffResources() != null) {
+            q.filterAnyField(new SolrField[]{
+                    SchoolFields.STAFF_RESOURCES,
+                    SchoolFields.FACILITIES
+            }, schoolSearchCommand.getStaffResources());
+        }
+
         // filter by location
         if (schoolSearchCommand.hasLatLon()) {
             q.restrictToRadius(schoolSearchCommand.getLat().floatValue(), schoolSearchCommand.getLon().floatValue(), schoolSearchCommand.getDistanceAsFloat());

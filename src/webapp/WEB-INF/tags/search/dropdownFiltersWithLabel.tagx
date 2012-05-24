@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+        >
+    <jsp:directive.attribute name="id" required="false" type="java.lang.String" description="DOM ID" />
+    <jsp:directive.attribute name="cssClass" required="false" type="java.lang.String" description="DOM class attribute" />
+    <jsp:directive.attribute name="label" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="selectedValueLabel" required="true" type="java.lang.String"/>
+
+    <div id="${id}" class="${cssClass} grid_7 pbs">
+        <div class="small_bold bottom grid_4 alpha">${label}</div>
+        <div class="small bottom filterCategory grid_3 omega">
+            <search:dropdownFilters id="${id}" cssClass="${cssClass}" label="${selectedValueLabel}">
+                <jsp:doBody/>
+            </search:dropdownFilters>
+        </div>
+    </div>
+
+</jsp:root>

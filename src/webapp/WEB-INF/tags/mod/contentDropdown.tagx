@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+
+    <jsp:directive.attribute name="title" required="false" type="java.lang.String" description="title" />
+    <jsp:directive.attribute name="id" required="false" type="java.lang.String" description="DOM ID" />
+    <jsp:directive.attribute name="cssClass" required="false" type="java.lang.String" description="DOM class attribute" />
+    <jsp:directive.attribute name="label" required="true" type="java.lang.String"/>
+
+    <jsp:directive.attribute name="hideApplyReset" required="false" type="java.lang.Boolean"/>
+
+
+    <div id="${id}" class="${cssClass} pbs">
+        <div class="small bottom filterCategory" data-gs-dropdown-opener="${id}">
+            <span class="fltlft vert-align-mid defaultText" data-gs-filter-status="${id}">${label}</span>
+            <a href="javascript:void(0)">
+                <span class="navSprite dropDown-default fltrt"><!-- no collapse --></span>
+                <span class="navSprite dropDown-hover fltrt"><!-- no collapse --></span>
+            </a>
+        </div>
+        <div style="display:none;" class="dropDown-checkboxes-container" data-gs-content="${id}">
+
+            <jsp:doBody/>
+
+        </div>
+    </div>
+
+
+
+    <!-- TODO: move this into some module in a JS file -->
+    <script type="text/javascript">
+        var GS = GS || {};
+        GS.ui = GS.ui || {};
+        GS.ui.setupDropdownHandlers = GS.ui.setupDropdownHandlers || function(dropdownId) {
+            var dropdownSelector = '#' + dropdownId;
+
+            $(dropdownSelector + ' [data-gs-dropdown-opener=' + dropdownId + ']').on('click', function() {
+                var $content = $(dropdownSelector + ' [data-gs-content=' + dropdownId + ']');
+                $content.toggle();
+                $(dropdownSelector + ' .dropDown-default').toggle();
+                $(dropdownSelector + ' .dropDown-hover').toggle();
+
+                if ($content.is(':visible')) {
+                    $('html').on('click.gs.visibility.content.' + dropdownId, function(event) {
+                        if ($(event.target).closest(dropdownSelector).length == 0) {
+                            $content.hide();
+                            $(dropdownSelector +' .dropDown-default').hide();
+                            $(dropdownSelector + ' .dropDown-hover').show();
+                            $('html').unbind('click.gs.visibility.content.' + dropdownId);
+                        }
+                    });
+                }
+            });
+
+            $(dropdownSelector + ' [data-gs-dropdown-hider]').click(function() {
+                var $this = $(this);
+                var targetId = $this.data('gs-dropdown-hider');
+                $(dropdownSelector + ' [data-gs-content=' + targetId + ']').hide();
+            });
+        };
+
+
+        // dynamically update a label that summarizes how many filters within a group are checked
+        // (currently All or Some)
+        GS.ui.setupFilterStatusWatchers = function(containerSelector) {
+            var $container = $(containerSelector);
+            var prefix = '';
+            $container.find('[data-gs-filter-status]').each(function() {
+                // get the element marked with gs-filter-status
+                // then get the matching gs-content element
+                // count all checkboxes within the content element to figure out the prefix to use
+                // update the value of the filter status element
+                var $filterStatus = $(this);
+                var contentId = $filterStatus.data('gs-filter-status');
+                var $checkboxes = $container.find('[data-gs-content=' + contentId + '] input:checkbox');
+                var $radios = $container.find('[data-gs-content=' + contentId + '] input:radio');
+
+                $checkboxes.on('change', function() {
+                    if ($checkboxes.filter(':not:checked').length === 0 || $checkboxes.not(':checked').length === 0) {
+                        prefix = 'All';
+                    } else {
+                        prefix = 'Some';
+                    }
+
+                    var newValue = $filterStatus.html();
+                    newValue = newValue.replace(/(^)(All|Some|No)($|\W)(.*)/,'$1' +  prefix + '$3$4');
+                    $filterStatus.html(newValue);
+                });
+                $checkboxes.trigger('change');
+
+                $radios.on('change', function() {
+                    $filterStatus.html($radios.filter(':checked').parent().find('label').html());
+                });
+                if ($radios.length > 0) {
+                    $radios.filter(':checked').trigger('change');
+                }
+            });
+        };
+
+        GS.ui.setupDropdownHandlers('${id}');
+        GS.ui.setupFilterStatusWatchers('#${id}');
+
+    </script>
+
+</jsp:root>
