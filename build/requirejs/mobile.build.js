@@ -17,13 +17,13 @@
             name: "mobileSearchResults"
         },
         {
+            name: "schoolSearchMapResults"
+        },
+        {
             name: "parentReviews"
         },
         {
             name: "testScores"
-        },
-        {
-            name: "truncate"
         },
         {
             name: "schoolOverview"
