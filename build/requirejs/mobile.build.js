@@ -27,6 +27,9 @@
         },
         {
             name: "schoolOverview"
+        },
+        {
+            name: "savedSchools"
         }
     ],
 
