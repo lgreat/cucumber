@@ -2741,6 +2741,10 @@
         <!--<property name="perlContentPath" value="/gscache/achievement_simple/$STATE/$ID"/>-->
     <!--</bean>-->
 
+    <bean name="/sandbox/testScores.page"
+          class="gs.web.school.TestScoresPrototypeController"
+          autowire="byName" lazy-init="true"/>
+
     <bean name="mobileTestScoresController" class="gs.web.school.TestScoresMobileController" lazy-init="true">
         <property name="controllerFamily" value="MOBILE"/>
     </bean>

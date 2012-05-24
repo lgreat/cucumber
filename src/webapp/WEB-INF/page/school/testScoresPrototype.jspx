@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
+          xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+        >
+
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <jsp:directive.page contentType="text/html"/>
+
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    <head>
+
+    </head>
+    <gsml:body adPageName="overview" pageLayout="overview">
+        <c:choose>
+            <c:when test="${not empty schoolValues}">
+                <div>
+                    <c:set var="adShown" value="${false}"/>
+                    <c:forEach var="testToGrades" items="${schoolValues}">
+                        <div class="mod standard_6-1 mtn ptn">
+                            <div class="inner">
+                                <div class="hd plm">
+                                    <div class="titlediv">
+                                        ${testToGrades.testLabel}
+                                    </div>
+                                </div>
+                                <div class="bd">
+                                    <c:if test="${not empty testToGrades.scale}">
+                                        <div class="contain_2-1">
+                                            <strong>Scale:</strong> ${testToGrades.scale}
+                                        </div>
+                                    </c:if>
+                                    <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
+
+
+                                        <div class="pam">
+                                            <h4>${gradeToSubjects.gradeLabel}</h4>
+
+                                            <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
+                                                <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
+
+                                                <c:forEach var="yearToTestScore" items="${subjectToYears.years}">
+
+                                                    <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}"
+                                                                     testScoreLabel="${yearToTestScore.testScoreLabel}"
+                                                                     testScoreYear="${yearToTestScore.year}"/>
+                                                </c:forEach>
+
+                                                <div class="ptm"><!-- not empty --></div>
+                                            </c:forEach>
+                                        </div>
+                                        <hr class="keyline1"/>
+                                    </c:forEach>
+
+                                </div>
+                            </div>
+                        </div>
+                        <c:if test="${not empty testToGrades.source}">
+                            <div class="pam ac1">
+                                Source: ${testToGrades.source}
+                            </div>
+                        </c:if>
+                        <c:if test="${not empty testToGrades.description}">
+                            <div class="phm pbm">
+                                <strong>Description:</strong><br/>
+                                <util:truncate value="${testToGrades.description}" words="40"/>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </div>
+            </c:when>
+            <c:otherwise>
+                No test score data is available for this school
+            </c:otherwise>
+        </c:choose>
+    </gsml:body>
+    </html>
+</jsp:root>
