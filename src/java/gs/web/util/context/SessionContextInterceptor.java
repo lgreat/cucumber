@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextInterceptor.java,v 1.13 2012/05/22 00:26:01 ssprouse Exp $
+ * $Id: SessionContextInterceptor.java,v 1.14 2012/05/24 20:29:40 ssprouse Exp $
  */
 package gs.web.util.context;
 
@@ -33,8 +33,6 @@ public class SessionContextInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object o) throws Exception {
-        SessionContext context2 = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
-        Boolean blah = context2 != null;
         SessionContext context = _sessionContextUtil.prepareSessionContext(request, response);
         PageHelper pageHelper = new PageHelper(context, request);
         request.setAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME, pageHelper);
