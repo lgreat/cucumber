@@ -32,17 +32,17 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 
 /* **************** SPRITE ***************** */
 
-.iconx32 {
-    display: inline-block;
+/*.iconx32 {
+    display: inline-block;*/
     /*background-image: url(/res/mobile/img/32x32.png);*/
-    width: 32px;
+/*    width: 32px;
     height: 32px;
-}
+}*/
 
 /* **************** VIEWPORT ***************** */
 
 /* row 0 */
-.i-32-map-rating-10 {
+/*.i-32-map-rating-10 {
     background-position: 0 0;
 }
 
@@ -88,6 +88,6 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 
 .i-32-map-rating-private {
     background-position: -354px 0;
-}
+}*/
 
 /* row 32 */
