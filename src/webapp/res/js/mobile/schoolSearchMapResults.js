@@ -91,14 +91,14 @@ define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api
                 title: points[i].name
             };
 
-            var imageUrl = '/res/img/map/GS_gsr_na_forground.png';
+            var imageUrl = '/res/mobile/img/map_pins/32x32/schoolRating_na.png';
 
             if (points[i].gsRating != "") {
-                imageUrl = '/res/img/map/GS_gsr_' + points[i].gsRating + '_forground.png';
+                imageUrl = '/res/mobile/img/map_pins/32x32/schoolRating_' + points[i].gsRating + '.png';
             }
 
             if (points[i].schoolType === 'private') {
-                imageUrl = '/res/img/map/GS_gsr_private_forground.png';
+                imageUrl = '/res/mobile/img/map_pins/32x32/schoolRating_private.png';
             }
 
             markerOptions.icon = new google.maps.MarkerImage(
