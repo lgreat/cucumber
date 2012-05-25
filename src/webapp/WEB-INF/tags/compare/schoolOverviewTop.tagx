@@ -12,16 +12,17 @@
     <jsp:directive.attribute name="page" required="true" description="Page number for linking"/>
 
     <!-- Remove school -->
-    <div class="mediaExt1">
-        <div class="imgExt">
+    <div class="media">
+        <div class="imgExt mlm">
             <link:compareSchools tab="${tab}"
                                  schools="${schoolsString}"
                                  page="${page}"
                                  source="${requestScope.source}"
-                                 remove="${school.uniqueIdentifier}"
-                    ><span class="sprite cpareColClose"><!-- do not collapse --></span></link:compareSchools>
+                                 remove="${school.uniqueIdentifier}">
+                <span class="sprite cpareColClose"><!-- do not collapse --></span>
+            </link:compareSchools>
         </div>
-        <div class="bk text2">
+        <div class="bd">
             <p class="text2bold">
                 <link:schoolProfileOverview
                         school="${school.school}"
