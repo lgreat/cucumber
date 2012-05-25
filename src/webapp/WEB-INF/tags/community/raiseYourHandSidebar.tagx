@@ -185,8 +185,8 @@
             <c:if test="${signedIn}">
 
                 <div id="recentAnswerTemplate" style="display: none;">
-                    <div class="mediaExt2-6 js-ryh-reply">
-                        <div class="img">
+                    <div class="media js-ryh-reply">
+                        <div class="img mrs">
 
                             <link:userProfile user="${user}">
                                 <community:avatar user="${user}" width="40" height="40"
@@ -196,7 +196,7 @@
                         </div>
                         <!-- end ryh-avatar -->
 
-                        <div class="bk">
+                        <div class="bd">
                             <div class="ryh-replies">
                                 <div class="ryh-replyArrow-fff-onTC"><!--do not collapse--></div>
 
@@ -231,8 +231,8 @@
                 <c:forEach var="reply" items="${replies}">
 
                     <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
-                    <div class="mediaExt2-6 js-ryh-reply">
-                        <div class="img">
+                    <div class="media js-ryh-reply">
+                        <div class="img mrs">
                             <c:choose>
                                 <c:when test="${reply.user.userProfile.active}">
                                     <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
@@ -250,7 +250,7 @@
                         </div>
                         <!-- end ryh-avatar -->
 
-                        <div class="bk">
+                        <div class="bd">
                         <div class="ryh-replies">
                             <div class="ryh-replyArrow-fff-onTC"><!--do not collapse--></div>
                             <p class="fltlft">
