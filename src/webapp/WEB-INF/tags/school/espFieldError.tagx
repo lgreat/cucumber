@@ -9,9 +9,9 @@
     <jsp:directive.attribute name="text" required="true" description="Text value for the error" />
 
     <div style="display: none" class="${styleClass} error" id="${styleId}">
-        <div class="mediaExt1-1">
-            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-            <div class="bk">&amp;nbsp;${text}</div>
+        <div class="media">
+            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+            <div class="bd">${text}</div>
         </div>
     </div>
 

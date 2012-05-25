@@ -35,9 +35,9 @@
             <ul class="text3">
                 <c:if test="${pageScope.showSchoolLink}">
                     <li class="media">
-                        <span class="sprite pdf_sm img"><!-- do not collapse --></span>
+                        <span class="sprite pdf_sm img mrs"><!-- do not collapse --></span>
 
-                        <div class="bk">
+                        <div class="bd">
                             <gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-school-${pageScope.schoolCode}.pdf"
                                     target="_blank"> School Report Card
                             </gsml:a>
@@ -47,9 +47,9 @@
                 <!-- GS-10804 Unlike last year we will not be including an LEA level PDF for schools with a district_id='0'. These schools will only display a school and state PDF. -->
                 <c:if test="${pageScope.school.districtId ne 0 and pageScope.showDistrictLink}">
                     <li class="media">
-                        <span class="sprite pdf_sm img"><!-- do not collapse --></span>
+                        <span class="sprite pdf_sm img mrs"><!-- do not collapse --></span>
 
-                        <div class="bk">
+                        <div class="bd">
                             <gsml:a
                                     href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
                                     target="_blank"> ${pageScope.districtLinkTextTerm} Report Card
@@ -58,9 +58,9 @@
                     </li>
                 </c:if>
                 <li class="media">
-                    <span class="sprite pdf_sm img"><!-- do not collapse --></span>
+                    <span class="sprite pdf_sm img mrs"><!-- do not collapse --></span>
 
-                    <div class="bk">
+                    <div class="bd">
                         <gsml:a
                                 href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
                                 target="_blank"> Washington, DC Report Card

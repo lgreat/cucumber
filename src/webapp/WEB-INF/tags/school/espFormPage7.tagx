@@ -20,9 +20,9 @@
                 </div>
                 <div class="grid_7 omega">
                     <div style="display: none" class="error" id="form_physical_address_street_error">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">&amp;nbsp;Please specify your school's street address</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please specify your school's street address</div>
                         </div>
                     </div>
                 </div>
@@ -64,9 +64,9 @@
                 </div>
                 <div class="grid_10 suffix_4 omega">
                     <div style="display: none" class="error" id="form_school_phone_error">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">&amp;nbsp;Please use numbers only when specifying phone</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please use numbers only when specifying phone</div>
                         </div>
                     </div>
                 </div>
@@ -95,9 +95,9 @@
                 </div>
                 <div class="grid_10 suffix_4 omega">
                     <div style="display: none" class="error" id="form_school_fax_error">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">&amp;nbsp;Please use numbers only when specifying fax</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please use numbers only when specifying fax</div>
                         </div>
                     </div>
                 </div>
@@ -145,9 +145,9 @@
                 </div>
                 <div class="grid_6 omega">
                     <div style="display: none" class="error" id="form_administrator_email_error">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">&amp;nbsp;Please enter a valid email address.</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please enter a valid email address.</div>
                         </div>
                     </div>
                 </div>
@@ -186,9 +186,9 @@
 
                         <div class="grid_10 omega">
                             <div style="display: none" class="error" id="form_contact_method_email_error">
-                                <div class="mediaExt1-1">
-                                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                                    <div class="bk">&amp;nbsp;Please enter a valid email address</div>
+                                <div class="media">
+                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                                    <div class="bd">Please enter a valid email address</div>
                                 </div>
                             </div>
                         </div>
@@ -208,9 +208,9 @@
 
                         <div class="grid_10 omega">
                             <div style="display: none" class="grid_6 omega error" id="form_contact_method_other_error">
-                                <div class="mediaExt1-1">
-                                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                                    <div class="bk">&amp;nbsp;Please specify a contact method</div>
+                                <div class="media">
+                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                                    <div class="bd">Please specify a contact method</div>
                                 </div>
                             </div>
                         </div>

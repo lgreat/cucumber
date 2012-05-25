@@ -24,17 +24,17 @@
 
         <div class="grid_12 omega">
             <div id="form_student_enrollment_error"  class="error" style="display: none">
-                <div class="mediaExt1-1">
-                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                    <div class="bk">Please specify your school's enrollment.</div>
+                    <div class="bd">Please specify your school's enrollment.</div>
                 </div>
             </div>
             <div id="form_student_enrollment_number_error"  class="error" style="display: none">
-                <div class="mediaExt1-1">
-                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                    <div class="bk">Please enter a number.</div>
+                    <div class="bd">Please enter a number.</div>
                 </div>
             </div>
         </div>
@@ -46,10 +46,10 @@
             <p class="labelGroup">Grade levels offered</p>
 
             <div id="form_grade_levels_error" class="error" style="display: none">
-                <div class="mediaExt1-1">
-                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                    <div class="bk">Please specify non-preschool grade levels. Contact us at
+                    <div class="bd">Please specify non-preschool grade levels. Contact us at
                         <a href="mailto:osphelp@greatschools.org?subject=OSP:%20${fn:escapeXml(gsweb:encodeWithinQuery(school.name))}%20is%20now%20a%20preschool">osphelp@greatschools.org</a>
                         if your school is a preschool.
                     </div>
@@ -271,10 +271,10 @@
                        placeholder="[Please indicate]"/>
             </school:espCheckboxWithLabel>
             <div id="form_transportation_error"  class="error fltrt" style="display: none">
-                <div class="mediaExt1-1">
-                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                    <div class="bk">Please specify the transportation provided.</div>
+                    <div class="bd">Please specify the transportation provided.</div>
                 </div>
             </div>
         </div>
@@ -296,10 +296,10 @@
                 </school:espRadioWithLabel>
                 <div id="form_transportation_shuttle_error"  class="error fltrt" style="display: none">
 
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                        <div class="bk">Please specify the metro and bus lines</div>
+                        <div class="bd">Please specify the metro and bus lines</div>
                     </div>
                 </div>
                 <p class="hint">Indicate which metro and bus lines the shuttle serves, separated by commas. For example, Fort Totten, Deanwood, Minnesota Ave</p>

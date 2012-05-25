@@ -249,10 +249,10 @@
                             <!--<c:set var="invalidZipCode" value="${true}"/>-->
                             <c:choose>
                                 <c:when test="${param.invalidZipCode eq 'true'}">
-                                    <div class="form-error formErrorText mediaExt1-1">
-                                        <span class="sprite i-alert img"><!-- do not collapse --></span>
+                                    <div class="form-error formErrorText media">
+                                        <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                                        <div class="bk">Please enter a valid zip code.</div>
+                                        <div class="bd">Please enter a valid zip code.</div>
                                     </div>
                                 </c:when>
                                 <c:otherwise>

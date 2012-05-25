@@ -81,9 +81,9 @@
                                             </div>
                                             <div class="alpha prefix_3 grid_6 omega">
                                                 <div class="invalid error" id="js_emailErrorDiv" style="display: none;">
-                                                    <div class="mediaExt1-1">
-                                                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                                                        <div class="bk">
+                                                    <div class="media">
+                                                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                                                        <div class="bd">
                                                             <span id="js_emailError"><!-- error msg goes here --></span>
                                                         </div>
                                                     </div>
@@ -101,9 +101,9 @@
                                             </div>
                                             <div class="alpha prefix_3 grid_6 omega">
                                                 <div class="invalid error" id="js_firstNameErrorDiv" style="display: none;">
-                                                    <div class="mediaExt1-1">
-                                                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                                                        <div class="bk">
+                                                    <div class="media">
+                                                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                                                        <div class="bd">
                                                             <span id="js_firstNameError"><!-- error msg goes here --></span>
                                                         </div>
                                                     </div>
@@ -120,9 +120,9 @@
                                             </div>
                                             <div class="alpha prefix_3 grid_6 omega">
                                                 <div class="invalid error" id="js_lastNameErrorDiv" style="display: none;">
-                                                    <div class="mediaExt1-1">
-                                                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                                                        <div class="bk">
+                                                    <div class="media">
+                                                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                                                        <div class="bd">
                                                             <span id="js_lastNameError"><!-- error msg goes here --></span>
                                                         </div>
                                                     </div>

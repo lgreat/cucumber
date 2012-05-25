@@ -80,9 +80,9 @@
                 <div class="alpha grid_7">
                     <p class="labelGroup">Please indicate if your school has a special academic theme or area of focus</p>
                     <div style="display: none" class="error" id="academic_focus_error">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">Please select at least one academic area.</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please select at least one academic area.</div>
                         </div>
                     </div>
                 </div>

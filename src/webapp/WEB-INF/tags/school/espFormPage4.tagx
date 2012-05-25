@@ -54,9 +54,9 @@
         <div class="alpha grid_7">
             <p class="labelGroup">Select one of these options to best describe the ESL/ELL programming at your school</p>
             <div id="js_form_esl_ell_programming_error" class="error" style="display: none">
-                <div class="mediaExt1-1">
-                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                    <div class="bk">Please specify the ESL/ELL programming at your school.</div>
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                    <div class="bd">Please specify the ESL/ELL programming at your school.</div>
                 </div>
             </div>
         </div>
@@ -122,9 +122,9 @@
         <div class="alpha grid_7">
             <p class="labelGroup">Does your school have a specialized program for specific types of special education students? If so, please indicate here.</p>
             <div id="js_form_special_ed_programs_error" class="error" style="display: none">
-                <div class="mediaExt1-1">
-                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                    <div class="bk">Please specify the special education programs.</div>
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                    <div class="bd">Please specify the special education programs.</div>
                 </div>
             </div>
         </div>
@@ -195,9 +195,9 @@
             <p class="labelGroup">Is there anything special about your school's schedule?</p>
 
             <div id="js_form_schedule_error" class="error" style="display: none">
-                <div class="mediaExt1-1">
-                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                    <div class="bk">Please specify the schedule.</div>
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                    <div class="bd">Please specify the schedule.</div>
                 </div>
             </div>
         </div>
@@ -514,15 +514,15 @@
                 </div>
                 <div class="grid_8 omega">
                     <div id="js_form_post_graduation_percentages_error" class="error" style="display: none">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">Sum of values may not exceed 100%.</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Sum of values may not exceed 100%.</div>
                         </div>
                     </div>
                     <div id="js_form_post_graduation_2yr_error" class="error" style="display: none">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">Please enter a number.</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please enter a number.</div>
                         </div>
                     </div>
                 </div>
@@ -537,9 +537,9 @@
                 </div>
                 <div class="grid_8 omega">
                     <div id="js_form_post_graduation_4yr_error" class="error" style="display: none">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">Please enter a number.</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please enter a number.</div>
                         </div>
                     </div>
                 </div>
@@ -554,9 +554,9 @@
                 </div>
                 <div class="grid_8 omega">
                     <div id="js_form_post_graduation_military_error" class="error" style="display: none">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">Please enter a number.</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please enter a number.</div>
                         </div>
                     </div>
                 </div>
@@ -571,9 +571,9 @@
                 </div>
                 <div class="grid_8 omega">
                     <div id="js_form_post_graduation_vocational_error" class="error" style="display: none">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">Please enter a number.</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please enter a number.</div>
                         </div>
                     </div>
                 </div>
@@ -588,9 +588,9 @@
                 </div>
                 <div class="grid_8 omega">
                     <div id="js_form_post_graduation_workforce_error" class="error" style="display: none">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">Please enter a number.</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please enter a number.</div>
                         </div>
                     </div>
                 </div>
@@ -617,9 +617,9 @@
 
                 <div class="grid_8 omega">
                     <div id="js_form_post_graduation_year_error" class="error" style="display: none">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk">Please specify a year.</div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please specify a year.</div>
                         </div>
                     </div>
                 </div>
