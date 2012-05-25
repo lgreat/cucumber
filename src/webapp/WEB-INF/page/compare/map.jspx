@@ -28,8 +28,8 @@
             <ul class="schoolList fltrt">
                 <c:forEach var="school" items="${schools}">
                     <li class="js-mouseover-open-bubble" id="school-listitem-${school.uniqueIdentifier}">
-                        <div class="mediaExt1">
-                            <div class="imgExt">
+                        <div class="media">
+                            <div class="imgExt mlm">
                                 <link:compareSchools tab="${tab}"
                                                      schools="${schoolsString}"
                                                      page="${page}"
@@ -38,15 +38,15 @@
                                         class="sprite cpareColClose"><!-- do not collapse --></span>
                                 </link:compareSchools>
                             </div>
-                            <div class="bk">
+                            <div class="bd">
                                 <p>
                                     <link:schoolProfileOverview school="${school.school}"
                                                                 styleClass="schoolName">${school.name}</link:schoolProfileOverview>
                                 </p>
                             </div>
                         </div>
-                        <div class="mediaExt2-6">
-                            <div class="img gsRating">
+                        <div class="media">
+                            <div class="img gsRating mrs">
                                 <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}" levelCode="${school.levelCode}">
                                     <c:choose>
                                         <c:when test="${school.private}">
@@ -61,7 +61,7 @@
                                     </c:choose>
                                 </link:schoolProfileRating2010>
                             </div>
-                            <div class="bk brdlft-solid communityRating">
+                            <div class="bd brdlft-solid communityRating pts">
                                 <link:schoolProfileParentReview anchor="schoolReviewSubmitForm"
                                                                 school="${school.school}">
                                     <c:choose>
@@ -90,4 +90,3 @@
     </gsml:body>
     </html>
 </jsp:root>
-
