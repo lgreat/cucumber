@@ -149,10 +149,10 @@
                                             <div class="line">
                                                 <div class="unit size3of4">&amp;nbsp;</div>
                                                 <div class="unit size1of4 lastUnit">
-                                                    <div class="mediaExt1-1">
-                                                        <span class="img sprite video"><!-- do not collapse --></span>
+                                                    <div class="media">
+                                                        <span class="img sprite video mrs"><!-- do not collapse --></span>
 
-                                                        <div class="bk smallText1">
+                                                        <div class="bd smallText1">
                                                             <a class="wsnw"
                                                                href="${topicCenter.mainFeatureLink.url}">Watch video <span
                                                                     class="alertDoubleArrow">&amp;raquo;</span></a>
