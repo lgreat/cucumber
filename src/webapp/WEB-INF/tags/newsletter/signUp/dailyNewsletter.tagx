@@ -9,8 +9,7 @@
         >
 
         <fieldset id="dailyTip">
-            <div class="mediaExt1">
-                <div class="bk">
+
                     <div class="newsletterInfo">
                         <h5 class="newsletterHeader bottom"><form:checkbox path="dailytip"
                                                                            cssClass="newsletterCheckbox"
@@ -19,8 +18,7 @@
                         <p class="newsletterDescription smaller quite bottom pls pts">MONDAY-FRIDAY</p>
                         <h6 class="newsletterDescription medium bottom pls pts">Daily tips and ideas that will enrich your child's education.</h6>
                     </div>
-                </div>
-            </div>
+
         </fieldset>
 
 </jsp:root>

@@ -10,14 +10,13 @@
 
         <fieldset>
             <div class="formContentGS weeklyNewsletter clearfix">
-                <div class="mediaExt1">
-                    <div class="bk">
+
                         <h5 class="newsletterHeader bottom"><form:checkbox path="greatnews" id="jq-greatnews"
                                                                            cssClass="newsletterCheckbox"/><label
                                 for="jq-greatnews">Weekly Newsletter</label></h5>
                     <p class="smaller quite bottom pls pts">WEEKLY</p>
                     <h6 class="newsletterDescription medium bottom pls pts">The tips and tools you need to make smart choices about your child’s education.</h6>
-                </div>
+
 
                 <c:set var="showMynth" value="${ newslettersSignUpCommand.greatnews ? 'showIt' : 'hideIt' }"/>
                 <div id="jq-mynth" class="mynth ${showMynth}">
@@ -66,7 +65,7 @@
                         </ul>
                     </fieldset>
                 </div>
-            </div>
+
         </div>
     </fieldset>
 

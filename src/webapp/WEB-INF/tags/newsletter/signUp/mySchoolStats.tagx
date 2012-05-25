@@ -11,8 +11,7 @@
         >
 
     <fieldset>
-        <div class="mediaExt1">
-            <div class="bk">
+
                 <div class="newsletterInfo">
                     <h5 class="newsletterHeader bottom pls">My School Stats</h5>
                         <p class="smaller quite bottom pls pts">MONTHLY</p>
@@ -104,8 +103,7 @@
                     <!-- end #jq-mssAddSchoolSection -->
                 </div>
                 <!-- end .mssInfo -->
-            </div>
-        </div>
+
     </fieldset>
 
 </jsp:root>

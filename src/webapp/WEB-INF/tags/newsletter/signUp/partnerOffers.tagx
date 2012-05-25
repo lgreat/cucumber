@@ -8,8 +8,7 @@
         xmlns:form="http://www.springframework.org/tags/form"
         >
     <fieldset>
-        <div class="mediaExt1">
-            <div class="bk">
+
                 <div class="newsletterInfo">
                     <h5 class="newsletterHeader bottom"><form:checkbox path="sponsor"
                                                                       cssClass="newsletterCheckbox"
@@ -20,7 +19,6 @@
                         <p class="newsletterDescription smaller quite bottom pls pts">WEEKLY</p>
                         <h6 class="newsletterDescription medium bottom pls pts">Valuable offers and information from GreatSchools partners.</h6>
                     </div>
-                </div>
-            </div>
+
         </fieldset>
 </jsp:root>
