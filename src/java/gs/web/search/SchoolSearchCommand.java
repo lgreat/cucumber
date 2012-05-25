@@ -67,11 +67,11 @@ public class SchoolSearchCommand {
     private int _pageSize;
 
     public static int DEFAULT_PAGE_SIZE = 25;
-    public static final String DEFAULT_DISTANCE = "25";
+    public static final float DEFAULT_DISTANCE = 25f;
 
     public SchoolSearchCommand() {
         _pageSize = DEFAULT_PAGE_SIZE;
-        _distance = DEFAULT_DISTANCE;
+        _distance = String.valueOf(DEFAULT_DISTANCE);
         _schoolSearchType = SchoolSearchType.TIGHT;
     }
 
