@@ -76,10 +76,10 @@
                     </div>
 
                     <div class="spacer_15">
-                        <div class="form-error formErrorText mediaExt1-1">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
+                        <div class="form-error formErrorText media">
+                            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bk">Please select a star rating for this school.</div>
+                            <div class="bd">Please select a star rating for this school.</div>
                         </div>
                     </div>
 
@@ -159,15 +159,15 @@
                     </div>
 
                     <div class="unit size3of7 lastUnit"><!-- do not collapse -->
-                        <div class="formErrorText mediaExt1-1 form-error">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
+                        <div class="formErrorText media form-error">
+                            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bk">Please enter your email.</div>
+                            <div class="bd">Please enter your email.</div>
                         </div>
-                        <div class="smallText1-333 mediaExt1-1 form-alert">
-                            <span class="sprite i-confirm-sm img"><!-- do not collapse --></span>
+                        <div class="smallText1-333 media form-alert">
+                            <span class="sprite i-confirm-sm img mrs"><!-- do not collapse --></span>
 
-                            <div class="bk">You must verify your email address on submit.</div>
+                            <div class="bd">You must verify your email address on submit.</div>
                         </div>
                     </div>
                 </div>
@@ -192,10 +192,10 @@
                         <div class="spacer_8"><!-- do not collapse --></div>
                     </div>
                     <div class="unit size3of7 lastUnit"><!-- do not collapse -->
-                        <div class="formErrorText mediaExt1-1 form-error">
-                            <span class="sprite i-alert img"><!-- do not collapse --></span>
+                        <div class="formErrorText media form-error">
+                            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bk">Please indicate your relationship to the school.</div>
+                            <div class="bd">Please indicate your relationship to the school.</div>
                         </div>
                     </div>
 
@@ -350,10 +350,10 @@
                 </c:if>
 
                 <div class="spacer_15">
-                    <div class="form-error formErrorText mediaExt1-1" id="js-termsError">
-                        <span class="sprite i-alert img"><!-- do not collapse --></span>
+                    <div class="form-error formErrorText media" id="js-termsError">
+                        <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                        <div class="bk">Please read and accept our Terms of Use to join GreatSchools.</div>
+                        <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
                     </div>
                 </div>
 
@@ -364,7 +364,7 @@
                 </button>
                 <div class="helperMessage formText1 media">
                     <span class="sprite i-required img"><!-- do not collapse --></span>
-                    <div class="bk iblock">Indicates a required field</div>
+                    <div class="bd">Indicates a required field</div>
                 </div>
             </fieldset>
         </gsweb:form>
