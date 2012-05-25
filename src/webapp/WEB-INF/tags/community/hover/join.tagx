@@ -148,14 +148,13 @@
 
 <div class="line">
     <div class="unit size3of19">
-        <div class="mediaExt1-1 formHelperText">
-            <div class="img">*</div>
-            <div class="bk">Indicates a required field.</div>
+        <div class="media formHelperText mbm">
+            <div class="img mrs">*</div>
+            <div class="bd">Indicates a required field.</div>
         </div>
-        <div class="spacer_10"><!-- do not collapse --></div>
-        <div class="mediaExt1-1 formHelperText">
-            <div class="img">&amp;nbsp;</div>
-            <div class="bk">Your privacy is important to us.
+        <div class="media formHelperText">
+            <div class="img mrs">&amp;nbsp;</div>
+            <div class="bd">Your privacy is important to us.
                 <gsml:popupWindow width="800" height="600" left="50" top="50"
                                   title="GreatSchools Privacy Policy"
                                   href="/privacy/?state=$STATE">GreatSchools Privacy Policy</gsml:popupWindow>
@@ -166,11 +165,11 @@
         &amp;nbsp;
     </div>
     <div class="unit size15of19 lastUnit btstips">
-        <div class="mediaExt1 grades">
-            <div class="img">
+        <div class="media grades">
+            <div class="img mrm">
                 <input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1"/>
             </div>
-            <div class="bk">
+            <div class="bd">
                 <label for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
                     <strong>Lowell High School</strong>.</label>
             </div>
@@ -235,22 +234,20 @@
             </ul>
         </div>
 
-        <div class="mediaExt1 joinHover_ld">
-            <div class="spacer_10"><!-- do not collapse --></div>
-            <div class="img">
+        <div class="mediaExt1 joinHover_ld mtm">
+            <div class="img mrm">
                 <input type="checkbox" name="ldNewsletter" value="true" id="opt2"/>
             </div>
-            <div class="bk">
+            <div class="bd">
                 <label for="opt2">Send me monthly emails about Learning Difficulties.</label>
             </div>
         </div>
 
-        <div class="mediaExt1 joinHover_btstip">
-            <div class="spacer_10"><!-- do not collapse --></div>
-            <div class="img">
+        <div class="media joinHover_btstip mtm">
+            <div class="img mrm">
                 <input type="checkbox" name="btsTip" value="true" id="opt4"/>
             </div>
-            <div class="bk">
+            <div class="bd">
                 <label for="opt4">Sign me up for daily Back-to-School tips (ends Sept 7, 2010).</label>
                 <ul class="inner-row">
                     <li class="btstip_version">
@@ -267,9 +264,8 @@
             </div>
         </div>
 
-        <div class="mediaExt1 joinHover_partners">
-            <div class="spacer_10"><!-- do not collapse --></div>
-            <div class="img">
+        <div class="media joinHover_partners mtm">
+            <div class="img mrm">
                 <c:choose>
                     <c:when test="${requestScope.context.partnerOptInCheckedByDefault}">
                         <input type="checkbox" name="partnerNewsletter" value="true" id="opt3"
@@ -280,7 +276,7 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-            <div class="bk">
+            <div class="bd">
                 <label for="opt3">Send me offers to save on family activities and special
                     promotions from our carefully chosen partners.</label>
             </div>
