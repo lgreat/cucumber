@@ -9,10 +9,13 @@
     <c:if test="${not empty pageScope.ratings}">
         <ul class="smallText2-777">
             <c:forEach var="rating" items="${pageScope.ratings}">
-                <li class="mediaExt1-1">
-                    <span class="sprite stars_s_${rating.value}_b img"
+                <li class="slStylesV1-0">
+                    <div class="media">
+                    <span class="sprite stars_s_${rating.value}_b img mrs"
                           title="${rating.key}: ${rating.value} out of 5 stars"><!-- do not collapse --></span>
-                    <div class="bk">${rating.key}</div>
+
+                        <div class="bd"><p class="smallest bottom">${rating.key}</p></div>
+                    </div>
                 </li>
             </c:forEach>
         </ul>
