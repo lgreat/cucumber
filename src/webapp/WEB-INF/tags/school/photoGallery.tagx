@@ -48,9 +48,9 @@
                     <div class="line gallery-fullsize-${index} mlm mrm mts">
                         <div class="unit size68of100 mls">
                             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                                <div class="mediaExt1-1">
-                                    <span class="iconx16 i-16-close img" onclick="showDisablePhotoHover(${images[index].id});"><!-- no collapse --></span>
-                                    <div class="bk">
+                                <div class="media">
+                                    <span class="iconx16 i-16-close img mrs" onclick="showDisablePhotoHover(${images[index].id});"><!-- no collapse --></span>
+                                    <div class="bd">
                                         <a href="javascript:void(0);" class="disableLink link small bottom"
                                            onclick="showDisablePhotoHover(${images[index].id}); return false;">Delete</a>
                                     </div>
@@ -60,13 +60,13 @@
                         <div class="unit size32of100 lastUnit">
                             <c:choose>
                                 <c:when test="${requestScope.photoReports ne null and requestScope.photoReports[images[index].id] eq true}">
-                                    <div class="reportPhoto mediaExt1-1">
-                                        <div class="bk reported tar small_bold bottom make-d61">You've reported this photo.</div>
+                                    <div class="reportPhoto media">
+                                        <div class="bd reported tar small_bold bottom make-d61">You've reported this photo.</div>
                                     </div>
                                 </c:when>
                                 <c:otherwise>
-                                    <div class="reportPhoto mediaExt1-1">
-                                        <div class="bk">
+                                    <div class="reportPhoto media">
+                                        <div class="bd">
                                             <a class="reportIt fltrt small bottom" href="${loginRedirectUrl}"
                                                onclick="return false;"
                                                id="report_schoolMedia_${images[index].id}">Report this photo</a>
