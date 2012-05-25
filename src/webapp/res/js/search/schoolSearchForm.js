@@ -14,12 +14,18 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
         });
 
         $('#jq-findByNameForm').submit(function() {
+            return byName.submitByNameSearch();
+        });
+
+        $('#jq-findByNameForm').submit(function() {
             var defaultText = "   Search by school or district ...";
             if ($('#js-findByNameBox').val() == defaultText) {
                 $('#js-findByNameBox').val('');
             }
             return true;
         });
+
+
 
         byName.init();
         byLocation.init();
@@ -31,12 +37,14 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             $('#byLocationTabBody').show();
             $('#byNameTab').removeClass('selected');
             $('#byNameTabBody').hide();
+            $(".js-schoolSearchFiltersPanel").show();
         });
         $("#byNameTab").click(function() {
             $('#byLocationTab').removeClass('selected');
             $('#byLocationTabBody').hide();
             $('#byNameTab').addClass('selected');
             $('#byNameTabBody').show();
+            $(".js-schoolSearchFiltersPanel").hide();
         });
     };
 
@@ -65,11 +73,23 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
     };
 
     var byName = function() {
-        var searchFieldSelector = 'input[name="searchString"]';
-        var stateDropdownSelector = '#js-findByNameStateSelect';
+        var searchFieldSelector = 'input[name="q"]';
+        var stateDropdownSelector = 'input[name="state"]';
 
         var init = function() {
             attachSchoolAutocomplete();
+
+            $("#js-findByNameStateSelect").change(function () {
+                stateValue($(this).val());
+            }).trigger("change");
+
+            $("#js-findByNameStateSelect").keyup(function () {
+                stateValue($(this).val());
+            });
+        };
+
+        var stateValue = function(selectedState) {
+            $(".showState").text(selectedState === "" ? "Select State" : selectedState);
         };
 
         var attachSchoolAutocomplete = function() {
@@ -99,8 +119,29 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             });
         };
 
+        var submitByNameSearch = function() {
+            var searchString = $('.searchFieldSelector').val();
+            var state = $(stateDropdownSelector).val();
+
+            var queryStringDataWithFilters = filtersModule.getUpdatedQueryStringData();
+
+            var queryStringDataWithFilters = GS.uri.Uri.mergeObjectInto(
+                {
+                    q:searchString,
+                    state:state
+                },
+                queryStringDataWithFilters,
+                true
+            );
+
+            GS.search.results.update(queryStringDataWithFilters);
+
+            return false;
+        };
+
         return {
-            init:init
+            init:init,
+            submitByNameSearch:submitByNameSearch
         }
     }();
 

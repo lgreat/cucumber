@@ -36,7 +36,7 @@
     </div>
     <div class="unit size2of2 lastUnit">
         <div class="pagination" id="pagination">
-            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.schoolSearchResultsTable.page" />
+            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.results.page" />
         </div>
     </div>
 </div>
@@ -129,7 +129,7 @@
     </div>
     <div class="unit size2of2 lastUnit">
         <div class="pagination" id="pagination">
-            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.schoolSearchResultsTable.page" />
+            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.results.page" />
         </div>
     </div>
 </div>

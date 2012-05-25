@@ -478,7 +478,8 @@ GS.search.results = GS.search.results || (function() {
 
     return {
         init:init,
-        update:update
+        update:update,
+        page:page
     };
 
 })();

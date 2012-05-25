@@ -114,14 +114,10 @@
             </td>
 
             <td>
-                <a href="javascript:void(0)" onclick="scroll(0,0)" class="js-photo-gallery-trigger">
-                    <c:if test="${not empty school.smallSizePhotos}">
-                        <img src="${basePhotoPath}${school.smallSizePhotos[0]}"
-                             alt="Photos of this school"
-                             width="130" height="130"/>
+                <c:if test="${not empty school.smallSizePhotos}">
+                    <img src="${basePhotoPath}${school.smallSizePhotos[0]}" alt="Photos of this school" width="70" height="70"/>
 
-                    </c:if>
-                </a>
+                </c:if>
             </td>
         </tr>
 
