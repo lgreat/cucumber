@@ -63,12 +63,12 @@
                     </div>
                     <div class="unit size1of5 lastUnit">
                         <div class="fltrt">
-                            <div class="mediaExt1-1">
-                                <div class="imgExt">
+                            <div class="media">
+                                <div class="imgExt mls">
                                     <gsml:img src="/res/img/promo/k12/k12-sponsored-by-logo.png"
                                               alt="GreatSchools: Involved Parents. Successful Kids" width="50" height="38"/>
                                 </div>
-                                <div class="bk text-align-rt smallText2-777">
+                                <div class="bd text-align-rt smallText2-777">
                                     Sponsored<br/>by:
                                 </div>
                             </div>
