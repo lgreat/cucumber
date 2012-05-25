@@ -80,18 +80,18 @@
 
         <div class="grid_5 omega">
             <div id="js_invalidEmail" class="error js_emailErr" style="display: none;">
-                <div class="mediaExt1-1">
-                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                    <div class="bk">Please enter your official school email address.</div>
+                    <div class="bd">Please enter your official school email address.</div>
                 </div>
             </div>
 
             <div id="js_uniqueError" class="error" style="display: none;">
-                <div class="mediaExt1-1">
-                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                    <div class="bk">You already have access to this school's Official School Profile.
+                    <div class="bd">You already have access to this school's Official School Profile.
                         <link:schoolEspSignIn>Sign in</link:schoolEspSignIn> to your account.
                     </div>
                 </div>
@@ -99,10 +99,10 @@
 
             <div id="js_emailError" class="error js_emailErr" style="display: none;"><!--Do not collapse.Invalid Error Message.--></div>
             <div style="${isUserAwaitingESPMembership ? '' : 'display:none'}" id="js_userAwaitingMembershipError" class="error js_emailErr">
-                <div class="mediaExt1-1">
-                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                    <div class="bk">
+                    <div class="bd">
                         Our records show that you have recently requested a school official's account.
                         New requests are typically reviewed within 2-4 weekdays.
                         Please standby for an email containing a link to get started.
@@ -130,18 +130,18 @@
 
             <div class="grid_5 omega">
                 <div class="js_screenName success" style="display: none">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-success img"><!-- do not collapse --></span>
+                    <div class="media">
+                        <span class="iconx16 i-16-success img mrs"><!-- do not collapse --></span>
 
-                        <div class="bk">Username is available</div>
+                        <div class="bd">Username is available</div>
                     </div>
                 </div>
 
                 <div class="js_screenName invalid error"
                      style="display: none;">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                        <div class="bk"><!-- error msg goes here --></div>
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd"><!-- error msg goes here --></div>
                     </div>
                 </div>
             </div>
@@ -162,9 +162,9 @@
 
                 <div class="js_password invalid error"
                      style="display: none;">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                        <div class="bk"><!-- error msg goes here --></div>
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd"><!-- error msg goes here --></div>
                     </div>
                 </div>
             </div>
@@ -182,18 +182,18 @@
 
             <div class="grid_5 omega">
                 <div class="js_confirmPassword success" style="display: none;">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-success img"><!-- do not collapse --></span>
+                    <div class="media">
+                        <span class="iconx16 i-16-success img mrs"><!-- do not collapse --></span>
 
-                        <div class="bk">Password match confirmed</div>
+                        <div class="bd">Password match confirmed</div>
                     </div>
                 </div>
 
                 <div class="js_confirmPassword invalid error"
                      style="display: none;">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                        <div class="bk"><!-- error msg goes here --></div>
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd"><!-- error msg goes here --></div>
                     </div>
                 </div>
             </div>
@@ -220,10 +220,10 @@
             </div>
             <div class="prefix_1 grid_5 omega">
                 <div class="js_stateAdd invalid error">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                        <div class="bk">Please select a state.</div>
+                        <div class="bd">Please select a state.</div>
                     </div>
                 </div>
             </div>
@@ -245,10 +245,10 @@
 
             <div class="prefix_1 grid_5 omega">
                 <div class="js_city invalid error">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                        <div class="bk">Please select a city.</div>
+                        <div class="bd">Please select a city.</div>
                     </div>
                 </div>
             </div>
@@ -270,10 +270,10 @@
 
             <div class="grid_5 omega">
                 <div class="js_school invalid error">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                        <div class="bk">Please select the school with which you are affiliated.</div>
+                        <div class="bd">Please select the school with which you are affiliated.</div>
                     </div>
                 </div>
             </div>
@@ -298,9 +298,9 @@
                 <div class="grid_5 omega">
 
                     <div class="js_firstName invalid error" style="display: none;">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk"><!-- error msg goes here --></div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd"><!-- error msg goes here --></div>
                         </div>
                     </div>
                 </div>
@@ -320,9 +320,9 @@
                 <div class="grid_5 omega">
 
                     <div class="js_lastName invalid error" style="display: none;">
-                        <div class="mediaExt1-1">
-                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
-                            <div class="bk"><!-- error msg goes here --></div>
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd"><!-- error msg goes here --></div>
                         </div>
                     </div>
                 </div>
@@ -357,10 +357,10 @@
 
             <div class="prefix_1 grid_5 omega">
                 <div class="js_jobTitle invalid error" style="display: none;">
-                    <div class="mediaExt1-1">
-                        <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                        <div class="bk">Please specify your job title.</div>
+                        <div class="bd">Please specify your job title.</div>
                     </div>
                 </div>
             </div>

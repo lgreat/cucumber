@@ -246,10 +246,10 @@
             <div class="spacer_5"><!-- do not collapse --></div>
             <div class="infoBox1 smallText1">
                 <div id="js-bubbleInfo-1">
-                    <div class="mediaExt1">
-                    <span class="js-trigger sprite i-info img"><!-- do not collapse --></span>
+                    <div class="media">
+                    <span class="js-trigger sprite i-info img mrs"><!-- do not collapse --></span>
 
-                    <div class="bk">About these ratings</div>
+                    <div class="bd mts">About these ratings</div>
                     </div>
                     <div class="js-popup">
                         <!--<div id="popup-contents-1" class="box-shadow text3">-->
@@ -499,18 +499,17 @@
 
         <div class="line">
             <div class="unit size3of5">
-                <div class="mediaExt2-1">
+                <div class="media mbs">
                     <c:set var="curStarRating" value="${review.quality.name}"/>
                     <c:if test="${school.levelCode eq 'p'}">
                         <c:set var="curStarRating" value="${review.POverall.name}"/>
                     </c:if>
                     <c:if test="${curStarRating ne 'decline'}">
-                                <span class="sprite stars_lg_${curStarRating} img"
+                                <span class="sprite stars_lg_${curStarRating} img mrm vam"
                                       title="${curStarRating} star rating"><!-- do not collapse --></span>
                     </c:if>
 
-                    <div class="bk">
-                        <p class="author smallText1">
+                        <p class="author smallText1 bd mts">
                             Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
                             <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                                 <c:choose>
@@ -526,7 +525,6 @@
                                 </c:choose>
                             </gsml:ifUserCanDeleteContent>
                         </p>
-                    </div>
                 </div>
             </div>
 
@@ -537,10 +535,10 @@
                     </c:when>
 
                     <c:otherwise>
-                        <div class="reportReview mediaExt2 smallText1">
-                            <span class="sprite reportIt-nbg img"><!-- do not collapse --></span>
+                        <div class="reportReview media smallText1">
+                            <span class="sprite reportIt-nbg img mrs"><!-- do not collapse --></span>
 
-                            <div class="bk">
+                            <div class="bd mts">
                                 <a class="reportIt" href="${loginRedirectUrl}"
                                    onclick="return false;"
                                    id="report_schoolReview_${review.id}">Report it</a>

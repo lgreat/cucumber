@@ -87,10 +87,10 @@
                                                 </script>
                                                 <c:forEach items="${messages}" var="message">
                                                     <div class="error" style="display:block">
-                                                        <div class="mediaExt1-1">
-                                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                                        <div class="media">
+                                                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                                            <div class="bk">${message}</div>
+                                                            <div class="bd">${message}</div>
                                                         </div>
                                                     </div>
                                                 </c:forEach>
@@ -113,10 +113,10 @@
                                                 </script>
                                                 <c:forEach items="${messages}" var="message">
                                                     <div class="error" style="display:block">
-                                                        <div class="mediaExt1-1">
-                                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                                        <div class="media">
+                                                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                                            <div class="bk">${message}</div>
+                                                            <div class="bd">${message}</div>
                                                         </div>
                                                     </div>
                                                 </c:forEach>

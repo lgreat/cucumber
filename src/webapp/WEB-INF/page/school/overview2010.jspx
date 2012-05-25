@@ -195,10 +195,10 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
             <div id="js-bubbleInfo-0">
 
-                <div class="mediaExt1">
-                    <div class="js-trigger imgExt sprite info"><!-- do not collapse --></div>
+                <div class="media">
+                    <div class="js-trigger imgExt sprite info mrm"><!-- do not collapse --></div>
 
-                    <p class="bk introText">"${bestKnownFor}"</p>
+                    <p class="bd introText">"${bestKnownFor}"</p>
                 </div>
 
                 <div class="js-popup">
@@ -315,9 +315,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
             <c:if test="${school.levelCode != 'p'}">
                 <div class="spacer_10"><!-- do not collapse --></div>
                 <div class="noticeBox">
-                    <div class="mediaExt1">
-                        <span class="sprite pencil_med img"><!-- do not collapse --></span>
-                        <div class="bk"><strong>Are you the principal? </strong>
+                    <div class="media">
+                        <span class="sprite pencil_med img mrm"><!-- do not collapse --></span>
+                        <div class="bd"><strong>Are you the principal? </strong>
                             <link:schoolEspRegister styleClass="no_interrupt">Complete your school's profile</link:schoolEspRegister>
                         </div>
                     </div>
