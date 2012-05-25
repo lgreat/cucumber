@@ -19,9 +19,9 @@
             <div class="bd">
 
                 <div class="leadGenErrors">
-                    <div class="hidden mediaExt0-1 jq-leadGenError jq-leadGenError-all">
-                        <div class="img sprite i-alert"><!-- do not collapse --></div>
-                        <div class="bk formErrorText">All fields are required</div>
+                    <div class="hidden media jq-leadGenError jq-leadGenError-all">
+                        <div class="img sprite i-alert mrs"><!-- do not collapse --></div>
+                        <div class="bd formErrorText">All fields are required</div>
                     </div>
                 </div>
 

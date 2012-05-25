@@ -44,9 +44,9 @@
         </div>
         <div class="spacer_5"><!-- do not collapse --></div>
         <div class="mod_bd">
-            <div class="mediaExt1-1">
-                <div class="img"><span class="arrow-right"><!-- do not collapse --></span></div>
-                <div class="bk">
+            <div class="media">
+                <div class="img mrs"><span class="arrow-right"><!-- do not collapse --></span></div>
+                <div class="bd">
                     <p>
                         <gsml:a href="${pageScope.savvySourceURL}"  onClick="${pageScope.onclick}"
                                 target="_blank">From our friends at Savvy Source, find more preschools in ${pageScope.savvyLocation}</gsml:a>

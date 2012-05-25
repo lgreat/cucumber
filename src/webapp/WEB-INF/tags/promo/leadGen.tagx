@@ -24,13 +24,13 @@
                 <br class="spacer_60" />
                 <br class="spacer_20" />
 
-                <div class="hidden mediaExt0-1 jq-leadGenError jq-leadGenError-all">
-                    <div class="img sprite i-alert"><!-- do not collapse --></div>
-                    <div class="bk formErrorText">Please fill in all of the fields below.</div>
+                <div class="hidden media jq-leadGenError jq-leadGenError-all">
+                    <div class="img sprite i-alert mrs"><!-- do not collapse --></div>
+                    <div class="bd formErrorText">Please fill in all of the fields below.</div>
                 </div>
-                <div class="hidden mediaExt0-1 jq-leadGenError jq-leadGenError-email">
-                    <div class="img sprite i-alert"><!-- do not collapse --></div>
-                    <div class="bk formErrorText">Please enter a valid email address.</div>
+                <div class="hidden media jq-leadGenError jq-leadGenError-email">
+                    <div class="img sprite i-alert mrs"><!-- do not collapse --></div>
+                    <div class="bd formErrorText">Please enter a valid email address.</div>
                 </div>
 
                 <form class="jq-leadGenForm" action="#" method="POST">

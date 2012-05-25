@@ -69,13 +69,13 @@
                     <div class="line">
                         <div class="unit size1of2">
                             <div class="prm">
-                                <div class="mediaExt1-1">
-                                    <div class="img">
+                                <div class="media">
+                                    <div class="img mrs">
                                         <a href="http://facebook.com/greatschools" target="_blank">
                                             <span class="sprite i-facebook-l"><!-- do not collapse --></span>
                                         </a>
                                     </div>
-                                    <div class="bk">
+                                    <div class="bd">
                                         <div class="text3">
                                             <p><a href="http://facebook.com/greatschools"
                                                   target="_blank">GreatSchools</a>
