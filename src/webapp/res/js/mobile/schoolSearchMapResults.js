@@ -79,46 +79,38 @@ define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api
             }
         });
 
-        var markerShadow = new google.maps.MarkerImage(
-            "/res/img/map/GS_gsr_1_backgroundshadow.png", // url
-            new google.maps.Size(42, 41), // size
-            new google.maps.Point(0, 0), // origin
-            new google.maps.Point(14, 39) // anchor
-        );
-
         // shape defines clickable region of icon as a series of points
         // coordinates increase in the X direction to the right and in the Y direction down.
         var markerShape = {
-            coord: [0, 0, 30, 0, 30, 37, 0, 37],
+            coord: [1, 0, 27, 0, 27, 32, 1, 32],
             type: 'poly'
         };
 
         for ( var i = 0; i < p_length; i++ ) {
-            var position = new google.maps.LatLng(points[i].lat, points[i].lng);
+            var point = points[i];
+            var position = new google.maps.LatLng(point.lat, point.lng);
             var markerOptions = {
                 map: map,
-                shadow: markerShadow,
                 shape: markerShape,
                 position: position,
-                infoWindowMarkup: points[i].infoWindowMarkup,
-                title: points[i].name
+                infoWindowMarkup: point.infoWindowMarkup,
+                title: point.name
             };
 
-            var imageUrl = '/res/mobile/img/map_pins/32x32/schoolRating_na.png';
+            var imageUrl = '/res/mobile/img/map_pins/32x32/schoolRatingMapPinSprite.png';
+            var pixelOffset = 320; // default to n/a
 
-            if (points[i].gsRating != "") {
-                imageUrl = '/res/mobile/img/map_pins/32x32/schoolRating_' + points[i].gsRating + '.png';
-            }
-
-            if (points[i].schoolType === 'private') {
-                imageUrl = '/res/mobile/img/map_pins/32x32/schoolRating_private.png';
+            if (point.gsRating != "" && parseInt(point.gsRating) > 0) {
+                pixelOffset = (10 - point.gsRating) * 32;
+            } else if (point.schoolType === 'private') {
+                pixelOffset = 352;
             }
 
             markerOptions.icon = new google.maps.MarkerImage(
                 imageUrl, // url
-                new google.maps.Size(30, 41), // size
-                new google.maps.Point(0, 0), // origin
-                new google.maps.Point(14, 39) // anchor
+                new google.maps.Size(32, 32), // size
+                new google.maps.Point(pixelOffset, 0), // origin
+                new google.maps.Point(16, 32) // anchor
             );
             var marker = new google.maps.Marker(markerOptions);
 
