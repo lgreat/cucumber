@@ -207,9 +207,9 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix" >
-                            <div class="mediaExt1-1">
-                            <div class="sprite cms img"><!-- icon --></div>
-                            <div class="bk">
+                            <div class="media">
+                            <div class="sprite cms img mrs"><!-- icon --></div>
+                            <div class="bd">
                             <p><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="text3bold">
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
@@ -262,9 +262,9 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix" >
-                            <div class="mediaExt1-1">
-                            <div class="sprite i-worksheets img"><!-- icon --></div>
-                            <div class="bk">
+                            <div class="media">
+                            <div class="sprite i-worksheets img mrs"><!-- icon --></div>
+                            <div class="bd">
                             <p><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="text3bold">
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
@@ -317,9 +317,9 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix" >
-                            <div class="mediaExt1-1">
-                            <div class="sprite video img"><!-- icon --></div>
-                            <div class="bk">
+                            <div class="media">
+                            <div class="sprite video img mrs"><!-- icon --></div>
+                            <div class="bd">
                             <p><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="text3bold">
                                 <c:out value="${result.title}" escapeXml="true"/>
                             </link:cmsContent>
@@ -380,9 +380,9 @@
                             </c:otherwise>
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix">
-                            <div class="mediaExt1-1">
-                            <div class="sprite ${srchRsltSupplClass2} img"><!-- icon --></div>
-                            <div class="bk">
+                            <div class="media">
+                            <div class="sprite ${srchRsltSupplClass2} img mrs"><!-- icon --></div>
+                            <div class="bd">
                             <c:if test="${result.raiseYourHand}">
                                 <p class="smallAlertText">RAISE YOUR HAND</p>
                             </c:if>
