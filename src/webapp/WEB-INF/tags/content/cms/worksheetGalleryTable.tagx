@@ -22,13 +22,13 @@
                 <c:set var="firstRow" value="${false}"/>
                 <div class="spacer_10"><!-- do not collapse --></div>
 
-                <div class="mediaExt1-2">
-                    <div class="img">
+                <div class="media">
+                    <div class="img mrm">
                         <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
                         <gsml:img src="${result.smallPreviewImageUrl}" alt="loading" styleClass="worksheetImage"/>
                         </link:cmsContent>
                     </div>
-                    <div class="bk">
+                    <div class="bd">
                         <p class="text2bold">
                             <link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}">
                             ${result.title}

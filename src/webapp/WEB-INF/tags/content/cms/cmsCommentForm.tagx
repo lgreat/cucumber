@@ -22,9 +22,9 @@
             <input type="hidden" name="captchaResponse" value="the Response"/>
             <input type="hidden" name="description" value=""/>
 
-            <div class="mediaExt2-4">
-                <div class="img"><span class="sprite community-sm"><!-- do not collapse --></span></div>
-                <div class="bk"><h4 class="subhead2">Post a comment on this article</h4></div>
+            <div class="media">
+                <div class="img mrs"><span class="sprite community-sm"><!-- do not collapse --></span></div>
+                <div class="bd"><h4 class="subhead2">Post a comment on this article</h4></div>
             </div>
             
             <div class="line">
