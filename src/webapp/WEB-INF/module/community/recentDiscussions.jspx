@@ -50,8 +50,8 @@
 
             <div class="discussionHolder clearfix">
 
-                <div class="mediaExt1">
-                    <div class="img">
+                <div class="media">
+                    <div class="img mrm">
                         <link:userProfile user="${discussion.user}" anonymous="${discussion.anonymous}">
                             <community:avatar user="${discussion.user}"
                                               width="${avatarSize}"
@@ -61,7 +61,7 @@
                         </link:userProfile>
                     </div>
                     <!-- end avatar -->
-                    <div class="bk text3">
+                    <div class="bd text3">
                         <h4><link:discussion discussionId="${discussion.id}"
                                              fullUri="${not empty discussion.discussionBoard ? discussion.discussionBoard.fullUri : fullUri}"
                                              styleClass="${textSize}">${discussion.title}</link:discussion>

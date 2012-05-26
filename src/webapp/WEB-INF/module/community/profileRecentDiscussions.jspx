@@ -97,10 +97,10 @@
                             <div class="unit size1of2 firstColGutter-20">
                                 <ul>
                                     <c:forEach var="discussion" items="${requestScope.discussions}">
-                                        <li class="mediaExt2-4">
-                                            <span class="sprite discussion img"><!-- do not collapse --></span>
+                                        <li class="media mvm">
+                                            <span class="sprite discussion img mrs"><!-- do not collapse --></span>
 
-                                            <div class="bk">
+                                            <div class="bd">
                                                 <p class="text3bold">
                                                     <link:discussion discussionId="${discussion.id}"
                                                                      fullUri="${fullUri}">${discussion.title}</link:discussion>
@@ -188,9 +188,9 @@
                             <ul>
                                 <c:forEach var="discussion" items="${requestScope.discussions}">
                                     <li class="media">
-                                        <span class="sprite discussion img"><!-- do not collapse --></span>
+                                        <span class="sprite discussion img mrm"><!-- do not collapse --></span>
 
-                                        <div class="bk">
+                                        <div class="bd">
                                             <p class="text3bold">
                                                 <link:discussion discussionId="${discussion.id}"
                                                                  fullUri="${fullUri}">${discussion.title}</link:discussion>

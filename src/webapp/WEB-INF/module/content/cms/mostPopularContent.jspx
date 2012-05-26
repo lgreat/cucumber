@@ -34,9 +34,9 @@
 
                             <c:if test="${status.count le actualMax}">
 
-                                <div class="mediaExt2">
-                                    <span class="sprite cms img"><!-- do not collapse --></span>
-                                    <a href="${link.url}" class="bk"><c:out value="${link.linkText}"/></a>
+                                <div class="media mvm">
+                                    <span class="sprite cms img mrm"><!-- do not collapse --></span>
+                                    <a href="${link.url}" class="bd"><c:out value="${link.linkText}"/></a>
                                 </div>
 
                             </c:if>
