@@ -16,7 +16,7 @@
 
         <span class="fltrt pas" data-gs-dropdown-hider="${id}">X</span>
 
-        <c:if test="not empty ${pageScope.title}">
+        <c:if test="${not empty pageScope.title}">
             <h5 class="pbs" style="border-bottom: 1px solid grey;">${title}</h5>
         </c:if>
 
@@ -30,7 +30,7 @@
                     <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Apply</button>
                 </div>
                 <div class="unit lastUnit">
-                    <a href="javascript:void(0);">Reset</a>
+                    <a href="javascript:void(0);" gs-data-uncheckall="${id}">Reset</a>
                 </div>
             </div>
         </c:if>

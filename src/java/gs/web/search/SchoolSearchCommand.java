@@ -39,6 +39,7 @@ public class SchoolSearchCommand {
     private String[] _artsAndMusic;
     private String[] _studentClubs;
     private String[] _staffResources; // and facilities
+    private String[] _ratingCategories; // low | average | high
 
 
     private RequestedPage requestedPage;
@@ -71,7 +72,7 @@ public class SchoolSearchCommand {
 
     public SchoolSearchCommand() {
         _pageSize = DEFAULT_PAGE_SIZE;
-        _distance = String.valueOf(DEFAULT_DISTANCE);
+        _distance = String.valueOf(new Float(DEFAULT_DISTANCE).intValue());
         _schoolSearchType = SchoolSearchType.TIGHT;
     }
 
@@ -413,4 +414,13 @@ public class SchoolSearchCommand {
     public void setStaffResources(String[] staffResources) {
         _staffResources = staffResources;
     }
+
+    public String[] getRatingCategories() {
+        return _ratingCategories;
+    }
+
+    public void setRatingCategories(String[] ratingCategories) {
+        _ratingCategories = ratingCategories;
+    }
 }
+

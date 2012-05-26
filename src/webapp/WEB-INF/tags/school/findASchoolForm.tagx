@@ -103,7 +103,7 @@
                         <div class="small_bold bottom">Distance</div>
                         <div>
 
-                            <search:dropdownFilters id="distance" label="25 miles" title="Narrow results to specific grade levels">
+                            <search:dropdownFilters id="distance" label="25 miles" title="Narrow results to within a specific radius">
                             <div class="line mbm">
                             <div class="unit size50of100">
                                 <div class="js-applyFilters">
@@ -168,6 +168,9 @@
             <form name="searchByNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
                 <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
                 <input type="hidden" name="search_type" value="1"/>
+                    <c:if test="${not empty searchString}">
+                        <c:set var="searchString"><c:out value="${searchString}" escapeXml="true"/></c:set>
+                    </c:if>
 
                 <div class="line">
                     <div class="unit size84of100">
@@ -177,9 +180,8 @@
                                     <input type="text" name="q"
                                          class="searchInput small bottom mrs"
                                          id="js-findByNameBox"
-                                         onfocus="GS_textSwitch(this, '', '   Search by school or district ...');"
-                                         onblur="GS_textSwitch(this, '   Search by school or district ...', '');"
-                                         value="   Search by school or district ..."/>
+                                         placeholder="   Search by school or district ..."
+                                         value="${searchString}"/>
                                 </h6>
                             </div>
                             <div class="stateDropDown fltrt">

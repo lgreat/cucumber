@@ -41,6 +41,7 @@ import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -582,6 +583,28 @@ public class SchoolSearchController extends AbstractCommandController implements
                     SchoolFields.STAFF_RESOURCES,
                     SchoolFields.FACILITIES
             }, schoolSearchCommand.getStaffResources());
+        }
+
+        String[] ratingCategories = schoolSearchCommand.getRatingCategories();
+        if (ratingCategories != null) {
+            List<String> gsRatings = new ArrayList<String>();
+            if (ArrayUtils.contains(ratingCategories, "low")) {
+                gsRatings.add("1");
+                gsRatings.add("2");
+                gsRatings.add("3");
+            }
+            if (ArrayUtils.contains(ratingCategories, "average")) {
+                gsRatings.add("4");
+                gsRatings.add("5");
+                gsRatings.add("6");
+            }
+            if (ArrayUtils.contains(ratingCategories, "high")) {
+                gsRatings.add("7");
+                gsRatings.add("8");
+                gsRatings.add("9");
+                gsRatings.add("10");
+            }
+            q.filter(SchoolFields.OVERALL_GS_RATING, gsRatings);
         }
 
         // filter by location

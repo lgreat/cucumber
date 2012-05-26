@@ -3,6 +3,7 @@ GS.search = GS.search || {};
 GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
 
     var filtersModule;
+    var SEARCH_PAGE_PATH = '/search/search.page';
 
     var init = function(_filtersModule) {
         filtersModule = _filtersModule;
@@ -73,8 +74,10 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
     };
 
     var byName = function() {
-        var searchFieldSelector = 'input[name="q"]';
-        var stateDropdownSelector = 'input[name="state"]';
+        var formSelector = '#jq-findByNameForm';
+        var searchFieldSelector = formSelector + ' input[name="q"]';
+        var stateDropdownSelector = formSelector + ' input[name="state"]';
+        var stateValueSelector = formSelector + ' .showState';
 
         var init = function() {
             attachSchoolAutocomplete();
@@ -89,7 +92,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
         };
 
         var stateValue = function(selectedState) {
-            $(".showState").text(selectedState === "" ? "Select State" : selectedState);
+            $(stateValueSelector).text(selectedState === "" ? "Select State" : selectedState);
         };
 
         var attachSchoolAutocomplete = function() {
@@ -120,21 +123,25 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
         };
 
         var submitByNameSearch = function() {
-            var searchString = $('.searchFieldSelector').val();
-            var state = $(stateDropdownSelector).val();
+            var searchString = $(searchFieldSelector).val();
+            var state = $(stateValueSelector).text();
 
             var queryStringDataWithFilters = filtersModule.getUpdatedQueryStringData();
 
-            var queryStringDataWithFilters = GS.uri.Uri.mergeObjectInto(
-                {
-                    q:searchString,
-                    state:state
-                },
-                queryStringDataWithFilters,
-                true
-            );
+            delete queryStringDataWithFilters.lat;
+            delete queryStringDataWithFilters.lon;
+            delete queryStringDataWithFilters.distance;
+            delete queryStringDataWithFilters.zipCode;
+            delete queryStringDataWithFilters.normalizedAddress;
+            delete queryStringDataWithFilters.locationType;
+            delete queryStringDataWithFilters.totalResults;
 
-            GS.search.results.update(queryStringDataWithFilters);
+            queryStringDataWithFilters.q = searchString;
+            queryStringDataWithFilters.state = state;
+
+            window.location.href = window.location.protocol + '//' + window.location.host +
+                    SEARCH_PAGE_PATH +
+                    GS.uri.Uri.getQueryStringFromObject(queryStringDataWithFilters);
 
             return false;
         };
@@ -183,10 +190,14 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
 
                         var queryStringDataWithFilters = filtersModule.getUpdatedQueryStringData();
 
+                        delete queryStringDataWithFilters.q;
+
                         var queryStringDataWithFilters = GS.uri.Uri.mergeObjectInto(data, queryStringDataWithFilters, true);
 
                         window.setTimeout(function() {
-                            GS.search.results.update(queryStringDataWithFilters);
+                            window.location.href = window.location.protocol + '//' + window.location.host +
+                                SEARCH_PAGE_PATH +
+                                GS.uri.Uri.getQueryStringFromObject(queryStringDataWithFilters);
                         }, 1);
                     } else {
                         alert("Location not found. Please enter a valid address, city, or ZIP.");

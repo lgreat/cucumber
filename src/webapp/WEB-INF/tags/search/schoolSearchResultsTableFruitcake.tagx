@@ -46,14 +46,20 @@
 
 <table id="school-search-results-table-header">
     <colgroup>
-        <col align="left" width="305px"/>
-        <c:if test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
-            <col align="center" width="50px" />
-        </c:if>
-        <col align="right" width="114px"/>
-        <col align="center" width="72px"/>
-        <col align="center" width="9px"/>
-        <col align="center" width="75px"/>
+        <c:choose>
+            <c:when test="${not empty schoolSearchResults[0].distance and (not empty param.zipCode or not empty param.lat)}">
+                <col align="left" width="300px"/>
+                <col align="center" width="60px" />
+
+            </c:when>
+            <c:otherwise>
+                <col align="left" width="360px"/>
+            </c:otherwise>
+        </c:choose>
+
+        <col align="right" width="110px"/>
+        <col align="center" width="80px"/>
+        <col align="center" width="80px"/>
     </colgroup>
     <thead>
     <tr class="smallText2bold">
@@ -64,17 +70,29 @@
         </c:if>
         <th align="center">GREATSCHOOLS RATING</th>
         <th align="center">COMMUNITY RATING</th>
-        <th align="center"><!-- do not collapse--></th>
         <th><!-- do not collapse --></th>
     </tr>
     </thead>
 </table>
 <table id="school-search-results-table-body">
+
     <colgroup>
-        <col align="left" width="312px"/>
-        <col align="left" width="99px" valign="top"/>
-        <col align="left" width="79px" valign="top"/>
+        <c:choose>
+            <c:when test="${not empty schoolSearchResults[0].distance and (not empty param.zipCode or not empty param.lat)}">
+                <col align="left" width="300px"/>
+                <col align="center" width="60px" />
+
+            </c:when>
+            <c:otherwise>
+                <col align="left" width="360px"/>
+            </c:otherwise>
+        </c:choose>
+
+        <col align="right" width="110px"/>
+        <col align="center" width="80px"/>
+        <col align="center" width="80px"/>
     </colgroup>
+
     <tbody>
 
     <c:set var="count" value="0"/>

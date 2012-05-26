@@ -6,14 +6,18 @@ GS.search = GS.search || {};
 
 
 GS.search.filters = GS.search.filters || (function() {
-    var init = function() {
+    var savedFilters;
 
+    var init = function() {
     };
 
-    var checkboxAndRadioFilters = [
+    var globalCheckboxAndRadioFilters = [
         'distance',
         'gradeLevels',
-        'st',
+        'st'
+    ];
+
+    var advancedCheckboxAndRadioFilters = [
         'beforeAfterCare',
         'transportation',
         'ell',
@@ -22,8 +26,26 @@ GS.search.filters = GS.search.filters || (function() {
         'specialEdPrograms',
         'sports',
         'artsAndMusic',
-        'studentClubs'
-    ]; // strings must match checkbox group field names
+        'studentClubs',
+        'ratingCategories'
+    ];
+
+    // strings must match checkbox group field names
+    var checkboxAndRadioFilters = globalCheckboxAndRadioFilters.concat(advancedCheckboxAndRadioFilters);
+
+    var save = function() {
+        savedFilters = getFilterData();
+    };
+
+    var getSavedFilters = function() {
+        return savedFilters;
+    };
+
+    var reset = function() {
+        for (index in advancedCheckboxAndRadioFilters) {
+            $('.dropDown-checkboxes input:checkbox[name=' + advancedCheckboxAndRadioFilters[index] + ']:checked').prop('checked',false).trigger('change');
+        }
+    };
 
     var valsToArray = function(selector) {
         var result = [];
@@ -58,7 +80,7 @@ GS.search.filters = GS.search.filters || (function() {
             }
         }
 
-        queryStringData = GS.uri.Uri.mergeObjectInto(filterData, queryStringData, true);
+        $.extend(queryStringData, filterData);
         return queryStringData;
     };
 
@@ -95,7 +117,10 @@ GS.search.filters = GS.search.filters || (function() {
         init:init,
         getFilterData:getFilterData,
         getUpdatedQueryStringData:getUpdatedQueryStringData,
-        getUpdatedQueryString:getUpdatedQueryString
+        getUpdatedQueryString:getUpdatedQueryString,
+        save:save,
+        getSavedFilters:getSavedFilters,
+        reset:reset
     }
 
 })();

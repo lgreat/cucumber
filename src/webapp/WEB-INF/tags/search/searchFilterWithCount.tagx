@@ -22,7 +22,7 @@
         <c:set var="label" value="${label} (${facetCountsMap[value]})"/>
     </c:if>-->
 
-    <spring:checkbox name="${name}" checked="${checked}" styleClass="${styleClass}" styleId="${styleId}" tabIndex = "${tabIndex}"
+    <spring:checkbox name="${name}" checked="${checked}" cssClass="${styleClass}" styleId="${styleId}" tabIndex = "${tabIndex}"
                    value="${value}" onclick="${onclick}" disabled="${disabled}" path="schoolSearchCommand.${name}"/>${label}<br/>
 
 </jsp:root>

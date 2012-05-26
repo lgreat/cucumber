@@ -11,7 +11,7 @@
     <div id="${id}" class="${cssClass} grid_7 pbs">
         <div class="small_bold bottom grid_4 alpha">${label}</div>
         <div class="small bottom filterCategory grid_3 omega">
-            <search:dropdownFilters id="${id}" cssClass="${cssClass}" label="${selectedValueLabel}">
+            <search:dropdownFilters id="${id}" cssClass="${cssClass}" label="${selectedValueLabel}" title="Results will show schools with at least one of these:">
                 <jsp:doBody/>
             </search:dropdownFilters>
         </div>
