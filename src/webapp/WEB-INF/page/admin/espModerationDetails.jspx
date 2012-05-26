@@ -56,10 +56,10 @@
                                 </div>
                                 <c:if test="${emailError eq true}">
                                     <div class="error" style="display:block">
-                                        <div class="mediaExt1-1">
-                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                        <div class="media">
+                                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                            <div class="bk"><form:errors path="espMembership.user.email"/></div>
+                                            <div class="bd"><form:errors path="espMembership.user.email"/></div>
                                         </div>
                                     </div>
                                 </c:if>
@@ -92,10 +92,10 @@
                                 </div>
                                 <c:if test="${schoolIdStateError eq true or schoolIdError eq true}">
                                     <div class="error" style="display:block">
-                                        <div class="mediaExt1-1">
-                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                        <div class="media">
+                                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                            <div class="bk">
+                                            <div class="bd">
                                                 <form:errors path="espMembership.schoolId"/></div>
                                         </div>
                                     </div>
@@ -130,10 +130,10 @@
                                 </div>
                                 <c:if test="${firstNameError eq true}">
                                     <div class="error" style="display:block">
-                                        <div class="mediaExt1-1">
-                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                        <div class="media">
+                                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                            <div class="bk"><form:errors path="espMembership.user.firstName"/></div>
+                                            <div class="bd"><form:errors path="espMembership.user.firstName"/></div>
                                         </div>
                                     </div>
                                 </c:if>
@@ -149,10 +149,10 @@
                                 </div>
                                 <c:if test="${lastNameError eq true}">
                                     <div class="error" style="display:block">
-                                        <div class="mediaExt1-1">
-                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                        <div class="media">
+                                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                            <div class="bk"><form:errors path="espMembership.user.lastName"/></div>
+                                            <div class="bd"><form:errors path="espMembership.user.lastName"/></div>
                                         </div>
                                     </div>
                                 </c:if>
@@ -170,10 +170,10 @@
                                 </div>
                                 <c:if test="${schoolIdStateError eq true}">
                                     <div class="error" style="display:block">
-                                        <div class="mediaExt1-1">
-                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                        <div class="media">
+                                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                            <div class="bk">
+                                            <div class="bd">
                                                 <form:errors path="espMembership.state"/></div>
                                         </div>
                                     </div>

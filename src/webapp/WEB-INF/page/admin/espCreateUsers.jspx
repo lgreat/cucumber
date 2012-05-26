@@ -42,10 +42,10 @@
 
                                 <div class="grid_5 omega">
                                     <div style="display: none;" id="js_email_error">
-                                        <div class="mediaExt1-1">
-                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                        <div class="media">
+                                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                            <div class="bk">Please specify email.</div>
+                                            <div class="bd">Please specify email.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -61,10 +61,10 @@
 
                                 <div class="grid_5 omega">
                                     <div style="display: none;" id="js_state_error">
-                                        <div class="mediaExt1-1">
-                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                        <div class="media">
+                                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                            <div class="bk">Please specify state.</div>
+                                            <div class="bd">Please specify state.</div>
                                         </div>
                                     </div>
                                 </div>
@@ -80,10 +80,10 @@
 
                                 <div class="grid_5 omega">
                                     <div style="display: none;" id="js_schoolId_error">
-                                        <div class="mediaExt1-1">
-                                            <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                        <div class="media">
+                                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                                            <div class="bk">Please specify school Id.</div>
+                                            <div class="bd">Please specify school Id.</div>
                                         </div>
                                     </div>
                                 </div>
