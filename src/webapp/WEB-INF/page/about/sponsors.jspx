@@ -272,14 +272,14 @@
                 <div class="bd">
                     <ul>
                         <li>
-                            <div class="mediaExt1-1">
-                                <div class="imgExt">
+                            <div class="media">
+                                <div class="imgExt mls">
                                     <gsml:a href="http://www.DataQualityCampaign.org" target="_blank">
                                         <gsml:img src="/res/img/about/dqc_logo_200.jpg" width="200" height="68"
                                                   alt="Data Quality Campaign" id="dqc_icon"/>
                                     </gsml:a>
                                 </div>
-                                <div class="bk">Data Quality Campaign<br/>
+                                <div class="bd">Data Quality Campaign<br/>
                                     <span class="iblock pvm phl">GreatSchools is an endorsing partner of the Data Quality Campaign, to provide our users with the highest quality of
                                     information about schools.</span>
                                 </div>
