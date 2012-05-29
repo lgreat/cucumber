@@ -1,4 +1,4 @@
-define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
+define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api/js?sensor=false'], function(searchResultFilters, uri) {
     // filters info
     var filtersSelector = '.js-searchResultFilters';
 
@@ -12,6 +12,14 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
         window.location.search = queryString;
     };
 
+    var closeTopNav = function() {
+        if($('#shownav').is(':visible')){
+            $('#shownav').hide('fast');
+            $('#topnav_link').find(".iconx24").removeClass('i-24-collapse').addClass('i-24-expand');
+            $('#topnav_link').removeClass('but-topnav-on').addClass('but-topnav');
+        }
+    };
+
     var initializeMap = function(points) {
         var centerPoint = new google.maps.LatLng(0, 0);
         var bounds = new google.maps.LatLngBounds();
@@ -19,7 +27,24 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
         var $redoBtn = $('.js-redobtn');
         var newMarkers = [];
         var p_length = points.length;
-
+        var myOptions2 = {
+            disableAutoPan: false,
+            maxWidth: 0,
+            pixelOffset: new google.maps.Size(-150, -45),
+            zIndex: null,
+            boxStyle: {
+                opacity: 1,
+                width: "300px"
+            },
+            closeBoxMargin: "8px",
+            // TODO: Change closeBoxURL from staging to www
+            closeBoxURL: "http://staging.greatschools.org/res/mobile/img/icon_close_24x24.png",
+            infoBoxClearance: new google.maps.Size(1, 1),
+            isHidden: false,
+            pane: "floatPane",
+            alignBottom:true,
+            enableEventPropagation: false};
+        var infoBoxInstance = new InfoBox(myOptions2);
 
         var myOptions = {
             center: centerPoint,
@@ -70,13 +95,10 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
 
         google.maps.event.addListener(map, 'dragend', function(){
             $redoBtn.removeClass('dn').addClass('di');
+            closeTopNav();
         });
         google.maps.event.addListener(map, 'click', function(){
-            if($('#shownav').is(':visible')){
-                $('#shownav').hide('fast');
-                $('#topnav_link').find(".iconx24").removeClass('i-24-collapse').addClass('i-24-expand');
-                $('#topnav_link').removeClass('but-topnav-on').addClass('but-topnav');
-            }
+            closeTopNav();
         });
 
         // shape defines clickable region of icon as a series of points
@@ -118,36 +140,12 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
 
             newMarkers.push(marker);
 
-            var myOptions2 = {
-                content: marker.infoWindowMarkup,
-                disableAutoPan: false,
-                maxWidth: 0,
-                pixelOffset: new google.maps.Size(-150, -45),
-                zIndex: null,
-                boxStyle: {
-                  //  background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
-                    opacity: 1,
-                    width: "300px"
-                },
-                closeBoxMargin: "8px",
-                // TODO: Change closeBoxURL from staging to www
-                closeBoxURL: "http://staging.greatschools.org/res/mobile/img/icon_close_24x24.png",
-                infoBoxClearance: new google.maps.Size(1, 1),
-                isHidden: false,
-                pane: "floatPane",
-                alignBottom:true,
-                enableEventPropagation: false};
-
-            //Define the infobox
-            newMarkers[i].infobox = new InfoBox(myOptions2);
-
-
             google.maps.event.addListener(marker, 'click', (function(marker, i) {
                 return function() {
-                    for(j=0; j < p_length; j++) newMarkers[j].infobox.close();
-                    newMarkers[i].infobox.open(map, this);
-                    marker.setZIndex(9999);
+                    infoBoxInstance.setContent(marker.infoWindowMarkup);
+                    infoBoxInstance.open(map, marker);
                     map.panTo(marker.position);
+                    marker.setZIndex(9999);
                 }
             })(marker, i));
         }
