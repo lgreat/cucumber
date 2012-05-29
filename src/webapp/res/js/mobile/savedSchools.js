@@ -57,7 +57,10 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
                 address: schools[i].address,
                 zip: schools[i].zip
             });
+
             savedSchoolsDiv.append(html);
+            var $schoolHref = savedSchoolsDiv.find('#js-schoolUrl-' + schools[i].state + '_' + schools[i].id);
+            $schoolHref.attr('href', $schoolHref.attr('data-href')); // copy data-href into href, fix for desktop FF bug
             savedSchoolsDiv.find('.js-schoolTemplate').last().addClass('js-' + schools[i].state + '_' + schools[i].id);
             savedSchoolsDiv.find('.js-keyline').last().addClass('js-' + schools[i].state + '_' + schools[i].id);
 

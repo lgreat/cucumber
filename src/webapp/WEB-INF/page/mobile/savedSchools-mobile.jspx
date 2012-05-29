@@ -62,7 +62,7 @@
             <div class="pvs phm js-schoolTemplate">
                 <div class="line">
                        <div class="unit size74of100">
-                           <div class="fl"><strong><a id="js-schoolUrl-{{state_schoolId}}" href="{{schoolUrl}}">{{schoolName}}</a></strong>
+                           <div class="fl"><strong><a id="js-schoolUrl-{{state_schoolId}}" href="{{schoolUrl}}" data-href="{{schoolUrl}}">{{schoolName}}</a></strong>
                             <div>
                                 <p class="small ac1">{{schoolType}}, {{schoolGradeLevels}} | {{schoolCity}}, {{schoolState}}</p>
                             </div>
