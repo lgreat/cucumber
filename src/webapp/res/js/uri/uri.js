@@ -128,27 +128,29 @@ GS.uri.Uri.getQueryData = function() {
     var vars = [], hash;
     var data = {};
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for (var i = 0; i < hashes.length; i++) {
-        var hash = hashes[i].split('=');
-        var key = hash[0];
-        var value = hash[1];
+    if (hashes.length > 1) {
+        for (var i = 0; i < hashes.length; i++) {
+            var hash = hashes[i].split('=');
+            var key = hash[0];
+            var value = hash[1];
 
-        // if the querystring key is already in the data hash, then the querystring had multiple key=value pairs
-        // with the same key. Make the key point to an array with all the values
-        if (data.hasOwnProperty(key)) {
-            // if the value in the data hash is _already_ an array, just push on the value
-            if (data[key] instanceof Array) {
-                data[key].push(value);
+            // if the querystring key is already in the data hash, then the querystring had multiple key=value pairs
+            // with the same key. Make the key point to an array with all the values
+            if (data.hasOwnProperty(key)) {
+                // if the value in the data hash is _already_ an array, just push on the value
+                if (data[key] instanceof Array) {
+                    data[key].push(value);
 
-                // otherwise we need to copy the existing value that's on the data hash into a new array
+                    // otherwise we need to copy the existing value that's on the data hash into a new array
+                } else {
+                    var anArray = [];
+                    anArray.push(data[key]);
+                    anArray.push(hash[1]);
+                    data[hash[0]] = anArray;
+                }
             } else {
-                var anArray = [];
-                anArray.push(data[key]);
-                anArray.push(hash[1]);
-                data[hash[0]] = anArray;
+                data[hash[0]] = hash[1];
             }
-        } else {
-            data[hash[0]] = hash[1];
         }
     }
     return data;
