@@ -78,9 +78,14 @@
                 $(function(){
                     resultsmap.init();
                     ${pointsArray}
-                    $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function() {
-                        resultsmap.initializeMap(points);
-                    });
+                    if (points.length > 0) {
+                        // only pull down map api and related js if we are rendering a map
+                        require(['async!http://maps.googleapis.com/maps/api/js?sensor=false'], function() {
+                            $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function() {
+                                resultsmap.initializeMap(points);
+                            });
+                        });
+                    }
                 });
             });
         </script>
@@ -89,32 +94,35 @@
     </head>
 
     <body>
-    <c:choose>
-        <c:when test="${page.pager.totalItems gt 0}">
-            <div id="js-school-search-results-table">
-                <c:set var="totalResults" value="${page.pager.totalItems}"/>
+        <div id="js-school-search-results-table">
+            <c:set var="totalResults" value="${page.pager.totalItems}"/>
 
-                <c:set var="count" value="0"/>
+            <c:set var="count" value="0"/>
 
-                <c:if test="${fn:length(schoolSearchResults) gt 0}">
-                    <div class="contain_6-1 pbs">
-                        <div class="fl">
-                            <div class=" di mrm"><button id="searchFilter" class="but but-sm but-2">Filter</button></div>
-                            <div class="mrm di"><a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink"
-                               href="${requestInfo.requestURL}">List</a></div>
-                            <div class="js-redobtn dn mvn pvn"><button class="but but-sm but-2">Redo Search</button></div>
-                        </div>
-
-                        <br class="clearfloat"/>
+                <div class="contain_6-1 pbs">
+                    <div class="fl">
+                        <div class=" di mrm"><button id="searchFilter" class="but but-sm but-2">Filter</button></div>
+                        <div class="mrm di"><a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink"
+                           href="${requestInfo.requestURL}">List</a></div>
+                        <div class="js-redobtn dn mvn pvn"><button class="but but-sm but-2">Redo Search</button></div>
                     </div>
 
+                    <br class="clearfloat"/>
+                </div>
+
+            <c:choose>
+                <c:when test="${fn:length(schoolSearchResults) gt 0}">
                     <div data-role="content">
                         <div id="js-map-canvas"  class="" style=""><!-- no collapse --></div>
                     </div>
-                </c:if>
-            </div>
-        </c:when>
-    </c:choose>
+                </c:when>
+                <c:otherwise>
+                    <div class="alert mtm">
+                        No results match your selection. Please change your search filter settings.
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </div>
 
     <search:searchResultFiltersMobile/>
 

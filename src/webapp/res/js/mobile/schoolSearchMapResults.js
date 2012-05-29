@@ -1,4 +1,4 @@
-define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api/js?sensor=false'], function(searchResultFilters, uri) {
+define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
     // filters info
     var filtersSelector = '.js-searchResultFilters';
 
