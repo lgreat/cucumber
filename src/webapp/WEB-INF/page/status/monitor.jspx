@@ -125,16 +125,19 @@
             </c:choose>
         </td>
         <td class="statuserror">
-            <form action="/status/monitor.page" method="get">
-                <c:choose>
-                    <c:when test="${mobileSiteEnabled}">
-                        <input type="submit" name="mobileSiteAction" value="disable"/>
-                    </c:when>
-                    <c:otherwise>
-                        <input type="submit" name="mobileSiteAction" value="enable"/>
-                    </c:otherwise>
-                </c:choose>
-            </form>
+            <!-- not empty -->
+            <c:if test="${not empty requestInfo and requestInfo.hostData.devEnvironment and not requestInfo.hostData.nonQaDevEnvironment}">
+                <form action="/status/monitor.page" method="get">
+                    <c:choose>
+                        <c:when test="${mobileSiteEnabled}">
+                            <input type="submit" name="mobileSiteAction" value="disable"/>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="submit" name="mobileSiteAction" value="enable"/>
+                        </c:otherwise>
+                    </c:choose>
+                </form>
+            </c:if>
         </td>
     </tr>
     <tr>

@@ -23,6 +23,7 @@ public class HostData {
     // environment info
     private final Boolean _developerWorkstation;
     private final Boolean _isDevEnvironment;
+    private final Boolean _isNonQaDevEnvironment;
     private final Boolean _productionHostname;
 
     private final Boolean _cobranded;
@@ -38,6 +39,7 @@ public class HostData {
 
         _developerWorkstation = UrlUtil.isDeveloperWorkstation(request.getServerName());
         _isDevEnvironment = UrlUtil.isDevEnvironment(request.getServerName());
+        _isNonQaDevEnvironment = UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isQAServer(request.getServerName());
 
         _onPkSubdomain = request.getServerName().contains(Subdomain.PK.toString() + ".");
         _productionHostname = StringUtils.indexOfAny(request.getServerName(), PRODUCTION_HOSTNAMES) > -1;
@@ -79,6 +81,10 @@ public class HostData {
 
     public boolean isDevEnvironment() {
         return _isDevEnvironment;
+    }
+
+    public boolean isNonQaDevEnvironment() {
+        return _isNonQaDevEnvironment;
     }
 
     public boolean isCobranded() {

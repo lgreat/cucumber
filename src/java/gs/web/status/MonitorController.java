@@ -174,13 +174,15 @@ public class MonitorController implements ReadWriteController {
 
         // mobile site can be disabled / enabled with a cookie
         boolean mobileSiteEnabled = isMobileSiteEnabled(request);
-        String mobileSiteAction = request.getParameter("mobileSiteAction");
-        if ("enable".equalsIgnoreCase(mobileSiteAction)) {
-            enableMobileSite(request, response);
-            mobileSiteEnabled = true;
-        } else if ("disable".equalsIgnoreCase(mobileSiteAction)){
-            disableMobileSite(request, response);
-            mobileSiteEnabled = false;
+        if (UrlUtil.isQAServer(request.getServerName())) {
+            String mobileSiteAction = request.getParameter("mobileSiteAction");
+            if ("enable".equalsIgnoreCase(mobileSiteAction)) {
+                enableMobileSite(request, response);
+                mobileSiteEnabled = true;
+            } else if ("disable".equalsIgnoreCase(mobileSiteAction)){
+                disableMobileSite(request, response);
+                mobileSiteEnabled = false;
+            }
         }
         model.put("mobileSiteEnabled", mobileSiteEnabled);
 
@@ -291,8 +293,7 @@ public class MonitorController implements ReadWriteController {
 
 
     protected boolean isMobileSiteEnabled(HttpServletRequest request) {
-        Cookie cookie = findCookie(request, RequestInfo.MOBILE_SITE_ENABLED_COOKIE_NAME);
-        return (cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue())));
+        return RequestInfo.getRequestInfo(request).isMobileSiteEnabled();
     }
 
     protected void enableMobileSite(HttpServletRequest request, HttpServletResponse response) {

@@ -80,7 +80,9 @@ public class RequestInfo {
      */
     public boolean isMobileSiteEnabled() {
         Cookie cookie = CookieUtil.getCookie(_hostData.getRequest(), MOBILE_SITE_ENABLED_COOKIE_NAME);
-        return (isDevEnvironment() && !_hostData.isCobranded() && cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue())));
+        return (isDevEnvironment() || !_hostData.isCobranded() && cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue())));
+        // TODO: restore following functionality before 20.3 code freeze!
+//        return (isNonQaDevEnvironment() || (isDevEnvironment() && !_hostData.isCobranded() && cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue()))));
     }
 
     public boolean isFromMobileDevice() {
@@ -263,6 +265,10 @@ public class RequestInfo {
     
     public boolean isDevEnvironment() {
         return _hostData.isDevEnvironment();
+    }
+
+    public boolean isNonQaDevEnvironment() {
+        return _hostData.isNonQaDevEnvironment();
     }
 
     public boolean isOnPkSubdomain() {
