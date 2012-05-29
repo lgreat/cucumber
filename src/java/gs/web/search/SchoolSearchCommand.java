@@ -141,6 +141,10 @@ public class SchoolSearchCommand {
         _schoolTypes = schoolTypes;
     }
 
+    public String[] getSt() {
+        return _schoolTypes;
+    }
+
     public String[] getGradeLevels() {
         return _gradeLevels;
     }

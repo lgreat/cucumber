@@ -2,38 +2,19 @@ package gs.web.search;
 
 import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
-import gs.data.community.local.ILocalBoardDao;
 import gs.data.community.local.LocalBoard;
 import gs.data.geo.City;
 import gs.data.geo.ICounty;
-import gs.data.geo.IGeoDao;
-import gs.data.pagination.DefaultPaginationConfig;
-import gs.data.pagination.PaginationConfig;
 import gs.data.school.LevelCode;
-import gs.data.school.SchoolType;
 import gs.data.school.district.District;
-import gs.data.school.district.IDistrictDao;
 import gs.data.search.*;
 import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.IDistrictSearchResult;
 import gs.data.search.beans.SolrSchoolSearchResult;
-import gs.data.search.beans.SolrSchoolSearchResult;
-import gs.data.search.fields.DocumentType;
 import gs.data.search.fields.SchoolFields;
-import gs.data.search.fields.SolrField;
-import gs.data.search.filters.FilterFactory;
 import gs.data.search.filters.FilterGroup;
-import gs.data.search.filters.SchoolFilters;
-import gs.data.search.services.CitySearchService;
-import gs.data.search.services.DistrictSearchService;
-import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
-import gs.data.state.StateManager;
-import gs.data.util.Address;
 import gs.data.util.CommunityUtil;
-import gs.web.ControllerFamily;
-import gs.web.IControllerFamilySpecifier;
-import gs.web.pagination.Page;
 import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -42,15 +23,10 @@ import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.AbstractCommandController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,9 +34,9 @@ import java.util.*;
 
 
 
-public class SchoolSearchRedesignController extends SchoolSearchController {
+public class SchoolSearchController2012 extends SchoolSearchController {
 
-    private static final Logger _log = Logger.getLogger(SchoolSearchRedesignController.class);
+    private static final Logger _log = Logger.getLogger(SchoolSearchController2012.class);
 
     @Override
     /*
@@ -321,6 +297,11 @@ public class SchoolSearchRedesignController extends SchoolSearchController {
         model.put(MODEL_OMNITURE_NAME_SEARCH, false);
 
         handleOspFilters(schoolSearchCommand, model);
+
+
+        // hack to get school types / level code checkboxes to reflect browse prefilters
+        schoolSearchCommand.setGradeLevels(commandAndFields.getGradeLevels());
+        schoolSearchCommand.setSt(commandAndFields.getSchoolTypes());
 
         if (schoolSearchCommand.isNearbySearchByLocation()) {
             model.put(MODEL_OMNITURE_ADDRESS_SEARCH, true);

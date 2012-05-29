@@ -511,6 +511,7 @@
             <list>
                 <ref bean="schoolSearchMobileController"/>
                 <ref bean="schoolSearchController"/>
+                <ref bean="schoolSearchController2012"/>
             </list>
         </constructor-arg>
     </bean>
@@ -541,18 +542,13 @@
         <property name="noResultsAjaxViewName" value="search/schoolSearchNoResultsTable" />
     </bean>
 
-    <bean name="schoolSearchRedesignController" class="gs.web.search.SchoolSearchRedesignController">
+    <bean name="schoolSearchController2012" class="gs.web.search.SchoolSearchController2012">
         <property name="controllerFamily" value="FRUITCAKE"/>
         <property name="commandName">
             <value>schoolSearchCommand</value>
         </property>
-        <property name="validators">
-            <list>
-                <ref local="schoolSearchCommandValidator"/>
-            </list>
-        </property>
         <property name="commandClass">
-            <value>gs.web.search.SchoolSearchCommand</value>
+            <value>gs.web.search.SchoolSearchCommand2012</value>
         </property>
         <property name="schoolSearchService" ref="solrSchoolSearchService" />
         <property name="looseSchoolSearchService" ref="looseSolrSchoolSearchService" />
@@ -600,7 +596,7 @@
             <list>
                 <ref bean="schoolSearchController"/>
                 <ref bean="schoolSearchMobileController"/>
-                <ref bean="schoolSearchRedesignController"/>
+                <ref bean="schoolSearchController2012"/>
             </list>
         </constructor-arg>
     </bean>

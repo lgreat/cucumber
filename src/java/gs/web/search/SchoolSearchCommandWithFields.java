@@ -11,6 +11,7 @@ import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.List;
 import java.util.Map;
 
 class SchoolSearchCommandWithFields {
@@ -53,6 +54,16 @@ class SchoolSearchCommandWithFields {
         }
 
         return schoolTypes;
+    }
+
+    public String[] getGradeLevels() {
+        String[] gradeLevels = null;
+        if (_command != null && _command.hasGradeLevels()) {
+            gradeLevels = _command.getGradeLevels();
+        } else if (_fields != null && _fields.getLevelCode() != null) {
+            gradeLevels = _fields.getLevelCode().getCommaSeparatedString().split(",");
+        }
+        return gradeLevels;
     }
 
     public LevelCode getLevelCode() {
