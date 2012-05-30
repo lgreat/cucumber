@@ -88,6 +88,7 @@
 <div class="phm pbm">
     <p>
         ${school.physicalAddress.street}<br/>
+        <c:if test="${not empty school.physicalAddress.streetLine2}">${school.physicalAddress.streetLine2}<br/></c:if>
         ${school.physicalAddress.cityStateZip}
         <c:if test="${not empty school.district}">
             <div>District: <link:districtHome district="${school.district}">${school.district.name}</link:districtHome>
@@ -107,9 +108,9 @@
 <ad:adTag-mobile position="AboveMap_320x50"/>
 
 <!-- Map -->
-<c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress)}"/>
+<c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress.asSingleLineString)}"/>
 <c:set var="schoolAddressWithName"
-       value="${gsweb:escapeHtml(school.physicalAddress)}+(${gsweb:escapeHtml(school.name)})"/>
+       value="${schoolAddress}+(${gsweb:escapeHtml(school.name)})"/>
 
 <div class="pam">
 
@@ -144,8 +145,8 @@ Android seems to require the address to be blank for the same behavior -->
     <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
 
     <a href="http://maps.google.com/?q=${schoolAddressWithName}">
-        <img height="160" width="320"
-             src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=320x160&amp;maptype=roadmap&amp;scale=2&amp;sensor=false"/>
+        <img height="160" width="320" alt="Loading Map..." id="schoolStaticMap"
+             data-src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=320x160&amp;maptype=roadmap&amp;scale=2&amp;sensor=false"/>
     </a>
 </div>
 

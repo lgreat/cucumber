@@ -4,6 +4,10 @@ define(['truncate', 'schoolSave'], function(truncate, schoolSave) {
         schoolSave.init(state + '_' + schoolId);
 
         fetchAndDisplayTestScoreSnippet(state, schoolId);
+
+        var $schoolStaticMap = $('#schoolStaticMap');
+        $schoolStaticMap.attr('src', $schoolStaticMap.attr('data-src'));
+        $schoolStaticMap.attr('alt', 'School map');
     };
 
     var fetchAndDisplayTestScoreSnippet = function(state, schoolId) {
