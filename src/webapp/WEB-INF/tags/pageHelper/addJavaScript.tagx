@@ -19,7 +19,7 @@
                            required="true"/>
 
     <c:choose>
-        <c:when test="${(not empty uncompressedScripts or serverName eq 'localhost' or serverName eq '172.18.1.218' or serverName eq '172.18.1.149' or serverName eq '172.18.1.129' or serverName eq '127.0.0.1' or fn:contains(serverName,'samson') or fn:contains(serverName,'mitchtest')) and empty compressedScripts}">
+        <c:when test="${(not empty uncompressedScripts or serverName eq 'localhost' or fn:startsWith(serverName, '172.18.1.') or serverName eq '127.0.0.1' or fn:contains(serverName,'samson') or fn:contains(serverName,'mitchtest')) and empty compressedScripts}">
             <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
 
             <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.7.2.min.js" allowCdn="true"/>
