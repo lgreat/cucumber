@@ -480,16 +480,18 @@ public class BoundaryAjaxController {
     }
 
     protected MapObject getMarkerForDistrict(double lat, double lon, String name, State state, Integer id, String city, String street1, String street2, String cityStateZip, int ratingInt, HttpServletRequest request) throws JSONException {
-        String icon = "/res/img/map/pushpin_na.png";
-        if (ratingInt > 0) {
-            icon = "/res/img/map/pushpin_" + ratingInt + ".png";
+        String icon = "/res/img/sprites/icon/mapPins/x48/120524-mapPinsx48.png";
+        final int ICON_SIZE = 48;
+        int xOffset = ICON_SIZE * 10; // n/a
+        if (ratingInt > 0 && ratingInt < 11) {
+            xOffset = xOffset - ICON_SIZE*ratingInt;
         }
         MapObject marker = new MapObject(lat, lon,
-                icon, 40, 40);
+                icon, ICON_SIZE, ICON_SIZE);
         marker.setTooltip(name);
-        marker.setOrigin(0, 0);
-        marker.setAnchor(11, 34);
-        marker.setShape(MapObject.MarkerShapeType.poly, new int[] {0, 0, 30, 0, 30, 37, 0, 37});
+        marker.setOrigin(xOffset, 0);
+        marker.setAnchor(ICON_SIZE/2, ICON_SIZE); // anchor at center bottom
+        marker.setShape(MapObject.MarkerShapeType.poly, new int[] {8,4, 37,4, 37,33, 32,33, 23,42, 14,33, 8,33});
 
         populateDistrictData(marker.getData(), state, id, name, city, street1, street2, cityStateZip, ratingInt, request);
         return marker;
@@ -498,18 +500,20 @@ public class BoundaryAjaxController {
     // TODO: Refactor following two methods together, similar to the district case
     protected MapObject getMarkerFromSchool(School s, District district, int ratingInt,
                                             HttpServletRequest request) throws JSONException {
-        String icon = "/res/img/map/GS_gsr_na_forground.png";
-        if (ratingInt > 0) {
-            icon = "/res/img/map/GS_gsr_" + ratingInt + "_forground.png";
+        String icon = "/res/img/sprites/icon/mapPins/x32/120523-mapPinsx32.png";
+        final int ICON_SIZE = 32;
+        int xOffset = ICON_SIZE * 10; // n/a
+        if (ratingInt > 0 && ratingInt < 11) {
+            xOffset = xOffset - ICON_SIZE*ratingInt;
         } else if (s.getType() == SchoolType.PRIVATE) {
-            icon = "/res/img/map/GS_gsr_private_forground.png";
+            xOffset = ICON_SIZE * 11;
         }
         MapObject marker = new MapObject(s.getLat(), s.getLon(),
-                icon, 40, 40);
+                icon, ICON_SIZE, ICON_SIZE);
         marker.setTooltip(s.getName());
-        marker.setOrigin(0, 0);
-        marker.setAnchor(11, 34);
-        marker.setShape(MapObject.MarkerShapeType.poly, new int[]{0, 0, 30, 0, 30, 37, 0, 37});
+        marker.setOrigin(xOffset, 0);
+        marker.setAnchor(ICON_SIZE/2, ICON_SIZE);
+        marker.setShape(MapObject.MarkerShapeType.poly, new int[]{1,0, 29,0, 29,31, 1,31});
 
         populateSchoolData(marker.getData(), s, ratingInt, district, request);
         return marker;
@@ -517,17 +521,19 @@ public class BoundaryAjaxController {
 
     protected MapObject getMarkerFromSchoolSearch(ISchoolSearchResult s, District district, int ratingInt,
                                                   HttpServletRequest request) throws JSONException {
-        String icon = "/res/img/map/GS_gsr_na_forground.png";
+        String icon = "/res/img/sprites/icon/mapPins/x32/120523-mapPinsx32.png";
+        final int ICON_SIZE = 32;
+        int xOffset = ICON_SIZE * 10; // n/a
         if (ratingInt > 0) {
-            icon = "/res/img/map/GS_gsr_" + ratingInt + "_forground.png";
+            xOffset = xOffset - ICON_SIZE*ratingInt;
         } else if (StringUtils.equals("private", s.getSchoolType())) {
-            icon = "/res/img/map/GS_gsr_private_forground.png";
+            xOffset = ICON_SIZE * 11;
         }
-        MapObject marker = new MapObject(s.getLatLon().getLat(), s.getLatLon().getLon(), icon, 40, 40);
+        MapObject marker = new MapObject(s.getLatLon().getLat(), s.getLatLon().getLon(), icon, ICON_SIZE, ICON_SIZE);
         marker.setTooltip(s.getName());
-        marker.setOrigin(0, 0);
-        marker.setAnchor(11, 34);
-        marker.setShape(MapObject.MarkerShapeType.poly, new int[]{0, 0, 30, 0, 30, 37, 0, 37});
+        marker.setOrigin(xOffset, 0);
+        marker.setAnchor(ICON_SIZE/2, ICON_SIZE);
+        marker.setShape(MapObject.MarkerShapeType.poly, new int[]{1,0, 29,0, 29,31, 1,31});
 
         populateSchoolData(marker.getData(), s, ratingInt, district, request);
         return marker;
