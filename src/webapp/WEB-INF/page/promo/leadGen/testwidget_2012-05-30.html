@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>Test Widget 2012-05-30</title>
+
+    <link rel="stylesheet" type="text/css" href="/res/css/combined.house_ads.min.css?date=2012-06-13"/>
+    <style type="text/css">
+        .testwidget .inner {margin:0;padding:0;width:300px;height:250px; background: #fef6df url(/res/img/pixel.gif) no-repeat;}
+        .testwidget .hd {width:300px; height:42px;}
+        .testwidget .leadGenErrors {width:300px; height:15px; position: relative;}
+        .testwidget .jq-leadGenError-all {position: absolute; top: 0; left: 59px;}
+        .testwidget .bd label{font-size:10.5px; text-align:right; line-height:20px;}
+        .testwidget .bd input{margin:2px 3px;padding:0; height:11px;}
+        .testwidget .bd button{margin:4px 0 0 72px; background-color:#336799; font:11px Arial,Helvetica,sans-serif; }
+        .testwidget .leadGenThankYou{width:180px;margin:3px 0 0 27px;font:16px/1.25 Georgia, "Times New Roman", Times, serif; color:#666633;}
+    </style>
+    <script type="text/javascript" src="/res/js/combined.house_ads.min.js?date=2012-06-13"></script>
+    <script type="text/javascript" src="/res/js/promo/leadGen.js?date=2012-06-13"></script>
+</head>
+
+<body>
+
+<div class="mod testwidget jq-leadGenWrapper">
+    <div class="inner">
+        <div class="hd"></div>
+        <div class="bd">
+
+            <div class="leadGenErrors">
+                <div class="hidden mediaExt0-1 jq-leadGenError jq-leadGenError-all">
+                    <div class="img sprite i-alert"></div>
+                    <div class="bk formErrorText">Please enter a first name, last name and email address.</div>
+                </div>
+            </div>
+
+            <form class="jq-leadGenForm" action="#" method="POST">
+                <input type="hidden" class="jq-leadGenCampaign" name="campaign" value="testwidget"/>
+                <fieldset class="contact">
+                    <div class="line">
+                        <label class="unit size3of13 smallText2">First name:</label>
+                        <input type="text" class="jq-leadGenFirstName unit size4of11 formText2" name="firstName"/>
+
+                        <div class="unit size2of5 lastUnit"></div>
+                    </div>
+
+                    <div class="line">
+                        <label class="unit size3of13 smallText2">Last name:</label>
+                        <input type="text" class="jq-leadGenLastName unit size4of11 formText2" name="lastName"/>
+
+                        <div class="unit size2of5 lastUnit"></div>
+                    </div>
+
+                    <div class="line">
+                        <label class="unit size3of13 smallText2">Email:</label>
+                        <input type="text" class="jq-leadGenEmail unit size4of11 formText2" name="email"/>
+
+                        <div class="unit size2of5 lastUnit"></div>
+                    </div>
+
+                    <div class="line">
+                        <label class="unit size3of13 smallText2">Phone:</label>
+                        <input type="text" class="jq-leadGenPhone unit size4of11 formText2" name="phone"/>
+
+                        <div class="unit size2of5 lastUnit"></div>
+                    </div>
+                </fieldset>
+                <fieldset class="submit">
+                    <button class="button-2 jq-leadGenSubmit" type="submit">Submit</button>
+                </fieldset>
+            </form>
+            <div class="hidden jq-leadGenThankYou leadGenThankYou">
+                <p>
+                    Thanks for submitting your information!
+                    Someone from X School will be contacting you soon.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
