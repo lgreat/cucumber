@@ -17,6 +17,13 @@
 .kindercare .leadGenIntroText{width:187px; margin:0 14px;}
 .kindercare .leadGenThankYou{width:165px;margin:30px 0 0 20px;}
 
+/* GS-12784 reusable lead gen widget */
+
+.leadGenErrors .formErrorText {
+    font: italic 11px Arial, Helvetica, sans-serif;
+    color: #c03;
+}
+
 /* GS-11847 Integrated text ads*/
 
 .integratedTextAds{

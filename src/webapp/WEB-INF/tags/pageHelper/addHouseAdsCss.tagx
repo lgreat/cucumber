@@ -19,6 +19,7 @@
             <gsml:url var="gridoocss" value="/res/css/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="module" value="/res/css/02_module/mod.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="text" value="/res/css/04_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="iconspritecss" value="/res/css/06_sprites/icons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="buttons" value="/res/css/08_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="spacing" value="/res/css/09_spacing/spacing.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="houseads" value="/res/css/house_ads.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -26,6 +27,7 @@
             <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${module}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${text}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${iconspritecss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${buttons}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${spacing}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${houseads}" type="text/css" />]]>
