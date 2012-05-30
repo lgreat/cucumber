@@ -62,7 +62,7 @@
                                            id="js-school-type-private" value="private"/>
                                     <label for="js-school-type-private">Private</label>
                                 </div>
-                                <div class="mbm js-applyFilters">
+                                <!--<div class="mbm js-applyFilters">
                                     <spring:checkbox path="schoolSearchCommand.religious"  type="checkbox"
                                         id="js-school-subtype-religious" class="jq-school-type" name="religious" value="true"/>
                                     <label for="js-school-subtype-religious">Religious</label>
@@ -71,7 +71,7 @@
                                     <spring:checkbox path="schoolSearchCommand.religious"  type="checkbox"
                                                      id="js-school-subtype-nonreligious" class="jq-school-type" name="religious" value="false"/>
                                     <label for="js-school-subtype-nonreligious">Nonreligious</label>
-                                </div>
+                                </div>-->
                             </div>
                             </search:dropdownFilters>
 
