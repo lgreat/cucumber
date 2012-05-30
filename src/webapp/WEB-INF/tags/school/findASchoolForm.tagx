@@ -40,8 +40,8 @@
                 </div>
                 <div class="smallest bottom fltlft pts">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
 
-                <div id="jq-filterBar" class="line filterBar fltlft small bottom">
-                    <div id="js-schoolTypes" class="unit size1of3">
+                <div id="jq-filterBar" class="grid_15 filterBar fltlft small bottom">
+                    <div id="js-schoolTypes" class="grid_3 alpha">
                         <div class="small_bold bottom">School type</div>
                         <div>
                             <search:dropdownFilters id="stDropdown" label="All types" title="Narrow results to specific school types">
@@ -78,7 +78,7 @@
                         </div>
                         <!--</div>-->
                     </div>
-                    <div id="js-gradeLevels" class="unit size1of3">
+                    <div id="js-gradeLevels" class="grid_3">
                         <div class="small_bold bottom">Grade level</div>
                         <!--<div class="triggerMouseLeave">-->
                         <div>
@@ -110,7 +110,7 @@
                         <!--</div>-->
                     </div>
                     <c:if test="${isCityBrowse ne true and isDistrictBrowse ne true}">
-                        <div id="js-radius" class="unit size1of3 lastUnit">
+                        <div id="js-radius" class="grid_3">
                             <div class="small_bold bottom">Distance</div>
                             <div>
 
@@ -170,6 +170,15 @@
                             </div>
                         </div>
                     </c:if>
+
+                    <div class="grid_1"> &amp;nbsp;<!-- no collapse --></div>
+                    <div class="grid_5 omega"><p><b><span data-gs-html-mirror="total-results-count"><!-- do not collapse --></span></b> schools found</p></div>
+                    <script type="text/javascript">
+                        $(function() {
+                            GS.util.htmlMirrors.updateAll();
+                        });
+
+                    </script>
                 </div>
 
                 <br class="clear"/>

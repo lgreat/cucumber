@@ -21,10 +21,10 @@
     <div class="js-search-results-paging-summary text3">
         <c:choose>
             <c:when test="${usePaging}">
-                Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of ${totalResults} schools
+                Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span id="total-results-count">${totalResults}</span> schools
             </c:when>
             <c:otherwise>
-                Showing 1-${totalResults} of ${totalResults} schools
+                Showing 1-${totalResults} of <span id="total-results-count">${totalResults}</span> schools
             </c:otherwise>
         </c:choose>
     </div>
