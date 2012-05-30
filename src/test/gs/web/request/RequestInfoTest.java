@@ -3,24 +3,20 @@ package gs.web.request;
 import gs.web.GsMockHttpServletRequest;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
-import net.sourceforge.wurfl.core.WURFLManager;
 import org.junit.Test;
 import org.junit.Before;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
-import static org.easymock.EasyMock.createMock;
 
 public class RequestInfoTest {
 
-    private WURFLManager _wurflManager;
-
     @Before
     public void setUp() {
-        _wurflManager = createMock(WURFLManager.class);
     }
     
     public HttpServletRequest getHttpServletRequestForHostname(String hostname) {
@@ -29,6 +25,42 @@ public class RequestInfoTest {
         request.setAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME, sessionContext);
         request.setServerName(hostname);
         return request;
+    }
+
+    public HttpServletRequest getHttpServletRequestForHostnameWithMobileEnabled(String hostname) {
+        GsMockHttpServletRequest request = (GsMockHttpServletRequest) getHttpServletRequestForHostname(hostname);
+        request.setCookies(new Cookie(RequestInfo.MOBILE_SITE_ENABLED_COOKIE_NAME, "true"));
+        return request;
+    }
+
+    @Test
+    public void testIsMobileSiteEnabled() {
+        RequestInfo requestInfo;
+
+        requestInfo = new RequestInfo(getHttpServletRequestForHostname("www.greatschools.org"));
+        assertFalse(requestInfo.isMobileSiteEnabled());
+
+        requestInfo = new RequestInfo(getHttpServletRequestForHostnameWithMobileEnabled("www.greatschools.org"));
+        assertFalse("Expect mobile site to be permanently disabled on live", requestInfo.isMobileSiteEnabled());
+
+        requestInfo = new RequestInfo(getHttpServletRequestForHostnameWithMobileEnabled("sfgate.greatschools.org"));
+        assertFalse("Expect mobile site to be permanently disabled on live cobrands", requestInfo.isMobileSiteEnabled());
+
+        requestInfo = new RequestInfo(getHttpServletRequestForHostname("dev.greatschools.org"));
+        assertTrue("Expect mobile site to be permanently enabled on dev", requestInfo.isMobileSiteEnabled());
+
+        requestInfo = new RequestInfo(getHttpServletRequestForHostname("sfgate.dev.greatschools.org"));
+        assertFalse("Expect mobile site to be permanently disabled on cobrands, even on dev", requestInfo.isMobileSiteEnabled());
+
+        // TODO: remove below and uncomment following prior to 20.3 code freeze
+        requestInfo = new RequestInfo(getHttpServletRequestForHostname("qa.greatschools.org"));
+        assertTrue("Expect mobile site to be enabled on qa -- temporarily for bug-a-thon", requestInfo.isMobileSiteEnabled());
+
+//        requestInfo = new RequestInfo(getHttpServletRequestForHostname("qa.greatschools.org"));
+//        assertFalse("Expect mobile site to be disabled by default on qa", requestInfo.isMobileSiteEnabled());
+
+        requestInfo = new RequestInfo(getHttpServletRequestForHostnameWithMobileEnabled("qa.greatschools.org"));
+        assertTrue("Expect mobile site to be enabled by cookie on qa", requestInfo.isMobileSiteEnabled());
     }
 
     @Test
