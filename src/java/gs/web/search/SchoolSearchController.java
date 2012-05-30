@@ -607,6 +607,14 @@ public class SchoolSearchController extends AbstractCommandController implements
             q.filter(SchoolFields.OVERALL_GS_RATING, gsRatings);
         }
 
+        if (schoolSearchCommand.getReligious() != null) {
+            if (schoolSearchCommand.getReligious().equals(Boolean.TRUE.toString())) {
+                q.filter(SchoolFields.SCHOOL_SUBTYPE, "religious");
+            } else if (schoolSearchCommand.getReligious().equals(Boolean.FALSE.toString())) {
+                q.filterNot(SchoolFields.SCHOOL_SUBTYPE, "religious");
+            }
+        }
+
         // filter by location
         if (schoolSearchCommand.hasLatLon()) {
             q.restrictToRadius(schoolSearchCommand.getLat().floatValue(), schoolSearchCommand.getLon().floatValue(), schoolSearchCommand.getDistanceAsFloat());

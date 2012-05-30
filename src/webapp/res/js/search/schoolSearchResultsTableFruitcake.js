@@ -14,7 +14,8 @@ GS.search.filters = GS.search.filters || (function() {
     var globalCheckboxAndRadioFilters = [
         'distance',
         'gradeLevels',
-        'st'
+        'st',
+        'religious'
     ];
 
     var advancedCheckboxAndRadioFilters = [

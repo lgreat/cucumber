@@ -13,6 +13,8 @@ public class SchoolSearchCommand {
     private String _searchString;
     private String _state;
     private String[] _schoolTypes;
+    private String[] _schoolSubtypes;
+    private String _religious; // if non-null, set filter. "false" = filter out religious schools
     private String _requestType = "html";
     private Double _lat;
     private Double _lon;
@@ -425,6 +427,22 @@ public class SchoolSearchCommand {
 
     public void setRatingCategories(String[] ratingCategories) {
         _ratingCategories = ratingCategories;
+    }
+
+    public String[] getSchoolSubtypes() {
+        return _schoolSubtypes;
+    }
+
+    public void setSchoolSubtypes(String[] schoolSubtypes) {
+        _schoolSubtypes = schoolSubtypes;
+    }
+
+    public String getReligious() {
+        return _religious;
+    }
+
+    public void setReligious(String religious) {
+        _religious = religious;
     }
 }
 
