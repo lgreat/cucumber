@@ -39,8 +39,7 @@ define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api
                 width: "300px"
             },
             closeBoxMargin: "8px",
-            // TODO: Change closeBoxURL from staging to www
-            closeBoxURL: "http://staging.greatschools.org/res/mobile/img/icon_close_24x24.png",
+            closeBoxURL: "http://www.greatschools.org/res/mobile/img/icon_close_24x24.png",
             infoBoxClearance: new google.maps.Size(1, 1),
             isHidden: false,
             pane: "floatPane",
