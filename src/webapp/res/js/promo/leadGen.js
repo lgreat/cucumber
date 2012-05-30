@@ -23,7 +23,8 @@ GS.form.LeadGenCampaign = function() {
         if (wrapper.find('.jq-leadGenEmail').val() == '') {
             passed = false;
         }
-        if (wrapper.find('.jq-leadGenZip').val() == '' || isNaN(wrapper.find('.jq-leadGenZip').val())) {
+        var zip = wrapper.find('.jq-leadGenZip');
+        if (zip.size() === 1 && (zip.val() == '' || isNaN(zip.val()))) {
             passed = false;
         }
         var childsAge = wrapper.find('.jq-leadGenChildsAge');
@@ -34,6 +35,8 @@ GS.form.LeadGenCampaign = function() {
         if (!passed) {
             wrapper.find('.jq-leadGenError-all').show();
         }
+
+        // no phone validation at this time
 
         return passed;
     };
@@ -49,7 +52,8 @@ GS.form.LeadGenCampaign = function() {
                 lastName: wrapper.find('.jq-leadGenLastName').val(),
                 email: wrapper.find('.jq-leadGenEmail').val(),
                 zip: wrapper.find('.jq-leadGenZip').val(),
-                childsAge: wrapper.find('.jq-leadGenChildsAge').val()
+                childsAge: wrapper.find('.jq-leadGenChildsAge').val(),
+                phone: wrapper.find('.jq-leadGenPhone').val()
             };
 
             jQuery.ajax({
@@ -66,18 +70,18 @@ GS.form.LeadGenCampaign = function() {
                         if (data.indexOf('email') > -1) {
                             // for Kindercare
                             wrapper.find('.jq-leadGenError-email').show();
-                            // for Primrose
+                            // for Primrose and others
                             wrapper.find('.jq-leadGenError-all').show();
-                        } else {
-                            if (data.indexOf('firstName') > -1) {
-                                wrapper.find('.jq-leadGenError-all').show();
-                            } else if (data.indexOf('lastName') > -1) {
-                                wrapper.find('.jq-leadGenError-all').show();
-                            } else if (data.indexOf('zip') > -1) {
-                                wrapper.find('.jq-leadGenError-all').show();
-                            } else if (data.indexOf('childsAge') > -1) {
-                                wrapper.find('.jq-leadGenError-all').show();
-                            }
+                        } else if (data.indexOf('firstName') > -1) {
+                            wrapper.find('.jq-leadGenError-all').show();
+                        } else if (data.indexOf('lastName') > -1) {
+                            wrapper.find('.jq-leadGenError-all').show();
+                        } else if (data.indexOf('zip') > -1) {
+                            wrapper.find('.jq-leadGenError-all').show();
+                        } else if (data.indexOf('childsAge') > -1) {
+                            wrapper.find('.jq-leadGenError-all').show();
+                        } else if (data.indexOf('phone') > -1) {
+                            wrapper.find('.jq-leadGenError-all').show();
                         }
 
                         submitButton.show();

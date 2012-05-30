@@ -93,7 +93,9 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
             }
         }
         // validate not null/blank zip matching pattern
-        if (command.getZip() == null || !command.getZip().matches(ZIP_PATTERN)) {
+        if ((CAMPAIGN_PRIMROSE_2012.equals(command.getCampaign()) ||
+             CAMPAIGN_KINDERCARE_2011.equals(command.getCampaign())) &&
+            (command.getZip() == null || !command.getZip().matches(ZIP_PATTERN))) {
             errorList.add("zip");
         }
         // validate not null/blank child's age
@@ -102,6 +104,8 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
                 errorList.add("childsAge");
             }
         }
+
+        // phone number not required and no formatting validation
 
         return StringUtils.join(errorList, ',');
     }
@@ -170,7 +174,8 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
     private void logData(LeadGenCommand command) {
         LeadGen leadGen =
                 new LeadGen(command.getCampaign(), new Date(), command.getFirstName(),
-                            command.getLastName(), command.getEmail(), command.getZip(), command.getChildsAge());
+                            command.getLastName(), command.getEmail(), command.getZip(), command.getChildsAge(),
+                            command.getPhone());
         _leadGenDao.save(leadGen);
     }
 

@@ -1,4 +1,4 @@
-/* ------ primrose (extends mod) ------- */
+/* CAN BE REMOVED AFTER TRANSITION TO IFRAMED LEAD GEN WIDGETS ------ primrose (extends mod) ------- */
 .primrose .inner {margin:0;padding:0;width:300px;height:250px; background: #fef6df url(/res/img/primrose/primrose2012.jpg) no-repeat;}
 .primrose .hd {width:300px; height:42px;}
 .primrose .leadGenErrors {width:300px; height:15px; position: relative;}
@@ -7,7 +7,7 @@
 .primrose .bd input{margin:2px 3px;padding:0; height:11px;}
 .primrose .bd button{margin:4px 0 0 72px; background-color:#336799; font:11px Arial,Helvetica,sans-serif; }
 .primrose .leadGenThankYou{width:180px;margin:3px 0 0 27px;font:16px/1.25 Georgia, "Times New Roman", Times, serif; color:#666633;}
-/* --------- kindercare (extends mod) ---------- */
+/* CAN BE REMOVED AFTER TRANSITION TO IFRAMED LEAD GEN WIDGETS --------- kindercare (extends mod) ---------- */
 .kindercare .inner {margin:0;padding:0;width:300px;height:250px;}
 .kindercare .bd {width:300px; height:250px; background: #ebd720 url(/res/img/promo/kindercare_300x250.jpg) no-repeat;}
 .kindercare .bd p{font:normal 15px/1.2 Arial, Helvetica, sans-serif; color: black;margin:15px 0 0;}

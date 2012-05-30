@@ -9,6 +9,7 @@ public class LeadGenCommand {
     private String _email;
     private String _zip;
     private String _childsAge;
+    private String _phone;
 
     public String getCampaign() {
         return _campaign;
@@ -80,6 +81,18 @@ public class LeadGenCommand {
         }
     }
 
+    public String getPhone() {
+        return _phone;
+    }
+
+    public void setPhone(String phone) {
+        if (StringUtils.isNotBlank(phone)) {
+            _phone = phone.trim();
+        } else {
+            _phone = null;
+        }
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -90,6 +103,7 @@ public class LeadGenCommand {
         sb.append(", _email='").append(_email).append('\'');
         sb.append(", _zip='").append(_zip).append('\'');
         sb.append(", _childsAge='").append(_childsAge).append('\'');
+        sb.append(", _phone='").append(_phone).append('\'');
         sb.append('}');
         return sb.toString();
     }
