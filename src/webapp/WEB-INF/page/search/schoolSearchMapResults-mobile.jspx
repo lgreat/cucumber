@@ -72,17 +72,37 @@
                 </c:set>
                 points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude}, lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}', infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}'});
             </c:forEach>
+            <!-- Determine a location to center map on if there are no schools -->
+            <c:choose>
+                <c:when test="${not empty district and not empty district.lat and not empty district.lon}">
+                    var calculatedLat = ${district.lat};
+                    var calculatedLon = ${district.lon};
+                </c:when>
+                <c:when test="${not empty city and not empty city.lat and not empty city.lon}">
+                    var calculatedLat = ${city.lat};
+                    var calculatedLon = ${city.lon};
+                </c:when>
+                <c:when test="${not empty schoolSearchCommand.lat and not empty schoolSearchCommand.lon}">
+                    var calculatedLat = ${schoolSearchCommand.lat};
+                    var calculatedLon = ${schoolSearchCommand.lon};
+                </c:when>
+                <c:otherwise>
+                    var calculatedLat = 0;
+                    var calculatedLon = 0;
+                </c:otherwise>
+            </c:choose>
         </c:set>
         <script type="text/javascript">
             require(['schoolSearchMapResults'], function( resultsmap ) {
                 $(function(){
                     resultsmap.init();
                     ${pointsArray}
-                    if (points.length > 0) {
+                    // render map if there is a school to display, or if we know what location to center on
+                    if (points.length > 0 || (calculatedLat != 0 &amp;&amp; calculatedLon != 0)) {
                         // only pull down map api and related js if we are rendering a map
                         require(['async!http://maps.googleapis.com/maps/api/js?sensor=false'], function() {
                             $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function() {
-                                resultsmap.initializeMap(points);
+                                resultsmap.initializeMap(points, calculatedLat, calculatedLon);
                             });
                         });
                     }
@@ -111,17 +131,15 @@
                 </div>
 
             <c:choose>
-                <c:when test="${fn:length(schoolSearchResults) gt 0}">
-                    <div data-role="content">
-                        <div id="js-map-canvas"  class="" style=""><!-- no collapse --></div>
-                    </div>
-                </c:when>
-                <c:otherwise>
+                <c:when test="${fn:length(schoolSearchResults) eq 0}">
                     <div class="alert mtm">
                         No results match your selection. Please change your search filter settings.
                     </div>
-                </c:otherwise>
+                </c:when>
             </c:choose>
+            <div data-role="content">
+                <div id="js-map-canvas"><!-- no collapse --></div>
+            </div>
         </div>
 
     <search:searchResultFiltersMobile/>

@@ -20,8 +20,10 @@ define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api
         }
     };
 
-    var initializeMap = function(points) {
-        var centerPoint = new google.maps.LatLng(0, 0);
+    var initializeMap = function(points, optionalLat, optionalLon) {
+        optionalLat = optionalLat || 0;
+        optionalLon = optionalLon || 0;
+        var centerPoint = new google.maps.LatLng(optionalLat, optionalLon);
         var bounds = new google.maps.LatLngBounds();
         var infoWindow = new google.maps.InfoWindow();
         var $redoBtn = $('.js-redobtn');
@@ -155,8 +157,9 @@ define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api
         $('body').on('click','.js-overview-link', function(){
             if (s.tl) {s.tl(this,'o', 'Mobile_map_click_bubble');} return true;
         });
-
-        map.fitBounds(bounds);
+        if (!bounds.isEmpty()) {
+            map.fitBounds(bounds);
+        }
     };
 
     var listFilterToggle = function(){
