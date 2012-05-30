@@ -164,7 +164,7 @@ public class NlEmailFileUploadController implements ReadWriteAnnotationControlle
                 }
                 User user = _userDao.findUserFromEmailIfExists(data[nameToCol.get(EMAIL_ADDRESS_FIELD)]);
                 if(user != null) {
-                    if(!user.getEmailVerified()) {
+                    if(user.getEmailVerified() == null || !user.getEmailVerified()) {
                         user.setEmailVerified(true);
                     }
                     _userDao.saveUser(user);
