@@ -9,6 +9,14 @@ GS.search.filters = GS.search.filters || (function() {
     var savedFilters;
 
     var init = function() {
+        $(function() {
+            $('.js-applyFilters').on('click', function(){
+                /*if (window.location.pathname.indexOf('search.page') > -1) {*/
+                GS.search.results.update();
+                GS.search.filters.save();
+                /*}*/
+            });
+        });
     };
 
     var globalCheckboxAndRadioFilters = [
@@ -72,8 +80,15 @@ GS.search.filters = GS.search.filters || (function() {
     };
 
     var getUpdatedQueryStringData = function() {
-        var queryStringData = GS.uri.Uri.getQueryData();
+        var queryStringData = getQueryStringDataWithoutFilters();
         var filterData = getFilterData();
+
+        $.extend(queryStringData, filterData);
+        return queryStringData;
+    };
+
+    var getQueryStringDataWithoutFilters = function() {
+        var queryStringData = GS.uri.Uri.getQueryData();
 
         for (var i in checkboxAndRadioFilters) {
             if (queryStringData.hasOwnProperty(checkboxAndRadioFilters[i])) {
@@ -81,7 +96,6 @@ GS.search.filters = GS.search.filters || (function() {
             }
         }
 
-        $.extend(queryStringData, filterData);
         return queryStringData;
     };
 
@@ -121,7 +135,8 @@ GS.search.filters = GS.search.filters || (function() {
         getUpdatedQueryString:getUpdatedQueryString,
         save:save,
         getSavedFilters:getSavedFilters,
-        reset:reset
+        reset:reset,
+        getQueryStringDataWithoutFilters:getQueryStringDataWithoutFilters
     }
 
 })();

@@ -220,12 +220,7 @@
                     });
                 });
 
-                $('.js-applyFilters').on('click', function(){
-                    if (window.location.pathname.indexOf('search.page') > -1) {
-                        GS.search.results.update();
-                        GS.search.filters.save();
-                    }
-                });
+
 
                 $('.js-resetFiltersLink').on('click', function() {
                     GS.search.filters.reset();

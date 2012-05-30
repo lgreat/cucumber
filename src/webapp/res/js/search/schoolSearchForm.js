@@ -26,8 +26,6 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             return true;
         });
 
-
-
         byName.init();
         byLocation.init();
     };
@@ -126,7 +124,13 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             var searchString = $(searchFieldSelector).val();
             var state = $(stateValueSelector).text();
 
-            var queryStringDataWithFilters = filtersModule.getUpdatedQueryStringData();
+            var queryStringDataWithFilters;
+
+            if (window.location.href.indexOf(SEARCH_PAGE_PATH) !== -1) {
+                queryStringDataWithFilters = filtersModule.getUpdatedQueryStringData();
+            } else {
+                queryStringDataWithFilters = filtersModule.getQueryStringDataWithoutFilters();
+            }
 
             delete queryStringDataWithFilters.lat;
             delete queryStringDataWithFilters.lon;
@@ -188,11 +192,17 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                         data['normalizedAddress'] = geocodeResult['normalizedAddress'];
                         data['totalResults'] = geocodeResult['totalResults'];
 
-                        var queryStringDataWithFilters = filtersModule.getUpdatedQueryStringData();
+                        var queryStringDataWithFilters;
+
+                        if (window.location.href.indexOf(SEARCH_PAGE_PATH) !== -1) {
+                            queryStringDataWithFilters = filtersModule.getUpdatedQueryStringData();
+                        } else {
+                            queryStringDataWithFilters = filtersModule.getQueryStringDataWithoutFilters();
+                        }
 
                         delete queryStringDataWithFilters.q;
 
-                        var queryStringDataWithFilters = GS.uri.Uri.mergeObjectInto(data, queryStringDataWithFilters, true);
+                        var queryStringDataWithFilters = $.extend(queryStringDataWithFilters, data);
 
                         window.setTimeout(function() {
                             window.location.href = window.location.protocol + '//' + window.location.host +
