@@ -20,7 +20,7 @@
     </div>
 
     <script type="text/javascript">
-        require(GS.requireConfig, ['nearbyDistrictsList'], function(nearbyDistrictsList) {
+        require(['nearbyDistrictsList'], function(nearbyDistrictsList) {
             GS.log('got nearby districts module');
             nearbyDistrictsList.init('.js-nearby-districts');
             //<c:choose><c:when test="${not empty lat and not empty lon}">

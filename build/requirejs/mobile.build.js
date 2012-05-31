@@ -8,11 +8,10 @@
     modules: [
         {
             name: "main",
-            include: ['subCookie']//,'nearbyCitiesList','nearbyDistrictsList']
+            include: ['subCookie']
         },
         {
-            name: "index",
-            include: ['nearbyCitiesList','nearbyDistrictsList']
+            name: "index"
         },
         {
             name: "mobileSearchResults"
@@ -27,8 +26,7 @@
             name: "testScores"
         },
         {
-            name: "schoolOverview",
-            include: ['nearbyCitiesList','nearbyDistrictsList']
+            name: "schoolOverview"
         },
         {
             name: "savedSchools"

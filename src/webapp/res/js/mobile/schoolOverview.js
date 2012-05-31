@@ -1,4 +1,4 @@
-define(['truncate', 'schoolSave'], function(truncate, schoolSave) {
+define(['truncate', 'schoolSave', 'nearbyCitiesList', 'nearbyDistrictsList'], function(truncate, schoolSave) {
     var init = function(state, schoolId) {
         truncate.init();
         schoolSave.init(state + '_' + schoolId);
