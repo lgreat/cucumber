@@ -33,6 +33,7 @@ public class RequestInfo {
     private SitePreference _sitePreference;
 
     public static final String MOBILE_SITE_ENABLED_COOKIE_NAME = "mobileSiteEnabled";
+    public static final String FRUITCAKE_ENABLED_COOKIE_NAME = "fruitcakeEnabled";
 
     private HostData _hostData;
 

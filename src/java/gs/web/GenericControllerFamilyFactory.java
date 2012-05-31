@@ -1,61 +1,57 @@
 package gs.web;
 
-import gs.web.util.context.SessionContextUtil;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-public class GenericControllerFamilyFactory implements IControllerFactory {
+public class GenericControllerFamilyFactory implements IControllerFamilyFactory {
 
     // configure which resolvers to use here
     // order matters. First resolver to determine a Controller Family wins
     public ArrayList<IControllerFamilyResolver> _resolvers;
 
-    public Controller getController(List<? extends Controller> controllers) {
+    public IControllerFamilySpecifier getController(List<IControllerFamilySpecifier> controllers) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
         if (request == null) {
             throw new IllegalStateException("Request cannot be null.");
         }
 
-        Controller chosenController = null;
+        IControllerFamilySpecifier chosenController = null;
 
-        Map<Controller,ControllerFamily> controllerFamilyMap = getControllerFamilies(controllers);
+        // create a map of family --> controller
+        Map<ControllerFamily,IControllerFamilySpecifier> controllerFamilyMap = getControllerFamilies(controllers);
 
-        ControllerFamily chosenControllerFamily = resolveControllerFamily(controllerFamilyMap.values());
-        Collection<ControllerFamily> availableControllerFamilies = controllerFamilyMap.values();
 
+        // Get a collection of the controller families that were configured to handle this request, in pages-servlet
+        Set<ControllerFamily> availableControllerFamilies = controllerFamilyMap.keySet();
         request.setAttribute("controllerFamilies", availableControllerFamilies);
 
-        for (IControllerFamilyResolver resolver : _resolvers) {
-            ControllerFamily family = resolver.resolveControllerFamily();
-            if (family != null && availableControllerFamilies.contains(family)) {
-                chosenControllerFamily = family;
-                break;
-            }
-        }
 
-        if (chosenControllerFamily == null) {
-            chosenControllerFamily = ControllerFamily.DESKTOP;
-        };
+        // Determine the ControllerFamily that the Controller that handles this request should belong to
+        ControllerFamily chosenControllerFamily = resolveControllerFamily(controllerFamilyMap.keySet());
 
-        for (Map.Entry<Controller, ControllerFamily> entry : controllerFamilyMap.entrySet()) {
-            if (entry.getValue().equals(chosenControllerFamily)) {
-                chosenController = entry.getKey();
-                break;
-            }
-        }
+
+        // We have a target controller family, so get the controller in the map that handles the family
+        chosenController = controllerFamilyMap.get(chosenControllerFamily);
+
 
         if (chosenController == null) {
-            chosenController = controllers.get(0);
+            throw new IllegalStateException("Configuration error while getting processing ControllerFamily controllers: No controller configured to handle family: " + chosenControllerFamily.name());
         }
 
         return chosenController;
     }
 
-    public ControllerFamily resolveControllerFamily(Collection<ControllerFamily> availableControllerFamilies) {
+    /**
+     * Iterate over all configured resolvers, and return the first non-null family that is received from
+     * a Resolver, as long as there's a controller in the map that belows to that family
+     *
+     * @param availableControllerFamilies
+     * @return Desktop controller family if no resolvers choose a family, otherwise a specific ControllerFamily
+     */
+    public ControllerFamily resolveControllerFamily(Set<ControllerFamily> availableControllerFamilies) {
         // possible performance enhancement: let resolvers specify which families they support
         for (IControllerFamilyResolver resolver : _resolvers) {
             ControllerFamily family = resolver.resolveControllerFamily();
@@ -63,17 +59,21 @@ public class GenericControllerFamilyFactory implements IControllerFactory {
                 return family;
             }
         }
-        return null;
+
+        // no resolver chose a family, so default to desktop
+        return ControllerFamily.DESKTOP;
     }
 
-    public Map<Controller,ControllerFamily> getControllerFamilies(List<? extends Controller> controllers) {
-        Map<Controller,ControllerFamily> controllerFamilyMap = new HashMap<Controller,ControllerFamily>();
+    public Map<ControllerFamily,IControllerFamilySpecifier> getControllerFamilies(List<IControllerFamilySpecifier> controllers) {
+        Map<ControllerFamily,IControllerFamilySpecifier> controllerFamilyMap = new LinkedHashMap<ControllerFamily,IControllerFamilySpecifier>();
 
-        for (Controller controller : controllers) {
-            if (controller instanceof IControllerFamilySpecifier) {
-                ControllerFamily thisControllerFamily = ((IControllerFamilySpecifier) controller).getControllerFamily();
-                controllerFamilyMap.put(controller, thisControllerFamily);
-            }
+        for (IControllerFamilySpecifier controller : controllers) {
+            ControllerFamily thisControllerFamily = controller.getControllerFamily();
+            controllerFamilyMap.put(thisControllerFamily, controller);
+        }
+
+        if (controllers.size() == 0 || controllerFamilyMap.size() != controllers.size()) {
+            throw new IllegalStateException("Configuration error while getting processing ControllerFamily controllers: Either no controllers were configured, or duplicate Family-->Controller entries exist");
         }
 
         return controllerFamilyMap;

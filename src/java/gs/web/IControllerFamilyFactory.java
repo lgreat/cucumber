@@ -6,6 +6,6 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import java.util.List;
 
-public interface IControllerFactory {
-    public Controller getController(List<? extends Controller> controllers);
+public interface IControllerFamilyFactory {
+    public IControllerFamilySpecifier getController(List<IControllerFamilySpecifier> controllers);
 }
