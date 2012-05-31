@@ -14,7 +14,7 @@
 <jsp:output omit-xml-declaration="true" />
 <jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
 
-<html lang="en" class="no-js">
+<html lang="en">
     <head>
         <mobile:weinre />
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -31,8 +31,8 @@
         <pageHelper:ifAdsOnPage>
             <ad:xGPTMobileSetup/>
         </pageHelper:ifAdsOnPage>
-        <mobile:mobileBootstrapJS/>
         <script src="/res/js/require.min.js" data-main="/res/js/mobile/main" type="text/javascript"><!-- do not collapse --></script>
+        <mobile:mobileBootstrapJS/>
 
         <decorator:head/>
     </head>

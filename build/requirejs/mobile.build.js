@@ -35,8 +35,7 @@
 
     paths: {
         'sCode':'empty:',
-        'async':'./plugins/async',
-        'order':'./plugins/order'
+        'async':'./plugins/async'
     },
 
     packages: ["tracking"]

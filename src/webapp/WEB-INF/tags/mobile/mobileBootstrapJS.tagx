@@ -28,7 +28,7 @@
         }
 
         GS.log = function() {
-            if ('${param.jslogging}' === 'true') {
+            if (GS.properties.jsLoggingEnabled) {
                 console.log(arguments);
             }
         };
@@ -37,12 +37,15 @@
             baseUrl: '/res/js/mobile/',
             paths: {
                 'sCode':'/res/js/' + GS.sCodeModuleName,
-                'async':'/res/js/mobile/plugins/async',
-                'order':'/res/js/mobile/plugins/order'
+                'async':'/res/js/mobile/plugins/async'
             },
             packages:["tracking"],
             urlArgs:"v=${gswebBuildTime}"
         };
+
+        if (require) {
+            require.config(GS.requireConfig);
+        }
 
     </script>
 
