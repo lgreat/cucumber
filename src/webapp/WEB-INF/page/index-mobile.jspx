@@ -29,16 +29,6 @@
             index.init();
         });
     </script>
-    <style type="text/css">
-        .ac_results ul li {
-            list-style: none;
-            line-height: 14px;
-            border-bottom:1px solid grey;
-            background:#EEE;
-            padding:10px;
-            margin-left:-4px;
-        }
-    </style>
 </head>
 
 <body>

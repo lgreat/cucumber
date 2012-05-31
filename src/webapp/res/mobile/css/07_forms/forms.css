@@ -104,3 +104,14 @@ form div { clear:left;margin: 0;padding: 0;padding-bottom: 0.5em; }
 .success a {color: #264409;}
 
 .info a {color: #205791;}
+
+
+/* Autocomplete formatting needs to be looked at */
+.ac_results ul li {
+    list-style: none;
+    line-height: 14px;
+    border-bottom:1px solid grey;
+    background:#EEE;
+    padding:10px;
+    margin-left:-4px;
+}
