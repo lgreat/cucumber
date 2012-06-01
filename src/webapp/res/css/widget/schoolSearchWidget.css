@@ -151,22 +151,14 @@ div#mapTabBody {
         top: -5px;
     }
 
+    .schoolInfoWindow .schoolName{ margin-bottom: 5px; }
+
         div.schoolInfoWindow div.schoolName a, div.schoolInfoWindow div.schoolName a:hover {
             color: #2B91A2;
             text-decoration: underline;
             font-size: 13px;
             line-height: 15px;
             font-weight: bold;
-        }
-
-        div.schoolInfoWindow div.schoolRatings {
-            position: absolute;
-            left: 0;
-            width: 92px;
-            height: 65px;
-            margin-top: 10px;
-            padding-right: 5px;
-            border-right: 1px solid #ccc;
         }
 
             div.schoolInfoWindow div.schoolRating img {
@@ -270,13 +262,112 @@ p#noQuery, p#noResults {
     display:none;
 }
 
-/*.sprite {
-    display: inline-block;
-    background-image: url(/res/img/sprites/iconSprite_2011-01-06.png);
-}
+/*  object oriented grids  */
 
-.i-alert {
-    width: 13px;
-    height: 13px;
-    background-position: -20px -160px;
-}*/
+.line,.lastUnit{overflow:hidden; *overflow:visible;*zoom:1;}
+
+.unit {float: left;}
+
+.size1of1 {float: none;}
+
+.size1of100 {width: 1.0%;}
+.size2of100 {width: 2.0%;}
+.size3of100 {width: 3.0%;}
+.size4of100 {width: 4.0%;}
+.size5of100 {width: 5.0%;}
+.size6of100 {width: 6.0%;}
+.size7of100 {width: 7.0%;}
+.size8of100 {width: 8.0%;}
+.size9of100 {width: 9.0%;}
+.size10of100 {width: 10.0%;}
+.size11of100 {width: 11.0%;}
+.size12of100 {width: 12.0%;}
+.size13of100 {width: 13.0%;}
+.size14of100 {width: 14.0%;}
+.size15of100 {width: 15.0%;}
+.size16of100 {width: 16.0%;}
+.size17of100 {width: 17.0%;}
+.size18of100 {width: 18.0%;}
+.size19of100 {width: 19.0%;}
+.size20of100 {width: 20.0%;}
+.size21of100 {width: 21.0%;}
+.size22of100 {width: 22.0%;}
+.size23of100 {width: 23.0%;}
+.size24of100 {width: 24.0%;}
+.size25of100 {width: 25.0%;}
+.size26of100 {width: 26.0%;}
+.size27of100 {width: 27.0%;}
+.size28of100 {width: 28.0%;}
+.size29of100 {width: 29.0%;}
+.size30of100 {width: 30.0%;}
+.size31of100 {width: 31.0%;}
+.size32of100 {width: 32.0%;}
+.size33of100 {width: 33.0%;}
+.size34of100 {width: 34.0%;}
+.size35of100 {width: 35.0%;}
+.size36of100 {width: 36.0%;}
+.size37of100 {width: 37.0%;}
+.size38of100 {width: 38.0%;}
+.size39of100 {width: 39.0%;}
+.size40of100 {width: 40.0%;}
+.size41of100 {width: 41.0%;}
+.size42of100 {width: 42.0%;}
+.size43of100 {width: 43.0%;}
+.size44of100 {width: 44.0%;}
+.size45of100 {width: 45.0%;}
+.size46of100 {width: 46.0%;}
+.size47of100 {width: 47.0%;}
+.size48of100 {width: 48.0%;}
+.size49of100 {width: 49.0%;}
+.size50of100 {width: 50.0%;}
+.size51of100 {width: 51.0%;}
+.size52of100 {width: 52.0%;}
+.size53of100 {width: 53.0%;}
+.size54of100 {width: 54.0%;}
+.size55of100 {width: 55.0%;}
+.size56of100 {width: 56.0%;}
+.size57of100 {width: 57.0%;}
+.size58of100 {width: 58.0%;}
+.size59of100 {width: 59.0%;}
+.size60of100 {width: 60.0%;}
+.size61of100 {width: 61.0%;}
+.size62of100 {width: 62.0%;}
+.size63of100 {width: 63.0%;}
+.size64of100 {width: 64.0%;}
+.size65of100 {width: 65.0%;}
+.size66of100 {width: 66.0%;}
+.size67of100 {width: 67.0%;}
+.size68of100 {width: 68.0%;}
+.size69of100 {width: 69.0%;}
+.size70of100 {width: 70.0%;}
+.size71of100 {width: 71.0%;}
+.size72of100 {width: 72.0%;}
+.size73of100 {width: 73.0%;}
+.size74of100 {width: 74.0%;}
+.size75of100 {width: 75.0%;}
+.size76of100 {width: 76.0%;}
+.size77of100 {width: 77.0%;}
+.size78of100 {width: 78.0%;}
+.size79of100 {width: 79.0%;}
+.size80of100 {width: 80.0%;}
+.size81of100 {width: 81.0%;}
+.size82of100 {width: 82.0%;}
+.size83of100 {width: 83.0%;}
+.size84of100 {width: 84.0%;}
+.size85of100 {width: 85.0%;}
+.size86of100 {width: 86.0%;}
+.size87of100 {width: 87.0%;}
+.size88of100 {width: 88.0%;}
+.size89of100 {width: 89.0%;}
+.size90of100 {width: 90.0%;}
+.size91of100 {width: 91.0%;}
+.size92of100 {width: 92.0%;}
+.size93of100 {width: 93.0%;}
+.size94of100 {width: 94.0%;}
+.size95of100 {width: 95.0%;}
+.size96of100 {width: 96.0%;}
+.size97of100 {width: 97.0%;}
+.size98of100 {width: 98.0%;}
+.size99of100 {width: 99.0%;}
+
+.lastUnit{float:none;width:auto;_position:relative;_left:-3px;_margin-right:-3px;}
