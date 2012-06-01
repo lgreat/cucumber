@@ -8,7 +8,18 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:link="urn:www.greatschools.org/taglib/link"
         >
-<!-- Created for GS-7643 School Search Widget -->
+<!--
+
+                    WARNING WARNING WARNING WARNING WARNING WARNING WARNING 5/31/2012
+
+                    This is shared by the school search widget (schoolSearch.jspx)
+                    ANY EDITS TO THIS FILE MUST BE REPORTED TO QA SO THEY CAN REGRESSION TEST OUR WIDGET
+
+                    WARNING WARNING WARNING WARNING WARNING WARNING WARNING 5/31/2012
+
+
+Created for GS-7643 School Search Widget
+-->
 <jsp:directive.tag import="gs.data.geo.LatLonRect"/>
 <jsp:directive.tag import="gs.data.geo.LatLon"/>
 <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
