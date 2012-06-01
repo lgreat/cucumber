@@ -16,36 +16,27 @@
 <style type="text/css">
 
     #schoolListDiv {
-        height: 295px;
+        height: 300px;
+        width: 283px;
         overflow-y: scroll;
-        /*border: 1px solid;*/
-        /*position: relative;*/
+        position: relative;
     }
-    #schoolList li span {
-        /*margin-right: 10px;*/
-    }
-    #schoolList li {
-        /*margin-bottom: 3px;*/
-        /*list-style: none;*/
-        /*background-color: #ddd;*/
-        /*font-size: 12px;*/
-        /*padding: 1px;*/
+
+    #schoolList div.media  {
         cursor: pointer;
     }
 
-    #schoolList li:hover {
-        /*background-color: lightblue;*/
-    }
+    #schoolList div.media:hover {
+            background-color: #F8F8F8;
+        }
 
-    #schoolList li.selected {
-        /*border: 1px solid red;*/
-        /*padding: 0;*/
-    }
+    #schoolList .selected {
+            background-color: #E2F1F7;
+        }
 
     #map-canvas{
         width:670px;
         height:510px;
-        /*border:2px solid #999;*/
         position: relative;
     }
     #map-wrapper {
@@ -60,17 +51,16 @@
         left: 300px;
     }
     #js_reloadMap {
-        padding: 5px;
-        background-color: #eee;
         position: absolute;
         bottom: 15px;
-        left: 300px;
+        left: 274px;
     }
 </style>
 
 <pageHelper:externalJavascript file="/res/js/history.min.js"/>
 <pageHelper:externalJavascript file="/res/js/boundary.js"/>
 <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
+<pageHelper:externalJavascript file="/res/js/googleMapsInfobox.min.js"/>
 
 <script type="text/javascript">
 <![CDATA[
@@ -119,7 +109,29 @@ new (function() {
     var selectedSchool = null;
     var mapClickListeners = new Array();
     var centerMarker = null;
-    var mapInfoWindow = new google.maps.InfoWindow();
+    var myOptions2 = {
+//                   content:"",
+                   disableAutoPan: false,
+                   maxWidth: 0,
+                   pixelOffset: new google.maps.Size(-150, -45),
+                   zIndex: null,
+                   boxStyle: {
+                     //  background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
+                       opacity: 1,
+                       width: "300px"
+                   },
+                   closeBoxMargin: "8px",
+                   // TODO: Change closeBoxURL from staging to www
+                   closeBoxURL: "http://staging.greatschools.org/res/mobile/img/icon_close_24x24.png",
+                   infoBoxClearance: new google.maps.Size(1, 1),
+                   isHidden: false,
+                   pane: "floatPane",
+                   alignBottom:true,
+                   enableEventPropagation: false};
+
+               //Define the infobox
+//               newMarkers[i].infobox = new InfoBox(myOptions2);
+    var mapInfoWindow  = new InfoBox(myOptions2);//new google.maps.InfoWindow();
 
     // AJAX METHODS
     // MISCELLANEOUS FUNCTIONS
@@ -299,7 +311,7 @@ new (function() {
         }
         infoWindowElement.find('.js_address').html(addr);
         mapInfoWindow.setContent(
-                '<div style="width:275px;">'+infoWindowElement.html()+'</div>'
+                '<div class="standard_5-1">'+infoWindowElement.html()+'</div>'
         );
         mapInfoWindow.open(GS.Boundaries.boundaryHelper.map, district.marker);
         selectedDistrict = district;
@@ -327,7 +339,7 @@ new (function() {
 
         infoWindowElement.find('.js_comments').html('');
         if (!school.polygon){
-            infoWindowElement.find('.js_comments').html('Data for school\'s attendance zone is not available.  ');
+            infoWindowElement.find('.js_comments').html('<div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Contact school district for school boundaries</div></div>');
         }
 
         if (school.schoolType == 'private'){
@@ -340,7 +352,7 @@ new (function() {
 
 
         mapInfoWindow.setContent(
-                '<div style="width:275px;">'+infoWindowElement.html()+'</div>'
+                '<div class="standard_5-1">'+infoWindowElement.html()+'</div>'
         );
         mapInfoWindow.open(GS.Boundaries.boundaryHelper.map, school.marker);
         selectedSchool = school;
@@ -386,7 +398,7 @@ new (function() {
             centerMap(district.marker.getPosition());
         }
         // TODO: remove code, removed according to specs, no info window for districts
-        //  showDistrictInfoWindow(district);
+          showDistrictInfoWindow(district);
     };
     var schoolClickHandler = function(school, params) {
         var moveToCenter = typeof(params.center) !== 'undefined' ? params.center : false;
@@ -568,8 +580,7 @@ new (function() {
                 updateDistrictHeader(district);
             }
             $item.attr('value', districtKey);
-            $item.html(district.name +
-                    ((district.rating > 0 && district.rating < 11) ? '(' + district.rating + ')' : '(N/A)'));
+            $item.html(district.name);
             districtListDiv.append($item);
         }
 
@@ -642,8 +653,10 @@ new (function() {
         var htmlString = '';
 
         // TODO: only define once
-        var itemTemplate = '<li id=""></li>';
-        var spriteTemplate = '<span class="sprite"></span>';
+
+        var itemTemplate = '<div class="js-listItem media attribution pvs phm" style="border-bottom: 1px solid #f1f1f1"></div>';
+        var spriteTemplate = '<div class="img round-small mrm"><!--Do not collapse--></div>';
+        var nameTemplate = '<div class="bd" id=""></div>';
 
         for (var schoolIndex = 0; schoolIndex < schools.length; schoolIndex++) {
             var school = schools[schoolIndex];
@@ -651,40 +664,38 @@ new (function() {
             var schoolRating = 'na';
             var selected = '';
 
-            var $item = $(itemTemplate).attr('id', schoolKey);
+            var $name = $(nameTemplate);
             var $sprite = $(spriteTemplate);
 
+            var badge = '';
+
+            if (school.rating > 0 && school.rating < 11) {
+                badge = school.rating;
+            } else if (school.schoolType == 'private') {
+                badge = 'PR';
+            } else {
+                badge = 'N/A';
+            }
+
+            $sprite.append(badge);
+            $name.append(school.name);
+            var $listItem = $(itemTemplate).append($sprite).append($name).attr('id', schoolKey);
+
             if (school.isPolygonShown()) {
-                $item.addClass('selected');
+                $listItem.addClass('selected');
 //                        selected = ' class="selected"';
                 mySelectedSchool = school;
             } else if (mySelectedSchool == null && school == selectedSchool) {
 //                        selected = ' class="selected"';
-                $item.addClass('selected');
+                $listItem.addClass('selected');
                 mySelectedSchool = school;
             }
 
-
-//                    var li = '<li id="' + schoolKey + '"' + selected + '>' + school.name + ' ';
-//                    li += '<span class="sprite badge_sm_';
-
-            var badge = "badge_sm_";
-
-            if (school.rating > 0 && school.rating < 11) {
-                badge += school.rating;
-            } else if (school.schoolType == 'private') {
-                badge += 'pr';
-            } else {
-                badge += 'na';
-            }
-            badge += "_b";
-
-            $sprite.addClass(badge);
-            $item.append($sprite).append(school.name);
-
 //                    htmlString += $item;
-            schoolListDiv.append($item);
+            schoolListDiv.append($listItem);
         }
+
+
 //                schoolListDiv.append(htmlString);
         if (schools.length > 0) {
             $('#schoolListWrapper').show();
@@ -884,7 +895,7 @@ new (function() {
                 districtClickHandler(stuffOnMap[key], {center:true});
             }
         });
-        $('#schoolList').on('click', 'li', function() {
+        $('#schoolList').on('click', 'div.js-listItem', function() {
             var key = $(this).attr('id');
             if (typeof(stuffOnMap[key]) !== 'undefined') {
                 schoolClickHandler(stuffOnMap[key], {center:true});
@@ -921,17 +932,13 @@ new (function() {
                 <div class="alpha grid_7 omega mtm">
                     <div class="js_showWithMap hidden">
                         <div id="js_districtHeader" class="hidden mlm mbm"><!-- not empty -->
-                            <div class="mediaExt1 attribution">
-                                <div class="img">
-                                    <div class='ratings-square ratings-large square-large'>
-                                        <div id='ratings-test'
-                                             class='ratings-number number-large'><!--Do not collape--></div>
-                                    </div>
+                            <div class="media attribution">
+                                <div class="img mrm">
+                                    <div id='ratings-test' class="square-large"><!--Do not collapse--></div>
                                 </div>
 
-
-                                <div class="bk">
-                                    <h4 id="school-name-test"><!--School Name--></h4>
+                                <div class="bd">
+                                    <h4 id="school-name-test" class="bottom"><!--School Name--></h4>
                                 </div>
                             </div>
                         </div>
@@ -966,7 +973,8 @@ new (function() {
                             <h6 class="mlm bottom">Public/Charter Schools in District</h6>
 
                             <div id="schoolListDiv">
-                                <ul id="schoolList" class="none"><!-- not empty --></ul>
+                                <div id="schoolList"><!--Do not collapse--></div>
+                                <!--<ul id="schoolList" class="none">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
                             </div>
                         </div>
                     </div>
@@ -1002,7 +1010,7 @@ new (function() {
                         <div id="map-wrapper">
                             <div id="map-canvas"><!-- not empty --></div>
                             <div id="js_loading" class="hidden">Loading ...</div>
-                            <button name="reload" class="hidden" id="js_reloadMap">Redo search at this location</button>
+                            <button class="but but-sm but-2" id="js_reloadMap">Redo search at this location</button>
                         </div>
                         <c:if test="${param.debug}">
                             <button name="reload" id="js_reloadMap">Reload at this location</button>
@@ -1026,35 +1034,33 @@ new (function() {
                                     for="mapClickLoadDistrict">Show Only District Boundary</label>
                             </div>
                         </c:if>
-
-
                     </div>
                     <div class="hidden">
                         <div id="boundaryMapDistrictInfoWindow">
-                            <div class="line">
-                                <div class="unit size6of7">
-                                    <div class="js_name"><!-- not empty --></div>
-                                    <div class="js_address"><!-- not empty --></div>
-                                </div>
-                                <div class="unit size1of7 lastUnit">
-                                    <div class="js_rating"><!-- not empty --></div>
-                                </div>
+                            <div class="hd small bottom">
+                                <div class="js_name"><!-- not empty --></div>
+                            </div>
+                            <div class="bd small">
+                                <div class="js_address"><!-- not empty --></div>
+                            </div>
+                            <div class="down-pointer">
+                                <div class="border-edge"><!-- not empty --></div>
+                                <div class="border-bd"><!-- not empty --></div>
                             </div>
                         </div>
                         <div id="boundaryMapSchoolInfoWindow">
-                            <div class="line">
-                                <div class="unit size6of7">
-                                    <div class="js_name"><!-- not empty --></div>
-                                    <div class="js_address"><!-- not empty --></div>
-                                </div>
-                                <div class="unit size1of7 lastUnit">
-                                    <div class="js_rating"><!-- not empty --></div>
-                                </div>
+                            <div class="hd small bottom">
+                                <div class="js_name"><!-- not empty --></div>
                             </div>
-                            <div class="line">
-                                <div class="unit size7of7 lastUnit">
-                                    <div class="js_comments"><!-- not empty --></div>
-                                </div>
+                            <div class="bd small bottom">
+                                <div class="js_address"><!-- not empty --></div>
+                            </div>
+                            <div class="ft smaller bottom">
+                                <div class="js_comments"><!-- not empty --></div>
+                            </div>
+                            <div class="down-pointer">
+                                <div class="border-edge"><!-- not empty --></div>
+                                <div class="border-bd"><!-- not empty --></div>
                             </div>
                         </div>
                     </div>
@@ -1062,7 +1068,7 @@ new (function() {
             </div>
         </div>
 
-        <div class="prefix_7 grid_17">
+        <div class="prefix_7 grid_17 mbl">
             <div class="lal clearfix">
                 <div class="alpha grid_7">
                     <h6 class="bottom">Show schools that are not part of a district:</h6>
@@ -1082,28 +1088,28 @@ new (function() {
             <!-- TODO: update legend -->
             <div class="mtm">
                 <div class="alpha grid_2">
-                    <div class="mediaExt1 attribution">
-                        <div class="img">
+                    <div class="media attribution">
+                        <div class="img mrs">
                             <span class="iconx24 i-24-district"><!-- do not collapse --></span>
                         </div>
-                        <div class="bk">
+                        <div class="bd">
                             <span class="smaller">District</span>
                         </div>
                     </div>
                 </div>
                 <div class="grid_3">
-                    <div class="mediaExt1 attribution">
-                        <div class="img">
+                    <div class="media attribution">
+                        <div class="img mrs">
                             <span class="iconx24 i-24-private-school"><!-- do not collapse --></span>
                         </div>
-                        <div class="bk">
+                        <div class="bd">
                             <span class="smaller">Private School</span>
                         </div>
                     </div>
                 </div>
                 <div class="grid_4">
-                    <div class="mediaExt1 attribution">
-                        <div class="img">
+                    <div class="media attribution">
+                        <div class="img mrs">
                             <span class="iconx24 i-24-public-charter-school"><!-- do not collapse --></span>
                         </div>
                         <div class="bk">
@@ -1112,25 +1118,35 @@ new (function() {
                     </div>
                 </div>
                 <div class="grid_4">
-                    <div class="mediaExt1 attribution">
-                        <div class="img">
+                    <div class="media attribution">
+                        <div class="img mrs">
                             <span class="iconx24 i-24-school-enrollment"><!-- do not collapse --></span>
                         </div>
-                        <div class="bk">
+                        <div class="bd">
                             <span class="smaller">School Enrollment</span>
                         </div>
                     </div>
                 </div>
                 <div class="grid_4 omega">
-                    <div class="mediaExt1 attribution">
-                        <div class="img">
+                    <div class="media attribution">
+                        <div class="img mrs">
                             <span class="iconx24 i-24-district-boundary"><!-- do not collapse --></span>
                         </div>
-                        <div class="bk">
+                        <div class="bd">
                             <span class="smaller">District Boundary</span>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <hr class="keyline2"/>
+
+        <div class="mtm smaller">
+            <strong>Disclaimer:</strong>
+            School Boundaries information is compiled from various sources and is for general informational purposes only. School attendance zone information is subject to change throughout the year. The School and District Boundary Map is not appropriate for use in determining the legal eligibility of any individual or resident of a particular structure to attend any particular school system, or to use or benefit from any other provided for or on behalf of any city, town, state, or other governmental entity, or any other service dependent upon residence within a given geographical area. To verify legal descriptions of boundaries or to determine school locations or attendance, please contact the school or school district directly.
+            <div class="mtl">
+                From more information about the School and District Boundary Map, see our FAQs. (FAQs links to the GreatSchools FAQs page. see sub-task for FAQ text to be added to the global FAQs)
             </div>
         </div>
 
