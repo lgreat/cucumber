@@ -20,16 +20,14 @@
     </div>
 
     <script type="text/javascript">
-        $(function() {
-            require(['nearbyDistrictsList'], function(nearbyDistrictsList) {
-                GS.log('got nearby districts module');
-                nearbyDistrictsList.init('.js-nearby-districts');
-                //<c:choose><c:when test="${not empty lat and not empty lon}">
-                nearbyDistrictsList.populateFromLatLon(${lat}, ${lon}, {noStorage:${noStorage eq true?true:false}});
-                //</c:when><c:otherwise>
-                nearbyDistrictsList.populate();
-                //</c:otherwise></c:choose>
-            });
+        require(['nearbyDistrictsList'], function(nearbyDistrictsList) {
+            GS.log('got nearby districts module');
+            nearbyDistrictsList.init('.js-nearby-districts');
+            //<c:choose><c:when test="${not empty lat and not empty lon}">
+            nearbyDistrictsList.populateFromLatLon(${lat}, ${lon}, {noStorage:${noStorage eq true?true:false}});
+            //</c:when><c:otherwise>
+            nearbyDistrictsList.populate();
+            //</c:otherwise></c:choose>
         });
     </script>
 </jsp:root>
