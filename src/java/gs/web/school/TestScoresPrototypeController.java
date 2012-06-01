@@ -1,10 +1,12 @@
 package gs.web.school;
 
 import gs.data.school.*;
+import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.test.*;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
+import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
@@ -49,162 +51,106 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
         School school = _schoolDao.getSchoolById(state, new Integer(schoolId));
 
-        Map<String, Object> model = new HashMap<String, Object>();
-        List<TestDataSet> dataSets = getTestDataSets();
-        Map<Integer, TestDataType> testDataTypeIdToTestDataType = getTestDataTypes(dataSets);
-
-        Map<TestDataType, Boolean> testHasData = new HashMap<TestDataType, Boolean>();
-        Map<TestDataType, Map<Grade, Boolean>> gradeForTestHasData = new HashMap<TestDataType, Map<Grade, Boolean>>();
-
         Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> schoolValues =
-                populateSchoolValues(school, dataSets, testDataTypeIdToTestDataType, testHasData, gradeForTestHasData);
-
-        pruneEmpties(schoolValues,testHasData,gradeForTestHasData,school);
+                populateSchoolValues(school);
 
         List<TestToGrades> rval = populateTestScoresBean(school, schoolValues);
-        model.put("schoolValues", rval);
+
+        Map<String, Object> model = new HashMap<String, Object>();
+        model.put("rval", rval);
         return new ModelAndView(VIEW, model);
     }
 
-    protected void pruneEmpties(Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> schoolValues,
-                                Map<TestDataType, Boolean> testHasData, Map<TestDataType, Map<Grade, Boolean>> gradeForTestHasData, School school) {
-
-        Grades gradesInSchool = school.getGradeLevels();
-
-        for (TestDataType testDataType : schoolValues.keySet()) {
-
-            List<Grade> gradesToRemove = new ArrayList<Grade>();
-            for (Grade grade : schoolValues.get(testDataType).keySet()) {
-
-                //Check if school has grade
-                //If it does not then check if there is data for that grade.
-                //If there is no data remove it.
-                boolean schoolHasGrade = gradesInSchool.contains(grade);
-                if (!schoolHasGrade) {
-                    boolean gradeHasData = (gradeForTestHasData.get(testDataType).get(grade) != null);
-                    if (!gradeHasData) {
-                        gradesToRemove.add(grade);
-                    }
-                }
-
-                for (LevelCode levelCode : schoolValues.get(testDataType).get(grade).keySet()) {
-                    for (Subject subject : schoolValues.get(testDataType).get(grade).get(levelCode).keySet()) {
-                        for (TestDataSet testDataSet : schoolValues.get(testDataType).get(grade).get(levelCode).get(subject).keySet()) {
-                        }
-                    }
-                }
-            }
-
-            for (Grade gradeToRemove : gradesToRemove) {
-                schoolValues.get(testDataType).remove(gradeToRemove);
-            }
-
-        }
-    }
-
-    protected List<TestDataSet> getTestDataSets() {
-        Set<Integer> breakdownIds = new HashSet<Integer>();
-        breakdownIds.add(1);
-        List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(State.DE, null, null, null, null, breakdownIds, null, true, null);
-        return testDataSets;
-    }
-
-    protected List<SchoolTestValue> getTestDataSchoolValues(List<TestDataSet> testDataSets, School school) {
-        List<SchoolTestValue> values = _testDataSchoolValueDao.findValues(testDataSets, school);
-        return values;
-    }
-
-    protected Integer getTests() {
-        return 4;
-    }
-
-    protected void getGrades() {
-
-    }
-
-    protected void getSubjects() {
-
-    }
-
-    public ControllerFamily getControllerFamily() {
-        return _controllerFamily;
-    }
-
-    public void setControllerFamily(ControllerFamily controllerFamily) {
-        _controllerFamily = controllerFamily;
-    }
-
-    protected Map<Integer, TestDataType> getTestDataTypes(List<TestDataSet> testDataSets) {
-        Set<Integer> testDataTypeIds = new HashSet<Integer>();
-
-        for (TestDataSet testDataSet : testDataSets) {
-            testDataTypeIds.add(testDataSet.getDataTypeId());
-        }
-
-        Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
-
-        if (testDataTypeIds != null && !testDataTypeIds.isEmpty()) {
-            List<TestDataType> testDataTypes = _testDataTypeDao.getDataTypes(testDataTypeIds);
-
-            for (TestDataType testDataType : testDataTypes) {
-                testDataTypeIdToTestDataType.put(testDataType.getId(), testDataType);
-            }
-        }
-        return testDataTypeIdToTestDataType;
-    }
-
     protected Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>>
-    populateSchoolValues(School school, List<TestDataSet> testDataSets,
-                         Map<Integer, TestDataType> testDataTypeIdToTestDataType, Map<TestDataType, Boolean> testHasData, Map<TestDataType, Map<Grade, Boolean>> gradeForTestHasData) {
+    populateSchoolValues(School school) {
+        Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> schoolValueMap = createSchoolValuesMap(school);
 
-        //Get a Map to represent the test data type, grade, level code, subjects, test data set and test score value for the school.
-        //The test score values are all filled in with "Data not available" string temporarily.
-        Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> schoolValueMap = createSchoolValuesMap(testDataSets, testDataTypeIdToTestDataType);
-
-        //Query the for school test score values.
-        List<SchoolTestValue> values = _testDataSchoolValueDao.findValues(testDataSets, school);
-
-        //For every test score value, put it in the map constructed above i.e replace the
-        //temporary string "Data not available"  with the actual test score value.
-        for (SchoolTestValue value : values) {
-            //TODO maybe the dao should not join.
-            TestDataSet testDataSet = value.getDataSet();
-            TestDataType testDataType = testDataTypeIdToTestDataType.get(testDataSet.getDataTypeId());
+        List<Map<String, Object>> testScoreValues = _testDataSchoolValueDao.getSchoolTestScores(school);
+        for (Map value : testScoreValues) {
+            Integer testDataTypeId = (Integer) value.get("data_type_id");
+            Integer testDataSetId = (Integer) value.get("id");
+            TestDataSet testDataSet = _testDataSetDao.findTestDataSet(school.getDatabaseState(), testDataSetId);
+            TestDataType testDataType = _testDataTypeDao.getDataType(testDataTypeId);
             Grade grade = testDataSet.getGrade();
             LevelCode levelCode = testDataSet.getLevelCode();
             Subject subject = testDataSet.getSubject();
-            //For masking the test score.Masking : - sometimes the state does not give exact numbers, it saves <5% passed etc.
-            //AK has a lot of masked school values.
-            String testScoreValue = StringUtils.isNotBlank(value.getValueText()) ? StringEscapeUtils.escapeHtml(value
-                    .getValueText()) : value.getValueInteger().toString();
+            Float valueFloat = (Float) value.get("value_float");
+            String valueText = (String) value.get("value_text");
+
+            String testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
+                    new Integer(Math.round(valueFloat)).toString();
 
             //Replace the temporary string "Data not available"  with the actual test score value.
-            schoolValueMap.get(testDataType).get(grade).get(levelCode).get(subject).put(testDataSet, testScoreValue);
+            if (schoolValueMap.get(testDataType) != null) {
+                Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(testDataType);
 
-            testHasData.put(testDataType, true);
+                if (schoolValueMap.get(testDataType).get(grade) != null) {
+                    Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
+                    if (schoolValueMap.get(testDataType).get(grade).get(levelCode) != null) {
+                        Map<Subject, Map<TestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
+                        if (schoolValueMap.get(testDataType).get(grade).get(levelCode).get(subject) != null) {
+                            schoolValueMap.get(testDataType).get(grade).get(levelCode).get(subject).put(testDataSet, testScoreValue);
+                        } else {
+                            //Subject not present.
+                            Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
+                            dataSetToValue.put(testDataSet, testScoreValue);
+                            subjectToDataSet.put(subject, dataSetToValue);
+                        }
 
-            Map<Grade, Boolean> gradeHasData = new HashMap<Grade, Boolean>();
-            if (gradeForTestHasData.containsKey(testDataType)) {
-                gradeHasData = gradeForTestHasData.get(testDataType);
+                    } else {
+
+                        //Level code not present
+                        Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
+                        dataSetToValue.put(testDataSet, testScoreValue);
+                        Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
+                        subjectToDataSet.put(subject, dataSetToValue);
+                        levelCodeToSubjectsToDataSetToValueMap.put(levelCode, subjectToDataSet);
+                    }
+
+                } else {
+
+                    //Grade not present.
+                    Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
+                    dataSetToValue.put(testDataSet, testScoreValue);
+                    Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
+                    subjectToDataSet.put(subject, dataSetToValue);
+                    Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<TestDataSet, String>>>();
+                    levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
+                    gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
+                }
+            } else {
+
+                //Test not present.
+                Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
+                dataSetToValue.put(testDataSet, testScoreValue);
+                Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
+                subjectToDataSet.put(subject, dataSetToValue);
+                Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<TestDataSet, String>>>();
+                levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
+                Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>();
+                gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
+                schoolValueMap.put(testDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
+
             }
-            gradeHasData.put(grade, true);
-            //TODO do I need the following line?
-            gradeForTestHasData.put(testDataType, gradeHasData);
+
         }
         return schoolValueMap;
     }
 
     protected Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>>
-    createSchoolValuesMap(List<TestDataSet> testDataSets, Map<Integer, TestDataType> testDataTypeIdToTestDataType) {
+    createSchoolValuesMap(School school) {
 
         Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>> schoolValueMap =
                 new HashMap<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>>();
-
-        for (TestDataSet testDataSet : testDataSets) {
+        List<Map<String, Object>> vals = _testDataSetDao.getTestDataSets(school);
+        for (Map m : vals) {
+            Integer testDataTypeId = (Integer) m.get("data_type_id");
+            Integer testDataSetId = (Integer) m.get("id");
+            TestDataSet testDataSet = _testDataSetDao.findTestDataSet(school.getDatabaseState(), testDataSetId);
+            TestDataType testDataType = _testDataTypeDao.getDataType(testDataTypeId);
             Grade grade = testDataSet.getGrade();
             LevelCode levelCode = testDataSet.getLevelCode();
             Subject subject = testDataSet.getSubject();
-            TestDataType testDataType = testDataTypeIdToTestDataType.get(testDataSet.getDataTypeId());
 
             //Check if the test is already in the map.
             if (schoolValueMap.get(testDataType) != null) {
@@ -448,6 +394,15 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
     public void setTestDescriptionDao(ITestDescriptionDao testDescriptionDao) {
         _testDescriptionDao = testDescriptionDao;
     }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
+    }
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
+    }
+
 
     public static Integer getGradeNum(Grade grade) {
         if (Grade.ALL.equals(grade)) {
