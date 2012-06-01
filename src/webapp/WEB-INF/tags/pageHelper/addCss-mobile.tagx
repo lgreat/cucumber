@@ -44,7 +44,7 @@
             <gsml:url var="tabs" value="/res/mobile/css/13_tabs/tabs.css"/>
             <gsml:url var="ratings" value="/res/mobile/css/14_ratings/ratings.css"/>
             <gsml:url var="modalLayer" value="/res/mobile/css/15_modal/modal.css"/>
-            <gsml:url var="datauri" value="/res/mobile/css/16_datauri/lowres.css"/>
+            <gsml:url var="datauri" value="/res/mobile/css/16_datauri/hires.css"/>
 
             <![CDATA[<link rel="stylesheet" href="${reset}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${zindexreset}" type="text/css" />]]>
@@ -71,7 +71,7 @@
             <![CDATA[<link rel="stylesheet" href="${datauri}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
-            <gsml:url var="datauri" value="/res/mobile/css/16_datauri/lowres.css"/>
+            <gsml:url var="datauri" value="/res/mobile/css/16_datauri/hires.css"/>
             <![CDATA[<link rel="stylesheet" href="${datauri}" type="text/css" />]]>
             <gsml:url var="gs_mobile_stylescss" value="/res/mobile/css/gs_mobile_styles.combined.min.css"/>
             <![CDATA[<link rel="stylesheet" href="${gs_mobile_stylescss}" type="text/css" />]]>

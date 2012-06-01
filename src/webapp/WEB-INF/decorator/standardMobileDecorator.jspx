@@ -51,7 +51,7 @@
     <div class="js-overlay"><!-- do not collapse --></div>
     <div class="horizon tac">
         <div class="js-modal dn">
-            <img alt="LOADING" src="/res/mobile/img/preloaded_32x32.gif" />
+            <div class="wait-spinner"><!-- do not collapse --></div>
         </div>
     </div>
     </body>
