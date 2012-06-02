@@ -68,6 +68,7 @@
     <pageHelper:externalJavascript file="/res/js/findASchoolFromSearch.js"/>
 
     <pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsFruitcake.js"/>
     <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTableFruitcake.js"/>
     <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
     <pageHelper:externalJavascript file="/res/js/history.min.js"/> <!-- TODO: Move this to bottom of page? -->
@@ -130,6 +131,16 @@
         <ad:adTag position="SponsoredSearch_Top_423x120"/>
         <ad:adTag position="SponsoredSearch_Top_423x68"/>
         <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
+
+        <div class="contain_6-1 pbs">
+            <div class="fl">
+                <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a>  &amp;nbsp;
+                <a data-role="button" data-inline="true" class="but but-sm but-2 js-mapResultsLink">Map</a>
+            </div>
+
+            <br class="clearfloat"/>
+        </div>
+
         <c:choose>
             <c:when test="${page.pager.totalItems gt 0}">
                 <search:schoolSearchResultsTableFruitcake omniturePageName="${omniturePageName}"/>

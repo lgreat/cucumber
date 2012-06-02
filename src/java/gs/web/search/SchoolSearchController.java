@@ -81,6 +81,7 @@ public class SchoolSearchController extends AbstractCommandController implements
     private String _noResultsAjaxViewName;
     private String _viewName;
     private String _ajaxViewName;
+    private String _mapViewName;
 
     private GsSolrSearcher _gsSolrSearcher;
 
@@ -657,13 +658,21 @@ public class SchoolSearchController extends AbstractCommandController implements
     }
 
     public String getViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
-        if (schoolSearchCommand.isAjaxRequest()) {
+        String viewOverride = schoolSearchCommand.getView();
+        // if "view" URL query param is set to "map", use the map viewname
+        if ("map".equals(viewOverride)) {
+            return getMapViewName();
+        }
+
+        else if (schoolSearchCommand.isAjaxRequest()) {
             if (searchResultsPage.getTotalResults() == 0) {
                 return getNoResultsAjaxViewName();
             } else {
                 return getAjaxViewName();
             }
-        } else {
+        }
+
+        else {
             if (searchResultsPage.getTotalResults() == 0 && !schoolSearchCommand.isNearbySearchByLocation()) {
                 return getNoResultsViewName();
             } else {
@@ -1352,6 +1361,14 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public void setAjaxViewName(String ajaxViewName) {
         _ajaxViewName = ajaxViewName;
+    }
+
+    public String getMapViewName() {
+        return _mapViewName;
+    }
+
+    public void setMapViewName(String mapViewName) {
+        _mapViewName = mapViewName;
     }
 
     public ControllerFamily getControllerFamily() {
