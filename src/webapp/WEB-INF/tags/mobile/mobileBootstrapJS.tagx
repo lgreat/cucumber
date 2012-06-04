@@ -5,6 +5,7 @@
     <jsp:directive.tag body-content="empty"/>
 
     <!-- writes out JS that requires the evaluation of JSTL expressions -->
+    <!-- !!NOTE THIS MUST HAPPEN BEFORE require.js IS INCLUDED ON THE PAGE!! -->
 
     <jsp:scriptlet>
         gs.web.util.context.SessionContext sessionContext = gs.web.util.context.SessionContextUtil.getSessionContext(request);
@@ -43,10 +44,8 @@
             urlArgs:"v=${gswebBuildTime}"
         };
 
-        if (require) {
-            require.config(GS.requireConfig);
-        }
-
+        // Defining "require" will auto-configure require when it is imported: http://requirejs.org/docs/api.html#config
+        var require = GS.requireConfig;
     </script>
 
 </jsp:root>
