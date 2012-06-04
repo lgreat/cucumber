@@ -1,5 +1,6 @@
 package gs.web.community.registration.popup;
 
+import gs.data.integration.exacttarget.ExactTargetAPI;
 import gs.data.state.State;
 import gs.web.util.*;
 import gs.web.util.validator.UserCommandValidator;
@@ -15,11 +16,8 @@ import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
@@ -29,6 +27,7 @@ public class RegistrationHoverController extends RegistrationController implemen
     protected final Log _log = LogFactory.getLog(getClass());
 
     private boolean _requireEmailValidation = true;
+    private ExactTargetAPI _exactTargetAPI;
 
     public static final String BEAN_ID = "/community/registration/popup/registrationHover.page";
 
@@ -146,7 +145,7 @@ public class RegistrationHoverController extends RegistrationController implemen
 
         boolean skipEmailVerification = false;
         if (isMssJoin && (!userExists || user.getEmailVerified() || user.isEmailValidated())) {
-            sendConfirmationEmail(request, user, userCommand.getNewsletter(), userCommand.getPartnerNewsletter());
+            sendConfirmationEmail(user, userCommand.getNewsletter(), userCommand.getPartnerNewsletter());
             skipEmailVerification = true;
         }
 
@@ -320,15 +319,17 @@ public class RegistrationHoverController extends RegistrationController implemen
         _requireEmailValidation = requireEmailValidation;
     }
 
-    private void sendConfirmationEmail(HttpServletRequest request, User user, boolean addedParentAdvisorSubscription, boolean addedSponsorOptInSubscription)
-            throws IOException, MessagingException, NoSuchAlgorithmException {
-        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
-        urlBuilder.addParameter("showSubscriptionThankYouHover","true");
-        String redirectUrl = urlBuilder.asFullUrl(request);
-        Map<String,String> otherParams = new HashMap<String,String>();
-        otherParams.put(ExactTargetUtil.EMAIL_SUB_WELCOME_PARAM, ExactTargetUtil.getEmailSubWelcomeParamValue(addedParentAdvisorSubscription,false,true,addedSponsorOptInSubscription));
-        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl, otherParams);
+    private void sendConfirmationEmail(User user, boolean addedParentAdvisorSubscription, boolean addedSponsorOptInSubscription) {
+        Map<String, String> attributes = ExactTargetUtil.getEmailSubWelcomeAttributes(
+                ExactTargetUtil.getEmailSubWelcomeParamValue(addedParentAdvisorSubscription, false, true, addedSponsorOptInSubscription));
+        _exactTargetAPI.sendTriggeredEmail(ExactTargetUtil.EMAIL_SUB_WELCOME_TRIGGER_KEY, user, attributes);
     }
 
+    public ExactTargetAPI getExactTargetAPI() {
+        return _exactTargetAPI;
+    }
 
+    public void setExactTargetAPI(ExactTargetAPI exactTargetAPI) {
+        _exactTargetAPI = exactTargetAPI;
+    }
 }
