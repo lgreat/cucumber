@@ -151,6 +151,70 @@ GSType.hover.JoinHover = function() {
     this.loadOnExitUrl = null;
     this.onSubmitCallback = null;
 
+    this.undoSimpleMssFields = function() {
+        // show first name
+        jQuery('#joinHover div.joinHover_firstName').show();
+        // hide email label (short)
+        jQuery('#joinHover div.joinLabel label.shortLabel').hide();
+        // show email label (long)
+        jQuery('#joinHover div.joinLabel label.longLabel').show();
+        // hide confirm email
+        jQuery('#joinHover div.joinHover_confirmEmail').hide();
+        // show username
+        jQuery('#joinHover div.joinHover_username').show();
+        // show password
+        jQuery('#joinHover div.joinHover_password').show();
+        // show confirm password
+        jQuery('#joinHover div.joinHover_confirmPassword').show();
+        // show terms
+        jQuery('#joinHover div.joinHover_terms').show();
+        // formatting changes
+        jQuery('#joinHover div.separator').show();
+        jQuery('#joinHover div.separatorMss').hide();
+        jQuery('#joinHover div.formHelperWrapper').show();
+        jQuery('#joinHover div.formHelperSpacer').show();
+        jQuery('#joinHover div.btstips').removeClass('size1of1').addClass('size15of19');
+        // move join button to bottom
+        jQuery('#joinHover div.joinSubmit').insertAfter('#joinHover div.bottomHalf');
+        jQuery('#joinHover div.joinSubmit button').text('Join now'); // instead of Join now
+        jQuery('#joinHover div.joinSubmit .lastUnit').show(); // instead of Join now
+        // update partners text
+        jQuery('#joinHover div.joinHover_partners label[for="opt3"]').html(
+            'Send me offers to save on family activities and special' +
+            'promotions from our carefully chosen partners.');
+    };
+    this.showSimpleMssFields = function() {
+         // hide first name
+         jQuery('#joinHover div.joinHover_firstName').hide();
+         // show email label (short)
+         jQuery('#joinHover div.joinLabel label.shortLabel').show();
+         // hide email label (long)
+         jQuery('#joinHover div.joinLabel label.longLabel').hide();
+         // show confirm email
+         jQuery('#joinHover div.joinHover_confirmEmail').show();
+         // hide username
+         jQuery('#joinHover div.joinHover_username').hide();
+         // hide password
+         jQuery('#joinHover div.joinHover_password').hide();
+         // hide confirm password
+         jQuery('#joinHover div.joinHover_confirmPassword').hide();
+         // hide terms
+         jQuery('#joinHover div.joinHover_terms').hide();
+         // formatting changes
+         jQuery('#joinHover div.separator').hide();
+         jQuery('#joinHover div.separatorMss').show();
+         jQuery('#joinHover div.formHelperWrapper').hide();
+         jQuery('#joinHover div.formHelperSpacer').hide();
+         jQuery('#joinHover div.btstips').removeClass('size15of19').addClass('size1of1');
+         // move join button to below confirm email
+         jQuery('#joinHover div.joinSubmit').insertAfter('#joinHover div.joinHover_confirmEmail');
+         jQuery('#joinHover div.joinSubmit button').text('Sign up'); // instead of Join now
+         jQuery('#joinHover div.joinSubmit .lastUnit').hide(); // instead of Join now
+         // update partners text
+         jQuery('#joinHover div.joinHover_partners label[for="opt3"]').html(
+             'Send me offers to save on family activities and special ' +
+             'promotions from GreatSchools and our carefully chosen partners.');
+    };
     this.baseFields = function() {
         // hide city and state inputs
         jQuery('#joinHover .joinHover_location').hide();
@@ -163,6 +227,7 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover div.joinHover_btstip').hide();
         //check checkbox for greatnews
         jQuery('#joinHover #opt1').prop('checked', true);
+        this.undoSimpleMssFields();
     };
     //sets a notification message on the join form - can be used to explain why this hover was launched
     this.addMessage = function(text) {
@@ -225,8 +290,8 @@ GSType.hover.JoinHover = function() {
     this.configAndShowEmailTipsMssLabelNew = function()
     {
         var labelTextPrefix = "Sign me up for";
-        var labelPhrases = " GreatSchools Weekly &ndash; our popular series gives you " +
-                    "education news, practical parenting tips, and grade-by-grade information and advice.";
+        var labelPhrases = " the <em>GreatSchools Weekly</em> &ndash; full of practical tips and grade-by-grade " +
+                    "information to help you support your child's education.";
 
         jQuery('#joinHover div.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
     };
@@ -351,6 +416,8 @@ GSType.hover.JoinHover = function() {
         // GS-11161
         //GSType.hover.joinHover.configAndShowEmailTipsMssLabel(true, true, true);
         GSType.hover.joinHover.configAndShowEmailTipsMssLabelNew();
+
+        GSType.hover.joinHover.showSimpleMssFields();
 
         GSType.hover.joinHover.setJoinHoverType("Auto");
 
@@ -504,10 +571,18 @@ GSType.hover.JoinHover = function() {
     this.validateEmail = function() {
         jQuery.getJSON(
                 GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-        {email:jQuery('#joinGS #jemail').val(), field:'email'},
+        {email:jQuery('#joinGS #jemail').val(), field:'email', simpleMss: (jQuery('#joinHoverType').val() === 'Auto')},
                 function(data) {
                     GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_email .errors', 'email', data);
                 });
+    };
+    this.validateConfirmEmail = function() {
+        jQuery.getJSON(
+            GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
+            {email:jQuery('#joinGS #jemail').val(), confirmEmail:jQuery('#joinGS #jcemail').val(), field:'confirmEmail', simpleMss: (jQuery('#joinHoverType').val() === 'Auto')},
+            function(data) {
+                GSType.hover.joinHover.validateFieldResponse('#joinGS .joinHover_confirmEmail .errors', 'confirmEmail', data);
+            });
     };
     this.validateUsername = function() {
         jQuery.getJSON(
@@ -571,6 +646,8 @@ GSType.hover.JoinHover = function() {
         });
 
         params += "&grades=" + newsletters.join(',');
+
+        params += "&simpleMss=" + (jQuery('#joinHoverType').val() === 'Auto');
 
         jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse);
         return false;
@@ -1546,6 +1623,7 @@ jQuery(function() {
 
     jQuery('#joinHover #fName').blur(GSType.hover.joinHover.validateFirstName);
     jQuery('#joinHover #jemail').blur(GSType.hover.joinHover.validateEmail);
+    jQuery('#joinHover #jcemail').blur(GSType.hover.joinHover.validateConfirmEmail);
     jQuery('#joinHover #uName').blur(GSType.hover.joinHover.validateUsername);
     jQuery('#joinHover #jpword').blur(GSType.hover.joinHover.validatePassword);
     jQuery('#joinHover #cpword').blur(GSType.hover.joinHover.validateConfirmPassword);

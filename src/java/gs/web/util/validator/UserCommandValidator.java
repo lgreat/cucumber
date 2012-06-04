@@ -66,6 +66,8 @@ public class UserCommandValidator implements IRequestAwareValidator {
             "This email address is already registered.";
     protected static final String ERROR_EMAIL_TAKEN_SHORT =
             "This email address is already registered.";
+    public static final String ERROR_EMAIL_MISMATCH =
+            "Emails do not match.";
 
     protected static final String ERROR_PASSWORD_LENGTH =
             "Password should be 6-14 characters.";
@@ -105,8 +107,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         validateStateCity(command, errors);
     }
 
-    public User validateEmail(UserCommand command, HttpServletRequest request, Errors errors) {
-        User user = null;
+    public void validateEmailFormatOnly(UserCommand command, Errors errors) {
         String email = command.getEmail();
         if (StringUtils.isEmpty(email)) {
             errors.rejectValue("email", null, ERROR_EMAIL_MISSING);
@@ -114,7 +115,16 @@ public class UserCommandValidator implements IRequestAwareValidator {
         } else if (email.length() > EMAIL_MAXIMUM_LENGTH) {
             errors.rejectValue("email", null, ERROR_EMAIL_LENGTH);
             _log.info("Registration error: " + ERROR_EMAIL_LENGTH);
-        } else {
+        }
+    }
+
+    public User validateEmail(UserCommand command, HttpServletRequest request, Errors errors) {
+        User user = null;
+        String email = command.getEmail();
+
+        validateEmailFormatOnly(command, errors);
+
+        if (!errors.hasFieldErrors("email")) {
             user = _userDao.findUserFromEmailIfExists(email);
             if (user != null) {
                 if (user.getUserProfile() != null && !user.getUserProfile().isActive()) {
@@ -291,6 +301,15 @@ public class UserCommandValidator implements IRequestAwareValidator {
         if (!StringUtils.equals(passwordValue, passwordConfirmValue)) {
             errors.rejectValue(fieldName, null, ERROR_PASSWORD_MISMATCH);
             _log.info("Registration error: " + ERROR_PASSWORD_MISMATCH);
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateEmailEquivalence(String emailValue, String emailConfirmValue, String fieldName, Errors errors) {
+        if (!StringUtils.equals(emailValue, emailConfirmValue)) {
+            errors.rejectValue(fieldName, null, ERROR_EMAIL_MISMATCH);
+            _log.info("Registration error: " + ERROR_EMAIL_MISMATCH);
             return false;
         }
         return true;

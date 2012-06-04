@@ -2,6 +2,7 @@ package gs.web.community.registration.popup;
 
 import gs.data.state.State;
 import gs.web.util.*;
+import gs.web.util.validator.UserCommandValidator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.lang.StringUtils;
@@ -14,8 +15,11 @@ import gs.web.tracking.CookieBasedOmnitureTracking;
 import gs.data.community.*;
 import gs.data.dao.hibernate.ThreadLocalTransactionManager;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 /**
@@ -62,6 +66,19 @@ public class RegistrationHoverController extends RegistrationController implemen
         }
     }
 
+    @Override
+    public void onBindAndValidate(HttpServletRequest request, Object command, BindException errors) throws Exception {
+        RegistrationHoverCommand userCommand = (RegistrationHoverCommand) command;
+        boolean isMssJoin = (RegistrationHoverCommand.JoinHoverType.Auto == userCommand.getJoinHoverType());
+
+        if (isMssJoin) {
+            UserCommandValidator validator = new UserCommandValidator();
+            validator.validateEmailFormatOnly(userCommand, errors);
+        } else {
+            super.onBindAndValidate(request, command, errors);
+        }
+    }
+
     public ModelAndView onSubmit(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Object command,
@@ -74,28 +91,44 @@ public class RegistrationHoverController extends RegistrationController implemen
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
         boolean userExists = false;
 
-        if (user != null) {
-            userExists = true;
-            setFieldsOnUserUsingCommand(userCommand, user);
-            userCommand.setUser(user);
+        boolean isMssJoin = (RegistrationHoverCommand.JoinHoverType.Auto == userCommand.getJoinHoverType());
+
+        if (isMssJoin) {
+            if (user != null) {
+                userExists = true;
+                userCommand.setUser(user);
+            } else {
+                user = new User();
+                user.setEmail(userCommand.getEmail());
+                user.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
+                user.setWelcomeMessageStatus(WelcomeMessageStatus.NEVER_SEND);
+                user.setEmailVerified(true);
+                getUserDao().saveUser(user);
+                userCommand.setUser(user);
+            }
         } else {
-            // only create the user if the user is new
-            getUserDao().saveUser(userCommand.getUser());
-            user = userCommand.getUser();
+            if (user != null) {
+                userExists = true;
+                setFieldsOnUserUsingCommand(userCommand, user);
+                userCommand.setUser(user);
+            } else {
+                // only create the user if the user is new
+                getUserDao().saveUser(userCommand.getUser());
+                user = userCommand.getUser();
+            }
+
+            setUsersPassword(user, userCommand, userExists);
+            updateUserProfile(user, userCommand, ot);
+            // set up defaults for data not collected in hover registration
+            if (StringUtils.isEmpty(user.getGender())) {
+                user.setGender("u");
+            }
+
+            user.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
+
+            // save
+            getUserDao().updateUser(user);
         }
-
-        setUsersPassword(user, userCommand, userExists);
-        updateUserProfile(user, userCommand, ot);
-        // set up defaults for data not collected in hover registration
-        if (StringUtils.isEmpty(user.getGender())) {
-            user.setGender("u");
-        }
-
-        user.setHow(joinTypeToHow(userCommand.getJoinHoverType()));
-        
-        // save
-        getUserDao().updateUser(user);
-
 
         try {
             // GS-7649 Because of hibernate caching, it's possible for a list_active record
@@ -111,7 +144,13 @@ public class RegistrationHoverController extends RegistrationController implemen
             return mAndV;
         }
 
-        if (_requireEmailValidation) {
+        boolean skipEmailVerification = false;
+        if (isMssJoin && (!userExists || user.getEmailVerified() || user.isEmailValidated())) {
+            sendConfirmationEmail(request, user, userCommand.getNewsletter(), userCommand.getPartnerNewsletter());
+            skipEmailVerification = true;
+        }
+
+        if (_requireEmailValidation && !skipEmailVerification) {
             // Determine redirect URL for validation email
             String emailRedirectUrl;
 
@@ -135,6 +174,8 @@ public class RegistrationHoverController extends RegistrationController implemen
        
         if (RegistrationHoverCommand.JoinHoverType.SchoolReview.equals(userCommand.getJoinHoverType())) {
             cookie.setProperty("showHover", "validateEmailSchoolReview");
+        } else if (isMssJoin && skipEmailVerification) {
+            cookie.setProperty("showHover", "subscriptionEmailValidated");
         } else {
             cookie.setProperty("showHover", "validateEmail");
         }
@@ -177,17 +218,15 @@ public class RegistrationHoverController extends RegistrationController implemen
 
         getUserDao().updateUser(user);
 
+        if (userCommand.getJoinHoverType() == RegistrationHoverCommand.JoinHoverType.Auto
+                && userCommand.getMystatSchoolId() > 0) {
+            addMssSubscription(userCommand, user, subscriptions);
+        }
         if (userCommand.getNewsletter()) {
-            subscriptions.add(new Subscription(user, SubscriptionProduct.getSubscriptionProduct("greatnews"), state));
-            if ((userCommand.getJoinHoverType() == RegistrationHoverCommand.JoinHoverType.Auto
-                    || userCommand.getJoinHoverType() == RegistrationHoverCommand.JoinHoverType.SchoolReview)
+            subscriptions.add(new Subscription(user, SubscriptionProduct.PARENT_ADVISOR, state));
+            if (userCommand.getJoinHoverType() == RegistrationHoverCommand.JoinHoverType.SchoolReview
                     && userCommand.getMystatSchoolId() > 0) {
-                Subscription sub = new Subscription();
-                sub.setUser(user);
-                sub.setProduct(SubscriptionProduct.MYSTAT);
-                sub.setState(userCommand.getMystatSchoolState());
-                sub.setSchoolId(userCommand.getMystatSchoolId());
-                subscriptions.add(sub);
+                addMssSubscription(userCommand, user, subscriptions);
             }
         }
         if (userCommand.getPartnerNewsletter()) {
@@ -205,6 +244,15 @@ public class RegistrationHoverController extends RegistrationController implemen
             getSubscriptionDao().addNewsletterSubscriptions(user, subscriptions);
             NewSubscriberDetector.notifyOmnitureWhenNewNewsLetterSubscriber(user, ot);
         }
+    }
+
+    private void addMssSubscription(RegistrationHoverCommand userCommand, User user, List<Subscription> subscriptions) {
+        Subscription sub = new Subscription();
+        sub.setUser(user);
+        sub.setProduct(SubscriptionProduct.MYSTAT);
+        sub.setState(userCommand.getMystatSchoolState());
+        sub.setSchoolId(userCommand.getMystatSchoolId());
+        subscriptions.add(sub);
     }
 
     public String joinTypeToHow(RegistrationHoverCommand.JoinHoverType joinType) {
@@ -271,4 +319,16 @@ public class RegistrationHoverController extends RegistrationController implemen
     public void setRequireEmailValidation(boolean requireEmailValidation) {
         _requireEmailValidation = requireEmailValidation;
     }
+
+    private void sendConfirmationEmail(HttpServletRequest request, User user, boolean addedParentAdvisorSubscription, boolean addedSponsorOptInSubscription)
+            throws IOException, MessagingException, NoSuchAlgorithmException {
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
+        urlBuilder.addParameter("showSubscriptionThankYouHover","true");
+        String redirectUrl = urlBuilder.asFullUrl(request);
+        Map<String,String> otherParams = new HashMap<String,String>();
+        otherParams.put(ExactTargetUtil.EMAIL_SUB_WELCOME_PARAM, ExactTargetUtil.getEmailSubWelcomeParamValue(addedParentAdvisorSubscription,false,true,addedSponsorOptInSubscription));
+        getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl, otherParams);
+    }
+
+
 }

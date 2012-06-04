@@ -52,11 +52,28 @@
         </div>
 
         <div class="line joinHover_email">
-            <div class="unit size4of19">
-                <label for="jemail">Email address *</label>
+            <div class="unit size4of19 joinLabel">
+                <label for="jemail" class="longLabel">Email address <span class="req">*</span></label>
+                <label for="jemail" class="shortLabel">Email</label>
             </div>
             <div class="unit size5of14">
                 <input type="text" id="jemail" class="textInput" name="email"/>
+            </div>
+            <div class="unit size3of7 lastUnit">
+                <div class="errors">
+                    <span class="error valid">&amp;nbsp;</span>
+                    <span class="error invalid"><!-- not empty --></span>
+                </div>
+            </div>
+            <div class="spacer_15"><!-- do not collapse --></div>
+        </div>
+
+        <div class="line joinHover_confirmEmail">
+            <div class="unit size4of19">
+                <label for="jcemail">Confirm email</label>
+            </div>
+            <div class="unit size5of14">
+                <input type="text" id="jcemail" class="textInput" name="confirmEmail"/>
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
@@ -138,7 +155,7 @@
     </div>
 </div>
 
-<div class="line">
+<div class="line separator">
     <div class="unit size4of19">&amp;nbsp;</div>
     <div class="unit size15of19 lastUnit">
         <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
@@ -146,8 +163,15 @@
     </div>
 </div>
 
-<div class="line">
-    <div class="unit size3of19">
+<div class="line separatorMss">
+    <div class="unit size1of1 lastUnit">
+        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+        <div class="spacer_10"><!-- do not collapse --></div>
+    </div>
+</div>
+
+<div class="line bottomHalf">
+    <div class="unit size3of19 formHelperWrapper">
         <div class="media formHelperText mbm">
             <div class="img mrs">*</div>
             <div class="bd">Indicates a required field.</div>
@@ -161,7 +185,7 @@
             </div>
         </div>
     </div>
-    <div class="unit size1of19">
+    <div class="unit size1of19 formHelperSpacer">
         &amp;nbsp;
     </div>
     <div class="unit size15of19 lastUnit btstips">
@@ -299,7 +323,7 @@
     <div class="spacer_15"><!-- do not collapse --></div>
 </div>
 
-<div class="line">
+<div class="line joinSubmit">
     <div class="unit size4of19">&amp;nbsp;</div>
     <div class="unit size4of19">
         <button class="button-1" type="submit" name="joinBtn" id="joinBtn">Join now</button>

@@ -38,9 +38,12 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
     public static final String EMAIL = "email";
+    public static final String CONFIRM_EMAIL = "confirmEmail";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public static final String CONFIRM_PASSWORD = "confirmPassword";
+
+    public static final String SIMPLE_MSS = "simpleMss";
 
     public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
         _userCommandValidator.setUserDao(_userDao);
@@ -48,6 +51,8 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
         // if a particular field is specified, validate only that field
         if (StringUtils.isNotBlank(request.getParameter(FIELD_PARAMETER))) {
             handleOnblur(request, (UserCommand) command, errors);
+        } else if ("true".equals(request.getParameter(SIMPLE_MSS))) {
+            handleSimpleMssValidation(request, (UserCommand) command, errors);
         } else {
             handleFullValidation(request, (UserCommand) command, errors);
         }
@@ -98,6 +103,16 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
 //        }
     }
 
+    protected void handleSimpleMssValidation(HttpServletRequest request,UserCommand userCommand,
+                                        BindException errors) throws IOException {
+        // validate email format
+        EmailValidator emailValidator = new EmailValidator();
+        emailValidator.validate(userCommand, errors);
+        // validate that email andc confirm email are the same
+        _userCommandValidator.validateEmailEquivalence
+                    (userCommand.getEmail(), userCommand.getConfirmEmail(), "confirmEmail", errors);
+    }
+
     protected void handleOnblur(HttpServletRequest request, UserCommand userCommand, BindException errors) {
         if (StringUtils.equals(FIRST_NAME, request.getParameter(FIELD_PARAMETER))) {
             _userCommandValidator.validateFirstName(userCommand, errors);
@@ -106,6 +121,9 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
             EmailValidator emailValidator = new EmailValidator();
             emailValidator.validate(userCommand, errors);
             _userCommandValidator.validateEmail(userCommand, request, errors);
+        } else if (StringUtils.equals(CONFIRM_EMAIL, request.getParameter(FIELD_PARAMETER))) {
+            _userCommandValidator.validateEmailEquivalence
+                    (userCommand.getEmail(), userCommand.getConfirmEmail(), "confirmEmail", errors);
         } else if (StringUtils.equals(USERNAME, request.getParameter(FIELD_PARAMETER))) {
             User user = null;
             // to properly validate username we need to find if the user already exists
