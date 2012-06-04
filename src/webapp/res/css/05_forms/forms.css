@@ -85,6 +85,21 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 input.text-smaller.warning,
 .slFormsV1-0 textarea.warning {border-color:#cc0033;}
 
+/*Form element search style*/
+.slFormsV1-0 input.searchText {background-color:#fff;border:1px solid #79BEDC;font: normal 12px/18px Arial, Helvetica, sans-serif;color:#999; outline:0;
+    -webkit-box-shadow: inset 0 2px 3px 0 rgba(0, 0, 0, 0.20);
+           -box-shadow: inset 0 2px 3px 0 rgba(0, 0, 0, 0.20);
+}
+
+/*Form element search style on focus*/
+.slFormsV1-0 input.searchText:focus{ color: #2B2B2B; border: 1px solid #2092C4;
+    -webkit-transition: all 0.15s ease-in;  /* Saf3.2+, Chrome */
+       -moz-transition: all 0.15s ease-in;  /* FF4+ */
+        -ms-transition: all 0.15s ease-in;  /* IE10 */
+         -o-transition: all 0.15s ease-in;  /* Opera 10.5+ */
+            transition: all 0.15s ease-in;
+}
+
 .slFormsV1-0 select { outline:0; }
 .ie7 .slFormsV1-0 select { vertical-align: middle; }
 
@@ -94,6 +109,7 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .ie7 .slFormsV1-0 .ral select { margin-top: 0px; }
 
 .slFormsV1-0 input.text {padding:5px 5px;}
+.slFormsV1-0 input.searchText {padding:5px 5px;}
 .slFormsV1-0 input.text-smaller {padding:2px;}
 .slFormsV1-0 textarea {padding:5px;resize:none;overflow:auto;}
 .slFormsV1-0 textarea.height-1{height:69px;}

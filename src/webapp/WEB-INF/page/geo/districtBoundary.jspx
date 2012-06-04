@@ -27,10 +27,6 @@
         cursor: pointer;
     }
 
-    #schoolList div.media:hover {
-            background-color: #F8F8F8;
-        }
-
     #schoolList .selected {
             background-color: #E2F1F7;
         }
@@ -44,9 +40,6 @@
         position: relative;
     }
     #js_loading {
-        padding: 5px;
-        background-color: #eee;
-        border: 1px solid #666;
         position: absolute;
         bottom: 15px;
         left: 300px;
@@ -927,7 +920,7 @@ new (function() {
                 <div class="alpha grid_19 omega">
                     <form action="" id="searchLocationForm" onsubmit="return false;">
                         <input type="text" alt="Search location" name="addressQuery" id="js_mapAddressQuery"
-                               class="text input_8 mrm"
+                               class="searchText input_8 mrm"
                                placeholder="Search by city and state or address"/>
                         <button type="submit" name="loadAddress" id="js_loadAddress" class="button-1">Search</button>
                     </form>
@@ -1024,7 +1017,7 @@ new (function() {
                     <div class="js_showWithMap hidden">
                         <div id="map-wrapper">
                             <div id="map-canvas"><!-- not empty --></div>
-                            <div id="js_loading" class="hidden">Loading ...</div>
+                            <div id="js_loading" class="but but-sm but-2 hidden">Loading ...</div>
                             <button class="but but-sm but-2" id="js_reloadMap">Redo search at this location</button>
                         </div>
                         <c:if test="${param.debug}">
