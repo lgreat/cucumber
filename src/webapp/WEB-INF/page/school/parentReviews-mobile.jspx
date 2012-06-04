@@ -4,6 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod" xmlns:form="http://www.springframework.org/tags/form"
@@ -61,6 +62,10 @@
         <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
         <c:if test="${!empty principalReview}">
             <div class="contain_2-1">
+                <div class="clearfix">
+                    <strong>Principal's point of view</strong>
+                    <span class="ac1 small"> (<fmt:formatDate pattern="MM/dd/yy" value="${principalReview.posted}"/>)</span>
+                </div>
                 <util:truncate value="${principalReview.comments}" words="40"/>
             </div>
         </c:if>
