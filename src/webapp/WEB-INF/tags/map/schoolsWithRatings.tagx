@@ -387,14 +387,14 @@ function getSchoolInfoWindowHtml(school) {
         rval += school.type + ', ' + school.gradeLevel;
     }
     rval += '</div>';
-    rval += '<p>';
+    rval += '<div>';
     rval += school.street + '<br />';
     rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';
-    rval += '</p>';
+    rval += '</div>';
     if (school.phone == '') {
         rval += '<br/>';
     } else {
-        rval += '<p class="schoolPhone">' + school.phone + '</p>';
+        rval += '<div class="schoolPhone">' + school.phone + '</div>';
     }
     rval += '</div>'; // schoolInfo
     rval += '<div class="unit size1of100 lastUnit">&nbsp;'; //
