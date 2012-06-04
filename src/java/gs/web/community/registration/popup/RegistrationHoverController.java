@@ -88,13 +88,12 @@ public class RegistrationHoverController extends RegistrationController implemen
         User user = getUserDao().findUserFromEmailIfExists(userCommand.getEmail());
         ModelAndView mAndV = new ModelAndView();
         OmnitureTracking ot = new CookieBasedOmnitureTracking(request, response);
-        boolean userExists = false;
+        boolean userExists = (user != null);
 
         boolean isMssJoin = (RegistrationHoverCommand.JoinHoverType.Auto == userCommand.getJoinHoverType());
 
         if (isMssJoin) {
-            if (user != null) {
-                userExists = true;
+            if (userExists) {
                 userCommand.setUser(user);
             } else {
                 user = new User();
@@ -106,8 +105,7 @@ public class RegistrationHoverController extends RegistrationController implemen
                 userCommand.setUser(user);
             }
         } else {
-            if (user != null) {
-                userExists = true;
+            if (userExists) {
                 setFieldsOnUserUsingCommand(userCommand, user);
                 userCommand.setUser(user);
             } else {
@@ -144,7 +142,7 @@ public class RegistrationHoverController extends RegistrationController implemen
         }
 
         boolean skipEmailVerification = false;
-        if (isMssJoin && (!userExists || user.getEmailVerified() || user.isEmailValidated())) {
+        if (isMssJoin && (!userExists || (Boolean.TRUE.equals(user.getEmailVerified())) || user.isEmailValidated())) {
             sendConfirmationEmail(user, userCommand.getNewsletter(), userCommand.getPartnerNewsletter());
             skipEmailVerification = true;
         }
