@@ -17,10 +17,9 @@ GS.search.results = GS.search.results || (function() {
         }
     }
 
-    var init = function(_filtersModule, _compareModule, _customLinksModule) {
+    var init = function(_filtersModule, _compareModule) {
         filtersModule = _filtersModule;
         compareModule = _compareModule;
-        customLinksModule = _customLinksModule;
 
         attachEventHandlers();
 
@@ -83,7 +82,6 @@ GS.search.results = GS.search.results || (function() {
                     afterFadeIn
             );
             GS.util.htmlMirrors.updateAll();
-            customLinksModule.registerDataAttributeHandlers('#school-search-results-table-body');
         };
 
         var onSearchError = function() {

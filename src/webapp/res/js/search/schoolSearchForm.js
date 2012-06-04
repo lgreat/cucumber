@@ -276,8 +276,6 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                                 geocodeResult['partial_match'] = false;
                             }
                             for (var i = 0; i < results[x].address_components.length; i++) {
-                                alert('x is ' + x);
-                                console.log('results[x] is ', results[x]);
                                 if (results[x].address_components[i].types.contains('administrative_area_level_1')) {
                                     geocodeResult['state'] = results[x].address_components[i].short_name;
                                 }

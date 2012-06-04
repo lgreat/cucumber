@@ -7,25 +7,23 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
     };
 
     var registerDataAttributeHandlers = function(containerSelector) {
-        containerSelector = containerSelector || '';
+        containerSelector = containerSelector || 'body';
 
         var customLinkDataAttribute = 'gs-custom-link';
-        var customLinkSelector = containerSelector + ' [data-' + customLinkDataAttribute + ']';
+        var customLinkSelector = '[data-' + customLinkDataAttribute + ']';
 
-        var $customLinkElements = $(customLinkSelector);
+        var $container = $(containerSelector);
 
-        $customLinkElements.on('click', function() {
+        $container.on('click', customLinkSelector, function() {
             var $this = $(this);
             var track = false;
 
             if ($this.is(':checkbox')) {
-                if ($this.attr('checked') === true) {
+                if ($this.prop('checked') === true) {
                     track = true;
                 }
             } else {
-                if (s.tl) {
-                    track = true;
-                }
+                track = true;
             }
 
             if (track === true) {
@@ -33,7 +31,6 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
                     s.tl(true, 'o', $this.data(customLinkDataAttribute));
                 }
             }
-
         });
     };
 
@@ -44,4 +41,6 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
 
 })();
 
-GS.tracking.customLinks.init();
+$(function() {
+    GS.tracking.customLinks.init();
+});
