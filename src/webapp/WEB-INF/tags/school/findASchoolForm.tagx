@@ -118,50 +118,50 @@
                                     <div class="line mbm">
                                         <div class="unit size50of100">
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="1" id="js-radius-1" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_1" value="1" id="js-radius-1" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-1">1 mile</label>
                                             </div>
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="2" id="js-radius-2" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_2" value="2" id="js-radius-2" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-2">2 miles</label>
                                             </div>
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="3" id="js-radius-3" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_3" value="3" id="js-radius-3" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-3">3 miles</label>
                                             </div>
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="4" id="js-radius-4" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_4" value="4" id="js-radius-4" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-4">4 miles</label>
                                             </div>
 
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="5" id="js-radius-5" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_5" value="5" id="js-radius-5" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-5">5 miles</label>
                                             </div>
                                         </div>
                                         <div class="unit size50of100 lastUnit">
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="10" id="js-radius-10" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_10" value="10" id="js-radius-10" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-10">10 miles</label>
                                             </div>
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="15" id="js-radius-15" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_15" value="15" id="js-radius-15" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-15">15 miles</label>
                                             </div>
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="20" id="js-radius-20" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_20" value="20" id="js-radius-20" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-20">20 miles</label>
                                             </div>
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="25" id="js-radius-25" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_25" value="25" id="js-radius-25" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-25">25 miles</label>
                                             </div>
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="30" id="js-radius-30" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_30" value="30" id="js-radius-30" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-30">30 miles</label>
                                             </div>
                                             <div class="js-applyFilters">
-                                                <form:radiobutton type="radio" name="distance" value="60" id="js-radius-60" path="schoolSearchCommand.distance"/>
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_60" value="60" id="js-radius-60" path="schoolSearchCommand.distance"/>
                                                 <label for="js-radius-60">60 miles</label>
                                             </div>
                                         </div>

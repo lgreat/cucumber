@@ -18,7 +18,7 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
             var $this = $(this);
             var track = false;
 
-            if ($this.is(':checkbox')) {
+            if ($this.is(':checkbox') || $this.is(':radio')) {
                 if ($this.prop('checked') === true) {
                     track = true;
                 }
@@ -34,9 +34,37 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
         });
     };
 
+    var registerCustomLink = function(containerSelector, elementSelector, linkNamePrefix) {
+        containerSelector = containerSelector || 'body';
+
+        var $container = $(containerSelector);
+
+        $container.on('click', elementSelector, function() {
+            var $this = $(this);
+            var track = false;
+
+            if ($this.is(':checkbox') || $this.is(':radio')) {
+                if ($this.prop('checked') === true) {
+                    track = true;
+                }
+            } else {
+                track = true;
+            }
+
+            if (track === true) {
+                if (s.tl) {
+                    var prefix = linkNamePrefix || $this.attr('name');
+                    var value = $this.val();
+                    s.tl(true, 'o', prefix + '_' + value);
+                }
+            }
+        });
+    };
+
     return {
         init:init,
-        registerDataAttributeHandlers:registerDataAttributeHandlers
+        registerDataAttributeHandlers:registerDataAttributeHandlers,
+        registerCustomLink:registerCustomLink
     }
 
 })();
