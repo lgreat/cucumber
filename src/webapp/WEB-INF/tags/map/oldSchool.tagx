@@ -128,12 +128,23 @@ function initSchoolInfo() {
 
 <![CDATA[
 function getSchoolInfoWindowHtml(school) {
-    var rval = '<div class="schoolInfoWindow" style="font: 12px/15px Trebuchet MS, sans-serif;">';
+    var height = 90; // default height
+    var heightMultiplier = Math.floor(school.name.length / 30);
+    // add 13 pixels (font line-height) for every multiple of 30 that the school name's length exceeds
+    // this is a guesstimate of how many chars it takes to wrap to the next line
+    height += heightMultiplier * 13;
+    
+    var rval = '<div class="schoolInfoWindow" style="font: 12px/15px Trebuchet MS, sans-serif; height: ' + height + 'px;">';
     rval += '<div class="schoolName" style="width: 210px;">' + school.name + '</div>';
-    rval += '<div style="height: 28px; width: 150px;">';
+    rval += '<div>';
+    rval += '<div class="line">';
+    rval += '<div class="schoolRatings unit size49of100">';
     rval += school.ratingHtml;
     rval += school.parentRatingHtml;
     rval += '</div>';
+    rval += '<div class="unit size1of100">&nbsp;'; //
+    rval += '</div>';
+    rval += '<div class="schoolAddress  unit size49of100">';
     rval += '<address style="width: 210px; clear: left; margin-top: 10px; _margin-top: 5px;">';
     rval += school.street + '<br />';
     rval += school.city + ', ' + school.state + ' ' + school.zip + '<br/>';
@@ -146,6 +157,10 @@ function getSchoolInfoWindowHtml(school) {
     } else {
         rval += '<p class="schoolPhone">' + school.phone + '</p>';
     }
+    rval += '</div>'; //
+    rval += '<div class="unit size1of100 lastUnit">&nbsp;'; //
+    rval += '</div>'; //
+    rval += '</div>'; // line
     rval += '</div>'; // schoolInfoWindow
     return rval;
 }
