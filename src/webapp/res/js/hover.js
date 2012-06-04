@@ -180,7 +180,7 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover div.joinSubmit .lastUnit').show(); // instead of Join now
         // update partners text
         jQuery('#joinHover div.joinHover_partners label[for="opt3"]').html(
-            'Send me offers to save on family activities and special' +
+            'Send me offers to save on family activities and special ' +
             'promotions from our carefully chosen partners.');
     };
     this.showSimpleMssFields = function() {
