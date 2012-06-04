@@ -58,7 +58,7 @@
 
         <pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
         <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
-        <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsFruitcake.js"/>
+        <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>
         <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTableFruitcake.js"/>
         <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
         <pageHelper:externalJavascript file="/res/js/history.min.js"/>
