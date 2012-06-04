@@ -31,7 +31,7 @@ GS.search.compare = GS.search.compare || (function() {
      * Get array of state+schoolIds that are listed in query string
      */
     var getQueryStringSchools = function() {
-        var checkedSchoolsList = getFromQueryString("compareSchools");
+        var checkedSchoolsList = GS.uri.Uri.getFromQueryString("compareSchools");
         var queryStringSchools = [];
         if (checkedSchoolsList !== undefined && checkedSchoolsList.length > 0) {
             queryStringSchools =  checkedSchoolsList.split(',');
@@ -64,7 +64,7 @@ GS.search.compare = GS.search.compare || (function() {
 
     var onCompareUncheckAllClicked = function() {
         var queryString = window.location.search;
-        queryString = removeFromQueryString(queryString, "compareSchools");
+        queryString = GS.uri.Uri.removeFromQueryString(queryString, "compareSchools");
         window.location.search = queryString;
     };
 
@@ -77,7 +77,7 @@ GS.search.compare = GS.search.compare || (function() {
 
         if (checked) {
             if (checkedSchools.length >= maxCheckedSchools) {
-                var encodedCurrentUrl = encodeURIComponent(window.location.pathname + getUpdatedQueryString());
+                var encodedCurrentUrl = encodeURIComponent(window.location.pathname + GS.uri.Uri.getUpdatedQueryString());
                 GSType.hover.compareSchoolsLimitReached.show(checkedSchools.join(','), encodedCurrentUrl, onCompareUncheckAllClicked);
                 return false;
             }

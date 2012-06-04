@@ -4,6 +4,7 @@ GS.search.results = GS.search.results || (function() {
     var thisDomElement = jQuery('#school-search-results-table-body tbody'); //TODO: pass this into constructor
     var filtersModule;
     var compareModule;
+    var customLinksModule;
 
     // http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
     // we use indexOf on some arrays in this .js file, but IE doesn't support it natively, so we have to implement it here
@@ -16,9 +17,10 @@ GS.search.results = GS.search.results || (function() {
         }
     }
 
-    var init = function(_filtersModule, _compareModule) {
+    var init = function(_filtersModule, _compareModule, _customLinksModule) {
         filtersModule = _filtersModule;
         compareModule = _compareModule;
+        customLinksModule = _customLinksModule;
 
         attachEventHandlers();
 
@@ -81,6 +83,7 @@ GS.search.results = GS.search.results || (function() {
                     afterFadeIn
             );
             GS.util.htmlMirrors.updateAll();
+            customLinksModule.registerDataAttributeHandlers('#school-search-results-table-body');
         };
 
         var onSearchError = function() {

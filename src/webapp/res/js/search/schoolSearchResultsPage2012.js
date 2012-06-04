@@ -1,42 +1,45 @@
 GS = GS || {};
-GS.search = GS.search || {};
 
+GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
+    var listResultsLinkSelector = '.js-listResultsLink';
+    var mapResultsLinkSelector = '.js-mapResultsLink';
 
+    var init = function() {
+        registerEventHandlers();
+    };
 
+    var registerEventHandlers = function() {
+        $(listResultsLinkSelector).on('click', function() {
+            if(GS.uri.Uri.getFromQueryString('view') === undefined) {
+                return;
+            }
+            else {
+                var uri = window.location.search;
+                uri = GS.uri.Uri.removeFromQueryString(uri, 'view');
+                window.location.search = uri;
+            }
+        });
+        $(mapResultsLinkSelector).on('click', function() {
+            if(GS.uri.Uri.getFromQueryString('view') === 'map') {
+                return;
+            }
+            else {
+                var uri = window.location.search;
+                uri = GS.uri.Uri.putIntoQueryString(uri, 'view', 'map', true);
+                window.location.search = uri;
+            }
+        });
+    };
 
+    return {
+        init:init
+
+    }
+
+})();
 
 jQuery(function () {
-if (jQuery.browser.msie && jQuery.browser.version.substr(0,1)<7) {
-jQuery('.js-trigger,.js-popup').mouseover(function(){
-    // do something
-    jQuery('#sort-by').hide();
-    jQuery('#page-size').hide();
-}).mouseout(function(){
-    // do something else
-    jQuery('#sort-by').show();
-    jQuery('#page-size').show();
-})
-}
-    $('.js-listResultsLink').on('click', function() {
-        if(getFromQueryString('view') === undefined) {
-            return;
-        }
-        else {
-            var uri = window.location.search;
-            uri = removeFromQueryString(uri, 'view');
-            window.location.search = uri;
-        }
-    });
-    $('.js-mapResultsLink').on('click', function() {
-        if(getFromQueryString('view') === 'map') {
-            return;
-        }
-        else {
-            var uri = window.location.search;
-            uri = putIntoQueryString(uri, 'view', 'map', true);
-            window.location.search = uri;
-        }
-    });
+    GS.schoolSearchResultsPage.init();
 });
 
 GS.search.getMap = function (points, optionalLat, optionalLon) {
