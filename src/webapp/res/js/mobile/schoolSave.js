@@ -16,15 +16,20 @@ define(['localStorage', 'tracking'], function(localStorage, tracking) {
             if(disabled === false && localStorage.enabled === true) {
                 disabled = true;
                 saveSchoolButton.removeClass('but-2').addClass('but-2-inactive').text('Saving...');
-                tracking.clear();
-                tracking.successEvents = 'event68';
-                tracking.send();
-                saveSchool(schoolSave, saveSchoolButton, state_schoolId);
+                if (saveSchool(schoolSave, state_schoolId)) {
+                    tracking.clear();
+                    tracking.successEvents = 'event68';
+                    tracking.send();
+                    saveSchoolButton.text('Saved');
+                } else {
+                    alert("Please enable localStorage to save schools.");
+                    saveSchoolButton.addClass('but-2').removeClass('but-2-inactive').text('Save');
+                }
             }
         });
     };
 
-    var saveSchool = function(schoolSave, saveSchoolButton, state_schoolId) {
+    var saveSchool = function(schoolSave, state_schoolId) {
         var saveSchoolFormInput = schoolSave.find('#js-saveSchoolForm :input');
         var newSchool = {};
         saveSchoolFormInput.each(function() {
@@ -34,15 +39,20 @@ define(['localStorage', 'tracking'], function(localStorage, tracking) {
         var schools = localStorage.getItem(schoolsKey);
         var schoolMap = localStorage.getItem(schoolMapKey);
 
+        var success = true;
         if(schools == null) {
             var newSchoolsObject = {};
             newSchoolsObject.Schools = [];
             newSchoolsObject.Schools.push(newSchool);
-            localStorage.setItem(schoolsKey, newSchoolsObject);
+            success = localStorage.setItem(schoolsKey, newSchoolsObject);
         }
         else if (schoolMap.SchoolMap[0].hasOwnProperty(state_schoolId) === false) {
             schools.Schools.push(newSchool);
-            localStorage.setItem(schoolsKey, schools);
+            success = localStorage.setItem(schoolsKey, schools);
+        }
+        if (!success) {
+            // on error saving to localStorage, bail out early
+            return false;
         }
 
         if(schoolMap == null) {
@@ -50,15 +60,15 @@ define(['localStorage', 'tracking'], function(localStorage, tracking) {
             newSchoolMap.SchoolMap = [];
             newSchoolMap.SchoolMap.push({});
             newSchoolMap.SchoolMap[0][state_schoolId] = 1;
-            localStorage.setItem(schoolMapKey, newSchoolMap);
+            success = localStorage.setItem(schoolMapKey, newSchoolMap);
         }
         else if (schoolMap.SchoolMap[0].hasOwnProperty(state_schoolId) === false) {
             var state_schoolIds = schoolMap[schoolMapKey];
             state_schoolIds[0][state_schoolId] = 1;
             schoolMap[schoolMapKey] = state_schoolIds;
-            localStorage.setItem(schoolMapKey, schoolMap);
+            success = localStorage.setItem(schoolMapKey, schoolMap);
         }
-        saveSchoolButton.text('Saved');
+        return success;
     };
 
     return {

@@ -1,16 +1,27 @@
 define(function() {
     var namespace = 'GS.';
-    var enabled = typeof(Storage) !== "undefined";
+    var enabled = !!window.localStorage;
 
     var setItem = function(key,value) {
+        if (!enabled) {
+            return false;
+        }
         if (typeof value === "object") {
             value = JSON.stringify(value);
         }
 
-        localStorage.setItem(namespace + key,value);
+        try {
+            localStorage.setItem(namespace + key,value);
+        } catch (err) {
+            return false;
+        }
+        return true;
     };
 
     var getItem = function(key) {
+        if (!enabled) {
+            return null;
+        }
         var value = localStorage.getItem(namespace + key);
 
         if (value === null) {
@@ -25,7 +36,11 @@ define(function() {
     };
 
     var removeItem = function(key) {
+        if (!enabled) {
+            return false;
+        }
         localStorage.removeItem(namespace + key);
+        return true;
     };
 
     return {
