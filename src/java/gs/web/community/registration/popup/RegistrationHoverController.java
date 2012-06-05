@@ -72,7 +72,7 @@ public class RegistrationHoverController extends RegistrationController implemen
 
         if (isMssJoin) {
             UserCommandValidator validator = new UserCommandValidator();
-            validator.validateEmailFormatOnly(userCommand, errors);
+            validator.validateEmailBasic(userCommand, errors);
         } else {
             super.onBindAndValidate(request, command, errors);
         }

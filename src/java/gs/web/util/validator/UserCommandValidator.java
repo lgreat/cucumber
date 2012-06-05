@@ -107,7 +107,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         validateStateCity(command, errors);
     }
 
-    public void validateEmailFormatOnly(UserCommand command, Errors errors) {
+    public void validateEmailBasic(UserCommand command, Errors errors) {
         String email = command.getEmail();
         if (StringUtils.isEmpty(email)) {
             errors.rejectValue("email", null, ERROR_EMAIL_MISSING);
@@ -122,7 +122,7 @@ public class UserCommandValidator implements IRequestAwareValidator {
         User user = null;
         String email = command.getEmail();
 
-        validateEmailFormatOnly(command, errors);
+        validateEmailBasic(command, errors);
 
         if (!errors.hasFieldErrors("email")) {
             user = _userDao.findUserFromEmailIfExists(email);

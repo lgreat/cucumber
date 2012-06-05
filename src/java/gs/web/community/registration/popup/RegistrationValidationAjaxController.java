@@ -120,7 +120,11 @@ public class RegistrationValidationAjaxController extends AbstractCommandControl
             // validate email format
             EmailValidator emailValidator = new EmailValidator();
             emailValidator.validate(userCommand, errors);
-            _userCommandValidator.validateEmail(userCommand, request, errors);
+            if ("true".equals(request.getParameter(SIMPLE_MSS))) {
+                _userCommandValidator.validateEmailBasic(userCommand, errors);
+            } else {
+                _userCommandValidator.validateEmail(userCommand, request, errors);
+            }
         } else if (StringUtils.equals(CONFIRM_EMAIL, request.getParameter(FIELD_PARAMETER))) {
             _userCommandValidator.validateEmailEquivalence
                     (userCommand.getEmail(), userCommand.getConfirmEmail(), "confirmEmail", errors);
