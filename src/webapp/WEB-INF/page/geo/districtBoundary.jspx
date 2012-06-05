@@ -13,43 +13,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>School Boundaries | GreatSchools</title>
-<style type="text/css">
-
-    #schoolListDiv {
-        height: 287px;
-        width: 283px;
-        overflow-y: scroll;
-        position: relative;
-        border-top: 1px solid #F1F1F1;
-    }
-
-    #schoolList div.media  {
-        cursor: pointer;
-    }
-
-    #schoolList .selected {
-            background-color: #E2F1F7;
-        }
-
-    #map-canvas{
-        width:670px;
-        height:498px;
-        position: relative;
-    }
-    #map-wrapper {
-        position: relative;
-    }
-    #js_loading {
-        position: absolute;
-        bottom: 15px;
-        left: 300px;
-    }
-    #js_reloadMap {
-        position: absolute;
-        bottom: 15px;
-        left: 274px;
-    }
-</style>
 
 <pageHelper:externalJavascript file="/res/js/history.min.js"/>
 <pageHelper:externalJavascript file="/res/js/boundary.js"/>
@@ -306,7 +269,7 @@ new (function() {
         }
         infoWindowElement.find('.js_address').html(addr);
         mapInfoWindow.setContent(
-                '<div class="standard_5-1 mbm">'+infoWindowElement.html()+'</div>'
+                '<div class="mod standard_5-1 mbm">'+infoWindowElement.html()+'</div>'
         );
         mapInfoWindow.open(GS.Boundaries.boundaryHelper.map, district.marker);
         selectedDistrict = district;
@@ -347,7 +310,7 @@ new (function() {
 
 
         mapInfoWindow.setContent(
-                '<div class="standard_5-1">'+infoWindowElement.html()+'</div>'
+                '<div class="mod standard_5-1">'+infoWindowElement.html()+'</div>'
         );
         mapInfoWindow.open(GS.Boundaries.boundaryHelper.map, school.marker);
         selectedSchool = school;
@@ -915,168 +878,174 @@ new (function() {
     <div class="slStylesV1-0  slFormsV1-0 mtl mrs">
         <h1>School &amp; District Map Tool</h1>
 
-        <div class="standard_4-1">
-            <div class="hd">
-                <div class="alpha grid_19 omega">
-                    <form action="" id="searchLocationForm" onsubmit="return false;">
-                        <input type="text" alt="Search location" name="addressQuery" id="js_mapAddressQuery"
-                               class="searchText input_8 mrm"
-                               placeholder="Search by city and state or address"/>
-                        <button type="submit" name="loadAddress" id="js_loadAddress" class="button-1">Search</button>
-                    </form>
-                </div>
-                <div class="alpha grid_3 omega fltrt">
-                    <div class="media attribution">
-                        <div class="img mrs">
-                            <span class="iconx16 i-16-home-sales"><!-- do not collapse --></span>
+        <div class="mod standard_4-1">
+            <div class="outer">
+                <div class="inner">
+                    <div class="hd">
+                        <div class="fltlft">
+                            <form action="" id="searchLocationForm" onsubmit="return false;">
+                                <input type="text" alt="Search location" name="addressQuery" id="js_mapAddressQuery"
+                                       class="searchText input_8 mrm"
+                                       placeholder="Search by city and state or address"/>
+                                <button type="submit" name="loadAddress" id="js_loadAddress" class="button-1">Search
+                                </button>
+                            </form>
                         </div>
-                        <div class="bd">
-                            <a href="" class="small">Homes for sales</a>
+                        <div class="fltrt">
+                            <span class="iconx16 i-16-home-sales mrs"><!-- do not collapse --></span>
+                            <a href="" class="small">Nearby homes for sales</a>
                         </div>
+
                     </div>
-                </div>
-            </div>
-            <div class="bd">
-                <div class="alpha grid_7 omega mtm">
-                    <div class="js_showWithMap hidden">
-                        <div id="js_districtHeader" class="hidden mlm mbm"><!-- not empty -->
-                            <div class="media attribution">
-                                <div class="img mrm">
-                                    <div id='ratings-test' class="square-large"><!--Do not collapse--></div>
-                                </div>
-
-                                <div class="bd">
-                                    <h4 id="school-name-test" class="bottom"><!--School Name--></h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="districtListDiv" class="mlm">
-                            <h6 class="bottom">District name</h6>
-                            <hr class="keyline2"/>
-                            <div class="mvm">
-                                <select id="districtList" class="input_7"><!-- not empty --></select>
-                            </div>
-                        </div>
-
-                        <div class="mlm">
-                            <h6 class="bottom">Grade level</h6>
-                            <hr class="keyline2"/>
-                            <div class="mvm">
-                                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_e"
-                                            value="e"
-                                            checked="${empty param.level or param.level == 'e'}"/>
-                                <label for="mapLevelCode_e" class="radio">Elementary </label>
-                                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_m"
-                                            value="m"
-                                            checked="${param.level == 'm'}"/>
-                                <label for="mapLevelCode_m" class="radio">Middle </label>
-                                <gsml:radio name="level_code" styleClass="js_mapLevelCode" styleId="mapLevelCode_h"
-                                            value="h"
-                                            checked="${param.level == 'h'}"/>
-                                <label for="mapLevelCode_h" class="radio">High </label>
-                            </div>
-                        </div>
-
-                        <div id="schoolListWrapper" class="hidden">
-                            <h6 class="mlm bottom">Public/Charter Schools in District</h6>
-
-                            <div id="schoolListDiv">
-                                <div id="schoolList"><!--Do not collapse--></div>
-                                <!--<ul id="schoolList" class="none">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <!--TODO: remove-->
-                        <!--<p>Show on map:</p>-->
-                        <!--<gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" checked="${true}"/>-->
-                        <!--<label for="js_schoolType_public">Public/Charter schools (in district)</label>-->
-                        <!--<br/>-->
-                        <!--<gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"/>-->
-                        <!--<label for="js_schoolType_charter">Charter schools (not part of district)</label>-->
-                        <!--<br/>-->
-                        <!--<gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"/>-->
-                        <!--<label for="js_schoolType_private">Private schools (not part of district)</label>-->
-                    </div>
-
-                    <!--<div class="js_showWithMap hidden">-->
-                    <!--<div id="districtListDiv">-->
-                    <!--<p>Nearby districts:</p>-->
-                    <!--<select id="districtList">&lt;!&ndash; not empty &ndash;&gt;</select>-->
-                    <!--</div>-->
-                    <!--<div id="schoolListWrapper" class="hidden">-->
-                    <!--<div>Schools:</div>-->
-                    <!--<div id="schoolListDiv">-->
-                    <!--<ul id="schoolList">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                </div>
-                <div class="alpha grid_17 omega fltrt">
-                    <div class="js_showWithMap hidden">
-                        <div id="map-wrapper">
-                            <div id="map-canvas"><!-- not empty --></div>
-                            <div id="js_loading" class="but but-sm but-2 hidden">Loading ...</div>
-                            <button class="but but-sm but-2" id="js_reloadMap">Redo search at this location</button>
-                        </div>
-                        <c:if test="${param.debug}">
-                            <button name="reload" id="js_reloadMap">Reload at this location</button>
-                            <button name="clearAll" id="js_clearAll">Debug: Clear All</button>
-                            <button name="clearPolygons" id="js_clearPolygons">Debug: Clear Polygons</button>
-                            <button name="drawAllDistricts" id="js_drawAllDistricts" class="">Debug: Draw all districts
-                            </button>
-                            <button name="getSAZ" id="js_getSAZ" class="hidden">Debug: Load SAZ for selected district
-                            </button>
-                            <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ"
-                                    class="hidden">Debug: Draw all districts and SAZ (Warning!)
-                            </button>
-                            <div class="options">
-                                Map click behavior:
-                                <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior"
-                                       id="mapClickLoadSchool"
-                                       value="loadSchool" checked="checked"/><label
-                                    for="mapClickLoadSchool">Show Boundaries</label>
-                                <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior"
-                                       id="mapClickLoadDistrict" value="loadDistrict"/><label
-                                    for="mapClickLoadDistrict">Show Only District Boundary</label>
-                            </div>
-                        </c:if>
-                    </div>
-                    <div class="hidden">
-                        <div id="boundaryMapDistrictInfoWindow">
-                            <div class="hd small bottom">
-                                <div class="js_name"><!-- not empty --></div>
-                            </div>
-                            <div class="bd small">
-                                <div class="js_address"><!-- not empty --></div>
-                            </div>
-                            <div class="down-pointer">
-                                <div class="border-edge"><!-- not empty --></div>
-                                <div class="border-bd"><!-- not empty --></div>
-                            </div>
-                        </div>
-                        <div id="boundaryMapSchoolInfoWindow">
-                            <div class="hd small bottom">
-                                <div class="js_name"><!-- not empty --></div>
-                            </div>
-                            <div class="bd small bottom">
-                                <div class="js_address"><!-- not empty --></div>
-                                <div class="mbm">
+                    <div class="bd">
+                        <div class="alpha grid_7 omega mtm">
+                            <div class="js_showWithMap hidden">
+                                <div id="js_districtHeader" class="hidden mlm mbm"><!-- not empty -->
                                     <div class="media attribution">
-                                        <div class="img">
-                                            <span class="iconx16 i-16-home-sales vam"><!-- do not collapse --></span>
+                                        <div class="img mrm">
+                                            <div id='ratings-test' class="square-large"><!--Do not collapse--></div>
                                         </div>
+
                                         <div class="bd">
-                                            <a href="" class="vam">Homes for sales</a>
+                                            <h4 id="school-name-test" class="bottom"><!--School Name--></h4>
                                         </div>
                                     </div>
                                 </div>
+                                <div id="districtListDiv" class="mlm">
+                                    <h6 class="bottom">District name</h6>
+                                    <hr class="keyline2"/>
+                                    <div class="mvm">
+                                        <select id="districtList" class="input_7"><!-- not empty --></select>
+                                    </div>
+                                </div>
+
+                                <div class="mlm">
+                                    <h6 class="bottom">Grade level</h6>
+                                    <hr class="keyline2"/>
+                                    <div class="mvm">
+                                        <gsml:radio name="level_code" styleClass="js_mapLevelCode"
+                                                    styleId="mapLevelCode_e"
+                                                    value="e"
+                                                    checked="${empty param.level or param.level == 'e'}"/>
+                                        <label for="mapLevelCode_e" class="radio">Elementary </label>
+                                        <gsml:radio name="level_code" styleClass="js_mapLevelCode"
+                                                    styleId="mapLevelCode_m"
+                                                    value="m"
+                                                    checked="${param.level == 'm'}"/>
+                                        <label for="mapLevelCode_m" class="radio">Middle </label>
+                                        <gsml:radio name="level_code" styleClass="js_mapLevelCode"
+                                                    styleId="mapLevelCode_h"
+                                                    value="h"
+                                                    checked="${param.level == 'h'}"/>
+                                        <label for="mapLevelCode_h" class="radio">High </label>
+                                    </div>
+                                </div>
+
+                                <div id="schoolListWrapper" class="hidden">
+                                    <h6 class="mlm bottom">Public/Charter Schools in District</h6>
+
+                                    <div id="schoolListDiv">
+                                        <div id="schoolList"><!--Do not collapse--></div>
+                                        <!--<ul id="schoolList" class="none">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
+                                    </div>
+                                </div>
                             </div>
-                            <div class="js_comments"><!-- not empty --></div>
-                            <div class="down-pointer">
-                                <div class="border-edge"><!-- not empty --></div>
-                                <div class="border-bd"><!-- not empty --></div>
+
+                            <div>
+                                <!--TODO: remove-->
+                                <!--<p>Show on map:</p>-->
+                                <!--<gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" checked="${true}"/>-->
+                                <!--<label for="js_schoolType_public">Public/Charter schools (in district)</label>-->
+                                <!--<br/>-->
+                                <!--<gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"/>-->
+                                <!--<label for="js_schoolType_charter">Charter schools (not part of district)</label>-->
+                                <!--<br/>-->
+                                <!--<gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"/>-->
+                                <!--<label for="js_schoolType_private">Private schools (not part of district)</label>-->
+                            </div>
+
+                            <!--<div class="js_showWithMap hidden">-->
+                            <!--<div id="districtListDiv">-->
+                            <!--<p>Nearby districts:</p>-->
+                            <!--<select id="districtList">&lt;!&ndash; not empty &ndash;&gt;</select>-->
+                            <!--</div>-->
+                            <!--<div id="schoolListWrapper" class="hidden">-->
+                            <!--<div>Schools:</div>-->
+                            <!--<div id="schoolListDiv">-->
+                            <!--<ul id="schoolList">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="alpha grid_17 omega fltrt">
+                            <div class="js_showWithMap hidden">
+                                <div id="map-wrapper">
+                                    <div id="map-canvas"><!-- not empty --></div>
+                                    <div id="js_loading" class="but but-sm but-2 hidden">Loading ...</div>
+                                    <button class="but but-sm but-2" id="js_reloadMap">Redo search at this location
+                                    </button>
+                                </div>
+                                <c:if test="${param.debug}">
+                                    <button name="reload" id="js_reloadMap">Reload at this location</button>
+                                    <button name="clearAll" id="js_clearAll">Debug: Clear All</button>
+                                    <button name="clearPolygons" id="js_clearPolygons">Debug: Clear Polygons</button>
+                                    <button name="drawAllDistricts" id="js_drawAllDistricts"
+                                            class="">Debug: Draw all districts
+                                    </button>
+                                    <button name="getSAZ" id="js_getSAZ"
+                                            class="hidden">Debug: Load SAZ for selected district
+                                    </button>
+                                    <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ"
+                                            class="hidden">Debug: Draw all districts and SAZ (Warning!)
+                                    </button>
+                                    <div class="options">
+                                        Map click behavior:
+                                        <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior"
+                                               id="mapClickLoadSchool"
+                                               value="loadSchool" checked="checked"/><label
+                                            for="mapClickLoadSchool">Show Boundaries</label>
+                                        <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior"
+                                               id="mapClickLoadDistrict" value="loadDistrict"/><label
+                                            for="mapClickLoadDistrict">Show Only District Boundary</label>
+                                    </div>
+                                </c:if>
+                            </div>
+                            <div class="hidden">
+                                <div id="boundaryMapDistrictInfoWindow">
+                                    <div class="hd small bottom">
+                                        <div class="js_name"><!-- not empty --></div>
+                                    </div>
+                                    <div class="bd small">
+                                        <div class="js_address"><!-- not empty --></div>
+                                    </div>
+                                    <div class="down-pointer">
+                                        <div class="border-edge"><!-- not empty --></div>
+                                        <div class="border-bd"><!-- not empty --></div>
+                                    </div>
+                                </div>
+                                <div id="boundaryMapSchoolInfoWindow">
+                                    <div class="hd small bottom">
+                                        <div class="js_name"><!-- not empty --></div>
+                                    </div>
+                                    <div class="bd small bottom">
+                                        <div class="js_address"><!-- not empty --></div>
+                                        <div class="mbm">
+                                            <div class="media attribution">
+                                                <div class="img">
+                                                    <span class="iconx16 i-16-home-sales vam"><!-- do not collapse --></span>
+                                                </div>
+                                                <div class="bd">
+                                                    <a href="" class="vam">Homes for sales</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="js_comments"><!-- not empty --></div>
+                                    <div class="down-pointer">
+                                        <div class="border-edge"><!-- not empty --></div>
+                                        <div class="border-bd"><!-- not empty --></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

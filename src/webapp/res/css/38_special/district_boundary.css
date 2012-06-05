@@ -1,0 +1,52 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: District boundary
+Description: Unique css for district boundary google maps
+Author: Priyanshi Deshwal
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+#schoolListDiv {
+    height: 287px;
+    width: 283px;
+    overflow: auto;
+    position: relative;
+    border-top: 1px solid #F1F1F1;
+}
+
+#schoolList div.media {
+    cursor: pointer;
+}
+
+#schoolList .selected {
+    background-color: #E2F1F7;
+}
+
+#map-canvas {
+    width: 670px;
+    height: 498px;
+}
+
+#map-wrapper {
+    position: relative;
+}
+
+#js_loading {
+    position: absolute;
+    bottom: 15px;
+    left: 300px;
+}
+
+#js_reloadMap {
+    position: absolute;
+    bottom: 15px;
+    left: 274px;
+}
