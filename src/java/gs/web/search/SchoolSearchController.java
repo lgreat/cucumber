@@ -17,10 +17,6 @@ import gs.data.search.*;
 import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.IDistrictSearchResult;
 import gs.data.search.beans.SolrSchoolSearchResult;
-import gs.data.search.beans.SolrSchoolSearchResult;
-import gs.data.search.fields.DocumentType;
-import gs.data.search.fields.SchoolFields;
-import gs.data.search.fields.SolrField;
 import gs.data.search.filters.FilterFactory;
 import gs.data.search.filters.FilterGroup;
 import gs.data.search.filters.SchoolFilters;
@@ -41,7 +37,6 @@ import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -490,172 +485,6 @@ public class SchoolSearchController extends AbstractCommandController implements
     public GsSolrQuery createGsSolrQuery() {
         return new GsSolrQuery(QueryType.SCHOOL_SEARCH);
     }
-    protected SearchResultsPage<SolrSchoolSearchResult> searchForSchools(SchoolSearchCommand schoolSearchCommand, State state, Map<FieldConstraint, String> fieldConstraints, List<FilterGroup> filterGroups, FieldSort sort) {
-        RequestedPage requestedPage = schoolSearchCommand.getRequestedPage();
-        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<SolrSchoolSearchResult>());
-        String searchString = schoolSearchCommand.getSearchString();
-
-        GsSolrQuery q = createGsSolrQuery();
-
-        q.filter(DocumentType.SCHOOL).page(requestedPage.offset, requestedPage.pageSize);
-
-        // TODO: In Mobile api, we don't filter by state if a lat/lon is specified. Should that logic apply here as well?
-        q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
-
-        // filter school types and grade levels and enrollment
-        for (FilterGroup schoolTypeFilter : filterGroups) {
-            q.filter(schoolTypeFilter);
-        }
-
-        // handle old existing FieldConstraints
-        for (Map.Entry<FieldConstraint, String> entry : fieldConstraints.entrySet()) {
-            q.filter(entry.getKey().getFieldName(), StringUtils.lowerCase(entry.getValue()));
-        }
-
-        if (schoolSearchCommand.getMinCommunityRating() != null) {
-            q.filter(SchoolFields.COMMUNITY_RATING, String.valueOf(schoolSearchCommand.getMinCommunityRating()), "5");
-        }
-
-        if (schoolSearchCommand.getMinGreatSchoolsRating() != null) {
-            q.filter(SchoolFields.OVERALL_GS_RATING, String.valueOf(schoolSearchCommand.getMinGreatSchoolsRating()), "10");
-        }
-
-        if (schoolSearchCommand.getBeforeAfterCare() != null) {
-            for (String value : schoolSearchCommand.getBeforeAfterCare()) {
-                q.filter(SchoolFields.BEFORE_AFTER_CARE, value);
-            }
-        }
-
-        if (schoolSearchCommand.getTransportation() != null) {
-            if (schoolSearchCommand.getTransportation()) {
-                q.filterNotNull(SchoolFields.TRANSPORTATION);
-                q.filterNot(SchoolFields.TRANSPORTATION, "none");
-            }
-        }
-
-        if (schoolSearchCommand.getEll() != null) {
-            if (schoolSearchCommand.getEll()) {
-                q.filterNotNull(SchoolFields.ELL_LEVEL);
-                q.filterNot(SchoolFields.ELL_LEVEL, "none");
-            }
-        }
-
-        if (schoolSearchCommand.getStudentsVouchers() != null) {
-            if (schoolSearchCommand.getStudentsVouchers()) {
-                q.filter(SchoolFields.STUDENTS_VOUCHERS, "yes");
-            } else {
-                q.filter(SchoolFields.STUDENTS_VOUCHERS, "no");
-            }
-        }
-
-        if (schoolSearchCommand.getSpecialEdPrograms() != null) {
-            q.filter(SchoolFields.SPECIAL_ED_PROGRAMS, schoolSearchCommand.getSpecialEdPrograms());
-        }
-
-        if (schoolSearchCommand.getSchoolFocus() != null) {
-            q.filterAnyField(new SolrField[]{
-                    SchoolFields.ACADEMIC_FOCUS,
-                    SchoolFields.INSTRUCTIONAL_MODEL
-            }, schoolSearchCommand.getSchoolFocus());
-        }
-
-        if (schoolSearchCommand.getSports() != null) {
-            q.filterAnyField(new SolrField[]{
-                    SchoolFields.BOYS_SPORTS,
-                    SchoolFields.GIRLS_SPORTS
-            }, schoolSearchCommand.getSports());
-        }
-
-        if (schoolSearchCommand.getArtsAndMusic() != null) {
-            q.filterAnyField(new SolrField[]{
-                    SchoolFields.ARTS_VISUAL,
-                    SchoolFields.ARTS_PERFORMING_WRITTEN,
-                    SchoolFields.ARTS_MUSIC,
-                    SchoolFields.ARTS_MEDIA
-            }, schoolSearchCommand.getArtsAndMusic());
-        }
-
-        if (schoolSearchCommand.getStudentClubs() != null) {
-            q.filter(SchoolFields.STUDENT_CLUBS, schoolSearchCommand.getStudentClubs());
-        }
-
-        if(schoolSearchCommand.getStaffResources() != null) {
-            q.filterAnyField(new SolrField[]{
-                    SchoolFields.STAFF_RESOURCES,
-                    SchoolFields.FACILITIES
-            }, schoolSearchCommand.getStaffResources());
-        }
-
-        String[] ratingCategories = schoolSearchCommand.getRatingCategories();
-        if (ratingCategories != null) {
-            List<String> gsRatings = new ArrayList<String>();
-            if (ArrayUtils.contains(ratingCategories, "low")) {
-                gsRatings.add("1");
-                gsRatings.add("2");
-                gsRatings.add("3");
-            }
-            if (ArrayUtils.contains(ratingCategories, "average")) {
-                gsRatings.add("4");
-                gsRatings.add("5");
-                gsRatings.add("6");
-            }
-            if (ArrayUtils.contains(ratingCategories, "high")) {
-                gsRatings.add("7");
-                gsRatings.add("8");
-                gsRatings.add("9");
-                gsRatings.add("10");
-            }
-            q.filter(SchoolFields.OVERALL_GS_RATING, gsRatings);
-        }
-
-        if (schoolSearchCommand.getReligious() != null) {
-            if (schoolSearchCommand.getReligious().equals(Boolean.TRUE.toString())) {
-                q.filter(SchoolFields.SCHOOL_SUBTYPE, "religious");
-            } else if (schoolSearchCommand.getReligious().equals(Boolean.FALSE.toString())) {
-                q.filterNot(SchoolFields.SCHOOL_SUBTYPE, "religious");
-            }
-        }
-
-        // filter by location
-        if (schoolSearchCommand.hasLatLon()) {
-            q.restrictToRadius(schoolSearchCommand.getLat().floatValue(), schoolSearchCommand.getLon().floatValue(), schoolSearchCommand.getDistanceAsFloat());
-        }
-
-        if (schoolSearchCommand.getSearchType() != SchoolSearchType.LOOSE) {
-            // require all words in the query to be present unless it's configured as an optional word
-            q.requireNonOptionalWords();
-        }
-
-        // set the solr query's q parameter (querystring) to be the user search string
-        if (!schoolSearchCommand.hasLatLon()) {
-            q.query(searchString);
-        }
-
-        // apply sorting
-        if (sort != null) {
-            q.sort(sort);
-        }
-
-        try {
-            searchResultsPage = getGsSolrSearcher().search(q, SolrSchoolSearchResult.class, true);
-
-            if (searchResultsPage.isDidYouMeanResults()) {
-                // adapting old existing logic to new code: If the search results we got back are the result
-                // of an automatic second search using a Solr spelling suggestion, then we want it to appear
-                // that we never received any results so the site will display the No Results page with the
-                // "did you mean" suggestion
-                searchResultsPage.setTotalResults(0);
-                searchResultsPage.setSearchResults(new ArrayList<SolrSchoolSearchResult>());
-            }
-
-        } catch (SearchException e) {
-            _log.error("Problem occured while getting schools or reviews: ", e);
-        }
-
-
-
-        return searchResultsPage;
-    }
 
     public String getViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
         String viewOverride = schoolSearchCommand.getView();
@@ -720,69 +549,6 @@ public class SchoolSearchController extends AbstractCommandController implements
         return filterGroups;
     }
 
-
-
-    protected class MetaDataHelper {
-        public Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
-            String searchString = commandWithFields.getSearchString();
-            Map<String,Object> model = new HashMap<String,Object>();
-            model.put(MODEL_TITLE, getTitle(searchString));
-            return model;
-        }
-    }
-
-    protected class MetaDataMobileHelper {
-        public Map<String, Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
-            String searchString = commandWithFields.getSearchString();
-            Map<String, Object> model = new HashMap<String, Object>();
-            model.put(MODEL_TITLE, getTitleMobile(searchString));
-            return model;
-        }
-    }
-
-    protected class NearbyMetaDataHelper {
-        public Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
-            String searchString = commandWithFields.getSearchString();
-            Map<String,Object> model = new HashMap<String,Object>();
-            model.put(MODEL_TITLE, getTitle(searchString));
-            return model;
-        }
-
-        public Map<String,Object> getMetaData(Map nearbySearchInfo) {
-            Map<String,Object> model = new HashMap<String,Object>();
-
-            if (nearbySearchInfo != null) {
-                Object zipCodeObj = nearbySearchInfo.get("zipCode");
-                if (zipCodeObj != null && zipCodeObj instanceof String) {
-                    model.put(MODEL_TITLE, getTitle((String) zipCodeObj));
-                }
-            }
-
-            return model;
-        }
-    }
-
-    protected class NearbyMetaDataMobileHelper {
-        public Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandWithFields) {
-            String searchString = commandWithFields.getSearchString();
-            Map<String,Object> model = new HashMap<String,Object>();
-            model.put(MODEL_TITLE, getTitleMobile(searchString));
-            return model;
-        }
-
-        public Map<String,Object> getMetaData(Map nearbySearchInfo) {
-            Map<String,Object> model = new HashMap<String,Object>();
-
-            if (nearbySearchInfo != null) {
-                Object zipCodeObj = nearbySearchInfo.get("zipCode");
-                if (zipCodeObj != null && zipCodeObj instanceof String) {
-                    model.put(MODEL_TITLE, getTitleMobile((String) zipCodeObj));
-                }
-            }
-
-            return model;
-        }
-    }
 
     protected ModelAndView stateBrowseRedirect(HttpServletRequest request, SessionContext sessionContext) {
         UrlBuilder builder = new UrlBuilder(UrlBuilder.RESEARCH, sessionContext.getState());
