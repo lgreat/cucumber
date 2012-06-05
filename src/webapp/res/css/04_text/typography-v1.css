@@ -1,0 +1,224 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Text
+Description: All the specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+Default font settings
+Headings
+Text elements
+Lists
+Tables
+Misc classes
+
+*/
+
+/* --------------------------------------------------------------
+
+   typography.css
+   * Sets up some sensible default typography.
+
+-------------------------------------------------------------- */
+
+/* Default font settings
+-------------------------------------------------------------- */
+
+body {
+  font: normal 14px/20px Arial, Helvetica, sans-serif;
+  color: #555;
+  /*background: #fff;*/
+}
+
+/* Headings
+-------------------------------------------------------------- */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { font-weight: normal; color: #2b2b2b; }
+h1 {color: #d61; }
+
+h1 { font: normal 26px/30px Georgia, "Times New Roman", Times, serif; margin-bottom: 20px; }
+h2 { font: normal 24px/30px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h3 { font: normal 18px/27px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h4 { font: normal 16px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h5 { font: bold   14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+h6 { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+
+h1 img,
+h2 img,
+h3 img,
+h4 img,
+h5 img,
+h6 img { margin: 0; }
+
+hr.keyline1 {background:#dddddd;color:#dddddd;clear:both;float:none;width:100%;height:1px;margin:0;border:none;}
+hr.keyline2 {background:#e6e6e6;color:#e6e6e6;clear:both;float:none;width:100%;height:1px;margin:0;border:none;}
+hr.space {background:#fff;color:#fff;visibility:hidden;}
+
+
+/* Text elements
+-------------------------------------------------------------- */
+
+p,
+.default     { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.medium      { font: normal 13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.medium_bold { font: bold   13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.small       { font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
+.small_bold  { font: bold   12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
+.smaller     { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+.smallest    { font: normal 10px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+
+/*
+	These can be used to pull an image at the start of a paragraph, so
+	that the text flows around it (usage: <p><img class="left">Text</p>)
+ */
+/*.left  			{ float: left !important; }
+p .left			{ margin: 1.5em 1.5em 1.5em 0; padding: 0; }
+.right 			{ float: right !important; }
+p .right 		{ margin: 1.5em 0 1.5em 1.5em; padding: 0; }*/
+
+a:focus,
+a:hover     { text-decoration: underline; }
+a           { color: #06b; text-decoration: none; }
+
+blockquote  { margin: 20px; color: #555; font-style: italic; }
+strong,
+dfn  { font-weight: bold; }
+em,
+dfn      { font-style: italic; }
+sup,
+sub    { line-height: 0; }
+
+abbr,
+acronym     { border-bottom: 1px dotted #555; }
+address     { margin: 0 0 1.5em; font-style: italic; }
+del         { color:#555; }
+
+pre         { margin: 1.5em 0; white-space: pre; }
+pre,
+code,
+tt { font: 1em/1.5 'andale mono','lucida console', monospace; margin-left: 20px; color: #2b2b2b; }
+
+
+/* Lists
+-------------------------------------------------------------- */
+
+li ul,
+li ol       { margin: 0; }
+ul,
+ol          { margin: 0 1.5em 1.5em 0; padding-left: 2.0em; }
+ol          { *padding-left: 2.0em; }
+
+ul li       { list-style-type: disc; }
+ol li       { list-style-type: decimal; }
+
+dl          { margin: 0 0 1.5em 0; }
+dl dt       { font-weight: bold; }
+dd          { margin-left: 1.5em;}
+
+
+/* Tables
+-------------------------------------------------------------- */
+
+/*
+    Because of the need for padding on TH and TD, the vertical rhythm
+    on table cells has to be 27px, instead of the standard 18px or 36px
+    of other elements.
+ */
+table, table.tableType1       { table-layout: fixed; font-size: 12px; line-height: 16px; margin-bottom: 20px; width:100%; color: #2b2b2b; border:1px solid #cccccc; border-collapse: collapse;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+th, .tableType1 th          { font-weight: bold; color:#ffffff; text-align:left; }
+th, thead th, .tableType1 th, .tableType1 thead th    {
+    background-color: #999999; /* for non-css3 browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#999999), to(#777777)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #999999, #777777); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #999999, #777777); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #999999, #777777); /* IE10 */
+    background-image:      -o-linear-gradient(top, #999999, #777777); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #999999, #777777); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#999999', EndColorStr='#777777'); /* IE6-IE9 */
+}
+tr.subhead th, .tableType1 tr.subhead th          { font-weight: normal; color:#2b2b2b; text-align:left; }
+tr.subhead th, thead tr.subhead th, .tableType1 tr.subhead th, .tableType1 thead tr.subhead th    {
+    background-color: #cccccc; /* for non-css3 browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#dddddd), to(#cccccc)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #dddddd, #cccccc); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #dddddd, #cccccc); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #dddddd, #cccccc); /* IE10 */
+    background-image:      -o-linear-gradient(top, #dddddd, #cccccc); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #dddddd, #cccccc); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#dddddd', EndColorStr='#cccccc'); /* IE6-IE9 */
+}
+th, td, .tableType1 th, .tableType1 td       { padding: 10px;vertical-align: top; word-wrap: break-word;}
+/*
+    You can zebra-stripe your tables in outdated browsers by adding
+    the class "even" to every other table row.
+ */
+tbody tr:nth-child(odd) td,
+tbody tr.odd td,
+.tableType1 tbody tr:nth-child(odd) td,
+.tableType1 tbody tr.odd td {
+    background-color: #ffffff;
+}
+tbody tr:nth-child(even) td,
+tbody tr.even td,
+.tableType1 tbody tr:nth-child(even) td,
+.tableType1 tbody tr.even td {
+    background-color: #f1f1f1;
+}
+tfoot, .tableType1 tfoot       { font-style: italic; }
+caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bottom: 10px; background: #fff; text-align:left; }
+
+
+/* Misc classes
+-------------------------------------------------------------- */
+
+.box         {padding:1.5em;margin-bottom:1.5em;background:#e5eCf9;}
+
+.hide        { display: none; }
+
+.quiet       { color: #787878; }
+.loud        { color: #2b2b2b; }
+.make-06b    { color: #06b; }
+.make-d61 { color: #d61; }
+.error_msg   { color: #900; }
+.highlight   { background:#ff0; }
+.added       { background:#060; color: #fff; }
+.removed     { background:#900; color: #fff; }
+
+.first       { margin-left:0; padding-left:0; }
+.last        { margin-right:0; padding-right:0; }
+.top         { margin-top:0; padding-top:0; }
+.bottom      { margin-bottom:0; padding-bottom:0; }
+
+.make-uppercase   { text-transform: uppercase; }
+
+/*************************************************************
+     LIST STYLES
+*****************************************/
+ul.none  {padding-left: 0;  }
+ul.none li  { list-style-type: none }
+
+ul.disc  {padding-left: 1.5em;  }
+ul.disc li  { list-style-type: disc }
+
+.hd h6{margin-bottom:10px;}
+.bd .hasNested ul{padding:0;margin-left:19px;}
+.bd .hasNested li{list-style: disc;margin-left:13px;}
+.bd .hasNested li.lastOne{list-style: none;margin-left:0;margin-bottom:12px;}
+.bd .hasNested .nested{display:none;}
+.bd .hasNested a{outline:0 none;}
