@@ -52,12 +52,8 @@ public class RequestInfoTest {
         requestInfo = new RequestInfo(getHttpServletRequestForHostname("sfgate.dev.greatschools.org"));
         assertFalse("Expect mobile site to be permanently disabled on cobrands, even on dev", requestInfo.isMobileSiteEnabled());
 
-        // TODO: remove below and uncomment following prior to 20.3 code freeze
         requestInfo = new RequestInfo(getHttpServletRequestForHostname("qa.greatschools.org"));
-        assertTrue("Expect mobile site to be enabled on qa -- temporarily for bug-a-thon", requestInfo.isMobileSiteEnabled());
-
-//        requestInfo = new RequestInfo(getHttpServletRequestForHostname("qa.greatschools.org"));
-//        assertFalse("Expect mobile site to be disabled by default on qa", requestInfo.isMobileSiteEnabled());
+        assertFalse("Expect mobile site to be disabled by default on qa", requestInfo.isMobileSiteEnabled());
 
         requestInfo = new RequestInfo(getHttpServletRequestForHostnameWithMobileEnabled("qa.greatschools.org"));
         assertTrue("Expect mobile site to be enabled by cookie on qa", requestInfo.isMobileSiteEnabled());

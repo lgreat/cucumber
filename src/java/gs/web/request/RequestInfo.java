@@ -80,14 +80,10 @@ public class RequestInfo {
      * Returns true if mobile versions of pages are allowed to be served (if "mobile enabled" cookie is set, if this is not a cobranded page, etc)
      */
     public boolean isMobileSiteEnabled() {
-        return (!_hostData.isCobranded() &&
-                (isDevEnvironment())
-                );
-        // TODO: restore following functionality before 20.3 code freeze!
-//        Cookie cookie = CookieUtil.getCookie(_hostData.getRequest(), MOBILE_SITE_ENABLED_COOKIE_NAME);
-//        return !_hostData.isCobranded() &&
-//                isDevEnvironment() &&
-//                (isNonQaDevEnvironment() || (cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue()))));
+        Cookie cookie = CookieUtil.getCookie(_hostData.getRequest(), MOBILE_SITE_ENABLED_COOKIE_NAME);
+        return !_hostData.isCobranded() &&
+                isDevEnvironment() &&
+                (isNonQaDevEnvironment() || (cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue()))));
     }
 
     public boolean isFromMobileDevice() {
