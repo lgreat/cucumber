@@ -121,7 +121,7 @@
 
                 <div class="contain_6-1 pbs">
                     <div class="fl">
-                        <div class=" di mrm"><button id="searchFilter" class="but but-sm but-2">Filter</button></div>
+                        <div class="di mrm"><button id="searchFilter" class="but but-sm but-2">Filter</button></div>
                         <div class="mrm di"><a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink"
                            href="${requestInfo.requestURL}">List</a></div>
                         <div class="js-redobtn dn mvn pvn"><button class="but but-sm but-2">Redo Search</button></div>
@@ -137,8 +137,9 @@
                     </div>
                 </c:when>
             </c:choose>
-            <div data-role="content">
+            <div id="js-map-canvas-container" data-role="content" style="position: relative; height: 280px;">
                 <div id="js-map-canvas"><!-- no collapse --></div>
+                <div id="js-map-wait-spinner" style="position: absolute; top: 140px; left: 50%;"><span class="wait-spinner"><!-- not empty --></span></div>
             </div>
         </div>
 

@@ -55,18 +55,26 @@ define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api
             infoWindow: infoWindow
         };
 
-        // TODO: readjust height of map window to device size.
-        // need to change the difference based on design or
-        // if frontend can do the same with css, then remove this block
+        // readjust height of map window to device size.
         var height = 280;
-//        if (window.innerHeight){
-//            height = window.innerHeight - 130;
-//        }
+        if (window.innerHeight){
+            height = window.innerHeight - 90;
+        }
+        if (height < 140) {
+            height = 140;
+        }
         $('#js-map-canvas').css({height:height});
-
+        $('#js-map-canvas-container').css({height:'auto'});
 
         var map = new google.maps.Map(document.getElementById("js-map-canvas"),
             myOptions);
+
+        // Remove spinner when all tiles have loaded
+        google.maps.event.addListener(map, 'tilesloaded', function() {
+            $('#js-map-wait-spinner').remove();
+        });
+        // In case something is preventing that event from firing, always remove spinner after 2 seconds
+        window.setTimeout(function() {$('#js-map-wait-spinner').remove();}, 2000);
 
         // perform a new search if the user wants to
         // search in a new area
@@ -159,6 +167,7 @@ define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api
         if (!bounds.isEmpty()) {
             map.fitBounds(bounds);
         }
+
     };
 
     var listFilterToggle = function(){
