@@ -18,62 +18,46 @@
 
     </head>
     <gsml:body adPageName="overview" pageLayout="overview">
-        <!--${vals}-->
-        <!--<c:forEach var="val" items="${vals}">-->
-                    <!--DataTypeId:  ${val.data_type_id}<br/>-->
-            <!--DataSetId: ${val.id}<br/>-->
-            <!--grade :${val.grade}<br/>-->
-            <!--level_code :${val.level_code}<br/>-->
-            <!--subject : ${val.subject_id}<br/>-->
-            <!--year : ${val.year}<br/>-->
-            <!--val:${val.value_float}<br/>-->
-            <!--text: ${val.value_text}<br/>-->
-            <!--<br/>-->
-            <!--<br/>-->
-            <!--<br/>-->
-                <!--</c:forEach>-->
 
-         <c:forEach var="testToGrades" items="${rval}">
-                    <div class="mod standard_6-1 mtn ptn">
-                        <div class="inner">
-                            <div class="hd plm">
-                                <div class="titlediv">
-                                    ${testToGrades.testLabel}
-                                </div>
-                            </div>
-                            <div class="bd">
-                                <c:if test="${not empty testToGrades.scale}">
-                                    <div class="contain_2-1">
-                                        <strong>Scale:</strong> ${testToGrades.scale}
-                                    </div>
-                                </c:if>
-                                <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
-
-                                    <div class="pam">
-                                        <h4>${gradeToSubjects.gradeLabel}</h4>
-
-                                        <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-                                            <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
-
-                                            <c:forEach var="yearToTestScore" items="${subjectToYears.years}">
-
-                                                <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}"
-                                                                 testScoreLabel="${yearToTestScore.testScoreLabel}"
-                                                                 testScoreYear="${yearToTestScore.year}"/>
-                                            </c:forEach>
-
-                                            <div class="ptm"><!-- not empty --></div>
-                                        </c:forEach>
-                                    </div>
-                                    <hr class="keyline1"/>
-                                </c:forEach>
-
-                            </div>
+        <c:forEach var="testToGrades" items="${testScores}">
+            <div class="mod standard_6-1 mtn ptn">
+                <div class="inner">
+                    <div class="hd plm">
+                        <div class="titlediv">
+                            ${testToGrades.testLabel}
                         </div>
                     </div>
-                </c:forEach>
+                    <div class="bd">
+                        <c:if test="${not empty testToGrades.scale}">
+                            <div class="contain_2-1">
+                                <strong>Scale:</strong> ${testToGrades.scale}
+                            </div>
+                        </c:if>
+                        <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
 
+                            <div class="pam">
+                                <h4>${gradeToSubjects.gradeLabel}</h4>
 
+                                <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
+                                    <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
+
+                                    <c:forEach var="yearToTestScore" items="${subjectToYears.years}">
+
+                                        <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}"
+                                                         testScoreLabel="${yearToTestScore.testScoreLabel}"
+                                                         testScoreYear="${yearToTestScore.year}"/>
+                                    </c:forEach>
+
+                                    <div class="ptm"><!-- not empty --></div>
+                                </c:forEach>
+                            </div>
+                            <hr class="keyline1"/>
+                        </c:forEach>
+
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
 
     </gsml:body>
     </html>
