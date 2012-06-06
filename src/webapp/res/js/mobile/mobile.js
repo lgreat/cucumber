@@ -40,20 +40,6 @@ define(['tracking','navigation','orient'],function(tracking,navigation,orient) {
 //                //$viewportMeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=1');
 //                //$viewportMeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=10');
 //            });
-
-            $('#shownav').hide();
-            $('#topnav_link').click(function(){
-                if($('#shownav').is(':hidden')){
-                    $('#shownav').show('fast');
-                    $('#topnav_link').find(".iconx24").removeClass('i-24-expand').addClass('i-24-collapse');
-                    $('#topnav_link').removeClass('but-topnav').addClass('but-topnav-on');
-                }
-                else{
-                    $('#shownav').hide('fast');
-                    $('#topnav_link').find(".iconx24").removeClass('i-24-collapse').addClass('i-24-expand');
-                    $('#topnav_link').removeClass('but-topnav-on').addClass('but-topnav');
-                }
-            });
         });
 
         navigation.init();

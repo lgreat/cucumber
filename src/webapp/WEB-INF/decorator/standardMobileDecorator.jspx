@@ -37,7 +37,10 @@
         <decorator:head/>
     </head>
     <body>
-    <div class="mod page_1-1">
+    <!-- aroy: iPhone Safari does not (always) bubble click events to the body/document, so
+         I added the js-global-event-catcher to the following div and use it to capture global
+         click events. See navigation.js for example.  -->
+    <div id="js-global-event-catcher" class="mod page_1-1">
         <div class="inner">
         <tags:standardMobileHeader />
         <div id="content" class="body js-page-content">

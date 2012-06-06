@@ -12,14 +12,6 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
         window.location.search = queryString;
     };
 
-    var closeTopNav = function() {
-        if($('#shownav').is(':visible')){
-            $('#shownav').hide('fast');
-            $('#topnav_link').find(".iconx24").removeClass('i-24-collapse').addClass('i-24-expand');
-            $('#topnav_link').removeClass('but-topnav-on').addClass('but-topnav');
-        }
-    };
-
     var initializeMap = function(points, optionalLat, optionalLon) {
         require(['async!http://maps.googleapis.com/maps/api/js?sensor=false'], function() {
             $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function() {
@@ -112,10 +104,6 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
 
         google.maps.event.addListener(map, 'dragend', function(){
             $redoBtn.removeClass('dn').addClass('di');
-            closeTopNav();
-        });
-        google.maps.event.addListener(map, 'click', function(){
-            closeTopNav();
         });
 
         // shape defines clickable region of icon as a series of points
