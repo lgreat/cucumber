@@ -15,6 +15,10 @@ define(['require','exports','./clickCapture', 'properties', 'sCode'], function(r
         eVars: {},
 
         send: function(){
+            if (!s) {
+                GS.log("FATAL: No omniture");
+                return;
+            }
             s.pageName = this.pageName;
             s.server = this.server;
             s.hier1 = this.hierarchy;
