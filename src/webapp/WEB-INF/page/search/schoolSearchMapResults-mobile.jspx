@@ -100,11 +100,7 @@
                     // render map if there is a school to display, or if we know what location to center on
                     if (points.length > 0 || (calculatedLat != 0 &amp;&amp; calculatedLon != 0)) {
                         // only pull down map api and related js if we are rendering a map
-                        require(['async!http://maps.googleapis.com/maps/api/js?sensor=false'], function() {
-                            $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function() {
-                                resultsmap.initializeMap(points, calculatedLat, calculatedLon);
-                            });
-                        });
+                        resultsmap.initializeMap(points, calculatedLat, calculatedLon);
                     }
                 });
             });

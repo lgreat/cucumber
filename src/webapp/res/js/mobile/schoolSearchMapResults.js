@@ -1,4 +1,4 @@
-define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api/js?sensor=false'], function(searchResultFilters, uri) {
+define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
     // filters info
     var filtersSelector = '.js-searchResultFilters';
 
@@ -21,6 +21,14 @@ define(['searchResultFilters', 'uri', 'async!http://maps.googleapis.com/maps/api
     };
 
     var initializeMap = function(points, optionalLat, optionalLon) {
+        require(['async!http://maps.googleapis.com/maps/api/js?sensor=false'], function() {
+            $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function() {
+                initializeMapImpl(points, optionalLat, optionalLon);
+            });
+        });
+    };
+
+    var initializeMapImpl = function(points, optionalLat, optionalLon) {
         optionalLat = optionalLat || 0;
         optionalLon = optionalLon || 0;
         var centerPoint = new google.maps.LatLng(optionalLat, optionalLon);
