@@ -28,8 +28,11 @@ public class Device {
         }
 
         if (_mobileDevice == null) {
-            String capability = _device.getCapability("is_wireless_device");
-            _mobileDevice = (capability != null && capability.length() > 0 && Boolean.valueOf(capability));
+            String sIsWirelessDevice = _device.getCapability("is_wireless_device"); // phone, PDA, etc.
+            String sIsTablet = _device.getCapability("is_tablet"); // iPad, similar
+            boolean isWirelessDevice = (sIsWirelessDevice != null && sIsWirelessDevice.length() > 0 && Boolean.valueOf(sIsWirelessDevice));
+            boolean isTablet = (sIsTablet != null && sIsTablet.length() > 0 && Boolean.valueOf(sIsTablet));
+            _mobileDevice = isWirelessDevice && !isTablet;
         }
 
         return _mobileDevice;
