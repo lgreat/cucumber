@@ -1,16 +1,16 @@
 define(['tracking'],function(tracking) {
     var init = function() {
-            jQuery('#js-submit').click(function () {
-                var newslettersSignUpForm = $('#js-newslettersSignUpForm');
-                submitForm(newslettersSignUpForm)
-                    .done(function() {
-                        document.title = 'Email Confirmation | GreatSchools';
-                        newslettersSignUpForm.find('.js-signUp').hide();
-                        newslettersSignUpForm.find('.js-thankYou').show();
-                    });
-                return false;
-            });
-    }
+        var newslettersSignUpForm = jQuery('#js-newslettersSignUpForm');
+        newslettersSignUpForm.submit(function () {
+            submitForm(newslettersSignUpForm)
+                .done(function() {
+                    document.title = 'Email Confirmation | GreatSchools';
+                    newslettersSignUpForm.find('.js-signUp').hide();
+                    newslettersSignUpForm.find('.js-thankYou').show();
+                });
+            return false;
+        });
+    };
 
     var submitForm = function(newslettersSignUpForm) {
         var masterDeferred = new jQuery.Deferred();
@@ -29,9 +29,9 @@ define(['tracking'],function(tracking) {
                 masterDeferred.resolve();
             });
         return masterDeferred.promise();
-    }
+    };
 
     return {
-init:init
-}
+        init:init
+    }
 });
