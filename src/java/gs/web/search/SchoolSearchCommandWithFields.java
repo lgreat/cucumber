@@ -6,6 +6,7 @@ import gs.data.school.LevelCode;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.FieldSort;
+import gs.data.search.filters.SchoolFilters;
 import gs.data.state.State;
 import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
@@ -13,8 +14,10 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
 
-class SchoolSearchCommandWithFields {
+public class SchoolSearchCommandWithFields {
     
     private final SchoolSearchCommand _command;
     private final DirectoryStructureUrlFields _fields;
@@ -64,6 +67,19 @@ class SchoolSearchCommandWithFields {
             gradeLevels = _fields.getLevelCode().getCommaSeparatedString().split(",");
         }
         return gradeLevels;
+    }
+
+    public String[] getGradeLevelNames() {
+        LevelCode levelCode = getLevelCode();
+        Set<LevelCode.Level> levels = levelCode.getIndividualLevelCodes();
+        String[] gradeLevelNames = new String[levels.size()];
+
+        int i = 0;
+        for (LevelCode.Level level : levels) {
+            gradeLevelNames[i++] = level.getLongName();
+        }
+
+        return gradeLevelNames;
     }
 
     public LevelCode getLevelCode() {

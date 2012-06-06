@@ -54,6 +54,19 @@ public class NearbyCitiesController implements BeanFactoryAware {
 
         modelMap.put(MODEL_DATA_KEY, maps);
     }
+
+    public List<CitySearchResult> getNearbyCities(float latitude, float longitude, float radiusInMiles, int count) {
+        radiusInMiles = radiusInMiles < MAX_RADIUS ? radiusInMiles : MAX_RADIUS;
+        count = count < MAX_COUNT ? count : MAX_COUNT;
+
+        GsSolrQuery gsSolrQuery = createGsSolrQuery();
+        gsSolrQuery.restrictToRadius(latitude, longitude, radiusInMiles);
+        gsSolrQuery.page(0, count);
+
+        List<CitySearchResult> results = _gsSolrSearcher.simpleSearch(gsSolrQuery, CitySearchResult.class);
+
+        return results;
+    }
     
     Map<String,String> buildOneMap(HttpServletRequest request, ICitySearchResult citySearchResult) {
         Map<String,String> map = new HashMap<String,String>();
