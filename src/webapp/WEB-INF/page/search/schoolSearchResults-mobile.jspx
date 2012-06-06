@@ -123,6 +123,12 @@
                     <c:choose>
                         <c:when test="${not empty searchString}"><c:out value="${searchString}"
                                                                         escapeXml="true"/></c:when>
+                        <c:when test="${isDistrictBrowse and not empty district}">
+                            ${district.name}
+                        </c:when>
+                        <c:when test="${isCityBrowse and not empty city}">
+                            ${city.name}
+                        </c:when>
                         <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
                     </c:choose>
                 </c:set>
