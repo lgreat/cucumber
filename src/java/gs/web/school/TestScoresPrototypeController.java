@@ -89,42 +89,42 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         return new ModelAndView(VIEW, model);
     }
 
+
     protected Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>>
     populateSchoolValues(School school) {
 
         Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
-
         Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap =
                 new HashMap<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>>();
+        Set<Integer> existingDataSetIds = new HashSet<Integer>();
 
-        Set<Integer> normalDataSetIds = new HashSet<Integer>();
+        createSchoolValuesMap(school, testDataTypeIdToTestDataType, schoolValueMap, existingDataSetIds);
 
-        createSchoolValuesMap(school, testDataTypeIdToTestDataType, schoolValueMap, normalDataSetIds);
+        //Get the extra data.
+        List<Map<String, Object>> additionalTestScores = _testDataSchoolValueDao.getSchoolTestScores(school, existingDataSetIds);
 
-        List<Map<String, Object>> testScoreValues = _testDataSchoolValueDao.getSchoolTestScores(school, normalDataSetIds);
-        for (Map value : testScoreValues) {
+        for (Map value : additionalTestScores) {
             Integer testDataTypeId = (Integer) value.get("data_type_id");
             Integer testDataSetId = (Integer) value.get("id");
-            CustomTestDataSet testDataSet = new CustomTestDataSet();
-            Date date = (Date) value.get("year");
-            DateFormat df = new SimpleDateFormat("yyyy");
-            String text = df.format(date);
-            TestDataType testDataType = getTestDataType(testDataTypeIdToTestDataType, testDataTypeId);
             Grade grade = Grade.getGradeLevel((String) value.get("grade"));
             LevelCode levelCode = LevelCode.createLevelCode((String) value.get("level_code"));
             Subject subject = _subjectDao.findSubject((Integer) value.get("subject_id"));
+            Date yearDate = (Date) value.get("year");
+            DateFormat df = new SimpleDateFormat("yyyy");
+            String year = df.format(yearDate);
             Float valueFloat = (Float) value.get("value_float");
             String valueText = (String) value.get("value_text");
+            String testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
+                    Integer.toString(Math.round(valueFloat));
 
-            testDataSet.setYear(new Integer(text));
+            TestDataType testDataType = getTestDataType(testDataTypeIdToTestDataType, testDataTypeId);
+
+            CustomTestDataSet testDataSet = new CustomTestDataSet();
+            testDataSet.setYear(new Integer(year));
             testDataSet.setId(testDataSetId);
             testDataSet.setGrade(grade);
             testDataSet.setLevelCode(levelCode);
 
-            String testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
-                    Integer.toString(Math.round(valueFloat));
-
-            //Replace the temporary string "Data not available"  with the actual test score value.
             if (schoolValueMap.get(testDataType) != null) {
                 Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(testDataType);
 
@@ -134,12 +134,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                         Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
                         if (subjectToDataSet.get(subject) != null) {
                             Map<CustomTestDataSet, String> testDataSetToValue = subjectToDataSet.get(subject);
-//                            if(testDataSetToValue.get(testDataSet) != null){
                             testDataSetToValue.put(testDataSet, testScoreValue);
-//                            }else{
-//                               //TODO
-//                            }
-
                         } else {
                             //Subject not present.
                             Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
@@ -156,7 +151,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                     }
 
                 } else {
-
                     //Grade not present.
                     Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
                     dataSetToValue.put(testDataSet, testScoreValue);
@@ -167,7 +161,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                     gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
                 }
             } else {
-
                 //Test not present.
                 Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
                 dataSetToValue.put(testDataSet, testScoreValue);
@@ -178,53 +171,44 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                 Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>();
                 gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
                 schoolValueMap.put(testDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
-
             }
-
         }
         return schoolValueMap;
     }
 
     protected Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>>
-    createSchoolValuesMap(School school, Map<Integer, TestDataType> testDataTypeIdToTestDataType,Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap,Set<Integer> normalDataSetIds) {
+    createSchoolValuesMap(School school, Map<Integer, TestDataType> testDataTypeIdToTestDataType,
+                          Map<TestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap,
+                          Set<Integer> existingDataSetIds) {
 
-        List<Map<String, Object>> vals = _testDataSetDao.getTestDataSets(school);
+        List<Map<String, Object>> testScores = _testDataSetDao.getTestDataSets(school);
 
-        for (Map m : vals) {
-            Integer testDataTypeId = (Integer) m.get("data_type_id");
-            Integer testDataSetId = (Integer) m.get("id");
-            CustomTestDataSet testDataSet = new CustomTestDataSet();
-
-            Date date = (Date)m.get("year");
+        for (Map value : testScores) {
+            Integer testDataTypeId = (Integer) value.get("data_type_id");
+            Integer testDataSetId = (Integer) value.get("id");
+            Grade grade = Grade.getGradeLevel((String) value.get("grade"));
+            LevelCode levelCode = LevelCode.createLevelCode((String) value.get("level_code"));
+            Subject subject = _subjectDao.findSubject((Integer) value.get("subject_id"));
+            Date yearDate = (Date) value.get("year");
             DateFormat df = new SimpleDateFormat("yyyy");
-            String text = df.format(date);
+            String year = df.format(yearDate);
+            Float valueFloat = (Float) value.get("value_float");
+            String valueText = (String) value.get("value_text");
+            String testScoreValue = LABEL_DATA_NOT_AVAILABLE;
+            if (valueFloat != null || valueText != null) {
+                testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
+                        Integer.toString(Math.round(valueFloat));
+            }
 
             TestDataType testDataType = getTestDataType(testDataTypeIdToTestDataType, testDataTypeId);
-            Grade grade = Grade.getGradeLevel((String) m.get("grade"));
-            LevelCode levelCode = LevelCode.createLevelCode((String) m.get("level_code"));
-            Subject subject = _subjectDao.findSubject((Integer) m.get("subject_id"));
 
-            testDataSet.setYear(new Integer(text));
+            CustomTestDataSet testDataSet = new CustomTestDataSet();
+            testDataSet.setYear(new Integer(year));
             testDataSet.setId(testDataSetId);
             testDataSet.setGrade(grade);
             testDataSet.setLevelCode(levelCode);
 
-            normalDataSetIds.add(testDataSetId);
-
-            Float valueFloat = (Float) m.get("value_float");
-            String valueText = (String) m.get("value_text");
-            String testScoreValue = LABEL_DATA_NOT_AVAILABLE;
-            if(valueFloat != null || valueText != null){
-                     testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
-                    Integer.toString(Math.round(valueFloat));
-            }
-
-
-//            TestDataSet testDataSet = _testDataSetDao.findTestDataSet(school.getDatabaseState(), testDataSetId);
-//            TestDataType testDataType = getTestDataType(testDataTypeIdToTestDataType,testDataTypeId);
-//            Grade grade = testDataSet.getGrade();
-//            LevelCode levelCode = testDataSet.getLevelCode();
-//            Subject subject = testDataSet.getSubject();
+            existingDataSetIds.add(testDataSetId);
 
             //Check if the test is already in the map.
             if (schoolValueMap.get(testDataType) != null) {
@@ -628,8 +612,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         public int compareTo(SubjectToYears subjectToYears) {
             return getSubjectLabel().compareTo(subjectToYears.getSubjectLabel());
         }
-
-
     }
 
     public static class YearToTestScore implements Comparable<YearToTestScore> {
@@ -723,11 +705,10 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             return true;
         }
 
-         public int hashCode() {
+        public int hashCode() {
             return 53 * _id.hashCode();
         }
 
     }
-
 
 }
