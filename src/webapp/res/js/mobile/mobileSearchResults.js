@@ -85,9 +85,13 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
         var queryString = searchResultFilters.getUpdatedQueryString();
 
         // rewrite URL using history API
+        // or use GET
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             // use HTML 5 history API to rewrite the current URL to represent the new state.
             window.History.replaceState(null, document.title, queryString);
+        } else {
+            window.location.search = queryString;
+            return;
         }
 
         queryString = uri.putIntoQueryString(queryString, 'ajax', true);
@@ -119,7 +123,23 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
     };
 
     var loadMore = function() {
-        var queryString = window.location.search;
+        var queryString = null;
+
+        // get current url either from history api or have the filter module build it for us
+        // cannot trust URL because of android bug: http://code.google.com/p/android/issues/detail?id=17471
+        if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+            var historyState = window.History.getState();
+            if (historyState) {
+                var historyStateUrl = historyState.url;
+                var queryIndex = historyStateUrl.indexOf('?');
+                if (queryIndex > -1) {
+                    queryString = historyStateUrl.substring(queryIndex);
+                }
+            }
+        }
+        if (queryString == null) {
+            queryString = searchResultFilters.getUpdatedQueryString();
+        }
         GS.log('current offset: ', currentOffset);
 
         // get offset of next page
