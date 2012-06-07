@@ -98,6 +98,9 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
                     //$('#js-loadingSchools').hide();
                     renderSchools(data);
 
+                    // hide address bar
+                    window.scrollTo(0, 1);
+
                     $('#js-savedSchools .js-deleteSchool').click(function(){
                         deleteSchool(this.id);
                     });
