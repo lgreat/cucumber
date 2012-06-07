@@ -42,8 +42,8 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
         LevelCode levelCode = commandWithFields.getLevelCode();
 
         Map<String,Object> model = new HashMap<String,Object>();
-        model.put(SchoolSearchController.MODEL_TITLE, getTitle(city.getDisplayName(), city.getState(), levelCode, schoolSearchTypes, mobile));
-        model.put(SchoolSearchController.MODEL_META_DESCRIPTION, getMetaDescription(city, levelCode, schoolSearchTypes));
+        model.put(MODEL_TITLE, getTitle(city.getDisplayName(), city.getState(), levelCode, schoolSearchTypes, mobile));
+        model.put(MODEL_META_DESCRIPTION, getMetaDescription(city, levelCode, schoolSearchTypes));
         return model;
     }
 

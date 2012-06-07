@@ -45,17 +45,17 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
         LevelCode levelCode = commandWithFields.getLevelCode();
         Map<String,Object> model = new HashMap<String,Object>();
         if (!mobile){
-            model.put(SchoolSearchController.MODEL_TITLE, SeoUtil.generatePageTitle(district, levelCode, schoolSearchTypes));
-            model.put(SchoolSearchController.MODEL_META_DESCRIPTION, SeoUtil.generateMetaDescription(district));
+            model.put(MODEL_TITLE, SeoUtil.generatePageTitle(district, levelCode, schoolSearchTypes));
+            model.put(MODEL_META_DESCRIPTION, SeoUtil.generateMetaDescription(district));
         
             String metaKeywords = null;
             if (district != null) {
                 metaKeywords = SeoUtil.generateMetaKeywords(district);
             }
-            model.put(SchoolSearchController.MODEL_META_KEYWORDS, metaKeywords);
+            model.put(MODEL_META_KEYWORDS, metaKeywords);
         }
         else {
-            model.put(SchoolSearchController.MODEL_TITLE, "School District Search Results");
+            model.put(MODEL_TITLE, "School District Search Results");
         }
         return model;
     }

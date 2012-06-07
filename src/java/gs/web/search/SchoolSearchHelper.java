@@ -15,6 +15,7 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.collections.ListUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -193,6 +194,36 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
             }
         }
         return url;
+    }
+
+    protected Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandAndFields, HttpServletRequest request) {
+        Map nearbySearchInfo = (Map) request.getAttribute("nearbySearchInfo");
+
+        String titleString = null;
+
+        if (commandAndFields.isNearbySearch() && nearbySearchInfo != null) {
+            Object zipCodeObj = nearbySearchInfo.get("zipCode");
+            if (zipCodeObj != null && zipCodeObj instanceof String) {
+                titleString = (String) zipCodeObj;
+            }
+        } else {
+            titleString = commandAndFields.getSearchString();
+        }
+
+        Map<String,Object> metaData = new HashMap<String,Object>();
+        metaData.put(MODEL_TITLE, getTitle(titleString));
+
+        return metaData;
+    }
+
+    protected static String getTitle(String searchString) {
+        String title;
+        if (StringUtils.isNotBlank(searchString)) {
+            title = "GreatSchools.org Search: " + StringEscapeUtils.escapeHtml(searchString);
+        } else {
+            title = "GreatSchools.org Search";
+        }
+        return title;
     }
 
     public List<ICitySearchResult> putNearbyCitiesInModel(SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
