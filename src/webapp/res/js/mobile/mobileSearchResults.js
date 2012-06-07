@@ -55,10 +55,11 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
             var value = $(this).val();
 
             var queryString = searchResultFilters.getUpdatedQueryString();
+            var newQueryString;
             if (value.length > 0) {
-                var newQueryString = uri.putIntoQueryString(queryString, 'sortBy', value, true);
+                newQueryString = uri.putIntoQueryString(queryString, 'sortBy', value, true);
             } else {
-                var newQueryString = uri.removeFromQueryString(queryString, 'sortBy');
+                newQueryString = uri.removeFromQueryString(queryString, 'sortBy');
             }
             var newUrl = window.location.pathname + newQueryString;
             lastSort = value;
@@ -69,6 +70,7 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
         });
         $('.js-searchCancel').on('click',function(){
             listFilterToggle();
+            window.scrollTo(0, 1);
         });
         $('.js-mapResultsLink').on('click', function() {
             var newQueryString = searchResultFilters.getUpdatedQueryString();
@@ -102,7 +104,7 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
                 var $list = $(searchResultsSelector);
                 $list.html(data);
                 listFilterToggle();
-
+                window.scrollTo(0, 1);
             }
         }).fail(function(data) {
                 modal.hideModal();
@@ -114,7 +116,7 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
         $('#js-school-search-results-table').toggle();
         $('.js-nearbyMoreResults').toggle();
         $('.js-searchResultFilters').toggle();
-    }
+    };
 
     var loadMore = function() {
         var queryString = window.location.search;

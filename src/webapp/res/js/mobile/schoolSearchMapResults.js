@@ -177,6 +177,7 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
         });
         $('.js-searchCancel').on('click',function(){
             listFilterToggle();
+            window.scrollTo(0, 1);
         });
         $('.js-listResultsLink').on('click', function() {
             var newQueryString = searchResultFilters.getUpdatedQueryString();
