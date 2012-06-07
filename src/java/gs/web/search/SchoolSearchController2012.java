@@ -3,7 +3,6 @@ package gs.web.search;
 import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
 import gs.data.community.local.ILocalBoardDao;
-import gs.data.community.local.LocalBoard;
 import gs.data.geo.City;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
@@ -39,7 +38,6 @@ import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +81,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     private SchoolSearchCommonHelper commonSearchHelper;
 
     @Autowired
+    private NearbyCitiesController _nearbyCitiesController;
+
+    @Autowired
     private ILocalBoardDao _localBoardDao;
 
     private StateManager _stateManager;
@@ -120,9 +121,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     public static final String MODEL_CITY_ID = "cityId";
     public static final String MODEL_MSL_SCHOOLS = "mslSchools";
-
-    public static final String MODEL_LOCAL_BOARD_ID = "localBoardId";
-    public static final String MODEL_LOCAL_CITY_NAME = "localCityName";
 
     public static final String MODEL_CITY = "city";
     public static final String MODEL_DISTRICT = "district";
@@ -497,7 +495,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
     }
 
-    protected SearchResultsPage<SolrSchoolSearchResult> searchForSchools(SchoolSearchCommandWithFields commandAndFields, State state, FieldSort sort) {
+    protected SearchResultsPage<SolrSchoolSearchResult> searchForSchools(SchoolSearchCommandWithFields commandAndFields) {
         RequestedPage requestedPage = commandAndFields.getRequestedPage();
         SchoolSearchCommand schoolSearchCommand = commandAndFields.getSchoolSearchCommand();
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = new SearchResultsPage(0, new ArrayList<SolrSchoolSearchResult>());
@@ -508,7 +506,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         q.filter(DocumentType.SCHOOL).page(requestedPage.offset, requestedPage.pageSize);
 
         // TODO: In Mobile api, we don't filter by state if a lat/lon is specified. Should that logic apply here as well?
-        q.filter(SchoolFields.SCHOOL_DATABASE_STATE, state.getAbbreviationLowerCase());
+        if (commandAndFields.getState() != null) {
+            q.filter(SchoolFields.SCHOOL_DATABASE_STATE, commandAndFields.getState().getAbbreviationLowerCase());
+        }
 
         q.filter(SchoolFields.SCHOOL_TYPE, commandAndFields.getSchoolTypes());
 
@@ -683,8 +683,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
         // apply sorting
-        if (sort != null) {
-            q.sort(sort);
+        if (commandAndFields.getFieldSort() != null) {
+            q.sort(commandAndFields.getFieldSort());
         }
 
         try {
@@ -708,7 +708,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     public ModelAndView handleCityBrowse(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
         // City Browse Specific: check valid city
-        ModelAndView redirect = checkCityBrowseForRedirectConditions(response, commandAndFields);
+        ModelAndView redirect = _cityBrowseHelper.checkForRedirectConditions(response, commandAndFields);
         if (redirect != null) {
             return redirect;
         }
@@ -717,12 +717,17 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         // City Browse And District Browse Specific:  Put City into model
         model.put(MODEL_CITY, commandAndFields.getCity());
 
-        // Common: perform school, city, and district searches and add relevant data to the model
-        SchoolCityDistrictSearchSummary summary = handleSchoolCityDistrictSearch(commandAndFields, model);
+
+        // Common: perform school search and add relevant data to the model
+        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = putSchoolSearchResultsIntoModel(commandAndFields, model);
+
+
+        // Common: Search for nearby cities and place them into the model
+        _cityBrowseHelper.putNearbyCitiesInModel(commandAndFields, model);
 
 
         // City Browse Specific: Ad GAM attributes for city browse
-        _cityBrowseHelper.addGamAttributes(request, commandAndFields, summary.searchResultsPage.getSearchResults());
+        _cityBrowseHelper.addGamAttributes(request, commandAndFields, searchResultsPage.getSearchResults());
 
 
         // City Browse Specific:  Put rel canonical value into the model
@@ -740,21 +745,21 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         // City Browse Specific: Use a city browse helper to calculate omniture page name and hierarchy and put them into model
         model.putAll(
-                _cityBrowseHelper.getOmnitureHierarchyAndPageName(request, commandAndFields, summary.searchResultsPage.getTotalResults())
+                _cityBrowseHelper.getOmnitureHierarchyAndPageName(request, commandAndFields, searchResultsPage.getTotalResults())
         );
 
 
         // Common: put common omniture attributes into model
         // Must happen after search is complete
         model.putAll(
-                commonSearchHelper.getCommonOmnitureAttributes(request, commandAndFields, summary.searchResultsPage)
+                commonSearchHelper.getCommonOmnitureAttributes(request, commandAndFields, searchResultsPage)
         );
 
         // GS-6971 - city id cookie
         PageHelper.setCityIdCookie(request, response, commandAndFields.getCity());
 
         // Common: Calculate the view name
-        String viewName = determineViewName(commandAndFields.getSchoolSearchCommand(), summary.searchResultsPage);
+        String viewName = determineViewName(commandAndFields.getSchoolSearchCommand(), searchResultsPage);
 
         return new ModelAndView(viewName, model);
     }
@@ -763,7 +768,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         SchoolSearchCommand schoolSearchCommand = commandAndFields.getSchoolSearchCommand();
 
         // District Browse Specific: check valid city, valid district, wrong param combination, etc
-        ModelAndView redirect = _districtBrowseHelper.checkDistrictBrowseForRedirectConditions(request, response, commandAndFields);
+        ModelAndView redirect = _districtBrowseHelper.checkForRedirectConditions(request, response, commandAndFields);
         if (redirect != null) {
             return redirect;
         }
@@ -777,17 +782,23 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         model.put(MODEL_DISTRICT, commandAndFields.getDistrict());
 
 
-        // Common: perform school, city, and district searches and add relevant data to the model
-        SchoolCityDistrictSearchSummary summary = handleSchoolCityDistrictSearch(commandAndFields, model);
+        // Common: perform school search and add relevant data to the model
+        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = putSchoolSearchResultsIntoModel(commandAndFields, model);
+
+
+        // Common: Search for nearby cities and place them into the model
+        _districtBrowseHelper.putNearbyCitiesInModel(commandAndFields, model);
 
 
         // District Browse Specific: put GAM attributes for district browse into model
-        _districtBrowseHelper.addGamAttributes(request, commandAndFields, summary.searchResultsPage.getSearchResults());
+        _districtBrowseHelper.addGamAttributes(request, commandAndFields, searchResultsPage.getSearchResults());
 
 
         // District Browse Specific:  Put rel canonical value into the model
         _districtBrowseHelper.putRelCanonicalIntoModel(request, model, commandAndFields);
-        // City Browse Specific:  Put rel canonical value into the model
+
+
+        // District Browse Specific:  Put rel canonical value into the model
         String relCanonical = _districtBrowseHelper.getRelCanonical(commandAndFields, request);
         if (relCanonical != null) {
             model.put(MODEL_REL_CANONICAL, relCanonical);
@@ -802,19 +813,20 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         // District Browse Specific: Use a district browse helper to calculate omniture page name and hierarchy and put them into model
         model.putAll(
-                _districtBrowseHelper.getOmnitureHierarchyAndPageName(request, commandAndFields, summary.searchResultsPage.getTotalResults())
+                _districtBrowseHelper.getOmnitureHierarchyAndPageName(request, commandAndFields, searchResultsPage.getTotalResults())
         );
 
 
         // Common: put common omniture attributes into model
         // Must happen after search is complete
         model.putAll(
-                commonSearchHelper.getCommonOmnitureAttributes(request, commandAndFields, summary.searchResultsPage)
+                commonSearchHelper.getCommonOmnitureAttributes(request, commandAndFields, searchResultsPage)
         );
 
 
         // Common: Calculate the view name
-        String viewName = determineViewName(commandAndFields.getSchoolSearchCommand(), summary.searchResultsPage);
+        String viewName = determineViewName(commandAndFields.getSchoolSearchCommand(), searchResultsPage);
+
 
         return new ModelAndView(viewName, model);
     }
@@ -823,25 +835,35 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         // QueryString Search Specific (not city browse and not district browse and no lat/lon)
         // if user did not enter search term (and this is not a nearby search), redirect to state browse
-        ModelAndView redirect = _queryStringSearchHelper.checkForQueryStringSearchRedirectConditions(request, commandAndFields);
+        ModelAndView redirect = _queryStringSearchHelper.checkForRedirectConditions(request, commandAndFields);
         if (redirect != null) {
             return redirect;
         }
 
 
-        // Common: perform school, city, and district searches and add relevant data to the model
-        SchoolCityDistrictSearchSummary summary = handleSchoolCityDistrictSearch(commandAndFields, model);
+        // Common: perform school search and add relevant data to the model
+        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = putSchoolSearchResultsIntoModel(commandAndFields, model);
+
+
+        // QueryString Search Specific: Search for nearby cities and place them into the model
+        List<ICitySearchResult> citySearchResults = _queryStringSearchHelper.putNearbyCitiesInModel(commandAndFields, model);
+
+
+        // QueryString Search Specific: Now search for districts and place those into the model
+        List<IDistrictSearchResult> districtSearchResults = _queryStringSearchHelper.searchForDistricts(commandAndFields);
+        model.put(MODEL_DISTRICT_SEARCH_RESULTS, districtSearchResults);
 
 
         // Nearby Search and QueryString Search Specific: put GAM attributes for these flows into model
-        _queryStringSearchHelper.addGamAttributes(request, commandAndFields, summary.searchResultsPage.getSearchResults());
+        _queryStringSearchHelper.addGamAttributes(request, commandAndFields, searchResultsPage.getSearchResults());
 
 
         // QueryString Search Specific:  Put rel canonical value into the model
-        String relCanonical = _queryStringSearchHelper.getRelCanonical(request, commandAndFields.getSearchString(), commandAndFields.getState(), summary.citySearchResults);
+        String relCanonical = _queryStringSearchHelper.getRelCanonical(request, commandAndFields.getSearchString(), commandAndFields.getState(), citySearchResults);
         if (relCanonical != null) {
             model.put(MODEL_REL_CANONICAL, relCanonical);
         }
+
 
         // Nearby Search and QueryString Search Specific
         // TODO: Split Nearby / QueryString Search?
@@ -849,46 +871,25 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         Map nearbySearchInfo = (Map) request.getAttribute("nearbySearchInfo");
         putMetaDataInModel(model, commandAndFields, nearbySearchInfo);
 
+
         // QueryString Search Specific: Use a school search helper to calculate omniture page name and hierarchy and put them into model
-        model.putAll(_queryStringSearchHelper.getOmnitureHierarchyAndPageName(request, commandAndFields, summary));
+        model.putAll(
+            _queryStringSearchHelper.getOmnitureHierarchyAndPageName(request, commandAndFields, searchResultsPage.getTotalResults(), citySearchResults, districtSearchResults, searchResultsPage.isDidYouMeanResults())
+        );
 
 
         // Common: put common omniture attributes into model
         // Must happen after search is complete
         model.putAll(
-                commonSearchHelper.getCommonOmnitureAttributes(request, commandAndFields, summary.searchResultsPage)
+                commonSearchHelper.getCommonOmnitureAttributes(request, commandAndFields, searchResultsPage)
         );
 
 
         // Common: Calculate the view name
-        String viewName = determineViewName(commandAndFields.getSchoolSearchCommand(), summary.searchResultsPage);
+        String viewName = determineViewName(commandAndFields.getSchoolSearchCommand(), searchResultsPage);
 
 
         return new ModelAndView(viewName, model);
-    }
-
-
-
-    protected void putRelCanonicalIntoModel(HttpServletRequest request, Map<String, Object> model, SchoolSearchCommandWithFields commandAndFields, CityBrowseHelper cityBrowseHelper, DistrictBrowseHelper districtBrowseHelper, List<ICitySearchResult> citySearchResults) {
-
-        // determine the correct canonical URL based on if this controller is handling a string search that matches
-        // a city or not, and whether or not the controller is handling a city browse or district browse request
-        String relCanonicalUrl = null;
-        if (commandAndFields.getState() != null) {
-            if (StringUtils.isNotBlank(commandAndFields.getSearchString())) {
-                relCanonicalUrl = _queryStringSearchHelper.getRelCanonical(request, commandAndFields.getSearchString(), commandAndFields.getState(), citySearchResults);
-            } else {
-                if (commandAndFields.getDistrict() != null) {
-                    relCanonicalUrl = districtBrowseHelper.getRelCanonical(request);
-                } else if (commandAndFields.getCity() != null) {
-                    relCanonicalUrl = cityBrowseHelper.getRelCanonical(request);
-                }
-            }
-
-            if (relCanonicalUrl != null) {
-                model.put(MODEL_REL_CANONICAL, relCanonicalUrl);
-            }
-        }
     }
 
 
@@ -907,31 +908,15 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     }
 
 
-
-
-
-    protected SchoolCityDistrictSearchSummary handleSchoolCityDistrictSearch(SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
+    protected SearchResultsPage<SolrSchoolSearchResult> putSchoolSearchResultsIntoModel(SchoolSearchCommandWithFields commandAndFields, Map<String, Object> model) {
         SchoolSearchCommand schoolSearchCommand = commandAndFields.getSchoolSearchCommand();
-
-        // Common: Use request info to determine the field to sort by, put it into the model, and return it
-        FieldSort sort = commandAndFields.getFieldSort();
-        model.put(MODEL_SORT, schoolSearchCommand.getSortBy());
-
 
         // Common: Perform a search. Search might find spelling suggestions and then run another search to see if the
         // spelling suggestion actually yieleded results. If so, record the "didYouMean" suggestion into the model
-        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = searchForSchools(commandAndFields, commandAndFields.getState(), sort);
+        SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = searchForSchools(commandAndFields);
         if (searchResultsPage.getSpellCheckResponse() != null) {
             model.put(MODEL_DID_YOU_MEAN, SpellChecking.getSearchSuggestion(commandAndFields.getSearchString(), searchResultsPage.getSpellCheckResponse()));
         }
-
-
-        // Common: Search for nearby cities and place them into the model
-        List<ICitySearchResult> citySearchResults = putNearbyCitiesInModel(commandAndFields, model);
-
-
-        // Common: Now search for nearby districts and place those into the model
-        List<IDistrictSearchResult> districtSearchResults = putNearbyDistrictsInModel(commandAndFields, model);
 
 
         // Common: Put pagination-related numbers into the model
@@ -941,17 +926,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         // Common: Put info about the search resultset / result counts into the model
         putSearchResultInfoIntoModel(model, searchResultsPage);
 
-        return new SchoolCityDistrictSearchSummary(sort, searchResultsPage, citySearchResults, districtSearchResults);
-    }
-
-    protected ModelAndView checkCityBrowseForRedirectConditions(HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields) {
-        // City Browse and District Browse Specific:  We're in a city browse or district browse page, so get the city
-        // from the URL. If it's not a real city then 404. Otherwise add city to the model
-        if (commandAndFields.getCityFromUrl() == null) {
-            return redirectTo404(response);
-        }
-
-        return null;
+        return searchResultsPage;
     }
 
     private SchoolSearchCommandWithFields createSchoolSearchCommandWithFields(SchoolSearchCommand schoolSearchCommand, DirectoryStructureUrlFields fields, Map nearbySearchInfo) {
@@ -976,6 +951,11 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         model.put(MODEL_IS_FROM_BY_LOCATION, commandAndFields.isNearbySearchByLocation());
 
         model.put(MODEL_SCHOOL_TYPE, StringUtils.join(commandAndFields.getSchoolTypes()));
+
+        FieldSort sort = commandAndFields.getFieldSort();
+        if (sort != null) {
+            model.put(MODEL_SORT, sort.name());
+        }
 
         if (commandAndFields.getLevelCode() != null) {
             model.put(MODEL_LEVEL_CODE, commandAndFields.getLevelCode().getCommaSeparatedString());
@@ -1010,39 +990,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             }
         }
         return nearbySearchTitlePrefix;
-    }
-
-    public List<ICitySearchResult> putNearbyCitiesInModel(SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
-        List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
-
-        NearbyCitiesSearch nearbyCitiesFacade = new NearbyCitiesSearch(commandAndFields);
-        nearbyCitiesFacade.setCitySearchService(_citySearchService);
-        if (commandAndFields.isCityBrowse() || commandAndFields.isDistrictBrowse()) {
-            citySearchResults = _cityBrowseHelper.getNearbyCities(commandAndFields.getCityFromUrl(), commandAndFields.getLatitude(), commandAndFields.getLongitude());
-            //districtSearchResults = nearbyDistrictsFacade.getNearbyDistricts(); commented out until we figure out why district lat/lons are inaccurate
-        } else if (commandAndFields.isNearbySearch()) {
-            citySearchResults = nearbyCitiesFacade.getNearbyCitiesByLatLon();
-        } else if (commandAndFields.getSearchString() != null) {
-            citySearchResults = _queryStringSearchHelper.searchForCities(commandAndFields);
-        }
-        model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
-        return citySearchResults;
-    }
-
-    public List<IDistrictSearchResult> putNearbyDistrictsInModel(SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
-        List<IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
-
-        NearbyDistrictsSearch nearbyDistrictsFacade = new NearbyDistrictsSearch(commandAndFields);
-        nearbyDistrictsFacade.setDistrictSearchService(_districtSearchService);
-        if (commandAndFields.isCityBrowse() || commandAndFields.isDistrictBrowse()) {
-            //districtSearchResults = nearbyDistrictsFacade.getNearbyDistricts(); commented out until we figure out why district lat/lons are inaccurate
-        } else if (commandAndFields.isNearbySearchByLocation()) {
-            // do nothing
-        } else if (commandAndFields.getSearchString() != null) {
-            districtSearchResults = nearbyDistrictsFacade.searchForDistricts();
-        }
-        model.put(MODEL_DISTRICT_SEARCH_RESULTS, districtSearchResults);
-        return districtSearchResults;
     }
 
     protected void putSearchResultInfoIntoModel(Map<String, Object> model, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
@@ -1209,78 +1156,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
     }
 
-
-    //-------------------------------------------------------------------------
-    // omniture
-    //-------------------------------------------------------------------------
-
-
-
-    protected static String getOmnitureQuery(String searchString) {
-        if (StringUtils.isBlank(searchString)) {
-            return "[blank]";
-        } else {
-            return StringEscapeUtils.escapeXml(searchString.toLowerCase());
-        }
-    }
-
-    // this presumes all schoolSearchTypes passed in are valid SchoolTypes.
-    protected static String getOmnitureSchoolType(String[] schoolSearchTypes) {
-        // currently, there's no url that will take you to a page with all school type filters unchecked,
-        // for which we should be logging "nothing checked" in Omniture;
-        // that's why the code here doesn't ever return it. it can be implemented if we ever add such a url
-        if (schoolSearchTypes == null || schoolSearchTypes.length == 3) {
-            return null;
-        } else {
-            return StringUtils.join(schoolSearchTypes, ",");
-        }
-    }
-
-    protected static String getOmnitureSchoolLevel(LevelCode levelCode) {
-        // currently, there's no url that will take you to a page with all level code filters unchecked,
-        // for which we should be logging "nothing checked" in Omniture;
-        // that's why the code here doesn't ever return it. it can be implemented if we ever add such a url
-        if (levelCode != null && !levelCode.equals(LevelCode.ALL_LEVELS)) {
-            return levelCode.getCommaSeparatedString();
-        }
-        return null;
-    }
-
-    protected static String getOmnitureSortSelection(FieldSort sort) {
-        if (sort == null) {
-            return null;
-        } else {
-            if (sort.name().startsWith("SCHOOL_NAME")) {
-                return "School name";
-            } else if (sort.name().startsWith("GS_RATING")) {
-                return "GS Rating";
-            } else if (sort.name().startsWith("PARENT_RATING")) {
-                return "Parent Rating";
-            } else if (sort.name().startsWith("DISTANCE")) {
-                return "Distance";
-            } else {
-                return null;
-            }
-        }
-    }
-
-    protected static String getOmnitureResultsPerPage(int pageSize, int totalResults) {
-        String resultsPerPage = "";
-        // ignore pageSize = 25 per GS-11563
-        switch (pageSize) {
-            case 50:
-                resultsPerPage = "50";
-                break;
-            case 100:
-                if (totalResults <= 100) {
-                    resultsPerPage = "All";
-                } else {
-                    resultsPerPage = "100";
-                }
-                break;
-        }
-        return resultsPerPage;
-    }
 
     //-------------------------------------------------------------------------
     // required to implement interface IDirectoryStructureUrlController

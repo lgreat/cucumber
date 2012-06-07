@@ -3,21 +3,22 @@ package gs.web.search;
 import gs.data.geo.City;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
+import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.state.State;
 import gs.web.pagination.RequestedPage;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 
 @Component("cityBrowseHelper")
@@ -25,6 +26,9 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
 
     @Autowired
     SearchAdHelper _searchAdHelper;
+
+    @Autowired
+    NearbyCitiesController _nearbyCitiesController;
 
     Logger _log = Logger.getLogger(CityBrowseHelper2012.class);
 
@@ -246,8 +250,28 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
         }
     }
 
+    public List<ICitySearchResult> putNearbyCitiesInModel(SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
+        List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
+
+        citySearchResults = ListUtils.typedList(_nearbyCitiesController.getNearbyCities(commandAndFields.getLatitude(), commandAndFields.getLongitude(), SchoolSearchHelper.NEARBY_CITIES_RADIUS, SchoolSearchHelper.NEARBY_CITIES_COUNT, commandAndFields.getCityFromUrl() // exclude this city from results
+        ), ICitySearchResult.class);
+
+        model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
+        return citySearchResults;
+    }
+
     @Override
     public Logger getLogger() {
         return _log;
+    }
+
+    protected ModelAndView checkForRedirectConditions(HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields) {
+        // City Browse and District Browse Specific:  We're in a city browse or district browse page, so get the city
+        // from the URL. If it's not a real city then 404. Otherwise add city to the model
+        if (commandAndFields.getCityFromUrl() == null) {
+            return redirectTo404(response);
+        }
+
+        return null;
     }
 }

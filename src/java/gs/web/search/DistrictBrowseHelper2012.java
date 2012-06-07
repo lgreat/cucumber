@@ -2,12 +2,14 @@ package gs.web.search;
 
 import gs.data.school.LevelCode;
 import gs.data.school.district.District;
+import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.seo.SeoUtil;
 import gs.web.pagination.RequestedPage;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +29,9 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
 
     @Autowired
     SearchAdHelper _searchAdHelper;
+
+    @Autowired
+    NearbyCitiesController _nearbyCitiesController;
 
     Logger _log = Logger.getLogger(DistrictBrowseHelper2012.class);
 
@@ -92,7 +98,7 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
         return pageName;
     }
 
-    protected ModelAndView checkDistrictBrowseForRedirectConditions(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields) {
+    protected ModelAndView checkForRedirectConditions(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields) {
         // City Browse and District Browse Specific:  We're in a city browse or district browse page, so get the city
         // from the URL. If it's not a real city then 404. Otherwise add city to the model
         if (commandAndFields.getCityFromUrl() == null) {
@@ -153,10 +159,17 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
         }
     }
 
-    public ModelAndView redirectTo404(HttpServletResponse response) {
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        return new ModelAndView(VIEW_NOT_FOUND);
+    public List<ICitySearchResult> putNearbyCitiesInModel(SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
+        List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
+
+        citySearchResults = ListUtils.typedList(_nearbyCitiesController.getNearbyCities(commandAndFields.getLatitude(), commandAndFields.getLongitude(), SchoolSearchHelper.NEARBY_CITIES_RADIUS, SchoolSearchHelper.NEARBY_CITIES_COUNT, commandAndFields.getCityFromUrl() // exclude this city from results
+        ), ICitySearchResult.class);
+
+        model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
+        return citySearchResults;
     }
+
+
 
     public Logger getLogger() {
         return _log;

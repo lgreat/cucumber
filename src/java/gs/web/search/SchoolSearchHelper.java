@@ -1,12 +1,13 @@
 package gs.web.search;
 
-import gs.data.school.LevelCode;
 import gs.data.search.*;
 import gs.data.search.beans.CitySearchResult;
 import gs.data.search.beans.ICitySearchResult;
 import gs.data.search.beans.IDistrictSearchResult;
 import gs.data.search.beans.SolrSchoolSearchResult;
+import gs.data.search.fields.CityFields;
 import gs.data.search.services.CitySearchService;
+import gs.data.search.services.DistrictSearchService;
 import gs.data.state.State;
 import gs.web.pagination.RequestedPage;
 import gs.web.util.PageHelper;
@@ -14,7 +15,6 @@ import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.collections.ListUtils;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,12 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
 
     @Autowired
     private CitySearchService _citySearchService;
+
+    @Autowired
+    private GsSolrSearcher _gsSolrSearcher;
+
+    @Autowired
+    private DistrictSearchService _districtSearchService;
 
 
     public static final String MODEL_OMNITURE_PAGE_NAME = "omniturePageName";
@@ -96,13 +102,12 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
     }
 
 
-    public Map<String,Object> getOmnitureHierarchyAndPageName(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, SchoolSearchController2012.SchoolCityDistrictSearchSummary summary) {
+    public Map<String,Object> getOmnitureHierarchyAndPageName(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, int totalResults, List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults, boolean isDidYouMeanResults) {
         // QueryString Search Specific: Use a school search helper to calculate omniture page name and hierarchy and put them into model
         Map<String,Object> model = new HashMap<String,Object>();
         RequestedPage requestedPage = commandAndFields.getRequestedPage();
-        boolean foundDidYouMeanSuggestions = (summary.searchResultsPage.isDidYouMeanResults());
-        String omniturePageName = getOmniturePageName(request, requestedPage.pageNumber, summary.searchResultsPage.getTotalResults(), foundDidYouMeanSuggestions);
-        String omnitureHierarchy = getOmnitureHierarchy(requestedPage.pageNumber, summary.searchResultsPage.getTotalResults(), summary.citySearchResults, summary.districtSearchResults);
+        String omniturePageName = getOmniturePageName(request, requestedPage.pageNumber, totalResults, isDidYouMeanResults);
+        String omnitureHierarchy = getOmnitureHierarchy(requestedPage.pageNumber, totalResults, citySearchResults, districtSearchResults);
         model.put(MODEL_OMNITURE_PAGE_NAME, omniturePageName);
         model.put(MODEL_OMNITURE_HIERARCHY, omnitureHierarchy);
         return model;
@@ -136,7 +141,7 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         _searchAdHelper.addNearbySearchInfoKeywords(pageHelper, request);
     }
 
-    public ModelAndView checkForQueryStringSearchRedirectConditions(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {
+    public ModelAndView checkForRedirectConditions(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {
         // QueryString Search Specific (not city browse and not district browse and no lat/lon)
         // if user did not enter search term (and this is not a nearby search), redirect to state browse
         if (!commandAndFields.isNearbySearch() && commandAndFields.isSearch() && StringUtils.isBlank(commandAndFields.getSearchString())) {
@@ -190,52 +195,88 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         return url;
     }
 
-    public List<CitySearchResult> getNearbyCitiesByLatLon(SchoolSearchCommandWithFields commandAndFields) {
-        int DEFAULT_RADIUS = 50;
-        int pageSize = 33;
-        Float lat = commandAndFields.getLatitude();
-        Float lon = commandAndFields.getLongitude();
-        return _nearbyCitiesController.getNearbyCities(lat, lon, DEFAULT_RADIUS, pageSize);
-    }
-
-    /**
-     * Try to decouple this class from "SchoolSearchCommandWithFields" if SchoolSearchController changes.
-     * Method does not actually look for "nearby" cities... just cities matching a string
-     *
-     * @return
-     */
-    public List<ICitySearchResult> searchForCities(SchoolSearchCommandWithFields commandAndFields) {
-        String searchString = commandAndFields.getSearchString();
-        State state = commandAndFields.getState();
+    public List<ICitySearchResult> putNearbyCitiesInModel(SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
         List<ICitySearchResult> citySearchResults = new ArrayList<ICitySearchResult>();
 
-        if (state == null) {
+        if (commandAndFields.isNearbySearch()) {
+            citySearchResults = ListUtils.typedList(
+                    _nearbyCitiesController.getNearbyCities(
+                            commandAndFields.getLatitude(),
+                            commandAndFields.getLongitude(),
+                            SchoolSearchHelper.NEARBY_CITIES_RADIUS,
+                            SchoolSearchHelper.NEARBY_CITIES_COUNT
+                    ),
+                    ICitySearchResult.class
+            );
+        } else if (commandAndFields.getSearchString() != null) {
+            citySearchResults = ListUtils.typedList(
+                    searchForCities(commandAndFields.getState(), commandAndFields.getSearchString()),
+                    ICitySearchResult.class
+            );
+        }
+
+        model.put(MODEL_CITY_SEARCH_RESULTS, citySearchResults);
+        return citySearchResults;
+    }
+
+
+    public List<CitySearchResult> searchForCities(State state, String searchString) {
+        List<CitySearchResult> citySearchResults = new ArrayList<CitySearchResult>();
+
+        if (state == null || searchString == null) {
             //don't try to find cities without a state
             return citySearchResults;
         }
 
-        Map<IFieldConstraint, String> cityConstraints = new HashMap<IFieldConstraint, String>();
-        cityConstraints.put(CitySearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
+        // when searching for "anchorage, ak", do not search for cities matching "ak"
+        // primarily an issue with city autocomplete as implemented for GS-11928 Find a School by location
+        if (StringUtils.endsWithIgnoreCase(searchString, " " + state.getAbbreviation()) ||
+                StringUtils.endsWithIgnoreCase(searchString, "," + state.getAbbreviation())) {
+            searchString = StringUtils.substring(searchString, 0, searchString.length()-2);
+        }
+
+        searchString = Searching.cleanseSearchString(searchString);
+
+        GsSolrQuery gsSolrQuery = createCityGsSolrQuery();
+        gsSolrQuery.filter(CityFields.STATE, state.getAbbreviationLowerCase());
+        gsSolrQuery.query(searchString);
+        gsSolrQuery.page(0, NEARBY_CITIES_COUNT);
+        citySearchResults = _gsSolrSearcher.simpleSearch(gsSolrQuery, CitySearchResult.class);
+
+        return citySearchResults;
+    }
+
+    public List<IDistrictSearchResult> searchForDistricts(SchoolSearchCommandWithFields commandAndFields) {
+        String searchString = commandAndFields.getSearchString();
+        State state = commandAndFields.getState();
+        List<IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
+
+        if (state == null) {
+            //don't try to find districts without a state
+            return districtSearchResults;
+        }
+
+        Map<IFieldConstraint, String> districtConstraints = new HashMap<IFieldConstraint, String>();
+        districtConstraints.put(DistrictSearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
 
         try {
             if (searchString != null) {
-                try {
-                    // when searching for "anchorage, ak", do not search for cities matching "ak"
-                    // primarily an issue with city autocomplete as implemented for GS-11928 Find a School by location
-                    if (StringUtils.endsWithIgnoreCase(searchString, " " + state.getAbbreviation()) ||
-                            StringUtils.endsWithIgnoreCase(searchString, "," + state.getAbbreviation())) {
-                        searchString = StringUtils.substring(searchString, 0, searchString.length()-2);
-                    }
-                } catch (Exception e) {/* ignore */}
-                SearchResultsPage<ICitySearchResult> cityPage = getCitySearchService().search(searchString, cityConstraints, null, null, 0, 33);
-                citySearchResults = cityPage.getSearchResults();
+                SearchResultsPage<IDistrictSearchResult> districtPage = getDistrictSearchService().search(searchString, districtConstraints, null, null, 0, DISTRICTS_COUNT);
+                districtSearchResults = districtPage.getSearchResults();
             }
         } catch (SearchException ex) {
             _log.debug("something when wrong when attempting to use CitySearchService. Eating exception", ex);
         }
 
-        return citySearchResults;
+        return districtSearchResults;
     }
+
+    GsSolrQuery createCityGsSolrQuery() {
+        GsSolrQuery gsSolrQuery = new GsSolrQuery(QueryType.CITY_SEARCH);
+        gsSolrQuery.getSolrQuery().add("df","city_name"); // make city_name the default field to search on
+        return gsSolrQuery;
+    }
+
 
     public CitySearchService getCitySearchService() {
         return _citySearchService;
@@ -243,5 +284,13 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
 
     public void setCitySearchService(CitySearchService citySearchService) {
         _citySearchService = citySearchService;
+    }
+
+    public DistrictSearchService getDistrictSearchService() {
+        return _districtSearchService;
+    }
+
+    public void setDistrictSearchService(DistrictSearchService districtSearchService) {
+        _districtSearchService = districtSearchService;
     }
 }

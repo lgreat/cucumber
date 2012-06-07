@@ -1,9 +1,11 @@
 package gs.web.search;
 
 
+import gs.data.geo.City;
 import gs.data.search.*;
 import gs.data.search.beans.CitySearchResult;
 import gs.data.search.beans.ICitySearchResult;
+import gs.data.search.fields.CityFields;
 import gs.web.util.Url;
 import gs.web.util.UrlBuilder;
 import org.springframework.beans.factory.BeanFactory;
@@ -55,19 +57,23 @@ public class NearbyCitiesController implements BeanFactoryAware {
         modelMap.put(MODEL_DATA_KEY, maps);
     }
 
-    public List<CitySearchResult> getNearbyCities(float latitude, float longitude, float radiusInMiles, int count) {
-        radiusInMiles = radiusInMiles < MAX_RADIUS ? radiusInMiles : MAX_RADIUS;
-        count = count < MAX_COUNT ? count : MAX_COUNT;
-
+    public List<CitySearchResult> getNearbyCities(float latitude, float longitude, float radiusInMiles, int count, City excludeCity) {
         GsSolrQuery gsSolrQuery = createGsSolrQuery();
         gsSolrQuery.restrictToRadius(latitude, longitude, radiusInMiles);
         gsSolrQuery.page(0, count);
+        if (excludeCity != null) {
+            gsSolrQuery.filterNot(CityFields.CITY_KEYWORD, excludeCity.getName().toLowerCase());
+        }
 
         List<CitySearchResult> results = _gsSolrSearcher.simpleSearch(gsSolrQuery, CitySearchResult.class);
 
         return results;
     }
-    
+
+    public List<CitySearchResult> getNearbyCities(float latitude, float longitude, float radiusInMiles, int count) {
+        return getNearbyCities(latitude, longitude, radiusInMiles, count, null);
+    }
+
     Map<String,String> buildOneMap(HttpServletRequest request, ICitySearchResult citySearchResult) {
         Map<String,String> map = new HashMap<String,String>();
         map.put("state", citySearchResult.getState().getAbbreviation());
