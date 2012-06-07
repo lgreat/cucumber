@@ -184,74 +184,72 @@
         </div>
     </div>
 
-    <c:if test="${not empty school.levelCode and ((fn:indexOf(school.levelCode,'e') >=0) or (fn:indexOf(school.levelCode,'m') >=0))}">
-        <div class="lal clearfix">
-            <div class="grid_7 alpha">
-                <p class="labelGroup">Does your school have before or after care on site?</p>
-            </div>
-            <div class="grid_16 omega">
-                <div class="line">
-                    <div class="unit size20of100">
-                        <div class="media">
-                            <gsml:checkbox styleId="form_before_after_care_before" name="before_after_care"
-                                           value="before"
-                                           checked="${not empty responseMap['before_after_care'].valueMap['before']}"
-                                           styleClass="img"/>
+    <div class="lal clearfix">
+        <div class="grid_7 alpha">
+            <p class="labelGroup">Does your school have before or after care on site?</p>
+        </div>
+        <div class="grid_16 omega">
+            <div class="line">
+                <div class="unit size20of100">
+                    <div class="media">
+                        <gsml:checkbox styleId="form_before_after_care_before" name="before_after_care"
+                                       value="before"
+                                       checked="${not empty responseMap['before_after_care'].valueMap['before']}"
+                                       styleClass="img"/>
 
-                            <div class="bd pts">
-                                <label for="form_before_after_care_before" class="checkbox">Before school care </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="unit size80of100 lastUnit">
-                        <div class="line mts">
-                        <span id="form_before_after_care_before_group">
-                            <div class="unit size2of100"><span class="small bottom">|</span></div>
-                            <div class="unit size11of100">
-                                <label for="js-time3" class="checkbox">Start time</label>
-                            </div>
-                            <div class="unti size87of100 lastUnit">
-                                <input class="text-smaller input_3" type="text" name="before_after_care_start"
-                                       id="js-time3"
-                                       readonly="readonly" value="${responseMap['before_after_care_start'].value}"/>
-                            </div>
-                        </span>
+                        <div class="bd pts">
+                            <label for="form_before_after_care_before" class="checkbox">Before school care </label>
                         </div>
                     </div>
                 </div>
-                <div class="line">
-                    <div class="unit size20of100">
-                        <div class="media">
-                            <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
-                                           checked="${not empty responseMap['before_after_care'].valueMap['after']}"
-                                           styleClass="img"/>
 
-                            <div class="bd pts">
-                                <label for="form_before_after_care_after" class="checkbox">After school care </label>
-                            </div>
+                <div class="unit size80of100 lastUnit">
+                    <div class="line mts">
+                    <span id="form_before_after_care_before_group">
+                        <div class="unit size2of100"><span class="small bottom">|</span></div>
+                        <div class="unit size11of100">
+                            <label for="js-time3" class="checkbox">Start time</label>
+                        </div>
+                        <div class="unti size87of100 lastUnit">
+                            <input class="text-smaller input_3" type="text" name="before_after_care_start"
+                                   id="js-time3"
+                                   readonly="readonly" value="${responseMap['before_after_care_start'].value}"/>
+                        </div>
+                    </span>
+                    </div>
+                </div>
+            </div>
+            <div class="line">
+                <div class="unit size20of100">
+                    <div class="media">
+                        <gsml:checkbox styleId="form_before_after_care_after" name="before_after_care" value="after"
+                                       checked="${not empty responseMap['before_after_care'].valueMap['after']}"
+                                       styleClass="img"/>
+
+                        <div class="bd pts">
+                            <label for="form_before_after_care_after" class="checkbox">After school care </label>
                         </div>
                     </div>
+                </div>
 
-                    <div class="unit size80of100 lastUnit">
-                        <div class="line mts">
-                        <span id="form_before_after_care_after_group">
-                            <div class="unit size2of100"><span class="small bottom">|</span></div>
-                            <div class="unit size11of100">
-                                <label for="form_before_after_care_end" class="checkbox">End time </label>
-                            </div>
-                            <div class="unti size87of100 lastUnit">
-                                <input class="text-smaller input_3" type="text" name="before_after_care_end"
-                                       id="js-time4"
-                                       readonly="readonly" value="${responseMap['before_after_care_end'].value}"/>
-                            </div>
-                        </span>
+                <div class="unit size80of100 lastUnit">
+                    <div class="line mts">
+                    <span id="form_before_after_care_after_group">
+                        <div class="unit size2of100"><span class="small bottom">|</span></div>
+                        <div class="unit size11of100">
+                            <label for="form_before_after_care_end" class="checkbox">End time </label>
                         </div>
+                        <div class="unti size87of100 lastUnit">
+                            <input class="text-smaller input_3" type="text" name="before_after_care_end"
+                                   id="js-time4"
+                                   readonly="readonly" value="${responseMap['before_after_care_end'].value}"/>
+                        </div>
+                    </span>
                     </div>
                 </div>
             </div>
         </div>
-    </c:if>
+    </div>
 
     <div class="lal clearfix">
         <div class="grid_7 alpha">
