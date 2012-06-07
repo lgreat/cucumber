@@ -679,7 +679,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         // set the solr query's q parameter (querystring) to be the user search string
         if (!schoolSearchCommand.hasLatLon()) {
-            q.query(searchString);
+            q.query(Searching.cleanseSearchString(searchString));
         }
 
         // apply sorting
@@ -914,7 +914,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         // Common: Perform a search. Search might find spelling suggestions and then run another search to see if the
         // spelling suggestion actually yieleded results. If so, record the "didYouMean" suggestion into the model
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = searchForSchools(commandAndFields);
-        if (searchResultsPage.getSpellCheckResponse() != null) {
+        if (searchResultsPage.isDidYouMeanResults()) {
             model.put(MODEL_DID_YOU_MEAN, SpellChecking.getSearchSuggestion(commandAndFields.getSearchString(), searchResultsPage.getSpellCheckResponse()));
         }
 
@@ -1110,13 +1110,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         return county;
     }
 
-
-
-    public ModelAndView redirectTo404(HttpServletResponse response) {
-        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        return new ModelAndView(VIEW_NOT_FOUND);
-    }
-
     public String determineViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
         String viewOverride = schoolSearchCommand.getView();
         // if "view" URL query param is set to "map", use the map viewname
@@ -1140,22 +1133,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             }
         }
     }
-
-    protected class SchoolCityDistrictSearchSummary {
-        public final FieldSort fieldSort;
-
-        public final SearchResultsPage<SolrSchoolSearchResult> searchResultsPage;
-        public final List<ICitySearchResult> citySearchResults;
-        public final List<IDistrictSearchResult> districtSearchResults;
-
-        public SchoolCityDistrictSearchSummary(FieldSort fieldSort, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage, List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
-            this.fieldSort = fieldSort;
-            this.citySearchResults = citySearchResults;
-            this.districtSearchResults = districtSearchResults;
-            this.searchResultsPage = searchResultsPage;
-        }
-    }
-
 
     //-------------------------------------------------------------------------
     // required to implement interface IDirectoryStructureUrlController

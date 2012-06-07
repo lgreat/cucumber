@@ -318,7 +318,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
         // Common: Perform a search. Search might find spelling suggestions and then run another search to see if the
         // spelling suggestion actually yieleded results. If so, record the "didYouMean" suggestion into the model
         SearchResultsPage<SolrSchoolSearchResult> searchResultsPage = searchForSchools(schoolSearchCommand, commandAndFields.getState(), fieldConstraints, filterGroups, sort);
-        if (searchResultsPage.getSpellCheckResponse() != null) {
+        if (searchResultsPage.isDidYouMeanResults()) {
             model.put(MODEL_DID_YOU_MEAN, SpellChecking.getSearchSuggestion(commandAndFields.getSearchString(), searchResultsPage.getSpellCheckResponse()));
         }
 
@@ -631,7 +631,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
 
         // set the solr query's q parameter (querystring) to be the user search string
         if (!schoolSearchCommand.hasLatLon()) {
-            q.query(searchString);
+            q.query(Searching.cleanseSearchString(searchString));
         }
 
         // apply sorting
