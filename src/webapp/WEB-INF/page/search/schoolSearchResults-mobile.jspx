@@ -138,6 +138,10 @@
                         <c:when test="${empty searchString and isNearbySearch}">
                             <span class="ac1"><span class="js_searchResultsCount">${totalResults}</span> results near this location</span>
                         </c:when>
+                        <c:when test="${param.nearbySchool eq '1'}">
+                            <span class="ac1"><span
+                                    class="js_searchResultsCount">${totalResults}</span> results near </span><strong>${schoolResultsFor}</strong>
+                        </c:when>
                         <c:otherwise>
                             <span class="ac1"><span
                                     class="js_searchResultsCount">${totalResults}</span> results for </span><strong>${schoolResultsFor}</strong>
