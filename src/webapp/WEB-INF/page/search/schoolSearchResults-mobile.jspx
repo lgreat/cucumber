@@ -92,9 +92,9 @@
                                     <gsml:selectOption value="distance"
                                                        selected="${sort eq 'distance'}">Distance</gsml:selectOption>
                                 </c:when>
-                                <c:otherwise>
+                                <c:when test="${not (isCityBrowse or isDistrictBrowse)}">
                                     <option value="">Relevance</option>
-                                </c:otherwise>
+                                </c:when>
                             </c:choose>
 
                             <gsml:selectOption value="SCHOOL_NAME_ASCENDING"
