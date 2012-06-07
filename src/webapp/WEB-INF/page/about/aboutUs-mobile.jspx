@@ -21,9 +21,26 @@
 
     </div>
     <div class="pam">
-        <p>With listings of over 200,000 public and private schools serving students from elementary through high school
-            and more than 1 million parent ratings and reviews,
-            GreatSchools is the go-to guide for parents aiming to make a smart school choice.</p>
+        <p>
+            GreatSchools is a national nonprofit that helps parents get a great education for their children.
+            Our programs combine the broad reach of digital media with the power of community partnerships.
+            Last year we reached more than 41 million people, including nearly half of all American households
+            with school-age children.
+        </p>
+        <br/>
+        <p>
+            Our Webby award-winning website, GreatSchools.org, helps families make crucial decisions about
+            where to live and where to send their children to school. With profiles of 200,000 public and
+            private schools and more than one million parent ratings and reviews, GreatSchools.org is the
+            nation's leading guide to PK-12 schools. In addition, GreatSchools.org offers thousands of
+            articles, videos and worksheets that give parents practical ideas and tools to support their
+            children's learning.
+        </p>
+        <br/>
+        <p>
+            Headquartered in San Francisco, GreatSchools operates field offices in Indianapolis, Milwaukee
+            and Washington, DC.
+        </p>
     </div>
 
     <mod:mobileTracking pageName="aboutUs"
