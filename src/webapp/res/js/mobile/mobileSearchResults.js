@@ -88,7 +88,7 @@ define (['uri','searchResultFilters', 'modal', 'history'], function(uri,searchRe
         // or use GET
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             // use HTML 5 history API to rewrite the current URL to represent the new state.
-            window.History.replaceState(null, document.title, queryString);
+            window.History.replaceState(null, document.title, (queryString == '') ? window.location.pathname : queryString);
         } else {
             window.location.search = queryString;
             return;
