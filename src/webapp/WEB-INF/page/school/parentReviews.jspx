@@ -308,9 +308,9 @@
         <div class="mod parentReviewRating">
             <div class="inner">
                 <div class="bd">
-                    <div class="mediaExt1">
-                        <span class="sprite emailIt img">&lt;!&ndash; do not collapse &ndash;&gt;</span>
-                        <link:newsletterManagement styleClass="text3bold-06b bk" schoolId="${school.id}"
+                    <div class="media">
+                        <span class="sprite emailIt img mrm">&lt;!&ndash; do not collapse &ndash;&gt;</span>
+                        <link:newsletterManagement styleClass="text3bold-06b bd" schoolId="${school.id}"
                                                    schoolState="${school.databaseState}"
                                                    onclick="return GS.showMssJoinHover(this.href, '${school.name}', ${school.id}, '${school.databaseState}');">
                             Get email updates <span class="text3-06b">about this school.</span>
@@ -325,10 +325,10 @@
         <div class="mod parentReviewRating">
             <div class="inner">
                 <div class="bd">
-                    <div class="mediaExt1">
-                        <span class="sprite pencil_med img"><!-- do not collapse --></span>
+                    <div class="media">
+                        <span class="sprite pencil_med img mrm"><!-- do not collapse --></span>
 
-                        <div class="text3bold-06b bk">Are you<br/>the principal?<br/>
+                        <div class="text3bold-06b bd">Are you<br/>the principal?<br/>
                         <link:schoolEspRegister styleClass="text3-06b no_interrupt" styleId="espLink">Complete your school's profile</link:schoolEspRegister>
                         </div>
                     </div>

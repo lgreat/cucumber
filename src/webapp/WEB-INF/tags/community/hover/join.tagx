@@ -258,7 +258,7 @@
             </ul>
         </div>
 
-        <div class="mediaExt1 joinHover_ld mtm">
+        <div class="media joinHover_ld mtm">
             <div class="img mrm">
                 <input type="checkbox" name="ldNewsletter" value="true" id="opt2"/>
             </div>
