@@ -11,6 +11,12 @@ import java.util.Set;
 public class SchoolSearchCommand {
 
     private String _searchString;
+
+    // binds to the input form field on the By Location search form. Currently not used by the controller since
+    // lat/lon/zip info is determined client-side by Google API and passed in. However, it's used to spit out the
+    // user's search back into the form on the results page
+    private String _locationSearchString;
+
     private String _state;
     private String[] _schoolTypes;
     private String[] _schoolSubtypes;
@@ -443,6 +449,14 @@ public class SchoolSearchCommand {
 
     public void setReligious(String religious) {
         _religious = religious;
+    }
+
+    public String getLocationSearchString() {
+        return _locationSearchString;
+    }
+
+    public void setLocationSearchString(String locationSearchString) {
+        _locationSearchString = locationSearchString;
     }
 }
 

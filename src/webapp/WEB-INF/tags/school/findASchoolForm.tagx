@@ -13,12 +13,12 @@
 <div id="findASchoolTabs">
     <div class="tabBar">
         <div class="small_bold bottom">
-            <span id="byLocationTab" class="selected small_bold">By location</span>
-            <span id="byNameTab" class="small_bold">By name</span>
+            <span id="byLocationTab" class="${isNearbySearch? 'selected':''} small_bold">By location</span>
+            <span id="byNameTab" class="${!isNearbySearch? 'selected':''} small_bold">By name</span>
         </div>
     </div>
 
-        <div id="byLocationTabBody" class="tabBody pal">
+    <div id="byLocationTabBody" class="tabBody pal" style="${!isNearbySearch?'display:none;':''}">
             <form name="findByLocationForm" id="jq-findByLocationForm" action="/search/search.page"
                   method="get" onsubmit="return false;">
                 <input type="hidden" name="lat"/>
@@ -31,11 +31,12 @@
                 <input type="hidden" name="totalResults" value="0"/>
 
                 <div class="searchBarFas">
-                    <h6 class="fltlft bottom"><input type="text" name="searchString" class="searchInput small bottom"
-                                                     id="js-findByLocationBox"
-                                                     onfocus="GS_textSwitch(this, '', '   Search by city AND state or address ...');"
-                                                     onblur="GS_textSwitch(this, '   Search by city AND state or address ...', '');"
-                                                     value="   Search by city AND state or address ..."/></h6>
+                    <h6 class="fltlft bottom">
+                        <form:input type="text" name="locationSearchString" class="searchInput small bottom"
+                            id="js-findByLocationBox"
+                            placeholder="   Search by city AND state or address ..."
+                            path="schoolSearchCommand.locationSearchString" />
+                    </h6>
                     <button class="button-4 searchSubmit fltlft" type="submit">Search</button>
                 </div>
                 <div class="smallest bottom fltlft pts">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
@@ -185,7 +186,7 @@
             </form>
         </div>
 
-        <div id="byNameTabBody" class="tabBody pal" style="display:none;">
+        <div id="byNameTabBody" class="tabBody pal" style="${isNearbySearch?'display:none;':''}">
             <form name="searchByNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
                 <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
                 <input type="hidden" name="search_type" value="1"/>

@@ -139,6 +139,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             delete queryStringDataWithFilters.normalizedAddress;
             delete queryStringDataWithFilters.locationType;
             delete queryStringDataWithFilters.totalResults;
+            delete queryStringDataWithFilters.locationSearchString;
 
             queryStringDataWithFilters.q = searchString;
             queryStringDataWithFilters.state = state;
@@ -159,7 +160,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
     var byLocation = function() {
         var url = "/search/cityAutocomplete.page";
         var formSelector = '#jq-findByLocationForm';
-        var searchFieldSelector = 'input[name="searchString"]';
+        var searchFieldSelector = 'input[name="locationSearchString"]';
 
         var init = function() {
             attachCityAutocomplete();
@@ -172,7 +173,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
 
             if (searchQuery != '' &&
                     searchQuery != 'Search by city AND state or address ...' && !isTermState(searchQuery)) {
-                byLocationForm.find('input[name="searchString"]').val(searchQuery);
+                byLocationForm.find('input[name="locationSearchString"]').val(searchQuery);
 
                 //GS-12100 Since its a by location search, strip the words 'schools' from google geocode searches.
                 var searchQueryWithFilteredStopWords = searchQuery;
@@ -191,6 +192,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                         data['locationType'] = geocodeResult['type'];
                         data['normalizedAddress'] = geocodeResult['normalizedAddress'];
                         data['totalResults'] = geocodeResult['totalResults'];
+                        data['locationSearchString'] = searchQuery;
 
                         var queryStringDataWithFilters;
 
