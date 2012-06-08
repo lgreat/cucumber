@@ -109,8 +109,8 @@
         <div class="hd plm">
             <div class="fl"><h2>Reviews (${cmd.totalReviews})</h2></div>
             <c:if test="${cmd.totalReviews gt 1}">
-                <div class="selectbox vam">
-                    <form:select path="cmd.sortBy" id="sltRatingSort"
+                <div class="selectbox vam ">
+                    <form:select path="cmd.sortBy" id="sltRatingSort" cssClass="searchSelectReviews"
                                  onchange="sortParentReviews('${school.id}','${stateAbbrev}','${param_sortby}');">
                         <form:option value="dd">Date: newest to oldest</form:option>
                         <form:option value="da">Date: oldest to newest</form:option>
