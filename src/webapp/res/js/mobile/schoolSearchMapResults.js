@@ -38,8 +38,8 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
                 opacity: 1,
                 width: "300px"
             },
-            closeBoxMargin: "8px",
-            closeBoxURL: "http://www.greatschools.org/res/mobile/img/icon_close_24x24.png",
+            closeBoxMargin: "0px",
+            closeBoxURL: "http://www.greatschools.org/res/mobile/img/icon_close_44x44.png",
             infoBoxClearance: new google.maps.Size(1, 1),
             isHidden: false,
             pane: "floatPane",
