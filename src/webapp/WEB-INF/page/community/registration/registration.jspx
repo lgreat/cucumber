@@ -366,9 +366,14 @@
                     tabIndex="19">Privacy Policy</gsml:popupWindow>
             </p>
 
-            <gsml:inputImage src="/res/img/community/registration/join_button.gif" alt="submit"
-                             name="submit" onclick="return validateAndSubmit(this);" tabIndex="20"
-                             id="submitButton"/>
+            <gsml:input type="button"
+                        name="submit"
+                        value="Join now"
+                        onclick="return validateAndSubmit(this);"
+                        styleId="submitButton"
+                        tabIndex="20"
+                        styleClass="button-1"
+                    />
 
             <spring:bind path="userCmd.redirectUrl">
                 <input id="redirectUrl" type="hidden" name="${status.expression}" value="${status.value}"/>
