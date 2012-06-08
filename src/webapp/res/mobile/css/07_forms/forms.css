@@ -71,6 +71,9 @@ select {  margin:  0;font: normal .875em/1.25em Arial, Helvetica, sans-serif;
     padding:4px;
 }
 
+select.searchSelectReviews {
+    width: 175px;
+}
 select.searchSelect {
     width: 105px;
 }
@@ -107,11 +110,15 @@ form div { clear:left;margin: 0;padding: 0;padding-bottom: 0.5em; }
 
 
 /* Autocomplete formatting needs to be looked at */
+
+.ac_results ul {
+    border: solid 1px #2092C4;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .5);
+    background: #FFF;
+    margin-left: 10px;
+}
 .ac_results ul li {
     list-style: none;
     line-height: 14px;
-    border-bottom:1px solid grey;
-    background:#EEE;
-    padding:10px;
-    margin-left:-4px;
+    padding:8px;
 }
