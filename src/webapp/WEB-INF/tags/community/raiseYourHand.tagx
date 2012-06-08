@@ -359,8 +359,8 @@
 <c:forEach var="reply" items="${replies}">
 
     <![CDATA[ <a name="reply_${reply.id}"></a> ]]>
-    <div class="mediaExt2-5">
-        <div class="img">
+    <div class="media mbm">
+        <div class="img mrs">
             <c:choose>
                 <c:when test="${reply.user.userProfile.active and style ne 'homePage'}">
                     <link:userProfile user="${reply.user}" anonymous="${reply.anonymous}">
@@ -379,7 +379,7 @@
         </div>
         <!-- end ryh-avatar -->
 
-        <div class="ryh-container bk">
+        <div class="ryh-container bd">
 
             <div class="ryh-content rnd8">
                 <span class="${replyArrow}"><!--do not collapse--></span>
