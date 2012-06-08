@@ -113,10 +113,10 @@
                                 </span>
                             </c:when>
                             <c:otherwise>
-                                <div class="mediaExt1-1">
-                                    <span class="sprite i-add-sm mrgtop_2 img"><!-- do not collapse --></span>
+                                <div class="media">
+                                    <span class="sprite i-add-sm mrgtop_2 img mrs"><!-- do not collapse --></span>
 
-                                    <div class="js-msl-text bk">
+                                    <div class="js-msl-text bd">
                                         <a href="#" class="js-add-msl-link"
                                            id="js-add-msl-link-${school.databaseState}${school.id}"
                                            onclick="return GS.showAddMslJoinHover('${gsweb:escapeJavaScript(pageScope.omniturePageName)}', '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');">

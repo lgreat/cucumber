@@ -83,9 +83,9 @@
                     </div>
 
                     <div class="nal clearfix">
-                        <div class="mediaExt1-1">
-                            <input id="permit" class="img" name="permit" type="checkbox" checked="checked"/>
-                            <label class="checkbox-smaller bk pts" for="permit">Yes, I agree to the
+                        <div class="media">
+                            <input id="permit" class="img mrs" name="permit" type="checkbox" checked="checked"/>
+                            <label class="checkbox-smaller bd pts" for="permit">Yes, I agree to the
                                 <link:termsOfUse>GreatSchools Terms of Use</link:termsOfUse> and give GreatSchools
                                 permission to post my comments for other parents to read.</label>
                         </div>

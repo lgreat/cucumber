@@ -33,8 +33,8 @@
                     <div class="bd">
                         <form:form>
                             <div id="error" class="error" style="display:none">
-                                <div class="mediaExt1-1">
-                                    <span class="iconx16 i-16-alert img"><!-- do not collapse --></span>
+                                <div class="media">
+                                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
                                     <p><!--not empty--></p>
                                 </div>

@@ -13,9 +13,9 @@
                 <c:forEach var="grade" items="${worksheetsLinks}">
                     <c:forEach var="gradeMap" items="${grade}">
                         <li class="hasNested">
-                            <div class="mediaExt1-1">
-                                <span class="tn-twirly-closed img"><!-- do not collapse --></span>
-                                <a class="outerNavLink bk" href="javascript:void(0);">${gradeMap.key.linkText}</a>
+                            <div class="media">
+                                <span class="tn-twirly-closed img mrs"><!-- do not collapse --></span>
+                                <a class="outerNavLink bd" href="javascript:void(0);">${gradeMap.key.linkText}</a>
                             </div>
                             <ul class="nested small">
                                 <c:forEach var="subject" items="${gradeMap.value}">
