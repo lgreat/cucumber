@@ -69,7 +69,7 @@
                         </div>
                        </div>
                       <div class="unit size20of100 lastUnit fr">
-                          <a class="but but-sm but-2 pan but-overview js-deleteSchool" id="js-delete-{{state_schoolId}}">Delete</a>
+                          <a class="but but-sm but-2 pvn phm but-overview js-deleteSchool" id="js-delete-{{state_schoolId}}">Delete</a>
 
                       </div>
                 </div>

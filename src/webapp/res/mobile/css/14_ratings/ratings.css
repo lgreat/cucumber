@@ -34,7 +34,7 @@ General comments:
     text-shadow: 0 1px 1px rgba(0, 0, 0, .1);
     background: #FF8000;
     border: solid 1px #FF8000;
-    box-shadow: inset 0 2px 0px rgba(255, 255, 255, .4);
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, .4);
 }
 
 .ratings-square{
@@ -42,7 +42,7 @@ General comments:
     text-shadow: 0 1px 1px rgba(0, 0, 0, .1);
     background: #2092C4;
     border: solid 1px #2092C4;
-    box-shadow: inset 0 2px 0px rgba(255, 255, 255, .2);
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, .4);
 }
 
 .ratings-small{
