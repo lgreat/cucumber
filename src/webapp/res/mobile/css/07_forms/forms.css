@@ -52,7 +52,7 @@ textarea { cursor:text; width: 100%; background-color: #fff;border: solid 1px #4
 }
 input[type=text],
 input[type=password],
-input.text{ cursor:text;  height: 44px;font: normal 1em/1.25em Arial, Helvetica, sans-serif;padding-left: 0.5em;}
+input.text{ cursor:text;  height: 44px;font: normal 1em/1.25em Arial, Helvetica, sans-serif;padding-left: 0.5em;padding-right: 1em;}
 
 input[type=text]:focus, 
 input[type=password]:focus, 
@@ -83,6 +83,14 @@ select.searchSelect {
 
 form div { clear:left;margin: 0;padding: 0;padding-bottom: 0.5em; }
 /*form div label { float: left; }*/
+
+.clear_x {
+    position:absolute;
+    right: -15px;
+    top:8px;
+    padding: 10px;
+    padding-bottom: 2px;
+}
 
 .error, 
 .alert, 

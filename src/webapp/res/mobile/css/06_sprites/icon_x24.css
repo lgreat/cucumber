@@ -34,7 +34,7 @@ Viewport: the width and height of each icon is 24px x 24px, the background posit
 
 .iconx24 {
     display: inline-block;
-    background-size:192px 48px;
+    background-size:240px 48px;
     width: 24px;
     height: 24px;
 }
@@ -74,4 +74,16 @@ Viewport: the width and height of each icon is 24px x 24px, the background posit
 
 .i-24-collapse {
     background-position: -144px -24px;
+}
+
+.i-24-close_x {
+    background-position: -168px 0;
+}
+
+.i-24-clear_x {
+    background-position: -192px 0;
+}
+
+.i-24-map-arrow {
+    background-position: -216px 0;
 }
