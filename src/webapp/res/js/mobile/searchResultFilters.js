@@ -1,4 +1,4 @@
-define(['uri','ui', 'history'],function(uri, ui, history) {
+define(['uri','ui', 'history', 'tracking'],function(uri, ui, history, tracking) {
 
     var filtersSelector;
     var applyCallback; // gets called when filter Apply button is pressed
@@ -405,6 +405,9 @@ define(['uri','ui', 'history'],function(uri, ui, history) {
             if (action === 'reset') {
                 reset();
             } else if (action === 'apply') {
+                tracking.clear();
+                tracking.successEvents = 'event72';
+                tracking.send();
                 applyCallback();
             }
         });

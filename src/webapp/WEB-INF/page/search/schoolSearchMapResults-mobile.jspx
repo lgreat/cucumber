@@ -43,7 +43,8 @@
                                                                      databaseState="${school.databaseState}"
                                                                      name="${school.name}"
                                                                      physicalAddress="${school.address}"
-                                                                     levelCode="${school.levelCode}">
+                                                                     levelCode="${school.levelCode}"
+                                                                     onclick="if (s.tl) {s.tl(this,'o', 'Mobile_map_click_bubble');} return true;">
                                 <div class="pam">
                                     <p><strong>${school.name}</strong></p>
                                     <p class="small pbm ac1">

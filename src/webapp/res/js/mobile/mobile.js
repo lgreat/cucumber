@@ -35,6 +35,12 @@ define(['tracking','navigation','orient'],function(tracking,navigation,orient) {
             $('input, select, textarea').bind('focus blur', function(event) {
                 $viewportMeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=' + (event.type == 'blur' ? 10 : 1));
             });
+
+            $('.js-email-school-link').on('click', function() {
+                tracking.clear();
+                tracking.successEvents = 'event67';
+                tracking.send();
+            });
 //            $(window).bind('orientationchange', function(event) {
 //                //alert("event");
 //                //$viewportMeta.attr('content', 'width=device-width,initial-scale=1,maximum-scale=1');

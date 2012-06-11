@@ -1,4 +1,5 @@
-define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
+// depend on tracking to make sure clickCapture is defined
+define(['searchResultFilters', 'uri', 'tracking'], function(searchResultFilters, uri) {
     // filters info
     var filtersSelector = '.js-searchResultFilters';
 
@@ -98,6 +99,7 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
                 queryData['distance'] = '25';
             }
             queryData['sortBy'] = 'distance';
+            clickCapture.capture("events", "event65");
             window.location.href = '/search/search.page' + uri.getQueryStringFromObject(queryData);
             return false;
         });
@@ -155,11 +157,6 @@ define(['searchResultFilters', 'uri'], function(searchResultFilters, uri) {
             })(marker, i));
         }
 
-
-        // register onclick for link tracking
-        $('body').on('click','.js-overview-link', function(){
-            if (s.tl) {s.tl(this,'o', 'Mobile_map_click_bubble');} return true;
-        });
         if (!bounds.isEmpty()) {
             map.fitBounds(bounds);
         }

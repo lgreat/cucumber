@@ -79,7 +79,7 @@
         <!--<a href="sms:?body=${fn:escapeXml(gsweb:encodeWithinQuery(smsBody))}">SMS</a>-->
         <div class="fl">
             <a href="mailto:?subject=${fn:escapeXml(gsweb:encodeWithinQuery(emailSubject))}&amp;body=${fn:escapeXml(gsweb:encodeWithinQuery(emailBody))}"
-             class="but but-rg but-2 phn button-share">Email a link</a>
+             class="but but-rg but-2 phn button-share js-email-school-link">Email a link</a>
         </div>
 
         <span id="js-saveSchool">
