@@ -180,6 +180,8 @@ public class VideoGalleryController extends CmsTopicCenterController2010 impleme
             for (CmsCategory category : topicCenter.getUniqueKategoryBreadcrumbs()) {
                 pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, category.getName());
             }
+            // GS-12937
+            pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, "vidgallery");
 
             pageHelper.addAdKeyword("topic_center_id", String.valueOf(topicCenter.getContentKey().getIdentifier()));
             pageHelper.addAdKeyword(VIDEO_GALLERY_GAM_ATTRIBUTE_KEY, String.valueOf(topicCenter.getContentKey().getIdentifier()));
