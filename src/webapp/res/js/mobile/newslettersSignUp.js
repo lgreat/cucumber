@@ -7,6 +7,10 @@ define(['tracking'],function(tracking) {
                     document.title = 'Email Confirmation | GreatSchools';
                     newslettersSignUpForm.find('.js-signUp').hide();
                     newslettersSignUpForm.find('.js-thankYou').show();
+                    tracking.clear();
+                    tracking.pageName='MobileNLLandingPageThanks';
+                    tracking.hierarchy='Newsletter';
+                    tracking.send();
                 });
             return false;
         });

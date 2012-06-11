@@ -59,8 +59,8 @@
         <div class="pbl"><!-- this is not empty --></div>
 
 
-    <mod:mobileTracking pageName="NL Sign-up Landing Page"
-                        hier1="Newsletters, NLLandingPage"
+    <mod:mobileTracking pageName="MobileNLLandingPage"
+                        hier1="Newsletter"
             />
 
     </body>

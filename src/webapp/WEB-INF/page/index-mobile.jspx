@@ -31,6 +31,9 @@
     </script>
 </head>
 
+<c:set var="omniturePagename" value="mobile homepage"/>
+<c:set var="omnitureHierarchy" value="Mobile,Home"/>
+
 <body>
     <c:set var="searchString"><c:out value="${searchString}" escapeXml="true"/></c:set>
 
@@ -39,6 +42,8 @@
     <div class="contain_1-1">
             <h1 class="pbs">Find a School</h1>
             <c:if test="${totalResults eq 0}">
+                <c:set var="omniturePagename" value="School Search:no_results"/>
+                <c:set var="omnitureHierarchy" value="Mobile,Search"/>
                 <c:set var="badSearch"><c:out value="${searchString}" escapeXml="true"/></c:set>
                 <div class="pvm">
                     <p class="ac2">No schools match your search
@@ -180,7 +185,7 @@
         <a class="js-linkToTop" href="#">Top of page</a>
     </div>-->
 
-    <mod:mobileTracking pageName="mobile homepage" hier1="Mobile,Home" incomingMobileQuery="${fromStateHome?'State Home':''}"/>
+    <mod:mobileTracking pageName="${omniturePagename}" hier1="${omnitureHierarchy}" incomingMobileQuery="${fromStateHome?'State Home':''}"/>
 </body>
 </html>
 </jsp:root>
