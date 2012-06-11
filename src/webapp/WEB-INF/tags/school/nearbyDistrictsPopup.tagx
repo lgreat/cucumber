@@ -13,6 +13,18 @@
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
 <!-- nearby districts box -->
+
+    <c:choose>
+        <c:when test="${commandAndFields.cityBrowse || commandAndFields.districtBrowse || commandAndFields.nearbySearchByLocation}">
+            <c:set var="nearbyDistrictsLabel" value="Nearby districts:"/>
+            <c:set var="moreNearbyDistrictsLabel" value="Nearby districts"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="nearbyDistrictsLabel" value="Schools in district:"/>
+            <c:set var="moreNearbyDistrictsLabel" value="more districts"/>
+        </c:otherwise>
+    </c:choose>
+
     <c:if test="${fn:length(districtSearchResults) gt 0}">
         <div id="js-bubbleInfo-9"><span id="nearby-districts-link"
                                         class="js-trigger smallAlertText">${moreNearbyDistrictsLabel} <span

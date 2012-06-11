@@ -10,7 +10,16 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         >
 
-<!-- nearby cities box -->
+    <c:choose>
+        <c:when test="${commandAndFields.cityBrowse || commandAndFields.districtBrowse || commandAndFields.nearbySearchByLocation}">
+            <c:set var="nearbyCitiesLabel" value="Nearby cities:"/>
+            <c:set var="moreNearbyCitiesLabel" value="Nearby cities"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="nearbyCitiesLabel" value="Schools in city:"/>
+            <c:set var="moreNearbyCitiesLabel" value="more cities"/>
+        </c:otherwise>
+    </c:choose>
 
     <c:if test="${fn:length(citySearchResults) gt 3}">
         <div id="js-bubbleInfo-8"><span id="nearby-cities-link"
