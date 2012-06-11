@@ -42,10 +42,9 @@
                                     <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
 
                                     <c:forEach var="yearToTestScore" items="${subjectToYears.years}">
-
-                                        <mobile:barGraph testScoreValue="${yearToTestScore.testScoreStr}"
-                                                         testScoreLabel="${yearToTestScore.testScoreLabel}"
-                                                         testScoreYear="${yearToTestScore.year}"/>
+                                        <span>${yearToTestScore.year} ${yearToTestScore.testScoreLabel}</span>
+                                        <span> StateAvg: ${yearToTestScore.stateAvg}</span>
+                                        <br/>
                                     </c:forEach>
 
                                     <div class="ptm"><!-- not empty --></div>

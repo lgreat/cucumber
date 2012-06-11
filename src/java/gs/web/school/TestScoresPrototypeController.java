@@ -114,6 +114,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             String year = df.format(yearDate);
             Float valueFloat = (Float) value.get("value_float");
             String valueText = (String) value.get("value_text");
+            Float stateAvg = (Float) value.get("stateAvgFloat");
             String testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
                     Integer.toString(Math.round(valueFloat));
 
@@ -124,6 +125,9 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             testDataSet.setId(testDataSetId);
             testDataSet.setGrade(grade);
             testDataSet.setLevelCode(levelCode);
+            if (stateAvg != null) {
+                testDataSet.setStateAverage(Math.round(stateAvg));
+            }
 
             if (schoolValueMap.get(testDataType) != null) {
                 Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(testDataType);
@@ -194,6 +198,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             String year = df.format(yearDate);
             Float valueFloat = (Float) value.get("value_float");
             String valueText = (String) value.get("value_text");
+            Float stateAvg = (Float) value.get("stateAvgFloat");
             String testScoreValue = LABEL_DATA_NOT_AVAILABLE;
             if (valueFloat != null || valueText != null) {
                 testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
@@ -207,6 +212,9 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             testDataSet.setId(testDataSetId);
             testDataSet.setGrade(grade);
             testDataSet.setLevelCode(levelCode);
+            if (stateAvg != null) {
+                testDataSet.setStateAverage(Math.round(stateAvg));
+            }
 
             existingDataSetIds.add(testDataSetId);
 
@@ -353,6 +361,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                             yearToTestScore.setYear(testDataSet.getYear());
                             yearToTestScore.setTestScoreStr(testScoreValue);
                             yearToTestScore.setTestScoreLabel(map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
+                            yearToTestScore.setStateAvg(testDataSet.getStateAverage());
                             yearToTestScoreList.add(yearToTestScore);
 
                             //Set the grade label.
@@ -618,6 +627,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         String _testScoreStr;
         String _testScoreLabel;
         Integer _year;
+        Integer _stateAvg;
 
         public String getTestScoreStr() {
             return _testScoreStr;
@@ -643,6 +653,14 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             _year = year;
         }
 
+        public Integer getStateAvg() {
+            return _stateAvg;
+        }
+
+        public void setStateAvg(Integer stateAvg) {
+            _stateAvg = stateAvg;
+        }
+
         public int compareTo(YearToTestScore yearToTestScore) {
             return yearToTestScore.getYear().compareTo(getYear());
         }
@@ -655,6 +673,8 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         public Integer _year;
         public Grade _grade;
         public LevelCode _levelCode;
+        public Integer _stateAverage;
+        public Integer _numTested;
 
         public Integer getId() {
             return _id;
@@ -686,6 +706,14 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
         public void setLevelCode(LevelCode levelCode) {
             _levelCode = levelCode;
+        }
+
+        public Integer getStateAverage() {
+            return _stateAverage;
+        }
+
+        public void setStateAverage(Integer stateAverage) {
+            _stateAverage = stateAverage;
         }
 
         public boolean equals(Object o) {
