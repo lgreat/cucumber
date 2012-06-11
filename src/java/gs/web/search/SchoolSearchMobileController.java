@@ -82,6 +82,11 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
             return new ModelAndView(getNoResultsView(request, commandAndFields), model);
         }
 
+        // if "view" URL query param is set to "map", use a pagesize of 50
+        if (StringUtils.equals("map", schoolSearchCommand.getView())) {
+            schoolSearchCommand.setPageSize(50);
+        }
+
         ModelAndView modelAndView;
         if (commandAndFields.isCityBrowse()) {
             modelAndView = handleCityBrowse(request, response, commandAndFields, model);
