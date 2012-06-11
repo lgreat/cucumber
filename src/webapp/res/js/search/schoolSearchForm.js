@@ -141,6 +141,12 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             delete queryStringDataWithFilters.totalResults;
             delete queryStringDataWithFilters.locationSearchString;
 
+            // if there's no current q param in the URL, we're on a byLocation search results page.
+            // remove sort param when changing between byName and byLocation
+            if (!queryStringDataWithFilters.hasOwnProperty('q')) {
+                delete queryStringDataWithFilters.sortBy;
+            }
+
             queryStringDataWithFilters.q = searchString;
             queryStringDataWithFilters.state = state;
 
@@ -202,7 +208,12 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                             queryStringDataWithFilters = filtersModule.getQueryStringDataWithoutFilters();
                         }
 
-                        delete queryStringDataWithFilters.q;
+                        // if there's a current q param in the URL, we're on a byName search results page.
+                        // remove sort param when changing between byName and byLocation
+                        if (queryStringDataWithFilters.hasOwnProperty('q')) {
+                            delete queryStringDataWithFilters.q;
+                            delete queryStringDataWithFilters.sortBy;
+                        }
 
                         var queryStringDataWithFilters = $.extend(queryStringDataWithFilters, data);
 
