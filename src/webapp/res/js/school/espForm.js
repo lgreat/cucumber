@@ -1112,7 +1112,22 @@ new (function() {
         formWrapper.on('change', 'input, select', function() {
             doValidations(false, $(this));
         });
-        
+
+        // page 1 specific
+        var transportationShuttleYes = $('#form_transportation_shuttle__yes');
+        var transportationShuttleNo = $('#form_transportation_shuttle__no');
+        var toggleTransportationShuttle = function() {
+            var input = $('#form_transportation_shuttle_other');
+            if (transportationShuttleYes.is(':checked')) {
+                input.removeAttr('disabled');
+            } else if (transportationShuttleNo.is(':checked')) {
+                input.attr('disabled', true);
+            }
+        }
+        transportationShuttleYes.on('change', toggleTransportationShuttle);
+        transportationShuttleNo.on('change', toggleTransportationShuttle);
+        // END page 1 specific
+
         // page 3 specific
         GS.form.controlVisibilityOfElementWithRadio('#js_sctn_admissions_header, #js_sctn_admissions_contact_school, #sctn_admissions_url, #sctn_application_deadline, #sctn_applications_received, #sctn_students_accepted, #sctn_application_fee','[name=application_process]', 'yes');
         $('#form_applications_received').on('keyup', function(){

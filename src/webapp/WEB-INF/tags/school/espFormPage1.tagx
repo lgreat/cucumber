@@ -290,7 +290,7 @@
                     <input id="form_transportation_shuttle_other" type="text" name="transportation_shuttle_other"
                            class="js_otherField text-smaller input_4 mls"
                            value="${responseMap['transportation_shuttle_other'].value}" maxlength="30"
-                           placeholder="[Enter metro/bus lines]"/>
+                           placeholder="[Enter metro/bus lines]" disabled="${empty responseMap['transportation_shuttle_other'].value}"/>
                 </school:espRadioWithLabel>
                 <div id="form_transportation_shuttle_error"  class="error fltrt" style="display: none">
 
