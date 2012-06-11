@@ -343,6 +343,12 @@
         <function-signature>java.lang.String formatUrl(java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <name>roundTwoDecimal</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>double roundTwoDecimal(double)</function-signature>
+    </function>
+
     <tag>
         <name>erts</name>
         <tag-class>gs.web.jsp.EspResponseListToStringTagHandler</tag-class>

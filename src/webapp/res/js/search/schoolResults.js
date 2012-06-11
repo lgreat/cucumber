@@ -146,19 +146,24 @@ GS.search.results = GS.search.results || (function() {
         queryString = persistCompareCheckboxesToQueryString(queryString);
         queryString = GS.uri.Uri.putIntoQueryString(queryString,"sortChanged",true, true);
         queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
-
+        if (jQuery('#sort-by').val() !== '' && typeof(jQuery('#sort-by').val()) !== 'undefined') {
+            queryString = GS.uri.Uri.putIntoQueryString(queryString,"sortBy",jQuery('#sort-by').val(), true);
+        } else {
+            queryString = GS.uri.Uri.removeFromQueryString(queryString, "sortBy");
+        }
         window.location.search = queryString;
     };
 
     var page = function(pageNumber, pageSize) {
         var start = (pageNumber-1) * pageSize;
-
         var queryString = window.location.search;
         queryString = persistCompareCheckboxesToQueryString(queryString);
         queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
 
         window.location.search = queryString;
     };
+
+    var pagination = function(pageNumber, pageSize) {}
 
     var persistCompareCheckboxesToQueryString = function(queryString) {
         var compareSchoolsList = compareModule.getCheckedSchools().join(',');
@@ -192,7 +197,8 @@ GS.search.results = GS.search.results || (function() {
     return {
         init:init,
         update:update,
-        page:page
+        page:page,
+        sendToCompare:sendToCompare
     };
 
 })();

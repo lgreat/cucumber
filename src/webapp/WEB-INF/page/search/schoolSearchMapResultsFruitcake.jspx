@@ -52,14 +52,22 @@
         </c:if>
 
         <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
+        <pageHelper:externalJavascript file="/res/js/googleMapsInfobox.min.js"/>
         <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
         <pageHelper:externalJavascript file="/res/js/search/schoolSearchForm.js"/>
-        <pageHelper:externalJavascript file="/res/js/findASchoolFromSearch.js"/>
 
-        <pageHelper:externalJavascript file="/res/js/search/schoolSearchResults.js"/>
-        <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable.js"/>
+        <pageHelper:externalJavascript file="/res/js/util/htmlMirrors.js"/>
+        <pageHelper:externalJavascript file="/res/js/search/filters.js"/>
+        <pageHelper:externalJavascript file="/res/js/search/compare.js"/>
+        <pageHelper:externalJavascript file="/res/js/tracking/customLinks.js"/>
+        <pageHelper:externalJavascript file="/res/js/search/schoolResults.js"/>
+        <pageHelper:externalJavascript file="/res/js/map/schoolSearchMap2012.js"/>
+        <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>
+
+
         <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>
         <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>
+
         <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
         <pageHelper:externalJavascript file="/res/js/history.min.js"/>
 
@@ -95,7 +103,7 @@
         </c:otherwise>
     </c:choose>
 
-    <div class="grid_16 slStylesV1-0">
+    <div class="grid_16 slStylesV1-0 container_24">
 
 
         <div class="grid_10 alpha">
@@ -159,7 +167,7 @@
                             <div class="inner">
                                 <div class="line">
                                     <div class="unit size4of7">
-                                        <div class="smallText1-333">
+                                        <div class="text2">
                                             <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link"
                                                                                      schoolId="${school.id}"
                                                                                      databaseState="${school.databaseState}"
@@ -168,22 +176,25 @@
                                                                                      levelCode="${school.levelCode}">
                                                 <strong>${school.name}</strong>
                                             </link:schoolProfileOverviewForPrimitives>
-                                            <p class="smaller ac1">
+                                            <p class="small ac1">
                                                 ${school.schoolType} ${school.grades.rangeString}
                                             </p>
                                             <!--<div class="clearfloat pbm">&lt;!&ndash; &ndash;&gt;</div>-->
-                                            <p class="smaller">
+                                            <p class="small">
                                                 ${school.street}<br/>
                                                 ${school.city}, ${school.databaseState} ${school.zip}
                                                 <br/>
-                                                <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.street}%20${school.city}${school.databaseState}${school.zip}}"
+                                                <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.street}
+                                                    %20${school.city}%20${school.databaseState}%20${school.zip}"
                                                    target="_blank">Get directions</a>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="unit size3of7 lastUnit">
                                         <div class="smallText1-333 small pbs">
-                                            <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" styleClass="block" anchor="revPagination">
+                                            <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
+                                                state="${school.databaseState}" schoolId="${school.id}" styleClass="block"
+                                                anchor="revPagination">
                                                 <c:choose>
                                                     <c:when test="${not empty school.parentRating}">
                                                         <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
@@ -199,17 +210,19 @@
                                             <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                                             <c:choose>
                                                 <c:when test="${school.levelCode eq 'p'}">
-                                                    <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"
+                                                    <input id="${school.databaseState}${school.id}"
+                                                           class="compare-school-checkbox" type="checkbox"
                                                            disabled="disabled" title="${preschoolNoCompareMessage}"/>
                                                     <label class="smallText2-777"
-                                                           for="${school.databaseState}${school.id}" title="${preschoolNoCompareMessage}"><i>COMPARE</i></label>
+                                                           for="${school.databaseState}${school.id}"
+                                                           title="${preschoolNoCompareMessage}"><i>COMPARE</i></label>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
+                                                    <input id="${school.databaseState}${school.id}" class="js-compare-school-checkbox"
                                                            type="checkbox"/>
                                                     <label class="js-compareLabel smaller"
                                                            for="${school.databaseState}${school.id}">COMPARE</label>
-                                                    <button class="js-compareButton button-1Ext-2">COMPARE<br/>NOW</button>
+                                                    <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW</button>
                                                 </c:otherwise>
                                             </c:choose>
                                         </div>
@@ -245,23 +258,17 @@
                                             </c:choose>
                                         </span>
 
-                                        <!--<c:if test="${requestScope.context.showRealtorDotComPromos}">-->
-                                        <div class="smallText1-333 smaller">
-                                            <gslink:realtorDotComLink address="${school.address}"
-                                                                      customLinkSuffix="inlinelinkheader"
-                                                                      styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink>
-                                        </div>
-                                        <!--</c:if>-->
+                                        <c:if test="${requestScope.context.showRealtorDotComPromos}">
+                                            <div class="smallText1-333 smaller">
+                                                <gslink:realtorDotComLink address="${school.address}"
+                                                                          customLinkSuffix="inlinelinkheader"
+                                                                          styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink>
+                                            </div>
+                                        </c:if>
+
                                     </div>
                                 </div>
                                 <div class="clearfloat pbm"><!-- --></div>
-
-                                <!--<c:if test="${not empty school.greatSchoolsRating}">-->
-                                    <!--<div class="fl">-->
-                                        <!--<div class="ratings-round ratings-small round-small vab fl"><div class="ratings-number number-small">${school.greatSchoolsRating}</div></div> <div class="smaller ac1 fl pls pt3"> of 10</div>-->
-                                    <!--</div>-->
-                                <!--</c:if>-->
-
                             </div>
                             <div id="arrow">
                                 <div id="arrow-down-bg"><!-- not empty --></div>
@@ -269,7 +276,10 @@
                             </div>
                         </div>
                     </c:set>
-                    points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude}, lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}', infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}'});
+                    points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude},
+                    lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}',
+                    infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}', state: '${gsweb:escapeJavaScript(school.databaseState)}',
+                    id: '${school.id}'});
                     <c:set var="points" value="${points + 1}"/>
                 </c:forEach>
 
@@ -305,7 +315,7 @@
                     <script type="text/javascript">
                         ${pointsArray}
                         $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function() {
-                            GS.search.getMap(points, calculatedLat, calculatedLon);
+                            GS.map.getMap.initMap(points, calculatedLat, calculatedLon);
                         });
                     </script>
                     <div data-role="content">
@@ -317,80 +327,199 @@
     </div>
 
 
-    <div class="grid_8">
+    <div class="grid_8 container_24">
         <ad:AboveFold_300x250/>
+        <div class="text3">
+            <label for="sort-by">Sort by: </label>
+            <select id="sort-by" name="sortBy">
 
+                <c:choose>
+                    <c:when test="${isNearbySearch}">
+                        <c:choose>
+                            <c:when test="${sort eq 'DISTANCE'}">
+                                <option value="DISTANCE" selected="selected">Distance
+                                </option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="DISTANCE">Distance</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test="${sort eq null}">
+                                <option value="" selected="selected">Relevance</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="">Relevance</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
 
+                <c:choose>
+                    <c:when test="${sort eq 'SCHOOL_NAME_ASCENDING'}">
+                        <option value="SCHOOL_NAME_ASCENDING" selected="selected">School name: A-Z</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="SCHOOL_NAME_ASCENDING">School name: A-Z</option>
+                    </c:otherwise>
+                </c:choose>
 
-        <!--<promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>-->
+                <c:choose>
+                    <c:when test="${sort eq 'SCHOOL_NAME_DESCENDING'}">
+                        <option value="SCHOOL_NAME_DESCENDING" selected="selected">School name: Z-A</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="SCHOOL_NAME_DESCENDING">School name: Z-A</option>
+                    </c:otherwise>
+                </c:choose>
 
-        <!-- Low Down module -->
-        <!--<content:makingSenseOfSchoolChoice/>-->
+                <c:choose>
+                    <c:when test="${sort eq 'GS_RATING_DESCENDING'}">
+                        <option value="GS_RATING_DESCENDING" selected="selected">GreatSchools Rating: High to Low
+                        </option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="GS_RATING_DESCENDING">GreatSchools Rating: High to Low</option>
+                    </c:otherwise>
+                </c:choose>
 
-        <!-- Community module -->
-        <!--<c:set var="recentDiscussions" value=""/>-->
-        <!--<c:if test="${not empty localBoardId and not empty localCityName}">-->
-            <!--<gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>-->
-            <!--<c:set var="recentDiscussions">-->
-                <!--<c:import-->
-                        <!--url="/community/profileRecentDiscussions.module?board_id=${localBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(localCityName)}&amp;discussionTopicFull=${gsweb:urlEncode(localCityName)}&amp;isLocal=true&amp;isFromProfile=false"/>-->
-            <!--</c:set>-->
-        <!--</c:if>-->
-        <!--${recentDiscussions}-->
+                <c:choose>
+                    <c:when test="${sort eq 'GS_RATING_ASCENDING'}">
+                        <option value="GS_RATING_ASCENDING" selected="selected">GreatSchools Rating: Low to High
+                        </option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="GS_RATING_ASCENDING">GreatSchools Rating: Low to High</option>
+                    </c:otherwise>
+                </c:choose>
 
-        <!--<jsp:include page="/promo/emailSignUp.module"/>-->
+                <c:choose>
+                    <c:when test="${sort eq 'PARENT_RATING_DESCENDING'}">
+                        <option value="PARENT_RATING_DESCENDING" selected="selected">Community Rating: High to Low
+                        </option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="PARENT_RATING_DESCENDING">Community Rating: High to Low</option>
+                    </c:otherwise>
+                </c:choose>
+
+                <c:choose>
+                    <c:when test="${sort eq 'PARENT_RATING_ASCENDING'}">
+                        <option value="PARENT_RATING_ASCENDING" selected="selected">Community Rating: Low to High
+                        </option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="PARENT_RATING_ASCENDING">Community Rating: Low to High</option>
+                    </c:otherwise>
+                </c:choose>
+
+            </select>
+        </div>
+
+        <hr class="keyline2"/>
         <c:choose>
             <!--<c:when test="${requestScope.schoolSearchCommand.view eq 'map'}">-->
 
             <c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">
-                <ul class="schoolList">
+                <ul class = "schoolList" id = "schoolList">
                     <c:forEach var="school" items="${schoolSearchResults}">
                         <li class="js-mouseover-open-bubble" id="school-listitem-${school.databaseState}-${school.id}">
-                            <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link"
-                                schoolId="${school.id}"
-                                databaseState="${school.databaseState}"
-                                name="${school.name}"
-                                physicalAddress="${school.address}"
-                                levelCode="${school.levelCode}">
-                                <p class="medium_bold">
-                                    ${school.name}
+                            <!--<div id="mapBubble_${school.databaseState}_${school.id}" class="schoolInfoWindow">-->
+                                <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link"
+                                                                         schoolId="${school.id}"
+                                                                         databaseState="${school.databaseState}"
+                                                                         name="${school.name}"
+                                                                         physicalAddress="${school.address}"
+                                                                         levelCode="${school.levelCode}">
+                                    <p class="medium_bold">
+                                        ${school.name}
+                                    </p>
+                                </link:schoolProfileOverviewForPrimitives>
+                                <p class="medium ac1">
+                                    ${school.schoolType}, ${school.grades.rangeString} | ${school.city}, ${school.databaseState}
                                 </p>
-                            </link:schoolProfileOverviewForPrimitives>
-                            <p class="medium ac1">
-                                ${school.schoolType}, ${school.grades.rangeString} | ${school.city}, ${school.databaseState}
-                            </p>
-                            <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}" levelCode="${school.levelCode}">
-                                <c:choose>
-                                    <c:when test="${school.schoolType} eq 'private'">
-                                        <span class="sprite badge_sm_pr fltlft"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:when test="${empty school.greatSchoolsRating}">
-                                        <span class="sprite badge_sm_na fltlft"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="sprite badge_sm_${school.greatSchoolsRating} fltlft"><!-- do not collapse --></span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </link:schoolProfileRating2010>
-                            <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" styleClass="block" anchor="revPagination">
-                                <c:choose>
-                                    <c:when test="${not empty school.parentRating}">
-                                        <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </link:schoolProfileParentReview2010>
-                            <span class="fltrt">
-                                ${school.distance} miles
-                            </span>
+                                <span class="fltrt">
+                                        ${gsweb:roundTwoDecimal(school.distance)} miles
+                                </span>
+                                <div class="img gsRating mrs">
+                                    <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}" levelCode="${school.levelCode}">
+                                        <c:choose>
+                                            <c:when test="${school.schoolType} eq 'private'">
+                                                <span class="sprite badge_sm_pr fltlft"><!-- do not collapse --></span>
+                                            </c:when>
+                                            <c:when test="${empty school.greatSchoolsRating}">
+                                                <span class="sprite badge_sm_na fltlft"><!-- do not collapse --></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="sprite badge_sm_${school.greatSchoolsRating} fltlft"><!-- do not collapse --></span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </link:schoolProfileRating2010>
+                                </div>
+                                <div class="bd brdlft-solid communityRating pts">
+                                    <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" styleClass="block" anchor="revPagination">
+                                        <c:choose>
+                                            <c:when test="${not empty school.parentRating}">
+                                                <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </link:schoolProfileParentReview2010>
+                                </div>
+                            <!--</div>-->
                         </li>
                     </c:forEach>
                 </ul>
             </c:when>
         </c:choose>
-
+        <hr class="keyline2"/>
+        <div class="unit size2of5 lastUnit">
+            <label for="page-size">Display: </label>
+            <select id="page-size" name="pageSize">
+                <c:choose>
+                    <c:when test="${pageSize eq 25}">
+                        <option value="25" selected="selected">25 schools</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="25">25 schools</option>
+                    </c:otherwise>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${pageSize eq 50}">
+                        <option value="50" selected="selected">50 schools</option>
+                    </c:when>
+                    <c:otherwise>
+                        <option value="50">50 schools</option>
+                    </c:otherwise>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${totalResults gt 100}">
+                        <c:choose>
+                            <c:when test="${pageSize eq 100}">
+                                <option value="100" selected="selected">100 schools</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="100">100 schools</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test="${pageSize eq 100}">
+                                <option value="100" selected="selected">All schools</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="100">All schools</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
+            </select>
+        </div>
         <!--<ad:BelowFold_Top_300x125/>-->
     </div>
 

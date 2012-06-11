@@ -199,6 +199,37 @@ GS.search.compare = GS.search.compare || (function() {
         }
     };
 
+    /* for the map view infobox */
+    var addRemoveCheckedSchoolInMap = function(schoolItem, compareButton) {
+        var index = jQuery.inArray($(schoolItem).attr('id'), checkedSchools);
+        if(index == -1 && schoolItem.checked) {
+            checkedSchools.push($(schoolItem).attr('id'));
+        }
+        else {
+            checkedSchools.splice(index, 1);
+        }
+        updateInfoBoxCompareButton(compareButton);
+    }
+
+    var updateMapInfoBox = function(compareCheck, compareButton) {
+        for(var i = 0; i < checkedSchools.length; i++) {
+            if(compareCheck.attr('id') === checkedSchools[i]) {
+                compareCheck.prop('checked', true);
+                break;
+            }
+        }
+        updateInfoBoxCompareButton(compareButton);
+    }
+
+    var updateInfoBoxCompareButton = function(compareButton) {
+        if(checkedSchools.length >= 2) {
+            compareButton.show();
+        }
+        else {
+            compareButton.hide();
+        }
+    }
+
     return {
         init:init,
         getCheckedSchools:getCheckedSchools,
@@ -211,7 +242,9 @@ GS.search.compare = GS.search.compare || (function() {
         updateAllCheckedRows:updateAllCheckedRows,
         updateNumCheckedSchoolsText:updateNumCheckedSchoolsText,
         selectRow:selectRow,
-        deselectRow:deselectRow
+        deselectRow:deselectRow,
+        addRemoveCheckedSchoolInMap:addRemoveCheckedSchoolInMap,
+        updateMapInfoBox: updateMapInfoBox
     }
 
 })();

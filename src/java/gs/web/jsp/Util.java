@@ -15,6 +15,7 @@ import org.htmlcleaner.HtmlCleaner;
 
 import javax.servlet.jsp.PageContext;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.text.BreakIterator;
 import java.util.Date;
@@ -540,5 +541,10 @@ public class Util {
 
     public static int min(int i, int j) {
         return Math.min(i,j);
+    }
+
+    public static double roundTwoDecimal(double num) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        return Double.valueOf(decimalFormat.format(num));
     }
 }
