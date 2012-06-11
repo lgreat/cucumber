@@ -550,10 +550,6 @@
         <property name="commandClass">
             <value>gs.web.search.SchoolSearchCommand2012</value>
         </property>
-        <property name="schoolSearchService" ref="solrSchoolSearchService" />
-        <property name="looseSchoolSearchService" ref="looseSolrSchoolSearchService" />
-        <property name="citySearchService" ref="solrCitySearchService" />
-        <property name="districtSearchService" ref="solrDistrictSearchService" />
         <property name="mobileViewName">
             <value>search/schoolSearchResults-mobile</value>
         </property>

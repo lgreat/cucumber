@@ -126,6 +126,8 @@ public class SchoolSearchCommandWithFields {
         return _command.isNearbySearchByLocation();
     }
 
+
+
     public boolean isAjaxRequest() {
         return _command.isAjaxRequest();
     }

@@ -1,7 +1,6 @@
 package gs.web.search;
 
 import gs.data.community.User;
-import gs.data.community.local.ILocalBoardDao;
 import gs.data.geo.City;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
@@ -20,11 +19,7 @@ import gs.data.search.fields.DocumentType;
 import gs.data.search.fields.SchoolFields;
 import gs.data.search.fields.SolrField;
 import gs.data.search.filters.SchoolFilters;
-import gs.data.search.services.CitySearchService;
-import gs.data.search.services.DistrictSearchService;
-import gs.data.search.services.SchoolSearchService;
 import gs.data.state.State;
-import gs.data.state.StateManager;
 import gs.data.util.CommunityUtil;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
@@ -37,7 +32,6 @@ import gs.web.util.PageHelper;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,28 +43,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
-
-
 public class SchoolSearchController2012  extends AbstractCommandController implements IDirectoryStructureUrlController, IControllerFamilySpecifier {
 
+    @Autowired
     private IDistrictDao _districtDao;
-
+    @Autowired
     private IGeoDao _geoDao;
-
-    private SchoolSearchService _schoolSearchService;
-
-    private SchoolSearchService _looseSchoolSearchService;
-
     @Autowired
     private LocalBoardHelper _localBoardHelper;
-
-    @Autowired
-    private SearchAdHelper _searchAdHelper;
-
-    private CitySearchService _citySearchService;
-
-    private DistrictSearchService _districtSearchService;
-
     @Autowired
     private CityBrowseHelper2012 _cityBrowseHelper;
     @Autowired
@@ -79,14 +59,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     private SchoolSearchHelper _queryStringSearchHelper;
     @Autowired
     private SchoolSearchCommonHelper commonSearchHelper;
-
     @Autowired
-    private NearbyCitiesController _nearbyCitiesController;
-
-    @Autowired
-    private ILocalBoardDao _localBoardDao;
-
-    private StateManager _stateManager;
+    private GsSolrSearcher _gsSolrSearcher;
 
     private String _noResultsViewName;
     private String _noResultsAjaxViewName;
@@ -95,27 +69,17 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     private String _mobileViewName;
     private String _mapViewName;
 
-    private GsSolrSearcher _gsSolrSearcher;
-
     private ControllerFamily _controllerFamily;
 
     private static final Logger _log = Logger.getLogger(SchoolSearchController2012.class);
     public static final String BEAN_ID = "/search/search.page";
 
-    public static final String MODEL_SCHOOL_TYPE = "schoolType";
-    public static final String MODEL_LEVEL_CODE = "levelCode";
     public static final String MODEL_SORT = "sort";
-    public static final String MODEL_SEARCH_STRING = "searchString";
 
     public static final String MODEL_SCHOOL_SEARCH_RESULTS = "schoolSearchResults";
     public static final String MODEL_CITY_SEARCH_RESULTS = "citySearchResults";
     public static final String MODEL_DISTRICT_SEARCH_RESULTS = "districtSearchResults";
 
-    public static final String MODEL_START = "start";
-    public static final String MODEL_PAGE_SIZE = "pageSize";
-    public static final String MODEL_TOTAL_RESULTS = "totalResults";
-    public static final String MODEL_TOTAL_PAGES = "totalPages";
-    public static final String MODEL_CURRENT_PAGE = "currentPage";
     public static final String MODEL_USE_PAGING = "usePaging";
     public static final String MODEL_PAGE = "page";
 
@@ -124,21 +88,10 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public static final String MODEL_CITY = "city";
     public static final String MODEL_DISTRICT = "district";
 
-    public static final String MODEL_TITLE = "title";
-
     public static final String MODEL_REL_CANONICAL = "relCanonical";
-    public static final String MODEL_IS_CITY_BROWSE = "isCityBrowse";
-    public static final String MODEL_IS_DISTRICT_BROWSE = "isDistrictBrowse";
-    public static final String MODEL_IS_SEARCH = "isSearch";
-    public static final String MODEL_IS_FROM_BY_LOCATION = "isFromByLocation";
-
-    public static final String MODEL_IS_NEARBY_SEARCH = "isNearbySearch";
     public static final String MODEL_NEARBY_SEARCH_TITLE_PREFIX = "nearbySearchTitlePrefix";
     public static final String MODEL_NEARBY_SEARCH_IS_ESTABLISHMENT= "nearbySearchIsEstablishment";
     public static final String MODEL_NEARBY_SEARCH_ZIP_CODE = "nearbySearchZipCode";
-    public static final String MODEL_NORMALIZED_ADDRESS = "normalizedAddress";
-
-    public static final String MODEL_STATE = "state";
 
     public static final String MODEL_DID_YOU_MEAN = "didYouMean";
 
@@ -212,10 +165,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
 
-        // Common: Add a bunch of model attributes about the request information
-        addSearchRequestInfoToModel(request, model, commandAndFields);
-
-
         // support new additional OSP filters for redesigned search
         showAdvancedFilters(schoolSearchCommand, model);
 
@@ -228,6 +177,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         if ((commandAndFields.isCityBrowse() || commandAndFields.isDistrictBrowse()) && !commandAndFields.isAjaxRequest()) {
             model.put("hasMobileView", true);
         }
+
+
+        model.put("commandAndFields", commandAndFields);
 
         ModelAndView modelAndView;
         if (commandAndFields.isCityBrowse()) {
@@ -273,7 +225,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         q.filter(DocumentType.SCHOOL).page(requestedPage.offset, requestedPage.pageSize);
 
-        // TODO: In Mobile api, we don't filter by state if a lat/lon is specified. Should that logic apply here as well?
         if (commandAndFields.getState() != null) {
             q.filter(SchoolFields.SCHOOL_DATABASE_STATE, commandAndFields.getState().getAbbreviationLowerCase());
         }
@@ -456,7 +407,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
         try {
-            searchResultsPage = getGsSolrSearcher().search(q, SolrSchoolSearchResult.class, true);
+            searchResultsPage = _gsSolrSearcher.search(q, SolrSchoolSearchResult.class, true);
 
             if (searchResultsPage.isDidYouMeanResults()) {
                 // adapting old existing logic to new code: If the search results we got back are the result
@@ -533,7 +484,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     }
 
     public ModelAndView handleDistrictBrowse(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
-        SchoolSearchCommand schoolSearchCommand = commandAndFields.getSchoolSearchCommand();
 
         // District Browse Specific: check valid city, valid district, wrong param combination, etc
         ModelAndView redirect = _districtBrowseHelper.checkForRedirectConditions(request, response, commandAndFields);
@@ -659,12 +609,24 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         String viewName = determineViewName(commandAndFields.getSchoolSearchCommand(), searchResultsPage);
 
 
+        // QueryString Search Specific: Put nearby search title prefix and establishment and search zip code into model
+        if (commandAndFields.isNearbySearch()) {
+            String nearbySearchTitlePrefix = getNearbySearchTitlePrefix(commandAndFields.getSchoolSearchCommand());
+            model.put(MODEL_NEARBY_SEARCH_TITLE_PREFIX, nearbySearchTitlePrefix);
+            if (StringUtils.contains(request.getParameter("locationType"), "establishment")) {
+                model.put(MODEL_NEARBY_SEARCH_IS_ESTABLISHMENT, true);
+            }
+        }
+        if (commandAndFields.isNearbySearch() && commandAndFields.getNearbySearchInfo() != null) {
+            model.put(MODEL_NEARBY_SEARCH_ZIP_CODE, commandAndFields.getNearbySearchInfo().get("zipCode"));
+        }
+
+
         return new ModelAndView(viewName, model);
     }
 
 
     protected SearchResultsPage<SolrSchoolSearchResult> putSchoolSearchResultsIntoModel(SchoolSearchCommandWithFields commandAndFields, Map<String, Object> model) {
-        SchoolSearchCommand schoolSearchCommand = commandAndFields.getSchoolSearchCommand();
 
         // Common: Perform a search. Search might find spelling suggestions and then run another search to see if the
         // spelling suggestion actually yieleded results. If so, record the "didYouMean" suggestion into the model
@@ -674,59 +636,25 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
 
-        // Common: Put pagination-related numbers into the model
-        addPagingDataToModel(commandAndFields.getRequestedPage().getValidatedOffset(SCHOOL_SEARCH_PAGINATION_CONFIG, searchResultsPage.getTotalResults()), commandAndFields.getRequestedPage().pageSize, commandAndFields.getRequestedPage().pageNumber, searchResultsPage.getTotalResults(), model);
+        // Common: Put Page object which contains pagination-related info into the model
+        model.put(MODEL_PAGE, new Page(
+                commandAndFields.getRequestedPage().getValidatedOffset(SCHOOL_SEARCH_PAGINATION_CONFIG, searchResultsPage.getTotalResults()),
+                commandAndFields.getRequestedPage().pageSize,
+                searchResultsPage.getTotalResults())
+        );
 
 
         // Common: Put info about the search resultset / result counts into the model
-        putSearchResultInfoIntoModel(model, searchResultsPage);
+        model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
 
         return searchResultsPage;
     }
 
     private SchoolSearchCommandWithFields createSchoolSearchCommandWithFields(SchoolSearchCommand schoolSearchCommand, DirectoryStructureUrlFields fields, Map nearbySearchInfo) {
         SchoolSearchCommandWithFields commandAndFields = new SchoolSearchCommandWithFields(schoolSearchCommand, fields, nearbySearchInfo);
-        commandAndFields.setDistrictDao(getDistrictDao());
-        commandAndFields.setGeoDao(getGeoDao());
+        commandAndFields.setDistrictDao(_districtDao);
+        commandAndFields.setGeoDao(_geoDao);
         return commandAndFields;
-    }
-
-    protected void addSearchRequestInfoToModel(HttpServletRequest request, Map<String, Object> model, SchoolSearchCommandWithFields commandAndFields) {
-        // TODO: make this method not require HttpServletRequest
-        model.put(MODEL_STATE, commandAndFields.getState());
-
-        model.put(MODEL_IS_CITY_BROWSE, commandAndFields.isCityBrowse());
-        model.put(MODEL_IS_DISTRICT_BROWSE, commandAndFields.isDistrictBrowse());
-
-        model.put(MODEL_IS_SEARCH, commandAndFields.isSearch());
-        model.put(MODEL_SEARCH_STRING, commandAndFields.getSearchString());
-
-        model.put(MODEL_IS_NEARBY_SEARCH, commandAndFields.isNearbySearch());
-        model.put(MODEL_NORMALIZED_ADDRESS, commandAndFields.getNormalizedAddress());
-        model.put(MODEL_IS_FROM_BY_LOCATION, commandAndFields.isNearbySearchByLocation());
-
-        model.put(MODEL_SCHOOL_TYPE, StringUtils.join(commandAndFields.getSchoolTypes()));
-
-        FieldSort sort = commandAndFields.getFieldSort();
-        if (sort != null) {
-            model.put(MODEL_SORT, sort.name());
-        }
-
-        if (commandAndFields.getLevelCode() != null) {
-            model.put(MODEL_LEVEL_CODE, commandAndFields.getLevelCode().getCommaSeparatedString());
-        }
-
-        if (commandAndFields.isNearbySearch()) {
-            String nearbySearchTitlePrefix = getNearbySearchTitlePrefix(commandAndFields.getSchoolSearchCommand());
-            model.put(MODEL_NEARBY_SEARCH_TITLE_PREFIX, nearbySearchTitlePrefix);
-            if (StringUtils.contains(request.getParameter("locationType"), "establishment")) {
-                model.put(MODEL_NEARBY_SEARCH_IS_ESTABLISHMENT, true);
-            }
-        }
-
-        if (commandAndFields.isNearbySearch() && commandAndFields.getNearbySearchInfo() != null) {
-            model.put(MODEL_NEARBY_SEARCH_ZIP_CODE, commandAndFields.getNearbySearchInfo().get("zipCode"));
-        }
     }
 
     protected String getNearbySearchTitlePrefix(SchoolSearchCommand schoolSearchCommand) {
@@ -745,11 +673,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             }
         }
         return nearbySearchTitlePrefix;
-    }
-
-    protected void putSearchResultInfoIntoModel(Map<String, Object> model, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
-        model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
-        model.put(MODEL_TOTAL_RESULTS, searchResultsPage.getTotalResults());
     }
 
     /**
@@ -779,35 +702,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         return new GsSolrQuery(QueryType.SCHOOL_SEARCH);
     }
 
-    //-------------------------------------------------------------------------
-    // pagination
-    //-------------------------------------------------------------------------
-
-    /**
-     * Calculates paging info and adds it to model. Paging is zero-based. First search result has start=0
-     *
-     * @param start
-     * @param pageSize
-     * @param totalResults
-     * @param model
-     */
-    protected void addPagingDataToModel(int start, Integer pageSize, int currentPage, int totalResults, Map<String,Object> model) {
-
-        //TODO: perform validation to only allow no paging when results are a certain size
-        if (pageSize > 0) {
-            int numberOfPages = (int) Math.ceil(totalResults / pageSize.floatValue());
-            model.put(MODEL_CURRENT_PAGE, currentPage);
-            model.put(MODEL_TOTAL_PAGES, numberOfPages);
-            model.put(MODEL_USE_PAGING, Boolean.valueOf(true));
-            Page p = new Page(start, pageSize, totalResults);
-            model.put(MODEL_PAGE, p);
-        } else {
-            model.put(MODEL_USE_PAGING, Boolean.valueOf(false));
-        }
-
-        model.put(MODEL_START, start < totalResults? start : 0);
-        model.put(MODEL_PAGE_SIZE, pageSize);
-    }
 
     /**
      * Look for and return an exact county name match on search queries matching the format
@@ -914,62 +808,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     }
 
-    public IDistrictDao getDistrictDao() {
-        return _districtDao;
-    }
-
-    public void setDistrictDao(IDistrictDao districtDao) {
-        _districtDao = districtDao;
-    }
-
-    public IGeoDao getGeoDao() {
-        return _geoDao;
-    }
-
-    public void setGeoDao(IGeoDao geoDao) {
-        _geoDao = geoDao;
-    }
-
-    public SchoolSearchService getSchoolSearchService() {
-        return _schoolSearchService;
-    }
-
-    public void setSchoolSearchService(SchoolSearchService schoolSearchService) {
-        _schoolSearchService = schoolSearchService;
-    }
-
-    public SchoolSearchService getLooseSchoolSearchService() {
-        return _looseSchoolSearchService;
-    }
-
-    public void setLooseSchoolSearchService(SchoolSearchService looseSchoolSearchService) {
-        _looseSchoolSearchService = looseSchoolSearchService;
-    }
-
-    public CitySearchService getCitySearchService() {
-        return _citySearchService;
-    }
-
-    public void setCitySearchService(CitySearchService citySearchService) {
-        _citySearchService = citySearchService;
-    }
-
-    public DistrictSearchService getDistrictSearchService() {
-        return _districtSearchService;
-    }
-
-    public void setDistrictSearchService(DistrictSearchService districtSearchService) {
-        _districtSearchService = districtSearchService;
-    }
-
-    public StateManager getStateManager() {
-        return _stateManager;
-    }
-
-    public void setStateManager(StateManager stateManager) {
-        _stateManager = stateManager;
-    }
-
     public String getViewName() {
         return _viewName;
     }
@@ -1016,14 +854,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     public void setControllerFamily(ControllerFamily controllerFamily) {
         _controllerFamily = controllerFamily;
-    }
-
-    public GsSolrSearcher getGsSolrSearcher() {
-        return _gsSolrSearcher;
-    }
-
-    public void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
-        _gsSolrSearcher = gsSolrSearcher;
     }
 
     public String getMobileViewName() {

@@ -1,7 +1,7 @@
 var GS = GS || {};
 GS.search = GS.search || {};
 GS.search.results = GS.search.results || (function() {
-    var thisDomElement = jQuery('#school-search-results-table-body tbody'); //TODO: pass this into constructor
+    var $thisDomElement = jQuery('#school-search-results-table-body tbody'); //TODO: pass this into constructor
     var filtersModule;
     var compareModule;
     var customLinksModule;
@@ -24,6 +24,35 @@ GS.search.results = GS.search.results || (function() {
         attachEventHandlers();
 
         compareModule.initializeRowsAndCheckedSchoolsArray();
+
+        var blackTriangleDown = '&#9662;';
+        var whiteTriangleDown = '&#9663;';
+        var blackTriangleUp = '&#9652;';
+        var whiteTriangleUp = '&#9653;';
+        $('body').on('click', '[data-gs-sort-toggle]', function() {
+            var $this = $(this);
+            var sorts = $this.data('gs-sort-toggle').split(',');
+            var queryData = GS.uri.Uri.getQueryData();
+            var currentSort = queryData['sortBy'];
+
+            var newSort = sorts[0];
+            if (sorts[0] === currentSort) {
+                newSort = sorts[1];
+            }
+
+            queryData['sortBy'] = newSort;
+
+            $('body [data-gs-sort-toggle]').each(function() {
+                $(this).html($(this).html().replace('2','3')); // just change whichever triangle is currently in use, to make it white
+            });
+
+            if (newSort.indexOf('DESCENDING') !== -1) {
+                $this.html(blackTriangleUp);
+            } else {
+                $this.html(blackTriangleDown);
+            }
+            update(queryData);
+        });
     };
 
     var url = function() {
@@ -57,7 +86,7 @@ GS.search.results = GS.search.results || (function() {
 
 
     var clear = function() {
-        thisDomElement.find('.school-search-result-row').remove();
+        $thisDomElement.find('.school-search-result-row').remove();
     };
 
     var update = function(queryStringData) {

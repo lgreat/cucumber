@@ -292,7 +292,7 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
 
         try {
             if (searchString != null) {
-                SearchResultsPage<IDistrictSearchResult> districtPage = getDistrictSearchService().search(searchString, districtConstraints, null, null, 0, DISTRICTS_COUNT);
+                SearchResultsPage<IDistrictSearchResult> districtPage = _districtSearchService.search(searchString, districtConstraints, null, null, 0, DISTRICTS_COUNT);
                 districtSearchResults = districtPage.getSearchResults();
             }
         } catch (SearchException ex) {
@@ -308,20 +308,4 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         return gsSolrQuery;
     }
 
-
-    public CitySearchService getCitySearchService() {
-        return _citySearchService;
-    }
-
-    public void setCitySearchService(CitySearchService citySearchService) {
-        _citySearchService = citySearchService;
-    }
-
-    public DistrictSearchService getDistrictSearchService() {
-        return _districtSearchService;
-    }
-
-    public void setDistrictSearchService(DistrictSearchService districtSearchService) {
-        _districtSearchService = districtSearchService;
-    }
 }

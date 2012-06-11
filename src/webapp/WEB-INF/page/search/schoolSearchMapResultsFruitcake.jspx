@@ -81,7 +81,7 @@
     <ad:setSlotPrefix slotPrefix="Search_Site"/>
 
     <c:choose>
-        <c:when test="${isCityBrowse || isDistrictBrowse || isFromByLocation}">
+        <c:when test="${commandAndFields.cityBrowse || commandAndFields.districtBrowse || commandAndFields.nearbySearchByLocation}">
             <c:set var="nearbyCitiesLabel" value="Nearby cities:"/>
             <c:set var="moreNearbyCitiesLabel" value="Nearby cities"/>
             <c:set var="nearbyDistrictsLabel" value="Nearby districts:"/>
@@ -134,14 +134,7 @@
 
             <c:set var="searchResultsPagingSummary">
                 <div class="js-search-results-paging-summary text3">
-                    <c:choose>
-                        <c:when test="${usePaging}">
-                            Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span id="total-results-count">${totalResults}</span> schools
-                        </c:when>
-                        <c:otherwise>
-                            Showing 1-${totalResults} of <span id="total-results-count">${totalResults}</span> schools
-                        </c:otherwise>
-                    </c:choose>
+                    Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span id="total-results-count">${totalResults}</span> schools
                 </div>
             </c:set>
 

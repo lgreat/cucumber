@@ -9,20 +9,20 @@
 
 <c:set var="schoolResultsFor">
             <c:choose>
-                <c:when test="${not empty searchString}"><c:out value="${searchString}" escapeXml="true"/></c:when>
+                <c:when test="${not empty schoolSearchCommand.searchString}"><c:out value="${schoolSearchCommand.searchString}" escapeXml="true"/></c:when>
                 <c:otherwise>${schoolSearchResults[0].address.city}</c:otherwise>
             </c:choose>
         </c:set>
-        <c:if test="${isSearch}">
+        <c:if test="${commandAndFields.search}">
             <div class="title2-333">
                 <c:choose>
-                    <c:when test="${isNearbySearch and param.zipCode}">
+                    <c:when test="${commandAndFields.nearbySearch and param.zipCode}">
                         ${nearbySearchTitlePrefix} near <span
                             class="title2-d61">${param.zipCode}</span>
                     </c:when>
-                    <c:when test="${isNearbySearch eq true and not empty normalizedAddress}">
+                    <c:when test="${commandAndFields.nearbySearch eq true and not empty schoolSearchCommand.normalizedAddress}">
                         ${nearbySearchTitlePrefix} near <span
-                            class="title2-d61">${normalizedAddress}</span>
+                            class="title2-d61">${schoolSearchCommand.normalizedAddress}</span>
                     </c:when>
                     <c:otherwise>
                         School results for <span

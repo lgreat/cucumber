@@ -89,7 +89,7 @@
 <ad:setSlotPrefix slotPrefix="Search_Site"/>
 
 <c:choose>
-    <c:when test="${isCityBrowse || isDistrictBrowse || isFromByLocation}">
+    <c:when test="${commandAndFields.cityBrowse || commandAndFields.districtBrowse || commandAndFields.nearbySearchByLocation}">
         <c:set var="nearbyCitiesLabel" value="Nearby cities:"/>
         <c:set var="moreNearbyCitiesLabel" value="Nearby cities"/>
         <c:set var="nearbyDistrictsLabel" value="Nearby districts:"/>
@@ -180,8 +180,8 @@
 </div>
 
 <c:set var="omnitureLocale"><c:choose>
-    <c:when test="${isCityBrowse}">${city.name}</c:when>
-    <c:when test="${isDistrictBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
+    <c:when test="${commandAndFields.cityBrowse}">${city.name}</c:when>
+    <c:when test="${commandAndFields.districtBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
     <c:otherwise>${null}</c:otherwise>
 </c:choose></c:set>
 
