@@ -71,7 +71,7 @@
 
             <cms:topicCenterBreadcrumbs topicCenter="${topicCenter}"/>
 
-            <h1 class="mlm pls">${pageTitle}</h1>
+            <div><h1 class="mlm pls fltlft">${pageTitle}</h1></div>
 
             <!-- this ad slot will only show up on some topic centers, currently only Health & Development, content=1539 -->
             <cms:contentProviderLogoAd topicCenter="${topicCenter}"/>
