@@ -58,6 +58,16 @@ public class StateSelectorTagHandlerTest extends TestCase {
         assertTrue(output.indexOf("<select id=\"id\" name=\"name\" class=\"style\" onchange=\"onchange\" tabindex=\"15\">") > -1);
         assertTrue(output.indexOf("<option value=\"\" selected=\"selected\">XX</option>") > -1);
         assertTrue(output.indexOf("<option value=\"AK\">AK</option>") > -1);
+
+        // Data validation
+        _jspContext = new MockPageContext();
+        _tag.setJspContext(_jspContext);
+        _tag.setValidation(true);
+        _tag.doTag();
+        output = ((MockJspWriter) _jspContext.getOut()).getOutputBuffer().toString();
+        assertTrue(output.indexOf("<select id=\"id\" name=\"name\" class=\"style\" onchange=\"onchange\" tabindex=\"15\" data-validation=\"state\" data-validation-type=\"required\">") > -1);
+        assertTrue(output.indexOf("<option value=\"\" selected=\"selected\">XX</option>") > -1);
+        assertTrue(output.indexOf("<option value=\"AK\">AK</option>") > -1);
     }
 
     public class StateSelectorTagHandlerTestCase extends StateSelectorTagHandler {

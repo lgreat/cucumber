@@ -40,6 +40,7 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
     private Set _stateSet;
     private int _tabIndex = -1;
     private String _style;
+    private boolean _validation = false;
 
     private static final StateManager _stateManager;
 
@@ -168,6 +169,14 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         _state = state;
     }
 
+    public boolean isValidation() {
+        return _validation;
+    }
+
+    public void setValidation(boolean validation) {
+        _validation = validation;
+    }
+
     public void doTag() throws IOException {
 
         JspWriter out = getJspContext().getOut();
@@ -195,6 +204,9 @@ public class StateSelectorTagHandler extends SimpleTagSupport {
         }
         if (_tabIndex > -1) {
             out.print(" tabindex=\"" + _tabIndex + "\"");
+        }
+        if (_validation) {
+            out.print(" data-validation=\"state\" data-validation-type=\"required\"");
         }
         out.println(">");
 
