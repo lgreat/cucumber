@@ -1,7 +1,7 @@
 var GS = GS || {};
 GS.search = GS.search || {};
 GS.search.results = GS.search.results || (function() {
-    var $thisDomElement = jQuery('#school-search-results-table-body tbody'); //TODO: pass this into constructor
+    var $thisDomElement = jQuery('#js-school-search-results-table-body'); //TODO: pass this into constructor
     var filtersModule;
     var compareModule;
     var customLinksModule;
@@ -103,8 +103,8 @@ GS.search.results = GS.search.results || (function() {
             };
 
             jQuery('#js-school-search-results-table').html(data);
-            jQuery('#school-search-results-table-body').css("opacity",.2);
-            jQuery('#school-search-results-table-body').animate(
+            jQuery('#js-school-search-results-table-body').css("opacity",.2);
+            jQuery('#js-school-search-results-table-body').animate(
                     {opacity: 1},
                     250,
                     'linear',
@@ -120,7 +120,7 @@ GS.search.results = GS.search.results || (function() {
 
         jQuery('#spinner').show();
 
-        jQuery('#school-search-results-table-body').animate(
+        jQuery('#js-school-search-results-table-body').animate(
                 { opacity: .2 },
                 250,
                 'linear',

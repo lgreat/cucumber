@@ -10,18 +10,20 @@
 <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
 
     <div id="js-school-search-results-table" class="">
-<!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
+        <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
 
-<!-- DONE: Hi Randall! Can you relocate this and move styles to css, thx -->
-<!--<div id="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/>&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        <!-- DONE: Hi Randall! Can you relocate this and move styles to css, thx -->
+        <!--<div id="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/>&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
-<c:set var="totalResults" value="${page.pager.totalItems}"/>
+        <c:set var="totalResults" value="${page.pager.totalItems}"/>
 
-<c:set var="searchResultsPagingSummary">
-    <div class="js-search-results-paging-summary text3">
-        Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span id="total-results-count">${totalResults}</span> schools
-    </div>
-</c:set>
+        <c:set var="searchResultsPagingSummary">
+            <div class="js-search-results-paging-summary text3">
+                Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span
+                    id="total-results-count">${totalResults}</span> schools
+            </div>
+        </c:set>
+
         <div class="alpha grid_16 omega">
             <div class="alpha grid_7">
                 <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a> &amp;nbsp;
@@ -36,105 +38,92 @@
                 </div>
             </div>
         </div>
-<div class="grid_16">
-<table id="school-search-results-table-header">
-    <colgroup>
-        <c:choose>
-            <c:when test="${not empty schoolSearchResults[0].distance and (not empty param.zipCode or not empty param.lat)}">
-                <col align="left" width="300px"/>
-                <col align="center" width="60px"/>
+        <div class="grid_16">
+            <c:choose>
+                <c:when test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
+                    <c:set var="nameSearchWidth" value="grid_6"/>
+                    <c:set var="distanceSearchWidth" value="grid_2"/>
+                    <c:set var="ratingSearchWidth" value="grid_2"/>
+                    <c:set var="communitySearchWidth" value="grid_4"/>
+                    <c:set var="photoSearchWidth" value="grid_2"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="nameSearchWidth" value="grid_7"/>
+                    <c:set var="distanceSearchWidth" value=""/>
+                    <c:set var="ratingSearchWidth" value="grid_2"/>
+                    <c:set var="communitySearchWidth" value="grid_4"/>
+                    <c:set var="photoSearchWidth" value="grid_3"/>
+                </c:otherwise>
+            </c:choose>
 
-            </c:when>
-            <c:otherwise>
-                <col align="left" width="360px"/>
-            </c:otherwise>
-        </c:choose>
+            <div class="alpha ${nameSearchWidth}">Name<mod:sortArrow
+                    sortList="SCHOOL_NAME_ASCENDING,SCHOOL_NAME_DESCENDING"
+                    currentSort="${commandAndFields.fieldSort.name}"/></div>
 
-        <col align="right" width="110px"/>
-        <col align="center" width="80px"/>
-        <col align="center" width="80px"/>
-    </colgroup>
-    <thead>
-    <tr class="smallText2bold">
-        <th align="left" valign="bottom">SCHOOL NAME <mod:sortArrow sortList="SCHOOL_NAME_ASCENDING,SCHOOL_NAME_DESCENDING" currentSort="${commandAndFields.fieldSort.name}"/></th>
+            <c:if test="${not empty param.zipCode or not empty param.lat}">
+                <div class="${distanceSearchWidth}">Distance<mod:sortArrow sortList="DISTANCE,DISTANCE_DESCENDING"
+                                                                           currentSort="${commandAndFields.fieldSort.name}"/>
+                </div>
+            </c:if>
 
-        <c:if test="${not empty param.zipCode or not empty param.lat}">
-            <th align="center">DISTANCE <mod:sortArrow sortList="DISTANCE,DISTANCE_DESCENDING" currentSort="${commandAndFields.fieldSort.name}"/></th>
-        </c:if>
-        <th align="center">GREATSCHOOLS RATING <mod:sortArrow sortList="GS_RATING_DESCENDING,GS_RATING_ASCENDING" currentSort="${commandAndFields.fieldSort.name}"/></th>
-        <th align="center">COMMUNITY RATING <mod:sortArrow sortList="PARENT_RATING_DESCENDING,PARENT_RATING_ASCENDING" currentSort="${commandAndFields.fieldSort.name}"/></th>
-        <th><!-- do not collapse --></th>
-    </tr>
-    </thead>
-</table>
-</div>
-<div class="grid_16">
-<table id="school-search-results-table-body">
+            <div class="${ratingSearchWidth}">Rating<mod:sortArrow
+                    sortList="GS_RATING_DESCENDING,GS_RATING_ASCENDING"
+                    currentSort="${commandAndFields.fieldSort.name}"/>
+            </div>
+            <div class="${communitySearchWidth}">Community Rating<mod:sortArrow
+                    sortList="PARENT_RATING_DESCENDING,PARENT_RATING_ASCENDING"
+                    currentSort="${commandAndFields.fieldSort.name}"/></div>
+            <div class="${photoSearchWidth} omega"><!-- do not collapse --></div>
+        </div>
+        <div class="grid_16">
+            <div id="js-school-search-results-table-body">
 
-    <colgroup>
-        <c:choose>
-            <c:when test="${not empty schoolSearchResults[0].distance and (not empty param.zipCode or not empty param.lat)}">
-                <col align="left" width="300px"/>
-                <col align="center" width="60px" />
+                <c:set var="count" value="0"/>
 
-            </c:when>
-            <c:otherwise>
-                <col align="left" width="360px"/>
-            </c:otherwise>
-        </c:choose>
+                <c:if test="${fn:length(schoolSearchResults) gt 0}">
+                    <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${totalResults - 1}">
+                        <search:schoolSearchResultFruitcake school="${s}"
+                                                            omniturePageName="${pageScope.omniturePageName}"/>
+                    </c:forEach>
+                </c:if>
 
-        <col align="right" width="110px"/>
-        <col align="center" width="80px"/>
-        <col align="center" width="80px"/>
-    </colgroup>
-
-    <tbody>
-
-    <c:set var="count" value="0"/>
-
-    <c:if test="${fn:length(schoolSearchResults) gt 0}">
-        <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${totalResults - 1}">
-            <search:schoolSearchResultFruitcake school="${s}" omniturePageName="${pageScope.omniturePageName}"/>
-        </c:forEach>
-    </c:if>
-
-    <!--<c:choose>-->
-        <!--<c:when test="${totalPages gt 1}">-->
-            <!--<c:set var="nearbySchoolClass" value="nearby-school hidden"/>-->
-        <!--</c:when>-->
-        <!--<c:otherwise>-->
-            <!--<c:set var="nearbySchoolClass" value="nearby-school"/>-->
-        <!--</c:otherwise>-->
-    <!--</c:choose>-->
-    <!--<c:if test="${blankRows gt 0}">-->
-        <!--<c:forEach begin="0" end="${blankRows - 1}">-->
-            <!--<tr class="${nearbySchoolClass}">-->
+                <!--<c:choose>-->
+                <!--<c:when test="${totalPages gt 1}">-->
+                <!--<c:set var="nearbySchoolClass" value="nearby-school hidden"/>-->
+                <!--</c:when>-->
+                <!--<c:otherwise>-->
+                <!--<c:set var="nearbySchoolClass" value="nearby-school"/>-->
+                <!--</c:otherwise>-->
+                <!--</c:choose>-->
+                <!--<c:if test="${blankRows gt 0}">-->
+                <!--<c:forEach begin="0" end="${blankRows - 1}">-->
+                <!--<tr class="${nearbySchoolClass}">-->
                 <!--<td class="brdbtm_dotted-fff">&lt;!&ndash; do not collapse &ndash;&gt;</td>-->
                 <!--<td class="brdbtm_dotted-fff">&lt;!&ndash; do not collapse &ndash;&gt;</td>-->
                 <!--<td class="brdbtm_dotted-fff">&lt;!&ndash; do not collapse &ndash;&gt;</td>-->
                 <!--<td class="brdbtm_dotted-fff">&lt;!&ndash; do not collapse &ndash;&gt;</td>-->
                 <!--<td class="brdbtm_dotted-fff">&lt;!&ndash; do not collapse &ndash;&gt;</td>-->
-            <!--</tr>-->
-        <!--</c:forEach>-->
-    <!--</c:if>-->
-    <!--<tr class="uncheck">-->
-        <!--<td class="smallText1 center"><strong><a href="#" class="js-compare-uncheck-all"-->
-                                  <!--onclick="return false;">Uncheck All</a></strong></td>-->
-        <!--<td colspan="3" class="smallText1 vtop">-->
-            <!--<em>You have checked-->
-            <!--&lt;!&ndash;-->
-            <!--.js-how-many-compare-checked-unlinked is shown when 1 school is selected-->
-            <!--.js-num-checked-send-to-compare is shown when 2 or more schools are selected-->
-            <!--&ndash;&gt;-->
-            <!--<span class="js-how-many-compare-checked-unlinked">1 school to compare</span><a-->
+                <!--</tr>-->
+                <!--</c:forEach>-->
+                <!--</c:if>-->
+                <!--<tr class="uncheck">-->
+                <!--<td class="smallText1 center"><strong><a href="#" class="js-compare-uncheck-all"-->
+                <!--onclick="return false;">Uncheck All</a></strong></td>-->
+                <!--<td colspan="3" class="smallText1 vtop">-->
+                <!--<em>You have checked-->
+                <!--&lt;!&ndash;-->
+                <!--.js-how-many-compare-checked-unlinked is shown when 1 school is selected-->
+                <!--.js-num-checked-send-to-compare is shown when 2 or more schools are selected-->
+                <!--&ndash;&gt;-->
+                <!--<span class="js-how-many-compare-checked-unlinked">1 school to compare</span><a-->
                 <!--href="#" onclick="return false;" class="js-num-checked-send-to-compare"-->
                 <!--style="display:none;">-->
                 <!--<span class="js-how-many-compare-checked-linked">2</span> schools to compare</a>.</em>-->
-        <!--</td>-->
-    <!--</tr>-->
-    </tbody>
-</table>
-</div>
+                <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+            </div>
+        </div>
 
         <div class="grid_9">
             <div class="pagination" id="pagination">

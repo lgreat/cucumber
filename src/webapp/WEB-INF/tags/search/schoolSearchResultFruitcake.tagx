@@ -20,114 +20,120 @@
         </c:otherwise>
     </c:choose>
 
-        <!--<tr class="" id="school-search-result-${school.databaseState}${school.id}">-->
-                 <div class="grid_16" id="school-search-result-${school.databaseState}${school.id}">
-            <!-- School Name -->
-            <!--<td class="">-->
-                <div class="alpha grid_6"
-                     id="school-search-result-link-${school.databaseState}${school.id}">
-                    <div class="js-school-search-result-name">
-                        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
-                                                                 databaseState="${school.databaseState}"
-                                                                 name="${school.name}"
-                                                                 physicalAddress="${school.address}"
-                                                                 levelCode="${school.levelCode}">${school.name}</link:schoolProfileOverviewForPrimitives>
-                    </div>
+    <c:choose>
+        <c:when test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
+            <c:set var="nameSearchWidth" value="grid_6"/>
+            <c:set var="distanceSearchWidth" value="grid_2"/>
+            <c:set var="ratingSearchWidth" value="grid_2"/>
+            <c:set var="communitySearchWidth" value="grid_4"/>
+            <c:set var="photoSearchWidth" value="grid_2"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="nameSearchWidth" value="grid_7"/>
+            <c:set var="distanceSearchWidth" value=""/>
+            <c:set var="ratingSearchWidth" value="grid_2"/>
+            <c:set var="communitySearchWidth" value="grid_4"/>
+            <c:set var="photoSearchWidth" value="grid_3"/>
+        </c:otherwise>
+    </c:choose>
 
-                    <div class="">
-                        <span>${gsweb:capitalize(school.schoolType)}</span>
+    <div class="grid_16" id="school-search-result-${school.databaseState}${school.id}">
+        <!-- School Name -->
+        <div class="alpha ${nameSearchWidth}"
+             id="school-search-result-link-${school.databaseState}${school.id}">
+            <div class="js-school-search-result-name">
+                <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
+                                                         databaseState="${school.databaseState}"
+                                                         name="${school.name}"
+                                                         physicalAddress="${school.address}"
+                                                         levelCode="${school.levelCode}">${school.name}</link:schoolProfileOverviewForPrimitives>
+            </div>
+
+            <div class="">
+                <span>${gsweb:capitalize(school.schoolType)}</span>
+                <c:choose>
+                    <c:when test="${school.levelCode eq 'p'}">
+                        &amp;#183;
+                        <span class="">Preschool</span>
+                    </c:when>
+                    <c:when test="${not empty school.grades.rangeString}">
+                        &amp;#183;
+                        <span>${school.grades.rangeString}</span>
+                    </c:when>
+                </c:choose>
+            </div>
+
+            <div class="js-school-search-result-street">${school.address.street}</div>
+
+            <div class="js-school-search-result-citystatezip">${school.address.city}, ${school.address.state} ${school.address.zip}</div>
+
+            <c:if test="${requestScope.context.showRealtorDotComPromos}">
+                <div>
+                    <gslink:realtorDotComLink address="${school.address}"
+                                              customLinkSuffix="inlinelinkheader"
+                                              styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink>
+                </div>
+            </c:if>
+
+            <search:addToMslLinkOrText/>
+
+        </div>
+
+        <c:if test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
+            <div class="${distanceSearchWidth}">
+                <div class="js-school-search-result-distance"><fmt:formatNumber value="${school.distance}"
+                                                                                maxFractionDigits="2"/> miles
+                </div>
+            </div>
+        </c:if>
+
+        <!-- GreatSchools Rating -->
+        <div class="${ratingSearchWidth}">
+            <c:choose>
+                <c:when test="${school.levelCode eq 'p' or school.schoolType eq 'private'}">
+                    <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
+                                                             databaseState="${school.databaseState}"
+                                                             name="${school.name}"
+                                                             physicalAddress="${school.address}"
+                                                             levelCode="${school.levelCode}">
                         <c:choose>
                             <c:when test="${school.levelCode eq 'p'}">
-                                &amp;#183;
-                                <span class="">Preschool</span>
+                                <span class="sprite badge_sm_ps"><!-- do not collapse --></span>
                             </c:when>
-                            <c:when test="${not empty school.grades.rangeString}">
-                                &amp;#183;
-                                <span>${school.grades.rangeString}</span>
+                            <c:when test="${school.schoolType eq 'private'}">
+                                <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
                             </c:when>
                         </c:choose>
-                    </div>
+                    </link:schoolProfileOverviewForPrimitives>
+                </c:when>
+                <c:otherwise>
+                    <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}"
+                                                  levelCode="${school.levelCode}">
+                        <c:choose>
+                            <c:when test="${not empty school.greatSchoolsRating}">
+                                <span class="sprite badge_sm_${school.greatSchoolsRating}"><!-- do not collapse --></span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                            </c:otherwise>
+                        </c:choose>
+                    </link:schoolProfileRating2010>
+                </c:otherwise>
+            </c:choose>
+        </div>
 
-                    <div class="js-school-search-result-street">${school.address.street}</div>
+        <!-- Community Rating -->
+        <div class="${communitySearchWidth}">
+            <search:parentRatingAndReviewBlurb/>
+        </div>
 
-                    <div class="js-school-search-result-citystatezip">${school.address.city}, ${school.address.state} ${school.address.zip}</div>
+        <div class="${photoSearchWidth} omega">
+            <c:if test="${not empty school.smallSizePhotos}">
+                <img src="${basePhotoPath}${school.smallSizePhotos[0]}" alt="Photos of this school"
+                     width="70" height="70"/>
 
-
-
-                    <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                        <div>
-                            <gslink:realtorDotComLink address="${school.address}"
-                                                      customLinkSuffix="inlinelinkheader"
-                                                      styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink>
-                        </div>
-                    </c:if>
-
-                    <search:addToMslLinkOrText/>
-
-                </div>
-            <!--</td>-->
-
-            <!--<c:if test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">-->
-                <!--<td>-->
-                     <div class="grid_2">
-                    <div class="js-school-search-result-distance"><fmt:formatNumber value="${school.distance}" maxFractionDigits="2"/> miles</div>
-                     </div>
-                <!--</td>-->
-            <!--</c:if>-->
-
-            <!-- GreatSchools Rating -->
-            <!--<td class="" align="left" valign="top">-->
-                     <div class="grid_3">
-                <c:choose>
-                    <c:when test="${school.levelCode eq 'p' or school.schoolType eq 'private'}">
-                        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
-                                                                 databaseState="${school.databaseState}"
-                                                                 name="${school.name}"
-                                                                 physicalAddress="${school.address}"
-                                                                 levelCode="${school.levelCode}">
-                            <c:choose>
-                                <c:when test="${school.levelCode eq 'p'}">
-                                    <span class="sprite badge_sm_ps"><!-- do not collapse --></span>
-                                </c:when>
-                                <c:when test="${school.schoolType eq 'private'}">
-                                    <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
-                                </c:when>
-                            </c:choose>
-                        </link:schoolProfileOverviewForPrimitives>
-                    </c:when>
-                    <c:otherwise>
-                        <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}"
-                                                      levelCode="${school.levelCode}">
-                            <c:choose>
-                                <c:when test="${not empty school.greatSchoolsRating}">
-                                    <span class="sprite badge_sm_${school.greatSchoolsRating}"><!-- do not collapse --></span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="sprite badge_sm_na"><!-- do not collapse --></span>
-                                </c:otherwise>
-                            </c:choose>
-                        </link:schoolProfileRating2010>
-                    </c:otherwise>
-                </c:choose>
-                     </div>
-            <!--</td>-->
-
-            <!-- Parent Rating -->
-            <!--<td class="" align="left" valign="top">-->
-                     <div class="grid_2">
-                <search:parentRatingAndReviewBlurb/>
-                     </div>
-            <!--</td>-->
-
-            <!--<td>-->
-                     <div class="grid_3 omega">
-                <c:if test="${not empty school.smallSizePhotos}">
-                    <img src="${basePhotoPath}${school.smallSizePhotos[0]}" alt="Photos of this school" width="70" height="70"/>
-
-                </c:if>
-                     </div>
-            <!--</td>-->
-                 </div>
-        <!--</tr>-->
+            </c:if>
+        </div>
+    </div>
 
 </jsp:root>
