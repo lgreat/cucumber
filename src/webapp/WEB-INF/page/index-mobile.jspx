@@ -93,6 +93,7 @@
                                 <gsml:input type="text" styleClass="js-searchByLocationQuery"  name="searchString" value="${searchString}" placeholder="City AND state, zip or address ..." />
                                 <div class="clear_x dn"><div class="iconx24 i-24-clear_x"><!-- --></div></div>
                             </div>
+                            <div class="error dn" id="js-searchByLocationError"><!-- Not empty --></div>
                             <div id="js-gradeLevels">
                                 <select name="gradeLevels">
                                     <option value="">All Grade Levels</option>

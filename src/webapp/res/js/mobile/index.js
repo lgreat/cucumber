@@ -3,7 +3,7 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], 
     var BY_LOCATION_FORM_SELECTOR = '#js-searchByLocation';
     var BY_NAME_FORM_SELECTOR = '#search-form';
     var TABS_SELECTOR = '.gsTabs';
-
+    var BY_LOCATION_ERROR_SELECTOR = '#js-searchByLocationError';
 
     // copied from findASchool.js
     var isTermState = function(term) {
@@ -52,6 +52,7 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], 
     };
 
     var submitByLocationSearch = function() {
+        var $errorMsg = $(BY_LOCATION_ERROR_SELECTOR).hide();
         var byLocationForm = $(BY_LOCATION_FORM_SELECTOR);
         var searchQuery = byLocationForm.find('input[name="searchString"]').val();
         searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
@@ -79,13 +80,13 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], 
 
                     window.setTimeout(loadResultsPage, 1);
                 } else {
-                    alert("Location not found. Please enter a valid address, city, or ZIP.");
+                    $errorMsg.text("Location not found. Please enter a valid address, city, or ZIP.").show();
                 }
             });
         } else if (searchQuery === 'Current Location') {
             window.setTimeout(loadResultsPage, 1); // lat and lon have already been set
         } else {
-            alert("Please enter an address, zip code or city and state");
+            $errorMsg.text("Please enter an address, zip code or city and state").show();
         }
 
         return false;
