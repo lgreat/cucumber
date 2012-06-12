@@ -5,6 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:variant="urn:jsptagdir:/WEB-INF/tags/variant"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib"
         >
     <jsp:directive.tag body-content="empty"
                        description="Adds a Facebook like button to the page. Requires that the proper meta tags have been added to the document head and that the html tag contains the proper xmlns declarations."
@@ -35,7 +36,7 @@
         };
 
         window.fbAsyncInit = function() {
-            FB.init({appId: '112862918759431', status: true, cookie: true, xfbml: true});
+            FB.init({appId: "${gsweb:getFacebookAppId()}", status: true, cookie: true, xfbml: true});
             GS.FB.subscribes();
         };
 

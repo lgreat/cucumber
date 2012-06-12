@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContextUtil.java,v 1.89 2012/05/19 04:34:03 ssprouse Exp $
+ * $Id: SessionContextUtil.java,v 1.90 2012/06/12 22:20:23 mseltzer Exp $
  */
 
 package gs.web.util.context;
@@ -377,6 +377,8 @@ public class SessionContextUtil implements ApplicationContextAware {
 
         updateGptFromParams(context, request);
 
+        updateFbCommentsParams(context, request);
+
         // Set state, or change, if necessary
         String paramPathwayStr = request.getParameter(PATHWAY_PARAM);
         if (StringUtils.isNotEmpty(paramPathwayStr)) {
@@ -595,6 +597,16 @@ public class SessionContextUtil implements ApplicationContextAware {
             context.setGptAsynchronousModeOnMobileEnabledOverride("async".equals(paramGptModeMobile));
         }
     }
+
+    public void updateFbCommentsParams(SessionContext context,
+                                    HttpServletRequest request) {
+        String paramFbCommentsEnabled = request.getParameter("fbCommentsEnabled");
+
+        if (StringUtils.isNotBlank(paramFbCommentsEnabled)) {
+            context.setFbCommentsEnabledOverride("true".equals(paramFbCommentsEnabled));
+        }
+    }
+
 
     public void updateState(SessionContext context,
                                    HttpServletRequest httpServletRequest,

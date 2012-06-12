@@ -231,10 +231,16 @@
                 <article:relatedLinksList feature="${feature}"/>
             </c:if>
             <!-- Related links -->
-
-            <!-- Comments -->
-            <article:commentsWithForm feature="${feature}" contentUrl="${contentUrl}" comments="${comments}"/>
-            <!-- Comments -->
+            <c:choose>
+                <c:when test="${requestScope.context.fbCommentsEnabled}">
+                    <!-- FB Comments -->
+                    <div><article:commentsFB comments="${comments}" feature="${feature}"/></div>
+                </c:when>
+                <c:otherwise>
+                    <!-- Old Comments with Form -->
+                    <article:commentsWithForm feature="${feature}" contentUrl="${contentUrl}" comments="${comments}"/>
+                </c:otherwise>
+            </c:choose>
         </div>
 
         <div class="grid_8">

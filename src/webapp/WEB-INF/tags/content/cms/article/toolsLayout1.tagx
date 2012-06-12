@@ -15,24 +15,25 @@
             <div class="bd"><article:socialToolsLayout1 includeFbSendBtn="true" includeShareBtn="false"/></div>
             <!-- 2012 03 26 - mitch added comment to the toolbar with count -->
             <c:if test="${not empty pageScope.comments and fn:length(pageScope.comments) gt 0}">
+
                 <c:set var="commentCount" value="${fn:length(pageScope.comments)}" />
-
-                <div class="ft">
-                    <div class="ft-inner">
-                        <ul>
-
-                            <li class="smaller">
-                                <gsml:url var="linkToComments"
-                                          value="#articleCommentsLinkTo"/>
-                                <gsml:a href="${linkToComments}">
-                                    <span class="iconx16 i-16-comment vert-align-mid mrs"><!-- do not collapse --></span>
-                                    <c:out value="${commentCount} " default="0 " />comments</gsml:a>
-                                </li>
-
-                        </ul>
-                    </div>
-                </div>
             </c:if>
+            <div id="js_commentToolTipLinkDown" class="ft hidden">
+                <div class="ft-inner">
+                    <ul>
+
+                        <li class="smaller">
+                            <gsml:url var="linkToComments"
+                                      value="#articleCommentsLinkTo"/>
+                            <gsml:a href="${linkToComments}">
+                                <span class="iconx16 i-16-comment vert-align-mid mrs"><!-- do not collapse --></span>
+                                <div id="js_articleCommentsCount" class="inline"><c:out value="${commentCount}" default="0 " /></div> comment<c:if test="${commentCount != 1}">s</c:if></gsml:a>
+                            </li>
+
+                    </ul>
+                </div>
+            </div>
+
             <div class="ft">
                 <div class="ft-inner">
                     <ul>

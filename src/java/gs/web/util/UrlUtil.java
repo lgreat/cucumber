@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.125 2012/05/23 20:26:04 mseltzer Exp $
+ * $Id: UrlUtil.java,v 1.126 2012/06/12 22:20:23 mseltzer Exp $
  */
 
 package gs.web.util;
@@ -730,6 +730,8 @@ public final class UrlUtil {
                 hostName.indexOf("127.0.0.1") > -1 ||
                 hostName.matches("^172\\.18\\.1.*") ||
                 hostName.matches("^172\\.21\\.1.*") ||
+                hostName.indexOf("samson.") != -1 ||
+                hostName.indexOf("mitchtest.") != -1 ||
                 (hostName.matches(".+\\.office.*") && hostName.indexOf("cpickslay.office") == -1) ||
                 hostName.indexOf("vpn.greatschools.org") != -1 ||
                 hostName.indexOf("macbook") > -1;
@@ -747,7 +749,6 @@ public final class UrlUtil {
                 hostName.indexOf("clone") != -1 ||
                 hostName.indexOf("cmsqa") != -1 ||
                 hostName.indexOf("qa") != -1 ||
-                hostName.indexOf("samson.") != -1 ||
                 hostName.equals("127.0.0.1") ||
                 hostName.matches("^172\\.18\\.1.*") ||
                 hostName.matches(".*carbonfive.com") ||

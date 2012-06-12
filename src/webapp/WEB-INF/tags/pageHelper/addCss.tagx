@@ -45,6 +45,7 @@
             <gsml:url var="roundedcorners" value="/res/css/10_css3/rounded_corners.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="lineargradients" value="/res/css/10_css3/linear_gradients.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="opacityshadow" value="/res/css/10_css3/opacity_shadow.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="tabs" value="/res/css/13_tabs/tabs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="ratings" value="/res/css/14_ratings/ratings.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="cmscontent" value="/res/css/38_special/cms_content.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="communityhover" value="/res/css/38_special/community_hover.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -79,6 +80,7 @@
             <![CDATA[<link rel="stylesheet" href="${roundedcorners}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${lineargradients}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${tabs}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${ratings}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${cmscontent}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${communityhover}" type="text/css" />]]>

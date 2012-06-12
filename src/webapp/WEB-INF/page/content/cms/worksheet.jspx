@@ -13,6 +13,7 @@
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:article="urn:jsptagdir:/WEB-INF/tags/content/cms/article"
           version="2.0">
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
@@ -177,38 +178,45 @@
         <div class="clearfloat brdbtm_dotted-ccc mbm mrm"><!-- do not collapse --></div>
 
         <div class="articleCommentForm noprint mrm">
-
-            <div id="enterComment">
-                <script type="text/javascript">
-                    function wrapCommentWithDelimiter(comment) {
-                        return "BEGIN_ARTICLE_COMMENT\n" + comment + "\nEND_ARTICLE_COMMENT\n";
-                    }
-                </script>
-                <!-- Article comment form -->
-                <cms:cmsCommentForm feature="${feature}" contentUrl="${contentUrl}" type="article"/>
-                <!-- end #cmsArticleForm -->
-            </div>
-
-            <div class="spacer_10 brdbtm_dotted-ccc mbs mrm"><!-- do not collapse --></div>
-
-            <div id="cmsArticleComments">
-                <c:if test="${not empty comments and fn:length(comments) gt 0}">
-                    <!--<hr width="100%" class="commentDivider"/>-->
-                    <h4 class="subhead2">Comments from GreatSchools.org readers</h4>
-
-                    <div id="comments">
-                        <c:forEach var="comment" items="${comments}">
-                            <div class="comment">
-                                <div class="comment-date"><fmt:formatDate value="${comment.posted}"
-                                                                          pattern="MM/d/yyyy"/>:
-                                </div>
-
-                                <div class="comment-text">"${comment.text}"</div>
-                            </div>
-                        </c:forEach>
+            <c:choose>
+                <c:when test="${requestScope.context.fbCommentsEnabled}">
+                    <!-- FB Comments -->
+                    <div><article:commentsFB comments="${comments}" feature="${feature}" fbWidth="610"/></div>
+                </c:when>
+                <c:otherwise>
+                    <div id="enterComment">
+                        <script type="text/javascript">
+                            function wrapCommentWithDelimiter(comment) {
+                                return "BEGIN_ARTICLE_COMMENT\n" + comment + "\nEND_ARTICLE_COMMENT\n";
+                            }
+                        </script>
+                        <!-- Article comment form -->
+                        <cms:cmsCommentForm feature="${feature}" contentUrl="${contentUrl}" type="article"/>
+                        <!-- end #cmsArticleForm -->
                     </div>
-                </c:if>
-            </div>
+
+                    <div class="spacer_10 brdbtm_dotted-ccc mbs mrm"><!-- do not collapse --></div>
+
+                    <div id="cmsArticleComments">
+                        <c:if test="${not empty comments and fn:length(comments) gt 0}">
+                            <!--<hr width="100%" class="commentDivider"/>-->
+                            <h4 class="subhead2">Comments from GreatSchools.org readers</h4>
+
+                            <div id="comments">
+                                <c:forEach var="comment" items="${comments}">
+                                    <div class="comment">
+                                        <div class="comment-date"><fmt:formatDate value="${comment.posted}"
+                                                                                  pattern="MM/d/yyyy"/>:
+                                        </div>
+
+                                        <div class="comment-text">"${comment.text}"</div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </c:if>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
     <div class="grid_8 zir-1">

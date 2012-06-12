@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.72 2012/05/10 22:25:47 cauer Exp $
+ * $Id: SessionContext.java,v 1.73 2012/06/12 22:20:23 mseltzer Exp $
  */
 package gs.web.util.context;
 
@@ -113,10 +113,12 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     private boolean _ios = false;
     private boolean _iosSafari = false;
 
+    private boolean _fbCommentsEnabled = false;
     private boolean _gptEnabled = false;
     private boolean _gptAsynchronousModeEnabled = false;
     private boolean _gptAsynchronousModeOnMobileEnabled = false;
 
+    private Boolean _fbCommentsEnabledOverride = null;
     private Boolean _gptEnabledOverride = null;
     private Boolean _gptAsynchronousModeEnabledOverride = null;
     private Boolean _gptAsynchronousModeOnMobileEnabledOverride = null;
@@ -430,6 +432,24 @@ public class SessionContext implements ApplicationContextAware, Serializable {
             return _gptEnabled || "true".equals(_propertyDao.getProperty(IPropertyDao.GPT_ENABLED_KEY, "false"));
         }
     }
+
+
+    /**
+     * Returns true if Facebook Comments are enabled globally in database properties or just for this SessionContext
+     * @return
+     */
+    public boolean isFbCommentsEnabled() {
+        if (_fbCommentsEnabledOverride != null) {
+            return _fbCommentsEnabledOverride;
+        } else {
+            return _fbCommentsEnabled || "true".equals(_propertyDao.getProperty(IPropertyDao.FB_COMMENTS_ENABLED_KEY, "false"));
+        }
+    }
+
+    public void setFbCommentsEnabledOverride(boolean fbCommentsEnabledOverride) {
+        _fbCommentsEnabledOverride = fbCommentsEnabledOverride;
+    }
+
 
     public void setGptEnabled(boolean gptEnabled) {
         _gptEnabled = gptEnabled;

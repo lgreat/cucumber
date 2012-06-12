@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+
+          version="2.0">
+    <jsp:directive.attribute name="comments" required="true" type="java.util.List"/>
+    <jsp:directive.attribute name="feature" required="true" type="gs.data.content.cms.CmsFeature"/>
+    <jsp:directive.attribute name="fbWidth" required="false" type="java.lang.Integer"/>
+
+    <c:if test="${empty pageScope.fbWidth}">
+        <c:set var="fbWidth" value="630"/>
+    </c:if>
+
+    <![CDATA[
+
+        <script language="javascript">
+            /* Facebook Comment Support */
+            jQuery(document).ready(function() {
+                function updateCommentsTotal(){
+                    var fb_com_count = jQuery(".fb_comments_count").html();
+                    if(fb_com_count == null){
+                        setTimeout(updateCommentsTotal, 100);
+                        return;
+                    }
+                    var gs_com_count = jQuery("#js_articleCommentsCount").html();
+                    if(gs_com_count == "")gs_com_count = 0;
+                    var total_com_count = parseInt(fb_com_count) + parseInt(gs_com_count);
+                    jQuery("#js_articleCommentsCount").html(total_com_count).show();
+                    jQuery("#js_commentToolTipLinkDown").show();
+                    jQuery("#js_commentCountFB").html(fb_com_count);
+                }
+                setTimeout(updateCommentsTotal, 100);
+
+                /* Handle Facebook Callback */
+                FB.Event.subscribe('comment.create',
+                    function(response) {
+                        if (s.tl) {
+                            s.tl(true,'o', 'Facebook_Comment_Article');
+                        }
+                        var gs_com_count = jQuery("#js_articleCommentsCount").html();
+                        if(gs_com_count == "")gs_com_count = 0;
+                        var total_com_count = parseInt(gs_com_count) + 1;
+                        jQuery("#js_articleCommentsCount").html(total_com_count);
+                        var gs_fb_com_count = parseInt(jQuery("#js_commentCountFB").html())+1;
+                        jQuery("#js_commentCountFB").html(gs_fb_com_count);
+                    }
+                );
+            });
+        </script>
+     <span class="hidden" id="js_articleCommentsCountFB"><fb:comments-count href="${pageScope.feature.permaLink}"></fb:comments-count></span>
+     ]]>
+
+    <div class="gsTabs" id="articleCommentsLinkTo">
+        <c:if test="${not empty pageScope.comments and fn:length(pageScope.comments) gt 0}">
+
+        <ul class="tabStyle-2">
+            <li><a>Comments (<span id="js_commentCountFB"><!-- do not collapse --></span>)</a></li>
+            <li><a>More Comments (<c:out value="${fn:length(pageScope.comments)}" />)</a></li>
+        </ul>
+        </c:if>
+        <![CDATA[
+        <div><fb:comments href="${pageScope.feature.permaLink}" num_posts="3" width="${fbWidth}"><!--  sdgf  --></fb:comments></div>]]>
+        <!--<div class="fb-comments" data-href="http://mitchtest.greatschools.org/content/cms/translate.page?${feature.contentKey.type}=${feature.contentKey.identifier}" data-num-posts="5" data-width="630">&lt;!&ndash; &ndash;&gt;</div>-->
+
+
+        <c:if test="${not empty pageScope.comments and fn:length(pageScope.comments) gt 0}">
+
+            <!--<hr class="keyline1"/>-->
+            <!-- 2012 03 26 - mitch added id to the comments to link to from the toolbar  -->
+            <div class="mod articleComments">
+                <div class="inner">
+                    <div class="hd">
+                        <h3>Comments from GreatSchools.org readers</h3>
+                    </div>
+                    <div class="bd">
+                        <c:forEach var="comment" items="${pageScope.comments}">
+                            <div class="small articleCommentDate"><fmt:formatDate value="${comment.posted}"
+                                                                                  pattern="MM/d/yyyy"/>:
+                            </div>
+
+                            <div class="small articleCommentText">"${comment.text}"</div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+
+    </div>
+</jsp:root>

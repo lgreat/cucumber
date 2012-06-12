@@ -6,6 +6,7 @@
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+          xmlns:article="urn:jsptagdir:/WEB-INF/tags/content/cms/article"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:cms="urn:jsptagdir:/WEB-INF/tags/content/cms"
           xmlns:gsweb="gstaglib"
@@ -194,41 +195,49 @@
 
         <div class="clearfloat brdbtm_dotted-ccc mbm"><!-- do not collapse --></div>
 
+
         <div class="articleCommentForm noprint">
+            <c:choose>
+                <c:when test="${requestScope.context.fbCommentsEnabled}">
+                    <!-- FB Comments -->
+                    <div><article:commentsFB comments="${comments}" feature="${feature}" fbWidth="610"/></div>
+                </c:when>
+                <c:otherwise>
+                    <div id="enterComment">
+                        <script type="text/javascript">
+                            function wrapCommentWithDelimiter(comment) {
+                                return "BEGIN_ARTICLE_COMMENT\n" + comment + "\nEND_ARTICLE_COMMENT\n";
+                            }
+                        </script>
+                        <!-- Article comment form -->
+                        <cms:cmsCommentForm feature="${feature}" contentUrl="${contentUrl}" type="article"/>
+                        <!-- end #cmsArticleForm -->
+                    </div>
 
-                <div id="enterComment">
-                    <script type="text/javascript">
-                        function wrapCommentWithDelimiter(comment) {
-                            return "BEGIN_ARTICLE_COMMENT\n" + comment + "\nEND_ARTICLE_COMMENT\n";
-                        }
-                    </script>
-                    <!-- Article comment form -->
-                    <cms:cmsCommentForm feature="${feature}" contentUrl="${contentUrl}" type="article"/>
-                    <!-- end #cmsArticleForm -->
-                </div>
+                    <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
 
-                <div class="spacer_10 brdbtm_dotted-ccc mbs"><!-- do not collapse --></div>
+                    <div id="cmsArticleComments">
+                        <c:if test="${not empty comments and fn:length(comments) gt 0}">
+                            <!--<hr width="100%" class="commentDivider"/>-->
+                            <h4 class="subhead2">Comments from GreatSchools.org readers</h4>
 
-                <div id="cmsArticleComments">
-                    <c:if test="${not empty comments and fn:length(comments) gt 0}">
-                        <!--<hr width="100%" class="commentDivider"/>-->
-                        <h4 class="subhead2">Comments from GreatSchools.org readers</h4>
+                            <div id="comments">
+                                <c:forEach var="comment" items="${comments}">
+                                    <div class="comment">
+                                        <div class="comment-date"><fmt:formatDate value="${comment.posted}"
+                                                                                  pattern="MM/d/yyyy"/>:
+                                        </div>
 
-                        <div id="comments">
-                            <c:forEach var="comment" items="${comments}">
-                                <div class="comment">
-                                    <div class="comment-date"><fmt:formatDate value="${comment.posted}"
-                                                                              pattern="MM/d/yyyy"/>:
+                                        <div class="comment-text">"${comment.text}"</div>
                                     </div>
-
-                                    <div class="comment-text">"${comment.text}"</div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                    </c:if>
-                </div>
-
+                                </c:forEach>
+                            </div>
+                        </c:if>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
+
     </div>
 </div>
 <div class="grid_8">

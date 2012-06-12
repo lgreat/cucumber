@@ -14,6 +14,13 @@
         <function-signature>java.lang.String[] splitAfterXWords(java.lang.String,int)</function-signature>
     </function>
 
+    <function>
+        <name>getFacebookAppId</name>
+        <function-class>gs.data.util.CmsUtil</function-class>
+        <function-signature>java.lang.String
+            getFacebookAppId()</function-signature>
+    </function>
+
 
     <function>
         <name>toDelimitedString</name>

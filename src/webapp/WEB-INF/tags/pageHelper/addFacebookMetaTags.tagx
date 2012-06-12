@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           >
     <jsp:directive.tag import="gs.web.util.UrlBuilder"/>
+    <jsp:directive.tag import="gs.data.util.CmsUtil"/>
     <jsp:directive.tag import="java.net.URLEncoder"/>
     <jsp:directive.tag body-content="empty" description="Used to add a meta tag to the document head. The meta tag will contain property and content attributes."/>
     <jsp:directive.attribute name="school" type="gs.data.school.School" required="true" description="Meta tag property attribute. Example use: Facebook OpenGraph implementation"/>
@@ -36,7 +37,7 @@
         gs.web.util.PageHelper.addMetaProperty(request, "og:image", "http://www.greatschools.org/catalog/images/GS_logo_200x179.jpg");
         gs.web.util.PageHelper.addMetaProperty(request, "og:site_name", "GreatSchools");
         gs.web.util.PageHelper.addMetaProperty(request, "og:description", plainTextSummary);
-        gs.web.util.PageHelper.addMetaProperty(request, "fb:app_id", "112862918759431");
+        gs.web.util.PageHelper.addMetaProperty(request, "fb:app_id", CmsUtil.getFacebookAppId());
 
         request.setAttribute("pageUrlOnFacebook", encodedUrl);
 
