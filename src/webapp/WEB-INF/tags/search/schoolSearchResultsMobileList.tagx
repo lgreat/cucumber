@@ -39,7 +39,7 @@
         </c:when>
         <c:otherwise>
             <div class="alert">
-                No results match your selection. Please change your search filter settings.
+                No results match your search criteria.
             </div>
         </c:otherwise>
     </c:choose>
