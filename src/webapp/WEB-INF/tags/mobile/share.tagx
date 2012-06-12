@@ -37,34 +37,34 @@
         <c:set var="emailBodyBottomPart">
             <c:choose>
                 <c:when test="${not empty school.enrollmentOrCapacity and not empty gs_rating}">
-                    Enrollment: ${school.enrollmentOrCapacity}
-                    GreatSchools Rating: ${gs_rating}
-                    ${school.physicalAddress.street}
-                    ${school.physicalAddress.cityStateZip}
+Enrollment: ${school.enrollmentOrCapacity}
+GreatSchools Rating: ${gs_rating}
+${school.physicalAddress.street}
+${school.physicalAddress.cityStateZip}
                 </c:when>
                 <c:when test="${not empty school.enrollmentOrCapacity}">
-                    Enrollment: ${school.enrollmentOrCapacity}
-                    ${school.physicalAddress.street}
-                    ${school.physicalAddress.cityStateZip}
+Enrollment: ${school.enrollmentOrCapacity}
+${school.physicalAddress.street}
+${school.physicalAddress.cityStateZip}
                 </c:when>
                 <c:when test="${not empty gs_rating}">
-                    GreatSchools Rating: ${gs_rating}
-                    ${school.physicalAddress.street}
-                    ${school.physicalAddress.cityStateZip}
+GreatSchools Rating: ${gs_rating}
+${school.physicalAddress.street}
+${school.physicalAddress.cityStateZip}
                 </c:when>
                 <c:otherwise>
-                    ${school.physicalAddress.street}
-                    ${school.physicalAddress.cityStateZip}
+${school.physicalAddress.street}
+${school.physicalAddress.cityStateZip}
                 </c:otherwise>
             </c:choose>
         </c:set>
         <c:set var="emailBody">
-            I found this school on GreatSchools.org:
+I found this school on GreatSchools.org:
 
-            ${school.name}
-            ${requestScope.schoolUrl}
-            ${emailBodyTypeLine}
-            ${emailBodyBottomPart}
+${school.name}
+${requestScope.schoolUrl}
+${emailBodyTypeLine}
+${emailBodyBottomPart}
         </c:set>
     </c:if>
     <c:if test="${empty emailBody}">
