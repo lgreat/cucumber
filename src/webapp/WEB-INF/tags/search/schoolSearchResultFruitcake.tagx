@@ -67,16 +67,6 @@
 
             <div class="js-school-search-result-citystatezip">${school.address.city}, ${school.address.state} ${school.address.zip}</div>
 
-            <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                <div>
-                    <gslink:realtorDotComLink address="${school.address}"
-                                              customLinkSuffix="inlinelinkheader"
-                                              styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink>
-                </div>
-            </c:if>
-
-            <search:addToMslLinkOrText/>
-
         </div>
 
         <c:if test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
@@ -133,6 +123,20 @@
                      width="70" height="70"/>
 
             </c:if>
+        </div>
+
+        <div class="grid_16">
+            <c:if test="${requestScope.context.showRealtorDotComPromos}">
+                <div class="alpha grid_8">
+                    <gslink:realtorDotComLink address="${school.address}"
+                                              customLinkSuffix="inlinelinkheader"
+                                              styleClass="sprite i-house-sm">Homes for sale</gslink:realtorDotComLink>
+                </div>
+            </c:if>
+
+            <div class="grid_8 omega">
+                <search:addToMslLinkOrText/>
+            </div>
         </div>
     </div>
 

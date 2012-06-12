@@ -40,7 +40,7 @@
         </div>
         <div class="grid_16">
             <c:choose>
-                <c:when test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
+                <c:when test="${not empty schoolSearchResults[0].distance and (not empty param.zipCode or not empty param.lat)}">
                     <c:set var="nameSearchWidth" value="grid_6"/>
                     <c:set var="distanceSearchWidth" value="grid_2"/>
                     <c:set var="ratingSearchWidth" value="grid_2"/>
