@@ -80,7 +80,7 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
 
         var emailAndDeleteAll = $('.js-emailAndDeleteAll');
         emailAndDeleteAll.show();
-        emailAndDeleteAll.find('.js-emailMyList').attr('href', 'mailto:?subject=' + emailSubject + '&body=' + encodeURI(emailBody));
+        emailAndDeleteAll.find('.js-emailMyList').attr('href', 'mailto:?subject=' + emailSubject + '&body=' + encodeURIComponent(emailBody));
     };
 
     var getSavedSchools = function() {
@@ -151,7 +151,7 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
             var schoolString = emailBody.substring(startIndex, endIndex);
             emailBody = emailBody.replace(schoolString, '');
             var emailAndDeleteAll = $('.js-emailAndDeleteAll');
-            emailAndDeleteAll.find('.js-emailMyList').attr('href', 'mailto:?subject=' + emailSubject + '&body=' + encodeURI(emailBody));
+            emailAndDeleteAll.find('.js-emailMyList').attr('href', 'mailto:?subject=' + emailSubject + '&body=' + encodeURIComponent(emailBody));
 
             if(savedSchoolsDiv.is(':empty')) {
                 emailAndDeleteAll.hide();
