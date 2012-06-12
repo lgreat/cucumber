@@ -104,99 +104,90 @@
     </c:otherwise>
 </c:choose>
 
-<div class="grid_16 slStylesV1-0">
-
-
-    <div class="grid_10 alpha">
-        <search:schoolResultsFor_text/>
-    </div>
-
-    <div class="text3 grid_6 omega">
-        <school:nearbyCitiesPopup/>
-        <school:nearbyDistrictsPopup/>
-    </div>
-
-    <div class="alpha grid_16 omega">
-        <school:findASchoolForm/>
-    </div>
-
-    <div class="alpha grid_16 omega">
-        <search:schoolSearchFiltersPanel/>
-    </div>
-
-    <div class="spacer_15"><!-- do not collapse --></div>
-
-    <div class="alpha grid_16 omega">
-        <ad:adTag position="SponsoredSearch_Top_423x120"/>
-        <ad:adTag position="SponsoredSearch_Top_423x68"/>
-        <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
-
-        <div class="contain_6-1 pbs">
-            <div class="fl">
-                <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a>  &amp;nbsp;
-                <a data-role="button" data-inline="true" class="but but-sm but-2 js-mapResultsLink">Map</a>
-            </div>
-
-            <br class="clearfloat"/>
+<gsml:body adPageName="search" pageLayout="nocol">
+    <div class="grid_16 slStylesV1-0">
+        <div class="alpha grid_12">
+            <search:schoolResultsFor_text/>
+        </div>
+        <div class="alpha grid_2 omega">
+            <school:nearbyCitiesPopup/>
+        </div>
+        <div class="grid_2 omega">
+            <school:nearbyDistrictsPopup/>
         </div>
 
-        <c:choose>
-            <c:when test="${page.pager.totalItems gt 0}">
-                <search:schoolSearchResultsTableFruitcake omniturePageName="${omniturePageName}"/>
-            </c:when>
-            <c:otherwise>
-                <!-- Allow this page to load with 0 results -->
-                <div id="js-school-search-results-table">
-                    <search:schoolSearchNoResultsTable/>
-                </div>
-            </c:otherwise>
-        </c:choose>
+        <div class="alpha grid_16 omega">
+            <school:findASchoolForm/>
+        </div>
+        <!--Probably above and below elements should be in one grid-->
+        <div class="alpha grid_16 omega">
+            <search:schoolSearchFiltersPanel/>
+        </div>
+
+        <div class="alpha grid_16 omega">
+            <ad:adTag position="SponsoredSearch_Top_423x120"/>
+            <ad:adTag position="SponsoredSearch_Top_423x68"/>
+            <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
+
+            <c:choose>
+                <c:when test="${page.pager.totalItems gt 0}">
+                    <search:schoolSearchResultsTableFruitcake omniturePageName="${omniturePageName}"/>
+                </c:when>
+                <c:otherwise>
+                    <!-- Allow this page to load with 0 results -->
+                    <div id="js-school-search-results-table">
+                        <search:schoolSearchNoResultsTable/>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </div>
-</div>
 
-<div class="grid_8">
-    <ad:AboveFold_300x250/>
-
+    <div class="grid_8 slStylesV1-0">
+        <ad:AboveFold_300x250/>
 
 
-    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
+        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
+                                   showAdPct="0"/>
 
-    <!-- Low Down module -->
-    <content:makingSenseOfSchoolChoice/>
+        <!-- Low Down module -->
+        <content:makingSenseOfSchoolChoice/>
 
-    <!-- Community module -->
-    <c:set var="recentDiscussions" value=""/>
-    <c:if test="${not empty localBoardId and not empty localCityName}">
-        <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
-        <c:set var="recentDiscussions">
-            <c:import
-                    url="/community/profileRecentDiscussions.module?board_id=${localBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(localCityName)}&amp;discussionTopicFull=${gsweb:urlEncode(localCityName)}&amp;isLocal=true&amp;isFromProfile=false"/>
-        </c:set>
-    </c:if>
-    ${recentDiscussions}
+        <!-- Community module -->
+        <c:set var="recentDiscussions" value=""/>
+        <c:if test="${not empty localBoardId and not empty localCityName}">
+            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
+            <c:set var="recentDiscussions">
+                <c:import
+                        url="/community/profileRecentDiscussions.module?board_id=${localBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(localCityName)}&amp;discussionTopicFull=${gsweb:urlEncode(localCityName)}&amp;isLocal=true&amp;isFromProfile=false"/>
+            </c:set>
+        </c:if>
+        ${recentDiscussions}
 
-    <jsp:include page="/promo/emailSignUp.module"/>
+        <jsp:include page="/promo/emailSignUp.module"/>
 
-    <ad:BelowFold_Top_300x125/>
-</div>
+        <ad:BelowFold_Top_300x125/>
+    </div>
 
-<c:set var="omnitureLocale"><c:choose>
-    <c:when test="${commandAndFields.cityBrowse}">${city.name}</c:when>
-    <c:when test="${commandAndFields.districtBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
-    <c:otherwise>${null}</c:otherwise>
-</c:choose></c:set>
 
-<mod:tracking pageName="${omniturePageName}"
-              query="${omnitureQuery}"
-              hier1="${omnitureHierarchy}"
-              schoolType="${omnitureSchoolType}"
-              schoolLevel="${omnitureSchoolLevel}"
-              sortSelection="${omnitureSortSelection}"
-              nearbySearchZipCode="${nearbySearchZipCode}"
-              resultsPerPage="${omnitureResultsPerPage}"
-              findASchoolByAddress="${omnitureAddressSearch}"
-              findASchoolByName="${omnitureNameSearch}"
-              locale="${omnitureLocale}"
-        />
+    <c:set var="omnitureLocale"><c:choose>
+        <c:when test="${isCityBrowse}">${city.name}</c:when>
+        <c:when test="${isDistrictBrowse}">${not empty district.physicalAddress ? district.physicalAddress.city : null}</c:when>
+        <c:otherwise>${null}</c:otherwise>
+    </c:choose></c:set>
 
+    <mod:tracking pageName="${omniturePageName}"
+                  query="${omnitureQuery}"
+                  hier1="${omnitureHierarchy}"
+                  schoolType="${omnitureSchoolType}"
+                  schoolLevel="${omnitureSchoolLevel}"
+                  sortSelection="${omnitureSortSelection}"
+                  nearbySearchZipCode="${nearbySearchZipCode}"
+                  resultsPerPage="${omnitureResultsPerPage}"
+                  findASchoolByAddress="${omnitureAddressSearch}"
+                  findASchoolByName="${omnitureNameSearch}"
+                  locale="${omnitureLocale}"
+            />
+
+</gsml:body>
 </jsp:root>

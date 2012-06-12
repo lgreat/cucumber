@@ -14,22 +14,22 @@
             </c:choose>
         </c:set>
         <c:if test="${commandAndFields.search}">
-            <div class="title2-333">
+            <h1>
                 <c:choose>
                     <c:when test="${commandAndFields.nearbySearch and param.zipCode}">
                         ${nearbySearchTitlePrefix} near <span
-                            class="title2-d61">${param.zipCode}</span>
+                            class="">${param.zipCode}</span>
                     </c:when>
                     <c:when test="${commandAndFields.nearbySearch eq true and not empty schoolSearchCommand.normalizedAddress}">
                         ${nearbySearchTitlePrefix} near <span
-                            class="title2-d61">${schoolSearchCommand.normalizedAddress}</span>
+                            class="">${schoolSearchCommand.normalizedAddress}</span>
                     </c:when>
                     <c:otherwise>
                         School results for <span
-                            class="title2-d61">&amp;ldquo;${schoolResultsFor}&amp;rdquo;</span>
+                            class="">&amp;ldquo;${schoolResultsFor}&amp;rdquo;</span>
                     </c:otherwise>
                 </c:choose>
-            </div>
+            </h1>
             <c:if test="${nearbySearchIsEstablishment eq true and not empty param.searchQuery}">
                 <div>
                     Did you mean to search for a school/district named
@@ -37,8 +37,6 @@
                 </div>
             </c:if>
 
-            <div class="spacer_15 brdbtm_solid-c6c6c6"><!-- do not collapse --></div>
-            <div class="spacer_10"><!-- do not collapse --></div>
         </c:if>
         <c:if test="${isCityBrowse}">
             <div class="line">
@@ -46,7 +44,7 @@
                     <div class="title2-d61">${schoolResultsFor} Schools</div>
                 </div>
                 <div class="unit size1of2 lastUnit">
-                    <div class="smallAlertText fltrt">
+                    <div class=" fltrt">
                         View city information for <link:city city="${city.name}"
                                                              state="${city.state}">${schoolResultsFor} </link:city><span
                             class="alertDoubleArrow">&amp;raquo;</span>

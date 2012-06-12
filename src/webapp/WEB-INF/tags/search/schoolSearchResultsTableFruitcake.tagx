@@ -9,11 +9,11 @@
 
 <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
 
-    <div id="js-school-search-results-table" class="school-search-results-table">
+    <div id="js-school-search-results-table" class="">
 <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
 
 <!-- DONE: Hi Randall! Can you relocate this and move styles to css, thx -->
-<div id="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/><!-- do not collapse --></div>
+<!--<div id="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/>&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
 <c:set var="totalResults" value="${page.pager.totalItems}"/>
 
@@ -22,27 +22,27 @@
         Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span id="total-results-count">${totalResults}</span> schools
     </div>
 </c:set>
+        <div class="alpha grid_16 omega">
+            <div class="alpha grid_7">
+                <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a> &amp;nbsp;
+                <a data-role="button" data-inline="true" class="but but-sm but-2 js-mapResultsLink">Map</a>
+            </div>
 
-<div class="line">
-    <div class="unit size1of2">
-        ${searchResultsPagingSummary}
-    </div>
-    <div class="unit size2of2 lastUnit">
-        <div class="pagination" id="pagination">
-            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.results.page" />
+            <div class="grid_9 omega">
+                <!--${searchResultsPagingSummary}-->
+                <div class="pagination" id="pagination">
+                    <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
+                                             javascriptMethod="GS.search.results.page"/>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-<div class="spacer_10"><!-- do not collapse --></div>
-
-
+<div class="grid_16">
 <table id="school-search-results-table-header">
     <colgroup>
         <c:choose>
             <c:when test="${not empty schoolSearchResults[0].distance and (not empty param.zipCode or not empty param.lat)}">
                 <col align="left" width="300px"/>
-                <col align="center" width="60px" />
+                <col align="center" width="60px"/>
 
             </c:when>
             <c:otherwise>
@@ -67,6 +67,8 @@
     </tr>
     </thead>
 </table>
+</div>
+<div class="grid_16">
 <table id="school-search-results-table-body">
 
     <colgroup>
@@ -96,54 +98,50 @@
         </c:forEach>
     </c:if>
 
-    <c:choose>
-        <c:when test="${page.pager.totalPages gt 1}">
-            <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
-        </c:when>
-        <c:otherwise>
-            <c:set var="nearbySchoolClass" value="nearby-school"/>
-        </c:otherwise>
-    </c:choose>
-    <c:if test="${blankRows gt 0}">
-        <c:forEach begin="0" end="${blankRows - 1}">
-            <tr class="${nearbySchoolClass}">
-                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-                <td class="brdbtm_dotted-fff"><!-- do not collapse --></td>
-            </tr>
-        </c:forEach>
-    </c:if>
-    <tr class="uncheck">
-        <td class="smallText1 center"><strong><a href="#" class="js-compare-uncheck-all"
-                                  onclick="return false;">Uncheck All</a></strong></td>
-        <td colspan="3" class="smallText1 vtop">
-            <em>You have checked
-            <!--
-            .js-how-many-compare-checked-unlinked is shown when 1 school is selected
-            .js-num-checked-send-to-compare is shown when 2 or more schools are selected
-            -->
-            <span class="js-how-many-compare-checked-unlinked">1 school to compare</span><a
-                href="#" onclick="return false;" class="js-num-checked-send-to-compare"
-                style="display:none;">
-                <span class="js-how-many-compare-checked-linked">2</span> schools to compare</a>.</em>
-        </td>
-    </tr>
+    <!--<c:choose>-->
+        <!--<c:when test="${totalPages gt 1}">-->
+            <!--<c:set var="nearbySchoolClass" value="nearby-school hidden"/>-->
+        <!--</c:when>-->
+        <!--<c:otherwise>-->
+            <!--<c:set var="nearbySchoolClass" value="nearby-school"/>-->
+        <!--</c:otherwise>-->
+    <!--</c:choose>-->
+    <!--<c:if test="${blankRows gt 0}">-->
+        <!--<c:forEach begin="0" end="${blankRows - 1}">-->
+            <!--<tr class="${nearbySchoolClass}">-->
+                <!--<td class="brdbtm_dotted-fff">&lt;!&ndash; do not collapse &ndash;&gt;</td>-->
+                <!--<td class="brdbtm_dotted-fff">&lt;!&ndash; do not collapse &ndash;&gt;</td>-->
+                <!--<td class="brdbtm_dotted-fff">&lt;!&ndash; do not collapse &ndash;&gt;</td>-->
+                <!--<td class="brdbtm_dotted-fff">&lt;!&ndash; do not collapse &ndash;&gt;</td>-->
+                <!--<td class="brdbtm_dotted-fff">&lt;!&ndash; do not collapse &ndash;&gt;</td>-->
+            <!--</tr>-->
+        <!--</c:forEach>-->
+    <!--</c:if>-->
+    <!--<tr class="uncheck">-->
+        <!--<td class="smallText1 center"><strong><a href="#" class="js-compare-uncheck-all"-->
+                                  <!--onclick="return false;">Uncheck All</a></strong></td>-->
+        <!--<td colspan="3" class="smallText1 vtop">-->
+            <!--<em>You have checked-->
+            <!--&lt;!&ndash;-->
+            <!--.js-how-many-compare-checked-unlinked is shown when 1 school is selected-->
+            <!--.js-num-checked-send-to-compare is shown when 2 or more schools are selected-->
+            <!--&ndash;&gt;-->
+            <!--<span class="js-how-many-compare-checked-unlinked">1 school to compare</span><a-->
+                <!--href="#" onclick="return false;" class="js-num-checked-send-to-compare"-->
+                <!--style="display:none;">-->
+                <!--<span class="js-how-many-compare-checked-linked">2</span> schools to compare</a>.</em>-->
+        <!--</td>-->
+    <!--</tr>-->
     </tbody>
 </table>
-
-<div class="spacer_10"><!-- do not collapse --></div>
-<div class="line">
-    <div class="unit size1of2">
-        ${searchResultsPagingSummary}
-    </div>
-    <div class="unit size2of2 lastUnit">
-        <div class="pagination" id="pagination">
-            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.results.page" />
-        </div>
-    </div>
 </div>
+
+        <div class="grid_9">
+            <div class="pagination" id="pagination">
+                <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
+                                         javascriptMethod="GS.search.results.page"/>
+            </div>
+        </div>
 
     </div>
 
