@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+<jsp:directive.page import="gs.data.school.School"/>
+<jsp:directive.page import="gs.web.util.PageHelper"/>
+<pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
+
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+<jsp:directive.page contentType="text/html"/>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
+    <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
+    <title>School Profile</title>
+</head>
+<gsml:body adPageName="overview" pageLayout="overview">
+
+    <div style="height: 200px; width: 950px; border: 1px solid red;">${school.name}</div>
+
+    <div>
+        <ul>
+            <li>Overview</li>
+            <li>Test scores</li>
+            <li>School stats</li>
+            <li>Reviews</li>
+            <li>Programs &amp;amp; Extracurriculars</li>
+            <li>Culture</li>
+        </ul>
+    </div>
+
+    <jsp:useBean id="now" class="java.util.Date" scope="page" />
+    <div style="height: 600px; width: 700px; border: 1px solid blue; float: left;">
+        <gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">
+            Overview data ${now}
+            <!--<jsp:include page="/school/profileOverview.module?state=${school.stateAbbreviation}&amp;id=${school.id}" />-->
+        </gsweb:cache>
+    </div>
+    <div style="display:none;">
+        <gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">
+            Test Scores data
+            <!--<jsp:include page="/school/profileTest.module?state=${school.stateAbbreviation}&amp;id=${school.id}" />-->
+        </gsweb:cache>
+    </div>
+    <div style="display:none;">
+        School stats data
+    </div>
+    <div style="display:none;">
+        Reviews data
+    </div>
+    <div style="display:none;">
+        Programs &amp;amp; Extracurriculars data
+    </div>
+    <div style="display:none;">
+        Culture data
+    </div>
+
+    <div style="height: 600px; width: 250px; border: 1px solid green; float: left;">
+        Right column
+    </div>
+</gsml:body>
+</html>
+</jsp:root>

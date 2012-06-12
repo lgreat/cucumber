@@ -2031,6 +2031,22 @@
         </constructor-arg>
     </bean>
 
+    <bean name="desktopSchoolProfileController" class="gs.web.school.SchoolProfileController" lazy-init="true">
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName">
+            <value>school/profile</value>
+        </property>
+    </bean>
+
+    <bean name="/school/profile.page" class="gs.web.path.IDirectoryStructureUrlController" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="mobileSchoolOverviewController"/>
+                <ref bean="desktopSchoolProfileController"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
     <bean name="desktopParentReviewsController"
           class="gs.web.school.review.ParentReviewController"
           autowire="byName" lazy-init="true">
