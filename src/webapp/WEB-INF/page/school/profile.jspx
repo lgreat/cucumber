@@ -40,10 +40,10 @@
 
     <jsp:useBean id="now" class="java.util.Date" scope="page" />
     <div style="height: 600px; width: 700px; border: 1px solid blue; float: left;">
-        <gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">
+        <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
             Overview data ${now}
-            <!--<jsp:include page="/school/profileOverview.module?state=${school.stateAbbreviation}&amp;id=${school.id}" />-->
-        </gsweb:cache>
+            <jsp:include page="/school/profileOverview.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}" />
+        <!--</gsweb:cache>-->
     </div>
     <div style="display:none;">
         <gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">
