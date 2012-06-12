@@ -1,0 +1,284 @@
+/* @charset "UTF-8"; */
+/* CSS Document */
+
+/*
+Theme Name: Text
+Description: All the specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+
+*/
+
+/* --------------------------------------------------------------
+
+   * Sets up some sensible standard modules skins.
+
+-------------------------------------------------------------- */
+
+/* ***************** BLOCK SKINS ***************** */
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* -------------------- form --------------------- */
+.slStylesV1-0 .form{
+  margin-bottom:20px;
+}
+.slStylesV1-0 .form .inner{
+  border:1px solid #e6e6e6; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#fafafa;
+  padding:14px 19px;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_1-1 ----------------- */
+.slStylesV1-0 .standard_1-1{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_1-1 .inner{
+  border:1px solid #e6e6e6; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#ffffff;
+  padding:10px;
+}
+.slStylesV1-0 .standard_1-1 .bd ul{
+  margin: 0;
+  padding: 0;
+}
+.slStylesV1-0 .standard_1-1 .bd li{
+  list-style-type: none;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_1-2 ----------------- */
+.slStylesV1-0 .standard_1-2{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_1-2 .inner{
+  border:1px solid #e6e6e6; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#ffffff;
+  padding:20px;
+}
+.slStylesV1-0 .standard_1-2 .bd ul{
+  /*margin: 0;
+  padding: 0;
+*/}
+.slStylesV1-0 .standard_1-2 .bd li{
+  /*list-style-type: none;*/
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_2-1 ----------------- */
+.slStylesV1-0 .standard_2-1{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_2-1 .inner{
+  border:1px solid #dddddd; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#fafafa;
+  padding:10px;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_2-2 ----------------- */
+.slStylesV1-0 .standard_2-2{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_2-2 .inner{
+  border:1px solid #dddddd; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#fafafa;
+  padding:20px;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_3-1 ----------------- */
+.slStylesV1-0 .standard_3-1{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_3-1 .outer{
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#f3fafd;
+  padding:5px;
+}
+.slStylesV1-0 .standard_3-1 .inner{
+  border:1px solid #d2e9f3; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#ffffff;
+  padding:10px;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_3-2 ----------------- */
+.slStylesV1-0 .standard_3-2{
+  margin-bottom:10px;
+}
+.slStylesV1-0 .standard_3-2 .outer{
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#f1f1f1;
+  padding:5px;
+}
+.slStylesV1-0 .standard_3-2 .inner{
+  border:1px solid #e6e6e6; 
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  background-color:#ffffff;
+  padding:10px;
+}
+
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_4-1 ----------------- */
+.slStylesV1-0 .standard_4-1 {
+  border: 1px solid #DDD;
+  -webkit-border-radius: 4px 4px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px 4px 0 0; /* FF1-3.6 */
+          border-radius: 4px 4px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.slStylesV1-0 .standard_4-1 .hd{
+  background-color: #f1f1f1;
+  padding: 8px;
+  -webkit-border-radius: 4px 4px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px 4px 0 0; /* FF1-3.6 */
+          border-radius: 4px 4px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.slStylesV1-0 .standard_4-1 .bd{
+    /*background-color: #fff;*/
+    /*padding: 0 0  0 8px;*/
+}
+
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- standard_5-1 ----------------- */
+/*---------------Map hover modules----------------*/
+.slStylesV1-0 .standard_5-1 {
+  background: #FFF;
+  border: 1px solid #777;
+  /*padding: 10px;*/
+  box-shadow: 0 0 8px rgba(100, 100, 100, 0.8);
+  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 4px; /* FF1-3.6 */
+          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.slStylesV1-0 .standard_5-1 .hd{
+    padding: 10px 0 0 10px;
+    background-color: #FFF;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+         -moz-border-radius: 4px; /* FF1-3.6 */
+              border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.slStylesV1-0 .standard_5-1 .bd{
+    padding: 0 0 0 10px;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+         -moz-border-radius: 4px; /* FF1-3.6 */
+              border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+
+.slStylesV1-0 .standard_5-1 .ft{
+    padding: 10px 0 10px 10px;
+    background: #F3FAFD;
+    border-top: 1px solid #D2E9F3;
+    -webkit-border-radius: 0 0 4px 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+       -moz-border-radius: 0 0 4px 4px; /* FF1-3.6 */
+            border-radius: 0 0 4px 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF 20%), to(#F3FAFD 100%)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(bottom, #FFFFFF 20%, #F3FAFD 100%); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image: -moz-linear-gradient(bottom, #FFFFFF 20%, #F3FAFD 100%); /* FF3.6 */
+    background-image: -ms-linear-gradient(bottom, #FFFFFF 20%, #F3FAFD 100%); /* IE10 */
+    background-image: -o-linear-gradient(bottom, #FFFFFF 20%, #F3FAFD 100%); /* Opera 11.10+ */
+    background-image: linear-gradient(bottom, #FFFFFF 20%, #F3FAFD 100%); /* W3C */
+}
+
+.slStylesV1-0 .standard_5-1 .down-pointer{
+    position: relative;
+    z-index: 1000;
+}
+
+.slStylesV1-0 .standard_5-1 .down-pointer .border-edge{
+    position: absolute;
+        left: 135px;
+        width: 0;
+        height: 0;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-top: 14px solid #777777;
+        /*opacity: .75;*/
+
+}
+
+.slStylesV1-0 .standard_5-1 .down-pointer .border-bd{
+    position: absolute;
+        left: 135px;
+        top:-1px;
+        width: 0;
+        height: 0;
+        border-left: 14px solid transparent;
+        border-right: 14px solid transparent;
+        border-top: 14px solid #FFFFFF;
+}
+
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* -------------------- modal -------------------- */
+.js-modal{
+    display: none;
+}
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ------------------ width_12 ------------------- */
+.width_12{ width:470px; }
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ------------------ width_13 ------------------- */
+.width_13{ width:510px; }
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ------------------ width_14 ------------------- */
+.width_14{ width:550px; }
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ------------------- modal_1 ------------------- */
+.modal_1 {
+    margin: 0 auto 20px;
+    position: relative;
+    top: -166px;
+}
+.modal_1 .outer{
+    padding:10px 13px;
+    padding:10px 13px;
+    border:2px solid #bcdeed;
+    background-color:#F8F8F8;
+    /* Rounded corners */
+    -webkit-border-radius: 12px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 12px; /* FF1-3.6 */
+    border-radius: 12px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    /* Box shadow */
+    -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5); /* Saf3-4 */
+    -moz-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5); /* FF3.5 - 3.6 */
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5); /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6)"; /* For IE 8 */
+    *filter: progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6); /* For IE 5.5 - 7 */
+}
+.modal_1 .inner{
+    padding: 30px 25px;
+}
+.modal_1 .inner .hd{}
+.modal_1 .inner .hd h3{
+    line-height: 2.7;
+}
+.modal_1 .inner .hd span{
+    margin: 10px;
+}

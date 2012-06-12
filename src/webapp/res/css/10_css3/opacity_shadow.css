@@ -62,4 +62,5 @@ General comments:
   -webkit-box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.2), -2px 2px 3px 0 rgba(0, 0, 0, 0.2); /* Saf3-4 */
      -moz-box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.2), -2px 2px 3px 0 rgba(0, 0, 0, 0.2); /* FF3.5 - 3.6 */
           box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.2), -2px 2px 3px 0 rgba(0, 0, 0, 0.2); /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+  background-color: #ffffff;
 }

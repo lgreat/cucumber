@@ -53,6 +53,9 @@
     <decorator name="standardDecorator2010" page="standardDecorator2010.jspx">
     </decorator>
 
+    <decorator name="standardDecorator-v1" page="standardDecorator-v1.jspx">
+    </decorator>
+
     <!-- We have to explicitly exclude due to a Sitemesh 2.2.1 bug that truncates the closing html tag -->
     <excludes>
         <!-- Regularly used pages that shouldn't be decorated -->

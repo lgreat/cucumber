@@ -1,0 +1,45 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Modal
+Description: All the specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+
+*/
+
+/* --------------------------------------------------------------
+
+   * Sets up some sensible default modal structures.
+
+-------------------------------------------------------------- */
+
+.js-overlay {
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  background-color:#000000;;
+  opacity: 0.70;
+  filter: alpha(opacity = 70);
+  zoom: 1;
+  display: none;
+  z-index: 5;
+}
+
+.horizon {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  z-index: 6;
+}

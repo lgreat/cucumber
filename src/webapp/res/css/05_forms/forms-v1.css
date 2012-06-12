@@ -1,0 +1,184 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Forms
+Description: All the specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+Default font settings
+Forms Elements
+Misc classes
+
+*/
+
+/* --------------------------------------------------------------
+
+   forms.css
+   * Sets up some sensible default form typography.
+
+-------------------------------------------------------------- */
+
+/* Default font settings
+-------------------------------------------------------------- */
+
+fieldset {padding:0;margin:0;}
+legend {font: normal 14px/20px Arial, Helvetica, sans-serif; color:#2b2b2b;}
+hr.legend{background:#dddddd;color:#dddddd;clear:both;float:none;width:100%;height:1px;border:none;margin:1px 0 20px;}
+/*fieldset, #IE8#HACK {padding-top:1.4em;}
+legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
+
+.tal { margin-bottom: 14px; } /* top align label */
+.lal, .ral { margin-bottom: 13px; } /* left align label, right align label */
+.nal { margin-bottom: 13px; } /* no align label */
+
+label, .labelGroup {font: bold 12px/18px Arial, Helvetica, sans-serif;}
+.labelGroup{ margin-bottom:0; }
+.tal label { display:block; }
+.lal label, .ral label { display:inline-block; padding:2px 0; }
+.ral label { text-align:right; }
+
+label.checkbox, label.radio { font: normal 12px/18px Arial, Helvetica, sans-serif; color: #555555; display: inline; }
+label.checkbox-smaller, label.radio-smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; }
+
+/* Form element standard style */
+input[type=checkbox],
+input[type=radio] { margin-top:5px; margin-bottom:5px; outline:0; }
+.ie7 input[type=checkbox],
+.ie7 input[type=radio] { vertical-align: middle; margin-bottom: 0px;}
+input[type=text],
+input[type=password],
+input.text,
+textarea {background-color:#fff;border:1px solid #cccccc;font: normal 12px/18px Arial, Helvetica, sans-serif;color:#2b2b2b; outline:0;}
+
+input.text-smaller { background-color:#fff;border:1px solid #cccccc;font: normal 11px/16px Arial, Helvetica, sans-serif;color:#2b2b2b; outline:0; }
+
+/* Disable Form element style */
+textarea[disabled='disabled'],
+select[disabled='disabled'],
+input[disabled='disabled']{color:#777; cursor:default;}
+
+
+/* Form element focus style */
+input[type=text]:focus,
+input[type=password]:focus,
+input.text:focus,
+input.text-smaller:focus,
+textarea:focus {border-color:#2092c4;
+    -webkit-transition: all 0.3s ease-in;  /* Saf3.2+, Chrome */
+       -moz-transition: all 0.3s ease-in;  /* FF4+ */
+        -ms-transition: all 0.3s ease-in;  /* IE10 */
+         -o-transition: all 0.3s ease-in;  /* Opera 10.5+ */
+            transition: all 0.3s ease-in;
+}
+
+/* Form element error warning style */
+input[type=text].warning,
+input[type=password].warning,
+input.text.warning,
+input.text-smaller.warning,
+textarea.warning {border-color:#cc0033;}
+
+/*Form element search style*/
+input.searchText {background-color:#fff;border:1px solid #79BEDC;font: normal 12px/18px Arial, Helvetica, sans-serif;color:#999; outline:0;
+    -webkit-box-shadow: inset 0 2px 3px 0 rgba(0, 0, 0, 0.20);
+           -box-shadow: inset 0 2px 3px 0 rgba(0, 0, 0, 0.20);
+}
+
+/*Form element search style on focus*/
+input.searchText:focus{ color: #2B2B2B; border: 1px solid #2092C4;
+    -webkit-transition: all 0.15s ease-in;  /* Saf3.2+, Chrome */
+       -moz-transition: all 0.15s ease-in;  /* FF4+ */
+        -ms-transition: all 0.15s ease-in;  /* IE10 */
+         -o-transition: all 0.15s ease-in;  /* Opera 10.5+ */
+            transition: all 0.15s ease-in;
+}
+
+select { outline:0; }
+.ie7 select { vertical-align: middle; }
+
+.lal select { margin: 5px; }
+.ie7 .lal select { margin-top: 0px; }
+.ral select { margin: 5px; }
+.ie7 .ral select { margin-top: 0px; }
+
+input.text {padding:5px 5px;}
+input.searchText {padding:5px 5px;}
+input.text-smaller {padding:2px;}
+textarea {padding:5px;resize:none;overflow:auto;}
+textarea.height-1{height:69px;}
+textarea.height-2{height:123px;}
+textarea.height-3{height:177px;}
+
+form.inline {line-height:3;}
+form.inline p {margin-bottom:0; vertical-align:baseline;}
+
+/* Notification Blocks */
+.info-block,
+.success-block,
+.notice-block,
+.error-block,
+.alert-block 			{ font: normal 11px/16px Arial, Helvetica, sans-serif; padding: 10px; margin-bottom: 20px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+
+.info-block 			{ background: #F3F9FD; border-color: #BBDDED; color: #2b2b2b; }
+.success-block    { background: #E7F3E5; border-color: #B7DBB2; color: #118800; }
+.notice-block     { background: #FCEFE7; border-color: #F3CAAC; color: #dd6611; }
+.error-block, .alert-block { background: #FAE5EA; border-color: #EDA6B8; color: #cc0033; }
+
+/* Notifications */
+.error, .alert, .notice, .success, .info {font: normal 11px/16px Arial, Helvetica, sans-serif;padding:7px 0;margin:0;border:0;}
+.error, .alert {background:transparent;color:#cc0033;border-color:transparent;}
+.notice {background:transparent;color:#514721;border-color:transparent;}
+.success {background:transparent;color:#118800;border-color:transparent;}
+.info {background:transparent;color:#205791;border-color:transparent;}
+.error a, .alert a { color:#cc0033; text-decoration:underline; }
+.notice a { color:#514721; text-decoration:underline; }
+.success a { color:#118800; text-decoration:underline; }
+.info a { color:#205791; text-decoration:underline; }
+.error a:hover,
+.alert a:hover,
+.notice a:hover,
+.success a:hover,
+.info a:hover { text-decoration: none; }
+
+/* Grid widths for top aligned labels (tal) */
+.input_1 { width: 18px; } /* grid_1 width: 30px - (6px + 6px + 1px + 1px) */
+.input_2 { width: 58px; } /* grid_2 width: 70px - (6px + 6px + 1px + 1px) */
+.input_3 { width: 98px; } /* grid_3 width: 110px - (6px + 6px + 1px + 1px) */
+.input_4 { width: 138px; } /* grid_4 width: 150px - (6px + 6px + 1px + 1px) */
+.input_5 { width: 178px; } /* grid_5 width: 190px - (6px + 6px + 1px + 1px) */
+.input_6 { width: 218px; } /* grid_6 width: 230px - (6px + 6px + 1px + 1px) */
+.input_7 { width: 258px; } /* grid_7 width: 270px - (6px + 6px + 1px + 1px) */
+.input_8 { width: 298px; } /* grid_8 width: 310px - (6px + 6px + 1px + 1px) */
+.input_9 { width: 338px; } /* grid_9 width: 350px - (6px + 6px + 1px + 1px) */
+.input_10 { width: 378px; } /* grid_10 width: 390px - (6px + 6px + 1px + 1px) */
+.input_11 { width: 418px; } /* grid_11 width: 430px - (6px + 6px + 1px + 1px) */
+.input_12 { width: 458px; } /* grid_12 width: 470px - (6px + 6px + 1px + 1px) */
+.input_13 { width: 498px; } /* grid_13 width: 510px - (6px + 6px + 1px + 1px) */
+.input_14 { width: 538px; } /* grid_14 width: 550px - (6px + 6px + 1px + 1px) */
+.input_15 { width: 578px; } /* grid_15 width: 590px - (6px + 6px + 1px + 1px) */
+.input_16 { width: 619px; } /* grid_16 width: 630px - (6px + 6px + 1px + 1px) */
+.input_17 { width: 658px; } /* grid_17 width: 670px - (6px + 6px + 1px + 1px) */
+.input_18 { width: 698px; } /* grid_18 width: 710px - (6px + 6px + 1px + 1px) */
+.input_19 { width: 738px; } /* grid_19 width: 750px - (6px + 6px + 1px + 1px) */
+.input_20 { width: 778px; } /* grid_20 width: 790px - (6px + 6px + 1px + 1px) */
+.input_21 { width: 818px; } /* grid_21 width: 830px - (6px + 6px + 1px + 1px) */
+.input_22 { width: 858px; } /* grid_22 width: 870px - (6px + 6px + 1px + 1px) */
+.input_23 { width: 898px; } /* grid_23 width: 910px - (6px + 6px + 1px + 1px) */
+.input_24 { width: 938px; } /* grid_24 width: 950px - (6px + 6px + 1px + 1px) */
+
+/* Special widths for phone numbers */
+.digits_3 { width: 28px; }
+.digits_4 { width: 33px; }
+
+/* Misc classes
+-------------------------------------------------------------- */
+.mumbo { font: normal 11px/16px Arial, Helvetica, sans-serif; color: #777777; }
+.hint { font: italic 11px/16px Arial, Helvetica, sans-serif; color: #777777; margin: 0; padding: 2px 0 6px; }
+.ie7 .hint {margin-left: 5px;}

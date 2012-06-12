@@ -1,0 +1,132 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Header School Search
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+/* Menu Container */
+
+.topnav_search_container{
+    /*position:relative;*/
+    float: right;
+    margin-top: 20px;
+    _zoom:1;
+}
+
+#topnav_search_articlesAndCommunity {
+    dislplay: none;
+}
+
+#topnav_search {
+    /*position: absolute;*/
+    /*top: 40px;*/
+    /*right: 0;*/
+    width: 416px;
+    height: 59px;
+    z-index: 1;
+}
+
+#topnav_search fieldset {
+    position: absolute;
+    background: url(/res/img/nav/topnavSprite_bg.png) 0 20px no-repeat;
+    height: 59px;
+    width: 416px;
+}
+
+#topnav_search ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    list-style: none;
+    height: 28px;
+    margin: auto; padding: 0; line-height: normal;
+}
+
+#topnav_search ul li {
+    float: left;
+    padding: 0 0 0 6px;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 700;
+    height: 28px;
+    list-style: none outside none;
+}
+
+#topnav_search ul #srch1 {
+    background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;
+}
+
+#topnav_search ul #srch2 {
+    background: url(/res/img/nav/topnavSprite_bg.png) 0 30px no-repeat;
+}
+
+#topnav_search ul #srch1.active {
+    background-position: 0 -58px;
+}
+
+#topnav_search ul #srch2.active {
+    background-position: 0 -108px;
+}
+
+#topnav_search ul li label {
+    display: block;
+    height: 21px;
+    padding: 3px 15px 3px 7px;
+    font-size: 11px;
+    color: #fff;
+    cursor: pointer;
+}
+
+#topnav_search ul #srch1 label {
+    background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
+}
+
+#topnav_search ul #srch2 label {
+    background: url(/res/img/nav/topnavSprite_bg.png) 100% 30px no-repeat;
+}
+
+#topnav_search ul #srch1.active .radLabel {
+    background-position: 100% -158px;
+    color: #333;
+}
+
+#topnav_search ul #srch2.active .radLabel {
+    background-position: 100% -158px;
+    color: #333;
+}
+
+#topnav_search fieldset input {
+    width: 242px;
+    height: 18px;
+    margin: 28px 9px 0 10px;
+    outline: 0;
+}
+
+#topnav_search fieldset select {
+    height: 24px;
+    margin: 0 7px 0 0;
+    position: relative;
+    top: -1px;
+
+}
+
+#topnav_search button {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+}
+
+#topnav_search #radBtns {
+    position: absolute;
+    left: -10000px;
+}

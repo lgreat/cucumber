@@ -34,7 +34,7 @@ General comments:
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
     margin:0;
-    /*height: 23px;*/
+    height: 23px;
     color: white;
     text-decoration: none;
     font: bold 14px/21px Arial, Helvetica, sans-serif;
@@ -541,7 +541,7 @@ Extends button-1 by changing:
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
     margin:0;
-    height: 233px;
+    height: 33px;
     color: white;
     text-decoration: none;
     font: bold 20px/33px Arial, Helvetica, sans-serif;
@@ -663,7 +663,7 @@ Extends button-1 by changing:
     overflow: visible; /* for button width bug in IE */
     padding: 0 11px;
     margin:0;
-    height: 233px;
+    height: 33px;
     color: white;
     text-decoration: none;
     font: bold 18px/33px Arial, Helvetica, sans-serif;

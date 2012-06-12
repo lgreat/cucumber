@@ -28,6 +28,7 @@ General comments:
     height: 32px;
     margin: 0;
     padding: 0;
+    table-layout: auto;
 
     /* Borders */
 
@@ -109,6 +110,10 @@ General comments:
 
 #primary .menuItem.home {
     width: 35px;
+}
+
+#primary .menuItem.home .menuItemAnchorText{
+    line-height: 0;
 }
 
 #primary .menuItem.selected .menuItemAnchorText{

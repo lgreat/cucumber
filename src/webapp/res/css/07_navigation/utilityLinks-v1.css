@@ -1,0 +1,81 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Official School Profile Mahjong Navigation - Tiles
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+*/
+
+/* Menu Container */
+
+#utilLinks {
+    position: relative;
+    height: 18px;
+    list-style: none;
+    top: 6px;
+    right: 4px;
+    z-index: 2;
+    float:right;
+}
+
+#utilLinks { margin: auto; padding: 0; line-height: normal; }
+
+#utilLinks li,
+#utilLinks li.nav_menu {
+    display: inline;
+    float: left;
+    padding: 0 6px;
+    border-right: 1px solid #fff;
+    font-size: 10px;
+    color: #fff;
+}
+
+#utilLinks span {
+    vertical-align: middle;
+}
+
+#utilLinks li:last-child {
+    border: 0;
+}
+
+#utilLinks li a {
+    color: #fff;
+}
+
+#utilLinks .nav_menu {
+    position: relative;
+    padding: 0;
+}
+
+#utilLinks li .nav_group_items {
+    position: absolute;
+    width: 108px;
+    top: 19px;
+    left: -10000px;
+    background: #fff;
+    border: 1px solid #06b;
+}
+
+#utilLinks li .nav_group_items li {
+    display: block;
+    padding: 6px;
+    float: none;
+}
+
+#utilLinks li.over .nav_group_items {
+    left: -26px;
+}
+
+#utilLinks .over .nav_group_items a {
+    background: transparent;
+    color: #06b;
+    display: block;
+}
