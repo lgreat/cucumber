@@ -6,6 +6,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
 
     var init = function() {
         registerEventHandlers();
+        GS.search.schoolSearchForm.init(GS.search.filters, GS.ui.contentDropdowns);
     };
 
     var registerEventHandlers = function() {

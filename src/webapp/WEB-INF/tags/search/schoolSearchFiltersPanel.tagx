@@ -224,6 +224,7 @@
 
                 $('.js-resetFiltersLink').on('click', function() {
                     GS.search.filters.reset();
+                    GS.search.results.update();
                 });
 
             })

@@ -14,7 +14,9 @@
 
     <mod:contentDropdown title="${title}" id="${id}" cssClass="${cssClass}" label="${label}" hideApplyReset="${hideApplyReset}">
 
-        <span class="fltrt pas" data-gs-dropdown-hider="${id}">X</span>
+        <c:if test="${not hideApplyReset}">
+            <span class="fltrt pas" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">X</span>
+        </c:if>
 
         <c:if test="${not empty pageScope.title}">
             <h5 class="pbs" style="border-bottom: 1px solid grey;">${title}</h5>
@@ -30,7 +32,7 @@
                     <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Apply</button>
                 </div>
                 <div class="unit lastUnit">
-                    <a href="javascript:void(0);" gs-data-uncheckall="${id}">Reset</a>
+                    <a href="javascript:void(0);" data-gs-uncheckall="${id}">Reset</a>
                 </div>
             </div>
         </c:if>

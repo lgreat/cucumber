@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:gsweb="gstaglib"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:spring="http://www.springframework.org/tags/form"
+          xmlns:form="http://www.springframework.org/tags/form">
+
+    <!--
+    Global filter = filters on any type of search.
+    i.e. school type filter, grade level filter
+    -->
+
+    <jsp:directive.attribute name="includeDistance" required="false" description="default is false"/>
+
+<div id="jq-filterBar" class="grid_15 filterBar fltlft small bottom">
+                    <div id="js-schoolTypes" class="grid_3 alpha">
+                        <div class="small_bold bottom">School type</div>
+                        <div>
+                            <search:dropdownFilters id="stDropdown" label="All types" title="Narrow results to specific school types" hideApplyReset="${true}">
+
+                            <div class="col_2">
+                                <div class="js-applyFilters">
+                                    <spring:checkbox path="schoolSearchCommand.st" type="checkbox" class="jq-school-type" name="st"
+                                           id="js-school-type-public" value="public" data-gs-custom-link="Search_filter_type_public"/>
+                                    <label for="js-school-type-public">Public</label>
+                                </div>
+                                <div class="js-applyFilters">
+                                    <spring:checkbox path="schoolSearchCommand.st"  type="checkbox" class="jq-school-type" name="st"
+                                           id="js-school-type-charter" value="charter" data-gs-custom-link="Search_filter_type_charter"/>
+                                    <label for="js-school-type-charter">Public charter</label>
+                                </div>
+                                <div class="mbm js-applyFilters">
+                                    <spring:checkbox path="schoolSearchCommand.st"  type="checkbox" class="jq-school-type" name="st"
+                                           id="js-school-type-private" value="private" data-gs-custom-link="Search_filter_type_private"/>
+                                    <label for="js-school-type-private">Private</label>
+                                </div>
+                                <!--<div class="mbm js-applyFilters">
+                                    <spring:checkbox path="schoolSearchCommand.religious"  type="checkbox"
+                                        id="js-school-subtype-religious" class="jq-school-type" name="religious" value="true"/>
+                                    <label for="js-school-subtype-religious">Religious</label>
+                                </div>
+                                <div class="mbm js-applyFilters">
+                                    <spring:checkbox path="schoolSearchCommand.religious"  type="checkbox"
+                                                     id="js-school-subtype-nonreligious" class="jq-school-type" name="religious" value="false"/>
+                                    <label for="js-school-subtype-nonreligious">Nonreligious</label>
+                                </div>-->
+                            </div>
+                            </search:dropdownFilters>
+
+                        </div>
+                        <!--</div>-->
+                    </div>
+                    <div id="js-gradeLevels" class="grid_3">
+                        <div class="small_bold bottom">Grade level</div>
+                        <!--<div class="triggerMouseLeave">-->
+                        <div>
+                            <search:dropdownFilters id="gradeLevels" label="All grades" title="Narrow results to specific grade levels" hideApplyReset="${true}">
+                            <div class="col_2">
+                                <div class="js-applyFilters">
+                                    <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox" class="jq-grade-level" name="gradeLevels"
+                                           id="js-grade-level-p" value="p" data-gs-custom-link="Search_filter_grade_PK"/>
+                                    <label for="js-grade-level-p">Preschool</label>
+                                </div>
+                                <div class="js-applyFilters">
+                                    <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox" class="jq-grade-level" name="gradeLevels"
+                                           id="js-grade-level-e" value="e" data-gs-custom-link="Search_filter_grade_elem"/>
+                                    <label for="js-grade-level-e">Elementary School</label>
+                                </div>
+                                <div class="js-applyFilters">
+                                    <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox" class="jq-grade-level" name="gradeLevels"
+                                           id="js-grade-level-m" value="m" data-gs-custom-link="Search_filter_grade_middle"/>
+                                    <label for="js-grade-level-m">Middle School</label>
+                                </div>
+                                <div class="mbm js-applyFilters">
+                                    <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox" class="jq-grade-level" name="gradeLevels"
+                                           id="js-grade-level-h" value="h" data-gs-custom-link="Search_filter_grade_high"/>
+                                    <label for="js-grade-level-h">High School</label>
+                                </div>
+                            </div>
+                            </search:dropdownFilters>
+                        </div>
+                        <!--</div>-->
+                    </div>
+                    <c:if test="${isCityBrowse ne true and isDistrictBrowse ne true and includeDistance eq true}">
+                        <div id="js-radius" class="grid_3" style="${!commandAndFields.nearbySearch? 'display:none':''}">
+                            <div class="small_bold bottom">Distance</div>
+                            <div>
+
+                                <search:dropdownFilters id="distance" label="25 miles" title="Narrow results to within a specific radius" hideApplyReset="${true}">
+                                    <div class="line mbm">
+                                        <div class="unit size50of100">
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_1" value="1" id="js-radius-1" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-1">1 mile</label>
+                                            </div>
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_2" value="2" id="js-radius-2" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-2">2 miles</label>
+                                            </div>
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_3" value="3" id="js-radius-3" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-3">3 miles</label>
+                                            </div>
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_4" value="4" id="js-radius-4" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-4">4 miles</label>
+                                            </div>
+
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_5" value="5" id="js-radius-5" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-5">5 miles</label>
+                                            </div>
+                                        </div>
+                                        <div class="unit size50of100 lastUnit">
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_10" value="10" id="js-radius-10" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-10">10 miles</label>
+                                            </div>
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_15" value="15" id="js-radius-15" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-15">15 miles</label>
+                                            </div>
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_20" value="20" id="js-radius-20" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-20">20 miles</label>
+                                            </div>
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_25" value="25" id="js-radius-25" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-25">25 miles</label>
+                                            </div>
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_30" value="30" id="js-radius-30" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-30">30 miles</label>
+                                            </div>
+                                            <div class="js-applyFilters">
+                                                <form:radiobutton type="radio" name="distance" data-gs-custom-link="Search_filter_distance_60" value="60" id="js-radius-60" path="schoolSearchCommand.distance"/>
+                                                <label for="js-radius-60">60 miles</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </search:dropdownFilters>
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <div class="grid_1"> &amp;nbsp;<!-- no collapse --></div>
+                    <div class="grid_5 omega"><p><b><span data-gs-html-mirror="total-results-count"><!-- do not collapse --></span></b> schools found</p></div>
+                    <script type="text/javascript">
+                        $(function() {
+                            GS.util.htmlMirrors.updateAll();
+                        });
+
+                    </script>
+                </div>
+</jsp:root>

@@ -3,10 +3,12 @@ GS.search = GS.search || {};
 GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
 
     var filtersModule;
+    var contentDropdownsModule;
     var SEARCH_PAGE_PATH = '/search/search.page';
 
-    var init = function(_filtersModule) {
+    var init = function(_filtersModule, _contentDropdownsModule) {
         filtersModule = _filtersModule;
+        contentDropdownsModule = _contentDropdownsModule;
 
         setupTabs();
 
@@ -26,8 +28,15 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             return true;
         });
 
+        $('#contentGS [data-gs-uncheckall]').on('click', function() {
+            var checkboxesToUncheck = $(this).data('gs-uncheckall');
+            var $checkboxes = $('#contentGS input[name=' + checkboxesToUncheck + ']');
+            $checkboxes.prop('checked',false).trigger('change');
+        });
+
         byName.init();
         byLocation.init();
+        contentDropdownsModule.init();
     };
 
     var setupTabs = function() {
@@ -36,11 +45,13 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             $('#byLocationTabBody').show();
             $('#byNameTab').removeClass('selected');
             $('#byNameTabBody').hide();
+            $('#js-radius').show();
             $(".js-schoolSearchFiltersPanel").show();
         });
         $("#byNameTab").click(function() {
             $('#byLocationTab').removeClass('selected');
             $('#byLocationTabBody').hide();
+            $('#js-radius').hide();
             $('#byNameTab').addClass('selected');
             $('#byNameTabBody').show();
             $(".js-schoolSearchFiltersPanel").hide();
