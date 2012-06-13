@@ -26,7 +26,7 @@
     <meta name="description" content="An introduction to the Senior Management team at GreatSchools."/>
     <meta name="keywords" content="Bill Jackson, founder, GreatSchools CEO, senior management"/>
 
-    <!--<pageHelper:externalCss file="/res/css/about/aboutUs.css"/>-->
+    <pageHelper:externalCss file="/res/css/about/aboutUs.css"/>
 
     <jsp:scriptlet>
         try {
@@ -44,8 +44,9 @@
             request.setAttribute("nicolet_school", _schoolDao.getSchoolById(State.WI, 531));
             request.setAttribute("taft_school", _schoolDao.getSchoolById(State.TX, 5179));
             request.setAttribute("york_school", _schoolDao.getSchoolById(State.CA, 15090));
-            request.setAttribute("alameda_school", _schoolDao.getSchoolById(State.CA, 1));
-            request.setAttribute("pinole_valley_school", _schoolDao.getSchoolById(State.CA, 605));
+            request.setAttribute("north_school", _schoolDao.getSchoolById(State.CA, 4474));
+            request.setAttribute("barrington_school", _schoolDao.getSchoolById(State.IL, 546));
+
         } catch (Exception e) {
             // ignore
         }
@@ -54,29 +55,28 @@
 
 <gsml:body adPageName="aboutUs" pageLayout="leftside seniorManagement">
 
-<div class="grid_24">
-<p class="mvm smallAlertText">
+<p class="breadcrumbs smallAlertText">
     <link:home>Home</link:home>
     &amp;gt;
     <link:aboutUs>About Us</link:aboutUs>
 </p>
 
-<h1 class="mbl">Senior Management</h1>
-</div>
+<h1>Senior Management</h1>
 
-<div class="grid_5">
+<div id="mainGS">
+
+<div id="aboutNav" class="col">
     <about:aboutGreatSchools selected="management"/>
 </div>
-
-<div class="grid_19">
+<div class="main">
 
 <table cellpadding="0" cellspacing="0">
     <tr>
-        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_bill.jpg" width="97" height="108"
+        <td valign="top"><img src="/res/img/about/seniormanagement_bill.jpg" width="97" height="108"
                               alt="Bill Jackson"/></td>
         <td valign="top">
-            <div class="text3bold-d61">Bill Jackson, Founder, President, and CEO</div>
-            <div class="text3 mbm">
+            <div class="text3boldOrange">Bill Jackson, Founder, President, and CEO</div>
+            <div class="text3">
                 As a teacher in the U.S. and China in the late 1980s, Bill came to recognize
                 the extraordinary influence that parents have over their children's
                 education. Then, as an Internet entrepreneur in the 1990s, he recognized
@@ -107,11 +107,11 @@
         </td>
     </tr>
     <tr>
-        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_matthew.jpg" width="97" height="108"
+        <td valign="top"><img src="/res/img/about/seniormanagement_matthew.jpg" width="97" height="108"
                               alt="Matthew Nelson"/></td>
         <td valign="top">
-            <div class="text3bold-d61">Matthew Nelson, Chief Operating Officer</div>
-            <div class="text3 mbm">
+            <div class="text3boldOrange">Matthew Nelson, Chief Operating Officer</div>
+            <div class="text3">
                 Prior to joining GreatSchools, Matthew cut his online teeth as a founding member of Wired
                 Digital, where he launched one of the first ad-supported websites, HotWired. Later he
                 co-founded Organic, an interactive communications and advertising agency, where he helped
@@ -137,40 +137,30 @@
     </tr>
 
     <tr>
-        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_gretchen.jpg" width="97" height="108"
+        <td valign="top"><img src="/res/img/about/seniormanagement_gretchen.jpg" width="97" height="108"
                               alt="Gretchen Anderson"/></td>
         <td valign="top">
-            <div class="text3bold-d61">Gretchen Anderson, Vice President, Product</div>
-            <div class="text3 mbm">
-                As a design leader, Gretchen has an extensive background creating experiences that delight people.
-                Gretchen has designed and developed a wide array of interactive education, healthcare, technology, and
-                consumer lifestyle products during her career. For GreatSchools' parents and user community, Gretchen
-                helps shape coherent products with seamless digital experiences. Previously, Gretchen worked for some of
-                San Francisco's top design consultancies including frog design, Cooper, and Punchcut. She is active in
-                the design community, speaking and giving workshops on product design and development that truly make a
-                difference in peoples' lives. Gretchen graduated with honors from Harvard University with a degree in
-                History and Literature. She's an alumni of
-                <c:choose>
-                    <c:when test="${alameda_school ne null}">
-                        <link:schoolProfileOverview
-                                school="${alameda_school}">Alameda High School</link:schoolProfileOverview>
-                    </c:when>
-                    <c:otherwise>
-                        Alameda High School
-                    </c:otherwise>
-                </c:choose>
-                , where she distinguished herself as a nerd who wrote poetry and was involved in theater and
-                cheerleading.
+            <div class="text3boldOrange">Gretchen Anderson, Vice President, Product</div>
+            <div class="text3">
+                As a design leader, Gretchen brings to GreatSchools a deep background in creating experiences that
+                delight people. Gretchen has designed and developed a wide array of interactive products during her
+                career in areas from education, to healthcare, technology, and consumer lifestyle products. She shapes
+                coherent products and seamless digital experiences for GreatSchools 'parents and user community.
+                Previously, Gretchen worked for some of San Francisco's top design consultancies including frog design,
+                Cooper, and Punchcut. She is active in the design community, speaking and giving workshops on product
+                design and development that truly makes a difference in the lives of people. Gretchen graduated from
+                Harvard University with honors in History and Literature and attended Alameda High School where she
+                distinguished herself as a nerd who wrote poetry, did theater and cheerleading.
             </div>
         </td>
     </tr>
 
     <tr>
-        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_lilly.jpg" width="97" height="108" alt="Lilly Fu"/>
+        <td valign="top"><img src="/res/img/about/seniormanagement_lilly.jpg" width="97" height="108" alt="Lilly Fu"/>
         </td>
         <td valign="top">
-            <div class="text3bold-d61">Lilly Fu, Chief Financial Officer</div>
-            <div class="text3 mbm">
+            <div class="text3boldOrange">Lilly Fu, Chief Financial Officer</div>
+            <div class="text3">
                 Lilly was one of the first recruits of Teach
                 for America, where she taught second grade in Oakland, California. Lilly
                 earned her BA in political science and economics from Wellesley College
@@ -196,11 +186,42 @@
         </td>
     </tr>
     <tr>
-        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_carol.jpg" width="97" height="108" alt="Lisa Fung"/>
+        <td valign="top"><img src="/res/img/about/seniormanagement_ryan.jpg" width="97" height="108"
+                              alt="Ryan Grabenkort"/></td>
+        <td valign="top">
+            <div class="text3boldOrange">Ryan Grabenkort, Managing Director, Media</div>
+            <div class="text3">
+                Ryan brings to GreatSchools expertise in digital media strategy and advertising
+                sales that helps the organization sustain itself and deliver value to its growing
+                list of partners. Prior to joining GreatSchools, Ryan rose through the ranks of
+                sales and management positions over a seven year career at Atlantic Media Company.
+                There he played a significant role in the successful relaunches of two of the
+                company's premium media brands, The Atlantic and National Journal, and started a
+                satellite location for the company in San Francisco. Early in his career, Ryan
+                worked in sales roles at start-ups in the enterprise software and information
+                security industries in Berkeley and New York City. Ryan attended
+                <c:choose>
+                    <c:when test="${barrington_school ne null}">
+                        <link:schoolProfileOverview
+                                school="${barrington_school}">Barrington High School</link:schoolProfileOverview>
+                    </c:when>
+                    <c:otherwise>
+                        Barrington High School
+                    </c:otherwise>
+                </c:choose>
+                in Barrington, Illinois and went on to graduate from UC Berkeley with a BA in
+                English. After much moving around he's happy to finally settle with his wife
+                and two young children in the Bay Area where, thankfully, there still is a
+                good public education to be found from kindergarten to college.
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top"><img src="/res/img/about/seniormanagement_carol.jpg" width="97" height="108" alt="Lisa Fung"/>
         </td>
         <td valign="top">
-            <div class="text3bold-d61">Carol Lloyd, Executive Editor</div>
-            <div class="text3 mbm">
+            <div class="text3boldOrange">Carol Lloyd, Executive Editor</div>
+            <div class="text3">
                 As the Executive Editor for GreatSchools, Carol brings a wealth of editorial expertise to the
                 organization. Prior to GreatSchools, Carol was an award-winning weekly columnist from the San Francisco
                 Chronicle for ten years and headed the education section as an editor at Salon.com. In 2009, she
@@ -212,7 +233,7 @@
                 KQED's Forum and To the Best of Our Knowledge. Her bestselling book "Creating a Life Worth Living" was
                 published in 1997 by Harper Collins. It was at the
                 <c:choose>
-                    <c:when test="${york_school ne null}">
+                    <c:when test="${lowell_school ne null}">
                         <link:schoolProfileOverview
                                 school="${york_school}">York School</link:schoolProfileOverview>
                     </c:when>
@@ -226,11 +247,42 @@
         </td>
     </tr>
     <tr>
-        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_karissa.jpg" width="97" height="108"
+        <td valign="top"><img src="/res/img/about/seniormanagement_candice.jpg" width="97" height="108"
+                              alt="Candice Santomauro"/></td>
+        <td valign="top">
+            <div class="text3boldOrange">Candice Santomauro, Director of Development</div>
+            <div class="text3">
+                After serving in the Air Force and earning a B.S. in Computer Information Systems from
+                Strayer University, Candice had a successful sales career building and overseeing a 500+
+                member sales force. Candice eventually transitioned to the non-profit sector to apply her
+                talents to support worthy organizations. Prior to joining GreatSchools, Candice was the
+                Director of Operations and Outreach at the Thomas B. Fordham Institute, overseeing their
+                information technology, fundraising and human capitol efforts. Candice also served as
+                Director of Development for Cornerstone Schools of Washington, D.C., Inc., a private
+                school that provides an academically rigorous education to 200 low-income, at-risk students.
+                A Florida native, she now resides with her family in Washington, D.C. With two children in
+                D.C. Public Schools, she is actively involved in the PTA and works with DCPS in support of
+                local education reform efforts. She also serves on the Board of Governors for Washington
+                Latin Public Charter School. Candice is an alumna of
+                <c:choose>
+                    <c:when test="${north_school ne null}">
+                        <link:schoolProfileOverview
+                                school="${north_school}">John W. North High School</link:schoolProfileOverview>
+                    </c:when>
+                    <c:otherwise>
+                        John W. North High School
+                    </c:otherwise>
+                </c:choose>, where she was voted
+                &amp;quot;Most Spirited.&amp;quot;
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td valign="top"><img src="/res/img/about/seniormanagement_karissa.jpg" width="97" height="108"
                               alt="Karissa Sparks"/></td>
         <td valign="top">
-            <div class="text3bold-d61">Karissa Sparks, Vice President, Marketing and Research</div>
-            <div class="text3 mbm">
+            <div class="text3boldOrange">Karissa Sparks, Vice President, Marketing</div>
+            <div class="text3">
                 Karissa has over 16 years of experience in the web analytics, online marketing, SEO/SEM, and web
                 production fields. Her keen analytical sense combined with her marketing intelligence help make
                 GreatSchools one of the leading technology nonprofits in the education sector today. Prior to joining
@@ -254,39 +306,30 @@
     </tr>
 
     <tr>
-        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_vidya.jpg" width="97" height="108"
+        <td valign="top"><img src="/res/img/about/seniormanagement_vidya.jpg" width="97" height="108"
                               alt="Vidya Sundaram"/></td>
         <td valign="top">
-            <div class="text3bold-d61">Vidya Sundaram, Vice President, Business Insights</div>
-            <div class="text3 mbm">
-                Vidya has an extensive background in business leadership and program strategy. She leads GreatSchools'
+            <div class="text3boldOrange">Vidya Sundaram, Vice President, Business Insights</div>
+            <div class="text3">
+                Vidya has an extensive background in business leadership and program strategy and leads GreatSchools'
                 market research and social impact assessments. Joining GreatSchools in 2006, she has also been
-                responsible for new product development and fund development activities. Prior to joining GreatSchools,
-                Vidya drove new investment opportunities in Internet media at Claremont Creek Ventures and founded a
-                teen media website. Vidya has led software development at both consumer and enterprise Internet
-                start-ups. She holds a degree in electrical engineering from Stanford University, a Masters in Public
-                Policy from UCLA, and an MBA from UCLA Anderson School of Management. Vidya is engaged in the performing
-                arts as a classical Indian dancer. She's an alumni of
-                <c:choose>
-                    <c:when test="${pinole_valley_school ne null}">
-                        <link:schoolProfileOverview
-                                school="${pinole_valley_school}">Pinole Valley High School</link:schoolProfileOverview>
-                    </c:when>
-                    <c:otherwise>
-                        Pinole Valley High School
-                    </c:otherwise>
-                </c:choose>
-                , where she was on the debate team and held the distinction of National Forensics League Point Leader.
+                responsible for new product development and fund development activities. Prior to GreatSchools, she
+                drove new investment opportunities in Internet media at Claremont Creek Ventures and also founded a teen
+                media web site. Vidya has led software development at both consumer and enterprise Internet start-ups.
+                She holds a degree in electrical engineering from Stanford University, a Masters in Public Policy from
+                UCLA and her MBA from UCLA Anderson School of Management. Vidya is a classical Indian dancer engaged in
+                the performing arts. She attended Pinole Valley High School where she was on the debate team and held
+                the distinction of National Forensics League Point Leader.
             </div>
         </td>
     </tr>
 
     <tr>
-        <td valign="top"><img class="mrs" src="/res/img/about/seniormanagement_molly.jpg" width="97" height="108"
+        <td valign="top"><img src="/res/img/about/seniormanagement_molly.jpg" width="97" height="108"
                               alt="Molly Vitorte"/></td>
         <td valign="top">
-            <div class="text3bold-d61">Molly Vitorte, Vice President and Managing Director, College Bound</div>
-            <div class="text3 mbm">
+            <div class="text3boldOrange">Molly Vitorte, Vice President and Managing Director, College Bound</div>
+            <div class="text3">
                 Molly brings to GreatSchools over 20 years of experience in the nonprofit,
                 for-profit and higher education sectors, with a focus on improving college
                 access for minority and low-income students. Previously, she was the
@@ -301,6 +344,7 @@
         </td>
     </tr>
 </table>
+</div>
 </div>
 
 <div id="tracking">
