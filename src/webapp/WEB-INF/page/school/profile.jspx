@@ -21,6 +21,12 @@
 <head>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
+    <script type="text/javascript" src="/res/js/school/profilePage.js"><!-- do not collapse --> </script>
+    <script type="text/javascript">
+        $(function() {
+            GS.school.profile.init();
+        });
+    </script>
     <title>School Profile</title>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
@@ -28,40 +34,41 @@
     <div style="height: 200px; width: 950px; border: 1px solid red;">${school.name}</div>
 
     <div>
-        <ul>
-            <li>Overview</li>
-            <li>Test scores</li>
-            <li>School stats</li>
-            <li>Reviews</li>
-            <li>Programs &amp;amp; Extracurriculars</li>
-            <li>Culture</li>
+        <ul data-gs-tab-group="profileTabs">
+            <li data-gs-tab="overview">Overview</li>
+            <li data-gs-tab="testScores">Test scores</li>
+            <li data-gs-tab="stats">School stats</li>
+            <li data-gs-tab="reviews">Reviews</li>
+            <li data-gs-tab="programsExtracurriculars">Programs &amp;amp; Extracurriculars</li>
+            <li data-gs-tab="culture">Culture</li>
         </ul>
     </div>
 
     <jsp:useBean id="now" class="java.util.Date" scope="page" />
-    <div style="height: 600px; width: 700px; border: 1px solid blue; float: left;">
-        <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
-            Overview data ${now}
+    <div data-gs-tab-body-group="profileTabs" class="slStylesV1-0">
+        <div data-gs-tab-body="overview" style="min-height: 600px; width: 700px; border: 1px solid blue; float: left;">
+            <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
             <jsp:include page="/school/profileOverview.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}" />
-        <!--</gsweb:cache>-->
-    </div>
-    <div style="display:none;">
-        <gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">
-            Test Scores data
-            <!--<jsp:include page="/school/profileTest.module?state=${school.stateAbbreviation}&amp;id=${school.id}" />-->
-        </gsweb:cache>
-    </div>
-    <div style="display:none;">
-        School stats data
-    </div>
-    <div style="display:none;">
-        Reviews data
-    </div>
-    <div style="display:none;">
-        Programs &amp;amp; Extracurriculars data
-    </div>
-    <div style="display:none;">
-        Culture data
+            <!--</gsweb:cache>-->
+        </div>
+        <div data-gs-tab-body="testScores" style="display:none;">
+            <gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">
+                Test Scores data
+                <!--<jsp:include page="/school/profileTest.module?state=${school.stateAbbreviation}&amp;id=${school.id}" />-->
+            </gsweb:cache>
+        </div>
+        <div data-gs-tab-body="stats" style="display:none;">
+            School stats data
+        </div>
+        <div data-gs-tab-body="reviews" style="display:none;">
+            Reviews data
+        </div>
+        <div data-gs-tab-body="programsExtracurriculars" style="display:none;">
+            Programs &amp;amp; Extracurriculars data
+        </div>
+        <div data-gs-tab-body="culture" style="display:none;">
+            Culture data
+        </div>
     </div>
 
     <div style="height: 600px; width: 250px; border: 1px solid green; float: left;">
