@@ -99,6 +99,16 @@
 
         <school:profileOverviewCell1 title="District Information" cssClass="omega">
 
+            <p>${district.name}</p>
+            <ul>
+                <li>${district.gradeLevels.rangeString}</li>
+                <li>${district.numberOfSchools}</li>
+                <!-- TODO: number of students -->
+                <li><a href="#">District boundaries</a></li>
+            </ul>
+
+            <strong>Article:</strong> <a href="#">Article title</a>
+
         </school:profileOverviewCell1>
     </div>
 

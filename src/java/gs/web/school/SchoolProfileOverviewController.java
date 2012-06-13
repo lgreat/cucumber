@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.json.JSONException;
 import gs.data.school.*;
+import gs.data.school.district.District;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
@@ -150,6 +151,10 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
 
         // District information
+        District district = school.getDistrict();
+        model.put("district",district);
+
+
 
 
 
