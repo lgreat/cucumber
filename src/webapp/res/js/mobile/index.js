@@ -152,9 +152,13 @@ define(['uri', 'geocoder', 'validation', 'geolocation', 'jquery.autocomplete'], 
                 var byLocationForm = $(BY_LOCATION_FORM_SELECTOR);
                 byLocationForm.find('input[name="lat"]').val(coordinates.latitude);
                 byLocationForm.find('input[name="lon"]').val(coordinates.longitude);
+                var $searchByLocationField = $('.js-searchByLocationQuery');
+                if ($searchByLocationField.val() == '') {
+                    $searchByLocationField.val('Current Location');
+                }
                 // geolocation worked, unbind and re-bind autocomplete since we know current location now, and the
                 // "current location" autocomplete option comes back from the server within autocomplete results.
-                $('.js-searchByLocationQuery').unbind(".autocomplete");
+                $searchByLocationField.unbind(".autocomplete");
                 attachCityAutocomplete('.js-searchByLocationQuery');
             });
 
