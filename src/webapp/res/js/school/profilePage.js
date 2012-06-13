@@ -26,7 +26,11 @@ GS.school.profile = GS.school.profile || (function() {
             var $tabBody = $tabBodyGroup.find('[data-gs-tab-body=' + tab + ']');
             $allTabBodies.hide();
             $tabBody.show();
+            $tabGroup.find('li').removeClass('selected');
+            $this.addClass('selected');
         });
+        // select default tab. This may change depending on URL parameter, or possibly model variable
+        $('[data-gs-tab=overview]').addClass('selected');
     };
 
 

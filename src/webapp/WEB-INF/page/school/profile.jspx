@@ -21,6 +21,17 @@
 <head>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
+    <style type="text/css">
+        #schoolProfileTabs li {
+            display: inline;
+            padding: 2px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        #schoolProfileTabs li.selected {
+            background-color: #ddd;
+        }
+    </style>
     <script type="text/javascript" src="/res/js/school/profilePage.js"><!-- do not collapse --> </script>
     <script type="text/javascript">
         $(function() {
@@ -34,7 +45,7 @@
     <div style="height: 200px; width: 950px; border: 1px solid red;">${school.name}</div>
 
     <div>
-        <ul data-gs-tab-group="profileTabs">
+        <ul id="schoolProfileTabs" data-gs-tab-group="profileTabs">
             <li data-gs-tab="overview">Overview</li>
             <li data-gs-tab="testScores">Test scores</li>
             <li data-gs-tab="stats">School stats</li>
