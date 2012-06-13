@@ -8,14 +8,12 @@ import gs.web.IControllerFamilySpecifier;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.exolab.castor.mapping.xml.Sql;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -100,83 +98,88 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
         createSchoolValuesMap(school, testDataTypeIdToTestDataType, schoolValueMap, existingDataSetIds);
 
-        //Get the extra data.
-        List<Map<String, Object>> additionalTestScores = _testDataSchoolValueDao.getSchoolTestScores(school, existingDataSetIds);
-
-        for (Map value : additionalTestScores) {
-            Integer testDataTypeId = (Integer) value.get("data_type_id");
-            Integer testDataSetId = (Integer) value.get("id");
-            Grade grade = Grade.getGradeLevel((String) value.get("grade"));
-            LevelCode levelCode = LevelCode.createLevelCode((String) value.get("level_code"));
-            Subject subject = _subjectDao.findSubject((Integer) value.get("subject_id"));
-            Date yearDate = (Date) value.get("year");
-            DateFormat df = new SimpleDateFormat("yyyy");
-            String year = df.format(yearDate);
-            Float valueFloat = (Float) value.get("value_float");
-            String valueText = (String) value.get("value_text");
-            Float stateAvg = (Float) value.get("stateAvgFloat");
-            String testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
-                    Integer.toString(Math.round(valueFloat));
-
-            TestDataType testDataType = getTestDataType(testDataTypeIdToTestDataType, testDataTypeId);
-
-            CustomTestDataSet testDataSet = new CustomTestDataSet();
-            testDataSet.setYear(new Integer(year));
-            testDataSet.setId(testDataSetId);
-            testDataSet.setGrade(grade);
-            testDataSet.setLevelCode(levelCode);
-            if (stateAvg != null) {
-                testDataSet.setStateAverage(Math.round(stateAvg));
-            }
-
-            if (schoolValueMap.get(testDataType) != null) {
-                Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(testDataType);
-
-                if (gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade) != null) {
-                    Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
-                    if (levelCodeToSubjectsToDataSetToValueMap.get(levelCode) != null) {
-                        Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
-                        if (subjectToDataSet.get(subject) != null) {
-                            Map<CustomTestDataSet, String> testDataSetToValue = subjectToDataSet.get(subject);
-                            testDataSetToValue.put(testDataSet, testScoreValue);
-                        } else {
-                            //Subject not present.
-                            Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
-                            dataSetToValue.put(testDataSet, testScoreValue);
-                            subjectToDataSet.put(subject, dataSetToValue);
-                        }
-                    } else {
-                        //Level code not present
-                        Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
-                        dataSetToValue.put(testDataSet, testScoreValue);
-                        Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
-                        subjectToDataSet.put(subject, dataSetToValue);
-                        levelCodeToSubjectsToDataSetToValueMap.put(levelCode, subjectToDataSet);
-                    }
-
-                } else {
-                    //Grade not present.
-                    Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
-                    dataSetToValue.put(testDataSet, testScoreValue);
-                    Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
-                    subjectToDataSet.put(subject, dataSetToValue);
-                    Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>();
-                    levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
-                    gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
-                }
-            } else {
-                //Test not present.
-                Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
-                dataSetToValue.put(testDataSet, testScoreValue);
-                Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
-                subjectToDataSet.put(subject, dataSetToValue);
-                Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>();
-                levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
-                Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>();
-                gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
-                schoolValueMap.put(testDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
-            }
-        }
+//        //Get the extra data.
+//        List<Map<String, Object>> additionalTestScores = _testDataSchoolValueDao.getSchoolTestScores(school, existingDataSetIds);
+//
+//        for (Map value : additionalTestScores) {
+//            Integer testDataTypeId = (Integer) value.get("data_type_id");
+//            Integer testDataSetId = (Integer) value.get("id");
+//            Grade grade = Grade.getGradeLevel((String) value.get("grade"));
+//            LevelCode levelCode = LevelCode.createLevelCode((String) value.get("level_code"));
+//            Subject subject = _subjectDao.findSubject((Integer) value.get("subject_id"));
+//            Date yearDate = (Date) value.get("year");
+//            DateFormat df = new SimpleDateFormat("yyyy");
+//            String year = df.format(yearDate);
+//            Float valueFloat = (Float) value.get("value_float");
+//            String valueText = (String) value.get("value_text");
+//            String testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
+//                    Integer.toString(Math.round(valueFloat));
+//            Float stateAvgFloat = (Float) value.get("stateAvgFloat");
+//            String stateAvgStr = (String) value.get("stateAvgText");
+//
+//            TestDataType testDataType = getTestDataType(testDataTypeIdToTestDataType, testDataTypeId);
+//
+//            String stateAvg = "";
+//            if (stateAvgFloat != null || stateAvgStr != null) {
+//                stateAvg = StringUtils.isNotBlank(stateAvgStr) ? StringEscapeUtils.escapeHtml(stateAvgStr) :
+//                        Integer.toString(Math.round(stateAvgFloat));
+//            }
+//
+//            CustomTestDataSet testDataSet = new CustomTestDataSet();
+//            testDataSet.setYear(new Integer(year));
+//            testDataSet.setId(testDataSetId);
+//            testDataSet.setGrade(grade);
+//            testDataSet.setLevelCode(levelCode);
+//            testDataSet.setStateAverage(stateAvg);
+//
+//            if (schoolValueMap.get(testDataType) != null) {
+//                Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(testDataType);
+//
+//                if (gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade) != null) {
+//                    Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
+//                    if (levelCodeToSubjectsToDataSetToValueMap.get(levelCode) != null) {
+//                        Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
+//                        if (subjectToDataSet.get(subject) != null) {
+//                            Map<CustomTestDataSet, String> testDataSetToValue = subjectToDataSet.get(subject);
+//                            testDataSetToValue.put(testDataSet, testScoreValue);
+//                        } else {
+//                            //Subject not present.
+//                            Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
+//                            dataSetToValue.put(testDataSet, testScoreValue);
+//                            subjectToDataSet.put(subject, dataSetToValue);
+//                        }
+//                    } else {
+//                        //Level code not present
+//                        Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
+//                        dataSetToValue.put(testDataSet, testScoreValue);
+//                        Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
+//                        subjectToDataSet.put(subject, dataSetToValue);
+//                        levelCodeToSubjectsToDataSetToValueMap.put(levelCode, subjectToDataSet);
+//                    }
+//
+//                } else {
+//                    //Grade not present.
+//                    Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
+//                    dataSetToValue.put(testDataSet, testScoreValue);
+//                    Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
+//                    subjectToDataSet.put(subject, dataSetToValue);
+//                    Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>();
+//                    levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
+//                    gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
+//                }
+//            } else {
+//                //Test not present.
+//                Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
+//                dataSetToValue.put(testDataSet, testScoreValue);
+//                Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
+//                subjectToDataSet.put(subject, dataSetToValue);
+//                Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>();
+//                levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
+//                Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>();
+//                gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
+//                schoolValueMap.put(testDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
+//            }
+//        }
         return schoolValueMap;
     }
 
@@ -198,11 +201,19 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             String year = df.format(yearDate);
             Float valueFloat = (Float) value.get("value_float");
             String valueText = (String) value.get("value_text");
-            Float stateAvg = (Float) value.get("stateAvgFloat");
+            Float stateAvgFloat = (Float) value.get("stateAvgFloat");
+            String stateAvgStr = (String) value.get("stateAvgText");
+
             String testScoreValue = LABEL_DATA_NOT_AVAILABLE;
             if (valueFloat != null || valueText != null) {
                 testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
                         Integer.toString(Math.round(valueFloat));
+            }
+
+            String stateAvg = "";
+            if (stateAvgFloat != null || stateAvgStr != null) {
+                stateAvg = StringUtils.isNotBlank(stateAvgStr) ? StringEscapeUtils.escapeHtml(stateAvgStr) :
+                        Integer.toString(Math.round(stateAvgFloat));
             }
 
             TestDataType testDataType = getTestDataType(testDataTypeIdToTestDataType, testDataTypeId);
@@ -212,9 +223,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             testDataSet.setId(testDataSetId);
             testDataSet.setGrade(grade);
             testDataSet.setLevelCode(levelCode);
-            if (stateAvg != null) {
-                testDataSet.setStateAverage(Math.round(stateAvg));
-            }
+            testDataSet.setStateAverage(stateAvg);
 
             existingDataSetIds.add(testDataSetId);
 
@@ -562,6 +571,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
     public static class GradeToSubjects implements Comparable<GradeToSubjects> {
         String _gradeLabel;
+        //TODO maybe do not use grade object if its json.since it checks each opbject to convert to json.
         Grade _grade;
         List<SubjectToYears> _subjects;
 
@@ -624,10 +634,11 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
     }
 
     public static class YearToTestScore implements Comparable<YearToTestScore> {
+        //TODO do we need both testScoreStr and testScoreLabel?
         String _testScoreStr;
         String _testScoreLabel;
         Integer _year;
-        Integer _stateAvg;
+        String _stateAvg;
 
         public String getTestScoreStr() {
             return _testScoreStr;
@@ -653,11 +664,11 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             _year = year;
         }
 
-        public Integer getStateAvg() {
+        public String getStateAvg() {
             return _stateAvg;
         }
 
-        public void setStateAvg(Integer stateAvg) {
+        public void setStateAvg(String stateAvg) {
             _stateAvg = stateAvg;
         }
 
@@ -673,8 +684,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         public Integer _year;
         public Grade _grade;
         public LevelCode _levelCode;
-        public Integer _stateAverage;
-        public Integer _numTested;
+        public String _stateAverage;
 
         public Integer getId() {
             return _id;
@@ -708,11 +718,11 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             _levelCode = levelCode;
         }
 
-        public Integer getStateAverage() {
+        public String getStateAverage() {
             return _stateAverage;
         }
 
-        public void setStateAverage(Integer stateAverage) {
+        public void setStateAverage(String stateAverage) {
             _stateAverage = stateAverage;
         }
 
