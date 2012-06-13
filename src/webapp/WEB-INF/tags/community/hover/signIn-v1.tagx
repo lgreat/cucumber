@@ -33,8 +33,8 @@
         </form>
     </div>-->
 
-
-    <div class="mod js-modal modal_1 width_12">
+    <div id="signIn" class="hidden">
+    <div class="mod modal_1 width_12">
         <div class="outer">
             <a href="javascript:void(0);" class="closeModal">
                 <span class="iconx24 i-24-close fr"><!-- do not collapse --></span>
@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-
+    </div>
 
 
 

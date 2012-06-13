@@ -28,6 +28,7 @@
         <!--<gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.8.18.custom.min.js" allowCdn="true"/>-->
         <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <gsml:url var="hoverjs" value="/res/js/modal/modalManager.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <gsml:url var="jqueryautocomplete" value="/res/js/jquery/jquery.autocomplete.js" allowCdn="true"/>
         <gsml:url var="schoolautocomplete" value="/res/js/search/schoolAutocomplete.js" allowCdn="true"/>
@@ -56,13 +57,10 @@
             <mod:footer showAd="true" showSeoFooter="true"/>
         </div>
 
-        <!-- TODO Mitch to implement JavaScript behavior -->
-        <div class="js-overlay"><!-- do not collapse --></div>
-        <div class="horizon">
-            <communityHover:signIn-v1/>
-        </div>
     </div>
-
+    <!-- global modal boxes / hovers go here -->
+    <communityHover:signIn-v1/>
+    <div id="fullPageOverlay"><!-- --></div>
     </body>
 </html>
 
