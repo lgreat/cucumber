@@ -53,7 +53,8 @@ define(['searchResultFilters', 'uri', 'tracking'], function(searchResultFilters,
             zoom: 12,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
-            infoWindow: infoWindow
+            infoWindow: infoWindow,
+            zoomControlOptions: {style:google.maps.ZoomControlStyle.SMALL}
         };
 
         // readjust height of map window to device size.
