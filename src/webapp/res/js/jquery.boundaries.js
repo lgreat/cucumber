@@ -12,6 +12,9 @@ var Boundaries = function(element, options) {
     google.maps.event.addListener(this.map, 'center_changed', $.proxy(function(){
         this.trigger('moved');
     }, this));
+    google.maps.event.addListener(this.map, 'click', $.proxy(function(e){
+        this.trigger('mapclick', e.latLng);
+    }, this));
     this.trigger('init');
 }
 Boundaries.prototype = {
@@ -34,7 +37,7 @@ Boundaries.prototype = {
 
     , district: function ( params ){
         var module = this, success = function(district){module.district(district);};
-        if ( typeof params == 'object' ) {
+        if ( typeof params == 'object' && params.type && params.type=='district' ) {
             params = module.cache(params);
             module.focus(params);
             // render schools for this district if enabled
@@ -50,9 +53,15 @@ Boundaries.prototype = {
         if ( this.options.id && this.options.state && this.options.level )
             BoundaryHelper.getDistrictById(this.options.state, this.options.id, this.options.level)
                 .done(success);
-        else
-            BoundaryHelper.getDistrictByLocation(this.map.getCenter().lat(), this.map.getCenter().lng(), this.options.level)
-                .done(success);
+        else {
+            if ( typeof params == 'object' && params instanceof google.maps.LatLng ){
+                BoundaryHelper.getDistrictByLocation(params.lat(), params.lng(), this.options.level)
+                    .done(success);
+            } else {
+                BoundaryHelper.getDistrictByLocation(this.map.getCenter().lat(), this.map.getCenter().lng(), this.options.level)
+                    .done(success);
+            }
+        }
     }
 
     , nondistrict: function ( params ) {
@@ -62,6 +71,7 @@ Boundaries.prototype = {
                 school.showMarker(module.map);
                 google.maps.event.addListener(school.getMarker(), 'click', $.proxy(function(){
                     module.focus(this.getKey());
+                    module.trigger('markerclick', school);
                 }, school));
                 module.cache(school);
             }
@@ -91,6 +101,7 @@ Boundaries.prototype = {
                     google.maps.event.clearListeners(district.getMarker(), 'click');
                     google.maps.event.addListener(district.getMarker(), 'click', $.proxy(function(){
                         module.focus(this.getKey());
+                        module.trigger('markerclick', district);
                     }, district));
                     all.push(district);
                 }
@@ -110,6 +121,7 @@ Boundaries.prototype = {
                 google.maps.event.clearListeners(school.getMarker(), 'click');
                 google.maps.event.addListener(school.getMarker(), 'click', $.proxy(function(){
                     module.focus(this.getKey());
+                    module.trigger('markerclick', school);
                 }, school));
                 all.push(school);
             }
@@ -129,6 +141,7 @@ Boundaries.prototype = {
             google.maps.event.clearListeners(obj.getMarker(), 'click');
             google.maps.event.addListener(obj.getMarker(), 'click', $.proxy(function(){
                 module.focus(this.getKey());
+                module.trigger('markerclick', obj);
             }, obj));
         }
         this.focused = obj;

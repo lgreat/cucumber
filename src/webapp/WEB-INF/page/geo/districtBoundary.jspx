@@ -20,7 +20,9 @@
     <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
     <pageHelper:externalJavascript file="/res/js/googleMapsInfobox.min.js"/>
     <pageHelper:externalJavascript file="/res/js/jquery.boundaries.js"/>
+    <pageHelper:externalJavascript file="/res/js/externalTracking.js"/>
     <pageHelper:externalJavascript file="/res/js/boundary.js"/>
+
 
 
     <script type="text/javascript">
@@ -320,7 +322,7 @@
 </div>
 
 <div style="display:none;">
-    <mod:tracking pageName="Attendance Zones" hier1="TBD"/>
+    <mod:tracking pageName="BoundariesMap" hier1="Search, DistrictBoundaries" boundariesSearchQuery="${param.address}" gradeLevelFilter="${(!empty param.level) ? param.level : 'e'}" />
 </div>
 </div>
 </gsml:body>

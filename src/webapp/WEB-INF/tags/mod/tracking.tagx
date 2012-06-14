@@ -141,6 +141,15 @@
         name="contentSearchQuery"
         description="The query that the user typed, presumably for searching article, worksheets and more. Ends up in prop41."
         required="false"/>
+    <!--GS-12713-->
+    <jsp:directive.attribute
+        name="boundariesSearchQuery"
+        description="The search query used for district boundaries tool"
+        required="false"/>
+    <jsp:directive.attribute
+        name="gradeLevelFilter"
+        description="The grade level filter for the district boundaries tool"
+        required="false"/>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
@@ -247,6 +256,8 @@
             s.prop39 = clickCapture.getProp(39,"${isContentPage ? contentId : ''}");
             s.prop40 = clickCapture.getProp(40,"${worksheetLicensorName != null ? worksheetLicensorName : ''}");
             s.prop41 = clickCapture.getProp(41,"${contentSearchQuery}");
+            s.prop45 = clickCapture.getProp(45,"${boundariesSearchQuery}");
+            s.prop46 = clickCapture.getProp(46,"${gradeLevelFilter}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";

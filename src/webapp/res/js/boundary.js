@@ -20,6 +20,9 @@ var Boundary = (function (){
         }
         if (params.level) {
             mapOptions.level = params.level;
+            currentLevel = params.level;
+        } else {
+            mapOptions.level = 'e';
         }
         mapOptions.type = 'districts';
         mapOptions.schools = true;
@@ -106,6 +109,8 @@ var Boundary = (function (){
         $map.on('schools.boundaries', schoolsEventHandler );
         $map.on('geocode.boundaries', geocodeEventHandler );
         $map.on('moved.boundaries', movedEventHandler );
+        $map.on('mapclick.boundaries', mapClickEventHandler );
+        $map.on('markerclick.boundaries', markerClickEventHandler);
         $dropdown.on('change', dropdownEventHandler);
         $level.on('change', levelEventHandler);
         $search.on('submit', searchEventHandler);
@@ -142,6 +147,17 @@ var Boundary = (function (){
     var dropdownEventHandler = function (event) {
         var val = $dropdown.val();
         $map.boundaries('focus', val);
+        fireCustomLink('Dist_Bounds_Map_Select_District');
+    };
+
+    var mapClickEventHandler = function ( event, obj ){
+        $map.boundaries('district', obj.data);
+        fireCustomLink('Dist_Bounds_Map_Enroll_Bound_Click');
+    }
+
+    var markerClickEventHandler = function( event, obj) {
+        if (obj.data && obj.data.type=='school') fireCustomLink('Dist_Bounds_Map_School_Pin_Click');
+        if (obj.data && obj.data.type=='district') fireCustomLink('Dist_Bounds_Map_Dist_Pin_Click');
     }
 
     var focusEventHandler = function (event, obj) {
@@ -204,21 +220,30 @@ var Boundary = (function (){
     var searchEventHandler = function ( event ) {
         var val = $('#js_mapAddressQuery').val();
         $map.boundaries('geocode', val);
+        firePageView('BoundariesMap');
     }
 
     var charterEventHandler = function ( event ) {
-        if ($(this).prop('checked')) $map.boundaries('nondistrict', 'charter');
+        if ($(this).prop('checked')){
+            $map.boundaries('nondistrict', 'charter');
+            fireCustomLink('Dist_Bounds_Map_Show_Charter');
+        }
         else $map.boundaries('hideNonDistrict', 'charter');
     }
 
     var privateEventHandler = function ( event ) {
-        if ($(this).prop('checked')) $map.boundaries('nondistrict', 'private');
+        if ($(this).prop('checked')){
+            $map.boundaries('nondistrict', 'private');
+            fireCustomLink('Dist_Bounds_Map_Show_Private');
+        }
+
         else $map.boundaries('hideNonDistrict', 'private');
     }
 
     var redoEventHandler = function (){
         var b = $map.data('boundaries');
         $map.boundaries('center', b.map.getCenter());
+        fireCustomLink('Dist_Bounds_Map_Redo_Search');
     }
 
     var getUrlParams = function(){
@@ -234,6 +259,21 @@ var Boundary = (function (){
 
         return urlParams;
     };
+
+    var fireCustomLink = function (name) {
+        if (s.tl) {
+            s.tl(true, 'o', name);
+        }
+    }
+
+    var firePageView = function (name) {
+        if (s) {
+            s.prop45 = clickCapture.getProp(45,$('#js_mapAddressQuery').val());
+            s.prop46 = clickCapture.getProp(46,currentLevel);
+        }
+        pageTracking.pageName = name;
+        pageTracking.send();
+    }
 
     return {
         init: init,
