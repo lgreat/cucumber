@@ -2,8 +2,11 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+
+        >
 
     <jsp:directive.attribute name="includeAds" required="false" type="java.lang.Boolean"/>
 
@@ -24,12 +27,26 @@
                         </c:if>
                     </c:if>
                     <li>
+                        <c:choose>
+                            <c:when test="${school.levelCode eq 'p'}">
+                                <c:set var="schoolType"></c:set>
+                                <c:set var="gradeLevels">Preschool</c:set>
+                            </c:when>
+                            <c:when test="${empty school.grades.rangeString or school.grades.rangeString eq 'n/a' or school.grades.rangeString eq 'N/A'}">
+                                <c:set var="schoolType">${gsweb:capitalize(school.schoolType)}</c:set>
+                                <c:set var="gradeLevels"></c:set>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="schoolType">${gsweb:capitalize(school.schoolType)}</c:set>
+                                <c:set var="gradeLevels">, ${school.grades.rangeString}</c:set>
+                            </c:otherwise>
+                        </c:choose>
                         <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}"
                                                    schoolName="${school.name}" address="${school.address}"
                                                    schoolAddress="${school.address}" city="${school.city}"
-                                                   zipCode="${school.address.zip}" schoolType="${school.schoolType}"
+                                                   zipCode="${school.address.zip}" schoolType="${schoolType}"
                                                    levelCode="${school.levelCode}"
-                                                   gradeRangeString="${school.grades.rangeString}"
+                                                   gradeRangeString="${gradeLevels}"
                                                    greatSchoolsRating="${school.greatSchoolsRating}"
                                                    parentRating="${school.parentRating}"
                                                    distance="${school.distance}"></school:mobileSearchResult>

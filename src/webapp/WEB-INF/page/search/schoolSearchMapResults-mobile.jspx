@@ -53,11 +53,25 @@
                                     <div class="content-map fl"><p><strong>${school.name}</strong></p>
 
                                         <p class="small pbm ac1">
-                                            ${school.schoolType} ${school.grades.rangeString} | ${school.city}, ${school.databaseState}</p>
+                                            <c:choose>
+                                                <c:when test="${school.levelCode eq 'p'}">
+                                                    <c:set var="schoolType"></c:set>
+                                                    <c:set var="gradeLevels">Preschool</c:set>
+                                                </c:when>
+                                                <c:when test="${empty school.grades.rangeString or school.grades.rangeString eq 'n/a' or school.grades.rangeString eq 'N/A'}">
+                                                    <c:set var="schoolType">${gsweb:capitalize(school.schoolType)}</c:set>
+                                                    <c:set var="gradeLevels"></c:set>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="schoolType">${gsweb:capitalize(school.schoolType)}</c:set>
+                                                    <c:set var="gradeLevels">, ${school.grades.rangeString}</c:set>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            ${schoolType}${gradeLevels} | ${school.city}, ${school.databaseState}</p>
                                      </div>
                                     <div class="iconx24 i-24-map-arrow arrow-map fr"><!-- --></div>
                                 </div>
-                                    <div class="clearfix"><!-- --></div>
+                                    <div class="clearfloat"><!-- --></div>
                                     <c:if test="${not empty school.greatSchoolsRating}">
                                         <div class="fl">
                                             <div class="ratings-round ratings-small round-small vab fl"><div class="ratings-number number-small">${school.greatSchoolsRating}</div></div> <div class="smaller ac1 fl pls pt3"> of 10</div>
