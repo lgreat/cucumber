@@ -35,7 +35,7 @@
     <script type="text/javascript" src="/res/js/school/profilePage.js"><!-- do not collapse --> </script>
     <script type="text/javascript">
         $(function() {
-            GS.school.profile.init();
+            GS.school.profile.init('${param.tab}');
         });
     </script>
     <title>School Profile</title>
@@ -62,11 +62,10 @@
             <jsp:include page="/school/profileOverview.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}" />
             <!--</gsweb:cache>-->
         </div>
-        <div data-gs-tab-body="testScores" style="display:none;">
-            <gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">
-                Test Scores data
-                <!--<jsp:include page="/school/profileTest.module?state=${school.stateAbbreviation}&amp;id=${school.id}" />-->
-            </gsweb:cache>
+        <div data-gs-tab-body="testScores" style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:none;">
+            <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
+                <jsp:include page="/school/profileTestScores.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}" />
+            <!--</gsweb:cache>-->
         </div>
         <div data-gs-tab-body="stats" style="display:none;">
             School stats data
