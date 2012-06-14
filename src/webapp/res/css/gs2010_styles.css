@@ -10204,6 +10204,11 @@ p#btsBubbleOpts {
 .js-worksheetBubbleInfo{
     position: relative;
 }
+.worksheetBubbleInfo{
+    position: absolute;
+    top:-30px; left: 110px;
+    zoom:1;
+}
 
 .worksheetImage{
     border:1px solid #ccc;

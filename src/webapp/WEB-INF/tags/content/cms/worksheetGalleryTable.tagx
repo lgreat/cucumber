@@ -44,27 +44,34 @@
 
                             ${result.subjectsString}
                         </p>
-                        <div class="js-worksheetBubbleInfo mts">
-                            <p class="js-trigger smallText1-06b" style="width: 50px; ">
-                                <span class="sprite i-zoom-glass vert-align-mid"><!--Do not collapse --></span>
-                                <span class="pls">Zoom</span>
-                            </p>
-                            <div class="js-popup">
-                                <div class="mod worksheet-popup-contents">
-                                    <div class="inner">
-                                        <span class="arrow-outline-left"><!-- do not collapse --></span>
-                                        <span class="arrow-left"><!-- do not collapse --></span>
-                                        <div class="bd">
-                                            <p>
+                    </div>
+                </div>
+
+                <div class="pr">
+                <div class="worksheetBubbleInfo">
+                    <div class="js-worksheetBubbleInfo mts">
+                        <p class="js-trigger smallText1-06b" style="width: 50px; ">
+                            <span class="sprite i-zoom-glass vert-align-mid"><!--Do not collapse --></span>
+                            <span class="pls">Zoom</span>
+                        </p>
+                        <div class="js-popup">
+                            <div class="mod worksheet-popup-contents">
+                                <div class="inner">
+                                    <span class="arrow-outline-left"><!-- do not collapse --></span>
+                                    <span class="arrow-left"><!-- do not collapse --></span>
+                                    <div class="bd">
+                                        <p>
                                             <gsml:img src="${result.previewImageUrl}" alt="loading"/>
-                                            </p>
-                                        </div>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </div>
+
                 </div>
+
             </c:forEach>
 
             <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>

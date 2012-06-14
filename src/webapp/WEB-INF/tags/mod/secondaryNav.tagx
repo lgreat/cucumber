@@ -96,6 +96,6 @@
             <li class="subMenuItem"><a href="/articles/?topics=188" id="SN_LD-AssistiveTechnology" class="subMenuItemAnchorText GS_CI9_">Assistive Technology</a></li>
           </ul>
         </li>
-        <li class="menuItem"><a href="/back-to-school/" id="SN-BackToSchool" class="menuItemAnchorText GS_CI9_">Back to School</a></li>
+        <li class="menuItem"><a href="/back-to-school/" id="SN-BackToSchool" class="last menuItemAnchorText GS_CI9_">Back to School</a></li>
       </ul>
 </jsp:root>
