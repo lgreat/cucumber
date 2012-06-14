@@ -21,6 +21,7 @@
 <c:set var="addr" value="${school.physicalAddress.city}, ${stateAbbrev}"/>
 
 <head>
+    <c:set var="gomezPageId" scope="request">SchoolProfileParentReviews</c:set>
     <meta name="decorator" content="standardMobileDecorator"/>
 
     <meta name="description" content="Read parent ratings and reviews for ${school.name} in ${addr}"/>

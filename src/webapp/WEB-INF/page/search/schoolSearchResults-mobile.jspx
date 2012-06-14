@@ -19,6 +19,7 @@
 <jsp:directive.page contentType="text/html; charset=UTF-8"/>
 
 <head>
+    <c:set var="gomezPageId" scope="request">SearchResultsList</c:set>
     <meta name="decorator" content="standardMobileDecorator"/>
     <c:if test="${not empty title}">
         <title>${title}</title>

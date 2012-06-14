@@ -19,6 +19,7 @@
 <c:set var="addr" value="${school.physicalAddress.city}, ${school.databaseState.longName} - ${stateAbbrev}"/>
 
 <head>
+    <c:set var="gomezPageId" scope="request">SchoolProfileOverview</c:set>
     <meta name="decorator" content="standardMobileDecorator"/>
 
     <meta name="description" content="${gsweb:schoolPageDescriptionMobile(school)}"/>

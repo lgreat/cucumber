@@ -17,6 +17,7 @@
 
 
 <head>
+    <c:set var="gomezPageId" scope="request">HomePage</c:set>
     <title>Public, Private, and Charter School Ratings and Reviews</title>
 
     <meta name="description"
