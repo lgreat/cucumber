@@ -35,6 +35,7 @@ Boundaries.prototype = {
     , district: function ( params ){
         var module = this, success = function(district){module.district(district);};
         if ( typeof params == 'object' ) {
+            params = module.cache(params);
             module.focus(params);
             // render schools for this district if enabled
             if (this.options.schools) {
@@ -42,6 +43,7 @@ Boundaries.prototype = {
                     module.schools(data);
                 });
             }
+            module.cache(params);
             module.trigger('district', params);
             return params;
         }
@@ -261,7 +263,22 @@ Boundaries.prototype = {
 
     , center: function ( option ) {
         if (typeof option == 'object' && option instanceof google.maps.LatLng ){
+            if (!this.centerMarker) {
+                this.centerMarker = new google.maps.Marker(new google.maps.Marker({
+                    icon:new google.maps.MarkerImage(
+                        '/res/img/map/green_arrow.png',
+                        new google.maps.Size(39,34),
+                        new google.maps.Point(0,0),
+                        new google.maps.Point(11,34)
+                    ),
+                    shape:{type:'poly', coord:[0, 0, 23, 0, 23, 34, 0, 34]},
+                    shadow:new google.maps.MarkerImage('/res/img/map/green_arrow_shadow.png', new google.maps.Size(39,34), null, new google.maps.Point(11, 34))
+                }));
+                this.centerMarker.setMap(this.map);
+            }
+            this.centerMarker.setPosition(option);
             this.map.setCenter(option);
+
             this.trigger('center', option);
             this[this.options.type]();
         }
@@ -395,7 +412,8 @@ Mappable.prototype = {
             position: new google.maps.LatLng(this.lat, this.lon),
             title: this.name,
             icon: this.getMarkerImage(),
-            shape: this.getMarkerShape()
+            shape: this.getMarkerShape(),
+            zIndex: 1
         });
     }
     , getMarkerShape: function() {

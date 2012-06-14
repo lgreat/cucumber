@@ -30,16 +30,19 @@
             var $loading = $('#js_loading');
             $(document).ajaxStart(function() {$loading.show().removeClass('hidden');});
             $(document).ajaxStop(function(){$loading.hide().addClass('hidden');});
+
             var boundary = new Boundary();
+
             boundary.init(document.getElementById('map-canvas')
-                    , document.getElementById('districtList')
-                    , document.getElementById('js_districtHeader')
-                    , document.getElementById('schoolList')
-                    , $('.js_mapLevelCode')
-                    , document.getElementById('searchLocationForm')
-                    , document.getElementById('js_schoolType_private')
-                    , document.getElementById('js_schoolType_charter')
-                    , document.getElementById('js_reloadMap'));
+                , document.getElementById('districtList')
+                , document.getElementById('js_districtHeader')
+                , document.getElementById('schoolList')
+                , $('.js_mapLevelCode')
+                , document.getElementById('searchLocationForm')
+                , document.getElementById('js_schoolType_private')
+                , document.getElementById('js_schoolType_charter')
+                , document.getElementById('js_reloadMap')
+            );
         });
 
         ]]>

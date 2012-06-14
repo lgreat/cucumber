@@ -1,5 +1,6 @@
 var Boundary = (function (){
     var $map, $dropdown, $header, $list, $level, $search, $priv, $charter, $redo, currentLevel = 'e';
+
     var init = function (map, dropdown, header, list, level, search, priv, charter, redo ) {
         $map = $(map), $dropdown = $(dropdown), $header = $(header)
             , $list = $(list), $level = $(level), $priv = $(priv)
@@ -7,7 +8,33 @@ var Boundary = (function (){
 
         $redo.hide();
         updateEventListeners();
-        $map.boundaries({type: 'districts', level: 'e', schools: true, autozoom: false, info: true, infoWindowMarkupCallback: infoWindowMarkupCallback});
+
+        var params = getUrlParams()
+            , paramsSet = false;
+
+        var mapOptions = {map:$.fn.boundaries.defaults.map};
+
+        if (params.lat && params.lon ) {
+            mapOptions.map.center = new google.maps.LatLng(params.lat, params.lon);
+            paramsSet = true;
+        }
+        if (params.level) {
+            mapOptions.level = params.level;
+        }
+        mapOptions.type = 'districts';
+        mapOptions.schools = true;
+        mapOptions.autozoom = false;
+        mapOptions.info = true;
+        mapOptions.infoWindowMarkupCallback = infoWindowMarkupCallback;
+
+        $map.boundaries(mapOptions);
+        if (params.address) {
+            $search.find('#js_mapAddressQuery').val(params.address);
+            $map.boundaries('geocode', params.address);
+        }
+        if (paramsSet){
+            $map.boundaries('center', mapOptions.map.center);
+        }
     }
 
     var infoWindowMarkupCallback = function ( obj ) {
@@ -105,6 +132,7 @@ var Boundary = (function (){
         }
         if ($priv.prop('checked')) $map.boundaries('nondistrict', 'private');
         if ($charter.prop('checked')) $map.boundaries('nondistrict', 'charter');
+        $map.boundaries('district');
     };
 
     var schoolsEventHandler = function (event, obj) {
@@ -119,6 +147,7 @@ var Boundary = (function (){
     var focusEventHandler = function (event, obj) {
         if (obj.data.type=='district'){
             $dropdown.val(obj.data.getKey());
+            updateDistrictHeader(obj.data);
         }
         if (obj.data.type=='school'){
             $('.js-listItem').removeClass('selected');
@@ -145,7 +174,14 @@ var Boundary = (function (){
         updateHistory('?lat='+obj.data.lat()+'&lon='+obj.data.lng()+'&level='+currentLevel);
         $redo.hide();
         $map.boundaries('district');
-    }
+    };
+
+    var updateDistrictHeader = function( district ){
+        $header.removeClass('hidden');
+        $header.find('#ratings-test').html(district.rating);
+        $header.find('#school-name-test').html(district.name);
+    };
+
 
     var updateHistory = function ( params ){
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
@@ -153,7 +189,7 @@ var Boundary = (function (){
         } else {
             window.location = window.location.pathname + '' + params;
         }
-    }
+    };
 
     var levelEventHandler = function ( event ) {
         var val = $(this).val();
@@ -181,10 +217,26 @@ var Boundary = (function (){
     }
 
     var redoEventHandler = function (){
-        $map.boundaries('districts').boundaries('district');
+        var b = $map.data('boundaries');
+        $map.boundaries('center', b.map.getCenter());
     }
 
+    var getUrlParams = function(){
+        var urlParams = {};
+        var e,
+            a = /\+/g,  // Regex for replacing addition symbol with a space
+            r = /([^&=]+)=?([^&]*)/g,
+            d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+            q = window.location.search.substring(1);
+
+        while (e = r.exec(q))
+            urlParams[d(e[1])] = d(e[2]);
+
+        return urlParams;
+    };
+
     return {
-        init: init
+        init: init,
+        getUrlParams: getUrlParams
     }
 });
