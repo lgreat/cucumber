@@ -30,8 +30,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                                 @RequestParam(value = "state", required = false) State state) {
         School school = getSchool(request, state, schoolId);
 
-        model.put("testScores", _testScoresPrototypeController.populateTestScoresBean
-                (school, _testScoresPrototypeController.populateSchoolValues(school)));
+        model.put("testScores", _testScoresPrototypeController.getTestScores(school));
         return "school/testScoresPrototype";
     }
 }
