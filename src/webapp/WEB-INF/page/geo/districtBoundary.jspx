@@ -11,1140 +11,315 @@
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>School Boundaries | GreatSchools</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content=" Enter zip code or address to see school and district boundary lines on our interactive map."
+          name="description"/>
+    <title>School and District Boundaries Map | GreatSchools</title>
 
-<pageHelper:externalJavascript file="/res/js/history.min.js"/>
-<pageHelper:externalJavascript file="/res/js/boundary.js"/>
-<pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
-<pageHelper:externalJavascript file="/res/js/googleMapsInfobox.min.js"/>
-
-<script type="text/javascript">
-<![CDATA[
-
-function isScrolledIntoView(elem, parentElem) {
-    // position should be between 0 and height. parentElem must be relatively positioned!
-    var elemTop = $(elem).position().top;
-    return elemTop > 0 && elemTop < $(parentElem).height();
-}
-var GS = GS || {};
-GS.Boundaries = GS.Boundaries || {};
+    <pageHelper:externalJavascript file="/res/js/history.min.js"/>
+    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
+    <pageHelper:externalJavascript file="/res/js/googleMapsInfobox.min.js"/>
+    <pageHelper:externalJavascript file="/res/js/jquery.boundaries.js"/>
+    <pageHelper:externalJavascript file="/res/js/boundary.js"/>
 
 
-//        GS.Boundaries.events = {};
-//        GS.Boundaries.Event = function(name) {
-//            var callbacks;
-//            var event = name && GS.Boundaries.events[name];
-//            if (!event) {
-//                callbacks = jQuery.Callbacks();
-//                event = {
-//                    trigger: callbacks.fire,
-//                    subscribe: callbacks.add,
-//                    unsubscribe: callbacks.remove
-//                };
-//                if (name) {
-//                    GS.Boundaries.events[name] = event;
-//                }
-//            }
-//            return event;
-//        };
-//        var myEvent = new GS.Boundaries.Event('districtsLoaded');
-var districtBoundaryMap = null;
+    <script type="text/javascript">
+        <![CDATA[
 
-var showPublicSchools = function() {
-    return $('#js_schoolType_public').prop('checked');
-};
-var showPrivateSchools = function() {
-    return $('#js_schoolType_private').prop('checked');
-};
-var showCharterSchools = function() {
-    return $('#js_schoolType_charter').prop('checked');
-};
-new (function() {
-    var stuffOnMap = {};
-    var selectedDistrict = null;
-    var selectedSchool = null;
-    var mapClickListeners = new Array();
-    var centerMarker = null;
-    var myOptions2 = {
-//                   content:"",
-                   disableAutoPan: false,
-                   maxWidth: 0,
-                   pixelOffset: new google.maps.Size(-150, -45),
-                   zIndex: null,
-                   boxStyle: {
-                     //  background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
-                       opacity: 1,
-                       width: "300px"
-                   },
-                   closeBoxMargin: "8px",
-                   // TODO: Change closeBoxURL from staging to www
-                   closeBoxURL: "http://dev.greatschools.org/res/img/googleMaps/16x16_close.png",
-//                   closeBoxURL: "http://staging.greatschools.org/res/img/googleMaps/16x16_close.png",
-                   infoBoxClearance: new google.maps.Size(1, 1),
-                   isHidden: false,
-                   pane: "floatPane",
-                   alignBottom:true,
-                   enableEventPropagation: false};
-
-               //Define the infobox
-//               newMarkers[i].infobox = new InfoBox(myOptions2);
-    var mapInfoWindow  = new InfoBox(myOptions2);//new google.maps.InfoWindow();
-
-    // AJAX METHODS
-    // MISCELLANEOUS FUNCTIONS
-    var centerMap = function(latLng, options) {
-        options = options || {};
-        var moveMarker = typeof(options.moveMarker) !== 'undefined' ? options.moveMarker : false;
-        districtBoundaryMap.panTo(latLng);
-        if (moveMarker) {
-            setCenterMarkerAtLocation(latLng);
-        }
-    };
-    var setCenterMarkerAtLocation = function(latLng) {
-        if (centerMarker == null) {
-            centerMarker = GS.Map.Helper.createMarker({
-                center: {latitude:latLng.lat, longitude:latLng.lng},
-                size: {width:39, height:34},
-                url: '/res/img/map/green_arrow.png',
-                shadow: {
-                    url: '/res/img/map/green_arrow_shadow.png',
-                    size:new google.maps.Size(39,34),
-                    anchor:new google.maps.Point(11, 34)},
-                origin: {x:0, y:0},
-                anchor: {x:11, y:34},
-                shape: {type:'poly', coord:[0, 0, 23, 0, 23, 34, 0, 34]}
-            });
-        } else {
-            centerMarker.setPosition(latLng);
-        }
-    };
-    var initMap = function(center) {
-        $('#js_reloadMap').hide();
-        districtBoundaryMap = new google.maps.Map(document.getElementById('map-canvas'), {
-            zoom: 11,
-            center: center,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+        $(function(){
+            var $loading = $('#js_loading');
+            $(document).ajaxStart(function() {$loading.show().removeClass('hidden');});
+            $(document).ajaxStop(function(){$loading.hide().addClass('hidden');});
+            var boundary = new Boundary();
+            boundary.init(document.getElementById('map-canvas')
+                    , document.getElementById('districtList')
+                    , document.getElementById('js_districtHeader')
+                    , document.getElementById('schoolList')
+                    , $('.js_mapLevelCode')
+                    , document.getElementById('searchLocationForm')
+                    , document.getElementById('js_schoolType_private')
+                    , document.getElementById('js_schoolType_charter')
+                    , document.getElementById('js_reloadMap'));
         });
-        try {
-            GS.Boundaries.boundaryHelper.map = districtBoundaryMap;
-        } catch (e) {
-            GS.Util.log("ERROR: " + e);
-        }
-        $('.js_showWithMap').show();
-        setCenterMarkerAtLocation(center);
-        centerMarker.setMap(districtBoundaryMap);
-        google.maps.event.addListener(districtBoundaryMap, 'center_changed', function(){
-            $('#js_reloadMap').show().removeClass('hidden');
-        });
-    };
-    var clearMap = function() {
-        mapInfoWindow.close();
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                var thingOnMap = stuffOnMap[key];
-                thingOnMap.hideMarker();
-                thingOnMap.hidePolygon();
-                delete stuffOnMap[key];
-            }
-        }
-        updateDistrictList();
-        updateSchoolList();
-        updateDebugListeners();
-    };
-    var hideAllPolygons = function() {
-        mapInfoWindow.close();
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                stuffOnMap[key].hidePolygon();
-            }
-        }
-    };
-    var hideAllSchoolPolygons = function() {
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                var obj = stuffOnMap[key];
-                if (obj.isSchool()) {
-                    obj.hidePolygon();
-                }
-            }
-        }
-    };
-    var hidePrivateSchools = function() {
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                var obj = stuffOnMap[key];
-                if (obj.isSchool() && obj.schoolType == 'private' &&
-                        (typeof(obj.districtId) === 'undefined' || obj.isCharterOnly === true)) {
-                    obj.hide();
-                }
-            }
-        }
-    };
-    var hideCharterSchools = function() {
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                var obj = stuffOnMap[key];
-                if (obj.isSchool() && obj.schoolType == 'charter' &&
-                        (typeof(obj.districtId) === 'undefined' || obj.isCharterOnly === true)) {
-                    obj.hide();
-                }
-            }
-        }
-    };
-    var hideSchoolsWithDistrict = function() {
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                var obj = stuffOnMap[key];
-                if (obj.isSchool() && obj.districtId > 0) {
-                    obj.hide();
-                }
-            }
-        }
-    };
-    var showSchoolMarkersForDistrict = function(district) {
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                var existingObj = stuffOnMap[key];
-                if (existingObj.isSchool() && existingObj.getDistrictKey() == district.getKey()) {
-                    existingObj.showMarker();
-                }
-            }
-        }
-    };
-    var isCharterWithDistrict = function(obj){
-        return (obj.isSchool() && obj.schoolType == 'charter' && obj.districtId);
-    };
-    var hideSchoolsOutsideOfDistrict = function(district) {
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                var existingObj = stuffOnMap[key];
-                if (existingObj.isSchool() && existingObj.districtId > 0 && existingObj.getDistrictKey() != district.getKey()) {
-                    existingObj.hide();
-                }
-            }
-        }
-    };
-    var showInfoWindowForSelectedSchool = function() {
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                var obj = stuffOnMap[key];
-                if (obj.isSchool() && obj.isPolygonShown()) {
-                    showSchoolInfoWindow(obj);
-                    break;
-                }
-            }
-        }
-    };
 
-    // EVENT HANDLERS
-    var createDistrictMarkerClickListener = function(districtOnMap) {
-        return function() {
-            districtClickHandler(districtOnMap, {center:false});
-        };
-    };
-    var createSchoolMarkerClickListener = function(schoolOnMap) {
-        return function() {
-            schoolClickHandler(schoolOnMap, {center:false});
-        };
-    };
-    var showDistrictInfoWindow = function(district) {
-        var infoWindowElement = $('#boundaryMapDistrictInfoWindow');
-        var nameLink = '<a href="' + district.url + '">' + district.name + '</a>';
-        infoWindowElement.find('.js_name').html(nameLink);
-        var ratingImg = '<span class="sprite badge_sm_';
-        if (district.rating > 0 && district.rating < 11) {
-            ratingImg += district.rating
-        } else {
-            ratingImg += 'na'
-        }
-        ratingImg += '"><!-- do not collapse --></span>';
-        infoWindowElement.find('.js_rating').html(ratingImg);
-        var addr = '';
-        if (district.address.street1) {
-            addr += district.address.street1 + '<br/>';
-        }
-        if (district.address.cityStateZip) {
-            addr += district.address.cityStateZip;
-        }
-        infoWindowElement.find('.js_address').html(addr);
-        mapInfoWindow.setContent(
-                '<div class="mod standard_5-1 mbm">'+infoWindowElement.html()+'</div>'
-        );
-        mapInfoWindow.open(GS.Boundaries.boundaryHelper.map, district.marker);
-        selectedDistrict = district;
-    };
-    var showSchoolInfoWindow = function(school) {
-        var infoWindowElement = $('#boundaryMapSchoolInfoWindow');
-        var nameLink = '<a href="' + school.url + '">' + school.name + '</a>';
-        infoWindowElement.find('.js_name').html(nameLink);
-        var ratingImg = '<span class="sprite badge_sm_';
-        if (school.rating > 0 && school.rating < 11) {
-            ratingImg += school.rating
-        } else {
-            ratingImg += 'na'
-        }
-        ratingImg += '"><!-- do not collapse --></span>';
-        infoWindowElement.find('.js_rating').html(ratingImg);
-        var addr = '';
-        if (school.address.street1) {
-            addr += school.address.street1 + '<br/>';
-        }
-        if (school.address.cityStateZip) {
-            addr += school.address.cityStateZip;
-        }
-        infoWindowElement.find('.js_address').html(addr);
-
-        infoWindowElement.find('.js_comments').html('');
-        if (!school.polygon){
-            infoWindowElement.find('.js_comments').html('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Contact school district for school boundaries</div></div></div>');
-        }
-
-        if (school.schoolType == 'private'){
-            infoWindowElement.find('.js_comments').append('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Private schools are not in the district.</div></div></div>')
-        }
-
-        if (school.schoolType == 'charter' && !isCharterWithDistrict(school)){
-            infoWindowElement.find('.js_comments').append('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Charter schools are not in the district.</div></div></div>')
-        }
-
-
-        mapInfoWindow.setContent(
-                '<div class="mod standard_5-1">'+infoWindowElement.html()+'</div>'
-        );
-        mapInfoWindow.open(GS.Boundaries.boundaryHelper.map, school.marker);
-        selectedSchool = school;
-    };
-    var districtClickHandler = function(district, params) {
-        var moveToCenter = typeof(params.center) !== 'undefined' ? params.center : false;
-        hideSchoolsOutsideOfDistrict(district);
-        if (!district.isPolygonShown()) {
-            hideAllPolygons();
-            if (district.hasPolygon()) {
-                district.showPolygon();
-                updateDistrictList();
-                updateDebugListeners();
-            } else {
-                GS.Boundaries.boundaryHelper.getDistrictBoundaryByIdAjax(district.state, district.id, district.name
-                ).done(function() {
-                            updateDistrictList();
-                            updateDebugListeners();
-                        });
-            }
-        }
-        if (showPublicSchools()) {
-            if (!district.schoolsLoaded) {
-                GS.Boundaries.boundaryHelper.getAllSchoolsForDistrictAjax(district.state, district.id, district.name
-                ).done(function() {
-                            district.schoolsLoaded = true;
-                            updateSchoolList();
-                            updateDebugListeners();
-                        }
-                );
-            } else {
-                showSchoolMarkersForDistrict(district);
-                updateSchoolList();
-            }
-        }
-        if (showPrivateSchools()) {
-            loadPrivateSchoolsNearPoint(district.marker.getPosition().lat(), district.marker.getPosition().lng());
-        }
-        if (showCharterSchools()) {
-            loadCharterSchoolsNearPoint(district.marker.getPosition().lat(), district.marker.getPosition().lng());
-        }
-        if (moveToCenter && district.hasMarker()) {
-            centerMap(district.marker.getPosition());
-        }
-        // TODO: remove code, removed according to specs, no info window for districts
-          showDistrictInfoWindow(district);
-    };
-    var schoolClickHandler = function(school, params) {
-        var moveToCenter = typeof(params.center) !== 'undefined' ? params.center : false;
-        if (!school.isPolygonShown()) {
-            hideAllSchoolPolygons();
-            if (school.hasPolygon()) {
-                school.showPolygon();
-                updateSchoolList();
-                updateDebugListeners();
-                showSchoolInfoWindow(school);
-            } else {
-                GS.Boundaries.boundaryHelper.getSchoolBoundaryByIdAjax(school.state, school.id, school.name).done(function() {
-                    if (moveToCenter) {
-                        if (school.centroid && school.centroid.lat && school.centroid.lon) {
-                            centerMap(new google.maps.LatLng(school.centroid.lat, school.centroid.lon));
-                        } else {
-                            centerMap(school.marker.getPosition());
-                        }
-                    }
-                }).fail(function(){
-                            showSchoolInfoWindow(school);
-                        }).always(function() {
-                            updateSchoolList();
-                            updateDebugListeners();
-                            showInfoWindowForSelectedSchool();
-                        });
-            }
-        }
-    };
-    var loadDistrictsForLocationEventHandler = function(event) {
-        if (event.latLng) {
-            mapInfoWindow.close();
-            selectedDistrict = null;
-            GS.Boundaries.boundaryHelper.loadDistrictsServingLocationAjax
-                    (event.latLng.lat(), event.latLng.lng(), {showPolygons: true, showMarkers: true})
-                    .done(function(data) {
-                        updateDistrictList();
-                        updateDebugListeners();
-                    });
-        }
-    };
-    var storeData = function(data) {
-        var keyMap = data.keyMap;
-        for (var prop in keyMap) {
-            if (keyMap.hasOwnProperty(prop)) {
-                var existingObj = stuffOnMap[prop];
-                var newObj = keyMap[prop];
-                if (typeof(existingObj) !== 'undefined') {
-                    if (!newObj.hasMarker() && existingObj.hasMarker()) {
-                        newObj.setMarker(existingObj.marker);
-                    } else if (existingObj.hasMarker()) {
-                        existingObj.hideMarker(); // gonna get clobbered below
-                    }
-                    if (!newObj.hasPolygon() && existingObj.hasPolygon()) {
-                        newObj.setPolygon(existingObj.polygon);
-                    } else if (existingObj.hasPolygon()) {
-                        existingObj.hidePolygon(); // gonna get clobbered below
-                    }
-                }
-                if (newObj.hasMarker()) {
-                    google.maps.event.clearListeners(newObj.marker, 'click');
-                    google.maps.event.addListener(newObj.marker, 'click', newObj.isSchool()? createSchoolMarkerClickListener(newObj) : createDistrictMarkerClickListener(newObj));
-                }
-                stuffOnMap[prop] = newObj;
-            }
-        }
-    };
-    var loadSchoolsServingLocation = function(lat, lon) {
-        var workQueue;
-        if (showPublicSchools()) {
-            workQueue = GS.Boundaries.boundaryHelper.loadSchoolsServingLocationAjax(lat, lon, {showPolygons:false});
-        } else {
-            workQueue = new jQuery.Deferred();
-            workQueue.resolve({topLevel:[]});
-        }
-
-        workQueue.done(function(data) {
-                    hideAllPolygons();
-                    mapInfoWindow.close();
-                    selectedDistrict = null;
-                    var smallestAreaSchool = null;
-                    var smallestSchoolArea = 9999999;
-                    var smallestAreaDistrict = null;
-                    var smallestDistrictArea = 9999999;
-                    for (var x=0; x < data.topLevel.length; x++) {
-                        var obj = data.topLevel[x];
-                        if (obj.isSchool() && obj.hasPolygon()) {
-                            if (obj.area < smallestSchoolArea)  {
-                                smallestAreaSchool = obj;
-                                smallestSchoolArea = obj.area;
-                            }
-                        } else if (obj.isDistrict() && obj.hasPolygon()) {
-                            if (obj.area < smallestDistrictArea) {
-                                smallestAreaDistrict = obj;
-                                smallestDistrictArea = obj.area;
-                            }
-                        }
-                    }
-                    /**
-                     * removed to always show the district with the smallest area per specs
-                     if (smallestAreaSchool != null) {
-                     smallestAreaSchool.showPolygon();
-                     GS.Map.Helper.highlightPolygon(smallestAreaSchool.polygon, {duration:600});
-                     }
-                     */
-
-                    if (smallestAreaDistrict != null) {
-                        smallestAreaDistrict.showPolygon();
-                        GS.Map.Helper.highlightPolygon(smallestAreaDistrict.polygon, {duration:600});
-                        hideSchoolsOutsideOfDistrict(smallestAreaDistrict);
-                    }
-                    updateDistrictList();
-                    updateSchoolList();
-                    updateDebugListeners();
-                    showInfoWindowForSelectedSchool();
-                }
-        ).always(function() {
-                    if (showPrivateSchools()) {
-                        loadPrivateSchoolsNearPoint(lat, lon);
-                    }
-                    if (showCharterSchools()) {
-                        loadCharterSchoolsNearPoint(lat, lon);
-                    }
-                }
-        );
-    };
-    var loadSchoolsForLocationEventHandler = function(event) {
-        if (event.latLng) {
-            loadSchoolsServingLocation(event.latLng.lat(), event.latLng.lng());
-        }
-    };
-    var updateDebugListeners = function() {
-        for (var x=0; x < mapClickListeners.length; x++) {
-            google.maps.event.removeListener(mapClickListeners[x]);
-        }
-        mapClickListeners = new Array();
-        var myClickHandler;
-        if ($('.js_mapClickBehavior:checked').val() == 'loadDistrict') {
-            myClickHandler = loadDistrictsForLocationEventHandler;
-        } else {
-            myClickHandler = loadSchoolsForLocationEventHandler;
-        }
-        // clicking on map or a polygon triggers the selected click event (but not markers -- they have their own event)
-        mapClickListeners.push(google.maps.event.addListener(districtBoundaryMap, 'click', myClickHandler));
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                if (stuffOnMap[key].hasPolygon()) {
-                    mapClickListeners.push(google.maps.event.addListener(stuffOnMap[key].polygon, 'click', myClickHandler));
-                }
-            }
-        }
-    };
-    var updateDistrictList = function() {
-        var districtListDiv = $('#districtList');
-        districtListDiv.empty();
-        var districts = new Array();
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                if (stuffOnMap[key].isDistrict() && stuffOnMap[key].isMarkerShown()) {
-                    districts.push(stuffOnMap[key]);
-                }
-            }
-        }
-        // sort on district rating
-        var districtListItemTemplate = '<option value="">Select a district</option>';
-        districtListDiv.append($(districtListItemTemplate));
-
-        districts.sort(GS.Util.sortByRating);
-
-        for (var districtIndex = 0; districtIndex < districts.length; districtIndex++) {
-            var district = districts[districtIndex];
-            var districtKey = "district-" + district.state + "-" + district.id;
-            var districtRating = 'na';
-            var selected = '';
-
-            var $item = $(districtListItemTemplate);
-            if (district.isPolygonShown()){
-                $item.attr('selected', 'selected');
-                updateDistrictHeader(district);
-            }
-            $item.attr('value', districtKey);
-            $item.html(district.name);
-            districtListDiv.append($item);
-        }
-
-
-
-//                var htmlString = '<option value="">Select a district</option>';
-//                for (var districtIndex = 0; districtIndex < districts.length; districtIndex++) {
-//                    var district = districts[districtIndex];
-//                    var districtKey = "district-" + district.state + "-" + district.id;
-//                    var districtRating = 'na';
-//                    var selected = '';
-//                    if (district.isPolygonShown()) {
-//                        selected = ' selected="selected"';
-//                    }
-//                    var li = '<option value="' + districtKey + '"' + selected + '>' + district.name;
-//                    if (district.rating > 0 && district.rating < 11) {
-//                        li += ' (' + district.rating + ')';
-//                    } else {
-//                        li += ' (N/A)'
-//                    }
-//                    li += '</option>';
-//                    htmlString += li;
-//                }
-//                districtListDiv.append(htmlString);
-    };
-
-//    var updateDistrictHeader = function(district) {
-//
-//        var $districtHeader = $('#js_districtHeader').removeClass('hidden').html('');
-//        var districtHeaderTemplate = "<h4 class='bottom'></h4>";
-//        TODO update gs rating image
-//        var districtGSRatingTemplate = "<img/>";
-//
-//        if (district && district.name.length > 0 ){
-//            var $item = $(districtHeaderTemplate);
-//            var $rating = $(districtGSRatingTemplate).attr('src', '/res/img/map/pushpin_' + district.rating + '.png');
-//            $districtHeader.append($item.append($rating).append(district.name));
-//        }
-//    }
-
-    var updateDistrictHeader = function(district) {
-
-        $('#js_districtHeader').removeClass('hidden');
-        $('#ratings-test').html(district.rating);
-        $('#school-name-test').html(district.name);
-
-
-    }
-
-    var updateSchoolList = function() {
-        var schoolListDiv = $('#schoolList');
-        schoolListDiv.empty();
-        var schools = new Array();
-        for (var key in stuffOnMap) {
-            if (stuffOnMap.hasOwnProperty(key)) {
-                if (stuffOnMap[key].isSchool() && stuffOnMap[key].isMarkerShown()) {
-                    // making sure that charter schools are not included in school list div
-                    if (stuffOnMap[key].schoolType!='charter' && stuffOnMap[key].schoolType!='private') {
-                        schools.push(stuffOnMap[key]);
-                    }
-                    else if (stuffOnMap[key].districtId) {
-                        schools.push(stuffOnMap[key]);
-                    }
-                }
-            }
-        }
-        // sort on school rating
-        schools.sort(GS.Util.sortByRating);
-        var mySelectedSchool = null;
-        var htmlString = '';
-
-        // TODO: only define once
-
-        var itemTemplate = '<div class="js-listItem media attribution pvs phm" style="border-bottom: 1px solid #f1f1f1"></div>';
-        var spriteTemplate = '<div class="img round-small mrm"><!--Do not collapse--></div>';
-        var nameTemplate = '<div class="bd" id=""></div>';
-
-        for (var schoolIndex = 0; schoolIndex < schools.length; schoolIndex++) {
-            var school = schools[schoolIndex];
-            var schoolKey = "school-" + school.state + "-" + school.id;
-            var schoolRating = 'na';
-            var selected = '';
-
-            var $name = $(nameTemplate);
-            var $sprite = $(spriteTemplate);
-
-            var badge = '';
-
-            if (school.rating > 0 && school.rating < 11) {
-                badge = school.rating;
-            } else if (school.schoolType == 'private') {
-                badge = 'PR';
-            } else {
-                badge = 'N/A';
-            }
-
-            $sprite.append(badge);
-            $name.append(school.name);
-            var $listItem = $(itemTemplate).append($sprite).append($name).attr('id', schoolKey);
-
-            if (school.isPolygonShown()) {
-                $listItem.addClass('selected');
-//                        selected = ' class="selected"';
-                mySelectedSchool = school;
-            } else if (mySelectedSchool == null && school == selectedSchool) {
-//                        selected = ' class="selected"';
-                $listItem.addClass('selected');
-                mySelectedSchool = school;
-            }
-
-//                    htmlString += $item;
-            schoolListDiv.append($listItem);
-        }
-
-
-//                schoolListDiv.append(htmlString);
-        if (schools.length > 0) {
-            $('#schoolListWrapper').show();
-        }
-        if (mySelectedSchool != null) {
-            mySelectedSchool = $('#' + mySelectedSchool.getKey());
-            if (mySelectedSchool.position() != null && isScrolledIntoView(mySelectedSchool, $('#schoolListDiv')) === false) {
-                var scrollTop = $('#schoolListDiv').scrollTop();
-                $('#schoolListDiv').scrollTop(scrollTop + mySelectedSchool.position().top);
-            }
-        } else {
-            $('#schoolListDiv').scrollTop(0);
-        }
-    };
-    var geocodeAddressSuccess = function(geocodeResults) {
-        // ignore multiple results for now
-        geocodeResults[0]['totalResults'] = geocodeResults.length;
-        var lat = geocodeResults[0]['lat'];
-        var lon = geocodeResults[0]['lon'];
-        clearMap();
-        loadDistrictsNearPoint(lat, lon
-        ).always(function() {
-                    loadSchoolsServingLocation(lat, lon);
-                });
-        centerMap(new google.maps.LatLng(lat, lon), {moveMarker:true});
-    };
-    var loadPrivateSchoolsNearPoint = function(myLat, myLon) {
-        hidePrivateSchools();
-        return GS.Boundaries.boundaryHelper.loadNonDistrictSchoolsNearPoint(myLat, myLon, {type:'private', showPolygons: false}
-        ).done(function(data) {
-                    updateSchoolList();
-                    for (var key in data.keyMap) {
-                        if (data.keyMap.hasOwnProperty(key)) {
-                            var obj = data.keyMap[key];
-                            if (obj.isSchool()) {
-                                obj.isCharterOnly = true;
-                            }
-                        }
-                    }
-                });
-    };
-    var loadCharterSchoolsNearPoint = function(myLat, myLon) {
-        hideCharterSchools();
-        return GS.Boundaries.boundaryHelper.loadNonDistrictSchoolsNearPoint(myLat, myLon, {type:'charter', showPolygons: false}
-        ).done(function(data) {
-                    updateSchoolList();
-                    for (var key in data.keyMap) {
-                        if (data.keyMap.hasOwnProperty(key)) {
-                            var obj = data.keyMap[key];
-                            if (obj.isSchool()) {
-                                obj.isCharterOnly = true;
-                            }
-                        }
-                    }
-                });
-    };
-    var loadDistrictsNearPoint = function(myLat, myLon) {
-        // drop unneeded precision
-        var lat = Math.round(myLat * 1000000)/1000000;
-        var lon = Math.round(myLon * 1000000)/1000000;
-        if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
-            // use HTML 5 history API to rewrite the current URL to represent the new state.
-            window.History.replaceState(null, document.title, '?lat=' + lat + '&lon=' + lon + '&level=' + $('.js_mapLevelCode:checked').val());
-        }
-
-        if (districtBoundaryMap == null) {
-            var latLng = new google.maps.LatLng(lat, lon);
-            initMap(latLng);
-        }
-        clearMap();
-        return GS.Boundaries.boundaryHelper.loadDistrictsNearPointAjax(lat, lon
-        ).done(function(data) {
-                    updateDistrictList();
-                });
-    };
-    jQuery(document).ajaxStart(function() {
-        $('#js_loading').show();
-    });
-    jQuery(document).ajaxStop(function() {
-        $('#js_loading').hide();
-    });
-    jQuery(function () {
-        GS.Boundaries.boundaryHelper.globalResponseHandler = storeData;
-        var params = GS.Util.getUrlVars();
-        if (params.lat && params.lon) {
-            loadDistrictsNearPoint(params.lat, params.lon);
-        } else {
-            initMap(new google.maps.LatLng(37.790948, -122.3942572));
-            // removed to meet requirement, initial state of map should be blank
-//            loadDistrictsNearPoint(37.790948, -122.3942572).done(function() {
-//                navigator.geolocation.getCurrentPosition(function(pos) {
-////                    loadDistrictsNearPoint(pos.coords.latitude, pos.coords.longitude);
-//                    centerMap(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-//                });
-//            });
-        }
-
-        $('#js_reloadMap').on('click', function() {
-            loadDistrictsNearPoint(districtBoundaryMap.getCenter().lat(),
-                    districtBoundaryMap.getCenter().lng()
-            ).always(function () {
-                        if (showPrivateSchools()) {
-                            loadPrivateSchoolsNearPoint(districtBoundaryMap.getCenter().lat(),
-                                    districtBoundaryMap.getCenter().lng());
-                        }
-                        if (showCharterSchools()) {
-                            loadCharterSchoolsNearPoint(districtBoundaryMap.getCenter().lat(),
-                                    districtBoundaryMap.getCenter().lng());
-                        }
-                    }
-            );
-        });
-        $('#js_clearPolygons').on('click', hideAllPolygons);
-        $('#js_clearAll').on('click', clearMap);
-        $('#js_drawAllDistricts').on('click', function() {
-            var districtQueue = new jQuery.Deferred();
-            var nextQueue = null;
-            for (var key in stuffOnMap) {
-                if (stuffOnMap.hasOwnProperty(key) && stuffOnMap[key].isDistrict()) {
-                    var district = stuffOnMap[key];
-                    if (!district.isPolygonShown()) {
-                        if (district.hasPolygon()) {
-                            district.showPolygon();
-                        } else {
-                            if (nextQueue == null) {
-                                nextQueue = new jQuery.Deferred();
-                                districtQueue.done(loadDistrictBoundaryFunc(district, nextQueue));
-                            } else {
-                                var newQueue = new jQuery.Deferred();
-                                nextQueue.done(loadDistrictBoundaryFunc(district, newQueue));
-                                nextQueue = newQueue;
-                            }
-                        }
-                    }
-                }
-            }
-            districtQueue.resolve(); // start the cascade
-            updateDistrictList();
-            updateDebugListeners();
-        });
-        var loadDistrictBoundaryFunc = function(district, deferred) {
-            return function() {
-                GS.Boundaries.boundaryHelper.getDistrictBoundaryByIdAjax(district.state, district.id, district.name
-                ).done(function() {
-                            updateDistrictList();
-                            updateDebugListeners();
-                        }).always(function() {
-                            deferred.resolve();
-                        });
-            };
-        };
-        $('.js_mapLevelCode').on('change', function() {
-            clearMap();
-            // Changed so that schools are loaded by the districts
-            loadSchoolsServingLocation(districtBoundaryMap.getCenter().lat(),
-                    districtBoundaryMap.getCenter().lng()
-            ).always(function() {
-                        if (showPrivateSchools()) {
-                            loadPrivateSchoolsNearPoint(districtBoundaryMap.getCenter().lat(),
-                                    districtBoundaryMap.getCenter().lng());
-                        }
-                        if (showCharterSchools()) {
-                            loadCharterSchoolsNearPoint(districtBoundaryMap.getCenter().lat(),
-                                    districtBoundaryMap.getCenter().lng());
-                        }
-                    }
-            );
-        });
-        $('.js_mapClickBehavior').on('change', updateDebugListeners);
-        $('#js_schoolType_private').on('change', function() {
-            if (showPrivateSchools()) {
-                loadPrivateSchoolsNearPoint(districtBoundaryMap.getCenter().lat(),
-                        districtBoundaryMap.getCenter().lng())
-            } else {
-                hidePrivateSchools();
-                updateSchoolList();
-            }
-        });
-        $('#js_schoolType_charter').on('change', function() {
-            if (showCharterSchools()) {
-                loadCharterSchoolsNearPoint(districtBoundaryMap.getCenter().lat(),
-                        districtBoundaryMap.getCenter().lng())
-            } else {
-                hideCharterSchools();
-                updateSchoolList();
-            }
-        });
-        $('#js_schoolType_public').on('change', function() {
-            if (!showPublicSchools()) {
-                hideSchoolsWithDistrict();
-                updateSchoolList();
-            }
-        });
-        $('#districtList').on('change', function() {
-            var key = $(this).val();
-            if (typeof(stuffOnMap[key]) !== 'undefined' && key != '') {
-                districtClickHandler(stuffOnMap[key], {center:true});
-            }
-        });
-        $('#schoolList').on('click', 'div.js-listItem', function() {
-            var key = $(this).attr('id');
-            if (typeof(stuffOnMap[key]) !== 'undefined') {
-                schoolClickHandler(stuffOnMap[key], {center:true});
-            }
-        });
-        $('#searchLocationForm').on('submit', function() {
-            GS.Map.Helper.geocodeAddress($('#js_mapAddressQuery').val())
-                    .done(geocodeAddressSuccess)
-                    .fail(function() {
-                        alert("Cannot determine location for '" + $('#js_mapAddressQuery').val() + "'");
-                    });
-            return false;
-        });
-        updateDebugListeners();
-    });
-})();
-]]>
-</script>
+        ]]>
+    </script>
 
 </head>
 <gsml:body adPageName="districtBoundary" pageLayout="leftside">
-    <div class="slStylesV1-0  slFormsV1-0 mtl mrs">
-        <h1>School &amp; District Map Tool</h1>
+<div class="slStylesV1-0  slFormsV1-0 mtl mrs">
+<h1>School &amp; District Map Tool</h1>
 
-        <div class="mod standard_4-1">
-            <div class="outer">
-                <div class="inner">
-                    <div class="hd">
-                        <div class="fltlft">
-                            <form action="" id="searchLocationForm" onsubmit="return false;">
-                                <input type="text" alt="Search location" name="addressQuery" id="js_mapAddressQuery"
-                                       class="searchText input_8 mrm"
-                                       placeholder="Search by city and state or address"/>
-                                <button type="submit" name="loadAddress" id="js_loadAddress" class="button-1">Search
-                                </button>
-                            </form>
+<div class="mod standard_4-1">
+    <div class="outer">
+        <div class="inner">
+            <div class="hd">
+                <div class="fltlft">
+                    <form action="" id="searchLocationForm" onsubmit="return false;">
+                        <input type="text" alt="Search location" name="addressQuery" id="js_mapAddressQuery"
+                               class="searchText input_8 mrm"
+                               placeholder="Search by city and state or address"/>
+                        <button type="submit" name="loadAddress" id="js_loadAddress" class="button-1">Search
+                        </button>
+                    </form>
+                </div>
+                <div class="fltrt">
+                    <span class="iconx16 i-16-home-sales mrs"><!-- do not collapse --></span>
+                    <a href="" class="small">Nearby homes for sales</a>
+                </div>
+
+            </div>
+            <div class="bd">
+                <div class="alpha grid_7 omega mtm">
+                    <div class="js_showWithMap hidden">
+                        <div id="js_districtHeader" class="hidden mlm mbm"><!-- not empty -->
+                            <div class="media attribution">
+                                <div class="img mrm">
+                                    <div id='ratings-test' class="square-large"><!--Do not collapse--></div>
+                                </div>
+
+                                <div class="bd">
+                                    <h4 id="school-name-test" class="bottom"><!--School Name--></h4>
+                                </div>
+                            </div>
                         </div>
-                        <div class="fltrt">
-                            <span class="iconx16 i-16-home-sales mrs"><!-- do not collapse --></span>
-                            <a href="" class="small">Nearby homes for sales</a>
+                        <div id="districtListDiv" class="mlm">
+                            <h6 class="bottom">District name</h6>
+                            <hr class="keyline2"/>
+                            <div class="mvm">
+                                <select id="districtList" class="input_7"><!-- not empty --></select>
+                            </div>
                         </div>
 
+                        <div class="mlm">
+                            <h6 class="bottom">Grade level</h6>
+                            <hr class="keyline2"/>
+                            <div class="mvm">
+                                <gsml:radio name="level_code" styleClass="js_mapLevelCode"
+                                            styleId="mapLevelCode_e"
+                                            value="e"
+                                            checked="${empty param.level or param.level == 'e'}"/>
+                                <label for="mapLevelCode_e" class="radio">Elementary </label>
+                                <gsml:radio name="level_code" styleClass="js_mapLevelCode"
+                                            styleId="mapLevelCode_m"
+                                            value="m"
+                                            checked="${param.level == 'm'}"/>
+                                <label for="mapLevelCode_m" class="radio">Middle </label>
+                                <gsml:radio name="level_code" styleClass="js_mapLevelCode"
+                                            styleId="mapLevelCode_h"
+                                            value="h"
+                                            checked="${param.level == 'h'}"/>
+                                <label for="mapLevelCode_h" class="radio">High </label>
+                            </div>
+                        </div>
+
+                        <div id="schoolListWrapper" class="hidden">
+                            <h6 class="mlm bottom">Public/Charter Schools in District</h6>
+
+                            <div id="schoolListDiv">
+                                <div id="schoolList"><!--Do not collapse--></div>
+                                <!--<ul id="schoolList" class="none">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
+                            </div>
+                        </div>
                     </div>
-                    <div class="bd">
-                        <div class="alpha grid_7 omega mtm">
-                            <div class="js_showWithMap hidden">
-                                <div id="js_districtHeader" class="hidden mlm mbm"><!-- not empty -->
-                                    <div class="media attribution">
-                                        <div class="img mrm">
-                                            <div id='ratings-test' class="square-large"><!--Do not collapse--></div>
-                                        </div>
 
-                                        <div class="bd">
-                                            <h4 id="school-name-test" class="bottom"><!--School Name--></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="districtListDiv" class="mlm">
-                                    <h6 class="bottom">District name</h6>
-                                    <hr class="keyline2"/>
-                                    <div class="mvm">
-                                        <select id="districtList" class="input_7"><!-- not empty --></select>
-                                    </div>
-                                </div>
+                    <div>
+                        <!--TODO: remove-->
+                        <!--<p>Show on map:</p>-->
+                        <!--<gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" checked="${true}"/>-->
+                        <!--<label for="js_schoolType_public">Public/Charter schools (in district)</label>-->
+                        <!--<br/>-->
+                        <!--<gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"/>-->
+                        <!--<label for="js_schoolType_charter">Charter schools (not part of district)</label>-->
+                        <!--<br/>-->
+                        <!--<gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"/>-->
+                        <!--<label for="js_schoolType_private">Private schools (not part of district)</label>-->
+                    </div>
 
-                                <div class="mlm">
-                                    <h6 class="bottom">Grade level</h6>
-                                    <hr class="keyline2"/>
-                                    <div class="mvm">
-                                        <gsml:radio name="level_code" styleClass="js_mapLevelCode"
-                                                    styleId="mapLevelCode_e"
-                                                    value="e"
-                                                    checked="${empty param.level or param.level == 'e'}"/>
-                                        <label for="mapLevelCode_e" class="radio">Elementary </label>
-                                        <gsml:radio name="level_code" styleClass="js_mapLevelCode"
-                                                    styleId="mapLevelCode_m"
-                                                    value="m"
-                                                    checked="${param.level == 'm'}"/>
-                                        <label for="mapLevelCode_m" class="radio">Middle </label>
-                                        <gsml:radio name="level_code" styleClass="js_mapLevelCode"
-                                                    styleId="mapLevelCode_h"
-                                                    value="h"
-                                                    checked="${param.level == 'h'}"/>
-                                        <label for="mapLevelCode_h" class="radio">High </label>
-                                    </div>
-                                </div>
-
-                                <div id="schoolListWrapper" class="hidden">
-                                    <h6 class="mlm bottom">Public/Charter Schools in District</h6>
-
-                                    <div id="schoolListDiv">
-                                        <div id="schoolList"><!--Do not collapse--></div>
-                                        <!--<ul id="schoolList" class="none">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <!--TODO: remove-->
-                                <!--<p>Show on map:</p>-->
-                                <!--<gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" checked="${true}"/>-->
-                                <!--<label for="js_schoolType_public">Public/Charter schools (in district)</label>-->
-                                <!--<br/>-->
-                                <!--<gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"/>-->
-                                <!--<label for="js_schoolType_charter">Charter schools (not part of district)</label>-->
-                                <!--<br/>-->
-                                <!--<gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"/>-->
-                                <!--<label for="js_schoolType_private">Private schools (not part of district)</label>-->
-                            </div>
-
-                            <!--<div class="js_showWithMap hidden">-->
-                            <!--<div id="districtListDiv">-->
-                            <!--<p>Nearby districts:</p>-->
-                            <!--<select id="districtList">&lt;!&ndash; not empty &ndash;&gt;</select>-->
-                            <!--</div>-->
-                            <!--<div id="schoolListWrapper" class="hidden">-->
-                            <!--<div>Schools:</div>-->
-                            <!--<div id="schoolListDiv">-->
-                            <!--<ul id="schoolList">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
-                            <!--</div>-->
-                            <!--</div>-->
-                            <!--</div>-->
+                    <!--<div class="js_showWithMap hidden">-->
+                    <!--<div id="districtListDiv">-->
+                    <!--<p>Nearby districts:</p>-->
+                    <!--<select id="districtList">&lt;!&ndash; not empty &ndash;&gt;</select>-->
+                    <!--</div>-->
+                    <!--<div id="schoolListWrapper" class="hidden">-->
+                    <!--<div>Schools:</div>-->
+                    <!--<div id="schoolListDiv">-->
+                    <!--<ul id="schoolList">&lt;!&ndash; not empty &ndash;&gt;</ul>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div class="alpha grid_17 omega fltrt">
+                    <div class="js_showWithMap hidden">
+                        <div id="map-wrapper">
+                            <div id="map-canvas"><!-- not empty --></div>
+                            <div id="js_loading" class="but but-sm but-2 hidden">Loading ...</div>
+                            <button class="but but-sm but-2" id="js_reloadMap">Redo search at this location
+                            </button>
                         </div>
-                        <div class="alpha grid_17 omega fltrt">
-                            <div class="js_showWithMap hidden">
-                                <div id="map-wrapper">
-                                    <div id="map-canvas"><!-- not empty --></div>
-                                    <div id="js_loading" class="but but-sm but-2 hidden">Loading ...</div>
-                                    <button class="but but-sm but-2" id="js_reloadMap">Redo search at this location
-                                    </button>
-                                </div>
-                                <c:if test="${param.debug}">
-                                    <button name="reload" id="js_reloadMap">Reload at this location</button>
-                                    <button name="clearAll" id="js_clearAll">Debug: Clear All</button>
-                                    <button name="clearPolygons" id="js_clearPolygons">Debug: Clear Polygons</button>
-                                    <button name="drawAllDistricts" id="js_drawAllDistricts"
-                                            class="">Debug: Draw all districts
-                                    </button>
-                                    <button name="getSAZ" id="js_getSAZ"
-                                            class="hidden">Debug: Load SAZ for selected district
-                                    </button>
-                                    <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ"
-                                            class="hidden">Debug: Draw all districts and SAZ (Warning!)
-                                    </button>
-                                    <div class="options">
-                                        Map click behavior:
-                                        <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior"
-                                               id="mapClickLoadSchool"
-                                               value="loadSchool" checked="checked"/><label
-                                            for="mapClickLoadSchool">Show Boundaries</label>
-                                        <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior"
-                                               id="mapClickLoadDistrict" value="loadDistrict"/><label
-                                            for="mapClickLoadDistrict">Show Only District Boundary</label>
-                                    </div>
-                                </c:if>
+                        <c:if test="${param.debug}">
+                            <button name="reload" id="js_reloadMap">Reload at this location</button>
+                            <button name="clearAll" id="js_clearAll">Debug: Clear All</button>
+                            <button name="clearPolygons" id="js_clearPolygons">Debug: Clear Polygons</button>
+                            <button name="drawAllDistricts" id="js_drawAllDistricts"
+                                    class="">Debug: Draw all districts
+                            </button>
+                            <button name="getSAZ" id="js_getSAZ"
+                                    class="hidden">Debug: Load SAZ for selected district
+                            </button>
+                            <button name="drawAllDistrictsAndSAZ" id="js_drawAllDistrictsAndSAZ"
+                                    class="hidden">Debug: Draw all districts and SAZ (Warning!)
+                            </button>
+                            <div class="options">
+                                Map click behavior:
+                                <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior"
+                                       id="mapClickLoadSchool"
+                                       value="loadSchool" checked="checked"/><label
+                                    for="mapClickLoadSchool">Show Boundaries</label>
+                                <input type="radio" name="mapClickBehavior" class="js_mapClickBehavior"
+                                       id="mapClickLoadDistrict" value="loadDistrict"/><label
+                                    for="mapClickLoadDistrict">Show Only District Boundary</label>
                             </div>
-                            <div class="hidden">
-                                <div id="boundaryMapDistrictInfoWindow">
-                                    <div class="hd small bottom">
-                                        <div class="js_name"><!-- not empty --></div>
-                                    </div>
-                                    <div class="bd small">
-                                        <div class="js_address"><!-- not empty --></div>
-                                    </div>
-                                    <div class="down-pointer">
-                                        <div class="border-edge"><!-- not empty --></div>
-                                        <div class="border-bd"><!-- not empty --></div>
-                                    </div>
-                                </div>
-                                <div id="boundaryMapSchoolInfoWindow">
-                                    <div class="hd small bottom">
-                                        <div class="js_name"><!-- not empty --></div>
-                                    </div>
-                                    <div class="bd small bottom">
-                                        <div class="js_address"><!-- not empty --></div>
-                                        <div class="mbm">
-                                            <div class="media attribution">
-                                                <div class="img">
-                                                    <span class="iconx16 i-16-home-sales vam"><!-- do not collapse --></span>
-                                                </div>
-                                                <div class="bd">
-                                                    <a href="" class="vam">Homes for sales</a>
-                                                </div>
-                                            </div>
+                        </c:if>
+                    </div>
+                    <div class="hidden">
+                        <div id="boundaryMapDistrictInfoWindow">
+                            <div class="hd small bottom">
+                                <div class="js_name"><!-- not empty --></div>
+                            </div>
+                            <div class="bd small">
+                                <div class="js_address"><!-- not empty --></div>
+                            </div>
+                            <div class="down-pointer">
+                                <div class="border-edge"><!-- not empty --></div>
+                                <div class="border-bd"><!-- not empty --></div>
+                            </div>
+                        </div>
+                        <div id="boundaryMapSchoolInfoWindow">
+                            <div class="hd small bottom">
+                                <div class="js_name"><!-- not empty --></div>
+                            </div>
+                            <div class="bd small bottom">
+                                <div class="js_address"><!-- not empty --></div>
+                                <div class="mbm">
+                                    <div class="media attribution js_homesforsale">
+                                        <div class="img">
+                                            <span class="iconx16 i-16-home-sales vam"><!-- do not collapse --></span>
+                                        </div>
+                                        <div class="bd">
+                                            <a href="" class="vam">Homes for sales</a>
                                         </div>
                                     </div>
-                                    <div class="js_comments"><!-- not empty --></div>
-                                    <div class="down-pointer">
-                                        <div class="border-edge"><!-- not empty --></div>
-                                        <div class="border-bd"><!-- not empty --></div>
-                                    </div>
                                 </div>
+                            </div>
+                            <div class="js_comments"><!-- not empty --></div>
+                            <div class="down-pointer">
+                                <div class="border-edge"><!-- not empty --></div>
+                                <div class="border-bd"><!-- not empty --></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="prefix_15 grid_9">
+<div class="prefix_15 grid_9">
             <span class="smaller quiet">
                 School Boundaries &#169; Maponics 2012. Duplication is strictly prohibited.
             </span>
+</div>
+
+
+<div class="prefix_7 grid_17 mbl">
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <h6 class="bottom">Show schools that are not part of a district:</h6>
         </div>
-
-        <div class="prefix_7 grid_17 mbl">
-            <div class="lal clearfix">
-                <div class="alpha grid_7">
-                    <h6 class="bottom">Show schools that are not part of a district:</h6>
-                </div>
-                <div class="grid_10 omega">
-                    <gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="hidden"
-                                   checked="${true}"/>
-                    <label style="display:none;" for="js_schoolType_public"
-                           class="checkbox">Public/Charter schools (in district)</label>
-                    <gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"/>
-                    <label for="js_schoolType_charter" class="checkbox">Charter</label>
-                    <gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"/>
-                    <label for="js_schoolType_private" class="checkbox">Private</label>
-                </div>
-            </div>
-            <hr class="keyline2"/>
-            <!-- TODO: update legend -->
-            <div class="mtm">
-                <div class="alpha grid_2">
-                    <div class="media attribution">
-                        <div class="img mrs">
-                            <span class="iconx24 i-24-district"><!-- do not collapse --></span>
-                        </div>
-                        <div class="bd">
-                            <span class="smaller">District</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid_3">
-                    <div class="media attribution">
-                        <div class="img mrs">
-                            <span class="iconx24 i-24-private-school"><!-- do not collapse --></span>
-                        </div>
-                        <div class="bd">
-                            <span class="smaller">Private School</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid_4">
-                    <div class="media attribution">
-                        <div class="img mrs">
-                            <span class="iconx24 i-24-public-charter-school"><!-- do not collapse --></span>
-                        </div>
-                        <div class="bk">
-                            <span class="smaller">Public/Charter School</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid_4">
-                    <div class="media attribution">
-                        <div class="img mrs">
-                            <span class="iconx24 i-24-school-enrollment"><!-- do not collapse --></span>
-                        </div>
-                        <div class="bd">
-                            <span class="smaller">School Enrollment</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid_4 omega">
-                    <div class="media attribution">
-                        <div class="img mrs">
-                            <span class="iconx24 i-24-district-boundary"><!-- do not collapse --></span>
-                        </div>
-                        <div class="bd">
-                            <span class="smaller">District Boundary</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr class="keyline2"/>
-
-        <div class="mtm smaller">
-            <strong>Disclaimer:</strong>
-            School Boundaries information is compiled from various sources and is for general informational purposes only. School attendance zone information is subject to change throughout the year. The School and District Boundary Map is not appropriate for use in determining the legal eligibility of any individual or resident of a particular structure to attend any particular school system, or to use or benefit from any other provided for or on behalf of any city, town, state, or other governmental entity, or any other service dependent upon residence within a given geographical area. To verify legal descriptions of boundaries or to determine school locations or attendance, please contact the school or school district directly.
-            <div class="mtl">
-                From more information about the School and District Boundary Map, see our FAQs. (FAQs links to the GreatSchools FAQs page. see sub-task for FAQ text to be added to the global FAQs)
-            </div>
-        </div>
-
-        <div style="display:none;">
-            <mod:tracking pageName="Attendance Zones" hier1="TBD"/>
+        <div class="grid_10 omega">
+            <gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="hidden"
+                           checked="${true}"/>
+            <label style="display:none;" for="js_schoolType_public"
+                   class="checkbox">Public/Charter schools (in district)</label>
+            <gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"
+                           onclick="clickCapture.capture('eVar74','Dist Bounds Charter Filter'); return true;"/>
+            <label for="js_schoolType_charter" class="checkbox">Charter</label>
+            <gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"
+                           onclick="clickCapture.capture('eVar73','Dist Bounds Private Filter'); return true;"/>
+            <label for="js_schoolType_private" class="checkbox">Private</label>
         </div>
     </div>
+    <hr class="keyline2"/>
+    <!-- TODO: update legend -->
+    <div class="mtm">
+        <div class="alpha grid_2">
+            <div class="media attribution">
+                <div class="img mrs">
+                    <span class="iconx24 i-24-district"><!-- do not collapse --></span>
+                </div>
+                <div class="bd">
+                    <span class="smaller">District</span>
+                </div>
+            </div>
+        </div>
+        <div class="grid_3">
+            <div class="media attribution">
+                <div class="img mrs">
+                    <span class="iconx24 i-24-private-school"><!-- do not collapse --></span>
+                </div>
+                <div class="bd">
+                    <span class="smaller">Private School</span>
+                </div>
+            </div>
+        </div>
+        <div class="grid_4">
+            <div class="media attribution">
+                <div class="img mrs">
+                    <span class="iconx24 i-24-public-charter-school"><!-- do not collapse --></span>
+                </div>
+                <div class="bk">
+                    <span class="smaller">Public/Charter School</span>
+                </div>
+            </div>
+        </div>
+        <div class="grid_4">
+            <div class="media attribution">
+                <div class="img mrs">
+                    <span class="iconx24 i-24-school-enrollment"><!-- do not collapse --></span>
+                </div>
+                <div class="bd">
+                    <span class="smaller">School Enrollment</span>
+                </div>
+            </div>
+        </div>
+        <div class="grid_4 omega">
+            <div class="media attribution">
+                <div class="img mrs">
+                    <span class="iconx24 i-24-district-boundary"><!-- do not collapse --></span>
+                </div>
+                <div class="bd">
+                    <span class="smaller">District Boundary</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="keyline2"/>
+
+<div class="mtm smaller">
+    <strong>Disclaimer:</strong>
+    School Boundaries information is compiled from various sources and is for general informational purposes only. School attendance zone information is subject to change throughout the year. The School and District Boundary Map is not appropriate for use in determining the legal eligibility of any individual or resident of a particular structure to attend any particular school system, or to use or benefit from any other provided for or on behalf of any city, town, state, or other governmental entity, or any other service dependent upon residence within a given geographical area. To verify legal descriptions of boundaries or to determine school locations or attendance, please contact the school or school district directly.
+    <div class="mtl">
+        From more information about the School and District Boundary Map, see our FAQs. (FAQs links to the GreatSchools FAQs page. see sub-task for FAQ text to be added to the global FAQs)
+    </div>
+</div>
+
+<div style="display:none;">
+    <mod:tracking pageName="Attendance Zones" hier1="TBD"/>
+</div>
+</div>
 </gsml:body>
 </html>
 </jsp:root>

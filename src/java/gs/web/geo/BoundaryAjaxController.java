@@ -1,9 +1,9 @@
 package gs.web.geo;
 
-import gs.data.geo.DistrictBoundary;
-import gs.data.geo.IDistrictBoundaryDao;
-import gs.data.geo.ISchoolBoundaryDao;
-import gs.data.geo.SchoolBoundary;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.MultiPolygon;
+import com.vividsolutions.jts.geom.Polygon;
+import gs.data.geo.*;
 import gs.data.json.JSONArray;
 import gs.data.json.JSONException;
 import gs.data.json.JSONObject;
@@ -31,13 +31,18 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -71,22 +76,35 @@ public class BoundaryAjaxController {
     private SchoolSearchService _schoolSearchService;
 
     /**
+     *
+     * @param lat
+     * @param lon
+     * @param level
+     * @return
+     * @throws SearchException
+     * @throws JSONException
+     */
+    /**
      * Return a list of districts near a location.
      */
-    @RequestMapping(value="getDistrictsNearPoint.page", method=RequestMethod.GET)
-    public void getDistrictsNearPoint(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("application/json");
+    @RequestMapping(value="getDistrictsNearLocation.json", method=RequestMethod.GET, headers={})
+    public Model getDistrictsNearPoint(
+            @RequestParam("lat") Float lat,
+            @RequestParam("lon") Float lon,
+            @RequestParam(value="level", required = false) String level,
+            Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         try {
-            float lat = Float.valueOf(request.getParameter("lat"));
-            float lon = Float.valueOf(request.getParameter("lon"));
             LevelCode.Level districtLevel = null;
-            if (request.getParameter("level") != null) {
-                districtLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
+            if (StringUtils.isBlank(level)){
+                level = "e";
             }
+            districtLevel = LevelCode.Level.getLevelCode(level);
+
             SearchResultsPage<IDistrictSearchResult> resultsPage =
                     _districtSearchService.getNonCharterDistrictsNear(lat, lon, 50, null, districtLevel, 0, 30);
-            JSONObject output = new JSONObject();
-            JSONArray mapObjects = new JSONArray();
+
+            List<Map> mapObjects = new ArrayList();
             for (IDistrictSearchResult searchResult: resultsPage.getSearchResults()) {
                 District districtFacade = new District();
                 districtFacade.setId(searchResult.getId());
@@ -96,12 +114,11 @@ public class BoundaryAjaxController {
                 if (rating != null && rating.getActive() == 1) {
                     ratingInt = rating.getRating();
                 }
-                MapObject marker = getMarkerFromDistrictSearch(searchResult, ratingInt, request);
-                mapObjects.put(marker.toJsonObject());
+                mapObjects.add(map(searchResult, ratingInt, request));
             }
-            output.put("features", mapObjects);
-            output.write(response.getWriter());
-            return;
+            model.addAttribute("districts", mapObjects);
+            return model;
+
         } catch (NumberFormatException nfe) {
             _log.error("Error parsing params: " + nfe, nfe);
         } catch (SearchException se) {
@@ -110,15 +127,55 @@ public class BoundaryAjaxController {
             _log.error("Unexpected error: " + e, e);
         }
         response.setStatus(500);
+        return model;
     }
 
     /**
-     * Return a specific district boundary by GS id
+     * Return a list of district boundaries intersecting a location.
      */
-    @RequestMapping(value="getDistrictBoundaryById.page", method=RequestMethod.GET)
-    public void getDistrictBoundaryById(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        State state = State.fromString(request.getParameter("state"));
-        Integer id = Integer.valueOf(request.getParameter("id"));
+    @RequestMapping(value="getDistrictsForLocation.json", method=RequestMethod.GET)
+    public Model getDistrictsForLocation(
+            @RequestParam("lat") Double lat, @RequestParam("lon") Double lon, @RequestParam("level") String levelParam,
+            Model model, HttpServletRequest request, HttpServletResponse response) {
+
+        LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
+        List<DistrictBoundary> districtBoundaries = _districtBoundaryDao.getDistrictBoundariesContainingPoint(lat, lon, level);
+
+        List<Map> districts = new ArrayList();
+
+        for (DistrictBoundary boundary: districtBoundaries) {
+            try {
+                District district = _districtDao.findDistrictById(boundary.getState(), boundary.getDistrictId());
+                if (district.isCharterOnly()) {
+                    _log.warn("Skipping charter only district: " + district.getName());
+                    continue;
+                }
+                DistrictRating rating = _districtRatingDao.getDistrictRatingByDistrict(district);
+                boundary.setDistrict(district);
+
+                int ratingInt = 0;
+                if (rating != null && rating.getActive() == 1) {
+                    ratingInt = rating.getRating();
+                }
+                Map map = map(district, ratingInt, request);
+                map.put("coordinates", map(boundary.getGeometry()));
+                districts.add(map);
+            } catch (ObjectRetrievalFailureException orfe) {
+                _log.error("Can't find district " + boundary.getState() +"," + boundary.getDistrictId());
+            }
+        }
+        model.addAttribute("districts", districts);
+        return model;
+    }
+
+    @RequestMapping( value = "getDistrictBoundaryById.json")
+    public Model getDistrictBoundaryById(
+            @RequestParam("state") String stateParam,
+            @RequestParam("id") Integer idParam,
+            Model model, HttpServletRequest request, HttpServletResponse response ){
+
+        State state = State.fromString(stateParam);
+        Integer id = Integer.valueOf(idParam);
         DistrictBoundary districtBoundary = _districtBoundaryDao.getDistrictBoundaryByGSId(state, id);
         if (districtBoundary != null) {
             District district = _districtDao.findDistrictById(state, id);
@@ -129,13 +186,9 @@ public class BoundaryAjaxController {
             }
             districtBoundary.setDistrict(district);
             try {
-                response.setContentType("application/json");
-                MapObject polygon = getPolygonFromDistrict(districtBoundary, district, ratingInt, request);
-                JSONObject rval = new JSONObject();
-                JSONArray features = new JSONArray();
-                rval.put("features", features);
-                features.put(polygon.toJsonObject());
-                rval.write(response.getWriter());
+
+                model.addAttribute("boundary", map(districtBoundary.getGeometry()));
+                return model;
             } catch (Exception e) {
                 _log.error("Error parsing geometry:" + e, e);
                 response.setStatus(500);
@@ -143,111 +196,127 @@ public class BoundaryAjaxController {
         } else {
             response.setStatus(404);
         }
+        return model;
     }
 
-    /**
-     * Return a list of district boundaries intersecting a location.
-     */
-    @RequestMapping(value="getDistrictsForLocation.page", method=RequestMethod.GET)
-    public void getDistrictsForLocation(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException {
-        response.setContentType("application/json");
-        double lat = Double.valueOf(request.getParameter("lat"));
-        double lon = Double.valueOf(request.getParameter("lon"));
-        LevelCode.Level level = LevelCode.Level.getLevelCode(request.getParameter("level"));
+    @RequestMapping( value = "getDistrictById.json")
+    public Model getDistrictById(
+            @RequestParam("state") String stateParam,
+            @RequestParam("id") Integer idParam,
+            Model model, HttpServletRequest request, HttpServletResponse response ){
 
-        JSONObject output = new JSONObject();
-        output.put("features", getDistrictsForLocation(lat, lon, level, request));
-        output.write(response.getWriter());
+        List<Map> districts = new ArrayList();
+
+        State state = State.fromString(stateParam);
+        Integer id = Integer.valueOf(idParam);
+        District district = _districtDao.findDistrictById(state, id);
+        DistrictRating rating = _districtRatingDao.getDistrictRatingByDistrict(district);
+        int ratingInt = 0;
+        if (rating != null && rating.getActive() == 1) {
+            ratingInt = rating.getRating();
+        }
+        Map districtMap = map(district, ratingInt, request);
+        try {
+            DistrictBoundary boundary = _districtBoundaryDao.getDistrictBoundaryByGSId(state, id);
+            districtMap.put("coordinates", map(boundary.getGeometry()));
+        } catch (ObjectRetrievalFailureException e ) {
+            _log.error("Error getting district boundary");
+        }
+        districts.add(districtMap);
+        model.addAttribute("districts", districts);
+        return model;
     }
 
-    /**
-     * Return a list of schools for a given district.
-     */
-    @RequestMapping(value="getSchoolsForDistrict.page", method=RequestMethod.GET)
-    public void getSchoolsForDistrict(HttpServletRequest request,
-                                      HttpServletResponse response) throws IOException, JSONException {
-        response.setContentType("application/json");
-        State state = State.fromString(request.getParameter("state"));
-        Integer districtId = Integer.valueOf(request.getParameter("districtId"));
-        LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
+    @RequestMapping("getSchoolsByDistrictId.json")
+    public Model getSchoolsByDistrictId(
+            @RequestParam("state") String stateParam,
+            @RequestParam("id") Integer id,
+            @RequestParam("level") String levelParam,
+            Model model, HttpServletRequest request, HttpServletResponse response ) {
 
-        JSONObject rval = new JSONObject();
-        rval.put("features", getSchoolsForDistrict(state, districtId, schoolLevel, request));
-        rval.write(response.getWriter());
-    }
-    
-    public JSONArray getSchoolsForDistrict(State state, Integer districtId, LevelCode.Level level, 
-                                           HttpServletRequest request) throws JSONException {
-        JSONArray features = new JSONArray();
+        State state = State.fromString(stateParam);
+        LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
+        List<Map> schools = new ArrayList();
 
-        long start = System.currentTimeMillis();
-        District district = _districtDao.findDistrictById(state, districtId);
+        District district = _districtDao.findDistrictById(state, id);
         if (district != null) {
-            List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true, level);
-            System.out.println(" getSchoolsForDistrict DB took " + (System.currentTimeMillis() - start) + " ms");
+            List<School> results = _schoolDao.getSchoolsInDistrict(state, id, true, level);
 
-            start = System.currentTimeMillis();
             List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings
-                    (district.getDatabaseState(), schools);
-            System.out.println(" getSchoolsForDistrict ratings took " + (System.currentTimeMillis() - start) + " ms");
+                    (district.getDatabaseState(), results);
+
             if (schoolsWithRatings != null && schoolsWithRatings.size() > 0) {
                 for (SchoolWithRatings s: schoolsWithRatings) {
-                    MapObject marker = getMarkerFromSchool(s.getSchool(), district, s.getRating(), request);
-                    features.put(marker.toJsonObject());
+                    schools.add(map(s.getSchool(), district, s.getRating().intValue(), request));
                 }
             }
         }
-        return features;
+
+        model.addAttribute("schools", schools);
+        return model;
     }
 
-    /**
-     * Returns a specific school boundary by id.
-     */
-    @RequestMapping(value="getSchoolBoundaryById.page", method=RequestMethod.GET)
-    public void getSchoolBoundaryById(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        State state = State.fromString(request.getParameter("state"));
-        Integer id = Integer.valueOf(request.getParameter("id"));
-        LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
+    @RequestMapping("getSchoolById.json")
+    public Model getSchoolsForLocation(
+            @RequestParam("state") String stateParam,
+            @RequestParam("id") Integer id,
+            @RequestParam("level") String levelParam,
+            Model model, HttpServletRequest request, HttpServletResponse response ){
+
+        State state = State.fromString(stateParam);
+        LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
+        List<Map> features = new ArrayList<Map>();
+        List<School> schools = new ArrayList();
+
+        try {
+            schools.add(_schoolDao.getSchoolById(state, id));
+            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings(state, schools);
+            for (SchoolWithRatings s : schoolsWithRatings){
+                Map schoolMap = map(s.getSchool(), null, s.getRating(), request);
+                SchoolBoundary schoolBoundary = _schoolBoundaryDao.getSchoolBoundaryByGSId(state, id, level);
+                if (schoolBoundary!=null){
+                    schoolMap.put("coordinates", map(schoolBoundary.getGeometry()));
+                }
+                features.add(schoolMap);
+            }
+        } catch (ObjectRetrievalFailureException e) {
+            _log.error("Can't find school " + state + "," + id);
+        }
+        model.addAttribute("schools", features);
+        return model;
+    }
+
+    @RequestMapping("getSchoolBoundaryById.json")
+    public Model getSchoolBoundaryById(
+            @RequestParam("state") String stateParam,
+            @RequestParam("id") Integer id,
+            @RequestParam("level") String levelParam,
+            Model model, HttpServletRequest request, HttpServletResponse response ){
+        State state = State.fromString(stateParam);
+        LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(levelParam);
         SchoolBoundary schoolBoundary = _schoolBoundaryDao.getSchoolBoundaryByGSId(state, id, schoolLevel);
         if (schoolBoundary != null) {
-            School school = _schoolDao.getSchoolById(state, id);
-            schoolBoundary.setSchool(school);
-            try {
-                response.setContentType("application/json");
-                MapObject polygon = getPolygonFromSchool(schoolBoundary, school, getGSRating(school), request);
-                JSONObject rval = new JSONObject();
-                JSONArray features = new JSONArray();
-                rval.put("features", features);
-                features.put(polygon.toJsonObject());
-                rval.write(response.getWriter());
-            } catch (Exception e) {
-                _log.error("Error parsing geometry:" + e, e);
-                response.setStatus(500);
-            }
+            model.addAttribute("boundary", map(schoolBoundary.getGeometry()));
         } else {
             response.setStatus(404);
         }
+        return model;
     }
 
-    /**
-     * Return a list of school and district boundaries intersecting a location.
-     */
-    @RequestMapping(value="getSchoolsForLocation.page", method=RequestMethod.GET)
-    public void getSchoolsForLocation(HttpServletRequest request, HttpServletResponse response) throws IOException, JSONException {
-        response.setContentType("application/json");
-        double lat = Double.valueOf(request.getParameter("lat"));
-        double lon = Double.valueOf(request.getParameter("lon"));
-        LevelCode.Level level = LevelCode.Level.getLevelCode(request.getParameter("level"));
 
-        long start = System.currentTimeMillis();
+    @RequestMapping("getSchoolsByLocation.json")
+    public Model getSchoolsForLocation(
+            @RequestParam("lat") double lat,
+            @RequestParam("lon") double lon,
+            @RequestParam("level") String levelParam,
+            Model model, HttpServletRequest request, HttpServletResponse response ){
+
+        LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
         List<SchoolBoundary> schoolBoundaries = _schoolBoundaryDao.getSchoolBoundariesContainingPoint(lat, lon, level);
-        System.out.println("  getSchoolsForLocation getBoundaries took " + (System.currentTimeMillis() - start) + " ms");
-        JSONObject output = new JSONObject();
-        JSONArray features = new JSONArray();
+        List<Map> features = new ArrayList();
         Map<Integer, SchoolBoundary> schoolIdToBoundaryMap = new HashMap<Integer, SchoolBoundary>(schoolBoundaries.size());
         List<School> schools = new ArrayList<School>(schoolBoundaries.size());
         State state = null;
-        start = System.currentTimeMillis();
         for (SchoolBoundary boundary: schoolBoundaries) {
             try {
                 if (boundary.getSchoolId() == null) {
@@ -264,326 +333,113 @@ public class BoundaryAjaxController {
                 _log.error("Can't find school " + boundary.getState() + "," + boundary.getSchoolId());
             }
         }
-        System.out.println("  getSchoolsForLocation fetchSchools took " + (System.currentTimeMillis() - start) + " ms");
-        start = System.currentTimeMillis();
         if (schools.size() > 0) {
             List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings(state, schools);
-            System.out.println("  getSchoolsForLocation Ratings took " + (System.currentTimeMillis() - start) + " ms");
-            start = System.currentTimeMillis();
             for (SchoolWithRatings s: schoolsWithRatings) {
-                MapObject marker = getMarkerFromSchool(s.getSchool(), null, s.getRating(), request);
-                marker.setCoordinates(schoolIdToBoundaryMap.get(s.getSchool().getId()).getGeometry());
-                features.put(marker.toJsonObject());
+                features.add(map(s.getSchool(), null, s.getRating(), request));
             }
-            System.out.println("  getSchoolsForLocation JSON took " + (System.currentTimeMillis() - start) + " ms");
         }
-        start = System.currentTimeMillis();
-        JSONArray districts = getDistrictsForLocation(lat, lon, level, request);
-        System.out.println("  getSchoolsForLocation addingDistrict took " + (System.currentTimeMillis() - start) + " ms");
-        if (districts != null) {
-            start = System.currentTimeMillis();
-            for (int x=0; x < districts.length(); x++) {
-                features.put(districts.get(x));
-                JSONObject districtJson = districts.getJSONObject(x);
-                JSONObject districtData = districtJson.getJSONObject("data");
-                int districtId = districtData.getInt("id");
-                state = State.fromString(districtData.getString("state"));
-                JSONArray districtSchools = getSchoolsForDistrict
-                        (state, districtId, level, request);
-                districtJson.put("dependents", districtSchools);
-            }
-            System.out.println("  getSchoolsForLocation addingDistrictSchools took " + (System.currentTimeMillis() - start) + " ms");
-        }
-        output.put("features", features);
-        output.write(response.getWriter());
-    }
-
-    /**
-     * Return a list of school boundaries for every school in the specified district.
-     */
-    @RequestMapping(value="debug_getSchoolBoundariesForDistrict.page", method=RequestMethod.GET)
-    public void debug_getSchoolBoundariesForDistrict(HttpServletRequest request,
-                                                     HttpServletResponse response) throws IOException, JSONException {
-        long start = System.currentTimeMillis();
-        response.setContentType("application/json");
-        State state = State.fromString(request.getParameter("state"));
-        Integer districtId = Integer.valueOf(request.getParameter("districtId"));
-        LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
-
-        District district = _districtDao.findDistrictById(state, districtId);
-        if (district != null) {
-            JSONObject rval = new JSONObject();
-            JSONArray features = new JSONArray();
-
-            long dbStart = System.currentTimeMillis();
-            List<School> schools = _schoolDao.getSchoolsInDistrict(state, districtId, true, schoolLevel);
-            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings(state, schools);
-            long dbEnd = System.currentTimeMillis();
-            long sazStart = 0;
-            long sazEnd = 0;
-            if (schoolsWithRatings != null && schoolsWithRatings.size() > 0) {
-                Map<Integer, SchoolBoundary> idSchoolBoundaryMap = new HashMap<Integer, SchoolBoundary>(schools.size());
-                sazStart = System.currentTimeMillis();
-                List<SchoolBoundary> schoolBoundaries = _schoolBoundaryDao.getSchoolBoundaries(schools, schoolLevel);
-                sazEnd = System.currentTimeMillis();
-                System.out.println("    (" + districtId + ") Of " + schools.size() + " schools in DB, " + schoolBoundaries.size() + " have SAZ info");
-                for (SchoolBoundary boundary: schoolBoundaries) {
-                    idSchoolBoundaryMap.put(boundary.getSchoolId(), boundary);
-                }
-                for (SchoolWithRatings s: schoolsWithRatings) {
-                    SchoolBoundary boundary = idSchoolBoundaryMap.get(s.getSchool().getId());
-                    MapObject marker = getMarkerFromSchool(s.getSchool(), district, s.getRating(), request);
-                    if (boundary != null) {
-                        marker.setCoordinates(boundary.getGeometry());
-                    }
-                    features.put(marker.toJsonObject());
-                }
-            }
-            rval.put("features", features);
-            rval.write(response.getWriter());
-            System.out.println("    (" + districtId + ") getSchoolBoundariesForDistrict took " + (System.currentTimeMillis()-start) + " ms");
-            System.out.println("      (" + districtId + ") DB took " + (dbEnd-dbStart) + " ms");
-            System.out.println("      (" + districtId + ") SAZ took " + (sazEnd-sazStart) + " ms");
-        }
+        model.addAttribute("schools", features);
+        return model;
     }
 
     /**
      * Return a list of private schools near the specified location that do not belong to a district.
      */
-    @RequestMapping(value="getPrivateSchoolsNearPoint.page", method=RequestMethod.GET)
-    public void getPrivateSchoolsNearPoint(HttpServletRequest request,
-                                           HttpServletResponse response) throws IOException, JSONException, SearchException {
-        response.setContentType("application/json");
-        getNonDistrictSchoolsNearPoint(request, response, SchoolType.PRIVATE);
-    }
+    @RequestMapping(value="getPrivateSchoolsNearLocation.json", method=RequestMethod.GET)
+    public Model getPrivateSchoolsNearLocation(
+            @RequestParam("lat") float lat,
+            @RequestParam("lon") float lon,
+            @RequestParam("level") String levelParam,
+            @RequestParam(value="limit", required = false, defaultValue = "50") int limit,
+            @RequestParam(value="radius", required = false, defaultValue = "10") int radius,
+            Model model, HttpServletRequest request, HttpServletResponse response ) {
 
-    /**
-     * Return a list of charter schools near the specified location that do not belong to a district.
-     */
-    @RequestMapping(value="getCharterSchoolsNearPoint.page", method=RequestMethod.GET)
-    public void getCharterSchoolsNearPoint(HttpServletRequest request,
-                                           HttpServletResponse response) throws IOException, JSONException, SearchException {
-        response.setContentType("application/json");
-        getNonDistrictSchoolsNearPoint(request, response, SchoolType.CHARTER);
-    }
-
-    protected void getNonDistrictSchoolsNearPoint(HttpServletRequest request, HttpServletResponse response,
-                                                  SchoolType schoolType) throws
-            SearchException, JSONException, IOException {
-        float lat = Float.valueOf(request.getParameter("lat"));
-        float lon = Float.valueOf(request.getParameter("lon"));
-        LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(request.getParameter("level"));
-        int limit = 50;
-        if (request.getParameter("limit") != null) {
-            limit = Integer.valueOf(request.getParameter("limit"));
-            if (limit > 1000) {
-                limit = 1000;
-            }
+        try {
+            getNonDistrictSchoolsNearLocation(SchoolType.PRIVATE, lat, lon, levelParam, limit, radius, model, request, response);
+        } catch (SearchException e) {
+            _log.error("Error searching ", e);
         }
-        int radius = 10;
-        if (request.getParameter("radius") != null) {
-            radius = Integer.valueOf(request.getParameter("radius"));
-            if (radius > 100) {
-                radius = 100;
-            }
-        }
-        getNonDistrictSchoolsNearPoint(request, response, lat, lon, schoolLevel, limit, radius, schoolType);
+        return model;
     }
 
-    protected void getNonDistrictSchoolsNearPoint(HttpServletRequest request, HttpServletResponse response, float lat,
-                                                  float lon, LevelCode.Level schoolLevel, int limit, int radius,
-                                                  SchoolType schoolType) throws
-            SearchException, JSONException, IOException {
-        long start = System.currentTimeMillis();
-        long solrStart = System.currentTimeMillis();
+    @RequestMapping(value="getCharterSchoolsNearLocation.json", method=RequestMethod.GET)
+    public Model getCharterSchoolsNearLocation(
+            @RequestParam("lat") float lat,
+            @RequestParam("lon") float lon,
+            @RequestParam("level") String levelParam,
+            @RequestParam(value="limit", required = false, defaultValue = "50") int limit,
+            @RequestParam(value="radius", required = false, defaultValue = "10") int radius,
+            Model model, HttpServletRequest request, HttpServletResponse response ) {
+
+        try {
+            getNonDistrictSchoolsNearLocation(SchoolType.CHARTER, lat, lon, levelParam, limit, radius, model, request, response);
+        } catch (SearchException e) {
+            _log.error("Error searching", e);
+        }
+        return model;
+    }
+
+    protected void getNonDistrictSchoolsNearLocation( SchoolType schoolType,
+            float lat, float lon, String levelParam, int limit, int radius,
+            Model model, HttpServletRequest request, HttpServletResponse response) throws SearchException {
+
+        LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(levelParam);
+        if ( limit > 1000 ) {
+            limit = 1000;
+        }
+
+        if (radius > 100) {
+            radius = 100;
+        }
+
         SearchResultsPage<SolrSchoolSearchResult> resultsPage =
                 _schoolSearchService.getNonDistrictSchoolsNear(lat, lon, radius, schoolLevel, schoolType, 0, limit);
-        long solrDuration = System.currentTimeMillis() - solrStart;
-        long jsonStart = System.currentTimeMillis();
-        JSONObject rval = new JSONObject();
-        JSONArray features = new JSONArray();
+
+        List<Map> features = new ArrayList();
         for (SolrSchoolSearchResult searchResult: resultsPage.getSearchResults()) {
             int rating = 0;
             if (searchResult.getGreatSchoolsRating() != null) {
                 rating = searchResult.getGreatSchoolsRating();
             }
-            MapObject marker = getMarkerFromSchoolSearch(searchResult, null, rating, request);
-            features.put(marker.toJsonObject());
+            features.add(map(searchResult, null, rating, request));
         }
-        rval.put("features", features);
-        rval.write(response.getWriter());
-        long jsonDuration = System.currentTimeMillis() - jsonStart;
-        System.out.println("getNonDistrictSchoolsNearPoint took " + (System.currentTimeMillis()-start) + " ms");
-        System.out.println("  getNonDistrictSchoolsNearPoint.Solr took " + solrDuration + " ms");
-        System.out.println("  getNonDistrictSchoolsNearPoint.JSON took " + jsonDuration + " ms");
+        model.addAttribute("schools", features);
     }
 
-    /**
-     * Returns an array of district boundaries intersecting a location.
-     */
-    protected JSONArray getDistrictsForLocation(double lat, double lon, LevelCode.Level level, HttpServletRequest request) throws JSONException {
-        List<DistrictBoundary> districtBoundaries = _districtBoundaryDao.getDistrictBoundariesContainingPoint(lat, lon, level);
-        JSONArray features = new JSONArray();
-        for (DistrictBoundary boundary: districtBoundaries) {
-            try {
-                District district = _districtDao.findDistrictById(boundary.getState(), boundary.getDistrictId());
-                if (district.isCharterOnly()) {
-                    _log.warn("Skipping charter only district: " + district.getName());
-                    continue;
-                }
-                DistrictRating rating = _districtRatingDao.getDistrictRatingByDistrict(district);
-                boundary.setDistrict(district);
-
-                int ratingInt = 0;
-                if (rating != null && rating.getActive() == 1) {
-                    ratingInt = rating.getRating();
-                }
-                MapObject marker = getMarkerFromDistrict(district, ratingInt, request);
-                marker.setCoordinates(boundary.getGeometry());
-
-                features.put(marker.toJsonObject());
-            } catch (ObjectRetrievalFailureException orfe) {
-                _log.error("Can't find district " + boundary.getState() +"," + boundary.getDistrictId());
-            }
-        }
-        return features;
-    }
-
-    protected MapObject getPolygonFromSchool(SchoolBoundary boundary, School school, int ratingInt,
-                                              HttpServletRequest request) throws JSONException {
-        MapObject polygon = new MapObject(boundary.getGeometry());
-        populateSchoolData(polygon.getData(), school, ratingInt, null, request);
-        return polygon;
-    }
-
-    protected MapObject getPolygonFromDistrict(DistrictBoundary boundary, District district, int ratingInt,
-                                                HttpServletRequest request) throws JSONException {
-        MapObject polygon = new MapObject(boundary.getGeometry());
-        populateDistrictData(polygon.getData(), district.getDatabaseState(), district.getId(), district.getName(),
-                district.getPhysicalAddress().getCity(), district.getPhysicalAddress().getStreet(),
-                district.getPhysicalAddress().getStreetLine2(), district.getPhysicalAddress().getCityStateZip(),
-                ratingInt, request);
-        return polygon;
-    }
-
-    protected MapObject getMarkerFromDistrict(District district, int ratingInt, HttpServletRequest request) throws JSONException {
-        return getMarkerForDistrict(district.getLat(), district.getLon(), district.getName(),
-                district.getDatabaseState(), district.getId(), district.getPhysicalAddress().getCity(),
-                district.getPhysicalAddress().getStreet(), district.getPhysicalAddress().getStreetLine2(),
-                district.getPhysicalAddress().getCityStateZip(), ratingInt, request);
-    }
-
-    protected MapObject getMarkerFromDistrictSearch(IDistrictSearchResult district, int ratingInt, HttpServletRequest request) throws JSONException {
-        return getMarkerForDistrict(district.getLatitude(), district.getLongitude(), district.getName(),
-                district.getState(), district.getId(), district.getCity(), district.getAddress().getStreet(),
-                district.getAddress().getStreetLine2(), district.getAddress().getCityStateZip(), ratingInt, request);
-    }
-
-    protected MapObject getMarkerForDistrict(double lat, double lon, String name, State state, Integer id, String city, String street1, String street2, String cityStateZip, int ratingInt, HttpServletRequest request) throws JSONException {
-        String icon = "/res/img/sprites/icon/mapPins/x48/120524-mapPinsx48.png";
-        final int ICON_SIZE = 48;
-        int xOffset = ICON_SIZE * 10; // n/a
-        if (ratingInt > 0 && ratingInt < 11) {
-            xOffset = xOffset - ICON_SIZE*ratingInt;
-        }
-        MapObject marker = new MapObject(lat, lon,
-                icon, ICON_SIZE, ICON_SIZE);
-        marker.setTooltip(name);
-        marker.setOrigin(xOffset, 0);
-        marker.setAnchor(ICON_SIZE/2, ICON_SIZE); // anchor at center bottom
-        marker.setShape(MapObject.MarkerShapeType.poly, new int[] {8,4, 37,4, 37,33, 32,33, 23,42, 14,33, 8,33});
-
-        populateDistrictData(marker.getData(), state, id, name, city, street1, street2, cityStateZip, ratingInt, request);
-        return marker;
-    }
-
-    // TODO: Refactor following two methods together, similar to the district case
-    protected MapObject getMarkerFromSchool(School s, District district, int ratingInt,
-                                            HttpServletRequest request) throws JSONException {
-        String icon = "/res/img/sprites/icon/mapPins/x32/120523-mapPinsx32.png";
-        final int ICON_SIZE = 32;
-        int xOffset = ICON_SIZE * 10; // n/a
-        if (ratingInt > 0 && ratingInt < 11) {
-            xOffset = xOffset - ICON_SIZE*ratingInt;
-        } else if (s.getType() == SchoolType.PRIVATE) {
-            xOffset = ICON_SIZE * 11;
-        }
-        MapObject marker = new MapObject(s.getLat(), s.getLon(),
-                icon, ICON_SIZE, ICON_SIZE);
-        marker.setTooltip(s.getName());
-        marker.setOrigin(xOffset, 0);
-        marker.setAnchor(ICON_SIZE/2, ICON_SIZE);
-        marker.setShape(MapObject.MarkerShapeType.poly, new int[]{1,0, 29,0, 29,31, 1,31});
-
-        populateSchoolData(marker.getData(), s, ratingInt, district, request);
-        return marker;
-    }
-
-    protected MapObject getMarkerFromSchoolSearch(ISchoolSearchResult s, District district, int ratingInt,
-                                                  HttpServletRequest request) throws JSONException {
-        String icon = "/res/img/sprites/icon/mapPins/x32/120523-mapPinsx32.png";
-        final int ICON_SIZE = 32;
-        int xOffset = ICON_SIZE * 10; // n/a
-        if (ratingInt > 0) {
-            xOffset = xOffset - ICON_SIZE*ratingInt;
-        } else if (StringUtils.equals("private", s.getSchoolType())) {
-            xOffset = ICON_SIZE * 11;
-        }
-        MapObject marker = new MapObject(s.getLatLon().getLat(), s.getLatLon().getLon(), icon, ICON_SIZE, ICON_SIZE);
-        marker.setTooltip(s.getName());
-        marker.setOrigin(xOffset, 0);
-        marker.setAnchor(ICON_SIZE/2, ICON_SIZE);
-        marker.setShape(MapObject.MarkerShapeType.poly, new int[]{1,0, 29,0, 29,31, 1,31});
-
-        populateSchoolData(marker.getData(), s, ratingInt, district, request);
-        return marker;
-    }
-
-    protected void populateDistrictData(JSONObject data, State state, Integer id, String name, String city,
-                                        String street1, String street2, String cityStateZip, int ratingInt,
-                                        HttpServletRequest request) throws JSONException {
-        data.put("state", state);
-        data.put("id", id);
-        data.put("name", name);
-        data.put("rating", ratingInt);
-        data.put("type", "district");
-        UrlBuilder urlBuilder = new UrlBuilder(state, id, name, city, UrlBuilder.DISTRICT_HOME);
-        data.put("url", urlBuilder.asSiteRelative(request));
-        JSONObject address = new JSONObject();
-        address.put("street1", street1);
-        address.put("street2", street2);
-        address.put("cityStateZip", cityStateZip);
-        data.put("address", address);
-    }
-
-    // TODO: Look at refactoring these two methods together as well
-    protected void populateSchoolData(JSONObject data, School school, int rating, District district,
-                                      HttpServletRequest request) throws JSONException {
-        data.put("state", school.getDatabaseState());
-        data.put("id", school.getId());
-        data.put("name", school.getName());
-        data.put("rating", rating);
-        data.put("type", "school");
-        data.put("schoolType", school.getType().getSchoolTypeName());
+    private Map map(School school, District district, int rating, HttpServletRequest request){
+        Map map = new HashMap();
+        map.put("state", school.getDatabaseState().toString());
+        map.put("id", school.getId());
+        map.put("name", school.getName());
+        map.put("rating", rating);
+        map.put("lat", school.getLat());
+        map.put("lon", school.getLon());
+        map.put("type", "school");
+        map.put("schoolType", school.getType().getSchoolTypeName());
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        data.put("url", urlBuilder.asSiteRelative(request));
-        JSONObject address = new JSONObject();
+        map.put("url", urlBuilder.asSiteRelative(request));
+        Map address = new HashMap();
         address.put("street1", school.getPhysicalAddress().getStreet());
         address.put("street2", school.getPhysicalAddress().getStreetLine2());
         address.put("cityStateZip", school.getPhysicalAddress().getCityStateZip());
-        data.put("address", address);
+        address.put("zip", school.getPhysicalAddress().getZip());
+        map.put("address", address);
         if (district != null) {
-            data.put("districtName", district.getName());
-            data.put("districtId", district.getId());
+            map.put("districtName", district.getName());
+            map.put("districtId", district.getId());
         } else {
-            data.put("districtId", school.getDistrictId());
+            map.put("districtId", school.getDistrictId());
         }
+        return map;
     }
 
-    protected void populateSchoolData(JSONObject data, ISchoolSearchResult school, int rating, District district,
-                                      HttpServletRequest request) throws JSONException {
-        data.put("state", school.getDatabaseState());
+    private Map map ( ISchoolSearchResult school, District district, int rating, HttpServletRequest request) {
+        Map data = new HashMap();
+        data.put("state", school.getDatabaseState().toString());
         data.put("id", school.getId());
+        data.put("lat", school.getLatLon().getLat());
+        data.put("lon", school.getLatLon().getLon());
         data.put("name", school.getName());
         data.put("rating", rating);
         data.put("type", "school");
@@ -596,10 +452,11 @@ public class BoundaryAjaxController {
         schoolFacade.setLevelCode(LevelCode.createLevelCode(school.getLevelCode()));
         UrlBuilder urlBuilder = new UrlBuilder(schoolFacade, UrlBuilder.SCHOOL_PROFILE);
         data.put("url", urlBuilder.asSiteRelative(request));
-        JSONObject address = new JSONObject();
+        Map address = new HashMap();
         address.put("street1", school.getAddress().getStreet());
         address.put("street2", school.getAddress().getStreetLine2());
         address.put("cityStateZip", school.getAddress().getCityStateZip());
+        address.put("zip", school.getAddress().getZip());
         data.put("address", address);
         if (district != null) {
             data.put("districtName", district.getName());
@@ -607,6 +464,63 @@ public class BoundaryAjaxController {
         } else {
             data.put("districtId", school.getDistrictId());
         }
+        return data;
+    }
+
+
+    private Map map(Geometry geometry){
+        Map map = new HashMap();
+        map.put("coordinates", BoundaryUtil.geometryToList(geometry));
+        Map centroid = new HashMap();
+        centroid.put("lon", geometry.getCentroid().getX());
+        centroid.put("lat", geometry.getCentroid().getY());
+        map.put("area", geometry.getArea());
+        map.put("centroid", centroid);
+        return map;
+    }
+
+    protected Map map(District district, int ratingInt, HttpServletRequest request) {
+        Map map = new HashMap();
+        Map address = new HashMap();
+        address.put("street1", district.getPhysicalAddress().getStreet());
+        address.put("street2", district.getPhysicalAddress().getStreetLine2());
+        address.put("cityStateZip", district.getPhysicalAddress().getCityStateZip());
+        address.put("zip", district.getPhysicalAddress().getZip());
+        map.put("address", address);
+
+        map.put("type", "district");
+        map.put("lat", district.getLat());
+        map.put("lon", district.getLon());
+        map.put("name", district.getName());
+        map.put("state", district.getDatabaseState().toString());
+        map.put("id", district.getId());
+        map.put("rating", ratingInt);
+        UrlBuilder urlBuilder = new UrlBuilder(district.getDatabaseState(), district.getId(), district.getName(), district.getPhysicalAddress().getCity(), UrlBuilder.DISTRICT_HOME);
+        map.put("url", urlBuilder.asSiteRelative(request));
+        return map;
+    }
+
+
+    protected Map map(IDistrictSearchResult district, int ratingInt, HttpServletRequest request) {
+        Map map = new HashMap();
+
+        Map address = new HashMap();
+        address.put("street1", district.getAddress().getStreet());
+        address.put("street2", district.getAddress().getStreetLine2());
+        address.put("cityStateZip", district.getAddress().getCityStateZip());
+        address.put("zip", district.getAddress().getZip());
+        map.put("address", address);
+
+        map.put("type", "district");
+        map.put("lat", district.getLatitude());
+        map.put("lon", district.getLongitude());
+        map.put("name", district.getName());
+        map.put("state", district.getState().toString());
+        map.put("id", district.getId());
+        map.put("rating", ratingInt);
+        UrlBuilder urlBuilder = new UrlBuilder(district.getState(), district.getId(), district.getName(), district.getCity(), UrlBuilder.DISTRICT_HOME);
+        map.put("url", urlBuilder.asSiteRelative(request));
+        return map;
     }
 
     protected int getGSRating(School school) {
