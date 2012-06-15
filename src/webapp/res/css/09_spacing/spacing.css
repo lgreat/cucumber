@@ -88,6 +88,11 @@ General comments:
     white-space:nowrap;
 }
 
+.pa { position: absolute; }
+.pf { position: fixed; }
+.pr { position: relative; }
+.ps { position: static; }
+
 .fltlft, .fl {
 /* this class can be used to float an element left in your page */
     float: left;
