@@ -43,11 +43,14 @@
         <script type="text/javascript" src="${externalTracking}"><!-- do not collapse --></script>
         <script type="text/javascript" src="${urijs}"><!-- do not collapse --></script>
         <decorator:head/>
+
+    <ad:xGAMSetup/>
     </head>
 
     <body class="site-gradient">
 
     <div class="container_24">
+        <ad:x22 position="Header_728x90"/>
         <mod:header/>
 
         <div class="page-shadow clearfix">
@@ -58,6 +61,8 @@
         </div>
 
     </div>
+    ${modTracking}
+    <ad:hideGhostText/>
     <!-- global modal boxes / hovers go here -->
     <communityHover:signIn-v1/>
     <div id="fullPageOverlay"><!-- --></div>

@@ -63,8 +63,8 @@ General comments:
     padding: 0 13px;
 }
 
-#secondary .menuItem .home {
-    padding: 0;
+#secondary .menuItem .last {
+    padding: 0 11px;
 }
 
 #secondary .menuItem:hover .menuItemAnchorText {

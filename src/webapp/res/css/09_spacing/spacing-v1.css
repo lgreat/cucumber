@@ -81,3 +81,8 @@ General comments:
 .vab { vertical-align: bottom; }
 
 .wsnw { white-space:nowrap; }
+
+.pa { position: absolute; }
+.pf { position: fixed; }
+.pr { position: relative; }
+.ps { position: static; }
