@@ -160,13 +160,15 @@ public class TestScoresHelper {
             Grade grade = testDataSet.getGrade();
             LevelCode levelCode = testDataSet.getLevelCode();
             Subject subject = testDataSet.getSubject();
-            //For masking the test score.Masking : - sometimes the state does not give exact numbers, it saves <5% passed etc.
-            //AK has a lot of masked school values.
-            String testScoreValue = StringUtils.isNotBlank(value.getValueText()) ? StringEscapeUtils.escapeHtml(value
-                    .getValueText()) : value.getValueInteger().toString();
+            if (testDataSet != null && testDataType != null && grade != null && levelCode != null && subject != null) {
+                //For masking the test score.Masking : - sometimes the state does not give exact numbers, it saves <5% passed etc.
+                //AK has a lot of masked school values.
+                String testScoreValue = StringUtils.isNotBlank(value.getValueText()) ? StringEscapeUtils.escapeHtml(value
+                        .getValueText()) : value.getValueInteger().toString();
 
-            //Replace the temporary string "Data not available"  with the actual test score value.
-            schoolValueMap.get(testDataType).get(grade).get(levelCode).get(subject).put(testDataSet, testScoreValue);
+                //Replace the temporary string "Data not available"  with the actual test score value.
+                schoolValueMap.get(testDataType).get(grade).get(levelCode).get(subject).put(testDataSet, testScoreValue);
+            }
         }
         return schoolValueMap;
     }
@@ -191,67 +193,68 @@ public class TestScoresHelper {
             LevelCode levelCode = testDataSet.getLevelCode();
             Subject subject = testDataSet.getSubject();
             TestDataType testDataType = testDataTypeIdToTestDataType.get(testDataSet.getDataTypeId());
+            if (testDataSet != null && testDataType != null && grade != null && levelCode != null && subject != null) {
+                //Check if the test is already in the map.
+                if (schoolValueMap.get(testDataType) != null) {
+                    //Test already present.
+                    Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(testDataType);
+                    //Check if grade is already in the map.
+                    if (gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade) != null) {
+                        //Grade already present.
+                        Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
+                        //Check if level code is already in the map.
+                        if (levelCodeToSubjectsToDataSetToValueMap.get(levelCode) != null) {
+                            //Level code already present.
+                            Map<Subject, Map<TestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
+                            //Check if subject is already in the map.
+                            if (subjectToDataSet.get(subject) != null) {
+                                //Subject already present.
+                                Map<TestDataSet, String> dataSetToValue = subjectToDataSet.get(subject);
 
-            //Check if the test is already in the map.
-            if (schoolValueMap.get(testDataType) != null) {
-                //Test already present.
-                Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(testDataType);
-                //Check if grade is already in the map.
-                if (gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade) != null) {
-                    //Grade already present.
-                    Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
-                    //Check if level code is already in the map.
-                    if (levelCodeToSubjectsToDataSetToValueMap.get(levelCode) != null) {
-                        //Level code already present.
-                        Map<Subject, Map<TestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
-                        //Check if subject is already in the map.
-                        if (subjectToDataSet.get(subject) != null) {
-                            //Subject already present.
-                            Map<TestDataSet, String> dataSetToValue = subjectToDataSet.get(subject);
-
-                            //Check if DataSet is not in the map.We dont care if its already there.That should never happen.
-                            if (dataSetToValue.get(testDataSet) == null) {
-                                //The test score values are all filled in temporarily with "Data not available" string.
-                                dataSetToValue.put(testDataSet, LABEL_DATA_NOT_AVAILABLE);
+                                //Check if DataSet is not in the map.We dont care if its already there.That should never happen.
+                                if (dataSetToValue.get(testDataSet) == null) {
+                                    //The test score values are all filled in temporarily with "Data not available" string.
+                                    dataSetToValue.put(testDataSet, LABEL_DATA_NOT_AVAILABLE);
+                                } else {
+                                    _log.warn("Data set:" + testDataSet.getId() + " already in the map");
+                                }
                             } else {
-                                _log.warn("Data set:" + testDataSet.getId() + " already in the map");
+                                //Subject not present.
+                                Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
+                                dataSetToValue.put(testDataSet, LABEL_DATA_NOT_AVAILABLE);
+                                subjectToDataSet.put(subject, dataSetToValue);
                             }
                         } else {
-                            //Subject not present.
+                            //Level code not present
                             Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
                             dataSetToValue.put(testDataSet, LABEL_DATA_NOT_AVAILABLE);
+                            Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
                             subjectToDataSet.put(subject, dataSetToValue);
+                            levelCodeToSubjectsToDataSetToValueMap.put(levelCode, subjectToDataSet);
                         }
                     } else {
-                        //Level code not present
+                        //Grade not present.
                         Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
                         dataSetToValue.put(testDataSet, LABEL_DATA_NOT_AVAILABLE);
                         Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
                         subjectToDataSet.put(subject, dataSetToValue);
-                        levelCodeToSubjectsToDataSetToValueMap.put(levelCode, subjectToDataSet);
+                        Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<TestDataSet, String>>>();
+                        levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
+                        gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
+
                     }
                 } else {
-                    //Grade not present.
+                    //Test not present.
                     Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
                     dataSetToValue.put(testDataSet, LABEL_DATA_NOT_AVAILABLE);
                     Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
                     subjectToDataSet.put(subject, dataSetToValue);
                     Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<TestDataSet, String>>>();
                     levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
+                    Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>();
                     gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
-
+                    schoolValueMap.put(testDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
                 }
-            } else {
-                //Test not present.
-                Map<TestDataSet, String> dataSetToValue = new HashMap<TestDataSet, String>();
-                dataSetToValue.put(testDataSet, LABEL_DATA_NOT_AVAILABLE);
-                Map<Subject, Map<TestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<TestDataSet, String>>();
-                subjectToDataSet.put(subject, dataSetToValue);
-                Map<LevelCode, Map<Subject, Map<TestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<TestDataSet, String>>>();
-                levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
-                Map<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<TestDataSet, String>>>>();
-                gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
-                schoolValueMap.put(testDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
             }
         }
         return schoolValueMap;
