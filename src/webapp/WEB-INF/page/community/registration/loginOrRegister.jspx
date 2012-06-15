@@ -75,7 +75,9 @@
                             </p>
 
                             <h3>
-                                <link:registration email="${loginCmd.email}" redirect="${loginCmd.redirect}">
+                                <link:registration
+                                        onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;"
+                                        email="${requestScope.context.email}">
                                     <span class="title1-06b">Join Now </span><span class="sprite join"><!--icon--></span>
                                 </link:registration>
                             </h3>
