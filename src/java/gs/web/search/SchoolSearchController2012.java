@@ -1,9 +1,12 @@
 package gs.web.search;
 
+import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
 import gs.data.geo.City;
 import gs.data.geo.ICounty;
 import gs.data.geo.IGeoDao;
+import gs.data.json.JSONException;
+import gs.data.json.JSONObject;
 import gs.data.pagination.DefaultPaginationConfig;
 import gs.data.pagination.PaginationConfig;
 import gs.data.school.LevelCode;
@@ -24,14 +27,17 @@ import gs.data.util.CommunityUtil;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.community.LocalBoardHelper;
+import gs.web.jsp.Util;
 import gs.web.pagination.Page;
 import gs.web.pagination.RequestedPage;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -197,7 +203,135 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         // Common: Set a cookie to record that a search has occurred;
         PageHelper.setHasSearchedCookie(request, response);
 
+        if("POST".equalsIgnoreCase(request.getMethod()) && "map".equals(request.getParameter("view"))) {
+            JSONObject responseJson = new JSONObject();
+            response.setContentType("application/json");
+
+            buildJsonResponse(model, request, sessionContext, schoolSearchCommand, responseJson);
+
+            responseJson.write(response.getWriter());
+            response.getWriter().flush();
+            return null;
+        }
+
         return modelAndView;
+    }
+
+    protected void buildJsonResponse(Map<String, Object> model,
+                                     HttpServletRequest request,
+                                     SessionContext sessionContext,
+                                     SchoolSearchCommand schoolSearchCommand,
+                                     JSONObject responseJson) throws JSONException {
+        Map<String, Object> searchResults;
+        responseJson.accumulate(MODEL_SCHOOL_SEARCH_RESULTS, new HashMap<String, Object>());
+        List<SolrSchoolSearchResult> solrSchoolSearchResults = (List<SolrSchoolSearchResult>) model.get(MODEL_SCHOOL_SEARCH_RESULTS);
+        Set<FavoriteSchool> mslSchools = (Set<FavoriteSchool>) model.get(MODEL_MSL_SCHOOLS);
+
+        for(int i = 0; i < solrSchoolSearchResults.size(); i++) {
+            searchResults = new HashMap<String, Object>();
+            SolrSchoolSearchResult schoolSearchResult = solrSchoolSearchResults.get(i);
+            searchResults.put("id", schoolSearchResult.getId());
+            searchResults.put("state", schoolSearchResult.getDatabaseState());
+            searchResults.put("name", schoolSearchResult.getName());
+            searchResults.put("jsEscapeName", StringEscapeUtils.escapeJavaScript(schoolSearchResult.getName()));
+            searchResults.put("physicalAddress", schoolSearchResult.getAddress());
+            searchResults.put("levelCode", schoolSearchResult.getLevelCode());
+            searchResults.put("schoolType", schoolSearchResult.getSchoolType());
+            searchResults.put("rangeString", schoolSearchResult.getGrades().getRangeString());
+            searchResults.put("street", schoolSearchResult.getStreet());
+            searchResults.put("city", schoolSearchResult.getCity());
+            searchResults.put("zip", schoolSearchResult.getZip());
+            searchResults.put("parentRating", schoolSearchResult.getParentRating());
+            searchResults.put("latitude", schoolSearchResult.getLatitude());
+            searchResults.put("longitude", schoolSearchResult.getLongitude());
+            searchResults.put("greatSchoolsRating", schoolSearchResult.getGreatSchoolsRating());
+            searchResults.put("mslHasSchool", false);
+            if(schoolSearchResult.getDistance() != null) {
+                searchResults.put("distance", Util.roundTwoDecimal(schoolSearchResult.getDistance()));
+            }
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, schoolSearchResult.getId(),
+                    schoolSearchResult.getDatabaseState(), schoolSearchResult.getName(), schoolSearchResult.getAddress(),
+                    LevelCode.createLevelCode(schoolSearchResult.getLevelCode()), false, null);
+            searchResults.put("schoolUrl", urlBuilder.asFullUrlXml(request));
+
+            if(mslSchools != null || mslSchools.size() > 0) {
+                Iterator<FavoriteSchool> iterator = mslSchools.iterator();
+                while(iterator.hasNext()) {
+                    FavoriteSchool favoriteSchool = iterator.next();
+                    if(favoriteSchool.getSchoolId().equals(schoolSearchResult.getId()) &&
+                            favoriteSchool.getState().equals(schoolSearchResult.getDatabaseState())) {
+                        searchResults.put("mslHasSchool", true);
+                    }
+                }
+            }
+
+            responseJson.accumulate(MODEL_SCHOOL_SEARCH_RESULTS, searchResults);
+        }
+
+        responseJson.accumulate("LatLon", new HashMap<String,Object>());
+        District district = (District) model.get(MODEL_DISTRICT);
+        City city = (City) model.get(MODEL_CITY);
+        if(district != null) {
+            searchResults = new HashMap<String, Object>();
+            searchResults.put("calculatedLat", district.getLat());
+            searchResults.put("calculatedLon", district.getLon());
+            responseJson.accumulate("LatLon", searchResults);
+        }
+        else if(city != null) {
+            searchResults = new HashMap<String, Object>();
+            searchResults.put("calculatedLat", city.getLat());
+            searchResults.put("calculatedLon", city.getLon());
+            responseJson.accumulate("LatLon", searchResults);
+        }
+        else if(schoolSearchCommand != null) {
+            searchResults = new HashMap<String, Object>();
+            searchResults.put("calculatedLat", schoolSearchCommand.getLat());
+            searchResults.put("calculatedLon", schoolSearchCommand.getLon());
+            responseJson.accumulate("LatLon", searchResults);
+        }
+        else {
+            searchResults = new HashMap<String, Object>();
+            searchResults.put("calculatedLat", 0);
+            searchResults.put("calculatedLon", 0);
+            responseJson.accumulate("LatLon", searchResults);
+        }
+
+        responseJson.accumulate(MODEL_PAGE, new HashMap<String, Object>());
+        Page page = (Page) model.get(MODEL_PAGE);
+        int pageNum = page.getPageNumber();
+        int totalPages = page.getPager().getTotalPages();
+        searchResults.put("offset", page.getOffset() + 1);
+        searchResults.put("lastOffsetOnPage", page.getLastOffsetOnPage() + 1);
+        searchResults.put("totalResults", page.getPager().getTotalItems());
+        if(pageNum > 1) {
+            searchResults.put("previousPage", page.getPreviousPage().getPageNumber());
+        }
+        if(pageNum < totalPages) {
+            searchResults.put("nextPage", page.getNextPage().getPageNumber());
+        }
+        searchResults.put("pageSize", page.getPager().getPageSize());
+        searchResults.put("pageNumber", pageNum);
+        searchResults.put("totalPages", totalPages);
+        searchResults.put("firstPageNum", page.getPager().getFirstPage().getPageNumber());
+        searchResults.put("lastPageNum", page.getPager().getLastPage().getPageNumber());
+        List<Page> pages = page.getPageSequence();
+        List<Integer> pageSeqNumbers = new ArrayList<Integer>();
+        for(Page p : pages) {
+            pageSeqNumbers.add(p.getPageNumber());
+        }
+        searchResults.put("pageSequence", pageSeqNumbers);
+        searchResults.put("omniturePageName", model.get("omniturePageName"));
+        responseJson.accumulate(MODEL_PAGE, searchResults);
+
+        searchResults = new HashMap<String, Object>();
+        responseJson.accumulate("salePromo", new HashMap<String, Object>());
+        if(sessionContext.isShowRealtorDotComPromos()) {
+            searchResults.put("homesForSale", true);
+        }
+        else {
+            searchResults.put("homesForSale", false);
+        }
+        responseJson.accumulate("salePromo", searchResults);
     }
 
     public void showAdvancedFilters(SchoolSearchCommand schoolSearchCommand, Map<String, Object> model) {

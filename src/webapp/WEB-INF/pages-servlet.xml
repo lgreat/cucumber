@@ -558,7 +558,7 @@
         <property name="ajaxViewName" value="search/schoolSearchResultsTable2012" />
         <property name="noResultsViewName" value="search/schoolSearchNoResults"/>
         <property name="noResultsAjaxViewName" value="search/schoolSearchNoResultsTable" />
-        <property name="mapViewName" value="search/schoolSearchMapResultsFruitcake" />
+        <property name="mapViewName" value="search/schoolSearchMapResults2012" />
     </bean>
 
     <bean name="schoolSearchMobileController" class="gs.web.search.SchoolSearchMobileController">

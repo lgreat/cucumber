@@ -5,6 +5,7 @@ GS.search.results = GS.search.results || (function() {
     var filtersModule;
     var compareModule;
     var customLinksModule;
+    var infoBoxTemplate, sidebarListTemplate;
 
     // http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
     // we use indexOf on some arrays in this .js file, but IE doesn't support it natively, so we have to implement it here
@@ -53,6 +54,11 @@ GS.search.results = GS.search.results || (function() {
             }
             update(queryData);
         });
+
+        $(function() {
+            infoBoxTemplate = Hogan.compile($('#js-infoBoxTemplate').html());
+            sidebarListTemplate = Hogan.compile($('#js-schoolListTemplate').html());
+        });
     };
 
     var url = function() {
@@ -63,7 +69,6 @@ GS.search.results = GS.search.results || (function() {
 
     var search = function(callback, errorCallback, queryStringData) {
         var queryString = GS.uri.Uri.getQueryStringFromObject(queryStringData);
-
         var data = {};
         data.requestType = "ajax";
         data.decorator="emptyDecorator";
@@ -137,6 +142,16 @@ GS.search.results = GS.search.results || (function() {
         window.location.search = queryString;
     };
 
+    var onPageSizeChangedForMap = function() {
+        var queryString = window.location.search;
+        var pageSize = jQuery('#page-size').val();
+        queryString = GS.uri.Uri.putIntoQueryString(queryString,"pageSize", pageSize, true);
+        queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
+        var pageSizeState = { queryString: "queryString"};
+        history.pushState(pageSizeState, pageSize, queryString);
+        pagination(1, pageSize);
+    };
+
     var onSortChanged = function() {
         var i = 0;
         var gradeLevels = [];
@@ -154,6 +169,20 @@ GS.search.results = GS.search.results || (function() {
         window.location.search = queryString;
     };
 
+    var onSortChangedForMap = function(selectValue) {
+        var queryString = window.location.search;
+        queryString = persistCompareCheckboxesToQueryString(queryString);
+
+        if (selectValue !== '' && typeof(selectValue) !== 'undefined') {
+            queryString = GS.uri.Uri.putIntoQueryString(queryString,"sortBy",selectValue, true);
+        } else {
+            queryString = GS.uri.Uri.removeFromQueryString(queryString, "sortBy");
+        }
+        var sortState = { queryString: "queryString"};
+        history.pushState(sortState, selectValue, queryString);
+        pagination(1, 25);
+    };
+
     var page = function(pageNumber, pageSize) {
         var start = (pageNumber-1) * pageSize;
         var queryString = window.location.search;
@@ -163,7 +192,25 @@ GS.search.results = GS.search.results || (function() {
         window.location.search = queryString;
     };
 
-    var pagination = function(pageNumber, pageSize) {}
+    var pagination = function(pageNumber, pageSize) {
+        var start = (pageNumber-1) * pageSize;
+        var queryString = window.location.search;
+        queryString = persistCompareCheckboxesToQueryString(queryString);
+        queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
+        var state = { queryString: "queryString"};
+        history.pushState(state, start, queryString);
+
+        $.ajax({
+            type: 'POST',
+            url: document.location
+        }).done(function(data) {
+                renderDataForMap(data);
+            }
+        ).fail(function() {
+                alert("error");
+            }
+        );
+    }
 
     var persistCompareCheckboxesToQueryString = function(queryString) {
         var compareSchoolsList = compareModule.getCheckedSchools().join(',');
@@ -187,18 +234,151 @@ GS.search.results = GS.search.results || (function() {
 
     var attachEventHandlers = function() {
         jQuery('.compare-school-checkbox').click(compareModule.onCompareCheckboxClicked);
-        jQuery('#page-size').change(onPageSizeChanged);
-        jQuery('#sort-by').change(onSortChanged);
+        jQuery('#page-size').change(onPageSizeChangedForMap);
         jQuery('.js-compareButton').click(sendToCompare());
         jQuery('.js-num-checked-send-to-compare').click(sendToCompare());
         jQuery('.js-compare-uncheck-all').click(compareModule.onCompareUncheckAllClicked);
+        jQuery('#map-sort').change(function(){onSortChangedForMap($(this).find(":selected").val());});
+        jQuery('#sort-by').change(onSortChanged);
     };
+
+    var renderDataForMap = function(data) {
+        var page = data.page[1];
+        $('.js-search-results-paging-summary').html("Showing " + page.offset + "-" + page.lastOffsetOnPage + " of " +
+            "<span id='total-results-count'>" + page.totalResults + "</span> schools");
+
+        updatePageNav(page);
+
+        var homesForSale = "block";
+        if(!data.salePromo[1].homesForSale) {
+            homesForSale = "none";
+        }
+
+        var schoolList = $('#js-schoolList');
+        schoolList.html('');
+
+        var points = [];
+        for(var i = 1; i < data.schoolSearchResults.length; i++) {
+            var school = data.schoolSearchResults[i];
+            var parentRating = school.parentRating;
+            if(parentRating == null) {
+                parentRating = "rate_it";
+            }
+            var gsRating = school.greatSchoolsRating;
+            if(school.schoolType == 'private') {
+                gsRating = 'pr';
+            }
+            else if(gsRating == null) {
+                gsRating = 'na';
+            }
+
+            var isPkCompare = "none", showCompare = "inline";
+            if(school.levelCode == 'p') {
+                isPkCompare = "inline";
+                showCompare = "none";
+            }
+
+            var existsInMsl = "none", notInMsl = "block";
+            if(school.mslHasSchool) {
+                existsInMsl = "block";
+                notInMsl = "none";
+            }
+
+            var infoBoxHtml = infoBoxTemplate.render({
+                city: school.city,
+                existsInMsl: existsInMsl,
+                gradesRange: school.rangeString,
+                id: school.id,
+                isPkCompare: isPkCompare,
+                homesForSale: homesForSale,
+                jsEscapeName: school.jsEscapeName,
+                notInMsl: notInMsl,
+                omniturePageName: page.omniturePageName,
+                parentRating: parentRating,
+                schoolName: school.name,
+                schoolType: school.schoolType,
+                schoolUrl: school.schoolUrl,
+                showCompare: showCompare,
+                state: school.state,
+                street: school.street,
+                zip: school.zip
+            });
+
+            var sidebarListHtml = sidebarListTemplate.render({
+                city: school.city,
+                distance: school.distance,
+                gradesRange: school.rangeString,
+                gsRating: gsRating,
+                id: school.id,
+                parentRating: parentRating,
+                schoolName: school.name,
+                schoolType: school.schoolType,
+                schoolUrl: school.schoolUrl,
+                state: school.state
+            });
+
+            points.push({name: school.jsEscapeName, lat: school.latitude, lng: school.longitude,
+                gsRating: school.greatSchoolsRating, schoolType: school.schoolType, infoWindowMarkup: infoBoxHtml,
+                state: school.state, id: school.id});
+            schoolList.append(sidebarListHtml);
+        }
+        GS.map.getMap.refreshMarkers(points);
+    }
+
+    var updatePageNav = function(page) {
+        var pageNumbers = $('.js-pageNumbers');
+        var pageNav = "";
+
+        var ellipsis = "<span class='ellipsis'>...</span>\n";
+        pageNumbers.html('');
+
+        if(page.pageNumber > 1) {
+            pageNav += setPageNavIndex(page.previousPage, page.pageSize, '« Prev');
+        }
+
+        if(page.totalPages >= 5 && page.pageNumber >= 5) {
+            pageNav += setPageNavIndex(page.firstPageNum, page.pageSize, page.firstPageNum);
+            pageNav += setEllipsisOrActive('ellipsis', '...');
+        }
+
+        var pageSequence = page.pageSequence;
+        for(var i = 0; i < pageSequence.length; i++) {
+            if(pageSequence[i] == page.pageNumber) {
+                pageNav += setEllipsisOrActive('active', pageSequence[i]);
+            }
+            else {
+                pageNav += setPageNavIndex(pageSequence[i], page.pageSize, pageSequence[i]);
+            }
+        }
+
+        if(page.totalPages > 5 && (page.pageNumber < 5 || (page.pageNumber <= page.totalPages - 4 ))) {
+            pageNav += setEllipsisOrActive('ellipsis', '...');
+            pageNav += setPageNavIndex(page.lastPageNum, page.pageSize, page.lastPageNum);
+        }
+
+        if(page.pageNumber < page.totalPages) {
+            pageNav += setPageNavIndex(page.nextPage, page.pageSize, 'Next »');
+        }
+        pageNumbers.html(pageNav);
+    }
+
+    var setPageNavIndex = function(pageNum, pageSize, indexValue) {
+        var index = "<span class='js-prev' onclick='GS.search.results.pagination(" + pageNum + ", " + pageSize + ");'>" +
+            indexValue + "</span>\n";
+        return index;
+    }
+
+    var setEllipsisOrActive = function(className, value) {
+        var index = "<span class=" + className + ">" + value + "</span>\n";
+        return index;
+    }
 
     return {
         init:init,
         update:update,
         page:page,
-        sendToCompare:sendToCompare
+        sendToCompare:sendToCompare,
+        pagination:pagination
     };
 
 })();

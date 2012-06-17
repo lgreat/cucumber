@@ -204,21 +204,24 @@ GS.search.compare = GS.search.compare || (function() {
         var index = jQuery.inArray($(schoolItem).attr('id'), checkedSchools);
         if(index == -1 && schoolItem.checked) {
             checkedSchools.push($(schoolItem).attr('id'));
+            updateInfoBoxCompareButton(compareButton);
         }
         else {
             checkedSchools.splice(index, 1);
+            compareButton.hide();
         }
-        updateInfoBoxCompareButton(compareButton);
     }
 
-    var updateMapInfoBox = function(compareCheck, compareButton) {
+    var updateMapInfoBoxCompare = function(compareCheck, compareButton) {
         for(var i = 0; i < checkedSchools.length; i++) {
             if(compareCheck.attr('id') === checkedSchools[i]) {
                 compareCheck.prop('checked', true);
                 break;
             }
         }
-        updateInfoBoxCompareButton(compareButton);
+        if(compareCheck.is(':checked') == true) {
+            updateInfoBoxCompareButton(compareButton);
+        }
     }
 
     var updateInfoBoxCompareButton = function(compareButton) {
@@ -244,7 +247,7 @@ GS.search.compare = GS.search.compare || (function() {
         selectRow:selectRow,
         deselectRow:deselectRow,
         addRemoveCheckedSchoolInMap:addRemoveCheckedSchoolInMap,
-        updateMapInfoBox: updateMapInfoBox
+        updateMapInfoBoxCompare: updateMapInfoBoxCompare
     }
 
 })();

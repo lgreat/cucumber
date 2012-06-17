@@ -40,7 +40,7 @@
     <c:set var="pageSize" value="${page.pager.pageSize}"/>
 
     <c:if test="${totalPages gt 1}">
-        <div class="${pageScope.styleClass}">
+        <div class="${pageScope.styleClass} js-pageNumbers">
             <c:if test="${page.pageNumber gt 1}">
                 <c:set var="targetPage" value="${page.previousPage}" />
 

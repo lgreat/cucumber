@@ -7,15 +7,17 @@ GS.map.getMap = GS.map.getMap ||(function(){
     var infoBoxOptions = null;
     var infoBoxInstance = null;
     var selectedSchool = null;
-    var checkedSchools = [];
+    var schoolList = null;
+    var savedSchools = [];
+    var newMarkers = [];
+    var tooltipInfoBox = null;
 
     $(document).ready(function(){
-        var schoolList = $('#schoolList');
+        schoolList = $('#js-schoolList');
         var height = $('#js-map-canvas').css('height');
         schoolList.css({height: height, overflowY: 'scroll'});
-        var tooltipInfoBox = null;
         GS.search.results.init(GS.search.filters,GS.search.compare);
-        $('.js-mouseover-open-bubble').mouseover(function() {
+        $('.js-mouseover-open-bubble').live('mouseover', function() {
             var id = jQuery(this).attr('id');
             var schoolIdentifier = id.replace('school-listitem-', '');
             if (GS_openSchoolInfoBubble !== null) {
@@ -52,13 +54,13 @@ GS.map.getMap = GS.map.getMap ||(function(){
             }
         });
 
-        $('.js-mouseover-open-bubble').mouseout(function() {
+        $('.js-mouseover-open-bubble').live('mouseout', function() {
             if(tooltipInfoBox !== null) {
                 tooltipInfoBox.close();
             }
         });
 
-        $('.js-mouseover-open-bubble').click(function() {
+        $('.js-mouseover-open-bubble').live('click', function() {
             if(tooltipInfoBox !== null) {
                 tooltipInfoBox.close();
             }
@@ -72,8 +74,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
             var schoolIdentifier = id.replace('school-listitem-', '');
             var marker = GS_mapMarkers[schoolIdentifier];
 
-            infoBoxInstance = new InfoBox(infoBoxOptions);
-            showInfoBox(marker, infoBoxInstance, schoolIdentifier);
+            google.maps.event.trigger(marker, 'click');
         });
     });
 
@@ -81,10 +82,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
         optionalLat = optionalLat || 0;
         optionalLon = optionalLon || 0;
         var centerPoint = new google.maps.LatLng(optionalLat, optionalLon);
-        var bounds = new google.maps.LatLngBounds();
         var infoWindow = new google.maps.InfoWindow();
-        var newMarkers = [];
-        var p_length = points.length;
 
         var myOptions = {
             center: centerPoint,
@@ -113,7 +111,12 @@ GS.map.getMap = GS.map.getMap ||(function(){
         $('#js-map-canvas').css({height:height});
 
         map = new google.maps.Map(document.getElementById("js-map-canvas"), myOptions);
+        loadMarkers(points);
+    }
 
+    var loadMarkers = function (points) {
+        var bounds = new google.maps.LatLngBounds();
+        var p_length = points.length;
         // shape defines clickable region of icon as a series of points
         // coordinates increase in the X direction to the right and in the Y direction down.
         var markerShape = {
@@ -177,9 +180,6 @@ GS.map.getMap = GS.map.getMap ||(function(){
             GS_mapMarkers[schoolIdentifier] = marker;
 
             infoBoxInstance = new InfoBox(infoBoxOptions);
-//        var infowindow1 = new google.maps.InfoWindow({map: map});
-//        var infoBubble = new InfoBubble(infoBoxOptions);
-
             google.maps.event.addListener(marker, 'click', (function(marker, i, schoolIdentifier) {
                 return function() {
                     if(selectedSchool !== null) {
@@ -196,14 +196,16 @@ GS.map.getMap = GS.map.getMap ||(function(){
             google.maps.event.addListener(infoBoxInstance, 'domready', function() {
                 var compareButton = $('.js-compareButton');
                 var compareCheck = $('.js-compare-school-checkbox');
-                GS.search.compare.updateMapInfoBox(compareCheck, compareButton);
 
+                GS.search.compare.updateMapInfoBoxCompare(compareCheck, compareButton);
                 compareCheck.change(function() {
                     GS.search.compare.addRemoveCheckedSchoolInMap(this, compareButton);
                 });
                 compareButton.click(function() {
                     GS.search.results.sendToCompare();
                 });
+
+                updateInfoBoxText();
             });
         }
 
@@ -220,18 +222,35 @@ GS.map.getMap = GS.map.getMap ||(function(){
         }
     }
 
-    var showInfoBox = function(marker, infoBoxInstance, schoolIdentifier) {
+    var refreshMarkers = function(points) {
+        closeInfoBox();
+        if(tooltipInfoBox !== null) {
+            tooltipInfoBox.close();
+        }
+        deleteMarkers();
+        loadMarkers(points);
+    }
+
+    var deleteMarkers = function() {
+        for(var i = 0; i < newMarkers.length; i++) {
+            newMarkers[i].setMap(null);
+        }
+        newMarkers = [];
+    }
+
+    var showInfoBox = function(marker, infoBox, schoolIdentifier) {
         var div = document.createElement('div');
         div.innerHTML = marker.infoWindowMarkup;
         div.style = "background: white";
         $(div).tabs();
-        infoBoxInstance.setContent(div);
-        infoBoxInstance.open(map, marker);
+        infoBox.setContent(div);
+        infoBox.open(map, marker);
         map.panTo(marker.position);
         marker.setZIndex(9999);
         GS_openSchoolInfoBubble = schoolIdentifier;
-        addHighlight(schoolIdentifier);
-        scrollSchoolList(schoolIdentifier);
+        selectedSchool = $('#school-listitem-' + schoolIdentifier);
+        addHighlight();
+        scrollSchoolList();
     }
 
     var closeInfoBox =  function() {
@@ -244,11 +263,28 @@ GS.map.getMap = GS.map.getMap ||(function(){
         }
     }
 
-    var addHighlight = function(schoolIdentifier) {
+    var updateInfoBoxText = function() {
+        var schoolInfo = $('.js-schoolInfo');
+        var addMsl = schoolInfo.find('.js-add-msl');
+        var addMslLink = addMsl.find('.js-add-msl-link');
+        for(var i = 0; i < savedSchools.length; i++) {
+            if(addMslLink.attr('id') === savedSchools[i]) {
+                var notInMsl = addMsl.find('.js-notInMsl').hide();
+                var existsInMsl = addMsl.find('.js-existsInMsl').show();
+                return;
+            }
+        }
+
+        schoolInfo.find('a').each(function() {
+            $(this).attr('href', $(this).attr('data-href'));
+        });
+    }
+
+    var addHighlight = function() {
         var isWhite = null;
         var patternBlueClassMarker = /_b/gi;
-        var communityRatingToHighlight = $('#school-listitem-' + schoolIdentifier).find('.communityRating .sprite');
-        var gsRatingToHighlight = $('#school-listitem-' + schoolIdentifier).find('.gsRating .sprite');
+        var communityRatingToHighlight = selectedSchool.find('.communityRating .sprite');
+        var gsRatingToHighlight = selectedSchool.find('.gsRating .sprite');
         var communityRatingToHighlightClass = communityRatingToHighlight.attr('class');
         var gsRatingToHighlightClass = gsRatingToHighlight.attr('class');
 
@@ -262,35 +298,31 @@ GS.map.getMap = GS.map.getMap ||(function(){
         }
 
         // set appropriate list item background color
-        $('#school-listitem-' + schoolIdentifier).addClass('highlight');
-        selectedSchool = $('#school-listitem-' + schoolIdentifier);
+        selectedSchool.addClass('highlight');
     }
 
     var removeHighlight = function() {
-        $('.js-mouseover-open-bubble').removeClass('highlight');
-        // reset all sprite icons to white background color
-        $('.communityRating .sprite').each(function() {
-            var patternWhiteCommunityRating = /sprite stars_sm_(\d|[a-z_]{7})/gi;
-            var communityRatingClass = $(this).attr('class');
-            var whiteCommunityRatingClass = communityRatingClass.match(patternWhiteCommunityRating)[0];
-            $(this).removeClass(communityRatingClass).addClass(whiteCommunityRatingClass);
-        });
-        $('.gsRating .sprite').each(function() {
-            var patternWhiteGsRating = /sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
-            var gsRatingClass = $(this).attr('class');
-            var whiteGsRatingClass = gsRatingClass.match(patternWhiteGsRating)[0];
-            $(this).removeClass(gsRatingClass).addClass(whiteGsRatingClass);
-        });
+        selectedSchool.removeClass('highlight');
+        var patternWhiteCommunityRating = /sprite stars_sm_(\d|[a-z_]{7})/gi;
+        var communityRating = selectedSchool.find('.communityRating .sprite');
+        var communityRatingClass = communityRating.attr('class');
+        var whiteCommunityRatingClass = communityRatingClass.match(patternWhiteCommunityRating)[0];
+        communityRating.removeClass(communityRatingClass).addClass(whiteCommunityRatingClass);
+
+        var patternWhiteGsRating = /fltlft sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
+        var gsRating = selectedSchool.find('.gsRating .sprite');
+        var gsRatingClass = gsRating.attr('class');
+        var whiteGsRatingClass = gsRatingClass.match(patternWhiteGsRating)[0];
+        gsRating.removeClass(gsRatingClass).addClass(whiteGsRatingClass);
+        selectedSchool = null;
     }
 
-    var scrollSchoolList = function(schoolIdentifier) {
-        var schoolList = $('#schoolList');
+    var scrollSchoolList = function() {
         var listTop = schoolList.offset().top;
         var listBottom = listTop + schoolList.height();
 
-        var selectedItem = $('#school-listitem-' + schoolIdentifier);
-        var itemTop = selectedItem.offset().top;
-        var itemBottom = itemTop + selectedItem.height();
+        var itemTop = selectedSchool.offset().top;
+        var itemBottom = itemTop + selectedSchool.height();
 
         if((itemBottom >= listBottom) || (itemTop <= listTop)) {
             schoolList.animate({
@@ -299,7 +331,13 @@ GS.map.getMap = GS.map.getMap ||(function(){
         }
     }
 
+    var addSavedSchool = function(identifier) {
+        savedSchools.push(identifier);
+    }
+
     return {
-        initMap:initMap
+        initMap:initMap,
+        refreshMarkers: refreshMarkers,
+        addSavedSchool: addSavedSchool
     }
 })();
