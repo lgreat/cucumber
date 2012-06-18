@@ -10,7 +10,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
     };
 
     var registerEventHandlers = function() {
-        $(listResultsLinkSelector).on('click', function() {
+        $(listResultsLinkSelector).live('click', function() {
             if(GS.uri.Uri.getFromQueryString('view') === undefined) {
                 return;
             }
@@ -20,7 +20,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
                 window.location.search = uri;
             }
         });
-        $(mapResultsLinkSelector).on('click', function() {
+        $(mapResultsLinkSelector).live('click', function() {
             if(GS.uri.Uri.getFromQueryString('view') === 'map') {
                 return;
             }

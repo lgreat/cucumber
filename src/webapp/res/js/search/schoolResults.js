@@ -286,6 +286,7 @@ GS.search.results = GS.search.results || (function() {
 
             var infoBoxHtml = infoBoxTemplate.render({
                 city: school.city,
+                communityRatingUrl: school.communityRatingUrl,
                 existsInMsl: existsInMsl,
                 gradesRange: school.rangeString,
                 id: school.id,
@@ -306,9 +307,11 @@ GS.search.results = GS.search.results || (function() {
 
             var sidebarListHtml = sidebarListTemplate.render({
                 city: school.city,
+                communityRatingUrl: school.communityRatingUrl,
                 distance: school.distance,
                 gradesRange: school.rangeString,
                 gsRating: gsRating,
+                gsRatingUrl: school.gsRatingUrl,
                 id: school.id,
                 parentRating: parentRating,
                 schoolName: school.name,
@@ -320,7 +323,11 @@ GS.search.results = GS.search.results || (function() {
             points.push({name: school.jsEscapeName, lat: school.latitude, lng: school.longitude,
                 gsRating: school.greatSchoolsRating, schoolType: school.schoolType, infoWindowMarkup: infoBoxHtml,
                 state: school.state, id: school.id});
+
             schoolList.append(sidebarListHtml);
+            schoolList.find('a').each(function() {
+                $(this).attr('href', $(this).attr('data-href'));
+            });
         }
         GS.map.getMap.refreshMarkers(points);
     }

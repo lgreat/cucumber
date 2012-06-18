@@ -249,10 +249,18 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             if(schoolSearchResult.getDistance() != null) {
                 searchResults.put("distance", Util.roundTwoDecimal(schoolSearchResult.getDistance()));
             }
-            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, schoolSearchResult.getId(),
+            UrlBuilder schoolUrl = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, schoolSearchResult.getId(),
                     schoolSearchResult.getDatabaseState(), schoolSearchResult.getName(), schoolSearchResult.getAddress(),
                     LevelCode.createLevelCode(schoolSearchResult.getLevelCode()), false, null);
-            searchResults.put("schoolUrl", urlBuilder.asFullUrlXml(request));
+            searchResults.put("schoolUrl", schoolUrl.asFullUrlXml(request));
+
+            UrlBuilder communityRatingUrl = new UrlBuilder(schoolSearchResult.getDatabaseState(), schoolSearchResult.getId(),
+                    LevelCode.createLevelCode(schoolSearchResult.getLevelCode()), UrlBuilder.SCHOOL_PARENT_REVIEWS);
+            searchResults.put("communityRatingUrl", communityRatingUrl.asFullUrl(request));
+
+            UrlBuilder gsRatingUrl = new UrlBuilder(schoolSearchResult.getDatabaseState(), schoolSearchResult.getId(),
+                    LevelCode.createLevelCode(schoolSearchResult.getLevelCode()), UrlBuilder.SCHOOL_PROFILE_RATINGS);
+            searchResults.put("gsRatingUrl", gsRatingUrl.asFullUrl(request));
 
             if(mslSchools != null || mslSchools.size() > 0) {
                 Iterator<FavoriteSchool> iterator = mslSchools.iterator();

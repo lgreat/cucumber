@@ -359,7 +359,7 @@
                 </div>
                 <div class="unit size3of7 lastUnit">
                     <div class="smallText1-333 small pbs">
-                        <a href="#">
+                        <a href="" data-href="{{communityRatingUrl}}">
                             <span class="sprite stars_sm_{{parentRating}}"><!-- do not collapse --></span>
                         </a>
                     </div>
@@ -571,7 +571,7 @@
     <ul id="js-schoolListTemplate" style="display: none;">
         <li class="js-mouseover-open-bubble" id="school-listitem-{{state}}-{{id}}">
             <p class="medium_bold">
-                <a href="{{schoolUrl}}" data-href="{{schoolUrl}}">
+                <a href="" data-href="{{schoolUrl}}">
                     {{schoolName}}
                 </a>
             </p>
@@ -582,10 +582,14 @@
                     {{distance}} miles
                 </span>
             <div class="img gsRating mrs">
-                <span class="fltlft sprite badge_sm_{{gsRating}}"><!-- do not collapse --></span>
+                <a href ="" data-href="{{gsRatingUrl}}">
+                    <span class="fltlft sprite badge_sm_{{gsRating}}"><!-- do not collapse --></span>
+                </a>
             </div>
             <div class="bd brdlft-solid communityRating pts">
-                <span class="sprite stars_sm_{{parentRating}}"><!-- do not collapse --></span>
+                <a href ="" data-href="{{communityRatingUrl}}">
+                    <span class="sprite stars_sm_{{parentRating}}"><!-- do not collapse --></span>
+                </a>
             </div>
         </li>
     </ul>
