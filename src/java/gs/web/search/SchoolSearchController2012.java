@@ -421,7 +421,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         if (district != null) {
             q.filter(SchoolFields.SCHOOL_DISTRICT_ID, String.valueOf(district.getId()));
         } else if (city != null) {
-            q.filter(AddressFields.CITY_UNTOKENIZED, city.getName().toLowerCase());
+            q.filter(AddressFields.CITY_UNTOKENIZED, "\"" + city.getName().toLowerCase() + "\"");
         }
 
         if (schoolSearchCommand.getMinCommunityRating() != null) {
