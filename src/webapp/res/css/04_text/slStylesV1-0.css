@@ -161,6 +161,8 @@ caption     { background: #e6e6e6; }
 
 .quiet      { color: #787878; }
 .loud       { color: #000; }
+
+.make-FFCC66 { color: #FFCC66; }
 .make-06b   { color: #06b; }
 .highlight  { background:#ff0; }
 .added      { background:#060; color: #fff; }

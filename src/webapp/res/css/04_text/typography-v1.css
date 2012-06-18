@@ -193,6 +193,7 @@ caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bo
 
 .quiet       { color: #787878; }
 .loud        { color: #2b2b2b; }
+.make-FFCC66 { color: #FFCC66; }
 .make-06b    { color: #06b; }
 .make-d61 { color: #d61; }
 .error_msg   { color: #900; }
