@@ -25,16 +25,19 @@
         </c:set>
 
         <div class="alpha grid_16 omega">
-            <div class="alpha grid_7">
+            <div class="alpha grid_7 fl">
                 <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a> &amp;nbsp;
                 <a data-role="button" data-inline="true" class="but but-sm but-2 js-mapResultsLink">Map</a>
             </div>
-
-            <div class="grid_9 omega">
-                <!--${searchResultsPagingSummary}-->
-                <div class="pagination" id="pagination">
-                    <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
-                                             javascriptMethod="GS.search.results.page"/>
+            <br class="clearfloat"/>
+            <div class="line">
+                <div class="unit size1of2">
+                    ${searchResultsPagingSummary}
+                </div>
+                <div class="unit size2of2 lastUnit">
+                    <div class="pagination" id="pagination">
+                      <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.results.page" />
+                    </div>
                 </div>
             </div>
         </div>

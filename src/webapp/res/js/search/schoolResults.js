@@ -56,8 +56,10 @@ GS.search.results = GS.search.results || (function() {
         });
 
         $(function() {
-            infoBoxTemplate = Hogan.compile($('#js-infoBoxTemplate').html());
-            sidebarListTemplate = Hogan.compile($('#js-schoolListTemplate').html());
+            if(typeof Hogan != 'undefined') {
+                infoBoxTemplate = Hogan.compile($('#js-infoBoxTemplate').html());
+                sidebarListTemplate = Hogan.compile($('#js-schoolListTemplate').html());
+            }
         });
     };
 
