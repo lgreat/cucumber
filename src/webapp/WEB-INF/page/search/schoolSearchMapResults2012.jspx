@@ -531,9 +531,13 @@
                         <p class="medium ac1">
                             ${school.schoolType}, ${school.grades.rangeString} | ${school.city}, ${school.databaseState}
                         </p>
-                                <span class="fltrt">
-                                        ${gsweb:roundTwoDecimal(school.distance)} miles
-                                </span>
+
+                        <c:if test="${school.distance ne null}">
+                            <span class="fltrt">
+                                ${gsweb:roundTwoDecimal(school.distance)} miles
+                            </span>
+                        </c:if>
+
                         <div class="img gsRating mrs">
                             <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}" levelCode="${school.levelCode}">
                                 <c:choose>
@@ -578,7 +582,7 @@
             <p class="medium ac1">
                 {{schoolType}}, {{gradesRange}} | {{city}}, {{state}}
             </p>
-                <span class="fltrt">
+                <span class="fltrt" style="display: {{showDistance}}">
                     {{distance}} miles
                 </span>
             <div class="img gsRating mrs">

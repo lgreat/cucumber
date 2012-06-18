@@ -286,6 +286,11 @@ GS.search.results = GS.search.results || (function() {
                 notInMsl = "none";
             }
 
+            var showDistance = "inline";
+            if(school.distance == null) {
+                showDistance = "none";
+            }
+
             var infoBoxHtml = infoBoxTemplate.render({
                 city: school.city,
                 communityRatingUrl: school.communityRatingUrl,
@@ -319,6 +324,7 @@ GS.search.results = GS.search.results || (function() {
                 schoolName: school.name,
                 schoolType: school.schoolType,
                 schoolUrl: school.schoolUrl,
+                showDistance: showDistance,
                 state: school.state
             });
 
