@@ -474,7 +474,7 @@
                             <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
                             <cssSourceDir>/res/css</cssSourceDir>
                             <cssSourceFiles>
-                                <param>00_reset/reset.css</param>
+                                <!--<param>00_reset/reset.css</param>
                                 <param>00_reset/z_index_reset.css</param>
                                 <param>01_grids/grid_960.css</param>
                                 <param>01_grids/grid_oocss.css</param>
@@ -508,9 +508,8 @@
                                 <param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>
                                 <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
                                 <param>99_debugging/debug.css</param>
-                                <!--<param>gs2010_styles.css</param>-->
                                 <param>house_ads.css</param>
-                                <param>jquery.autocomplete.css</param>
+                                <param>jquery.autocomplete.css</param>-->
                             </cssSourceFiles>
                             <cssFinalFile>gs_styles-v1.combined.css</cssFinalFile>
                             <cssTargetDir>/res/css</cssTargetDir>
