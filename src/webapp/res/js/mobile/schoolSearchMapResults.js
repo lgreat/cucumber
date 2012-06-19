@@ -40,7 +40,7 @@ define(['searchResultFilters', 'uri', 'tracking'], function(searchResultFilters,
                 width: "300px"
             },
             closeBoxMargin: "0px",
-            closeBoxURL: "http://qa.greatschools.org/res/mobile/img/icon_close_44x44.png",
+            closeBoxURL: "/res/mobile/img/icon_close_44x44.png",
             infoBoxClearance: new google.maps.Size(1, 1),
             isHidden: false,
             pane: "floatPane",
