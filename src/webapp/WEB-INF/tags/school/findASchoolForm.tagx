@@ -10,16 +10,24 @@
           xmlns:gsweb="gstaglib" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:spring="http://www.springframework.org/tags/form" xmlns:form="http://www.springframework.org/tags/form"
         >
-<div id="findASchoolTabs">
-    <div class="tabBar">
-        <div class="small_bold bottom">
-            <span id="byLocationTab" class="${commandAndFields.nearbySearch? 'selected':''} small_bold">By location</span>
-            <span id="byNameTab" class="${!commandAndFields.nearbySearch? 'selected':''} small_bold">By name</span>
-        </div>
-    </div>
+<div id="findASchoolTabs" class="mod standard_6-1">
 
-    <div class="tabBody pal" >
-        <div id="byLocationTabBody" style="${!commandAndFields.nearbySearch?'display:none;':''}">
+    <div class="bd gsTabs">
+    <ul class="tabStyle-4">
+        <li><a id="js-byLocationTab" class="${commandAndFields.nearbySearch? 'selected':''}">By location</a>
+            <div class="down-pointer down-pointer-bl ${commandAndFields.nearbySearch? 'selected':''}">
+                <div class="border-edge"><!-- not empty --></div>
+            </div>
+
+        </li>
+        <li class="mlm"><a id="js-byNameTab" class="${!commandAndFields.nearbySearch? 'selected':''}">By name</a>
+            <div class="down-pointer down-pointer-bn ${!commandAndFields.nearbySearch? 'selected':''}">
+                <div class="border-edge"><!-- not empty --></div>
+            </div>
+
+        </li>
+    </ul>
+        <div id="js-byLocationTabBody" style="${!commandAndFields.nearbySearch?'display:none;':''}">
             <form name="findByLocationForm" id="jq-findByLocationForm" action="/search/search.page"
                   method="get" onsubmit="return false;">
                 <input type="hidden" name="lat"/>
@@ -31,64 +39,56 @@
                 <input type="hidden" name="normalizedAddress" value=""/>
                 <input type="hidden" name="totalResults" value="0"/>
 
-                <div class="searchBarFas">
-                    <h6 class="fltlft bottom">
-                        <form:input type="text" name="locationSearchString" class="searchInput small bottom"
-                            id="js-findByLocationBox"
-                            placeholder="   Search by city AND state or address ..."
-                            path="schoolSearchCommand.locationSearchString" />
-                    </h6>
-                    <button class="button-4 searchSubmit fltlft" type="submit">Search</button>
+                <div class="">
+                    <form:input type="text" name="locationSearchString" class=" small bottom"
+                                id="js-findByLocationBox"
+                                placeholder="   Search by city AND state or address ..."
+                                path="schoolSearchCommand.locationSearchString"/>
+                    <button class="button-4 searchSubmit" type="submit">Search</button>
                 </div>
-                <div class="smallest bottom fltlft pts">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
-
-
+                <div class="smallest bottom pts">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
             </form>
+            <search:globalFilterBar includeDistance="${true}"/>
         </div>
 
-        <div id="byNameTabBody" style="${commandAndFields.nearbySearch?'display:none;':''}">
+        <div id="js-byNameTabBody" style="${commandAndFields.nearbySearch?'display:none;':''}">
             <form name="searchByNameForm" id="jq-findByNameForm" action="/search/search.page" method="get">
                 <!-- Set this to 1 which tells the SchoolSearchController that it is a FaS by name search, for omniture -->
                 <input type="hidden" name="search_type" value="1"/>
-                    <c:if test="${not empty schoolSearchCommand.searchString}">
-                        <c:set var="searchString"><c:out value="${schoolSearchCommand.searchString}" escapeXml="true"/></c:set>
-                    </c:if>
+                <c:if test="${not empty schoolSearchCommand.searchString}">
+                    <c:set var="searchString"><c:out value="${schoolSearchCommand.searchString}"
+                                                     escapeXml="true"/></c:set>
+                </c:if>
 
-                <div class="line">
-                    <div class="unit size84of100">
-                        <div class="searchBarFas">
-                            <div class="searchTextBox fltlft">
-                                <h6 class="fltlft bottom">
-                                    <input type="text" name="q"
-                                         class="searchInput small bottom mrs"
-                                         id="js-findByNameBox"
-                                         placeholder="   Search by school or district ..."
-                                         value="${searchString}"/>
-                                </h6>
-                            </div>
-                            <div class="stateDropDown fltrt">
-                                <span class="verticalLine"> | </span>
-                                <span class="showState"><!-- Do not collapse--></span>
-                                <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
-                                     noStateLabel="Select state"
-                                     usingLongNames="false"
-                                     state="${requestScope.context.state}"
-                                     styleClass="stateSelect"
-                                     styleId="js-findByNameStateSelect" />
-                                <span class="sprite twirlyOpen dropDownArrow"><!-- Do not collapse--></span>
-                            </div>
-                        </div>
-                        <div class="smallest fltlft pts bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
+                <div class="">
+                    <div class="">
+                        <input type="text" name="q"
+                               class="small bottom mrs"
+                               id="js-findByNameBox"
+                               placeholder="   Search by school or district ..."
+                               value="${searchString}"/>
                     </div>
-                    <div class="unit size15of100 lastUnit">
-                        <button class="button-4 searchSubmit" type="submit">Search</button>
+                    <div class="">
+                        <span class=""> | </span>
+                        <!--<span class="showState">&lt;!&ndash; Do not collapse&ndash;&gt;</span>-->
+                        <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                             noStateLabel="Select state"
+                                             usingLongNames="false"
+                                             state="${requestScope.context.state}"
+                                             styleClass="stateSelect"
+                                             styleId="js-findByNameStateSelect"/>
+                        <!--<span class="sprite twirlyOpen dropDownArrow">&lt;!&ndash; Do not collapse&ndash;&gt;</span>-->
                     </div>
                 </div>
-
-
+                <div class="smallest pts bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
+                <button class="button-4 searchSubmit" type="submit">Search</button>
             </form>
         </div>
-        <search:globalFilterBar includeDistance="${true}"/>
+
+
+    </div>
+    <div class="ft">
+        <search:schoolSearchFiltersPanel/>
         <br class="clear"/>
 
     </div>

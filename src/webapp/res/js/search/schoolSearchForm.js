@@ -40,20 +40,20 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
     };
 
     var setupTabs = function() {
-        $("#byLocationTab").click(function() {
-            $('#byLocationTab').addClass('selected');
-            $('#byLocationTabBody').show();
-            $('#byNameTab').removeClass('selected');
-            $('#byNameTabBody').hide();
+        $("#js-byLocationTab").click(function() {
+            $('.down-pointer-bl').addClass('selected');
+            $('.down-pointer-bl').show();
+            $('.down-pointer-bn').removeClass('selected');
+            $('.down-pointer-bn').hide();
             $('#js-radius').show();
             $(".js-schoolSearchFiltersPanel").show();
         });
-        $("#byNameTab").click(function() {
-            $('#byLocationTab').removeClass('selected');
-            $('#byLocationTabBody').hide();
+        $("#js-byNameTab").click(function() {
             $('#js-radius').hide();
-            $('#byNameTab').addClass('selected');
-            $('#byNameTabBody').show();
+            $('.down-pointer-bn').addClass('selected');
+            $('.down-pointer-bn').show();
+            $('.down-pointer-bl').removeClass('selected');
+            $('.down-pointer-bl').hide();
             $(".js-schoolSearchFiltersPanel").hide();
         });
     };

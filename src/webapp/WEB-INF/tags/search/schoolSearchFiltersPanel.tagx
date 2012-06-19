@@ -9,7 +9,7 @@
 
         <c:if test="${showAdditionalFilters}">
         <div class="js-schoolSearchFiltersPanel">
-        <div id="js-moreFiltersLine" class="grid_16 alpha omega" style="background:#E1F1F7;z-index:999999;">
+        <div id="js-moreFiltersLine" class="grid_16 alpha omega" style="z-index:999999;">
             <div class="grid_14 alpha">
                 <strong>Refine your search here.</strong> Find the best fitted school for your child.
             </div>
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div id="js-resetFiltersLine" class="grid_16 alpha omega" style="display:none;background:#E1F1F7;z-index:999999;">
+        <div id="js-resetFiltersLine" class="grid_16 alpha omega" style="display:none;z-index:999999;">
             <div class="grid_14 alpha">
                 <strong>Narrow your selection.</strong> Other than local rating, the data comes directly from schools.
             </div>
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div id="js-moreFiltersPanel" class="grid_16 alpha omega" style="background:#E1F1F7;z-index:999999;display:none;">
+        <div id="js-moreFiltersPanel" class="grid_16 alpha omega" style="z-index:999999;display:none;">
             <c:set var="buttonStyle" value="padding:3px;margin-top:3px;background-color:#EEE;border:1px solid grey"/>
             <c:set var="selectedStyle" value="padding:3px;margin-top:3px;background-color:#ccc;border:1px solid grey;"/>
 
@@ -195,10 +195,11 @@
 
                 </div>
 
+            </div>
+            <div class="grid_16 alpha omega">
                 <div id="js-closeMoreFiltersLink" class="fltrt">
                     <a href="javascript:void(0);">Close filters</a>
                 </div>
-
             </div>
 
         </div>

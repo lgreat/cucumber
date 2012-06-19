@@ -117,7 +117,7 @@
         <div class="alpha grid_2 omega">
             <school:nearbyCitiesPopup/>
         </div>
-        <div class="grid_2 omega">
+        <div class="alpha grid_2 omega">
             <school:nearbyDistrictsPopup/>
         </div>
 
@@ -125,9 +125,9 @@
             <school:findASchoolForm/>
         </div>
         <!--Probably above and below elements should be in one grid-->
-        <div class="alpha grid_16 omega">
-            <search:schoolSearchFiltersPanel/>
-        </div>
+        <!--<div class="alpha grid_16 omega">-->
+            <!--<search:schoolSearchFiltersPanel/>-->
+        <!--</div>-->
 
         <div class="alpha grid_16 omega">
             <ad:adTag position="SponsoredSearch_Top_423x120"/>

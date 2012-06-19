@@ -125,7 +125,7 @@
             </c:if>
         </div>
 
-        <div class="grid_16">
+        <div class="alpha grid_16 omega">
             <c:if test="${requestScope.context.showRealtorDotComPromos}">
                 <div class="alpha grid_8">
                     <gslink:realtorDotComLink address="${school.address}"
