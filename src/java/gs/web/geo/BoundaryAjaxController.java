@@ -37,6 +37,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.json.MappingJacksonJsonView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +56,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/geo/boundary/ajax/")
 public class BoundaryAjaxController {
+
     protected static final Log _log = LogFactory.getLog(BoundaryAjaxController.class);
 
     @Autowired
@@ -88,7 +91,7 @@ public class BoundaryAjaxController {
      * Return a list of districts near a location.
      */
     @RequestMapping(value="getDistrictsNearLocation.json", method=RequestMethod.GET, headers={})
-    public Model getDistrictsNearPoint(
+    public ModelAndView getDistrictsNearPoint(
             @RequestParam("lat") Float lat,
             @RequestParam("lon") Float lon,
             @RequestParam(value="level", required = false) String level,
@@ -117,7 +120,7 @@ public class BoundaryAjaxController {
                 mapObjects.add(map(searchResult, ratingInt, request));
             }
             model.addAttribute("districts", mapObjects);
-            return model;
+            return prepareView(model, response);
 
         } catch (NumberFormatException nfe) {
             _log.error("Error parsing params: " + nfe, nfe);
@@ -127,16 +130,18 @@ public class BoundaryAjaxController {
             _log.error("Unexpected error: " + e, e);
         }
         response.setStatus(500);
-        return model;
+        return prepareView(model, response);
     }
 
     /**
      * Return a list of district boundaries intersecting a location.
      */
     @RequestMapping(value="getDistrictsForLocation.json", method=RequestMethod.GET)
-    public Model getDistrictsForLocation(
+    public ModelAndView getDistrictsForLocation(
             @RequestParam("lat") Double lat, @RequestParam("lon") Double lon, @RequestParam("level") String levelParam,
             Model model, HttpServletRequest request, HttpServletResponse response) {
+
+        response.setHeader("Cache-Control", "public, max-age=3600");
 
         LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
         List<DistrictBoundary> districtBoundaries = _districtBoundaryDao.getDistrictBoundariesContainingPoint(lat, lon, level);
@@ -165,14 +170,16 @@ public class BoundaryAjaxController {
             }
         }
         model.addAttribute("districts", districts);
-        return model;
+        return prepareView(model, response);
     }
 
     @RequestMapping( value = "getDistrictBoundaryById.json")
-    public Model getDistrictBoundaryById(
+    public ModelAndView getDistrictBoundaryById(
             @RequestParam("state") String stateParam,
             @RequestParam("id") Integer idParam,
             Model model, HttpServletRequest request, HttpServletResponse response ){
+
+        response.setHeader("Cache-Control", "public, max-age=3600");
 
         State state = State.fromString(stateParam);
         Integer id = Integer.valueOf(idParam);
@@ -188,7 +195,7 @@ public class BoundaryAjaxController {
             try {
 
                 model.addAttribute("boundary", map(districtBoundary.getGeometry()));
-                return model;
+                return prepareView(model, response);
             } catch (Exception e) {
                 _log.error("Error parsing geometry:" + e, e);
                 response.setStatus(500);
@@ -196,14 +203,16 @@ public class BoundaryAjaxController {
         } else {
             response.setStatus(404);
         }
-        return model;
+        return prepareView(model, response);
     }
 
     @RequestMapping( value = "getDistrictById.json")
-    public Model getDistrictById(
+    public ModelAndView getDistrictById(
             @RequestParam("state") String stateParam,
             @RequestParam("id") Integer idParam,
             Model model, HttpServletRequest request, HttpServletResponse response ){
+
+        response.setHeader("Cache-Control", "public, max-age=3600");
 
         List<Map> districts = new ArrayList();
 
@@ -215,6 +224,9 @@ public class BoundaryAjaxController {
         if (rating != null && rating.getActive() == 1) {
             ratingInt = rating.getRating();
         }
+
+        List<School> results = _schoolDao.getSchoolsInDistrict(state, id, true);
+
         Map districtMap = map(district, ratingInt, request);
         try {
             DistrictBoundary boundary = _districtBoundaryDao.getDistrictBoundaryByGSId(state, id);
@@ -224,15 +236,17 @@ public class BoundaryAjaxController {
         }
         districts.add(districtMap);
         model.addAttribute("districts", districts);
-        return model;
+        return prepareView(model,response);
     }
 
     @RequestMapping("getSchoolsByDistrictId.json")
-    public Model getSchoolsByDistrictId(
+    public ModelAndView getSchoolsByDistrictId(
             @RequestParam("state") String stateParam,
             @RequestParam("id") Integer id,
             @RequestParam("level") String levelParam,
             Model model, HttpServletRequest request, HttpServletResponse response ) {
+
+        response.setHeader("Cache-Control", "public, max-age=3600");
 
         State state = State.fromString(stateParam);
         LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
@@ -253,15 +267,17 @@ public class BoundaryAjaxController {
         }
 
         model.addAttribute("schools", schools);
-        return model;
+        return prepareView(model,response);
     }
 
     @RequestMapping("getSchoolById.json")
-    public Model getSchoolsForLocation(
+    public ModelAndView getSchoolsForLocation(
             @RequestParam("state") String stateParam,
             @RequestParam("id") Integer id,
             @RequestParam("level") String levelParam,
             Model model, HttpServletRequest request, HttpServletResponse response ){
+
+        response.setHeader("Cache-Control", "public, max-age=3600");
 
         State state = State.fromString(stateParam);
         LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
@@ -283,15 +299,18 @@ public class BoundaryAjaxController {
             _log.error("Can't find school " + state + "," + id);
         }
         model.addAttribute("schools", features);
-        return model;
+        return prepareView(model,response);
     }
 
     @RequestMapping("getSchoolBoundaryById.json")
-    public Model getSchoolBoundaryById(
+    public ModelAndView getSchoolBoundaryById(
             @RequestParam("state") String stateParam,
             @RequestParam("id") Integer id,
             @RequestParam("level") String levelParam,
             Model model, HttpServletRequest request, HttpServletResponse response ){
+
+        response.setHeader("Cache-Control", "public, max-age=3600");
+
         State state = State.fromString(stateParam);
         LevelCode.Level schoolLevel = LevelCode.Level.getLevelCode(levelParam);
         SchoolBoundary schoolBoundary = _schoolBoundaryDao.getSchoolBoundaryByGSId(state, id, schoolLevel);
@@ -300,16 +319,17 @@ public class BoundaryAjaxController {
         } else {
             response.setStatus(404);
         }
-        return model;
+        return prepareView(model,response);
     }
 
 
     @RequestMapping("getSchoolsByLocation.json")
-    public Model getSchoolsForLocation(
+    public ModelAndView getSchoolsForLocation(
             @RequestParam("lat") double lat,
             @RequestParam("lon") double lon,
             @RequestParam("level") String levelParam,
             Model model, HttpServletRequest request, HttpServletResponse response ){
+        response.setHeader("Cache-Control", "public, max-age=3600");
 
         LevelCode.Level level = LevelCode.Level.getLevelCode(levelParam);
         List<SchoolBoundary> schoolBoundaries = _schoolBoundaryDao.getSchoolBoundariesContainingPoint(lat, lon, level);
@@ -340,14 +360,14 @@ public class BoundaryAjaxController {
             }
         }
         model.addAttribute("schools", features);
-        return model;
+        return prepareView(model,response);
     }
 
     /**
      * Return a list of private schools near the specified location that do not belong to a district.
      */
     @RequestMapping(value="getPrivateSchoolsNearLocation.json", method=RequestMethod.GET)
-    public Model getPrivateSchoolsNearLocation(
+    public ModelAndView getPrivateSchoolsNearLocation(
             @RequestParam("lat") float lat,
             @RequestParam("lon") float lon,
             @RequestParam("level") String levelParam,
@@ -360,11 +380,11 @@ public class BoundaryAjaxController {
         } catch (SearchException e) {
             _log.error("Error searching ", e);
         }
-        return model;
+        return prepareView(model,response);
     }
 
     @RequestMapping(value="getCharterSchoolsNearLocation.json", method=RequestMethod.GET)
-    public Model getCharterSchoolsNearLocation(
+    public ModelAndView getCharterSchoolsNearLocation(
             @RequestParam("lat") float lat,
             @RequestParam("lon") float lon,
             @RequestParam("level") String levelParam,
@@ -377,7 +397,41 @@ public class BoundaryAjaxController {
         } catch (SearchException e) {
             _log.error("Error searching", e);
         }
-        return model;
+        return prepareView(model,response);
+    }
+
+    protected ModelAndView prepareView(Model model, HttpServletResponse response){
+        MappingJacksonJsonView jsonView = new MappingJacksonJsonView();
+        jsonView.setDisableCaching(false);
+        ModelAndView modelAndView = new ModelAndView(jsonView);
+        modelAndView.addAllObjects(model.asMap());
+        response.setHeader("Cache-Control", "public, max-age=3600");
+        return modelAndView;
+    }
+
+    protected Map<String, Integer> getSchoolCounts(State state, Integer id) {
+        Map<String, Integer> result = new HashMap();
+        result.put(LevelCode.Level.ELEMENTARY_LEVEL.getName(), new Integer(0));
+        result.put(LevelCode.Level.MIDDLE_LEVEL.getName(), new Integer(0));
+        result.put(LevelCode.Level.HIGH_LEVEL.getName(), new Integer(0));
+
+        List<School> schools = _schoolDao.getSchoolsInDistrict(state, id, true);
+        for (int i=0; i<schools.size(); i++) {
+            School school = schools.get(i);
+            if (school.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)){
+                String code = LevelCode.Level.ELEMENTARY_LEVEL.getName();
+                result.put(code, result.get(code)+1);
+            }
+            if (school.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)){
+                String code = LevelCode.Level.MIDDLE_LEVEL.getName();
+                result.put(code, result.get(code)+1);
+            }
+            if (school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)){
+                String code = LevelCode.Level.HIGH_LEVEL.getName();
+                result.put(code, result.get(code)+1);
+            }
+        }
+        return result;
     }
 
     protected void getNonDistrictSchoolsNearLocation( SchoolType schoolType,
@@ -497,6 +551,7 @@ public class BoundaryAjaxController {
         map.put("rating", ratingInt);
         UrlBuilder urlBuilder = new UrlBuilder(district.getDatabaseState(), district.getId(), district.getName(), district.getPhysicalAddress().getCity(), UrlBuilder.DISTRICT_HOME);
         map.put("url", urlBuilder.asSiteRelative(request));
+        map.put("counts", getSchoolCounts(district.getDatabaseState(), district.getId()));
         return map;
     }
 
@@ -520,6 +575,7 @@ public class BoundaryAjaxController {
         map.put("rating", ratingInt);
         UrlBuilder urlBuilder = new UrlBuilder(district.getState(), district.getId(), district.getName(), district.getCity(), UrlBuilder.DISTRICT_HOME);
         map.put("url", urlBuilder.asSiteRelative(request));
+        map.put("counts", getSchoolCounts(district.getState(), district.getId()));
         return map;
     }
 

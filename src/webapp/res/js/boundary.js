@@ -43,11 +43,24 @@ var Boundary = (function (){
             , address = '';
 
         if ( obj.rating > 0 && obj.rating < 11) $rating.removeClass('badge_sm_na').addClass('badge_sm_' + obj.rating);
-        if (obj.address.street1) address += obj.address.street1 + '<br/>';
-        if (obj.address.cityStateZip) address += obj.address.cityStateZip;
-        (obj.address.zip) ?
-            $homes.show().find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ obj.address.zip + '?gate=gs&cid=PRT300014').attr('target', '_blank') :
-            $homes.hide();
+        if ( obj.type=='school'){
+            if (obj.address.street1) address += obj.address.street1 + '<br/>';
+            if (obj.address.cityStateZip) address += obj.address.cityStateZip;
+            (obj.address.zip) ?
+                $homes.show().find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ obj.address.zip + '?gate=gs&cid=PRT300014').attr('target', '_blank') :
+                $homes.hide();
+
+        }
+        else if (obj.type == 'district' && obj.counts){
+            var array = new Array();
+            array.push('Elementary (' + obj.counts['e'] + ')');
+            array.push('Middle (' + obj.counts['m'] + ')');
+            array.push('High (' + obj.counts['h'] + ')');
+
+            if (array.length) {
+                address = array.join(', ');
+            }
+        }
         $element.find('.js_name').html($link);
         $element.find('.js_rating').html($rating);
         $element.find('.js_address').html(address);
@@ -265,10 +278,7 @@ var Boundary = (function (){
     }
 
     var redoEventHandler = function (){
-        var b = $map.data('boundaries');
-        $map.boundaries('center', b.getMap().getCenter());
-        $map.boundaries('districts');
-        $map.boundaries('district');
+        $map.boundaries('refresh');
         privateEventHandler();
         charterEventHandler();
         fireCustomLink('Dist_Bounds_Map_Redo_Search');

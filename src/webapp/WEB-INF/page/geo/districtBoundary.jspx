@@ -16,12 +16,11 @@
           name="description"/>
     <title>School and District Boundaries Map | GreatSchools</title>
 
-    <pageHelper:externalJavascript file="/res/js/history.min.js"/>
-    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
-    <pageHelper:externalJavascript file="/res/js/googleMapsInfobox.min.js"/>
-    <pageHelper:externalJavascript file="/res/js/jquery.boundaries.js"/>
-    <pageHelper:externalJavascript file="/res/js/externalTracking.js"/>
-    <pageHelper:externalJavascript file="/res/js/boundary.js"/>
+    <pageHelper:externalJavascript head="false" file="/res/js/history.min.js"/>
+    <pageHelper:externalJavascript head="false" file="http://maps.google.com/maps/api/js?sensor=false"/>
+    <pageHelper:externalJavascript head="false" file="/res/js/googleMapsInfobox.min.js"/>
+    <pageHelper:externalJavascript head="false" file="/res/js/jquery.boundaries.js"/>
+    <pageHelper:externalJavascript head="false" file="/res/js/boundary.js"/>
 
 
 
@@ -32,6 +31,7 @@
             var $loading = $('#js_loading');
             $(document).ajaxStart(function() {$loading.show().removeClass('hidden');});
             $(document).ajaxStop(function(){$loading.hide().addClass('hidden');});
+            $(document).ajaxError(function(){$loading.hide().addClass('hidden');});
 
             var boundary = new Boundary();
 
@@ -70,7 +70,7 @@
                 </div>
                 <div class="fltrt">
                     <span class="iconx16 i-16-home-sales mrs"><!-- do not collapse --></span>
-                    <a href="" class="small">Nearby homes for sales</a>
+                    <a href="" class="small">Nearby homes for sale</a>
                 </div>
 
             </div>
@@ -212,7 +212,7 @@
                                             <span class="iconx16 i-16-home-sales vam"><!-- do not collapse --></span>
                                         </div>
                                         <div class="bd">
-                                            <a href="" class="vam">Homes for sales</a>
+                                            <a href="" class="vam">Homes for sale</a>
                                         </div>
                                     </div>
                                 </div>

@@ -227,6 +227,7 @@ Boundaries.prototype = {
     , refresh: function() {
         this.hide('school');
         this.hide('district');
+        this.center(this.getMap().getCenter());
         this[this.getOptions().type]();
     }
 
@@ -384,6 +385,7 @@ Mappable.prototype = {
         var coords, paths = new Array(), url = (this.getType()=='district')?'/geo/boundary/ajax/getDistrictBoundaryById.json':'/geo/boundary/ajax/getSchoolBoundaryById.json';
         $.ajax({
             url: url,
+            cache: true,
             data: {id: this.id, state: this.state, level: level},
             dataType: 'json',
             type: 'GET',
@@ -447,6 +449,7 @@ var BoundaryHelper = (function($){
         var deferred = new jQuery.Deferred();
         var request = $.ajax({
             url: '/geo/boundary/ajax/getDistrictsNearLocation.json',
+            cache: true,
             data: {lat: lat, lon: lon, level: level},
             type: 'GET',
             dataType: 'json',
@@ -461,6 +464,7 @@ var BoundaryHelper = (function($){
         var deferred = new jQuery.Deferred();
         var request = $.ajax({
             url:'/geo/boundary/ajax/getDistrictsForLocation.json',
+            cache: true,
             data: {lat: lat, lon: lon, level: level},
             type: 'GET',
             dataType: 'json',
@@ -477,6 +481,7 @@ var BoundaryHelper = (function($){
         $.ajax({
             url: '/geo/boundary/ajax/get' + urlType + 'SchoolsNearLocation.json',
             data: {lat: lat, lon: lon, level: level},
+            cache: true,
             type: 'GET',
             dataType: 'json',
             success: schoolSuccess,
@@ -491,6 +496,7 @@ var BoundaryHelper = (function($){
         $.ajax({
             url: '/geo/boundary/ajax/getSchoolsByDistrictId.json',
             data: {id: id, state: state, level: level},
+            cache: true,
             type: 'GET',
             dataType: 'json',
             success: schoolSuccess,
