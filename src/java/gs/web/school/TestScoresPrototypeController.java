@@ -100,16 +100,17 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> testScoresMap =
                 new HashMap<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>>();
 
-        //Get all the non-subgroup test data sets and the values for the school.
+        //Get all the non-subgroup data points that a school should have.
+        //(Fetch the data sets irrespective of the school has value or not and the values if they exist).
         List<Map<String, Object>> nonSubgroupTestScores = _testDataSetDao.getTestDataSetsAndValues(school);
         //Fill in the schoolValueMap with the non-subgroup data.
-        populateTestScoresMap(testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, nonSubgroupTestScores);
+        populateTestScores(testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, nonSubgroupTestScores,false);
 
         //For each test get the subgroup data sets and values for the most recent year.(Making an assumption that the tests with subgroup data
         //are a subset of non-subgroup tests).
         for (Integer dataTypeId : testDataTypeIdToMaxYear.keySet()) {
             List<Map<String, Object>> subgroupTestScores = _testDataSetDao.getSubgroupTestDataSetsAndValues(school, testDataTypeIdToTestDataType.get(dataTypeId), testDataTypeIdToMaxYear.get(dataTypeId));
-            populateTestScoresMap(testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, subgroupTestScores);
+            populateTestScores(testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, subgroupTestScores,true);
         }
 
         //Convert the map of test scores that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
@@ -122,19 +123,18 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
     }
 
     /**
-     * Fills in the map used to store the test data type, grade, level code, subjects, test data set that should be
-     * displayed for a given school irrespective of - if the school has test score value or not.
+     * Loops over the results and populates the map with the test scores data.
      *
      * @param testDataTypeIdToTestDataType - A map to represent a map of test data set Id to testDataSet object.
      * @param schoolValueMap               - A map to hold the test data type, grade, level code, subjects, test data set to value.
      * @param testDataTypeIdToMaxYear      - A map to represent a map of test data set Id to max year.This is used to query the subgroup data for a test only for the most recent year.
      * @param testScoreResults             - results of the database query.Can be subgroup or non-subgroup results.
+     * @param isSubgroup                   -  boolean to reflect whether the data represents subgroup data or non subgroup data.
      */
     protected void
-    populateTestScoresMap(Map<Integer, TestDataType> testDataTypeIdToTestDataType,
+    populateTestScores(Map<Integer, TestDataType> testDataTypeIdToTestDataType,
                           Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap,
-                          Map<Integer, Integer> testDataTypeIdToMaxYear, List<Map<String, Object>> testScoreResults) {
-
+                          Map<Integer, Integer> testDataTypeIdToMaxYear, List<Map<String, Object>> testScoreResults,boolean isSubgroup) {
 
         for (Map value : testScoreResults) {
             Integer testDataTypeId = (Integer) value.get("data_type_id");
@@ -167,12 +167,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                         Integer.toString(Math.round(stateAvgFloat));
             }
 
-            //Build a new custom test data type.If the breakdown id is not 1, then means that there is subgroup data.
-            //Therefore create a new custom test data type for a test with no subgroup data and a new one for the same test with subgroup data.
-            CustomTestDataType customTestDataType = new CustomTestDataType();
-            customTestDataType.setId(testDataTypeId);
-            customTestDataType.setLabel(testDataType.getName() + (breakdownId == 1 ? "" : "_subgroup"));
-
             Integer yearInt = new Integer(year);
 
             //Build a new custom test data set.
@@ -182,8 +176,8 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             testDataSet.setGrade(grade);
             testDataSet.setLevelCode(levelCode);
             testDataSet.setStateAverage(stateAvg);
-            //If its non subgroup data set the breakdown label.
-            if (breakdownId != null && breakdownId != 1) {
+            //If its non subgroup data then set the breakdown label.
+            if (breakdownLabel != null) {
                 testDataSet.setBreakdownLabel(breakdownLabel);
             }
 
@@ -196,68 +190,90 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             }
             testDataTypeIdToMaxYear.put(testDataTypeId, yearInt);
 
+            //Build a new custom test data type.
+            CustomTestDataType customTestDataType = new CustomTestDataType();
+            customTestDataType.setId(testDataTypeId);
+            //Group subgroup data for a test into a new map of custom test data type.
+            customTestDataType.setLabel(testDataType.getName()+ (isSubgroup? "_subgroup": ""));
+            buildTestScoresMap(schoolValueMap, customTestDataType, grade, levelCode, subject, testDataSet, testScoreValue);
 
-            //Check if the test is already in the map.
-            if (schoolValueMap.get(customTestDataType) != null) {
-                //Test already present.
-                Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(customTestDataType);
-                //Check if grade is already in the map.
-                if (gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade) != null) {
-                    //Grade already present.
-                    Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
-                    //Check if level code is already in the map.
-                    if (levelCodeToSubjectsToDataSetToValueMap.get(levelCode) != null) {
-                        //Level code already present.
-                        Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
-                        //Check if subject is already in the map.
-                        if (subjectToDataSet.get(subject) != null) {
-                            //Subject already present.
-                            Map<CustomTestDataSet, String> dataSetToValue = subjectToDataSet.get(subject);
+        }
+    }
 
-                            //Check if DataSet is not in the map.We dont care if its already there.That should never happen.
-                            if (dataSetToValue.get(testDataSet) == null) {
-                                //Put the DataSet in the map.
-                                dataSetToValue.put(testDataSet, testScoreValue);
-                            }
-                        } else {
-                            //Subject not present.
-                            Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
+    /**
+     * Fills in the map used to store the test data type, grade, level code, subjects, test data set.
+     * @param schoolValueMap
+     * @param customTestDataType
+     * @param grade
+     * @param levelCode
+     * @param subject
+     * @param testDataSet
+     * @param testScoreValue
+     */
+
+    protected void buildTestScoresMap( Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap,
+                                     CustomTestDataType customTestDataType,Grade grade,LevelCode levelCode,Subject subject,
+                                     CustomTestDataSet testDataSet,String testScoreValue) {
+        //Check if the test is already in the map.
+        if (schoolValueMap.get(customTestDataType) != null) {
+            //Test already present.
+            Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(customTestDataType);
+            //Check if grade is already in the map.
+            if (gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade) != null) {
+                //Grade already present.
+                Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
+                //Check if level code is already in the map.
+                if (levelCodeToSubjectsToDataSetToValueMap.get(levelCode) != null) {
+                    //Level code already present.
+                    Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
+                    //Check if subject is already in the map.
+                    if (subjectToDataSet.get(subject) != null) {
+                        //Subject already present.
+                        Map<CustomTestDataSet, String> dataSetToValue = subjectToDataSet.get(subject);
+
+                        //Check if DataSet is not in the map.We dont care if its already there.That should never happen.
+                        if (dataSetToValue.get(testDataSet) == null) {
+                            //Put the DataSet in the map.
                             dataSetToValue.put(testDataSet, testScoreValue);
-                            subjectToDataSet.put(subject, dataSetToValue);
                         }
                     } else {
-                        //Level code not present
+                        //Subject not present.
                         Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
                         dataSetToValue.put(testDataSet, testScoreValue);
-                        Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
                         subjectToDataSet.put(subject, dataSetToValue);
-                        levelCodeToSubjectsToDataSetToValueMap.put(levelCode, subjectToDataSet);
                     }
                 } else {
-                    //Grade not present.
+                    //Level code not present
                     Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
                     dataSetToValue.put(testDataSet, testScoreValue);
                     Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
                     subjectToDataSet.put(subject, dataSetToValue);
-                    Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>();
-                    levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
-                    gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
-
+                    levelCodeToSubjectsToDataSetToValueMap.put(levelCode, subjectToDataSet);
                 }
             } else {
-                //Test not present.
+                //Grade not present.
                 Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
                 dataSetToValue.put(testDataSet, testScoreValue);
                 Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
                 subjectToDataSet.put(subject, dataSetToValue);
                 Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>();
                 levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
-                Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>();
                 gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
-                schoolValueMap.put(customTestDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
+
             }
+        } else {
+            //Test not present.
+            Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
+            dataSetToValue.put(testDataSet, testScoreValue);
+            Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
+            subjectToDataSet.put(subject, dataSetToValue);
+            Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>();
+            levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
+            Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>();
+            gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
+            schoolValueMap.put(customTestDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
         }
-    }
+}
 
     /**
      * Method to get the TestDataType. This method first checks if the data type is present in the testDataTypeIdToTestDataType map.
