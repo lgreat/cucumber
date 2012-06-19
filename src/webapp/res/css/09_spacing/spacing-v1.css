@@ -67,10 +67,10 @@ General comments:
 /* that should fully contain a float */
 .clearfloat { clear: both; height: 0; font-size: 1px; line-height: 0; }
 
-.dn { display: none; }
 .db { display: block; }
 .di { display: inline; }
 .dib { display: inline-block; }
+.dn { display: none; }
 
 .tal { text-align: left; }
 .tac { text-align: center; }

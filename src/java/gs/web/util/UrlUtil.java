@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.126 2012/06/12 22:20:23 mseltzer Exp $
+ * $Id: UrlUtil.java,v 1.127 2012/06/19 20:36:43 rcox Exp $
  */
 
 package gs.web.util;
@@ -491,7 +491,8 @@ public final class UrlUtil {
         "172.18.",
         "m.",
         "samson.",
-        "mitchtest."
+        "mitchtest.",
+        "rcox.office"
     };
 
     /**

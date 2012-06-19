@@ -346,15 +346,15 @@ General comments:
     display: none;
 }
 
-.block {
+.block, .db {
     display: block;
 }
 
-.inline {
+.inline, .di {
     display: inline;
 }
 
-.iblock {
+.iblock, .dib {
     display: inline-block;
 }
 
