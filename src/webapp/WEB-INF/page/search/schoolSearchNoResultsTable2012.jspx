@@ -10,7 +10,7 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-    <search:schoolSearchNoResultsTable/>
+    <search:schoolSearchNoResultsTable2012/>
 
 
 </jsp:root>
