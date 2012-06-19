@@ -3,6 +3,7 @@ GS = GS || {};
 GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
     var listResultsLinkSelector = '.js-listResultsLink';
     var mapResultsLinkSelector = '.js-mapResultsLink';
+    var body = '#contentGS';
 
     var init = function() {
         registerEventHandlers();
@@ -10,7 +11,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
     };
 
     var registerEventHandlers = function() {
-        $(listResultsLinkSelector).on('click', function() {
+        $(body).on('click', listResultsLinkSelector, function() {
             if(GS.uri.Uri.getFromQueryString('view') === undefined) {
                 return;
             }
@@ -20,7 +21,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
                 window.location.search = uri;
             }
         });
-        $(mapResultsLinkSelector).on('click', function() {
+        $(body).on('click', mapResultsLinkSelector, function() {
             if(GS.uri.Uri.getFromQueryString('view') === 'map') {
                 return;
             }

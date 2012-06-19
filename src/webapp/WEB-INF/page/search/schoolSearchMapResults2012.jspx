@@ -124,10 +124,6 @@
     <school:findASchoolForm/>
 </div>
 
-<div class="alpha grid_16 omega">
-    <search:schoolSearchFiltersPanel/>
-</div>
-
 <div class="spacer_15"><!-- do not collapse --></div>
 
 <div class="alpha grid_16 omega">
