@@ -1,4 +1,6 @@
-/* =1 modal loading - can extend to more generic uses - Mitchell Seltzer
+/* =1 ModalManager - can extend to more generic uses - Mitchell Seltzer
+
+
 
  // calling public methods is then as easy as:
 showModal();
@@ -6,9 +8,8 @@ hideModal();
 
  -------------------------------------------------------------------------------------------*/
 
-var modalManager = (function($) {
+var ModalManager = (function($) {
   var trackModal = {};
-
   function removeModal(id){
 	  console.log("DELETE ID:"+id);
 	  delete trackModal[id];
@@ -52,6 +53,7 @@ var modalManager = (function($) {
   
   return{
     showModal: function( options ){
+
 		if(!checkModalExists(options)){
 			var temp = new ModalLayer(options, generateUniqueId());
 			addModal(temp);
@@ -78,6 +80,7 @@ function ModalLayer(options, id){
 	var overlay = "true";
 	var content = "";
 	var zIndex = "0";
+    var pagePosition = "pa";
 	
 	var setId = function( id ) { mlUniqueId = id; }
 	var setLayerId = function( id ) { layerId = id; }
@@ -97,16 +100,16 @@ function ModalLayer(options, id){
 	var showModal = function(  ){
 		var containerObj = $('#'+getContainerId());
 		var overlayState = "";
-		if(this.getOverlayState() == 'true') { overlayState = '<div class="js-overlay"></div>' };
-		containerObj.append('<div id="modallayer'+getId()+'">'
+		if(this.getOverlayState() == 'true') { overlayState = '<div class="js-overlay '+pagePosition+'"></div>' };
+		containerObj.append('<div id="modallayer'+getId()+'" >'
 				+overlayState
-				+'<div class="horizon"><div class="js-modal">'
+				+'<div class="horizon '+pagePosition+'"><div class="js-modal">'
 				+getContent()+'</div></div>'+'</div>');
 	}
 	var hideModal = function( ) {
 		$('#modallayer'+getId()).remove();
 		console.log("REMOVE ID:"+getId());
-		$('#'+getContainerId()).trigger("onModalClose");
+		$('#'+getContainerId()).trigger("onModalClose", [getContainerId(), getLayerId()]);
 	}
 	
 	var settings = $.extend( {
@@ -116,12 +119,12 @@ function ModalLayer(options, id){
             'content' : 'no content',
             'templateId' : '0',
             'closeButton' : 'false'
-        }, options);	
+        }, options);
 
-	
 	setLayerId(settings['layerId']);
 	setTemplateId(settings['templateId']);
 	setContainerId(settings['containerId']);
+    if(getContainerId() == 'fullPageOverlay')  pagePosition = "pf";
 	setOverlayState(settings['overlay']);
 	setId(id);
 	setContent(settings['content']);
@@ -140,9 +143,9 @@ function ModalLayer(options, id){
 	};	
 }
 
-$(document).ready(function(e) {
-	$('#fullPageOverlay').bind('onModalClose', function(event) {
-	  	console.log("onModalClose");
+/*$(document).ready(function(e) {
+	$('#fullPageOverlay').bind('onModalClose', function(event, param1, param2) {
+	  	console.log("onModalClose"+" : "+param1+" : "+param2 );
 	});    
-});
+});*/
 
