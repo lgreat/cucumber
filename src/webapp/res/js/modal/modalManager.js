@@ -53,7 +53,6 @@ var ModalManager = (function($) {
   
   return{
     showModal: function( options ){
-
 		if(!checkModalExists(options)){
 			var temp = new ModalLayer(options, generateUniqueId());
 			addModal(temp);
