@@ -6,84 +6,61 @@
         >
     <!-- A module that appears in profile.jspx -->
     <c:forEach var="testToGrades" items="${testScores}">
-        <c:choose>
-            <c:when test="${fn:indexOf(testToGrades.testLabel,'_subgroup') >=0}">
-                <div class="mod standard_6-1 mtn ptn">
-                    <div class="inner">
-                        <div class="hd plm">
-                            <div class="titlediv">
-                                ${testToGrades.testLabel}
-                            </div>
+
+        <div class="mod standard_6-1 mtn ptn">
+            <div class="inner">
+                <div class="hd plm">
+                    <div class="titlediv">
+                        ${testToGrades.testLabel}
+                    </div>
+                </div>
+                <div class="bd">
+                    <c:if test="${not empty testToGrades.scale}">
+                        <div class="contain_2-1">
+                            <strong>Scale:</strong> ${testToGrades.scale}
                         </div>
-                        <div class="bd">
-                            <c:if test="${not empty testToGrades.scale}">
-                                <div class="contain_2-1">
-                                    <strong>Scale:</strong> ${testToGrades.scale}
-                                </div>
-                            </c:if>
-                            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
+                    </c:if>
+                    <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
 
-                                <div class="pam">
-                                    <h4>${gradeToSubjects.gradeLabel}</h4>
+                        <div class="pam">
+                            <h4>${gradeToSubjects.gradeLabel}</h4>
 
-                                    <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-                                        <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
-
+                            <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
+                                <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
+                                <c:choose>
+                                    <c:when test="${fn:indexOf(testToGrades.testLabel,'_subgroup') >=0}">
                                         <c:forEach var="testValue" items="${subjectToYears.testValues}">
                                             <span>${testValue.breakdown} ${testValue.testScoreLabel}</span>
                                             <br/>
                                         </c:forEach>
-
-                                        <div class="ptm"><!-- not empty --></div>
-                                    </c:forEach>
-                                </div>
-                                <hr class="keyline1"/>
-                            </c:forEach>
-
-                        </div>
-                    </div>
-                </div>
-            </c:when>
-            <c:otherwise>
-                <div class="mod standard_6-1 mtn ptn">
-                    <div class="inner">
-                        <div class="hd plm">
-                            <div class="titlediv">
-                                ${testToGrades.testLabel}
-                            </div>
-                        </div>
-                        <div class="bd">
-                            <c:if test="${not empty testToGrades.scale}">
-                                <div class="contain_2-1">
-                                    <strong>Scale:</strong> ${testToGrades.scale}
-                                </div>
-                            </c:if>
-                            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}" varStatus="index">
-
-                                <div class="pam">
-                                    <h4>${gradeToSubjects.gradeLabel}</h4>
-
-                                    <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-                                        <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
-
+                                    </c:when>
+                                    <c:otherwise>
                                         <c:forEach var="testValue" items="${subjectToYears.testValues}">
                                             <span>${testValue.year} ${testValue.testScoreLabel}</span>
                                             <span> StateAvg: ${testValue.stateAvg}</span>
                                             <br/>
                                         </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
 
-                                        <div class="ptm"><!-- not empty --></div>
-                                    </c:forEach>
-                                </div>
-                                <hr class="keyline1"/>
+
+                                <div class="ptm"><!-- not empty --></div>
                             </c:forEach>
-
                         </div>
-                    </div>
+                        <hr class="keyline1"/>
+                    </c:forEach>
+
                 </div>
-            </c:otherwise>
-        </c:choose>
+            </div>
+        </div>
+
+        <div class="contain_2-1">
+            <strong>Source:</strong> ${testToGrades.source}
+        </div>
+        <div class="contain_2-1">
+            <strong>Description:</strong> ${testToGrades.description}
+        </div>
+        <hr class="keyline1"/>
 
     </c:forEach>
-
 </jsp:root>
