@@ -33,10 +33,12 @@
         </form>
     </div>-->
 
-    <div id="signIn" class="hidden">
+    <div id="signInHover" class="hidden">
     <div class="mod modal_1 width_12">
         <div class="outer">
-            <a href="javascript:void(0);" class="closeModal">
+            <a href="javascript:void(0);" class="closeModal" onClick="ModalManager.hideModal({
+            'layerId' : 'signInHover'
+        }); return false;">
                 <span class="iconx24 i-24-close fr"><!-- do not collapse --></span>
             </a>
 
