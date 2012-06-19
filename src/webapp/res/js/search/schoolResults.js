@@ -100,6 +100,7 @@ GS.search.results = GS.search.results || (function() {
     var update = function(queryStringData) {
         if (queryStringData === undefined) {
             queryStringData = filtersModule.getUpdatedQueryStringData();
+            delete queryStringData.start;
         }
 
         var onSearchSuccess = function(data) {
