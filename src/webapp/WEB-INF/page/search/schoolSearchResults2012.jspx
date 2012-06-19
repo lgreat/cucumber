@@ -81,7 +81,12 @@
         <pageHelper:externalJavascript file="/res/js/interstitial.js"/>
         <pageHelper:addOnLoadHandler handler="doInterstitial('search')"/>
     </c:if>
-
+    <script type="text/javascript">
+        jQuery(function () {
+            jQuery('#js-bubbleInfo-8').popup({appear:'below',leftPosition:-15,topPosition:8});
+            jQuery('#js-bubbleInfo-9').popup({appear:'below',leftPosition:-8,topPosition:8});
+        });
+    </script>
 
 </head>
 
