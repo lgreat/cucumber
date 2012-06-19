@@ -7,6 +7,7 @@
           xmlns:gsweb="gstaglib" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 
+
 <c:set var="schoolResultsFor">
             <c:choose>
                 <c:when test="${not empty schoolSearchCommand.searchString}"><c:out value="${schoolSearchCommand.searchString}" escapeXml="true"/></c:when>
@@ -38,7 +39,7 @@
             </c:if>
 
         </c:if>
-        <c:if test="${isCityBrowse}">
+        <c:if test="${commandAndFields.cityBrowse}">
             <div class="line">
                 <div class="unit size1of2">
                     <div class="title2-d61">${schoolResultsFor} Schools</div>
@@ -53,7 +54,7 @@
             </div>
             <div class="spacer_10"><!-- do not collapse --></div>
         </c:if>
-        <c:if test="${isDistrictBrowse}">
+        <c:if test="${commandAndFields.districtBrowse}">
             <div class="line">
                 <div class="unit size3of4">
                     <div class="title2-d61">${fn:escapeXml(district.name)} Schools</div>
