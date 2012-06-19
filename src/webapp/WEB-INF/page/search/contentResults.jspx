@@ -318,7 +318,7 @@
                         </c:choose>
                         <li class="srchRslt ${srchRsltSupplClass} clearfix" >
                             <div class="media">
-                            <div class="sprite video img mrs"><!-- icon --></div>
+                            <div class="sprite i-video img mrs"><!-- icon --></div>
                             <div class="bd">
                             <p><link:cmsContent contentKey="${result.contentKey}" fullUri="${result.fullUri}" styleClass="text3bold">
                                 <c:out value="${result.title}" escapeXml="true"/>
