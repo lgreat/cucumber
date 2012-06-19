@@ -42,6 +42,7 @@ GS.search.results = GS.search.results || (function() {
             }
 
             queryData['sortBy'] = newSort;
+            delete queryData.start;
 
             $('body [data-gs-sort-toggle]').each(function() {
                 $(this).html($(this).html().replace('2','3')); // just change whichever triangle is currently in use, to make it white
