@@ -45,7 +45,7 @@
     <pageHelper:addMetaProperty property="og:type" content="video"/>
     <pageHelper:addMetaProperty property="og:url" content="${contentUrl}"/>
     <pageHelper:addMetaProperty property="og:image" content="${feature.imageUrl}"/>
-    <pageHelper:addMetaProperty property="og:app_id" content="${gsweb:getFacebookAppId()}"/>
+    <!--<pageHelper:addMetaProperty property="og:app_id" content="${gsweb:getFacebookAppId()}"/>-->
 
     <pageHelper:addMetaProperty property="og:video" content="${contentUrl}" />
     <pageHelper:addMetaProperty property="og:video:type" content="application/x-shockwave-flash" />
