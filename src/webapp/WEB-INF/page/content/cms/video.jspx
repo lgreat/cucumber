@@ -39,7 +39,7 @@
         </c:otherwise>
     </c:choose>
     <title>${pageTitle} | GreatSchools</title>
-    <pageHelper:addMetaProperty property="fb:app_id" content="${gsweb:getFacebookAppId()}"/>
+    <!--<pageHelper:addMetaProperty property="fb:app_id" content="${gsweb:getFacebookAppId()}"/>-->
 
     <pageHelper:addMetaProperty property="og:title" content="${pageTitle}"/>
     <pageHelper:addMetaProperty property="og:description" content="${feature.summary}"/>
