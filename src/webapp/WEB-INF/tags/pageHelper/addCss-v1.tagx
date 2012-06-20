@@ -99,8 +99,8 @@
             <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
-            <gsml:url var="gs_stylescss-v1" value="/res/css/gs_styles-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <![CDATA[<link rel="stylesheet" href="${gs_stylescss-v1}" type="text/css" />]]>
+            <gsml:url var="gs_stylescss_v1" value="/res/css/gs_styles-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <![CDATA[<link rel="stylesheet" href="${gs_stylescss_v1}" type="text/css" />]]>
         </c:otherwise>
     </c:choose>
 
