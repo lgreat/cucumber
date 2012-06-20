@@ -49,6 +49,9 @@
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
     <meta name="Description"
           content="See ${title}"/>
+    <c:if test="${school.demoSchool}">
+        <meta name="robots" content="noindex, nofollow, noarchive"/>
+    </c:if>
     <school:profile2010ShareThisJavaScript/>
 </head>
 

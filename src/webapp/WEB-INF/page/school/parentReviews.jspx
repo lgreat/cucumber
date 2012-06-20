@@ -46,6 +46,9 @@
 
     <title>Parent Reviews of ${school.name} - ${addr}</title>
     <meta name="description" content="Read parent ratings and reviews of ${school.name} - ${addr}"/>
+    <c:if test="${school.demoSchool}">
+        <meta name="robots" content="noindex, nofollow, noarchive"/>
+    </c:if>
     <c:set var="paginationUrl"><c:choose>
         <c:when test="${empty reviewsByCsv}">${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}</c:when>
         <c:otherwise>${uri}?id=${school.id}&amp;state=${stateAbbrev}&amp;${param_sortby}=${cmd.sortBy}&amp;${param_reviewsby}=${reviewsByCsv}</c:otherwise>

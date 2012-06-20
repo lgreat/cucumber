@@ -21,6 +21,9 @@
     </c:choose>
     <title>${school.name} Test Scores - ${addr}</title>
     <meta name="description" content="See test scores and view results for ${school.name} students - ${school.city}, ${school.databaseState.longName} - ${school.databaseState}"/>
+    <c:if test="${school.demoSchool}">
+        <meta name="robots" content="noindex, nofollow, noarchive"/>
+    </c:if>
     <c:if test="${!requestScope.requestInfo.cobranded}">
         <base href="${requestScope.requestInfo.baseHost}"/>
     </c:if>
