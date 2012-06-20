@@ -124,10 +124,17 @@ GS.uri.Uri.removeFromQueryString = function(queryString, key) {
  * Converts URL's querystring into a hash
  * Now works with queryStrings that contain multiple key=value pairs with the same key
  */
-GS.uri.Uri.getQueryData = function() {
+GS.uri.Uri.getQueryData = function(queryString) {
     var vars = [], hash;
     var data = {};
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    if(queryString !== undefined) {
+        queryString = queryString.substring(1);
+    }
+    else {
+        queryString = window.location.href.slice(window.location.href.indexOf('?') + 1);
+    }
+
+    var hashes = queryString.split('&')
     if (hashes.length > 1) {
         for (var i = 0; i < hashes.length; i++) {
             var hash = hashes[i].split('=');

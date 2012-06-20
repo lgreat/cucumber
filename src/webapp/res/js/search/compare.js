@@ -201,6 +201,12 @@ GS.search.compare = GS.search.compare || (function() {
 
     /* for the map view infobox */
     var addRemoveCheckedSchoolInMap = function(schoolItem, compareButton) {
+        if(checkedSchools.length >= 8) {
+            $(schoolItem).prop('checked', false);
+            var encodedCurrentUrl = encodeURIComponent(window.location.pathname + GS.search.filters.getUpdatedQueryString());
+            GSType.hover.compareSchoolsLimitReached.show(checkedSchools.join(','), encodedCurrentUrl, onCompareUncheckAllClicked);
+            return false;
+        }
         var index = jQuery.inArray($(schoolItem).attr('id'), checkedSchools);
         if(index == -1 && schoolItem.checked) {
             checkedSchools.push($(schoolItem).attr('id'));

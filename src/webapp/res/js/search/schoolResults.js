@@ -103,40 +103,45 @@ GS.search.results = GS.search.results || (function() {
             delete queryStringData.start;
         }
 
-        var onSearchSuccess = function(data) {
-            var afterFadeIn = function() {
-                jQuery("#spinner").hide();
-                //reattach callbacks to dom element events
-                attachEventHandlers();
-                compareModule.updateAllCheckedRows();
-            };
+        if(queryStringData.view == 'map') {
+            pagination(1, 25, queryStringData);
+        }
+        else {
+            var onSearchSuccess = function(data) {
+                var afterFadeIn = function() {
+                    jQuery("#spinner").hide();
+                    //reattach callbacks to dom element events
+                    attachEventHandlers();
+                    compareModule.updateAllCheckedRows();
+                };
 
-            jQuery('#js-school-search-results-table').html(data);
-            jQuery('#js-school-search-results-table-body').css("opacity",.2);
-            jQuery('#js-school-search-results-table-body').animate(
+                jQuery('#js-school-search-results-table').html(data);
+                jQuery('#js-school-search-results-table-body').css("opacity",.2);
+                jQuery('#js-school-search-results-table-body').animate(
                     {opacity: 1},
                     250,
                     'linear',
                     afterFadeIn
-            );
-            GS.util.htmlMirrors.updateAll();
-        };
+                );
+                GS.util.htmlMirrors.updateAll();
+            };
 
-        var onSearchError = function() {
-            clear();
-            jQuery("#spinner").hide();
-        };
+            var onSearchError = function() {
+                clear();
+                jQuery("#spinner").hide();
+            };
 
-        jQuery('#spinner').show();
+            jQuery('#spinner').show();
 
-        jQuery('#js-school-search-results-table-body').animate(
+            jQuery('#js-school-search-results-table-body').animate(
                 { opacity: .2 },
                 250,
                 'linear',
                 function() {
                     search(onSearchSuccess, onSearchError, queryStringData);
                 }
-        );
+            );
+        }
     };
 
     var onPageSizeChanged = function() {
@@ -196,11 +201,21 @@ GS.search.results = GS.search.results || (function() {
         window.location.search = queryString;
     };
 
-    var pagination = function(pageNumber, pageSize) {
+    var pagination = function(pageNumber, pageSize, queryStringData) {
         var start = (pageNumber-1) * pageSize;
-        var queryString = window.location.search;
-        queryString = persistCompareCheckboxesToQueryString(queryString);
-        queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
+        if(queryStringData !== undefined) {
+            var queryString = GS.uri.Uri.getQueryStringFromObject(queryStringData);
+            queryString = persistCompareCheckboxesToQueryString(queryString);
+            queryStringData = GS.uri.Uri.getQueryData(queryString);
+            queryStringData.start = start;
+            queryString = GS.uri.Uri.getQueryStringFromObject(queryStringData);
+        }
+        else {
+            var queryString = window.location.search;
+            queryString = persistCompareCheckboxesToQueryString(queryString);
+            queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
+        }
+
         var state = { queryString: "queryString"};
         history.pushState(state, start, queryString);
 
@@ -209,6 +224,7 @@ GS.search.results = GS.search.results || (function() {
             url: document.location
         }).done(function(data) {
                 renderDataForMap(data);
+                GS.util.htmlMirrors.updateAll();
             }
         ).fail(function() {
                 alert("error");
@@ -348,6 +364,10 @@ GS.search.results = GS.search.results || (function() {
 
         var ellipsis = "<span class='ellipsis'>...</span>\n";
         pageNumbers.html('');
+
+        if(page.totalPages == 1) {
+            return;
+        }
 
         if(page.pageNumber > 1) {
             pageNav += setPageNavIndex(page.previousPage, page.pageSize, '« Prev');
