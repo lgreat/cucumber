@@ -110,7 +110,7 @@
 </c:choose>
 
 <gsml:body adPageName="search" pageLayout="nocol">
-    <div class="grid_16 slStylesV1-0">
+    <div class="grid_16 slStylesV1-0 slFormsV1-0">
         <div class="alpha grid_12">
             <search:schoolResultsFor_text/>
         </div>
@@ -148,7 +148,7 @@
         </div>
     </div>
 
-    <div class="grid_8 slStylesV1-0">
+    <div class="grid_8 slStylesV1-0 slFormsV1-0">
         <ad:AboveFold_300x250/>
 
 

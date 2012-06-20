@@ -9,27 +9,18 @@
 
         <c:if test="${showAdditionalFilters}">
         <div class="js-schoolSearchFiltersPanel">
-        <div id="js-moreFiltersLine" class="grid_16 alpha omega" style="z-index:999999;">
-            <div class="grid_14 alpha">
-                <strong>Refine your search here.</strong> Find the best fitted school for your child.
-            </div>
-            <div class="grid_2 omega js-moreFiltersLink">
-                <a href="javascript:void(0);">
-                    More filters
-                </a>
-            </div>
-        </div>
 
-        <div id="js-resetFiltersLine" class="grid_16 alpha omega" style="display:none;z-index:999999;">
-            <div class="grid_14 alpha">
-                <strong>Narrow your selection.</strong> Other than local rating, the data comes directly from schools.
-            </div>
-            <div class="grid_2 omega js-resetFiltersLink">
-                <a href="javascript:void(0);">
-                    Reset filters
-                </a>
-            </div>
-        </div>
+
+        <!--<div class="grid_16 alpha omega" style="display:none;z-index:999999;">-->
+            <!--<div class="grid_14 alpha">-->
+                <!--<strong>Narrow your selection.</strong> Other than local rating, the data comes directly from schools.-->
+            <!--</div>-->
+            <!--<div class="grid_2 omega js-resetFiltersLink">-->
+                <!--<a href="javascript:void(0);">-->
+                    <!--Reset filters-->
+                <!--</a>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div id="js-moreFiltersPanel" class="grid_16 alpha omega" style="z-index:999999;display:none;">
             <c:set var="buttonStyle" value="padding:3px;margin-top:3px;background-color:#EEE;border:1px solid grey"/>
@@ -56,6 +47,17 @@
             <c:set var="artsPerforming" value="${facetCounts.arts_performing}"/>
             <c:set var="artsVisualCounts" value="${facetCounts.arts_visual}"/>
             <c:set var="artsMusicCounts" value="${facetCounts.arts_music}"/>
+
+            <div class="grid_15 alpha omega">
+                <div class="grid_12 alpha">
+                    <strong>Narrow your search</strong>
+                </div>
+                <div class="grid_3 omega js-resetFiltersLink">
+                    <a href="javascript:void(0);">
+                        Reset filters
+                    </a>
+                </div>
+            </div>
 
 
             <div class="grid_4 alpha">
@@ -196,13 +198,29 @@
                 </div>
 
             </div>
-            <div class="grid_16 alpha omega">
-                <div id="js-closeMoreFiltersLink" class="fltrt">
-                    <a href="javascript:void(0);">Close filters</a>
-                </div>
-            </div>
+
 
         </div>
+        <div id="js-moreFiltersLine" class="grid_15 alpha omega" style="z-index:999999;">
+            <!--<div class="grid_14 alpha">-->
+            <!--<strong>NEW! Refine your search <span>&#9662;</span></strong>-->
+            <!--</div>-->
+            <div class="alpha grid_14 omega js-moreFiltersLink">
+                <h4 class="bottom">
+                    <a href="javascript:void(0);">
+                        <strong class="make-d61">NEW! </strong> Refine your search <span
+                            style="font-size: 20px;">&#9662;</span>
+                    </a>
+                </h4>
+            </div>
+        </div>
+
+        <div class="grid_16 alpha omega">
+            <div id="js-closeMoreFiltersLink" style="display: none;">
+                <a href="javascript:void(0);">Close filters</a>
+            </div>
+        </div>
+
         </div>
 
 
@@ -210,15 +228,14 @@
             $(function() {
                 $('.js-moreFiltersLink').on('click', function() {
                     $('#js-moreFiltersLine').hide();
-                    $('#js-resetFiltersLine').show();
+                    $('#js-closeMoreFiltersLink').show();
                     $('#js-moreFiltersPanel').slideDown();
                 });
 
                 $('#js-closeMoreFiltersLink').on('click', function() {
-                    $('#js-moreFiltersPanel').slideUp(function() {
-                        $('#js-resetFiltersLine').hide();
-                        $('#js-moreFiltersLine').show();
-                    });
+                    $('#js-closeMoreFiltersLink').hide();
+                    $('#js-moreFiltersPanel').slideUp();
+                    $('#js-moreFiltersLine').show();
                 });
 
 

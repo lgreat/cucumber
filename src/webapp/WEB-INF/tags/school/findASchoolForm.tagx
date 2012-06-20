@@ -39,16 +39,20 @@
                 <input type="hidden" name="normalizedAddress" value=""/>
                 <input type="hidden" name="totalResults" value="0"/>
 
-                <div class="">
-                    <form:input type="text" name="locationSearchString" class=" small bottom"
-                                id="js-findByLocationBox"
-                                placeholder="   Search by city AND state or address ..."
-                                path="schoolSearchCommand.locationSearchString"/>
-                    <button class="button-4 searchSubmit" type="submit">Search</button>
+                <div class="line">
+                    <div class="unit size17of20">
+                        <form:input type="text" name="locationSearchString" class="text-bigger input_13"
+                                    id="js-findByLocationBox"
+                                    placeholder="Search by city AND state or address ..."
+                                    path="schoolSearchCommand.locationSearchString"/>
+                    </div>
+                    <div class="unit size3of20 lastUnit">
+                        <button class="button-4 searchSubmit" type="submit">Search</button>
+                    </div>
                 </div>
-                <div class="smallest bottom pts">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
+                <div class="smallest bottom">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
             </form>
-            <search:globalFilterBar includeDistance="${true}"/>
+
         </div>
 
         <div id="js-byNameTabBody" style="${commandAndFields.nearbySearch?'display:none;':''}">
@@ -60,34 +64,41 @@
                                                      escapeXml="true"/></c:set>
                 </c:if>
 
-                <div class="">
-                    <div class="">
+                <div class="line">
+                    <div class="unit size68of100">
                         <input type="text" name="q"
-                               class="small bottom mrs"
+                               class="text-bigger input_13"
                                id="js-findByNameBox"
-                               placeholder="   Search by school or district ..."
+                               placeholder="Search by school or district ..."
                                value="${searchString}"/>
                     </div>
-                    <div class="">
-                        <span class=""> | </span>
-                        <!--<span class="showState">&lt;!&ndash; Do not collapse&ndash;&gt;</span>-->
+                    <div class="unit size17of100 mts">
+                        <span class="quiet bottom"> | </span>
+                        <span class="showState make-06b"><!-- Do not collapse--></span>
+                        <span style="opacity: 0;">
                         <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
                                              noStateLabel="Select state"
                                              usingLongNames="false"
                                              state="${requestScope.context.state}"
                                              styleClass="stateSelect"
                                              styleId="js-findByNameStateSelect"/>
-                        <!--<span class="sprite twirlyOpen dropDownArrow">&lt;!&ndash; Do not collapse&ndash;&gt;</span>-->
+                        </span>
+                        <span>&#9662;</span>
+                    </div>
+                    <div class="unit size20of100 lastUnit">
+                        <button class="button-4 searchSubmit" type="submit">Search</button>
                     </div>
                 </div>
                 <div class="smallest pts bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
-                <button class="button-4 searchSubmit" type="submit">Search</button>
+
             </form>
         </div>
 
 
+
     </div>
     <div class="ft">
+        <search:globalFilterBar includeDistance="${true}"/>
         <search:schoolSearchFiltersPanel/>
         <br class="clear"/>
 
