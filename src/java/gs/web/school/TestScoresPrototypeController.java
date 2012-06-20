@@ -305,6 +305,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             testToGrades.setTestLabel(testDataType.getLabel());
 
             //Get the test information, like the source, scale and description.
+            //TODO maybe make one call?
             TestDescription testDescription = _testDescriptionDao.findTestDescriptionByStateAndDataTypeId(school.getDatabaseState(), testDataType.getId());
             String description = "";
             String scale = "";
