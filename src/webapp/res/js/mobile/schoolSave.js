@@ -22,9 +22,13 @@ define(['localStorage', 'tracking'], function(localStorage, tracking) {
                     tracking.send();
                     saveSchoolButton.text('Saved');
                 } else {
-                    alert("Please enable localStorage to save schools.");
+                    alert("To save schools, turn Private Browsing OFF in your browser settings.");
                     saveSchoolButton.addClass('but-2').removeClass('but-2-inactive').text('Save');
+                    disabled = false;
                 }
+            } else {
+                alert("To save schools you must have local storage enabled.");
+                disabled = false;
             }
         });
     };
