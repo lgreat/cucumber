@@ -261,7 +261,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
                     LevelCode.createLevelCode(schoolSearchResult.getLevelCode()), UrlBuilder.SCHOOL_PROFILE_RATINGS);
             searchResults.put("gsRatingUrl", gsRatingUrl.asFullUrl(request));
 
-            if(mslSchools != null || mslSchools.size() > 0) {
+            if(mslSchools != null && mslSchools.size() > 0) {
                 Iterator<FavoriteSchool> iterator = mslSchools.iterator();
                 while(iterator.hasNext()) {
                     FavoriteSchool favoriteSchool = iterator.next();
