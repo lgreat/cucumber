@@ -255,7 +255,21 @@ General comments:
 }
 
 .slStylesV1-0 .standard_6-1 .ft{
-    padding: 12px;
-    /*border-top: 1px solid #FFF;*/
+}
 
+.slStylesV1-0 .standard_6-1 .ft .filtersControl{
+    cursor: pointer;
+    border-top: 1px solid #FFF;
+    background: -moz-linear-gradient(bottom, #DDD, #F1F1F1); /* FF3.6 */
+}
+
+.slStylesV1-0 .standard_6-1 .ft .filtersControl a:hover{
+    text-decoration: none;
+}
+
+.slStylesV1-0 .standard_6-1 .ft .filtersPanel{
+    background: #E8E8E8;
+    -webkit-box-shadow: inset 0 2px 8px 0 rgba(0,0,0, 0.2);
+       -moz-box-shadow: inset 0 2px 8px 0 rgba(0,0,0, 0.2);
+            box-shadow: inset 0 2px 8px 0 rgba(0,0,0, 0.2);
 }

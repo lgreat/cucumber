@@ -100,8 +100,6 @@
     <div class="ft">
         <search:globalFilterBar includeDistance="${true}"/>
         <search:schoolSearchFiltersPanel/>
-        <br class="clear"/>
-
     </div>
 
 </div>

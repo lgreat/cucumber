@@ -18,7 +18,7 @@
 
     <jsp:directive.attribute name="includeDistance" required="false" description="default is false"/>
 
-    <div id="jq-filterBar" class="alpha grid_16 omega">
+    <div id="jq-filterBar" class="alpha grid_16 omega pam">
         <div id="js-schoolTypes" class="alpha grid_4">
             <!--<div class="small_bold bottom">School type</div>-->
             <div>
