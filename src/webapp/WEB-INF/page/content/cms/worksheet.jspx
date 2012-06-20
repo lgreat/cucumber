@@ -18,8 +18,8 @@
 <html lang="en">
 <jsp:directive.page contentType="text/html"/>
 
-<pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"
-                                       imageUrl="${feature.imageUrl}"/>
+<!--<pageHelper:addFacebookArticleMetaTags uri="${uri}" deck="${feature.summary}" title="${feature.title}"-->
+                                       <!--imageUrl="${feature.imageUrl}"/>-->
 
 <ad:setSlotPrefix slotPrefix="Library_Article_Page"/>
 

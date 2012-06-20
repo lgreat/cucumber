@@ -39,13 +39,13 @@
         </c:otherwise>
     </c:choose>
     <title>${pageTitle} | GreatSchools</title>
+    <pageHelper:addMetaProperty property="fb:app_id" content="${gsweb:getFacebookAppId()}"/>
 
     <pageHelper:addMetaProperty property="og:title" content="${pageTitle}"/>
     <pageHelper:addMetaProperty property="og:description" content="${feature.summary}"/>
     <pageHelper:addMetaProperty property="og:type" content="video"/>
     <pageHelper:addMetaProperty property="og:url" content="${contentUrl}"/>
     <pageHelper:addMetaProperty property="og:image" content="${feature.imageUrl}"/>
-    <!--<pageHelper:addMetaProperty property="og:app_id" content="${gsweb:getFacebookAppId()}"/>-->
 
     <pageHelper:addMetaProperty property="og:video" content="${contentUrl}" />
     <pageHelper:addMetaProperty property="og:video:type" content="application/x-shockwave-flash" />
