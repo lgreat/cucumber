@@ -49,8 +49,6 @@ GS.form.RequestOtherEditors = function() {
         var isValid = false;
         if (data.errorCode === 'noCookie') {
             alert("Sorry, your cookie has expired. Please sign in and try again.");
-        } else if (data.errorCode === 'superUser') {
-            alert("OSP Super users are not allowed to use this feature. Please contact the Data Team to pre-approve school officials.");
         } else if (data.errorCode === 'noMembership') {
             alert("Sorry, we could not process your request at this time. Please contact us to suggest an editor for this Official School Profile.");
         } else if (data.errorCode === 'noEmail' || data.errorCode === 'invalidEmail') {

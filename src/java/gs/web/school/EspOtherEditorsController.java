@@ -58,14 +58,11 @@ public class EspOtherEditorsController implements ReadWriteAnnotationController 
         if (user == null) {
             writeErrorResponse(response, "noCookie");
             return;
-        } else if (user.hasRole(Role.ESP_SUPERUSER)) {
-            writeErrorResponse(response, "superUser");
-            return;
         }
 
-        // Make sure the user has membership to the school
+        // Make sure the user has membership to the school or is a superuser
         EspMembership membership = getEspMembershipForUserAndSchool(user, state, schoolId);
-        if (membership == null) {
+        if (membership == null && !user.hasRole(Role.ESP_SUPERUSER)) {
             writeErrorResponse(response, "noMembership");
             return;
         }
