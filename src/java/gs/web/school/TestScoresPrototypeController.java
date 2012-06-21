@@ -41,6 +41,8 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
     private ISubjectDao _subjectDao;
 
+    private ITestBreakdownDao _testBreakdownDao;
+
     private ITestDescriptionDao _testDescriptionDao;
 
     private static final String ERROR_VIEW = "/school/error";
@@ -81,7 +83,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
         return new ModelAndView(VIEW, model);
     }
-    //TODO change the comments to reflect the custom data types.
 
     /**
      * Method to get the test scores for a school.
@@ -89,8 +90,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
      * @param school
      * @return This returns a list of TestToGrades bean, which is used to present data in the view.
      */
-    protected List<TestToGrades>
-    getTestScores(School school) {
+    protected List<TestToGrades> getTestScores(School school) {
 
         //A new map to represent a map of test data set Id to testDataSet object.
         Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
@@ -101,17 +101,18 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                 new HashMap<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>>();
 
         //Get all the non-subgroup data points that a school should have.
-        //(Fetch the data sets irrespective of the school has value or not and the values if they exist).
+        //(Fetch the data sets and the test score values if they exist.Fetch the data sets irrespective of, if the school has value or not).
         List<Map<String, Object>> nonSubgroupTestScores = _testDataSetDao.getTestDataSetsAndValues(school);
-        //Fill in the schoolValueMap with the non-subgroup data.
-        populateTestScores(testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, nonSubgroupTestScores, false);
+        //Fill in the testScoresMap with the non-subgroup data.
+        populateTestScores(school, testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, nonSubgroupTestScores, false);
 
         //For each test get the subgroup data sets and values for the most recent year.(Making an assumption that the tests with subgroup data
         //are a subset of non-subgroup tests).
         for (Integer dataTypeId : testDataTypeIdToMaxYear.keySet()) {
             List<Map<String, Object>> subgroupTestScores = _testDataSetDao.getSubgroupTestDataSetsAndValues(school, testDataTypeIdToTestDataType.get(dataTypeId), testDataTypeIdToMaxYear.get(dataTypeId));
             if (hasSubGroupData(subgroupTestScores)) {
-                populateTestScores(testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, subgroupTestScores, true);
+                //Fill in the testScoresMap with the subgroup data.
+                populateTestScores(school, testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, subgroupTestScores, true);
             }
         }
 
@@ -124,6 +125,13 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         return testScores;
     }
 
+    /**
+     * Checks if there is subgroup data available.If the max breakdown id is not 1(the list is ordered by breakdown_id desc)
+     * then there is subgroup data.
+     *
+     * @param subgroupTestScores
+     * @return
+     */
     protected boolean hasSubGroupData(List<Map<String, Object>> subgroupTestScores) {
         if (!subgroupTestScores.isEmpty()) {
             Map value = subgroupTestScores.get(0);
@@ -138,15 +146,16 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
     /**
      * Loops over the results and populates the map with the test scores data.
      *
+     * @param school                       -
      * @param testDataTypeIdToTestDataType - A map to represent a map of test data set Id to testDataSet object.
-     * @param schoolValueMap               - A map to hold the test data type, grade, level code, subjects, test data set to value.
+     * @param testScoresMap                - A map to hold the test data type, grade, level code, subjects, test data set to value.
      * @param testDataTypeIdToMaxYear      - A map to represent a map of test data set Id to max year.This is used to query the subgroup data for a test only for the most recent year.
      * @param testScoreResults             - results of the database query.Can be subgroup or non-subgroup results.
      * @param isSubgroup                   -  boolean to reflect whether the data represents subgroup data or non subgroup data.
      */
     protected void
-    populateTestScores(Map<Integer, TestDataType> testDataTypeIdToTestDataType,
-                       Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap,
+    populateTestScores(School school, Map<Integer, TestDataType> testDataTypeIdToTestDataType,
+                       Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> testScoresMap,
                        Map<Integer, Integer> testDataTypeIdToMaxYear, List<Map<String, Object>> testScoreResults, boolean isSubgroup) {
 
         for (Map value : testScoreResults) {
@@ -158,65 +167,75 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             Subject subject = _subjectDao.findSubject((Integer) value.get("subject_id"));
             Date yearDate = (Date) value.get("year");
             DateFormat df = new SimpleDateFormat("yyyy");
-            String year = df.format(yearDate);
+            String yearStr = df.format(yearDate);
+            Integer year = new Integer(yearStr);
             Float valueFloat = (Float) value.get("value_float");
             String valueText = (String) value.get("value_text");
             Float stateAvgFloat = (Float) value.get("stateAvgFloat");
-            String stateAvgStr = (String) value.get("stateAvgText");
+            String stateAvgText = (String) value.get("stateAvgText");
             Integer breakdownId = (Integer) value.get("breakdown_id");
-            String breakdownLabel = (String) value.get("name");
 
-            //default the value to 'Data not available.'
-            String testScoreValue = LABEL_DATA_NOT_AVAILABLE;
-            if (valueFloat != null || valueText != null) {
-                testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
-                        Integer.toString(Math.round(valueFloat));
-            }
+            if (testDataType != null && testDataSetId != null && grade != null && levelCode != null && subject != null) {
 
-            //default the state average to 'Data not available.'
-            String stateAvg = LABEL_DATA_NOT_AVAILABLE;
-            if (stateAvgFloat != null || stateAvgStr != null) {
-                stateAvg = StringUtils.isNotBlank(stateAvgStr) ? StringEscapeUtils.escapeHtml(stateAvgStr) :
-                        Integer.toString(Math.round(stateAvgFloat));
-            }
-
-            Integer yearInt = new Integer(year);
-
-            //Build a new custom test data set.
-            CustomTestDataSet testDataSet = new CustomTestDataSet();
-            testDataSet.setYear(yearInt);
-            testDataSet.setId(testDataSetId);
-            testDataSet.setGrade(grade);
-            testDataSet.setLevelCode(levelCode);
-            testDataSet.setStateAverage(stateAvg);
-            //If its non subgroup data then set the breakdown label.
-            if (breakdownLabel != null) {
-                testDataSet.setBreakdownLabel(breakdownLabel);
-            }
-
-            //Construct a new map to represent a map of test data set Id to max year.This is used to query the subgroup data for a test only for the most recent year.
-            if (testDataTypeIdToMaxYear.containsKey(testDataTypeId)) {
-                Integer yr = testDataTypeIdToMaxYear.get(testDataTypeId);
-                if (yr > yearInt) {
-                    yearInt = yr;
+                //default the value to 'Data not available.'
+                String testScoreValue = LABEL_DATA_NOT_AVAILABLE;
+                if (valueFloat != null || valueText != null) {
+                    //For masking.Masking : - sometimes the state does not give exact numbers, it saves <5% passed etc.
+                    //AK has a lot of masked school values.
+                    testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
+                            Integer.toString(Math.round(valueFloat));
                 }
+
+                //default the state average to 'Data not available.'
+                String stateAvg = LABEL_DATA_NOT_AVAILABLE;
+                if (stateAvgFloat != null || stateAvgText != null) {
+                    //For masking.Masking : - sometimes the state does not give exact numbers, it saves <5% passed etc.
+                    //AK has a lot of masked school values.
+                    stateAvg = StringUtils.isNotBlank(stateAvgText) ? StringEscapeUtils.escapeHtml(stateAvgText) :
+                            Integer.toString(Math.round(stateAvgFloat));
+                }
+
+                //Build a new custom test data set.
+                CustomTestDataSet testDataSet = new CustomTestDataSet();
+                testDataSet.setYear(year);
+                testDataSet.setId(testDataSetId);
+                testDataSet.setGrade(grade);
+                testDataSet.setLevelCode(levelCode);
+                testDataSet.setStateAverage(stateAvg);
+                TestBreakdown breakdown = _testBreakdownDao.findBreakdown(breakdownId);
+                if (breakdown != null) {
+                    String breakdownLabel = _testBreakdownDao.findBreakdownName(breakdown, school.getDatabaseState());
+                    if (breakdownLabel != null) {
+                        testDataSet.setBreakdownLabel(breakdownLabel);
+                        testDataSet.setBreakdownSortOrder(breakdown.getOrder());
+                    }
+                }
+
+                //Construct a new map to represent a map of test data set Id to max year.
+                //This is used to query the subgroup data for a test only for the most recent year.
+                if (testDataTypeIdToMaxYear.containsKey(testDataTypeId)) {
+                    Integer yr = testDataTypeIdToMaxYear.get(testDataTypeId);
+                    if (yr > year) {
+                        year = yr;
+                    }
+                }
+                testDataTypeIdToMaxYear.put(testDataTypeId, year);
+
+                //Build a new custom test data type.
+                CustomTestDataType customTestDataType = new CustomTestDataType();
+                customTestDataType.setId(testDataTypeId);
+                //Group the subgroup data for a test into a new map of custom test data type.
+                customTestDataType.setLabel(testDataType.getName() + (isSubgroup ? "_subgroup" : ""));
+                //Fill the map with the test data type, grade, level code, subjects, test data set and value.
+                buildTestScoresMap(testScoresMap, customTestDataType, grade, levelCode, subject, testDataSet, testScoreValue);
             }
-            testDataTypeIdToMaxYear.put(testDataTypeId, yearInt);
-
-            //Build a new custom test data type.
-            CustomTestDataType customTestDataType = new CustomTestDataType();
-            customTestDataType.setId(testDataTypeId);
-            //Group subgroup data for a test into a new map of custom test data type.
-            customTestDataType.setLabel(testDataType.getName() + (isSubgroup ? "_subgroup" : ""));
-            buildTestScoresMap(schoolValueMap, customTestDataType, grade, levelCode, subject, testDataSet, testScoreValue);
-
         }
     }
 
     /**
-     * Fills in the map used to store the test data type, grade, level code, subjects, test data set.
+     * Fills in the map used to store the test data type, grade, level code, subjects, test data set and the value.
      *
-     * @param schoolValueMap
+     * @param testScoresMap
      * @param customTestDataType
      * @param grade
      * @param levelCode
@@ -224,27 +243,25 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
      * @param testDataSet
      * @param testScoreValue
      */
-
-    protected void buildTestScoresMap(Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap,
+    protected void buildTestScoresMap(Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> testScoresMap,
                                       CustomTestDataType customTestDataType, Grade grade, LevelCode levelCode, Subject subject,
                                       CustomTestDataSet testDataSet, String testScoreValue) {
+        Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = testScoresMap.get(customTestDataType);
         //Check if the test is already in the map.
-        if (schoolValueMap.get(customTestDataType) != null) {
+        if (gradeToLevelCodeToSubjectsToDataSetToValueMap != null) {
             //Test already present.
-            Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = schoolValueMap.get(customTestDataType);
+            Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
             //Check if grade is already in the map.
-            if (gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade) != null) {
+            if (levelCodeToSubjectsToDataSetToValueMap != null) {
                 //Grade already present.
-                Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectsToDataSetToValueMap = gradeToLevelCodeToSubjectsToDataSetToValueMap.get(grade);
+                Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
                 //Check if level code is already in the map.
-                if (levelCodeToSubjectsToDataSetToValueMap.get(levelCode) != null) {
+                if (subjectToDataSet != null) {
                     //Level code already present.
-                    Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = levelCodeToSubjectsToDataSetToValueMap.get(levelCode);
+                    Map<CustomTestDataSet, String> dataSetToValue = subjectToDataSet.get(subject);
                     //Check if subject is already in the map.
-                    if (subjectToDataSet.get(subject) != null) {
+                    if (dataSetToValue != null) {
                         //Subject already present.
-                        Map<CustomTestDataSet, String> dataSetToValue = subjectToDataSet.get(subject);
-
                         //Check if DataSet is not in the map.We dont care if its already there.That should never happen.
                         if (dataSetToValue.get(testDataSet) == null) {
                             //Put the DataSet in the map.
@@ -252,7 +269,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                         }
                     } else {
                         //Subject not present.
-                        Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
+                        dataSetToValue = new HashMap<CustomTestDataSet, String>();
                         dataSetToValue.put(testDataSet, testScoreValue);
                         subjectToDataSet.put(subject, dataSetToValue);
                     }
@@ -260,7 +277,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                     //Level code not present
                     Map<CustomTestDataSet, String> dataSetToValue = new HashMap<CustomTestDataSet, String>();
                     dataSetToValue.put(testDataSet, testScoreValue);
-                    Map<Subject, Map<CustomTestDataSet, String>> subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
+                    subjectToDataSet = new HashMap<Subject, Map<CustomTestDataSet, String>>();
                     subjectToDataSet.put(subject, dataSetToValue);
                     levelCodeToSubjectsToDataSetToValueMap.put(levelCode, subjectToDataSet);
                 }
@@ -283,15 +300,15 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             subjectToDataSet.put(subject, dataSetToValue);
             Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>> levelCodeToSubjectToDataSet = new HashMap<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>();
             levelCodeToSubjectToDataSet.put(levelCode, subjectToDataSet);
-            Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>> gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>();
+            gradeToLevelCodeToSubjectsToDataSetToValueMap = new HashMap<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>();
             gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
-            schoolValueMap.put(customTestDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
+            testScoresMap.put(customTestDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
         }
     }
 
     /**
      * Method to get the TestDataType. This method first checks if the data type is present in the testDataTypeIdToTestDataType map.
-     * If it is present in the map it returns it from the map else it makes a database call to fetch it and puts it in the map.
+     * If it is present in the map it retrieves it from the map else it makes a database call to fetch it and puts it in the map.
      *
      * @param testDataTypeIdToTestDataType - A map of test data set Id to testDataSet object.
      * @param testDataTypeId               - test data type id to return the test data type object for.
@@ -386,29 +403,29 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                             testValue.setTestScoreLabel(map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
                             testValue.setStateAvg(testDataSet.getStateAverage());
                             testValue.setBreakdownLabel(testDataSet.getBreakdownLabel());
+                            testValue.setBreakdownSortOrder(testDataSet.getBreakdownSortOrder());
                             testValuesList.add(testValue);
 
                             //Set the grade label.
                             gradeToSubjects.setGradeLabel(getGradeLabel(testDataSet));
                         }
-                        //Sort in order of years.
+                        //Sort in order of years or in the order of breakdown order.
                         Collections.sort(testValuesList);
                         subjectToValues.setTestValues(testValuesList);
                         subjectToValuesList.add(subjectToValues);
                     }
-                    //Sort in order of subjects.
+                    //Sort subjects.
                     Collections.sort(subjectToValuesList);
                     gradeToSubjects.setSubjects(subjectToValuesList);
                     gradeToSubjectsList.add(gradeToSubjects);
                 }
-
             }
-            //Sort in order of grades.
+            //Sort the grades.
             Collections.sort(gradeToSubjectsList);
             testToGrades.setGrades(gradeToSubjectsList);
             testToGradesList.add(testToGrades);
         }
-        //Sort the tests in order of lowest grades.
+        //Sort the tests.
         Collections.sort(testToGradesList);
         return testToGradesList;
     }
@@ -529,6 +546,14 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         _controllerFamily = controllerFamily;
     }
 
+    public ITestBreakdownDao getTestBreakdownDao() {
+        return _testBreakdownDao;
+    }
+
+    public void setTestBreakdownDao(ITestBreakdownDao testBreakdownDao) {
+        _testBreakdownDao = testBreakdownDao;
+    }
+
     /**
      * A method to return a number when the Grade is of type 'All..'.This number is used to sort.
      *
@@ -630,6 +655,8 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             _isSubgroup = isSubgroup;
         }
 
+        //The tests should be sorted in the order of the lowest grade in the test.
+        //However if the test has subgroup data then the test should be followed by subgroup test.
         public int compareTo(TestToGrades testToGrades) {
             Integer gradeNum1 = getGradeNumForSorting(getLowestGradeInTest());
             Integer gradeNum2 = getGradeNumForSorting(testToGrades.getLowestGradeInTest());
@@ -656,7 +683,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
     public static class GradeToSubjects implements Comparable<GradeToSubjects> {
         String _gradeLabel;
-        //TODO maybe do not use grade object if using json.since it checks each object to convert to json.
         Grade _grade;
         List<SubjectToTestValues> _subjects;
 
@@ -690,7 +716,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             }
             return 0;
         }
-
     }
 
     public static class SubjectToTestValues implements Comparable<SubjectToTestValues> {
@@ -725,6 +750,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         Integer _year;
         String _stateAvg;
         String _breakdownLabel;
+        Integer _breakdownSortOrder;
 
         public String getTestScoreStr() {
             return _testScoreStr;
@@ -766,19 +792,78 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             _breakdownLabel = breakdownLabel;
         }
 
+        public Integer getBreakdownSortOrder() {
+            return _breakdownSortOrder;
+        }
+
+        public void setBreakdownSortOrder(Integer breakdownSortOrder) {
+            _breakdownSortOrder = breakdownSortOrder;
+        }
+
+        //For subgroup data , the sort order is based on the subgroup's(breakdown) sort order.
+        //For non-subgroup data, the sort order is based on the year.
         public int compareTo(TestValues testValues) {
-            if(testValues.getYear().compareTo(getYear()) ==0){
-              return getBreakdownLabel().compareTo(testValues.getBreakdownLabel());
-            }else{
-              return testValues.getYear().compareTo(getYear());
+            if (testValues.getYear().compareTo(getYear()) == 0) {
+                return getBreakdownSortOrder().compareTo(testValues.getBreakdownSortOrder());
+            } else {
+                return testValues.getYear().compareTo(getYear());
             }
+        }
+    }
+
+    /**
+     * Custom object to represent a test data set. Decided to go with a custom object instead of the TestDataType object bcos
+     * a)Wanted to 2 separate objects for a test with and without subgroup data.For example for the TestDataType - DSTP
+     * we want to create 2 different objects- one with no subgroup data called 'DSTP' another with subgroup data called 'DSTP_subgroup'.
+     */
+
+    public static class CustomTestDataType {
+
+        public Integer _id;
+        public String _label;
+
+        public Integer getId() {
+            return _id;
+        }
+
+        public void setId(Integer id) {
+            _id = id;
+        }
+
+        public String getLabel() {
+            return _label;
+        }
+
+        public void setLabel(String label) {
+            _label = label;
+        }
+
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof CustomTestDataType)) {
+                return false;
+            }
+
+            final CustomTestDataType customTestDataType = (CustomTestDataType) o;
+
+            if (!_id.equals(customTestDataType.getId()) || !_label.equals(customTestDataType.getLabel())) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public int hashCode() {
+            return 53 * _id.hashCode() + _label.hashCode();
         }
     }
 
     /**
      * Custom object to represent a test data set. Decided to go with a custom object instead of the TestDataSet object bcos
      * a)Not using hibernate - therefore an additional query is  required to get the TestDataSet object itself.Wanted to avoid additional query.
-     * b)State average is not part of TestDataSet.Wanted an object to encapsulate all information including the state average.
+     * b)State average,breakdown label, are not part of TestDataSet.Wanted an object to encapsulate all information.
      */
     public static class CustomTestDataSet {
 
@@ -788,6 +873,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         public LevelCode _levelCode;
         public String _stateAverage = "";
         public String _breakdownLabel = "";
+        Integer _breakdownSortOrder;
 
         public Integer getId() {
             return _id;
@@ -837,6 +923,14 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             _breakdownLabel = breakdownLabel;
         }
 
+        public Integer getBreakdownSortOrder() {
+            return _breakdownSortOrder;
+        }
+
+        public void setBreakdownSortOrder(Integer breakdownSortOrder) {
+            _breakdownSortOrder = breakdownSortOrder;
+        }
+
         public boolean equals(Object o) {
             if (this == o) {
                 return true;
@@ -856,56 +950,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
         public int hashCode() {
             return 53 * _id.hashCode();
-        }
-
-    }
-
-    /**
-     * Custom object to represent a test data set. Decided to go with a custom object instead of the TestDataType object bcos
-     * a)Wanted to 2 separate objects for a test with and without subgroup data.For example for the TestDataType - DSTP
-     * we want to create 2 different objects- one with no subgroup data called 'DSTP' another with subgroup data called 'DSTP_subgroup'.
-     */
-
-    public static class CustomTestDataType {
-
-        public Integer _id;
-        public String _label;
-
-        public Integer getId() {
-            return _id;
-        }
-
-        public void setId(Integer id) {
-            _id = id;
-        }
-
-        public String getLabel() {
-            return _label;
-        }
-
-        public void setLabel(String label) {
-            _label = label;
-        }
-
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (!(o instanceof CustomTestDataType)) {
-                return false;
-            }
-
-            final CustomTestDataType customTestDataType = (CustomTestDataType) o;
-
-            if (!_id.equals(customTestDataType.getId()) || !_label.equals(customTestDataType.getLabel())) {
-                return false;
-            }
-
-            return true;
-        }
-
-        public int hashCode() {
-            return 53 * _id.hashCode() + _label.hashCode();
         }
 
     }
