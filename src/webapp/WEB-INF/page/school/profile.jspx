@@ -71,7 +71,9 @@
             School stats data
         </div>
         <div data-gs-tab-body="reviews" style="display:none;">
-            Reviews data
+            <!--<gsweb:cache key="profileReviews-${school.stateAbbreviation}-${school.id}">-->
+            <jsp:include page="/school/profileReviews.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}" />
+            <!--</gsweb:cache>-->
         </div>
         <div data-gs-tab-body="programsExtracurriculars" style="display:none;">
             Programs &amp;amp; Extracurriculars data
