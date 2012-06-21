@@ -52,7 +52,7 @@ GSpreadsheet.load = function(key, options, callback) {
 
   var script = document.createElement('script');
 
-  script.setAttribute('src', 'http://spreadsheets.google.com/feeds/list/' + key + '/' + worksheet + '/public/values' +
+  script.setAttribute('src', 'https://spreadsheets.google.com/feeds/list/' + key + '/' + worksheet + '/public/values' +
                         '?alt=json-in-script&callback=' + callbackName);
   script.setAttribute('id', 'jsonScript');
   script.setAttribute('type', 'text/javascript');

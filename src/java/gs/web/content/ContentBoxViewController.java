@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: ContentBoxViewController.java,v 1.8 2009/12/04 20:54:17 npatury Exp $
+ * $Id: ContentBoxViewController.java,v 1.9 2012/06/21 00:58:19 yfan Exp $
  */
 
 package gs.web.content;
@@ -24,7 +24,7 @@ import gs.web.util.CacheablePageParameterizableViewController;
  * <p/>
  * Gets the content from
  * <p/>
- * http://spreadsheets.google.com/pub?key=pouqRkV5D_eZo2j7CmCj0OQ
+ * https://spreadsheets.google.com/pub?key=pouqRkV5D_eZo2j7CmCj0OQ
  *
  * @author apeterson
  * @author thuss

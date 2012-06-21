@@ -15,7 +15,7 @@ import gs.web.util.context.SessionContextUtil;
 import gs.web.util.UrlBuilder;
 
 /**
- * Uses spreadsheet at http://spreadsheets.google.com/pub?key=pYwV1uQwaOCJGhxtFDPHjTg
+ * Uses spreadsheet at https://spreadsheets.google.com/pub?key=pYwV1uQwaOCJGhxtFDPHjTg
  *
  * @author Anthony Roy <mailto:aroy@greatschools.org>
  */
