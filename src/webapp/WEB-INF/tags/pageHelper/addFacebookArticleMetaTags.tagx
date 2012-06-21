@@ -4,7 +4,7 @@
           xmlns:gsweb="gstaglib"
 
           xmlns:c="http://java.sun.com/jsp/jstl/core">
-        >
+
 
     <jsp:directive.tag import="java.net.URLEncoder"/>
     <jsp:directive.tag import="gs.data.util.CmsUtil"/>
