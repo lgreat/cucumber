@@ -112,6 +112,13 @@ Boundaries.prototype = {
         }, this));
     }
 
+    , geocodereverse: function ( option ) {
+        $.when(BoundaryHelper.geocodeReverse(option.lat(), option.lng()))
+            .then ($.proxy(function (data) {
+            this.trigger('geocodereverse', data);
+        }, this));
+    }
+
     , info: function (obj) {
         if ( !this.getOptions().infoWindow ) return;
         if ( !this.infoWindow ) {
@@ -540,6 +547,36 @@ var BoundaryHelper = (function($){
         return false;
     };
 
+    var geocodeReverse = function (lat, lng) {
+        var deferred = new jQuery.Deferred();
+        var geocoder = new google.maps.Geocoder();
+        if (geocoder && lat && lng) {
+            geocoder.geocode({location: new google.maps.LatLng(lat, lng)}, function (results, status) {
+                if (status=='OK'){
+                    var GS_geocodeResults = new Array();
+                    for (var i=0; i<results.length; i++) {
+                        var result = {};
+                        result.lat = results[i].geometry.location.lat();
+                        result.lon = results[i].geometry.location.lng();
+                        result.normalizedAddress = results[i].formatted_address;
+                        for (var x=0; x<results[i].address_components.length; x++) {
+                            if (results[i].address_components[x].types.contains('postal_code')){
+                                result.zip = results[i].address_components[x].long_name;
+                            }
+                        }
+                        GS_geocodeResults.push(result);
+                    }
+                    deferred.resolve(GS_geocodeResults);
+                } else {
+                    deferred.reject();
+                }
+            });
+        } else {
+            deferred.reject();
+        }
+        return deferred.promise();
+    };
+
     var geocode = function ( searchInput ) {
         var deferred = new jQuery.Deferred();
         var geocoder = new google.maps.Geocoder();
@@ -597,6 +634,7 @@ var BoundaryHelper = (function($){
         getDistrictsForLocation: getDistrictsForLocation,
         getSchoolsForDistrict: getSchoolsForDistrict,
         getNonDistrictSchoolsNearLocation: getNonDistrictSchoolsNearLocation,
-        geocode: geocode
+        geocode: geocode,
+        geocodeReverse: geocodeReverse
     }
 }(window.jQuery));

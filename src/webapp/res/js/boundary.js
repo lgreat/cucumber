@@ -53,9 +53,21 @@ var Boundary = (function (){
         }
         else if (obj.type == 'district'){
             var array = new Array();
-            array.push('Elementary (' + obj.elementary + ')');
-            array.push('Middle (' + obj.middle + ')');
-            array.push('High (' + obj.high + ')');
+            if (obj.elementary){
+                array.push('Elementary (' + obj.elementary + ')');
+            } else {
+                array.push('Elementary (0)');
+            }
+            if (obj.middle) {
+                array.push('Middle (' + obj.middle + ')');
+            } else {
+                array.push('Middle (0)');
+            }
+            if (obj.high){
+                array.push('High (' + obj.high + ')');
+            } else {
+                array.push('High (0)');
+            }
 
             if (array.length) {
                 address = array.join(', ');
@@ -114,9 +126,11 @@ var Boundary = (function (){
         $map.on('focus.boundaries', focusEventHandler );
         $map.on('load.boundaries', loadEventHandler );
         $map.on('geocode.boundaries', geocodeEventHandler );
+        $map.on('geocodereverse.boundaries', geocodeReverseEventHandler );
         $map.on('moved.boundaries', movedEventHandler );
         $map.on('mapclick.boundaries', mapClickEventHandler );
         $map.on('markerclick.boundaries', markerClickEventHandler);
+
         $dropdown.on('change', dropdownEventHandler);
         $level.on('change', levelEventHandler);
         $search.on('submit', searchEventHandler);
@@ -135,9 +149,13 @@ var Boundary = (function (){
     };
 
     var addDropdownItem = function(district) {
-        var $option = $('<option></option>');
-        $option.data('district', district);
-        $dropdown.append($option.html(district.name).val(district.getKey()));
+        var $option = $dropdown.find("option[value='" + district.getKey() + "']");
+        if (!$option.length>0) {
+            var $option = $('<option></option>').val(district.getKey());
+            $option.data('district', district);
+            $dropdown.append($option.html(district.name));
+        }
+        $dropdown.val(district.getKey());
     }
 
     var districtsEventHandler = function (event, obj) {
@@ -227,11 +245,32 @@ var Boundary = (function (){
         updateHistory('?lat='+obj.data[0].lat+'&lon='+obj.data[0].lon+'&level='+currentLevel);
         $redo.hide();
         $map.boundaries('district');
+        $map.boundaries('geocodereverse', new google.maps.LatLng(obj.data[0].lat, obj.data[0].lon));
     };
+
+    var geocodeReverseEventHandler = function (event, obj) {
+        var $nearby = $('#js_nearbyHomesForSale');
+        if (obj.data.length){
+            var zip = obj.data[0].zip;
+            if (zip) {
+                $nearby.show().removeClass('hidden');
+                $nearby.find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ zip + '?gate=gs&cid=PRT300014');
+            } else {
+                $nearby.hide();
+            }
+        }
+        else {
+            $nearby.hide();
+        }
+    }
 
     var updateDistrictHeader = function( district ){
         $header.removeClass('hidden');
-        $header.find('#ratings-test').html(district.rating);
+        if (district.rating>0 && district.rating<11){
+            $header.find('#ratings-test').html(district.rating);
+        } else {
+            $header.find('#ratings-test').html('N/A');
+        }
         $header.find('#school-name-test').html(district.name);
     };
 

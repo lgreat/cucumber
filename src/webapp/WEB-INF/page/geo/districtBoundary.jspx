@@ -68,9 +68,9 @@
                         </button>
                     </form>
                 </div>
-                <div class="fltrt">
+                <div id="js_nearbyHomesForSale" class="fltrt hidden">
                     <span class="iconx16 i-16-home-sales mrs"><!-- do not collapse --></span>
-                    <a href="" class="small">Nearby homes for sale</a>
+                    <a href="#" class="small" target="_blank">Nearby homes for sale</a>
                 </div>
 
             </div>
