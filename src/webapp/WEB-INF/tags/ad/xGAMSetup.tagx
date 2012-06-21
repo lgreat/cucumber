@@ -52,7 +52,6 @@
 
                 if (!pageHelper.isAdFree() && !pageHelper.isFramed() && !pageHelper.isAdServedByCobrand()) {
                     AdUtil.adPositionAdNameHelper(adNameAdPositionMap, adNames, AdPosition.Global_NavPromo_970x30, slotPrefix, false);
-                    AdUtil.adPositionAdNameHelper(adNameAdPositionMap, adNames, AdPosition.Global_HeaderPromo_88x31, slotPrefix, false);
                     AdUtil.adPositionAdNameHelper(adNameAdPositionMap, adNames, AdPosition.Custom_Peelback_Ad, slotPrefix, false);
                     AdUtil.adPositionAdNameHelper(adNameAdPositionMap, adNames, AdPosition.Custom_Welcome_Ad, slotPrefix, false);
                 }
