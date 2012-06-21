@@ -30,7 +30,7 @@
                                 <c:choose>
                                     <c:when test="${fn:indexOf(testToGrades.testLabel,'_subgroup') >=0}">
                                         <c:forEach var="testValue" items="${subjectToYears.testValues}">
-                                            <span>${testValue.breakdown} ${testValue.testScoreLabel}</span>
+                                            <span>${testValue.breakdownLabel} ${testValue.testScoreLabel}</span>
                                             <br/>
                                         </c:forEach>
                                     </c:when>

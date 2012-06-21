@@ -104,13 +104,15 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         //(Fetch the data sets irrespective of the school has value or not and the values if they exist).
         List<Map<String, Object>> nonSubgroupTestScores = _testDataSetDao.getTestDataSetsAndValues(school);
         //Fill in the schoolValueMap with the non-subgroup data.
-        populateTestScores(testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, nonSubgroupTestScores,false);
+        populateTestScores(testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, nonSubgroupTestScores, false);
 
         //For each test get the subgroup data sets and values for the most recent year.(Making an assumption that the tests with subgroup data
         //are a subset of non-subgroup tests).
         for (Integer dataTypeId : testDataTypeIdToMaxYear.keySet()) {
             List<Map<String, Object>> subgroupTestScores = _testDataSetDao.getSubgroupTestDataSetsAndValues(school, testDataTypeIdToTestDataType.get(dataTypeId), testDataTypeIdToMaxYear.get(dataTypeId));
-            populateTestScores(testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, subgroupTestScores,true);
+            if (hasSubGroupData(subgroupTestScores)) {
+                populateTestScores(testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, subgroupTestScores, true);
+            }
         }
 
         //Convert the map of test scores that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
@@ -120,6 +122,17 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         //printAllData(schoolValueMap);
 
         return testScores;
+    }
+
+    protected boolean hasSubGroupData(List<Map<String, Object>> subgroupTestScores) {
+        if (!subgroupTestScores.isEmpty()) {
+            Map value = subgroupTestScores.get(0);
+            Integer breakdownId = (Integer) value.get("breakdown_id");
+            if (breakdownId == 1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -133,8 +146,8 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
      */
     protected void
     populateTestScores(Map<Integer, TestDataType> testDataTypeIdToTestDataType,
-                          Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap,
-                          Map<Integer, Integer> testDataTypeIdToMaxYear, List<Map<String, Object>> testScoreResults,boolean isSubgroup) {
+                       Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap,
+                       Map<Integer, Integer> testDataTypeIdToMaxYear, List<Map<String, Object>> testScoreResults, boolean isSubgroup) {
 
         for (Map value : testScoreResults) {
             Integer testDataTypeId = (Integer) value.get("data_type_id");
@@ -194,7 +207,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             CustomTestDataType customTestDataType = new CustomTestDataType();
             customTestDataType.setId(testDataTypeId);
             //Group subgroup data for a test into a new map of custom test data type.
-            customTestDataType.setLabel(testDataType.getName()+ (isSubgroup? "_subgroup": ""));
+            customTestDataType.setLabel(testDataType.getName() + (isSubgroup ? "_subgroup" : ""));
             buildTestScoresMap(schoolValueMap, customTestDataType, grade, levelCode, subject, testDataSet, testScoreValue);
 
         }
@@ -202,6 +215,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
     /**
      * Fills in the map used to store the test data type, grade, level code, subjects, test data set.
+     *
      * @param schoolValueMap
      * @param customTestDataType
      * @param grade
@@ -211,9 +225,9 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
      * @param testScoreValue
      */
 
-    protected void buildTestScoresMap( Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap,
-                                     CustomTestDataType customTestDataType,Grade grade,LevelCode levelCode,Subject subject,
-                                     CustomTestDataSet testDataSet,String testScoreValue) {
+    protected void buildTestScoresMap(Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> schoolValueMap,
+                                      CustomTestDataType customTestDataType, Grade grade, LevelCode levelCode, Subject subject,
+                                      CustomTestDataSet testDataSet, String testScoreValue) {
         //Check if the test is already in the map.
         if (schoolValueMap.get(customTestDataType) != null) {
             //Test already present.
@@ -273,7 +287,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             gradeToLevelCodeToSubjectsToDataSetToValueMap.put(grade, levelCodeToSubjectToDataSet);
             schoolValueMap.put(customTestDataType, gradeToLevelCodeToSubjectsToDataSetToValueMap);
         }
-}
+    }
 
     /**
      * Method to get the TestDataType. This method first checks if the data type is present in the testDataTypeIdToTestDataType map.
@@ -303,6 +317,8 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         for (CustomTestDataType testDataType : map.keySet()) {
             TestToGrades testToGrades = new TestToGrades();
             testToGrades.setTestLabel(testDataType.getLabel());
+            testToGrades.setTestDataTypeId(testDataType.getId());
+            testToGrades.setIsSubgroup((testDataType.getLabel().indexOf("_subgroup") > 0) ? true : false);
 
             //Get the test information, like the source, scale and description.
             //TODO maybe make one call?
@@ -369,7 +385,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                             testValue.setTestScoreStr(testScoreValue);
                             testValue.setTestScoreLabel(map.get(testDataType).get(grade).get(levelCode).get(subject).get(testDataSet));
                             testValue.setStateAvg(testDataSet.getStateAverage());
-                            testValue.setBreakdown(testDataSet.getBreakdownLabel());
+                            testValue.setBreakdownLabel(testDataSet.getBreakdownLabel());
                             testValuesList.add(testValue);
 
                             //Set the grade label.
@@ -547,6 +563,8 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         String _source;
         String _scale;
         Grade _lowestGradeInTest;
+        Integer _testDataTypeId;
+        Boolean _isSubgroup;
 
         public String getTestLabel() {
             return _testLabel;
@@ -596,10 +614,44 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             _lowestGradeInTest = lowestGradeInTest;
         }
 
-        public int compareTo(TestToGrades testToGrades) {
-            return getGradeNumForSorting(getLowestGradeInTest()).compareTo(getGradeNumForSorting(testToGrades.getLowestGradeInTest()));
+        public Integer getTestDataTypeId() {
+            return _testDataTypeId;
         }
 
+        public void setTestDataTypeId(Integer testDataTypeId) {
+            _testDataTypeId = testDataTypeId;
+        }
+
+        public Boolean getIsSubgroup() {
+            return _isSubgroup;
+        }
+
+        public void setIsSubgroup(Boolean isSubgroup) {
+            _isSubgroup = isSubgroup;
+        }
+
+        public int compareTo(TestToGrades testToGrades) {
+            Integer gradeNum1 = getGradeNumForSorting(getLowestGradeInTest());
+            Integer gradeNum2 = getGradeNumForSorting(testToGrades.getLowestGradeInTest());
+            Integer dataTypeId1 = getTestDataTypeId();
+            Integer dataTypeId2 = testToGrades.getTestDataTypeId();
+
+            int rval = 0;
+            if (gradeNum1.compareTo(gradeNum2) == 0) {
+                if (dataTypeId1.compareTo(dataTypeId2) == 0) {
+                    if (getIsSubgroup()) {
+                        rval = 1;
+                    } else {
+                        rval = -1;
+                    }
+                } else {
+                    rval = dataTypeId1.compareTo(dataTypeId2);
+                }
+            } else {
+                rval = gradeNum1.compareTo(gradeNum2);
+            }
+            return rval;
+        }
     }
 
     public static class GradeToSubjects implements Comparable<GradeToSubjects> {
@@ -672,7 +724,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         String _testScoreLabel;
         Integer _year;
         String _stateAvg;
-        String _breakdown;
+        String _breakdownLabel;
 
         public String getTestScoreStr() {
             return _testScoreStr;
@@ -706,16 +758,20 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             _stateAvg = stateAvg;
         }
 
-        public String getBreakdown() {
-            return _breakdown;
+        public String getBreakdownLabel() {
+            return _breakdownLabel;
         }
 
-        public void setBreakdown(String breakdown) {
-            _breakdown = breakdown;
+        public void setBreakdownLabel(String breakdownLabel) {
+            _breakdownLabel = breakdownLabel;
         }
 
         public int compareTo(TestValues testValues) {
-            return testValues.getYear().compareTo(getYear());
+            if(testValues.getYear().compareTo(getYear()) ==0){
+              return getBreakdownLabel().compareTo(testValues.getBreakdownLabel());
+            }else{
+              return testValues.getYear().compareTo(getYear());
+            }
         }
     }
 
