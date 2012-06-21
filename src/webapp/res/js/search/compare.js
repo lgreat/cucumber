@@ -201,14 +201,17 @@ GS.search.compare = GS.search.compare || (function() {
 
     /* for the map view infobox */
     var addRemoveCheckedSchoolInMap = function(schoolItem, compareButton) {
-        if(checkedSchools.length >= 8) {
-            $(schoolItem).prop('checked', false);
-            var encodedCurrentUrl = encodeURIComponent(window.location.pathname + GS.search.filters.getUpdatedQueryString());
-            GSType.hover.compareSchoolsLimitReached.show(checkedSchools.join(','), encodedCurrentUrl, onCompareUncheckAllClicked);
-            return false;
-        }
         var index = jQuery.inArray($(schoolItem).attr('id'), checkedSchools);
-        if(index == -1 && schoolItem.checked) {
+        if(index == -1 && $(schoolItem).is(':checked')) {
+            if(checkedSchools.length == 8) {
+                $(schoolItem).attr('checked', false);
+                $('#compareSchoolsLimitReachedHover').dialog({
+                    modal:true
+                });
+                var encodedCurrentUrl = encodeURIComponent(window.location.pathname + GS.search.filters.getUpdatedQueryString());
+                GSType.hover.compareSchoolsLimitReached.show(checkedSchools.join(','), encodedCurrentUrl, onCompareUncheckAllClicked);
+                return false;
+            }
             checkedSchools.push($(schoolItem).attr('id'));
             updateInfoBoxCompareButton(compareButton);
         }
@@ -219,13 +222,16 @@ GS.search.compare = GS.search.compare || (function() {
     }
 
     var updateMapInfoBoxCompare = function(compareCheck, compareButton) {
+        var checkboxId = compareCheck.attr('id');
+        var checkbox = $('#' + checkboxId);
         for(var i = 0; i < checkedSchools.length; i++) {
-            if(compareCheck.attr('id') === checkedSchools[i]) {
-                compareCheck.prop('checked', true);
+            if(checkboxId === checkedSchools[i]) {
+                checkbox.attr('checked', true);
                 break;
             }
         }
-        if(compareCheck.is(':checked') == true) {
+
+        if(checkbox.is(':checked') == true) {
             updateInfoBoxCompareButton(compareButton);
         }
     }
