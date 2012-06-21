@@ -51,11 +51,11 @@ var Boundary = (function (){
                 $homes.hide();
 
         }
-        else if (obj.type == 'district' && obj.counts){
+        else if (obj.type == 'district'){
             var array = new Array();
-            array.push('Elementary (' + obj.counts['e'] + ')');
-            array.push('Middle (' + obj.counts['m'] + ')');
-            array.push('High (' + obj.counts['h'] + ')');
+            array.push('Elementary (' + obj.elementary + ')');
+            array.push('Middle (' + obj.middle + ')');
+            array.push('High (' + obj.high + ')');
 
             if (array.length) {
                 address = array.join(', ');

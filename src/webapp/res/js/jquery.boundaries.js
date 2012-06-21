@@ -213,7 +213,7 @@ Boundaries.prototype = {
             if (obj.getType()=='school') marker.school = obj;
             else marker.district = obj;
             marker.key = obj.getKey();
-
+            marker.setZIndex((obj.getType()=='school')?2:3);
             google.maps.event.clearListeners(marker, 'click');
             google.maps.event.addListener(marker, 'click', $.proxy(function(){
                 module.focus(this);

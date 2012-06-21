@@ -551,7 +551,10 @@ public class BoundaryAjaxController {
         map.put("rating", ratingInt);
         UrlBuilder urlBuilder = new UrlBuilder(district.getDatabaseState(), district.getId(), district.getName(), district.getPhysicalAddress().getCity(), UrlBuilder.DISTRICT_HOME);
         map.put("url", urlBuilder.asSiteRelative(request));
-        map.put("counts", getSchoolCounts(district.getDatabaseState(), district.getId()));
+        map.put("elementary", _schoolDao.getSchoolCountInDistrict(district.getDatabaseState(), district.getId(), LevelCode.Level.ELEMENTARY_LEVEL));
+        map.put("middle", _schoolDao.getSchoolCountInDistrict(district.getDatabaseState(), district.getId(), LevelCode.Level.MIDDLE_LEVEL));
+        map.put("high", _schoolDao.getSchoolCountInDistrict(district.getDatabaseState(), district.getId(), LevelCode.Level.HIGH_LEVEL));
+
         return map;
     }
 
@@ -575,7 +578,11 @@ public class BoundaryAjaxController {
         map.put("rating", ratingInt);
         UrlBuilder urlBuilder = new UrlBuilder(district.getState(), district.getId(), district.getName(), district.getCity(), UrlBuilder.DISTRICT_HOME);
         map.put("url", urlBuilder.asSiteRelative(request));
-        map.put("counts", getSchoolCounts(district.getState(), district.getId()));
+
+        map.put("elementary", district.getNumberOfElementarySchools());
+        map.put("middle", district.getNumberOfMiddleSchools());
+        map.put("high", district.getNumberOfHighSchools());
+
         return map;
     }
 
