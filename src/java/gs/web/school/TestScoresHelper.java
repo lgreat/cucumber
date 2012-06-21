@@ -369,17 +369,28 @@ public class TestScoresHelper {
      * @return
      */
     protected String getGradeLabel(TestDataSet testData) {
-        if (testData.getGrade().getName() != null) {
+        return getGradeLabel(testData.getGrade(),testData.getLevelCode());
+    }
+
+    /**
+     * Helper method to get the Grade Label to display
+     *
+     * @param grade
+     * @param levelCode
+     * @return
+     */
+    protected String getGradeLabel(Grade grade,LevelCode levelCode) {
+        if (grade.getName() != null) {
             String gradeLabel = "";
-            if (Grade.ALL.equals(testData.getGrade())) {
+            if (Grade.ALL.equals(grade)) {
                 List<String> levelsList = new ArrayList<String>();
-                if (testData.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
+                if (levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
                     levelsList.add("Elementary");
                 }
-                if (testData.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
+                if (levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
                     levelsList.add("Middle");
                 }
-                if (testData.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+                if (levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
                     levelsList.add("High");
                 }
                 if (levelsList.size() >= 3) {
@@ -391,7 +402,7 @@ public class TestScoresHelper {
 
             } else {
                 try {
-                    Integer i = Integer.valueOf(testData.getGrade().getName());
+                    Integer i = Integer.valueOf(grade.getName());
                     gradeLabel = "Grade " + String.valueOf(i);
                 } catch (NumberFormatException e) {
                     gradeLabel = "All grades";
