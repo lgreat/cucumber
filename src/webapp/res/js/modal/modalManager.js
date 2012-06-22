@@ -98,11 +98,17 @@ function ModalLayer(options, id){
 	var getContainerId = function(  ) {	return containerId; }
 	var showModal = function(  ){
 		var containerObj = $('#'+getContainerId());
-		var overlayState = "";
+        var layerObj  = $('#'+getLayerId());
+        var internalObj = layerObj.find('#js_modal_container');
+        var he = (layerObj.height())/2;
+        console.log("h:"+he);
+
+
+            var overlayState = "";
 		if(this.getOverlayState() == 'true') { overlayState = '<div class="js-overlay '+pagePosition+'"></div>' };
 		containerObj.append('<div id="modallayer'+getId()+'" >'
 				+overlayState
-				+'<div class="horizon '+pagePosition+'"><div class="js-modal">'
+				+'<div class="horizon '+pagePosition+'"><div class="js-modal" style="top:-'+he+'px; ">'
 				+getContent()+'</div></div>'+'</div>');
 	}
 	var hideModal = function( ) {

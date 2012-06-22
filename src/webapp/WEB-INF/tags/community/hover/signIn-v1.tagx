@@ -34,7 +34,7 @@
     </div>-->
 
     <div id="signInHover" class="dn">
-    <div class="mod modal_1 width_12">
+    <div class="mod modal_1 width_12" id="js_modal_container">
         <div class="outer">
             <a href="javascript:void(0);" class="closeModal" onClick="SignInModal.hideModal(); return false;">
                 <span class="iconx24 i-24-close fr"><!-- do not collapse --></span>
