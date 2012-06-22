@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.127 2012/06/19 20:36:43 rcox Exp $
+ * $Id: UrlUtil.java,v 1.128 2012/06/22 21:41:29 rcox Exp $
  */
 
 package gs.web.util;
@@ -733,6 +733,7 @@ public final class UrlUtil {
                 hostName.matches("^172\\.21\\.1.*") ||
                 hostName.indexOf("samson.") != -1 ||
                 hostName.indexOf("mitchtest.") != -1 ||
+                hostName.indexOf("rcox.office.") != -1 ||
                 (hostName.matches(".+\\.office.*") && hostName.indexOf("cpickslay.office") == -1) ||
                 hostName.indexOf("vpn.greatschools.org") != -1 ||
                 hostName.indexOf("macbook") > -1;

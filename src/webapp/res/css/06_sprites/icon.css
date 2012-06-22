@@ -1,0 +1,391 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Small Icons
+Description: Specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+=0 implementation pattern eg
+=1 x16
+=2 x24
+=3 x32
+=4 x48
+=5 x64
+
+*/
+
+/* =0 implementation pattern eg
+-------------------------------------------------------------------------------------------*/
+
+/*
+<span class="iconx16 i-16-example"><!-- do not collapse --></span>
+*/
+
+/*
+NOTE:
+If space is required around an icon, please use a CSS margin property.
+
+WARNING:
+The padding property will increase the size of the viewport and reveal
+additional icons on the sprite.
+
+Viewport: the width and height of each icon is 16px x 16px, the background position varies.
+*/
+
+/* =1 x16
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconx16 {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/x16/120601-16x16.png);
+    width: 16px;
+    height: 16px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-16-help {
+    background-position: 0 0;
+}
+
+.i-16-success {
+    background-position: -16px 0;
+}
+
+.i-16-information {
+    background-position: -32px 0;
+}
+
+.i-16-alert {
+    background-position: -48px 0;
+}
+
+.i-16-email {
+    background-position: -64px 0;
+}
+
+.i-16-print {
+    background-position: -80px 0;
+}
+
+.i-16-pdf {
+    background-position: -96px 0;
+}
+
+.i-16-spanish {
+    background-position: -112px 0;
+}
+
+.i-16-english {
+    background-position: -128px 0;
+}
+
+.i-16-close {
+    background-position: -144px 0;
+}
+
+.i-16-notice {
+    background-position: -160px 0;
+}
+
+.i-16-comment {
+    background-position: -176px 0;
+}
+
+.i-16-home-sales {
+    background-position: -192px 0;
+}
+
+.i-16-cross {
+    background-position: -208px 0;
+}
+/* row 16 */
+
+a:hover .i-16-close {
+    background-position: -144px -16px;
+}
+
+/* =2 x24
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconx24 {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/x24/120517-24x24.png);
+    width: 24px;
+    height: 24px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-24-close {
+    background-position: 0 0;
+}
+
+.i-24-district {
+    background-position: -24px 0;
+}
+
+.i-24-private-school {
+    background-position: -48px 0;
+}
+
+.i-24-public-charter-school {
+    background-position: -72px 0;
+}
+
+.i-24-school-enrollment {
+    background-position: -96px 0;
+}
+
+.i-24-district-boundary {
+    background-position: -120px 0;
+}
+
+/* row 24 */
+
+span:hover.i-24-close {
+    background-position: 0 -24px;
+}
+
+/* =3 x32
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconx32 {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/x32/120210-32x32.png);
+    width: 32px;
+    height: 32px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-32-facebook {
+    background-position: 0 0;
+}
+
+.i-32-twitter {
+    background-position: -32px 0;
+}
+
+.i-32-blog {
+    background-position: -64px 0;
+}
+
+.i-32-iphone {
+    background-position: -96px 0;
+}
+
+/* row 32 */
+
+/* =4 x48
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconx48 {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/x48/120326-48x48.png);
+    width: 48px;
+    height: 48px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+
+.i-48-sb {
+    background-position: 0 0;
+}
+
+.i-48-im {
+    background-position: -48px 0;
+}
+
+.i-48-ae {
+    background-position: -96px 0;
+}
+
+.i-48-pr {
+    background-position: -144px 0;
+}
+
+.i-48-ee {
+    background-position: -192px 0;
+}
+
+.i-48-sc {
+    background-position: -240px 0;
+}
+
+.i-48-ci {
+    background-position: -288px 0;
+}
+
+.i-48-si {
+    background-position: -336px 0;
+}
+
+.i-48-gallery-back-default{
+    background-position: -384px 0;
+}
+
+.i-48-gallery-next-default{
+    background-position: -432px 0;
+}
+
+span.i-48-gallery-back-default:hover{
+    background-position: -480px 0;
+}
+
+span.i-48-gallery-next-default:hover{
+    background-position: -528px 0;
+}
+
+
+/* row 48 */
+.selected .i-48-sb {
+    background-position: 0 -48px;
+}
+
+.selected .i-48-im {
+    background-position: -48px -48px;
+}
+
+.selected .i-48-ae {
+    background-position: -96px -48px;
+}
+
+.selected .i-48-pr {
+    background-position: -144px -48px;
+}
+
+.selected .i-48-ee {
+    background-position: -192px -48px;
+}
+
+.selected .i-48-sc {
+    background-position: -240px -48px;
+}
+
+.selected .i-48-ci {
+    background-position: -288px -48px;
+}
+
+.selected .i-48-si {
+    background-position: -336px -48px;
+}
+
+/* row 96 */
+
+.completed .i-48-sb {
+    background-position: 0 -96px;
+}
+
+.completed .i-48-im {
+    background-position: -48px -96px;
+}
+
+.completed .i-48-ae {
+    background-position: -96px -96px;
+}
+
+.completed .i-48-pr {
+    background-position: -144px -96px;
+}
+
+.completed .i-48-ee {
+    background-position: -192px -96px;
+}
+
+.completed .i-48-sc {
+    background-position: -240px -96px;
+}
+
+.completed .i-48-ci {
+    background-position: -288px -96px;
+}
+
+.completed .i-48-si {
+    background-position: -336px -96px;
+}
+
+/* row 144 */
+
+.completed.selected .i-48-sb {
+    background-position: 0 -144px;
+}
+
+.completed.selected .i-48-im {
+    background-position: -48px -144px;
+}
+
+.completed.selected .i-48-ae {
+    background-position: -96px -144px;
+}
+
+.completed.selected .i-48-pr {
+    background-position: -144px -144px;
+}
+
+.completed.selected .i-48-ee {
+    background-position: -192px -144px;
+}
+
+.completed.selected .i-48-sc {
+    background-position: -240px -144px;
+}
+
+.completed.selected .i-48-ci {
+    background-position: -288px -144px;
+}
+
+.completed.selected .i-48-si {
+    background-position: -336px -144px;
+}
+
+/* =5 x64
+-------------------------------------------------------------------------------------------*/
+
+.iconx64 {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/x64/120210-64x64.png);
+    width: 64px;
+    height: 64px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-64-move {
+    background-position: 0 0;
+}
+
+.i-64-assess {
+    background-position: -64px 0;
+}
+
+.i-64-change {
+    background-position: -128px 0;
+}
+
+.i-64-choose {
+    background-position: -192px 0;
+}
+
+/* row 32 */

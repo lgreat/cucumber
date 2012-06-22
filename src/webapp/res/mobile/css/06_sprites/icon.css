@@ -1,0 +1,186 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Mobile small Icons
+Description: Specific styles for the GreatSchools website
+Author: Priyanshi Deshwal
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+=0 implementation pattern eg
+=1 x12
+=2 x16
+=3 x24
+
+*/
+
+/* =0 implementation pattern eg
+-------------------------------------------------------------------------------------------*/
+
+/*
+<span class="iconx12 i-12-example"><!-- do not collapse --></span>
+*/
+
+/*
+NOTE:
+If space is required around an icon, please use a CSS margin property.
+
+WARNING:
+The padding property will increase the size of the viewport and reveal
+additional icons on the sprite.
+
+Viewport: the width and height of each icon is 12px x 12px, the background position varies.
+*/
+
+/* =1 x12
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconx12 {
+    display: inline-block;
+    background-size: 12px 24px;
+    width: 12px;
+    height: 12px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-12-orange-star {
+    background-position: 0 0;
+}
+
+.i-12-grey-star {
+    background-position: 0 -12px;
+}
+
+/* This is for the stars grey or orange */
+.i-12-star-0{width:0}
+.i-12-star-1{width:12px}
+.i-12-star-2{width:24px; repeat-x;}
+.i-12-star-3{width:36px; repeat-x;}
+.i-12-star-4{width:48px; repeat-x;}
+.i-12-star-5{width:60px; repeat-x;}
+.i-12-star-6{width:72px; repeat-x;}
+.i-12-star-7{width:84px; repeat-x;}
+.i-12-star-8{width:96px; repeat-x;}
+.i-12-star-9{width:108px; repeat-x;}
+.i-12-star-10{width:120px; repeat-x;}
+
+/* =1 x16
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconx16 {
+    display: inline-block;
+    background-size: 16px 96px;
+    width: 16px;
+    height: 16px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-16-alert {
+    background-position: 0 0;
+}
+
+.i-16-right-arrow {
+    background-position: 0 -16px;
+}
+
+.i-16-down-arrow {
+    background-position: 0 -32px;
+}
+
+.i-16-orange-star {
+    background-position: 0 -48px;
+}
+
+.i-16-grey-star {
+    background-position: 0 -64px;
+}
+.i-16-right-arrow-bg {
+    background-position: 0 -80px;
+}
+
+/* This is for the stars grey or orange */
+.i-16-star-0{width:0px}
+.i-16-star-1{width:16px}
+.i-16-star-2{width:32px; repeat-x;}
+.i-16-star-3{width:48px; repeat-x;}
+.i-16-star-4{width:64px; repeat-x;}
+.i-16-star-5{width:80px; repeat-x;}
+.i-16-star-6{width:96px; repeat-x;}
+.i-16-star-7{width:112px; repeat-x;}
+.i-16-star-8{width:128px; repeat-x;}
+.i-16-star-9{width:144px; repeat-x;}
+.i-16-star-10{width:160px; repeat-x;}
+
+/* =1 x24
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconx24 {
+    display: inline-block;
+    background-size:240px 48px;
+    width: 24px;
+    height: 24px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-24-home {
+    background-position: 0 0;
+}
+
+.i-24-checkbox {
+    background-position: -24px 0;
+}
+
+.i-24-map {
+    background-position: -48px 0;
+}
+
+.i-24-map-pin {
+    background-position: -72px 0;
+}
+
+.i-24-stats {
+    background-position: -96px 0;
+}
+
+.i-24-magnifying-glass {
+    background-position: -120px 0;
+}
+
+.i-24-expand {
+    background-position: -144px 0;
+}
+
+/*row 24 */
+
+.i-24-collapse {
+    background-position: -144px -24px;
+}
+
+.i-24-close_x {
+    background-position: -168px 0;
+}
+
+.i-24-clear_x {
+    background-position: -192px 0;
+}
+
+.i-24-map-arrow {
+    background-position: -216px 0;
+}

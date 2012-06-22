@@ -1,0 +1,164 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: District Map Pin
+Description: Specific styles for the GreatSchools website
+Author: Priyanshi Deshwal
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+=0 implementation pattern eg
+=1 x32
+=2 x48
+
+*/
+
+/* =0 implementation pattern eg
+-------------------------------------------------------------------------------------------*/
+
+/*
+<span class="mapPinsx32 i-32-example"><!-- do not collapse --></span>
+*/
+
+/*
+NOTE:
+If space is required around an icon, please use a CSS margin property.
+
+WARNING:
+The padding property will increase the size of the viewport and reveal
+additional icons on the sprite.
+
+Viewport: the width and height of each icon is 32px x 32px, the background position varies.
+*/
+
+/* =1 x32
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.mapPinsx32 {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/mapPins/x32/120523-mapPinsx32.png);
+    width: 32px;
+    height: 32px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-32-rating-10 {
+    background-position: 0 0;
+}
+
+.i-32-rating-9 {
+    background-position: -32px 0;
+}
+
+.i-32-rating-8 {
+    background-position: -64px 0;
+}
+
+.i-32-rating-7 {
+    background-position: -96px 0;
+}
+
+.i-32-rating-6 {
+    background-position: -128px 0;
+}
+
+.i-32-rating-5 {
+    background-position: -160px 0;
+}
+
+.i-32-rating-4 {
+    background-position: -192px 0;
+}
+
+.i-32-rating-3 {
+    background-position: -224px 0;
+}
+
+.i-32-rating-2 {
+    background-position: -256px 0;
+}
+
+.i-32-rating-1 {
+    background-position: -288px 0;
+}
+
+.i-32-rating-na {
+    background-position: -320px 0;
+}
+
+.i-32-rating-pr {
+    background-position: -352px 0;
+}
+
+/* row 32 */
+
+/* =2 x48
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.mapPinsx48 {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/mapPins/x48/120524-mapPinsx48.png);
+    width: 48px;
+    height: 48px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+
+.i-48-rating-10 {
+    background-position: 0 0;
+}
+
+.i-48-rating-9 {
+    background-position: -48px 0;
+}
+
+.i-48-rating-8 {
+    background-position: -96px 0;
+}
+
+.i-48-rating-7 {
+    background-position: -144px 0;
+}
+
+.i-48-rating-6 {
+    background-position: -192px 0;
+}
+
+.i-48-rating-5 {
+    background-position: -240px 0;
+}
+
+.i-48-rating-4 {
+    background-position: -288px 0;
+}
+
+.i-48-rating-3 {
+    background-position: -336px 0;
+}
+
+.i-48-rating-2 {
+    background-position: -384px 0;
+}
+
+.i-48-rating-1 {
+    background-position: -432px 0;
+}
+
+.i-48-rating-na{
+    background-position: -480px 0;
+}
+
+/* row 48 */

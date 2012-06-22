@@ -20,9 +20,9 @@
 <head>
     <!--<pageHelper:externalCss file="/res/css/gs2010_styles.css"/>-->
     <!--<pageHelper:externalCss file="/res/css/gs2010_IEstyles.css"/>-->
-    <pageHelper:externalCss file="/res/css/00_reset/neutral_reset.css"/>
+    <pageHelper:externalCss file="/res/css/00_reset/reset.css"/>
     <pageHelper:externalCss file="/res/css/01_grids/grid_oocss.css"/>
-    <pageHelper:externalCss file="/res/css/02_text/slStylesV1-0.css"/>
+    <pageHelper:externalCss file="/res/css/02_text/typography-v1.css"/>
     <pageHelper:externalCss file="/res/css/03_sprites/icons.css"/>
     <pageHelper:externalCss file="/res/css/05_buttons/buttons.css"/>
     <pageHelper:externalCss file="/res/css/06_spacing/spacing.css"/>

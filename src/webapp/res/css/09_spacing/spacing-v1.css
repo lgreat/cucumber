@@ -86,3 +86,9 @@ General comments:
 .pf { position: fixed; }
 .pr { position: relative; }
 .ps { position: static; }
+
+/* z-index resets */
+.zir-1{position:relative;z-index:1;}
+.zir-2{position:relative;z-index:2;}
+.zir-3{position:relative;z-index:3;}
+.zir-4{position:relative;z-index:4;}

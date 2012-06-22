@@ -332,7 +332,6 @@
                             <cssSourceDir>/res/css</cssSourceDir>
                             <cssSourceFiles>
                                 <param>00_reset/reset.css</param>
-                                <param>00_reset/z_index_reset.css</param>
                                 <param>01_grids/grid_960.css</param>
                                 <param>01_grids/grid_oocss.css</param>
                                 <param>02_module/mod.css</param>
@@ -340,11 +339,7 @@
                                 <param>03_media/media.css</param>
                                 <param>04_text/typography.css</param>
                                 <param>05_forms/forms.css</param>
-                                <param>06_sprites/icon_x16.css</param>
-                                <param>06_sprites/icon_x24.css</param>
-                                <param>06_sprites/icon_x32.css</param>
-                                <param>06_sprites/icon_x48.css</param>
-                                <param>06_sprites/icon_x64.css</param>
+                                <param>06_sprites/icon.css</param>
                                 <param>06_sprites/icons.css</param>
                                 <param>06_sprites/ui.css</param>
                                 <param>07_navigation/primary.css</param>
@@ -355,6 +350,7 @@
                                 <param>10_css3/rounded_corners.css</param>
                                 <param>10_css3/linear_gradients.css</param>
                                 <param>10_css3/opacity_shadow.css</param>
+                                <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
                                 <param>14_ratings/ratings.css</param>
                                 <param>38_special/cms_content.css</param>
@@ -403,11 +399,11 @@
                             <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
                             <cssSourceDir>/res/css</cssSourceDir>
                             <cssSourceFiles>
-                                <param>00_reset/neutral_reset.css</param>
+                                <param>00_reset/reset.css</param>
                                 <param>01_grids/grid_oocss.css</param>
                                 <param>02_module/mod-v1.css</param>
                                 <param>03_media/media-v1.css</param>
-                                <param>06_sprites/icon_x16.css</param>
+                                <param>06_sprites/icon.css</param>
                                 <param>04_text/typography-v1.css</param>
                                 <param>08_buttons/buttons.css</param>
                                 <param>09_spacing/spacing.css</param>
@@ -438,7 +434,6 @@
                             <cssSourceDir>/res/mobile/css</cssSourceDir>
                             <cssSourceFiles>
                                 <param>00_reset/reset.css</param>
-                                <param>00_reset/z_index_reset.css</param>
                                 <param>01_grids/grid_oocss.css</param>
                                 <param>02_module/mod.css</param>
                                 <param>02_module/mod_skins.css</param>
@@ -447,10 +442,7 @@
                                 <param>04_text/typography.css</param>
                                 <param>05_buttons/buttons.css</param>
                                 <param>05_buttons/filter.css</param>
-                                <param>06_sprites/icon_x12.css</param>
-                                <param>06_sprites/icon_x16.css</param>
-                                <param>06_sprites/icon_x24.css</param>
-                                <param>06_sprites/icon_x32.css</param>
+                                <param>06_sprites/icon.css</param>
                                 <param>07_forms/forms.css</param>
                                 <param>08_navigation/top.css</param>
                                 <param>09_spacing/spacing.css</param>
@@ -475,7 +467,6 @@
                             <cssSourceDir>/res/css</cssSourceDir>
                             <cssSourceFiles>
                                 <param>00_reset/reset.css</param>
-                                <param>00_reset/z_index_reset.css</param>
                                 <param>01_grids/grid_960.css</param>
                                 <param>01_grids/grid_oocss.css</param>
                                 <param>02_module/mod-v1.css</param>
@@ -483,11 +474,7 @@
                                 <param>03_media/media-v1.css</param>
                                 <param>04_text/typography-v1.css</param>
                                 <param>05_forms/forms-v1.css</param>
-                                <param>06_sprites/icon_x16.css</param>
-                                <param>06_sprites/icon_x24.css</param>
-                                <param>06_sprites/icon_x32.css</param>
-                                <param>06_sprites/icon_x48.css</param>
-                                <param>06_sprites/icon_x64.css</param>
+                                <param>06_sprites/icon.css</param>
                                 <param>06_sprites/ui.css</param>
                                 <param>07_navigation/utilityLinks-v1.css</param>
                                 <param>07_navigation/topSearch-v1.css</param>
@@ -512,6 +499,38 @@
                                 <param>jquery.autocomplete.css</param>
                             </cssSourceFiles>
                             <cssFinalFile>gs_styles-v1.combined.css</cssFinalFile>
+                            <cssTargetDir>/res/css</cssTargetDir>
+                        </configuration>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-minify-IE7-v1</id>
+                        <configuration>
+                            <webappSourceDir>${basedir}/src/webapp</webappSourceDir>
+                            <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
+                            <cssSourceDir>/res/css</cssSourceDir>
+                            <cssSourceFiles>
+                                <param>12_advertising/ad-IE7.css</param>
+                            </cssSourceFiles>
+                            <cssFinalFile>gs_styles_IE7-v1.combined.css</cssFinalFile>
+                            <cssTargetDir>/res/css</cssTargetDir>
+                        </configuration>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-minify-IE8-v1</id>
+                        <configuration>
+                            <webappSourceDir>${basedir}/src/webapp</webappSourceDir>
+                            <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
+                            <cssSourceDir>/res/css</cssSourceDir>
+                            <cssSourceFiles>
+                                <param>12_advertising/ad-IE8.css</param>
+                            </cssSourceFiles>
+                            <cssFinalFile>gs_styles_IE8-v1.combined.css</cssFinalFile>
                             <cssTargetDir>/res/css</cssTargetDir>
                         </configuration>
                         <goals>
@@ -569,7 +588,7 @@
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
             <version>1.3.1</version>
-          </dependency> 
+          </dependency>
         <dependency>
             <groupId>taglibs</groupId>
             <artifactId>standard</artifactId>
@@ -624,6 +643,21 @@
             <groupId>jsptags</groupId>
             <artifactId>pager-taglib</artifactId>
             <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>gdata</groupId>
+            <artifactId>gdata-core</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>gdata</groupId>
+            <artifactId>gdata-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>gdata</groupId>
+            <artifactId>gdata-spreadsheet</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>recaptcha4j</groupId>

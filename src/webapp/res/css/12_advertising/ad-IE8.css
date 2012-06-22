@@ -1,0 +1,30 @@
+/*@charset "UTF-8";*/
+/* CSS Document */
+
+/*
+Theme Name: Advertising
+Description: All the specific styles for the GreatSchools website
+Author: Randall Cox
+Version: 1.0
+.
+General comments:
+.
+
+[Table Of Contents]
+
+
+*/
+
+/* --------------------------------------------------------------
+
+   * Advertising structures for IE8.
+
+-------------------------------------------------------------- */
+
+.vertical-ghost-text {
+    /* layout properties */
+    top:0;
+    left:0;
+    /* vendor specific properties */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}

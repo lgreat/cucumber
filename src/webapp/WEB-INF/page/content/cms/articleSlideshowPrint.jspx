@@ -18,8 +18,8 @@
 
         <meta name="keywords" content="${feature.metaKeywords}"/>
 
-        <script type="text/javascript" src="/res/js/global.js"><!--D not collapse--></script>
-        <link rel="stylesheet" type="text/css" href="/res/css/00_reset/neutral_reset.css" />
+        <script type="text/javascript" src="/res/js/global.js"><!-- Do not collapse --></script>
+        <link rel="stylesheet" type="text/css" href="/res/css/00_reset/reset.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/09_spacing/spacing.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/10_css3/rounded_corners.css" />
         <link rel="stylesheet" type="text/css" href="/res/css/38_special/cms_content.css" />

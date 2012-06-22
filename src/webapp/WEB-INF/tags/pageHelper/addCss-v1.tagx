@@ -23,7 +23,6 @@
                          or pageContext.request.serverName eq '127.0.0.1')
                          and empty param.compressedScripts}">
             <gsml:url var="reset" value="/res/css/00_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="zindexreset" value="/res/css/00_reset/z_index_reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="grid960" value="/res/css/01_grids/grid_960.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gridoocss" value="/res/css/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="module" value="/res/css/02_module/mod.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -31,11 +30,7 @@
             <gsml:url var="media" value="/res/css/03_media/media-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="text" value="/res/css/04_text/typography-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="forms" value="/res/css/05_forms/forms-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="iconx16" value="/res/css/06_sprites/icon_x16.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="iconx24" value="/res/css/06_sprites/icon_x24.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="iconx32" value="/res/css/06_sprites/icon_x32.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="iconx48" value="/res/css/06_sprites/icon_x48.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="iconx64" value="/res/css/06_sprites/icon_x64.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="icon" value="/res/css/06_sprites/icon.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="uispritecss" value="/res/css/06_sprites/ui.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="utilityLinks" value="/res/css/07_navigation/utilityLinks-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="topSearch" value="/res/css/07_navigation/topSearch-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -50,6 +45,8 @@
             <gsml:url var="opacityshadow" value="/res/css/10_css3/opacity_shadow.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="modal" value="/res/css/11_modal/modal.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="ad" value="/res/css/12_advertising/ad.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="adIE7" value="/res/css/12_advertising/ad-IE7.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="adIE8" value="/res/css/12_advertising/ad-IE8.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="ratings" value="/res/css/14_ratings/ratings.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <!--<gsml:url var="cmscontent" value="/res/css/38_special/cms_content.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
             <!--<gsml:url var="communityhover" value="/res/css/38_special/community_hover.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
@@ -60,7 +57,6 @@
             <gsml:url var="houseadscss" value="/res/css/house_ads.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="jquery_autocomplete_css" value="/res/css/jquery.autocomplete.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${reset}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${zindexreset}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${grid960}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${module}" type="text/css" />]]>
@@ -68,11 +64,7 @@
             <![CDATA[<link rel="stylesheet" href="${media}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${text}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${forms}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${iconx16}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${iconx24}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${iconx32}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${iconx48}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${iconx64}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${icon}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${uispritecss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${utilityLinks}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${topSearch}" type="text/css" />]]>
@@ -87,10 +79,11 @@
             <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${modal}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${ad}" type="text/css" />]]>
+            <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${adIE7}" type="text/css" /><![endif]-->]]>
+            <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${adIE8}" type="text/css" /><![endif]-->]]>
             <![CDATA[<link rel="stylesheet" href="${ratings}" type="text/css" />]]>
             <!--<![CDATA[<link rel="stylesheet" href="${cmscontent}" type="text/css" />]]>-->
             <!--<![CDATA[<link rel="stylesheet" href="${communityhover}" type="text/css" />]]>-->
-            <!--<![CDATA[<link rel="stylesheet" href="${themeroller}" type="text/css" />]]>-->
             <!--<![CDATA[<link rel="stylesheet" href="${themeroller}" type="text/css" />]]>-->
             <!--<![CDATA[<link rel="stylesheet" href="${timepicker}" type="text/css" />]]>-->
             <![CDATA[<link rel="stylesheet" href="${debug}" type="text/css" />]]>
@@ -100,7 +93,11 @@
         </c:when>
         <c:otherwise>
             <gsml:url var="gs_stylescss_v1" value="/res/css/gs_styles-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="gs_stylescssIE7_v1" value="/res/css/gs_styles_IE7-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="gs_stylescssIE8_v1" value="/res/css/gs_styles_IE8-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${gs_stylescss_v1}" type="text/css" />]]>
+            <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${gs_stylescssIE7_v1}" type="text/css" /><![endif]-->]]>
+            <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${gs_stylescssIE8_v1}" type="text/css" /><![endif]-->]]>
         </c:otherwise>
     </c:choose>
 

@@ -8,7 +8,7 @@
                        description="Generates JavaScript to hide ghost text of untargeted ads. Generally you will not call this directly, but it will be called by the page decorator."/>
     <!-- GAMadNames is set by xGAMSetup.tagx, which should be called before this tag is called -->
     <!-- only generate the javascript below if this page is not ad-free and there is ad least one ad on this page -->
-    <c:if test="${!requestScope.pageHelper.adFree and !empty GAMadNames}">
+    <c:if test="${!requestScope.pageHelper.adFree and !empty GAMadNames and !requestScope.context.gptEnabled}">
 
             <script type="text/javascript">
                 GS = GS || {};
@@ -24,22 +24,8 @@
                             <c:set var="slotPosition" value="${not empty gamSlotPrefix ? fn:replace(jsEscapedSlotName,gamSlotPrefix,'') : jsEscapedSlotName}"/>
                             <!-- check for existence of element inserted by GAM when an ad is targeted;
                                  note that the div id may or may not have '_ad_container' at the end, so check for both -->
-                            if (jQuery('#google_ads_div_${jsEscapedSlotName}, #google_ads_div_${jsEscapedSlotName}_ad_container, #gpt${jsEscapedSlotName} div').length === 0) {
-                                <c:choose>
-                                        <!-- hide header ad ghost text if header ad is not targeted -->
-                                        <c:when test="${fn:contains(slotName,'Header_728x90')}">
-                                            jQuery('#jq-ghostText-Header_728x90').remove();
-                                            <![CDATA[jQuery('#adLeaderboard .jq-ghostTextWrapper').append('<img src="/res/img/pixel.gif" width="20" height="96"/>');]]>
-                                        </c:when>
-                                        <!-- hide footer ad ghost text if header ad is not targeted -->
-                                        <c:when test="${fn:contains(slotName,'Footer_728x90')}">
-                                            jQuery('#jq-ghostText-Footer_728x90').hide();
-                                        </c:when>
-                                        <!-- hide other ad's ghost text if ad is not targeted -->
-                                        <c:otherwise>
-                                            jQuery('#ad${slotPosition} .jq-ghostText').hide();
-                                        </c:otherwise>
-                                </c:choose>
+                            if (jQuery('#google_ads_div_${jsEscapedSlotName}, #google_ads_div_${jsEscapedSlotName}_ad_container').length === 0) {
+                                 jQuery('#ad${slotPosition} .jq-ghostText').hide();
                             }
                         </c:if>
                     </c:forEach>

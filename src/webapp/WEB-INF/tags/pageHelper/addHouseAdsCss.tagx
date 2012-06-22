@@ -15,21 +15,21 @@
                          or fn:startsWith(pageContext.request.serverName, '172.18.1.')
                          or pageContext.request.serverName eq '127.0.0.1')
                          and empty param.compressedScripts}">
-            <gsml:url var="neutralreset" value="/res/css/00_reset/neutral_reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="reset" value="/res/css/00_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gridoocss" value="/res/css/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="module" value="/res/css/02_module/mod-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="media" value="/res/css/03_media/media-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="text" value="/res/css/04_text/typography-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="iconx16" value="/res/css/06_sprites/icon_x16.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="icon" value="/res/css/06_sprites/icon.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="buttons" value="/res/css/08_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="spacing" value="/res/css/09_spacing/spacing.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="houseads" value="/res/css/house_ads.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <![CDATA[<link rel="stylesheet" href="${neutralreset}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${reset}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${module}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${media}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${text}" type="text/css" />]]>
-            <![CDATA[<link rel="stylesheet" href="${iconx16}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${icon}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${buttons}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${spacing}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${houseads}" type="text/css" />]]>

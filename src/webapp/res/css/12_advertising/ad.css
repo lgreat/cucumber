@@ -17,7 +17,43 @@ General comments:
 
 /* --------------------------------------------------------------
 
-   * Maintain advertising structures.
+   * Advertising structures.
+
+-------------------------------------------------------------- */
+
+.vertical-ghost-text-container{
+    /* box properties */
+    width:10px;
+    height:86px;
+    /*border:1px solid red;*/
+    /* layout properties */
+    position:relative;
+}
+
+.vertical-ghost-text {
+    /* box properties */
+    /*border:1px solid green;*/
+    /* layout properties */
+    position:absolute;
+    top:40px;
+    left:-40px;
+    /* color and backgrounds */
+    color:#ffffff;
+    /* typographical properties */
+    font: normal 10px/1 Arial, Helvetica, sans-serif;
+    text-transform:uppercase;
+    white-space:nowrap;
+    /* vendor specific properties and css3 */
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+
+/* --------------------------------------------------------------
+
+   * Legacy advertising structures.
 
 -------------------------------------------------------------- */
 

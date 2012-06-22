@@ -158,7 +158,7 @@
                 googletag.defineSlot('/1002894/${slotName}', <c:choose>
                     <c:when test="${fn:length(adPosition.allSizes) > 1}">[<c:forEach var="size" items="${adPosition.allSizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
                     <c:otherwise>[${adPosition.size.width},${adPosition.size.height}]</c:otherwise>
-                </c:choose>, 'gpt${slotName}')
+                </c:choose>, 'ad${adPosition.name}')
                     .addService(googletag.pubads());
             </c:forEach>
 

@@ -6,5 +6,9 @@
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="position" required="false" description="Ad slot position" />
     <c:set var="pos" value="${not empty position ? position : 'Header_728x90'}" />
-    <gsweb:adTagGenerator position="${pos}"/>
+    <gsweb:adTagGenerator position="${pos}">
+        <div class="jq-ghostText vertical-ghost-text-container fl">
+            <div class="vertical-ghost-text">Advertisement</div>
+        </div>$AD
+    </gsweb:adTagGenerator>
 </jsp:root>

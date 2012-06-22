@@ -66,7 +66,7 @@
     ${modTracking}
     <ad:hideGhostText/>
     <!-- global modal boxes / hovers go here -->
-    <communityHover:signIn-v1/>
+    <!--<communityHover:signIn-v1/>-->
     <div id="fullPageOverlay"><!-- --></div>
     </body>
 </html>
