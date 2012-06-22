@@ -117,9 +117,10 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                 populateTestScores(school, testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, subgroupTestScores, true);
             }
         }
-
+        //A new map to represent a map of test data set Id to TestDescription object.
+        Map<Integer, TestDescription> testDataTypeToDescription = getTestDataTypeToTestDescription(school, testDataTypeIdToTestDataType.keySet());
         //Convert the map of test scores that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
-        List<TestToGrades> testScores = populateTestScoresBean(school, testScoresMap);
+        List<TestToGrades> testScores = populateTestScoresBean(school, testScoresMap,testDataTypeToDescription);
 
         //Use to debug
         //printAllData(schoolValueMap);
@@ -327,7 +328,10 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
      * @param map
      * @return This returns a list of TestToGrades bean, which is used to present data in the view.
      */
-    protected List<TestToGrades> populateTestScoresBean(School school, Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> map) {
+    protected List<TestToGrades> populateTestScoresBean(
+            School school, Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> map,
+            Map<Integer, TestDescription> testDataTypeToDescription) {
+
         List<TestToGrades> testToGradesList = new ArrayList<TestToGrades>();
         for (CustomTestDataType testDataType : map.keySet()) {
             TestToGrades testToGrades = new TestToGrades();
@@ -336,11 +340,10 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             testToGrades.setIsSubgroup((testDataType.getLabel().indexOf("_subgroup") > 0) ? true : false);
 
             //Get the test information, like the source, scale and description.
-            //TODO maybe make one call?
-            TestDescription testDescription = _testDescriptionDao.findTestDescriptionByStateAndDataTypeId(school.getDatabaseState(), testDataType.getId());
             String description = "";
             String scale = "";
             String source = "";
+            TestDescription testDescription = testDataTypeToDescription.get(testDataType.getId());
             if (testDescription != null) {
                 description = StringUtils.isNotBlank(testDescription.getDescription()) ? testDescription.getDescription() : "";
                 scale = StringUtils.isNotBlank(testDescription.getScale()) ? StringEscapeUtils.escapeHtml(testDescription.getScale()) : "";
@@ -426,6 +429,15 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         //Sort the tests.
         Collections.sort(testToGradesList);
         return testToGradesList;
+    }
+
+    protected Map<Integer, TestDescription> getTestDataTypeToTestDescription(School school, Set<Integer> dataTypeIds) {
+        Map<Integer, TestDescription> testDataTypeToTestDescription = new HashMap<Integer, TestDescription>();
+        List<TestDescription> testDescriptions = _testDescriptionDao.findTestDescriptionsByStateAndDataTypeIds(school.getDatabaseState(), dataTypeIds);
+        for (TestDescription testDescription : testDescriptions) {
+            testDataTypeToTestDescription.put(testDescription.getDataTypeId(), testDescription);
+        }
+        return testDataTypeToTestDescription;
     }
 
     /**
