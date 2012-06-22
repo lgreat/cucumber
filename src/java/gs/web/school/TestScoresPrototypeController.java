@@ -45,6 +45,8 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
     private ITestDescriptionDao _testDescriptionDao;
 
+    private TestScoresHelper _testScoresHelper;
+
     private static final String ERROR_VIEW = "/school/error";
 
     private static final Logger _log = Logger.getLogger(TestScoresPrototypeController.class);
@@ -102,14 +104,14 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
         //Get all the non-subgroup data points that a school should have.
         //(Fetch the data sets and the test score values if they exist.Fetch the data sets irrespective of, if the school has value or not).
-        List<Map<String, Object>> nonSubgroupTestScores = _testDataSetDao.getTestDataSetsAndValues(school);
+        List<SchoolTestResult> nonSubgroupTestScores = _testDataSetDao.getTestDataSetsAndValues(school);
         //Fill in the testScoresMap with the non-subgroup data.
         populateTestScores(school, testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, nonSubgroupTestScores, false);
 
         //For each test get the subgroup data sets and values for the most recent year.(Making an assumption that the tests with subgroup data
         //are a subset of non-subgroup tests).
         for (Integer dataTypeId : testDataTypeIdToMaxYear.keySet()) {
-            List<Map<String, Object>> subgroupTestScores = _testDataSetDao.getSubgroupTestDataSetsAndValues(school, testDataTypeIdToTestDataType.get(dataTypeId), testDataTypeIdToMaxYear.get(dataTypeId));
+            List<SchoolTestResult> subgroupTestScores = _testDataSetDao.getSubgroupTestDataSetsAndValues(school, testDataTypeIdToTestDataType.get(dataTypeId), testDataTypeIdToMaxYear.get(dataTypeId));
             if (hasSubGroupData(subgroupTestScores)) {
                 //Fill in the testScoresMap with the subgroup data.
                 populateTestScores(school, testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, subgroupTestScores, true);
@@ -132,10 +134,9 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
      * @param subgroupTestScores
      * @return
      */
-    protected boolean hasSubGroupData(List<Map<String, Object>> subgroupTestScores) {
+    protected boolean hasSubGroupData(List<SchoolTestResult> subgroupTestScores) {
         if (!subgroupTestScores.isEmpty()) {
-            Map value = subgroupTestScores.get(0);
-            Integer breakdownId = (Integer) value.get("breakdown_id");
+            Integer breakdownId = subgroupTestScores.get(0).getBreakdownId();
             if (breakdownId == 1) {
                 return false;
             }
@@ -156,34 +157,31 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
     protected void
     populateTestScores(School school, Map<Integer, TestDataType> testDataTypeIdToTestDataType,
                        Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> testScoresMap,
-                       Map<Integer, Integer> testDataTypeIdToMaxYear, List<Map<String, Object>> testScoreResults, boolean isSubgroup) {
+                       Map<Integer, Integer> testDataTypeIdToMaxYear, List<SchoolTestResult> testScoreResults, boolean isSubgroup) {
 
-        for (Map value : testScoreResults) {
-            Integer testDataTypeId = (Integer) value.get("data_type_id");
+        for (SchoolTestResult testScoreResult : testScoreResults) {
+            Integer testDataTypeId = testScoreResult.getTestDataTypeId();
             TestDataType testDataType = getTestDataType(testDataTypeIdToTestDataType, testDataTypeId);
-            Integer testDataSetId = (Integer) value.get("id");
-            Grade grade = Grade.getGradeLevel((String) value.get("grade"));
-            LevelCode levelCode = LevelCode.createLevelCode((String) value.get("level_code"));
-            Subject subject = _subjectDao.findSubject((Integer) value.get("subject_id"));
-            Date yearDate = (Date) value.get("year");
-            DateFormat df = new SimpleDateFormat("yyyy");
-            String yearStr = df.format(yearDate);
-            Integer year = new Integer(yearStr);
-            Float valueFloat = (Float) value.get("value_float");
-            String valueText = (String) value.get("value_text");
-            Float stateAvgFloat = (Float) value.get("stateAvgFloat");
-            String stateAvgText = (String) value.get("stateAvgText");
-            Integer breakdownId = (Integer) value.get("breakdown_id");
+            Integer testDataSetId = testScoreResult.getTestDataSetId();
+            Grade grade = testScoreResult.getGrade();
+            LevelCode levelCode = testScoreResult.getLevelCode();
+            Subject subject = _subjectDao.findSubject(testScoreResult.getSubjectId());
+            Integer year = testScoreResult.getYear();
+            Float testScoreFloat = testScoreResult.getTestScoreFloat();
+            String testScoreText = testScoreResult.getTestScoreText();
+            Float stateAvgFloat = testScoreResult.getStateAvgFloat();
+            String stateAvgText = testScoreResult.getStateAvgText();
+            Integer breakdownId = testScoreResult.getBreakdownId();
 
             if (testDataType != null && testDataSetId != null && grade != null && levelCode != null && subject != null) {
 
                 //default the value to 'Data not available.'
                 String testScoreValue = LABEL_DATA_NOT_AVAILABLE;
-                if (valueFloat != null || valueText != null) {
+                if (testScoreFloat != null || testScoreText != null) {
                     //For masking.Masking : - sometimes the state does not give exact numbers, it saves <5% passed etc.
                     //AK has a lot of masked school values.
-                    testScoreValue = StringUtils.isNotBlank(valueText) ? StringEscapeUtils.escapeHtml(valueText) :
-                            Integer.toString(Math.round(valueFloat));
+                    testScoreValue = StringUtils.isNotBlank(testScoreText) ? StringEscapeUtils.escapeHtml(testScoreText) :
+                            Integer.toString(Math.round(testScoreFloat));
                 }
 
                 //default the state average to 'Data not available.'
@@ -199,8 +197,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                 CustomTestDataSet testDataSet = new CustomTestDataSet();
                 testDataSet.setYear(year);
                 testDataSet.setId(testDataSetId);
-                testDataSet.setGrade(grade);
-                testDataSet.setLevelCode(levelCode);
                 testDataSet.setStateAverage(stateAvg);
                 TestBreakdown breakdown = _testBreakdownDao.findBreakdown(breakdownId);
                 if (breakdown != null) {
@@ -228,6 +224,8 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                 customTestDataType.setLabel(testDataType.getName() + (isSubgroup ? "_subgroup" : ""));
                 //Fill the map with the test data type, grade, level code, subjects, test data set and value.
                 buildTestScoresMap(testScoresMap, customTestDataType, grade, levelCode, subject, testDataSet, testScoreValue);
+            }else{
+                _log.error("Could not retrieve testDataType:" + testDataType + " testDataSetId:" + testDataSetId + " grade:" + grade + " levelCode :" + levelCode + " subject:" + subject);
             }
         }
     }
@@ -359,7 +357,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                 //Set the lowest grade for the test to be able to sort multiple tests.
                 if (testToGrades.getLowestGradeInTest() == null) {
                     testToGrades.setLowestGradeInTest(grade);
-                } else if (getGradeNumForSorting(testToGrades.getLowestGradeInTest()).compareTo(getGradeNumForSorting(grade)) > 0) {
+                } else if (_testScoresHelper.getGradeNum(testToGrades.getLowestGradeInTest()).compareTo(_testScoresHelper.getGradeNum(grade)) > 0) {
                     testToGrades.setLowestGradeInTest(grade);
                 }
 
@@ -407,7 +405,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                             testValuesList.add(testValue);
 
                             //Set the grade label.
-                            gradeToSubjects.setGradeLabel(getGradeLabel(testDataSet));
+                            gradeToSubjects.setGradeLabel(_testScoresHelper.getGradeLabel(grade,levelCode));
                         }
                         //Sort in order of years or in the order of breakdown order.
                         Collections.sort(testValuesList);
@@ -428,46 +426,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         //Sort the tests.
         Collections.sort(testToGradesList);
         return testToGradesList;
-    }
-
-    /**
-     * Helper method to get the Grade Label to display
-     *
-     * @param testData
-     * @return
-     */
-    protected String getGradeLabel(CustomTestDataSet testData) {
-        if (testData.getGrade().getName() != null) {
-            String gradeLabel = "";
-            if (Grade.ALL.equals(testData.getGrade())) {
-                List<String> levelsList = new ArrayList<String>();
-                if (testData.getLevelCode().containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL)) {
-                    levelsList.add("Elementary");
-                }
-                if (testData.getLevelCode().containsLevelCode(LevelCode.Level.MIDDLE_LEVEL)) {
-                    levelsList.add("Middle");
-                }
-                if (testData.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
-                    levelsList.add("High");
-                }
-                if (levelsList.size() >= 3) {
-                    gradeLabel = "All grades";
-                } else if (levelsList.size() > 0 && levelsList.size() <= 2) {
-                    gradeLabel = StringUtils.join(levelsList, " and ");
-                    gradeLabel += " school";
-                }
-
-            } else {
-                try {
-                    Integer i = Integer.valueOf(testData.getGrade().getName());
-                    gradeLabel = "Grade " + String.valueOf(i);
-                } catch (NumberFormatException e) {
-                    gradeLabel = "All grades";
-                }
-            }
-            return gradeLabel;
-        }
-        return "";
     }
 
     /**
@@ -496,7 +454,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             }
         }
     }
-
 
     public ISchoolDao getSchoolDao() {
         return _schoolDao;
@@ -554,28 +511,12 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
         _testBreakdownDao = testBreakdownDao;
     }
 
-    /**
-     * A method to return a number when the Grade is of type 'All..'.This number is used to sort.
-     *
-     * @param grade
-     * @return
-     */
-    public static Integer getGradeNumForSorting(Grade grade) {
-        if (Grade.ALL.equals(grade)) {
-            return 13;
-        } else if (Grade.ALLE.equals(grade)) {
-            return 14;
-        } else if (Grade.ALLEM.equals(grade)) {
-            return 15;
-        } else if (Grade.ALLM.equals(grade)) {
-            return 15;
-        } else if (Grade.ALLMH.equals(grade)) {
-            return 16;
-        } else if (Grade.ALLH.equals(grade)) {
-            return 17;
-        }
-        //If the grade is of not type 'All..', then return the grade value.
-        return grade.getValue();
+    public TestScoresHelper getTestScoresHelper() {
+        return _testScoresHelper;
+    }
+
+    public void setTestScoresHelper(TestScoresHelper testScoresHelper) {
+        _testScoresHelper = testScoresHelper;
     }
 
     /**
@@ -655,22 +596,18 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             _isSubgroup = isSubgroup;
         }
 
-        //The tests should be sorted in the order of the lowest grade in the test.
+        //The tests should be sorted in the order of - the lowest grade in the test followed by test data type id.
         //However if the test has subgroup data then the test should be followed by subgroup test.
         public int compareTo(TestToGrades testToGrades) {
-            Integer gradeNum1 = getGradeNumForSorting(getLowestGradeInTest());
-            Integer gradeNum2 = getGradeNumForSorting(testToGrades.getLowestGradeInTest());
+            Integer gradeNum1 = TestScoresHelper.getGradeNum(getLowestGradeInTest());
+            Integer gradeNum2 = TestScoresHelper.getGradeNum(testToGrades.getLowestGradeInTest());
             Integer dataTypeId1 = getTestDataTypeId();
             Integer dataTypeId2 = testToGrades.getTestDataTypeId();
 
             int rval = 0;
             if (gradeNum1.compareTo(gradeNum2) == 0) {
                 if (dataTypeId1.compareTo(dataTypeId2) == 0) {
-                    if (getIsSubgroup()) {
-                        rval = 1;
-                    } else {
-                        rval = -1;
-                    }
+                    rval = getIsSubgroup() ? 1 : -1;
                 } else {
                     rval = dataTypeId1.compareTo(dataTypeId2);
                 }
@@ -712,7 +649,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
         public int compareTo(GradeToSubjects gradeToSubjects) {
             if (gradeToSubjects != null && gradeToSubjects.getGrade() != null && getGrade() != null) {
-                return getGradeNumForSorting(getGrade()).compareTo(getGradeNumForSorting(gradeToSubjects.getGrade()));
+                return TestScoresHelper.getGradeNum(getGrade()).compareTo(TestScoresHelper.getGradeNum(gradeToSubjects.getGrade()));
             }
             return 0;
         }
@@ -744,8 +681,11 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
     }
 
     public static class TestValues implements Comparable<TestValues> {
-        //TODO do we need both testScoreStr and testScoreLabel?
+        //testScoreStr is used to store the value to draw the bar graph.
+        //For example for masked value like '>95' testScoreStr = 95
         String _testScoreStr;
+        //testScoreLabel is used to display the value.
+        //For example for masked value like '>95' _testScoreLabel = >95
         String _testScoreLabel;
         Integer _year;
         String _stateAvg;
@@ -812,7 +752,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
     }
 
     /**
-     * Custom object to represent a test data set. Decided to go with a custom object instead of the TestDataType object bcos
+     * Custom object to represent a test data type. Decided to go with a custom object instead of the TestDataType object bcos
      * a)Wanted to 2 separate objects for a test with and without subgroup data.For example for the TestDataType - DSTP
      * we want to create 2 different objects- one with no subgroup data called 'DSTP' another with subgroup data called 'DSTP_subgroup'.
      */
@@ -855,6 +795,9 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
             return true;
         }
 
+        //There are tests with subgroup and non-subgroup data.
+        //Id equality is not enough, since we create an additional object with the same id for the subgroup test.
+        //Hence use the combination of id and label.
         public int hashCode() {
             return 53 * _id.hashCode() + _label.hashCode();
         }
@@ -869,8 +812,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
         public Integer _id;
         public Integer _year;
-        public Grade _grade;
-        public LevelCode _levelCode;
         public String _stateAverage = "";
         public String _breakdownLabel = "";
         Integer _breakdownSortOrder;
@@ -889,22 +830,6 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
 
         public void setYear(Integer year) {
             _year = year;
-        }
-
-        public Grade getGrade() {
-            return _grade;
-        }
-
-        public void setGrade(Grade grade) {
-            _grade = grade;
-        }
-
-        public LevelCode getLevelCode() {
-            return _levelCode;
-        }
-
-        public void setLevelCode(LevelCode levelCode) {
-            _levelCode = levelCode;
         }
 
         public String getStateAverage() {
