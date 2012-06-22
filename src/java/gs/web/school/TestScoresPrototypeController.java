@@ -14,10 +14,7 @@ import org.springframework.web.servlet.mvc.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -94,9 +91,9 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
      */
     protected List<TestToGrades> getTestScores(School school) {
 
-        //A new map to represent a map of test data set Id to testDataSet object.
+        //A new map to represent a map of test data type Id to testDataSet object.
         Map<Integer, TestDataType> testDataTypeIdToTestDataType = new HashMap<Integer, TestDataType>();
-        //A new map to represent a map of test data set Id to max year.This is used to query the subgroup data for a test only for the most recent year.
+        //A new map to represent a map of test data type Id to max year.This is used to query the subgroup data for a test only for the most recent year.
         Map<Integer, Integer> testDataTypeIdToMaxYear = new HashMap<Integer, Integer>();
         //A map used to store the test data type, grade, level code, subjects, test data set and test score value for the school.
         Map<CustomTestDataType, Map<Grade, Map<LevelCode, Map<Subject, Map<CustomTestDataSet, String>>>>> testScoresMap =
@@ -117,7 +114,7 @@ public class TestScoresPrototypeController implements Controller, IControllerFam
                 populateTestScores(school, testDataTypeIdToTestDataType, testScoresMap, testDataTypeIdToMaxYear, subgroupTestScores, true);
             }
         }
-        //A new map to represent a map of test data set Id to TestDescription object.
+        //A new map to represent a map of test data type Id to TestDescription object.
         Map<Integer, TestDescription> testDataTypeToDescription = getTestDataTypeToTestDescription(school, testDataTypeIdToTestDataType.keySet());
         //Convert the map of test scores that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
         List<TestToGrades> testScores = populateTestScoresBean(school, testScoresMap,testDataTypeToDescription);
