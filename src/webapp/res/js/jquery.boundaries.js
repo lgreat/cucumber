@@ -133,7 +133,7 @@ Boundaries.prototype = {
                 },
                 closeBoxMargin: "8px",
                 // TODO: Change closeBoxURL from staging to www
-                closeBoxURL: "http://dev.greatschools.org/res/img/googleMaps/16x16_close.png",
+                closeBoxURL: "/res/img/googleMaps/16x16_close.png",
                 infoBoxClearance: new google.maps.Size(1, 1),
                 isHidden: false,
                 pane: "floatPane",
@@ -390,20 +390,25 @@ Mappable.prototype = {
     }
     , getPolygonPath: function ( level ) {
         var coords, paths = new Array(), url = (this.getType()=='district')?'/geo/boundary/ajax/getDistrictBoundaryById.json':'/geo/boundary/ajax/getSchoolBoundaryById.json';
-        $.ajax({
-            url: url,
-            cache: true,
-            data: {id: this.id, state: this.state, level: level},
-            dataType: 'json',
-            type: 'GET',
-            async: false,
-            success: function( data ) {
-                coords = data.boundary.coordinates;
-            },
-            fail: function () {
-                coords = new Array();
-            }
-        });
+        if (!this.coordinates) {
+            $.ajax({
+                url: url,
+                cache: true,
+                data: {id: this.id, state: this.state, level: level},
+                dataType: 'json',
+                type: 'GET',
+                async: false,
+                success: function( data ) {
+                    coords = data.boundary.coordinates;
+                },
+                fail: function () {
+                    coords = new Array();
+                }
+            });
+        } else {
+            coords = this.coordinates.coordinates;
+        }
+
         if (coords) {
             for (var i=0;i < coords.length;i++){
                 for (var j=0;j<coords[i].length;j++){

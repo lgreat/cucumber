@@ -29,6 +29,7 @@ var Boundary = (function (){
         }
         if (paramsSet){
             $map.boundaries('center', new google.maps.LatLng(params.lat, params.lon));
+            $map.boundaries('district');
             $map.boundaries('districts');
         }
     }
@@ -167,7 +168,6 @@ var Boundary = (function (){
         }
         if ($priv.prop('checked')) $map.boundaries('nondistrict', 'private');
         if ($charter.prop('checked')) $map.boundaries('nondistrict', 'charter');
-        $map.boundaries('district');
     };
 
     var loadEventHandler = function (event, obj) {
@@ -179,7 +179,7 @@ var Boundary = (function (){
                     districtsEventHandler(event, obj);
                 }
             }
-            else if (obj.data.getType()=='district') {
+            else if (obj.data.getType && obj.data.getType()=='district') {
                 addDropdownItem(obj.data);
                 $dropdown.val(obj.data.getKey());
             }
