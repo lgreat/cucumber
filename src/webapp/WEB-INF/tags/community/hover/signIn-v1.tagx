@@ -33,12 +33,10 @@
         </form>
     </div>-->
 
-    <div id="signInHover" class="hidden">
+    <div id="signInHover" class="dn">
     <div class="mod modal_1 width_12">
         <div class="outer">
-            <a href="javascript:void(0);" class="closeModal" onClick="ModalManager.hideModal({
-            'layerId' : 'signInHover'
-        }); return false;">
+            <a href="javascript:void(0);" class="closeModal" onClick="SignInModal.hideModal(); return false;">
                 <span class="iconx24 i-24-close fr"><!-- do not collapse --></span>
             </a>
 
@@ -47,11 +45,11 @@
                     <h3 class="bottom fl">Sign in to GreatSchools</h3>
                 </div>
                 <div class="bd">
-                    <form action="javascript:void(0);" method="get">
+                    <form action="javascript:void(0);" method="get" id="signIn">
                         <div class="tal clearfix">
                             <label for="email" class="alpha grid_10 omega">Email address</label>
                             <div class="alpha grid_6">
-                                <input id="email" type="text" class="text input_6"/>
+                                <input id="semail" type="text" class="text input_6"/>
                             </div>
                             <div class="grid_4 omega">
                                 <div class="media error">
@@ -62,10 +60,10 @@
                         </div>
                         <div class="tal clearfix">
                             <label for="pwd">Password</label>
-                            <input id="pwd" type="text" class="text input_6"/>
+                            <input id="spword" type="password" class="text input_6"/>
                         </div>
                         <div class="nal clearfix">
-                            <input type="submit" name="" value="Sign in" class="button-1"/>
+                            <input type="submit" id="signinBtn" name="signinBtn" value="Sign in" class="button-1"/>
                         </div>
                         <p class="smaller quiet bottom">
                             <a href="javascript:void(0);">Forgot your password?</a><br/>
