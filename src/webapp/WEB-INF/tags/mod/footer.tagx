@@ -42,9 +42,11 @@
                 </div>
             </c:when>
             <c:when test="${showAd}">
-                <div id="footerAd">
+                <!--<div id="footerAd">-->
+                <div class="prefix_3 grid_19 suffix_2 mvl">
                     <ad:footerAd/>
                 </div>
+                <div class="clear"><!-- do not collapse --></div>
             </c:when>
             <c:otherwise>
                 <!--do not show a footer ad-->

@@ -8,7 +8,7 @@
     <c:set var="pos" value="${not empty position ? position : 'Footer_728x90'}" />
     <gsweb:adTagGenerator position="${pos}">
         <div class="jq-ghostText vertical-ghost-text-container fl">
-            <div class="vertical-ghost-text">Advertisement</div>
+            <div class="vertical-ghost-text make-999999">Advertisement</div>
         </div>$AD
     </gsweb:adTagGenerator>
 </jsp:root>

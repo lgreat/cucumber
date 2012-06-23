@@ -184,6 +184,19 @@ tfoot, .tableType1 tfoot       { font-style: italic; }
 caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bottom: 10px; background: #fff; text-align:left; }
 
 
+.make-000000 { color: #000000; }
+.make-2b2b2b { color: #2b2b2b; }
+.make-555555 { color: #555555; }
+.make-787878 { color: #787878; }
+.make-999999 { color: #999999; }
+.make-b8b8b8 { color: #b8b8b8; }
+.make-cccccc { color: #cccccc; }
+.make-dddddd { color: #dddddd; }
+.make-e6e6e6 { color: #e6e6e6; }
+.make-f1f1f1 { color: #f1f1f1; }
+.make-f8f8f8 { color: #f8f8f8; }
+.make-ffffff { color: #ffffff; }
+
 /* Misc classes
 -------------------------------------------------------------- */
 
