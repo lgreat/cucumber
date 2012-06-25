@@ -2,6 +2,11 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns="http://www.w3.org/1999/xhtml"
         >
+    <div class="alpha grid_7 fl">
+        <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a> &amp;nbsp;
+        <a data-role="button" data-inline="true" class="but but-sm but-2 js-mapResultsLink">Map</a>
+    </div>
+    <br class="clearfloat"/>
 
     <div id="js-school-search-results-table-body" class="errorBox2">
         <div class="media">

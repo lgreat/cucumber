@@ -133,16 +133,6 @@
     <ad:adTag position="SponsoredSearch_Top_423x68"/>
     <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
 
-    <div id="js-school-search-results-table-body" class="errorBox2" style="display: none;">
-        <div class="media">
-            <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-            <p class="formErrorText bd">No results match your selection. Change or remove filters to get more matches.</p>
-
-        </div>
-    </div>
-
-    <div class="js-leftResultsGrid">
     <div class="contain_6-1 pbs">
         <div class="fl">
             <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a>  &amp;nbsp;
@@ -153,6 +143,16 @@
     </div>
 
 
+    <div id="js-school-search-results-table-body" class="errorBox2" style="display: none;">
+        <div class="media">
+            <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+            <p class="formErrorText bd">No results match your selection. Change or remove filters to get more matches.</p>
+
+        </div>
+    </div>
+
+    <div class="js-leftResultsGrid">
     <c:set var="searchResultsPagingSummary">
         <div class="js-search-results-paging-summary text3">
             Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span id="total-results-count">${page.pager.totalItems}</span> schools
