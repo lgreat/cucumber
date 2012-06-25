@@ -74,4 +74,13 @@ public class HttpCacheInterceptorTest extends BaseControllerTestCase {
         assertNull(response.getHeader(HttpCacheInterceptor.HEADER_PRAGMA));
         assertNull(response.getHeader(HttpCacheInterceptor.HEADER_EXPIRES));
     }
+
+    public void testVaryHeader() throws Exception {
+        MockHttpServletRequest request = getRequest();
+        MockHttpServletResponse response = getResponse();
+        _interceptor.postHandle(request, response, null, null);
+
+        // Verify that cache headers were set
+        assertEquals("user-agent", response.getHeader(HttpCacheInterceptor.VARY));
+    }
 }

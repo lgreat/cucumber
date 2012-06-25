@@ -14,6 +14,7 @@ import java.util.Date;
  * @author thuss
  */
 public class HttpCacheInterceptor implements HandlerInterceptor {
+    public static final String VARY = "Vary";
     public static final String HEADER_CACHE_CONTROL = "Cache-Control";
     public static final String HEADER_PRAGMA = "Pragma";
     public static final String HEADER_EXPIRES = "Expires";
@@ -52,6 +53,8 @@ public class HttpCacheInterceptor implements HandlerInterceptor {
                 setNoCacheHeaders(response);
             }
         }
+
+        response.setHeader(VARY, "user-agent");
     }
 
     public void setNoCacheHeaders(HttpServletResponse response) {
