@@ -45,7 +45,7 @@ GS.util.htmlMirrors = GS.util.htmlMirrors || (function() {
         init:init,
         updateOneMirror:updateOneMirror,
         updateAll:updateAll,
-        recipientDataAttribute:recipientDataAttribute,
+        recipientDataAttribute:recipientDataAttribute
     };
 
 })();

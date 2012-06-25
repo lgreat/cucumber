@@ -46,8 +46,8 @@ GS.search.filters = GS.search.filters || (function() {
     };
 
     var reset = function() {
-        for (index in advancedCheckboxAndRadioFilters) {
-            $('.dropDown-checkboxes input:checkbox[name=' + advancedCheckboxAndRadioFilters[index] + ']:checked').prop('checked',false).trigger('change');
+        for (var index in advancedCheckboxAndRadioFilters) {
+            $('input:checkbox[name=' + advancedCheckboxAndRadioFilters[index] + ']:checked').prop('checked',false).trigger('change');
         }
     };
 

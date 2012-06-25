@@ -15,9 +15,9 @@
             </c:choose>
         </c:set>
         <c:if test="${commandAndFields.search}">
-            <h1>
+            <h1 class="js-schoolResultsHeader">
                 <c:choose>
-                    <c:when test="${commandAndFields.nearbySearch and param.zipCode}">
+                    <c:when test="${commandAndFields.nearbySearch eq true and param.zipCode}">
                         ${nearbySearchTitlePrefix} near <span
                             class="">${param.zipCode}</span>
                     </c:when>

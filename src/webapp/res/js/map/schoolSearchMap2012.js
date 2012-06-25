@@ -11,12 +11,13 @@ GS.map.getMap = GS.map.getMap ||(function(){
     var savedSchools = [];
     var newMarkers = [];
     var tooltipInfoBox = null;
+    var center = null;
 
     $(document).ready(function(){
+        GS.search.results.updateSortAndPageSize();
         schoolList = $('#js-schoolList');
         var height = $('#js-map-canvas').css('height');
         schoolList.css({height: height, overflowY: 'scroll'});
-        GS.search.results.init(GS.search.filters,GS.search.compare);
         $('.js-mouseover-open-bubble').live('mouseover', function() {
             var id = jQuery(this).attr('id');
             var schoolIdentifier = id.replace('school-listitem-', '');
@@ -103,9 +104,12 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
         // need to change the difference based on design or
         // if frontend can do the same with css, then remove this block
-        var height = 500;
+        var height;
         if (window.innerHeight){
-            height = window.innerHeight - 130;
+            height = (window.innerHeight > 1000)? window.innerHeight/2 : 500;
+        }
+        else {
+            height = 500;
         }
 
         $('#js-map-canvas').css({height:height});
@@ -215,10 +219,40 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
         google.maps.event.addListener(map, 'dragend', function(){
             closeInfoBox();
+            var currentCenter = map.getCenter();
+            var distancePanned = google.maps.geometry.spherical.computeDistanceBetween (center, currentCenter, 3963.1676);
+            if(distancePanned >= 3) {
+                var redoSearch = $("#js-redoSearch");
+                redoSearch.dialog({
+                    modal: true,
+                    height: 100
+                });
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({latLng: currentCenter}, function(results, status) {
+                    if(status == google.maps.GeocoderStatus.OK) {
+                        var addressComponents = results[0].address_components;
+                        $.each(addressComponents, function(i, addressComponent) {
+                            if(addressComponent.types[0] === 'administrative_area_level_1') {
+                                redoSearch.find('#js-redoState').val(addressComponent.short_name);
+                            }
+                            else if(addressComponent.types[0] === 'locality') {
+                                redoSearch.find('#js-redoCity').val(addressComponent.long_name);
+                            }
+                            else if(addressComponent.types[0] === 'postal_code') {
+                                redoSearch.find('#js-redoZipCode').val(addressComponent.short_name);
+                            }
+                        });
+                    }
+                });
+                redoSearch.show();
+                redoSearch.find('#js-redoLat').val(currentCenter.lat());
+                redoSearch.find('#js-redoLng').val(currentCenter.lng());
+            }
         });
 
         if (!bounds.isEmpty()) {
             map.setCenter(bounds.getCenter(), map.fitBounds(bounds));
+            center = map.getCenter();
         }
     }
 
