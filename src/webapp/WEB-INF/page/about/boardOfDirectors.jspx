@@ -44,25 +44,25 @@
         </jsp:scriptlet>
     </head>
 
-    <gsml:body adPageName="aboutUs" pageLayout="leftside boardOfDirectors">
+    <gsml:body adPageName="aboutUs" pageLayout="slStylesV1-0 nocol">
 
-        <div class="grid_24">
-        <p class="mvm smallAlertText">
+    <div class="grid_24">
+        <p class="smaller mvm">
             <link:home>Home</link:home>
             &amp;gt;
             <link:aboutUs>About Us</link:aboutUs>
         </p>
-        
-        <h1 class="mbl">Board of Directors</h1>
 
-        </div>
+        <h1>Board of Directors</h1>
+    </div>
 
-        <div class="grid_5">
-            <about:aboutGreatSchools selected="boardOfDirectors"/>
-        </div>
+    <div class="grid_5">
+        <about:aboutGreatSchools selected="boardOfDirectors"/>
+    </div>
+
         <div class="grid_19">
-            <div class="text3bold-d61">Chris Adams, Director</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Chris Adams, Director</h5>
+            <p>
                 Chris Adams is a Principal with Francisco Partners, a leading technology-focused private equity
                 firm, where he focuses primarily on investments in the software industry. Previously, he worked at
                 American Securities Capital Partners, where he executed private equity transactions in a variety of
@@ -74,10 +74,10 @@
                 Over the past four years, Adams has worked with GreatSchools in various financial advisory capacities.
                 He earned his MBA from the Stanford Graduate School of Business and his BS in computer engineering
                 from Georgia Tech, with summa cum laude honors.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Anthony J. Col&amp;#243;n, Secretary</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Anthony J. Col&amp;#243;n, Secretary</h5>
+            <p>
                 Anthony J. Col&amp;#243;n is widely respected as one of the nation's most forthright diversity
                 advocates and has been instrumental in bringing education reform to the Hispanic community and
                 increasing recruitment and professional development opportunities for minority educators. In 2008
@@ -94,10 +94,10 @@
                 vice chair of the DC Public Charter School Board. He holds a master's degree and professional diploma
                 in educational administration from Fordham University in New York and a bachelor's degree in sociology
                 from St. Francis College in Brooklyn, New York.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Ann Fuell, Vice Chair</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Ann Fuell, Vice Chair</h5>
+            <p>
                 Ann Fuell's work as a board member for the Almaden Country School in Northern California has allowed
                 her to see the importance of strong school leadership and the crucial role of the Board in strategic
                 planning. Following a move overseas in 2008, Ann was elected to serve on the Board of Governors at
@@ -106,10 +106,10 @@
                 consulted for KPMG Consulting and KPMG's Center for Leadership Development. She holds a Master's
                 Degree in Higher Education, with a specialization in Student Personnel Administration from New York
                 University. Her family, with elementary and middle school children, returned to the US in 2010.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Eric A. Hanushek, Director</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Eric A. Hanushek, Director</h5>
+            <p>
                 Eric A. Hanushek is the Paul and Jean Hanna Senior Fellow at the Hoover Institution of Stanford
                 University. He is also chair of the executive committee for the Texas Schools Project at the
                 University of Texas at Dallas and a member of the CALDER Management Team. He is chair of the board
@@ -118,22 +118,22 @@
                 been a leader in the development of economic analysis of educational issues, with a special emphasis
                 on the determinants of student achievement. He was the first researcher to measure teacher
                 effectiveness by the learning gains of the teacher's students. His books on education include
-                <span class="text3italic">Courting Failure: How School Finance Lawsuits Exploit Judges' Good
-                Intentions and Harm our Children</span>, <span class="text3italic">Handbook on the Economics of
-                Education</span>, <span class="text3italic">The Economics of Schooling and School Quality</span>,
-                <span class="text3italic">Improving America's Schools: The Role of Incentives</span>,
-                <span class="text3italic">Making Schools Work: Improving Performance and Controlling Costs</span>,
-                <span class="text3italic">Educational Performance of the Poor</span>, and
-                <span class="text3italic">Education and Race</span>, along with more than 200 professional articles.
+                <em>Courting Failure: How School Finance Lawsuits Exploit Judges' Good
+                Intentions and Harm our Children</em>, <em>Handbook on the Economics of
+                Education</em>, <em>The Economics of Schooling and School Quality</em>,
+                <em>Improving America's Schools: The Role of Incentives</em>,
+                <em>Making Schools Work: Improving Performance and Controlling Costs</em>,
+                <em>Educational Performance of the Poor</em>, and
+                <em>Education and Race</em>, along with more than 200 professional articles.
                 Hanushek's government service includes posts as the deputy director of the Congressional Budget
                 Office, senior staff economist for the Council of Economic Advisers, and senior economist for
                 the Cost of Living Council. Hanushek is a distinguished graduate of the U.S. Air Force Academy,
                 where he earned his BS degree. He received his PhD in economics from the Massachusetts
                 Institute of Technology.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Dr. Karen Hill-Scott, Director</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Dr. Karen Hill-Scott, Director</h5>
+            <p>
                 Dr. Karen Hill-Scott is a nationally recognized child development expert for early education systems
                 and a consultant for children's media and television content.  A former UCLA professor of urban
                 planning, Dr. Hill-Scott brings a multi-faceted approach to improving the lives of young children.
@@ -144,10 +144,10 @@
                 Parsons Foundation of Southern California.  Dr. Hill-Scott received her Ed.D. in Child Development
                 from UCLA where she was a Danforth Fellow, a Chancellor’s Fellow, Outstanding Graduate Student of Year,
                 and was named the Tom Bradley Outstanding Alumnus of the Year Award in 2007.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Matt Hill, Director</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Matt Hill, Director</h5>
+            <p>
                 Matt Hill is the Chief Strategy Officer for the Los Angeles Unified School District. In this role he
                 oversees the district's strategic planning process and heads the following departments: Budget Services
                 and Financial Planning, Data and Accountability, Charter Schools, and Information Technology. Before
@@ -159,10 +159,10 @@
                 He holds a Bachelor of Science in Business Administration from the University of North Carolina and an
                 MBA from the UCLA Anderson School of Management. Hill has served on the Board of Directors for the
                 Children's Council of San Francisco. He is married and has two sons.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Bill Jackson, Founder and CEO, GreatSchools</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Bill Jackson, Founder and CEO, GreatSchools</h5>
+            <p>
                 Bill Jackson is the Founder and Chief Executive Officer of GreatSchools, an independent, non-profit
                 organization that helps parents be champions of their children's education. A former teacher in China
                 and the U.S., Bill also spent time as a high-tech entrepreneur. He later felt the need to harness digital
@@ -181,10 +181,10 @@
                     </c:when>
                     <c:otherwise>Phillips Exeter Academy.</c:otherwise>
                 </c:choose>
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Larry Kane, Director</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Larry Kane, Director</h5>
+            <p>
                 Larry Kane is a partner in the emerging company practice group at Orrick, Herrington &amp;amp;
                 Sutcliffe. He represents both emerging and public companies in several areas, including formation
                 and structuring, financing, partnerships, mergers and acquisitions, and private and public offerings
@@ -195,13 +195,13 @@
                 Francisco School Alliance, and Pivot Education, and he counsels pro bono a number of community groups
                 and organizations, including the Hispanic Scholarship Fund. Kane earned his JD from the Columbia
                 University School of Law and his BA from Columbia University.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Leanna Landsmann, Chair</div>
-            <div class="text3 mbm">
-                Leanna Landsmann was president of <span class="text3italic">Time for Kids</span>, a magazine reaching
+            <h5 class="make-d61 bottom">Leanna Landsmann, Chair</h5>
+            <p>
+                Leanna Landsmann was president of <em>Time for Kids</em>, a magazine reaching
                 more than 4.2 million students nationwide. Before joining Time, she was editor and publisher of
-                <span class="text3italic">Instructor</span>, the nation's leading magazine for teachers, and director
+                <em>Instructor</em>, the nation's leading magazine for teachers, and director
                 of Harcourt Brace Children's Books. She founded Leanna Landsmann Inc. (LLI), a company that helped
                 corporations and organizations contribute successfully to schools. She was founding volunteer director
                 of New York City's Principal for a Day and founding board member of PENCIL (Public Education Needs
@@ -211,10 +211,10 @@
                 dedicated to supporting basic research in disease prevention and cures at the Scripps Research
                 Institute, the world's leading not-for-profit biotechnology center. Landsmann started her career
                 as a teacher in West Africa.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Gilman Louie, Director</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Gilman Louie, Director</h5>
+            <p>
                 Gilman Louie is a partner of Alsop Louie Partners, a venture capital fund. He is the founder and former
                 CEO of In-Q-Tel, a strategic venture fund created to help enhance national security by connecting the
                 CIA and U.S. intelligence community with entrepreneurial companies. Gilman built a career as a pioneer
@@ -226,10 +226,10 @@
                 School in San Francisco. He is also a former president of The San Francisco School Volunteers. Gilman
                 has completed two advanced business programs at Harvard Business School and earned his BS in Business
                 Administration from San Francisco State University.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Clesont Mitchell, Director</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Clesont Mitchell, Director</h5>
+            <p>
                 Clesont Mitchell has spent over 25 years in the field of parent involvement and education. He
                 believes that, through true collaborations at all levels; we can help all our children succeed. He
                 has fostered the idea of parent partnerships to better reflect the true ideal of working together to
@@ -242,10 +242,10 @@
                 Office of English Language Acquisition. He is currently a member of the National Coalition for Parent
                 Involvement in Education (NCPIE) and the National Coalition for Parents of English Language Learners
                 (NCPELL) and serves on the boards of GreatSchools and Citizens for Effective Schools.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Sean Ryan, Director</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Sean Ryan, Director</h5>
+            <p>
                 Sean Ryan is the Director of Game Partnerships at Facebook. He is also the non-executive chairman of
                 Meez, a leading social entertainment company he founded which combines avatars, games, and a virtual
                 world. Prior to Facebook and Meez, Sean served as Vice President of music services at RealNetworks,
@@ -254,10 +254,10 @@
                 music service. Sean has also ran business development for online game company SegaSoft Networks, spent
                 several years at the GAP helping launch the successful Old Navy clothing line, and worked at Chemical
                 Bank. Ryan holds an MBA from UCLA's Anderson Graduate School of Management and a BA from Columbia University.
-            </div>
+            </p>
 
-            <div class="text3bold-d61">Michael Schmier, Board Treasurer</div>
-            <div class="text3 mbm">
+            <h5 class="make-d61 bottom">Michael Schmier, Board Treasurer</h5>
+            <p>
                 Michael Schmier is currently VP of Product at Thuuz, Inc., the leading developer of sports discovery
                 applications for mobile and connected TV. Schmier has extensive experience in developing, marketing and
                 managing Internet, mobile and software products at start up and venture-funded companies. His previous
@@ -266,7 +266,7 @@
                 to NICE Systems). He has also held executive roles at Focus, Inc. and The Advisory Board Company.
                 Schmier received an MBA from the Stanford Graduate School of Business and a BA from the University of
                 North Carolina at Chapel Hill.
-            </div>
+            </p>
         </div>
 
         <div id="tracking">
