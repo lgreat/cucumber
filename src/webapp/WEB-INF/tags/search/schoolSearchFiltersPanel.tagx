@@ -52,7 +52,7 @@
                 <div class="unit size87of100">
                     <h4 class="bottom"><strong>Narrow your search</strong></h4>
                 </div>
-                <div class="unit size13of100 lastUnit">
+                <div class="unit size13of100 lastUnit js-resetFiltersLink">
                     <a href="javascript:void(0);">
                         Reset filters
                     </a>
