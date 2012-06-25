@@ -93,6 +93,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     public static final String MODEL_CITY = "city";
     public static final String MODEL_DISTRICT = "district";
+    public static final String MODEL_STATE = "state";
 
     public static final String MODEL_REL_CANONICAL = "relCanonical";
     public static final String MODEL_NEARBY_SEARCH_TITLE_PREFIX = "nearbySearchTitlePrefix";
@@ -100,6 +101,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public static final String MODEL_NEARBY_SEARCH_ZIP_CODE = "nearbySearchZipCode";
 
     public static final String MODEL_DID_YOU_MEAN = "didYouMean";
+    public static final String MODEL_SEARCH_STRING = "searchString";
 
     public static final int MAX_PAGE_SIZE = 100;
 
@@ -186,6 +188,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
 
         model.put("commandAndFields", commandAndFields);
+        model.put(MODEL_STATE, commandAndFields.getState());
 
         ModelAndView modelAndView;
         if (commandAndFields.isCityBrowse()) {
@@ -223,8 +226,14 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
                                      SchoolSearchCommand schoolSearchCommand,
                                      JSONObject responseJson) throws JSONException {
         Map<String, Object> searchResults;
-        responseJson.accumulate(MODEL_SCHOOL_SEARCH_RESULTS, new HashMap<String, Object>());
         List<SolrSchoolSearchResult> solrSchoolSearchResults = (List<SolrSchoolSearchResult>) model.get(MODEL_SCHOOL_SEARCH_RESULTS);
+
+        if(solrSchoolSearchResults == null || (solrSchoolSearchResults != null && solrSchoolSearchResults.size() == 0)) {
+            responseJson.accumulate("noSchoolsFound", true);
+            return;
+        }
+
+        responseJson.accumulate(MODEL_SCHOOL_SEARCH_RESULTS, new HashMap<String, Object>());
         Set<FavoriteSchool> mslSchools = (Set<FavoriteSchool>) model.get(MODEL_MSL_SCHOOLS);
 
         for(int i = 0; i < solrSchoolSearchResults.size(); i++) {
@@ -762,6 +771,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             model.put(MODEL_NEARBY_SEARCH_ZIP_CODE, commandAndFields.getNearbySearchInfo().get("zipCode"));
         }
 
+        model.put(MODEL_SEARCH_STRING, commandAndFields.getSchoolSearchCommand().getSearchString());
 
         return new ModelAndView(viewName, model);
     }
@@ -903,7 +913,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public String determineViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
         String viewOverride = schoolSearchCommand.getView();
         // if "view" URL query param is set to "map", use the map viewname
-        if ("map".equals(viewOverride)) {
+        if ("map".equals(viewOverride) && searchResultsPage.getTotalResults() != 0) {
             return getMapViewName();
         }
 

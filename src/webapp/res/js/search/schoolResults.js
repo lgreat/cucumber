@@ -105,7 +105,7 @@ GS.search.results = GS.search.results || (function() {
         }
 
         if(queryStringData.view == 'map') {
-            pagination(1, 25, queryStringData);
+            mapSearch(1, 25, queryStringData);
         }
         else {
             var onSearchSuccess = function(data) {
@@ -159,7 +159,7 @@ GS.search.results = GS.search.results || (function() {
         queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
         var pageSizeState = { queryString: "queryString"};
         history.pushState(pageSizeState, pageSize, queryString);
-        pagination(1, pageSize);
+        mapSearch(1, pageSize);
     };
 
     var onSortChanged = function() {
@@ -190,7 +190,7 @@ GS.search.results = GS.search.results || (function() {
         }
         var sortState = { queryString: "queryString"};
         history.pushState(sortState, selectValue, queryString);
-        pagination(1, 25);
+        mapSearch(1, 25);
     };
 
     var page = function(pageNumber, pageSize) {
@@ -202,7 +202,11 @@ GS.search.results = GS.search.results || (function() {
         window.location.search = queryString;
     };
 
-    var pagination = function(pageNumber, pageSize, queryStringData) {
+    var pagination = function(pageNumber, pageSize) {
+        mapSearch(pageNumber, pageSize);
+    }
+
+    var mapSearch = function(pageNumber, pageSize, queryStringData) {
         var start = (pageNumber-1) * pageSize;
         if(queryStringData !== undefined) {
             var queryString = GS.uri.Uri.getQueryStringFromObject(queryStringData);
@@ -219,6 +223,11 @@ GS.search.results = GS.search.results || (function() {
 
         var state = { queryString: "queryString"};
         history.pushState(state, start, queryString);
+
+//        var data = {};
+//        data.requestType = "ajax";
+//        data.decorator="emptyDecorator";
+//        data.confirm="true";
 
         $.ajax({
             type: 'POST',
@@ -266,6 +275,18 @@ GS.search.results = GS.search.results || (function() {
     };
 
     var renderDataForMap = function(data) {
+        if(data.noSchoolsFound == true) {
+            $('.js-rightResultsGrid').hide();
+            $('.js-leftResultsGrid').hide();
+            $('#js-school-search-results-table-body').show();
+            return;
+        }
+        else {
+            $('#js-school-search-results-table-body').hide();
+            $('.js-rightResultsGrid').show();
+            $('.js-leftResultsGrid').show();
+        }
+
         var page = data.page[1];
 
         updateSortAndPageSize();
@@ -436,7 +457,7 @@ GS.search.results = GS.search.results || (function() {
         queryStringData.lat = redoSearchDiv.find('#js-redoLat').val();
         queryStringData.lon = redoSearchDiv.find('#js-redoLng').val();
         queryStringData.zipCode = redoSearchDiv.find('#js-redoZipCode').val();
-        pagination(1, 25, queryStringData);
+        mapSearch(1, 25, queryStringData);
     }
 
     var renderDataForRedoSearch = function(page) {
@@ -481,6 +502,7 @@ GS.search.results = GS.search.results || (function() {
         page:page,
         sendToCompare:sendToCompare,
         pagination:pagination,
+        mapSearch:mapSearch,
         updateSortAndPageSize:updateSortAndPageSize
     };
 
