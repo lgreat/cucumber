@@ -134,10 +134,6 @@ ${modTracking}
     ${deferredContent}
 </div>
 
-<c:if test="${requestInfo.mobileSiteEnabled and hasMobileView}">
-    <a href="${requestInfo.sitePreferenceUrlForAlternateSite}">View mobile version</a>
-</c:if>
-
 </div>
 
 ${requestScope.pageHelper.bottomJavaScript}
