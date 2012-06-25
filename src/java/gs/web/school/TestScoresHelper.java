@@ -379,7 +379,7 @@ public class TestScoresHelper {
      * @param levelCode
      * @return
      */
-    protected String getGradeLabel(Grade grade,LevelCode levelCode) {
+    protected static String getGradeLabel(Grade grade,LevelCode levelCode) {
         if (grade.getName() != null) {
             String gradeLabel = "";
             if (Grade.ALL.equals(grade)) {

@@ -6,34 +6,54 @@ import gs.web.BaseControllerTestCase;
 
 import java.util.*;
 
-public class TestScoresPrototypeControllerTest extends BaseControllerTestCase {
-    private ISchoolDao _schoolDao;
+import static org.easymock.EasyMock.*;
+
+public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCase {
+    private SchoolProfileTestScoresController _controller;
+
     private ITestDataSetDao _testDataSetDao;
     private ITestDataTypeDao _testDataTypeDao;
-    private TestScoresPrototypeController _controller;
+    private ISubjectDao _subjectDao;
+    private ITestBreakdownDao _testBreakdownDao;
+    private ITestDescriptionDao _testDescriptionDao;
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
+
+        _controller = new SchoolProfileTestScoresController();
+
+        _testDataSetDao = createMock(ITestDataSetDao.class);
+        _testDataTypeDao = createMock(ITestDataTypeDao.class);
+        _subjectDao = createMock(ISubjectDao.class);
+        _testBreakdownDao = createMock(ITestBreakdownDao.class);
+        _testDescriptionDao = createMock(ITestDescriptionDao.class);
+
+        _controller.setTestDataSetDao(_testDataSetDao);
+        _controller.setTestDataTypeDao(_testDataTypeDao);
+        _controller.setSubjectDao(_subjectDao);
+        _controller.setTestBreakdownDao(_testBreakdownDao);
+        _controller.setTestDescriptionDao(_testDescriptionDao);
     }
 
     private void replayAllMocks() {
-        replayMocks(_schoolDao, _testDataSetDao, _testDataTypeDao, _testDataSetDao, _testDataTypeDao);
+        replayMocks(_testDataSetDao, _testDataTypeDao, _subjectDao, _testBreakdownDao, _testDescriptionDao);
     }
 
     private void verifyAllMocks() {
-        verifyMocks(_schoolDao, _testDataSetDao, _testDataTypeDao, _testDataSetDao, _testDataTypeDao);
+        verifyMocks(_testDataSetDao, _testDataTypeDao, _subjectDao, _testBreakdownDao, _testDescriptionDao);
     }
 
     public void testSortOrderOfTests1(){
-        List<TestScoresPrototypeController.TestToGrades> testToGradesList = new ArrayList<TestScoresPrototypeController.TestToGrades>();
+        replayAllMocks();
+        List<SchoolProfileTestScoresController.TestToGrades> testToGradesList = new ArrayList<SchoolProfileTestScoresController.TestToGrades>();
 
-        TestScoresPrototypeController.TestToGrades testWithSubgroup = new TestScoresPrototypeController.TestToGrades();
+        SchoolProfileTestScoresController.TestToGrades testWithSubgroup = new SchoolProfileTestScoresController.TestToGrades();
         testWithSubgroup.setLowestGradeInTest(Grade.G_1);
         testWithSubgroup.setIsSubgroup(true);
         testWithSubgroup.setTestDataTypeId(1);
 
-        TestScoresPrototypeController.TestToGrades testWithNoSubgroup = new TestScoresPrototypeController.TestToGrades();
+        SchoolProfileTestScoresController.TestToGrades testWithNoSubgroup = new SchoolProfileTestScoresController.TestToGrades();
         testWithNoSubgroup.setLowestGradeInTest(Grade.G_1);
         testWithNoSubgroup.setIsSubgroup(false);
         testWithNoSubgroup.setTestDataTypeId(1);
@@ -44,42 +64,44 @@ public class TestScoresPrototypeControllerTest extends BaseControllerTestCase {
         Collections.sort(testToGradesList);
         assertEquals(testToGradesList.get(0),testWithNoSubgroup);
         assertEquals(testToGradesList.get(1),testWithSubgroup);
+
+        verifyAllMocks();
     }
 
     public void testSortOrderOfTests2(){
-        List<TestScoresPrototypeController.TestToGrades> testToGradesList = new ArrayList<TestScoresPrototypeController.TestToGrades>();
+        List<SchoolProfileTestScoresController.TestToGrades> testToGradesList = new ArrayList<SchoolProfileTestScoresController.TestToGrades>();
 
-        TestScoresPrototypeController.TestToGrades noSubgroupGrade9 = new TestScoresPrototypeController.TestToGrades();
+        SchoolProfileTestScoresController.TestToGrades noSubgroupGrade9 = new SchoolProfileTestScoresController.TestToGrades();
         noSubgroupGrade9.setLowestGradeInTest(Grade.G_9);
         noSubgroupGrade9.setIsSubgroup(false);
         noSubgroupGrade9.setTestDataTypeId(5);
 
-        TestScoresPrototypeController.TestToGrades subgroupGradeAllEM = new TestScoresPrototypeController.TestToGrades();
+        SchoolProfileTestScoresController.TestToGrades subgroupGradeAllEM = new SchoolProfileTestScoresController.TestToGrades();
         subgroupGradeAllEM.setLowestGradeInTest(Grade.ALLEM);
         subgroupGradeAllEM.setIsSubgroup(true);
         subgroupGradeAllEM.setTestDataTypeId(4);
 
-        TestScoresPrototypeController.TestToGrades noSubgroupGrade1 = new TestScoresPrototypeController.TestToGrades();
+        SchoolProfileTestScoresController.TestToGrades noSubgroupGrade1 = new SchoolProfileTestScoresController.TestToGrades();
         noSubgroupGrade1.setLowestGradeInTest(Grade.G_1);
         noSubgroupGrade1.setIsSubgroup(false);
         noSubgroupGrade1.setTestDataTypeId(1);
 
-        TestScoresPrototypeController.TestToGrades noSubgroupGradeAllE = new TestScoresPrototypeController.TestToGrades();
+        SchoolProfileTestScoresController.TestToGrades noSubgroupGradeAllE = new SchoolProfileTestScoresController.TestToGrades();
         noSubgroupGradeAllE.setLowestGradeInTest(Grade.ALLE);
         noSubgroupGradeAllE.setIsSubgroup(false);
         noSubgroupGradeAllE.setTestDataTypeId(2);
 
-        TestScoresPrototypeController.TestToGrades noSubgroupGrade3 = new TestScoresPrototypeController.TestToGrades();
+        SchoolProfileTestScoresController.TestToGrades noSubgroupGrade3 = new SchoolProfileTestScoresController.TestToGrades();
         noSubgroupGrade3.setLowestGradeInTest(Grade.G_3);
         noSubgroupGrade3.setIsSubgroup(false);
         noSubgroupGrade3.setTestDataTypeId(3);
 
-        TestScoresPrototypeController.TestToGrades noSubgroupGradeAllEM = new TestScoresPrototypeController.TestToGrades();
+        SchoolProfileTestScoresController.TestToGrades noSubgroupGradeAllEM = new SchoolProfileTestScoresController.TestToGrades();
         noSubgroupGradeAllEM.setLowestGradeInTest(Grade.ALLEM);
         noSubgroupGradeAllEM.setIsSubgroup(false);
         noSubgroupGradeAllEM.setTestDataTypeId(4);
 
-        TestScoresPrototypeController.TestToGrades withSubgroupGrade1 = new TestScoresPrototypeController.TestToGrades();
+        SchoolProfileTestScoresController.TestToGrades withSubgroupGrade1 = new SchoolProfileTestScoresController.TestToGrades();
         withSubgroupGrade1.setLowestGradeInTest(Grade.G_1);
         withSubgroupGrade1.setIsSubgroup(true);
         withSubgroupGrade1.setTestDataTypeId(1);
