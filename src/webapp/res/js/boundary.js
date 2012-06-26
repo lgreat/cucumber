@@ -291,6 +291,8 @@ var Boundary = (function (){
         var lat = $map.data('boundaries').getMap().getCenter().lat()
             , lon = $map.data('boundaries').getMap().getCenter().lng();
         updateHistory('?lat='+lat+'&lon='+lon+'&level='+currentLevel);
+        $map.boundaries('refresh');
+        $map.boundaries('district');
     }
 
     var searchEventHandler = function ( event ) {
@@ -318,6 +320,7 @@ var Boundary = (function (){
 
     var redoEventHandler = function (){
         $map.boundaries('refresh');
+        $map.boundaries('district');
         privateEventHandler();
         charterEventHandler();
         fireCustomLink('Dist_Bounds_Map_Redo_Search');

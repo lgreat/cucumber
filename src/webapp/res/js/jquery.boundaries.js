@@ -196,6 +196,11 @@ Boundaries.prototype = {
 
             if (hide) {this.getMarkers()[i].setMap(null);}
         }
+        for (var i=0; i<this.getPolygons().length; i++) {
+            if (this.getPolygons()[i].type==type){
+                this.getPolygons()[i].setMap(null);
+            }
+        }
     }
 
     , level: function ( option ) {
@@ -232,6 +237,7 @@ Boundaries.prototype = {
     }
 
     , refresh: function() {
+        if (this.infoWindow) this.infoWindow.close();
         this.hide('school');
         this.hide('district');
         this.center(this.getMap().getCenter());
