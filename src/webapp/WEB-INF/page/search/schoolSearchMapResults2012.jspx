@@ -434,7 +434,7 @@
 
     <div id="js-redoSearch" style="display: none;">
         <div class="js-redobtn dn mvn pvn"><button class="but but-sm but-2">Redo Search</button></div>
-        <p class="small_bold">Your search filters are unavailble for this area.</p>
+        <p class="small_bold">Your search filters are unavailable for this area.</p>
         Redoing search in this area will remove all applied filters.
         <input type="hidden" value="0" id="js-redoLat"/>
         <input type="hidden" value="0" id="js-redoLng"/>
