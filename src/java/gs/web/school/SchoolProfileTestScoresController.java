@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 public class SchoolProfileTestScoresController extends AbstractSchoolProfileController {
     private static final Logger _log = Logger.getLogger(SchoolProfileTestScoresController.class);
 
+    //TODO change the name of the jspx page.
     public static final String VIEW = "school/testScoresPrototype";
     public static final String ERROR_VIEW = "/school/error";
 
@@ -565,6 +566,14 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
         public void setSubjects(List<SubjectToTestValues> subjects) {
             _subjects = subjects;
+        }
+
+        public String getJsFriendlyGradeLabel() {
+            String jsFriendlyGradeLabel = "";
+            if (StringUtils.isNotBlank(_gradeLabel)) {
+                jsFriendlyGradeLabel = _gradeLabel.replaceAll("\\s", "");
+            }
+            return jsFriendlyGradeLabel;
         }
 
         public int compareTo(GradeToSubjects gradeToSubjects) {
