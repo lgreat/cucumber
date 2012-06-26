@@ -84,7 +84,7 @@ var Boundary = (function (){
             $comments.html('');
             if (!obj.isPolygonShown()) $comments.html('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Contact school district for school boundaries</div></div></div>');
             if (obj.schoolType=='private') $comments.append('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Private schools are not in the district.</div></div></div>');
-            if (obj.schoolType=='charter' && !((obj.schoolType == 'charter' && obj.districtId)))
+            if (obj.schoolType=='charter' && obj.charterOnly)
                 $comments.append('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Charter schools are not in the district.</div></div></div>');
         }
         $wrapper.append($element);
@@ -151,15 +151,15 @@ var Boundary = (function (){
 
     var addDropdownItem = function(district) {
         var $option = $dropdown.find("option[value='" + district.getKey() + "']");
-        if (!$option.length>0) {
+        if ($option.length==0) {
             var $option = $('<option></option>').val(district.getKey());
             $option.data('district', district);
             $dropdown.append($option.html(district.name));
         }
-        $dropdown.val(district.getKey());
     }
 
     var districtsEventHandler = function (event, obj) {
+        var curr = $dropdown.val();
         $dropdown.html('');
         obj.data.sort(sort);
         $dropdown.append($('<option></option>').html('Select a district'));
@@ -168,6 +168,7 @@ var Boundary = (function (){
         }
         if ($priv.prop('checked')) $map.boundaries('nondistrict', 'private');
         if ($charter.prop('checked')) $map.boundaries('nondistrict', 'charter');
+        if (curr) $dropdown.val(curr);
     };
 
     var loadEventHandler = function (event, obj) {
@@ -216,7 +217,6 @@ var Boundary = (function (){
         if (obj.data.type=='district'){
             $dropdown.val(obj.data.getKey());
             updateDistrictHeader(obj.data);
-
         }
         if (obj.data.type=='school'){
             $('.js-listItem').removeClass('selected');
@@ -246,6 +246,8 @@ var Boundary = (function (){
         $redo.hide();
         $map.boundaries('district');
         $map.boundaries('geocodereverse', new google.maps.LatLng(obj.data[0].lat, obj.data[0].lon));
+        privateEventHandler();
+        charterEventHandler();
     };
 
     var geocodeReverseEventHandler = function (event, obj) {
@@ -293,6 +295,8 @@ var Boundary = (function (){
         updateHistory('?lat='+lat+'&lon='+lon+'&level='+currentLevel);
         $map.boundaries('refresh');
         $map.boundaries('district');
+        privateEventHandler();
+        charterEventHandler();
     }
 
     var searchEventHandler = function ( event ) {

@@ -68,8 +68,8 @@ Boundaries.prototype = {
         $.when(BoundaryHelper.getDistrictsForLocation(lat, lng, level))
             .then($.proxy(function(districts){
             this.show(districts[0]);
-            this.focus(districts[0]);
             this.trigger('load', districts[0]);
+            this.focus(districts[0]);
         }, this));
     }
 
@@ -78,6 +78,7 @@ Boundaries.prototype = {
         $.when(BoundaryHelper.getNonDistrictSchoolsNearLocation(lat, lng, level, params))
             .then($.proxy(function (schools) {
             for (var i=0; i<schools.length; i++) {
+                schools[i].charterOnly = true;
                 this.show(schools[i]);
             }
         }, this));
@@ -167,7 +168,7 @@ Boundaries.prototype = {
                 if (school && school.schoolType=='private') {
                     hide = true;
                 }
-                else if (school && school.schoolType=='charter' && !school.districtId) {
+                else if (school && school.schoolType=='charter' && school.charterOnly) {
                     hide = true;
                 }
             }
@@ -179,7 +180,7 @@ Boundaries.prototype = {
             else if (type=='school') {
                 if (school){
                     if (school.schoolType=='charter'){
-                        if (school.districtId) {
+                        if (!school.charterOnly) {
                             hide = true;
                         } else {
                             hide = false;
