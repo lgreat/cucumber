@@ -11,6 +11,7 @@
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        xmlns:cobrand="urn:jsptagdir:/WEB-INF/tags/cobrand"
         >
 
 <jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
@@ -57,7 +58,7 @@
     <body class="site-gradient">
 
     <div class="container_24">
-        <!--<ad:x22 position="Header_728x90"/>-->
+        <cobrand:header/>
         <mod:header/>
 
         <div class="page-shadow clearfix">
