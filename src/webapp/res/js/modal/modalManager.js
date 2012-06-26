@@ -1,4 +1,4 @@
-/* =1 ModalManager - can extend to more generic uses - Mitchell Seltzer
+/* =1 ModalManager - manages all of the modal boxes - Mitchell Seltzer
 
 
 

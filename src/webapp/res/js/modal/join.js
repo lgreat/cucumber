@@ -7,12 +7,137 @@
  */
 var JoinModal = (function($){
     var layerId = "JoinModal";
+    var containerId = "fullPageOverlay";
+    var formId = "joinGS";
+    var formAccess = "#"+containerId+" #"+formId;
     var schoolName = null;
     var loadOnExitUrl = null;
     var onSubmitCallback = null;
 
+
+
+
+//    $('#'+layerId+'_cancel').click(function() {
+//        this.hideModal();
+//        return false;
+//    });
+
+
+//    $('#'+layerId+' #jemail').blur(this.validateEmail);
+//    $('#'+layerId+' #jcemail').blur(this.validateConfirmEmail);
+//    $('#'+layerId+' #uName').blur(this.validateUsername);
+//    $('#'+layerId+' #jpword').blur(this.validatePassword);
+//    $('#'+layerId+' #cpword').blur(this.validateConfirmPassword);
+
+//    $('#'+layerId).bind('dialogclose', function() {
+//        $('#joinGS .error').hide();
+//        this.clearMessages();
+//    });
+
+    var checkValidationResponse = function(data) {
+        console.log("checkValidationResponse");
+
+        if (passesValidationResponse(data)) {
+            console.log("passesValidationResponse -- true");
+            if (JoinModal.loadOnExitUrl) {
+                console.log("JoinModal.loadOnExitUrl -- true");
+                JoinModal.cancelLoadOnExit();
+            }
+            if (JoinModal.onSubmitCallback) {
+                console.log("JoinModal.onSubmitCallback -- true");
+                JoinModal.onSubmitCallback($(formAccess+"  #jemail").val(), "joinGS");
+            } else {
+//                $(formAccess).submit();
+//                $(formAccess).submit(function() {
+//                    return false; // prevent multiple submits
+//                });
+                console.log("JoinModal.onSubmitCallback -- false");
+                JoinModal.hideModal();
+            }
+        }else {
+            $(formAccess+' #joinBtn').prop('disabled', false);
+        console.log("passesValidationResponse -- false");
+       // $(formAccess+' #joinBtn').prop('disabled', false);
+        }
+    };
+
+    var passesValidationResponse = function(data) {
+        console.log("passesValidationResponse");
+        var firstNameError = $(formAccess+' .joinHover_firstName .invalid');
+        var emailError = $(formAccess+' .joinHover_email .invalid');
+        var usernameError = $(formAccess+' .joinHover_username .invalid');
+        var usernameValid = $(formAccess+' .joinHover_username .valid');
+        var passwordError = $(formAccess+' .joinHover_password .invalid');
+        var confirmPasswordError = $(formAccess+' .joinHover_confirmPassword .invalid');
+        // GS-11161
+        //var termsError = jQuery('#joinGS #joinHover_termsNotChecked');
+        var locationError = $(formAccess+' #joinHover_chooseLocation');
+
+        firstNameError.hide();
+        emailError.hide();
+        usernameError.hide();
+        usernameValid.hide();
+        passwordError.hide();
+        confirmPasswordError.hide();
+        // GS-11161
+        //termsError.hide();
+        locationError.hide();
+
+        var objCount = 0;
+        for (_obj in data) objCount++;
+
+        if (objCount > 0) {
+            $(formAccess+' #process_error').show("fast");
+
+            /*
+             // GS-11161
+             if (data.terms) {
+             termsError.html(data.terms).show();
+             }
+             */
+
+            if (data.state) {
+                locationError.html(data.state).show();
+            }
+            if (data.city) {
+                locationError.html(data.city).show();
+            }
+
+            if (data.firstName) {
+                firstNameError.html(data.firstName).show();
+            }
+
+            if (data.email) {
+                emailError.html(data.email).show();
+                $(formAccess+' .joinHover_email .invalid a.launchSignInHover').click(function() {
+                    JoinModal.showSignin();
+                    return false;
+                });
+            }
+
+            if (data.password) {
+                passwordError.html(data.password).show();
+            }
+
+            if (data.confirmPassword) {
+                confirmPasswordError.html(data.confirmPassword).show();
+            }
+
+            if (data.screenName) {
+                usernameError.html(data.screenName).show();
+            } else {
+                usernameValid.show();
+            }
+
+            return false;
+        } else {
+            return true;
+        }
+    };
+
     return{
         hideModal : function ( ){
+            console.log("hideModal");
             ModalManager.hideModal({
                 'layerId' : layerId
             });
@@ -20,139 +145,148 @@ var JoinModal = (function($){
         showModal : function( ){
             // alert("TEST");
 //
-            /*     if (onSubmitCallback) {
-             this.onSubmitCallback = onSubmitCallback;
-             } else {
-             this.onSubmitCallback = null;
-             }
-             this.setEmail(email);
-             this.setRedirect(redirect);
-             if (showJoinFunction) {
-             this.showJoinFunction = showJoinFunction;
-             }
-             $('#'+submitButton).click(this.validateFields);
-             */
-            // alert(layerId);
+//           if (onSubmitCallback) {
+//             this.onSubmitCallback = onSubmitCallback;
+//             } else {
+//             this.onSubmitCallback = null;
+//             }
+//             this.setEmail(email);
+//             this.setRedirect(redirect);
+//             if (showJoinFunction) {
+//             this.showJoinFunction = showJoinFunction;
+//             }
+//             $('#'+submitButton).click(this.validateFields);
             console.log("showModal");
             ModalManager.showModal({
                 'layerId' : layerId
             });
+            $(formAccess+' #fName').blur(this.validateFirstName);
+            $(formAccess+' #jemail').blur(this.validateEmail);
+            $(formAccess+' #jcemail').blur(this.validateConfirmEmail);
+            $(formAccess+' #uName').blur(this.validateUsername);
+            $(formAccess+' #jpword').blur(this.validatePassword);
+            $(formAccess+' #cpword').blur(this.validateConfirmPassword);
+            $(formAccess+' #joinState').change(this.loadCities);
+            $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
         },
-//Join hover
-//this = function() {
-//    this.schoolName = null;
-//    this.loadOnExitUrl = null;
-//    this.onSubmitCallback = null;
 
         undoSimpleMssFields : function() {
             console.log("undoSimpleMssFields");
             // show first name
-            $('#'+layerId+' div.'+layerId+'_firstName').show();
+            $(formAccess+' div.'+layerId+'_firstName').show();
             // hide email label (short)
-            $('#'+layerId+' div.joinLabel label.shortLabel').hide();
+            $(formAccess+' div.joinLabel label.shortLabel').hide();
             // show email label (long)
-            $('#'+layerId+' div.joinLabel label.longLabel').show();
+            $(formAccess+' div.joinLabel label.longLabel').show();
             // hide confirm email
-            $('#'+layerId+' div.'+layerId+'_confirmEmail').hide();
+            $(formAccess+' div.'+layerId+'_confirmEmail').hide();
             // show username
-            $('#'+layerId+' div.'+layerId+'_username').show();
+            $(formAccess+' div.'+layerId+'_username').show();
             // show password
             $('#'+layerId+' div.'+layerId+'_password').show();
             // show confirm password
-            $('#'+layerId+' div.'+layerId+'_confirmPassword').show();
+            $(formAccess+' div.'+layerId+'_confirmPassword').show();
             // show terms
-            $('#'+layerId+' div.'+layerId+'_terms').show();
+            $(formAccess+' div.'+layerId+'_terms').show();
             // formatting changes
-            $('#'+layerId+' div.separator').show();
-            $('#'+layerId+' div.separatorMss').hide();
-            $('#'+layerId+' div.formHelperWrapper').show();
-            $('#'+layerId+' div.formHelperSpacer').show();
-            $('#'+layerId+' div.btstips').removeClass('size1of1').addClass('size15of19');
+            $(formAccess+' div.separator').show();
+            $(formAccess+' div.separatorMss').hide();
+            $(formAccess+' div.formHelperWrapper').show();
+            $(formAccess+' div.formHelperSpacer').show();
+            $(formAccess+' div.btstips').removeClass('size1of1').addClass('size15of19');
             // move join button to bottom
-            $('#'+layerId+' div.joinSubmit').insertAfter('#'+layerId+' div.bottomHalf');
-            $('#'+layerId+' div.joinSubmit button').text('Join now'); // instead of Join now
-            $('#'+layerId+' div.joinSubmit .lastUnit').show(); // instead of Join now
+            $(formAccess+' div.joinSubmit').insertAfter('#'+layerId+' div.bottomHalf');
+            $(formAccess+') div.joinSubmit button').text('Join now'); // instead of Join now
+            $(formAccess+' div.joinSubmit .lastUnit').show(); // instead of Join now
             // update partners text
-            $('#'+layerId+' div.'+layerId+'_partners label[for="opt3"]').html(
+            $(formAccess+' div.'+layerId+'_partners label[for="opt3"]').html(
                 'Send me offers to save on family activities and special ' +
                     'promotions from our carefully chosen partners.');
         },
         showSimpleMssFields : function() {
             console.log("showSimpleMssFields");
             // hide first name
-            $('#'+layerId+' div.'+layerId+'_firstName').hide();
+            $(formAccess+' div.'+layerId+'_firstName').hide();
             // show email label (short)
-            $('#'+layerId+' div.joinLabel label.shortLabel').show();
+            $(formAccess+' div.joinLabel label.shortLabel').show();
             // hide email label (long)
-            $('#'+layerId+' div.joinLabel label.longLabel').hide();
+            $(formAccess+' div.joinLabel label.longLabel').hide();
             // show confirm email
-            $('#'+layerId+' div.'+layerId+'_confirmEmail').show();
+            $(formAccess+' div.'+layerId+'_confirmEmail').show();
             // hide username
-            $('#'+layerId+' div.'+layerId+'_username').hide();
+            $(formAccess+' div.'+layerId+'_username').hide();
             // hide password
-            $('#'+layerId+' div.'+layerId+'_password').hide();
+            $(formAccess+' div.'+layerId+'_password').hide();
             // hide confirm password
-            $('#'+layerId+' div.'+layerId+'_confirmPassword').hide();
+            $(formAccess+' div.'+layerId+'_confirmPassword').hide();
             // hide terms
-            $('#'+layerId+' div.'+layerId+'_terms').hide();
+            $(formAccess+' div.'+layerId+'_terms').hide();
             // formatting changes
-            $('#'+layerId+' div.separator').hide();
-            $('#'+layerId+' div.separatorMss').show();
-            $('#'+layerId+' div.formHelperWrapper').hide();
-            $('#'+layerId+' div.formHelperSpacer').hide();
-            $('#'+layerId+' div.btstips').removeClass('size15of19').addClass('size1of1');
+            $(formAccess+' div.separator').hide();
+            $(formAccess+' div.separatorMss').show();
+            $(formAccess+' div.formHelperWrapper').hide();
+            $(formAccess+' div.formHelperSpacer').hide();
+            $(formAccess+' div.btstips').removeClass('size15of19').addClass('size1of1');
             // move join button to below confirm email
-            $('#'+layerId+' div.joinSubmit').insertAfter('#'+layerId+' div.'+layerId+'_confirmEmail');
-            $('#'+layerId+' div.joinSubmit button').text('Sign up'); // instead of Join now
-            $('#'+layerId+' div.joinSubmit .lastUnit').hide(); // instead of Join now
+            $(formAccess+' div.joinSubmit').insertAfter(formAccess+' div.'+layerId+'_confirmEmail');
+            $(formAccess+' div.joinSubmit button').text('Sign up'); // instead of Join now
+            $(formAccess+' div.joinSubmit .lastUnit').hide(); // instead of Join now
             // update partners text
-            $('#'+layerId+' div.'+layerId+'_partners label[for="opt3"]').html(
+            $(formAccess+' div.'+layerId+'_partners label[for="opt3"]').html(
                 'Send me offers to save on family activities and special ' +
                     'promotions from GreatSchools and our carefully chosen partners.');
         },
         baseFields : function() {
             console.log("baseFields");
             // hide city and state inputs
-            $('#'+layerId+' .joinHover_location').hide();
+            $(formAccess+' .joinHover_location').hide();
             // hide nth / MSS
-            $('#'+layerId+' div.grades2').hide();
-            //$('#'+layerId+' div .grades ul').hide();
+            $(formAccess+' div.grades2').hide();
+            //$(formAccess+' div .grades ul').hide();
             // hide LD newsletter
-            $('#'+layerId+' div.joinHover_ld').hide();
+            $(formAccess+' div.joinHover_ld').hide();
             // hide BTS tip
-            $('#'+layerId+' div.joinHover_btstip').hide();
+            $(formAccess+' div.joinHover_btstip').hide();
             //check checkbox for greatnews
-            $('#'+layerId+' #opt1').prop('checked', true);
+            $(formAccess+' #opt1').prop('checked', true);
             this.undoSimpleMssFields();
         },
         //sets a notification message on the join form - can be used to explain why this hover was launched
         addMessage : function(text) {
-            $('#'+layerId+' .message').html(text).show();
+            console.log("addMessage");
+            $(formAccess+' .message').html(text).show();
         },
         //method is plural to remain consistent with other hovers. Should always get called when hover closes
         clearMessages : function() {
-            $('#'+layerId+' .message').empty();
-            $('#'+layerId+' .message').hide();
+            console.log("clearMessages");
+            $(formAccess+' .message').empty();
+            $(formAccess+' .message').hide();
         },
         setJoinHoverType : function(type) {
-            $('#'+layerId+' form#joinGS input#joinHoverType').val(type);
+            console.log("setJoinHoverType");
+            $(formAccess+' #joinHoverType').val(type);
         },
+        ///
         setTitle : function(title) {
-            $('#'+layerId+' div.hoverTitle h3').html(title);
+            console.log("setTitle");
+            $(formAccess+' div.hoverTitle h3').html(title);
         },
+        /////
         setSubTitle : function(subTitle, subTitleText) {
+            console.log("setSubTitle");
             // GS-11161
             /*
-             $('#'+layerId+' .introTxt h3').html(subTitle);
-             $('#'+layerId+' .introTxt p').html(subTitleText);
+             $(formAccess+' .introTxt h3').html(subTitle);
+             $(formAccess+' .introTxt p').html(subTitleText);
              */
-            $('#'+layerId+' .introTxt span.title').html(subTitle);
+            $(formAccess+' .introTxt span.title').html(subTitle);
             if (subTitleText && subTitleText.charAt(0) != ',') {
                 subTitleText = " " + subTitleText;
             }
-            $('#'+layerId+' .introTxt span.subtitle').html(subTitleText);
+            $(formAccess+' .introTxt span.subtitle').html(subTitleText);
         },
         configAndShowEmailTipsMssLabel : function(includeWeeklyEmails, includeTips, includeMss) {
+            console.log("configAndShowEmailTipsMssLabel");
             var labelTextPrefix = "Sign me up for";
             var labelPhrases = "";
 
@@ -176,21 +310,25 @@ var JoinModal = (function($){
             //choose whether to display nth grader checkboxes flyout
             if (includeTips) {
                 // GS-11161
-                $('#'+layerId+' div.grades2').show();
+                $(formAccess+' div.grades2').show();
             }
 
-            $('#'+layerId+' div.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
+            $(formAccess+' div.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
         },
         // GS-11161
+
         configAndShowEmailTipsMssLabelNew : function() {
+            console.log("configAndShowEmailTipsMssLabelNew");
             var labelTextPrefix = "Sign me up for";
             var labelPhrases = " the <em>GreatSchools Weekly</em> &ndash; full of practical tips and grade-by-grade " +
                 "information to help you support your child's education.";
 
-            $('#'+layerId+' div.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
+            $(formAccess+' div.grades label[for="opt1"]').html(labelTextPrefix + labelPhrases);
         },
         parseCities : function(data) {
-            var citySelect = $('#'+layerId+' #joinCity');
+
+            console.log("parseCities");
+            var citySelect = $(formAccess+' #joinCity');
             if (data.cities) {
                 citySelect.empty();
                 for (var x = 0; x < data.cities.length; x++) {
@@ -202,51 +340,55 @@ var JoinModal = (function($){
             }
         },
         loadCities : function() {
-            var state = $('#'+layerId+' #joinState').val();
+
+
+            var state = $(formAccess+' #joinState').val();
             var url = "/community/registrationAjax.page";
 
-            $('#'+layerId+' #joinCity').html("<option>Loading...</option>");
-
-            $.getJSON(url, {state:state, format:'json', type:'city'}, this.parseCities);
+            $(formAccess+' #joinCity').html("<option>Loading...</option>");
+            console.log("loadCities");
+            $.getJSON(url, {state:state, format:'json', type:'city'}, JoinModal.parseCities);
         },
         loadDialog : function() {
+            console.log("loadDialog");
             // TODO-10568
             //this.dialogByWidth();
-            //var '+layerId+' = $('#'+layerId+'');
-            '+layerId+'.find('.redirect_field').val(window.location.href);
+            $(formAccess).find('.redirect_field').val(window.location.href);
         },
         loadOnExit : function(url) {
+            console.log("loadOnExit");
             this.loadOnExitUrl = url;
-           // var '+layerId+' = $('#'+layerId+'');
-            '+layerId+'.find('.redirect_field').val(url);
-            '+layerId+'.bind('dialogclose', function() {
-                window.location = this.loadOnExitUrl;
-            });
+            $(formAccess).find('.redirect_field').val(url);
         },
         cancelLoadOnExit : function() {
+            console.log("cancelLoadOnExit");
             this.loadOnExitUrl = null;
-            $('#'+layerId+'').unbind('dialogclose');
+            $(formAccess).unbind('dialogclose');
         },
-        showSignin : function() {
+        signIn : function() {
+            console.log("signIn");
             if (this.loadOnExitUrl) {
                 SignInModal.loadOnExit(this.loadOnExitUrl);
                 this.cancelLoadOnExit();
             }
-            this.hide();
-            SignInModal.showHover($('#'+layerId+' #jemail').val(),
-                $('#'+layerId+' .redirect_field').val(),
+            this.hideModal();
+            SignInModal.showModal($(formAccess+' #jemail').val(),
+                $(formAccess+' .redirect_field').val(),
                 SignInModal.showJoinFunction,
                 this.onSubmitCallback);
             return false;
         },
         showMssAutoHoverOnExit : function(schoolName, schoolId, schoolState) {
+            console.log("showMssAutoHoverOnExit");
             this.configureForMss(schoolName, schoolId, schoolState);
             this.showHoverOnExit(this.showJoinAuto);
         },
         showNthHoverOnExit : function() {
+            console.log("showNthHoverOnExit");
             this.showHoverOnExit(this.showJoinNth);
         },
         showHoverOnExit : function(showHoverFunction) {
+            console.log("showHoverOnExit");
             var arr = GS.getElementsByCondition(
                 function(el) {
                     if (el.tagName == "A") {
@@ -284,22 +426,25 @@ var JoinModal = (function($){
             }
         },
         configureForMss : function(schoolName, schoolId, schoolState) {
+            console.log("configureForMss");
             if (schoolName) {
                 this.schoolName = schoolName;
             }
             if (schoolId) {
-                $('#'+layerId+' .school_id').val(schoolId);
+                $(formAccess+' .school_id').val(schoolId);
             }
             if (schoolState) {
-                $('#'+layerId+' .school_state').val(schoolState);
+                $(formAccess+' .school_state').val(schoolState);
             }
         },
         configureOmniture : function(pageName, hier1) {
+            console.log("configureOmniture");
             this.pageName=pageName;
             this.hier1=hier1;
         },
         showJoinAuto : function(schoolName, schoolId, schoolState) {
-            $('#joinBtn').click(this.clickSubmitHandler);
+            console.log("showJoinAuto");
+            $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
             this.configureForMss(schoolName, schoolId, schoolState);
             this.baseFields();
             this.setTitle("Send me updates");
@@ -321,7 +466,8 @@ var JoinModal = (function($){
             this.showModal();
         },
         showSchoolReviewJoin : function(onSubmitCallback) {
-            $('#joinBtn').click(this.clickSubmitHandler);
+            console.log("showSchoolReviewJoin");
+           // $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
             this.baseFields();
             if (onSubmitCallback) {
                 this.onSubmitCallback = onSubmitCallback;
@@ -338,7 +484,7 @@ var JoinModal = (function($){
             }
 
             this.setJoinHoverType("SchoolReview");
-            $('#joinHover_cancel').hide();
+            //$(formAccess+' #joinHover_cancel').hide();
 
             this.configureOmniture('School Reviews Join Hover', 'Hovers,Join,School Reviews Join Hover');
 
@@ -346,7 +492,8 @@ var JoinModal = (function($){
             this.showModal();
         },
         showLearningDifficultiesNewsletter : function() {
-            $('#joinBtn').click(this.clickSubmitHandler);
+            console.log("showLearningDifficultiesNewsletter");
+          //  $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
             this.onSubmitCallback = null;
             this.baseFields();
             this.setTitle("Special Education newsletter");
@@ -355,10 +502,10 @@ var JoinModal = (function($){
             // show nth / MSS
             this.configAndShowEmailTipsMssLabel(true, true, false);
             // show LD newsletter
-            $('#joinHover .joinHover_ld').show();
+            $(formAccess+' .joinHover_ld').show();
 
             //set up checkboxes
-            $('#joinHover #opt2').prop('checked', true);
+            $(formAccess+' #opt2').prop('checked', true);
 
             this.setJoinHoverType("LearningDifficultiesNewsletter");
 
@@ -368,7 +515,8 @@ var JoinModal = (function($){
             this.showModal();
         },
         showBackToSchoolTipOfTheDay : function() {
-            $('#joinBtn').click(this.clickSubmitHandler);
+            console.log("showBackToSchoolTipOfTheDay");
+           // $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
             this.onSubmitCallback = null;
             this.baseFields();
             this.setTitle("Back-to-School Tip of the Day");
@@ -377,12 +525,12 @@ var JoinModal = (function($){
             // show nth / MSS
             this.configAndShowEmailTipsMssLabel(true, true, false);
             // show BTS tip
-            $('#joinHover .joinHover_btstip').show();
+            $(formAccess+'  .joinHover_btstip').show();
             // hide partners
-            $('#joinHover .joinHover_partners').hide();
+            $(formAccess+'  .joinHover_partners').hide();
 
             //set up checkboxes
-            $('#joinHover #opt4').prop('checked', true);
+            $(formAccess+'  #opt4').prop('checked', true);
 
             this.setJoinHoverType("BTSTip");
 
@@ -392,7 +540,8 @@ var JoinModal = (function($){
             this.showModal();
         },
         showJoinPostComment : function() {
-            $('#joinBtn').click(this.clickSubmitHandler);
+            console.log("showJoinPostComment");
+           // $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
             this.onSubmitCallback = null;
             this.baseFields();
             this.setTitle("Speak your mind");
@@ -409,22 +558,26 @@ var JoinModal = (function($){
             this.showModal();
         },
         showJoinTrackGrade : function() {
+            console.log("showJoinTrackGrade");
             this.setJoinHoverType("TrackGrade");
             SignInModal.showJoinFunction = this.showJoinTrackGrade;
             this.showJoinNth();
         },
         showJoinGlobalHeader : function() {
+            console.log("showJoinGlobalHeader");
             this.setJoinHoverType("GlobalHeader");
             SignInModal.showJoinFunction = this.showJoinGlobalHeader;
             this.showJoinNth();
         },
         showJoinFooterNewsletter : function() {
+            console.log("showJoinFooterNewsletter");
             this.setJoinHoverType("FooterNewsletter");
             SignInModal.showJoinFunction = this.showJoinFooterNewsletter;
             this.showJoinNth();
         },
         showJoinNth : function() {
-            $('#joinBtn').click(this.clickSubmitHandler);
+            console.log("showJoinNth");
+//            $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
             this.onSubmitCallback = null;
             this.baseFields();
             this.setTitle("Is your child on track?");
@@ -438,7 +591,8 @@ var JoinModal = (function($){
             this.showModal();
         },
         showJoinMsl : function() {
-            $('#joinBtn').click(this.clickSubmitHandler);
+            console.log("showJoinMsl");
+            $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
     //        this.configureForMss(schoolName, schoolId, schoolState);
             this.baseFields();
             this.setTitle("Welcome to My School List");
@@ -455,55 +609,63 @@ var JoinModal = (function($){
             this.showModal();
         },
         validateFirstName : function() {
+            console.log("validateFirstName:"+ GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page');
             $.getJSON(
                 GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-                {firstName:$('#joinGS #fName').val(), field:'firstName'},
-                function(data) {
-                    this.validateFieldResponse('#joinGS .joinHover_firstName .errors', 'firstName', data);
-                });
+                {firstName:$(formAccess+'  #fName').val(), field:'firstName'},
+                $.proxy(function(data) {
+                    JoinModal.validateFieldResponse(formAccess+' .joinHover_firstName .errors', 'firstName', data);
+                }));
         },
         validateEmail : function() {
+
+            console.log("validateEmail:"+ GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page');
             $.getJSON(
                 GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-                {email:$('#joinGS #jemail').val(), field:'email', simpleMss: ($('#joinHoverType').val() === 'Auto')},
-                function(data) {
-                    this.validateFieldResponse('#joinGS .joinHover_email .errors', 'email', data);
-                });
+                {email:$(formAccess+'  #jemail').val(), field:'email', simpleMss: ($(formAccess+' #joinHoverType').val() === 'Auto')},
+                $.proxy(function(data){
+                    JoinModal.validateFieldResponse(formAccess+'  .joinHover_email .errors', 'email', data);
+                }));
         },
         validateConfirmEmail : function() {
+            console.log("validateConfirmEmail");
             $.getJSON(
                 GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-                {email:$('#joinGS #jemail').val(), confirmEmail:$('#joinGS #jcemail').val(), field:'confirmEmail', simpleMss: ($('#joinHoverType').val() === 'Auto')},
-                function(data) {
-                    this.validateFieldResponse('#joinGS .joinHover_confirmEmail .errors', 'confirmEmail', data);
-                });
+                {email:$(formAccess+'  #jemail').val(), confirmEmail:$(formAccess+'  #jcemail').val(), field:'confirmEmail', simpleMss: ($(formAccess+' #joinHoverType').val() === 'Auto')},
+                $.proxy(function(data) {
+                    JoinModal.validateFieldResponse(formAccess+'  .joinHover_confirmEmail .errors', 'confirmEmail', data);
+                }));
         },
         validateUsername : function() {
+            console.log("validateUsername");
             $.getJSON(
                 GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-                {screenName:$('#joinGS #uName').val(), email:$('#joinGS #jemail').val(), field:'username'},
-                function(data) {
-                    this.validateFieldResponse('#joinGS .joinHover_username .errors', 'screenName', data);
-                });
+                {screenName:$(formAccess+'  #uName').val(), email:$(formAccess+'  #jemail').val(), field:'username'},
+                $.proxy(function(data) {
+                    JoinModal.validateFieldResponse(formAccess+' .joinHover_username .errors', 'screenName', data);
+                }));
         },
         validatePassword : function() {
+            console.log("validatePassword");
             $.getJSON(
                 GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-                {password:$('#joinGS #jpword').val(), confirmPassword:$('#joinGS #cpword').val(), field:'password'},
-                function(data) {
-                    this.validateFieldResponse('#joinGS .joinHover_password .errors', 'password', data);
-                });
-            this.validateConfirmPassword();
+                {password:$(formAccess+'  #jpword').val(), confirmPassword:$(formAccess+'  #cpword').val(), field:'password'},
+                $.proxy(function(data) {
+                    JoinModal.validateFieldResponse(formAccess+'  .joinHover_password .errors', 'password', data);
+                }));
+            JoinModal.validateConfirmPassword();
         },
         validateConfirmPassword : function() {
+            console.log("validateConfirmPassword");
             $.getJSON(
                 GS.uri.Uri.getBaseHostname() + '/community/registrationValidationAjax.page',
-                {password:$('#joinGS #jpword').val(), confirmPassword:$('#joinGS #cpword').val(), field:'confirmPassword'},
-                function(data) {
-                    this.validateFieldResponse('#joinGS .joinHover_confirmPassword .errors', 'confirmPassword', data);
-                });
+                {password:$(formAccess+'  #jpword').val(), confirmPassword:$(formAccess+'  #cpword').val(), field:'confirmPassword'},
+                $.proxy(function(data) {
+                    JoinModal.validateFieldResponse(formAccess+'  .joinHover_confirmPassword .errors', 'confirmPassword', data);
+                }));
         },
         validateFieldResponse : function(fieldSelector, fieldName, data) {
+            console.log("validateFieldResponse");
             var fieldError = $(fieldSelector + ' .invalid');
             var fieldValid = $(fieldSelector + ' .valid');
             fieldError.hide();
@@ -512,7 +674,7 @@ var JoinModal = (function($){
                 fieldError.html(data[fieldName]);
                 fieldError.show();
                 if (fieldName == 'email') {
-                    $('#joinGS .joinHover_email .invalid a.launchSignInHover').click(function() {
+                    $(formAccess+'  .joinHover_email .invalid a.launchSignInHover').click(function() {
                         this.showSignin();
                         return false;
                     });
@@ -522,18 +684,21 @@ var JoinModal = (function($){
             }
         },
         clickSubmitHandler : function() {
-            var params = $('#joinGS').serialize();
-            $('#joinBtn').prop('disabled', true);
+            console.log("clickSubmitHandler");
+            var params = $(formAccess).serialize();
+
+            console.log(params);
+            $(formAccess+' #joinBtn').prop('disabled', true);
 
 
             //if - Choose city - is selected, just remove this from the form, as if no city was given
-            if ($('#joinCity').val() == '- Choose city -') {
+            if ($(formAccess+' #joinCity').val() == '- Choose city -') {
                 params = params.replace(/&city=([^&]+)/, "");
             }
 
             var first = true;
             var newsletters = [];
-            $('#joinGS [name="grades"]').each(function() {
+            $(formAccess+'  [name="grades"]').each(function() {
                 if ($(this).prop('checked')) {
                     newsletters.push(encodeURIComponent($(this).val()));
                 }
@@ -541,11 +706,67 @@ var JoinModal = (function($){
 
             params += "&grades=" + newsletters.join(',');
 
-            params += "&simpleMss=" + ($('#joinHoverType').val() === 'Auto');
-
-            $.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse);
+            params += "&simpleMss=" + ($(formAccess+' #joinHoverType').val() === 'Auto');
+            console.log("registrationValidationAjax1");
+            $.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, checkValidationResponse);
+            console.log("registrationValidationAjax2");
             return false;
         }
     }
+//    $('#joinGS #fName').bind("blur",
+//        function(){ console.log("TEST fname"); }
+//    );
+
+
+//    $(document).ready(function() {
+//        console.log("joinGS #fName:"+ $('#joinGS #fName'));
+//        $('#joinGS #fName').blur(
+//            //validateFirstName
+//            //
+//            function(){ console.log("TEST fname"); }
+//        );
+//
+//    });
+
 })(jQuery);
 
+
+GS.isCookieSet = function(cookieName) {
+    // if cookie cookieName exists, the cookie is set
+    var value = readCookie(cookieName);
+    return value != undefined && value.length > 0;
+};
+GS.getServerName = function() {
+    // default to live
+    var serverName = 'www';
+
+    // check for staging
+    if (location.hostname.match(/staging\.|staging$|clone/)) {
+        serverName = 'staging';
+    } else if (location.hostname.match(/dev\.|dev$|\.office\.|cmsqa|localhost|127\.0\.0\.1|macbook|qaapp-1\.|qaapp-2\.|qaadmin-1\.|qa\.|qa-preview\./)) {
+        serverName = 'dev';
+    }
+
+    return serverName;
+};
+GS.isSignedIn = function() {
+    return GS.isCookieSet('community_' + GS.getServerName());
+};
+GS.isMember = function() {
+    return GS.isCookieSet('isMember');
+};
+GS.getElementsByCondition = function(condition,container) {
+    container = container||document;
+    var all = container.all||container.getElementsByTagName('*');
+
+    var arr = [];
+    for(var k=0;k<all.length;k++)
+    {
+        var elm = all[k];
+        if(condition(elm,k)) {
+            arr[arr.length] = elm
+        }
+    }
+    all = null;
+    return arr;
+};

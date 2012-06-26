@@ -77,11 +77,11 @@ var SignInModal = (function($){
         },
         showJoin : function() {
             if (this.loadOnExitUrl) {
-                GSType.hover.joinHover.loadOnExit(this.loadOnExitUrl);
+                JoinModal.loadOnExit(this.loadOnExitUrl);
                 this.cancelLoadOnExit();
             }
             if (this.onSubmitCallback) {
-                GSType.hover.joinHover.onSubmitCallback = this.onSubmitCallback;
+                JoinModal.onSubmitCallback = this.onSubmitCallback;
             }
             //GSType.hover.signInHover.hide();
             modalManager.hideModal({
@@ -112,8 +112,8 @@ var SignInModal = (function($){
                 modalManager.hideModal({
                     'layerId' : layerId
                 });
-                GSType.hover.joinHover.showJoinGlobalHeader();
-                GSType.hover.joinHover.addMessage(data.userNoPassword);
+                JoinModal.showJoinGlobalHeader();
+                JoinModal.addMessage(data.userNoPassword);
             } else if (data.userNotValidated) {
                 this.clearMessages();
                 modalManager.hideModal({
@@ -141,3 +141,6 @@ var SignInModal = (function($){
         }
     }
 })(jQuery);
+$('#fullPageOverlay').bind('onModalClose', function(event, param1, param2) {
+    console.log("onModalClose"+" : "+param1+" : "+param2 );
+});

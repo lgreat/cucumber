@@ -7,7 +7,7 @@
         >
 
 <div id="JoinModal" class="dn">
-<div class="mod modal_1 width_17" id="js_modal_container">
+<div class="mod modal_1 width_17 JoinModal" id="js_modal_container">
 <div class="outer">
 <a href="javascript:void(0);" class="closeModal" onClick="JoinModal.hideModal(); return false;">
     <span class="iconx24 i-24-close fr"><!-- do not collapse -->CLOSE</span>
@@ -16,7 +16,7 @@
 <div class="inner">
 <div class="hd hoverTitle">
     <h3 class="bottom fl">Speak your mind</h3>
-    <span class="fl">Already a member? <a href="#" id="lnchSignin" onclick="">Sign in</a></span>
+    <span class="fl">Already a member? <a href="#" id="lnchSignin" onclick="JoinModal.signIn(); return false;">Sign in</a></span>
 </div>
 <div class="bd">
 
