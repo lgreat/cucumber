@@ -95,7 +95,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
         Map<Integer, TestDescription> testDataTypeToDescription = getTestDataTypeToTestDescription(school, testDataTypeIdToTestDataType.keySet());
 
         //Use to debug
-        printAllData(testScoresMap);
+//        printAllData(testScoresMap);
 
         //Convert the map of test scores that was constructed above, to a list of TestToGrades bean.This bean is used in the view.
         return populateTestScoresBean(school, testScoresMap,testDataTypeToDescription);
