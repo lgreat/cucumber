@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsweb="gstaglib"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+
+    <jsp:directive.attribute name="row" type="gs.web.school.SchoolProfileDisplayBean" required="true"/>
+    <jsp:directive.attribute name="dataMap" type="java.util.Map" required="true"/>
+
+
+    <!-- The actual data for each row is stored in the highlightsDisplayData which is a map where the
+        key comes from the display bean and the data comes from getters getUrlDescModelKey and getUrlValueModelKey.
+    -->
+    <c:set var="key" value="${row.modelKey}"/>
+    <c:set var="values" value="${dataMap[key]}"/>
+    <!-- <tr><td colspan="2"><div class="">***Debug*** Row = ${row}, key = ${key}, values = ${values}</div></td></tr> -->
+    <tr>
+        <td><b>${row.rowTitle}</b></td>
+        <!-- Now display the data by looping over each data element -->
+        <td><ul>
+            <c:set var="urlArrayModelKey" value="${row.urlValueModelKey}"/>
+            <c:forEach var="descModelKey" items="${row.urlDescModelKeys}" varStatus="status">
+                <c:set var="urlModelKey" value="${urlArrayModelKey[status.index]}"/>
+                <c:set var="desc" value="${dataMap[descModelKey]}"/>
+                <c:set var="url" value="${dataMap[urlModelKey]}"/>
+                <div class="">
+                <c:choose>
+                    <c:when test="${not empty desc and not empty url}">
+                        <a href="${url}">${desc}</a>
+                    </c:when>
+                    <c:when test="${not empty desc}">
+                        ${desc}
+                    </c:when>
+                    <c:when test="${not empty url}">
+                        <a href="${url}">${url}</a>
+                    </c:when>
+                </c:choose>
+                </div>
+            </c:forEach>
+        </ul></td>
+    </tr>
+</jsp:root>
