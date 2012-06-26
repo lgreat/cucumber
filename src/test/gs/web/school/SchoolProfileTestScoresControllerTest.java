@@ -44,15 +44,17 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
         verifyMocks(_testDataSetDao, _testDataTypeDao, _subjectDao, _testBreakdownDao, _testDescriptionDao);
     }
 
-    public void testSortOrderOfTests1(){
+    public void testSortOrderOfTestsWithSameTestSameGrades(){
         replayAllMocks();
         List<SchoolProfileTestScoresController.TestToGrades> testToGradesList = new ArrayList<SchoolProfileTestScoresController.TestToGrades>();
 
+        //Test with subgroup data.(Same test and same grade)
         SchoolProfileTestScoresController.TestToGrades testWithSubgroup = new SchoolProfileTestScoresController.TestToGrades();
         testWithSubgroup.setLowestGradeInTest(Grade.G_1);
         testWithSubgroup.setIsSubgroup(true);
         testWithSubgroup.setTestDataTypeId(1);
 
+        //Test with no subgroup data.(Same test and same grade)
         SchoolProfileTestScoresController.TestToGrades testWithNoSubgroup = new SchoolProfileTestScoresController.TestToGrades();
         testWithNoSubgroup.setLowestGradeInTest(Grade.G_1);
         testWithNoSubgroup.setIsSubgroup(false);
@@ -62,13 +64,14 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
         testToGradesList.add(testWithNoSubgroup);
 
         Collections.sort(testToGradesList);
+        //Test with non-subgroup data should be first followed by the test with subgroup data.
         assertEquals(testToGradesList.get(0),testWithNoSubgroup);
         assertEquals(testToGradesList.get(1),testWithSubgroup);
 
         verifyAllMocks();
     }
 
-    public void testSortOrderOfTests2(){
+    public void testSortOrderOfTestsWithMultipleTests(){
         List<SchoolProfileTestScoresController.TestToGrades> testToGradesList = new ArrayList<SchoolProfileTestScoresController.TestToGrades>();
 
         SchoolProfileTestScoresController.TestToGrades noSubgroupGrade9 = new SchoolProfileTestScoresController.TestToGrades();
@@ -115,6 +118,8 @@ public class SchoolProfileTestScoresControllerTest extends BaseControllerTestCas
         testToGradesList.add(withSubgroupGrade1);
 
         Collections.sort(testToGradesList);
+        //The tests should be sorted in the order of - the lowest grade in the test followed by test data type id.
+        //However if the test has subgroup data then the test should be followed by subgroup test.
         assertEquals(testToGradesList.get(0),noSubgroupGrade1);
         assertEquals(testToGradesList.get(1),withSubgroupGrade1);
         assertEquals(testToGradesList.get(2),noSubgroupGrade3);
