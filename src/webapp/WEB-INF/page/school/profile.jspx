@@ -3,7 +3,10 @@
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
@@ -18,6 +21,11 @@
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 <jsp:directive.page contentType="text/html"/>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<c:set var="state" value="${school.databaseState}"/>
+<c:set var="city" value="${school.physicalAddress.city}"/>
+<c:set var="headerLinkAnchor" value="from..HeaderLink"/>
+
 <head>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
@@ -42,7 +50,197 @@
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 
-    <div style="height: 200px; width: 950px; border: 1px solid red;">${school.name}</div>
+    <div style="height: 225px; width: 950px; border: 1px solid red; position: relative;">
+        <div>
+            <ul>
+                <li><link:home>Home</link:home> &amp;gt; </li>
+                <c:choose>
+                    <c:when test="${state eq 'DC'}">
+                        <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
+                        <link:research state="${state}"
+                                       title="District of Columbia" markUpWithItemScopeUrl="true"><span itemprop="title">District of Columbia</span></link:research> &amp;gt;
+                        <![CDATA[</li>]]>
+                        <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
+                        <c:choose>
+                            <c:when test="${school.levelCode eq 'p'}">
+                                <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p"
+                                              title="Washington, D.C. preschools" markUpWithItemScopeUrl="true"><span itemprop="title">Washington, D.C. Preschools</span></link:schools>&amp;#160;
+                            </c:when>
+                            <c:otherwise>
+                                <link:city city="${city}" state="${school.physicalAddress.state}"
+                                           title="${city} schools" markUpWithItemScopeUrl="true"><span itemprop="title">Washington, D.C. Schools</span></link:city>&amp;#160;
+                            </c:otherwise>
+                        </c:choose>
+                        <![CDATA[</li>]]>
+                        <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
+                            <li>&amp;gt; <link:districtHome district="${school.district}"
+                                                            title="District information">DCPS</link:districtHome>
+                            </li>
+                        </c:if>
+                    </c:when>
+                    <c:otherwise>
+                        <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
+                        <c:choose>
+                            <c:when test="${state eq 'NY' and city eq 'New York'}">
+                                <link:research state="${state}"
+                                               title="${state.longName}" markUpWithItemScopeUrl="true"><span itemprop="title">${state.longName}</span></link:research> &amp;gt;
+                            </c:when>
+                            <c:otherwise>
+                                <link:research state="${state}"
+                                               title="${state.longName} schools" markUpWithItemScopeUrl="true"><span itemprop="title">${state.longName} Schools</span></link:research> &amp;gt;
+                            </c:otherwise>
+                        </c:choose>
+                        <![CDATA[</li>]]>
+                        <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
+                        <c:choose>
+                            <c:when test="${school.levelCode eq 'p' and state eq 'NY' and city eq 'New York'}">
+                                <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools" markUpWithItemScopeUrl="true"><span itemprop="title">NYC Preschools</span></link:schools>&amp;#160;
+                            </c:when>
+                            <c:when test="${school.levelCode eq 'p'}">
+                                <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p" title="${city} preschools" markUpWithItemScopeUrl="true"><span itemprop="title">${city} Preschools</span></link:schools>&amp;#160;
+                            </c:when>
+                            <c:when test="${state eq 'NY' and city eq 'New York'}">
+                                <link:city city="${city}" state="${school.physicalAddress.state}"
+                                           title="NYC schools" markUpWithItemScopeUrl="true"><span itemprop="title">NYC Schools</span></link:city>&amp;#160;
+                            </c:when>
+                            <c:otherwise>
+                                <link:city city="${city}" state="${school.physicalAddress.state}"
+                                           title="${city} schools" markUpWithItemScopeUrl="true"><span itemprop="title">${city} Schools</span></link:city>&amp;#160;
+                            </c:otherwise>
+                        </c:choose>
+                        <![CDATA[</li>]]>
+                        <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
+                            <li>&amp;gt; <link:districtHome district="${school.district}"
+                                                            title="District information"><c:out value="${school.district.name}" escapeXml="true"/></link:districtHome>
+                            </li>
+                        </c:if>
+                    </c:otherwise>
+                </c:choose>
+            </ul>
+        </div>
+        <!-- end: breadcrumbs -->
+
+        <!-- New GS Rating -->
+        <div style="float: left;">
+            <div style="height: 100px; width: 100px; background-color: green;">
+                <!-- TODO: Placeholder for new GreatSchools Rating -->
+            </div>
+            <p>GreatSchools Rating</p>
+        </div>
+
+        <div><h1>${school.name}</h1></div>
+        <div>
+            <!-- School Type -->
+            <c:if test="${school.levelCode ne 'p'}">
+                ${gsweb:capitalize(school.type.schoolTypeName)}
+            </c:if>
+            <!-- Grade levels -->
+            <c:choose>
+                <c:when test="${school.levelCode eq 'p'}">
+                    Preschool
+                </c:when>
+                <c:when test="${empty school.gradeLevels or school.gradeLevels eq 'n/a' or school.gradeLevels eq 'N/A'}">
+                    <!-- Leave blank -->
+                </c:when>
+                <c:otherwise>
+                    | ${school.gradeLevels}
+                </c:otherwise>
+            </c:choose>
+            <!-- Enrollment -->
+            <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
+            <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
+                | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')}
+            </c:if>
+            | &amp;nbsp; <promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}" />
+
+        </div>
+
+        <div>
+            <ul class="smallAlertText">
+                <li>
+                    <link:mySchoolList school="${school}"
+                                       onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
+                                       anchor="${headerLinkAnchor}">Save</link:mySchoolList>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">Send me updates</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">Write a review</a>
+                </li>
+                <!-- TODO: Generate compareNearbyString -->
+                <c:if test="${not empty compareNearbyString}">
+                    <c:set var="compareSource" value="overview"/>
+                    <li>
+                        <link:compareSchools schools="${compareNearbyString}" source="sphead_${compareSource}_${school.databaseState}${school.id}"
+                                             onclick="if (s.tl) {s.tl(this,'o','SchoolProfile_Compare_Inline_Link');} return true;"
+                                             tab="overview">Compare schools</link:compareSchools>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
+
+        <!-- Map -->
+        <div style="position:absolute; top:0; right: 250px;">
+            <c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress.asSingleLineString)}"/>
+            <c:set var="schoolAddressWithName"
+                   value="${schoolAddress}+(${gsweb:escapeHtml(school.name)})"/>
+            <!-- TODO: references mobile -->
+            <c:set var="mapMarkerUrl" value="http://www.greatschools.org/res/mobile/img/map_pins/32x32/schoolRating_na.png"/>
+            <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
+
+            <p>
+                <a href="http://maps.google.com/?q=${schoolAddressWithName}">
+                    <img height="120" width="160" alt="Map thumbnail"
+                         src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=160x120&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
+                </a>
+            </p>
+            <p>
+                <a href="javascript:void(0);">Larger map</a>
+            </p>
+
+        </div>
+        <!-- Address, phone, fax, directions, homes for sale -->
+        <div style="position:absolute;top:0;right:0;">
+            <div>
+                <p class="street-address">${school.physicalAddress.street}</p>
+                <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">
+                    <p class="street-address">${school.physicalAddress.streetLine2}</p>
+                </c:if>
+                <p>
+                    <span class="locality">${school.physicalAddress.city}</span>,
+                    <span class="region">${school.physicalAddress.state.abbreviation} </span>
+                    <span class="postal-code">${school.physicalAddress.zip}</span>
+                </p>
+                <c:if test="${not empty school.phone}">
+                    <p class="tel"><span class="infoLabel">Phone: </span>${school.phone}</p>
+                </c:if>
+                <c:if test="${not empty school.fax}">
+                    <p class="fax"><span class="infoLabel">Fax: </span>${school.fax}</p>
+                </c:if>
+
+                <c:if test="${not empty school.webSitePrettyUrl}">
+                    <p>
+                        <a href="${school.webSitePrettyUrl}" target="_blank">School Website</a>
+                    </p>
+                </c:if>
+
+                <p>
+                    <a href="http://maps.google.com/?daddr=${schoolAddressWithName}">Get directions</a>
+                </p>
+
+                <c:if test="${requestScope.context.showRealtorDotComPromos}">
+                    <p>
+                        <gslink:realtorDotComLink address="${school.physicalAddress}" customLinkSuffix="inlinelinkheader">Nearby homes for sale</gslink:realtorDotComLink>
+                    </p>
+                </c:if>
+
+
+            </div>
+
+        </div>
+
+    </div>
 
     <div>
         <ul id="schoolProfileTabs" data-gs-tab-group="profileTabs">
@@ -55,6 +253,7 @@
         </ul>
     </div>
 
+    <!-- TODO: Do we need this useBean??? -->
     <jsp:useBean id="now" class="java.util.Date" scope="page" />
     <div data-gs-tab-body-group="profileTabs" class="slStylesV1-0">
         <div data-gs-tab-body="overview" style="min-height: 600px; width: 700px; border: 1px solid blue; float: left;">
