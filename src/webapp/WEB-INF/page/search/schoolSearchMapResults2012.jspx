@@ -468,7 +468,7 @@
                 <c:otherwise>
                     <c:choose>
                         <c:when test="${sort eq null}">
-                            <option value="Relevance" selected="selected">Relevance</option>
+                            <option value="" selected="selected">Relevance</option>
                         </c:when>
                         <c:otherwise>
                             <option value="">Relevance</option>

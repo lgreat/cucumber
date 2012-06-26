@@ -485,7 +485,7 @@ GS.search.results = GS.search.results || (function() {
             $('#map-sort').val(queryStringData.sortBy);
         }
         else {
-            $('#map-sort').val('Relevance');
+            $('#map-sort').val('');
         }
 
         if(queryStringData.pageSize !== undefined) {
