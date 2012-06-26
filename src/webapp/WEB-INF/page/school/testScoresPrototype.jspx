@@ -42,9 +42,12 @@
                             </c:forEach>
                         </c:when>
                         <c:otherwise>
-                            <c:forEach var="testValue" items="${subjectToYears.testValues}">
+                            <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="loopCount">
                                 <span>${testValue.year} ${testValue.testScoreLabel}</span>
-                                <span> StateAvg: ${testValue.stateAvg}</span>
+                                <!--Display the state average for only the latest year-->
+                                <c:if test="${loopCount.count eq 1}">
+                                    <span> StateAvg: ${testValue.stateAvg}</span>
+                                </c:if>
                                 <br/>
                             </c:forEach>
                         </c:otherwise>
