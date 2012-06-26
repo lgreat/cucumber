@@ -68,7 +68,6 @@
 
     <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>
     <pageHelper:externalJavascript file="/res/js/hogan.js"/>
-    <pageHelper:externalJavascript file="/res/js/hoverNew.js"/>
 
     <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
     <pageHelper:externalJavascript file="/res/js/history.min.js"/>

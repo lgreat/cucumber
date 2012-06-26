@@ -103,6 +103,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public static final String MODEL_DID_YOU_MEAN = "didYouMean";
     public static final String MODEL_SEARCH_STRING = "searchString";
 
+    public static final String MODEL_CITY_BROWSE = "isCityBrowse";
+    public static final String MODEL_DISTRICT_BROWSE = "isDistrictBrowse";
+
     public static final int MAX_PAGE_SIZE = 100;
 
     protected static final String VIEW_NOT_FOUND = "/status/error404.page";
@@ -630,6 +633,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         // Common: Calculate the view name
         String viewName = determineViewName(commandAndFields.getSchoolSearchCommand(), searchResultsPage);
 
+        model.put(MODEL_CITY_BROWSE, true);
+
         return new ModelAndView(viewName, model);
     }
 
@@ -695,6 +700,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         // Common: Calculate the view name
         String viewName = determineViewName(commandAndFields.getSchoolSearchCommand(), searchResultsPage);
 
+        model.put(MODEL_DISTRICT_BROWSE, true);
 
         return new ModelAndView(viewName, model);
     }

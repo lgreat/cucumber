@@ -114,7 +114,7 @@
 
         <!-- Community Rating -->
         <div class="${communitySearchWidth}">
-            <search:parentRatingAndReviewBlurb/>
+            <search:parentRatingAndReviewBlurb school="${school}"/>
         </div>
 
         <div class="${photoSearchWidth} omega">
@@ -126,6 +126,26 @@
         </div>
 
         <div class="alpha grid_16 omega">
+
+            <span id="fltlft js-compare-${school.databaseState}${school.id}">
+                <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
+                <!-- DONE: Randall fixme -->
+                <c:choose>
+                    <c:when test="${school.levelCode eq 'p'}">
+                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox" type="checkbox"
+                               disabled="disabled" title="${preschoolNoCompareMessage}"/>
+                        <label class="smallText2-777"
+                               for="${school.databaseState}${school.id}" title="${preschoolNoCompareMessage}"><i>Compare</i></label>
+                    </c:when>
+                    <c:otherwise>
+                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
+                               type="checkbox"/>
+                        <label class="js-compareLabelNotChecked smallText2"
+                               for="${school.databaseState}${school.id}">Compare</label>
+                    </c:otherwise>
+                </c:choose>
+            </span>
+
             <c:if test="${requestScope.context.showRealtorDotComPromos}">
                 <div class="alpha grid_8">
                     <gslink:realtorDotComLink address="${school.address}"
@@ -135,7 +155,7 @@
             </c:if>
 
             <div class="grid_8 omega">
-                <search:addToMslLinkOrText/>
+                <search:addToMslLinkOrText school="${school}" omniturePageName="${omniturePageName}"/>
             </div>
         </div>
     </div>
