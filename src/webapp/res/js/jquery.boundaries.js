@@ -105,12 +105,17 @@ Boundaries.prototype = {
     }
 
     , geocode: function (option) {
-        $.when(BoundaryHelper.geocode(option))
-            .then ($.proxy(function (data){
-            this.center(new google.maps.LatLng(data[0].lat, data[0].lon));
-            this.refresh();
-            this.trigger('geocode', data);
-        }, this));
+        BoundaryHelper.geocode(option).done(
+            $.proxy(function (data) {
+                this.center(new google.maps.LatLng(data[0].lat, data[0].lon));
+                this.refresh();
+                this.trigger('geocode', data);
+            }, this)
+        ).fail(
+            $.proxy(function(){
+                this.trigger('geocodefail');
+            }, this)
+        );
     }
 
     , geocodereverse: function ( option ) {
@@ -180,7 +185,7 @@ Boundaries.prototype = {
             else if (type=='school') {
                 if (school){
                     if (school.schoolType=='charter'){
-                        if (!school.charterOnly) {
+                        if (school.districtId) {
                             hide = true;
                         } else {
                             hide = false;

@@ -127,6 +127,7 @@ var Boundary = (function (){
         $map.on('focus.boundaries', focusEventHandler );
         $map.on('load.boundaries', loadEventHandler );
         $map.on('geocode.boundaries', geocodeEventHandler );
+        $map.on('geocodefail.boundaries', geocodeFailEventHandler);
         $map.on('geocodereverse.boundaries', geocodeReverseEventHandler );
         $map.on('moved.boundaries', movedEventHandler );
         $map.on('mapclick.boundaries', mapClickEventHandler );
@@ -249,6 +250,12 @@ var Boundary = (function (){
         privateEventHandler();
         charterEventHandler();
     };
+
+    var geocodeFailEventHandler = function ( event, obj ) {
+        var val = $('#js_mapAddressQuery').val();
+        alert('\"' + val + '\" could not be found.  Please try a different search.');
+        firePageView('BoundariesMap:noresults');
+    }
 
     var geocodeReverseEventHandler = function (event, obj) {
         var $nearby = $('#js_nearbyHomesForSale');
