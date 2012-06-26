@@ -13,7 +13,7 @@
     <ul id="utilLinks">
 
         <c:if test="${hasMobileView and empty hideAlternateSiteButton and not empty requestInfo and requestInfo.mobileSiteEnabled and requestInfo.fromMobileDevice}">
-            <li style="display:none;" id="js_header_view_mobile_site"><a href="javascript:void(0)"><span  class="make-FFCC66">&lt; Back to Mobile Site</span></a></li>
+            <li style="display:none;" id="js_header_view_mobile_site"><a href="javascript:void(0)"><strong>&lt;&lt; Back to Mobile Site</strong></a></li>
         </c:if>
         <gsweb:currentAbsolutePath var="myUrl" urlEncode="false"/>
         <c:if test='${fn:startsWith(myUrl, "/community/loginOrRegister")}'>
