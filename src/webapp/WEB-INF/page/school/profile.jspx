@@ -249,7 +249,7 @@
             <li data-gs-tab="testScores">Test scores</li>
             <li data-gs-tab="stats">School stats</li>
             <li data-gs-tab="reviews">Reviews</li>
-            <li data-gs-tab="programsExtracurriculars">Programs &amp;amp; Extracurriculars</li>
+            <li data-gs-tab="programsExtras">Programs &amp;amp; Extras</li>
             <li data-gs-tab="culture">Culture</li>
         </ul>
     </div>
@@ -275,8 +275,8 @@
             <jsp:include page="/school/profileReviews.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}" />
             <!--</gsweb:cache>-->
         </div>
-        <div data-gs-tab-body="programsExtracurriculars" style="display:none;">
-            Programs &amp;amp; Extracurriculars data
+        <div data-gs-tab-body="programsExtras" style="display:none;">
+            <jsp:include page="/school/profilePrograms.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}" />
         </div>
         <div data-gs-tab-body="culture" style="display:none;">
             Culture data

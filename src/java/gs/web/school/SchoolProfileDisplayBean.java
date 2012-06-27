@@ -31,13 +31,13 @@ import java.util.*;
  */
 public class SchoolProfileDisplayBean {
 
-    public enum  DisplayFormat { BASIC, TWO_COL, URL; }   // The possible display formats
-    public enum NoneHandling{ ALWAYS_SHOW, SHOW_IF_ONLY_VALUE, HIDE_IF_ONLY_NONE };
+    public enum  DisplayFormat { BASIC, TWO_COL, URL }   // The possible display formats
+    public enum NoneHandling{ ALWAYS_SHOW, SHOW_IF_ONLY_VALUE, HIDE_IF_ONLY_NONE }
 
     private String _tabAbbreviation;            // abbreviation for a tab
     private String _sectionAbbreviation;        // abbreviation for a section
     private String _sectionTitle;               // this is the title displayed for this section
-    private String _rowTitle;                   // this is the row descriptionEspResponseKey text
+    private String _rowTitle;                   // this is the row description text
     private Set<String> _espResponseKeys;       // these are the esp_response.response_key values to be used for this row
     private String _espResponseKeyWithAllowed;  // This is the esp_response_key that has an "allowed" set of values
     private Set _allowedResponseValues;         // only this set of values is allowed on this row
@@ -45,12 +45,8 @@ public class SchoolProfileDisplayBean {
     private DisplayFormat _displayFormat;       // how the data should be formatted
     private List<String> _urlDescription;       // For row displayed as a URL this is the Description
     private List<String> _urlValue;             // For row displayed as a URL this is the url
-    //private List<String> _urlEspResponseKey;    // This and the following are needed for mapping url related ESP keys to modelKeys
-    //private List<String> _urlModelKey;
     private List<String> _titleMatch;           // string in row title to find for substitution
     private List<String> _titleModelKey;        // modelKey to value for this replacement
-    //private List<String> _supportEspResponseKeys;// row support data esp_response_keys
-    //private List<String> _supportModelKeys;     // row support data modelKeys
     private boolean _requiresNoneHandling;      // indicator that special "None" value handling is needed
     private NoneHandling _noneMode;             // How to treat None values
     private List<AdditionalData> _additionalData;    // A place to store additional data to retrieve from the ESP database and map to the model
@@ -173,15 +169,13 @@ public class SchoolProfileDisplayBean {
      */
     public void addUrl( String descriptionEspResponseKey, String valueEspResponseKey) {
         // To support this requirement the following data structures need to be built:
-        // 1. The values passed in (These are converted to modelKeys)
-        // 2. Parallel lists of the espKeys and modelKey so the ESP data can be mapped to the model
-        // 3. Both of the input values need to be added to the _espResponseKeys list so the data will be retrieved from the ESD database
+        // 1. The values passed in, converted to modelKeys, are stored in _urlDescription and _urlValue.  These are used by the jspx.
+        // 2. Both of the input values need to be added to the _espResponseKeys list so the data will be retrieved from the ESP database
+        // 3. An esp to model key list is neeeded so the ESP data can be mapped to ModelKeys.  This is done in _additionalData.
 
         if( _urlDescription == null ) {
             _urlDescription = new ArrayList<String>(5);
             _urlValue = new ArrayList<String>(5);
-//            _urlEspResponseKey = new ArrayList<String>(10);
-//            _urlModelKey = new ArrayList<String>(10);
         }
 
         // Create additionalData list if needed
@@ -193,8 +187,6 @@ public class SchoolProfileDisplayBean {
             String modelKey = calcModelKey(descriptionEspResponseKey);
             _urlDescription.add( modelKey );
             _additionalData.add( new AdditionalData( descriptionEspResponseKey ) );
-//            _urlEspResponseKey.add( descriptionEspResponseKey );
-//            _urlModelKey.add( modelKey );
             _espResponseKeys.add(descriptionEspResponseKey);        // Need to retrieve data for this key
         }
         else {
@@ -215,19 +207,11 @@ public class SchoolProfileDisplayBean {
     }
 
     /**
-     * Returns the modelKey of the descriptionEspResponseKey List
-     * @return modelKey
-     */
-    public List<String> getUrlDescModelKeys() {
-        return _urlDescription;
-    }
-
-    /**
      * Returns the modelKey of the descriptionEspResponseKey as an array of strings
      * @return modelKey
      */
 
-    public String [] getUrlDescModelKey(  ) {
+    public String [] getUrlDescModelKeys(  ) {
         if( _urlDescription == null )
             return new String[0];
        else {
@@ -239,7 +223,7 @@ public class SchoolProfileDisplayBean {
      * Returns the modelKey of the (url) valueEspResponseKey as an array of strings
      * @return modelKey
      */
-    public String [] getUrlValueModelKey() {
+    public String [] getUrlValueModelKeys() {
         if( _urlValue == null )
             return new String[0];
         else {
@@ -319,11 +303,6 @@ public class SchoolProfileDisplayBean {
      * @param espResponseKey
      */
     public void addSupportInfo( String espResponseKey ) {
-//        if( _supportEspResponseKeys == null ) {
-//            _supportEspResponseKeys = new ArrayList<String>(2);
-//            _supportModelKeys = new ArrayList<String>(2);
-//        }
-
         if( espResponseKey != null && espResponseKey.length() > 0 ) {
             // Create additionalData list if needed
             if( _additionalData == null ) {
@@ -332,19 +311,8 @@ public class SchoolProfileDisplayBean {
 
             _additionalData.add( new AdditionalData( espResponseKey ) );
             _espResponseKeys.add( espResponseKey );     // need to retrieve data for this
-
-    //        _supportEspResponseKeys.add( espResponseKey );
-    //        _supportModelKeys.add( calcModelKey( espResponseKey ) );
         }
     }
-
-//    public List<String> getSupportEspResponseKeys() {
-//        return _supportEspResponseKeys;
-//    }
-//
-//    public List<String> getSupportModelKeys() {
-//        return _supportModelKeys;
-//    }
 
     /**
      * Builds a row title by replacing replaceable values with the corresponding data
@@ -371,10 +339,6 @@ public class SchoolProfileDisplayBean {
         }
         return title.toString();
     }
-
-//    public String getLinkedResultKey() {
-//        return _linkedResultKey;
-//    }
 
     @Override
     public String toString() {

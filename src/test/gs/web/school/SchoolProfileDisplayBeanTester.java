@@ -51,6 +51,9 @@ public class SchoolProfileDisplayBeanTester extends TestCase {
 
         String [] expectedKeys = new String[] { "test_key", "test_key2" };
         Set<String> actualKeys = bean.getEspResponseKeys();
+
+        assertEquals("testEspKeyAddition: axctual and expected lists are not the same size", expectedKeys.length, actualKeys.size() );
+
         for( String expectedKey : expectedKeys ) {
             assertTrue( "testEspKeyAddition: expected espResponseKey not found: " + expectedKey, actualKeys.contains( expectedKey ) );
         }
@@ -63,9 +66,15 @@ public class SchoolProfileDisplayBeanTester extends TestCase {
         SchoolProfileDisplayBean bean = new SchoolProfileDisplayBean( "tab", "section", "section title", "row title", "test_key" );
         bean.addUrl( "test_url_desc_key", "test_url_key" );
 
-        assertEquals( "testAddUrl: Url description is not correct", "tab/section/test_url_desc_key", bean.getUrlDescModelKey()[0] );
-        assertEquals( "testAddUrl: Url is not correct", "tab/section/test_url_key", bean.getUrlValueModelKey()[0]);
+        assertEquals( "testAddUrl: Url description is not correct", "tab/section/test_url_desc_key", bean.getUrlDescModelKeys()[0] );
+        assertEquals( "testAddUrl: Url is not correct", "tab/section/test_url_key", bean.getUrlValueModelKeys()[0]);
 
+        // also make sure this information got added to the AdditionalData section
+        List<SchoolProfileDisplayBean.AdditionalData> addData = bean.getAdditionalData();
+        // addData should contain one entry for the desc and one for the url
+        assertEquals( "testAddUrl: SchoolProfileDisplayBean.AdditionalData does not contain the expected number of elements", 2, addData.size() );
+        assertEquals( "testAddUrl: SchoolProfileDisplayBean.AdditionalData does not contain the expected desc modelKey", "tab/section/test_url_desc_key", addData.get(0).getModelKey() );
+        assertEquals( "testAddUrl: SchoolProfileDisplayBean.AdditionalData does not contain the expected url modelKey", "tab/section/test_url_key", addData.get(1).getModelKey() );
     }
 
     public void testAddTitleSubstitution() {

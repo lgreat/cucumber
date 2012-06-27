@@ -30,20 +30,31 @@
 -->
 <body class="nocol">
 
-    <div class="slStylesV1-0">
+    <div id="profileProgramsTabs">
+    <div class="tabBar">
+        <div class="small_bold bottom">
+            <span id="highlightsTab" class="selected small_bold">Highlights</span>
+            <span id="appInfoTab" class="small_bold">Application Information</span>
+            <span id="pgmResTab" class="small_bold">Programs &amp;amp; Resources</span>
+            <span id="extrasTab" class="small_bold">Extracurriculars</span>
+        </div>
+    </div>
+
 
         <c:if test="${not empty school}">
             <b>School name = ${school.name}</b><p/>
         </c:if>
 
+    <div id="highlightsTabBody" class="tabBody pal">
         <b>Highlights data</b>
         <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
              where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
         <c:forEach var="section" items="${highlights}" >
             <school:profileProgramsSectionBasic displayBean="${section}" rowList="${highlightsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
         </c:forEach>
+    </div>
 
-        <hr width="5"/>
+    <div id="appInfoTabBody" class="tabBody pal">
         <b>Application Information</b>
         <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
@@ -51,7 +62,9 @@ where each entry is the first bean for that section, this allows access to the s
             <school:profileProgramsSectionBasic displayBean="${section}" rowList="${application_infoMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
         </c:forEach>
 
-        <hr width="5"/>
+    </div>
+
+    <div id="pgmResTabBody" class="tabBody pal">
         <b>Programs and Resources</b>
         <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
@@ -59,7 +72,9 @@ where each entry is the first bean for that section, this allows access to the s
             <school:profileProgramsSectionBasic displayBean="${section}" rowList="${programs_resourcesMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
         </c:forEach>
 
-        <hr width="5"/>
+    </div>
+
+    <div id="extrasTabBody" class="tabBody pal">
         <b>Extracurriculars</b>
         <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
@@ -76,7 +91,7 @@ where each entry is the first bean for that section, this allows access to the s
             </c:choose>
             -->
         </c:forEach>
-
+    </div>
     </div>
 
 </body>
