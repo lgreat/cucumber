@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.51 2012/06/22 21:41:29 rcox Exp $
+ * $Id: AdTagHandler.java,v 1.52 2012/06/27 21:42:08 yfan Exp $
  */
 package gs.web.ads;
 
@@ -89,7 +89,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 jsMethodName = JS_METHOD_NAME_GAM;
                 String slotPrefix = (String) request.getAttribute(REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
                 if (!"Global_NavPromo_970x30".equals(slotName) &&
-                    !"Global_HeaderPromo_88x31".equals(slotName) &&
                     !"Custom_Peelback_Ad".equals(slotName) &&
                     !"Custom_Welcome_Ad".equals(slotName) &&
                     StringUtils.isNotBlank(slotPrefix)) {
@@ -168,7 +167,6 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
             if (_adPosition.isGAMPosition()) {
                 String slotPrefix = (String) request.getAttribute(REQUEST_ATTRIBUTE_SLOT_PREFIX_NAME);
                 if (!"Global_NavPromo_970x30".equals(slotName) &&
-                        !"Global_HeaderPromo_88x31".equals(slotName) &&
                         !"Custom_Peelback_Ad".equals(slotName) &&
                         !"Custom_Welcome_Ad".equals(slotName) &&
                         StringUtils.isNotBlank(slotPrefix)) {
