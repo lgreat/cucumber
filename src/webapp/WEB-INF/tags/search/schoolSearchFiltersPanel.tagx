@@ -84,7 +84,7 @@
                                                           value="high" label="High (7-10)"/>
                     </search:dropdownFilters>
                     <hr class="keyline1"/>
-                    <div class="mtl">
+                    <div class="mtm">
                         <search:searchFilterWithCount styleClass="js-applyFilters" name="studentsVouchers"
                                                       value="students_vouchers"
                                                       label="Accepts students on voucher (private schools only)"/>

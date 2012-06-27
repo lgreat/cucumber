@@ -9,7 +9,7 @@
 
 <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
 
-    <div id="js-school-search-results-table" class="">
+    <div id="js-school-search-results-table" class="mts">
         <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
 
         <!-- DONE: Hi Randall! Can you relocate this and move styles to css, thx -->
@@ -25,20 +25,17 @@
         <!--</c:set>-->
 
         <div class="alpha grid_16 omega">
-            <div class="alpha grid_7 fl">
+            <div class="alpha grid_9">
                 <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a> &amp;nbsp;
                 <a data-role="button" data-inline="true" class="but but-sm but-2 js-mapResultsLink">Map</a>
             </div>
-            <br class="clearfloat"/>
-            <div class="line">
-                <div class="unit size1of2">
-                    ${searchResultsPagingSummary}
-                </div>
-                <div class="unit size2of2 lastUnit">
+            <div class="grid_7 omega">
+                <!--<div class="unit size1of2">-->
+                    <!--${searchResultsPagingSummary}-->
+                <!--</div>-->
                     <div class="pagination  js-pageNumbers" id="pagination">
                       <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.results.page" />
                     </div>
-                </div>
             </div>
         </div>
         <div class="alpha grid_16 omega">
