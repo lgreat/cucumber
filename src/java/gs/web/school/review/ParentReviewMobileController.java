@@ -66,7 +66,7 @@ public class ParentReviewMobileController extends AbstractController implements 
             cmd.setRatings(ratings);
 
             // sort the reviews according to request param
-            String paramSortBy = _parentReviewHelper.handleSortReviews(request, reviews);
+            String paramSortBy = _parentReviewHelper.handleSortReviews(request.getParameter(ParentReviewHelper.PARAM_SORT_BY), reviews);
 
             Long numberOfNonPrincipalReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school, reviewsBy);
 
