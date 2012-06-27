@@ -5,11 +5,11 @@
 
     <c:if test="${not empty worksheetsLinks}">
 
-        <div class="hd">
-            <h6>Worksheets</h6>
+        <div class="bd">
+            <h6 class="mam">Worksheets</h6>
         </div>
         <div class="bd">
-            <ul class="small">
+            <ul class="small none bottom">
                 <c:forEach var="grade" items="${worksheetsLinks}">
                     <c:forEach var="gradeMap" items="${grade}">
                         <li class="hasNested">
@@ -17,7 +17,7 @@
                                 <span class="tn-twirly-closed img mrs"><!-- do not collapse --></span>
                                 <a class="outerNavLink bd" href="javascript:void(0);">${gradeMap.key.linkText}</a>
                             </div>
-                            <ul class="nested small">
+                            <ul class="nested bottom small">
                                 <c:forEach var="subject" items="${gradeMap.value}">
                                     <li><a href="${subject.url}">${subject.linkText}</a></li>
                                 </c:forEach>

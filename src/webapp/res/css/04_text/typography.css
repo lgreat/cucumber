@@ -127,6 +127,7 @@ Misc classes
 .slStylesV1-0 dl dt       { font-weight: bold; }
 .slStylesV1-0 dd          { margin-left: 1.5em;}
 
+.slStylesV1-0 ul.none li  { list-style-type: none }
 
 /* Tables
 -------------------------------------------------------------- */
@@ -223,16 +224,9 @@ Misc classes
 
 .slStylesV1-0 .make-uppercase   { text-transform: uppercase; }
 
-/*************************************************************
-     LIST STYLES
-*****************************************/
-.slStylesV1-0 ul.none  {padding-left: 0;  }
-.slStylesV1-0 ul.none li  { list-style-type: none }
+/* Additional Lists
+-------------------------------------------------------------- */
 
-.slStylesV1-0 ul.disc  {padding-left: 1.5em;  }
-.slStylesV1-0 ul.disc li  { list-style-type: disc }
-
-.slStylesV1-0 .hd h6{margin-bottom:10px;}
 .slStylesV1-0 .bd .hasNested ul{padding:0;margin-left:19px;}
 .slStylesV1-0 .bd .hasNested li{list-style: disc;margin-left:13px;}
 .slStylesV1-0 .bd .hasNested li.lastOne{list-style: none;margin-left:0;margin-bottom:12px;}

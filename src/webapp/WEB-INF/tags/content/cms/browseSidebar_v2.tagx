@@ -11,12 +11,12 @@
     <c:if test="${not empty pageScope.subtopics}">
         <c:set var="hasNestedItems" value="${false}"/>
 
-        <div class="hd">
-            <h6>${pageScope.title}</h6>
+        <div class="bd">
+            <h6 class="mam">${pageScope.title}</h6>
         </div>
         <div class="bd">
 
-            <ul class="none small bottom">
+            <ul class="none small">
                 <c:forEach var="subtopic" items="${pageScope.subtopics}" varStatus="subtopicStatus">
                     <c:if test="${not empty subtopic.subSubtopics}">
                         <c:set var="hasNestedItems" value="${true}"/>

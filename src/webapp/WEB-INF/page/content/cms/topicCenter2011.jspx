@@ -108,22 +108,24 @@
 <div class="clearfloat"><!-- don't collapse --></div>
 
     <!--Start Top Story Box-->
-    <div class="mod standard_1-2">
+    <div class="mod standard_1-1">
         <div class="inner">
             <div class="bd">
                 <a href="${topicCenter.mainFeatureLink.url}"><gsml:img src="${topicCenter.imageUrl}" width="260" height="230" alt="${topicCenter.imageAltText}"
-                          styleClass="fltrt mlm"/></a>
+                          styleClass="fltrt mlm mvl mrl"/></a>
 
-                <h2 class="mtm"><a href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h2>
+                <h2 class="mtl mll"><a href="${topicCenter.mainFeatureLink.url}">${topicCenter.mainFeatureLink.title}</a></h2>
 
-                <p class="small">${topicCenter.mainFeatureLink.description}
+                <p class="small mll">${topicCenter.mainFeatureLink.description}
                     <a class="wsnw" href="${topicCenter.mainFeatureLink.url}">More <span
                             class="alertDoubleArrow">&amp;raquo;</span></a></p>
+                <div class="mll">
                 <ul class="small bottom">
                     <c:forEach var="otherFeatureLink" items="${topicCenter.upToFiveFeatureLinks}">
                         <li><a href="${otherFeatureLink.url}">${otherFeatureLink.title}</a></li>
                     </c:forEach>
                 </ul>
+                </div>
             </div>
         </div>
     </div>
