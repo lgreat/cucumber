@@ -38,6 +38,8 @@
         <gsml:url var="schoolautocomplete" value="/res/js/search/schoolAutocomplete.js" allowCdn="true"/>
         <gsml:url var="externalTracking" value="/res/js/externalTracking.js" allowCdn="true"/>
         <gsml:url var="urijs" value="/res/js/uri/uri.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <gsml:url var="jqextjs" value="/res/js/gs_jquery_extensions.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+        <gsml:url var="historyjs" value="/res/js/history.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <!--<script type="text/javascript" src="${jqueryuijs}">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
         <script type="text/javascript" src="${globaljs}"><!-- do not collapse --></script>
         <script type="text/javascript" src="${modaljs}"><!-- do not collapse --></script>
@@ -50,6 +52,8 @@
         <script type="text/javascript" src="${schoolautocomplete}"><!-- do not collapse --></script>
         <script type="text/javascript" src="${externalTracking}"><!-- do not collapse --></script>
         <script type="text/javascript" src="${urijs}"><!-- do not collapse --></script>
+        <script type="text/javascript" src="${jqextjs}"><!-- do not collapse --></script>
+        <script type="text/javascript" src="${historyjs}"><!-- do not collapse --></script>
         <decorator:head/>
 
     <ad:xGAMSetup/>

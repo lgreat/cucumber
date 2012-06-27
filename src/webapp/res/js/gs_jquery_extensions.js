@@ -494,8 +494,8 @@ function debug(what) {
 })(jQuery);
 
 /* =7 tabs (create tabs using the styles in tabs.css)
- -------------------------------------------------------------------------------------------*/
-
+-------------------------------------------------------------------------------------------*/
+ /*
 (function($) {
     // extend the core jQuery with gsTabs
     $.fn.extend({
@@ -508,6 +508,52 @@ function debug(what) {
                 tabNav.find('li:first a').addClass('selected'); // Set the class of the first link to active
                 tabNav.find('li').each(function(){
                     $(this).find('a').click(function(){ //When any link is clicked
+                        tab.children('div').hide(); // hide all layers
+                        var tabNum = tabNav.find('li').index($(this).parent());// find reference to the content
+                        tab.children('div').eq(tabNum).show();// show the content
+                        tabNav.find('li a').removeClass('selected');// turn all of them off
+                        $(this).addClass('selected');// turn selected on
+                        return false;
+                    });
+                });
+            });
+        }
+    });
+})(jQuery);
+
+jQuery(document).ready(function() {
+    jQuery('.gsTabs').gsTabs();
+});
+   */
+/* =7 tabs (create tabs using the styles in tabs.css)
+ -------------------------------------------------------------------------------------------*/
+
+(function($) {
+    // extend the core jQuery with gsTabs
+    $.fn.extend({
+        gsTabs : function() {
+            return this.each(function() {
+                var tab = $(this);
+                //tab.children('div').hide(); // Hide all content divs
+                var tabNav = tab.find('ul:first'); // get only the first ul not all of the descendents
+             //   tab.children('div:first').show(); // Show the first div
+                //  if selected is set on a child.  If not select the first one.
+                //console.log("tabs:"+tabNav.find('.selected'));
+                var showHome = tabNav.find('.selected').length;
+                if(!showHome){
+                       tabNav.find('li:first a').addClass('selected');
+                       tab.children('div:first').show();
+                   }
+              //  tabNav.find('li:first a').addClass('selected'); // Set the class of the first link to active
+                tabNav.find('li').each(function(){
+                    $(this).find('a').click(function(){ //When any link is clicked
+                        //if (typeof(window.history.pushState) == 'function') {
+                            var linkTo = $(this).attr('href');
+                            console.log("linkTo:"+linkTo);
+                            var linkToTitle = $(this).attr('title');
+                            console.log("linkToTitle:"+linkToTitle);
+//                            window.history.pushState(null, linkTo, linkToTitle);
+                        //}
                         tab.children('div').hide(); // hide all layers
                         var tabNum = tabNav.find('li').index($(this).parent());// find reference to the content
                         tab.children('div').eq(tabNum).show();// show the content

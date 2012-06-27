@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+
+<!--
+    How to call _________ <mobile:stars curSR="${curStarRating}" totSR="7" smStars="1"/>
+    totalSR defaults to 5 and star size defaults to 16x16 size.  smStars makes them 12x12
+-->
+<jsp:directive.tag body-content="empty"/>
+    <jsp:directive.attribute name="schoolName" required="true" description="School Name" type="java.lang.String"/>
+    <jsp:directive.attribute name="schoolId" required="true" description="School Identifier" type="java.lang.String"/>
+    <jsp:directive.attribute name="schoolState" required="true" description="School State" type="java.lang.String"/>
+    <jsp:directive.attribute name="tabName" required="true" description="Tab to turn on" type="java.lang.String"/>
+    <!--<jsp:directive.attribute name="fullurl" required="true" description="School Type"  type="java.lang.String"/>          -->
+
+
+<!--<c:if test="${empty totSR}">-->
+    <!--<c:set var="totSR" value="5"/>-->
+<!--</c:if>-->
+<!--<c:set var="starOff" value="${totSR - curSR}"/>-->
+<!--<c:choose>-->
+    <!--<c:when test="${empty smStars}">-->
+        <!--<div class="iconx16 i-16-orange-star  i-16-star-${curSR}">&lt;!&ndash; not empty&ndash;&gt;</div>-->
+        <!--<div class="iconx16 i-16-grey-star  i-16-star-${starOff}">&lt;!&ndash; not empty&ndash;&gt;</div>-->
+    <!--</c:when>-->
+    <!--<c:otherwise>-->
+        <!--<div class="iconx12 i-12-orange-star  i-12-star-${curSR}">&lt;!&ndash; not empty&ndash;&gt;</div>-->
+        <!--<div class="iconx12 i-12-grey-star  i-12-star-${starOff}">&lt;!&ndash; not empty&ndash;&gt;</div>-->
+    <!--</c:otherwise>-->
+    <!--&lt;!&ndash; Profile Top Tabs &ndash;&gt;-->
+    <!--/school/profile.page?id=${param.id}&state=${param.state}&tab=testscores-->
+
+        <ul class="tabStyle-4">
+            <li data-gs-tab="overview"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=overview" title="${schoolName} | Overview">Overview</a></li>
+            <li data-gs-tab="testScores"><a  class="selected" href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=test-scores" title="${schoolName} | Test Scores">Test scores</a></li>
+            <li data-gs-tab="stats"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=school-stats" title="${schoolName} | School stats">School stats</a></li>
+            <li data-gs-tab="reviews"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=reviews" title="${schoolName} | Reviews">Reviews</a></li>
+            <li data-gs-tab="programsExtracurriculars"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=programs-and-extracurriculars" title="${schoolName} | Programs &amp; Extracurriculars">Programs &amp;amp; Extracurriculars</a></li>
+            <li data-gs-tab="culture"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=culture" title="${schoolName} | Culture">Culture</a></li>
+        </ul>
+
+</jsp:root>

@@ -7,6 +7,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:nav="urn:jsptagdir:/WEB-INF/tags/school/navigation"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
@@ -27,18 +28,19 @@
 <c:set var="headerLinkAnchor" value="from..HeaderLink"/>
 
 <head>
+    <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
     <style type="text/css">
-        #schoolProfileTabs li {
-            display: inline;
-            padding: 2px;
-            border: 1px solid #ccc;
-            cursor: pointer;
-        }
-        #schoolProfileTabs li.selected {
-            background-color: #ddd;
-        }
+        /*#schoolProfileTabs li {*/
+            /*display: inline;*/
+            /*padding: 2px;*/
+            /*border: 1px solid #ccc;*/
+            /*cursor: pointer;*/
+        /*}*/
+        /*#schoolProfileTabs li.selected {*/
+            /*background-color: #ddd;*/
+        /*}*/
     </style>
     <script type="text/javascript" src="/res/js/school/profilePage.js"><!-- do not collapse --> </script>
     <script type="text/javascript">
@@ -242,17 +244,9 @@
         </div>
     </div>
     <!-- End profile header -->
+    <div class="gsTabs">
+    <nav:primary schoolName="${school.name}" schoolId="${param.id}"  schoolState="${param.state}" tabName="${param.tab}" />
 
-    <div>
-        <ul id="schoolProfileTabs" data-gs-tab-group="profileTabs">
-            <li data-gs-tab="overview">Overview</li>
-            <li data-gs-tab="testScores">Test scores</li>
-            <li data-gs-tab="stats">School stats</li>
-            <li data-gs-tab="reviews">Reviews</li>
-            <li data-gs-tab="programsExtras">Programs &amp;amp; Extras</li>
-            <li data-gs-tab="culture">Culture</li>
-        </ul>
-    </div>
 
     <!-- TODO: Do we need this useBean??? -->
     <jsp:useBean id="now" class="java.util.Date" scope="page" />

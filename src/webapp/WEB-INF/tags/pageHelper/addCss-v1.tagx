@@ -47,6 +47,7 @@
             <gsml:url var="ad" value="/res/css/12_advertising/ad.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="adIE7" value="/res/css/12_advertising/ad-IE7.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="adIE8" value="/res/css/12_advertising/ad-IE8.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="tabcss" value="/res/css/13_tabs/tabs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="ratings" value="/res/css/14_ratings/ratings.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <!--<gsml:url var="cmscontent" value="/res/css/38_special/cms_content.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
             <!--<gsml:url var="communityhover" value="/res/css/38_special/community_hover.css?v=$RELEASE_NUMBER" allowCdn="true"/>-->
@@ -82,6 +83,9 @@
             <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${adIE7}" type="text/css" /><![endif]-->]]>
             <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${adIE8}" type="text/css" /><![endif]-->]]>
             <![CDATA[<link rel="stylesheet" href="${ratings}" type="text/css" />]]>
+            <![CDATA[<link rel="stylesheet" href="${tabcss}" type="text/css" />]]>
+
+
             <!--<![CDATA[<link rel="stylesheet" href="${cmscontent}" type="text/css" />]]>-->
             <!--<![CDATA[<link rel="stylesheet" href="${communityhover}" type="text/css" />]]>-->
             <!--<![CDATA[<link rel="stylesheet" href="${themeroller}" type="text/css" />]]>-->
