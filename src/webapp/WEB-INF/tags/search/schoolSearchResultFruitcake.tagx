@@ -41,7 +41,7 @@
     <div class="mod standard_1-1">
         <div class="line inner" id="school-search-result-${school.databaseState}${school.id}">
             <!-- School Name -->
-            <div class="bd">
+            <div class="bd pam">
                 <div class="unit ${nameSearchWidth}"
                      id="school-search-result-link-${school.databaseState}${school.id}">
                     <div class="js-school-search-result-name">
@@ -135,7 +135,7 @@
                     </c:if>
                 </div>
             </div>
-            <div class="ft">
+            <div class="ft pam">
                 <div class="alpha grid_11 suffix_5 omega">
                     <div class="line">
                         <div class="unit size20of100">

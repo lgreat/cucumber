@@ -45,7 +45,6 @@
                                          data-gs-custom-link="Search_filter_type_private"/>
                         <label for="js-school-type-private">Private</label>
                     </div>
-                    <button class="button-1" type="button" onclick="javascript:void(0)">Done</button>
                     <!--<div class="mbm js-applyFilters">
                         <spring:checkbox path="schoolSearchCommand.religious"  type="checkbox"
                             id="js-school-subtype-religious" class="jq-school-type" name="religious" value="true"/>
@@ -93,7 +92,6 @@
                                          data-gs-custom-link="Search_filter_grade_high"/>
                         <label for="js-grade-level-h">High School</label>
                     </div>
-                    <button class="button-1" type="button" onclick="javascript:void(0)">Done</button>
                 <!--</div>-->
             </search:dropdownFilters>
             <!--</div>-->
@@ -177,7 +175,6 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="button-1" type="button" onclick="javascript:void(0)">Done</button>
                     <!--</div>-->
                     </div>
                 </search:dropdownFilters>
