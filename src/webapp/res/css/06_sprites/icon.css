@@ -115,6 +115,45 @@ a:hover .i-16-close {
     background-position: -144px -16px;
 }
 
+/* =1 x16 (Stars)
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.iconx16-stars {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/x16/120627-16x16_stars.png);
+    width: 16px;
+    height: 16px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+
+.i-16-orange-star {
+    background-position: 0 0;
+}
+/* row 16 */
+
+.i-16-grey-star {
+    background-position: -144px -16px;
+}
+
+/* This is for the stars grey or orange */
+.i-16-star-0{width:0px}
+.i-16-star-1{width:16px}
+.i-16-star-2{width:32px; repeat-x;}
+.i-16-star-3{width:48px; repeat-x;}
+.i-16-star-4{width:64px; repeat-x;}
+.i-16-star-5{width:80px; repeat-x;}
+.i-16-star-6{width:96px; repeat-x;}
+.i-16-star-7{width:112px; repeat-x;}
+.i-16-star-8{width:128px; repeat-x;}
+.i-16-star-9{width:144px; repeat-x;}
+.i-16-star-10{width:160px; repeat-x;}
+
+
 /* =2 x24
 -------------------------------------------------------------------------------------------*/
 

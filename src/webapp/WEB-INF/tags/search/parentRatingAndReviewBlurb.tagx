@@ -2,17 +2,20 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:c="http://java.sun.com/jsp/jstl/core">
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings">
 
     <jsp:directive.attribute name="school" required="true" type="gs.data.search.beans.ISchoolSearchResult"/>
 
     <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" styleClass="block" anchor="revPagination">
         <c:choose>
             <c:when test="${not empty school.parentRating}">
-                <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
+                <ratings:stars curSR="${school.parentRating}"/>
+                <!--<span class="sprite stars_sm_${school.parentRating}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
             </c:when>
             <c:otherwise>
-                <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
+                <!--<span class="sprite stars_sm_rate_it">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                <div class="">Rate it</div>
             </c:otherwise>
         </c:choose>
     </link:schoolProfileParentReview2010>

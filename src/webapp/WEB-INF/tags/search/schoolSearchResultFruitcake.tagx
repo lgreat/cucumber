@@ -5,7 +5,8 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gsweb="gstaglib"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:search="urn:jsptagdir:/WEB-INF/tags/search">
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search">
 
     <jsp:directive.attribute name="school" required="true" type="gs.data.search.beans.ISchoolSearchResult"/>
     <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
