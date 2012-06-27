@@ -9,7 +9,6 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
     var init = function(_filtersModule, _contentDropdownsModule) {
         filtersModule = _filtersModule;
         contentDropdownsModule = _contentDropdownsModule;
-
         setupTabs();
 
         $('#jq-findByLocationForm').submit(function() {
@@ -159,7 +158,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                 delete queryStringDataWithFilters.sortBy;
             }
 
-            queryStringDataWithFilters.q = searchString;
+            queryStringDataWithFilters.q = encodeURIComponent(searchString);
             queryStringDataWithFilters.state = state;
 
             window.location.href = window.location.protocol + '//' + window.location.host +

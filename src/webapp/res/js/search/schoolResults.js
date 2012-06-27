@@ -224,11 +224,6 @@ GS.search.results = GS.search.results || (function() {
         var state = { queryString: "queryString"};
         history.pushState(state, start, queryString);
 
-//        var data = {};
-//        data.requestType = "ajax";
-//        data.decorator="emptyDecorator";
-//        data.confirm="true";
-
         $.ajax({
             type: 'POST',
             url: document.location
