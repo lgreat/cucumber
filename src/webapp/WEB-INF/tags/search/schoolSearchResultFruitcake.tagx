@@ -146,14 +146,14 @@
                                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
                                                type="checkbox"
                                                disabled="disabled" title="${preschoolNoCompareMessage}"/>
-                                        <label class="smallText2-777"
+                                        <label class="small"
                                                for="${school.databaseState}${school.id}"
-                                               title="${preschoolNoCompareMessage}"><i>Compare</i></label>
+                                               title="${preschoolNoCompareMessage}">Compare</label>
                                     </c:when>
                                     <c:otherwise>
                                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
                                                type="checkbox"/>
-                                        <label class="js-compareLabelNotChecked smallText2"
+                                        <label class="js-compareLabelNotChecked small"
                                                for="${school.databaseState}${school.id}">Compare</label>
                                     </c:otherwise>
                                 </c:choose>
