@@ -92,6 +92,21 @@
             <div class="clearfloat ptm pbn js-keyline"><hr class="keyline1 mtl" /></div>
         </div>
 
+    <div class="pvl phm">
+        <p><strong>About Saved Schools</strong></p>
+        <p class="mbm">
+            GreatSchools offers two convenient ways to bookmark saved schools for quick recall later.
+            The one you see depends on how you view our website.
+        </p>
+        <p class="mbm">
+            <strong>"My Saved Schools"</strong> (mobile site) allows you to save schools on your mobile phone.
+            "My saved Schools" are available only when visiting our mobile website.
+        </p>
+        <p>
+            <strong>"My School List"</strong> (full desktop site) allows you to save schools to your GreatSchools member account.
+            Your GreatSchools member account is only available when visiting our full website.
+        </p>
+    </div>
     <div class="js-emailAndDeleteAll dn ptn">
         <div class="contain_6-1">
             <div class="fl" id="js-email"><a class="but but-rg but-1 phl js-emailMyList">Email my list</a></div>
