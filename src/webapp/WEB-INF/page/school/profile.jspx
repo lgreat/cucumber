@@ -250,7 +250,7 @@
 
     <!-- TODO: Do we need this useBean??? -->
     <jsp:useBean id="now" class="java.util.Date" scope="page" />
-    <div data-gs-tab-body-group="profileTabs" class="slStylesV1-0">
+    <!--<div data-gs-tab-body-group="profileTabs" class="slStylesV1-0">-->
         <div data-gs-tab-body="overview" style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; ${(!empty param.tab and param.tab ne 'overview'?'display:none;':'')}">
             <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
             <jsp:include page="/school/profileOverview.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}" />
