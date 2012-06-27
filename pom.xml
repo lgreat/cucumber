@@ -645,21 +645,6 @@
             <version>2.0</version>
         </dependency>
         <dependency>
-            <groupId>gdata</groupId>
-            <artifactId>gdata-core</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>gdata</groupId>
-            <artifactId>gdata-client</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>gdata</groupId>
-            <artifactId>gdata-spreadsheet</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
             <groupId>recaptcha4j</groupId>
             <artifactId>recaptcha4j</artifactId>
             <version>0.0.7</version>
