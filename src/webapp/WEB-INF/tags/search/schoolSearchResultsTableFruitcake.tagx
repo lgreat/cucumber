@@ -55,7 +55,7 @@
                     <c:set var="photoSearchWidth" value="size11of100"/>
                 </c:otherwise>
             </c:choose>
-            <div class="line">
+            <div class="line pam">
                 <div class="unit ${nameSearchWidth}">
                     <a href="javascript:void(0);">Name<mod:sortArrow
                             sortList="SCHOOL_NAME_ASCENDING,SCHOOL_NAME_DESCENDING"
