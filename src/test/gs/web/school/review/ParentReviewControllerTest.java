@@ -121,8 +121,8 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
         verifyAllMocks();
 
-        ParentReviewHelper.ParentReviewCommand cmd =
-                (ParentReviewHelper.ParentReviewCommand)mAndV.getModel().get("cmd");
+        ParentReviewController.ParentReviewCommand cmd =
+                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
 
         School school = cmd.getSchool();
         assertNotNull(school);
@@ -145,14 +145,14 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
-        request.setParameter(ParentReviewHelper.PARAM_SORT_BY, "da");
+        request.setParameter(ParentReviewController.PARAM_SORT_BY, "da");
         request.setMethod("GET");
 
         replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
         verifyAllMocks();
-        ParentReviewHelper.ParentReviewCommand cmd =
-                (ParentReviewHelper.ParentReviewCommand)mAndV.getModel().get("cmd");
+        ParentReviewController.ParentReviewCommand cmd =
+                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
 
         List<Review> reviews = cmd.getReviews();
         assertNotNull(reviews);
@@ -171,14 +171,14 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
-        request.setParameter(ParentReviewHelper.PARAM_SORT_BY, "rd");
+        request.setParameter(ParentReviewController.PARAM_SORT_BY, "rd");
         request.setMethod("GET");
 
         replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
         verifyAllMocks();
-        ParentReviewHelper.ParentReviewCommand cmd =
-                (ParentReviewHelper.ParentReviewCommand)mAndV.getModel().get("cmd");
+        ParentReviewController.ParentReviewCommand cmd =
+                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
 
         List<Review> reviews = cmd.getReviews();
         assertNotNull(reviews);
@@ -198,14 +198,14 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
-        request.setParameter(ParentReviewHelper.PARAM_SORT_BY, "ra");
+        request.setParameter(ParentReviewController.PARAM_SORT_BY, "ra");
         request.setMethod("GET");
 
         replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
         verifyAllMocks();
-        ParentReviewHelper.ParentReviewCommand cmd =
-                (ParentReviewHelper.ParentReviewCommand)mAndV.getModel().get("cmd");
+        ParentReviewController.ParentReviewCommand cmd =
+                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
 
         List<Review> reviews = cmd.getReviews();
         assertNotNull(reviews);
@@ -224,7 +224,7 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
-        request.setParameter(ParentReviewHelper.PARAM_SORT_BY, "ra");
+        request.setParameter(ParentReviewController.PARAM_SORT_BY, "ra");
         request.setMethod("GET");
         MockSessionContext context = new MockSessionContext();
         context.setCrawler(true);
@@ -234,8 +234,8 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
         verifyAllMocks();
-        ParentReviewHelper.ParentReviewCommand cmd =
-                (ParentReviewHelper.ParentReviewCommand)mAndV.getModel().get("cmd");
+        ParentReviewController.ParentReviewCommand cmd =
+                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
         assertNotNull(cmd);
     }
 
@@ -244,15 +244,15 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         GsMockHttpServletRequest request = getRequest();
         request.setAttribute("state", State.CA);
         request.setParameter("id", "1");
-        request.setParameter(ParentReviewHelper.PARAM_SORT_BY, "ra");
+        request.setParameter(ParentReviewController.PARAM_SORT_BY, "ra");
         request.setMethod("GET");
-        request.setParameter(ParentReviewHelper.PARAM_VIEW_ALL, "");
+        request.setParameter(ParentReviewController.PARAM_VIEW_ALL, "");
 
         replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
         verifyAllMocks();
-        ParentReviewHelper.ParentReviewCommand cmd =
-                (ParentReviewHelper.ParentReviewCommand)mAndV.getModel().get("cmd");
+        ParentReviewController.ParentReviewCommand cmd =
+                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
         assertNotNull(cmd);
     }
 
@@ -277,10 +277,10 @@ public class ParentReviewControllerTest extends BaseControllerTestCase {
         replayAllMocks();
         ModelAndView mAndV = _controller.handleRequest(request, getResponse());
         verifyAllMocks();
-        ParentReviewHelper.ParentReviewCommand cmd =
-                (ParentReviewHelper.ParentReviewCommand)mAndV.getModel().get("cmd");
+        ParentReviewController.ParentReviewCommand cmd =
+                (ParentReviewController.ParentReviewCommand)mAndV.getModel().get("cmd");
         assertNotNull(cmd);
-        assertNotNull("ParentReviewHelper should add kindercare attribute", mAndV.getModelMap().get("leadGenModule"));
+        assertNotNull("ParentReviewController should add kindercare attribute", mAndV.getModelMap().get("leadGenModule"));
 
     }
 
