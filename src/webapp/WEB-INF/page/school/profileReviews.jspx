@@ -4,10 +4,440 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:form="http://www.springframework.org/tags/form"
         >
 
+<c:set var="stateAbbrev" value="${school.databaseState.abbreviationLowerCase}"/>
+<![CDATA[<script type="text/javascript" src="/res/js/blogTracking/pageTracking.js"></script>]]>
+<![CDATA[<script type="text/javascript" src="/res/js/schoolReviewForm.js"></script>]]>
+<![CDATA[<script type="text/javascript" src="/res/js/parentReviewTabSchoolReviewForm.js"></script>]]>
+<![CDATA[<script type="text/javascript"><!--]]>
+
+<![CDATA[
+    function getReviewsByCsv() {
+        var p = document.getElementById('showParents');
+        var s = document.getElementById('showStudents');
+        var t = document.getElementById('showTeachers');
+        var csv = '';
+        if (p != null && p.checked) {
+            csv += 'p';
+        }
+        if (s != null && s.checked) {
+            if (csv != '') {
+                csv += ',';
+            }
+            csv += 's';
+        }
+        if (t != null && t.checked) {
+            if (csv != '') {
+                csv += ',';
+            }
+            csv += 't';
+        }
+        return csv;
+    }
+    ]]>
+    function go() {
+        var sort = document.getElementById('sltRatingSort');
+        var option = sort.options[sort.selectedIndex].value;
+        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;sortBy=' + option + '&amp;tab=reviews&amp;reviewsBy=' + getReviewsByCsv() + '#revPagination';
+    }
+<![CDATA[--></script>]]>
     <div class="grid_16">
         Reviews for ${school.name}
+        <div id="reviewColumn1">
+            <div id="reviewOverallRating">
+                <p class="text3">Community Rating</p>
+
+                <div class="spacer_5"><!-- do not collapse --></div>
+
+                        <span class="sprite stars_xl_${cmd.ratings.overall}_b"
+                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span>
+
+                <!-- TODO-10633 -->
+                <c:if test="${not empty ratingsByYear}">
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <div id="js-bubbleInfo-7">
+                        <div class="js-trigger">
+                            <p class="smallText1-06b">
+                                Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'} <span class="sprite i-sparklet"><!-- do not collapse --></span>
+                            </p>
+                        </div>
+
+                        <div class="js-popup">
+                            <!--<div id="popup-contents-7" class="box-shadow text3">-->
+                            <div id="popup-contents-7" class="text3">
+                                <span class="arrow-outline-bottom"><!-- do not collapse --></span>
+                                <span class="arrow-bottom"><!-- do not collapse --></span>
+                                <h5 class="text3bold">Community Rating by Year</h5>
+                                <div class="spacer_5"><!-- do not collapse --></div>
+
+                                <c:forEach var="ratingByYear" items="${ratingsByYear}">
+                                    <div class="spacer_5"><!-- do not collapse --></div>
+                                    <div class="line">
+                                        <div class="unit size3of19">
+                                            <!-- year = -->
+                                            <span class="year smallText1-999">${ratingByYear.year}</span>:
+                                        </div>
+                                        <c:choose>
+                                            <c:when test="${ratingByYear.numRatings gt 0}">
+                                                <div class="unit size7of19">
+                                                    <!-- numStars = -->
+                                                    <span class="sprite stars_sm_${ratingByYear.numStars}"><!-- do not collapse --></span>
+                                                </div>
+                                                <div class="unit size9of19 lastUnit">
+                                                    <!-- numRatings = -->
+                                                    <span class="numRatings smallText1">Based on ${ratingByYear.numRatings} ratings</span>
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="unit size16of19 lastUnit">
+                                                    <span class="smallText1-italic">No new ratings</span>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+
+                <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+                <div class="spacer_10"><!-- do not collapse --></div>
+
+                <!-- DONE-10495 - Randall - START subcategory ratings -->
+                <c:set var="aboutTheseRatings">
+                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <div class="infoBox1 smallText1">
+                        <div id="js-bubbleInfo-1">
+                            <div class="media">
+                                <span class="js-trigger sprite i-info img mrs"><!-- do not collapse --></span>
+
+                                <div class="bd mts">About these ratings</div>
+                            </div>
+                            <div class="js-popup">
+                                <!--<div id="popup-contents-1" class="box-shadow text3">-->
+                                <div id="popup-contents-1" class="text3">
+                                    <span class="arrow-outline-top"><!-- do not collapse --></span>
+                                    <span class="arrow-top"><!-- do not collapse --></span>
+
+                                    <p>The Community Rating is the school’s average rating from its community members (e.g., parents, students, and school staff). The highest possible rating is five stars; the lowest is one star.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:set>
+
+                <c:choose>
+                    <c:when test="${not empty parentRatings and not empty studentRatings}">
+                        <div class="smallText2">
+                            <span id="parentRatingsToggle" class="selected">Parent ratings</span> |
+                            <span id="studentRatingsToggle">Student ratings</span>
+
+                            <div class="spacer_5"><!-- do not collapse --></div>
+                        </div>
+                        <div class="reviewSubRatings">
+                            <div id="parentRatings">
+                                <school:parentReviewsSubcategoryRatings ratings="${parentRatings}"/>
+                            </div>
+                            <div id="studentRatings" class="hidden">
+                                <school:parentReviewsSubcategoryRatings ratings="${studentRatings}"/>
+                            </div>
+                            ${aboutTheseRatings}
+                        </div>
+                    </c:when>
+                    <c:when test="${not empty communityRatings}">
+                        <div class="reviewSubRatings">
+                            <div id="communityRatings">
+                                <school:parentReviewsSubcategoryRatings ratings="${communityRatings}"/>
+                            </div>
+                            ${aboutTheseRatings}
+                        </div>
+                    </c:when>
+                    <c:when test="${cmd.ratings.count gt 0}">
+                        <div class="reviewSubRatings">
+                            ${aboutTheseRatings}
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="spacer_5"><!-- do not collapse --></div>
+                        <p class="smallText1">There are no reviews yet<br/>for this school. Be the first!</p>
+                    </c:otherwise>
+                </c:choose>
+                <!-- DONE-10495 - Randall - END subcategory ratings -->
+
+            </div>
+
+            <c:if test="${empty principalReview and school.levelCode != 'p'}">
+                <div class="mod parentReviewRating">
+                    <div class="inner">
+                        <div class="bd">
+                            <div class="media">
+                                <span class="sprite pencil_med img mrm"><!-- do not collapse --></span>
+
+                                <div class="text3bold-06b bd">Are you<br/>the principal?<br/>
+                                    <link:schoolEspRegister styleClass="text3-06b no_interrupt" styleId="espLink">Complete your school's profile</link:schoolEspRegister>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+
+        </div>
+
+        <!-- end reviewColumn1 -->
+        <div id="reviewColumn2">
+            <school:schoolReviewForm school="${school}" pageName="parentReviews"/>
+        </div>
+        <!-- end reviewColumn2 -->
+        <div class="spacer_15"><!-- do not collapse --></div>
+
+        <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
+        <c:if test="${not empty principalReview}">
+            <div id="principalsPOV">
+                <h4 class="text1bold">The Principal's point of view</h4>
+
+                <div class="spacer_5"><!-- do not collapse --></div>
+                <div class="principalsIMG">
+                    <c:if test="${not empty principalReview.user and
+                            not empty principalReview.user.userProfile and principalReview.user.userProfile.active}">
+                        <link:userProfile user="${principalReview.user}">
+                            <community:avatar user="${principalReview.user}" width="46" height="46"/>
+                        </link:userProfile>
+                    </c:if>
+                </div>
+                <c:choose>
+                    <c:when test="${principalReview.who eq 'principal' and not empty principalReview.user and
+                            not empty principalReview.user.userProfile and principalReview.user.userProfile.active}">
+                        <c:set var="principalName" value="${principalReview.user.firstName}"/>
+                        <c:if test="${not empty (principalReview.user.lastName)}">
+                            <c:set var="principalName" value="${principalName} ${principalReview.user.lastName}"/>
+                        </c:if>
+
+                        <p class="principalName text3">
+                            <link:userProfile user="${principalReview.user}">${principalName}</link:userProfile>
+                            <span class="smallText1">, ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</span>
+                        </p>
+                    </c:when>
+                    <c:otherwise>
+                        <p class="smallText1">Posted ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</p>
+                    </c:otherwise>
+                </c:choose>
+                <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+                    <c:choose>
+                        <c:when test="${principalReview.status eq 'd'}">
+                            (deleted)
+                            | <a href="javascript:void(0);" class="enableLink link"
+                                 onclick="enableReview(${principalReview.id}); return false;">Enable</a>
+                        </c:when>
+                        <c:when test="${principalReview.status eq 'p'}">
+                            | <a href="javascript:void(0);" class="disableLink link"
+                                 onclick="disableReview(${principalReview.id}); return false;">Disable</a>
+                        </c:when>
+                    </c:choose>
+                </gsml:ifUserCanDeleteContent>
+
+                <p class="text3">
+                    <c:set var="escapedComments">
+                        <c:out value="${principalReview.comments}" escapeXml="true"/>
+                    </c:set>
+                    ${escapedComments}
+                </p>
+
+                <div class="clearfloat"><!-- do not collapse --></div>
+            </div>
+        </c:if>
+
+        <c:set var="reviewsPagination">
+            <c:set var="paginationUrl"><c:choose>
+                <c:when test="${empty reviewsByCsv}">/school/profile.page?id=${school.id}&amp;state=${stateAbbrev}&amp;tab=reviews&amp;sortBy=${cmd.sortBy}</c:when>
+                <c:otherwise>/school/profile.page?id=${school.id}&amp;state=${stateAbbrev}&amp;tab=reviews&amp;sortBy=${cmd.sortBy}&amp;reviewsBy=${reviewsByCsv}</c:otherwise>
+            </c:choose></c:set>
+            <community:pagination page="${page}"
+                                  totalPages="${reviewsTotalPages}"
+                                  url="${paginationUrl}"
+                                  styleClass="pagination"
+                                  pageNumberStyleClass="pager-tab"
+                    />
+        </c:set>
+
+        <c:if test="${cmd.totalReviews gt 0}">
+        <div class="spacer_15"><!-- do not collapse --></div>
+        <div id="revPagination" class="line">
+            <div class="unit size40of100">
+                <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
+            </div>
+
+            <div class="unit size60of100 lastUnit">
+                ${reviewsPagination}
+            </div>
+        </div>
+
+        <div class="spacer_15"><!-- do not collapse --></div>
+        <div class="line">
+            <div id="rankSort" class="unit size2of5">
+                <span class="smallText1">Sort by: </span>
+                <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort"
+                             onchange="go();">
+                    <form:option value="dd">Date: newest to oldest</form:option>
+                    <form:option value="da">Date: oldest to newest</form:option>
+                    <form:option value="rd">Rating: highest to lowest</form:option>
+                    <form:option value="ra">Rating: lowest to highest</form:option>
+                </form:select>
+            </div>
+            <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
+                <div id="typeSort" class="unit size3of5 lastUnit">
+                    <form id="showReviews" class="smallText1" action="">
+                        <span>Show reviews by: </span>
+                        <c:if test="${numParentReviews gt 0}">
+                            <c:choose>
+                                <c:when test="${fn:contains(reviewsByCsv,'p')}">
+                                    <input type="checkbox" id="showParents" checked="checked"
+                                           onclick="go()"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="checkbox" id="showParents" onclick="go()"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <label for="showParents">Parents</label>
+                        </c:if>
+                        <c:if test="${numStudentReviews gt 0}">
+                            <c:choose>
+                                <c:when test="${fn:contains(reviewsByCsv,'s')}">
+                                    <input type="checkbox" id="showStudents" checked="checked"
+                                           onclick="go()"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="checkbox" id="showStudents" onclick="go()"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <label for="showStudents">Students</label>
+                        </c:if>
+                        <c:if test="${numTeacherStaffReviews gt 0}">
+                            <c:choose>
+                                <c:when test="${fn:contains(reviewsByCsv,'t')}">
+                                    <input type="checkbox" id="showTeachers" checked="checked"
+                                           onclick="go()"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="checkbox" id="showTeachers" onclick="go()"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <label for="showTeachers">Teachers/Staff</label>
+                        </c:if>
+                    </form>
+                </div>
+            </c:if>
+        </div>
+
+        <c:forEach var="review" items="${reviewsToShow}">
+            <c:set var="who" value=""/>
+            <c:if test="${!(empty(review.who) or review.who eq 'other')}">
+                <c:set var="who" value="${review.who}"/>
+            </c:if>
+
+            <c:if test="${who ne 'principal'}">
+
+                <div class="spacer_15"><!-- do not collapse --></div>
+                <div class="review">
+                    <![CDATA[ <a name="ps${review.id}"></a> ]]>
+
+                    <div class="line">
+                        <div class="unit size3of5">
+                            <div class="media mbs">
+                                <c:set var="curStarRating" value="${review.quality.name}"/>
+                                <c:if test="${school.levelCode eq 'p'}">
+                                    <c:set var="curStarRating" value="${review.POverall.name}"/>
+                                </c:if>
+                                <c:if test="${curStarRating ne 'decline'}">
+                                <span class="sprite stars_lg_${curStarRating} img mrm vam"
+                                      title="${curStarRating} star rating"><!-- do not collapse --></span>
+                                </c:if>
+
+                                <p class="author smallText1 bd mts">
+                                    Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
+                                    <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+                                        <c:choose>
+                                            <c:when test="${review.status eq 'd'}">
+                                                (deleted)
+                                                | <a href="javascript:void(0);" class="enableLink link"
+                                                     onclick="enableReview(${review.id}); return false;">Enable</a>
+                                            </c:when>
+                                            <c:when test="${review.status eq 'p'}">
+                                                | <a href="javascript:void(0);" class="disableLink link"
+                                                     onclick="disableReview(${review.id}); return false;">Disable</a>
+                                            </c:when>
+                                        </c:choose>
+                                    </gsml:ifUserCanDeleteContent>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="unit size2of5 lastUnit">
+                            <c:choose>
+                                <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
+                                    <p class="reported smallAlertTextBold">You've reported this review.</p>
+                                </c:when>
+
+                                <c:otherwise>
+                                    <div class="reportReview media smallText1">
+                                        <span class="sprite reportIt-nbg img mrs"><!-- do not collapse --></span>
+
+                                        <div class="bd mts">
+                                            <a class="reportIt" href="${loginRedirectUrl}"
+                                               onclick="return false;"
+                                               id="report_schoolReview_${review.id}">Report it</a>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+
+                    <c:set var="postedByDisplay" value=""/>
+                    <c:choose>
+                        <c:when test="${who ne 'principal' and (review.allowName and not empty(review.user))}">
+                            <c:set var="postedByDisplay"
+                                   value="${gsweb:createParentReviewDisplayName(review.user.firstName, review.user.lastName, who)}"/>
+                        </c:when>
+                        <c:when test="${review.who ne ''}">
+                            <c:set var="postedByDisplay"
+                                   value="${gsweb:createParentReviewDisplayName('', '', who)}"/>
+                        </c:when>
+                    </c:choose>
+
+                    <p class="text3">
+                        <c:set var="escapedComments"><c:out value="${review.comments}"
+                                                            escapeXml="true"/></c:set>
+                        ${gsweb:boldifyFirstXWords(escapedComments, 10)}
+                        <c:if test="${not empty postedByDisplay}"><br/><span
+                                class="author smallText1-333">&amp;amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
+                    </p>
+
+
+                    <p class="respond text3italic"><link:schoolProfileParentReview
+                            school="${school}" anchor="schoolReviewSubmitForm" styleClass="no_interrupt"
+                            >Write your own review</link:schoolProfileParentReview></p>
+
+                </div>
+                <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
+
+            </c:if>
+            <!-- end: review -->
+        </c:forEach>
+
+        <div class="spacer_10"><!-- do not collapse --></div>
+
+        <div>
+            ${reviewsPagination}
+        </div>
+    </c:if>
+
+
     </div>
+
 </jsp:root>
