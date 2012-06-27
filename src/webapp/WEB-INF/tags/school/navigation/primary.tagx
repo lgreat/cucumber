@@ -35,7 +35,7 @@
 
         <ul class="tabStyle-4">
             <li data-gs-tab="overview"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=overview" title="${schoolName} | Overview">Overview</a></li>
-            <li data-gs-tab="testScores"><a  class="selected" href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=test-scores" title="${schoolName} | Test Scores">Test scores</a></li>
+            <li data-gs-tab="testScores"><a  href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=test-scores" title="${schoolName} | Test Scores">Test scores</a></li>
             <li data-gs-tab="stats"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=school-stats" title="${schoolName} | School stats">School stats</a></li>
             <li data-gs-tab="reviews"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=reviews" title="${schoolName} | Reviews">Reviews</a></li>
             <li data-gs-tab="programsExtracurriculars"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=programs-and-extracurriculars" title="${schoolName} | Programs &amp; Extracurriculars">Programs &amp;amp; Extracurriculars</a></li>
