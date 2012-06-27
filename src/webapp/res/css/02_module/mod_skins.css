@@ -294,11 +294,25 @@ General comments:
 
 .slStylesV1-0 .standard_6-3{
     background: #FFF;
-    padding: 10px;
     border: 1px solid #777;
     z-index: 100;
     position: absolute;
     -webkit-box-shadow: 0 3px 8px rgba(100,100,100,0.6);
        -moz-box-shadow: 0 3px 8px rgba(100,100,100,0.6);
            box-shadow: 0 3px 8px rgba(100,100,100,0.6);
+}
+
+.slStylesV1-0 .standard_6-3 .hd{
+
+    padding: 10px;
+    margin: 0 0 5px 0;
+    border-bottom: 1px solid #777;
+}
+
+.slStylesV1-0 .slStylesV1-0 .bd{
+    padding: 10px;
+}
+
+.slStylesV1-0 .standard_6-3 .ft{
+    padding: 10px;
 }

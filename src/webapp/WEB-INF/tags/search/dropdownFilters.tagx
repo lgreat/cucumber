@@ -14,27 +14,35 @@
 
     <mod:contentDropdown title="${title}" id="${id}" cssClass="${cssClass}" label="${label}" hideApplyReset="${hideApplyReset}">
         <div class="mod standard_6-3">
+            <div class="hd">
+                <div class="line">
+                    <div class="unit size96of100">
+                        <c:if test="${not empty pageScope.title}">
+                            <div class="small bottom">${title}</div>
+                        </c:if>
 
+                    </div>
+                    <div class="unit size4of100 lastUnit">
+                        <c:if test="${not hideApplyReset}">
+                            <span class="" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">X</span>
+                        </c:if>
+                    </div>
+                </div>
+            </div>
 
-            <c:if test="${not hideApplyReset}">
-                <span class="" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">X</span>
-            </c:if>
-
-            <c:if test="${not empty pageScope.title}">
-                <h5 class="">${title}</h5>
-            </c:if>
-
-            <div class="">
+            <div class="bd">
                 <jsp:doBody/>
             </div>
 
             <c:if test="${not hideApplyReset}">
-                <div class="line">
-                    <div class="unit size3of4">
-                        <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Save</button>
-                    </div>
-                    <div class="unit lastUnit">
-                        <a href="javascript:void(0);" data-gs-uncheckall="${id}">Clear</a>
+                <div class="ft">
+                    <div class="line">
+                        <div class="unit size89of100">
+                            <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Save</button>
+                        </div>
+                        <div class="unit size11of100 lastUnit">
+                            <a href="javascript:void(0);" data-gs-uncheckall="${id}">Clear</a>
+                        </div>
                     </div>
                 </div>
             </c:if>
