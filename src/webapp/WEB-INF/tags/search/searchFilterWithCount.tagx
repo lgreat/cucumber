@@ -21,8 +21,12 @@
     <!--<c:if test="${not empty facetCountsMap}">
         <c:set var="label" value="${label} (${facetCountsMap[value]})"/>
     </c:if>-->
-
-    <spring:checkbox name="${name}" checked="${checked}" cssClass="${styleClass}" styleId="${styleId}" tabIndex = "${tabIndex}"
-                   value="${value}" onclick="${onclick}" disabled="${disabled}" path="schoolSearchCommand.${name}"/>${label}<br/>
+    <div class="media">
+        <spring:checkbox name="${name}" checked="${checked}" cssClass="${styleClass} img" styleId="${styleId}" tabIndex = "${tabIndex}"
+                           value="${value}" onclick="${onclick}" disabled="${disabled}" path="schoolSearchCommand.${name}"/>
+        <div class="mts">
+            <label class="checkbox mls">${label}</label>
+        </div>
+    </div>
 
 </jsp:root>
