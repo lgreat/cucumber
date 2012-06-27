@@ -27,7 +27,7 @@
             </c:when>
             <c:otherwise>
                 <div class="media">
-                    <span class="sprite i-add-sm mrgtop_2 img mrs"><!-- do not collapse --></span>
+                    <span class="iconx16  i-16-cross img"><!-- do not collapse --></span>
 
                     <div class="js-msl-text bd">
                         <a href="#" class="js-add-msl-link"

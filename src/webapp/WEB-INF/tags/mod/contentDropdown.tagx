@@ -11,18 +11,21 @@
     <jsp:directive.attribute name="hideApplyReset" required="false" type="java.lang.Boolean"/>
 
 
-    <div id="${id}" class="${cssClass} pbs">
-        <div class="small bottom filterCategory" data-gs-dropdown-opener="${id}">
-            <span class="fltlft vert-align-mid defaultText" data-gs-filter-status="${id}">${label}</span>
-            <a href="javascript:void(0)">
-                <span class="navSprite dropDown-default fltrt"><!-- no collapse --></span>
-                <span class="navSprite dropDown-hover fltrt"><!-- no collapse --></span>
-            </a>
+    <div id="${id}" class="${cssClass}">
+        <div class="mod standard_6-2">
+            <div class="line" data-gs-dropdown-opener="${id}">
+                <div class="unit size87of100">
+                    <div class="bd">
+                        <span class="small bottom" data-gs-filter-status="${id}">${label}</span>
+                    </div>
+                </div>
+                <div class="unit size13of100 lastUnit">
+                    <div class="button-8">&#9662;</div>
+                </div>
+            </div>
         </div>
-        <div style="display:none;" class="dropDown-checkboxes-container" data-gs-content="${id}">
-
+        <div style="display:none;" class="" data-gs-content="${id}">
             <jsp:doBody/>
-
         </div>
     </div>
 

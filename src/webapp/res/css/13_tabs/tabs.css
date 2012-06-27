@@ -106,7 +106,7 @@
             box-shadow: none;
 }
 
-.gsTabs ul.tabStyle-4 li .down-pointer.selected{position: relative;z-index: 1000;}
+.gsTabs ul.tabStyle-4 li .down-pointer.selected{position: relative;}
 
 /*Preferably move the following code to the a separate style sheet*/
 .gsTabs ul.tabStyle-4 li .down-pointer.down-pointer-bl.selected .border-edge {position: absolute;top:-1px;left: 38px;text-align: center;width: 0;height: 0;

@@ -10,7 +10,7 @@
         <c:if test="${showAdditionalFilters}">
         <div class="js-schoolSearchFiltersPanel grid_16 alpha omega">
 
-        <div id="js-moreFiltersLine" class="grid_16 alpha omega filtersControl pam" style="z-index:999999;">
+        <div id="js-moreFiltersLine" class="grid_16 alpha omega filtersControl pam" style="z-index:450;">
             <div class="alpha prefix_5 grid_6 suffix_4 omega js-moreFiltersLink">
                 <h4 class="bottom">
                     <a href="javascript:void(0);">
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div id="js-moreFiltersPanel" class="grid_16 alpha omega filtersPanel" style="z-index:999999;display:none;">
+        <div id="js-moreFiltersPanel" class="grid_16 alpha omega filtersPanel" style="z-index:450;display:none;">
         <c:set var="buttonStyle" value="padding:3px;margin-top:3px;background-color:#EEE;border:1px solid grey"/>
         <c:set var="selectedStyle" value="padding:3px;margin-top:3px;background-color:#ccc;border:1px solid grey;"/>
 
@@ -62,7 +62,7 @@
 
         <div class="pam">
             <div class="line">
-                <div class="unit size24of100 prm" style="border-right: 1px solid #DDD">
+                <div class="unit size24of100 prm">
                     <div class="small bottom"><strong>Services</strong></div>
                     <search:searchFilterWithCount styleClass="js-applyFilters" name="beforeAfterCare" value="before"
                                                   label="After care"/>
@@ -73,31 +73,31 @@
                     <search:searchFilterWithCount styleClass="js-applyFilters" name="ell" value="true"
                                                   label="English Language Learners (ELL) support"/>
                 </div>
-                <div class="unit size24of100 phm">
-                <div class="small bottom"><strong>Local Rating</strong></div>
-                    <br/>
-                    <search:dropdownFilters id="ratingCategories" label="All">
-                        <p>
+                <div class="unit size24of100 phm" style="border-left: 1px solid #DDD">
+                    <div class="small bottom"><strong>Local Rating</strong></div>
+                    <search:dropdownFilters id="ratingCategories" cssClass="mbl" label="All">
                             <search:searchFilterWithCount styleClass="js-applyFilters" name="ratingCategories"
                                                           value="low" label="Low (1-3)"/>
                             <search:searchFilterWithCount styleClass="js-applyFilters" name="ratingCategories"
                                                           value="average" label="Average (4-6)"/>
                             <search:searchFilterWithCount styleClass="js-applyFilters" name="ratingCategories"
                                                           value="high" label="High (7-10)"/>
-                        </p>
                     </search:dropdownFilters>
-                    <hr/>
-                    <search:searchFilterWithCount styleClass="js-applyFilters" name="studentsVouchers"
-                                                  value="students_vouchers"
-                                                  label="Accepts students on voucher (private schools only)"/>
+                    <hr class="keyline1"/>
+                    <div class="mtl">
+                        <search:searchFilterWithCount styleClass="js-applyFilters" name="studentsVouchers"
+                                                      value="students_vouchers"
+                                                      label="Accepts students on voucher (private schools only)"/>
+                    </div>
                     <!--&lt;!&ndash;-->
                     <!--<p style="${fn:contains(param.studentsVouchers,'true')?selectedStyle:buttonStyle}"><a id="studentsVouchersYes" href="javascript:void(0);">Yes</a></p>-->
                     <!--<p style="${fn:contains(param.studentsVouchers,'false')?selectedStyle:buttonStyle}"><a id="studentsVouchersNo" href="javascript:void(0);">No</a></p>-->
                     <!--&ndash;&gt;-->
                 </div>
                 <div class="unit size49of100 lastUnit plm" style="border-left: 1px solid #DDD">
-                    <search:dropdownFiltersWithLabel id="schoolFocus" label="School Focus" selectedValueLabel="All">
-                        <p>
+                    <!--Add grid to lable and drop down-->
+                    <search:dropdownFiltersWithLabel id="schoolFocus" cssClass="mbs" label="School Focus" selectedValueLabel="All">
+                        <!--<div class="mod standard_6-3">-->
                             <search:searchFilterWithCount name="schoolFocus" value="special_education"
                                                           facetCountsMap="${academicFocusCounts}"
                                                           label="Special education focus"/>
@@ -128,12 +128,12 @@
                             <search:searchFilterWithCount name="schoolFocus" value="projected_based"
                                                           facetCountsMap="${instructionalModelCounts}"
                                                           label="Project-based learning"/>
-                        </p>
+                        <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
-                    <search:dropdownFiltersWithLabel id="specialEducation" label="Special Education"
+                    <search:dropdownFiltersWithLabel id="specialEducation" cssClass="mbs" label="Special Education"
                                                      selectedValueLabel="All">
-                        <p>
+                        <!--<div class="mod standard_6-3">-->
                             <search:searchFilterWithCount name="specialEdPrograms" value="autism"
                                                           facetCountsMap="${specialEdCounts}" label="Autism"/>
                             <search:searchFilterWithCount name="specialEdPrograms" value="blindness"
@@ -163,12 +163,11 @@
                             <search:searchFilterWithCount name="specialEdPrograms" value="cognitive"
                                                           facetCountsMap="${specialEdCounts}"
                                                           label="Cognitive disability"/>
-                        </p>
+                        <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
-                    <br/>
-                    <search:dropdownFiltersWithLabel id="Sports" label="Sports" selectedValueLabel="All">
-                        <p>
+                    <search:dropdownFiltersWithLabel id="Sports" cssClass="mbs" label="Sports" selectedValueLabel="All">
+                        <!--<div class="mod standard_6-3">-->
                             <search:searchFilterWithCount name="sports" value="baseball"
                                                           facetCountsMap="${sportsCounts}" label="Baseball"/>
                             <search:searchFilterWithCount name="sports" value="basketball"
@@ -212,12 +211,11 @@
                                                           facetCountsMap="${sportsCounts}" label="Volleyball"/>
                             <search:searchFilterWithCount name="sports" value="wrestling"
                                                           facetCountsMap="${sportsCounts}" label="Wrestling"/>
-                        </p>
+                        <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
-                    <br/>
-                    <search:dropdownFiltersWithLabel id="artsAndMusic" label="Arts and Music" selectedValueLabel="All">
-                        <p>
+                    <search:dropdownFiltersWithLabel id="artsAndMusic" cssClass="mbs" label="Arts and Music" selectedValueLabel="All">
+                        <!--<div class="mod standard_6-3">-->
                             <search:searchFilterWithCount name="artsAndMusic" value="graphics"
                                                           facetCountsMap="${artsMediaCounts}"
                                                           label="Computer graphics"/>
@@ -252,14 +250,12 @@
                                                           facetCountsMap="${artsVisualCounts}" label="Painting"/>
                             <search:searchFilterWithCount name="artsAndMusic" value="photography"
                                                           facetCountsMap="${artsVisualCounts}" label="Photography"/>
-                        </p>
+                        <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
-
-                    <br/>
                     <search:dropdownFiltersWithLabel id="staffResources" label="Staff Resources and Facilities"
                                                      selectedValueLabel="All">
-                        <p>
+                        <!--<div class="mod standard_6-3">-->
                             <search:searchFilterWithCount name="staffResources" value="gifted_specialist"
                                                           label="Gifted specialist"/>
                             <search:searchFilterWithCount name="staffResources" value="priest"
@@ -283,7 +279,7 @@
                                                           label="Industrial shop"/>
                             <search:searchFilterWithCount name="staffResources" value="college_career"
                                                           label="College / Career center"/>
-                        </p>
+                        <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
                 </div>

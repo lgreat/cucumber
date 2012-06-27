@@ -8,12 +8,19 @@
     <jsp:directive.attribute name="label" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="selectedValueLabel" required="true" type="java.lang.String"/>
 
-    <div id="${id}" class="${cssClass} grid_7 pbs">
-        <div class="small_bold bottom grid_4 alpha">${label}</div>
-        <div class="small bottom filterCategory grid_3 omega">
-            <search:dropdownFilters id="${id}" cssClass="${cssClass}" label="${selectedValueLabel}" title="Results will show schools with at least one of these:">
-                <jsp:doBody/>
-            </search:dropdownFilters>
+    <div id="${id}" class="${cssClass}">
+        <div class="line">
+            <div class="unit size40of100">
+                <div class="small_bold bottom">${label}</div>
+            </div>
+            <div class="unit size60of100 lastUnit">
+                <div class="small_bold bottom">
+                    <search:dropdownFilters id="${id}" cssClass="${cssClass}" label="${selectedValueLabel}"
+                                            title="Results will show schools with at least one of these:">
+                        <jsp:doBody/>
+                    </search:dropdownFilters>
+                </div>
+            </div>
         </div>
     </div>
 

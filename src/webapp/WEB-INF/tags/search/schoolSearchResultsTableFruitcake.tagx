@@ -17,12 +17,12 @@
 
         <c:set var="totalResults" value="${page.pager.totalItems}"/>
 
-        <c:set var="searchResultsPagingSummary">
-            <div class="js-search-results-paging-summary text3">
-                Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span
-                    id="total-results-count">${totalResults}</span> schools
-            </div>
-        </c:set>
+        <!--<c:set var="searchResultsPagingSummary">-->
+            <!--<div class="js-search-results-paging-summary text3">-->
+                <!--Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span-->
+                    <!--id="total-results-count">${totalResults}</span> schools-->
+            <!--</div>-->
+        <!--</c:set>-->
 
         <div class="alpha grid_16 omega">
             <div class="alpha grid_7 fl">
@@ -41,44 +41,55 @@
                 </div>
             </div>
         </div>
-        <div class="grid_16">
+        <div class="alpha grid_16 omega">
             <c:choose>
                 <c:when test="${not empty schoolSearchResults[0].distance and (not empty param.zipCode or not empty param.lat)}">
-                    <c:set var="nameSearchWidth" value="grid_6"/>
-                    <c:set var="distanceSearchWidth" value="grid_2"/>
-                    <c:set var="ratingSearchWidth" value="grid_2"/>
-                    <c:set var="communitySearchWidth" value="grid_4"/>
-                    <c:set var="photoSearchWidth" value="grid_2"/>
+                    <c:set var="nameSearchWidth" value="size40of100"/>
+                    <c:set var="distanceSearchWidth" value="size13of100"/>
+                    <c:set var="ratingSearchWidth" value="size11of100"/>
+                    <c:set var="communitySearchWidth" value="size25of100"/>
+                    <c:set var="photoSearchWidth" value="size11of100"/>
                 </c:when>
                 <c:otherwise>
-                    <c:set var="nameSearchWidth" value="grid_7"/>
+                    <c:set var="nameSearchWidth" value="size45of100"/>
                     <c:set var="distanceSearchWidth" value=""/>
-                    <c:set var="ratingSearchWidth" value="grid_2"/>
-                    <c:set var="communitySearchWidth" value="grid_4"/>
-                    <c:set var="photoSearchWidth" value="grid_3"/>
+                    <c:set var="ratingSearchWidth" value="size13of100"/>
+                    <c:set var="communitySearchWidth" value="size27of100"/>
+                    <c:set var="photoSearchWidth" value="size11of100"/>
                 </c:otherwise>
             </c:choose>
+            <div class="line">
+                <div class="unit ${nameSearchWidth}">
+                    <a href="javascript:void(0);">Name<mod:sortArrow
+                            sortList="SCHOOL_NAME_ASCENDING,SCHOOL_NAME_DESCENDING"
+                            currentSort="${commandAndFields.fieldSort.name}"/></a>
 
-            <div class="alpha ${nameSearchWidth}">Name<mod:sortArrow
-                    sortList="SCHOOL_NAME_ASCENDING,SCHOOL_NAME_DESCENDING"
-                    currentSort="${commandAndFields.fieldSort.name}"/></div>
-
-            <c:if test="${not empty param.zipCode or not empty param.lat}">
-                <div class="${distanceSearchWidth}">Distance<mod:sortArrow sortList="DISTANCE,DISTANCE_DESCENDING"
-                                                                           currentSort="${commandAndFields.fieldSort.name}"/>
                 </div>
-            </c:if>
-
-            <div class="${ratingSearchWidth}">Rating<mod:sortArrow
-                    sortList="GS_RATING_DESCENDING,GS_RATING_ASCENDING"
-                    currentSort="${commandAndFields.fieldSort.name}"/>
+                <c:if test="${not empty param.zipCode or not empty param.lat}">
+                    <div class="unit ${distanceSearchWidth}">
+                        <a href="javascript:void(0);">Distance<mod:sortArrow
+                                sortList="DISTANCE,DISTANCE_DESCENDING"
+                                currentSort="${commandAndFields.fieldSort.name}"/>
+                        </a>
+                    </div>
+                </c:if>
+                <div class="unit ${ratingSearchWidth}">
+                    <a href="javascript:void(0);">Rating<mod:sortArrow
+                            sortList="GS_RATING_DESCENDING,GS_RATING_ASCENDING"
+                            currentSort="${commandAndFields.fieldSort.name}"/>
+                    </a>
+                </div>
+                <div class="unit ${communitySearchWidth}">
+                    <a href="javascript:void(0);">Community Rating<mod:sortArrow
+                            sortList="PARENT_RATING_DESCENDING,PARENT_RATING_ASCENDING"
+                            currentSort="${commandAndFields.fieldSort.name}"/></a>
+                </div>
+                <div class="unit ${photoSearchWidth} lastUnit">
+                    <a href="javascript:void(0);"><!-- do not collapse --></a>
+                </div>
             </div>
-            <div class="${communitySearchWidth}">Community Rating<mod:sortArrow
-                    sortList="PARENT_RATING_DESCENDING,PARENT_RATING_ASCENDING"
-                    currentSort="${commandAndFields.fieldSort.name}"/></div>
-            <div class="${photoSearchWidth} omega"><!-- do not collapse --></div>
         </div>
-        <div class="grid_16">
+        <div class="alpha grid_16 omega">
             <div id="js-school-search-results-table-body">
 
                 <c:set var="count" value="0"/>

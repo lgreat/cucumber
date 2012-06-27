@@ -13,29 +13,32 @@
     <jsp:directive.attribute name="hideApplyReset" required="false" type="java.lang.Boolean"/>
 
     <mod:contentDropdown title="${title}" id="${id}" cssClass="${cssClass}" label="${label}" hideApplyReset="${hideApplyReset}">
+        <div class="mod standard_6-3">
 
-        <c:if test="${not hideApplyReset}">
-            <span class="fltrt pas" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">X</span>
-        </c:if>
 
-        <c:if test="${not empty pageScope.title}">
-            <h5 class="pbs" style="border-bottom: 1px solid grey;">${title}</h5>
-        </c:if>
+            <c:if test="${not hideApplyReset}">
+                <span class="" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">X</span>
+            </c:if>
 
-        <div class="pts dropDown-checkboxes">
-            <jsp:doBody/>
-        </div>
+            <c:if test="${not empty pageScope.title}">
+                <h5 class="">${title}</h5>
+            </c:if>
 
-        <c:if test="${not hideApplyReset}">
-            <div class="line">
-                <div class="unit size3of4">
-                    <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Apply</button>
-                </div>
-                <div class="unit lastUnit">
-                    <a href="javascript:void(0);" data-gs-uncheckall="${id}">Reset</a>
-                </div>
+            <div class="">
+                <jsp:doBody/>
             </div>
-        </c:if>
+
+            <c:if test="${not hideApplyReset}">
+                <div class="line">
+                    <div class="unit size3of4">
+                        <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Save</button>
+                    </div>
+                    <div class="unit lastUnit">
+                        <a href="javascript:void(0);" data-gs-uncheckall="${id}">Clear</a>
+                    </div>
+                </div>
+            </c:if>
+        </div>
     </mod:contentDropdown>
 
 

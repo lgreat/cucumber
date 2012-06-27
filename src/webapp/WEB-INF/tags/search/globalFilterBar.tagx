@@ -18,99 +18,93 @@
 
     <jsp:directive.attribute name="includeDistance" required="false" description="default is false"/>
 
-    <div id="jq-filterBar" class="alpha grid_16 omega pam">
-        <div id="js-schoolTypes" class="alpha grid_4">
-            <!--<div class="small_bold bottom">School type</div>-->
-            <div>
-                <search:dropdownFilters id="stDropdown" label="All types"
-                                        title="Narrow results to specific school types" hideApplyReset="${true}">
+    <div id="jq-filterBar" class="alpha grid_16 omega pbl">
+        <div id="js-schoolTypes" class="grid_4">
+            <search:dropdownFilters id="stDropdown" label="All school types"
+                                    title="" hideApplyReset="${true}">
 
-                    <div class="col_2">
-                        <div class="js-applyFilters">
-                            <spring:checkbox path="schoolSearchCommand.st" type="checkbox" class="jq-school-type"
-                                             name="st"
-                                             id="js-school-type-public" value="public"
-                                             data-gs-custom-link="Search_filter_type_public"/>
-                            <label for="js-school-type-public">Public</label>
-                        </div>
-                        <div class="js-applyFilters">
-                            <spring:checkbox path="schoolSearchCommand.st" type="checkbox" class="jq-school-type"
-                                             name="st"
-                                             id="js-school-type-charter" value="charter"
-                                             data-gs-custom-link="Search_filter_type_charter"/>
-                            <label for="js-school-type-charter">Public charter</label>
-                        </div>
-                        <div class="mbm js-applyFilters">
-                            <spring:checkbox path="schoolSearchCommand.st" type="checkbox" class="jq-school-type"
-                                             name="st"
-                                             id="js-school-type-private" value="private"
-                                             data-gs-custom-link="Search_filter_type_private"/>
-                            <label for="js-school-type-private">Private</label>
-                        </div>
-                        <!--<div class="mbm js-applyFilters">
-                            <spring:checkbox path="schoolSearchCommand.religious"  type="checkbox"
-                                id="js-school-subtype-religious" class="jq-school-type" name="religious" value="true"/>
-                            <label for="js-school-subtype-religious">Religious</label>
-                        </div>
-                        <div class="mbm js-applyFilters">
-                            <spring:checkbox path="schoolSearchCommand.religious"  type="checkbox"
-                                             id="js-school-subtype-nonreligious" class="jq-school-type" name="religious" value="false"/>
-                            <label for="js-school-subtype-nonreligious">Nonreligious</label>
-                        </div>-->
+                <!--<div class="mod standard_6-3">-->
+                    <div class="js-applyFilters">
+                        <spring:checkbox path="schoolSearchCommand.st" type="checkbox" class="jq-school-type"
+                                         name="st"
+                                         id="js-school-type-public" value="public"
+                                         data-gs-custom-link="Search_filter_type_public"/>
+                        <label for="js-school-type-public">Public</label>
                     </div>
-                </search:dropdownFilters>
-
-            </div>
+                    <div class="js-applyFilters">
+                        <spring:checkbox path="schoolSearchCommand.st" type="checkbox" class="jq-school-type"
+                                         name="st"
+                                         id="js-school-type-charter" value="charter"
+                                         data-gs-custom-link="Search_filter_type_charter"/>
+                        <label for="js-school-type-charter">Public charter</label>
+                    </div>
+                    <div class="js-applyFilters">
+                        <spring:checkbox path="schoolSearchCommand.st" type="checkbox" class="jq-school-type"
+                                         name="st"
+                                         id="js-school-type-private" value="private"
+                                         data-gs-custom-link="Search_filter_type_private"/>
+                        <label for="js-school-type-private">Private</label>
+                    </div>
+                    <button class="button-1" type="button" onclick="javascript:void(0)">Done</button>
+                    <!--<div class="mbm js-applyFilters">
+                        <spring:checkbox path="schoolSearchCommand.religious"  type="checkbox"
+                            id="js-school-subtype-religious" class="jq-school-type" name="religious" value="true"/>
+                        <label for="js-school-subtype-religious">Religious</label>
+                    </div>
+                    <div class="mbm js-applyFilters">
+                        <spring:checkbox path="schoolSearchCommand.religious"  type="checkbox"
+                                         id="js-school-subtype-nonreligious" class="jq-school-type" name="religious" value="false"/>
+                        <label for="js-school-subtype-nonreligious">Nonreligious</label>
+                    </div>-->
+                <!--</div>-->
+            </search:dropdownFilters>
             <!--</div>-->
         </div>
         <div id="js-gradeLevels" class="grid_4">
-            <!--<div class="small_bold bottom">Grade level</div>-->
             <!--<div class="triggerMouseLeave">-->
-            <div>
-                <search:dropdownFilters id="gradeLevels" label="All grades"
-                                        title="Narrow results to specific grade levels" hideApplyReset="${true}">
-                    <div class="col_2">
-                        <div class="js-applyFilters">
-                            <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox"
-                                             class="jq-grade-level" name="gradeLevels"
-                                             id="js-grade-level-p" value="p"
-                                             data-gs-custom-link="Search_filter_grade_PK"/>
-                            <label for="js-grade-level-p">Preschool</label>
-                        </div>
-                        <div class="js-applyFilters">
-                            <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox"
-                                             class="jq-grade-level" name="gradeLevels"
-                                             id="js-grade-level-e" value="e"
-                                             data-gs-custom-link="Search_filter_grade_elem"/>
-                            <label for="js-grade-level-e">Elementary School</label>
-                        </div>
-                        <div class="js-applyFilters">
-                            <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox"
-                                             class="jq-grade-level" name="gradeLevels"
-                                             id="js-grade-level-m" value="m"
-                                             data-gs-custom-link="Search_filter_grade_middle"/>
-                            <label for="js-grade-level-m">Middle School</label>
-                        </div>
-                        <div class="mbm js-applyFilters">
-                            <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox"
-                                             class="jq-grade-level" name="gradeLevels"
-                                             id="js-grade-level-h" value="h"
-                                             data-gs-custom-link="Search_filter_grade_high"/>
-                            <label for="js-grade-level-h">High School</label>
-                        </div>
+            <search:dropdownFilters id="gradeLevels" label="All grades levels"
+                                    title="" hideApplyReset="${true}">
+                <!--<div class="mod standard_6-3">-->
+                    <div class="js-applyFilters">
+                        <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox"
+                                         class="jq-grade-level" name="gradeLevels"
+                                         id="js-grade-level-p" value="p"
+                                         data-gs-custom-link="Search_filter_grade_PK"/>
+                        <label for="js-grade-level-p">Preschool</label>
                     </div>
-                </search:dropdownFilters>
-            </div>
+                    <div class="js-applyFilters">
+                        <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox"
+                                         class="jq-grade-level" name="gradeLevels"
+                                         id="js-grade-level-e" value="e"
+                                         data-gs-custom-link="Search_filter_grade_elem"/>
+                        <label for="js-grade-level-e">Elementary School</label>
+                    </div>
+                    <div class="js-applyFilters">
+                        <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox"
+                                         class="jq-grade-level" name="gradeLevels"
+                                         id="js-grade-level-m" value="m"
+                                         data-gs-custom-link="Search_filter_grade_middle"/>
+                        <label for="js-grade-level-m">Middle School</label>
+                    </div>
+                    <div class="js-applyFilters">
+                        <spring:checkbox path="schoolSearchCommand.gradeLevels" type="checkbox"
+                                         class="jq-grade-level" name="gradeLevels"
+                                         id="js-grade-level-h" value="h"
+                                         data-gs-custom-link="Search_filter_grade_high"/>
+                        <label for="js-grade-level-h">High School</label>
+                    </div>
+                    <button class="button-1" type="button" onclick="javascript:void(0)">Done</button>
+                <!--</div>-->
+            </search:dropdownFilters>
             <!--</div>-->
         </div>
         <c:if test="${isCityBrowse ne true and isDistrictBrowse ne true and includeDistance eq true}">
             <div id="js-radius" class="grid_4" style="${!commandAndFields.nearbySearch? 'display:none':''}">
-                <!--<div class="small_bold bottom">Distance</div>-->
-                <div>
-
-                    <search:dropdownFilters id="distance" label="25 miles"
-                                            title="Narrow results to within a specific radius" hideApplyReset="${true}">
-                        <div class="line mbm">
+                <search:dropdownFilters id="distance" label="Any distance"
+                                        title="" hideApplyReset="${true}">
+                    <!--<div class="mod standard_6-3 grid_4">-->
+                    <div class="grid_4">
+                        <div class="line">
                             <div class="unit size50of100">
                                 <div class="js-applyFilters">
                                     <form:radiobutton type="radio" name="distance"
@@ -183,12 +177,13 @@
                                 </div>
                             </div>
                         </div>
-                    </search:dropdownFilters>
-                </div>
+                        <button class="button-1" type="button" onclick="javascript:void(0)">Done</button>
+                    <!--</div>-->
+                    </div>
+                </search:dropdownFilters>
             </div>
         </c:if>
 
-        <!--<div class="grid_1"> &amp;nbsp;&lt;!&ndash; no collapse &ndash;&gt;</div>-->
         <div class="grid_3 omega">
             <div class="line">
                 <div class="unit size2of5">
