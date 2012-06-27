@@ -50,7 +50,9 @@
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 
+    <!-- Begin profile header -->
     <div style="height: 225px; width: 950px; border: 1px solid red; position: relative;">
+        <!-- Breadcrumbs -->
         <div>
             <ul>
                 <li><link:home>Home</link:home> &amp;gt; </li>
@@ -128,6 +130,7 @@
             <p>GreatSchools Rating</p>
         </div>
 
+        <!-- School name and sub data -->
         <div><h1>${school.name}</h1></div>
         <div>
             <!-- School Type -->
@@ -147,14 +150,15 @@
                 </c:otherwise>
             </c:choose>
             <!-- Enrollment -->
+            <!-- TODO: Get this value from model -->
             <c:set var="enrollmentOrCapacity" value="${school.enrollmentOrCapacity}"/>
             <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
                 | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')}
             </c:if>
-            | &amp;nbsp; <promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}" />
-
+            <promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}" />
         </div>
 
+        <!-- tool links -->
         <div>
             <ul class="smallAlertText">
                 <li>
@@ -198,8 +202,8 @@
             <p>
                 <a href="javascript:void(0);">Larger map</a>
             </p>
-
         </div>
+
         <!-- Address, phone, fax, directions, homes for sale -->
         <div style="position:absolute;top:0;right:0;">
             <div>
@@ -234,13 +238,10 @@
                         <gslink:realtorDotComLink address="${school.physicalAddress}" customLinkSuffix="inlinelinkheader">Nearby homes for sale</gslink:realtorDotComLink>
                     </p>
                 </c:if>
-
-
             </div>
-
         </div>
-
     </div>
+    <!-- End profile header -->
 
     <div>
         <ul id="schoolProfileTabs" data-gs-tab-group="profileTabs">
