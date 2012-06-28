@@ -78,38 +78,38 @@
         <jsp:useBean id="now" class="java.util.Date" scope="page" />
         <!--<div data-gs-tab-body-group="profileTabs" class="slStylesV1-0">-->
         <c:if test="${(!empty overview)}">
-            <div data-gs-tab-body="overview" style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display: none; ${(!empty param.tab and param.tab ne 'overview'?'display:none;':'')}">
+            <div data-gs-tab-body="overview" class="alpha grid_16 omega" style="${(!empty param.tab and param.tab ne 'overview'?'display:none;':'')}">
                 <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${overview}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty testscores)}">
-            <div data-gs-tab-body="testScores" style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; ${(param.tab ne 'testScores'?'display:none;':'')}">
+            <div data-gs-tab-body="testScores" class="alpha grid_16 omega" style="${(param.tab ne 'testScores'?'display:none;':'')}">
                 <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${testscores}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty schoolstats)}">
-            <div data-gs-tab-body="stats" style="${(!empty param.tab and param.tab ne 'stats'?'display:none;':'')}">
+            <div data-gs-tab-body="stats" class="alpha grid_16 omega" style="${(!empty param.tab and param.tab ne 'stats'?'display:none;':'')}">
                 <c:out value='${schoolstats}' escapeXml="false" />
             </div>
         </c:if>
         <c:if test="${(!empty reviews)}">
-            <div data-gs-tab-body="reviews" style="${(!empty param.tab and param.tab ne 'reviews'?'display:none;':'')}">
+            <div data-gs-tab-body="reviews" class="alpha grid_16 omega" style="${(!empty param.tab and param.tab ne 'reviews'?'display:none;':'')}">
                 <!--<gsweb:cache key="profileReviews-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${reviews}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty programs)}">
-            <div data-gs-tab-body="programsExtras" style="display:none;">
+            <div data-gs-tab-body="programsExtras" class="alpha grid_16 omega" style="display:none;">
                 <c:out value='${programs}' escapeXml="false" />
             </div>
         </c:if>
         <c:if test="${(!empty culture)}">
-            <div data-gs-tab-body="culture" style="${(!empty param.tab and param.tab ne 'culture'?'display:none;':'')}">
+            <div data-gs-tab-body="culture" class="alpha grid_16 omega" style="${(!empty param.tab and param.tab ne 'culture'?'display:none;':'')}">
                 <c:out value='${culture}' escapeXml="false" />
             </div>
         </c:if>
