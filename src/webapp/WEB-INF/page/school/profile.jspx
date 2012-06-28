@@ -138,17 +138,19 @@
 <div class="grid_24">
 
     <div class="alpha grid_16">
+
+        <div class="alpha grid_4">
         <!-- New GS Rating -->
-        <div style="float: left;">
-            <div style="height: 100px; width: 100px; background-color: green;">
+            <div class="mha mbm" style="height: 100px; width: 100px; background-color: green;">
                 <!-- TODO: Placeholder for new GreatSchools Rating -->
             </div>
-            <p>GreatSchools Rating</p>
+            <p class="tac small">GreatSchools Rating</p>
         </div>
 
-        <!-- School name and sub data -->
-        <div><h1>${school.name}</h1></div>
-        <div>
+        <div class="grid_12 omega">
+            <!-- School name and sub data -->
+            <h2 class="mbm">${school.name}</h2>
+        <div class="small mbm">
             <!-- School Type -->
             <c:if test="${school.levelCode ne 'p'}">
                 ${gsweb:capitalize(school.type.schoolTypeName)}
@@ -174,28 +176,37 @@
             <promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
         </div>
 
+            <hr class="keyline1"/>
+
         <!-- tool links -->
-        <div>
-            <ul class="smallAlertText">
-                <li>
+            <ul class="none small mtm">
+                <li class="di">
+                    <strong>
                     <link:mySchoolList school="${school}"
                                        onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
                                        anchor="${headerLinkAnchor}">Save</link:mySchoolList>
+                    </strong>
                 </li>
-                <li>
+                <li class="di mlm">
+                    <strong>
                     <a href="javascript:void(0);">Send me updates</a>
+                    </strong>
                 </li>
-                <li>
+                <li class="di mlm">
+                    <strong>
                     <a href="javascript:void(0);">Write a review</a>
+                    </strong>
                 </li>
                 <!-- TODO: Generate compareNearbyString -->
                 <c:if test="${not empty compareNearbyString}">
                     <c:set var="compareSource" value="overview"/>
-                    <li>
+                    <li class="di mlm">
+                        <strong>
                         <link:compareSchools schools="${compareNearbyString}"
                                              source="sphead_${compareSource}_${school.databaseState}${school.id}"
                                              onclick="if (s.tl) {s.tl(this,'o','SchoolProfile_Compare_Inline_Link');} return true;"
                                              tab="overview">Compare schools</link:compareSchools>
+                    </strong>
                     </li>
                 </c:if>
             </ul>
@@ -216,11 +227,11 @@
         <div class="media">
             <div class="img mrm">
                 <a href="http://maps.google.com/?q=${schoolAddressWithName}">
-                    <img height="120" width="160" alt="Map thumbnail"
+                    <img class="mbm" height="120" width="160" alt="Map thumbnail"
                          src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=160x120&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
                 </a>
 
-                <p class="small">
+                <p class="smaller">
                     <a href="javascript:void(0);">Larger map</a>
                 </p>
             </div>
@@ -274,12 +285,14 @@
 </div>
 
 <div class="grid_16">
-<nav:primary schoolName="${school.name}" schoolId="${param.id}"  schoolState="${param.state}" tabName="${param.tab}" />
+    <nav:primary schoolName="${school.name}" schoolId="${param.id}" schoolState="${param.state}"
+                 tabName="${param.tab}"/>
 </div>
 
-    <div class="grid_8">
-        Right column
-    </div>
+<div class="grid_8">
+    <p class="">Right column</p>
+</div>
+
 </gsml:body>
 </html>
 </jsp:root>

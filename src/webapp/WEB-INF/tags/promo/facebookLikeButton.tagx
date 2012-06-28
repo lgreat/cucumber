@@ -24,7 +24,7 @@
             request.setAttribute("domainUrl", domainUrl);
         </jsp:scriptlet>
 
-    <div id="fb-root" class="hidden"><!-- empty tag = broken page --></div>
+    <div id="fb-root" class="hidden di"><!-- empty tag = broken page --></div>
     <script type="text/javascript">
         GS = GS || {};
         GS.FB = GS.FB || {};

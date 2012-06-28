@@ -68,7 +68,9 @@
         <div class="page-shadow clearfix">
             <mod:primaryNav/>
             <mod:secondaryNav/>
+            <div class="phs clearfix">
             <decorator:body/>
+            </div>
             <mod:footer showAd="true" showSeoFooter="true"/>
         </div>
 
