@@ -227,7 +227,7 @@
         <div class="media">
             <div class="img mrm">
                 <a href="http://maps.google.com/?q=${schoolAddressWithName}">
-                    <img class="mbm" height="120" width="160" alt="Map thumbnail"
+                    <img class="mbs" height="120" width="160" alt="Map thumbnail"
                          src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=160x120&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
                 </a>
 
