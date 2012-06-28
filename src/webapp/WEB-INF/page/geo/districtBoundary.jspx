@@ -119,7 +119,7 @@
                         </div>
 
                         <div id="schoolListWrapper" class="hidden">
-                            <h6 class="mlm bottom">Public/Charter Schools in District</h6>
+                            <h6 class="mlm bottom">Schools in District</h6>
 
                             <div id="schoolListDiv">
                                 <div id="schoolList"><!--Do not collapse--></div>

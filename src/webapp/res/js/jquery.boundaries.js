@@ -7,7 +7,7 @@ var Boundaries = function(element, options){
         , markers = new Array(), polygons = new Array();
 
     map = new google.maps.Map(element, options.map);
-    google.maps.event.addListener(map, 'center_changed', $.proxy(function(){this.trigger('moved');}, this));
+    google.maps.event.addListener(map, 'dragend', $.proxy(function(){this.trigger('dragend');}, this));
     google.maps.event.addListener(map, 'click', $.proxy(function(e){this.trigger('mapclick', e.latLng);}, this));
 
     this.getElement = function () { return element; }
@@ -23,6 +23,8 @@ var Boundaries = function(element, options){
             }
         }, this));
     }
+
+    this.listen('dragend.boundaries', $.proxy(this.dragend, this));
 
     this.trigger('init');
 }
@@ -280,6 +282,17 @@ Boundaries.prototype = {
 
     , trigger: function (event, data) {
         $(this.getElement()).trigger(new jQuery.Event(event), {data: data});
+    }
+
+    , dragend: function () {
+        var bounds = this.getMap().getBounds();
+        for (var i=0; i<this.getMarkers().length; i++) {
+            if (this.getMarkers()[i].getMap()!=null && bounds.contains(this.getMarkers()[i].getPosition())){
+                this.trigger('inbounds');
+                return;
+            }
+        }
+        this.trigger('outbounds');
     }
 
     , autozoom: function () {

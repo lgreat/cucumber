@@ -82,7 +82,7 @@ var Boundary = (function (){
             var $comments = $element.find('.js_comments');
             $wrapper.removeClass("mbm");
             $comments.html('');
-            if (!obj.isPolygonShown()) $comments.html('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Contact school district for school boundaries</div></div></div>');
+            if (!obj.isPolygonShown() && (obj.schoolType!='private' && obj.schoolType!='charter')) $comments.html('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Contact school district for school boundaries</div></div></div>');
             if (obj.schoolType=='private') $comments.append('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Private schools are not in the district.</div></div></div>');
             if (obj.schoolType=='charter' && obj.charterOnly)
                 $comments.append('<div class="ft smaller bottom"><div class="media attribution"><div class="img"><span class="iconx16 i-16-information"><!-- do not collapse --></span></div><div class="bd">Charter schools are not in the district.</div></div></div>');
@@ -129,7 +129,8 @@ var Boundary = (function (){
         $map.on('geocode.boundaries', geocodeEventHandler );
         $map.on('geocodefail.boundaries', geocodeFailEventHandler);
         $map.on('geocodereverse.boundaries', geocodeReverseEventHandler );
-        $map.on('moved.boundaries', movedEventHandler );
+        $map.on('inbounds.boundaries', inboundsEventHandler);
+        $map.on('outbounds.boundaries', outboundsEventHandler);
         $map.on('mapclick.boundaries', mapClickEventHandler );
         $map.on('markerclick.boundaries', markerClickEventHandler);
 
@@ -238,7 +239,11 @@ var Boundary = (function (){
         }
     };
 
-    var movedEventHandler = function ( event ) {
+    var inboundsEventHandler = function ( event ) {
+        $redo.hide();
+    }
+
+    var outboundsEventHandler = function ( event ) {
         $redo.show();
     }
 
