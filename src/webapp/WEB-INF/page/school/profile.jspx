@@ -7,7 +7,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
-          xmlns:nav="urn:jsptagdir:/WEB-INF/tags/school/navigation"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
@@ -285,7 +285,7 @@
 </div>
 
 <div class="grid_16">
-    <nav:primary schoolName="${school.name}" schoolId="${param.id}" schoolState="${param.state}"
+    <profile:primary schoolName="${school.name}" schoolId="${param.id}" schoolState="${param.state}"
                  tabName="${param.tab}"/>
 </div>
 
