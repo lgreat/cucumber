@@ -71,7 +71,9 @@ public class DirectoryStructureUrlFields {
 
         // state: always take from session context
         SessionContext context = SessionContextUtil.getSessionContext(request);
-        _state = context.getState();
+        if (context != null) {
+            _state = context.getState();
+        }
 
         String[] pathComponents = requestUri.split("/");
         set(pathComponents);
@@ -97,6 +99,13 @@ public class DirectoryStructureUrlFields {
         // second, this also means element [0] is an empty string and element [n-1] is the last string before the closing slash
         // third, we ignore element [1] because that would be the state long name
 
+        if (_state == null) {
+            try {
+                _state = State.fromString(pathComponents[1]);
+            } catch (IllegalArgumentException iae) {
+                // this is fine, it means this is not a URI that we care about.
+            }
+        }
         if (pathComponents.length == 2) {
             // /california
             // this could have just been the default case, but this is more explicit
@@ -166,7 +175,7 @@ public class DirectoryStructureUrlFields {
 
         if (StringUtils.isNotBlank(_cityName)) {
             _cityName = _cityName.replaceAll("-", " ").replaceAll("_", "-");
-            if (_state.equals(State.NY) &&_cityName.equalsIgnoreCase("new york city")) {
+            if (_state != null && _state.equals(State.NY) &&_cityName.equalsIgnoreCase("new york city")) {
                 _cityName = "new york";
             }
         }
@@ -329,7 +338,7 @@ public class DirectoryStructureUrlFields {
         return "hasState: " + hasState() + ", hasCityName: " + hasCityName() + ", hasSchoolTypes: " + hasSchoolTypes() +
                 ", hasLevelCode: " + hasLevelCode() + ", hasSchoolsLabel: " + hasSchoolsLabel() + ", hasSchoolName: " + hasSchoolName() +
                 ", hasSchoolID: " + hasSchoolID() + ", schoolName: " + getSchoolName() + ", schoolID: " + getSchoolID() +
-                ", cityName: " + getCityName() + ", state: " + getState().getAbbreviation() +
+                ", cityName: " + getCityName() + (hasState()?", state: " + getState().getAbbreviation():"") +
                 ", levelCode: " + getLevelCode() + ", schoolTypesParams: " + getSchoolTypesParams();
     }
 }

@@ -29,6 +29,7 @@
     <context:component-scan base-package="gs.web.email" />
     <context:component-scan base-package="gs.web.mobile" />
     <context:component-scan base-package="gs.web.content" />
+    <context:component-scan base-package="gs.web.request" />
 
     <!--
     - Application context definition for "springapp" DispatcherServlet.
@@ -2023,15 +2024,24 @@
         </property>
     </bean>
 
+    <bean name="fruitcakeSchoolProfileController" class="gs.web.school.SchoolProfileController" lazy-init="true">
+        <property name="controllerFamily" value="FRUITCAKE"/>
+        <property name="viewName">
+            <value>school/profile</value>
+        </property>
+    </bean>
+
     <bean name="/school/overview.page" class="gs.web.path.IDirectoryStructureUrlController" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <ref bean="mobileSchoolOverviewController"/>
                 <ref bean="desktopSchoolOverviewController"/>
+                <ref bean="fruitcakeSchoolProfileController"/>
             </list>
         </constructor-arg>
     </bean>
 
+    <!-- FOR TESTING ONLY -->
     <bean name="desktopSchoolProfileController" class="gs.web.school.SchoolProfileController" lazy-init="true">
         <property name="controllerFamily" value="DESKTOP"/>
         <property name="viewName">

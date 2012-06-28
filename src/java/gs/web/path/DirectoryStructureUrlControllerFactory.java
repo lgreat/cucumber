@@ -1,5 +1,6 @@
 package gs.web.path;
 
+import gs.web.request.RequestAttributeHelper;
 import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -23,10 +24,7 @@ public class DirectoryStructureUrlControllerFactory implements IDirectoryStructu
         }
 
         // extract request information from the request uri
-        DirectoryStructureUrlFields fields = new DirectoryStructureUrlFields(request);
-        // set the fields in the request instead of in the controller itself or else different requests would
-        // be using each others' fields!
-        request.setAttribute(IDirectoryStructureUrlController.FIELDS, fields);
+        DirectoryStructureUrlFields fields = RequestAttributeHelper.getDirectoryStructureUrlFields(request);
 
         // pick the appropriate controller to handle the request
         for (IDirectoryStructureUrlController controller : _controllers) {
