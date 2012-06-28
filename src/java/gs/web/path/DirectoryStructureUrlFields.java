@@ -71,12 +71,12 @@ public class DirectoryStructureUrlFields {
 
         // state: always take from session context
         SessionContext context = SessionContextUtil.getSessionContext(request);
+        // if context is null, we can't be under a DirectoryStructureUrlController so let's exit early
         if (context != null) {
             _state = context.getState();
+            String[] pathComponents = requestUri.split("/");
+            set(pathComponents);
         }
-
-        String[] pathComponents = requestUri.split("/");
-        set(pathComponents);
     }
     
     private void clear() {
@@ -99,13 +99,6 @@ public class DirectoryStructureUrlFields {
         // second, this also means element [0] is an empty string and element [n-1] is the last string before the closing slash
         // third, we ignore element [1] because that would be the state long name
 
-        if (_state == null) {
-            try {
-                _state = State.fromString(pathComponents[1]);
-            } catch (IllegalArgumentException iae) {
-                // this is fine, it means this is not a URI that we care about.
-            }
-        }
         if (pathComponents.length == 2) {
             // /california
             // this could have just been the default case, but this is more explicit
