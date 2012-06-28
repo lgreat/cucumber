@@ -151,6 +151,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             delete queryStringDataWithFilters.totalResults;
             delete queryStringDataWithFilters.locationSearchString;
             delete queryStringDataWithFilters.start;
+            delete queryStringDataWithFilters.rs;
 
             // if there's no current q param in the URL, we're on a byLocation search results page.
             // remove sort param when changing between byName and byLocation
@@ -229,6 +230,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                         var queryStringDataWithFilters = $.extend(queryStringDataWithFilters, data);
 
                         delete queryStringDataWithFilters.start;
+                        delete queryStringDataWithFilters.rs;
 
                         window.setTimeout(function() {
                             window.location.href = window.location.protocol + '//' + window.location.host +

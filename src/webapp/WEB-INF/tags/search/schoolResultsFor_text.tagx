@@ -17,6 +17,9 @@
         <c:if test="${commandAndFields.search}">
             <h1 class="js-schoolResultsHeader">
                 <c:choose>
+                    <c:when test="${param.rs}">
+                        ${page.pager.totalItems} <span class="">results near this location</span>
+                    </c:when>
                     <c:when test="${commandAndFields.nearbySearch eq true and param.zipCode}">
                         ${nearbySearchTitlePrefix} near <span
                             class="">${param.zipCode}</span>

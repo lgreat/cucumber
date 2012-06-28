@@ -6,7 +6,6 @@ GS.search.results = GS.search.results || (function() {
     var compareModule;
     var customLinksModule;
     var infoBoxTemplate, sidebarListTemplate;
-    var isRedoSearch = false;
 
     // http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
     // we use indexOf on some arrays in this .js file, but IE doesn't support it natively, so we have to implement it here
@@ -230,7 +229,6 @@ GS.search.results = GS.search.results || (function() {
         }).done(function(data) {
                 renderDataForMap(data);
                 GS.util.htmlMirrors.updateAll();
-                isRedoSearch = false;
             }
         ).fail(function() {
                 alert("error");
@@ -285,10 +283,6 @@ GS.search.results = GS.search.results || (function() {
         var page = data.page[1];
 
         updateSortAndPageSize();
-
-        if(isRedoSearch) {
-            renderDataForRedoSearch(page);
-        }
 
         $('.js-search-results-paging-summary').html("Showing " + page.offset + "-" + page.lastOffsetOnPage + " of " +
             "<span id='total-results-count'>" + page.totalResults + "</span> schools");
@@ -437,7 +431,6 @@ GS.search.results = GS.search.results || (function() {
     }
 
     var redoSearch = function() {
-        isRedoSearch = true;
         var redoSearchDiv = $("#js-redoSearch");
         redoSearchDiv.dialog('close');
         var queryString = window.location.search;
@@ -452,25 +445,8 @@ GS.search.results = GS.search.results || (function() {
         queryStringData.lat = redoSearchDiv.find('#js-redoLat').val();
         queryStringData.lon = redoSearchDiv.find('#js-redoLng').val();
         queryStringData.zipCode = redoSearchDiv.find('#js-redoZipCode').val();
-        mapSearch(1, 25, queryStringData);
-    }
-
-    var renderDataForRedoSearch = function(page) {
-        var schoolResultsHeader = $('.js-schoolResultsHeader');
-        schoolResultsHeader.text(page.totalResults + ' results near this location');
-
-        $('#js-findByLocationBox').val($("#js-redoSearch #js-redoZipCode").val());
-        var typeFilters = $('#js-schoolTypes .js-applyFilters');
-        typeFilters.find('input:checkbox:checked').prop('checked', false);
-        typeFilters.find('input:checkbox').first().prop('checked', false).trigger('change');
-
-        var gradeFilters = $('#js-gradeLevels .js-applyFilters');
-        gradeFilters.find('input:checkbox:checked').prop('checked', false);
-        gradeFilters.find('input:checkbox').first().prop('checked', false).trigger('change');
-
-        $('#distance').find('#js-radius-5').prop('checked', true).trigger('change');
-
-        GS.search.filters.reset();
+        queryStringData.rs = true;
+        window.location.search = GS.uri.Uri.getQueryStringFromObject(queryStringData);
     }
 
     var updateSortAndPageSize = function() {
