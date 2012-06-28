@@ -33,13 +33,85 @@
     <!--&lt;!&ndash; Profile Top Tabs &ndash;&gt;-->
     <!--/school/profile.page?id=${param.id}&state=${param.state}&tab=testscores-->
 
+
+
+
+    <c:set var="overview"><jsp:include page="/school/profileOverview.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}" /></c:set>
+    <c:set var="testscores"><jsp:include page='/school/profileTestScores.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}' /></c:set>
+    <c:set var="schoolstats"></c:set>
+    <c:set var="reviews"><jsp:include page='/school/profileReviews.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}' /></c:set>
+    <c:set var="programs"><jsp:include page='/school/profilePrograms.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}' /></c:set>
+    <c:set var="culture"></c:set>
+
+
+    <div class="gsTabs">
+
+        <!-- figure out what to turn on -->
+        <!--${(!empty param.tab and param.tab ne 'overview'   ${fn:contains(mylirilsoap,liril)} -->
+        <!--<c:forEach var="num" items="${fn:split(param.tab, '_')}">-->
+        <!--<c:out value="${model.testhash['A']}"/>-->
+        <!--<c:out value="${num}" />-->
+        <!--</c:forEach>-->
+
         <ul class="tabStyle-4">
-            <li data-gs-tab="overview"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=overview" title="${schoolName} | Overview">Overview</a></li>
-            <li data-gs-tab="testScores"><a  href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=test-scores" title="${schoolName} | Test Scores">Test scores</a></li>
-            <li data-gs-tab="stats"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=school-stats" title="${schoolName} | School stats">School stats</a></li>
-            <li data-gs-tab="reviews"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=reviews" title="${schoolName} | Reviews">Reviews</a></li>
-            <li data-gs-tab="programsExtracurriculars"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=programs-and-extracurriculars" title="${schoolName} | Programs &amp; Extracurriculars">Programs &amp;amp; Extracurriculars</a></li>
-            <li data-gs-tab="culture"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=culture" title="${schoolName} | Culture">Culture</a></li>
+            <c:if test="${(!empty overview)}">
+                <li data-gs-tab="overview"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=overview" title="${schoolName} | Overview">Overview</a></li>
+            </c:if>
+            <c:if test="${(!empty testscores)}">
+                <li data-gs-tab="testScores"><a  href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=test-scores" title="${schoolName} | Test Scores">Test scores</a></li>
+            </c:if>
+            <c:if test="${(!empty schoolstats)}">
+                <li data-gs-tab="stats"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=school-stats" title="${schoolName} | School stats">School stats</a></li>
+            </c:if>
+            <c:if test="${(!empty reviews)}">
+                <li data-gs-tab="reviews"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=reviews" title="${schoolName} | Reviews">Reviews</a></li>
+            </c:if>
+            <c:if test="${(!empty programs)}">
+                <li data-gs-tab="programsExtracurriculars"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=programs-and-extracurriculars" title="${schoolName} | Programs &amp; Extracurriculars">Programs &amp;amp; Extracurriculars</a></li>
+            </c:if>
+            <c:if test="${(!empty culture)}">
+                <li data-gs-tab="culture"><a href="/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=culture" title="${schoolName} | Culture">Culture</a></li>
+            </c:if>
         </ul>
 
+        <!-- TODO: Do we need this useBean??? -->
+        <jsp:useBean id="now" class="java.util.Date" scope="page" />
+        <!--<div data-gs-tab-body-group="profileTabs" class="slStylesV1-0">-->
+        <c:if test="${(!empty overview)}">
+            <div data-gs-tab-body="overview" style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display: none; ${(!empty param.tab and param.tab ne 'overview'?'display:none;':'')}">
+                <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
+                <c:out value='${overview}' escapeXml="false" />
+                <!--</gsweb:cache>-->
+            </div>
+        </c:if>
+        <c:if test="${(!empty testscores)}">
+            <div data-gs-tab-body="testScores" style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; ${(param.tab ne 'testScores'?'display:none;':'')}">
+                <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
+                <c:out value='${testscores}' escapeXml="false" />
+                <!--</gsweb:cache>-->
+            </div>
+        </c:if>
+        <c:if test="${(!empty schoolstats)}">
+            <div data-gs-tab-body="stats" style="${(!empty param.tab and param.tab ne 'stats'?'display:none;':'')}">
+                <c:out value='${schoolstats}' escapeXml="false" />
+            </div>
+        </c:if>
+        <c:if test="${(!empty reviews)}">
+            <div data-gs-tab-body="reviews" style="${(!empty param.tab and param.tab ne 'reviews'?'display:none;':'')}">
+                <!--<gsweb:cache key="profileReviews-${school.stateAbbreviation}-${school.id}">-->
+                <c:out value='${reviews}' escapeXml="false" />
+                <!--</gsweb:cache>-->
+            </div>
+        </c:if>
+        <c:if test="${(!empty programs)}">
+            <div data-gs-tab-body="programsExtras" style="display:none;">
+                <c:out value='${programs}' escapeXml="false" />
+            </div>
+        </c:if>
+        <c:if test="${(!empty culture)}">
+            <div data-gs-tab-body="culture" style="${(!empty param.tab and param.tab ne 'culture'?'display:none;':'')}">
+                <c:out value='${culture}' escapeXml="false" />
+            </div>
+        </c:if>
+    </div>
 </jsp:root>
