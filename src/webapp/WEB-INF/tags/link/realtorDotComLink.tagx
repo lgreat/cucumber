@@ -15,7 +15,7 @@
     </jsp:scriptlet>
 
     <c:if test="${styleClass eq null}">
-        <c:set var="styleClass" value="sprite house"/>
+        <c:set var="styleClass" value="img iconx16 i-16-home-sales mrs"/>
     </c:if>
 
     <c:if test="${not isFramed or not isCobranded}">
@@ -27,9 +27,11 @@
         <c:if test="${not empty requestScope.omniturePageName}">
             <c:set var="onclick">if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;</c:set>
         </c:if>
-        <span class="${styleClass}"><!-- icon --></span>&amp;nbsp;
-        <a href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
+        <div class="media">
+        <span class="${styleClass}"><!-- icon --></span>
+        <a class="bd smaller" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
             <jsp:doBody/>
         </a>
+        </div>
     </c:if>
 </jsp:root>
