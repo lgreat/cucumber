@@ -10,25 +10,10 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0" xmlns:gsweb="gstaglib" xmlns:x_rt="http://java.sun.com/jstl/xml_rt">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <jsp:directive.page contentType="text/html"/>
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
-<head>
-    <title>${school.name} Official Information - ${school.city}, ${school.databaseState.abbreviation}</title>
-    <meta name="description" content="View official information for ${school.name}, including information about school culture, programs, and extracurriculars - ${school.city}, ${school.databaseState.longName} - ${school.databaseState.abbreviation}"/>
-    <meta name="keywords" content="${school.name} official information, ${school.name} official info, ${school.name} programs, ${school.name} extracurriculars, ${school.name} school culture"/>
-    <c:set var="pageName" value="Profile highlights"/>
-</head>
-<!--
-<head>
-    <title>Bob's test page</title>
-    <pageHelper:externalCss file="/css/gs.css"/>
-    <pageHelper:externalCss file="/css/spp2.css"/>
-</head>
--->
-<body class="nocol">
 
     <div id="profileProgramsTabs">
     <div class="tabBar">
@@ -94,9 +79,4 @@ where each entry is the first bean for that section, this allows access to the s
     </div>
     </div>
 
-<mod:tracking pageName="Rating Review Marketing Landing Page"
-              hier1="School,Parent Reviews, Rating Review Marketing Landing Page "
-        />
-</body>
-</html>
 </jsp:root>
