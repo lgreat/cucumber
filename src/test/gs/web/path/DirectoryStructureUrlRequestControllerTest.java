@@ -65,7 +65,7 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
     }
 
     // TODO: FIx me
-    public void xtestHandleRequestInternalRedirects() throws Exception {
+    public void testHandleRequestInternalRedirects() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setMethod("GET");
 
@@ -81,6 +81,7 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
 
         // redirect request url with capitalized state name to same url with lowercased state name
         request.removeAllParameters();
+        request.removeAttribute(IDirectoryStructureUrlController.FIELDS);
         request.setQueryString(null);
         request.setRequestURI("/California/sonoma/private-charter/elementary-schools/");
         _controllerFactory.setRequest(request);
@@ -91,6 +92,7 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
 
         // valid new-style city browse request
         request.removeAllParameters();
+        request.removeAttribute(IDirectoryStructureUrlController.FIELDS);
         request.setQueryString(null);
         request.setRequestURI("/california/alameda/elementary-schools/");
         _controllerFactory.setRequest(request);
@@ -100,6 +102,7 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
 
         // invalid new-style city browse request
         request.removeAllParameters();
+        request.removeAttribute(IDirectoryStructureUrlController.FIELDS);
         request.setQueryString(null);
         request.setRequestURI("/california/alameda/elementary/private-charter/schools/");
         _controllerFactory.setRequest(request);
