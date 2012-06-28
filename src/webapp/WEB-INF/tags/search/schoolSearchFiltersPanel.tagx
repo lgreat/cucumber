@@ -68,19 +68,19 @@
                                                   label="After care"/>
                     <search:searchFilterWithCount styleClass="js-applyFilters" name="beforeAfterCare" value="after"
                                                   label="Before care"/>
-                    <search:searchFilterWithCount styleClass="js-applyFilters" name="transportation" value="true"
+                    <search:searchFilterWithCount styleClass="js-applyFilters" name="transportation" value="transportation"
                                                   label="Transportation"/>
-                    <search:searchFilterWithCount styleClass="js-applyFilters" name="ell" value="true"
+                    <search:searchFilterWithCount styleClass="js-applyFilters" name="ell" value="ell"
                                                   label="English Language Learners (ELL) support"/>
                 </div>
                 <div class="unit size24of100 phm" style="border-left: 1px solid #DDD">
                     <div class="small bottom"><strong>Local Rating</strong></div>
                     <search:dropdownFilters id="ratingCategories" cssClass="mbl" label="All">
-                            <search:searchFilterWithCount styleClass="js-applyFilters" name="ratingCategories"
+                            <search:searchFilterWithCount name="ratingCategories"
                                                           value="low" label="Low (1-3)"/>
-                            <search:searchFilterWithCount styleClass="js-applyFilters" name="ratingCategories"
+                            <search:searchFilterWithCount name="ratingCategories"
                                                           value="average" label="Average (4-6)"/>
-                            <search:searchFilterWithCount styleClass="js-applyFilters" name="ratingCategories"
+                            <search:searchFilterWithCount name="ratingCategories"
                                                           value="high" label="High (7-10)"/>
                     </search:dropdownFilters>
                     <hr class="keyline1"/>
