@@ -38,10 +38,13 @@ public class FruitcakeControllerFamilyResolver implements IControllerFamilyResol
         if (fruitcakeEnabled) {
             School school = _requestAttributeHelper.getSchool(request);
             if (school != null && school.isActive()) {
-                // do processing on school here and return FRUITCAKE if it matches
+                // for school pages, serve fruitcake version only if the school is in local
                 if (SchoolHelper.isSchoolInLocal(school)) {
                     family = ControllerFamily.FRUITCAKE;
                 }
+            } else if (school == null) {
+                // for non-school pages (like search), it's true as long as fruitcakeEnabled is true
+                family = ControllerFamily.FRUITCAKE;
             }
         }
         return family;
