@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.111 2012/06/21 18:42:59 yfan Exp $
+ * $Id: AdPosition.java,v 1.112 2012/06/28 01:15:16 yfan Exp $
  */
 package gs.web.ads;
 
@@ -156,8 +156,6 @@ public class AdPosition extends Enum {
     public static final AdPosition SponsoredSearch_Bottom_423x68 = new AdPosition("SponsoredSearch_Bottom_423x68", true); // GS-10772
     public static final AdPosition Sponsor_610x225 = new AdPosition("Sponsor_610x225", true); // GS-11664
     public static final AdPosition Sponsor_88x31 = new AdPosition("Sponsor_88x31", true); // GS-11708
-    public static final AdPosition Homepage_FindASchool_Sponsor_88x31 = new AdPosition("Homepage_FindASchool_Sponsor_88x31", true); // GS-11619
-    public static final AdPosition FindASchool_Sponsor_88x31 = new AdPosition("FindASchool_Sponsor_88x31", true); // GS-11619
     public static final AdPosition SchoolReviews_Integrated_586x30 = new AdPosition("SchoolReviews_Integrated_586x30", true); // GS-11969
     public static final AdPosition K12_Module_Logo_88x31 = new AdPosition("K12_Module_Logo_88x31", true); // GS-11927
     public static final AdPosition Custom_Peelback_Ad = new AdPosition("Custom_Peelback_Ad", true); // GS-11966

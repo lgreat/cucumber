@@ -17,8 +17,6 @@
     - Any page that includes this tag must call:
     <school:miniStateLauncherHover/>
     -->
-    <c:set var="localSlotPrefix" value="${isHomePage ? 'Homepage' : adSlotPrefix}"/>
-    <!--<p>localSlotPrefix: <c:out value="${localSlotPrefix}"/></p>-->
 
     <![CDATA[
     <script type="text/javascript" charset="utf-8">
@@ -56,18 +54,6 @@
             }
             return returnVal;
         }
-
-        GS = GS || {};
-        GS.ads = GS.ads || {};
-        GS.ads.FindASchool_Sponsor_88x31 = GS.ads.FindASchool_Sponsor_88x31 || {};
-        GS.ads.FindASchool_Sponsor_88x31.showAdSponsorLogoText = function() {
-            if (jQuery('#google_ads_div_${localSlotPrefix}_FindASchool_Sponsor_88x31,#google_ads_div_${localSlotPrefix}_FindASchool_Sponsor_88x31_ad_container').length == 1) {
-                jQuery('#jq-ghostText-${localSlotPrefix}_FindASchool_Sponsor_88x31').show();
-            }
-        };
-        jQuery(function() {
-            setTimeout("GS.ads.FindASchool_Sponsor_88x31.showAdSponsorLogoText();", 1000);
-        });
         // -->
     </script>
     ]]>
@@ -263,32 +249,6 @@
                     </div>
                 </gsweb:form>
 
-            </div>
-            <div class="ft">
-                <div id="jq-ghostText-${localSlotPrefix}_FindASchool_Sponsor_88x31" class="hidden">
-                    <c:choose>
-                        <c:when test="${isHomePage}">
-
-                            <div class="ad_88x31 vert-align-mid fltrt mrl mls">
-                                <ad:Homepage_FindASchool_Sponsor_88x31/>
-                            </div>
-                            <p class="smallText1">
-                                Sponsored<br/>by
-                            </p>
-
-                        </c:when>
-                        <c:otherwise>
-                            <div class="ad_88x31 vert-align-mid fltrt mrl mls">
-                                <ad:adTag position="FindASchool_Sponsor_88x31"/>
-                            </div>
-                            <p class="smallText1">
-                                Sponsored<br/>by
-                            </p>
-
-                        </c:otherwise>
-                    </c:choose>
-
-                </div>
             </div>
         </div>
     </div>

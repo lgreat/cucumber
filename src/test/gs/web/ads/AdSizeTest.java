@@ -30,7 +30,7 @@ public class AdSizeTest extends TestCase {
         assertEquals(598, (new AdSize("Homepage_House_Ad_598x102")).getWidth());
         assertEquals(160, (new AdSize("AboveFold_Left_160x600_B_Test")).getWidth());
         assertEquals(311, (new AdSize("countdown_b2s_311x250")).getWidth());
-        assertEquals(88, (new AdSize("Homepage_FindASchool_Sponsor_88x31")).getWidth());
+        assertEquals(88, (new AdSize("HeaderLogo_88x33")).getWidth());
 
         assertEquals(300, (new AdSize("300x137")).getWidth());
         assertEquals(300, (new AdSize("300x137_SizeAtStart")).getWidth());
@@ -55,7 +55,7 @@ public class AdSizeTest extends TestCase {
         assertEquals(102, (new AdSize("Homepage_House_Ad_598x102")).getHeight());
         assertEquals(600, (new AdSize("AboveFold_Left_160x600_B_Test")).getHeight());
         assertEquals(250, (new AdSize("countdown_b2s_311x250")).getHeight());
-        assertEquals(31, (new AdSize("Homepage_FindASchool_Sponsor_88x31")).getHeight());
+        assertEquals(33, (new AdSize("HeaderLogo_88x33")).getHeight());
 
         assertEquals(137, (new AdSize("300x137")).getHeight());
         assertEquals(137, (new AdSize("300x137_SizeAtStart")).getHeight());
