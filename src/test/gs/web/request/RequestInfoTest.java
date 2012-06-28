@@ -27,36 +27,24 @@ public class RequestInfoTest {
         return request;
     }
 
-    public HttpServletRequest getHttpServletRequestForHostnameWithMobileEnabled(String hostname) {
-        GsMockHttpServletRequest request = (GsMockHttpServletRequest) getHttpServletRequestForHostname(hostname);
-        request.setCookies(new Cookie(RequestInfo.MOBILE_SITE_ENABLED_COOKIE_NAME, "true"));
-        return request;
-    }
-
     @Test
     public void testIsMobileSiteEnabled() {
         RequestInfo requestInfo;
 
         requestInfo = new RequestInfo(getHttpServletRequestForHostname("www.greatschools.org"));
-        assertFalse(requestInfo.isMobileSiteEnabled());
+        assertTrue("Expect mobile site to be enabled on live", requestInfo.isMobileSiteEnabled());
 
-        requestInfo = new RequestInfo(getHttpServletRequestForHostnameWithMobileEnabled("www.greatschools.org"));
-        assertFalse("Expect mobile site to be permanently disabled on live", requestInfo.isMobileSiteEnabled());
-
-        requestInfo = new RequestInfo(getHttpServletRequestForHostnameWithMobileEnabled("sfgate.greatschools.org"));
+        requestInfo = new RequestInfo(getHttpServletRequestForHostname("sfgate.greatschools.org"));
         assertFalse("Expect mobile site to be permanently disabled on live cobrands", requestInfo.isMobileSiteEnabled());
 
         requestInfo = new RequestInfo(getHttpServletRequestForHostname("dev.greatschools.org"));
-        assertTrue("Expect mobile site to be permanently enabled on dev", requestInfo.isMobileSiteEnabled());
+        assertTrue("Expect mobile site to be enabled on dev", requestInfo.isMobileSiteEnabled());
 
         requestInfo = new RequestInfo(getHttpServletRequestForHostname("sfgate.dev.greatschools.org"));
         assertFalse("Expect mobile site to be permanently disabled on cobrands, even on dev", requestInfo.isMobileSiteEnabled());
 
         requestInfo = new RequestInfo(getHttpServletRequestForHostname("qa.greatschools.org"));
-        assertFalse("Expect mobile site to be disabled by default on qa", requestInfo.isMobileSiteEnabled());
-
-        requestInfo = new RequestInfo(getHttpServletRequestForHostnameWithMobileEnabled("qa.greatschools.org"));
-        assertTrue("Expect mobile site to be enabled by cookie on qa", requestInfo.isMobileSiteEnabled());
+        assertTrue("Expect mobile site to be enabled on qa", requestInfo.isMobileSiteEnabled());
     }
 
     @Test

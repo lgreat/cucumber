@@ -1,25 +1,17 @@
 package gs.web.request;
 
-import gs.web.email.NewsletterSubscriptionMobileController;
 import gs.web.mobile.Device;
 import gs.web.mobile.MobileHelper;
 import gs.web.mobile.UnknownDevice;
-import gs.web.util.CookieUtil;
-import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
-import gs.web.util.context.SessionContextUtil;
 import net.sourceforge.wurfl.core.WURFLManager;
 import net.sourceforge.wurfl.spring.SpringWurflManager;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mobile.device.site.SitePreference;
-import org.springframework.mobile.device.site.SitePreferenceHandler;
-import org.springframework.mobile.device.site.SitePreferenceUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-
-import static org.springframework.mobile.device.site.SitePreferenceHandler.CURRENT_SITE_PREFERENCE_ATTRIBUTE;
 
 public class RequestInfo {
 
@@ -30,7 +22,6 @@ public class RequestInfo {
     private WURFLManager _springWurflManager;
 
     private Device _device;
-    private SitePreference _sitePreference;
 
     public static final String MOBILE_SITE_ENABLED_COOKIE_NAME = "mobileSiteEnabled";
     public static final String FRUITCAKE_ENABLED_COOKIE_NAME = "fruitcakeEnabled";
@@ -77,13 +68,10 @@ public class RequestInfo {
     }
 
     /**
-     * Returns true if mobile versions of pages are allowed to be served (if "mobile enabled" cookie is set, if this is not a cobranded page, etc)
+     * Returns true if mobile versions of pages are allowed to be served (e.g. if this is not a cobranded page)
      */
     public boolean isMobileSiteEnabled() {
-        Cookie cookie = CookieUtil.getCookie(_hostData.getRequest(), MOBILE_SITE_ENABLED_COOKIE_NAME);
-        return !_hostData.isCobranded() &&
-                isDevEnvironment() &&
-                (isNonQaDevEnvironment() || (cookie != null && Boolean.TRUE.equals(Boolean.valueOf(cookie.getValue()))));
+        return !_hostData.isCobranded();
     }
 
     public boolean isFromMobileDevice() {
@@ -94,6 +82,7 @@ public class RequestInfo {
     /**
      * Gets URL for normal version if on the mobile site, otherwise gets URL for mobile version
      * @return
+     * @deprecated ?
      */
     public String getSitePreferenceUrlForAlternateSite() {
         String newUrl = getRequestURL();
@@ -115,6 +104,7 @@ public class RequestInfo {
         return newUrl;
     }
 
+    /** @deprecated */
     public boolean isOnMobileSite() {
         return _hostData.getHostname().startsWith(Subdomain.MOBILE.toString() + ".");
     }

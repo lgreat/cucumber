@@ -172,20 +172,7 @@ public class MonitorController implements ReadWriteController {
         }
         model.put("abConfiguration", VariantConfiguration.convertABConfigurationToString());
 
-        // mobile site can be disabled / enabled with a cookie
-        boolean mobileSiteEnabled = isMobileSiteEnabled(request);
-        if (UrlUtil.isQAServer(request.getServerName())) {
-            String mobileSiteAction = request.getParameter("mobileSiteAction");
-            if ("enable".equalsIgnoreCase(mobileSiteAction)) {
-                enableMobileSite(request, response);
-                mobileSiteEnabled = true;
-            } else if ("disable".equalsIgnoreCase(mobileSiteAction)){
-                disableMobileSite(request, response);
-                mobileSiteEnabled = false;
-            }
-        }
-        model.put("mobileSiteEnabled", mobileSiteEnabled);
-
+        model.put("mobileSiteEnabled", isMobileSiteEnabled(request));
 
         // fruitcake school pages can be disabled / enabled with a cookie
         boolean fruitcakeEnabled = isFruitcakeEnabled(request);
@@ -306,28 +293,6 @@ public class MonitorController implements ReadWriteController {
 
     protected boolean isMobileSiteEnabled(HttpServletRequest request) {
         return RequestInfo.getRequestInfo(request).isMobileSiteEnabled();
-    }
-
-    protected void enableMobileSite(HttpServletRequest request, HttpServletResponse response) {
-        Cookie cookie = new Cookie("mobileSiteEnabled","true");
-        cookie.setPath("/");
-        cookie.setMaxAge(-1);
-        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-            // don't set domain for developer workstations so they can still access the cookie!!
-            cookie.setDomain(".greatschools.org");
-        }
-        response.addCookie(cookie);
-    }
-
-    protected void disableMobileSite(HttpServletRequest request, HttpServletResponse response) {
-        Cookie cookie = new Cookie("mobileSiteEnabled", "false");
-        cookie.setPath("/");
-        cookie.setMaxAge(0);
-        if (!UrlUtil.isDeveloperWorkstation(request.getServerName())) {
-            // don't set domain for developer workstations so they can still access the cookie!!
-            cookie.setDomain(".greatschools.org");
-        }
-        response.addCookie(cookie);
     }
 
     protected boolean isFruitcakeEnabled(HttpServletRequest request) {
