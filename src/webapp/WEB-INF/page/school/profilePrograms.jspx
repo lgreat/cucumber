@@ -94,6 +94,9 @@ where each entry is the first bean for that section, this allows access to the s
     </div>
     </div>
 
+<mod:tracking pageName="Rating Review Marketing Landing Page"
+              hier1="School,Parent Reviews, Rating Review Marketing Landing Page "
+        />
 </body>
 </html>
 </jsp:root>
