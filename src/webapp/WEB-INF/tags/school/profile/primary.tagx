@@ -23,22 +23,28 @@
     <div class="gsTabs">
         <ul class="tabStyle-4">
             <c:if test="${(!empty overview)}">
-                <li data-gs-tab="overview"><a href="${baseRelativePath}?tabs=overview" title="${schoolName} | Overview" class="${requestScope.requestScope.myMap.overview}">Overview</a></li>
+                <li data-gs-tab="overview"><a href="${baseRelativePath}?tab=overview" title="${schoolName} | Overview" class="${requestScope.myMap.overview}">Overview</a>
+                    <div class="${requestScope.myMap.overview}" id="arrowdiv"></div></li>
             </c:if>
             <c:if test="${(!empty testscores)}">
-                <li data-gs-tab="testScores"><a  href="${baseRelativePath}?tabs=testscores" title="${schoolName} | Test Scores" class="${requestScope.requestScope.myMap.testscores}">Test scores</a></li>
+                <li data-gs-tab="testScores"><a  href="${baseRelativePath}?tab=testscores" title="${schoolName} | Test Scores" class="${requestScope.myMap.testscores}">Test scores</a>
+                    <div class="${requestScope.myMap.testscores}" id="arrowdiv"></div></li>
             </c:if>
             <c:if test="${(!empty schoolstats)}">
-                <li data-gs-tab="stats"><a href="${baseRelativePath}?tabs=schoolstats" title="${schoolName} | School stats" class="${requestScope.myMap.schoolstats}">School stats</a></li>
+                <li data-gs-tab="stats"><a href="${baseRelativePath}?tab=schoolstats" title="${schoolName} | School stats" class="${requestScope.myMap.schoolstats}">School stats</a>
+                    <div class="${requestScope.myMap.schoolstats}" id="arrowdiv"></div></li>
             </c:if>
             <c:if test="${(!empty reviews)}">
-                <li data-gs-tab="reviews"><a href="${baseRelativePath}?tabs=reviews" title="${schoolName} | Reviews" class="${requestScope.myMap.reviews}">Reviews</a></li>
+                <li data-gs-tab="reviews"><a href="${baseRelativePath}?tab=reviews" title="${schoolName} | Reviews" class="${requestScope.myMap.reviews}">Reviews</a>
+                    <div class="${requestScope.myMap.reviews}" id="arrowdiv"></div></li>
             </c:if>
             <c:if test="${(!empty programs)}">
-                <li data-gs-tab="programsExtracurriculars"><a href="${baseRelativePath}?tabs=programs" title="${schoolName} | Programs &amp; Extracurriculars" class="${requestScope.myMap.programs}">Programs &amp;amp; Extracurriculars</a></li>
+                <li data-gs-tab="programsExtracurriculars"><a href="${baseRelativePath}?tab=programs" title="${schoolName} | Programs &amp; Extracurriculars" class="${requestScope.myMap.programs}">Programs &amp;amp; Extracurriculars</a>
+                    <div class="${requestScope.myMap.programs}" id="arrowdiv"></div></li>
             </c:if>
             <c:if test="${(!empty culture)}">
-                <li data-gs-tab="culture"><a href="${baseRelativePath}?tabs=culture" title="${schoolName} | Culture" class="${requestScope.myMap.culture}">Culture</a></li>
+                <li data-gs-tab="culture"><a href="${baseRelativePath}?tab=culture" title="${schoolName} | Culture" class="${requestScope.myMap.culture}">Culture</a>
+                    <div class="${requestScope.myMap.culture}" id="arrowdiv"></div></li>
             </c:if>
         </ul>
 

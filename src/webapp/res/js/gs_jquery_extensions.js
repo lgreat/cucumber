@@ -532,26 +532,29 @@ jQuery(document).ready(function() {
     // extend the core jQuery with gsTabs
     $.fn.extend({
         gsTabs : function() {
+            var changeHistory = function(title, url) {
+                if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+                    window.History.pushState(null, title, url);
+                }
+            }
             return this.each(function() {
                 var tab = $(this);
                 var tabNav = tab.find('ul:first'); // get only the first ul not all of the descendents
                 var showHome = tabNav.find('.selected').length;
                 if(!showHome) {
-                   tabNav.find('li:first a').addClass('selected');
+                   tabNav.find('li:first a').addClass('selected').siblings().addClass('selected');
                    tab.children('div:first').show();
                 }
                 tabNav.find('li').each(function(){
                     $(this).find('a').click(function(){ //When any link is clicked
-                        if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
-                         //   var query_string = decodeURIComponent(window.location.search);
-
-                            window.History.pushState(null, $(this).attr('title'), $(this).attr('href'));
-                        }
+                        changeHistory($(this).attr('title'), $(this).attr('href') );
                         tab.children('div').hide(); // hide all layers
                         var tabNum = tabNav.find('li').index($(this).parent());// find reference to the content
                         tab.children('div').eq(tabNum).show();// show the content
                         tabNav.find('li a').removeClass('selected');// turn all of them off
+                        tabNav.find('li #arrowdiv').removeClass('selected');// turn all of them off
                         $(this).addClass('selected');// turn selected on
+                        $(this).siblings().addClass('selected');// turn selected on
                         return false;
                     });
                 });

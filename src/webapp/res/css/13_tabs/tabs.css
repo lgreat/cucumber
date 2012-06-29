@@ -66,7 +66,7 @@
 .gsTabs ul.tabStyle-3 li a:hover {background: #E2F1F7 none;color: #2b2b2b;border: 1px solid #A6D3E7;outline:0 none;}
 .gsTabs ul.tabStyle-3 li a:hover {border-bottom: none; padding-bottom: 9px;outline:0 none;}
 .gsTabs ul.tabStyle-3 li a:focus {outline:0 none;}
-.gsTabs ul.tabStyle-3 li a.selected { none;color: #2b2b2b;border: 1px solid #A6D3E7;outline:0 none;text-shadow: 0 1px 0 #FFFFFF;}
+.gsTabs ul.tabStyle-3 li a.selected {color: #2b2b2b;border: 1px solid #A6D3E7;outline:0 none;text-shadow: 0 1px 0 #FFFFFF;}
 .gsTabs ul.tabStyle-3 li a.selected {border-bottom: none; padding-bottom: 11px;outline:0 none;background-color: #BCDEED; /* for non-css3 browsers */
     background-image: -webkit-gradient(linear, left top, left bottom, from(#E2F1F7), to(#BCDEED)); /* Saf4+, Chrome */
     background-image: -webkit-linear-gradient(top, #E2F1F7, #BCDEED); /* Chrome 10+, Saf5.1+, iOS 5+ */
@@ -106,17 +106,21 @@
             box-shadow: none;
 }
 
-.gsTabs ul.tabStyle-4 li .down-pointer.selected{position: relative;}
-
-/*Preferably move the following code to the a separate style sheet*/
-.gsTabs ul.tabStyle-4 li .down-pointer.down-pointer-bl.selected .border-edge {position: absolute;top:-1px;left: 38px;text-align: center;width: 0;height: 0;
+#arrowdiv{
+    background-color: #333;
+    top:-1px;
+    position: relative;
+    text-align:center;
+    display:none;
+}
+#arrowdiv:after{
+    position: absolute;width: 0;height: 0;content: ' ';
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-top: 8px solid #79BEDC;
-}
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
 
-.gsTabs ul.tabStyle-4 li .down-pointer.down-pointer-bn.selected .border-edge {position: absolute;left: 31px;top:-1px;text-align: center;width: 0;height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-top: 8px solid #79BEDC;
 }
+#arrowdiv.selected { display:block; }
