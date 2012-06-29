@@ -57,6 +57,18 @@
         <school:schoolsTable schools="${schools}" />
     </c:if>
 
+    <div class="mod_bd">
+        <p><strong>About Saved Schools</strong></p>
+        <p>
+            GreatSchools offers two convenient ways to bookmark saved schools for quick recall later. The one you see depends on how you view our website.
+        </p>
+        <ul style="margin: 0 1em 1em 1em;">
+            <li>"My School List" (full desktop site): "My School List" is a feature that allows you to save schools to your GreatSchools member account. Your GreatSchools member account is only available when visiting our full website.</li>
+            <li>"My Saved Schools" (mobile site): "My Saved Schools" is a feature that allows you to save schools on your mobile phone. "My saved Schools" are available only when visiting our mobile website.</li>
+        </ul>
+
+    </div>
+
     <!-- typeOverride used in searchControl.tagx and/or mod:browseState -->
     <c:set var="typeOverride" value="school" scope="request"/>
     <div id="searchFooter" class="cleared">
