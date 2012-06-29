@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.76 2012/05/15 23:59:44 aroy Exp $
+ * $Id: CityController.java,v 1.77 2012/06/29 22:26:19 cauer Exp $
  */
 
 package gs.web.geo;
@@ -173,11 +173,6 @@ public class CityController extends AbstractController  implements IDirectoryStr
             UrlBuilder urlBuilder = new UrlBuilder(city, UrlBuilder.CITY_PAGE);
             View redirectView = new RedirectView301(urlBuilder.asSiteRelative(request));
             return new ModelAndView(redirectView);
-        }
-
-        ModelAndView iPhoneRedirect = CmsHomepageController.checkMobileTraffic(request, response, true);
-        if (iPhoneRedirect != null) {
-            return iPhoneRedirect;
         }
 
         if (!StringUtils.isEmpty(cityNameParam) && city != null && state != null) {

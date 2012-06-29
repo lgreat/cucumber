@@ -86,11 +86,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             }
         }
 
-        ModelAndView iPhoneRedirect = CmsHomepageController.checkMobileTraffic(request, response, true);
-        if (iPhoneRedirect != null) {
-            return iPhoneRedirect;
-        }
-
         //used to support the "Report It" links in recent reviews list
         if(PageHelper.isMemberAuthorized(request)){
             User user = sessionContext.getUser();
