@@ -45,7 +45,7 @@
         if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;sortBy=' + option + '&amp;tab=reviews&amp;reviewsBy=' + getReviewsByCsv() + '#revPagination';
     }
 <![CDATA[--></script>]]>
-    <div class="grid_16">
+    <div class="alpha grid_16 omega">
         Reviews for ${school.name}
         <div id="reviewColumn1">
             <div id="reviewOverallRating">

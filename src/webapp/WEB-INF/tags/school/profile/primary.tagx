@@ -54,21 +54,21 @@
         <!-- TODO: Do we need this useBean??? -->
         <jsp:useBean id="now" class="java.util.Date" scope="page" />
         <c:if test="${(!empty overview)}">
-            <div data-gs-tab-body="overview" style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:${(!empty myMap.overview and myMap.overview eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="overview" style="display:${(!empty myMap.overview and myMap.overview eq 'selected'?'block;':'none')}">
                 <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${overview}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty testscores)}">
-            <div data-gs-tab-body="testScores" style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:${(!empty myMap.testscores and myMap.testscores eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="testScores" style="display:${(!empty myMap.testscores and myMap.testscores eq 'selected'?'block;':'none')}">
                 <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${testscores}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty schoolstats)}">
-            <div data-gs-tab-body="stats" style=" display:${(!empty myMap.schoolstats and myMap.schoolstats eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="stats" style="display:${(!empty myMap.schoolstats and myMap.schoolstats eq 'selected'?'block;':'none')}">
                 <c:out value='${schoolstats}' escapeXml="false" />
             </div>
         </c:if>
