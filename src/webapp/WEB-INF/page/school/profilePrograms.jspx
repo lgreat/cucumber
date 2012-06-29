@@ -12,13 +12,6 @@
           version="2.0" xmlns:gsweb="gstaglib" xmlns:x_rt="http://java.sun.com/jstl/xml_rt">
 
 
-    <jsp:useBean id="myMap" class="java.util.HashMap" scope="page" />
-    <c:set target="${myMap}" property="key" value="on"/>
-
-    <c:forEach var="itemtab" items="${fn:split(param.tab,'_')}">
-        <c:set target="${myMap}" property="${itemtab}" value="selected"/>
-    </c:forEach>
-
     <c:set var="highlightstab"><c:if test="${fn:length(highlights) gt 0}">
         <div>
             <b>Highlights Data</b>
@@ -74,50 +67,50 @@ where each entry is the first bean for that section, this allows access to the s
         </c:if>
     </c:set>
 
-    <c:set var="navBasePath">/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=</c:set>
+    <!--<c:set var="navBasePath">/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=</c:set>-->
 
     <c:if test="${(!empty highlightstab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab)}">
         <div class="gsTabs">
             <ul class="tabStyle-4">
                 <c:if test="${(!empty highlightstab)}">
-                    <li><a href="${navBasePath}programs_highlights" title="${schoolName} |  Highlights Data" class="${myMap.highlights}">Highlights Data</a></li>
+                    <li><a href="${baseRelativePath}?tab=programs_highlights" title="${schoolName} |  Highlights Data" class="${requestScope.myMap.highlights}">Highlights Data</a></li>
                 </c:if>
                 <c:if test="${(!empty applicationtab)}">
-                    <li><a  href="${navBasePath}programs_application" title="${schoolName} | Application Information" class="${myMap.application}">Application Information</a></li>
+                    <li><a  href="${baseRelativePath}?tab=programs_application" title="${schoolName} | Application Information" class="${requestScope.myMap.application}">Application Information</a></li>
                 </c:if>
                 <c:if test="${(!empty programsresourcestab)}">
-                    <li><a href="${navBasePath}programs_programsresources" title="${schoolName} | Programs and Resources" class="${myMap.programsresources}">Programs and Resources</a></li>
+                    <li><a href="${baseRelativePath}?tab=programs_programsresources" title="${schoolName} | Programs and Resources" class="${requestScope.myMap.programsresources}">Programs and Resources</a></li>
                 </c:if>
                 <c:if test="${(!empty extracurricularstab)}">
-                    <li><a href="${navBasePath}programs_extracurriculars" title="${schoolName} | Extracurriculars" class="${myMap.extracurriculars}">Extracurriculars</a></li>
+                    <li><a href="${baseRelativePath}?tab=programs_extracurriculars" title="${schoolName} | Extracurriculars" class="${requestScope.myMap.extracurriculars}">Extracurriculars</a></li>
                 </c:if>
             </ul>
 
 
 
             <c:if test="${(!empty highlightstab)}">
-                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty myMap.highlightstab and myMap.highlightstab eq 'selected'?'block;':'none')}">
+                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty requestScope.myMap.highlights and requestScope.myMap.highlights eq 'selected'?'block;':'none')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${highlightstab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty applicationtab)}">
-                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty myMap.applicationtab and myMap.applicationtab eq 'selected'?'block;':'none')}">
+                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty requestScope.myMap.application and requestScope.myMap.application eq 'selected'?'block;':'none')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${applicationtab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty programsresourcestab)}">
-                <div style="min-height: 600px; width: 700px;  float: left; display:${(!empty myMap.programsresourcestab and myMap.programsresourcestab eq 'selected'?'block;':'none')}">
+                <div style="min-height: 600px; width: 700px;  float: left; display:${(!empty requestScope.myMap.programsresources and requestScope.myMap.programsresources eq 'selected'?'block;':'none')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${programsresourcestab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty extracurricularstab)}">
-                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty myMap.extracurricularstab and myMap.extracurricularstab eq 'selected'?'block;':'none')}">
+                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty requestScope.myMap.extracurriculars and requestScope.myMap.extracurriculars eq 'selected'?'block;':'none')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${extracurricularstab}' escapeXml="false" />
                     <!--</gsweb:cache>-->

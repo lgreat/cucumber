@@ -11,81 +11,72 @@
     <jsp:directive.attribute name="schoolState" required="true" description="School State" type="java.lang.String"/>
     <jsp:directive.attribute name="tabName" required="true" description="Tab to turn on" type="java.lang.String"/>
 
-    <jsp:useBean id="myMap" class="java.util.HashMap" scope="page" />
-    <c:set target="${myMap}" property="key" value="on"/>
 
-    <c:forEach var="itemtab" items="${fn:split(tabName,'_')}">
-        <c:set target="${myMap}" property="${itemtab}" value="selected"/>
-    </c:forEach>
-
-
-    <c:set var="overview"><jsp:include page="/school/profileOverview.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}" /></c:set>
-    <c:set var="testscores"><jsp:include page='/school/profileTestScores.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}' /></c:set>
+    <c:set var="overview"><jsp:include page="/school/profileOverview.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}" /></c:set>
+    <c:set var="testscores"><jsp:include page='/school/profileTestScores.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
     <c:set var="schoolstats"></c:set>
-    <c:set var="reviews"><jsp:include page='/school/profileReviews.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}' /></c:set>
-    <c:set var="programs"><jsp:include page='/school/profilePrograms.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}' /></c:set>
+    <c:set var="reviews"><jsp:include page='/school/profileReviews.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
+    <c:set var="programs"><jsp:include page='/school/profilePrograms.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
     <c:set var="culture"></c:set>
-
-    <c:set var="navBasePath">/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=</c:set>
 
 
     <div class="gsTabs">
         <ul class="tabStyle-4">
             <c:if test="${(!empty overview)}">
-                <li data-gs-tab="overview"><a href="${navBasePath}overview" title="${schoolName} | Overview" class="${myMap.overview}">Overview</a></li>
+                <li data-gs-tab="overview"><a href="${baseRelativePath}?tabs=overview" title="${schoolName} | Overview" class="${requestScope.requestScope.myMap.overview}">Overview</a></li>
             </c:if>
             <c:if test="${(!empty testscores)}">
-                <li data-gs-tab="testScores"><a  href="${navBasePath}testscores" title="${schoolName} | Test Scores" class="${myMap.testscores}">Test scores</a></li>
+                <li data-gs-tab="testScores"><a  href="${baseRelativePath}?tabs=testscores" title="${schoolName} | Test Scores" class="${requestScope.requestScope.myMap.testscores}">Test scores</a></li>
             </c:if>
             <c:if test="${(!empty schoolstats)}">
-                <li data-gs-tab="stats"><a href="${navBasePath}schoolstats" title="${schoolName} | School stats" class="${myMap.schoolstats}">School stats</a></li>
+                <li data-gs-tab="stats"><a href="${baseRelativePath}?tabs=schoolstats" title="${schoolName} | School stats" class="${requestScope.myMap.schoolstats}">School stats</a></li>
             </c:if>
             <c:if test="${(!empty reviews)}">
-                <li data-gs-tab="reviews"><a href="${navBasePath}reviews" title="${schoolName} | Reviews" class="${myMap.reviews}">Reviews</a></li>
+                <li data-gs-tab="reviews"><a href="${baseRelativePath}?tabs=reviews" title="${schoolName} | Reviews" class="${requestScope.myMap.reviews}">Reviews</a></li>
             </c:if>
             <c:if test="${(!empty programs)}">
-                <li data-gs-tab="programsExtracurriculars"><a href="${navBasePath}programs" title="${schoolName} | Programs &amp; Extracurriculars" class="${myMap.programs}">Programs &amp;amp; Extracurriculars</a></li>
+                <li data-gs-tab="programsExtracurriculars"><a href="${baseRelativePath}?tabs=programs" title="${schoolName} | Programs &amp; Extracurriculars" class="${requestScope.myMap.programs}">Programs &amp;amp; Extracurriculars</a></li>
             </c:if>
             <c:if test="${(!empty culture)}">
-                <li data-gs-tab="culture"><a href="${navBasePath}culture" title="${schoolName} | Culture" class="${myMap.culture}">Culture</a></li>
+                <li data-gs-tab="culture"><a href="${baseRelativePath}?tabs=culture" title="${schoolName} | Culture" class="${requestScope.myMap.culture}">Culture</a></li>
             </c:if>
         </ul>
 
         <!-- TODO: Do we need this useBean??? -->
         <jsp:useBean id="now" class="java.util.Date" scope="page" />
         <c:if test="${(!empty overview)}">
-            <div data-gs-tab-body="overview" style="display:${(!empty myMap.overview and myMap.overview eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="overview" style="display:${(!empty requestScope.myMap.overview and requestScope.myMap.overview eq 'selected'?'block;':'none')}">
                 <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${overview}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty testscores)}">
-            <div data-gs-tab-body="testScores" style="display:${(!empty myMap.testscores and myMap.testscores eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="testScores" style="display:${(!empty requestScope.myMap.testscores and requestScope.myMap.testscores eq 'selected'?'block;':'none')}">
                 <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${testscores}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty schoolstats)}">
-            <div data-gs-tab-body="stats" style="display:${(!empty myMap.schoolstats and myMap.schoolstats eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="stats" style="display:${(!empty requestScope.myMap.schoolstats and requestScope.myMap.schoolstats eq 'selected'?'block;':'none')}">
                 <c:out value='${schoolstats}' escapeXml="false" />
             </div>
         </c:if>
         <c:if test="${(!empty reviews)}">
-            <div data-gs-tab-body="reviews" style=" display:${(!empty myMap.reviews and myMap.reviews eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="reviews" style=" display:${(!empty requestScope.myMap.reviews and requestScope.myMap.reviews eq 'selected'?'block;':'none')}">
                 <!--<gsweb:cache key="profileReviews-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${reviews}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty programs)}">
-            <div data-gs-tab-body="programsExtras" style="display:${(!empty myMap.programs and myMap.programs eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="programsExtras" style="display:${(!empty requestScope.myMap.programs and requestScope.myMap.programs eq 'selected'?'block;':'none')}">
                 <c:out value='${programs}' escapeXml="false" />
             </div>
         </c:if>
         <c:if test="${(!empty culture)}">
-            <div data-gs-tab-body="culture" style=" display:${(!empty myMap.culture and myMap.culture eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="culture" style=" display:${(!empty requestScope.myMap.culture and requestScope.myMap.culture eq 'selected'?'block;':'none')}">
                 <c:out value='${culture}' escapeXml="false" />
             </div>
         </c:if>

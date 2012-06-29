@@ -5,6 +5,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
@@ -285,6 +286,13 @@
 </div>
 
 <div class="grid_16">
+
+    <jsp:useBean id="myMap" class="java.util.HashMap" scope="request" />
+    <c:set target="${requestScope.myMap}" property="key" value="on"/>
+
+    <c:forEach var="itemtab" items="${fn:split(param.tab,'_')}">
+        <c:set target="${requestScope.myMap}" property="${itemtab}" value="selected"/>
+    </c:forEach>
     <profile:primary schoolName="${school.name}" schoolId="${param.id}" schoolState="${param.state}"
                  tabName="${param.tab}"/>
 </div>

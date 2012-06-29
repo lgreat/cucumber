@@ -543,6 +543,8 @@ jQuery(document).ready(function() {
                 tabNav.find('li').each(function(){
                     $(this).find('a').click(function(){ //When any link is clicked
                         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+                         //   var query_string = decodeURIComponent(window.location.search);
+
                             window.History.pushState(null, $(this).attr('title'), $(this).attr('href'));
                         }
                         tab.children('div').hide(); // hide all layers
