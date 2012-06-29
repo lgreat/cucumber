@@ -15,7 +15,7 @@
     <jsp:useBean id="myMap" class="java.util.HashMap" scope="page" />
     <c:set target="${myMap}" property="key" value="on"/>
 
-    <c:forEach var="itemtab" items="${fn:split(tabName,'_')}">
+    <c:forEach var="itemtab" items="${fn:split(param.tab,'_')}">
         <c:set target="${myMap}" property="${itemtab}" value="selected"/>
     </c:forEach>
 
@@ -96,28 +96,28 @@ where each entry is the first bean for that section, this allows access to the s
 
 
             <c:if test="${(!empty highlightstab)}">
-                <div style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:${(!empty myMap.highlightstab and myMap.highlightstab eq 'selected'?'block;':'none')}">
+                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty myMap.highlightstab and myMap.highlightstab eq 'selected'?'block;':'none')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${highlightstab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty applicationtab)}">
-                <div style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:${(!empty myMap.applicationtab and myMap.applicationtab eq 'selected'?'block;':'none')}">
+                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty myMap.applicationtab and myMap.applicationtab eq 'selected'?'block;':'none')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${applicationtab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty programsresourcestab)}">
-                <div style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:${(!empty myMap.programsresourcestab and myMap.programsresourcestab eq 'selected'?'block;':'none')}">
+                <div style="min-height: 600px; width: 700px;  float: left; display:${(!empty myMap.programsresourcestab and myMap.programsresourcestab eq 'selected'?'block;':'none')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${programsresourcestab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty extracurricularstab)}">
-                <div style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:${(!empty myMap.extracurricularstab and myMap.extracurricularstab eq 'selected'?'block;':'none')}">
+                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty myMap.extracurricularstab and myMap.extracurricularstab eq 'selected'?'block;':'none')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${extracurricularstab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
