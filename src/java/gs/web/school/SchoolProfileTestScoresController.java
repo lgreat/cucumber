@@ -139,6 +139,18 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             Integer testDataSetId = testScoreResult.getTestDataSetId();
             Grade grade = testScoreResult.getGrade();
             LevelCode levelCode = testScoreResult.getLevelCode();
+
+            //If the grade=all then display only the level codes that the school has.
+            //Note:This may or may not work with extra data.Re-visit this when working on GS-12963
+            if (Grade.ALL.equals(grade)) {
+                Set<LevelCode.Level> levelCodes = levelCode.getIndividualLevelCodes();
+                for (LevelCode.Level level : levelCodes) {
+                    if (!school.getLevelCode().containsLevelCode(level)) {
+                        levelCode.remove(level);
+                    }
+                }
+            }
+
             Subject subject = _subjectDao.findSubject(testScoreResult.getSubjectId());
             Integer year = testScoreResult.getYear();
             Float testScoreFloat = testScoreResult.getTestScoreFloat();
