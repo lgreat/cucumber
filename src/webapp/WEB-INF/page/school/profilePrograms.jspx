@@ -10,73 +10,119 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0" xmlns:gsweb="gstaglib" xmlns:x_rt="http://java.sun.com/jstl/xml_rt">
-<jsp:directive.page contentType="text/html"/>
-<jsp:output doctype-root-element="html"
-            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
 
-    <div id="profileProgramsTabs">
-    <div class="tabBar">
-        <div class="small_bold bottom">
-            <span id="highlightsTab" class="selected small_bold">Highlights</span>
-            <span id="appInfoTab" class="small_bold">Application Information</span>
-            <span id="pgmResTab" class="small_bold">Programs &amp;amp; Resources</span>
-            <span id="extrasTab" class="small_bold">Extracurriculars</span>
+
+    <jsp:useBean id="myMap" class="java.util.HashMap" scope="page" />
+    <c:set target="${myMap}" property="key" value="on"/>
+
+    <c:forEach var="itemtab" items="${fn:split(tabName,'_')}">
+        <c:set target="${myMap}" property="${itemtab}" value="selected"/>
+    </c:forEach>
+
+    <c:set var="highlightstab"><c:if test="${fn:length(highlights) gt 0}">
+        <div>
+            <b>Highlights Data</b>
+            <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
+where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
+            <c:forEach var="section" items="${highlights}" >
+                <school:profileProgramsSectionBasic displayBean="${section}" rowList="${highlightsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
+            </c:forEach>
         </div>
-    </div>
-
-
-        <c:if test="${not empty school}">
-            <b>School name = ${school.name}</b><p/>
-        </c:if>
-
-    <div id="highlightsTabBody" class="tabBody pal">
-        <b>Highlights data</b>
-        <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
-             where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
-        <c:forEach var="section" items="${highlights}" >
-            <school:profileProgramsSectionBasic displayBean="${section}" rowList="${highlightsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
-        </c:forEach>
-    </div>
-
-    <div id="appInfoTabBody" class="tabBody pal">
-        <b>Application Information</b>
-        <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
+    </c:if></c:set>
+    <c:set var="applicationtab"><c:if test="${fn:length(application_info) gt 0}">
+        <div>
+            <b>Application Information</b>
+            <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
-        <c:forEach var="section" items="${application_info}" >
-            <school:profileProgramsSectionBasic displayBean="${section}" rowList="${application_infoMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
-        </c:forEach>
+            <c:forEach var="section" items="${application_info}" >
+                <school:profileProgramsSectionBasic displayBean="${section}" rowList="${application_infoMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
+            </c:forEach>
 
-    </div>
-
-    <div id="pgmResTabBody" class="tabBody pal">
-        <b>Programs and Resources</b>
-        <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
+        </div>
+    </c:if></c:set>
+    <c:set var="programsresourcestab"><c:if test="${fn:length(programs_resources) gt 0}">
+        <div>
+            <b>Programs and Resources</b>
+            <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
-        <c:forEach var="section" items="${programs_resources}" >
-            <school:profileProgramsSectionBasic displayBean="${section}" rowList="${programs_resourcesMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
-        </c:forEach>
+            <c:forEach var="section" items="${programs_resources}" >
+                <school:profileProgramsSectionBasic displayBean="${section}" rowList="${programs_resourcesMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
+            </c:forEach>
 
-    </div>
-
-    <div id="extrasTabBody" class="tabBody pal">
-        <b>Extracurriculars</b>
-        <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
+        </div>
+    </c:if></c:set>
+    <c:set var="extracurricularstab">
+        <c:if test="${fn:length(extracurriculars) gt 0}">
+            <div>
+                <b>Extracurriculars</b>
+                <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
-        <c:forEach var="section" items="${extracurriculars}" >
-            <school:profileProgramsSectionBasic displayBean="${section}" rowList="${extracurricularsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
-            <!-- Bob Raker - 6/25/12 - There is some discussion if Boys Sports and Girls Sports will be handled specially or not.  Delete or use this as needed
-            <c:choose>
-                <c:when test="${section.sectionAbbreviation == 'Sports'}">
-                      <div class="">TODO - SPORTS SECTION</div>
-                </c:when>
-                <c:otherwise>
+                <c:forEach var="section" items="${extracurriculars}" >
                     <school:profileProgramsSectionBasic displayBean="${section}" rowList="${extracurricularsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
-                </c:otherwise>
-            </c:choose>
-            -->
-        </c:forEach>
-    </div>
-    </div>
+                    <!-- Bob Raker - 6/25/12 - There is some discussion if Boys Sports and Girls Sports will be handled specially or not.  Delete or use this as needed
+                    <c:choose>
+                        <c:when test="${section.sectionAbbreviation == 'Sports'}">
+                              <div class="">TODO - SPORTS SECTION</div>
+                        </c:when>
+                        <c:otherwise>
+                            <school:profileProgramsSectionBasic displayBean="${section}" rowList="${extracurricularsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
+                        </c:otherwise>
+                    </c:choose>
+                    -->
+                </c:forEach>
+            </div>
+        </c:if>
+    </c:set>
 
+    <c:set var="navBasePath">/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=</c:set>
+
+    <c:if test="${(!empty highlightstab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab)}">
+        <div class="gsTabs">
+            <ul class="tabStyle-4">
+                <c:if test="${(!empty highlightstab)}">
+                    <li><a href="${navBasePath}programs_highlights" title="${schoolName} |  Highlights Data" class="${myMap.highlights}">Highlights Data</a></li>
+                </c:if>
+                <c:if test="${(!empty applicationtab)}">
+                    <li><a  href="${navBasePath}programs_application" title="${schoolName} | Application Information" class="${myMap.application}">Application Information</a></li>
+                </c:if>
+                <c:if test="${(!empty programsresourcestab)}">
+                    <li><a href="${navBasePath}programs_programsresources" title="${schoolName} | Programs and Resources" class="${myMap.programsresources}">Programs and Resources</a></li>
+                </c:if>
+                <c:if test="${(!empty extracurricularstab)}">
+                    <li><a href="${navBasePath}programs_extracurriculars" title="${schoolName} | Extracurriculars" class="${myMap.extracurriculars}">Extracurriculars</a></li>
+                </c:if>
+            </ul>
+
+
+
+            <c:if test="${(!empty highlightstab)}">
+                <div style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:${(!empty myMap.highlightstab and myMap.highlightstab eq 'selected'?'block;':'none')}">
+                    <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
+                    <c:out value='${highlightstab}' escapeXml="false" />
+                    <!--</gsweb:cache>-->
+                </div>
+            </c:if>
+            <c:if test="${(!empty applicationtab)}">
+                <div style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:${(!empty myMap.applicationtab and myMap.applicationtab eq 'selected'?'block;':'none')}">
+                    <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
+                    <c:out value='${applicationtab}' escapeXml="false" />
+                    <!--</gsweb:cache>-->
+                </div>
+            </c:if>
+            <c:if test="${(!empty programsresourcestab)}">
+                <div style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:${(!empty myMap.programsresourcestab and myMap.programsresourcestab eq 'selected'?'block;':'none')}">
+                    <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
+                    <c:out value='${programsresourcestab}' escapeXml="false" />
+                    <!--</gsweb:cache>-->
+                </div>
+            </c:if>
+            <c:if test="${(!empty extracurricularstab)}">
+                <div style="min-height: 600px; width: 700px; border: 1px solid blue; float: left; display:${(!empty myMap.extracurricularstab and myMap.extracurricularstab eq 'selected'?'block;':'none')}">
+                    <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
+                    <c:out value='${extracurricularstab}' escapeXml="false" />
+                    <!--</gsweb:cache>-->
+                </div>
+            </c:if>
+        </div>
+    </c:if>
 </jsp:root>
