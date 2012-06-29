@@ -1068,14 +1068,6 @@
         </property>
     </bean>
 
-    <bean name="/splash/iphone.page"
-          class="gs.web.splash.IPhoneSplashController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>splash/iphone</value>
-        </property>
-    </bean>
-
     <bean name="/email/newslettersEmailVerified.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">

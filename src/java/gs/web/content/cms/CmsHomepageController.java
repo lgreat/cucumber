@@ -98,84 +98,8 @@ public class CmsHomepageController extends AbstractController implements IContro
         CacheManager.create().addCache(_recentDiscussionsCache);
     }
 
-    /**
-     * See if the request is coming from a mobile device that supports our app and
-     * redirect them to a page about the app.  If returning from the app page, set a cookie
-     * to prevent further redirection for that browser.
-     * @param request Used to determine page to return to
-     * @param response Used to set cookies
-     * @param includeReferrer If true, instruct the splash page to
-     *        include a link back to the page they came from.  If false, link to home page.
-     * @return The redirect, if needed
-     */
-    public static ModelAndView checkMobileTraffic(HttpServletRequest request, HttpServletResponse response, boolean includeReferrer) {
-        // if referrer is iPhone splash page, set 90-day cookie
-        String referrer = request.getHeader("Referer");
-        if (referrer != null && referrer.contains("/splash/iphone.page")) {
-            CookieUtil.setCookie(response,
-                    DECLINED_IPHONE_SPLASH_PAGE_COOKIE, "true",
-                    DECLINED_IPHONE_SPLASH_PAGE_COOKIE_MAX_AGE);
-        } else {
-            return redirectMobileTraffic(request, response, includeReferrer);
-        }
-
-        return null;
-    }
-
-    /**
-     * See if the request is coming from a mobile device that supports our app and
-     * redirect them to a page about the app.
-     * @param request Used to determine page to return to
-     * @param includeReferrer If true, instruct the splash page to
-     *        include a link back to the page they came from.  If false, link to home page.
-     * @return The redirect, if needed
-     */
-    public static ModelAndView redirectMobileTraffic(HttpServletRequest request, HttpServletResponse response, boolean includeReferrer) {
-        SessionContext context = SessionContextUtil.getSessionContext(request);
-        Cookie declinedIphoneSplashPageCookie = CookieUtil.getCookie(request, DECLINED_IPHONE_SPLASH_PAGE_COOKIE);
-        SitePrefCookie sitePrefCookie = new SitePrefCookie(request, response);
-
-        boolean hoverCookieSet = !StringUtils.isBlank(sitePrefCookie.getProperty("showHover"));
-        boolean applicableDevice = context.isIphone() || context.isIpod();
-        boolean declinedAppAlready = (declinedIphoneSplashPageCookie != null && "true".equals(declinedIphoneSplashPageCookie.getValue()));
-
-        // if user is on iphone or ipod touch, and the iphone splash page is enabled,
-        // and they're not cookied to not be shown the iphone splash page, and
-        // they aren't cookied to see a special hover
-        // then redirect them to the iphone splash page
-        if (applicableDevice &&
-                context.isIphoneSplashPageEnabled() &&
-                !declinedAppAlready &&
-                !hoverCookieSet) {
-
-            String encodedOrigin = null;
-            if (includeReferrer) {
-                String origin = request.getRequestURI();
-                if (request.getQueryString() != null) {
-                    origin += "?" + request.getQueryString();
-                }
-                try {
-                    encodedOrigin = URLEncoder.encode(origin, "UTF-8");
-                } catch(UnsupportedEncodingException uee) {
-                    // Ignore and leave encodedOrigin null
-                }
-            }
-
-            String splashUrl = "/splash/iphone.page";
-            if (encodedOrigin != null) {
-                splashUrl += "?l=" + encodedOrigin;
-            }
-            return new ModelAndView(new RedirectView(splashUrl));
-        }
-
-        return null;
-    }
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView iPhoneRedirect = checkMobileTraffic(request, response, false);
-        if (iPhoneRedirect != null) {
-            return iPhoneRedirect;
-        }
 
         Map<String, Object> model = new HashMap<String, Object>();
         CmsHomepage homepage = new CmsHomepage();

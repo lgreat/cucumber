@@ -77,18 +77,16 @@
                             </c:otherwise>
                         </c:choose>
                     </li>
-                    <c:if test="${requestScope.context.iphoneSplashPageEnabled}">
-                        <li>
-                            <c:choose>
-                                <c:when test="${pageScope.selected eq 'mobile'}">
-                                    <span class="text2">Mobile App</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="/about/mobile.page">Mobile App</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </li>
-                    </c:if>
+                    <li>
+                        <c:choose>
+                            <c:when test="${pageScope.selected eq 'mobile'}">
+                                <span class="text2">Mobile App</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/about/mobile.page">Mobile App</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
                     <li>
                         <c:choose>
                             <c:when test="${pageScope.selected eq 'mediaRoom'}">

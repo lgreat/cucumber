@@ -210,56 +210,6 @@ public class CmsHomepageControllerTest extends BaseControllerTestCase {
         assertNotNull(model.get(CmsHomepageController.MODEL_RECENT_CMS_CONTENT));
     }
 
-    public void testMobileRedirect() {
-        ModelAndView mAndV = null;
-        GsMockHttpServletRequest request = getRequest();
-        boolean includeReferrer = false;
-
-        request.setRequestURI("/");
-
-        request.addHeader("User-Agent", "Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5");
-        _sessionContextUtil.prepareSessionContext(request, getResponse());
-        mAndV = CmsHomepageController.checkMobileTraffic(request, getResponse(), includeReferrer);
-        assertNotNull(mAndV);
-        assertTrue(mAndV.getView() instanceof RedirectView);
-        assertEquals("Should redirect to iphone splash page with no params", "/splash/iphone.page", ((RedirectView) mAndV.getView()).getUrl());
-
-        SitePrefCookie cookie = new SitePrefCookie(request, getResponse());
-        cookie.setProperty("showHover", HoverHelper.Hover.EMAIL_VERIFIED.getId());
-        request.setCookies(new Cookie[]{getResponse().getCookie("site_pref")});
-        _sessionContextUtil.prepareSessionContext(request, getResponse());
-        mAndV = CmsHomepageController.checkMobileTraffic(request, getResponse(), includeReferrer);
-        assertNull("When cookied for a hover, do not redirect", mAndV);
-
-        includeReferrer = true;
-        request.setCookies(null);
-        _sessionContextUtil.prepareSessionContext(request, getResponse());
-        mAndV = CmsHomepageController.checkMobileTraffic(request, getResponse(), includeReferrer);
-        assertNotNull(mAndV);
-        assertTrue(mAndV.getView() instanceof RedirectView);
-        assertEquals("Should redirect to iphone splash page with referrer param", "/splash/iphone.page?l=%2F", ((RedirectView) mAndV.getView()).getUrl());
-
-        request.setRequestURI("/?x=99");
-        _sessionContextUtil.prepareSessionContext(request, getResponse());
-        mAndV = CmsHomepageController.checkMobileTraffic(request, getResponse(), includeReferrer);
-        assertNotNull(mAndV);
-        assertTrue(mAndV.getView() instanceof RedirectView);
-        assertEquals("Should redirect to iphone splash page with referrer param", "/splash/iphone.page?l=%2F%3Fx%3D99", ((RedirectView) mAndV.getView()).getUrl());
-
-        request.addHeader("Referer", "/splash/iphone.page");
-        _sessionContextUtil.prepareSessionContext(request, getResponse());
-        mAndV = CmsHomepageController.checkMobileTraffic(request, getResponse(), includeReferrer);
-        assertNull("When coming from the iphone splash page, do not redirect", mAndV);
-        assertNotNull(getResponse().getCookie("declinedIphoneSplashPage"));
-        assertEquals(getResponse().getCookie("declinedIphoneSplashPage").getValue(), "true");
-
-        request.addHeader("Referer", "/");
-        request.addHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.0; rv:5.0) Gecko/20100101 Firefox/5.0");
-        _sessionContextUtil.prepareSessionContext(request, getResponse());
-        mAndV = CmsHomepageController.checkMobileTraffic(request, getResponse(), includeReferrer);
-        assertNull("When browser is not an applicable device, do not redirect", mAndV);
-    }
-
     private <T> List<T> buildList(T... elements) {
         List<T> list = new ArrayList<T>();
         for (T element : elements) {
