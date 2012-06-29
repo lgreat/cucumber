@@ -347,7 +347,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     public void showAdvancedFilters(SchoolSearchCommand schoolSearchCommand, Map<String, Object> model) {
         final String MODEL_SHOW_ADDITIONAL_FILTERS = "showAdditionalFilters";
-        if (SchoolHelper.isZipInLocal(schoolSearchCommand.getZipCode())) {
+        if (SchoolHelper.isZipInLocal(schoolSearchCommand.getZipCode()) ||
+                SchoolHelper.isLocal(schoolSearchCommand.getCity(), schoolSearchCommand.getState())) {
             model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
         }
     }

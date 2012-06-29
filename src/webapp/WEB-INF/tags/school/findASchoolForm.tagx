@@ -38,6 +38,7 @@
                 <!--<input type="hidden" name="partialMatch" value=""/>-->
                 <input type="hidden" name="normalizedAddress" value=""/>
                 <input type="hidden" name="totalResults" value="0"/>
+                <input type="hidden" name="city"/>
 
                 <div class="line">
                     <div class="unit size17of20">

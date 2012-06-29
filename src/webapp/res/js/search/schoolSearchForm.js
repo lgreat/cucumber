@@ -210,6 +210,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                         data['locationType'] = geocodeResult['type'];
                         data['normalizedAddress'] = geocodeResult['normalizedAddress'];
                         data['totalResults'] = geocodeResult['totalResults'];
+                        data['city'] = geocodeResult['city'];
                         data['locationSearchString'] = searchQuery;
 
                         var queryStringDataWithFilters;
@@ -312,6 +313,9 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                                 }
                                 if (results[x].address_components[i].types.contains('postal_code')) {
                                     geocodeResult['zipCode'] = results[x].address_components[i].short_name;
+                                }
+                                if (results[x].address_components[i].types.contains('locality')) {
+                                    geocodeResult['city'] = results[x].address_components[i].long_name;
                                 }
                             }
                             // http://stackoverflow.com/questions/1098040/checking-if-an-associative-array-key-exists-in-javascript

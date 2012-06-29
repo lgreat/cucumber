@@ -33,6 +33,7 @@ public class SchoolSearchCommand {
     private Integer minGreatSchoolsRating;
     private Integer minCommunityRating;
     private String _zipCode;
+    private String _city;
     // a view override, that is needed to allow switching peacefully between city/district browse list view and map view
     private String _view;
 
@@ -231,6 +232,14 @@ public class SchoolSearchCommand {
 
     public boolean hasLatLon() {
         return _lat != null && _lon != null;
+    }
+
+    public String getCity() {
+        return _city;
+    }
+
+    public void setCity(String city) {
+        _city = city;
     }
 
     public String getDistance() {
