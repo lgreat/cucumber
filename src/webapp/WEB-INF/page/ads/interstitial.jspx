@@ -7,6 +7,8 @@
         >
     <jsp:directive.page import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.page import="java.net.URLDecoder"/>
+    <jsp:directive.page import="gs.web.util.context.SessionContextUtil"/>
+    <jsp:directive.page import="gs.web.util.context.SessionContext"/>
     <jsp:scriptlet>
         // Create a domain cookie that the user has seen the ad
         Cookie interstitialCookie = new Cookie("gs_interstitial", "viewed");
@@ -26,6 +28,10 @@
         gs.web.util.PageHelper.hideFooterAd(request);
         gs.web.util.PageHelper.hideFooter(request);
         gs.web.util.PageHelper.setPageName(request, "interstitial");
+
+        // GS-12973: never allow this page to use GPT in Asynchronous Mode
+        SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+        sessionContext.setGptAsynchronousModeEnabledOverride(false);
     </jsp:scriptlet>
     <html lang="en">
     <jsp:output doctype-root-element="html"
