@@ -134,7 +134,7 @@
                         <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
-                    <search:dropdownFiltersWithLabel id="specialEducation" cssClass="mbs" label="Special Education"
+                    <search:dropdownFiltersWithLabel id="specialEdPrograms" cssClass="mbs" label="Special Education"
                                                      selectedValueLabel="All">
                         <!--<div class="mod standard_6-3">-->
                             <search:searchFilterWithCount name="specialEdPrograms" value="autism"
@@ -170,7 +170,7 @@
                         <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
-                    <search:dropdownFiltersWithLabel id="Sports" cssClass="mbs" label="Sports" selectedValueLabel="All">
+                    <search:dropdownFiltersWithLabel id="sports" cssClass="mbs" label="Sports" selectedValueLabel="All">
                         <!--<div class="mod standard_6-3">-->
                             <search:searchFilterWithCount name="sports" value="baseball"
                                                           facetCountsMap="${sportsCounts}" label="Baseball"/>
@@ -269,22 +269,30 @@
                     <search:dropdownFiltersWithLabel id="staffResources" label="Staff Resources and Facilities"
                                                      selectedValueLabel="All">
                         <!--<div class="mod standard_6-3">-->
+                        Facilities
                         <search:searchFilterWithCount name="staffResources" value="college_career"
                                                       label="College / Career center"/>
                         <search:searchFilterWithCount name="staffResources" value="computers"
                                                       label="Computer lab"/>
-                        <search:searchFilterWithCount name="staffResources" value="industrial"
-                                                      label="Industrial shop"/>
                         <search:searchFilterWithCount name="staffResources" value="garden"
                                                       label="Garden / Greenhouse"/>
-                        <search:searchFilterWithCount name="staffResources" value="gifted_specialist"
-                                                          label="Gifted specialist"/>
+                        <search:searchFilterWithCount name="staffResources" value="gym"
+                                                      label="Gym"/>
+                        <search:searchFilterWithCount name="staffResources" value="industrial"
+                                                      label="Industrial shop"/>
                         <search:searchFilterWithCount name="staffResources" value="kitchen"
                                                       label="Kitchen"/>
                         <search:searchFilterWithCount name="staffResources" value="parent"
                                                       label="Parent center"/>
+                        <search:searchFilterWithCount name="staffResources" value="science"
+                                                      label="Science lab"/>
+
+                        Staff Resources
+                        <search:searchFilterWithCount name="staffResources" value="gifted_specialist"
+                                                      label="Gifted specialist"/>
                         <search:searchFilterWithCount name="staffResources" value="poetry_teacher"
                                                       label="Poetry / Creative writing teacher"/>
+
                             <search:searchFilterWithCount name="staffResources" value="priest"
                                                           label="Priest / Pastor / Religious personnel"/>
 
@@ -292,8 +300,7 @@
                                                           label="Robotics / Technology specialist"/>
                             <search:searchFilterWithCount name="staffResources" value="school_counselor"
                                                           label="School social worker / counselor"/>
-                        <search:searchFilterWithCount name="staffResources" value="science"
-                                                      label="Science lab"/>
+
                         <search:searchFilterWithCount name="staffResources" value="security"
                                                           label="Security personnel"/>
                             <search:searchFilterWithCount name="staffResources" value="tutor"

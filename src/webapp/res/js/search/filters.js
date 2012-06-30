@@ -9,6 +9,8 @@ GS.search.filters = GS.search.filters || (function() {
                 /*if (window.location.pathname.indexOf('search.page') > -1) {*/
                 GS.search.results.update();
                 GS.search.filters.save();
+                var dropdownId = $(this).data('gs-dropdown-hider');
+                $('html').unbind('click.gs.visibility.content.' + dropdownId);
                 /*}*/
             });
         });

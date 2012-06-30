@@ -170,7 +170,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
 
         // support new additional OSP filters for redesigned search
-        showAdvancedFilters(schoolSearchCommand, model);
+        showAdvancedFilters(schoolSearchCommand, commandAndFields, model);
 
 
         // local board module support
@@ -347,11 +347,20 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         responseJson.accumulate("salePromo", searchResults);
     }
 
-    public void showAdvancedFilters(SchoolSearchCommand schoolSearchCommand, Map<String, Object> model) {
+    public void showAdvancedFilters(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandWithFields,
+                                    Map<String, Object> model) {
         final String MODEL_SHOW_ADDITIONAL_FILTERS = "showAdditionalFilters";
-        if (SchoolHelper.isZipInLocal(schoolSearchCommand.getZipCode()) ||
-                SchoolHelper.isLocal(schoolSearchCommand.getCity(), schoolSearchCommand.getState())) {
-            model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+        if(commandWithFields.isCityBrowse() || commandWithFields.isDistrictBrowse()) {
+            City city = commandWithFields.getCity();
+            if(city != null && SchoolHelper.isLocal(city.getName(), city.getState().getAbbreviation())) {
+                model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+            }
+        }
+        else {
+            if (SchoolHelper.isZipInLocal(schoolSearchCommand.getZipCode()) ||
+                    SchoolHelper.isLocal(schoolSearchCommand.getCity(), schoolSearchCommand.getState())) {
+                model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+            }
         }
     }
 
