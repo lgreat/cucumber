@@ -76,6 +76,7 @@
         <pattern>*/api/admin_login.page*</pattern>
         <pattern>*/status/error404.page*</pattern>
         <pattern>*/print-view/*</pattern>
+        <pattern>*/promo/leadGen.page*</pattern>
     </excludes>
 
 </decorators>

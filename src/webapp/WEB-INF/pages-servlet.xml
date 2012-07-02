@@ -2839,6 +2839,14 @@
         </property>
     </bean>
 
+    <!-- GS-12784 GS-12893 - for development & testing of lead gen widgets on developer workstations -->
+    <bean name="/promo/leadGen.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/promo/leadGenIframed</value>
+        </property>
+    </bean>
+
     <bean name="/demo/emailSignUp.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
