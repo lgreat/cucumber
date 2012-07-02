@@ -139,7 +139,7 @@ public class EspDashboardController {
      */
     protected School getSchool(EspMembership espMembership) {
         School school = getSchoolDao().getSchoolById(espMembership.getState(), espMembership.getSchoolId());
-        if (school != null && school.isActive()) {
+        if (school != null && (school.isActive() || school.isDemoSchool())) {
             return school;
         }
         return null;
