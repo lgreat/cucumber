@@ -213,6 +213,12 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                         data['city'] = geocodeResult['city'];
                         data['locationSearchString'] = searchQuery;
 
+                        var trimmedSearchQuery = $.trim(searchQuery.toLowerCase());
+                        if(trimmedSearchQuery.startsWith(data['city'].toLowerCase()) &&
+                            trimmedSearchQuery.indexOf(data['state'].toLowerCase(), trimmedSearchQuery.length - data['city'].length) !== -1) {
+                            data['sortBy'] = 'GS_RATING_DESCENDING';;
+                        }
+
                         var queryStringDataWithFilters;
 
                         if (window.location.href.indexOf(SEARCH_PAGE_PATH) !== -1) {
