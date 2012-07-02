@@ -200,8 +200,8 @@ public class EspDashboardController {
             modelMap.put(MODEL_SUPERUSER_ERROR, "No school found in " + state + " with id " + schoolId);
             // handled below
         }
-        if (school == null || !school.isActive()) {
-            if (school != null && !school.isActive()) {
+        if (school == null || (!school.isActive() && !school.isDemoSchool())) {
+            if (school != null && (!school.isActive() && !school.isDemoSchool())) {
                 modelMap.put(MODEL_SUPERUSER_ERROR, "The school with id " + schoolId + "(" + school.getName() + ") in " + state + " is inactive");
             }
             _log.error("School is null or inactive: " + school);

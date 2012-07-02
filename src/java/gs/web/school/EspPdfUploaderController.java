@@ -269,7 +269,7 @@ public class EspPdfUploaderController implements ReadWriteAnnotationController {
         } catch (Exception e) {
             // handled below
         }
-        if (school == null || !school.isActive()) {
+        if (school == null || (!school.isActive() && !school.isDemoSchool())) {
             _log.error("School is null or inactive: " + school);
             return null;
         }

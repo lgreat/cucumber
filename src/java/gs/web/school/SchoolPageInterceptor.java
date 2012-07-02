@@ -52,7 +52,7 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
                 try {
                     Integer id = new Integer(schoolId);
                     School s = _schoolDao.getSchoolById(state, id);
-                    if (s.isActive()) {
+                    if (s.isActive() || s.isDemoSchool()) {
                         request.setAttribute(SCHOOL_ATTRIBUTE, s);
                         return true;
                     }
