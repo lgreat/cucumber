@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 
@@ -23,27 +24,27 @@
     <div class="gsTabs">
         <ul class="tabStyle-4">
             <c:if test="${(!empty overview)}">
-                <li data-gs-tab="overview"><a href="${baseRelativePath}?tab=overview" title="${schoolName} | Overview" class="${requestScope.myMap.overview}">Overview</a>
+                <li data-gs-tab="overview"><a href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'overview')}" title="${schoolName} | Overview" class="${requestScope.myMap.overview}">Overview</a>
                     <div class="${requestScope.myMap.overview}" id="arrowdiv"></div></li>
             </c:if>
             <c:if test="${(!empty testscores)}">
-                <li data-gs-tab="testScores"><a  href="${baseRelativePath}?tab=testscores" title="${schoolName} | Test Scores" class="${requestScope.myMap.testscores}">Test scores</a>
+                <li data-gs-tab="testScores"><a  href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores')}" title="${schoolName} | Test Scores" class="${requestScope.myMap.testscores}">Test scores</a>
                     <div class="${requestScope.myMap.testscores}" id="arrowdiv"></div></li>
             </c:if>
             <c:if test="${(!empty schoolstats)}">
-                <li data-gs-tab="stats"><a href="${baseRelativePath}?tab=schoolstats" title="${schoolName} | School stats" class="${requestScope.myMap.schoolstats}">School stats</a>
+                <li data-gs-tab="stats"><a href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'schoolstats')}" title="${schoolName} | School stats" class="${requestScope.myMap.schoolstats}">School stats</a>
                     <div class="${requestScope.myMap.schoolstats}" id="arrowdiv"></div></li>
             </c:if>
             <c:if test="${(!empty reviews)}">
-                <li data-gs-tab="reviews"><a href="${baseRelativePath}?tab=reviews" title="${schoolName} | Reviews" class="${requestScope.myMap.reviews}">Reviews</a>
+                <li data-gs-tab="reviews"><a href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}" title="${schoolName} | Reviews" class="${requestScope.myMap.reviews}">Reviews</a>
                     <div class="${requestScope.myMap.reviews}" id="arrowdiv"></div></li>
             </c:if>
             <c:if test="${(!empty programs)}">
-                <li data-gs-tab="programsExtracurriculars"><a href="${baseRelativePath}?tab=programs" title="${schoolName} | Programs &amp; Extracurriculars" class="${requestScope.myMap.programs}">Programs &amp;amp; Extracurriculars</a>
+                <li data-gs-tab="programsExtracurriculars"><a href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs')}" title="${schoolName} | Programs &amp; Extracurriculars" class="${requestScope.myMap.programs}">Programs &amp;amp; Extracurriculars</a>
                     <div class="${requestScope.myMap.programs}" id="arrowdiv"></div></li>
             </c:if>
             <c:if test="${(!empty culture)}">
-                <li data-gs-tab="culture"><a href="${baseRelativePath}?tab=culture" title="${schoolName} | Culture" class="${requestScope.myMap.culture}">Culture</a>
+                <li data-gs-tab="culture"><a href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'culture')}" title="${schoolName} | Culture" class="${requestScope.myMap.culture}">Culture</a>
                     <div class="${requestScope.myMap.culture}" id="arrowdiv"></div></li>
             </c:if>
         </ul>

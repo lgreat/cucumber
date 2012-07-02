@@ -4,7 +4,9 @@ import gs.data.school.School;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.request.RequestInfo;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,9 +38,6 @@ public class SchoolProfileController extends AbstractSchoolController implements
         if (StringUtils.isNumeric(schoolIdStr)) {
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
-
-            UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-            model.put("baseRelativePath", urlBuilder.asSiteRelative(request));
         }
 
         // TODO: Audit SchoolOverview2010Controller and refactor all shared logic such as number1expert cobrand.  The
