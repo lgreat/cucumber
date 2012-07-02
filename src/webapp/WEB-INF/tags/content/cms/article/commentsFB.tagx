@@ -62,14 +62,14 @@
         </ul>
         </c:if>
         <![CDATA[
-        <div><fb:comments href="${pageScope.feature.permaLink}" num_posts="3" width="${fbWidth}"><!--  sdgf  --></fb:comments></div>]]>
-        <!--<div class="fb-comments" data-href="http://mitchtest.greatschools.org/content/cms/translate.page?${feature.contentKey.type}=${feature.contentKey.identifier}" data-num-posts="5" data-width="630">&lt;!&ndash; &ndash;&gt;</div>-->
+        <div class="fb_comments_min_height"><fb:comments href="${pageScope.feature.permaLink}" num_posts="3" width="${fbWidth}"><!--  sdgf  --></fb:comments></div>]]>
+        <!--<div class="fb-comments" data-href="${pageScope.feature.permaLink}" data-num-posts="3" data-width="${fbWidth}">&lt;!&ndash; &ndash;&gt;</div>-->
 
 
         <c:if test="${not empty pageScope.comments and fn:length(pageScope.comments) gt 0}">
 
             <!-- 2012 03 26 - mitch added id to the comments to link to from the toolbar  -->
-            <div class="mod articleComments">
+            <div class="mod articleComments hidden">
                 <div class="inner">
                     <div class="hd">
                         <h3>Comments from GreatSchools.org readers</h3>
