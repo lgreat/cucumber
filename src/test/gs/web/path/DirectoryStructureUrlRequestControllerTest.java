@@ -2,14 +2,10 @@ package gs.web.path;
 
 import gs.web.GsMockHttpServletRequest;
 import gs.web.BaseControllerTestCase;
-import gs.web.util.context.SessionContextUtil;
+import gs.web.school.SchoolOverview2010Controller;
 import gs.web.util.RedirectView301;
 import gs.web.school.SchoolsController;
 import gs.web.school.SchoolOverviewController;
-import gs.data.school.district.IDistrictDao;
-import gs.data.school.ISchoolDao;
-import gs.data.search.Searcher;
-import gs.data.geo.IGeoDao;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -18,7 +14,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Created by IntelliJ IDEA.
  * User: youngfan
  * Date: Sep 24, 2008
  * Time: 12:28:19 PM
@@ -26,14 +21,13 @@ import java.util.ArrayList;
  */
 public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTestCase {
     private DirectoryStructureUrlRequestController _controller;
-    private SessionContextUtil _sessionContextUtil;
 
     private MockDirectoryStructureUrlControllerFactory _controllerFactory;
 
     private SchoolsController _schoolsController =
         (SchoolsController) getApplicationContext().getBean(SchoolsController.BEAN_ID);
-    private SchoolOverviewController _schoolOverviewController =
-        (SchoolOverviewController) getApplicationContext().getBean(SchoolOverviewController.BEAN_ID);
+    private SchoolOverview2010Controller _schoolOverviewController =
+        (SchoolOverview2010Controller) getApplicationContext().getBean(SchoolOverviewController.BEAN_ID);
     private List<IDirectoryStructureUrlController> _controllers = new ArrayList<IDirectoryStructureUrlController>();
 
     protected void setUp() throws Exception {
@@ -41,7 +35,6 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
 
         _controller = new DirectoryStructureUrlRequestController();
         _controller.setApplicationContext(getApplicationContext());
-        _sessionContextUtil = (SessionContextUtil) getApplicationContext().getBean(SessionContextUtil.BEAN_ID);
 
         _controllers.clear();
         _controllers.add(_schoolsController);
@@ -64,7 +57,6 @@ public class DirectoryStructureUrlRequestControllerTest extends BaseControllerTe
         }
     }
 
-    // TODO: FIx me
     public void testHandleRequestInternalRedirects() throws Exception {
         GsMockHttpServletRequest request = getRequest();
         request.setMethod("GET");
