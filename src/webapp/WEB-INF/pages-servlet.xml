@@ -1990,10 +1990,10 @@
     </bean>
 
     <bean name="/school/overviewOld.page"
-          class="gs.web.school.SchoolOverviewController"
+          class="gs.web.school.SchoolOverview2010Controller"
           autowire="byName" lazy-init="true">
         <property name="viewName">
-            <value>school/overview2</value>
+            <value>school/overview2010</value>
         </property>
     </bean>
 
