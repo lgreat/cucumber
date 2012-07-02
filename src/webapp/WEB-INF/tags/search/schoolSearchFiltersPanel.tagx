@@ -270,6 +270,26 @@
                     <search:dropdownFiltersWithLabel id="staffResources" label="Staff Resources and Facilities"
                                                      selectedValueLabel="All">
                         <!--<div class="mod standard_6-3">-->
+
+                        Staff Resources
+                        <search:searchFilterWithCount name="staffResources" value="gifted_specialist"
+                                                      label="Gifted specialist"/>
+                        <search:searchFilterWithCount name="staffResources" value="poetry_teacher"
+                                                      label="Poetry / Creative writing teacher"/>
+
+                        <search:searchFilterWithCount name="staffResources" value="priest"
+                                                      label="Priest / Pastor / Religious personnel"/>
+
+                        <search:searchFilterWithCount name="staffResources" value="robotics_teacher"
+                                                      label="Robotics / Technology specialist"/>
+                        <search:searchFilterWithCount name="staffResources" value="school_counselor"
+                                                      label="School social worker / counselor"/>
+
+                        <search:searchFilterWithCount name="staffResources" value="security"
+                                                      label="Security personnel"/>
+                        <search:searchFilterWithCount name="staffResources" value="tutor"
+                                                      label="Tutors"/>
+
                         Facilities
                         <search:searchFilterWithCount name="staffResources" value="college_career"
                                                       label="College / Career center"/>
@@ -287,29 +307,6 @@
                                                       label="Parent center"/>
                         <search:searchFilterWithCount name="staffResources" value="science"
                                                       label="Science lab"/>
-
-                        Staff Resources
-                        <search:searchFilterWithCount name="staffResources" value="gifted_specialist"
-                                                      label="Gifted specialist"/>
-                        <search:searchFilterWithCount name="staffResources" value="poetry_teacher"
-                                                      label="Poetry / Creative writing teacher"/>
-
-                            <search:searchFilterWithCount name="staffResources" value="priest"
-                                                          label="Priest / Pastor / Religious personnel"/>
-
-                            <search:searchFilterWithCount name="staffResources" value="robotics_teacher"
-                                                          label="Robotics / Technology specialist"/>
-                            <search:searchFilterWithCount name="staffResources" value="school_counselor"
-                                                          label="School social worker / counselor"/>
-
-                        <search:searchFilterWithCount name="staffResources" value="security"
-                                                          label="Security personnel"/>
-                            <search:searchFilterWithCount name="staffResources" value="tutor"
-                                                          label="Tutors"/>
-
-
-
-
                         <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
