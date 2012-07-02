@@ -184,8 +184,8 @@
         <div class="grid_3 omega">
             <div class="line">
                 <div class="unit size2of5">
-                    <h2 class="bottom"><span data-gs-html-mirror="total-results-count"><!-- do not collapse --></span>
-                    </h2>
+                    <div class="largest bottom"><span data-gs-html-mirror="total-results-count"><!-- do not collapse --></span>
+                    </div >
                 </div>
                 <div class="unit size3of5 lastUnit">schools found</div>
             </div>

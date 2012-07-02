@@ -17,26 +17,33 @@
 
         <c:set var="totalResults" value="${page.pager.totalItems}"/>
 
-        <!--<c:set var="searchResultsPagingSummary">-->
-            <!--<div class="js-search-results-paging-summary text3">-->
-                <!--Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span-->
-                    <!--id="total-results-count">${totalResults}</span> schools-->
-            <!--</div>-->
-        <!--</c:set>-->
+        <c:set var="searchResultsPagingSummary">
+            <div class="js-search-results-paging-summary text3">
+                Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of
+                <strong><span id="total-results-count">${totalResults} </span>schools</strong>
+            </div>
+        </c:set>
+        <div class="alpha prefix_9 grid_7 omega">
+                        <div class="pagination  js-pageNumbers" id="pagination">
+                            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
+                                                     javascriptMethod="GS.search.results.page"/>
+                        </div>
+                    </div>
 
         <div class="alpha grid_16 omega">
-            <div class="alpha grid_9">
-                <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a> &amp;nbsp;
-                <a data-role="button" data-inline="true" class="but but-sm but-2 js-mapResultsLink">Map</a>
+            <div class="alpha grid_16 omega">
+                <div class="gsTabs1">
+                    <ul class="tabStyle-2-1">
+                        <li>
+                            <a data-role="button" data-inline="true" class="js-listResultsLink preSelected">List</a>
+                        </li>
+                        <li>
+                            <a data-role="button" data-inline="true" class="js-mapResultsLink">Map</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="grid_7 omega">
-                <!--<div class="unit size1of2">-->
-                    <!--${searchResultsPagingSummary}-->
-                <!--</div>-->
-                    <div class="pagination  js-pageNumbers" id="pagination">
-                      <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.results.page" />
-                    </div>
-            </div>
+
         </div>
         <div class="alpha grid_16 omega">
             <c:choose>
@@ -136,7 +143,11 @@
             </div>
         </div>
 
-        <div class="grid_9">
+        <div class="alpha grid_7">
+            ${searchResultsPagingSummary}
+        </div>
+
+        <div class="grid_9 omega">
             <div class="pagination" id="pagination">
                 <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
                                          javascriptMethod="GS.search.results.page"/>

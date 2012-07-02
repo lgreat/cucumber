@@ -72,6 +72,7 @@ Misc classes
 
 .slStylesV1-0 p,
 .slStylesV1-0 .default     { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 .largest     { font: normal 36px/40px Arial, Helvetica, sans-serif; text-shadow: 0 1px 0 #fff; margin-bottom: 20px;}
 .slStylesV1-0 .medium      { font: normal 13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .slStylesV1-0 .medium_bold { font: bold   13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .slStylesV1-0 .small       { font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
