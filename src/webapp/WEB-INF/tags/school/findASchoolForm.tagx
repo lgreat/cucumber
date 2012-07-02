@@ -100,7 +100,7 @@
     </div>
     <div class="ft">
         <search:globalFilterBar includeDistance="${true}"/>
-        <search:schoolSearchFiltersPanel/>
+        <search:schoolSearchFiltersPanel showAdvancedFilters="${commandAndFields.nearbySearch}"/>
     </div>
 
 </div>

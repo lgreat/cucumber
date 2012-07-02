@@ -7,8 +7,9 @@
           xmlns:gsweb="gstaglib" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 
+    <jsp:directive.attribute name="showAdvancedFilters" required="false" type="java.lang.Boolean"/>
         <c:if test="${showAdditionalFilters}">
-        <div class="js-schoolSearchFiltersPanel grid_16 alpha omega">
+        <div class="js-schoolSearchFiltersPanel grid_16 alpha omega" style="${showAdvancedFilters eq true ? '' : 'display: none'}">
 
         <div id="js-moreFiltersLine" class="grid_16 alpha omega filtersControl pam" style="z-index:450;">
             <div class="alpha prefix_5 grid_6 suffix_4 omega js-moreFiltersLink">
