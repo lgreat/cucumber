@@ -44,6 +44,8 @@ GS.form.LeadGenCampaign = function() {
     this.submit = function(submitButton) {
         var wrapper = submitButton.closest('.jq-leadGenWrapper');
 
+        wrapper.find('.jq-leadGenPrelimText').hide();
+
         if (this.validate(wrapper)) {
             submitButton.hide();
             var params = {
@@ -88,6 +90,7 @@ GS.form.LeadGenCampaign = function() {
                     }
                 },
                 error: function(jqXHR,textStatus,errorThrown) {
+                    wrapper.find('.jq-leadGenPrelimText').show();
                     wrapper.find('.jq-leadGenIntroText').show();
                     wrapper.find('.jq-leadGenForm').show();
                     wrapper.find('.jq-leadGenThankYou').hide();
