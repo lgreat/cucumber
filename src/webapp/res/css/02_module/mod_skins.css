@@ -290,7 +290,6 @@ General comments:
 }
 
 .slStylesV1-0 .standard_6-3 .hd{
-
     padding: 10px;
     margin: 0 0 5px 0;
     border-bottom: 1px solid #777;
@@ -298,6 +297,7 @@ General comments:
 
 .slStylesV1-0 .standard_6-3 .bd{
     padding: 6px;
+    overflow-y: auto;
 }
 
 .slStylesV1-0 .standard_6-3 .ft{
