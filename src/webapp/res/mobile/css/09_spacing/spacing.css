@@ -92,6 +92,7 @@ General comments:
 .pt9 {padding-top:9px}
 
 .ios-dw{ width:320px; }
+.fb_comments_min_height{ min-height:150px; }
 
 .zir-1{position:relative;z-index:1;}
 .zir-2{position:relative;z-index:2;}
