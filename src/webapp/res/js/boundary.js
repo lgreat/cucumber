@@ -1,10 +1,10 @@
 var Boundary = (function (){
-    var $map, $dropdown, $header, $list, $level, $search, $priv, $charter, $redo, currentLevel = 'e';
+    var $map, $dropdown, $header, $list, $level, $search, $priv, $charter, $redo, $nearby, currentLevel = 'e', currentZip, currentLat, currentLng;
 
-    var init = function (map, dropdown, header, list, level, search, priv, charter, redo ) {
+    var init = function (map, dropdown, header, list, level, search, priv, charter, redo, nearby ) {
         $map = $(map), $dropdown = $(dropdown), $header = $(header)
             , $list = $(list), $level = $(level), $priv = $(priv)
-            , $charter = $(charter), $search = $(search), $redo = $(redo);
+            , $charter = $(charter), $search = $(search), $redo = $(redo), $nearby = $(nearby);
 
         $redo.hide();
 
@@ -28,6 +28,7 @@ var Boundary = (function (){
             $map.boundaries('geocode', params.address);
         }
         if (paramsSet){
+            currentLat = params.lat, currentLng = params.lon;
             $map.boundaries('center', new google.maps.LatLng(params.lat, params.lon));
             $map.boundaries('district');
             $map.boundaries('districts');
@@ -219,6 +220,10 @@ var Boundary = (function (){
         if (obj.data.type=='district'){
             $dropdown.val(obj.data.getKey());
             updateDistrictHeader(obj.data);
+            currentLat = obj.data.lat, currentLng = obj.data.lon;
+            if (obj.data.address && obj.data.address.zip) {
+                updateNearbyHomes(currentZip = obj.data.address.zip);
+            }
         }
         if (obj.data.type=='school'){
             $('.js-listItem').removeClass('selected');
@@ -249,6 +254,7 @@ var Boundary = (function (){
 
     var geocodeEventHandler = function ( event, obj ) {
         updateHistory('?lat='+obj.data[0].lat+'&lon='+obj.data[0].lon+'&level='+currentLevel);
+        currentLat = obj.data[0].lat, currentLng = obj.data[0].lon;
         $redo.hide();
         $map.boundaries('district');
         $map.boundaries('geocodereverse', new google.maps.LatLng(obj.data[0].lat, obj.data[0].lon));
@@ -265,10 +271,9 @@ var Boundary = (function (){
     var geocodeReverseEventHandler = function (event, obj) {
         var $nearby = $('#js_nearbyHomesForSale');
         if (obj.data.length){
-            var zip = obj.data[0].zip;
-            if (zip) {
-                $nearby.show().removeClass('hidden');
-                $nearby.find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ zip + '?gate=gs&cid=PRT300014');
+            currentZip = obj.data[0].zip;
+            if (currentZip) {
+                updateNearbyHomes(currentZip);
             } else {
                 $nearby.hide();
             }
@@ -276,6 +281,11 @@ var Boundary = (function (){
         else {
             $nearby.hide();
         }
+    }
+
+    var updateNearbyHomes = function (zip) {
+        $nearby.show().removeClass('hidden');
+        $nearby.find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ zip + '?gate=gs&cid=PRT300014');
     }
 
     var updateDistrictHeader = function( district ){
@@ -302,11 +312,9 @@ var Boundary = (function (){
         $map.boundaries('level', val);
         $list.html('');
         currentLevel = val;
-        var lat = $map.data('boundaries').getMap().getCenter().lat()
-            , lon = $map.data('boundaries').getMap().getCenter().lng();
-        updateHistory('?lat='+lat+'&lon='+lon+'&level='+currentLevel);
+        updateHistory('?lat='+currentLat+'&lon='+currentLng+'&level='+currentLevel);
         $map.boundaries('refresh');
-        $map.boundaries('district');
+        $map.boundaries('district', new google.maps.LatLng(currentLat, currentLng));
         privateEventHandler();
         charterEventHandler();
     }
