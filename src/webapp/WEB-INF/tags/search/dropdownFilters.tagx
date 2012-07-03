@@ -50,44 +50,45 @@
                             </div>
                         </div>
                     </c:if>
+
                 </div>
             </c:when>
             <c:otherwise>
                 <div class="mod standard_6-3">
-                    <c:if test="${not empty pageScope.title}">
-                        <div class="hd">
-                            <div class="line">
-                                <div class="unit size96of100">
-                                    <!--<c:if test="${not empty pageScope.title}">-->
-                                    <div class="small bottom">${title}</div>
-                                    <!--</c:if>-->
-                                </div>
-                                <div class="unit size4of100 lastUnit">
-                                    <!--<c:if test="${not hideApplyReset}">-->
-                                    <span class="" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">X</span>
-                                    <!--</c:if>-->
-                                </div>
-                            </div>
-                        </div>
-                    </c:if>
+                    <!--<c:if test="${not empty pageScope.title}">-->
+                        <!--<div class="hd">-->
+                            <!--<div class="line">-->
+                                <!--<div class="unit size96of100">-->
+                                    <!--&lt;!&ndash;<c:if test="${not empty pageScope.title}">&ndash;&gt;-->
+                                    <!--<div class="small bottom">${title}</div>-->
+                                    <!--&lt;!&ndash;</c:if>&ndash;&gt;-->
+                                <!--</div>-->
+                                <!--<div class="unit size4of100 lastUnit">-->
+                                    <!--&lt;!&ndash;<c:if test="${not hideApplyReset}">&ndash;&gt;-->
+                                    <!--<span class="" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">X</span>-->
+                                    <!--&lt;!&ndash;</c:if>&ndash;&gt;-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</c:if>-->
 
                     <div class="bd">
                         <jsp:doBody/>
                     </div>
 
-                    <c:if test="${not hideApplyReset}">
-                        <div class="ft">
-                            <div class="line">
-                                <div class="unit size83of100">
-                                    <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Save
-                                    </button>
-                                </div>
-                                <div class="unit size11of100 lastUnit">
-                                    <a href="javascript:void(0);" data-gs-uncheckall="${id}">Clear</a>
-                                </div>
-                            </div>
-                        </div>
-                    </c:if>
+                    <!--<c:if test="${not hideApplyReset}">-->
+                        <!--<div class="ft">-->
+                            <!--<div class="line">-->
+                                <!--<div class="unit size83of100">-->
+                                    <!--<button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Save-->
+                                    <!--</button>-->
+                                <!--</div>-->
+                                <!--<div class="unit size11of100 lastUnit">-->
+                                    <!--<a href="javascript:void(0);" data-gs-uncheckall="${id}">Clear</a>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</c:if>-->
                 </div>
             </c:otherwise>
         </c:choose>

@@ -15,7 +15,7 @@
             </c:when>
             <c:otherwise>
                 <!--<span class="sprite stars_sm_rate_it">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                <div class="">Rate it</div>
+                <dfn>Rate this school</dfn>
             </c:otherwise>
         </c:choose>
     </link:schoolProfileParentReview2010>

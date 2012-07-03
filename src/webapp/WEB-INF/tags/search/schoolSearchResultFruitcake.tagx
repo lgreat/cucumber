@@ -94,12 +94,10 @@
                                                                      levelCode="${school.levelCode}">
                                 <c:choose>
                                     <c:when test="${school.levelCode eq 'p'}">
-                                        <div class="round-small">p</div>
-                                        <!--<span class="sprite badge_sm_ps">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                        <span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
                                     </c:when>
                                     <c:when test="${school.schoolType eq 'private'}">
-                                        <div class="round-small">pr</div>
-                                        <!--<span class="sprite badge_sm_pr">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                        <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
                                     </c:when>
                                 </c:choose>
                             </link:schoolProfileOverviewForPrimitives>

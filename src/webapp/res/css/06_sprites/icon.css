@@ -46,7 +46,7 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 
 .iconx16 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x16/120702-16x16.png);
+    background-image: url(/res/img/sprites/icon/x16/120703-16x16.png);
     width: 16px;
     height: 16px;
 }
@@ -181,7 +181,7 @@ a:hover .i-16-close {
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/120517-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/120702-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -211,6 +211,30 @@ a:hover .i-16-close {
 
 .i-24-district-boundary {
     background-position: -120px 0;
+}
+
+.i-24-private-school-badge {
+    background-position: -144px 0;
+}
+
+.i-24-preschool-badge {
+    background-position: -168px 0;
+}
+
+.i-24-legend-high-performance {
+    background-position: -192px 0;
+}
+
+.i-24-legend-average-performance {
+    background-position: -216px 0;
+}
+
+.i-24-legend-low-performance {
+    background-position: -240px 0;
+}
+
+.i-24-legend-preschool {
+    background-position: -264px 0;
 }
 
 /* row 24 */

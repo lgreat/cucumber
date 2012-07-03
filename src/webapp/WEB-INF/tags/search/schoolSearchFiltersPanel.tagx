@@ -11,12 +11,19 @@
         <c:if test="${showAdditionalFilters}">
         <div class="js-schoolSearchFiltersPanel grid_16 alpha omega" style="${showAdvancedFilters eq true ? '' : 'display: none'}">
 
-        <div id="js-moreFiltersLine" class="grid_16 alpha omega filtersControl pam" style="z-index:450;">
-            <div class="alpha prefix_5 grid_6 suffix_4 omega js-moreFiltersLink">
+        <div id="js-moreFiltersLine" class="grid_16 alpha omega filtersControl" style="z-index:450;">
+            <div class="alpha prefix_6 grid_5 suffix_5 omega js-moreFiltersLink pam">
                 <h4 class="bottom">
                     <a href="javascript:void(0);">
-                        <strong class="make-d61">NEW! </strong> Refine your search <span
-                            style="font-size: 20px;">&#9662;</span>
+                        <div class="media attribution">
+                            <div class="img mrm">
+                                Narrow your search
+                            </div>
+
+                            <div class="img">
+                                &#9662;
+                            </div>
+                        </div>
                     </a>
                 </h4>
             </div>
@@ -78,11 +85,11 @@
                     <div class="small bottom"><strong>Local Rating</strong></div>
                     <search:dropdownFilters id="ratingCategories" cssClass="mbl" label="All">
                             <search:searchFilterWithCount name="ratingCategories"
-                                                          value="low" label="Low (1-3)"/>
+                                                          value="low" label="Low 1-3"/>
                             <search:searchFilterWithCount name="ratingCategories"
-                                                          value="average" label="Average (4-6)"/>
+                                                          value="average" label="Average 4-6"/>
                             <search:searchFilterWithCount name="ratingCategories"
-                                                          value="high" label="High (7-10)"/>
+                                                          value="high" label="High 7-10"/>
                     </search:dropdownFilters>
                     <hr class="keyline1"/>
                     <div class="mtm">
@@ -315,10 +322,20 @@
         </div>
         </div>
         <div class="grid_16 alpha omega">
-            <div id="js-closeMoreFiltersLink" class="alpha prefix_7 grid_4 suffix_5 filtersControl pam"
+            <div id="js-closeMoreFiltersLink" class="alpha prefix_7 grid_3 suffix_6 omega filtersControl pam"
                  style="display: none;">
                 <h4 class="bottom">
-                    <a href="javascript:void(0);">Close filters<span style="font-size: 26px;">&#9652;</span></a>
+                    <a href="javascript:void(0);">
+                        <div class="media attribution">
+                            <div class="img">
+                                Close filters
+                            </div>
+
+                            <div class="imgExt" style="-webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -ms-transform: rotate(180deg); -o-transform: rotate(180deg);transform: rotate(180deg);">
+                                &#9662;
+                            </div>
+                        </div>
+                    </a>
                 </h4>
             </div>
         </div>
