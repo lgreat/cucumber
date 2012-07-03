@@ -46,7 +46,7 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 
 .iconx16 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x16/120601-16x16.png);
+    background-image: url(/res/img/sprites/icon/x16/120702-16x16.png);
     width: 16px;
     height: 16px;
 }
@@ -108,6 +108,26 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 
 .i-16-cross {
     background-position: -208px 0;
+}
+
+.i-16-review {
+    background-position: -224px 0;
+}
+
+.i-16-save {
+    background-position: -240px 0;
+}
+
+.i-16-compare {
+    background-position: -256px 0;
+}
+
+.i-16-getDirections {
+    background-position: -272px 0;
+}
+
+.i-16-listView {
+    background-position: -288px 0;
 }
 /* row 16 */
 

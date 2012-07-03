@@ -182,32 +182,36 @@
         <!-- tool links -->
             <ul class="none small mtm">
                 <li class="di">
-                    <strong>
-                    <link:mySchoolList school="${school}"
+                    <div class="media dib">
+                    <span class="img iconx16 i-16-save mrs"><!-- do not collapse --></span>
+                    <link:mySchoolList styleClass="bd" school="${school}"
                                        onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
-                                       anchor="${headerLinkAnchor}">Save</link:mySchoolList>
-                    </strong>
+                                       anchor="${headerLinkAnchor}"><strong>Save</strong></link:mySchoolList>
+                    </div>
                 </li>
-                <li class="di mlm">
-                    <strong>
-                    <a href="javascript:void(0);">Send me updates</a>
-                    </strong>
+                <li class="di mll">
+                    <div class="media dib">
+                    <span class="img iconx16 i-16-email mrs"><!-- do not collapse --></span>
+                    <a class="bd" href="javascript:void(0);"><strong>Send me updates</strong></a>
+                    </div>
                 </li>
-                <li class="di mlm">
-                    <strong>
-                    <a href="javascript:void(0);">Write a review</a>
-                    </strong>
+                <li class="di mll">
+                    <div class="media dib">
+                    <span class="img iconx16 i-16-review mrs"><!-- do not collapse --></span>
+                    <a class="bd" href="javascript:void(0);"><strong>Write a review</strong></a>
+                    </div>
                 </li>
                 <!-- TODO: Generate compareNearbyString -->
                 <c:if test="${not empty compareNearbyString}">
                     <c:set var="compareSource" value="overview"/>
-                    <li class="di mlm">
-                        <strong>
+                    <li class="di mll">
+                        <div class="media dib">
+                        <span class="img iconx16 i-16-compare mrs"><!-- do not collapse --></span>
                         <link:compareSchools schools="${compareNearbyString}"
                                              source="sphead_${compareSource}_${school.databaseState}${school.id}"
                                              onclick="if (s.tl) {s.tl(this,'o','SchoolProfile_Compare_Inline_Link');} return true;"
-                                             tab="overview">Compare schools</link:compareSchools>
-                    </strong>
+                                             tab="overview"><strong>Compare schools</strong></link:compareSchools>
+                        </div>
                     </li>
                 </c:if>
             </ul>
@@ -270,7 +274,7 @@
 
                 <div>
                     <div class="media">
-                        <span class="img iconx16 i-16-map mrs"><!-- do not collapse --></span>
+                        <span class="img iconx16 i-16-getDirections mrs"><!-- do not collapse --></span>
                         <a class="bd smaller" href="http://maps.google.com/?daddr=${schoolAddressWithName}">Get directions</a>
                     </div>
 
