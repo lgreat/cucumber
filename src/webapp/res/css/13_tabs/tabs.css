@@ -124,3 +124,19 @@
 
 }
 #arrowdiv.selected { display:block; }
+
+/*  TAB STYLE 4 (Button style tabs)
+----------------------------------------------------------------------------- */
+.gsTabs  ul.tabStyle-5 {height: 48px;padding: 0;margin: 6px 0 0 0;}
+
+.gsTabs  ul.tabStyle-5 li {list-style: none; margin-right:3px; display: inline-block;*display: inline;font: normal 14px/40px Arial, Helvetica, sans-serif;outline: 0 none;*line-height: 21px;}
+
+.gsTabs ul.tabStyle-5 li a {padding: 10px;color: #000;text-decoration: none;*zoom: 1;outline: 0 none;}
+
+.gsTabs ul.tabStyle-5 li a:hover {}
+
+.gsTabs ul.tabStyle-5 li a:focus {outline: 0 none;}
+
+.gsTabs ul.tabStyle-5 li a.selected {font-weight:bold; border-bottom: 2px solid #000000;outline: 0 none;}
+
+
