@@ -4,57 +4,96 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
+
+<c:if test="${! empty testScores}">
+    <div class="grid_16 ptl">
+        <div class="fl pbn"><h1 class="pbn mbs" style="color:#000000;" id="js_testLabelHeader"><!-- not empty --></h1></div>
+        <div class="fr vab">
     <!--Display the test dropdowns-->
     <select id="js_testSelect">
         <c:forEach var="testToGrades" items="${testScores}">
             <option value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">${testToGrades.testLabel}</option>
         </c:forEach>
     </select>
-
-    <!--Display the grades for the test selected-->
+        </div>
+    <div class="clearfloat" style="border-top:#CCCCCC solid 1px;"><!-- not empty --></div>
+    <div class="grid_4 alpha">
+        <div><h4 class="mbs ptl"><strong>Grade Levels</strong></h4></div>
+        <!--Display the grades for the test selected-->
     <c:forEach var="testToGrades" items="${testScores}">
+
         <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}_grades"
              style="display: none" class="js_grades">
+
             <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
                 <a class="js_grade" href="#"
                    id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}">
-                    ${gradeToSubjects.gradeLabel}</a>
+                    ${gradeToSubjects.gradeLabel}</a><br />
             </c:forEach>
         </div>
     </c:forEach>
-
+    </div>
+    <div class="grid_12 omega">
     <!--Display the data for the test and grade selected-->
     <c:forEach var="testToGrades" items="${testScores}">
         <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
             <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}_subjects"
                  style="display: none" class="js_subjects">
-                <h4>${testToGrades.testLabel}</h4>
-                <h4>${gradeToSubjects.gradeLabel}</h4>
-                <h4>Scale:${testToGrades.scale}</h4>
+
                 <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-                    <br/>
-                    <h5 class="pbm">${subjectToYears.subjectLabel}</h5>
+
+
                     <c:choose>
                         <c:when test="${fn:indexOf(testToGrades.testLabel,'_subgroup') >=0}">
+                            <table class="tableType1 mtl">
+                            <tr><th colspan="2">${subjectToYears.subjectLabel}</th></tr>
                             <c:forEach var="testValue" items="${subjectToYears.testValues}">
-                                <span>${testValue.breakdownLabel} ${testValue.testScoreLabel}</span>
-                                <br/>
+                                <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
+                                <c:if test="${testValue.testScoreLabel == 'Data not available'}"><c:set var="thePercentage" value="n/a" /></c:if>
+                                <tr><td>${testValue.breakdownLabel}</td><td style="text-align: right;"><strong>${thePercentage}</strong></td></tr>
                             </c:forEach>
+                            </table>
                         </c:when>
                         <c:otherwise>
-                            <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="loopCount">
-                                <span>${testValue.year} ${testValue.testScoreLabel}</span>
-                                <!--Display the state average for only the latest year-->
-                                <c:if test="${loopCount.count eq 1}">
-                                    <span> StateAvg: ${testValue.stateAvg}</span>
-                                </c:if>
-                                <br/>
-                            </c:forEach>
+                            <c:set var="scoresContent">
+                                <div class="grid_6 omega">
+                                    <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="loopCount">
+                                        <c:set var="firstTimeBlue" value="" />
+                                        <!--Display the state average for only the latest year-->
+                                        <c:if test="${loopCount.count eq 1}">
+                                            <c:set var="stateAvg" value="${testValue.stateAvg}" />
+                                            <c:set var="testYearAvg" value="${testValue.year}" />
+                                            <c:set var="firstTimeBlue" value="blue" />
+                                        </c:if>
+                                        <div class="line">
+                                            <div class="unit size12of100 small bottom"><strong>${testValue.year}</strong></div>
+                                            <div class="unit size5of100">&amp;nbsp;</div>
+                                            <div class="unit size66of100"><div class="bar_container"><div class="${firstTimeBlue}" style="width:${testValue.testScoreLabel}%"><!-- not empty --></div></div></div>
+                                            <div class="unit size5of100">&amp;nbsp;</div>
+                                            <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
+                                            <c:if test="${testValue.testScoreLabel == 'Data not available'}"><c:set var="thePercentage" value="n/a" /></c:if>
+                                            <div class="unit size12of100 small lastUnit bottom"><strong>${thePercentage}</strong></div>
+                                        </div>
+
+                                    </c:forEach>
+                                </div>
+                            </c:set>
+                            <div class="mod standard_2-1 mtl">
+                                <div class="inner">
+                                    <div class="bd">
+                                        <div class="grid_5 alpha">
+                                            <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
+                                            <p class="small">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
+                                        </div>
+                                        <c:out value="${scoresContent}" escapeXml="false"/>
+                                    </div>
+                                </div>
+                            </div>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
-
-                <br/>
+                <div class="smaller fr">Scale:${testToGrades.scale}</div>
+                <div class="clearfloat"><!-- not empty --></div>
                 <div class="contain_2-1">
                     <strong>Source:</strong> ${testToGrades.source}
                 </div>
@@ -65,13 +104,16 @@
         </c:forEach>
     </c:forEach>
 
+    </div>
+
     <!--TODO - move to a different file.-->
     <script type="text/javascript">
 
         //Add the handler for changing the test drop-down.
         $('#js_testSelect').on('change', function() {
             var testSelected = $('#js_testSelect').val();
-
+            $("#js_testLabelHeader").html($("#js_testSelect option[value='"+testSelected+"']").text());
+            //$('#js_testLabelHeader').html($('#js_testSelect').html());
             //Hide all the grades and the subject data
             $('.js_grades').hide();
             $('.js_subjects').hide();
@@ -87,6 +129,8 @@
         //Add the handler for clicking a specific grade.
         $('.js_grade').on('click', function() {
             var gradeSelected = $(this).attr('id');
+            $(this).css("background-color", "#CCCCFF");
+            $(this).siblings().css("background-color", "#FFFFFF");
 
             //Hide all the data
             $('.js_subjects').hide();
@@ -98,4 +142,6 @@
         //Trigger the test change event.
         $('#js_testSelect').change();
     </script>
+    </div>
+</c:if>
 </jsp:root>
