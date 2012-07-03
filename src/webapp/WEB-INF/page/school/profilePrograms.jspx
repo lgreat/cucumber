@@ -71,7 +71,7 @@ where each entry is the first bean for that section, this allows access to the s
 
     <c:if test="${(!empty highlightstab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab)}">
         <div class="gsTabs">
-            <ul class="tabStyle-4">
+            <ul class="tabStyle-2">
                 <c:if test="${(!empty highlightstab)}">
                     <li><a href="${baseRelativePath}?tab=programs_highlights" title="${schoolName} |  Highlights Data" class="${requestScope.myMap.highlights}">Highlights Data</a></li>
                 </c:if>

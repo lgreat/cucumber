@@ -45,6 +45,7 @@
 
                     <c:choose>
                         <c:when test="${fn:indexOf(testToGrades.testLabel,'_subgroup') >=0}">
+                            <c:set var="scalesUsed" value="" />
                             <table class="tableType1 mtl">
                             <tr><th colspan="2">${subjectToYears.subjectLabel}</th></tr>
                             <c:forEach var="testValue" items="${subjectToYears.testValues}">
@@ -55,6 +56,7 @@
                             </table>
                         </c:when>
                         <c:otherwise>
+                            <c:set var="scalesUsed"><div class="smaller fr">Scale:${testToGrades.scale}</div></c:set>
                             <c:set var="scoresContent">
                                 <div class="grid_6 omega">
                                     <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="loopCount">
@@ -92,7 +94,7 @@
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
-                <div class="smaller fr">Scale:${testToGrades.scale}</div>
+                <c:out value="${scalesUsed}" escapeXml="false" />
                 <div class="clearfloat"><!-- not empty --></div>
                 <div class="contain_2-1">
                     <strong>Source:</strong> ${testToGrades.source}

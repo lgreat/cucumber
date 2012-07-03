@@ -46,10 +46,14 @@
     }
 <![CDATA[--></script>]]>
     <div class="alpha grid_16 omega">
-        Reviews for ${school.name}
-        <div id="reviewColumn1">
+        <!--Reviews for ${school.name}-->
+        <div class="alpha grid_5" id="reviewColumn1">
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="hd">Community Rating</div>
+                    <div class="bd">
             <div id="reviewOverallRating">
-                <p class="text3">Community Rating</p>
+
 
                 <div class="spacer_5"><!-- do not collapse --></div>
 
@@ -188,13 +192,14 @@
             </c:if>
 
         </div>
-
+                </div></div></div>
         <!-- end reviewColumn1 -->
-        <div id="reviewColumn2">
+        <div class="grid_11 omega" id="reviewColumn2">
             <school:schoolReviewForm school="${school}" pageName="parentReviews"/>
         </div>
         <!-- end reviewColumn2 -->
         <div class="spacer_15"><!-- do not collapse --></div>
+    <div class="grid_16 alpha omega" >
 
         <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
         <c:if test="${not empty principalReview}">
@@ -437,7 +442,7 @@
         </div>
     </c:if>
 
-
+    </div>
     </div>
 
 </jsp:root>
