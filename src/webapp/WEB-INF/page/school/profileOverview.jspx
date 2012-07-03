@@ -16,11 +16,93 @@
     <c:choose>
         <c:when test="${not empty espData}">
             <b>ESP DATA IS PRESENT</b>
-            <!-- extract individual data structures from model -->
-            <c:set var="commRating" value="${communityRating}" />
-            <hr/>
-            <!-- ========================================================================= -->
+            <div class="grid_16 alpha omega">
+                <c:if test="${not empty bestKnownFor}">
+                    <h4 class="pal">"${bestKnownFor}"</h4>
+                </c:if>
+            </div>
+            <div class="alpha grid_16 omega">
 
+                <div class="line">
+                    <div class="unit size32of100">
+                        <school:profileOverviewGsRatingsTile gsRatingsModel="${ratingsBreakdown}"/>
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size32of100">
+                        <school:profileOverviewPhotosTile photosModel="${photos}"/>
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size32of100 lastUnit">
+                        <school:profileOverviewVideoTile videoModel="${video}" />
+                    </div>
+                </div>
+
+                <div class="line">
+                    <div class="unit size32of100">
+                        <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}" />
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size66of100 lastUnit">
+                        <school:profileOverviewReviewsTile reviewsModel="${reviews}" />
+                    </div>
+                </div>
+
+                <div class="line">
+                    <div class="unit size32of100">
+                        <school:profileOverviewDiversityTile diversityModel="${diversity}" />
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size32of100">
+                        <school:profileOverviewSpecialEdTile specialEdModel="${specialEd}" extendedCareModel="${extendedCare}" />
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size32of100 lastUnit">
+                        <school:profileOverviewTransportationTile transportationModel="${transportation}" />
+                    </div>
+                </div>
+
+                <div class="line">
+                    <div class="unit size32of100">
+                        <school:profileOverviewProgramsTile programsModel="${programs}" />
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size66of100 lastUnit">
+                        <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
+                    </div>
+                </div>
+
+                <div class="line">
+                    <div class="unit size32of100">
+                        <school:profileOverviewLocalInfoTile localInfoModel="localInfo" />
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size66of100 lastUnit">
+                        <school:profileOverviewRelatedTile relatedModel="related" />
+                    </div>
+                </div>
+
+                <!-- 7th Row - Default content: Sports/Arts/Music Substitute content: hide row -->
+                <c:choose>
+                    <c:when test="${SportsArtsMusic ne 'Hide'}">
+                        <!-- SportsArtsMusic data is available -->
+                        <school:profileOverviewSportsArtsMusicTile sportsModel="${sports}"/>
+                    </c:when>
+                </c:choose>
+            </div>
         </c:when>
         <c:otherwise>
             <b>NO ESP DATA AVAILABLE</b>
@@ -29,97 +111,5 @@
     </c:choose>
     </div>
 
-<!-- TODO - move all of this up into ESP data present section -->
-    <div class="grid_16 alpha omega">
-        <c:if test="${not empty bestKnownFor}">
-            <h4 class="pal">"${bestKnownFor}"</h4>
-        </c:if>
-    </div>
-
-
-    <div class="alpha grid_16 omega">
-
-        <div class="line">
-            <div class="unit size32of100">
-                <school:profileOverviewGsRatingsTile gsRatingsModel="${ratingsBreakdown}"/>
-            </div>
-
-            <div class="unit size2of100">&amp;nbsp;</div>
-
-            <div class="unit size32of100">
-                <school:profileOverviewPhotosTile photosModel="${photos}"/>
-            </div>
-
-            <div class="unit size2of100">&amp;nbsp;</div>
-
-            <div class="unit size32of100 lastUnit">
-                <school:profileOverviewVideoTile videoModel="${video}" />
-            </div>
-        </div>
-
-        <div class="line">
-            <div class="unit size32of100">
-                <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}" />
-            </div>
-
-            <div class="unit size2of100">&amp;nbsp;</div>
-
-            <div class="unit size66of100 lastUnit">
-                <school:profileOverviewReviewsTile reviewsModel="${reviews}" />
-            </div>
-        </div>
-
-        <div class="line">
-            <div class="unit size32of100">
-                <school:profileOverviewDiversityTile diversityModel="${diversity}" />
-            </div>
-
-            <div class="unit size2of100">&amp;nbsp;</div>
-
-            <div class="unit size32of100">
-                <school:profileOverviewSpecialEdTile specialEdModel="${specialEd}" extendedCareModel="${extendedCare}" />
-            </div>
-
-            <div class="unit size2of100">&amp;nbsp;</div>
-
-            <div class="unit size32of100 lastUnit">
-                <school:profileOverviewTransportationTile transportationModel="${transportation}" />
-            </div>
-        </div>
-
-        <div class="line">
-            <div class="unit size32of100">
-                <school:profileOverviewProgramsTile programsModel="${programs}" />
-            </div>
-
-            <div class="unit size2of100">&amp;nbsp;</div>
-
-            <div class="unit size66of100 lastUnit">
-                <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
-            </div>
-        </div>
-
-        <div class="line">
-            <div class="unit size32of100">
-                <school:profileOverviewLocalInfoTile localInfoModel="localInfo" />
-            </div>
-
-            <div class="unit size2of100">&amp;nbsp;</div>
-
-            <div class="unit size66of100 lastUnit">
-                <school:profileOverviewRelatedTile relatedModel="related" />
-            </div>
-        </div>
-
-        <!-- 7th Row - Default content: Sports/Arts/Music Substitute content: hide row -->
-        <c:choose>
-            <c:when test="${SportsArtsMusic ne 'Hide'}">
-                <!-- SportsArtsMusic data is available -->
-                <school:profileOverviewSportsArtsMusicTile sportsModel="${sports}"/>
-            </c:when>
-        </c:choose>
-
-
-    </div>
 
 </jsp:root>
