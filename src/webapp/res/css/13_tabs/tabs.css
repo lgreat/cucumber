@@ -131,12 +131,12 @@
 
 .gsTabs  ul.tabStyle-5 li {list-style: none; margin-right:3px; display: inline-block;*display: inline;font: normal 14px/40px Arial, Helvetica, sans-serif;outline: 0 none;*line-height: 21px;}
 
-.gsTabs ul.tabStyle-5 li a {padding: 10px;color: #79BEDC;text-decoration: none;*zoom: 1;outline: 0 none;}
+.gsTabs ul.tabStyle-5 li a {padding: 10px;color: #0065BA;text-decoration: none;*zoom: 1;outline: 0 none;}
 
 .gsTabs ul.tabStyle-5 li a:hover {}
 
 .gsTabs ul.tabStyle-5 li a:focus {outline: 0 none;}
 
-.gsTabs ul.tabStyle-5 li a.selected {font-weight:bold; border-bottom: 2px solid #79BEDC;outline: 0 none;}
+.gsTabs ul.tabStyle-5 li a.selected {font-weight:bold; border-bottom: 2px solid #0065BA;outline: 0 none;}
 
 
