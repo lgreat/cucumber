@@ -62,8 +62,11 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     public static final String PARAM_STATE = "state";
     public static final String PARAM_SCHOOL_ID = "schoolId";
 
+//    @Autowired
+//    private IEspResponseDao _espResponseDao;
+
     @Autowired
-    private IEspResponseDao _espResponseDao;
+    private SchoolProfileDataHelper _schoolProfileDataHelper;
 
     @RequestMapping(method = RequestMethod.GET)
     public String showHighlightsPage(ModelMap modelMap, HttpServletRequest request,
@@ -86,19 +89,20 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
         // Get Data
         if (school != null) {
-            List<EspResponse> results = _espResponseDao.getResponsesByKeys( school, _keyValuesToExtract );
+            // Replaced by call below -- List<EspResponse> results = _espResponseDao.getResponsesByKeys( school, _keyValuesToExtract );
+            Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request, school );
 
-            if( results != null && !results.isEmpty() ) {
+            if( espResults != null && !espResults.isEmpty() ) {
 
                 // For performance reasons convert the results to a HashMap.  The key will be the espResponseKey
                 // and the value will be the corresponding list of EspResponse objects
-                Map<String, List<EspResponse>> dbResultsMap = dbResultsToMap(results);
+                // Replaced with above -- Map<String, List<EspResponse>>espResults = dbResultsToMap(results);
 
                 // The following builds the display data based on the DB results and the display requirements.
                 // The key is the ModelKey and the value is a list of the values for that key
-                Map<String, List<String>> resultsModel = buildDisplayData( dbResultsMap, DISPLAY_CONFIG);
+                Map<String, List<String>> resultsModel = buildDisplayData( espResults, DISPLAY_CONFIG);
 
-                Map<String, List<String>> supportResultsModel = buildSupplementalDisplayData(dbResultsMap, DISPLAY_CONFIG);
+                Map<String, List<String>> supportResultsModel = buildSupplementalDisplayData(espResults, DISPLAY_CONFIG);
 
                 resultsModel.putAll( supportResultsModel );
 
@@ -431,9 +435,14 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         return DISPLAY_CONFIG.get( DISPLAY_CONFIG.size() - 1);
     }
 
+//    // The following setter dependency injection is just for the tester
+//    public void setIEspResponseDao( IEspResponseDao espResponseDao ) {
+//        _espResponseDao = espResponseDao;
+//    }
+//
     // The following setter dependency injection is just for the tester
-    public void setIEspResponseDao( IEspResponseDao espResponseDao ) {
-        _espResponseDao = espResponseDao;
+    public void setSchoolProfileDataHelper( SchoolProfileDataHelper schoolProfileDataHelper ) {
+        _schoolProfileDataHelper = schoolProfileDataHelper;
     }
 
     // This function is just to support the tester

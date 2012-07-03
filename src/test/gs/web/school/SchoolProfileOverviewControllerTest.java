@@ -12,25 +12,22 @@ import java.util.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * Tester for SchoolProfileProgramsController
+ * Tester for SchoolProfileOverviewController
  * User: rraker
  * Date: 6/18/12
  */
-public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase {
+public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase {
 
-    SchoolProfileProgramsController _schoolProfileProgramsHighlightsController;
-//    IEspResponseDao _espResponseDao;
-    SchoolProfileDataHelper _schoolProfileDataHelper;
+    SchoolProfileOverviewController _schoolProfileOverviewController;
+   SchoolProfileDataHelper _schoolProfileDataHelper;
     State _state;
     School _school;
 
     public void setUp() throws Exception {
         super.setUp();
-//        _espResponseDao = createStrictMock( IEspResponseDao.class );
         _schoolProfileDataHelper = createStrictMock( SchoolProfileDataHelper.class );
-        _schoolProfileProgramsHighlightsController = new SchoolProfileProgramsController();
-//        _schoolProfileProgramsHighlightsController.setIEspResponseDao( _espResponseDao );
-        _schoolProfileProgramsHighlightsController.setSchoolProfileDataHelper( _schoolProfileDataHelper );
+        _schoolProfileOverviewController = new SchoolProfileOverviewController();
+        _schoolProfileOverviewController.setSchoolProfileDataHelper( _schoolProfileDataHelper );
         StateManager sm = new StateManager();
         _state = sm.getState( "CA" );
         _school = new School();
@@ -40,21 +37,64 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
     /*
         ************ Tests ************
      */
-    // Verifies no exceptions are thrown when the database does not return any data
-    public void testNoData() {
+    // Tests for no Sports/Arts/Music data
+    public void testSportsArtsMusicNoData() {
 
         // Data the controller needs to load for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
-        // No data provided
-        ModelMap map = runController( convertToEspData( l ) );
+        // Need to add something that is not Sorts/Arts/Music related just so the NonEsp route is not taken
+        l.add( createEspResponse( "staff_languages", "arabic" ) );
 
-        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
+        Map map = runController( convertToEspData( l ) );
 
-        assertNull("testNoData: expected no results", resultsModel);
+        String result = (String) map.get("SportsArtsMusic");
+
+        assertEquals("testSportsArtsMusicNoData: expected no results", "Hide", result);
+    }
+
+    // Tests for Sports/Arts/Music data
+    public void testSportsArtsMusicSports() {
+
+        // Data the controller needs to load for this test
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        // Need to add something that is not Sorts/Arts/Music related just so the NonEsp route is not taken
+        l.add( createEspResponse( "boys_sports", "football" ) );
+        l.add( createEspResponse( "boys_sports", "baseball" ) );
+        l.add( createEspResponse( "girls_sports", "none" ) );
+
+        Map map = runController( convertToEspData( l ) );
+
+        List<String> boysSports = (List<String>) map.get("boys_sports");
+        List<String> girlsSports = (List<String>) map.get("girls_sports");
+
+        assertEquals("testSportsArtsMusicSports: wrong number of boys_sport", 2, boysSports.size());
+        assertEquals("testSportsArtsMusicSports: wrong boys_sports(0)", "Baseball", boysSports.get(0));
+        assertEquals("testSportsArtsMusicSports: wrong boys_sports(1)", "Football", boysSports.get(1));
+        assertEquals("testSportsArtsMusicSports: expected girls_sports None", "None", girlsSports.get(0));
+    }
+
+    // Tests that a list is truncated
+    public void testListTruncation() {
+
+        // Data the controller needs to load for this test
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        // Need to add something that is not Sorts/Arts/Music related just so the NonEsp route is not taken
+        l.add( createEspResponse( "boys_sports", "football" ) );
+        l.add( createEspResponse( "boys_sports", "baseball" ) );
+        l.add( createEspResponse( "boys_sports", "basketball" ) );
+        l.add( createEspResponse( "boys_sports", "soccer" ) );
+        l.add( createEspResponse( "boys_sports", "track" ) );
+
+        Map map = runController( convertToEspData( l ) );
+
+        List<String> boysSports = (List<String>) map.get("boys_sports");
+
+        assertEquals("testListTruncation: expected list length is wrong", 4, boysSports.size());
+        assertEquals("testListTruncation: expected last item to be More...", "More...", boysSports.get(3));
     }
 
     // Verifies that all data loaded is returned.  For this test pick keys without allowed lists
-    public void testAllDataReturned() {
+    public void testSportsArtsMusic1() {
 
         // Data the controller needs to load for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
@@ -70,7 +110,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "immersion_language", "french" ) );
         l.add( createEspResponse( "immersion_language", "german" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actualStaffLanguages = resultsModel.get( "highlights/Language/staff_languages" );
@@ -103,7 +143,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "academic_focus", "special_education" ) );
         l.add( createEspResponse( "academic_focus", "medical" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actual = resultsModel.get( "highlights/SpecEd/academic_focus" );
@@ -127,7 +167,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "facilities", "garden" ) );
         l.add( createEspResponse( "facilities", "shop" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actual = resultsModel.get( "highlights/Health/facilities" );
@@ -156,7 +196,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         // This is additional data
         l.add( createEspResponse( "student_clubs_dance", "jazzercise" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actualStudentClubData = resultsModel.get( "highlights/Arts/student_clubs" );
@@ -180,7 +220,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "foreign_language_other", "After School  Spanish Tuition-based Programs" ) );
         l.add( createEspResponse( "foreign_language_other", "American Sign Language" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actualStudentClubData = resultsModel.get( "highlights/Language/foreign_language" );
@@ -204,7 +244,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         String admissions_url = "http:/www.someSchool.edu";
         l.add( createEspResponse( "admissions_url", admissions_url ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> admissionInfo = resultsModel.get( "application_info/AppEnroll/admissions_contact_school" );
@@ -223,7 +263,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "immersion", "yes" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> results = resultsModel.get( "programs_resources/Programs/immersion" );
@@ -238,7 +278,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "immersion", "no" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> results = resultsModel.get( "programs_resources/Programs/immersion" );
@@ -254,7 +294,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "immersion", "yes" ) );
         l.add( createEspResponse( "immersion_language", "cantonese" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> results = resultsModel.get( "programs_resources/Programs/immersion" );
@@ -273,7 +313,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         String routeInfo = "51, 72, 99";
         l.add( createEspResponse( "transportation_shuttle_other", routeInfo ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> shuttleOtherInfo = resultsModel.get( "programs_resources/Basics/transportation_shuttle_other" );
@@ -293,7 +333,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "instructional_model", "none" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> results = resultsModel.get( "programs_resources/Programs/instructional_model" );
@@ -310,7 +350,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "instructional_model", "none" ) );
         l.add( createEspResponse( "instructional_model_other", "gifted" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        Map map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> results = resultsModel.get( "programs_resources/Programs/instructional_model" );
@@ -325,19 +365,19 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 //    private ModelMap runController( List<EspResponse> espResponses) {
 //        ModelMap map = new ModelMap();
 //
-//        expect( _espResponseDao.getResponsesByKeys(_school, _schoolProfileProgramsHighlightsController.getKeyValuesToExtract() ) ).andReturn( espResponses );
+//        expect( _espResponseDao.getResponsesByKeys(_school, _schoolProfileOverviewController.getKeyValuesToExtract() ) ).andReturn( espResponses );
 //        replay(_espResponseDao);
-//        _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest(), 1, _state);
+//        _schoolProfileOverviewController.showHighlightsPage(map, getRequest(), 1, _state);
 //        verify(_espResponseDao);
 //        return map;
 //    }
 
-    private ModelMap runController( Map<String, List<EspResponse>> espData) {
+    private Map runController( Map<String, List<EspResponse>> espData) {
         ModelMap map = new ModelMap();
 
         expect( _schoolProfileDataHelper.getEspDataForSchool( getRequest(), _school ) ).andReturn( espData );
         replay(_schoolProfileDataHelper);
-        _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest(), 1, _state);
+        _schoolProfileOverviewController.handle(map, getRequest(), 1, _state);
         verify(_schoolProfileDataHelper);
         return map;
     }

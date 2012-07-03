@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsweb="gstaglib"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+
+    <jsp:directive.attribute name="specialEdModel" type="java.lang.Object" required="true"/>
+    <jsp:directive.attribute name="extendedCareModel" type="java.lang.Object" required="true"/>
+
+    <!--
+    <c:set var="xxx" value="${specialEdModel['school']}"/>
+    <c:set var="yyy" value="${specialEdModel['ratings']}"/>
+    <c:set var="uuu" value="${specialEdModel['numberOfReviews']}"/>
+
+    <c:set var="zzz" value="${extendedCareModel['school']}"/>
+    -->
+
+    <school:profileOverviewCell1 title="Special education">
+        <!-- The following is prototype code - need to update -->
+        <c:if test="${not empty specialEducationItems and fn:length(specialEducationItems) > 0}">
+            <ul>
+                <c:forEach items="${specialEducationItems}" var="i">
+                    <li>${i}</li>
+                </c:forEach>
+            </ul>
+        </c:if>
+
+        <a href="#">More services</a>
+    </school:profileOverviewCell1>
+
+    <school:profileOverviewCell1 title="Extended care">
+        <!-- The following is prototype code - need to update -->
+        <c:if test="${not empty before_care or not empty after_care}">
+            <h6>Provided by school</h6>
+
+            <p>Extended care</p>
+
+            <div class="grid_4 alpha omega">
+                <div class="grid_2 alpha text2">
+                    Before care<br/>
+                    Starts: ${before_after_care_start}
+                </div>
+                <div class="grid_2 omega text2">
+                    After care<br/>
+                    Ends: ${before_after_care_end}
+                </div>
+            </div>
+        </c:if>
+
+    </school:profileOverviewCell1>
+
+
+</jsp:root>

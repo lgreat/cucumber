@@ -4,9 +4,33 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 
-    <div class="alpha grid_16 omega">
+<jsp:directive.page contentType="text/html"/>
+<jsp:output doctype-root-element="html"
+            doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+    <div id="profileProgramsTabs">
+    <!-- The page has different layouts depending if there is esp data or not -->
+    <c:choose>
+        <c:when test="${not empty espData}">
+            <b>ESP DATA IS PRESENT</b>
+            <!-- extract individual data structures from model -->
+            <c:set var="commRating" value="${communityRating}" />
+            <hr/>
+            <!-- ========================================================================= -->
+
+        </c:when>
+        <c:otherwise>
+            <b>NO ESP DATA AVAILABLE</b>
+
+        </c:otherwise>
+    </c:choose>
+    </div>
+
+<!-- TODO - move all of this up into ESP data present section -->
+    <div class="grid_16 alpha omega">
         <c:if test="${not empty bestKnownFor}">
             <h4 class="pal">"${bestKnownFor}"</h4>
         </c:if>
@@ -17,202 +41,84 @@
 
         <div class="line">
             <div class="unit size32of100">
-                <school:profileOverviewCell1 title="GreatSchools ratings">
-
-                    <c:set var="overallRating" value="${ratings.overall}"/>
-                    <c:if test="${empty ratings.overall}">
-                        <c:set var="overallRating" value="0"/>
-                    </c:if>
-                    <c:if test="${not empty gs_rating}">
-
-                        <link:schoolProfileRating school="${school}">
-                            <span class="sprite badge_lg_${gs_rating}_b"><!-- do not collapse --></span>
-                        </link:schoolProfileRating>
-                        <!--
-<link:schoolProfileRating styleClass="smallAlertText"
-                       school="${school}">GreatSchools<br/>evaluation criteria</link:schoolProfileRating>-->
-
-                    </c:if>
-                </school:profileOverviewCell1>
+                <school:profileOverviewGsRatingsTile gsRatingsModel="${ratingsBreakdown}"/>
             </div>
 
             <div class="unit size2of100">&amp;nbsp;</div>
 
             <div class="unit size32of100">
-                <school:profileOverviewCell1
-                        title="School photos"><!-- do not collapse --></school:profileOverviewCell1>
+                <school:profileOverviewPhotosTile photosModel="${photos}"/>
             </div>
 
             <div class="unit size2of100">&amp;nbsp;</div>
 
             <div class="unit size32of100 lastUnit">
-                <school:profileOverviewCell1
-                        title="School videos"><!-- do not collapse --></school:profileOverviewCell1>
+                <school:profileOverviewVideoTile videoModel="${video}" />
             </div>
         </div>
 
         <div class="line">
             <div class="unit size32of100">
-                <school:profileOverviewCell1
-                        title="Community ratings"><!-- do not collapse --></school:profileOverviewCell1>
+                <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}" />
             </div>
 
             <div class="unit size2of100">&amp;nbsp;</div>
 
             <div class="unit size66of100 lastUnit">
-                <school:profileOverviewCell1 title="User Reviews"><!-- do not collapse --></school:profileOverviewCell1>
+                <school:profileOverviewReviewsTile reviewsModel="${reviews}" />
             </div>
         </div>
 
         <div class="line">
             <div class="unit size32of100">
-                <school:profileOverviewCell1
-                        title="Student diversity"><!-- do not collapse --></school:profileOverviewCell1>
+                <school:profileOverviewDiversityTile diversityModel="${diversity}" />
             </div>
 
             <div class="unit size2of100">&amp;nbsp;</div>
 
             <div class="unit size32of100">
-                <school:profileOverviewCell1 title="Special education">
-                    <c:if test="${not empty specialEducationItems and fn:length(specialEducationItems) > 0}">
-                        <ul>
-                            <c:forEach items="${specialEducationItems}" var="i">
-                                <li>${i}</li>
-                            </c:forEach>
-                        </ul>
-                    </c:if>
-
-                    <a href="#">More services</a>
-                </school:profileOverviewCell1>
-
-                <school:profileOverviewCell1
-                        title="Extended care"><!-- do not collapse --></school:profileOverviewCell1>
+                <school:profileOverviewSpecialEdTile specialEdModel="${specialEd}" extendedCareModel="${extendedCare}" />
             </div>
 
             <div class="unit size2of100">&amp;nbsp;</div>
 
-            <div class="unit size32of100">
-                <school:profileOverviewCell1 title="Transportation">
-
-                    <c:if test="${not empty before_care or not empty after_care}">
-                        <h6>Provided by school</h6>
-
-                        <p>Extended care</p>
-
-                        <div class="grid_4 alpha omega">
-                            <div class="grid_2 alpha text2">
-                                Before care<br/>
-                                Starts: ${before_after_care_start}
-                            </div>
-                            <div class="grid_2 omega text2">
-                                After care<br/>
-                                Ends: ${before_after_care_end}
-                            </div>
-                        </div>
-                    </c:if>
-
-                </school:profileOverviewCell1>
+            <div class="unit size32of100 lastUnit">
+                <school:profileOverviewTransportationTile transportationModel="${transportation}" />
             </div>
         </div>
 
         <div class="line">
             <div class="unit size32of100">
-                <school:profileOverviewCell1 title="Programs"><!-- do not collapse --></school:profileOverviewCell1>
+                <school:profileOverviewProgramsTile programsModel="${programs}" />
             </div>
 
             <div class="unit size2of100">&amp;nbsp;</div>
 
             <div class="unit size66of100 lastUnit">
-                <school:profileOverviewCell1
-                        title="Application information"><!-- do not collapse --></school:profileOverviewCell1>
+                <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
             </div>
         </div>
 
         <div class="line">
             <div class="unit size32of100">
-                <school:profileOverviewCell1 title="District Information">
-
-                    <p>${district.name}</p>
-                    <ul>
-                        <li>${district.gradeLevels.rangeString}</li>
-                        <li>${district.numberOfSchools}</li>
-                        <!-- TODO: number of students -->
-                        <li><a href="#">District boundaries</a></li>
-                    </ul>
-
-                    <strong>Article:</strong> <a href="#">Article title</a>
-
-                </school:profileOverviewCell1>
+                <school:profileOverviewLocalInfoTile localInfoModel="localInfo" />
             </div>
 
             <div class="unit size2of100">&amp;nbsp;</div>
 
             <div class="unit size66of100 lastUnit">
-                <school:profileOverviewCell1
-                        title="Interested in this school? These articles are for you"><!-- do not collapse --></school:profileOverviewCell1>
+                <school:profileOverviewRelatedTile relatedModel="related" />
             </div>
         </div>
 
-        <c:set var="extraCurricular">
-        <div class="line">
-            <div class="unit size50of100">
-                <span>Sports</span>
-            </div>
-            <div class="unit size25of100">
-                <span>Arts</span>
-            </div>
-            <div class="unit size25of100 lastUnit">
-                <span>Music</span>
-            </div>
-        </div>
-        </c:set>
+        <!-- 7th Row - Default content: Sports/Arts/Music Substitute content: hide row -->
+        <c:choose>
+            <c:when test="${SportsArtsMusic ne 'Hide'}">
+                <!-- SportsArtsMusic data is available -->
+                <school:profileOverviewSportsArtsMusicTile sportsModel="${sports}"/>
+            </c:when>
+        </c:choose>
 
-        <school:profileOverviewCell1 title="${extraCurricular}">
-            <div class="line mam">
-                <div class="unit size25of100">
-                    <strong>Boys</strong>
-                    <div>
-                    <ul class="small bottom">
-                        <li>Basketball</li>
-                        <li>Baseball</li>
-                        <li>Cross Country</li>
-                        <li>More...</li>
-                    </ul>
-                    </div>
-                </div>
-                <div class="unit size25of100">
-                    <strong>Girls</strong>
-                    <div>
-                    <ul class="small bottom">
-                        <li>Basketball</li>
-                        <li>Baseball</li>
-                        <li>Cross Country</li>
-                        <li>More...</li>
-                    </ul>
-                    </div>
-                </div>
-                <div class="unit size25of100">
-                    <div style="height: 90px;border-left:1px solid #e6e6e6;">
-                        <ul class="small bottom">
-                            <li>Ceramics</li>
-                            <li>Painting</li>
-                            <li>Drawing</li>
-                            <li>Photography</li>
-                            <li>More...</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="unit size25of100 lastUnit">
-                    <div style="height: 90px;border-left:1px solid #e6e6e6;">
-                        <ul class="small bottom">
-                            <li>Band</li>
-                            <li>Orchestra</li>
-                            <li>Chorus</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </school:profileOverviewCell1>
 
     </div>
 

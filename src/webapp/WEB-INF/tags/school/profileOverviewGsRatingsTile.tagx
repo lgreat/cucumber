@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsweb="gstaglib"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+
+    <jsp:directive.attribute name="gsRatingsModel" type="java.lang.Object" required="true"/>
+
+    <c:set var="school" value="${gsRatingsModel['school']}"/>
+    <c:set var="ratings" value="${gsRatingsModel['ratings']}"/>
+    <c:set var="numberOfReviews" value="${gsRatingsModel['numberOfReviews']}"/>
+
+
+    <school:profileOverviewCell1 title="GreatSchools ratings">
+        <!-- =================== The following is left over from a prototype - Replace it =================== -->
+        <c:set var="overallRating" value="${ratings.overall}"/>
+        <c:if test="${empty ratings.overall}">
+            <c:set var="overallRating" value="0"/>
+        </c:if>
+        <c:if test="${not empty gs_rating}">
+
+            <link:schoolProfileRating school="${school}">
+                <span class="sprite badge_lg_${gs_rating}_b"><!-- do not collapse --></span>
+            </link:schoolProfileRating>
+            <!--
+<link:schoolProfileRating styleClass="smallAlertText"
+           school="${school}">GreatSchools<br/>evaluation criteria</link:schoolProfileRating>-->
+
+        </c:if>
+    </school:profileOverviewCell1>
+
+</jsp:root>

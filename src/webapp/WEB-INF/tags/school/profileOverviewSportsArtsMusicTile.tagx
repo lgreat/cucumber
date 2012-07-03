@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsweb="gstaglib"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+
+    <jsp:directive.attribute name="sportsModel" type="java.lang.Object" required="true"/>
+    <c:set var="boysSports" value="${sportsModel['boys_sports']}"/>
+    <c:set var="girlsSports" value="${sportsModel.girls_sports}"/>
+    <c:set var="arts" value="${sportsModel.arts}"/>
+    <c:set var="music" value="${sportsModel.music}"/>
+
+
+    <c:set var="extraCurricular">
+        <div class="line">
+            <div class="unit size50of100">
+                <span>Sports</span>
+            </div>
+            <div class="unit size25of100">
+                <span>Arts</span>
+            </div>
+            <div class="unit size25of100 lastUnit">
+                <span>Music</span>
+            </div>
+        </div>
+    </c:set>
+
+    <school:profileOverviewCell1 title="${extraCurricular}">
+        <div class="line mam">
+            <!-- Boys sports -->
+            <div class="unit size25of100">
+                <strong>Boys</strong>
+                <div>
+                    <ul class="small bottom">
+                        <c:forEach var="item" items="${boysSports}">
+                            <li>${item}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+            <!-- Girls sports -->
+            <div class="unit size25of100">
+                <strong>Girls</strong>
+                <div>
+                    <ul class="small bottom">
+                        <c:forEach var="item" items="${girlsSports}">
+                            <li>${item}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+            <!-- Arts -->
+            <div class="unit size25of100">
+                <div style="height: 90px;border-left:1px solid #e6e6e6;">
+                    <ul class="small bottom">
+                        <c:forEach var="item" items="${arts}">
+                            <li>${item}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+            <!-- Music -->
+            <div class="unit size25of100 lastUnit">
+                <div style="height: 90px;border-left:1px solid #e6e6e6;">
+                    <ul class="small bottom">
+                        <c:forEach var="item" items="${music}">
+                            <li>${item}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </school:profileOverviewCell1>
+
+</jsp:root>
