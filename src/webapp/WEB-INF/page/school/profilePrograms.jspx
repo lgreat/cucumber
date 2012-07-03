@@ -13,8 +13,8 @@
 
 
     <c:set var="highlightstab"><c:if test="${fn:length(highlights) gt 0}">
-        <div>
-            <b>Highlights Data</b>
+        <div class="ptl">
+            <!--<b>Highlights Data</b>-->
             <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
             <c:forEach var="section" items="${highlights}" >
@@ -23,8 +23,8 @@ where each entry is the first bean for that section, this allows access to the s
         </div>
     </c:if></c:set>
     <c:set var="applicationtab"><c:if test="${fn:length(application_info) gt 0}">
-        <div>
-            <b>Application Information</b>
+        <div class="ptl">
+            <!--<b>Application Information</b>-->
             <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
             <c:forEach var="section" items="${application_info}" >
@@ -34,8 +34,8 @@ where each entry is the first bean for that section, this allows access to the s
         </div>
     </c:if></c:set>
     <c:set var="programsresourcestab"><c:if test="${fn:length(programs_resources) gt 0}">
-        <div>
-            <b>Programs and Resources</b>
+        <div class="ptl">
+            <!--<b>Programs and Resources</b>-->
             <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
             <c:forEach var="section" items="${programs_resources}" >
@@ -46,8 +46,8 @@ where each entry is the first bean for that section, this allows access to the s
     </c:if></c:set>
     <c:set var="extracurricularstab">
         <c:if test="${fn:length(extracurriculars) gt 0}">
-            <div>
-                <b>Extracurriculars</b>
+            <div class="ptl">
+                <!--<b>Extracurriculars</b>-->
                 <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
                 <c:forEach var="section" items="${extracurriculars}" >
@@ -89,28 +89,28 @@ where each entry is the first bean for that section, this allows access to the s
 
 
             <c:if test="${(!empty highlightstab)}">
-                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty requestScope.myMap.highlights and requestScope.myMap.highlights eq 'selected'?'block;':'none')}">
+                <div class="grid_16 ${(!empty requestScope.myMap.highlights and requestScope.myMap.highlights eq 'selected'?'dn;':'')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${highlightstab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty applicationtab)}">
-                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty requestScope.myMap.application and requestScope.myMap.application eq 'selected'?'block;':'none')}">
+                <div class="grid_16 ${(!empty requestScope.myMap.application and requestScope.myMap.application eq 'selected'?'dn;':'')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${applicationtab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty programsresourcestab)}">
-                <div style="min-height: 600px; width: 700px;  float: left; display:${(!empty requestScope.myMap.programsresources and requestScope.myMap.programsresources eq 'selected'?'block;':'none')}">
+                <div class="grid_16 ${(!empty requestScope.myMap.programsresources and requestScope.myMap.programsresources eq 'selected'?'dn;':'')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${programsresourcestab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty extracurricularstab)}">
-                <div style="min-height: 600px; width: 700px; float: left; display:${(!empty requestScope.myMap.extracurriculars and requestScope.myMap.extracurriculars eq 'selected'?'block;':'none')}">
+                <div class="grid_16 ${(!empty requestScope.myMap.extracurriculars and requestScope.myMap.extracurriculars eq 'selected'?'dn;':'')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${extracurricularstab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
