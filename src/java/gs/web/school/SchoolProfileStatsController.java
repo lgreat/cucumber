@@ -7,6 +7,8 @@ import gs.data.school.School;
 import gs.data.school.census.*;
 import gs.data.school.district.District;
 import gs.data.state.State;
+import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.ReadWriteController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
 @Controller
 @RequestMapping("/school/profileStats.page")
-public class SchoolProfileStatsController extends AbstractSchoolProfileController {
+public class SchoolProfileStatsController extends AbstractSchoolProfileController implements ReadWriteAnnotationController {
 
     @Autowired
     ICensusDataConfigEntryDao _censusStateConfigDao;
@@ -36,6 +39,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
     @Autowired
     ICensusDataStateValueDao _censusDataStateValueDao;
 
+    @Autowired
+    ICensusCacheDao _censusCacheDao;
 
     @RequestMapping(method= RequestMethod.GET)
     public Map<String,Object> handle(HttpServletRequest request,
@@ -43,12 +48,13 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                                      @RequestParam(value = "schoolId", required = false) Integer schoolId,
                                      @RequestParam(value = "state", required = false) State state
     ) {
+        Long start = System.nanoTime();
         Map<String,Object> model = new HashMap<String,Object>();
 
         School school = getSchool(request, state, schoolId);
 
         Map<String,Object> statsModel = new HashMap<String,Object>();
-        //statsModel = getStatsModel(school);
+        statsModel = _censusCacheDao.getMapForSchool(school);
 
         if (statsModel == null || statsModel.size() == 0) {
 
@@ -57,8 +63,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
             // get the census config for this state, school type, and level code
             CensusStateConfig censusStateConfig =
-                    _censusStateConfigDao.getConfigForState(school.getDatabaseState())
-                        .configForSchoolType(school.getType(), school.getLevelCode().getCommaSeparatedString());
+                    _censusStateConfigDao.getConfigForState(school.getDatabaseState(), school.getType());
+
+            System.out.println("Getting census state config took " + (System.nanoTime()-start)/1000000 + " milliseconds");
 
 
             // get the data type IDs for our census config
@@ -68,6 +75,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             // query to get the latest data sets for each data type
             // CensusDataSet ID --> CensusDataSet
             BiMap<Integer, CensusDataSet> censusDataSets = getDataSets(censusStateConfig, dataTypeIds, school);
+            System.out.println("Getting census data sets config took " + (System.nanoTime()-start)/1000000 + " milliseconds");
 
             // Source --> source position (footnote)
             /*Map<CensusDescription, Integer> sourceFootnotes = getSourceFootnotes(dataTypeSourceMap);*/
@@ -83,12 +91,16 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 schoolValueMap = findSchoolValues(splitDataSets._dataSetsForSchoolData, school.getDatabaseState(), school);
             }
 
+            System.out.println("Getting census school values took " + (System.nanoTime()-start)/1000000 + " milliseconds");
+
             // query for district values
             // CensusDataSet ID --> CensusDistrictValue
             Map<Integer, DistrictCensusValue> districtValueMap = new HashMap<Integer,DistrictCensusValue>();
             if (splitDataSets._dataSetsForDistrictData.size() > 0) {
                  districtValueMap = findDistrictValues(splitDataSets._dataSetsForDistrictData, school.getDatabaseState(), school);
             }
+
+            System.out.println("Getting census district values took " + (System.nanoTime()-start)/1000000 + " milliseconds");
 
             // query for state averages
             // CensusDataSet ID --> CensusStateValue
@@ -97,21 +109,32 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 stateValueMap = findStateValues(splitDataSets._dataSetsForStateData, school.getDatabaseState());
             }
 
+            System.out.println("Getting census state values took " + (System.nanoTime()-start)/1000000 + " milliseconds");
+
             // group ID --> List of StatsRow
             Map<Long, List<StatsRow>> groupIdToStatsRows = combine(censusStateConfig, censusDataSets, schoolValueMap, districtValueMap, stateValueMap);
 
+            System.out.println("Combining took " + (System.nanoTime()-start)/1000000 + " milliseconds");
+
             statsModel.put("dataTypeSourceMap", dataTypeSourceMap);
             statsModel.put("censusStateConfig", censusStateConfig);
-            statsModel.put("statsRows",groupIdToStatsRows);
-            //cacheStatsModel(statsModel, school);
+            statsModel.put("statsRows", groupIdToStatsRows);
+
+            cacheStatsModel(statsModel, school);
+
         }
 
         model.putAll(statsModel);
+        System.out.println("School profile stats controller took " + (System.nanoTime() - start) / 1000000 + " milliseconds");
         return model;
     }
 
     public void cacheStatsModel(Map<String,Object> statsModel, School school) {
-
+        try {
+            _censusCacheDao.save(school, statsModel);
+        } catch (IOException e) {
+            // all is lost. don't cache
+        }
     }
 
     // group ID --> Stats Row
@@ -151,9 +174,15 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
             // look to see if there's a data type label "override" in the config entry for this data type
             // if not, just use the default data type label/description
-            String label = config.getStateConfigEntryMap().get(dataTypeId).getDataTypeLabel();
-            if (label == null) {
-                label = entry.getValue().getDataType().getDescription();
+            String label;
+            Breakdown breakdown = entry.getValue().getBreakdownOnly();
+            if (breakdown != null && breakdown.getEthnicity() != null) {
+                label = breakdown.getEthnicity().getName();
+            } else {
+                label = config.getStateConfigEntryMap().get(dataTypeId).getDataTypeLabel();
+                if (label == null) {
+                    label = entry.getValue().getDataType().getDescription();
+                }
             }
 
             String schoolValue = "";
@@ -195,7 +224,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                     schoolValue,
                     districtValue,
                     stateValue,
-                    source
+                    source,
+                    entry.getValue().getYear()
                     );
 
             List<StatsRow> statsRows = statsRowMap.get(groupId);
@@ -218,8 +248,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         private String _districtValue;
         private String _stateValue;
         private Set<CensusDescription> _censusDescriptions;
+        private Integer _year;
 
-        public StatsRow(Long groupId, Integer censusDataSetId, String text, String schoolValue, String districtValue, String stateValue, Set<CensusDescription> censusDescriptions) {
+        public StatsRow(Long groupId, Integer censusDataSetId, String text, String schoolValue, String districtValue, String stateValue, Set<CensusDescription> censusDescriptions, Integer year) {
             _groupId = groupId;
             _censusDataSetId = censusDataSetId;
             _text = text;
@@ -227,6 +258,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             _districtValue = districtValue;
             _stateValue = stateValue;
             _censusDescriptions = censusDescriptions;
+            _year = year;
         }
 
         public Long getGroupId() { return _groupId; }
@@ -235,6 +267,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         public String getDistrictValue() { return _districtValue; }
         public String getStateValue() { return _stateValue; }
         public Set<CensusDescription> getCensusDescriptions() { return _censusDescriptions; }
+        public Integer getYear() { return _year; }
     }
 
     /**

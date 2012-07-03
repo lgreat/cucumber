@@ -11,8 +11,9 @@
     <jsp:directive.tag import="gs.data.school.census.CensusDescription"/>
     <jsp:directive.tag import="java.util.Set"/>
     <jsp:directive.tag import="java.util.Map"/>
-    <jsp:directive.tag import="java.util.HashSet"/>
     <jsp:directive.tag import="gs.web.school.SchoolProfileStatsController"/>
+    <jsp:directive.tag import="java.util.List"/>
+    <jsp:directive.tag import="java.util.HashSet"/>
 
     <jsp:directive.attribute name="groupId" type="java.lang.Long" description="Must be long to look up map entry via jstl"/>
     <jsp:directive.attribute name="statsTab" type="java.lang.String" required="true"/>
@@ -34,11 +35,22 @@
             <c:set var="showStateAverages" value="${showStateAverages or not empty row.stateValue}"/>
         </c:forEach>
 
+
+        <jsp:scriptlet>
+            <![CDATA[
+                java.util.Set footnotesForThisTable = new java.util.HashSet<Integer>();
+                jspContext.setAttribute("footnotesForThisTable", footnotesForThisTable);
+            ]]>
+        </jsp:scriptlet>
+
         <table>
             <thead>
             <tr>
                 <th>
                     <!-- do not collapse -->
+                    <c:if test="${groupId eq 6}">
+                        Ethnicity
+                    </c:if>
                 </th>
                 <th>
                     This school
@@ -56,17 +68,23 @@
                 <jsp:scriptlet>
                 <![CDATA[
                     java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
-                    java.util.Set descriptions = (java.util.Set) footnotes.get(statsTab);
+                    java.util.List descriptions = (java.util.ArrayList) footnotes.get(statsTab);
                     if (descriptions == null) {
-                        descriptions = new java.util.HashSet();
+                        descriptions = new java.util.ArrayList();
                     }
-                    descriptions.addAll(((gs.web.school.SchoolProfileStatsController.StatsRow) jspContext.getAttribute("row")).getCensusDescriptions());
+                    for (CensusDescription description : (((SchoolProfileStatsController.StatsRow)jspContext.getAttribute("row")).getCensusDescriptions())) {
+                        if (!descriptions.contains(description)) {
+                            descriptions.add(description);
+                        }
+                    }
                     footnotes.put(statsTab, descriptions);
+                    jspContext.setAttribute("footnotes", footnotes);
+                    footnotesForThisTable.add(descriptions.size());
                     jspContext.setAttribute("thisFootnote", descriptions.size());
                 ]]>
                 </jsp:scriptlet>
                 <tr>
-                    <td>${row.text}|${thisFootnote}</td>
+                    <td>${row.text}<!--<sup>[<a name="id${thisFootnote}" href="#ftn.id${thisFootnote}">${thisFootnote}</a>]</sup>--></td>
                     <c:if test="${showSchoolData}">
                         <c:choose>
                             <c:when test="${not empty row.schoolValue}">
@@ -99,24 +117,22 @@
                     </c:if>
                 </tr>
 
-
-
             </c:forEach>
-            <c:forEach items="${rows}" var="row">
-                <c:set var="censusDescriptions" value="${row.censusDescriptions}"/>
-                <c:forEach var="censusDescription" items="${censusDescriptions}">
-                    ${censusDescription.source}<br/>
-                </c:forEach>
-            </c:forEach>
+
             </tbody>
         </table>
-                <jsp:scriptlet>
-                    <![CDATA[
-                        java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
-                        java.util.Set descriptions = (java.util.Set) footnotes.get(statsTab);
-                        if (descriptions != null) {
-                            request.setAttribute("footnotesCount", descriptions.size());
-                        }
-                    ]]>
-                </jsp:scriptlet>
+        <c:forEach items="${footnotesForThisTable}" var="footnoteIndex">
+            <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->
+            Source: ${(footnotes[statsTab])[footnoteIndex-1].source}
+        </c:forEach>
+
+        <jsp:scriptlet>
+            <![CDATA[
+                java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
+                java.util.List descriptions = (java.util.List) footnotes.get(statsTab);
+                if (descriptions != null) {
+                    request.setAttribute("footnotesCount", descriptions.size());
+                }
+            ]]>
+        </jsp:scriptlet>
 </jsp:root>

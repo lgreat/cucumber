@@ -15,7 +15,7 @@
 
     <c:set var="overview"><jsp:include page="/school/profileOverview.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}" /></c:set>
     <c:set var="testscores"><jsp:include page='/school/profileTestScores.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
-    <c:set var="schoolstats"></c:set>
+    <c:set var="schoolstats"><jsp:include page='/school/profileStats.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
     <c:set var="reviews"><jsp:include page='/school/profileReviews.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
     <c:set var="programs"><jsp:include page='/school/profilePrograms.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
     <c:set var="culture"></c:set>

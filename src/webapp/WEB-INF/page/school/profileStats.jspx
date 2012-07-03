@@ -12,6 +12,12 @@
     <jsp:directive.page import="gs.data.school.census.CensusDescription"/>
 
     <div class="grid_16 alpha omega">
+
+        <ul>
+            <li>Students</li>
+            <li>Teachers</li>
+        </ul>
+
         <jsp:scriptlet>
         <![CDATA[
             java.util.Map<String,Set<CensusDescription>> footnotes = new HashMap<String,Set<CensusDescription>>();
@@ -19,9 +25,14 @@
         ]]>
         </jsp:scriptlet>
 
+        <school:schoolProfileStatsTable groupId="6" title="Student Ethnicity" statsTab="students"/>
+
+        <school:schoolProfileStatsTable groupId="13" title="Student Subgroups" statsTab="students"/>
+
         <school:schoolProfileStatsTable groupId="1" title="Teacher Credentials" statsTab="teachers"/>
 
         <school:schoolProfileStatsTable groupId="2" title="Teacher Experience" statsTab="teachers"/>
+
 
     </div>
 
