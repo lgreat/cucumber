@@ -210,13 +210,15 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                         data['locationType'] = geocodeResult['type'];
                         data['normalizedAddress'] = geocodeResult['normalizedAddress'];
                         data['totalResults'] = geocodeResult['totalResults'];
-                        data['city'] = geocodeResult['city'];
                         data['locationSearchString'] = searchQuery;
 
-                        var trimmedSearchQuery = $.trim(searchQuery.toLowerCase());
-                        if(trimmedSearchQuery.startsWith(data['city'].toLowerCase()) &&
-                            trimmedSearchQuery.indexOf(data['state'].toLowerCase(), trimmedSearchQuery.length - data['city'].length) !== -1) {
-                            data['sortBy'] = 'GS_RATING_DESCENDING';;
+                        if(geocodeResult['city'] !== undefined) {
+                            data['city'] = geocodeResult['city'];
+                            var trimmedSearchQuery = $.trim(searchQuery.toLowerCase());
+                            if(trimmedSearchQuery.startsWith(data['city'].toLowerCase()) &&
+                                trimmedSearchQuery.indexOf(data['state'].toLowerCase(), trimmedSearchQuery.length - data['city'].length) !== -1) {
+                                data['sortBy'] = 'GS_RATING_DESCENDING';;
+                            }
                         }
 
                         var queryStringDataWithFilters;
