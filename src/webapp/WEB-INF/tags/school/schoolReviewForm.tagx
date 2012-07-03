@@ -19,6 +19,12 @@
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="schoolId" value="${school.id}"/>
 
+
+    <div class="mod standard_2-1">
+    <div class="inner">
+    <div class="bd">
+
+
 <![CDATA[<a name="schoolReviewSubmitForm"></a>]]>
 
 <jsp:scriptlet>
@@ -30,7 +36,7 @@
     request.setAttribute("schoolReviewShowStudent", showStudent);
 </jsp:scriptlet>
 
-        <div class="spacer_10"><!-- do not collapse --></div>
+        <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
         <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
             <fieldset>
 
@@ -388,4 +394,5 @@
             //BoxHeights.equalize('${mainColumnId}','col_right');
         }
     </script>
+                </div></div></div>
 </jsp:root>

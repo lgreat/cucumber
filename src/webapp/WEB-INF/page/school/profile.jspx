@@ -32,23 +32,7 @@
     <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
-    <style type="text/css">
-        /*#schoolProfileTabs li {*/
-            /*display: inline;*/
-            /*padding: 2px;*/
-            /*border: 1px solid #ccc;*/
-            /*cursor: pointer;*/
-        /*}*/
-        /*#schoolProfileTabs li.selected {*/
-            /*background-color: #ddd;*/
-        /*}*/
-    </style>
     <script type="text/javascript" src="/res/js/school/profilePage.js"><!-- do not collapse --> </script>
-    <script type="text/javascript">
-        $(function() {
-            GS.school.profile.init('${param.tab}');
-        });
-    </script>
     <title>School Profile</title>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
@@ -291,11 +275,11 @@
 
 <div class="grid_16">
 
-    <jsp:useBean id="myMap" class="java.util.HashMap" scope="request" />
-    <c:set target="${requestScope.myMap}" property="key" value="on"/>
+    <jsp:useBean id="schoolProfileTabMap" class="java.util.HashMap" scope="request" />
+    <c:set target="${requestScope.schoolProfileTabMap}" property="key" value="on"/>
 
     <c:forEach var="itemtab" items="${fn:split(param.tab,'_')}">
-        <c:set target="${requestScope.myMap}" property="${itemtab}" value="selected"/>
+        <c:set target="${requestScope.schoolProfileTabMap}" property="${itemtab}" value="selected"/>
     </c:forEach>
     <profile:primary schoolName="${school.name}" schoolId="${param.id}" schoolState="${param.state}"
                  tabName="${param.tab}"/>

@@ -24,66 +24,84 @@
     <div class="gsTabs">
         <ul class="tabStyle-4">
             <c:if test="${(!empty overview)}">
-                <li data-gs-tab="overview"><a href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'overview')}" title="${schoolName} | Overview" class="${requestScope.myMap.overview}">Overview</a>
-                    <div class="${requestScope.myMap.overview}" id="arrowdiv"></div></li>
-            </c:if>
-            <c:if test="${(!empty testscores)}">
-                <li data-gs-tab="testScores"><a  href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores')}" title="${schoolName} | Test Scores" class="${requestScope.myMap.testscores}">Test scores</a>
-                    <div class="${requestScope.myMap.testscores}" id="arrowdiv"></div></li>
-            </c:if>
-            <c:if test="${(!empty schoolstats)}">
-                <li data-gs-tab="stats"><a href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'schoolstats')}" title="${schoolName} | School stats" class="${requestScope.myMap.schoolstats}">School stats</a>
-                    <div class="${requestScope.myMap.schoolstats}" id="arrowdiv"></div></li>
+                <li><a id="js_overview" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'overview')}" title="${schoolName} | Overview" class="${requestScope.schoolProfileTabMap.overview}">Overview</a>
+                    <!--[if gte IE 7 ]>
+                        <div class="${requestScope.schoolProfileTabMap.overview}" id="arrowdiv"></div>
+                    <![endif]-->
+                </li>
             </c:if>
             <c:if test="${(!empty reviews)}">
-                <li data-gs-tab="reviews"><a href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}" title="${schoolName} | Reviews" class="${requestScope.myMap.reviews}">Reviews</a>
-                    <div class="${requestScope.myMap.reviews}" id="arrowdiv"></div></li>
+                <li><a id="js_reviews" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}" title="${schoolName} | Reviews" class="${requestScope.schoolProfileTabMap.reviews}">Reviews</a>
+                    <!--[if gte IE 7 ]>
+                        <div class="${requestScope.schoolProfileTabMap.reviews}" id="arrowdiv"></div>
+                    <![endif]-->
+                </li>
+            </c:if>
+            <c:if test="${(!empty testscores)}">
+                <li><a id="js_testscores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores')}" title="${schoolName} | Test Scores" class="${requestScope.schoolProfileTabMap.testscores}">Test scores</a>
+                    <!--[if gte IE 7 ]>
+                        <div class="${requestScope.schoolProfileTabMap.testscores}" id="arrowdiv"></div>
+                    <![endif]-->
+                </li>
+            </c:if>
+            <c:if test="${(!empty schoolstats)}">
+                <li><a id="js_schoolstats" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'schoolstats')}" title="${schoolName} | School stats" class="${requestScope.schoolProfileTabMap.schoolstats}">School stats</a>
+                    <!--[if gte IE 7 ]>
+                        <div class="${requestScope.schoolProfileTabMap.schoolstats}" id="arrowdiv"></div>
+                    <![endif]-->
+                </li>
             </c:if>
             <c:if test="${(!empty programs)}">
-                <li data-gs-tab="programsExtracurriculars"><a href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs')}" title="${schoolName} | Programs &amp; Extracurriculars" class="${requestScope.myMap.programs}">Programs &amp;amp; Extracurriculars</a>
-                    <div class="${requestScope.myMap.programs}" id="arrowdiv"></div></li>
+                <li><a id="js_programs" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.programs}">Programs &amp;amp; Extracurriculars</a>
+                    <!--[if gte IE 7 ]>
+                        <div class="${requestScope.schoolProfileTabMap.programs}" id="arrowdiv"></div>
+                    <![endif]-->
+                </li>
             </c:if>
             <c:if test="${(!empty culture)}">
-                <li data-gs-tab="culture"><a href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'culture')}" title="${schoolName} | Culture" class="${requestScope.myMap.culture}">Culture</a>
-                    <div class="${requestScope.myMap.culture}" id="arrowdiv"></div></li>
+                <li><a id="js_whatsitlike" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'whatsitlike')}" title="${schoolName} | What's It Like" class="${requestScope.schoolProfileTabMap.whatsitlike}">What's It Like</a>
+                    <!--[if gte IE 7 ]>
+                        <div class="${requestScope.schoolProfileTabMap.whatsitlike}" id="arrowdiv"></div>
+                    <![endif]-->
+                </li>
             </c:if>
         </ul>
 
         <!-- TODO: Do we need this useBean??? -->
         <jsp:useBean id="now" class="java.util.Date" scope="page" />
         <c:if test="${(!empty overview)}">
-            <div data-gs-tab-body="overview" style="display:${(!empty requestScope.myMap.overview and requestScope.myMap.overview eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="overview" style="display:${(!empty requestScope.schoolProfileTabMap.overview and requestScope.schoolProfileTabMap.overview eq 'selected'?'block;':'none')}">
                 <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${overview}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
+        <c:if test="${(!empty reviews)}">
+            <div data-gs-tab-body="reviews" style=" display:${(!empty requestScope.schoolProfileTabMap.reviews and requestScope.schoolProfileTabMap.reviews eq 'selected'?'block;':'none')}">
+                <!--<gsweb:cache key="profileReviews-${school.stateAbbreviation}-${school.id}">-->
+                <c:out value='${reviews}' escapeXml="false" />
+                <!--</gsweb:cache>-->
+            </div>
+        </c:if>
         <c:if test="${(!empty testscores)}">
-            <div data-gs-tab-body="testScores" style="display:${(!empty requestScope.myMap.testscores and requestScope.myMap.testscores eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="testScores" style="display:${(!empty requestScope.schoolProfileTabMap.testscores and requestScope.schoolProfileTabMap.testscores eq 'selected'?'block;':'none')}">
                 <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${testscores}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty schoolstats)}">
-            <div data-gs-tab-body="stats" style="display:${(!empty requestScope.myMap.schoolstats and requestScope.myMap.schoolstats eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="stats" style="display:${(!empty requestScope.schoolProfileTabMap.schoolstats and requestScope.schoolProfileTabMap.schoolstats eq 'selected'?'block;':'none')}">
                 <c:out value='${schoolstats}' escapeXml="false" />
             </div>
         </c:if>
-        <c:if test="${(!empty reviews)}">
-            <div data-gs-tab-body="reviews" style=" display:${(!empty requestScope.myMap.reviews and requestScope.myMap.reviews eq 'selected'?'block;':'none')}">
-                <!--<gsweb:cache key="profileReviews-${school.stateAbbreviation}-${school.id}">-->
-                <c:out value='${reviews}' escapeXml="false" />
-                <!--</gsweb:cache>-->
-            </div>
-        </c:if>
         <c:if test="${(!empty programs)}">
-            <div data-gs-tab-body="programsExtras" style="display:${(!empty requestScope.myMap.programs and requestScope.myMap.programs eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="programsExtras" style="display:${(!empty requestScope.schoolProfileTabMap.programs and requestScope.schoolProfileTabMap.programs eq 'selected'?'block;':'none')}">
                 <c:out value='${programs}' escapeXml="false" />
             </div>
         </c:if>
         <c:if test="${(!empty culture)}">
-            <div data-gs-tab-body="culture" style=" display:${(!empty requestScope.myMap.culture and requestScope.myMap.culture eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="culture" style=" display:${(!empty requestScope.schoolProfileTabMap.culture and requestScope.schoolProfileTabMap.culture eq 'selected'?'block;':'none')}">
                 <c:out value='${culture}' escapeXml="false" />
             </div>
         </c:if>

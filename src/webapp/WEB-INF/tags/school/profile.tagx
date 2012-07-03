@@ -166,7 +166,7 @@
         privateTestData = testDataSetDao.hasDisplayableData(school);
     }
     request.setAttribute("privateHasTestData", privateTestData);
-
+    RequestDispatcher.forward()
     ]]></jsp:scriptlet>
 
 <![CDATA[
@@ -177,6 +177,7 @@
 ]]>
 
 
+<c:set var="fullurl" value="${requestScope['javax.servlet.forward.request_uri']}"/>
 
 <c:if test="${!requestScope.context.crawler}">
     <script type="text/javascript" language="javascript">

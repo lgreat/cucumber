@@ -67,25 +67,22 @@ where each entry is the first bean for that section, this allows access to the s
         </c:if>
     </c:set>
 
-    <!--<c:set var="navBasePath">/school/profile.page?id=${param.id}&amp;state=${param.state}&amp;tab=</c:set>-->
-
     <c:if test="${(!empty highlightstab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab)}">
         <div class="gsTabs">
             <ul class="tabStyle-5">
                 <c:if test="${(!empty highlightstab)}">
-                    <li><a href="${baseRelativePath}?tab=programs_highlights" title="${schoolName} |  Highlights Data" class="${requestScope.myMap.highlights}">Highlights Data</a></li>
+                    <li><a id="js_highlights" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_highlights')}" title="${schoolName} | Highlights" class="${requestScope.schoolProfileTabMap.highlights}">Highlights</a></li>
                 </c:if>
                 <c:if test="${(!empty applicationtab)}">
-                    <li><a  href="${baseRelativePath}?tab=programs_application" title="${schoolName} | Application Information" class="${requestScope.myMap.application}">Application Information</a></li>
+                    <li><a id="js_application" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_application')}" title="${schoolName} | Application Info" class="${requestScope.schoolProfileTabMap.application}">Application Info</a></li>
                 </c:if>
                 <c:if test="${(!empty programsresourcestab)}">
-                    <li><a href="${baseRelativePath}?tab=programs_programsresources" title="${schoolName} | Programs and Resources" class="${requestScope.myMap.programsresources}">Programs and Resources</a></li>
+                    <li><a id="js_programsresources" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_programsresources')}" title="${schoolName} | Programs and Resources" class="${requestScope.schoolProfileTabMap.programsresources}">Programs &amp; Resources</a></li>
                 </c:if>
                 <c:if test="${(!empty extracurricularstab)}">
-                    <li><a href="${baseRelativePath}?tab=programs_extracurriculars" title="${schoolName} | Extracurriculars" class="${requestScope.myMap.extracurriculars}">Extracurriculars</a></li>
+                    <li><a id="js_extracurriculars" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_extracurriculars')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.extracurriculars}">Extracurriculars</a></li>
                 </c:if>
             </ul>
-
 
 
             <c:if test="${(!empty highlightstab)}">
