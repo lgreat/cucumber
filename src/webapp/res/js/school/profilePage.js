@@ -51,3 +51,6 @@ var linkToTabs = function(destination){
    $("#js_"+destination).triggerHandler('click').stopPropagation();
    return false;
 }
+jQuery(document).ready(function() {
+    if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
+});
