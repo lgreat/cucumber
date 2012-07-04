@@ -280,7 +280,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
     public Map<Integer, SchoolCensusValue> findSchoolValues(Map<Integer, CensusDataSet> censusDataSets, State state, School school) {
         List<School> schools = new ArrayList<School>(1);
         schools.add(school);
+        System.out.println("before searching census school values: " + System.nanoTime() / 1000000);
         List<SchoolCensusValue> schoolCensusValues = _censusDataSchoolValueDao.findSchoolCensusValues(state, censusDataSets.values(), schools);
+        System.out.println("after searching census school values: " + System.nanoTime() / 1000000);
         Map<Integer, SchoolCensusValue> schoolCensusValueMap = new HashMap<Integer,SchoolCensusValue>();
 
         // Data Type ID  -->  (max) year
@@ -299,8 +301,19 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             }
             dataTypeMaxYears.put(censusDataSet.getDataType().getId(), year);
         }
+        System.out.println("after populating census dataTypeMaxYears: " + System.nanoTime() / 1000000);
 
 
+        Calendar manualCalendar = Calendar.getInstance();
+        Calendar dataSetCalendar = Calendar.getInstance();
+        dataSetCalendar.roll(Calendar.YEAR, -1); // better than (dataSet.getYear() - 1)
+        dataSetCalendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        dataSetCalendar.set(Calendar.DAY_OF_MONTH, 1);
+        //noinspection MagicNumber
+        dataSetCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        dataSetCalendar.set(Calendar.MINUTE, 1);
+        dataSetCalendar.set(Calendar.SECOND, 0);
+        dataSetCalendar.set(Calendar.MILLISECOND, 0);
         // second, figure out if each School has any CensusSchoolValues with recent-enough manual override
         for (SchoolCensusValue schoolCensusValue : schoolCensusValues) {
             Boolean override = false;
@@ -309,18 +322,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             // if this SchoolValue's got override potential...
             if (schoolCensusValue.getDataSet().getYear() == 0 && schoolCensusValue.getModified() != null) {
                 Date modified = schoolCensusValue.getModified();
-                Calendar manualCalendar = Calendar.getInstance();
                 manualCalendar.setTime(modified);
-                Calendar dataSetCalendar = Calendar.getInstance();
                 dataSetCalendar.set(Calendar.YEAR, maxYear);
-                dataSetCalendar.roll(Calendar.YEAR, -1); // better than (dataSet.getYear() - 1)
-                dataSetCalendar.set(Calendar.MONTH, Calendar.OCTOBER);
-                dataSetCalendar.set(Calendar.DAY_OF_MONTH, 1);
-                //noinspection MagicNumber
-                dataSetCalendar.set(Calendar.HOUR_OF_DAY, 0);
-                dataSetCalendar.set(Calendar.MINUTE, 1);
-                dataSetCalendar.set(Calendar.SECOND, 0);
-                dataSetCalendar.set(Calendar.MILLISECOND, 0);
 
                 override = manualCalendar.after(dataSetCalendar);
 
@@ -337,6 +340,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 }
             }
         }
+        System.out.println("done with census school values: " + System.nanoTime() / 1000000);
 
         return schoolCensusValueMap;
     }
