@@ -75,8 +75,8 @@ Misc classes
 .slStylesV1-0 .largest     { font: normal 36px/40px Arial, Helvetica, sans-serif; text-shadow: 0 1px 0 #fff; margin-bottom: 20px;}
 .slStylesV1-0 .medium      { font: normal 13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .slStylesV1-0 .medium_bold { font: bold   13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-.slStylesV1-0 .small       { font: normal 12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
-.slStylesV1-0 .small_bold  { font: bold   12px/18px Arial, Helvetica, sans-serif; margin-bottom: 18px; }
+.slStylesV1-0 .small       { font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+.slStylesV1-0 .small_bold  { font: bold   12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .slStylesV1-0 .smaller     { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
 .slStylesV1-0 .smallest    { font: normal 10px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
 
@@ -198,7 +198,7 @@ Misc classes
 .make-dddddd { color: #dddddd; }
 .make-e6e6e6 { color: #e6e6e6; }
 .make-f1f1f1 { color: #f1f1f1; }
-.make-f8f8f8 { color: #f8f8f8; }
+.make-f5f5f5 { color: #f5f5f5; }
 .make-ffffff { color: #ffffff; }
 
 /* Misc classes

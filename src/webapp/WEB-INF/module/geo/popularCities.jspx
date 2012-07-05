@@ -10,37 +10,37 @@
     <c:choose>
         <c:when test="${not empty popularCitiesByState}">
             <h4>Popular Cities in ${state.longName}</h4>
-            <ul>
+            <ul class="none">
                 <c:forEach begin="0" end="3" items="${popularCitiesByState}" var="popularCity">
                     <li><link:city city="${popularCity.name}" state="${popularCity.state}">${popularCity.name}</link:city></li>
                 </c:forEach>
             </ul>
-            <ul>
+            <ul class="none">
                 <c:forEach begin="4" end="7" items="${popularCitiesByState}" var="popularCity">
                     <li><link:city city="${popularCity.name}" state="${popularCity.state}">${popularCity.name}</link:city></li>
                 </c:forEach>
             </ul>
-            <ul>
+            <ul class="none">
                 <c:forEach begin="8" end="11" items="${popularCitiesByState}" var="popularCity">
                     <li><link:city city="${popularCity.name}" state="${popularCity.state}">${popularCity.name}</link:city></li>
                 </c:forEach>
             </ul>
-            <ul>
+            <ul class="none">
                 <c:forEach begin="12" end="15" items="${popularCitiesByState}" var="popularCity">
                     <li><link:city city="${popularCity.name}" state="${popularCity.state}">${popularCity.name}</link:city></li>
                 </c:forEach>
             </ul>
-            <ul>
+            <ul class="none">
                 <c:forEach begin="16" end="19" items="${popularCitiesByState}" var="popularCity">
                     <li><link:city city="${popularCity.name}" state="${popularCity.state}">${popularCity.name}</link:city></li>
                 </c:forEach>
             </ul>
-            <ul>
+            <ul class="none">
                 <c:forEach begin="20" end="23" items="${popularCitiesByState}" var="popularCity">
                     <li><link:city city="${popularCity.name}" state="${popularCity.state}">${popularCity.name}</link:city></li>
                 </c:forEach>
             </ul>
-            <ul>
+            <ul class="none">
                 <c:forEach begin="24" end="27" items="${popularCitiesByState}" var="popularCity">
                     <li><link:city city="${popularCity.name}" state="${popularCity.state}">${popularCity.name}</link:city></li>
                 </c:forEach>
@@ -57,7 +57,7 @@
         </c:when>
         <c:otherwise>
             <h4>Popular Cities</h4>
-            <ul>
+            <ul class="none">
                 <li><link:city city="Albuquerque" state="NM">Albuquerque, NM</link:city></li>
                 <li><link:city city="Anchorage" state="AK">Anchorage, AK</link:city></li>
                 <li><link:city city="Atlanta" state="GA">Atlanta, GA</link:city></li>
@@ -68,7 +68,7 @@
                 <li><link:city city="Boise" state="ID">Boise, ID</link:city></li>
                 <li><link:city city="Boston" state="MA">Boston, MA</link:city></li>
             </ul>
-            <ul>
+            <ul class="none">
                 <li><link:city city="Bridgeport" state="CT">Bridgeport, CT</link:city></li>
                 <li><link:city city="Burlington" state="VT">Burlington, VT</link:city></li>
                 <li><link:city city="Charleston" state="WV">Charleston, WV</link:city></li>
@@ -79,7 +79,7 @@
                 <li><link:city city="Columbus" state="OH">Columbus, OH</link:city></li>
                 <li><link:city city="Dallas" state="TX">Dallas, TX</link:city></li>
             </ul>
-            <ul>
+            <ul class="none">
                 <li><link:city city="Denver" state="CO">Denver, CO</link:city></li>
                 <li><link:city city="Des Moines" state="IA">Des Moines, IA</link:city></li>
                 <li><link:city city="Detroit" state="MI">Detroit, MI</link:city></li>
@@ -90,7 +90,7 @@
                 <li><link:city city="Indianapolis" state="IN">Indianapolis, IN</link:city></li>
                 <li><link:city city="Jackson" state="MS">Jackson, MS</link:city></li>
             </ul>
-            <ul>
+            <ul class="none">
                 <li><link:city city="Jacksonville" state="FL">Jacksonville, FL</link:city></li>
                 <li><link:city city="Kansas City" state="MO">Kansas City, MO</link:city></li>
                 <li><link:city city="Las Vegas" state="NV">Las Vegas, NV</link:city></li>
@@ -101,7 +101,7 @@
                 <li><link:city city="Memphis" state="TN">Memphis, TN</link:city></li>
                 <li><link:city city="Miami" state="FL">Miami, FL</link:city></li>
             </ul>
-            <ul>
+            <ul class="none">
                 <li><link:city city="Milwaukee" state="WI">Milwaukee, WI</link:city></li>
                 <li><link:city city="Minneapolis" state="MN">Minneapolis, MN</link:city></li>
                 <li><link:city city="Nashville" state="TN">Nashville, TN</link:city></li>
@@ -112,7 +112,7 @@
                 <li><link:city city="Oklahoma City" state="OK">Oklahoma City, OK</link:city></li>
                 <li><link:city city="Omaha" state="NE">Omaha, NE</link:city></li>
             </ul>
-            <ul>
+            <ul class="none">
                 <li><link:city city="Philadelphia" state="PA">Philadelphia, PA</link:city></li>
                 <li><link:city city="Phoenix" state="AZ">Phoenix, AZ</link:city></li>
                 <li><link:city city="Portland" state="ME">Portland, ME</link:city></li>
@@ -123,7 +123,7 @@
                 <li><link:city city="San Antonio" state="TX">San Antonio, TX</link:city></li>
                 <li><link:city city="San Diego" state="CA">San Diego, CA</link:city></li>
             </ul>
-            <ul>
+            <ul class="none">
                 <li><link:city city="San Francisco" state="CA">San Francisco, CA</link:city></li>
                 <li><link:city city="San Jose" state="CA">San Jose, CA</link:city></li>
                 <li><link:city city="Seattle" state="WA">Seattle, WA</link:city></li>

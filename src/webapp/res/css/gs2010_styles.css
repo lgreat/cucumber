@@ -8077,7 +8077,7 @@ div#YahooRealEstateLink {
 
 #footer {
     background-color: #ffffff;
-    font-size: 11px;
+    font: 11px Arial, sans-serif;
     color: #666;
 }
 
