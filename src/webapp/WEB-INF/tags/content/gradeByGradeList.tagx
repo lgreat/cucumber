@@ -12,7 +12,7 @@
 
     <!-- GS-9160 See CmsHomePageController.java inner class RecentContent for list of contentType's -->
     <div class="unit size1of2 brdrt_dotted">
-    <ul class="text3">
+    <ul class="text3 none">
         <c:forEach items="${itemList}" var="recentItem" varStatus="status">
             <c:if test="${status.count lt 4}">
                 <li><span class="sprite ${recentItem.contentType} mrgrt_10"><!-- do not collapse --></span>
@@ -32,7 +32,7 @@
     </ul>
     </div>
     <div class="unit size1of2 lastUnit">
-    <ul class="text3">
+    <ul class="text3 none">
         <c:forEach items="${itemList}" var="recentItem" varStatus="status">
             <c:if test="${status.count gt 3}">
                 <li><span class="sprite ${recentItem.contentType} mrgrt_10"><!-- do not collapse --></span>
