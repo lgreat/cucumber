@@ -293,8 +293,10 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
 
         try {
             if (searchString != null) {
-                SearchResultsPage<IDistrictSearchResult> districtPage = _districtSearchService.getNonCharterDistrictsNear(commandAndFields.getLatitude(),
-                        commandAndFields.getLongitude(), 50, searchString, null, 0, DISTRICTS_COUNT);
+                SearchResultsPage<IDistrictSearchResult> districtPage = _districtSearchService.getNonCharterDistrictsNear(
+                        commandAndFields.getLatitude() != null ? commandAndFields.getLatitude() : Float.MIN_VALUE,
+                        commandAndFields.getLongitude() != null ? commandAndFields.getLongitude() :Float.MIN_VALUE,
+                        50, searchString, null, 0, DISTRICTS_COUNT);
                 districtSearchResults = districtPage.getSearchResults();
             }
         } catch (SearchException ex) {
