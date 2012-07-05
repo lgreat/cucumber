@@ -30,7 +30,7 @@
                                              name="st"
                                              id="js-school-type-public" value="public"
                                              data-gs-custom-link="Search_filter_type_public"/>
-                            <label for="js-school-type-public">Public</label>
+                            <label class="checkbox mls"  for="js-school-type-public">Public</label>
                         </span>
                     </div>
                     <div>
@@ -39,7 +39,7 @@
                                              name="st"
                                              id="js-school-type-charter" value="charter"
                                              data-gs-custom-link="Search_filter_type_charter"/>
-                            <label for="js-school-type-charter">Public charter</label>
+                            <label class="checkbox mls"  for="js-school-type-charter">Public charter</label>
                         </span>
                     </div>
                     <div>
@@ -48,7 +48,7 @@
                                              name="st"
                                              id="js-school-type-private" value="private"
                                             data-gs-custom-link="Search_filter_type_private"/>
-                            <label for="js-school-type-private">Private</label>
+                            <label class="checkbox mls"  for="js-school-type-private">Private</label>
                         </span>
                     </div>
                     <!--<div class="mbm js-applyFilters">
@@ -76,7 +76,7 @@
                                              class="jq-grade-level" name="gradeLevels"
                                              id="js-grade-level-p" value="p"
                                              data-gs-custom-link="Search_filter_grade_PK"/>
-                            <label for="js-grade-level-p">Preschool</label>
+                            <label class="checkbox mls"  for="js-grade-level-p">Preschool</label>
                         </span>
                     </div>
                     <div>
@@ -85,7 +85,7 @@
                                              class="jq-grade-level" name="gradeLevels"
                                              id="js-grade-level-e" value="e"
                                              data-gs-custom-link="Search_filter_grade_elem"/>
-                            <label for="js-grade-level-e">Elementary School</label>
+                            <label class="checkbox mls"  for="js-grade-level-e">Elementary School</label>
                         </span>
                     </div>
                     <div>
@@ -94,7 +94,7 @@
                                              class="jq-grade-level" name="gradeLevels"
                                              id="js-grade-level-m" value="m"
                                              data-gs-custom-link="Search_filter_grade_middle"/>
-                            <label for="js-grade-level-m">Middle School</label>
+                            <label class="checkbox mls"  for="js-grade-level-m">Middle School</label>
                         </span>
                     </div>
                     <div>
@@ -103,7 +103,7 @@
                                              class="jq-grade-level" name="gradeLevels"
                                              id="js-grade-level-h" value="h"
                                              data-gs-custom-link="Search_filter_grade_high"/>
-                            <label for="js-grade-level-h">High School</label>
+                            <label class="checkbox mls"  for="js-grade-level-h">High School</label>
                         </span>
                     </div>
                 <!--</div>-->
@@ -122,32 +122,32 @@
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_1" value="1"
                                                       id="js-radius-1" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-1">1 mile</label>
+                                    <label class="checkbox mls" for="js-radius-1">1 mile</label>
                                 </div>
                                 <div class="js-applyFilters">
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_2" value="2"
                                                       id="js-radius-2" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-2">2 miles</label>
+                                    <label class="checkbox mls" for="js-radius-2">2 miles</label>
                                 </div>
                                 <div class="js-applyFilters">
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_3" value="3"
                                                       id="js-radius-3" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-3">3 miles</label>
+                                    <label class="checkbox mls" for="js-radius-3">3 miles</label>
                                 </div>
                                 <div class="js-applyFilters">
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_4" value="4"
                                                       id="js-radius-4" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-4">4 miles</label>
+                                    <label class="checkbox mls" for="js-radius-4">4 miles</label>
                                 </div>
 
                                 <div class="js-applyFilters">
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_5" value="5"
                                                       id="js-radius-5" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-5">5 miles</label>
+                                    <label class="checkbox mls" for="js-radius-5">5 miles</label>
                                 </div>
                             </div>
                             <div class="unit size50of100 lastUnit">
@@ -155,37 +155,37 @@
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_10" value="10"
                                                       id="js-radius-10" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-10">10 miles</label>
+                                    <label class="checkbox mls" for="js-radius-10">10 miles</label>
                                 </div>
                                 <div class="js-applyFilters">
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_15" value="15"
                                                       id="js-radius-15" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-15">15 miles</label>
+                                    <label class="checkbox mls" for="js-radius-15">15 miles</label>
                                 </div>
                                 <div class="js-applyFilters">
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_20" value="20"
                                                       id="js-radius-20" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-20">20 miles</label>
+                                    <label class="checkbox mls" for="js-radius-20">20 miles</label>
                                 </div>
                                 <div class="js-applyFilters">
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_25" value="25"
                                                       id="js-radius-25" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-25">25 miles</label>
+                                    <label class="checkbox mls" for="js-radius-25">25 miles</label>
                                 </div>
                                 <div class="js-applyFilters">
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_30" value="30"
                                                       id="js-radius-30" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-30">30 miles</label>
+                                    <label class="checkbox mls" for="js-radius-30">30 miles</label>
                                 </div>
                                 <div class="js-applyFilters">
                                     <form:radiobutton type="radio" name="distance"
                                                       data-gs-custom-link="Search_filter_distance_60" value="60"
                                                       id="js-radius-60" path="schoolSearchCommand.distance"/>
-                                    <label for="js-radius-60">60 miles</label>
+                                    <label class="checkbox mls" for="js-radius-60">60 miles</label>
                                 </div>
                             </div>
                         </div>

@@ -23,16 +23,16 @@
 
     <c:choose>
         <c:when test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
-            <c:set var="nameSearchWidth" value="size40of100"/>
-            <c:set var="distanceSearchWidth" value="size13of100"/>
-            <c:set var="ratingSearchWidth" value="size11of100"/>
+            <c:set var="nameSearchWidth" value="size37of100"/>
+            <c:set var="distanceSearchWidth" value="size11of100"/>
+            <c:set var="ratingSearchWidth" value="size15of100"/>
             <c:set var="communitySearchWidth" value="size25of100"/>
             <c:set var="photoSearchWidth" value="size11of100"/>
         </c:when>
         <c:otherwise>
-            <c:set var="nameSearchWidth" value="size49of100"/>
+            <c:set var="nameSearchWidth" value="size45of100"/>
             <c:set var="distanceSearchWidth" value=""/>
-            <c:set var="ratingSearchWidth" value="size13of100"/>
+            <c:set var="ratingSearchWidth" value="size15of100"/>
             <c:set var="communitySearchWidth" value="size27of100"/>
             <c:set var="photoSearchWidth" value="size11of100"/>
         </c:otherwise>

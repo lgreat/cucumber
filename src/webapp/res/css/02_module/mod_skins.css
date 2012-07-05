@@ -241,7 +241,8 @@ General comments:
 
 }
 
-.slStylesV1-0 .standard_6-1 .ft{
+.slStylesV1-0 .standard_6-1 .ft #jq-filterBar{
+    border-bottom: 1px solid #CCC;
 }
 
 .slStylesV1-0 .standard_6-1 .ft .filtersControl{

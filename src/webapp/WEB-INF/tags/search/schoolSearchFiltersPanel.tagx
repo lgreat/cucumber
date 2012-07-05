@@ -21,7 +21,7 @@
                             </div>
 
                             <div class="img">
-                                &#9662;
+                                <div class="button-8 round">&#9662;</div>
                             </div>
                         </div>
                     </a>
@@ -322,18 +322,20 @@
         </div>
         </div>
         <div class="grid_16 alpha omega">
-            <div id="js-closeMoreFiltersLink" class="alpha prefix_7 grid_3 suffix_6 omega filtersControl pam"
+            <div id="js-closeMoreFiltersLink" class="alpha prefix_7 grid_4 suffix_5 omega filtersControl pam"
                  style="display: none;">
                 <h4 class="bottom">
                     <a href="javascript:void(0);">
                         <div class="media attribution">
-                            <div class="img">
+                            <div class="img mrm">
                                 Close filters
                             </div>
 
-                            <div class="imgExt" style="-webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -ms-transform: rotate(180deg); -o-transform: rotate(180deg);transform: rotate(180deg);">
-                                &#9662;
+                            <div class="img" style="-webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -ms-transform: rotate(180deg); -o-transform: rotate(180deg);transform: rotate(180deg);">
+                                <!--&#9662;-->
+                                <div class="button-8 round">&#9662;</div>
                             </div>
+
                         </div>
                     </a>
                 </h4>

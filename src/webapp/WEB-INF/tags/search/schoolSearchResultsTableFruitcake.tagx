@@ -23,70 +23,71 @@
                 <strong><span id="total-results-count">${totalResults} </span>schools</strong>
             </div>
         </c:set>
+
         <div class="alpha prefix_9 grid_7 omega">
-                        <div class="pagination  js-pageNumbers" id="pagination">
-                            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
-                                                     javascriptMethod="GS.search.results.page"/>
-                        </div>
-                    </div>
+            <div class="pagination  js-pageNumbers" id="pagination">
+                <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
+                                         javascriptMethod="GS.search.results.page"/>
+            </div>
+        </div>
 
         <div class="alpha grid_16 omega">
             <div class="alpha grid_16 omega">
                 <div class="gsTabs1">
                     <ul class="tabStyle-2-1">
                         <li>
-                            <a data-role="button" data-inline="true" class="js-listResultsLink preSelected">List</a>
+                            <a data-role="button" data-inline="true" class="js-listResultsLink preSelected">
+                                <span class="iconx16 i-16-listView mrm"><!-- do not collapse --></span>List
+                            </a>
                         </li>
                         <li>
-                            <a data-role="button" data-inline="true" class="js-mapResultsLink">Map</a>
+                            <a data-role="button" data-inline="true" class="js-mapResultsLink">
+                                <span class="iconx16 i-16-getDirections mrm"><!-- do not collapse --></span>Map</a>
                         </li>
                     </ul>
                 </div>
             </div>
-
         </div>
         <div class="alpha grid_16 omega">
             <c:choose>
                 <c:when test="${not empty schoolSearchResults[0].distance and (not empty param.zipCode or not empty param.lat)}">
-                    <c:set var="nameSearchWidth" value="size40of100"/>
-                    <c:set var="distanceSearchWidth" value="size13of100"/>
-                    <c:set var="ratingSearchWidth" value="size11of100"/>
+                    <c:set var="nameSearchWidth" value="size37of100"/>
+                    <c:set var="distanceSearchWidth" value="size11of100"/>
+                    <c:set var="ratingSearchWidth" value="size15of100"/>
                     <c:set var="communitySearchWidth" value="size25of100"/>
                     <c:set var="photoSearchWidth" value="size11of100"/>
                 </c:when>
                 <c:otherwise>
                     <c:set var="nameSearchWidth" value="size45of100"/>
                     <c:set var="distanceSearchWidth" value=""/>
-                    <c:set var="ratingSearchWidth" value="size13of100"/>
+                    <c:set var="ratingSearchWidth" value="size15of100"/>
                     <c:set var="communitySearchWidth" value="size27of100"/>
                     <c:set var="photoSearchWidth" value="size11of100"/>
                 </c:otherwise>
             </c:choose>
             <div class="line pam">
                 <div class="unit ${nameSearchWidth}">
-                    <a href="javascript:void(0);">Name<mod:sortArrow
+                    <mod:sortArrow columnName="Name"
                             sortList="SCHOOL_NAME_ASCENDING,SCHOOL_NAME_DESCENDING"
-                            currentSort="${commandAndFields.fieldSort.name}"/></a>
-
+                            currentSort="${commandAndFields.fieldSort.name}"/>
                 </div>
                 <c:if test="${not empty param.zipCode or not empty param.lat}">
                     <div class="unit ${distanceSearchWidth}">
-                        <a href="javascript:void(0);">Distance<mod:sortArrow
+                        <mod:sortArrow columnName="Distance"
                                 sortList="DISTANCE,DISTANCE_DESCENDING"
                                 currentSort="${commandAndFields.fieldSort.name}"/>
-                        </a>
                     </div>
                 </c:if>
                 <div class="unit ${ratingSearchWidth}">
-                    <a href="javascript:void(0);">Rating<mod:sortArrow
+                    <mod:sortArrow columnName="Greatschools Rating"
                             sortList="GS_RATING_DESCENDING,GS_RATING_ASCENDING"
                             currentSort="${commandAndFields.fieldSort.name}"/>
-                    </a>
+
                 </div>
                 <div class="unit ${communitySearchWidth}">
-                    <a href="javascript:void(0);">Community Rating<mod:sortArrow
+                    <mod:sortArrow columnName="Community Rating"
                             sortList="PARENT_RATING_DESCENDING,PARENT_RATING_ASCENDING"
-                            currentSort="${commandAndFields.fieldSort.name}"/></a>
+                            currentSort="${commandAndFields.fieldSort.name}"/>
                 </div>
                 <div class="unit ${photoSearchWidth} lastUnit">
                     <a href="javascript:void(0);"><!-- do not collapse --></a>
