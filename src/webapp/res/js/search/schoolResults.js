@@ -27,9 +27,9 @@ GS.search.results = GS.search.results || (function() {
         compareModule.initializeRowsAndCheckedSchoolsArray();
 
         var blackTriangleDown = '&#9662;';
-        var whiteTriangleDown = '&#9663;';
+//        var whiteTriangleDown = '&#9663;';
         var blackTriangleUp = '&#9652;';
-        var whiteTriangleUp = '&#9653;';
+//        var whiteTriangleUp = '&#9653;';
         $('body').on('click', '[data-gs-sort-toggle]', function() {
             var $this = $(this);
             var sorts = $this.data('gs-sort-toggle').split(',');
@@ -44,8 +44,9 @@ GS.search.results = GS.search.results || (function() {
             queryData['sortBy'] = newSort;
             delete queryData.start;
 
-            $('body [data-gs-sort-toggle]').each(function() {
-                $(this).html($(this).html().replace('2','3')); // just change whichever triangle is currently in use, to make it white
+            $('body [data-gs-sort-toggle]span').each(function() {
+//                $this.attributes["-webkit-transform: rotate(180deg);" -moz-transform: rotate(180deg); -ms-transform: rotate(180deg); -o-transform: rotate(180deg);transform: rotate(180deg);] ;
+//                $(this).html($(this).html().replace('2','3')); // just change whichever triangle is currently in use, to make it white
             });
 
             if (newSort.indexOf('DESCENDING') !== -1) {

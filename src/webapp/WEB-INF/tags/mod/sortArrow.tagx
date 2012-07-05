@@ -7,11 +7,12 @@
         >
     <jsp:directive.attribute name="sortList" required="true" type="java.lang.String" />
     <jsp:directive.attribute name="currentSort" required="true" type="java.lang.String" />
+    <jsp:directive.attribute name="columnName" required="true" type="java.lang.String" />
 
     <c:set var="blackTriangleDown" value="&amp;#9662;"/>
-    <c:set var="whiteTriangleDown" value="&amp;#9663;"/>
+    <c:set var="whiteTriangleDown" value="&#160;"/>
     <c:set var="blackTriangleUp" value="&amp;#9652;"/>
-    <c:set var="whiteTriangleUp" value="&amp;#9653;"/>
+    <c:set var="whiteTriangleUp" value="&#160;"/>
 
     <c:choose>
         <c:when test="${not empty currentSort and fn:contains(sortList, currentSort)}">
@@ -37,6 +38,11 @@
     </c:choose>
 
 
-    <span class="symbolsize-16" data-gs-sort-toggle="${sortList}">${triangle}</span>
+
+    <a href="javascript:void(0);" data-gs-sort-toggle="${sortList}">${columnName}
+        <span data-gs-sort-toggle="${sortList}">${triangle}</span>
+    </a>
+
+
 
 </jsp:root>
