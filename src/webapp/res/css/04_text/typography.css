@@ -128,7 +128,8 @@ Misc classes
 .slStylesV1-0 dl dt       { font-weight: bold; }
 .slStylesV1-0 dd          { margin-left: 1.5em;}
 
-.slStylesV1-0 ul.none li  { list-style-type: none }
+ul.none li,
+ol.none li  { list-style-type: none; }
 
 /* Tables
 -------------------------------------------------------------- */

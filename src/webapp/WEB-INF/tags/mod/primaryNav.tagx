@@ -42,7 +42,7 @@
         <div class="dropdown_1 text2">
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><link:findASchool id="PN_F_1-SearchForSchools"
                                               styleClass="GS_CI9_">Search for Schools</link:findASchool></li>
                         <li><a href="/defining-your-ideal-school.topic?content=4996" id="PN_F_1-DefiningYourIdealSchool" class="GS_CI9_">Defining Your Ideal School</a></li>
@@ -54,7 +54,7 @@
             </div>
             <div class="col_1">
                 <div class="col_content">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><link:cmsCategoryBrowse topicIDs="195" styleId="PN_F_2-MakingTheRightChoice"
                                                     styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse><!--<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>-->
                         </li>
@@ -91,7 +91,7 @@
         <div class="dropdown_2 text2">
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/preschool-reading-readiness.topic?content=4980" id="PN_P_1-ReadingReadiness"
                                class="GS_CI9_">Reading Readiness</a></li>
                         <li><a href="/articles/?grades=198&amp;topics=209" id="PN_P_1-MathReadiness"
@@ -105,7 +105,7 @@
             </div>
             <div class="col_1">
                 <div class="col_content">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/articles/?topics=159&amp;grades=198" id="PN_P_2-Books" class="GS_CI9_">Books</a>
                         </li>
                         <li><a href="/articles/?topics=371&amp;grades=198" id="PN_P_2-Games" class="GS_CI9_">Games</a>
@@ -141,7 +141,7 @@
         <div class="dropdown_3 text2">
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/kindergarten.topic?content=2659" id="PN_E_1-Kindergarten"
                                class="GS_CI9_">Kindergarten</a></li>
                         <li><a href="/first-grade.topic?content=2660" id="PN_E_1-FirstGrade"
@@ -166,7 +166,7 @@
             </div>
             <div class="col_1">
                 <div class="col_content">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/videos/elementary-school/?content=1574" id="PN_E_2-Videos"
                                class="GS_CI9_">Videos</a>
                         </li>
@@ -214,7 +214,7 @@
         <div class="dropdown_4 text2">
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/middle-school-math.topic?content=5062" id="PN_M_1-Math" class="GS_CI9_">Math</a>
                         </li>
                         <li><a href="/articles/?grades=205&amp;topics=211" id="PN_M_1-Reading"
@@ -235,7 +235,7 @@
             </div>
             <div class="col_1">
                 <div class="col_content">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/articles/?grades=205&amp;topics=156" id="PN_M_2-Activities"
                                class="GS_CI9_">Activities</a></li>
                         <li><a href="/articles/?grades=205&amp;topics=159" id="PN_M_2-Books" class="GS_CI9_">Books</a>
@@ -275,7 +275,7 @@
         <div class="dropdown_5 text2 dropdown_align_right">
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/articles/?grades=206&amp;topics=209" id="PN_H_1-Math" class="GS_CI9_">Math</a>
                         </li>
                         <li><a href="/articles/?grades=206&amp;topics=211" id="PN_H_1-Reading"
@@ -296,7 +296,7 @@
             </div>
             <div class="col_1">
                 <div class="col_content">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/articles/?topics=372&amp;grades=206" id="PN_H_2-Graduation"
                                class="GS_CI9_">Graduation</a></li>
                         <li><a href="/articles/?topics=152" id="PN_H_2-CollegePrep" class="GS_CI9_">College Prep</a>
@@ -337,7 +337,7 @@
         <div class="dropdown_6 text2 dropdown_align_right">
             <div class="col_1">
                 <div class="col_content brdrt_dotted">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/college-prep.topic?content=1542" id="PN_C_1-PlanningForCollege"
                                class="GS_CI9_">Planning For College</a></li>
                         <li class="lastone"><a href="/test-prep/" id="PN_C_1-TestPrep" class="GS_CI9_">Test Prep</a>
@@ -347,7 +347,7 @@
             </div>
             <div class="col_1">
                 <div class="col_content">
-                    <ul> <!-- bullet type: disc/square/circle-->
+                    <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><a href="/articles/?topics=152" id="PN_C_2-ApplyingForCollege"
                                class="GS_CI9_">Applying for College</a></li>
                         <li class="lastone"><a href="/articles/?topics=167" id="PN_C_2-PayingForCollege"
