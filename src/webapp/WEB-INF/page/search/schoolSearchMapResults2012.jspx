@@ -170,9 +170,9 @@
     </div>
 
     <div id="js-showDistrictBoundaryLink" style="${(isCityBrowse eq true or isDistrictBrowse eq true or commandAndFields.nearbySearch eq true) ? '' : 'display:none;'}">
-        <p class="medium">Go to the 
+        <p class="medium">Go to the
             <c:choose>
-                <c:when test="${commandAndFields.levelCode.multipleLevelCodes}">
+                <c:when test="${fn:length(commandAndFields.levelCode.commaSeparatedString) > 1 || fn:length(commandAndFields.levelCode.commaSeparatedString) eq 0}">
                     <c:set var="districtBoundary" value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=e"/>
                     <a href="${districtBoundary}">district boundary tool</a>
                 </c:when>

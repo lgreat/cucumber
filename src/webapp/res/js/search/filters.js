@@ -12,6 +12,20 @@ GS.search.filters = GS.search.filters || (function() {
                 var dropdownId = $(this).data('gs-dropdown-hider');
                 $('html').unbind('click.gs.visibility.content.' + dropdownId);
                 /*}*/
+                var queryString = window.location.search;
+                var queryStringData = GS.uri.Uri.getQueryData(queryString);
+                if(queryStringData['view'] === 'map') {
+                    var districtBoundaryLink = $('#js-showDistrictBoundaryLink').find('a');
+                    var districtBoundaryUri = "/school-district-boundaries-map/?lat=" + queryStringData['lat']  + "&lon=" +
+                                                queryStringData['lon'];
+                    if(queryStringData['gradeLevels'] === undefined || queryStringData['gradeLevels'].length > 1){
+                        districtBoundaryUri += '&level=e';
+                    }
+                    else {
+                        districtBoundaryUri += '&level=' + queryStringData['gradeLevels'];
+                    }
+                    districtBoundaryLink.attr('href', districtBoundaryUri);
+                }
             });
         });
     };
