@@ -127,17 +127,18 @@
 
 /*  TAB STYLE 5 (Text with underscore for over style tabs)
 ----------------------------------------------------------------------------- */
-.gsTabs  ul.tabStyle-5 {height: 48px;padding: 0;margin: 6px 0 0 0;}
+.gsTabs  ul.tabStyle-5 {height: 48px;padding: 0;margin: 12px 0 0 0;}
 
-.gsTabs  ul.tabStyle-5 li {list-style: none; margin-right:3px; display: inline-block;*display: inline;font: normal 14px/40px Arial, Helvetica, sans-serif;outline: 0 none;*line-height: 21px;}
+.gsTabs  ul.tabStyle-5 li {list-style: none; display: inline-block;*display: inline;font: normal 12px/20px Arial, Helvetica, sans-serif;outline: 0 none;*line-height: 21px;}
 
-.gsTabs ul.tabStyle-5 li a {padding: 10px;color: #0065BA;text-decoration: none;*zoom: 1;outline: 0 none;}
+.gsTabs ul.tabStyle-5 li a {color: #79BEDC;text-decoration: none;*zoom: 1;outline: 0 none; padding-bottom: 3px; margin-right: 30px;}
 
-.gsTabs ul.tabStyle-5 li a:hover {}
+.gsTabs ul.tabStyle-5 li a:hover {border-bottom: 2px solid #79BEDC;}
 
 .gsTabs ul.tabStyle-5 li a:focus {outline: 0 none;}
 
-.gsTabs ul.tabStyle-5 li a.selected {font-weight:bold; border-bottom: 2px solid #0065BA;outline: 0 none;}
+.gsTabs ul.tabStyle-5 li a.selected {font-weight:bold; border-bottom: 2px solid #79BEDC;outline: 0 none;}
+
 
 /*  TAB STYLE 6 (Shows up on left side for grade level in testscores -  style tabs)
 ----------------------------------------------------------------------------- */

@@ -46,12 +46,12 @@
     }
 <![CDATA[--></script>]]>
     <div class="alpha grid_16 omega ptl">
-    <a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>
+    <!--<a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>-->
         <!--Reviews for ${school.name}-->
         <div class="alpha grid_5" id="reviewColumn1">
             <div class="mod standard_1-1">
                 <div class="inner">
-                    <div class="hd">Community Rating</div>
+                    <div class="hd pam"><strong>Community Rating</strong></div>
                     <div class="bd">
             <div id="reviewOverallRating">
 

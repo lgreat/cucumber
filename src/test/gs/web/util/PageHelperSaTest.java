@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.57 2012/04/19 00:01:33 droy Exp $
+ * $Id: PageHelperSaTest.java,v 1.58 2012/07/06 21:51:16 mseltzer Exp $
  */
 
 package gs.web.util;
@@ -810,6 +810,10 @@ public class PageHelperSaTest extends TestCase {
         sessionFacade.setHostName("dev.greatschools.org");
         pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
         assertFalse("Expected false for dev.greatschools.org", pageHelper.isNoCrawlServer());
+
+        sessionFacade.setHostName("mitchtest.greatschools.org");
+        pageHelper = new PageHelper(sessionFacade, new GsMockHttpServletRequest());
+        assertTrue("Expected false for mitchtest.greatschools.org", pageHelper.isNoCrawlServer());
     }
 
     protected void setUp() throws Exception {

@@ -86,28 +86,28 @@ where each entry is the first bean for that section, this allows access to the s
 
 
             <c:if test="${(!empty highlightstab)}">
-                <div class="grid_16 ${(!empty requestScope.myMap.highlights and requestScope.myMap.highlights eq 'selected'?'dn;':'')}">
+                <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.highlights and requestScope.schoolProfileTabMap.highlights eq 'selected'?'':'dn')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${highlightstab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty applicationtab)}">
-                <div class="grid_16 ${(!empty requestScope.myMap.application and requestScope.myMap.application eq 'selected'?'dn;':'')}">
+                <div class="grid_16 ${((!empty requestScope.schoolProfileTabMap.application and requestScope.schoolProfileTabMap.application eq 'selected')?'':'dn')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${applicationtab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty programsresourcestab)}">
-                <div class="grid_16 ${(!empty requestScope.myMap.programsresources and requestScope.myMap.programsresources eq 'selected'?'dn;':'')}">
+                <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.programsresources and requestScope.schoolProfileTabMap.programsresources eq 'selected'?'':'dn')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${programsresourcestab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
             <c:if test="${(!empty extracurricularstab)}">
-                <div class="grid_16 ${(!empty requestScope.myMap.extracurriculars and requestScope.myMap.extracurriculars eq 'selected'?'dn;':'')}">
+                <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.extracurriculars and requestScope.schoolProfileTabMap.extracurriculars eq 'selected'?'':'dn')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                     <c:out value='${extracurricularstab}' escapeXml="false" />
                     <!--</gsweb:cache>-->

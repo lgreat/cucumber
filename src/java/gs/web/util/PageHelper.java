@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.106 2012/04/19 00:01:33 droy Exp $
+ * $Id: PageHelper.java,v 1.107 2012/07/06 21:51:16 mseltzer Exp $
  */
 
 package gs.web.util;
@@ -753,10 +753,16 @@ public class PageHelper {
 
     /**
      * Returns true if this server shouldn't be crawled by search engines.
+     *
      */
     public boolean isNoCrawlServer() {
         return isStagingServer()
-                || isAdminServer() 
+                || isAdminServer()
+                /*
+                 modified to work for mitchtest it also is including
+                */
+
+                || UrlUtil.isDeveloperWorkstation(_sessionContext.getHostName())
                 || UrlUtil.isQAServer(_sessionContext.getHostName());
     }
 

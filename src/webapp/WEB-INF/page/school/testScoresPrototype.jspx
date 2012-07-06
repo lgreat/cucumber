@@ -26,7 +26,7 @@
              style="display: none" class="js_grades">
 
             <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
-                <div style="padding:5px; width:90%; background:#FFFFFF"><a class="js_grade" style="text-decoration:none;" href="#"
+                <div style="padding:5px; width:90%; background:#FFFFFF;"><a class="js_grade" style="text-decoration:none;" href="#"
                    id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}">
                     ${gradeToSubjects.gradeLabel}</a></div>
             </c:forEach>
@@ -116,7 +116,7 @@
         $('#js_testSelect').on('change', function() {
             var testSelected = $('#js_testSelect').val();
             $("#js_testLabelHeader").html($("#js_testSelect option[value='"+testSelected+"']").text());
-            //$('#js_testLabelHeader').html($('#js_testSelect').html());
+
             //Hide all the grades and the subject data
             $('.js_grades').hide();
             $('.js_subjects').hide();

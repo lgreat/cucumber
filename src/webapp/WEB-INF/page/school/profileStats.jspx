@@ -4,36 +4,45 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib" >
     <jsp:directive.page import="java.util.Map"/>
     <jsp:directive.page import="java.util.HashMap"/>
     <jsp:directive.page import="java.util.Set"/>
     <jsp:directive.page import="java.util.HashSet"/>
     <jsp:directive.page import="gs.data.school.census.CensusDescription"/>
-
-    <div class="grid_16 alpha omega">
-
-        <ul>
-            <li>Students</li>
-            <li>Teachers</li>
-        </ul>
-
-        <jsp:scriptlet>
+    <jsp:scriptlet>
         <![CDATA[
-            java.util.Map<String,Set<CensusDescription>> footnotes = new HashMap<String,Set<CensusDescription>>();
-            request.setAttribute("footnotes", footnotes);
-        ]]>
-        </jsp:scriptlet>
+                java.util.Map<String,Set<CensusDescription>> footnotes = new HashMap<String,Set<CensusDescription>>();
+                request.setAttribute("footnotes", footnotes);
+            ]]>
+    </jsp:scriptlet>
+    <div class="grid_16 alpha omega">
+        <div class="gsTabs">
+            <ul class="tabStyle-5">
+                <!--<c:if test="${(!empty studentstab)}">-->
+                    <li><a id="js_students" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'schoolstats_students')}" title="${schoolName} | Students" class="${requestScope.schoolProfileTabMap.students}">Students</a></li>
+                <!--</c:if>-->
+                <!--<c:if test="${(!empty teacherstab)}">-->
+                    <li><a id="js_teachers" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'schoolstats_teachers')}" title="${schoolName} | Teachers" class="${requestScope.schoolProfileTabMap.teachers}">Teachers</a></li>
+                <!--</c:if>-->
+            </ul>
 
-        <school:schoolProfileStatsTable groupId="6" title="Student Ethnicity" statsTab="students"/>
-
-        <school:schoolProfileStatsTable groupId="13" title="Student Subgroups" statsTab="students"/>
-
-        <school:schoolProfileStatsTable groupId="1" title="Teacher Credentials" statsTab="teachers"/>
-
-        <school:schoolProfileStatsTable groupId="2" title="Teacher Experience" statsTab="teachers"/>
 
 
+            <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.students and requestScope.schoolProfileTabMap.students eq 'selected'?'':'dn')}">
+                <school:schoolProfileStatsTable groupId="6" title="Student Ethnicity" statsTab="students"/>
+
+                <school:schoolProfileStatsTable groupId="13" title="Student Subgroups" statsTab="students"/>
+            </div>
+            <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.teachers and requestScope.schoolProfileTabMap.teachers eq 'selected'?'':'dn')}">
+
+                <school:schoolProfileStatsTable groupId="1" title="Teacher Credentials" statsTab="teachers"/>
+
+                <school:schoolProfileStatsTable groupId="2" title="Teacher Experience" statsTab="teachers"/>
+            </div>
+
+        </div>
     </div>
 
 
