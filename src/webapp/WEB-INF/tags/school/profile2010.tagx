@@ -122,7 +122,7 @@
         </div>
         <!-- End School name -->
 
-        <p id="schoolTypeInfo">
+        <p id="schoolTypeInfo" class="text2">
             <!-- School Type -->
             <c:if test="${school.levelCode ne 'p'}">
                 ${gsweb:capitalize(school.type.schoolTypeName)}

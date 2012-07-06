@@ -106,7 +106,7 @@
                                                                      fullUri="${fullUri}">${discussion.title}</link:discussion>
                                                 </p>
 
-                                                <p>
+                                                <p class="text3">
                                                     <community:userContentTeaserText
                                                             textToDisplay="${discussion.body}"
                                                             minLength="45" maxLength="55"
@@ -196,7 +196,7 @@
                                                                  fullUri="${fullUri}">${discussion.title}</link:discussion>
                                             </p>
 
-                                            <p>
+                                            <p class="text3">
                                                 <community:userContentTeaserText
                                                         textToDisplay="${discussion.body}"
                                                         minLength="45" maxLength="55"

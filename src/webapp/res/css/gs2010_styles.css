@@ -2937,6 +2937,7 @@ div .gallery-thumbnail-selected:hover {
 /* pagination styles */
 .pagination {
     float: right;
+    font-family: Arial, sans-serif;
 }
 
 .pagination span {

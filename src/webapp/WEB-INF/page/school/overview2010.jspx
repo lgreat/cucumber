@@ -281,9 +281,9 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 </c:choose>
 
 <c:if test="${not empty school.levelCode and school.levelCode ne 'p'}">
-    Learn more about this school's <link:schoolProfileCensus school="${school}"
+    <p class="text2">Learn more about this school's <link:schoolProfileCensus school="${school}"
                                                              anchor="teachers">teachers</link:schoolProfileCensus> and
-    <link:schoolProfileCensus school="${school}" anchor="students">students</link:schoolProfileCensus>.
+    <link:schoolProfileCensus school="${school}" anchor="students">students</link:schoolProfileCensus>.</p>
     <div class="spacer_15"><!-- do not collapse --></div>
 </c:if>  
 
@@ -322,8 +322,11 @@ href="/res/css/school/parentReviewForm_ie7.css" />
                 <div class="noticeBox">
                     <div class="media">
                         <span class="sprite pencil_med img mrm"><!-- do not collapse --></span>
-                        <div class="bd"><strong>Are you the principal? </strong>
-                            <link:schoolEspRegister styleClass="no_interrupt">Complete your school's profile</link:schoolEspRegister>
+                        <div class="bd">
+                            <p class="text2">
+                                <strong>Are you the principal? </strong>
+                                <link:schoolEspRegister styleClass="no_interrupt">Complete your school's profile</link:schoolEspRegister>
+                            </p>
                         </div>
                     </div>
                 </div>

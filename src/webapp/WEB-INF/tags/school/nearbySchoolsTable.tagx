@@ -92,12 +92,10 @@
         </colgroup>
         <thead>
         <tr class="smallText2bold">
-            <th align="center">COMPARE</th>
-            <th class="text-align-lft">SCHOOL</th>
-            <th align="center">GREATSCHOOLS RATING</th>
-            <th align="center">
-                COMMUNITY RATING
-            </th>
+            <th class="tac">COMPARE</th>
+            <th class="tal">SCHOOL</th>
+            <th class="tac">GREATSCHOOLS RATING</th>
+            <th class="tac">COMMUNITY RATING</th>
             <th><!-- do not collapse --></th>
         </tr>
         </thead>
@@ -111,7 +109,7 @@
         </colgroup>
         <tbody>
         <tr>
-            <td class="bg-color-f9eccd brdbtm_dotted" align="center">
+            <td class="bg-color-f9eccd brdbtm_dotted tac" align="center">
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                 <c:choose>
                     <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
@@ -127,7 +125,7 @@
                 <br/>
                 <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
             </td>
-            <td class="bg-color-f9eccd brdbtm_dotted">
+            <td class="bg-color-f9eccd brdbtm_dotted tal">
                 <p class="text2bold nearby-schools-link" id="nearby-schools-link-${school.databaseState}${school.id}">
                     <link:schoolProfileOverview school="${school}">
                         ${school.name}
@@ -136,7 +134,7 @@
 
                 <p class="text3"><!-- not empty --></p>
             </td>
-            <td class="bg-color-f9eccd brdbtm_dotted" align="left">
+            <td class="bg-color-f9eccd brdbtm_dotted tal" align="left">
                 <c:choose>
                     <c:when test="${school.type.schoolTypeName == 'private'}">
                         <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
@@ -149,7 +147,7 @@
                     </c:otherwise>
                 </c:choose>
             </td>
-            <td class="bg-color-f9eccd brdbtm_dotted" align="center">
+            <td class="bg-color-f9eccd brdbtm_dotted tac" align="center">
                 <link:schoolProfileParentReview school="${school}">
                     <c:choose>
                         <c:when test="${not empty ratings.overall}">
@@ -170,7 +168,7 @@
                 <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
             </c:if>
             <tr class="${nearbySchoolClass}" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
-                <td class="brdbtm_dotted" align="center">
+                <td class="brdbtm_dotted tac" align="center">
                     <c:set var="schoolKey" value="${s.neighbor.databaseState}${s.neighbor.id}"/>
                     <c:choose>
                         <c:when test="${s.neighbor.levelCode eq 'p'}">
@@ -201,7 +199,7 @@
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td class="brdbtm_dotted">
+                <td class="brdbtm_dotted tal">
                     <p class="text2bold nearby-schools-link"
                        id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}">
                         <link:schoolProfileOverview school="${s.neighbor}">
@@ -211,7 +209,7 @@
                     <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
                                                        value="${s.distance}"/> miles</p>
                 </td>
-                <td class="brdbtm_dotted" align="left">
+                <td class="brdbtm_dotted tal" align="left">
                     <c:choose>
                         <c:when test="${s.neighbor.levelCode eq 'p'}">
                             <span class="sprite badge_sm_ps"><!-- do not collapse --></span>
@@ -227,7 +225,7 @@
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td class="brdbtm_dotted" align="center">
+                <td class="brdbtm_dotted tac" align="center">
                     <link:schoolProfileParentReview school="${s.neighbor}">
                         <c:choose>
                             <c:when test="${not empty s.parentRatings.overall}">
@@ -274,10 +272,8 @@
         <thead>
         <tr class="smallText2bold">
             <th><!-- do not collapse --></th>
-            <th class="text-align-lft">SCHOOL</th>
-            <th align="center">
-                COMMUNITY RATING
-            </th>
+            <th class="tal">SCHOOL</th>
+            <th class="tac">COMMUNITY RATING</th>
             <th><!-- do not collapse --></th>
         </tr>
         </thead>
@@ -290,8 +286,8 @@
         </colgroup>
         <tbody>
         <tr>
-            <td class="bg-color-f9eccd brdbtm_dotted"><!-- do not collapse --></td>
-            <td class="bg-color-f9eccd brdbtm_dotted">
+            <td class="bg-color-f9eccd brdbtm_dotted tac"><!-- do not collapse --></td>
+            <td class="bg-color-f9eccd brdbtm_dotted tal">
                 <p class="text2bold nearby-schools-link" id="nearby-schools-link-${school.databaseState}${school.id}">
                     <link:schoolProfileOverview school="${school}">
                         ${school.name}
@@ -300,7 +296,7 @@
 
                 <p class="text3"><!-- not empty --></p>
             </td>
-            <td class="bg-color-f9eccd brdbtm_dotted" align="center">
+            <td class="bg-color-f9eccd brdbtm_dotted tac" align="center">
                 <link:schoolProfileParentReview school="${school}">
                     <c:choose>
                         <c:when test="${not empty ratings.overall}">
@@ -321,8 +317,8 @@
                 <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
             </c:if>
             <tr class="${nearbySchoolClass}" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
-                <td class="brdbtm_dotted"><!-- do not collapse --></td>
-                <td class="brdbtm_dotted">
+                <td class="brdbtm_dotted tac"><!-- do not collapse --></td>
+                <td class="brdbtm_dotted tal">
                     <p class="text2bold nearby-schools-link"
                        id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}">
                         <link:schoolProfileOverview school="${s.neighbor}">
@@ -332,7 +328,7 @@
                     <p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
                                                        value="${s.distance}"/> miles</p>
                 </td>
-                <td class="brdbtm_dotted" align="center">
+                <td class="brdbtm_dotted tal" align="center">
                     <link:schoolProfileParentReview school="${s.neighbor}">
                         <c:choose>
                             <c:when test="${not empty s.parentRatings.overall}">
@@ -383,14 +379,14 @@
                 </colgroup>
                 <thead>
                 <tr class="smallText2bold">
-                    <th align="center">COMPARE</th>
-                    <th class="text-align-lft padlft_10 padrt_10">SCHOOL</th>
-                    <th align="center">COMMUNITY RATING</th>
+                    <th class="tac" align="center">COMPARE</th>
+                    <th class="tal padlft_10 padrt_10">SCHOOL</th>
+                    <th class="tac" align="center">COMMUNITY RATING</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="bg-color-f9eccd brdbtm_dotted" align="center">
+                    <td class="bg-color-f9eccd brdbtm_dotted tac" align="center">
                         <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                         <c:choose>
                             <c:when test="${gsweb:separatedListContains(param.compareSchools,schoolKey, ',')}">
@@ -406,7 +402,7 @@
                         <br/>
                         <label for="${school.databaseState}${school.id}" class="smallText2">COMPARE</label>
                     </td>
-                    <td class="bg-color-f9eccd brdbtm_dotted padlft_10 padrt_10">
+                    <td class="bg-color-f9eccd brdbtm_dotted padlft_10 padrt_10 tal">
                         <p class="text2bold nearby-schools-link"
                            id="nearby-schools-link-${school.databaseState}${school.id}">
                             <link:schoolProfileOverview school="${school}">
@@ -416,7 +412,7 @@
 
                         <p class="text3"><!-- not empty --></p>
                     </td>
-                    <td class="bg-color-f9eccd brdbtm_dotted" align="center">
+                    <td class="bg-color-f9eccd brdbtm_dotted tac" align="center">
                         <link:schoolProfileParentReview school="${school}">
                             <c:choose>
                                 <c:when test="${not empty ratings.overall}">
@@ -437,7 +433,7 @@
                         <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
                     </c:if>
                     <tr class="${nearbySchoolClass}" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
-                        <td class="brdbtm_dotted" align="center">
+                        <td class="brdbtm_dotted tac" align="center">
                             <c:set var="schoolKey" value="${s.neighbor.databaseState}${s.neighbor.id}"/>
                             <c:choose>
                                 <c:when test="${s.neighbor.levelCode eq 'p'}">
@@ -469,7 +465,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td class="brdbtm_dotted padlft_10 padrt_10">
+                        <td class="brdbtm_dotted padlft_10 padrt_10 tal">
                             <p class="text2bold nearby-schools-link"
                                id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}">
                                 <link:schoolProfileOverview school="${s.neighbor}">
@@ -479,7 +475,7 @@
                             <!--<p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
                            value="${s.distance}"/> miles</p>-->
                         </td>
-                        <td class="brdbtm_dotted" align="center">
+                        <td class="brdbtm_dotted tac" align="center">
                             <link:schoolProfileParentReview school="${s.neighbor}">
                                 <c:choose>
                                     <c:when test="${not empty s.parentRatings.overall}">
@@ -522,13 +518,13 @@
                 </colgroup>
                 <thead>
                 <tr class="smallText2bold">
-                    <th class="text-align-lft padlft_10 padrt_10">SCHOOL</th>
-                    <th align="center">COMMUNITY RATING</th>
+                    <th class="tal padlft_10 padrt_10">SCHOOL</th>
+                    <th class="tac" align="center">COMMUNITY RATING</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="bg-color-f9eccd brdbtm_dotted padlft_10 padrt_10">
+                    <td class="bg-color-f9eccd brdbtm_dotted padlft_10 padrt_10 tal">
                         <p class="text2bold nearby-schools-link"
                            id="nearby-schools-link-${school.databaseState}${school.id}">
                             <link:schoolProfileOverview school="${school}">
@@ -538,7 +534,7 @@
 
                         <p class="text3"><!-- not empty --></p>
                     </td>
-                    <td class="bg-color-f9eccd brdbtm_dotted" align="center">
+                    <td class="bg-color-f9eccd brdbtm_dotted tac" align="center">
                         <link:schoolProfileParentReview school="${school}">
                             <c:choose>
                                 <c:when test="${not empty ratings.overall}">
@@ -559,7 +555,7 @@
                         <c:set var="nearbySchoolClass" value="nearby-school hidden"/>
                     </c:if>
                     <tr class="${nearbySchoolClass}" id="nearby-schools-${s.neighbor.databaseState}${s.neighbor.id}">
-                        <td class="brdbtm_dotted padlft_10 padrt_10">
+                        <td class="brdbtm_dotted padlft_10 padrt_10 tal">
                             <p class="text2bold nearby-schools-link"
                                id="nearby-schools-link-${s.neighbor.databaseState}${s.neighbor.id}">
                                 <link:schoolProfileOverview school="${s.neighbor}">
@@ -569,7 +565,7 @@
                             <!--<p class="text3"><fmt:formatNumber type="number" maxFractionDigits="1"
                            value="${s.distance}"/> miles</p>-->
                         </td>
-                        <td class="brdbtm_dotted" align="center">
+                        <td class="brdbtm_dotted tac" align="center">
                             <link:schoolProfileParentReview school="${s.neighbor}">
                                 <c:choose>
                                     <c:when test="${not empty s.parentRatings.overall}">

@@ -91,7 +91,7 @@
             <div id="categoryRatings">
                 <c:choose>
                     <c:when test="${ratings.preschool}">
-                        <ul>
+                        <ul class="text2bold">
                             <c:if test="${not empty ratings.avgP_Facilities}">
                                 <li><span class="fltlft">Facilities &amp; equipment</span><span
                                         class="fltrt sprite stars_sm_${ratings.avgP_Facilities}"><!-- do not collapse --></span>
@@ -112,7 +112,7 @@
                         </ul>
                     </c:when>
                     <c:when test="${ratings.gradeschool}">
-                        <ul>
+                        <ul class="text2bold">
                             <c:if test="${not empty ratings.avgPrincipal}">
                                 <li><span class="fltlft">Principal leadership</span><span
                                         class="fltrt sprite stars_sm_${ratings.avgPrincipal}"><!-- do not collapse --></span>
