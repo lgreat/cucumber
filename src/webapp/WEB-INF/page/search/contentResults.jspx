@@ -60,7 +60,7 @@
         <c:when test="${requestScope.numResults gt 0}">
             ${pageScope.pageTitle}
             <div class="srchCtrls">
-            <ul class="searchNav mtm">
+            <ul class="searchNav mtm none">
             <c:if test="${numResultTypes > 1}">
                 <c:set var="typeButtonText" value="All results (${requestScope.numResults})"/>
                 <c:choose>
@@ -196,7 +196,7 @@
                     <h3 class="srchCat">Articles</h3>
                 </div>
 
-                <ul class="srchRslts srchCatArticles">
+                <ul class="srchRslts srchCatArticles none">
                     <c:forEach var="result" items="${requestScope.articleResults}" varStatus="status">
                         <c:choose>
                             <c:when test="${status.count == fn:length(requestScope.articleResults)}">
@@ -251,7 +251,7 @@
                     <h3 class="srchCat">Worksheets</h3>
                 </div>
 
-                <ul class="srchRslts srchCatArticles">
+                <ul class="srchRslts srchCatArticles none">
                     <c:forEach var="result" items="${requestScope.worksheetResults}" varStatus="status">
                         <c:choose>
                             <c:when test="${status.count == fn:length(requestScope.worksheetResults)}">
@@ -306,7 +306,7 @@
                     <h3 class="srchCat">Videos</h3>
                 </div>
 
-                <ul class="srchRslts srchCatArticles">
+                <ul class="srchRslts srchCatArticles none">
                     <c:forEach var="result" items="${requestScope.videoResults}" varStatus="status">
                         <c:choose>
                             <c:when test="${status.count == fn:length(requestScope.videoResults)}">
@@ -361,7 +361,7 @@
                     <h3 class="srchCat">Community</h3>
                 </div>
 
-                <ul class="srchRslts srchCatComm">
+                <ul class="srchRslts srchCatComm none">
                     <c:forEach var="result" items="${requestScope.communityResults}" varStatus="status">
                         <c:choose>
                             <c:when test="${status.count == fn:length(requestScope.communityResults)}">
