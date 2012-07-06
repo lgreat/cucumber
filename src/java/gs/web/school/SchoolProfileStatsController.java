@@ -4,6 +4,7 @@ package gs.web.school;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import gs.data.school.School;
+import gs.data.school.SchoolType;
 import gs.data.school.census.*;
 import gs.data.school.district.District;
 import gs.data.state.State;
@@ -166,6 +167,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         for (Map.Entry<Integer,CensusDataSet> entry : censusDataSets.entrySet()) {
             Integer censusDataSetId = entry.getKey();
             Integer dataTypeId = entry.getValue().getDataType().getId();
+            CensusDataType dataTypeEnum = CensusDataType.getEnum(dataTypeId);
             Integer groupIdInt = config.getDataTypeToGroupIdMap().get(entry.getValue().getDataType().getId());
             Long groupId = null;
             if (groupIdInt != null) {
@@ -189,7 +191,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             SchoolCensusValue schoolCensusValue = schoolValueMap.get(censusDataSetId);
             if (schoolCensusValue != null) {
                 if (schoolCensusValue.getValueFloat() != null) {
-                    schoolValue = String.valueOf(Math.round(schoolCensusValue.getValueFloat()));
+                    schoolValue = formatValue(schoolCensusValue.getValueFloat(), dataTypeEnum.getValueType());
                 } else {
                     schoolValue = String.valueOf(schoolCensusValue.getValueText());
                 }
@@ -199,7 +201,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             DistrictCensusValue districtCensusValue = districtValueMap.get(censusDataSetId);
             if (districtCensusValue != null) {
                 if (districtCensusValue.getValueFloat() != null) {
-                    districtValue = String.valueOf(Math.round(districtCensusValue.getValueFloat()));
+                    districtValue = formatValue(districtCensusValue.getValueFloat(), dataTypeEnum.getValueType());
                 } else {
                     districtValue = String.valueOf(districtCensusValue.getValueText());
                 }
@@ -209,7 +211,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             StateCensusValue stateCensusValue = stateValueMap.get(censusDataSetId);
             if (stateCensusValue != null) {
                 if (stateCensusValue.getValueFloat() != null) {
-                    stateValue = String.valueOf(Math.round(stateCensusValue.getValueFloat()));
+                    stateValue = formatValue(stateCensusValue.getValueFloat(), dataTypeEnum.getValueType());
                 } else {
                     stateValue = String.valueOf(stateCensusValue.getValueText());
                 }
@@ -238,6 +240,19 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         }
 
         return statsRowMap;
+    }
+
+    private String formatValue(Float value, CensusDataType.ValueType valueType) {
+        String result;
+        if (CensusDataType.ValueType.PERCENT.equals(valueType)) {
+            result = String.valueOf(Math.round(value)) + "%";
+        } else if (CensusDataType.ValueType.MONETARY.equals(valueType)) {
+            result = "$" + String.valueOf(value);
+        } else {
+            result = String.valueOf(Math.round(value));
+        }
+
+        return result;
     }
 
     public class StatsRow implements Serializable {
