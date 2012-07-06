@@ -16,7 +16,7 @@
 
     <jsp:directive.attribute name="gsRatingsModel" type="java.lang.Object" required="true"/>
 
-    <c:set var="school" value="${gsRatingsModel['school']}"/>
+    <c:set var="school" value="${gsRatingsModel['school']}" scope="page"/>
     <c:set var="ratings" value="${gsRatingsModel['ratings']}"/>
     <c:set var="numberOfReviews" value="${gsRatingsModel['numberOfReviews']}"/>
 
