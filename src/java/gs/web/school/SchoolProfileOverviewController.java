@@ -80,7 +80,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // There are two versions of this page, one if there is OSP (aka ESP) data available or not.
         // This can be determined by retrieving the esp data and seeing it if any data is returned.
         // Then execute the Esp or non-Esp code
-        Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request, school );
+        Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request );
         modelMap.put( "espData", espResults );
 
         if( espResults != null && !espResults.isEmpty() ) {
@@ -147,7 +147,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     private Map<String, Object> getReviewsTile(HttpServletRequest request, School school) {
         Map<String, Object> reviewsModel = new HashMap<String, Object>(2);
-        reviewsModel.put( "reviews", _schoolProfileDataHelper.getNonPrincipalReviews(request, school, 5) );
+        reviewsModel.put( "reviews", _schoolProfileDataHelper.getNonPrincipalReviews(request, 5) );
 
         return reviewsModel;
     }
@@ -155,8 +155,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private Map<String, Object> getCommunityRatingTile(HttpServletRequest request, School school) {
         Map<String, Object> communityModel = new HashMap<String, Object>(3);
         communityModel.put( "school", school );
-        communityModel.put( "ratings", _schoolProfileDataHelper.getSchoolRatings( request, school ) );
-        communityModel.put( "numberOfReviews", _schoolProfileDataHelper.getCountPublishedNonPrincipalReviews(request, school) );
+        communityModel.put( "ratings", _schoolProfileDataHelper.getSchoolRatings( request ) );
+        communityModel.put( "numberOfReviews", _schoolProfileDataHelper.getCountPublishedNonPrincipalReviews(request) );
 
         return communityModel;
     }
@@ -166,7 +166,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, Object> photosModel = new HashMap<String, Object>(2);
 
         // Default action is to add photos
-        List<SchoolMedia> photoGalleryImages = _schoolProfileDataHelper.getSchoolMedia( request, school );
+        List<SchoolMedia> photoGalleryImages = _schoolProfileDataHelper.getSchoolMedia( request );
         photosModel.put("basePhotoPath", CommunityUtil.getMediaPrefix());
         photosModel.put("photoGalleryImages",photoGalleryImages);
         //used to support the "Report It" links in recent reviews list
@@ -226,14 +226,150 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     private Map getSpecialEdTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
-        Map<String, Object> _Model = new HashMap<String, Object>(2);
+        Map<String, Object> specialEdModel = new HashMap<String, Object>(2);
 
-        // TODO - This is a stub - the appropriate code needs to be inserted below
-        // Default action
+        // Get all of the date needed to make the required decisions
+        List<EspResponse> specEdLevel = espData.get("spec_ed_level");
+        boolean hasSpecEdLevelSpecified = checkEspResponseListForValue(specEdLevel, new String[]{"basic", "moderate", "intensive", "none"});
+        boolean hasSpecEdLevelNotNone = checkEspResponseListForValue( specEdLevel, new String[]{"basic", "moderate", "intensive"} );
+        boolean hasSpecEdLevelNoneOrBlank = checkEspResponseListForValue(specEdLevel, new String[]{"none"});
+        boolean hasSpecEdLevelNone = (isNotEmpty(specEdLevel) && hasSpecEdLevelNoneOrBlank);
 
-        // Substitute action 1
+        List<EspResponse> specEdPgmsExist = espData.get("special_ed_programs_exists");
+        boolean specEdPgmsExistYes = checkEspResponseListForValue( specEdPgmsExist, new String[]{"yes"} );
+        boolean specEdPgmsExistNoOrBlank = (isEmpty(specEdPgmsExist) || (checkEspResponseListForValue(specEdPgmsExist, new String[]{"no"}) )) ;  // Contains 'no' or blank
+        boolean specEdPgmsExistNo = checkEspResponseListForValue(specEdPgmsExist, new String[]{"no"});  // Contains 'no'
 
-        return _Model;
+        List<EspResponse> specEdPgms = espData.get("special_ed_programs");
+        List<EspResponse> academicFocus = espData.get("academic_focus");
+        boolean hasAcademicFocus = checkEspResponseListForValue(academicFocus, new String[]{"special_education", "special_ed"});
+
+        boolean  hasSpecEdCoord = checkEspResponseListForValue(espData.get("staff_resources"), new String[]{"special_ed_coordinator"});
+
+        List<EspResponse> beforeAfterCare = espData.get("before_after_care");
+        List<EspResponse> beforeAfterCareStart = espData.get("before_after_care_start");
+        List<EspResponse> beforeAfterCareEnd = espData.get("before_after_care_end");
+
+        // Now decide if displaying default or substitute content
+        boolean displayDefault;
+        if( hasSpecEdLevelSpecified || isNotEmpty(specEdPgmsExist) || isNotEmpty(specEdPgms) || hasAcademicFocus ||
+                hasSpecEdCoord || isNotEmpty(beforeAfterCare) || isNotEmpty(beforeAfterCareStart) ||
+                isNotEmpty(beforeAfterCareEnd) ) {
+            displayDefault = true;
+            specialEdModel.put( "SpecEdDisplaySelected", "default" ); // To help with unit tests
+        }
+        else {
+            displayDefault = false;
+            specialEdModel.put( "SpecEdDisplaySelected", "substitute" ); // To help with unit tests
+        }
+
+        if( displayDefault ) {
+            // ========== Display Default content ==========
+            // ------------- Special Education -------------
+            // For the default content there are 4 display options and if none of those conditions are met there is static text to display
+            if( hasSpecEdLevelSpecified || isNotEmpty(specEdPgmsExist) || isNotEmpty(specEdPgms) || hasAcademicFocus ||
+                    hasSpecEdCoord  ) {
+                // Content is to be displayed, next determine what
+                // Check for first option
+                if( specEdPgmsExistYes && isNotEmpty(specEdPgms) ) {
+                    // Display option 'a' - return a list of service offered
+                    List<String> specEdPgmsList = new ArrayList<String>();
+                    for( EspResponse r : specEdPgms ) {
+                        specEdPgmsList.add( r.getPrettyValue() );
+                    }
+                    specialEdModel.put( "SpecEdPgms", specEdPgmsList );
+                    specialEdModel.put( "SpecEdPgmsOptSelected", "a" ); // To help with unit tests
+                }
+                else if( specEdPgmsExistYes && (specEdPgms==null) || isNotEmpty(specEdPgms) ) {
+                    // Display option 'b' - according to the spec this shouldn't happen
+                    // but if it does display a static message that services are provided
+                    specialEdModel.put( "SpecEdPgmsProvided", "yes" );
+                    specialEdModel.put( "SpecEdPgmsOptSelected", "b" ); // To help with unit tests
+                }
+                else if( specEdPgmsExistNoOrBlank && (hasSpecEdLevelNotNone || hasAcademicFocus || hasSpecEdCoord) ) {
+                    // Display option 'c' - Services are provided
+                    specialEdModel.put( "SpecEdPgmsProvided", "yes" );
+                    specialEdModel.put( "SpecEdPgmsOptSelected", "c" ); // To help with unit tests
+                }
+                else if ( (specEdPgmsExistNo || hasSpecEdLevelNone) && !hasAcademicFocus && !hasSpecEdCoord ) {
+                    // Display option 'd' - Services are not provided
+                    specialEdModel.put( "SpecEdPgmsProvided", "no" );
+                    specialEdModel.put( "SpecEdPgmsOptSelected", "d" ); // To help with unit tests
+                }
+                else {
+                    // Spec doesn't specify what happens here - Services are not provided???
+                    specialEdModel.put( "SpecEdPgmsProvided", "call" );  // Is this right
+                    specialEdModel.put( "SpecEdPgmsOptSelected", "unspecified" ); // To help with unit tests
+                }
+            }
+            else {
+                // No specific content is available - show call school message
+                specialEdModel.put( "SpecEdPgmsProvided", "call" );  // In the end - can we get rid of this
+            }
+            // ------------- Extended Care -------------
+            if( isNotEmpty(beforeAfterCare) || isNotEmpty(beforeAfterCareEnd) || isNotEmpty(beforeAfterCareStart) ) {
+                // Content is to be displayed, next determine what
+                // handle display based on contents of beforeAfterCare
+                boolean hasBeforeCare = checkEspResponseListForValue(beforeAfterCare, new String[]{"before"});
+                boolean hasAfterCare  = checkEspResponseListForValue(beforeAfterCare, new String[]{"after"});
+                if( isEmpty(beforeAfterCare) ) {
+                    // before or after not specified
+                    if( isNotEmpty(beforeAfterCareStart) ) {
+                        specialEdModel.put( "ExtdCareBefore", "Starts: " + beforeAfterCareStart.get(0).getPrettyValue() );
+                    }
+                    if( isNotEmpty(beforeAfterCareEnd) ) {
+                        specialEdModel.put( "ExtdCareAfter", "Ends: " + beforeAfterCareEnd.get(0).getPrettyValue() );
+                    }
+                }
+                if( hasBeforeCare ) {
+                    // before care is specified
+                    StringBuffer sb = new StringBuffer("Before school");
+                    if( isNotEmpty(beforeAfterCareStart) ) {
+                        // Add start time
+                        sb.append(": Starts ").append( beforeAfterCareStart.get(0).getPrettyValue() );
+                    }
+                    specialEdModel.put( "ExtdCareBefore", sb.toString() );
+                }
+                if( hasAfterCare ) {
+                    // before care is specified
+                    StringBuffer sb = new StringBuffer("After school");
+                    if( isNotEmpty(beforeAfterCareEnd) ) {
+                        // Add end time
+                        sb.append(": Ends ").append(beforeAfterCareEnd.get(0).getPrettyValue());
+                    }
+                    specialEdModel.put( "ExtdCareAfter", sb.toString() );
+                }
+            }
+            else {
+                // No specific content is available - show call school message
+                specialEdModel.put( "ExtdCareProvided", "call" );  // In the end - can we get rid of this
+
+            }
+            // Now determine what the header should be based on the type of school
+            LevelCode lc = school.getLevelCode();
+            if( lc != null ) {
+                if( lc.containsLevelCode(LevelCode.Level.HIGH_LEVEL) ||
+                        (lc.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL) && lc.containsLevelCode(LevelCode.Level.HIGH_LEVEL) ) ) {
+                    specialEdModel.put( "ExtdCareTitle", "Extended programs" );
+                }
+                else {
+                    specialEdModel.put( "ExtdCareTitle", "Extended care" );
+                }
+            }
+        }
+        else {
+            // ========== Substitute action ==========
+            // ------------- Special Education -------------
+
+            // ------------- Extended Care -------------
+
+        }
+
+
+
+
+
+        return specialEdModel;
     }
 
     private Map getExtendedCareTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
@@ -388,6 +524,27 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
     }
 
+    /**
+     * Helper function to go through a list of EspResponse objects looking for one of the specified values
+     * @param espResponses The EspResponse objects to check
+     * @param valuesToLookFor The values to look for
+     * @return True if any value is found in the EspResponses
+     */
+    private boolean checkEspResponseListForValue(List<EspResponse> espResponses, String[] valuesToLookFor) {
+        if( (espResponses==null) || (espResponses.size()==0) ) {
+            return false;
+        }
+
+        for( String val : valuesToLookFor ) {
+            for( EspResponse r : espResponses ) {
+                if( r.getValue().equals( val ) ) {
+                    return true;    // Found, we are done
+                }
+            }
+        }
+        return false;   // If we get here the answer no match was found
+    }
+
     private List<String> getEspDataByKey(String key, NoneHandling noneHandling, Map<String, List<EspResponse>> espData) {
         List<String> results = new ArrayList<String>();
         List<EspResponse> espResponses = espData.get( key );
@@ -443,6 +600,15 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return bestKnownFor;
     }
 
+
+    boolean isNotEmpty( Collection c ) {
+        return ( (c!=null) && c.size()>0 );
+    }
+
+
+    boolean isEmpty( Collection c ) {
+        return ((c==null) || (c.size()==0));
+    }
 
     // The following setter dependency injection is just for the tester
     public void setSchoolProfileDataHelper( SchoolProfileDataHelper schoolProfileDataHelper ) {

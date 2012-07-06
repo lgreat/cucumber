@@ -16,9 +16,9 @@
 
     <jsp:directive.attribute name="communityRatingsModel" type="java.lang.Object" required="true"/>
 
-    <c:set var="school" value="${communityRatingsModel['school']}"/>
-    <c:set var="ratings" value="${communityRatingsModel['ratings']}"/>
-    <c:set var="numberOfReviews" value="${communityRatingsModel['numberOfReviews']}"/>
+    <c:set var="school" value="${communityRatingsModel['school']}" scope="page"/>
+    <c:set var="ratings" value="${communityRatingsModel['ratings']}" scope="page"/>
+    <c:set var="numberOfReviews" value="${communityRatingsModel['numberOfReviews']}" scope="page"/>
 
 
 

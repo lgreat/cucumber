@@ -15,8 +15,8 @@
         >
 
     <jsp:directive.attribute name="photosModel" type="java.lang.Object" required="true"/>
-    <c:set var="images" value="${photosModel['photoGalleryImages']}"/>
-    <c:set var="basePath" value="${photosModel['basePhotoPath']}"/>
+    <c:set var="images" value="${photosModel['photoGalleryImages']}" scope="page"/>
+    <c:set var="basePath" value="${photosModel['basePhotoPath']}" scope="page"/>
     <!-- Old
     <jsp:directive.attribute name="images" type="java.util.List" required="true"/>
     <jsp:directive.attribute name="basePath" type="java.lang.String" required="true"/>

@@ -17,9 +17,9 @@
     <jsp:directive.attribute name="localInfoModel" type="java.lang.Object" required="true"/>
 
     <!--
-    <c:set var="xxx" value="${localInfoModel['school']}"/>
-    <c:set var="yyy" value="${localInfoModel['ratings']}"/>
-    <c:set var="zzz" value="${localInfoModel['numberOfReviews']}"/>
+    <c:set var="xxx" value="${localInfoModel['school']}" scope="page"/>
+    <c:set var="yyy" value="${localInfoModel['ratings']}" scope="page"/>
+    <c:set var="zzz" value="${localInfoModel['numberOfReviews']}" scope="page"/>
     -->
     <school:profileOverviewCell1 title="District Information">
         <!-- This is prototype - replace with real display code -->

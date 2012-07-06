@@ -17,9 +17,9 @@
     <jsp:directive.attribute name="applInfoModel" type="java.lang.Object" required="true"/>
 
     <!--
-    <c:set var="xxx" value="${applInfoModel['school']}"/>
-    <c:set var="yyy" value="${applInfoModel['ratings']}"/>
-    <c:set var="zzz" value="${applInfoModel['numberOfReviews']}"/>
+    <c:set var="xxx" value="${applInfoModel['school']}" scope="page"/>
+    <c:set var="yyy" value="${applInfoModel['ratings']}" scope="page"/>
+    <c:set var="zzz" value="${applInfoModel['numberOfReviews']}" scope="page"/>
     -->
     <school:profileOverviewCell1 title="Application information">
         <!-- Insert display code here -->

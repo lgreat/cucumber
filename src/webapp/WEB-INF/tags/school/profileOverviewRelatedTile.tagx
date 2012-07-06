@@ -17,9 +17,9 @@
     <jsp:directive.attribute name="relatedModel" type="java.lang.Object" required="true"/>
 
     <!--
-    <c:set var="xxx" value="${relatedModel['school']}"/>
-    <c:set var="yyy" value="${relatedModel['ratings']}"/>
-    <c:set var="zzz" value="${relatedModel['numberOfReviews']}"/>
+    <c:set var="xxx" value="${relatedModel['school']}" scope="page"/>
+    <c:set var="yyy" value="${relatedModel['ratings']}" scope="page"/>
+    <c:set var="zzz" value="${relatedModel['numberOfReviews']}" scope="page"/>
     -->
 
     <school:profileOverviewCell1 title="Interested in this school? These articles are for you">

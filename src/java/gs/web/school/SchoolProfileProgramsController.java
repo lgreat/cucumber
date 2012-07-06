@@ -90,7 +90,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Get Data
         if (school != null) {
             // Replaced by call below -- List<EspResponse> results = _espResponseDao.getResponsesByKeys( school, _keyValuesToExtract );
-            Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request, school );
+            Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request );
 
             if( espResults != null && !espResults.isEmpty() ) {
 

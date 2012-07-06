@@ -7,6 +7,7 @@ import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
+import gs.web.request.RequestAttributeHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,7 @@ public class SchoolProfileDataHelper {
     private final static String SCHOOL_RATINGS_ATTRIBUTE = "ratings";
     private final static String PUBLISHED_REVIEW_COUNT = "publishedReviewCount";
     private final static String REVIEWS = "reviews";
+    private final static String REVIEWS_COUNT = "reviewsCount";
     private final static String SCHOOL_MEDIA_REPORTS_BY_USER = "reportsByUser";
 
     @Autowired
@@ -47,15 +49,15 @@ public class SchoolProfileDataHelper {
     @Autowired
     private IReportedEntityDao _reportedEntityDao;
 
-    protected Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request, School school ) {
+    @Autowired
+    private RequestAttributeHelper _requestAttributeHelper;
+
+    protected Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
         // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
         if( school == null ) {
-            school = (School) request.getAttribute(SCHOOL_REQUEST_ATTRIBUTE);
-
-            if (school == null) {
-                return null;
-            }
+            throw new IllegalArgumentException( "The request must already contain a school object" );
         }
 
         // Get Data
@@ -101,15 +103,12 @@ public class SchoolProfileDataHelper {
         return resultsMap;
     }
 
-    protected List<SchoolMedia> getSchoolMedia(HttpServletRequest request, School school) {
+    protected List<SchoolMedia> getSchoolMedia(HttpServletRequest request) {
 
         // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
         if( school == null ) {
-            school = (School) request.getAttribute(SCHOOL_REQUEST_ATTRIBUTE);
-
-            if (school == null) {
-                return null;
-            }
+            throw new IllegalArgumentException( "The request must already contain a school object" );
         }
 
         // Get Data
@@ -168,15 +167,12 @@ public class SchoolProfileDataHelper {
     }
 
 
-    protected Ratings getSchoolRatings (HttpServletRequest request, School school) {
+    protected Ratings getSchoolRatings (HttpServletRequest request) {
 
         // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
         if( school == null ) {
-            school = (School) request.getAttribute(SCHOOL_REQUEST_ATTRIBUTE);
-
-            if (school == null) {
-                return null;
-            }
+            throw new IllegalArgumentException( "The request must already contain a school object" );
         }
 
         // Get Data
@@ -194,15 +190,12 @@ public class SchoolProfileDataHelper {
         return ratings;
     }
 
-    protected Long getCountPublishedNonPrincipalReviews (HttpServletRequest request, School school) {
+    protected Long getCountPublishedNonPrincipalReviews (HttpServletRequest request) {
 
         // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
         if( school == null ) {
-            school = (School) request.getAttribute(SCHOOL_REQUEST_ATTRIBUTE);
-
-            if (school == null) {
-                return null;
-            }
+            throw new IllegalArgumentException( "The request must already contain a school object" );
         }
 
         // Get Data
@@ -220,29 +213,23 @@ public class SchoolProfileDataHelper {
         return numberOfReviews;
     }
 
-    protected List<Review> getNonPrincipalReviews (HttpServletRequest request, School school, int countRequested ) {
+    protected List<Review> getNonPrincipalReviews (HttpServletRequest request, int countRequested ) {
 
         // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
         if( school == null ) {
-            school = (School) request.getAttribute(SCHOOL_REQUEST_ATTRIBUTE);
-
-            if (school == null) {
-                return null;
-            }
+            throw new IllegalArgumentException( "The request must already contain a school object" );
         }
 
         // Get Data
         List<Review> reviews = (List<Review>)request.getAttribute( REVIEWS );
         if( reviews == null ) {
-            reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school, countRequested);
-            if( reviews == null ) {
-                return null;    // No data is available, return null
-            }
-            else {
-                // Store for future use
-                request.setAttribute( REVIEWS, reviews );
-            }
+            reviews = new ArrayList<Review>(0);
         }
+
+        // Keep a count of the number of reviews available in the DB if more than that number have been requested.
+        // This is to prevent asking for more than are available.
+//        Integer reviewsCount = (Integer)request.getAttribute( REVIEWS_COUNT );
 
         // If the number stored request the number requested just return them
         if( reviews.size() == countRequested ) {
@@ -253,9 +240,58 @@ public class SchoolProfileDataHelper {
             List<Review> subset = reviews.subList(0, countRequested);
             return subset;
         }
+        else {
+            // Fewer reviews are available than requested.
+            // First see if we know how many are in the DB
+            Integer reviewsCount = (Integer)request.getAttribute( REVIEWS_COUNT );
+            if( reviewsCount != null ) {
+                // See if we got fewer than we wanted and if so ???
+                // We have a count and this is the max we can return, so return them
+                return reviews;
+            }
+            else {
+                // Go to the DB for the request number
+                reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school, countRequested);
+                if( reviews == null ) {
+                    request.setAttribute( REVIEWS_COUNT, new Integer(0) );  // Save the count (of 0) so we don't hit the DB again
+                    return null;    // No data is available, return null
+                }
+                else {
+                    // Store for future use
+                    request.setAttribute( REVIEWS, reviews );
+                    // If we got fewer than requested save that count so we don't again ask for more than are present
+                    if( reviews.size() < countRequested ) {
+                        request.setAttribute( REVIEWS_COUNT, new Integer(reviews.size()) );  // Save the count since we know the max now
+                    }
+                }
+            }
+
+        }
 
         return  reviews;    // Return what we have
     }
+
+    // ============== The following setters are just for unit testing ===================
+    public void setEspResponseDao( IEspResponseDao espResponseDao ) {
+        _espResponseDao = espResponseDao;
+    }
+
+    public  void setSchoolMediaDao( ISchoolMediaDao schoolMediaDao ) {
+        _schoolMediaDao = schoolMediaDao;
+    }
+
+    public void setReviewDao( IReviewDao reviewDao ) {
+        _reviewDao = reviewDao;
+    }
+
+    public void setReportedEntityDao( IReportedEntityDao reportedEntityDao ) {
+        _reportedEntityDao = reportedEntityDao;
+    }
+
+    public void setRequestAttributeHelper( RequestAttributeHelper requestAttributeHelper ) {
+        _requestAttributeHelper = requestAttributeHelper;
+    }
+
 
 }
 

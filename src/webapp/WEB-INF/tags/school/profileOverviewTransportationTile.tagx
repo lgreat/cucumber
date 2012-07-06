@@ -17,9 +17,9 @@
     <jsp:directive.attribute name="transportationModel" type="java.lang.Object" required="true"/>
 
     <!--
-    <c:set var="xxx" value="${transportationModel['school']}"/>
-    <c:set var="yyy" value="${transportationModel['ratings']}"/>
-    <c:set var="zzz" value="${transportationModel['numberOfReviews']}"/>
+    <c:set var="xxx" value="${transportationModel['school']}" scope="page"/>
+    <c:set var="yyy" value="${transportationModel['ratings']}" scope="page"/>
+    <c:set var="zzz" value="${transportationModel['numberOfReviews']}" scope="page"/>
     -->
 
     <school:profileOverviewCell1 title="Transportation">

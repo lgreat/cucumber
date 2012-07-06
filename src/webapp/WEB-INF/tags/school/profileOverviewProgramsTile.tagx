@@ -19,9 +19,9 @@
 
 
     <!--
-    <c:set var="xxx" value="${programsModel['school']}"/>
-    <c:set var="yyy" value="${programsModel['ratings']}"/>
-    <c:set var="zzz" value="${programsModel['numberOfReviews']}"/>
+    <c:set var="xxx" value="${programsModel['school']}" scope="page"/>
+    <c:set var="yyy" value="${programsModel['ratings']}" scope="page"/>
+    <c:set var="zzz" value="${programsModel['numberOfReviews']}" scope="page"/>
     -->
 
     <school:profileOverviewCell1 title="Programs">

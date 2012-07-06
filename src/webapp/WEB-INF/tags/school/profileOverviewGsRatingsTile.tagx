@@ -17,8 +17,8 @@
     <jsp:directive.attribute name="gsRatingsModel" type="java.lang.Object" required="true"/>
 
     <c:set var="school" value="${gsRatingsModel['school']}" scope="page"/>
-    <c:set var="ratings" value="${gsRatingsModel['ratings']}"/>
-    <c:set var="numberOfReviews" value="${gsRatingsModel['numberOfReviews']}"/>
+    <c:set var="ratings" value="${gsRatingsModel['ratings']}" scope="page"/>
+    <c:set var="numberOfReviews" value="${gsRatingsModel['numberOfReviews']}" scope="page"/>
 
 
     <school:profileOverviewCell1 title="GreatSchools ratings">

@@ -61,7 +61,7 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100">
-                        <school:profileOverviewSpecialEdTile specialEdModel="${specialEd}" extendedCareModel="${extendedCare}" />
+                        <school:profileOverviewSpecialEdTile specialEdModel="${specialEd}" />
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>

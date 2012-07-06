@@ -14,10 +14,10 @@
         >
 
     <jsp:directive.attribute name="sportsModel" type="java.lang.Object" required="true"/>
-    <c:set var="boysSports" value="${sportsModel['boys_sports']}"/>
-    <c:set var="girlsSports" value="${sportsModel.girls_sports}"/>
-    <c:set var="arts" value="${sportsModel.arts}"/>
-    <c:set var="music" value="${sportsModel.music}"/>
+    <c:set var="boysSports" value="${sportsModel['boys_sports']}" scope="page"/>
+    <c:set var="girlsSports" value="${sportsModel.girls_sports}" scope="page"/>
+    <c:set var="arts" value="${sportsModel.arts}" scope="page"/>
+    <c:set var="music" value="${sportsModel.music}" scope="page"/>
 
 
     <c:set var="extraCurricular">

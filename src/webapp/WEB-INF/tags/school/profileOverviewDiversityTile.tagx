@@ -17,9 +17,9 @@
     <jsp:directive.attribute name="diversityModel" type="java.lang.Object" required="true"/>
 
     <!--
-    <c:set var="xxx" value="${diversityModel['school']}"/>
-    <c:set var="yyy" value="${diversityModel['ratings']}"/>
-    <c:set var="zzz" value="${diversityModel['numberOfReviews']}"/>
+    <c:set var="xxx" value="${diversityModel['school']}" scope="page"/>
+    <c:set var="yyy" value="${diversityModel['ratings']}" scope="page"/>
+    <c:set var="zzz" value="${diversityModel['numberOfReviews']}" scope="page"/>
     -->
 
     <school:profileOverviewCell1 title="Student diversity">

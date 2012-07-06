@@ -281,7 +281,6 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         List<String> shuttleInfo = resultsModel.get( "programs_resources/Basics/transportation_shuttle" );
         assertTrue( "testSupportData: transportation_shuttle_other does not contain the route info",
                 (shuttleInfo.get(0).indexOf(routeInfo)>0) );
-
     }
 
     // Tests the None handling part of the display bean
@@ -316,7 +315,6 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         List<String> results = resultsModel.get( "programs_resources/Programs/instructional_model" );
         assertTrue( "testNoneHandling: expected one result but got: " + results.size(), results.size() == 1);
         assertEquals( "testNoneHandling: expected None to be suppressed", "Gifted", results.get(0) );
-
     }
 
     /*
@@ -335,7 +333,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
     private ModelMap runController( Map<String, List<EspResponse>> espData) {
         ModelMap map = new ModelMap();
 
-        expect( _schoolProfileDataHelper.getEspDataForSchool( getRequest(), _school ) ).andReturn( espData );
+        expect( _schoolProfileDataHelper.getEspDataForSchool( getRequest() ) ).andReturn( espData );
         replay(_schoolProfileDataHelper);
         _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest(), 1, _state);
         verify(_schoolProfileDataHelper);

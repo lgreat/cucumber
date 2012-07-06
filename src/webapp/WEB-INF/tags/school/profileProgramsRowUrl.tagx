@@ -20,8 +20,8 @@
     <!-- The actual data for each row is stored in the highlightsDisplayData which is a map where the
         key comes from the display bean and the data comes from getters getUrlDescModelKey and getUrlValueModelKey.
     -->
-    <c:set var="key" value="${row.modelKey}"/>
-    <c:set var="values" value="${dataMap[key]}"/>
+    <c:set var="key" value="${row.modelKey}" scope="page"/>
+    <c:set var="values" value="${dataMap[key]}" scope="page"/>
     <!-- <tr><td colspan="2"><div class="">***Debug*** Row = ${row}, key = ${key}, values = ${values}</div></td></tr> -->
     <tr>
         <td><b>${row.rowTitle}</b></td>
