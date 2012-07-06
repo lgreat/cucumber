@@ -26,10 +26,11 @@
              style="display: none" class="js_grades">
 
             <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
-                <a class="js_grade" href="#"
+                <div style="padding:5px; width:90%; background:#FFFFFF"><a class="js_grade" style="text-decoration:none;" href="#"
                    id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}">
-                    ${gradeToSubjects.gradeLabel}</a><br />
+                    ${gradeToSubjects.gradeLabel}</a></div>
             </c:forEach>
+
         </div>
     </c:forEach>
     </div>
@@ -85,7 +86,7 @@
                                     <div class="bd">
                                         <div class="grid_5 alpha">
                                             <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
-                                            <p class="small">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
+                                            <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
                                         </div>
                                         <c:out value="${scoresContent}" escapeXml="false"/>
                                     </div>
@@ -124,15 +125,17 @@
             $('#js_' + testSelected + '_grades').show();
 
             //Select the first grade by default for the test and trigger its click event, so that the data is displayed.
-            var firstGradeToSelect = $('#js_' + testSelected + '_grades').children(":first");
+            var firstGradeToSelect = $('#js_' + testSelected + '_grades').children(":first").find("a");
             firstGradeToSelect.trigger('click');
         });
 
         //Add the handler for clicking a specific grade.
         $('.js_grade').on('click', function() {
             var gradeSelected = $(this).attr('id');
-            $(this).css("background-color", "#CCCCFF");
-            $(this).siblings().css("background-color", "#FFFFFF");
+            $(this).parent().css("background-color", "#C9E4F1");
+            $(this).parent().addClass("selected");
+            $(this).parent().siblings().removeClass("selected");
+            $(this).parent().siblings().css("background-color", "#FFFFFF");
 
             //Hide all the data
             $('.js_subjects').hide();
@@ -140,6 +143,18 @@
             //Show the data for the grade selected.
             $('#' + gradeSelected + '_subjects').show();
         });
+
+        $('.js_grade').hover( function() {
+                if(!$(this).parent().hasClass( "selected" )){
+                    $(this).parent().css("background-color", "#F1F1F1");
+                }
+            },
+            function() {
+                if(!$(this).parent().hasClass( "selected" )){
+                    $(this).parent().css("background-color", "#FFFFFF");
+                }
+            }
+        );
 
         //Trigger the test change event.
         $('#js_testSelect').change();
