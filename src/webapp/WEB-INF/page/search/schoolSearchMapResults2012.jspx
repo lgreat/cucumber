@@ -169,6 +169,21 @@
         </div>
     </div>
 
+    <div id="js-showDistrictBoundaryLink" style="${(isCityBrowse eq true or isDistrictBrowse eq true or commandAndFields.nearbySearch eq true) ? '' : 'display:none;'}">
+        <p class="medium">Go to the 
+            <c:choose>
+                <c:when test="${commandAndFields.levelCode.multipleLevelCodes}">
+                    <c:set var="districtBoundary" value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=e"/>
+                    <a href="${districtBoundary}">district boundary tool</a>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="districtBoundary" value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=${commandAndFields.levelCode.commaSeparatedString}"/>
+                    <a href="${districtBoundary}">district boundary tool</a>
+                </c:otherwise>
+            </c:choose>
+            to see boundaries in this area.</p>
+    </div>
+
     <c:set var="points" value="0"/>
     <c:set var="latLonExists" value="${false}"/>
     <c:set var="pointsArray">
