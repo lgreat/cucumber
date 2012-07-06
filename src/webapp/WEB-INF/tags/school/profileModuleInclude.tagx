@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
+          xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+
+    <jsp:directive.attribute name="page" type="java.lang.String" required="true"/>
+    <jsp:directive.attribute name="tabName" type="java.lang.String" required="true"/>
+
+    <jsp:scriptlet>
+        <![CDATA[
+        Long beforeTab = System.nanoTime();
+        ]]>
+        </jsp:scriptlet>
+    <jsp:include page="${page}" />
+    <jsp:scriptlet>
+            <![CDATA[
+        Long afterTab = System.nanoTime();
+        Long differenceInMs = (afterTab - beforeTab)/1000000;
+        request.setAttribute(jspContext.getAttribute("tabName") + "time", differenceInMs);
+            ]]>
+        </jsp:scriptlet>
+
+</jsp:root>

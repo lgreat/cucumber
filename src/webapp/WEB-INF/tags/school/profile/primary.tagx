@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jsp:root version="2.0"
-          xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:gsweb="gstaglib"
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
+          xmlns:gsweb="gstaglib"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
 <jsp:directive.tag body-content="empty"/>
@@ -13,13 +21,30 @@
     <jsp:directive.attribute name="tabName" required="true" description="Tab to turn on" type="java.lang.String"/>
 
 
-    <c:set var="overview"><jsp:include page="/school/profileOverview.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}" /></c:set>
-    <c:set var="testscores"><jsp:include page='/school/profileTestScores.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
-    <c:set var="schoolstats"><jsp:include page='/school/profileStats.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
-    <c:set var="reviews"><jsp:include page='/school/profileReviews.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
-    <c:set var="programs"><jsp:include page='/school/profilePrograms.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}' /></c:set>
+    <c:set var="overview">
+        <school:profileModuleInclude tabName="overview" page="/school/profileOverview.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}" />
+    </c:set>
+    <c:set var="testscores">
+        <school:profileModuleInclude tabName="testscores" page="/school/profileTestScores.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}" />
+    </c:set>
+    <c:set var="schoolstats">
+        <school:profileModuleInclude tabName="schoolstats" page="/school/profileStats.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}" />
+    </c:set>
+    <c:set var="reviews">
+        <school:profileModuleInclude tabName="reviews" page="/school/profileReviews.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}" />
+    </c:set>
+    <c:set var="programs">
+        <school:profileModuleInclude tabName="programs" page="/school/profilePrograms.page?state=${school.stateAbbreviation}&amp;schoolId=${school.id}&amp;tabName=${tabName}" />
+    </c:set>
     <c:set var="culture"></c:set>
 
+    <c:if test="${param.debug}">
+        [overview took ${requestScope['overviewtime']}ms] <br/>
+        [test scores took ${requestScope['testscorestime']}ms] <br/>
+        [stats took ${requestScope['schoolstatstime']}ms] <br/>
+        [reviews took ${requestScope['reviewstime']}ms] <br/>
+        [programs took ${requestScope['programstime']}ms] <br/>
+    </c:if>
 
     <div class="gsTabs">
         <ul class="tabStyle-4">
