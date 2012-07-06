@@ -936,7 +936,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
         else {
-            if (searchResultsPage.getTotalResults() == 0 && !schoolSearchCommand.isNearbySearchByLocation()) {
+            if (searchResultsPage.getTotalResults() == 0) {
                 return getNoResultsViewName();
             } else {
                 return getViewName();
