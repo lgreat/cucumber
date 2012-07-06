@@ -33,4 +33,8 @@ public abstract class AbstractSchoolProfileController {
 
         return school;
     }
+
+    public void setRequestAttributeHelper(RequestAttributeHelper requestAttributeHelper) {
+        _requestAttributeHelper = requestAttributeHelper;
+    }
 }

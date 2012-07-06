@@ -5,6 +5,7 @@ import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
+import gs.web.request.RequestAttributeHelper;
 import org.springframework.ui.ModelMap;
 
 import java.util.*;
@@ -31,6 +32,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         _schoolProfileProgramsHighlightsController = new SchoolProfileProgramsController();
 //        _schoolProfileProgramsHighlightsController.setIEspResponseDao( _espResponseDao );
         _schoolProfileProgramsHighlightsController.setSchoolProfileDataHelper( _schoolProfileDataHelper );
+        _schoolProfileProgramsHighlightsController.setRequestAttributeHelper(new RequestAttributeHelper());
         StateManager sm = new StateManager();
         _state = sm.getState( "CA" );
         _school = new School();

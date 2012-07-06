@@ -6,6 +6,7 @@ import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
+import gs.web.request.RequestAttributeHelper;
 import org.springframework.ui.ModelMap;
 
 import java.util.*;
@@ -29,6 +30,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _schoolProfileDataHelper = createStrictMock( SchoolProfileDataHelper.class );
         _schoolProfileOverviewController = new SchoolProfileOverviewController();
         _schoolProfileOverviewController.setSchoolProfileDataHelper( _schoolProfileDataHelper );
+        _schoolProfileOverviewController.setRequestAttributeHelper(new RequestAttributeHelper());
         StateManager sm = new StateManager();
         _state = sm.getState( "CA" );
         _school = new School();
