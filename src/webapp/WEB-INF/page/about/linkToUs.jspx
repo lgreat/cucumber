@@ -27,8 +27,10 @@
 
     <gsml:body adPageName="linkToUs" pageLayout="leftside">
 
+        <div class="slStylesV1-0">
+
         <div class="grid_24">
-            <p class="mvm smallAlertText">
+            <p class="mvm smaller">
                 <link:home>Home</link:home>
                 &amp;gt;
                 <link:aboutUs>About Us</link:aboutUs>
@@ -155,6 +157,8 @@
         </div>
 
         <mod:tracking pageName="linkToUs" hier1="Home,Corporate,AboutUs,LinkToUs"/>
+
+        </div>
 
     </gsml:body>
     </html>

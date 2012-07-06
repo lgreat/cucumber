@@ -8,7 +8,7 @@
         >
 
     <c:if test="${!empty requestScope.modelPressClippings}">
-        <ul>
+        <ul class="none">
         <c:forEach var="clipping" items="${requestScope.modelPressClippings}">
             <c:set var="url">
                 <c:out value="${clipping.url}" escapeXml="true"/>

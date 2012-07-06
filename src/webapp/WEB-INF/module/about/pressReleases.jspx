@@ -8,7 +8,7 @@
         >
 
     <c:if test="${!empty requestScope.modelPressReleases}">
-        <ul>
+        <ul class="none">
         <c:forEach var="release" items="${requestScope.modelPressReleases}">
             <c:set var="date">
                 <c:out value="${release.date}" escapeXml="true"/>

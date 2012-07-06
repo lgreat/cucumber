@@ -37,10 +37,10 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 
 <gsml:body adPageName="gsFaq" pageLayout="nocol">
 
-		<div id="contentFAQ" class="contentFAQ">
+		<div id="contentFAQ" class="contentFAQ slStylesV1-0">
 			<h1>Frequently Asked Questions about GreatSchools</h1>
 
-			<ul class="pageNav">
+			<ul class="pageNav none">
 				<li><a href="#faq-101">GreatSchools 101</a></li>
 				<li><a href="#faq-rightschool">Find the Right School Using GreatSchools Data</a></li>
 				<li><a href="#faq-mobile">GreatSchools Mobile Website</a></li>
