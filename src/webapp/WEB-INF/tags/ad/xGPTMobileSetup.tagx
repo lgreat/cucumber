@@ -51,8 +51,6 @@
 
             if (UrlUtil.isDevEnvironment(request.getServerName())) {
                 pageHelper.addAdKeyword("env", "dev");
-            } else {
-                pageHelper.addAdKeyword("env", "prod");
             }
 
             if (!pageHelper.hasAdKeyword("template")) {
@@ -152,7 +150,7 @@
                                                                                  varStatus="status">[${size.width},${size.height}]<c:if
                         test="${!status.last}">, </c:if></c:forEach>]</c:when>
                 <c:otherwise>[${adPosition.size.width},${adPosition.size.height}]</c:otherwise>
-            </c:choose>, 'gpt${slotName}')
+            </c:choose>, 'ad${adPosition.name}')
                 .addService(googletag.pubads());
             </c:forEach>
 
