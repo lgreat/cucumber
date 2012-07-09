@@ -1,10 +1,17 @@
 var Boundary = (function (){
-    var $map, $dropdown, $header, $list, $level, $search, $priv, $charter, $redo, $nearby, currentLevel = 'e', currentZip, currentLat, currentLng;
+    var $map, $dropdown, $header, $list, $level, $search, $priv, $charter, $redo, $nearby, $districtNameHeader, currentLevel = 'e',
+        currentZip, currentLat, currentLng;
 
-    var init = function (map, dropdown, header, list, level, search, priv, charter, redo, nearby ) {
+    // selected hold the currently selected district id, geocoding is boolean for when geocode
+    // request is made, and geocoded is the district selected after geocoding.
+    // This is used for determining if we should run district_with_school or not
+    var selected, geocoding, geocoded;
+
+    var init = function (map, dropdown, header, list, level, search, priv, charter, redo, nearby, districtNameHeader ) {
         $map = $(map), $dropdown = $(dropdown), $header = $(header)
             , $list = $(list), $level = $(level), $priv = $(priv)
-            , $charter = $(charter), $search = $(search), $redo = $(redo), $nearby = $(nearby);
+            , $charter = $(charter), $search = $(search), $redo = $(redo), $nearby = $(nearby)
+            , $districtNameHeader = $(districtNameHeader);
 
         $redo.hide();
 
@@ -20,6 +27,8 @@ var Boundary = (function (){
         if (params.lat && params.lon) {
             paramsSet = true;
         }
+        $dropdown.html('');
+        $dropdown.append($('<option></option>').html('Select a district'));
 
 
         $map.boundaries(options);
@@ -144,8 +153,17 @@ var Boundary = (function (){
     };
 
     var sort = function (a, b) {
-        if (a.name == b.name) return 0;
-        return (a.name < b.name) ? -1 : 1;
+        if (a.rating && b.rating) {
+            if (a.rating == b.rating) {
+                if (a.name == b.name) return 0;
+                return (a.name < b.name) ? -1 : 1;
+            }
+            return (a.rating < b.rating) ? 1 : -1;
+        }
+        if (a.rating && !b.rating) {
+            return 1;
+        }
+        return -1;
     }
 
     var initEventHandler = function(event, data) {
@@ -218,6 +236,11 @@ var Boundary = (function (){
 
     var focusEventHandler = function (event, obj) {
         if (obj.data.type=='district'){
+            if (geocoding){
+                geocoded = obj.data.id;
+                geocoding = false;
+            }
+            selected = obj.data.id;
             $dropdown.val(obj.data.getKey());
             updateDistrictHeader(obj.data);
             currentLat = obj.data.lat, currentLng = obj.data.lon;
@@ -253,10 +276,14 @@ var Boundary = (function (){
     }
 
     var geocodeEventHandler = function ( event, obj ) {
+        geocoding = true;
+        if (obj.data.length>0){
+            $districtNameHeader.html('Districts near ' + obj.data[0].normalizedAddress);
+        }
         updateHistory('?lat='+obj.data[0].lat+'&lon='+obj.data[0].lon+'&level='+currentLevel);
         currentLat = obj.data[0].lat, currentLng = obj.data[0].lon;
         $redo.hide();
-        $map.boundaries('district');
+        $map.boundaries('school_with_district');
         $map.boundaries('geocodereverse', new google.maps.LatLng(obj.data[0].lat, obj.data[0].lon));
         privateEventHandler();
         charterEventHandler();
@@ -313,8 +340,13 @@ var Boundary = (function (){
         $list.html('');
         currentLevel = val;
         updateHistory('?lat='+currentLat+'&lon='+currentLng+'&level='+currentLevel);
-        $map.boundaries('refresh');
-        $map.boundaries('district', new google.maps.LatLng(currentLat, currentLng));
+        if (selected==geocoded){
+            $map.boundaries('refresh');
+            $map.boundaries('school_with_district');
+        } else {
+            $map.boundaries('refresh');
+            $map.boundaries('district', new google.maps.LatLng(currentLat, currentLng));
+        }
         privateEventHandler();
         charterEventHandler();
     }

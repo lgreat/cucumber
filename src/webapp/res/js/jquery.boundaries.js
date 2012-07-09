@@ -4,7 +4,7 @@
  */
 var Boundaries = function(element, options){
     var element = element, options = options, markers, polygons, map
-        , markers = new Array(), polygons = new Array();
+        , markers = new Array(), polygons = new Array(), focused;
 
     map = new google.maps.Map(element, options.map);
     google.maps.event.addListener(map, 'dragend', $.proxy(function(){this.trigger('dragend');}, this));
@@ -54,47 +54,70 @@ Boundaries.prototype = {
     , center: function (option) {
         if (this.exists(option) && option instanceof google.maps.LatLng ){
             this.getMap().setCenter(option);
-            if (this.getOptions().centerMarker){
-                this.getOptions().centerMarker.setMap(this.getMap());
-                this.getOptions().centerMarker.setPosition(option);
-            }
         }
     }
 
     , district: function (option) {
-        var lat=this.getMap().getCenter().lat(), lng=this.getMap().getCenter().lng(), level=this.getOptions().level;
+        var deferred = new jQuery.Deferred()
+            , lat=this.getMap().getCenter().lat()
+            , lng=this.getMap().getCenter().lng()
+            , level=this.getOptions().level;
+
         if (this.exists(option)){
             lat = option.lat();
             lng = option.lng();
         }
-        $.when(BoundaryHelper.getDistrictsForLocation(lat, lng, level))
-            .then($.proxy(function(districts){
+
+        var success = function (districts) {
             this.show(districts[0]);
             this.trigger('load', districts[0]);
             this.focus(districts[0]);
-        }, this));
+            deferred.resolve(districts);
+        }
+        BoundaryHelper.getDistrictsForLocation(lat, lng, level)
+            .done($.proxy(success, this)).fail(function(){deferred.reject();});
+
+        return deferred.promise();
     }
 
     , nondistrict: function ( params ) {
-        var lat=this.getMap().getCenter().lat(), lng=this.getMap().getCenter().lng(), level=this.getOptions().level;
-        $.when(BoundaryHelper.getNonDistrictSchoolsNearLocation(lat, lng, level, params))
-            .then($.proxy(function (schools) {
+        var deferred = new jQuery.Deferred()
+            , lat=this.getMap().getCenter().lat()
+            , lng=this.getMap().getCenter().lng()
+            , level=this.getOptions().level;
+
+        var success = function(schools) {
             for (var i=0; i<schools.length; i++) {
                 schools[i].charterOnly = true;
                 this.show(schools[i]);
             }
-        }, this));
+            deferred.resolve(schools);
+        }
+
+        BoundaryHelper.getNonDistrictSchoolsNearLocation(lat, lng, level, params)
+            .done($.proxy(success, this)).fail(function(){deferred.reject();});
+
+        return deferred.promise();
     }
 
     , districts: function () {
-        $.when(BoundaryHelper.getDistrictsNearLocation(this.getMap().getCenter().lat(), this.getMap().getCenter().lng(), this.getOptions().level))
-            .then($.proxy(function(districts){
+        var deferred = new jQuery.Deferred()
+            , lat = this.getMap().getCenter().lat()
+            , lng = this.getMap().getCenter().lng()
+            , level = this.getOptions().level;
+
+        var success = function (districts){
             for(var i=0; i<districts.length; i++) {
                 this.show(districts[i]);
             }
             this.autozoom(districts);
             this.trigger('load', districts);
-        }, this));
+            deferred.resolve(districts);
+        }
+
+        BoundaryHelper.getDistrictsNearLocation(lat, lng, level)
+            .done($.proxy(success, this)).fail(function(){deferred.reject()});
+        return deferred.promise();
     }
 
     , focus: function (obj) {
@@ -110,6 +133,10 @@ Boundaries.prototype = {
         BoundaryHelper.geocode(option).done(
             $.proxy(function (data) {
                 this.center(new google.maps.LatLng(data[0].lat, data[0].lon));
+                if (this.getOptions().centerMarker){
+                    this.getOptions().centerMarker.setMap(this.getMap());
+                    this.getOptions().centerMarker.setPosition(new google.maps.LatLng(data[0].lat, data[0].lon));
+                }
                 this.refresh();
                 this.trigger('geocode', data);
             }, this)
@@ -250,6 +277,55 @@ Boundaries.prototype = {
         this.hide('district');
         this.center(this.getMap().getCenter());
         this[this.getOptions().type]();
+    }
+
+    , school: function () {
+        var deferred = new jQuery.Deferred()
+            , lat = this.getMap().getCenter().lat()
+            , lng = this.getMap().getCenter().lng()
+            , level = this.getOptions().level;
+
+        var success = function (schools) {
+
+            for (var i=0; i<schools.length; i++) {
+                this.show(schools[i]);
+                this.focus(schools[i]);
+            }
+            deferred.resolve(schools);
+            this.trigger('load', schools);
+        }
+
+        BoundaryHelper.getSchoolsByLocation(lat, lng, level)
+            .done($.proxy(success, this)).fail(function(){deferred.reject();});
+
+        return deferred.promise();
+    }
+
+    /**
+     * We should show the school boundary for center
+     * on the map and also show that schools district
+     * boundary if it is loaded on the map.
+     */
+    , school_with_district:  function () {
+        var success = function (schools) {
+            if (schools.length && schools.length>0){
+                var school = schools[0];
+                var dsuccess = function (districts) {
+                    for (var i=0; i<districts.length; i++) {
+                        var id = (districts[i].id==school.districtId);
+                        var state = (districts[i].state==school.state);
+                        if (id && state) {
+                            this.focus(districts[i]);
+                            this.focus(school);
+                            break;
+                        }
+                    }
+
+                }
+                $.when(this.districts()).then($.proxy(dsuccess, this));
+            }
+        };
+        $.when(this.school()).then($.proxy(success, this));
     }
 
     , schools: function () {
@@ -543,6 +619,21 @@ var BoundaryHelper = (function($){
         return deferred.promise();
     }
 
+    var getSchoolsByLocation = function ( lat, lng, level ) {
+        var deferred = new jQuery.Deferred();
+        $.ajax({
+            url: '/geo/boundary/ajax/getSchoolsByLocation.json',
+            data: {lat: lat, lon: lng, level: level},
+            cache: true,
+            type: 'GET',
+            dataType: 'json',
+            success: schoolSuccess,
+            fail: fail,
+            context: deferred
+        });
+        return deferred.promise();
+    }
+
     var schoolSuccess = function (data) {
         var schools = new Array();
         if (data.schools && data.schools.length) {
@@ -647,7 +738,11 @@ var BoundaryHelper = (function($){
                             GS_geocodeResults.push(geocodeResult);
                         }
                     }
-                    deferred.resolve(GS_geocodeResults);
+
+                    if (GS_geocodeResults.length>0)
+                        deferred.resolve(GS_geocodeResults);
+                    else
+                        deferred.reject();
                 } else {
                     deferred.reject();
                 }
@@ -663,6 +758,7 @@ var BoundaryHelper = (function($){
         getDistrictsNearLocation: getDistrictsNearLocation,
         getDistrictsForLocation: getDistrictsForLocation,
         getSchoolsForDistrict: getSchoolsForDistrict,
+        getSchoolsByLocation: getSchoolsByLocation,
         getNonDistrictSchoolsNearLocation: getNonDistrictSchoolsNearLocation,
         geocode: geocode,
         geocodeReverse: geocodeReverse

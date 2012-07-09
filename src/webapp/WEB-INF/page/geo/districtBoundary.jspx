@@ -45,6 +45,7 @@
                 , document.getElementById('js_schoolType_charter')
                 , document.getElementById('js_reloadMap')
                 , document.getElementById('js_nearbyHomesForSale')
+                , document.getElementById('district_name_header')
             );
         });
 
@@ -90,7 +91,7 @@
                             </div>
                         </div>
                         <div id="districtListDiv" class="mlm">
-                            <h6 class="bottom">District name</h6>
+                            <h6 class="bottom" id="district_name_header">District name</h6>
                             <hr class="keyline2"/>
                             <div class="mvm">
                                 <select id="districtList" class="input_7"><!-- not empty --></select>
