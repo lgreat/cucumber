@@ -29,70 +29,83 @@
                              description="Query to show in search again box, overrides any default values."
                              type="java.lang.String"/>
 
-    <div class="globalSearch">
-        <div id="sf_col_left">
-            <gsweb:form id="searchform" method="get" action="/search/search.page">
-                <c:if test="${showStates == 'true'}">
-                    <div>
-                        <span class="label">Search again in:</span>
-                        <gsweb:stateSelector usingLongNames="true" state="${requestScope.context.stateOrDefault}"
-                                             styleId="refine_stateSelector" styleClass="label"/>
-                    </div>
-                </c:if>
-                <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
-                    <span class="label">Search</span>
-                </c:if>
-                <c:set var="defaultQuery"
-                       value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>
-                <c:if test="${not empty queryOverride}">
-                    <c:set var="defaultQuery"
-                           value="${queryOverride}"/>
-                </c:if>
-                <input type="text"
-                       id="refine_q"
-                       name="q"
-                       size="${(not empty fieldLength) ? (fieldLength) : '50'}"
-                       class="label"
-                       style="font-size:small"
-                       maxlength="255"
-                       value="${defaultQuery}"/>
-                <c:if test="${(empty showConstraint) or showConstraint}">
-                    <select name="c" id="c" class="label">
-                        <gsml:selectOption value="school">School</gsml:selectOption>
-                        <gsml:selectOption value="articles"
-                                           selected="${(requestScope.typeOverride eq 'articles')?'true':'false'}">Articles &amp; Community</gsml:selectOption>
-                    </select>
-                </c:if>
-                <c:if test="${not ((empty showConstraint) or showConstraint)}">
-                    <input type="hidden" name="type" value="${(not empty constraint) ? (constraint) : 'all'}"/>
-                </c:if>
-                <gsml:url var="goButton"
-                          value="/res/img/button/go_blue_transparent.gif"/>
-                <input type="image" src="${goButton}" id="goButton" value="go"/>
-                <br/>
-                <c:if test="${showLinks == 'true'}">
-                    <ul>
-                        <li><gsml:a href="/cgi-bin/template_plain/advanced/$STATE/#address">Search near address</gsml:a>
-                        </li>
-                        <li><gsml:a href="/cgi-bin/static/searchtips.html/$STATE/">Search tips</gsml:a></li>
-                        <li><link:schoolFeedback>Report an inaccuracy</link:schoolFeedback>
-                        </li>
-                    </ul>
-                </c:if>
-                <c:if test="${showStates != 'true'}">
-                    <input type="hidden" name="state"
-                           value="${requestScope.context.stateOrDefault}"/>
-                </c:if>
-                <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
-                    <input type="hidden" name="st" value="charter"/>
-                </c:if>
-            </gsweb:form>
-        </div>
-        <div id="sf_col_right">
-            <pageHelper:externalCss file="/res/css/mod/browseState.css"/>
-            <mod:browseState state="${requestScope.context.stateOrDefault}"/>
-        </div>
+    <div class="slFormsV1-0">
 
+        <div class="mod form">
+            <div class="inner">
+
+                <gsweb:form id="searchform" method="get" action="/search/search.page">
+                    <c:if test="${showStates == 'true'}">
+                        <div class="lal clearfix">
+                            <div class="alpha grid_3">
+                                <label for="refine_stateSelector">Search again in: </label>
+                            </div>
+                            <div class="grid_4 suffix_8 omega">
+                                <gsweb:stateSelector usingLongNames="true"
+                                                     state="${requestScope.context.stateOrDefault}"
+                                                     styleId="refine_stateSelector" styleClass="label"/>
+                            </div>
+                        </div>
+                    </c:if>
+                    <c:if test="${showStates != 'true' and (empty showLabel or showLabel) }">
+                        <span class="label">Search</span>
+                    </c:if>
+                    <c:set var="defaultQuery"
+                           value="${(not empty param.q) and (rememberQuery == 'true') and (empty param.city) and (empty param.district) ? fn:escapeXml(param.q) : ''}"/>
+                    <c:if test="${not empty queryOverride}">
+                        <c:set var="defaultQuery"
+                               value="${queryOverride}"/>
+                    </c:if>
+
+
+                    <div class="nal clearfix">
+                        <div class=" alpha grid_7">
+                            <input type="text"
+                                   id="refine_q"
+                                   name="q"
+                                   size="${(not empty fieldLength) ? (fieldLength) : '50'}"
+                                   class="text input_7"
+                                   maxlength="255"
+                                   value="${defaultQuery}"/>
+
+                        </div>
+
+                        <div class="grid_4">
+                            <c:if test="${(empty showConstraint) or showConstraint}">
+                                <select name="c" id="c" class="label">
+                                    <gsml:selectOption value="school">School</gsml:selectOption>
+                                    <gsml:selectOption value="articles"
+                                                       selected="${(requestScope.typeOverride eq 'articles')?'true':'false'}">Articles &amp; Community</gsml:selectOption>
+                                </select>
+                            </c:if>
+                        </div>
+
+                        <c:if test="${not ((empty showConstraint) or showConstraint)}">
+                            <input type="hidden" name="type" value="${(not empty constraint) ? (constraint) : 'all'}"/>
+                        </c:if>
+
+                        <div class="grid_3 suffix_1 omega">
+                            <input type="submit" class="button-1" id="goButton" value="Search"/>
+                        </div>
+
+                    </div>
+
+                    <c:if test="${showStates != 'true'}">
+                        <input type="hidden" name="state"
+                               value="${requestScope.context.stateOrDefault}"/>
+                    </c:if>
+                    <c:if test="${requestScope.context.cobrand == 'charterschoolratings'}">
+                        <input type="hidden" name="st" value="charter"/>
+                    </c:if>
+                </gsweb:form>
+
+                <hr class="keyline2"/>
+                <div class="spacer_20"><!-- do not collapse --></div>
+
+                <mod:browseState state="${requestScope.context.stateOrDefault}" showLinks="true"/>
+
+            </div>
+        </div>
     </div>
 
     <script language="javascript" type="text/javascript">

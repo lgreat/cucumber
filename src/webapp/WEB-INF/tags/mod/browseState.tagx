@@ -7,11 +7,13 @@
         >
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="state" type="gs.data.state.State" required="true"/>
+    <jsp:directive.attribute name="showLinks" required="false"/>
 
-    <div class="browseState">
-        <div id="browseRefine">
-            <h2 class="browseheader label">Browse</h2>
-            <ul class="refinementlist">
+    <div class="line">
+
+        <div class="unit size33of100">
+            <p class="small_bold bottom">Browse</p>
+            <ul class="none small">
                 <c:if test="${(param.c ne 'topic' and param.type ne 'topic' and requestScope.typeOverride ne 'topic') or (param.c eq 'school' or param.type eq 'school' or requestScope.typeOverride eq 'school')}">
                     <c:choose>
                         <c:when test="${state eq 'DC'}">
@@ -19,7 +21,8 @@
                                 <link:schools cityName="Washington">All schools in Washington, DC</link:schools>
                             </li>
                             <li>
-                                <link:districtProfile state="${state}" districtId="1">District of Columbia Public Schools</link:districtProfile>
+                                <link:districtProfile state="${state}"
+                                                      districtId="1">District of Columbia Public Schools</link:districtProfile>
                             </li>
                         </c:when>
                         <c:otherwise>
@@ -38,17 +41,32 @@
                 </c:if>
             </ul>
         </div>
-        <c:if test="${(param.c ne 'topic' and param.type ne 'topic' and requestScope.typeOverride ne 'topic') or param.c eq 'school' or param.type eq 'school' or requestScope.typeOverride eq 'school'}">
-            <div id="searchRefine">
-                <h2 class="browseheader label">Advanced Search</h2>
-                <ul class="refinementlist">
-                    <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#address">
-                        Search near address</gsml:a></li>
-                    <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#county">
-                        Search by county</gsml:a></li>
+
+        <div class="unit size33of100">
+            <c:if test="${(param.c ne 'topic' and param.type ne 'topic' and requestScope.typeOverride ne 'topic') or param.c eq 'school' or param.type eq 'school' or requestScope.typeOverride eq 'school'}">
+                <div id="searchRefine">
+                    <p class="small_bold bottom">Advanced Search</p>
+                    <ul class="none small">
+                        <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#address">
+                            Search near address</gsml:a></li>
+                        <li><gsml:a href="/cgi-bin/template_plain/advanced/${state.abbreviation}/#county">
+                            Search by county</gsml:a></li>
+                    </ul>
+                </div>
+            </c:if>
+        </div>
+
+        <div class="unit size34of100 lastUnit">
+            <c:if test="${showLinks == 'true'}">
+                <p class="small_bold bottom">&amp;nbsp;</p>
+                <ul class="none small">
+                    <li><gsml:a href="/cgi-bin/static/searchtips.html/$STATE/">Search tips</gsml:a></li>
+                    <li><link:schoolFeedback>Report an inaccuracy</link:schoolFeedback>
+                    </li>
                 </ul>
-            </div>
-        </c:if>
+            </c:if>
+        </div>
+
     </div>
 
 </jsp:root>

@@ -17,23 +17,27 @@
 
     <!--<school:compareHover schools="${schools}"/>-->
 
-    <div id="searchResults">
-    <div id="schoolsTable">
+    <!--<div id="searchResults">-->
+    <!--<div id="schoolsTable">-->
         <form method="get" action="/compareSchools.page">
         <input type="hidden" name="state" value="${requestScope.context.stateOrDefault.abbreviation}"/>
         <input type="hidden" name="source" value="msl"/>
 
         <c:forEach var="school" items="${schools}" varStatus="loopStatus">
+
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="bd mam">
+
             <c:if test="${school.levelCode eq 'p'}">
                 <c:set var="showPreschoolNote" value="true" />
             </c:if>
 
-            <div class="school ${loopStatus.last ? 'last' : ''}">
                 <input type="hidden" id="school_lc_${school.id}" value="${school.levelCode}"/>
-                <h3><link:schoolProfileOverview school="${school}" title="${school.name}" styleClass="highlight">
+                <h4 class="bottom"><link:schoolProfileOverview school="${school}" title="${school.name}">
                     <c:out value="${school.name}"/>
-                </link:schoolProfileOverview></h3>
-                <p class="about">
+                </link:schoolProfileOverview></h4>
+                <p class="small bottom quiet">
                     <c:set var="schoolTypeRangeString">
                         <span class="st">${school.type.schoolTypeName}</span>
                         <c:if test="${not empty school.gradeLevels.rangeString}">
@@ -51,57 +55,39 @@
                     </c:if>
                 </p>
 
-                <p>${school.physicalAddress.street}<c:if test="${not empty school.physicalAddress.streetLine2}">, ${school.physicalAddress.streetLine2}</c:if></p>
-                <p>${school.physicalAddress.cityStateZip}</p>
-                <p><span class="phone">${school.phone}|</span>
-                <link:mapSchool school="${school}" styleClass="mapSchoolImage"><img src="/res/img/map_22x15.gif" alt="little map"/></link:mapSchool>
-                <link:mapSchool school="${school}" styleClass="mapSchoolText">Map it</link:mapSchool></p>
+                <p class="small bottom">${school.physicalAddress.street}
+                    <link:mapSchool school="${school}" styleClass="mapSchoolImage"><img src="/res/img/map_22x15.gif" alt="little map"/></link:mapSchool>
+                    <link:mapSchool school="${school}" styleClass="mapSchoolText">Map it</link:mapSchool>
+                    <c:if test="${not empty school.physicalAddress.streetLine2}">, ${school.physicalAddress.streetLine2}</c:if>
+                </p>
+                <p class="small bottom">${school.physicalAddress.cityStateZip}</p>
+                <p class="small bottom fl">${school.phone}</p>
+
+
                 <c:if test="${not empty school.district}">
-                    <p class="district">
-                        District: ${school.district.name}
+                    <p class="clearfloat small bottom fl">
+                        <span class="loud"><strong>District:</strong></span> ${school.district.name}
                     </p>
                 </c:if>
-                <div class="resultcontrols">
-                    <div class="addToMsl">
-                        <link:mySchoolList school="${school}">Add to my school list &gt;</link:mySchoolList>
-                    </div>
-                    <c:if test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
-                        <div class="compare_schools_row">
-                            <c:set var="statePlusId" value="${school.databaseState.abbreviation}${school.id}"/>
-                            <gsml:checkbox
-                                    name="sc"
-                                    value="${statePlusId}"
-                                    styleClass="compare_checkbox"
-                                    styleId="compare_schools_${statePlusId}"
-                                    onclick="return evaluateCheckboxes(this);"/>
-                            <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
-                            <label class="compare_label" id="compare_schools_label_${statePlusId}">
-                                <gsml:img src="/res/img/button/button_check_to_compare.gif" alt="Check to compare"
-                                    onclick="document.getElementById('compare_schools_${statePlusId}').click();"/>
-                            </label>
-                            <label class="compare_error" id="compare_schools_error_${statePlusId}" style="display: none;">
-                                <gsml:img src="/res/img/button/button_check_two_more.gif" alt="Check two or more"
-                                    onclick="document.getElementById('compare_schools_${statePlusId}').click();"/>
-                            </label>
-                            <span class="compare_submit" id="compare_schools_submit_${statePlusId}" style="display: none;">
-                                <input type="image" name="compare" src="/res/img/button/button_compare_now.gif"
-                                       alt="Compare now" onclick="return GS_launchCompare();"/>
-                            </span>
+
+                    <div class="fr small bottom">
+                        <div class="media">
+                        <span class="iconx16 i-16-close img mrs"><!-- do not collapse --></span>
+                        <link:mySchoolList styleClass="bd" remove="${school}">Remove from list</link:mySchoolList>
                         </div>
-                    </c:if>
-                    <div class="mslRemove">
-                        <img src="/res/img/x_11x8.gif" alt="yellow x"/>
-                        <link:mySchoolList remove="${school}">Remove from list &gt;</link:mySchoolList>
+                    </div>
+
                     </div>
                 </div>
             </div>
+
         </c:forEach>
         </form>
-        <c:if test="${showPreschoolNote}">
+<!--        <c:if test="${showPreschoolNote}">
             <div class="note">
                 Note: Preschools cannot be compared due to limited data
             </div>
-        </c:if>
-    </div>
-    </div>
+        </c:if>-->
+    <!--</div>-->
+    <!--</div>-->
 </jsp:root>

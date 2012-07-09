@@ -27,70 +27,84 @@
 <head>
     <title>My School List</title>
     <ad:setSlotPrefix slotPrefix="My_School_List"/>
-    <pageHelper:externalCss file="/res/css/community/mySchoolList.css"/>
-    <pageHelper:externalCss file="/res/css/search/schoolResults.css"/>
-    <pageHelper:externalCss file="/res/css/brand.css"/>
-    <pageHelper:externalCss file="/res/css/school/schoolsTable.css"/>
+    <!--<pageHelper:externalCss file="/res/css/community/mySchoolList.css"/>-->
+    <!--<pageHelper:externalCss file="/res/css/search/schoolResults.css"/>-->
+    <!--<pageHelper:externalCss file="/res/css/brand.css"/>-->
+    <!--<pageHelper:externalCss file="/res/css/school/schoolsTable.css"/>-->
     <jsp:scriptlet>
         request.setAttribute("communityAuth", PageHelper.isCommunityCookieSet(request));
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         request.setAttribute("communityHost", sessionContext.getSessionContextUtil().getCommunityHost(request));
     </jsp:scriptlet>
-    <gsml:equalizeColumns ids="'col_left','col_right'"/>
+    <!--<gsml:equalizeColumns ids="'col_left','col_right'"/>-->
 </head>
 <gsml:body adPageName="mySchoolList" pageLayout="nocol">
 
-<c:set var="username" value="${(requestScope.context.screenName != null)?requestScope.context.screenName:fn:substringBefore(requestScope.context.user.email, '@')}" />
-<div id="col_left">
+    <div class="slStylesV1-0">
+        <div class="spacer_20"><!-- do not collapse --></div>
 
-    <div id="msl_header">
-        <div id="msl_header_top">
-            <div id="msl_title">My School List</div>
+        <c:set var="username"
+               value="${(requestScope.context.screenName != null)?requestScope.context.screenName:fn:substringBefore(requestScope.context.user.email, '@')}"/>
+
+        <div class="grid_16">
+
+            <h1>My School List</h1>
+
+            <c:set var="logoutRedirect" value="/mySchoolListLogin.page"/>
+
+
+            <h5 id="msl_welcome">Welcome ${username}! <span class="small quiet">(not <a
+                    href="/community/logout.page?redirect=${logoutRedirect}">${username}</a>?)</span>
+            </h5>
+
+            <c:if test="${not empty schools}">
+                <school:schoolsTable schools="${schools}"/>
+            </c:if>
+
+            <div class="mod standard_2-1">
+                <div class="inner">
+                    <div class="bd">
+                        <p class="small_bold bottom">About Saved Schools</p>
+
+                        <div class="spacer_5"><!-- do not collapse --></div>
+                        <p class="small bottom">
+                            GreatSchools offers two convenient ways to bookmark saved schools for quick recall later. The one you see depends on how you view our website.
+                        </p>
+
+                        <div class="spacer_5"><!-- do not collapse --></div>
+                        <ul class="small">
+                            <li>"My School List" (full desktop site): "My School List" is a feature that allows you to save schools to your GreatSchools member account. Your GreatSchools member account is only available when visiting our full website.</li>
+                            <li>"My Saved Schools" (mobile site): "My Saved Schools" is a feature that allows you to save schools on your mobile phone. "My saved Schools" are available only when visiting our mobile website.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- typeOverride used in searchControl.tagx and/or mod:browseState -->
+            <c:set var="typeOverride" value="school" scope="request"/>
+
+                <search:searchControl rememberQuery="true"
+                                      showStates="true"
+                                      showLinks="true"
+                                      fieldLength="30"/>
+
         </div>
-        <c:set var="logoutRedirect" value="/mySchoolListLogin.page"/>
-        <div id="msl_header_bottom">
-            <div id="msl_welcome">Welcome ${username} (<a href="/community/logout.page?redirect=${logoutRedirect}">not ${username}?</a>)</div>
+
+        <div class="grid_8">
+
+
+            <ad:AboveFold_300x250/>
+            <ad:Top_300x137/>
+
         </div>
-    </div>
-
-    <c:if test="${not empty schools}">
-        <school:schoolsTable schools="${schools}" />
-    </c:if>
-
-    <div class="mod_bd">
-        <p><strong>About Saved Schools</strong></p>
-        <p>
-            GreatSchools offers two convenient ways to bookmark saved schools for quick recall later. The one you see depends on how you view our website.
-        </p>
-        <ul style="margin: 0 1em 1em 1em;">
-            <li>"My School List" (full desktop site): "My School List" is a feature that allows you to save schools to your GreatSchools member account. Your GreatSchools member account is only available when visiting our full website.</li>
-            <li>"My Saved Schools" (mobile site): "My Saved Schools" is a feature that allows you to save schools on your mobile phone. "My saved Schools" are available only when visiting our mobile website.</li>
-        </ul>
+        <div class="spacer">
+            <!-- don't collapse -->
+        </div>
+        <mod:tracking pageName="MSL Logged In"
+                      hier1="MySchoolList,MSLloggedin"/>
 
     </div>
 
-    <!-- typeOverride used in searchControl.tagx and/or mod:browseState -->
-    <c:set var="typeOverride" value="school" scope="request"/>
-    <div id="searchFooter" class="cleared">
-        <search:searchControl rememberQuery="true"
-                              showStates="true"
-                              showLinks="true"
-                              fieldLength="30" />
-    </div>
-</div>
-
-<div id="col_right">
-
-
-    <ad:AboveFold_300x250 />
-    <ad:Top_300x137/>
-
-</div>
-<div class="spacer">
-    <!-- don't collapse -->
-</div>
-<mod:tracking pageName="MSL Logged In"
-              hier1="MySchoolList,MSLloggedin"/>
 </gsml:body>
 </html>
 </jsp:root>
