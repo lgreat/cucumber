@@ -399,7 +399,7 @@
                 </c:if>
             </c:when>
             <c:otherwise>
-                <ul class="activities">
+                <ul class="activities none">
                     <c:forEach var="content" items="${requestScope.recentPosts}" varStatus="status">
 
                         <c:set var="numResults" value="${fn:length(requestScope.recentPosts)}"/>

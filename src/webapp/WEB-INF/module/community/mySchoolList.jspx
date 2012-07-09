@@ -64,7 +64,7 @@
                     <c:if test="${not empty recentReviews}">
 
                         <p class="text1-d61">Recent parent reviews of your schools</p>
-                        <ul class="schRevs">
+                        <ul class="schRevs none">
                             <c:forEach var="review" items="${recentReviews}" varStatus="status2">
 
                                 <!--<c:out value="${status2.count}"/>-->

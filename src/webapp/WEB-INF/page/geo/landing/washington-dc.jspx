@@ -145,7 +145,7 @@
             <div class="dc_unit fltrt"><span class="u_title cent17B tintfff">Connect and Learn</span>
 
                 <div id="u2" class="u_content">
-                    <ul class="u_list treb12 tint777">
+                    <ul class="u_list treb12 tint777 none">
                         <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
                                 href="/res/pdf/DC/GreatSchools_DC_Coach_Corps_2011-2012.pdf" styleClass="treb12 tint39a link"
                                 target="_blank">GSDC Coach Corps (Volunteer)</gsml:a></li>
@@ -168,7 +168,7 @@
             <div class="dc_unit fltlft"><span class="u_title cent17B tintfff">D.C. Resources</span>
 
                 <div id="u3" class="u_content">
-                    <ul class="u_list treb12 tint777">
+                    <ul class="u_list treb12 tint777 none">
 
                         <c:if test="${requestScope.context.showDcNclbModules}">
                             <li><img src="/res/img/adobe/pdficon_small.gif" width="17" height="17" alt="pdf icon"/>&amp;nbsp;<gsml:a
@@ -199,7 +199,7 @@
             <div class="dc_unit fltrt"><span class="u_title cent17B tintfff">GreatSchools Resources</span>
 
                 <div id="u4" class="u_content">
-                    <ul class="u_list treb12 tint777">
+                    <ul class="u_list treb12 tint777 none">
                         <li><a class="treb12 tint39a link"
                                href="mailto:dc@greatschools.org?subject=I%20want%20more%20information%20on%20GreatSchools%20DC">Email us for more information</a>
                         </li>
@@ -231,7 +231,7 @@
                 <h3>
                     <img src="/res/img/geo/landing/donate.gif" alt="Donate"/>
                 </h3>
-                <ul>
+                <ul class="none">
                     <li><span class="contribution">Your contribution helps support D.C. School Chooser and our GreatSchools D.C. program.</span></li>
                 </ul>
                 <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g">

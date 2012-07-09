@@ -60,7 +60,7 @@
             <div id="outreachManager">
                 <img src="/res/img/geo/landing/newark_stock_photo.JPG" width="175"/>
             </div>
-            <ul>         
+            <ul class="none">
                 <li>Newark parents, here are some great resources to help you choose a school:</li>
                 <li><link:cmsContent contentKey="Article#33" fullUri="find-a-school/defining-your-ideal/choosing-a-school">Choosing a school: An overview</link:cmsContent></li>
                 <li><link:cmsContent contentKey="Article#24" fullUri="find-a-school/defining-your-ideal/choosing-a-school">The school visit: What to look for, what to ask</link:cmsContent></li>
@@ -74,7 +74,7 @@
         <hr />
         <div class="mainLeft" id="partners">
             <h3><span>Our Partners</span></h3>
-            <ul>
+            <ul class="none">
                 <li><a href="http://www.ncsfund.org" target="_blank">Newark Charter School Fund</a></li>
                 <li><a href="http://www.njcharters.org" target="_blank">New Jersey Charter Public Schools Association</a></li>
             </ul>
@@ -150,7 +150,7 @@
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/connectandlearn.gif" alt="Connect and Learn" />
                 </h3>
-                <ul>
+                <ul class="none">
                     <li>
                         <link:newsletterManagement>Sign up for GreatSchools newsletters</link:newsletterManagement>
                     </li>
@@ -160,7 +160,7 @@
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/schoolresources.gif" alt="School Resources" />
                 </h3>
-                <ul>
+                <ul class="none">
                     <li><gsml:a href="http://www.rcan.org" target="_blank">Archdiocese of Newark </gsml:a></li>
                     <li><gsml:a href="http://www.njais.org" target="_blank">New Jersey Association of Independent <br/>Schools (NJAIS)</gsml:a></li>
                     <li><gsml:a href="http://www.nps.k12.nj.us" target="_blank">Newark Public Schools (NPS)</gsml:a></li>
@@ -170,7 +170,7 @@
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/Resources.gif" alt="GreatSchools Resources" />
                 </h3>
-                <ul>
+                <ul class="none">
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
                         <gsml:a href="http://www.greatschools.org/schoolreports/NewarkSchoolChooser.pdf" target="_blank">Newark School Chooser</gsml:a>
                     </li>

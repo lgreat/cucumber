@@ -87,7 +87,7 @@
         <hr />
         <div class="mainLeft" id="partners">
             <h3><span>Our Partners</span></h3>
-            <ul>
+            <ul class="none">
                 <li><a href="http://www.archmil.org/education/default.asp" target="_blank">Archdiocese of Milwaukee</a></li>
                 <li><a href="http://www.itlmuonline.com/" target="_blank">Institute for Transformation of Learning</a></li>
                 <li><a href="http://milwaukee.baeo.org/" target="_blank">Milwaukee Chapter - BAEO</a></li>
@@ -133,7 +133,7 @@
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/connectandlearn.gif" alt="Connect and Learn" />
                 </h3>
-                <ul>
+                <ul class="none">
                     <li><gsml:a href="/find-a-school/defining-your-ideal/33-choosing-a-school.gs" target="_blank">Choosing a school: An overview</gsml:a></li>
                     <li><gsml:a href="/find-a-school/school-visit/24-the-school-visit-what-to-look-for-what-to-ask.gs" target="_blank">The school visit: What to look for, what to ask</gsml:a></li>
                     <li><gsml:a href="/school-choice/" target="_blank">More tips for choosing a school</gsml:a></li>
@@ -150,7 +150,7 @@
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/schoolresources.gif" alt="School Resources" />
                 </h3>
-                <ul>
+                <ul class="none">
                     <li><gsml:a href="http://mpsportal.milwaukee.k12.wi.us/portal/server.pt?open=512&amp;objID=315&amp;PageID=38280&amp;mode=2&amp;in_hi_userid=2&amp;cached=true" target="_blank">Milwaukee Public Schools (MPS)</gsml:a></li>
                     <li><gsml:a href="http://dpi.state.wi.us/sms/csindex.html" target="_blank">Department of Public Instruction (DPI) - Charter schools</gsml:a></li>
                     <li><gsml:a href="http://dpi.state.wi.us/sms/choice.html" target="_blank">Department of Public Instruction (DPI) - Milwaukee Parental Choice Program</gsml:a></li>
@@ -160,7 +160,7 @@
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/Resources.gif" alt="GreatSchools Resources" />
                 </h3>
-                <ul>
+                <ul class="none">
                     <li><a href="mailto:milwaukee@greatschools.org?subject=I%20want%20more%20information%20on%20GreatSchools%20Milwaukee" >E-mail us for more information</a></li>
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
                         <gsml:a href="http://www.greatschools.org/catalog/pdf/gs-mkeFair-poster-11x17.pdf" target="_blank">2012 Milwaukee School Fair Poster</gsml:a>
@@ -179,7 +179,7 @@
             <h3>
                 <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
             </h3>
-            <ul>
+            <ul class="none">
                 <li>Your contribution helps support Milwaukee School Chooser and our GreatSchools Milwaukee program.</li>
             </ul>
             <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >

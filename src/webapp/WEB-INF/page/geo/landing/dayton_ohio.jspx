@@ -64,7 +64,7 @@
                     <span class="photoCaption">Program Manager</span>
                 </div>
             </div>
-            <ul>
+            <ul class="none">
                 <li>Dayton parents, here are some great resources to help you choose a school:</li>
                 <gsweb:articlelink articleId="96" wrappingElement="li"/>
                 <gsweb:articlelink articleId="48" wrappingElement="li"/>
@@ -78,7 +78,7 @@
         <hr />
         <div class="mainLeft" id="partners">
             <h3><span>Our Partners</span></h3>
-            <ul>
+            <ul class="none">
                 <li><a href="http://www.beehivedayton.org" target="_blank">Dayton Beehive</a></li>
                 <li><a href="http://ohio.baeo.org/" target="_blank">BAEO</a></li>
                 <li><a href="http://www.pacedayton.org/" target="_blank">PACE</a></li>
@@ -162,7 +162,7 @@
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/connectandlearn.gif" alt="Connect and Learn" />
                 </h3>
-                <ul>
+                <ul class="none">
                     <li><link:article articleId="1138">Find Dayton School Choice Workshops</link:article></li>
 
                     <li>
@@ -178,7 +178,7 @@
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/GreatSchoolsGuide.gif" alt="GreatSchools Guides" />
                 </h3>
-                <ul>
+                <ul class="none">
                     <li><img src="/res/img/adobe/pdficon_small.gif" alt="PDF icon" />
                         <gsml:a href="/schoolreports/DaytonSchoolChooser2009.pdf" >Montgomery County School Chooser</gsml:a>
                     </li>
@@ -189,7 +189,7 @@
                 <h3 class="grid-header">
                     <img src="/res/img/geo/landing/Resources.gif" alt="Resources" />
                 </h3>
-                <ul>
+                <ul class="none">
                     <li>Call our hotline: 937-229-2637</li>
                     <li><a href="mailto:aperkins@greatschools.org?subject=I%20want%20more%20information%20on%20GreatSchools%20Dayton" >E-mail us for more information</a></li>
                     <li><link:article articleId="1092">Get computer training</link:article></li>
@@ -201,7 +201,7 @@
             <h3>
                 <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
             </h3>
-            <ul>
+            <ul class="none">
                 <li>Your contribution helps support Montgomery County School Chooser and the GreatSchools Dayton parent leadership program.</li>
             </ul>
             <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
