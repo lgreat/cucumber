@@ -47,10 +47,46 @@
 //
 //})();
 //<a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>
-var linkToTabs = function(destination){
-   $("#js_"+destination).triggerHandler('click').stopPropagation();
-   return false;
-}
+
 jQuery(document).ready(function() {
     if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
+
+    var linkToTabs = function(destination){
+        $("#js_"+destination).triggerHandler('click').stopPropagation();
+        return false;
+    }
+
+    /* star rating */
+    var iconWidth = 16;
+    var totalStars = 5;
+    $('#starRatingContainer').mousemove(function(e){
+        var offset = $(this).offset();
+        var x = e.pageX - offset.left;
+        var currentStar = Math.floor(x/iconWidth) +1;
+        if(currentStar > 5) currentStar = 5;
+        $('#starRatingContainer .starsOn').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
+        $('#starRatingContainer .starsOn').addClass("i-16-star-"+ currentStar);
+        $('#starRatingContainer .starsOff').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
+        $('#starRatingContainer .starsOff').addClass("i-16-star-"+ (totalStars - currentStar));
+    });
+    $('#starRatingContainer').click(function(e){
+        var offset = $(this).offset();
+        var x = e.pageX - offset.left;
+        var currentStar = Math.floor(x/iconWidth) +1;
+        if(currentStar > 5) currentStar = 5;
+        $("#overallStarRating").val(currentStar);
+        $('#starRatingContainer .starsOn').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
+        $('#starRatingContainer .starsOn').addClass("i-16-star-"+ currentStar);
+        $('#starRatingContainer .starsOff').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
+        $('#starRatingContainer .starsOff').addClass("i-16-star-"+ (totalStars - currentStar));
+
+    });
+    $('#starRatingContainer').mouseout(function(e){
+        var currentRating = $("#overallStarRating").val();
+        $('#starRatingContainer .starsOn').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
+        $('#starRatingContainer .starsOn').addClass("i-16-star-"+ currentRating);
+        $('#starRatingContainer .starsOff').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
+        $('#starRatingContainer .starsOff').addClass("i-16-star-"+ (totalStars - currentRating));
+    });
+
 });

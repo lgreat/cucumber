@@ -44,51 +44,28 @@
                     Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
                     But because this page may load slowly, that's not an option.
                 -->
-                <!--<pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>-->
+                <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
+                <pageHelper:externalJavascript file="/res/js/starRating.js"/>
 
                 <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
 
                 <div class="line rating">
-                    <div class="unit size2of5">
-                        <h4 class="subhead6 label3">Rate this school <em
+                    <div class="unit size2of5 ">
+                        <h4 class="subhead6 label3"><strong>Rate this school</strong> <em
                                 class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
                         </h4>
                     </div>
-                    <div class="unit size3of5 lastUnit">
-                        <ul class="star-rating large-star fltlft">
-                            <li id="currentStarDisplay" class="current-rating"
-                                style="width:0;"><!-- -->
-                            </li>
-                            <li><a href="#" title="1 star out of 5" class="one-star"
-                                   onclick="this.hideFocus=true;return false;"
-                                    >1</a></li>
-                            <li><a href="#" title="2 stars out of 5" class="two-stars"
-                                   onclick="this.hideFocus=true;return false;"
-                                    >2</a></li>
-                            <li><a href="#" title="3 stars out of 5" class="three-stars"
-                                   onclick="this.hideFocus=true;return false;"
-                                    >3</a></li>
-                            <li><a href="#" title="4 stars out of 5" class="four-stars"
-                                   onclick="this.hideFocus=true;return false;"
-                                    >4</a></li>
-                            <li><a href="#" title="5 stars out of 5" class="five-stars"
-                                   onclick="this.hideFocus=true;return false;"
-                                    >5</a></li>
-                        </ul>
-                        <span class="top_5">
-                            <div id="ratingTitle" class="text3italic"><!-- --></div>
-                        </span>
+
+                    <div class="unit size3of5 lastUnit pma" style="background-color: #FFFFFF">
+                        <div id="starRatingContainer" class="fl">
+                            <div id="" class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                            <div id="" class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                        </div>
+                        <div class="top_5">
+                            <div class="fr smaller">Click on stars to rate</div>
+                        </div>
                         <!-- end star ratings -->
                     </div>
-
-                    <div class="spacer_15">
-                        <div class="form-error formErrorText media">
-                            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
-
-                            <div class="bd">Please select a star rating for this school.</div>
-                        </div>
-                    </div>
-
                 </div>
 
                 <input type="hidden" name="id" value="${schoolId}"/>
@@ -105,7 +82,7 @@
                                   name="comments"
                                   onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
                                   onblur="if(this.value==''){this.value='[Enter your review here]';}"
-                                  rows="" cols="">[Enter your review here]</textarea>
+                                   style="width:97%" rows="5">[Enter your review here]</textarea>
                     </div>
                 </div>
                     <div class="js-popup">
@@ -130,6 +107,7 @@
                                 </ul>
                             </div>
                         </div>
+                        <!--</div>-->
                 </div>
 
                 <div class="line">

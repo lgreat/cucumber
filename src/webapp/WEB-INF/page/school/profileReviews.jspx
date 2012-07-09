@@ -5,8 +5,11 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gsweb="gstaglib"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
-          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:community="urn:jsptagdir:/WEB-INF/tags/community"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:form="http://www.springframework.org/tags/form"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
         >
 
 <c:set var="stateAbbrev" value="${school.databaseState.abbreviationLowerCase}"/>
@@ -273,19 +276,24 @@
 
         <c:if test="${cmd.totalReviews gt 0}">
         <div class="spacer_15"><!-- do not collapse --></div>
-        <div id="revPagination" class="line">
-            <div class="unit size40of100">
-                <h4 class="subhead2">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h4>
+      <div class="grid_16 alpha omega ptl">
+        <div id="revPagination">
+            <div class="fl">
+                <h3 class="subhead2 mbs">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h3>
             </div>
-
-            <div class="unit size60of100 lastUnit">
+            <div class="fr">
                 ${reviewsPagination}
             </div>
+            <div style="clear:both"><!-- do not collapse --></div>
         </div>
 
+
+
+
+            <hr class="mvm" />
         <div class="spacer_15"><!-- do not collapse --></div>
         <div class="line">
-            <div id="rankSort" class="unit size2of5">
+            <div id="rankSort" class="alpha grid_8">
                 <span class="smallText1">Sort by: </span>
                 <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort"
                              onchange="go();">
@@ -296,7 +304,7 @@
                 </form:select>
             </div>
             <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
-                <div id="typeSort" class="unit size3of5 lastUnit">
+                <div id="typeSort"  class="omega grid_8 tar">
                     <form id="showReviews" class="smallText1" action="">
                         <span>Show reviews by: </span>
                         <c:if test="${numParentReviews gt 0}">
@@ -339,7 +347,7 @@
                 </div>
             </c:if>
         </div>
-
+      </div>
         <c:forEach var="review" items="${reviewsToShow}">
             <c:set var="who" value=""/>
             <c:if test="${!(empty(review.who) or review.who eq 'other')}">
@@ -353,18 +361,19 @@
                     <![CDATA[ <a name="ps${review.id}"></a> ]]>
 
                     <div class="line">
-                        <div class="unit size3of5">
-                            <div class="media mbs">
+                        <div class="unit size3of5 fl">
+                            <div class="media mbs ">
                                 <c:set var="curStarRating" value="${review.quality.name}"/>
                                 <c:if test="${school.levelCode eq 'p'}">
                                     <c:set var="curStarRating" value="${review.POverall.name}"/>
                                 </c:if>
                                 <c:if test="${curStarRating ne 'decline'}">
-                                <span class="sprite stars_lg_${curStarRating} img mrm vam"
-                                      title="${curStarRating} star rating"><!-- do not collapse --></span>
+                                <!--<span class="sprite stars_lg_${curStarRating} img mrm vam"-->
+                                      <!--title="${curStarRating} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                    <div class="fl mrl"><ratings:stars curSR="${curStarRating}"/></div>
                                 </c:if>
 
-                                <p class="author smallText1 bd mts">
+                                <div class="author smallText1 bd fl">
                                     Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
                                     <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                                         <c:choose>
@@ -379,11 +388,11 @@
                                             </c:when>
                                         </c:choose>
                                     </gsml:ifUserCanDeleteContent>
-                                </p>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="unit size2of5 lastUnit">
+                        <div class="unit size2of5 lastUnit fr">
                             <c:choose>
                                 <c:when test="${requestScope.reviewReports ne null and requestScope.reviewReports[review.id] eq true}">
                                     <p class="reported smallAlertTextBold">You've reported this review.</p>
@@ -393,7 +402,7 @@
                                     <div class="reportReview media smallText1">
                                         <span class="sprite reportIt-nbg img mrs"><!-- do not collapse --></span>
 
-                                        <div class="bd mts">
+                                        <div class="bd">
                                             <a class="reportIt" href="${loginRedirectUrl}"
                                                onclick="return false;"
                                                id="report_schoolReview_${review.id}">Report it</a>
@@ -402,6 +411,7 @@
                                 </c:otherwise>
                             </c:choose>
                         </div>
+                        <div style="clear: both"><!-- do not collapse --></div>
                     </div>
 
                     <c:set var="postedByDisplay" value=""/>
@@ -434,13 +444,15 @@
 
             </c:if>
             <!-- end: review -->
+            <hr class="mbl" />
         </c:forEach>
 
         <div class="spacer_10"><!-- do not collapse --></div>
 
-        <div>
+        <div class="fr">
             ${reviewsPagination}
         </div>
+        <div class="ptl" style="clear: both;"><!-- do not collapse --></div>
     </c:if>
 
     </div>
