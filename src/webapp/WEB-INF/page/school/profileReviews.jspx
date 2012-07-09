@@ -348,6 +348,7 @@
             </c:if>
         </div>
       </div>
+            <div class="grid_16 alpha omega ptl">
         <c:forEach var="review" items="${reviewsToShow}">
             <c:set var="who" value=""/>
             <c:if test="${!(empty(review.who) or review.who eq 'other')}">
@@ -444,7 +445,12 @@
 
             </c:if>
             <!-- end: review -->
-            <hr class="mbl" />
+            <c:set var="addSpacingBelow" value="" />
+            <c:if test="${!empty reviewsPagination}">
+                <c:set var="addSpacingBelow" value="mbl" />
+            </c:if>
+
+            <hr class="${addSpacingBelow}" />
         </c:forEach>
 
         <div class="spacer_10"><!-- do not collapse --></div>
@@ -453,7 +459,8 @@
             ${reviewsPagination}
         </div>
         <div class="ptl" style="clear: both;"><!-- do not collapse --></div>
-    </c:if>
+            </div>
+        </c:if>
 
     </div>
     </div>
