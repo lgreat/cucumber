@@ -4,18 +4,20 @@ import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.community.User;
 import gs.data.school.*;
+import gs.data.school.census.CensusDataSet;
+import gs.data.school.census.CensusDataType;
+import gs.data.school.census.ICensusDataSchoolValueDao;
+import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
+import gs.data.state.State;
 import gs.web.request.RequestAttributeHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Helper that gets data for all school profile pages.  Retrieves data from the following sources:
@@ -36,6 +38,7 @@ public class SchoolProfileDataHelper {
     private final static String REVIEWS = "reviews";
     private final static String REVIEWS_COUNT = "reviewsCount";
     private final static String SCHOOL_MEDIA_REPORTS_BY_USER = "reportsByUser";
+    private final static String CENSUS_DATA = "censusData";
 
     @Autowired
     private IEspResponseDao _espResponseDao;
@@ -51,6 +54,9 @@ public class SchoolProfileDataHelper {
 
     @Autowired
     private RequestAttributeHelper _requestAttributeHelper;
+
+    @Autowired
+    private ICensusDataSchoolValueDao _censusDataSchoolValueDao;
 
     protected Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
@@ -271,6 +277,38 @@ public class SchoolProfileDataHelper {
         return  reviews;    // Return what we have
     }
 
+    protected List<SchoolCensusValue> getCensusDataForSchool( HttpServletRequest request ) {
+
+        // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
+        if( school == null ) {
+            throw new IllegalArgumentException( "The request must already contain a school object" );
+        }
+
+        // Get Data
+        // First see if it is already in the request
+        List<SchoolCensusValue> censusData = (List<SchoolCensusValue>) request.getAttribute( CENSUS_DATA );
+
+        // If it isn't in the request try to retrieve it
+        if( censusData == null ) {
+            State state = school.getDatabaseState();
+            Collection<CensusDataSet> dataSets = new ArrayList<CensusDataSet>(2);
+            dataSets.add( new CensusDataSet(CensusDataType.CLASS_SIZE, 2012) );
+            dataSets.add( new CensusDataSet(CensusDataType.STUDENT_TEACHER_RATIO, 2012) );
+            List<School> schools = new ArrayList<School>(1);
+            schools.add(school);
+
+            censusData = _censusDataSchoolValueDao.findSchoolCensusValues( state, dataSets, schools );
+
+            if( censusData != null && !censusData.isEmpty() ) {
+
+                request.setAttribute( CENSUS_DATA, censusData ); // Save in request for future use
+            }
+        }
+
+        return censusData;
+    }
+
     // ============== The following setters are just for unit testing ===================
     public void setEspResponseDao( IEspResponseDao espResponseDao ) {
         _espResponseDao = espResponseDao;
@@ -292,6 +330,9 @@ public class SchoolProfileDataHelper {
         _requestAttributeHelper = requestAttributeHelper;
     }
 
+    public void setCensusDataSchoolValueDao( ICensusDataSchoolValueDao censusDataSchoolValueDao ) {
+        _censusDataSchoolValueDao = censusDataSchoolValueDao;
+    }
 
 }
 
