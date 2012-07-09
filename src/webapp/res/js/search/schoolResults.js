@@ -54,6 +54,8 @@ GS.search.results = GS.search.results || (function() {
             } else {
                 $this.html(blackTriangleDown);
             }
+
+            GS.ad.refreshAds();
             update(queryData);
         });
 
@@ -159,6 +161,7 @@ GS.search.results = GS.search.results || (function() {
         queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
         var pageSizeState = { queryString: "queryString"};
         history.pushState(pageSizeState, pageSize, queryString);
+        GS.ad.refreshAds();
         mapSearch(1, pageSize);
     };
 
@@ -190,6 +193,7 @@ GS.search.results = GS.search.results || (function() {
         }
         var sortState = { queryString: "queryString"};
         history.pushState(sortState, selectValue, queryString);
+        GS.ad.refreshAds();
         mapSearch(1, 25);
     };
 
@@ -203,6 +207,7 @@ GS.search.results = GS.search.results || (function() {
     };
 
     var pagination = function(pageNumber, pageSize) {
+        GS.ad.refreshAds();
         mapSearch(pageNumber, pageSize);
     }
 

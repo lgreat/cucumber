@@ -6,6 +6,10 @@ GS.search.filters = GS.search.filters || (function() {
     var init = function() {
         $(function() {
             $('.js-applyFilters').on('click', function(){
+                if($('#jq-filterBar').find($(this)).length > 0) {
+                    GS.ad.refreshAds();
+                }
+
                 /*if (window.location.pathname.indexOf('search.page') > -1) {*/
                 GS.search.results.update();
                 GS.search.filters.save();
