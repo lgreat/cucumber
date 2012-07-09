@@ -375,6 +375,7 @@ var Boundary = (function (){
     }
 
     var redoEventHandler = function (){
+        $districtNameHeader.html('District name');
         $map.boundaries('refresh');
         $map.boundaries('district');
         privateEventHandler();
