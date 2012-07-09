@@ -22,8 +22,8 @@
     <c:set var="starOff" value="${totSR - curSR}"/>
     <!--<c:choose>-->
         <!--<c:when test="${empty smStars}">-->
-            <div class="iconx16-stars i-16-orange-star  i-16-star-${curSR}"><!-- not empty--></div>
-            <div class="iconx16-stars i-16-grey-star  i-16-star-${starOff}"><!-- not empty--></div>
+            <div class="iconx16-stars i-16-orange-star  i-16-star-${curSR} fl"><!-- not empty--></div>
+            <div class="iconx16-stars i-16-grey-star  i-16-star-${starOff} fl"><!-- not empty--></div>
         <!--</c:when>-->
         <!--<c:otherwise>-->
             <!--<div class="iconx12 i-12-orange-star  i-12-star-${curSR}">&lt;!&ndash; not empty&ndash;&gt;</div>-->
