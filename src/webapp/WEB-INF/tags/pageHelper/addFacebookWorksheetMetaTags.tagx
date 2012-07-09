@@ -11,20 +11,16 @@
     <jsp:directive.tag import="org.apache.commons.lang.StringUtils"/>
     <jsp:directive.tag body-content="empty"
                        description="Used to add a meta tag to the document head. The meta tag will contain property and content attributes."/>
-    <jsp:directive.attribute name="uri" required="true" type="java.lang.String" description="Full URI for this page"/>
+    <jsp:directive.attribute name="permalink" required="true" type="java.lang.String" description="Full Permanent URL for this page"/>
     <jsp:directive.attribute name="deck" required="true" type="java.lang.String"
                              description="summary for the cms feature"/>
     <jsp:directive.attribute name="title" required="true" type="java.lang.String"
                              description="title for the cms feature"/>
-    <jsp:directive.attribute name="imageUrl" required="false" type="java.lang.String"
-                             description="image url of the article"/>
+
 
     <jsp:scriptlet>
 
-        // build the part of the url before the uri
-        String baseUrl = (request.getScheme() + "://" + request.getServerName() + (request.getServerPort() != 80 ? ":" + request.getServerPort() : ""));
-        // add page=1 as only query parameter
-        String unEncodedUrl = baseUrl + uri;// + "?page=1";
+        String unEncodedUrl = permalink;
         String encodedUrl = URLEncoder.encode(unEncodedUrl, "UTF-8");
         request.setAttribute("pageUrlOnFacebook", encodedUrl);
 
@@ -36,9 +32,7 @@
         gs.web.util.PageHelper.addMetaProperty(request, "og:description", deck);
         gs.web.util.PageHelper.addMetaProperty(request, "og:url", unEncodedUrl);
         gs.web.util.PageHelper.addMetaProperty(request, "og:title", title);
-        if (StringUtils.isNotBlank(imageUrl)) {
-        gs.web.util.PageHelper.addMetaProperty(request, "og:image", imageUrl);
-        }
+
 
     </jsp:scriptlet>
 </jsp:root>
