@@ -161,9 +161,9 @@ var Boundary = (function (){
             return (a.rating < b.rating) ? 1 : -1;
         }
         if (a.rating && !b.rating) {
-            return 1;
+            return -1;
         }
-        return -1;
+        return 1;
     }
 
     var initEventHandler = function(event, data) {
