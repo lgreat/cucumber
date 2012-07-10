@@ -469,7 +469,7 @@ public class SchoolSearchController extends AbstractCommandController implements
 
     public void handleOspFilters(SchoolSearchCommand schoolSearchCommand, Map<String,Object> model) {
         final String MODEL_SHOW_ADDITIONAL_FILTERS = "showAdditionalFilters";
-        if (SchoolHelper.isZipInLocal(schoolSearchCommand.getZipCode())) {
+        if (SchoolHelper.isZipForNewSearchFilters(schoolSearchCommand.getZipCode())) {
             model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
         }
     }
