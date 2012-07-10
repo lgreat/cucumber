@@ -24,7 +24,7 @@ General comments:
 .vertical-ghost-text {
     /* layout properties */
     top:0;
-    left:0;
+    left:-1px;
     /* vendor specific properties */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
