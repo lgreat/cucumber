@@ -227,7 +227,11 @@ ol.none li  { list-style-type: none; }
 .slStylesV1-0 .top         { margin-top:0; padding-top:0; }
 .slStylesV1-0 .bottom      { margin-bottom:0; padding-bottom:0; }
 
-.slStylesV1-0 .make-uppercase   { text-transform: uppercase; }
+.slStylesV1-0 .ttc         { text-transform: capitalize; }
+.slStylesV1-0 .ttl         { text-transform: lowercase; }
+.slStylesV1-0 .ttn         { text-transform: none; }
+.slStylesV1-0 .make-uppercase,
+.slStylesV1-0 .ttu         { text-transform: uppercase; }
 
 /* Additional Lists
 -------------------------------------------------------------- */

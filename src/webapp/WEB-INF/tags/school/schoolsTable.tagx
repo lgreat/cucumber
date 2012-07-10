@@ -27,7 +27,7 @@
 
             <div class="mod standard_1-1">
                 <div class="inner">
-                    <div class="bd mam">
+                    <div class="bd pam">
 
             <c:if test="${school.levelCode eq 'p'}">
                 <c:set var="showPreschoolNote" value="true" />
@@ -39,7 +39,7 @@
                 </link:schoolProfileOverview></h4>
                 <p class="small bottom quiet">
                     <c:set var="schoolTypeRangeString">
-                        <span class="st">${school.type.schoolTypeName}</span>
+                        <span class="st ttc">${school.type.schoolTypeName}</span>
                         <c:if test="${not empty school.gradeLevels.rangeString}">
                             &#183; <span class="gl">${school.gradeLevels.rangeString}</span>
                         </c:if>
@@ -63,6 +63,7 @@
                 <p class="small bottom">${school.physicalAddress.cityStateZip}</p>
                 <p class="small bottom fl">${school.phone}</p>
 
+                        <div class="clearfloat"><!-- do not collapse --></div>
 
                 <c:if test="${not empty school.district}">
                     <p class="clearfloat small bottom fl">
@@ -76,6 +77,8 @@
                         <link:mySchoolList styleClass="bd" remove="${school}">Remove from list</link:mySchoolList>
                         </div>
                     </div>
+
+                        <div class="clearfloat"><!-- do not collapse --></div>
 
                     </div>
                 </div>
