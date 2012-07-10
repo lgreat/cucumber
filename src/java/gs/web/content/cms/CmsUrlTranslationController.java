@@ -25,7 +25,8 @@ public class CmsUrlTranslationController extends AbstractController {
         if (CmsConstants.ARTICLE_CONTENT_TYPE.equals(contentType) || CmsConstants.ASK_THE_EXPERTS_CONTENT_TYPE.equals(contentType) ||
             CmsConstants.TOPIC_CENTER_CONTENT_TYPE.equals(contentType) || CmsConstants.ARTICLE_SLIDE_CONTENT_TYPE.equals(contentType) ||
             CmsConstants.ARTICLE_SLIDESHOW_CONTENT_TYPE.equals(contentType) || CmsConstants.DISCUSSION_BOARD_CONTENT_TYPE.equals(contentType) ||
-            CmsConstants.VIDEO_CONTENT_TYPE.equals(contentType) || CmsConstants.WORKSHEET_CONTENT_TYPE.equals(contentType)) {
+            CmsConstants.VIDEO_CONTENT_TYPE.equals(contentType) || CmsConstants.WORKSHEET_CONTENT_TYPE.equals(contentType) ||
+            CmsConstants.PAGE_CONTENT_TYPE.equals(contentType)) {
             Long contentId;
 
             try {

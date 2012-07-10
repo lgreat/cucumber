@@ -64,9 +64,26 @@
                             </c:otherwise>
                         </c:choose>
                     </li>
-                    <!--<li><a class="text2" href="#">Our Funders</a></li>-->
-                    <li><a href="/about/partnerOpportunities.page#advertise">Advertise With Us</a></li>
-                    <li><a href="/about/partnerOpportunities.page#license">Partners</a></li>
+                    <li>
+                        <c:choose>
+                            <c:when test="${pageScope.selected eq 'advertisers'}">
+                                <span class="text2">Advertise With Us</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/about/advertiserOpportunities.page">Advertise With Us</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li>
+                        <c:choose>
+                            <c:when test="${pageScope.selected eq 'partners'}">
+                                <span class="text2">Partners</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/about/partnerOpportunities.page">Partners</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
                     <li>
                         <c:choose>
                             <c:when test="${pageScope.selected eq 'linkToUs'}">

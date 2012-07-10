@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.289 2012/05/11 23:21:47 ssprouse Exp $
+ * $Id: UrlBuilder.java,v 1.290 2012/07/10 21:15:28 yfan Exp $
  */
 
 package gs.web.util;
@@ -568,7 +568,7 @@ public class UrlBuilder {
         if (fullUri != null) {
             _path = CmsUtil.getUri(contentKey, fullUri, raiseYourHand);
             // GS-11495
-            if (!CmsUtil.isCmsFeature(contentKey) && !CmsUtil.hasSpecialCaseUrl(contentKey)) {
+            if (!CmsUtil.isCmsFeature(contentKey) && !CmsUtil.isCmsPage(contentKey) && !CmsUtil.hasSpecialCaseUrl(contentKey)) {
                 setParameter("content", contentKey.getIdentifier().toString());
             }
 

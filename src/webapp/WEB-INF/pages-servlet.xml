@@ -911,6 +911,32 @@
         </property>
     </bean>
 
+
+    <!-- TODO-12958 -->
+    <!--
+    <bean name="/about/aboutUs.page" class="org.springframework.stereotype.Controller" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <bean name="desktopAboutUsController"
+                      class="gs.web.content.cms.CmsPageController"
+                      autowire="byName" lazy-init="true">
+                    <property name="controllerFamily" value="DESKTOP"/>
+                    <property name="viewName" value="about/aboutUs"/>
+                    <property name="contentId" value="6769"/>
+                </bean>
+                <bean name="mobileAboutUs"
+                      class="gs.web.mobile.MobileParameterizableViewController"
+                      autowire="byName" lazy-init="true">
+                    <property name="controllerFamily" value="MOBILE"/>
+                    <property name="viewName">
+                        <value>about/aboutUs-mobile</value>
+                    </property>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+    -->
+
     <bean name="/about/supportUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           autowire="byName" lazy-init="true">
@@ -1058,6 +1084,15 @@
         <property name="viewName">
             <value>about/seniorManagement</value>
         </property>
+    </bean>
+
+    <!-- TODO-12958 - example only -->
+    <bean name="/about/senior-management-cms.page"
+          class="gs.web.content.cms.CmsPageController"
+          autowire="byName" lazy-init="true">
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="about/seniorManagementCms"/>
+        <property name="contentId" value="6832"/>
     </bean>
 
     <bean name="/about/mobile.page"
