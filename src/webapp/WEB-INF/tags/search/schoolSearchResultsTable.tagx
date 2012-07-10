@@ -202,9 +202,9 @@
     <tr class="smallText2bold">
         <!--<span class="symbolsize-16">&amp;#9663;</span>-->
         <th align="center"><!-- do not collapse --></th>
-        <th align="left" valign="bottom">SCHOOL NAME</th>
-        <th align="center">GREATSCHOOLS RATING</th>
-        <th align="center">COMMUNITY RATING</th>
+        <th align="left" valign="bottom" class="vab"><strong>SCHOOL NAME</strong></th>
+        <th align="center" class="tac"><strong>GREATSCHOOLS RATING</strong></th>
+        <th align="center" class="tac"><strong>COMMUNITY RATING</strong></th>
         <th><!-- do not collapse --></th>
     </tr>
     </thead>

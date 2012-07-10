@@ -26,7 +26,7 @@
         <tr class="school-search-result-row" id="school-search-result-${school.databaseState}${school.id}">
 
             <!-- Compare Checkbox-->
-            <td class="brdbtm_dotted js-checkbox-column bg-color-fff" align="center" valign="top" title="${preschoolNoCompareMessage}">
+            <td class="brdbtm_dotted js-checkbox-column bg-color-fff tac" align="center" valign="top" title="${preschoolNoCompareMessage}">
                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                 <!-- DONE: Randall fixme -->
                 <c:choose>
