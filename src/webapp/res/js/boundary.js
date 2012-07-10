@@ -48,11 +48,10 @@ var Boundary = (function (){
             search(params.address);
 
         if (paramsSet){
-            enter(STATES.searching);
+            enter('searching');
             currentLat = params.lat, currentLng = params.lon;
-            $map.boundaries('center', new google.maps.LatLng(params.lat, params.lon));
-            $map.boundaries('district');
-            $map.boundaries('districts');
+            STATES.searching.position = new google.maps.LatLng(params.lat, params.lon);
+            $map.boundaries('school_with_district',STATES.searching.position);
         }
     }
 
@@ -205,8 +204,17 @@ var Boundary = (function (){
         firePageView('BoundariesMap:noresults');
     }
 
+    var clear = function () {
+        $districtNameHeader.html('District name');
+        $map.boundaries('refresh');
+        $dropdown.html('').append('<option>Select a district</option>');
+        $list.html('');
+        $header.addClass('hidden');
+    }
+
     var geocode = function (e,obj) {
         if (obj.data.length>0){
+            clear();
             $districtNameHeader.html('Districts near ' + obj.data[0].normalizedAddress);
             history(obj.data[0].lat, obj.data[0].lon, currentLevel);
             STATES.searching.position = new google.maps.LatLng(obj.data[0].lat, obj.data[0].lon);
@@ -255,8 +263,8 @@ var Boundary = (function (){
 
     var redo = function (){
         enter('browsing');
+        clear();
         $redo.hide();
-        $districtNameHeader.html('District name');
         $map.boundaries('refresh');
         $map.boundaries('district');
         $map.boundaries('districts');

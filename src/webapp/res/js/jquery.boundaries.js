@@ -335,7 +335,7 @@ Boundaries.prototype = {
      */
     , school_with_district:  function (option) {
         var success = function (schools) {
-            if (schools.length && schools.length>0){
+            if (schools.length && schools.length>0) {
                 var school = schools[0];
                 var dsuccess = function (districts) {
                     for (var i=0; i<districts.length; i++) {
@@ -350,6 +350,10 @@ Boundaries.prototype = {
 
                 }
                 $.when(this.districts(option)).then($.proxy(dsuccess, this));
+            }
+            else {
+                this.district(option);
+                this.districts(option);
             }
         };
         $.when(this.school(option)).then($.proxy(success, this));
