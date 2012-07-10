@@ -343,7 +343,7 @@ Violent Crime index, climate statistics and median home price</li>
 
             <h3 id="faq-boundarymap">School and District Boundary Map</h3>
 
-            <ol class="questions">
+            <ol class="questions none">
                 <li>
                     <p class="question">What are your disclaimer terms for School and District Boundaries Map?</p>
                     <p>Not all school and district boundaries are included. We strive to ensure that all data and information is accurate, however, the data and visualization tools are for general informational purposes only. To verify legal descriptions of boundaries or to determine school locations or attendance, please contact the school or school district directly.</p>
