@@ -50,7 +50,7 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 
 			<h2 id="faq-101">GreatSchools 101</h2>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">What is the purpose of GreatSchools?</p>
 					<p>To improve K-12 education by inspiring parents to get involved.</p>
@@ -118,7 +118,7 @@ education.</p>
 
 			<h3 id="faq-datapublic">School Data – Public &amp;amp; Charter Schools</h3>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">What types of schools does GreatSchools.org provide profiles for?</p>
 					<p>GreatSchools.org
@@ -237,7 +237,7 @@ may be charged to cover our processing costs.</p>
 
 			<h3 id="pvtdata">School Data – Private Schools</h3>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">Why does GreatSchools have less information about private schools than public schools?</p>
 					<p>Unlike
@@ -281,7 +281,7 @@ School Profile feature. School leaders can <link:schoolEspRegister>request acces
 
             <h3 id="preschools">School Data – Preschools</h3>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">Where does GreatSchools get its preschool information?</p>
 					<p>Our preschool information comes from Market Data Retrieval (MDR), the National Center for Education Statistics (NCES)
@@ -310,7 +310,7 @@ School Profile feature. School leaders can <link:schoolEspRegister>request acces
 
 			<h3 id="faq-datacity">City and School District Data</h3>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">What type of city information does GreatSchools offer?</p>
 					<p>GreatSchools includes most or all of the following information for cities:</p>
@@ -362,7 +362,7 @@ Violent Crime index, climate statistics and median home price</li>
 
             <h3 id="faq-officialprofiles">Official School Profiles</h3>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">What is an Official School Profile and is it free?</p>
 					<p>An
@@ -409,7 +409,7 @@ already have a school Web site.</p>
 
 			<h3 id="faq-ratings">GreatSchools Ratings</h3>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">How are the GreatSchools Ratings calculated?</p>
 					<p>GreatSchools
@@ -446,7 +446,7 @@ ratings given by the state Department of Education.</p>
 
 			<h3 id="faq-surveyinfo">Parent Survey Information</h3>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">What exactly is a Parent Survey?</p>
 					<p>The survey allows parents to add the following information directly to their school's GreatSchools profile:</p>
@@ -462,7 +462,7 @@ ratings given by the state Department of Education.</p>
 
 			<h3 id="faq-comparingschools">Comparing Schools</h3>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">How do I compare schools?</p>
 					<p>You
@@ -488,7 +488,7 @@ different states administer different standardized tests.</p>
 
 			<h3 id="faq-schoollist">My School List</h3>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p><link:mySchoolList>My School List</link:mySchoolList>
 is a tool that lets you compile a list of schools, save and compare
@@ -504,7 +504,7 @@ compare the schools in your list.</p>
 
             <h2 id="faq-mobile">GreatSchools Mobile Website</h2>
 
-            <ol class="questions">
+            <ol class="questions none">
                 <li>
                     <p class="question">How do I go back and forth between the mobile website and the full site?</p>
                     <p>When you visit GreatSchools.org from a smart phone, you will automatically see our
@@ -539,7 +539,7 @@ compare the schools in your list.</p>
 
             <h2 id="faq-advice">Expert Advice and Newsletters</h2>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">What type of content can I find on your site?</p>
 					<p>GreatSchools
@@ -591,7 +591,7 @@ transferred most of the Schwab Learning content to the GreatSchools Web
 site. Below are answers to questions you may have about the transition
 of the Web site and how it affects you.</p>
 
-			<ol class="questions">
+			<ol class="questions none">
 				<li>
 					<p class="question">Can I still access SchwabLearning.org?</p>
 					<p>No.
