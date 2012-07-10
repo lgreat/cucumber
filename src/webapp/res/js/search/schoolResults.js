@@ -55,7 +55,7 @@ GS.search.results = GS.search.results || (function() {
                 $this.html(blackTriangleDown);
             }
 
-            GS.ad.refreshAds();
+            refreshAds();
             update(queryData);
         });
 
@@ -161,7 +161,7 @@ GS.search.results = GS.search.results || (function() {
         queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
         var pageSizeState = { queryString: "queryString"};
         history.pushState(pageSizeState, pageSize, queryString);
-        GS.ad.refreshAds();
+        refreshAds();
         mapSearch(1, pageSize);
     };
 
@@ -193,7 +193,7 @@ GS.search.results = GS.search.results || (function() {
         }
         var sortState = { queryString: "queryString"};
         history.pushState(sortState, selectValue, queryString);
-        GS.ad.refreshAds();
+        refreshAds();
         mapSearch(1, 25);
     };
 
@@ -207,7 +207,7 @@ GS.search.results = GS.search.results || (function() {
     };
 
     var pagination = function(pageNumber, pageSize) {
-        GS.ad.refreshAds();
+        refreshAds();
         mapSearch(pageNumber, pageSize);
     }
 
@@ -473,6 +473,13 @@ GS.search.results = GS.search.results || (function() {
         }
     }
 
+    var refreshAds = function() {
+        var adSlotKeys = ['Search_Site_Footer_728x90', 'Search_Site_Header_728x90', 'Search_Site_AboveFold_300x250',
+            'Search_Site_BelowFold_Top_300x125', 'Search_Site_SponsoredSearch_Top_423x120',
+            'Search_Site_SponsoredSearch_Bottom_423x68', 'Search_Site_SponsoredSearch_Top_423x68'];
+        GS.ad.refreshAds(adSlotKeys);
+    }
+
     return {
         init:init,
         update:update,
@@ -480,7 +487,8 @@ GS.search.results = GS.search.results || (function() {
         sendToCompare:sendToCompare,
         pagination:pagination,
         mapSearch:mapSearch,
-        updateSortAndPageSize:updateSortAndPageSize
+        updateSortAndPageSize:updateSortAndPageSize,
+        refreshAds: refreshAds
     };
 
 })();

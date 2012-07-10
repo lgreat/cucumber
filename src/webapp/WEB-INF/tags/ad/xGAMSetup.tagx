@@ -147,22 +147,20 @@
         <script type="text/javascript">
         ]]>
 
-        <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
         <![CDATA[
             var GS = GS || {};
             GS.ad = GS.ad || {};
-            GS.ad.slots = [];
+            GS.ad.slots = GS.ad.slots || {};
             googletag.cmd.push(function() {
+            if(googletag.pubads() !== undefined) {
         ]]>
-        </c:if>
-            <c:forEach var="slotName" items="${GAMadNames}" varStatus="varIndex">
+            <c:forEach var="slotName" items="${GAMadNames}">
                 <c:set var="adPosition" value="${GPTadNameAdPositionMap[slotName]}"/>
-                GS.ad.slot${varIndex.index} = googletag.defineSlot('/1002894/${slotName}', <c:choose>
+                GS.ad.slots['${slotName}'] = googletag.defineSlot('/1002894/${slotName}', <c:choose>
                     <c:when test="${fn:length(adPosition.allSizes) > 1}">[<c:forEach var="size" items="${adPosition.allSizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
                     <c:otherwise>[${adPosition.size.width},${adPosition.size.height}]</c:otherwise>
                 </c:choose>, 'ad${adPosition.name}');
-                GS.ad.slot${varIndex.index}.addService(googletag.pubads());
-                GS.ad.slots.push(GS.ad.slot${varIndex.index});
+                GS.ad.slots['${slotName}'].addService(googletag.pubads());
             </c:forEach>
 
             <c:forEach var="keywordEntry" items="${GAMadKeywords}">
@@ -180,20 +178,33 @@
                 googletag.pubads().enableSingleRequest();
             ]]>
             <c:if test="${!requestScope.context.gptAsynchronousModeEnabled}">
-                googletag.pubads().enableSyncRendering();
+                <![CDATA[
+                    googletag.pubads().enableSyncRendering();
+                ]]>
             </c:if>
             <![CDATA[
                 googletag.enableServices();
+                }
+                });
             ]]>
 
-            <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
             <![CDATA[
-                });
-                GS.ad.refreshAds = function() {
-                    googletag.pubads().refresh(GS.ad.slots);
+                GS.ad.refreshAds = function(slotKeys) {
+                    if(googletag.pubads() !== undefined) {
+            ]]>
+                    <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
+            <![CDATA[
+                        var adSlots = [];
+                        for(key in slotKeys) {
+                            adSlots.push(GS.ad.slots[slotKeys[key]]);
+                        }
+                        googletag.pubads().refresh(adSlots);
+            ]]>
+                    </c:if>
+            <![CDATA[
+                    }
                 };
             ]]>
-            </c:if>
         <![CDATA[
         </script>
         ]]>

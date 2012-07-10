@@ -129,11 +129,9 @@
 
 <div class="spacer_15"><!-- do not collapse --></div>
 
-<div class="alpha grid_16 omega">
-    <ad:adTag position="SponsoredSearch_Top_423x120"/>
-    <ad:adTag position="SponsoredSearch_Top_423x68"/>
-    <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
+<ad:adTag position="SponsoredSearch_Top_423x120"/>
 
+<div class="alpha grid_16 omega">
     <div class="contain_6-1 pbs">
         <div class="fl">
             <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a>  &amp;nbsp;
@@ -685,7 +683,7 @@
         </select>
     </div>
     </div>
-    <!--<ad:BelowFold_Top_300x125/>-->
+    <ad:BelowFold_Top_300x125/>
 </div>
 
 

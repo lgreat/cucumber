@@ -7,7 +7,7 @@ GS.search.filters = GS.search.filters || (function() {
         $(function() {
             $('.js-applyFilters').on('click', function(){
                 if($('#jq-filterBar').find($(this)).length > 0) {
-                    GS.ad.refreshAds();
+                    GS.search.results.refreshAds();
                 }
 
                 /*if (window.location.pathname.indexOf('search.page') > -1) {*/
