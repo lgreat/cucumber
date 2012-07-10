@@ -47,7 +47,7 @@
             <h5>Manage my account</h5>
         </div>
         <div class="navmod_bd">
-            <ul class="text2">
+            <ul class="text2 none">
                 <li><link:changeEmail>Update Email Address</link:changeEmail></li>
                 <li><link:resetPassword>Change My Password</link:resetPassword></li>
                 <li>Manage Emails &amp;amp; Newsletters</li>
@@ -90,7 +90,7 @@
         <p class="newsletterHeader text2bold">Weekly Newsletter<a name="greatnews_anchor">&amp;nbsp;</a></p>
 
         <p class="newsletterDescription text2">The tips and tools you need to make smart choices about your child’s education.</p>
-        <ol>
+        <ol class="none">
             <li>
                 <fieldset>
                     <ol>
@@ -109,10 +109,10 @@
         <div id="jq-mynth" class="mynth ${showMynth}">
             <p class="text3bold">Personalize your weekly updates by indicating your<a name="mynth_anchor">&amp;nbsp;</a>
                 <br/>child(ren)'s grade level(s) for 2011-2012:</p>
-            <ol class="horizontal">
+            <ol class="horizontal none">
                 <li>
                     <fieldset>
-                        <ol class="size1of3 col">
+                        <ol class="size1of3 col none">
                             <li><form:checkbox value="mypk" id="gp" path="mypk"/><label
                                     for="gp">Preschool</label>
                                 <form:hidden path="mypkId"/>
@@ -170,10 +170,10 @@
         <p class="newsletterHeader text2bold">Daily Newsletter<a name="sed_anchor">&amp;nbsp;</a></p>
 
         <p class="newsletterDescription text2">Daily tips and ideas that will enrich your child's education.</p>
-        <ol>
+        <ol class="none">
             <li>
                 <fieldset>
-                    <ol>
+                    <ol class="none">
                         <li>
                             <form:checkbox path="dailytip" cssClass="newsletterCheckbox"
                                            id="dailytip_checkbox"/>
@@ -243,7 +243,7 @@
         <div class="spacer_10"><!-- do not collapse --></div>
         <div id="jq-mssAddSchoolSection" style="display:${addSectionDisplayStyle};">
             <p class="text3bold">Add a school:<span class="text3"> (four schools maximum)</span></p>
-            <ol>
+            <ol class="none">
                 <li>
                     <gsweb:stateSelector state="${emailCmd.stateAdd}" styleId="jq-stateAdd"
                                          name="stateAdd"
@@ -296,7 +296,7 @@
         <p class="newsletterHeader text2bold">Monthly Special Education Updates<a name="sed_anchor">&amp;nbsp;</a></p>
 
         <p class="newsletterDescription text2">Get the resources you need to support your child with a learning disability or an attention problem.</p>
-        <ol>
+        <ol class="none">
             <li>
                 <fieldset>
                     <ol>
@@ -318,7 +318,7 @@
         <p class="newsletterHeader text2bold">Replies to community posts</p>
 
         <p class="newsletterDescription text2">Get notified whenever someone replies to a conversation or a comment you have posted.</p>
-        <ol>
+        <ol class="none">
             <li>
                 <fieldset>
                     <ol>
@@ -346,10 +346,10 @@
             family. With each offer, we give 5% of your purchase
             to a school of your choice.
         </p>
-        <ol>
+        <ol class="none">
             <li>
                 <fieldset>
-                    <ol>
+                    <ol class="none">
                         <li>
                             <form:checkbox path="savvy" cssClass="newsletterCheckbox"
                                            id="savvy_checkbox"/>
@@ -367,10 +367,10 @@
     <div class="newsletterInfo">
         <p class="newsletterHeader text2bold">Send me valuable offers and information from GreatSchools partners<a
                 name="sponsor_anchor">&amp;nbsp;</a></p>
-        <ol>
+        <ol class="none">
             <li>
                 <fieldset>
-                    <ol>
+                    <ol class="none">
                         <li>
                             <form:checkbox path="sponsor" cssClass="newsletterCheckbox"
                                            id="sponsor_checkbox"/>
@@ -392,10 +392,10 @@
         <div class="newsletterInfo">
             <p class="newsletterHeader text2bold">Send me updates about The GreatSchools Parents Pledge<a
                     name="pledge_anchor">&amp;nbsp;</a></p>
-            <ol>
+            <ol class="none">
                 <li>
                     <fieldset>
-                        <ol>
+                        <ol class="none">
                             <li>
                                 <form:checkbox path="pledge" cssClass="newsletterCheckbox"
                                                id="pledge_checkbox"/>

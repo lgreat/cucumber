@@ -381,7 +381,7 @@
                     <p>Share stories about your child's success in and out of the classroom in our community.</p>
 
                     <p>Our community wants to hear from you about:</p>
-                    <ul class="prompt">
+                    <ul class="prompt none">
                         <li><span><link:cmsContent contentKey="DiscussionBoard#1640"
                                                    fullUri="/parenting">Health &amp;amp; Development</link:cmsContent></span>
                         </li>

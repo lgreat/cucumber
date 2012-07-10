@@ -39,7 +39,7 @@
                           <h5>Manage my account</h5>
                       </div>
                       <div class="navmod_bd">
-                          <ul class="text2">
+                          <ul class="text2 none">
                               <li>Update Email Address</li>
                               <li><link:resetPassword>Change My Password</link:resetPassword></li>
                               <li><link:newsletterManagement>Manage Emails &amp; Newsletters</link:newsletterManagement></li>
@@ -71,7 +71,7 @@
 
                       <gsweb:form action="/community/changeEmail.page" method="post">
                           <fieldset class="changeEmail">
-                              <ul>
+                              <ul class="none">
                                   <li>
                                       <label class="text2bold">Current email address:</label>
                                       <span class="text2-777">${requestScope.context.email}</span>&amp;nbsp;&amp;nbsp;
