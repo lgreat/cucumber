@@ -254,6 +254,7 @@ var Boundary = (function (){
     }
 
     var redo = function (){
+        enter('browsing');
         $districtNameHeader.html('District name');
         $map.boundaries('refresh');
         $map.boundaries('district');
