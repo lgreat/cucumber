@@ -7,7 +7,7 @@
                              type="java.util.List"/>
 
     <c:if test="${not empty pageScope.ratings}">
-        <ul class="smallText2-777">
+        <ul class="smallText2-777 none">
             <c:forEach var="rating" items="${pageScope.ratings}">
                 <li class="slStylesV1-0">
                     <div class="media">
