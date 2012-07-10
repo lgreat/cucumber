@@ -5120,7 +5120,7 @@ a.ui-dialog-titlebar-close .ui-icon {
 #joinGS #moreGrades{
     height:auto;
     width:300px;
-    padding:3px 5px;
+    padding:1px 5px;
     border:1px solid #2092c4;
 }
 
@@ -9910,17 +9910,6 @@ p#btsBubbleOpts {
 
 #k12AdPage .text1italic {
     line-height: 1.3em;
-}
-
-#k12AdPage ul {
-    margin-bottom: 10px;
-}
-
-#k12AdPage li {
-    list-style:disc outside none;
-    margin-left:15px;
-    padding:5px 0;
-    line-height:1.3;
 }
 
 /******************************************************************

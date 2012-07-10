@@ -202,7 +202,7 @@
         <div class="grades2">
             <div class="clearfloat"><!-- do not collapse --></div>
             <p>In 2011-2012 my children are in:</p>
-            <ul>
+            <ul class="none">
                 <li id="pickGrade">
                     <input type="checkbox" value="mypk" id="gp" name="grades"/>
                     <label for="gp">Preschool</label>
