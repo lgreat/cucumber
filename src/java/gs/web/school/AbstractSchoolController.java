@@ -72,12 +72,12 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
 
         // make sure we have a valid school
         School s = _requestAttributeHelper.getSchool(request);
-        System.out.println(s);
         if (s != null) {
             DirectoryStructureUrlFields fields = RequestAttributeHelper.getDirectoryStructureUrlFields(request);
             if (s.isActive() || s.isDemoSchool()) {
-                // if it's a preschool, 301-redirect to the directory-structure url instead of the old-style url
-                if (this instanceof SchoolOverview2010Controller && LevelCode.PRESCHOOL.equals(s.getLevelCode())) {
+                // if it's a preschool on an old-style url, 301-redirect to the directory-structure url
+                if ((fields == null || !fields.hasSchoolID())
+                        && this instanceof SchoolOverview2010Controller && LevelCode.PRESCHOOL.equals(s.getLevelCode())) {
                     UrlBuilder urlBuilder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
                     return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
                 }
