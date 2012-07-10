@@ -80,12 +80,36 @@ Boundaries.prototype = {
         return deferred.promise();
     }
 
-    , nondistrict: function ( params ) {
+    , priv: function (option) {
         var deferred = new jQuery.Deferred()
             , lat=this.getMap().getCenter().lat()
             , lng=this.getMap().getCenter().lng()
             , level=this.getOptions().level;
+        if (this.exists(option) && option.lat() && option.lng()){
+            lat = option.lat(), lng = option.lng();
+        }
+        var success = function(schools) {
+            for (var i=0; i<schools.length; i++) {
+                schools[i].charterOnly = false;
+                this.show(schools[i]);
+            }
+            deferred.resolve(schools);
+        }
 
+        BoundaryHelper.getNonDistrictSchoolsNearLocation(lat, lng, level, 'private')
+            .done($.proxy(success, this)).fail(function(){deferred.reject();});
+
+        return deferred.promise();
+    }
+
+    , charter: function (option) {
+        var deferred = new jQuery.Deferred()
+            , lat=this.getMap().getCenter().lat()
+            , lng=this.getMap().getCenter().lng()
+            , level=this.getOptions().level;
+        if (this.exists(option) && option.lat() && option.lng()){
+            lat = option.lat(), lng = option.lng();
+        }
         var success = function(schools) {
             for (var i=0; i<schools.length; i++) {
                 schools[i].charterOnly = true;
@@ -94,18 +118,20 @@ Boundaries.prototype = {
             deferred.resolve(schools);
         }
 
-        BoundaryHelper.getNonDistrictSchoolsNearLocation(lat, lng, level, params)
+        BoundaryHelper.getNonDistrictSchoolsNearLocation(lat, lng, level, 'charter')
             .done($.proxy(success, this)).fail(function(){deferred.reject();});
 
         return deferred.promise();
     }
 
-    , districts: function () {
+    , districts: function (option) {
         var deferred = new jQuery.Deferred()
             , lat = this.getMap().getCenter().lat()
             , lng = this.getMap().getCenter().lng()
             , level = this.getOptions().level;
-
+        if (this.exists(option) && option.lat() && option.lng()){
+            lat = option.lat(), lng = option.lng();
+        }
         var success = function (districts){
             for(var i=0; i<districts.length; i++) {
                 this.show(districts[i]);
@@ -199,10 +225,10 @@ Boundaries.prototype = {
                 , hide = false;
 
             if (type=='private' || type=='charter'){
-                if (school && school.schoolType=='private') {
+                if (school && type=='private' && school.schoolType=='private') {
                     hide = true;
                 }
-                else if (school && school.schoolType=='charter' && school.charterOnly) {
+                else if (school && type=='charter' && school.schoolType=='charter' && school.charterOnly) {
                     hide = true;
                 }
             }
@@ -276,15 +302,16 @@ Boundaries.prototype = {
         this.hide('school');
         this.hide('district');
         this.center(this.getMap().getCenter());
-        this[this.getOptions().type]();
     }
 
-    , school: function () {
+    , school: function (option) {
         var deferred = new jQuery.Deferred()
             , lat = this.getMap().getCenter().lat()
             , lng = this.getMap().getCenter().lng()
             , level = this.getOptions().level;
-
+        if (this.exists(option) && option.lat && option.lng) {
+            lat = option.lat(), lng = option.lng();
+        }
         var success = function (schools) {
 
             for (var i=0; i<schools.length; i++) {
@@ -306,7 +333,7 @@ Boundaries.prototype = {
      * on the map and also show that schools district
      * boundary if it is loaded on the map.
      */
-    , school_with_district:  function () {
+    , school_with_district:  function (option) {
         var success = function (schools) {
             if (schools.length && schools.length>0){
                 var school = schools[0];
@@ -322,10 +349,10 @@ Boundaries.prototype = {
                     }
 
                 }
-                $.when(this.districts()).then($.proxy(dsuccess, this));
+                $.when(this.districts(option)).then($.proxy(dsuccess, this));
             }
         };
-        $.when(this.school()).then($.proxy(success, this));
+        $.when(this.school(option)).then($.proxy(success, this));
     }
 
     , schools: function () {
