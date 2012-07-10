@@ -128,38 +128,36 @@
                         </div>
 
                         <div class="smallText1">
-                            <div class="media">
+                            <div class="media-1">
                                 <img class="img mrs" src="/res/img/logo/logo_GS_200x50.gif" alt="logo"/>
 
                                 <div class="bd">
-                                    <div class="spacer_15"><!-- do not collapse --></div>
                                     <a href="/about/downloadLogo.page?size=small&amp;amp;extension=png&amp;amp;type=new">200x50.png</a>
                                     <br/>
                                     <a href="/about/downloadLogo.page?size=small&amp;amp;extension=gif&amp;amp;type=new">200x50.gif</a>
                                 </div>
                             </div>
 
-                            <div class="media">
+                            <div class="media-1">
                                 <img class="img mrs" src="/res/img/logo/logo_GS_233x46.gif" alt="logo"/>
 
                                 <div class="bd">
-                                    <div class="spacer_20"><!-- do not collapse --></div>
                                     <a href="/about/downloadLogo.page?size=medium&amp;amp;extension=png&amp;amp;type=new">233x46.png</a>
                                     <br/>
                                     <a href="/about/downloadLogo.page?size=medium&amp;amp;extension=gif&amp;amp;type=new">233x46.gif</a>
                                 </div>
                             </div>
 
-                            <div class="media">
+                            <div>
                                 <img class="img mrs" src="/res/img/logo/logo_GS_330x110.gif" alt="logo"/>
-
-                                <div class="bd">
-                                    <div class="spacer_60"><!-- do not collapse --></div>
-                                    <a href="/about/downloadLogo.page?size=large&amp;amp;extension=png&amp;amp;type=new">330x110.png</a>
-                                    <br/>
-                                    <a href="/about/downloadLogo.page?size=large&amp;amp;extension=gif&amp;amp;type=new">330x110.gif</a>
-                                </div>
                             </div>
+
+                            <div class="fltrt">
+                                <a href="/about/downloadLogo.page?size=large&amp;amp;extension=png&amp;amp;type=new">330x110.png</a>
+                                &#160;&#160;
+                                <a href="/about/downloadLogo.page?size=large&amp;amp;extension=gif&amp;amp;type=new">330x110.gif</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>

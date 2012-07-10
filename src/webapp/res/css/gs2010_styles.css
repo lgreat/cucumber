@@ -1553,6 +1553,13 @@ div .gallery-thumbnail-selected:hover {
 .media .img img{display:block;}
 .media .imgExt{float:right; /*margin-left: 10px;*/}
 
+/* ------- media skins ------- */
+.media-1{overflow:hidden;*overflow:visible;zoom:1;}
+.media-1 .img{float:left;/*margin-right: 10px;*/}
+.media-1 .img img{display:block;}
+.media-1 .imgExt{float:right; /*margin-left: 10px;*/}
+.media-1 .bd{border: none;}
+
 /* =6 spacing
 -------------------------------------------------------------------------------------------*/
 
