@@ -1,26 +1,13 @@
 package gs.web.school;
 
-import gs.data.community.Subscription;
-import gs.data.community.User;
-import gs.data.community.local.LocalBoard;
-import gs.data.content.cms.CmsConstants;
-import gs.data.content.cms.ContentKey;
-import gs.data.geo.City;
 import gs.data.school.ISchoolDao;
-import gs.data.school.LevelCode;
-import gs.data.school.NearbySchool;
 import gs.data.school.School;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Poster;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
-import gs.data.security.Permission;
-import gs.data.state.State;
-import gs.web.request.RequestInfo;
 import gs.web.school.review.ParentReviewHelper;
 import gs.web.util.PageHelper;
-import gs.web.util.RedirectView301;
-import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -29,8 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +30,6 @@ import java.util.*;
 public class SchoolProfileReviewsController extends AbstractSchoolProfileController {
 
     private ParentReviewHelper _parentReviewHelper;
-    private NearbySchoolsHelper _nearbySchoolsHelper;
     private RatingHelper _ratingHelper;
     private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
@@ -146,9 +130,6 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
             model.put("cmd", cmd);
             model.put("param_sortby", sortBy);
 
-            List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 20);
-            request.setAttribute("mapSchools", getNearbySchoolsHelper().getRatingsForNearbySchools(nearbySchools));
-
             boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
 
             Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
@@ -159,14 +140,6 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
         }
 
         return model;
-    }
-
-    public NearbySchoolsHelper getNearbySchoolsHelper() {
-        return _nearbySchoolsHelper;
-    }
-
-    public void setNearbySchoolsHelper(NearbySchoolsHelper nearbySchoolsHelper) {
-        _nearbySchoolsHelper = nearbySchoolsHelper;
     }
 
     public RatingHelper getRatingHelper() {
