@@ -69,15 +69,13 @@
         <div class="module"><span class="m_title treb15 tint5bc">Meet Our Team</span>
 
                 <div class="m_content">
-                    <img class="m_img" name="team" src="/res/img/geo/landing/wi_mot.jpg" width="174" height="103"
+                    <img class="m_img" name="team" src="/res/img/geo/landing/mke_staff.jpg" width="174" height="131"
                          alt="Vanna, Nzinga, Jodi, Nelly"/>
 
-                    <div class="m_list treb12B tint5bc">Vanna Lovan<br/>
-                        <span class="treb12 tint666">Community Organizer</span></div>
                     <div class="m_list treb12B tint5bc">Nzinga Khalid<br/>
                         <span class="treb12 tint666">Project Manager</span></div>
                     <div class="m_list treb12B tint5bc">Jodi Goldberg<br/>
-                        <span class="treb12 tint666">Director</span></div>
+                        <span class="treb12 tint666">Director, Local Strategy and Innovation</span></div>
                     <div class="m_list treb12B tint5bc">Nelly Hernandez<br/>
                         <span class="treb12 tint666">Community Organizer</span></div>
                 </div>
@@ -143,7 +141,7 @@
                         <a href="mailto:milwaukee@greatschools.org?subject=I'm%20interested%20in%20learning%20more%20about%20volunteering" >Volunteer with GreatSchools</a>
                     </li>
                     <li><link:newsletterManagement>Sign up for GreatSchools newsletters</link:newsletterManagement></li>
-                    <li>Call our hotline: 414-297-9715</li>
+                    <li>Call our hotline: 414-748-1211</li>
                 </ul>
             </div>
             <div class="gridbox bottom left" id="greatschoolsGuides">
