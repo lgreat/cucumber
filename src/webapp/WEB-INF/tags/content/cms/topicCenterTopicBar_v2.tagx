@@ -56,7 +56,7 @@
             topicCenter.specialEducationTopicCenter or
             topicCenter.elementaryGradeTopicCenter
         }">
-            <div class="mod standard_1-1">
+            <div class="mod standard_1-2">
                 <div class="inner">
                     <div class="clearfix">
                         ${moreOnThisTopic}
@@ -69,7 +69,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <div class="mod standard_1-1">
+            <div class="mod standard_1-2">
                 <div class="inner">
                     ${moreOnThisTopic}
                 </div>
