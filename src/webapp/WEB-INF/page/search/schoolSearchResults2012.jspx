@@ -73,6 +73,7 @@
     <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>
     <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
     <pageHelper:externalJavascript file="/res/js/history.min.js"/> <!-- TODO: Move this to bottom of page? -->
+    <pageHelper:externalJavascript file="/res/js/school/persistantCompare.js"/>
 
     <k12:trafficDriverIncludes/>
 
@@ -151,6 +152,7 @@
     </div>
 
     <div class="grid_8 slStylesV1-0 slFormsV1-0">
+        <div id="js_compareDiv"><!--Do not collapse--></div>
         <ad:AboveFold_300x250/>
 
 
