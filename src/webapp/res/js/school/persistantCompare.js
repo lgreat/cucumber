@@ -84,6 +84,7 @@ GS.school.compare = (function() {
                         schoolsInCompare.push(newSchool);
 
                         GS.util.localStorage.putItemInLocalStorage(compareKeyInLocalStorage, schoolsInCompare);
+                        showHideCompareButton();
                     }
                 ).fail(
                     function() {
@@ -111,12 +112,24 @@ GS.school.compare = (function() {
         } else {
             GS.util.localStorage.putItemInLocalStorage(compareKeyInLocalStorage, schoolsInCompare);
         }
+        showHideCompareButton();
     };
 
     var compareSchools = function() {
-        //TODO check if more than one
-        //TODO pk and non-pk compare are different?
-        //TODO call the compare module
+        if (schoolsInCompare.length >= 2) {
+            var schoolsInCompareArr = [];
+            for (var i = 0; i < schoolsInCompare.length; i++) {
+                schoolsInCompareArr[i] = schoolsInCompare[i].state + schoolsInCompare[i].schoolId;
+            }
+            // TODO source is needed
+//            var encodedCurrentUrl = encodeURIComponent(window.location.pathname + filtersModule.getUpdatedQueryString());
+//            window.location ='/school-comparison-tool/results.page?schools=' + checkedSchools.join(',') +
+//                    '&source=' + encodedCurrentUrl;
+//
+            var encodedCurrentUrl = encodeURIComponent(window.location.pathname);
+            window.location = '/school-comparison-tool/results.page?schools=' + schoolsInCompareArr.join(',');
+        }
+        return false;
     };
 
     var isSchoolInCompare = function(schoolId, state) {
@@ -144,6 +157,7 @@ GS.school.compare = (function() {
         } else {
             schoolsInCompare = [];
         }
+        showHideCompareButton();
     };
 
     var drawSchoolDivInCompareModule = function(schoolId, state, schoolName, schoolType, gradeRange, city, schoolUrl) {
@@ -175,8 +189,10 @@ GS.school.compare = (function() {
                 var schools = data.schools;
 
                 for (var i = 0; i < schools.length; i++) {
-                    drawSchoolDivInCompareModule(schools[i].schoolId, schools[i].state, schools[i].name, schools[i].type,
-                        schools[i].gradeRange, schools[i].city, schools[i].schoolUrl);
+                    if (schools[i].gradeRange !== 'PK') {
+                        drawSchoolDivInCompareModule(schools[i].schoolId, schools[i].state, schools[i].name, schools[i].type,
+                            schools[i].gradeRange, schools[i].city, schools[i].schoolUrl);
+                    }
                 }
                 dfd.resolve();
             }
@@ -185,6 +201,15 @@ GS.school.compare = (function() {
             }
         );
         return dfd.promise();
+    };
+
+    var showHideCompareButton = function() {
+        var compareBtn = $('#js_compareBtn');
+        if (schoolsInCompare.length >= 2) {
+            compareBtn.show();
+        } else {
+            compareBtn.hide();
+        }
     };
 
     return {
@@ -200,15 +225,18 @@ $(function() {
     GS.school.compare.initializeAllSchoolsInCompare();
     $('#js_compareDiv').on('click', '.js_removeSchoolFromCompare', function() {
         var schoolSelected = $(this).attr('id');
-        var schoolAndState = schoolSelected.substr('js_compareRemove_'.length,schoolSelected.length);
+        var schoolAndState = schoolSelected.substr('js_compareRemove_'.length, schoolSelected.length);
         var schoolId = schoolAndState.substr(0, schoolAndState.indexOf('_'));
         var state = schoolAndState.substr(schoolAndState.indexOf('_') + 1, schoolAndState.length);
-        var checkBox = $('#'+state+schoolId);
+        var checkBox = $('#' + state + schoolId);
         checkBox.removeAttr('checked');
         GS.school.compare.removeSchoolFromCompare(schoolId, state);
         return false;
     });
 
+    $('#js_compareBtn').on('click', function() {
+        GS.school.compare.compareSchools();
+    });
 
     //TODO move to a new file
     $('.compare-school-checkbox').click(function() {

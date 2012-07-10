@@ -152,7 +152,9 @@
     </div>
 
     <div class="grid_8 slStylesV1-0 slFormsV1-0">
-        <div id="js_compareDiv"><!--Do not collapse--></div>
+        <div id="js_compareDiv"><!--Do not collapse-->
+            <button id="js_compareBtn" style="display: none">Compare</button>
+        </div>
         <ad:AboveFold_300x250/>
 
 
