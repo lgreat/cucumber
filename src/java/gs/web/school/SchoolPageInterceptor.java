@@ -1,11 +1,9 @@
 package gs.web.school;
 
-import gs.data.school.ISchoolDao;
 import gs.data.school.School;
-import gs.data.state.State;
 import static gs.data.util.XMLUtil.*;
-import gs.web.util.context.SessionContextUtil;
-import org.apache.commons.lang.StringUtils;
+
+import gs.web.request.RequestAttributeHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -26,7 +24,7 @@ import java.io.IOException;
  */
 public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
     protected final Log _log = LogFactory.getLog(getClass());
-    private ISchoolDao _schoolDao;
+    private RequestAttributeHelper _requestAttributeHelper;
     private Boolean _showXmlErrorPage = Boolean.FALSE;
     private Boolean _showJsonErrorPage = Boolean.FALSE;
 
@@ -42,26 +40,13 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException, ServletException, ParserConfigurationException, TransformerException {
         // make sure we have a valid school
-        State state = SessionContextUtil.getSessionContext(request).getState();
-        if (state != null) {
-            String schoolId = request.getParameter("id");
-            if (StringUtils.isBlank(schoolId)) {
-                schoolId = request.getParameter("schoolId");
-            }
-            if (StringUtils.isNotBlank(schoolId)) {
-                try {
-                    Integer id = new Integer(schoolId);
-                    School s = _schoolDao.getSchoolById(state, id);
-                    if (s.isActive() || s.isDemoSchool()) {
-                        request.setAttribute(SCHOOL_ATTRIBUTE, s);
-                        return true;
-                    }
-                } catch (Exception e) {
-                    _log.warn("Could not get a valid or active school: " +
-                            schoolId + " in state: " + state, e);
-                }
-            }
+        School s = _requestAttributeHelper.getSchool(request);
+        if (s != null && (s.isActive() || s.isDemoSchool())) {
+            return true;
         }
+
+        _log.warn("Could not get a valid or active school: " +
+                RequestAttributeHelper.getSchoolId(request) + " in state: " + RequestAttributeHelper.getState(request));
 
         // If we get this far we have an error, now determine the error format as html, json, or xml
         if ("xml".equals(request.getParameter(OUTPUT_PARAMETER))) showXmlErrorPage(response);
@@ -73,12 +58,12 @@ public class SchoolPageInterceptor extends HandlerInterceptorAdapter {
         return false;
     }
 
-    public ISchoolDao getSchoolDao() {
-        return _schoolDao;
+    public RequestAttributeHelper getRequestAttributeHelper() {
+        return _requestAttributeHelper;
     }
 
-    public void setSchoolDao(ISchoolDao schoolDao) {
-        _schoolDao = schoolDao;
+    public void setRequestAttributeHelper(RequestAttributeHelper requestAttributeHelper) {
+        _requestAttributeHelper = requestAttributeHelper;
     }
 
     public void setShowXmlErrorPage(Boolean showXmlErrorPage) {
