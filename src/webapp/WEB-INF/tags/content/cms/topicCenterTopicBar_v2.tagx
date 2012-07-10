@@ -25,7 +25,7 @@
 
     <c:choose>
         <c:when test="${topicCenter.worksheetsTopicCenter}">
-            <div class="mod standard_1-1">
+            <div class="mod standard_1-2">
                 <div class="inner">
                     <div class="clearfix">
                         <cms:worksheetsBrowseSidebar_v2/>
@@ -38,7 +38,7 @@
             </div>
         </c:when>
         <c:when test="${topicCenter.elementarySchoolTopicCenter}">
-            <div class="mod standard_1-1">
+            <div class="mod standard_1-2">
                 <div class="inner">
                     <div class="clearfix">
                         ${browseByGrade}

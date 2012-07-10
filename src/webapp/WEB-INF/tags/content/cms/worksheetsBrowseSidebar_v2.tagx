@@ -6,7 +6,7 @@
     <c:if test="${not empty worksheetsLinks}">
 
         <div class="bd">
-            <h6 class="mam">Worksheets</h6>
+            <h6 class="mvm">Worksheets</h6>
         </div>
         <div class="bd">
             <ul class="small none bottom">
