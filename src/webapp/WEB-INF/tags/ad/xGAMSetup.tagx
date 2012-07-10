@@ -145,13 +145,18 @@
 
         <![CDATA[
         <script type="text/javascript">
-        ]]>
-
-        <![CDATA[
             var GS = GS || {};
             GS.ad = GS.ad || {};
             GS.ad.slots = GS.ad.slots || {};
-            googletag.cmd.push(function() {
+        ]]>
+
+        <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
+            <![CDATA[
+                googletag.cmd.push(function() {
+            ]]>
+        </c:if>
+
+        <![CDATA[
             if(googletag.pubads() !== undefined) {
         ]]>
             <c:forEach var="slotName" items="${GAMadNames}">
@@ -185,8 +190,13 @@
             <![CDATA[
                 googletag.enableServices();
                 }
+            ]]>
+
+            <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
+            <![CDATA[
                 });
             ]]>
+            </c:if>
 
             <![CDATA[
                 GS.ad.refreshAds = function(slotKeys) {
