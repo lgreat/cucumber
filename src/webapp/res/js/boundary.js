@@ -160,6 +160,8 @@ var Boundary = (function (){
             } else {
                 if (obj.data.id == STATES.searching.originalId)
                     enter('searching');
+                else
+                    enter('browsing');
                 STATES.browsing.position = obj.data.getMarker().getPosition();
             }
             $dropdown.val(obj.data.getKey());
