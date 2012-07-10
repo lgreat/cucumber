@@ -19,6 +19,7 @@ public class K12AdvertiserPageController {
     final public static String PARAM_TRAFFIC_DRIVER = "t";
     final public static String MODEL_K12_SCHOOL = "k12School";
     final public static String MODEL_SCHOOL_NAME = "schoolName";
+    final public static String MODEL_HAS_SUMMARY = "hasSummary";
     final public static String MODEL_HAS_BOTTOM_COPY = "hasBottomCopy";
     final public static String MODEL_K12_CLICK_THROUGH_URL = "k12ClickThroughUrl";
 
@@ -37,6 +38,7 @@ public class K12AdvertiserPageController {
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(MODEL_K12_SCHOOL, schoolParam);
         model.put(MODEL_SCHOOL_NAME, K12AdvertiserPageHelper.getK12SchoolName(schoolParam));
+        model.put(MODEL_HAS_SUMMARY, K12AdvertiserPageHelper.hasSummary(schoolParam));
         model.put(MODEL_HAS_BOTTOM_COPY, K12AdvertiserPageHelper.hasBottomCopy(schoolParam));
 
         String referrer = request.getHeader("referer");

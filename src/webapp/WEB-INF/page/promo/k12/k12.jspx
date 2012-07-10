@@ -84,9 +84,11 @@
 
                 <div class="spacer_10 brdbtm_dotted-ccc mtm mbl"><!-- do not collapse --></div>
 
-                <p class="text1">
-                    <k12:summary school="${k12School}"/>
-                </p>
+                <c:if test="${hasSummary}">
+                    <p class="text1">
+                        <k12:summary school="${k12School}"/>
+                    </p>
+                </c:if>
 
                 <k12:topCopy school="${k12School}"/>
 

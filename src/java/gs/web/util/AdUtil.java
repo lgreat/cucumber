@@ -2,6 +2,7 @@ package gs.web.util;
 
 import gs.data.state.StateManager;
 import gs.web.ads.AdPosition;
+import gs.web.promo.K12AdvertiserPageHelper;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.List;
@@ -30,10 +31,7 @@ public class AdUtil {
             page = OTHER_TRAFFIC_DRIVER;
         }
 
-        String school = (StringUtils.isNotBlank(k12School) ? k12School : "INT");
-        if (!"INT".equals(school) && STATE_MANAGER.getState(school) == null) {
-            school = "INT";
-        }
+        String school = K12AdvertiserPageHelper.getClickthruSchoolParam(k12School);
 
         return K12_CLICK_THROUGH_URL_PREFIX + "&page=" + page + "&school=" + school;
     }

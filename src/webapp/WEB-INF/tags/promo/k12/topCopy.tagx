@@ -7,6 +7,9 @@
     <jsp:directive.attribute name="school" required="true" description="State abbreviation or INT, e.g. CA, NY, INT"/>
 
     <c:choose>
+        <c:when test="${school eq 'AK'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ak.html"/>
+        </c:when>
         <c:when test="${school eq 'AR'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ar.html"/>
         </c:when>
@@ -31,6 +34,9 @@
         <c:when test="${school eq 'HI'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-hi.html"/>
         </c:when>
+        <c:when test="${school eq 'IA'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ia.html"/>
+        </c:when>
         <c:when test="${school eq 'ID'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-id.html"/>
         </c:when>
@@ -46,11 +52,26 @@
         <c:when test="${school eq 'KS'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ks.html"/>
         </c:when>
+        <c:when test="${school eq 'LA'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-la.html"/>
+        </c:when>
+        <c:when test="${school eq 'MA'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ma.html"/>
+        </c:when>
+        <c:when test="${school eq 'MI'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-mi.html"/>
+        </c:when>
         <c:when test="${school eq 'MN'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-mn.html"/>
         </c:when>
         <c:when test="${school eq 'MO'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-mo.html"/>
+        </c:when>
+        <c:when test="${school eq 'NJ'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-nj.html"/>
+        </c:when>
+        <c:when test="${school eq 'NM'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-nm.html"/>
         </c:when>
         <c:when test="${school eq 'NV'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-nv.html"/>
@@ -70,11 +91,17 @@
         <c:when test="${school eq 'SC'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-sc.html"/>
         </c:when>
+        <c:when test="${school eq 'TN'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-tn.html"/>
+        </c:when>
         <c:when test="${school eq 'TX'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-tx.html"/>
         </c:when>
         <c:when test="${school eq 'UT'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-ut.html"/>
+        </c:when>
+        <c:when test="${school eq 'VA'}">
+            <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-va.html"/>
         </c:when>
         <c:when test="${school eq 'WA'}">
             <jsp:directive.include file="/WEB-INF/page/promo/k12/topCopy/k12-topCopy-wa.html"/>
