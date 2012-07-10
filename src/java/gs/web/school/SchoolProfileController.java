@@ -29,16 +29,9 @@ public class SchoolProfileController extends AbstractSchoolController implements
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
 
-        String schoolIdStr = request.getParameter("id");
 
-        if (schoolIdStr == null) {
-            schoolIdStr = (String) request.getAttribute(AbstractSchoolController.SCHOOL_ID_ATTRIBUTE);
-        }
-
-        if (StringUtils.isNumeric(schoolIdStr)) {
-            School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
-            model.put("school", school);
-        }
+        School school = _requestAttributeHelper.getSchool(request);
+        model.put("school", school);
 
         // TODO: Audit SchoolOverview2010Controller and refactor all shared logic such as number1expert cobrand.  The
         // new profile and old profile will coexist side by side for a while, so they need to share code.

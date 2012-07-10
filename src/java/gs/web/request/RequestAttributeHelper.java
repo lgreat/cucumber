@@ -6,6 +6,8 @@ import gs.data.state.State;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.school.AbstractSchoolController;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class RequestAttributeHelper {
     private static final Log _log = LogFactory.getLog(RequestAttributeHelper.class.getName());
+    public static final String SCHOOL_STATE_ATTRIBUTE = "state";
+    public static final String SCHOOL_ID_ATTRIBUTE = "schoolId";
     @Autowired
     private ISchoolDao _schoolDao;
 
@@ -51,28 +55,36 @@ public class RequestAttributeHelper {
     }
 
     public static State getState(HttpServletRequest request) {
-        State state = (State) request.getAttribute("state");
+        State state = (State) request.getAttribute(SCHOOL_STATE_ATTRIBUTE);
         if (state == null) {
-            DirectoryStructureUrlFields fields = getDirectoryStructureUrlFields(request);
-            if (fields != null && fields.hasState()) {
-                state = fields.getState();
-            } else {
-                String stateStr = request.getParameter("state");
-                if (stateStr != null) {
-                    try {
-                        state = State.fromString(stateStr);
-                    } catch (Exception e) {
-                        // for some reason these parameters mean something else, let's ignore and move on
+            // first try session context
+            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
+            if (sessionContext != null) {
+                state = SessionContextUtil.getSessionContext(request).getState();
+            }
+            // if that fails, start examining the URL
+            if (state == null) {
+                DirectoryStructureUrlFields fields = getDirectoryStructureUrlFields(request);
+                if (fields != null && fields.hasState()) {
+                    state = fields.getState();
+                } else {
+                    String stateStr = request.getParameter("state");
+                    if (stateStr != null) {
+                        try {
+                            state = State.fromString(stateStr);
+                        } catch (Exception e) {
+                            // for some reason these parameters mean something else, let's ignore and move on
+                        }
                     }
                 }
             }
-            request.setAttribute("state", state);
+            request.setAttribute(SCHOOL_STATE_ATTRIBUTE, state);
         }
         return state;
     }
 
     public static Integer getSchoolId(HttpServletRequest request) {
-        Integer schoolId = (Integer) request.getAttribute("schoolId");
+        Integer schoolId = (Integer) request.getAttribute(SCHOOL_ID_ATTRIBUTE);
         if (schoolId == null) {
             DirectoryStructureUrlFields fields = getDirectoryStructureUrlFields(request);
             if (fields != null && fields.hasSchoolID()) {
@@ -90,7 +102,7 @@ public class RequestAttributeHelper {
                     }
                 }
             }
-            request.setAttribute("schoolId", schoolId);
+            request.setAttribute(SCHOOL_ID_ATTRIBUTE, schoolId);
         }
         return schoolId;
     }

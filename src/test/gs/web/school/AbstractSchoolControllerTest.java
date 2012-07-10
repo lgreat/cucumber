@@ -4,6 +4,7 @@ import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
 import gs.data.school.School;
 import gs.data.school.ISchoolDao;
+import gs.web.request.RequestAttributeHelper;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,8 @@ public class AbstractSchoolControllerTest extends BaseControllerTestCase {
         _controller = createController();
         ISchoolDao sd = (ISchoolDao)getApplicationContext().getBean(ISchoolDao.BEAN_ID);
         _controller.setSchoolDao(sd);
+        RequestAttributeHelper rah = (RequestAttributeHelper)getApplicationContext().getBean("requestAttributeHelper");
+        _controller.setRequestAttributeHelper(rah);
     }
 
     public void testHandleRequestInternal() throws Exception {
@@ -35,6 +38,8 @@ public class AbstractSchoolControllerTest extends BaseControllerTestCase {
         assertNotNull(mAndV); // make sure handleRequestInternal is not called.
         assertEquals("/school/error", mAndV.getViewName());
 
+        request.removeAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE);
+        request.removeAttribute(RequestAttributeHelper.SCHOOL_ID_ATTRIBUTE);
         // a valid school
         request.setParameter("id", "1");
         mAndV = _controller.handleRequest(request, getResponse());

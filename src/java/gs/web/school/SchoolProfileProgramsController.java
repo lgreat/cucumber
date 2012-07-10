@@ -69,19 +69,10 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     private SchoolProfileDataHelper _schoolProfileDataHelper;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showHighlightsPage(ModelMap modelMap, HttpServletRequest request,
-                                  @RequestParam(value=PARAM_SCHOOL_ID, required=false) Integer schoolId,
-                                 @RequestParam(value=PARAM_STATE, required=false) State state ) {
+    public String showHighlightsPage(ModelMap modelMap, HttpServletRequest request) {
 
         // Get School
-        School school = getSchool(request, state, schoolId);
-        // Do I need this???
-        if (state != null) {
-            SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-            if (sessionContext != null) {
-                sessionContext.setState(state);
-            }
-        }
+        School school = getSchool(request);
         modelMap.put("school", school);
 
         // Add the display structure to the model for use in building the page structure

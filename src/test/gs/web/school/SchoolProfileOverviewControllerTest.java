@@ -383,7 +383,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         expect( _schoolProfileDataHelper.getCountPublishedNonPrincipalReviews( getRequest() ) ).andReturn( new Long(0l));
         expect( _schoolProfileDataHelper.getNonPrincipalReviews( getRequest(), 5 ) ).andReturn( null );
         replay(_schoolProfileDataHelper);
-        _schoolProfileOverviewController.handle(map, getRequest(), 1, _state);
+        _schoolProfileOverviewController.handle(map, getRequest());
         verify(_schoolProfileDataHelper);
         return map;
     }

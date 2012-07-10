@@ -55,8 +55,6 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
      * @see gs.web.school.review.ParentReviewController
      */
     public Map<String,Object> handle(HttpServletRequest request, HttpServletResponse response,
-             @RequestParam(value = "id", required = false) Integer schoolId,
-             @RequestParam(value = "state", required = false) State state,
              @RequestParam(value = ParentReviewHelper.PARAM_PAGE, required = false, defaultValue = "0") Integer page,
              @RequestParam(value = ParentReviewHelper.PARAM_SORT_BY, required = false ) String sortBy,
              @RequestParam(value = ParentReviewHelper.PARAM_PAGER_OFFSET, required = false) Integer pagerOffset,
@@ -64,7 +62,7 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
              @RequestParam(value = ParentReviewHelper.PARAM_REVIEWS_BY, required = false, defaultValue = "") String reviewsByParam
     ) throws IOException {
         Map<String,Object> model = new HashMap<String, Object>();
-        School school = getSchool(request, state, schoolId);
+        School school = getSchool(request);
         model.put("school", school);
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 

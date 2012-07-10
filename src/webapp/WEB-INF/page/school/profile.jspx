@@ -281,7 +281,7 @@
     <c:forEach var="itemtab" items="${fn:split(param.tab,'_')}">
         <c:set target="${requestScope.schoolProfileTabMap}" property="${itemtab}" value="selected"/>
     </c:forEach>
-    <profile:primary schoolName="${school.name}" schoolId="${param.id}" schoolState="${param.state}"
+    <profile:primary schoolName="${school.name}" schoolId="${school.id}" schoolState="${school.databaseState}"
                  tabName="${param.tab}"/>
 </div>
 

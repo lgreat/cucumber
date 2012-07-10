@@ -337,7 +337,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
         expect( _schoolProfileDataHelper.getEspDataForSchool( getRequest() ) ).andReturn( espData );
         replay(_schoolProfileDataHelper);
-        _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest(), 1, _state);
+        _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest());
         verify(_schoolProfileDataHelper);
         return map;
     }

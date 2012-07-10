@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.web.BaseControllerTestCase;
 import gs.web.GsMockHttpServletRequest;
+import gs.web.request.RequestAttributeHelper;
 import gs.web.util.context.SessionContextUtil;
 import gs.data.school.ISchoolDao;
 import gs.data.school.School;
@@ -29,6 +30,7 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
     private IReviewDao _reviewDao;
     private MockControl _reviewControl;
     private GsMockHttpServletRequest _request;
+    private RequestAttributeHelper _requestAttributeHelper;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -39,11 +41,13 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
 
         _reviewControl = MockControl.createControl(IReviewDao.class);
         _reviewDao = (IReviewDao) _reviewControl.getMock();
+        _requestAttributeHelper = new RequestAttributeHelper();
 
         _controller.setSchoolDao(_schoolDao);
         _controller.setReviewDao(_reviewDao);
         _controller.setViewName("/viewName");
         _controller.setSchoolProfileHeaderHelper(createStrictMock(SchoolProfileHeaderHelper.class));
+        _controller.setRequestAttributeHelper(_requestAttributeHelper);
 
         _request = getRequest();
 
@@ -60,8 +64,9 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         school.setLevelCode(LevelCode.HIGH);
         school.setActive(true);
 
+        _request.setAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE, school);
+
         // set expectations
-        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, 1), school);
         List<NearbySchool> nearbySchools = new ArrayList<NearbySchool>();
         _schoolControl.expectAndReturn(_schoolDao.findNearbySchools(school, 5), nearbySchools);
         _schoolControl.replay();
@@ -94,8 +99,9 @@ public class MapSchoolControllerTest extends BaseControllerTestCase {
         school.setLevelCode(LevelCode.ALL_LEVELS);
         school.setActive(true);
 
+        _request.setAttribute(AbstractSchoolController.SCHOOL_ATTRIBUTE, school);
+
         // set expectations
-        _schoolControl.expectAndReturn(_schoolDao.getSchoolById(State.CA, 1), school);
         List<NearbySchool> nearbySchools = new ArrayList<NearbySchool>();
         _schoolControl.expectAndReturn(_schoolDao.findNearbySchools(school, 5), nearbySchools);
         _schoolControl.replay();

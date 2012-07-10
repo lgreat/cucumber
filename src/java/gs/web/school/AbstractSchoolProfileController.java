@@ -21,6 +21,8 @@ public abstract class AbstractSchoolProfileController {
     public School getSchool(HttpServletRequest request, State state, Integer schoolId) {
 
         School school = _requestAttributeHelper.getSchool(request);
+        System.out.println(getClass().getName());
+        System.out.println(school!=null?"Found school " + school : "No school found");
 
         // allow passing in state and schoolId so that modules can be used standalone
         if (school == null) {
@@ -32,6 +34,11 @@ public abstract class AbstractSchoolProfileController {
         }
 
         return school;
+    }
+
+    public School getSchool(HttpServletRequest request) {
+
+        return _requestAttributeHelper.getSchool(request);
     }
 
     public void setRequestAttributeHelper(RequestAttributeHelper requestAttributeHelper) {

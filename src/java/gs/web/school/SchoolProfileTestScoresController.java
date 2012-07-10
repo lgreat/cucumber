@@ -39,21 +39,19 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
     @Autowired private ITestDescriptionDao _testDescriptionDao;
 
     @RequestMapping(method=RequestMethod.GET)
-    public ModelAndView getTestScores(HttpServletRequest request,
-                                      @RequestParam(value = "schoolId", required = false) Integer schoolId,
-                                      @RequestParam(value = "state", required = false) State state) {
-        School school = getSchool(request, state, schoolId);
+    public ModelAndView getTestScores(HttpServletRequest request) {
+        System.out.println("TEST");
+        School school = getSchool(request);
         Map<String, Object> model = new HashMap<String, Object>();
 
         if (school != null) {
             if (school.isActive()) {
                 model.put("testScores", getTestScores(school));
             } else {
-                _log.error("School id: " + schoolId + " in state: " + state + " is inactive.");
+                _log.error("School id: " + school.getId() + " in state: " + school.getDatabaseState() + " is inactive.");
                 return new ModelAndView(ERROR_VIEW, model);
             }
         } else {
-            _log.warn("Could not get a valid or active school: " + schoolId + " in state: " + state);
             return new ModelAndView(ERROR_VIEW, model);
         }
 

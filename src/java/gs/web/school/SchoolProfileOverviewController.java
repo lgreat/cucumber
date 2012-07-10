@@ -69,12 +69,10 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
 
     @RequestMapping(method= RequestMethod.GET)
-    public String handle(ModelMap modelMap, HttpServletRequest request,
-        @RequestParam(value = "schoolId", required = false) Integer schoolId,
-        @RequestParam(value = "state", required = false) State state
+    public String handle(ModelMap modelMap, HttpServletRequest request
     ) {
 
-        School school = getSchool(request, state, schoolId);
+        School school = getSchool(request);
         modelMap.put( "school", school );
 
         // There are two versions of this page, one if there is OSP (aka ESP) data available or not.
@@ -622,13 +620,11 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
      */
 
     public Map<String,Object> oldHandlerToBeDeleted(HttpServletRequest request,
-                                     HttpServletResponse response,
-                                     Integer schoolId,
-                                     State state
+                                     HttpServletResponse response
     ) {
 
         Map<String,Object> model = new HashMap<String, Object>();
-        School school = getSchool(request, state, schoolId);
+        School school = getSchool(request);
 
 
 

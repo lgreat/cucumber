@@ -48,14 +48,12 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
     @RequestMapping(method= RequestMethod.GET)
     public Map<String,Object> handle(HttpServletRequest request,
-                                     HttpServletResponse response,
-                                     @RequestParam(value = "schoolId", required = false) Integer schoolId,
-                                     @RequestParam(value = "state", required = false) State state
+                                     HttpServletResponse response
     ) {
         Long start = System.nanoTime();
         Map<String,Object> model = new HashMap<String,Object>();
 
-        School school = getSchool(request, state, schoolId);
+        School school = getSchool(request);
 
         Map<String,Object> statsModel = new HashMap<String,Object>();
         statsModel = _censusCacheDao.getMapForSchool(school);

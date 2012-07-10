@@ -6,6 +6,7 @@ import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.request.RequestAttributeHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlBuilder.VPage;
@@ -42,6 +43,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
 
     private static final Logger _log = Logger.getLogger(AbstractSchoolController.class);
     private ISchoolDao _schoolDao;
+    RequestAttributeHelper _requestAttributeHelper;
 
     /** The name of the error view - see pages-servlet.xml */
     private String _errorViewName = "/school/error";
@@ -69,61 +71,32 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
         checkAndPrepare(request, response, this instanceof LastModified);
 
         // make sure we have a valid school
-        State state = SessionContextUtil.getSessionContext(request).getState();
-        if (state != null) {
-            String schoolId = request.getParameter("id");
-            if (StringUtils.isNotBlank(schoolId)) {
-                try {
-                    Integer id = new Integer(schoolId);
-                    School s = _schoolDao.getSchoolById(state, id);
-                    if (s.isActive() || s.isDemoSchool()) {
-                        // if it's a preschool, 301-redirect to the directory-structure url instead of the old-style url 
-                        if (this instanceof SchoolOverview2010Controller && LevelCode.PRESCHOOL.equals(s.getLevelCode())) {
-                            UrlBuilder urlBuilder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
-                            return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
-                        }
-                        request.setAttribute(SCHOOL_ATTRIBUTE, s);
-                        return handleRequestInternal(request, response);
-                    }
-                } catch (Exception e) {
-                    _log.warn("Could not get a valid or active school: " +
-                            schoolId + " in state: " + state, e);
+        School s = _requestAttributeHelper.getSchool(request);
+        System.out.println(s);
+        if (s != null) {
+            DirectoryStructureUrlFields fields = RequestAttributeHelper.getDirectoryStructureUrlFields(request);
+            if (s.isActive() || s.isDemoSchool()) {
+                // if it's a preschool, 301-redirect to the directory-structure url instead of the old-style url
+                if (this instanceof SchoolOverview2010Controller && LevelCode.PRESCHOOL.equals(s.getLevelCode())) {
+                    UrlBuilder urlBuilder = new UrlBuilder(s, UrlBuilder.SCHOOL_PROFILE);
+                    return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
                 }
-            } 
-            if (this instanceof IDirectoryStructureUrlController) {
-                DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
-                if (fields != null) {
-                    try {
-                        Integer id = new Integer(fields.getSchoolID());
-                        School s = _schoolDao.getSchoolById(state, id);
-                        if (s.isActive() || s.isDemoSchool()) {
-                            VPage vpage = resolveVPage(fields);
-                            assert vpage != null;
-                            UrlBuilder urlBuilder = new UrlBuilder(s, vpage);
-                            // 301-redirect if discrepancy between expected url and actual url, e.g. due to uppercase/lowercase in school name or change in school name
-                            String ruri = request.getRequestURI(), urlb = urlBuilder.asSiteRelative(request);
-                            if (!ruri.equals(urlb)) {
-                                return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
-                            }
-
-                            request.setAttribute(SCHOOL_ATTRIBUTE, s);
-                            request.setAttribute(SCHOOL_ID_ATTRIBUTE, fields.getSchoolID());
-                            return handleRequestInternal(request, response);
-                        } else {
-                            // GS-9940 Redirect requests for inactive schools to the city home
-                            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, s.getDatabaseState(), fields.getCityName());
-                            urlBuilder.addParameter("noSchoolAlert", "1");
-                            return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
-                        }
-                    } catch (Exception e) {
-                        _log.warn("Could not get a valid or active school: " +
-                                fields.getSchoolID() + " in state: " + state, e);
-                        // GS-9940 Redirect requests for inactive schools to the city home
-                        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, fields.getCityName());
-                        urlBuilder.addParameter("noSchoolAlert", "1");
-                        return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
+                if (fields != null && fields.hasSchoolID() && fields.hasState() && fields.hasCityName()) {
+                    VPage vpage = resolveVPage(fields);
+                    assert vpage != null;
+                    UrlBuilder urlBuilder = new UrlBuilder(s, vpage);
+                    // 301-redirect if discrepancy between expected url and actual url, e.g. due to uppercase/lowercase in school name or change in school name
+                    String ruri = request.getRequestURI(), urlb = urlBuilder.asSiteRelative(request);
+                    if (!ruri.equals(urlb)) {
+                        return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
                     }
                 }
+                return handleRequestInternal(request, response);
+            } else if (fields != null && fields.hasCityName()) {
+                // GS-9940 Redirect requests for inactive schools to the city home
+                UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, s.getDatabaseState(), fields.getCityName());
+                urlBuilder.addParameter("noSchoolAlert", "1");
+                return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
             }
         }
 
@@ -170,6 +143,14 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
      */
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
+    }
+
+    public RequestAttributeHelper getRequestAttributeHelper() {
+        return _requestAttributeHelper;
+    }
+
+    public void setRequestAttributeHelper(RequestAttributeHelper requestAttributeHelper) {
+        _requestAttributeHelper = requestAttributeHelper;
     }
 
     public void setErrorViewName(String viewName) {
