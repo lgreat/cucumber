@@ -4,14 +4,10 @@ import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.community.User;
 import gs.data.school.*;
-import gs.data.school.census.CensusDataSet;
-import gs.data.school.census.CensusDataType;
-import gs.data.school.census.ICensusDataSchoolValueDao;
-import gs.data.school.census.SchoolCensusValue;
+import gs.data.school.census.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
-import gs.data.state.State;
 import gs.web.request.RequestAttributeHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,6 +34,7 @@ public class SchoolProfileDataHelper {
     private final static String REVIEWS = "reviews";
     private final static String REVIEWS_COUNT = "reviewsCount";
     private final static String SCHOOL_MEDIA_REPORTS_BY_USER = "reportsByUser";
+
     private final static String CENSUS_DATA = "censusData";
 
     @Autowired
@@ -57,6 +54,18 @@ public class SchoolProfileDataHelper {
 
     @Autowired
     private ICensusDataSchoolValueDao _censusDataSchoolValueDao;
+
+    @Autowired
+    private ICensusDataSetDao _censusDataSetDao;
+
+    @Autowired
+    ICensusDataConfigEntryDao _censusDataConfigDao;
+
+    @Autowired
+    ICensusDataConfigEntryDao _censusStateConfigDao;
+
+    @Autowired
+    SchoolProfileCensusHelper _schoolProfileCensusHelper;
 
     protected Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
@@ -277,36 +286,18 @@ public class SchoolProfileDataHelper {
         return  reviews;    // Return what we have
     }
 
-    protected List<SchoolCensusValue> getCensusDataForSchool( HttpServletRequest request ) {
+    protected Set<Integer> getCensusDataTypeIdsForOverview() {
+        Set set = new HashSet<Integer>();
+        set.add(CensusDataType.CLASS_SIZE);
+        set.add(CensusDataType.STUDENT_TEACHER_RATIO);
+        return set;
+    }
 
-        // Make sure we have a school
-        School school = _requestAttributeHelper.getSchool( request );
-        if( school == null ) {
-            throw new IllegalArgumentException( "The request must already contain a school object" );
-        }
-
-        // Get Data
-        // First see if it is already in the request
-        List<SchoolCensusValue> censusData = (List<SchoolCensusValue>) request.getAttribute( CENSUS_DATA );
-
-        // If it isn't in the request try to retrieve it
-        if( censusData == null ) {
-            State state = school.getDatabaseState();
-            Collection<CensusDataSet> dataSets = new ArrayList<CensusDataSet>(2);
-            dataSets.add( new CensusDataSet(CensusDataType.CLASS_SIZE, 2012) );
-            dataSets.add( new CensusDataSet(CensusDataType.STUDENT_TEACHER_RATIO, 2012) );
-            List<School> schools = new ArrayList<School>(1);
-            schools.add(school);
-
-            censusData = _censusDataSchoolValueDao.findSchoolCensusValues( state, dataSets, schools );
-
-            if( censusData != null && !censusData.isEmpty() ) {
-
-                request.setAttribute( CENSUS_DATA, censusData ); // Save in request for future use
-            }
-        }
-
-        return censusData;
+    /**
+     * @return map of CensusDataType ID --> SchoolCensusValue
+     */
+    protected Map<Integer, SchoolCensusValue> getSchoolCensusValues(HttpServletRequest request) {
+        return _schoolProfileCensusHelper.getSchoolCensusValues(request);
     }
 
     // ============== The following setters are just for unit testing ===================
@@ -330,10 +321,17 @@ public class SchoolProfileDataHelper {
         _requestAttributeHelper = requestAttributeHelper;
     }
 
-    public void setCensusDataSchoolValueDao( ICensusDataSchoolValueDao censusDataSchoolValueDao ) {
+    public void setCensusDataSchoolValueDao(ICensusDataSchoolValueDao censusDataSchoolValueDao) {
         _censusDataSchoolValueDao = censusDataSchoolValueDao;
     }
 
+    public void setCensusDataSetDao(ICensusDataSetDao censusDataSetDao) {
+        _censusDataSetDao = censusDataSetDao;
+    }
+
+    public void setCensusDataConfigDao(ICensusDataConfigEntryDao censusDataConfigDao) {
+        _censusDataConfigDao = censusDataConfigDao;
+    }
 }
 
 

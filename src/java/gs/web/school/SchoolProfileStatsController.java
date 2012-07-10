@@ -1,15 +1,11 @@
 package gs.web.school;
 
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import gs.data.school.School;
-import gs.data.school.SchoolType;
 import gs.data.school.census.*;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
-import gs.web.util.ReadWriteController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +37,13 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
     ICensusDataStateValueDao _censusDataStateValueDao;
 
     @Autowired
+    SchoolProfileDataHelper _schoolProfileDataHelper;
+
+    @Autowired
+    SchoolProfileCensusHelper _schoolProfileCensusHelper;
+
+
+    @Autowired
     ICensusCacheDao _censusCacheDao;
 
     @RequestMapping(method= RequestMethod.GET)
@@ -62,43 +65,22 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             // Census Data Set ID --> Source
             Map<Integer, CensusDescription> dataTypeSourceMap = new HashMap<Integer,CensusDescription>();
 
-            // get the census config for this state, school type, and level code
-            CensusStateConfig censusStateConfig =
-                    _censusStateConfigDao.getConfigForState(school.getDatabaseState(), school.getType());
-
-            System.out.println("Getting census state config took " + (System.nanoTime()-start)/1000000 + " milliseconds");
-
-
-            // get the data type IDs for our census config
-            Set<Integer> dataTypeIds = censusStateConfig.allDataTypeIds();
-
-
-            // query to get the latest data sets for each data type
-            // CensusDataSet ID --> CensusDataSet
-            BiMap<Integer, CensusDataSet> censusDataSets = getDataSets(censusStateConfig, dataTypeIds, school);
-            System.out.println("Getting census data sets config took " + (System.nanoTime()-start)/1000000 + " milliseconds");
-
             // Source --> source position (footnote)
             /*Map<CensusDescription, Integer> sourceFootnotes = getSourceFootnotes(dataTypeSourceMap);*/
-
-
-            SplitDataSets splitDataSets = splitDataSets(censusDataSets, censusStateConfig);
+            SchoolProfileCensusHelper.GroupedCensusDataSets groupedCensusDataSets = _schoolProfileCensusHelper.getGroupedCensusDataSets(request);
 
 
             // query for school values
             // CensusDataSet ID --> CensusSchoolValue
-            Map<Integer, SchoolCensusValue> schoolValueMap = new HashMap<Integer, SchoolCensusValue>();
-            if (splitDataSets._dataSetsForSchoolData.size() > 0) {
-                schoolValueMap = findSchoolValues(splitDataSets._dataSetsForSchoolData, school.getDatabaseState(), school);
-            }
+            Map<Integer, SchoolCensusValue> schoolValueMap = _schoolProfileCensusHelper.getSchoolCensusValues(request);
 
             System.out.println("Getting census school values took " + (System.nanoTime()-start)/1000000 + " milliseconds");
 
             // query for district values
             // CensusDataSet ID --> CensusDistrictValue
             Map<Integer, DistrictCensusValue> districtValueMap = new HashMap<Integer,DistrictCensusValue>();
-            if (splitDataSets._dataSetsForDistrictData.size() > 0) {
-                 districtValueMap = findDistrictValues(splitDataSets._dataSetsForDistrictData, school.getDatabaseState(), school);
+            if (groupedCensusDataSets._dataSetsForDistrictData.size() > 0) {
+                 districtValueMap = findDistrictValues(groupedCensusDataSets._dataSetsForDistrictData, school.getDatabaseState(), school);
             }
 
             System.out.println("Getting census district values took " + (System.nanoTime()-start)/1000000 + " milliseconds");
@@ -106,19 +88,22 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             // query for state averages
             // CensusDataSet ID --> CensusStateValue
             Map<Integer, StateCensusValue> stateValueMap = new HashMap<Integer,StateCensusValue>();
-            if (splitDataSets._dataSetsForStateData.size() > 0) {
-                stateValueMap = findStateValues(splitDataSets._dataSetsForStateData, school.getDatabaseState());
+            if (groupedCensusDataSets._dataSetsForStateData.size() > 0) {
+                stateValueMap = findStateValues(groupedCensusDataSets._dataSetsForStateData, school.getDatabaseState());
             }
 
             System.out.println("Getting census state values took " + (System.nanoTime()-start)/1000000 + " milliseconds");
 
             // group ID --> List of StatsRow
-            Map<Long, List<StatsRow>> groupIdToStatsRows = combine(censusStateConfig, censusDataSets, schoolValueMap, districtValueMap, stateValueMap);
+            Map<Long, List<StatsRow>> groupIdToStatsRows = combine(
+                    _schoolProfileCensusHelper.getCensusStateConfig(request),
+                    _schoolProfileCensusHelper.getCensusDataSets(request),
+                    schoolValueMap, districtValueMap, stateValueMap);
 
             System.out.println("Combining took " + (System.nanoTime()-start)/1000000 + " milliseconds");
 
             statsModel.put("dataTypeSourceMap", dataTypeSourceMap);
-            statsModel.put("censusStateConfig", censusStateConfig);
+            statsModel.put("censusStateConfig", _schoolProfileCensusHelper.getCensusStateConfig(request));
             statsModel.put("statsRows", groupIdToStatsRows);
 
             cacheStatsModel(statsModel, school);
@@ -142,7 +127,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
     public Map<Long,List<StatsRow>> combine(
             CensusStateConfig config,
             // CensusDataSet ID <--> CensusDataSet
-            BiMap<Integer, CensusDataSet> censusDataSets,
+            // If "extra" CensusDataSets are provided, they will be skipped
+            Map<Integer, CensusDataSet> censusDataSets,
             // CensusDataSet ID --> SchoolCensusValue
             Map<Integer,SchoolCensusValue> schoolValueMap,
             // CensusDataSet ID --> DistrictCensusValue
@@ -157,14 +143,18 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         new ArrayList<Integer>(linkedHashMap.values());
 
 
-
-
         // Data Type ID --> text label
         // TODO: get from cache
         /*Map<Integer,String> dataTypeIdsToLabels = getDataTypeLabels();*/
-
-
         for (Map.Entry<Integer,CensusDataSet> entry : censusDataSets.entrySet()) {
+            Set<Integer> configuredDataTypeIds = config.allDataTypeIds();
+
+            // if this method was provided with more CensusDataSets then what was configured for the stats page,
+            // skip over them here
+            if (!configuredDataTypeIds.contains(entry.getValue().getDataType().getId())) {
+                continue;
+            }
+
             Integer censusDataSetId = entry.getKey();
             Integer dataTypeId = entry.getValue().getDataType().getId();
             CensusDataType dataTypeEnum = CensusDataType.getEnum(dataTypeId);
@@ -285,82 +275,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         public Integer getYear() { return _year; }
     }
 
-    /**
-     * Map of CensusDataSet ID to SchoolCensusValue
-     * @param censusDataSets
-     * @param state
-     * @param school
-     * @return
-     */
-    public Map<Integer, SchoolCensusValue> findSchoolValues(Map<Integer, CensusDataSet> censusDataSets, State state, School school) {
-        List<School> schools = new ArrayList<School>(1);
-        schools.add(school);
-        System.out.println("before searching census school values: " + System.nanoTime() / 1000000);
-        List<SchoolCensusValue> schoolCensusValues = _censusDataSchoolValueDao.findSchoolCensusValues(state, censusDataSets.values(), schools);
-        System.out.println("after searching census school values: " + System.nanoTime() / 1000000);
-        Map<Integer, SchoolCensusValue> schoolCensusValueMap = new HashMap<Integer,SchoolCensusValue>();
-
-        // Data Type ID  -->  (max) year
-        Map<Integer,Integer> dataTypeMaxYears = new HashMap<Integer,Integer>();
-
-        // Most logic here is to handle manual overrides.
-        // requires one iteration over CensusDataSets, and one iteration over all fetched SchoolCensusValues
-
-        // first, figure out what the most recent year is for each data type
-        for (CensusDataSet censusDataSet : censusDataSets.values()) {
-            Integer year = dataTypeMaxYears.get(censusDataSet.getDataType());
-            if (year == null) {
-                year = censusDataSet.getYear();
-            } else {
-                year = Math.max(year, censusDataSet.getYear());
-            }
-            dataTypeMaxYears.put(censusDataSet.getDataType().getId(), year);
-        }
-        System.out.println("after populating census dataTypeMaxYears: " + System.nanoTime() / 1000000);
-
-
-        Calendar manualCalendar = Calendar.getInstance();
-        Calendar dataSetCalendar = Calendar.getInstance();
-        dataSetCalendar.roll(Calendar.YEAR, -1); // better than (dataSet.getYear() - 1)
-        dataSetCalendar.set(Calendar.MONTH, Calendar.OCTOBER);
-        dataSetCalendar.set(Calendar.DAY_OF_MONTH, 1);
-        //noinspection MagicNumber
-        dataSetCalendar.set(Calendar.HOUR_OF_DAY, 0);
-        dataSetCalendar.set(Calendar.MINUTE, 1);
-        dataSetCalendar.set(Calendar.SECOND, 0);
-        dataSetCalendar.set(Calendar.MILLISECOND, 0);
-        // second, figure out if each School has any CensusSchoolValues with recent-enough manual override
-        for (SchoolCensusValue schoolCensusValue : schoolCensusValues) {
-            Boolean override = false;
-            Integer maxYear = dataTypeMaxYears.get(schoolCensusValue.getDataSet().getDataType().getId());
-
-            // if this SchoolValue's got override potential...
-            if (schoolCensusValue.getDataSet().getYear() == 0 && schoolCensusValue.getModified() != null) {
-                Date modified = schoolCensusValue.getModified();
-                manualCalendar.setTime(modified);
-                dataSetCalendar.set(Calendar.YEAR, maxYear);
-
-                override = manualCalendar.after(dataSetCalendar);
-
-                // it's an override!
-                if (override) {
-                    // use this school value for the data set
-                    schoolCensusValueMap.put(schoolCensusValue.getDataSet().getId(), schoolCensusValue);
-                }
-            } else {
-                // sorry, no override potential
-                // only use this school value if there's no existing school value for this data set
-                if (schoolCensusValueMap.get(schoolCensusValue.getDataSet().getId()) == null) {
-                    schoolCensusValueMap.put(schoolCensusValue.getDataSet().getId(), schoolCensusValue);
-                }
-            }
-        }
-        System.out.println("done with census school values: " + System.nanoTime() / 1000000);
-
-        return schoolCensusValueMap;
-    }
-
-
     public Map<Integer, DistrictCensusValue> findDistrictValues(Map<Integer, CensusDataSet> censusDataSets, State state, School school) {
         List<District> districts = new ArrayList<District>(1);
         districts.add(school.getDistrict());
@@ -407,78 +321,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         return sourceFootnoteMap;
     }
 
-
-    public Map<Integer,String> getDataTypeLabels() {
-        Map<Integer, String> dataTypeLabels = new HashMap<Integer,String>();
-        Iterator<CensusDataType> iterator = CensusDataType.iterator();
-        while (iterator.hasNext()) {
-            CensusDataType censusDataType = iterator.next();
-            dataTypeLabels.put(censusDataType.getId(), censusDataType.getDescription());
-        }
-
-        return dataTypeLabels;
-    }
-
-    public List<StateCensusValue> findStateValues() {
-        return null;
-    }
-
-    public SplitDataSets splitDataSets(Map<Integer,CensusDataSet> censusDataSets, CensusStateConfig config) {
-        BiMap<Integer,CensusDataSet> dataSetsForSchoolData = HashBiMap.create();
-        BiMap<Integer,CensusDataSet>  dataSetsForDistrictData = HashBiMap.create();
-        BiMap<Integer,CensusDataSet> dataSetsForStateData = HashBiMap.create();
-
-
-        for (Map.Entry<Integer, CensusDataSet> censusDataSetEntry : censusDataSets.entrySet()) {
-            ICensusDataConfigEntry stateConfigEntry = config.get(censusDataSetEntry.getValue().getDataType().getId());
-            if (stateConfigEntry.hasSchoolData()) {
-                dataSetsForSchoolData.put(censusDataSetEntry.getKey(), censusDataSetEntry.getValue());
-            }
-
-            if (stateConfigEntry.hasDistrictData()) {
-                dataSetsForDistrictData.put(censusDataSetEntry.getKey(), censusDataSetEntry.getValue());
-            }
-
-            if (stateConfigEntry.hasStateData()) {
-                dataSetsForStateData.put(censusDataSetEntry.getKey(), censusDataSetEntry.getValue());
-            }
-        }
-        return new SplitDataSets(dataSetsForSchoolData, dataSetsForDistrictData, dataSetsForStateData);
-    }
-
-    /**
-     * Return map of CensusDataSet IDs to CensusDataSets
-     *
-     */
-    public BiMap<Integer, CensusDataSet> getDataSets(CensusStateConfig config, Set<Integer> dataTypeIds, School school ) {
-        List<CensusDataSet> censusDataSets = _censusDataSetDao.findLatestDataSetsForDataTypes(config.getState(), dataTypeIds, school);
-
-        // places Census Data Sets into a map of  groupID --> Census Data Set
-        BiMap<Integer, CensusDataSet> groupIdsToCensusDataSets = HashBiMap.create();
-        for (CensusDataSet censusDataSet : censusDataSets) {
-            Integer dataTypeId = censusDataSet.getDataType().getId();
-            Integer groupId = config.getDataTypeToGroupIdMap().get(dataTypeId);
-            if (groupId != null) {
-                groupIdsToCensusDataSets.put(censusDataSet.getId(), censusDataSet);
-            }
-        }
-
-        // TODO: cache data sets for state
-
-        return groupIdsToCensusDataSets;
-    }
-
-    public class SplitDataSets {
-        public final BiMap<Integer,CensusDataSet> _dataSetsForSchoolData;
-        public final BiMap<Integer,CensusDataSet>_dataSetsForDistrictData;
-        public final BiMap<Integer,CensusDataSet> _dataSetsForStateData;
-
-        public SplitDataSets(BiMap<Integer,CensusDataSet> dataSetsForSchoolData, BiMap<Integer,CensusDataSet> dataSetsForDistrictData, BiMap<Integer,CensusDataSet> dataSetsForStateData) {
-            _dataSetsForSchoolData = dataSetsForSchoolData;
-            _dataSetsForDistrictData = dataSetsForDistrictData;
-            _dataSetsForStateData = dataSetsForStateData;
-        }
-    }
 
     public ICensusDataSetDao getCensusDataSetDao() {
         return _censusDataSetDao;
