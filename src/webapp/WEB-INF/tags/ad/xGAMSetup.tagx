@@ -108,7 +108,7 @@
             request.setAttribute("GPTadNameAdPositionMap", adNameAdPositionMap);
         }
         ]]></jsp:scriptlet>
-
+    <c:if test="${!requestScope.pageHelper.adFree and !empty GAMadNames}">
     <c:choose>
     <c:when test="${requestScope.context.gptEnabled}">
         <c:choose>
@@ -221,7 +221,6 @@
              https://www.google.com/admanager/help/en_US/tips/tagging.html
              */
         </jsp:scriptlet>
-        <c:if test="${!requestScope.pageHelper.adFree and !empty GAMadNames}">
             <![CDATA[<script type="text/javascript" src="http://partner.googleadservices.com/gampad/google_service.js"></script>]]>
             <script type="text/javascript">                 
               GS_googleAddAdSenseService("ca-pub-9662012843341888");
@@ -257,7 +256,7 @@
                 GA_googleUseSyncSRARendering();
                 GA_googleFetchAds();
             </script>
-        </c:if>
     </c:otherwise>
     </c:choose>
+    </c:if>
 </jsp:root>
