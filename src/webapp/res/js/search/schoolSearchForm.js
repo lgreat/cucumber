@@ -84,7 +84,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
     var byName = function() {
         var formSelector = '#jq-findByNameForm';
         var searchFieldSelector = formSelector + ' input[name="q"]';
-        var stateDropdownSelector = formSelector + ' input[name="state"]';
+        var stateDropdownSelector = formSelector + ' select[name="state"]';
         var stateValueSelector = formSelector + ' .showState';
 
         var init = function() {
