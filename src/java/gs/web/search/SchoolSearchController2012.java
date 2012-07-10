@@ -153,6 +153,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             }
         }
 
+        if(schoolSearchCommand.isAjaxRequest() && !schoolSearchCommand.hasGradeLevels()) {
+            fields.setLevelCode(null);
+        }
 
         // Get nearbySearchInfo from the request and update session context's state attribute if needed
         Map nearbySearchInfo = updateSessionContextStateFromNearbySearchInfo(request, response, schoolSearchCommand);
