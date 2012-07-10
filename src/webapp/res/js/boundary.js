@@ -1,4 +1,18 @@
 var Boundary = (function (){
+
+    // state management
+    var State = function (name) {
+        this.name = name;
+        this.position = new google.maps.LatLng(0,0);
+        this.current = false;
+    }
+    State.prototype = {
+        constructor: State
+    }
+    var STATES = {browsing: new State("browsing"), searching: new State("searching")};
+
+
+
     var $map, $dropdown, $header, $list, $level, $search, $priv, $charter, $redo, $nearby, $districtNameHeader, currentLevel = 'e',
         currentZip, currentLat, currentLng;
 
@@ -8,41 +22,247 @@ var Boundary = (function (){
     var selected, geocoding, geocoded;
 
     var init = function (map, dropdown, header, list, level, search, priv, charter, redo, nearby, districtNameHeader ) {
+
         $map = $(map), $dropdown = $(dropdown), $header = $(header)
             , $list = $(list), $level = $(level), $priv = $(priv)
             , $charter = $(charter), $search = $(search), $redo = $(redo), $nearby = $(nearby)
             , $districtNameHeader = $(districtNameHeader);
 
+        enter('browsing');
+
         $redo.hide();
 
-        updateEventListeners();
+        events();
 
         var params = getUrlParams()
-            , paramsSet = false;
+            , paramsSet = (params.lat && params.lon)
+            , level = params.level ? params.level : 'e';
 
-        var options = {type:'districts', infoWindow: infoWindowMarkupCallback, autozoom: false};
-        if (params.level){
-            options.level = params.level;
-        }
-        if (params.lat && params.lon) {
-            paramsSet = true;
-        }
+        var options = {type:'districts', infoWindow: infoWindowMarkupCallback, autozoom: false, level: level};
+        $map.boundaries(options);
+
         $dropdown.html('');
         $dropdown.append($('<option></option>').html('Select a district'));
 
+        if (params.address)
+            search(params.address);
 
-        $map.boundaries(options);
-        if (params.address) {
-            $search.find('#js_mapAddressQuery').val(params.address);
-            $map.boundaries('geocode', params.address);
-        }
         if (paramsSet){
+            enter(STATES.searching);
             currentLat = params.lat, currentLng = params.lon;
             $map.boundaries('center', new google.maps.LatLng(params.lat, params.lon));
             $map.boundaries('district');
             $map.boundaries('districts');
         }
     }
+
+    var events = function () {
+        $map.on('focus.boundaries', $.proxy(focusOnDistrict, this));
+        $map.on('focus.boundaries', $.proxy(focusOnSchool, this));
+        $map.on('geocode.boundaries', $.proxy(geocode, this));
+        $map.on('geocodefail.boundaries', $.proxy(failed, this));
+        $map.on('init.boundaries', $.proxy(showall, this));
+        $map.on('load.boundaries', $.proxy(load, this));
+        $map.on('inbounds.boundaries', $.proxy(inbounds, this));
+        $map.on('outbounds.boundaries', $.proxy(outbounds, this));
+        $map.on('mapclick.boundaries', $.proxy(mapclick, this));
+        $map.on('markerclick.boundaries', $.proxy(markerclick, this));
+
+        $dropdown.on('change', $.proxy(dropdown, this));
+        $level.on('change', level);
+        $search.on('submit', search);
+
+        $priv.on('click', priv);
+        $charter.on('click', charter);
+        $redo.on('click', redo);
+    }
+
+    var inbounds = function ( event ) {
+        $redo.hide();
+    }
+
+    var outbounds = function ( event ) {
+        $redo.show();
+    }
+
+    var dropdown = function (e) {
+        var option = $dropdown.find('option:selected');
+        if (option.length) {
+            var district = $(option[0]).data('district');
+            if (state('searching') && district.id != STATES.searching.originalId){
+                enter('browsing');
+            }
+            $map.boundaries('focus', district);
+            fireCustomLink('Dist_Bounds_Map_Select_District');
+        }
+    }
+
+    var level = function (e) {
+        $map.boundaries('level', $(this).val());
+        $list.html('');
+        if (state('searching')){
+            history(STATES.searching.position.lat(), STATES.searching.position.lng(), $(this).val());
+            $map.boundaries('school_with_district', STATES.searching.position);
+        }
+        else {
+            history(STATES.browsing.position.lat(), STATES.browsing.position.lng(), $(this).val());
+            $map.boundaries('district', STATES.browsing.position);
+            $map.boundaries('districts', STATES.browsing.position);
+        }
+
+        priv();
+        charter();
+    }
+
+    var load = function (e, obj) {
+        if (typeof obj == 'object' && obj.data ) {
+            if (obj.data.length) {
+                if (obj.data[0].type=='school') {
+                    updateSchoolList(obj.data);
+                } else {
+                    districts(e, obj);
+                }
+            }
+            else if (obj.data.getType && obj.data.getType()=='district') {
+                addDropdownItem(obj.data);
+                $dropdown.val(obj.data.getKey());
+            }
+        }
+    }
+
+    // perform a search
+    var search = function (e) {
+        if (typeof e == 'string') $search.find('#js_mapAddressQuery').val(e);
+        else e.preventDefault();
+        enter('searching');
+        $map.boundaries('geocode', $search.find('#js_mapAddressQuery').val());
+        firePageView('BoundariesMap');
+    };
+
+    // show all the components
+    var showall = function () {
+        $('.js_showWithMap').show();
+    }
+
+    // boolean to test current state
+    var state = function (option) {
+        for (var key in STATES){
+            if (STATES[key].name==option)
+                return STATES[key].current;
+        }
+        return false;
+    }
+
+    // district brought into focus
+    var focusOnDistrict = function (e, obj) {
+        if (obj.data.type == 'district'){
+            if (state('searching') && !STATES.searching.originalId){
+                STATES.searching.originalId = obj.data.id;
+            } else {
+                if (obj.data.id == STATES.searching.originalId)
+                    enter('searching');
+                STATES.browsing.position = obj.data.getMarker().getPosition();
+            }
+            $dropdown.val(obj.data.getKey());
+            updateDistrictHeader(obj.data);
+            nearbyhomes(obj.data);
+            priv();
+            charter();
+        }
+    }
+
+    var nearbyhomes = function (data) {
+        if (data && data.address && data.address.zip) {
+            $nearby.show().removeClass('hidden');
+            $nearby.find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ data.address.zip + '?gate=gs&cid=PRT300014');
+        }
+    }
+
+    // school brought into focus
+    var focusOnSchool = function (e, obj) {
+        if (obj.data.type=='school'){
+            $('.js-listItem').removeClass('selected');
+            var $this = $('.js-listItem[id=' + obj.data.getKey() + ']');
+            if ($this && $this.position()) {
+                $this.addClass('selected');
+
+                // position should be between 0 and height.
+                // parentElem must be relatively positioned!
+                var elemTop = $this.position().top;
+                var isScrolledIntoView = elemTop > 0 && elemTop < $('#schoolListDiv').height();
+
+                if ($this.position() != null && isScrolledIntoView === false) {
+                    var scrollTop = $('#schoolListDiv').scrollTop();
+                    $('#schoolListDiv').scrollTop(scrollTop + $this.position().top);
+                }
+            }
+        }
+    }
+
+    var failed = function ( event, obj ) {
+        var val = $('#js_mapAddressQuery').val();
+        alert('\"' + val + '\" could not be found.  Please try a different search.');
+        firePageView('BoundariesMap:noresults');
+    }
+
+    var geocode = function (e,obj) {
+        if (obj.data.length>0){
+            $districtNameHeader.html('Districts near ' + obj.data[0].normalizedAddress);
+            history(obj.data[0].lat, obj.data[0].lon, currentLevel);
+            STATES.searching.position = new google.maps.LatLng(obj.data[0].lat, obj.data[0].lon);
+            $map.boundaries('school_with_district', STATES.searching.position);
+            $redo.hide();
+            priv();
+            charter();
+        }
+    }
+
+    var history = function (lat, lng, level) {
+        var params = '?lat='+lat+'&lon='+lng+'&level='+level;
+        if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+            window.History.replaceState(null, document.title, params);
+        } else {
+            window.location = window.location.pathname + '' + params;
+        }
+    }
+
+    var enter = function (state) {
+        for (var key in STATES) {
+            if (STATES[key].name == state)
+                STATES[key].current = true;
+            else
+                STATES[key].current = false;
+        }
+    }
+
+    var charter = function (e) {
+        $map.boundaries('hide', 'charter');
+        if ($charter.prop('checked')){
+            var position = (state('searching') ? STATES.searching.position : STATES.browsing.position);
+            $map.boundaries('charter', position);
+            if (e) fireCustomLink('Dist_Bounds_Map_Show_Charter');
+        }
+    }
+
+    var priv = function (e) {
+        $map.boundaries('hide', 'private');
+        if ($priv.prop('checked')){
+            var position = (state('searching') ? STATES.searching.position : STATES.browsing.position);
+            $map.boundaries('priv', position);
+            if (e) fireCustomLink('Dist_Bounds_Map_Show_Private');
+        }
+    }
+
+    var redo = function (){
+        $districtNameHeader.html('District name');
+        $map.boundaries('refresh');
+        $map.boundaries('district');
+        $map.boundaries('districts');
+        priv();
+        charter();
+        fireCustomLink('Dist_Bounds_Map_Redo_Search');
+    }
+
 
     var infoWindowMarkupCallback = function ( obj ) {
         var id = (obj.type=='school') ? '#boundaryMapSchoolInfoWindow' : '#boundaryMapDistrictInfoWindow'
@@ -132,25 +352,9 @@ var Boundary = (function (){
         (schools.length>0) ? $('#schoolListWrapper').show():$('#schoolListWrapper').hide();
     }
 
-    var updateEventListeners = function (){
-        $map.on('init.boundaries', initEventHandler );
-        $map.on('focus.boundaries', focusEventHandler );
-        $map.on('load.boundaries', loadEventHandler );
-        $map.on('geocode.boundaries', geocodeEventHandler );
-        $map.on('geocodefail.boundaries', geocodeFailEventHandler);
-        $map.on('geocodereverse.boundaries', geocodeReverseEventHandler );
-        $map.on('inbounds.boundaries', inboundsEventHandler);
-        $map.on('outbounds.boundaries', outboundsEventHandler);
-        $map.on('mapclick.boundaries', mapClickEventHandler );
-        $map.on('markerclick.boundaries', markerClickEventHandler);
-
-        $dropdown.on('change', dropdownEventHandler);
-        $level.on('change', levelEventHandler);
-        $search.on('submit', searchEventHandler);
-        $priv.on('click', privateEventHandler);
-        $charter.on('click', charterEventHandler);
-        $redo.on('click', redoEventHandler);
-    };
+    var alpha = function (a, b) {
+        return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : (a.name.toUpperCase() > b.name.toUpperCase()) ? 1 : 0;
+    }
 
     var sort = function (a, b) {
         if (a.rating && b.rating) {
@@ -166,10 +370,6 @@ var Boundary = (function (){
         return 1;
     }
 
-    var initEventHandler = function(event, data) {
-        $('.js_showWithMap').show();
-    };
-
     var addDropdownItem = function(district) {
         var $option = $dropdown.find("option[value='" + district.getKey() + "']");
         if ($option.length==0) {
@@ -179,140 +379,30 @@ var Boundary = (function (){
         }
     }
 
-    var districtsEventHandler = function (event, obj) {
+    var districts = function (event, obj) {
         var curr = $dropdown.val();
         $dropdown.html('');
-        obj.data.sort(sort);
+        obj.data.sort(alpha);
         $dropdown.append($('<option></option>').html('Select a district'));
         for( var i=0; i<obj.data.length; i++) {
             addDropdownItem(obj.data[i]);
         }
-        if ($priv.prop('checked')) $map.boundaries('nondistrict', 'private');
-        if ($charter.prop('checked')) $map.boundaries('nondistrict', 'charter');
         if (curr) $dropdown.val(curr);
     };
 
-    var loadEventHandler = function (event, obj) {
-        if (typeof obj == 'object' && obj.data ) {
-            if (obj.data.length) {
-                if (obj.data[0].type=='school'){
-                    schoolsEventHandler(event, obj);
-                } else {
-                    districtsEventHandler(event, obj);
-                }
-            }
-            else if (obj.data.getType && obj.data.getType()=='district') {
-                addDropdownItem(obj.data);
-                $dropdown.val(obj.data.getKey());
-            }
-        }
-    }
-
-    var schoolsEventHandler = function (event, obj) {
-        updateSchoolList(obj.data);
-    }
-
-    var dropdownEventHandler = function (event) {
-        var option = $dropdown.find('option:selected');
-        if (option.length) {
-            var district = $(option[0]).data('district');
-            $map.boundaries('focus', district);
-            fireCustomLink('Dist_Bounds_Map_Select_District');
-        }
-    };
-
-    var mapClickEventHandler = function ( event, obj ){
-        if (!$dropdown.find('option').length){
-            $map.boundaries('districts', obj.data);
-        }
+    var mapclick = function ( event, obj ){
+        enter('browsing');
+        STATES.browsing.position = obj.data;
         $map.boundaries('district', obj.data);
+        $map.boundaries('districts', obj.data);
         fireCustomLink('Dist_Bounds_Map_Enroll_Bound_Click');
     }
 
-    var markerClickEventHandler = function( event, obj) {
+    var markerclick = function( event, obj) {
+        enter('browsing');
+        STATES.browsing.position = obj.data.getMarker().getPosition();
         if (obj.data && obj.data.type=='school') fireCustomLink('Dist_Bounds_Map_School_Pin_Click');
         if (obj.data && obj.data.type=='district') fireCustomLink('Dist_Bounds_Map_Dist_Pin_Click');
-    }
-
-    var focusEventHandler = function (event, obj) {
-        if (obj.data.type=='district'){
-            if (geocoding){
-                geocoded = obj.data.id;
-                geocoding = false;
-            }
-            selected = obj.data.id;
-            $dropdown.val(obj.data.getKey());
-            updateDistrictHeader(obj.data);
-            currentLat = obj.data.lat, currentLng = obj.data.lon;
-            if (obj.data.address && obj.data.address.zip) {
-                updateNearbyHomes(currentZip = obj.data.address.zip);
-            }
-        }
-        if (obj.data.type=='school'){
-            $('.js-listItem').removeClass('selected');
-            var $this = $('.js-listItem[id=' + obj.data.getKey() + ']');
-            if ($this && $this.position()) {
-                $this.addClass('selected');
-
-                // position should be between 0 and height.
-                // parentElem must be relatively positioned!
-                var elemTop = $this.position().top;
-                var isScrolledIntoView = elemTop > 0 && elemTop < $('#schoolListDiv').height();
-
-                if ($this.position() != null && isScrolledIntoView === false) {
-                    var scrollTop = $('#schoolListDiv').scrollTop();
-                    $('#schoolListDiv').scrollTop(scrollTop + $this.position().top);
-                }
-            }
-        }
-    };
-
-    var inboundsEventHandler = function ( event ) {
-        $redo.hide();
-    }
-
-    var outboundsEventHandler = function ( event ) {
-        $redo.show();
-    }
-
-    var geocodeEventHandler = function ( event, obj ) {
-        geocoding = true;
-        if (obj.data.length>0){
-            $districtNameHeader.html('Districts near ' + obj.data[0].normalizedAddress);
-        }
-        updateHistory('?lat='+obj.data[0].lat+'&lon='+obj.data[0].lon+'&level='+currentLevel);
-        currentLat = obj.data[0].lat, currentLng = obj.data[0].lon;
-        $redo.hide();
-        $map.boundaries('school_with_district');
-        $map.boundaries('geocodereverse', new google.maps.LatLng(obj.data[0].lat, obj.data[0].lon));
-        privateEventHandler();
-        charterEventHandler();
-    };
-
-    var geocodeFailEventHandler = function ( event, obj ) {
-        var val = $('#js_mapAddressQuery').val();
-        alert('\"' + val + '\" could not be found.  Please try a different search.');
-        firePageView('BoundariesMap:noresults');
-    }
-
-    var geocodeReverseEventHandler = function (event, obj) {
-        var $nearby = $('#js_nearbyHomesForSale');
-        if (obj.data.length){
-            currentZip = obj.data[0].zip;
-            if (currentZip) {
-                updateNearbyHomes(currentZip);
-            } else {
-                $nearby.hide();
-            }
-        }
-        else {
-            $nearby.hide();
-        }
-    }
-
-    var updateNearbyHomes = function (zip) {
-        $nearby.show().removeClass('hidden');
-        $nearby.find('a').attr('href', 'http://www.realtor.com/realestateandhomes-search/'+ zip + '?gate=gs&cid=PRT300014');
     }
 
     var updateDistrictHeader = function( district ){
@@ -325,63 +415,6 @@ var Boundary = (function (){
         $header.find('#school-name-test').html(district.name);
     };
 
-
-    var updateHistory = function ( params ){
-        if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
-            window.History.replaceState(null, document.title, params);
-        } else {
-            window.location = window.location.pathname + '' + params;
-        }
-    };
-
-    var levelEventHandler = function ( event ) {
-        var val = $(this).val();
-        $map.boundaries('level', val);
-        $list.html('');
-        currentLevel = val;
-        updateHistory('?lat='+currentLat+'&lon='+currentLng+'&level='+currentLevel);
-        if (selected==geocoded){
-            $map.boundaries('refresh');
-            $map.boundaries('school_with_district');
-        } else {
-            $map.boundaries('refresh');
-            $map.boundaries('district', new google.maps.LatLng(currentLat, currentLng));
-        }
-        privateEventHandler();
-        charterEventHandler();
-    }
-
-    var searchEventHandler = function ( event ) {
-        var val = $('#js_mapAddressQuery').val();
-        $map.boundaries('geocode', val);
-        firePageView('BoundariesMap');
-    }
-
-    var charterEventHandler = function ( event ) {
-        if ($(this).prop('checked')){
-            $map.boundaries('nondistrict', 'charter');
-            fireCustomLink('Dist_Bounds_Map_Show_Charter');
-        }
-        else $map.boundaries('hide', 'charter');
-    }
-
-    var privateEventHandler = function ( event ) {
-        if ($(this).prop('checked')){
-            $map.boundaries('nondistrict', 'private');
-            fireCustomLink('Dist_Bounds_Map_Show_Private');
-        }
-
-        else $map.boundaries('hide', 'private');
-    }
-
-    var redoEventHandler = function (){
-        $districtNameHeader.html('District name');
-        $map.boundaries('refresh');
-        $map.boundaries('district');
-        privateEventHandler();
-        charterEventHandler();
-        fireCustomLink('Dist_Bounds_Map_Redo_Search');
-    }
 
     var getUrlParams = function(){
         var urlParams = {};
