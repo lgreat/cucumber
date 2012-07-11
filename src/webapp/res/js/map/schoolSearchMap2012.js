@@ -17,7 +17,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
         GS.search.results.updateSortAndPageSize();
         schoolList = $('#js-schoolList');
         var height = $('#js-map-canvas').css('height');
-        schoolList.css({height: height, overflowY: 'scroll'});
+        schoolList.css({height: height, overflowY: 'auto'});
         $('.js-mouseover-open-bubble').live('mouseover', function() {
             var id = jQuery(this).attr('id');
             var schoolIdentifier = id.replace('school-listitem-', '');

@@ -4,6 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
@@ -13,7 +14,8 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare">
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings">
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -85,8 +87,8 @@
     </c:if>
     <script type="text/javascript">
         jQuery(function () {
-            jQuery('#js-bubbleInfo-8').popup({appear:'below',leftPosition:-15,topPosition:8});
-            jQuery('#js-bubbleInfo-9').popup({appear:'below',leftPosition:-8,topPosition:8});
+            jQuery('#js-bubbleInfo-8').popup({appear:'below', leftPosition:-15, topPosition:8});
+            jQuery('#js-bubbleInfo-9').popup({appear:'below', leftPosition:-8, topPosition:8});
         });
     </script>
 
@@ -111,73 +113,92 @@
     </c:otherwise>
 </c:choose>
 
-<div class="grid_16 slStylesV1-0 slFormsV1-0 container_24">
 
+<gsml:body adPageName="searchMap" pageLayout="nocol">
+    <div class="grid_16 slStylesV1-0 slFormsV1-0">
 
-<div class="grid_10 alpha">
-    <search:schoolResultsFor_text/>
-</div>
-
-<div class="text3 grid_6 omega">
-    <school:nearbyCitiesPopup/>
-    <school:nearbyDistrictsPopup/>
-</div>
-
-<div class="alpha grid_16 omega">
-    <school:findASchoolForm/>
-</div>
-
-<div class="spacer_15"><!-- do not collapse --></div>
-
-<ad:adTag position="SponsoredSearch_Top_423x120"/>
-
-<div class="alpha grid_16 omega">
-    <div class="contain_6-1 pbs">
-        <div class="fl">
-            <a data-role="button" data-inline="true" class="but but-sm but-2 js-listResultsLink">List</a>  &amp;nbsp;
-            <a data-role="button" data-inline="true" class="but but-sm but-2 js-mapResultsLink">Map</a>
-        </div>
-
-        <br class="clearfloat"/>
+    <div class="grid_10 alpha">
+        <search:schoolResultsFor_text/>
     </div>
 
-
-    <div id="js-school-search-results-table-body" class="errorBox2" style="display: none;">
-        <div class="media">
-            <span class="sprite i-alert img"><!-- do not collapse --></span>
-
-            <p class="formErrorText bd">No results match your selection. Change or remove filters to get more matches.</p>
-
-        </div>
+    <div class="text3 grid_6 omega">
+        <school:nearbyCitiesPopup/>
+        <school:nearbyDistrictsPopup/>
     </div>
 
-    <div class="js-leftResultsGrid">
-    <c:set var="searchResultsPagingSummary">
-        <div class="js-search-results-paging-summary text3">
-            Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span id="total-results-count">${page.pager.totalItems}</span> schools
-        </div>
-    </c:set>
+    <div class="alpha grid_16 omega">
+        <school:findASchoolForm/>
+    </div>
 
-    <div class="line">
-        <div class="unit size1of2">
-            ${searchResultsPagingSummary}
+    <!--<div class="spacer_15">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+
+    <ad:adTag position="SponsoredSearch_Top_423x120"/>
+
+    <div class="alpha grid_16 omega">
+    <!--<ad:adTag position="SponsoredSearch_Top_423x120"/>-->
+    <!--<ad:adTag position="SponsoredSearch_Top_423x68"/>-->
+    <!--<ad:adTag position="SponsoredSearch_Bottom_423x68"/>-->
+
+    <div class="alpha grid_16 omega mts">
+        <c:set var="searchResultsPagingSummary">
+            <div class="js-search-results-paging-summary text3">
+                Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span
+                    id="total-results-count">${page.pager.totalItems}</span> schools
+            </div>
+        </c:set>
+
+        <div class="line">
+            <div class="unit size1of2">
+                ${searchResultsPagingSummary}
+            </div>
+            <div class="unit size2of2 lastUnit">
+                <div class="pagination js-pageNumbers" id="pagination">
+                    <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
+                                             javascriptMethod="GS.search.results.pagination"/>
+                </div>
+            </div>
         </div>
-        <div class="unit size2of2 lastUnit">
-            <div class="pagination js-pageNumbers" id="pagination">
-                <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true" javascriptMethod="GS.search.results.pagination" />
+        <div class="alpha grid_16 omega">
+            <div class="gsTabs1">
+                <ul class="tabStyle-2-1">
+                    <li>
+                        <a data-role="button" data-inline="true" class="js-listResultsLink">
+                            <span class="iconx16 i-16-listView mrm"><!-- do not collapse --></span>List
+                        </a>
+                    </li>
+                    <li>
+                        <a data-role="button" data-inline="true" class="js-mapResultsLink preSelected">
+                            <span class="iconx16 i-16-getDirections mrm"><!-- do not collapse --></span>Map</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 
-    <div id="js-showDistrictBoundaryLink" style="${(isCityBrowse eq true or isDistrictBrowse eq true or commandAndFields.nearbySearch eq true) ? '' : 'display:none;'}">
-        <p class="medium">Go to the
+<div id="js-school-search-results-table-body" class="pbm alpha grid_16 omega" style="display: none;">
+    <div class="media">
+        <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+        <p class="formErrorText bd">No results match your selection. Change or remove filters to get more matches.</p>
+
+    </div>
+</div>
+
+<div class="alpha grid_16 omega js-leftResultsGrid">
+
+
+    <div id="js-showDistrictBoundaryLink"
+         style="${(isCityBrowse eq true or isDistrictBrowse eq true or commandAndFields.nearbySearch eq true) ? '' : 'display:none;'}">
+        <p class="small">Go to the
             <c:choose>
                 <c:when test="${fn:length(commandAndFields.levelCode.commaSeparatedString) > 1 || fn:length(commandAndFields.levelCode.commaSeparatedString) eq 0}">
-                    <c:set var="districtBoundary" value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=e"/>
+                    <c:set var="districtBoundary"
+                           value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=e"/>
                     <a href="${districtBoundary}">district boundary tool</a>
                 </c:when>
                 <c:otherwise>
-                    <c:set var="districtBoundary" value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=${commandAndFields.levelCode.commaSeparatedString}"/>
+                    <c:set var="districtBoundary"
+                           value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=${commandAndFields.levelCode.commaSeparatedString}"/>
                     <a href="${districtBoundary}">district boundary tool</a>
                 </c:otherwise>
             </c:choose>
@@ -190,7 +211,7 @@
         var points = [];
         <c:forEach var="school" items="${schoolSearchResults}">
             <c:set var="infoWindowMarkup">
-                <div class="contain_7-1 js-schoolInfo">
+                <div class="js-schoolInfo">
                     <div class="inner">
                         <div class="line">
                             <div class="unit size4of7">
@@ -203,10 +224,11 @@
                                                                              levelCode="${school.levelCode}">
                                         <strong>${school.name}</strong>
                                     </link:schoolProfileOverviewForPrimitives>
+
                                     <p class="small ac1">
                                         ${school.schoolType} ${school.grades.rangeString}
                                     </p>
-                                    <!--<div class="clearfloat pbm">&lt;!&ndash; &ndash;&gt;</div>-->
+
                                     <p class="small">
                                         ${school.street}<br/>
                                         ${school.city}, ${school.databaseState} ${school.zip}
@@ -219,7 +241,8 @@
                             <div class="unit size3of7 lastUnit">
                                 <div class="smallText1-333 small pbs">
                                     <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
-                                                                        state="${school.databaseState}" schoolId="${school.id}" styleClass="block"
+                                                                        state="${school.databaseState}"
+                                                                        schoolId="${school.id}" styleClass="block"
                                                                         anchor="revPagination">
                                         <c:choose>
                                             <c:when test="${not empty school.parentRating}">
@@ -244,11 +267,14 @@
                                                    title="${preschoolNoCompareMessage}"><i>COMPARE</i></label>
                                         </c:when>
                                         <c:otherwise>
-                                            <input id="${school.databaseState}${school.id}" class="js-compare-school-checkbox"
+                                            <input id="${school.databaseState}${school.id}"
+                                                   class="js-compare-school-checkbox"
                                                    type="checkbox"/>
                                             <label class="js-compareLabel smaller"
                                                    for="${school.databaseState}${school.id}">COMPARE</label>
-                                            <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW</button>
+                                            <button class="js-compareButton button-1Ext-2"
+                                                    style="display: none;">COMPARE<br/>NOW
+                                            </button>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
@@ -287,7 +313,7 @@
                                                             GS.map.getMap.addSavedSchool('js-add-msl-link-${school.databaseState}${school.id}');
                                                          }
                                                          return false;">
-                                                     My School List
+                                                My School List
                                             </a>
                                         </span>
                                     </span>
@@ -349,7 +375,7 @@
         <c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">
             <script type="text/javascript">
                 ${pointsArray}
-                $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function() {
+                $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function () {
                     GS.map.getMap.initMap(points, calculatedLat, calculatedLon);
                 });
             </script>
@@ -358,7 +384,7 @@
             </div>
         </c:when>
     </c:choose>
-    </div>
+</div>
 </div>
 
 <div id="js-schoolInfoBox" style="display: none;"><!-- not empty --></div>
@@ -371,6 +397,7 @@
                         <a href="" data-href="{{schoolUrl}}">
                             <strong>{{schoolName}}</strong>
                         </a>
+
                         <p class="small ac1">
                             {{schoolType}} {{gradesRange}}
                         </p>
@@ -398,7 +425,8 @@
                                disabled="disabled" style="display: {{isPkCompare}}"/>
                         <label class="smallText2-777"
                                for="disabled-{{state}}{{id}}" style="display: {{isPkCompare}}"><i>COMPARE</i></label>
-                        <input id="{{state}}{{id}}" class="js-compare-school-checkbox" type="checkbox" style="display: {{showCompare}}"/>
+                        <input id="{{state}}{{id}}" class="js-compare-school-checkbox" type="checkbox"
+                               style="display: {{showCompare}}"/>
                         <label class="js-compareLabel" style="display: {{showCompare}}"
                                for="{{state}}{{id}}">COMPARE</label>
                         <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW</button>
@@ -428,7 +456,8 @@
                     <div class="smallText1-333 smaller" style="display: {{homesForSale}}">
                         <a href=""
                            data-href="http://www.realtor.com/realestateandhomes-search/{{zip}}?gate=gs&amp;amp;cid=PRT300014"
-                           onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_{{omniturePageName}}_inlinelinkheader');} return true;" target="_blank"
+                           onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_{{omniturePageName}}_inlinelinkheader');} return true;"
+                           target="_blank"
                            rel="nofollow">
                             <span class="sprite i-house-sm"><!--not empty--></span>Homes for sale
                         </a>
@@ -447,25 +476,29 @@
 
 <compare:compareSchoolsLimitReachedHover/>
 
-    <div id="js-redoSearch" style="display: none;">
-        <div class="js-redobtn dn mvn pvn"><button class="but but-sm but-2">Redo Search</button></div>
-        <p class="small_bold">Your search filters are unavailable for this area.</p>
-        Redoing search in this area will remove all applied filters.
-        <input type="hidden" value="0" id="js-redoLat"/>
-        <input type="hidden" value="0" id="js-redoLng"/>
-        <input type="hidden" value="0" id="js-redoState"/>
-        <input type="hidden" value="0" id="js-redoCity"/>
-        <input type="hidden" value="0" id="js-redoZipCode"/>
+<div id="js-redoSearch" style="display: none;">
+    <div class="js-redobtn dn mvn pvn">
+        <button class="but but-sm but-2">Redo Search</button>
     </div>
+    <p class="small_bold">Your search filters are unavailable for this area.</p>
+    Redoing search in this area will remove all applied filters.
+    <input type="hidden" value="0" id="js-redoLat"/>
+    <input type="hidden" value="0" id="js-redoLng"/>
+    <input type="hidden" value="0" id="js-redoState"/>
+    <input type="hidden" value="0" id="js-redoCity"/>
+    <input type="hidden" value="0" id="js-redoZipCode"/>
+</div>
 
 </div>
 
 
-<div class="grid_8 slStylesV1-0 container_24">
-    <ad:AboveFold_300x250/>
-    <div class="js-rightResultsGrid">
-    <div class="text3">
-        <label for="map-sort">Sort by: </label>
+<div class="grid_8 slStylesV1-0 slFormsV1-0">
+<ad:AboveFold_300x250/>
+
+<div class="js-rightResultsGrid standard_4-1">
+<div class="">
+    <div class="hd">
+        <label for="map-sort">Sort by </label>
         <select id="map-sort" name="sortBy">
 
             <c:choose>
@@ -562,67 +595,74 @@
 
         </select>
     </div>
+</div>
 
-    <hr class="keyline2"/>
+<div class="bd">
     <c:choose>
         <!--<c:when test="${requestScope.schoolSearchCommand.view eq 'map'}">-->
-
         <c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">
-            <ul class = "schoolList" id = "js-schoolList" style="width: 290px">
+            <div class="" id="js-schoolList">
                 <c:forEach var="school" items="${schoolSearchResults}">
-                    <li class="js-mouseover-open-bubble" id="school-listitem-${school.databaseState}-${school.id}">
+                    <div class="js-mouseover-open-bubble pam" style="border-bottom: 1px solid #f1f1f1" id="school-listitem-${school.databaseState}-${school.id}">
                         <!--<div id="mapBubble_${school.databaseState}_${school.id}" class="schoolInfoWindow">-->
-                        <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link"
-                                                                 schoolId="${school.id}"
-                                                                 databaseState="${school.databaseState}"
-                                                                 name="${school.name}"
-                                                                 physicalAddress="${school.address}"
-                                                                 levelCode="${school.levelCode}">
-                            <p class="medium_bold">
-                                ${school.name}
-                            </p>
-                        </link:schoolProfileOverviewForPrimitives>
-                        <p class="medium ac1">
-                            ${school.schoolType}, ${school.grades.rangeString} | ${school.city}, ${school.databaseState}
-                        </p>
-
-                        <c:if test="${school.distance ne null}">
-                            <span class="fltrt">
-                                ${gsweb:roundTwoDecimal(school.distance)} miles
-                            </span>
-                        </c:if>
-
-                        <div class="img gsRating mrs">
-                            <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}" levelCode="${school.levelCode}">
-                                <c:choose>
-                                    <c:when test="${school.schoolType} eq 'private'">
-                                        <span class="fltlft sprite badge_sm_pr"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:when test="${empty school.greatSchoolsRating}">
-                                        <span class="fltlft sprite badge_sm_na"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="fltlft sprite badge_sm_${school.greatSchoolsRating}"><!-- do not collapse --></span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </link:schoolProfileRating2010>
+                        <div class="line">
+                            <div class="unit size75of100">
+                                <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link"
+                                                                         schoolId="${school.id}"
+                                                                         databaseState="${school.databaseState}"
+                                                                         name="${school.name}"
+                                                                         physicalAddress="${school.address}"
+                                                                         levelCode="${school.levelCode}">
+                                    <span class="small bottom">${school.name}</span>
+                                </link:schoolProfileOverviewForPrimitives>
+                            </div>
+                            <div class="unit size25of 100 lastUnit">
+                                <c:if test="${school.distance ne null}">
+                                    <span class="small bottom fltrt">${gsweb:roundTwoDecimal(school.distance)} miles</span>
+                                </c:if>
+                            </div>
                         </div>
-                        <div class="bd brdlft-solid communityRating pts">
-                            <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" styleClass="block" anchor="revPagination">
-                                <c:choose>
-                                    <c:when test="${not empty school.parentRating}">
-                                        <span class="sprite stars_sm_${school.parentRating}"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <span class="sprite stars_sm_rate_it"><!-- do not collapse --></span>
-                                    </c:otherwise>
-                                </c:choose>
-                            </link:schoolProfileParentReview2010>
+
+                        <div class="ttc small bottom">${school.schoolType}, ${school.grades.rangeString} | ${school.city}, ${school.databaseState}</div>
+
+                        <div class="media skin-1 attribution">
+                            <div class="gsRating img mrm">
+                                <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}"
+                                                              levelCode="${school.levelCode}">
+                                    <c:choose>
+                                        <c:when test="${school.schoolType} eq 'private'">
+                                            <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+                                        </c:when>
+                                        <c:when test="${empty school.greatSchoolsRating}">
+                                            <div class="round-small">n/a</div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <!--<span class="fltlft sprite badge_sm_${school.greatSchoolsRating}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                            <div class="round-small">${school.greatSchoolsRating}</div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </link:schoolProfileRating2010>
+                            </div>
+                            <div class="bd small bottom">
+                                <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
+                                                                    state="${school.databaseState}"
+                                                                    schoolId="${school.id}"
+                                                                    styleClass="block" anchor="revPagination">
+                                    <c:choose>
+                                        <c:when test="${not empty school.parentRating}">
+                                            <ratings:stars curSR="${school.parentRating}"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <!--<span class="sprite stars_sm_rate_it">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                            <dfn>Rate this school</dfn>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </link:schoolProfileParentReview2010>
+                            </div>
                         </div>
-                        <!--</div>-->
-                    </li>
+                    </div>
                 </c:forEach>
-            </ul>
+            </div>
         </c:when>
     </c:choose>
 
@@ -633,28 +673,31 @@
                     {{schoolName}}
                 </a>
             </p>
+
             <p class="medium ac1">
                 {{schoolType}}, {{gradesRange}} | {{city}}, {{state}}
             </p>
                 <span class="fltrt" style="display: {{showDistance}}">
                     {{distance}} miles
                 </span>
+
             <div class="img gsRating mrs">
-                <a href ="" data-href="{{gsRatingUrl}}">
+                <a href="" data-href="{{gsRatingUrl}}">
                     <span class="fltlft sprite badge_sm_{{gsRating}}"><!-- do not collapse --></span>
                 </a>
             </div>
             <div class="bd brdlft-solid communityRating pts">
-                <a href ="" data-href="{{communityRatingUrl}}">
+                <a href="" data-href="{{communityRatingUrl}}">
                     <span class="sprite stars_sm_{{parentRating}}"><!-- do not collapse --></span>
                 </a>
             </div>
         </li>
     </ul>
+</div>
 
-    <hr class="keyline2"/>
+<div class="ft">
     <div class="unit size2of5 lastUnit">
-        <label for="page-size">Display: </label>
+        <label for="page-size">Display </label>
         <select id="page-size" name="pageSize">
             <c:choose>
                 <c:when test="${pageSize eq 25}">
@@ -682,10 +725,12 @@
             </c:choose>
         </select>
     </div>
-    </div>
-    <ad:BelowFold_Top_300x125/>
+</div>
+</div>
+<ad:BelowFold_Top_300x125/>
 </div>
 
 
 <mod:tracking pageName="school search map page"/>
+</gsml:body>
 </jsp:root>

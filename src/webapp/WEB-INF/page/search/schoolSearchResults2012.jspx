@@ -117,10 +117,10 @@
         <div class="alpha grid_12">
             <search:schoolResultsFor_text/>
         </div>
-        <div class="alpha grid_2 omega">
+        <div class="alpha grid_3 omega">
             <school:nearbyCitiesPopup/>
         </div>
-        <div class="alpha grid_2 omega">
+        <div class="alpha grid_3 omega">
             <school:nearbyDistrictsPopup/>
         </div>
 
