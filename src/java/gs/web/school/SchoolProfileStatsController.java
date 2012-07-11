@@ -1,6 +1,7 @@
 package gs.web.school;
 
 
+import gs.data.school.EspResponse;
 import gs.data.school.School;
 import gs.data.school.census.*;
 import gs.data.school.district.District;
@@ -104,8 +105,10 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             statsModel.put("statsRows", groupIdToStatsRows);
 
             cacheStatsModel(statsModel, school);
-
         }
+
+        Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool(request);
+        statsModel.put("espResults", espResults);
 
         model.putAll(statsModel);
         System.out.println("School profile stats controller took " + (System.nanoTime() - start) / 1000000 + " milliseconds");
