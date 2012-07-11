@@ -26,3 +26,6 @@ General comments:
 .slStylesV1-0 .media .img{float:left;/*margin-right: 10px;*/}
 .slStylesV1-0 .media .img img{display:block;}
 .slStylesV1-0 .media .imgExt{float:right; /*margin-left: 10px;*/}
+
+/* ====== media skins (requires mod.css) ====== */
+.slStylesV1-0 .skin-1 .bd{border: none;}
