@@ -91,6 +91,7 @@ var Boundary = (function (){
             if (state('searching') && district.id != STATES.searching.originalId){
                 enter('browsing');
             }
+            STATES.browsing.position = new google.maps.LatLng(district.lat, district.lon);
             $map.boundaries('focus', district);
             fireCustomLink('Dist_Bounds_Map_Select_District');
         }
@@ -157,13 +158,8 @@ var Boundary = (function (){
         if (obj.data.type == 'district'){
             if (state('searching') && !STATES.searching.originalId){
                 STATES.searching.originalId = obj.data.id;
-            } else {
-                if (obj.data.id == STATES.searching.originalId)
-                    enter('searching');
-                else
-                    enter('browsing');
-                STATES.browsing.position = obj.data.getMarker().getPosition();
             }
+            STATES.browsing.position = new google.maps.LatLng(obj.data.lat, obj.data.lon);
             $dropdown.val(obj.data.getKey());
             updateDistrictHeader(obj.data);
             nearbyhomes(obj.data);
@@ -238,8 +234,10 @@ var Boundary = (function (){
 
     var enter = function (state) {
         for (var key in STATES) {
-            if (STATES[key].name == state)
+            if (STATES[key].name == state) {
+                STATES[key].originalId = null;
                 STATES[key].current = true;
+            }
             else
                 STATES[key].current = false;
         }
@@ -265,6 +263,7 @@ var Boundary = (function (){
 
     var redo = function (){
         enter('browsing');
+        STATES.browsing.position = $map.data('boundaries').getMap().getCenter();
         clear();
         $redo.hide();
         $map.boundaries('refresh');
@@ -411,7 +410,9 @@ var Boundary = (function (){
     }
 
     var markerclick = function( event, obj) {
-        enter('browsing');
+        if (state('searching') && obj.data.type=='district' && STATES.searching.originalId!=obj.data.id){
+            enter('browsing');
+        }
         STATES.browsing.position = obj.data.getMarker().getPosition();
         if (obj.data && obj.data.type=='school') fireCustomLink('Dist_Bounds_Map_School_Pin_Click');
         if (obj.data && obj.data.type=='district') fireCustomLink('Dist_Bounds_Map_Dist_Pin_Click');
