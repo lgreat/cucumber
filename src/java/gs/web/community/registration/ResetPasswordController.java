@@ -107,7 +107,10 @@ public class ResetPasswordController extends SimpleFormController implements Rea
             }
         }
 
-        if (user.isPasswordEmpty()) {
+        if (user == null) {
+            _log.warn("Reset password request for unknown user");
+            createGenericValidationError(request, errors);
+        } else if (user.isPasswordEmpty()) {
             _log.warn("Reset password request for user " + user.getEmail() + " who has no password to begin with");
             createGenericValidationError(request, errors);
         } else if (user.isEmailProvisional()) {
