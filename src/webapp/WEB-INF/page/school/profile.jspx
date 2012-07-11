@@ -58,7 +58,7 @@
 
 <!-- Breadcrumbs -->
 <div class="grid_24 clearfix">
-    <ul class="none smaller">
+    <ul class="none smaller bottom mbs">
         <li class="di"><link:home>Home</link:home> &amp;gt; </li>
         <c:choose>
             <c:when test="${state eq 'DC'}">
@@ -138,23 +138,21 @@
 </div>
 <!-- end: breadcrumbs -->
 
-    <!-- Begin profile header -->
-<div class="grid_24">
+<!-- Begin profile header -->
+<div class="grid_16 ptm">
 
-    <div class="alpha grid_16">
-
-        <div class="alpha grid_4">
+    <div class="alpha grid_4">
         <!-- New GS Rating -->
-            <div class="mha mbm" style="height: 100px; width: 100px; background-color: green;">
-                <!-- TODO: Placeholder for new GreatSchools Rating -->
-            </div>
-            <p class="tac small">GreatSchools Rating</p>
+        <div class="mha mbs" style="height: 100px; width: 100px; background-color: green;">
+            <!-- TODO: Placeholder for new GreatSchools Rating -->
         </div>
+        <p class="tac small bottom pbs mbm">GreatSchools Rating</p>
+    </div>
 
-        <div class="grid_12 omega">
-            <!-- School name and sub data -->
-            <h2 class="mbm">${school.name}</h2>
-        <div class="small mbm">
+    <div class="grid_12 omega">
+        <!-- School name and sub data -->
+        <h2 class="mbm">${school.name}</h2>
+        <div class="small mbs">
             <!-- School Type -->
             <c:if test="${school.levelCode ne 'p'}">
                 ${gsweb:capitalize(school.type.schoolTypeName)}
@@ -180,119 +178,46 @@
             <promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
         </div>
 
-            <hr class="keyline1"/>
+        <hr class="keyline1"/>
 
         <!-- tool links -->
-            <ul class="none small mtm">
-                <li class="di">
-                    <div class="media dib">
+        <ul class="none small mtm">
+            <li class="di">
+                <div class="media dib">
                     <span class="img iconx16 i-16-save mrs"><!-- do not collapse --></span>
                     <link:mySchoolList styleClass="bd" school="${school}"
                                        onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
                                        anchor="${headerLinkAnchor}"><strong>Save</strong></link:mySchoolList>
-                    </div>
-                </li>
-                <li class="di mll">
-                    <div class="media dib">
+                </div>
+            </li>
+            <li class="di mll">
+                <div class="media dib">
                     <span class="img iconx16 i-16-email mrs"><!-- do not collapse --></span>
                     <a class="bd" href="javascript:void(0);"><strong>Send me updates</strong></a>
-                    </div>
-                </li>
-                <li class="di mll">
-                    <div class="media dib">
+                </div>
+            </li>
+            <li class="di mll">
+                <div class="media dib">
                     <span class="img iconx16 i-16-review mrs"><!-- do not collapse --></span>
                     <a class="bd" href="javascript:void(0);"><strong>Write a review</strong></a>
-                    </div>
-                </li>
-                <!-- TODO: Generate compareNearbyString -->
-                <c:if test="${not empty compareNearbyString}">
-                    <c:set var="compareSource" value="overview"/>
-                    <li class="di mll">
-                        <div class="media dib">
+                </div>
+            </li>
+            <!-- TODO: Generate compareNearbyString -->
+            <c:if test="${not empty compareNearbyString}">
+                <c:set var="compareSource" value="overview"/>
+                <li class="di mll">
+                    <div class="media dib">
                         <span class="img iconx16 i-16-compare mrs"><!-- do not collapse --></span>
                         <link:compareSchools schools="${compareNearbyString}"
                                              source="sphead_${compareSource}_${school.databaseState}${school.id}"
                                              onclick="if (s.tl) {s.tl(this,'o','SchoolProfile_Compare_Inline_Link');} return true;"
                                              tab="overview"><strong>Compare schools</strong></link:compareSchools>
-                        </div>
-                    </li>
-                </c:if>
-            </ul>
-        </div>
-    </div>
-
-    <div class="grid_8 omega">
-        <!-- Map -->
-
-        <c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress.asSingleLineString)}"/>
-        <c:set var="schoolAddressWithName"
-               value="${schoolAddress}+(${gsweb:escapeHtml(school.name)})"/>
-        <!-- TODO: references mobile -->
-        <c:set var="mapMarkerUrl"
-               value="http://www.greatschools.org/res/mobile/img/map_pins/32x32/schoolRating_na.png"/>
-        <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
-
-        <div class="media">
-            <div class="img mrm">
-                <a href="http://maps.google.com/?q=${schoolAddressWithName}">
-                    <img class="mbs" height="120" width="160" alt="Map thumbnail"
-                         src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=160x120&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
-                </a>
-
-                <p class="smaller">
-                    <a href="javascript:void(0);">Larger map</a>
-                </p>
-            </div>
-
-
-            <!-- Address, phone, fax, directions, homes for sale -->
-            <div class="bd loud">
-                <p class="small">${school.physicalAddress.street}
-
-                    <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">
-                        <br/>
-                        ${school.physicalAddress.streetLine2}
-                    </c:if>
-
-                    <br/>
-                    <span>${school.physicalAddress.city}</span>,
-                    <span>${school.physicalAddress.state.abbreviation} </span>
-                    <span>${school.physicalAddress.zip}</span>
-
-                    <c:if test="${not empty school.phone}">
-                        <br/>
-                        <strong>Phone: </strong>${school.phone}
-                    </c:if>
-
-                    <c:if test="${not empty school.fax}">
-                        <br/>
-                        <strong>Fax: </strong>${school.fax}
-                    </c:if>
-
-                    <c:if test="${not empty school.webSitePrettyUrl}">
-                        <br/>
-                        <a href="${school.webSitePrettyUrl}" target="_blank">School Website</a>
-                    </c:if>
-                </p>
-
-                <div>
-                    <div class="media">
-                        <span class="img iconx16 i-16-getDirections mrs"><!-- do not collapse --></span>
-                        <a class="bd smaller" href="http://maps.google.com/?daddr=${schoolAddressWithName}">Get directions</a>
                     </div>
-
-                    <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                        <gslink:realtorDotComLink address="${school.physicalAddress}"
-                                                  customLinkSuffix="inlinelinkheader">Nearby homes for sale</gslink:realtorDotComLink>
-                    </c:if>
-                </div>
-            </div>
-        </div>
+                </li>
+            </c:if>
+        </ul>
     </div>
-    <!-- End profile header -->
-</div>
-
-<div class="grid_16">
+    <div class="clear"><!-- do not collapse --></div>
 
     <jsp:useBean id="schoolProfileTabMap" class="java.util.HashMap" scope="request" />
     <c:set target="${requestScope.schoolProfileTabMap}" property="key" value="on"/>
@@ -305,6 +230,74 @@
 </div>
 
 <div class="grid_8">
+
+    <!-- Map -->
+
+    <c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress.asSingleLineString)}"/>
+    <c:set var="schoolAddressWithName"
+           value="${schoolAddress}+(${gsweb:escapeHtml(school.name)})"/>
+    <!-- TODO: references mobile -->
+    <c:set var="mapMarkerUrl"
+           value="http://www.greatschools.org/res/mobile/img/map_pins/32x32/schoolRating_na.png"/>
+    <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
+
+    <div class="media">
+        <div class="img mrs">
+            <a href="http://maps.google.com/?q=${schoolAddressWithName}">
+                <img class="mbs" height="120" width="160" alt="Map thumbnail"
+                     src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=160x120&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
+            </a>
+
+            <p class="smaller">
+                <a href="javascript:void(0);">Larger map</a>
+            </p>
+        </div>
+
+
+        <!-- Address, phone, fax, directions, homes for sale -->
+        <div class="bd loud">
+            <p class="small bottom mbm">${school.physicalAddress.street}
+
+                <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">
+                    <br/>
+                    ${school.physicalAddress.streetLine2}
+                </c:if>
+
+                <br/>
+                <span>${school.physicalAddress.city}</span>,
+                <span>${school.physicalAddress.state.abbreviation} </span>
+                <span>${school.physicalAddress.zip}</span>
+
+                <c:if test="${not empty school.phone}">
+                    <br/>
+                    <strong>Phone: </strong>${school.phone}
+                </c:if>
+
+                <c:if test="${not empty school.fax}">
+                    <br/>
+                    <strong>Fax: </strong>${school.fax}
+                </c:if>
+
+                <c:if test="${not empty school.webSitePrettyUrl}">
+                    <br/>
+                    <a href="${school.webSitePrettyUrl}" target="_blank">School Website</a>
+                </c:if>
+            </p>
+
+            <div>
+                <div class="media">
+                    <span class="img iconx16 i-16-getDirections mrs"><!-- do not collapse --></span>
+                    <a class="bd smaller" href="http://maps.google.com/?daddr=${schoolAddressWithName}">Get directions</a>
+                </div>
+
+                <c:if test="${requestScope.context.showRealtorDotComPromos}">
+                    <gslink:realtorDotComLink address="${school.physicalAddress}"
+                                              customLinkSuffix="inlinelinkheader">Nearby homes for sale</gslink:realtorDotComLink>
+                </c:if>
+            </div>
+        </div>
+    </div>
+
     <p class="">Right column</p>
 </div>
 
