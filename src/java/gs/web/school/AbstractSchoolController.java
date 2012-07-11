@@ -91,6 +91,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                         return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
                     }
                 }
+                request.setAttribute(SCHOOL_ID_ATTRIBUTE, String.valueOf(s.getId()));
                 return handleRequestInternal(request, response);
             } else if (fields != null && fields.hasCityName()) {
                 // GS-9940 Redirect requests for inactive schools to the city home
