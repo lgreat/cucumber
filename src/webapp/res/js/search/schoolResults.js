@@ -155,14 +155,17 @@ GS.search.results = GS.search.results || (function() {
     };
 
     var onPageSizeChangedForMap = function() {
-        var queryString = window.location.search;
         var pageSize = jQuery('#page-size').val();
-        queryString = GS.uri.Uri.putIntoQueryString(queryString,"pageSize", pageSize, true);
-        queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
-        var pageSizeState = { queryString: "queryString"};
-        history.pushState(pageSizeState, pageSize, queryString);
-        refreshAds();
-        mapSearch(1, pageSize);
+        var queryData = GS.uri.Uri.getQueryData();
+        queryData['pageSize'] = pageSize;
+        delete queryData.start;
+        if(queryData.view == 'map') {
+            refreshAds();
+            mapSearch(1, pageSize, queryData);
+        }
+        else {
+            update(queryData);
+        }
     };
 
     var onSortChanged = function() {
@@ -191,10 +194,9 @@ GS.search.results = GS.search.results || (function() {
         } else {
             queryString = GS.uri.Uri.removeFromQueryString(queryString, "sortBy");
         }
-        var sortState = { queryString: "queryString"};
-        history.pushState(sortState, selectValue, queryString);
+        var queryStringData = GS.uri.Uri.getQueryData(queryString);
         refreshAds();
-        mapSearch(1, 25);
+        mapSearch(1, 25, queryStringData);
     };
 
     var page = function(pageNumber, pageSize) {
@@ -264,7 +266,7 @@ GS.search.results = GS.search.results || (function() {
 
     var attachEventHandlers = function() {
         jQuery('.compare-school-checkbox').click(compareModule.onCompareCheckboxClicked);
-        jQuery('#page-size').change(onPageSizeChangedForMap);
+        jQuery('#page-size').change(onDisplayResultsSizeChanged);
         jQuery('.js-compareButton').click(sendToCompare());
         jQuery('.js-num-checked-send-to-compare').click(sendToCompare());
         jQuery('.js-compare-uncheck-all').click(compareModule.onCompareUncheckAllClicked);

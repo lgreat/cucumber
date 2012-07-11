@@ -11,7 +11,7 @@
         >
 
     <c:choose>
-        <c:when test="${commandAndFields.cityBrowse || commandAndFields.districtBrowse || commandAndFields.nearbySearchByLocation}">
+        <c:when test="${commandAndFields.cityBrowse || commandAndFields.districtBrowse || commandAndFields.nearbySearch}">
             <c:set var="nearbyCitiesLabel" value="Nearby cities:"/>
             <c:set var="moreNearbyCitiesLabel" value="Nearby cities"/>
         </c:when>

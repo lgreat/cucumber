@@ -261,7 +261,7 @@
                                         <c:when test="${school.levelCode eq 'p'}">
                                             <input id="${school.databaseState}${school.id}"
                                                    class="compare-school-checkbox" type="checkbox"
-                                                   disabled="disabled" title="${preschoolNoCompareMessage}"/>
+                                                   disabled="disabled" title="Due to a lack of available data on preschools, they cannot be compared"/>
                                             <label class="smallText2-777"
                                                    for="${school.databaseState}${school.id}"
                                                    title="${preschoolNoCompareMessage}"><i>COMPARE</i></label>
@@ -422,7 +422,7 @@
                     <div class="smallText1-333 pbs">
                         <input id="disabled-{{state}}{{id}}"
                                class="compare-school-checkbox" type="checkbox"
-                               disabled="disabled" style="display: {{isPkCompare}}"/>
+                               disabled="disabled" style="display: {{isPkCompare}}" title="Due to a lack of available data on preschools, they cannot be compared"/>
                         <label class="smallText2-777"
                                for="disabled-{{state}}{{id}}" style="display: {{isPkCompare}}"><i>COMPARE</i></label>
                         <input id="{{state}}{{id}}" class="js-compare-school-checkbox" type="checkbox"

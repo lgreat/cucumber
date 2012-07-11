@@ -278,8 +278,7 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
     }
 
     public List<IDistrictSearchResult> searchForDistricts(SchoolSearchCommandWithFields commandAndFields) {
-        String searchString = commandAndFields.getSearchString() != null ? commandAndFields.getSearchString() :
-                commandAndFields.getSchoolSearchCommand().getLocationSearchString();
+        String searchString = commandAndFields.getSearchString();
         State state = commandAndFields.getState();
         List<IDistrictSearchResult> districtSearchResults = new ArrayList<IDistrictSearchResult>();
 
@@ -292,7 +291,11 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         districtConstraints.put(DistrictSearchFieldConstraints.STATE, state.getAbbreviationLowerCase());
 
         try {
-            if (searchString != null) {
+            if (searchString != null && !commandAndFields.isNearbySearch()) {
+                SearchResultsPage<IDistrictSearchResult> districtPage = _districtSearchService.search(searchString, districtConstraints, null, null, 0, DISTRICTS_COUNT);
+                districtSearchResults = districtPage.getSearchResults();
+            }
+            else if(commandAndFields.isNearbySearch()) {
                 SearchResultsPage<IDistrictSearchResult> districtPage = _districtSearchService.getNonCharterDistrictsNear(
                         commandAndFields.getLatitude() != null ? commandAndFields.getLatitude() : Float.MIN_VALUE,
                         commandAndFields.getLongitude() != null ? commandAndFields.getLongitude() :Float.MIN_VALUE,

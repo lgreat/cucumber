@@ -221,6 +221,10 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                             }
                         }
 
+                        if(data['sortBy'] === undefined) {
+                            data['sortBy'] = 'DISTANCE';
+                        }
+
                         var queryStringDataWithFilters;
 
                         if (window.location.href.indexOf(SEARCH_PAGE_PATH) !== -1) {
