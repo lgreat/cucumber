@@ -2,8 +2,9 @@ var GS = GS || {};
 GS.util = GS.util || {};
 GS.util.localStorage = (function() {
 
+    //enabled var checks if local storage is supported by the browser.
     var enabled = !!window.localStorage;
-    var namespaceKey = 'GS';
+    var namespacePrefix = 'GS';
 
     var putItemInLocalStorage = function(key, value) {
         var rval = false;
@@ -12,8 +13,7 @@ GS.util.localStorage = (function() {
                 if (typeof value === "object") {
                     value = JSON.stringify(value);
                 }
-                localStorage.setItem(namespaceKey + key, value);
-
+                localStorage.setItem(namespacePrefix + key, value);
                 rval = true;
             }
             catch(e) {
@@ -25,8 +25,8 @@ GS.util.localStorage = (function() {
     var getItemFromLocalStorage = function(key) {
         var item = "";
         if (enabled) {
-            item = localStorage.getItem(namespaceKey + key);
-            if (item != null && item.length > 0 && (item[0] === '{' || item[0] === '[')) {
+            item = localStorage.getItem(namespacePrefix + key);
+            if (item != undefined && item != null && item.length > 0 && (item[0] === '{' || item[0] === '[')) {
                 item = JSON.parse(item);
             }
         }
@@ -36,7 +36,7 @@ GS.util.localStorage = (function() {
     var removeItemFromLocalStorage = function(key) {
         var rval = false;
         if (enabled) {
-            localStorage.removeItem(namespaceKey + key);
+            localStorage.removeItem(namespacePrefix + key);
             rval = true;
         }
         return rval;
@@ -45,7 +45,7 @@ GS.util.localStorage = (function() {
     var hasItemInLocalStorage = function(key) {
         var item = "";
         if (enabled) {
-            item = localStorage.getItem(namespaceKey + key);
+            item = localStorage.getItem(namespacePrefix + key);
         }
         return item != "";
     };
@@ -60,46 +60,58 @@ GS.util.localStorage = (function() {
 
 GS.school = GS.school || {};
 GS.school.compare = (function() {
-
     var maxSchoolsInCompare = 8;
     var compareKeyInLocalStorage = "schoolsToCompare";
     var schoolsInCompare;
+    var compareBtn;
+    var compareModule;
 
     var addSchoolToCompare = function(schoolId, state) {
+        var rval = true;
         var schoolAlreadyPresent = isSchoolInCompare(schoolId, state);
+
         if (!schoolAlreadyPresent) {
             if (schoolsInCompare.length === maxSchoolsInCompare) {
-                return false;
+                rval = false;
             } else {
-
+                //Get the details of the school by making an ajax call.
                 jQuery.when(
-                    getSchoolDetailsInCompare([
+                    getSchoolsInfo([
                         {"schoolId":schoolId,"state":state}
                     ])).done(
-                    function() {
+                    function(schools) {
 
-                        var newSchool = {};
-                        newSchool['schoolId'] = schoolId;
-                        newSchool['state'] = state;
-                        schoolsInCompare.push(newSchool);
+                        //Once the ajax call completes successfully, check that only one school is being added
+                        //and its not a preschool.
+                        if (schools.length === 1 && schools[0].gradeRange !== 'PK') {
+                            var newSchool = {};
+                            newSchool['schoolId'] = schools[0].schoolId;
+                            newSchool['state'] = schools[0].state;
+                            schoolsInCompare.push(newSchool);
 
-                        GS.util.localStorage.putItemInLocalStorage(compareKeyInLocalStorage, schoolsInCompare);
-                        showHideCompareButton();
+                            //Add the school to local storage.
+                            GS.util.localStorage.putItemInLocalStorage(compareKeyInLocalStorage, schoolsInCompare);
+
+                            //Draw the div in the compare module.
+                            drawSchoolDivInCompareModule(schools[0].schoolId, schools[0].state, schools[0].name, schools[0].type,
+                                schools[0].gradeRange, schools[0].city, schools[0].schoolUrl);
+                        }
+
+                        //Decide whether to show or hide the compare module.
+                        showHideCompareModule();
                     }
                 ).fail(
                     function() {
-                        //TODO what?
+                       rval = false;
                     }
-                )
+                );
             }
         }
-        return true;
+        return rval;
     };
 
     var removeSchoolFromCompare = function(schoolId, state) {
-        var schoolDiv = $('#js_compareDiv').children('#js_compare_' + schoolId + '_' + state);
-        schoolDiv.remove();
-
+        //Remove the school from the local storage array.
         for (var i = 0; i < schoolsInCompare.length; i++) {
             if (schoolsInCompare[i].schoolId == schoolId && schoolsInCompare[i].state == state) {
                 schoolsInCompare.splice(i, 1);
@@ -107,15 +119,24 @@ GS.school.compare = (function() {
             }
         }
 
+        //If there are no more schools present remove the entire compare key from local storage.
+        //Else write the new array of schools into the local storage.
         if (schoolsInCompare.length == 0) {
             GS.util.localStorage.removeItemFromLocalStorage(compareKeyInLocalStorage);
         } else {
             GS.util.localStorage.putItemInLocalStorage(compareKeyInLocalStorage, schoolsInCompare);
         }
-        showHideCompareButton();
+
+        //Remove the div from the compare module.
+        var schoolDiv = $('#js_compareSchoolsDiv').children('#js_compare_' + schoolId + '_' + state);
+        schoolDiv.remove();
+
+        //Decide whether to show or hide the compare module.
+        showHideCompareModule();
     };
 
     var compareSchools = function() {
+        //If there are at least 2 schools in compare , then take the user to the compare tool.
         if (schoolsInCompare.length >= 2) {
             var schoolsInCompareArr = [];
             for (var i = 0; i < schoolsInCompare.length; i++) {
@@ -143,30 +164,49 @@ GS.school.compare = (function() {
         return schoolAlreadyPresent;
     };
 
-    var initializeAllSchoolsInCompare = function() {
+    var initializeSchoolsInCompare = function() {
         schoolsInCompare = GS.util.localStorage.getItemFromLocalStorage(compareKeyInLocalStorage);
-        if (schoolsInCompare != null) {
-            getSchoolDetailsInCompare(schoolsInCompare);
-            for (var i = 0; i < schoolsInCompare.length; i++) {
-                var schoolId = schoolsInCompare[i].schoolId;
-                var state = schoolsInCompare[i].state;
+        compareBtn = $('#js_compareBtn');
+        compareModule = $('#js_compareModule');
 
-                var schoolCheckBox = $('#' + state + schoolId);
-                schoolCheckBox.prop("checked", true);
-            }
+        //If there are schools in local storage then get the details of the schools by making an ajax call.
+        if (schoolsInCompare != null && schoolsInCompare != undefined) {
+            jQuery.when(
+                getSchoolsInfo(schoolsInCompare)).done(
+                function(schools) {
+
+                    //Once the ajax call completes successfully, if a school is not a preschool then draw the div in compare module.
+                    for (var i = 0; i < schools.length; i++) {
+                        if (schools[i].gradeRange !== 'PK') {
+                            drawSchoolDivInCompareModule(schools[i].schoolId, schools[i].state, schools[i].name, schools[i].type,
+                                schools[i].gradeRange, schools[i].city, schools[i].schoolUrl);
+                        }
+                    }
+
+                    //Trigger a custom event so that the caller can decide what to do once the schools have been initialized.
+                    $('body').trigger('schoolsInitialized', [schools]);
+
+                    //Decide whether to show or hide the compare module.
+                    showHideCompareModule();
+                }
+            ).fail(
+                function() {
+                    //TODO what?
+                }
+            )
         } else {
             schoolsInCompare = [];
         }
-        showHideCompareButton();
     };
 
     var drawSchoolDivInCompareModule = function(schoolId, state, schoolName, schoolType, gradeRange, city, schoolUrl) {
         $('<div id=js_compare_' + schoolId + '_' + state + '>' + schoolName + ' ' + schoolType + ' ' + gradeRange + ' ' + city + ' ' + state +
-            ' <a href="#" class="js_removeSchoolFromCompare noInterstitial" id="js_compareRemove_' + schoolId + '_' + state + '">Remove</a><\/div>').appendTo('#js_compareDiv');
+            ' <a href="#" class="js_removeSchoolFromCompare noInterstitial" id="js_compareRemove_' + schoolId + '_' + state + '">Remove</a><\/div>').appendTo('#js_compareSchoolsDiv');
 
     };
 
-    var getSchoolDetailsInCompare = function(schoolsIdsAndStates) {
+    //Makes an ajax call to get the details of the schools.
+    var getSchoolsInfo = function(schoolsIdsAndStates) {
         var dfd = jQuery.Deferred();
         $.ajax({
             type: 'POST',
@@ -181,20 +221,12 @@ GS.school.compare = (function() {
                     dfd.reject();
                     return;
                 }
-                if (data.schools == null || data.schools.length == 0) {
+                if (data.schools === undefined || data.schools === null || data.schools.length === 0) {
                     dfd.reject();
                     return;
                 }
 
-                var schools = data.schools;
-
-                for (var i = 0; i < schools.length; i++) {
-                    if (schools[i].gradeRange !== 'PK') {
-                        drawSchoolDivInCompareModule(schools[i].schoolId, schools[i].state, schools[i].name, schools[i].type,
-                            schools[i].gradeRange, schools[i].city, schools[i].schoolUrl);
-                    }
-                }
-                dfd.resolve();
+                dfd.resolve(data.schools);
             }
         ).fail(function() {
                 dfd.reject();
@@ -203,8 +235,19 @@ GS.school.compare = (function() {
         return dfd.promise();
     };
 
+    var showHideCompareModule = function() {
+        //If there are at least 1 school in the compare array then display the compare module.
+        if (schoolsInCompare.length >= 1) {
+            compareModule.show();
+            //Decide whether to show or hide the compare button.
+            showHideCompareButton();
+        } else {
+            compareModule.hide();
+        }
+    };
+
     var showHideCompareButton = function() {
-        var compareBtn = $('#js_compareBtn');
+        //If there are at least 2 schools in the compare array then display the compare button.
         if (schoolsInCompare.length >= 2) {
             compareBtn.show();
         } else {
@@ -216,24 +259,28 @@ GS.school.compare = (function() {
         addSchoolToCompare:addSchoolToCompare,
         removeSchoolFromCompare:removeSchoolFromCompare,
         compareSchools:compareSchools,
-        initializeAllSchoolsInCompare:initializeAllSchoolsInCompare
+        initializeSchoolsInCompare:initializeSchoolsInCompare
     }
 })();
 
 $(function() {
+    //Initialize the schools to compare.
+    GS.school.compare.initializeSchoolsInCompare();
 
-    GS.school.compare.initializeAllSchoolsInCompare();
-    $('#js_compareDiv').on('click', '.js_removeSchoolFromCompare', function() {
+    //Bind the click handler to remove a school from compare.
+    $('#js_compareSchoolsDiv').on('click', '.js_removeSchoolFromCompare', function() {
         var schoolSelected = $(this).attr('id');
         var schoolAndState = schoolSelected.substr('js_compareRemove_'.length, schoolSelected.length);
         var schoolId = schoolAndState.substr(0, schoolAndState.indexOf('_'));
         var state = schoolAndState.substr(schoolAndState.indexOf('_') + 1, schoolAndState.length);
-        var checkBox = $('#' + state + schoolId);
-        checkBox.removeAttr('checked');
         GS.school.compare.removeSchoolFromCompare(schoolId, state);
+
+        //Trigger a custom event so that the caller can decide what to do once the school is removed.
+        $('body').trigger('schoolRemoved', [schoolId,state]);
         return false;
     });
 
+    //Bind the click handler to compare schools.
     $('#js_compareBtn').on('click', function() {
         GS.school.compare.compareSchools();
     });
@@ -251,5 +298,19 @@ $(function() {
         }
     });
 
+    $('body').on('schoolsInitialized', function(event, schoolsInCompare) {
+        for (var i = 0; i < schoolsInCompare.length; i++) {
+            var schoolId = schoolsInCompare[i].schoolId;
+            var state = schoolsInCompare[i].state;
+
+            var schoolCheckBox = $('#' + state + schoolId);
+            schoolCheckBox.prop("checked", true);
+        }
+    });
+
+    $('body').on('schoolRemoved', function(event, schoolId, state) {
+        var checkBox = $('#' + state + schoolId);
+        checkBox.removeAttr('checked');
+    });
 
 });

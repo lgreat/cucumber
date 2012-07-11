@@ -17,7 +17,8 @@
           xmlns:gsweb="gstaglib"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map" xmlns:form="http://www.springframework.org/tags/form"
           xmlns:pagination="pagination"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare">
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -73,7 +74,6 @@
     <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>
     <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
     <pageHelper:externalJavascript file="/res/js/history.min.js"/> <!-- TODO: Move this to bottom of page? -->
-    <pageHelper:externalJavascript file="/res/js/school/persistantCompare.js"/>
 
     <k12:trafficDriverIncludes/>
 
@@ -152,11 +152,9 @@
     </div>
 
     <div class="grid_8 slStylesV1-0 slFormsV1-0">
-        <div id="js_compareDiv"><!--Do not collapse-->
-            <button id="js_compareBtn" style="display: none">Compare</button>
-        </div>
-        <ad:AboveFold_300x250/>
+        <compare:persistentCompare/>
 
+        <ad:AboveFold_300x250/>
 
         <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
                                    showAdPct="0"/>
