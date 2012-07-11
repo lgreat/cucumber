@@ -81,7 +81,7 @@
                 <div class="alpha grid_7 omega mtm">
                     <div class="js_showWithMap hidden">
                         <div id="js_districtHeader" class="hidden mlm mbm"><!-- not empty -->
-                            <div class="media attribution">
+                            <div class="media skin-1 attribution">
                                 <div class="img mrm">
                                     <div id='ratings-test' class="square-large"><!--Do not collapse--></div>
                                 </div>

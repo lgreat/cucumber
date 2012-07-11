@@ -335,7 +335,7 @@ var Boundary = (function (){
 
     var updateSchoolList = function ( schools ){
         $list.empty();
-        var itemTemplate = '<div class="js-listItem media attribution pvs phm" style="border-bottom: 1px solid #f1f1f1"></div>'
+        var itemTemplate = '<div class="js-listItem media skin-1 attribution pvs phm" style="border-bottom: 1px solid #f1f1f1"></div>'
             , spriteTemplate = '<div class="img round-small mrm"><!--Do not collapse--></div>'
             , nameTemplate = '<div class="bd" id=""></div>'
             , htmlString = '';
