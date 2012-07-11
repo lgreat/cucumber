@@ -231,7 +231,7 @@ public class SchoolProfileCensusHelper {
         dataSetCalendar.set(Calendar.DAY_OF_MONTH, 1);
         //noinspection MagicNumber
         dataSetCalendar.set(Calendar.HOUR_OF_DAY, 0);
-        dataSetCalendar.set(Calendar.MINUTE, 1);
+        dataSetCalendar.set(Calendar.MINUTE, 0);
         dataSetCalendar.set(Calendar.SECOND, 0);
         dataSetCalendar.set(Calendar.MILLISECOND, 0);
         // second, figure out if each School has any CensusSchoolValues with recent-enough manual override
