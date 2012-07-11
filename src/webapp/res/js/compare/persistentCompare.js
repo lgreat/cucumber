@@ -200,8 +200,8 @@ GS.school.compare = (function() {
     };
 
     var drawSchoolDivInCompareModule = function(schoolId, state, schoolName, schoolType, gradeRange, city, schoolUrl) {
-        $('<div id=js_compare_' + schoolId + '_' + state + '>' + schoolName + ' ' + schoolType + ' ' + gradeRange + ' ' + city + ' ' + state +
-            ' <a href="#" class="js_removeSchoolFromCompare noInterstitial" id="js_compareRemove_' + schoolId + '_' + state + '">Remove</a><\/div>').appendTo('#js_compareSchoolsDiv');
+        $('<div id=js_compare_' + schoolId + '_' + state + '><a href="'+schoolUrl+'"> ' + schoolName + '</a><br/> ' + schoolType + ' ' + gradeRange + ' ' + city + ' ' + state +
+            ' <a href="#" class="js_removeSchoolFromCompare noInterstitial" id="js_compareRemove_' + schoolId + '_' + state + '">Remove</a></div>').appendTo('#js_compareSchoolsDiv');
 
     };
 
