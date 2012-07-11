@@ -28,6 +28,25 @@
 <c:set var="city" value="${school.physicalAddress.city}"/>
 <c:set var="headerLinkAnchor" value="from..HeaderLink"/>
 
+
+<!-- determine the page name that is reported to omniture -->
+<c:set var="pageName" value="Overview" scope="request"/>
+<c:choose>
+    <c:when test="${school.preschoolOnly}">
+        <c:set var="pageName" value="Preschool Overview"/>
+    </c:when>
+    <c:when test="${school.type.schoolTypeName == 'private'}">
+        <c:set var="pageName" value="Private School Overview"/>
+    </c:when>
+</c:choose>
+<jsp:scriptlet>
+    PageHelper.setPageName(request, "spp_overview");
+    School school = (School) request.getAttribute("school");
+    if (school != null) {
+        PageHelper.setYahooRealEstateCity(request, school.getCity());
+    }
+</jsp:scriptlet>
+
 <head>
     <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
@@ -287,6 +306,13 @@
 
 <div class="grid_8">
     <p class="">Right column</p>
+</div>
+
+<!-- TODO: Finalize omniture -->
+<div style="display: none;">
+    <mod:tracking pageName="${pageName}"
+                  hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
+                  school="${school}" schoolGSRating="${gs_rating}" schoolPhotosTracking="${schoolPhotosTracking}"/>
 </div>
 
 </gsml:body>
