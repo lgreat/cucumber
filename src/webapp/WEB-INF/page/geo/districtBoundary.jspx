@@ -54,11 +54,11 @@
 
 </head>
 <gsml:body adPageName="districtBoundary" pageLayout="leftside">
-<div class="slStylesV1-0  slFormsV1-0 mtl mrs">
-<div class="phs"><h1 class="pbn mbn">School and District Boundaries Map</h1>
+<div class="slStylesV1-0  slFormsV1-0 mtl tac">
+<div class="phs tal"><h1 class="pbn mbn">School and District Boundaries Map</h1>
     <p>Researching schools in your neighborhood is a snap with our interactive map tool. Enter your address or ZIP code to see school attendance and district boundary lines. Or browse your options based on a city and state. Go ahead and give it a spin.</p>
 </div>
-<div class="mod standard_4-1">
+<div class="mod standard_4-1 tal">
     <div class="outer">
         <div class="inner">
             <div class="hd">
@@ -72,9 +72,9 @@
                     </form>
                 </div>
                 <div id="js_nearbyHomesForSale" class="fltrt hidden">
-                    <span class="iconx16 i-16-home-sales mrs"><!-- do not collapse --></span>
-                    <a href="#" class="small" target="_blank">Nearby homes for sale</a>
-                </div>
+                    <div class="di vam mrs"><span class="iconx16 i-16-home-sales"><!-- do not collapse --></span></div>
+                    <div class="di vam"><a href="#" class="small" target="_blank">Nearby homes for sale</a></div>
+            </div>
 
             </div>
             <div class="bd">
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="districtListDiv" class="mlm">
+                        <div id="districtListDiv" class="mlm ptl">
                             <h6 class="bottom" id="district_name_header">District name</h6>
                             <hr class="keyline2"/>
                             <div class="mvm">
@@ -99,7 +99,7 @@
                             </div>
                         </div>
 
-                        <div class="mlm">
+                        <div class="mlm  ptl">
                             <h6 class="bottom">Grade level</h6>
                             <hr class="keyline2"/>
                             <div class="mvm">
@@ -121,7 +121,7 @@
                             </div>
                         </div>
 
-                        <div id="schoolListWrapper" class="hidden">
+                        <div id="schoolListWrapper" class="hidden  ptl">
                             <h6 class="mlm bottom">Schools in District</h6>
 
                             <div id="schoolListDiv">
@@ -246,16 +246,17 @@
             <h6 class="bottom">Show schools that are not part of a district:</h6>
         </div>
         <div class="grid_10 omega">
-            <gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="hidden"
-                           checked="${true}"/>
-            <label style="display:none;" for="js_schoolType_public"
-                   class="checkbox">Public/Charter schools (in district)</label>
-            <gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"
-                           onclick="clickCapture.capture('eVar74','Dist Bounds Charter Filter'); return true;"/>
-            <label for="js_schoolType_charter" class="checkbox">Charter</label>
-            <gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"
-                           onclick="clickCapture.capture('eVar73','Dist Bounds Private Filter'); return true;"/>
-            <label for="js_schoolType_private" class="checkbox">Private</label>
+            <div class="di vam"><gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="hidden"
+                           checked="${true}"/></div>
+            <div class="di vam mrm"><label style="display:none;" for="js_schoolType_public"
+                   class="checkbox">Public/Charter schools (in district)</label></div>
+            <div class="di vam"><gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"
+                           onclick="clickCapture.capture('eVar74','Dist Bounds Charter Filter'); return true;"/></div>
+            <div class="di vam mrm"><label for="js_schoolType_charter" class="checkbox">Charter</label></div>
+            <div class="di vam"><gsml:checkbox name="schoolType_private" styleId="js_schoolType_private" checked="${false}"
+                           onclick="clickCapture.capture('eVar73','Dist Bounds Private Filter'); return true;"/></div>
+            <div class="di vam"><label for="js_schoolType_private" class="checkbox">Private</label></div>
+            <!--<div style="clear:both">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
         </div>
     </div>
     <hr class="keyline2"/>

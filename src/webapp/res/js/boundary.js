@@ -357,6 +357,16 @@ var Boundary = (function (){
                     var val = $(this).data('school');
                     $map.boundaries('focus', val);
                 });
+                $listItem.hover(function(){
+                    if(!$listItem.hasClass('selected')){
+                        $(this).addClass('list-over');
+                    }
+                    },
+                    function(){
+                        if(!$listItem.hasClass('selected')){
+                            $(this).removeClass('list-over');
+                        }
+                });
                 $list.append($listItem);
             }
         }
