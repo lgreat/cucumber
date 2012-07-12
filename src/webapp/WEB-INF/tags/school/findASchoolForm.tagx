@@ -15,15 +15,11 @@
     <div class="bd gsTabs">
     <ul class="tabStyle-4">
         <li><a id="js-byLocationTab" class="${commandAndFields.nearbySearch? 'selected':''}">By location</a>
-            <div class="down-pointer down-pointer-bl ${commandAndFields.nearbySearch? 'selected':''}">
-                <div class="border-edge"><!-- not empty --></div>
-            </div>
+            <div id="arrowdiv" class="${commandAndFields.nearbySearch? 'selected':''} arrowdiv"><!--Do not collapse--></div>
 
         </li>
         <li class="mlm"><a id="js-byNameTab" class="${!commandAndFields.nearbySearch? 'selected':''}">By name</a>
-            <div class="down-pointer down-pointer-bn ${!commandAndFields.nearbySearch? 'selected':''}">
-                <div class="border-edge"><!-- not empty --></div>
-            </div>
+            <div id="arrowdiv"  class="down-pointer ${!commandAndFields.nearbySearch? 'selected':''} arrowdiv"><!--Do not collapse--></div>
 
         </li>
     </ul>
