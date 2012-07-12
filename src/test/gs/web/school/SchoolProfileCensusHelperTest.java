@@ -308,7 +308,7 @@ public class SchoolProfileCensusHelperTest {
         assertTrue(schoolCensusValueMap.containsKey(1000004));
         assertFalse(schoolCensusValueMap.containsKey(1000005));
     }
-
+/*
     @Test
     public void testGetSchoolCensusValues() {
         HttpServletRequest request = new MockHttpServletRequest();
@@ -316,6 +316,6 @@ public class SchoolProfileCensusHelperTest {
         _schoolProfileCensusHelper.getSchoolCensusValues(request);
 
 
-    }
+    }*/
 
 }
