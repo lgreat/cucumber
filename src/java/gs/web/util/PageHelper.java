@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.107 2012/07/06 21:51:16 mseltzer Exp $
+ * $Id: PageHelper.java,v 1.108 2012/07/12 16:31:53 yfan Exp $
  */
 
 package gs.web.util;
@@ -276,6 +276,8 @@ public class PageHelper {
 
     //ad positions that appear on current page
     private Set<AdPosition> _adPositions = new HashSet<AdPosition>();
+    // ad positions on the current page which should not support GPT ghost text hiding
+    private Set<AdPosition> _adPositionsWithDisabledGptGhostTextHiding = new HashSet<AdPosition>();
     /** ad keywords for current page.  Stored in a MultiMap so that multiple values can be associated with a given
      * key.  This functionality is allowed by the Google API and is required for at least one of our use cases.  This
      * MultiMap has Strings for keys and Collections of Strings for values.
@@ -412,6 +414,23 @@ public class PageHelper {
      */
     public Set<AdPosition> getAdPositions() {
         return _adPositions;
+    }
+
+    /**
+     * @param ad Ad position that should have disabled GPT ghost text hiding
+     */
+    public void addAdPositionWithDisabledGptGhostTextHiding(AdPosition ad) {
+        if (null == ad) {
+            throw new IllegalArgumentException("Ad cannot be null");
+        }
+        _adPositionsWithDisabledGptGhostTextHiding.add(ad);
+    }
+
+    /**
+     * @return Returns a non-null list of ad positions for which GPT ghost text hiding should be disabled
+     */
+    public Set<AdPosition> getAdPositionsWithDisabledGptGhostTextHiding() {
+        return _adPositionsWithDisabledGptGhostTextHiding;
     }
 
     private static UrlUtil _urlUtil = new UrlUtil();

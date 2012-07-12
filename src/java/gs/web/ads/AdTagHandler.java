@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.52 2012/06/27 21:42:08 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.53 2012/07/12 16:31:53 yfan Exp $
  */
 package gs.web.ads;
 
@@ -174,17 +174,28 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 }
             }
             StringBuilder adCodeBuffer = new StringBuilder();
+
+            boolean disabledGptGhostTextHiding = pageHelper.getAdPositionsWithDisabledGptGhostTextHiding().contains(_adPosition);
+
+            if (disabledGptGhostTextHiding) {
+                adCodeBuffer.append("<div id=\"gpt").append(getId()).append("\">");;
+            }
             adCodeBuffer.append("<script type=\"text/javascript\">");
 
             if (isAsyncMode(sc)) {
                 adCodeBuffer.append("googletag.cmd.push(function() {");
             }
 
-            adCodeBuffer.append("googletag.display(\"").append(getAdId()).append("\");");
+            String divContainingAd = (disabledGptGhostTextHiding ? "gpt" + getId() : getAdId());
+
+            adCodeBuffer.append("googletag.display(\"").append(divContainingAd).append("\");");
             if (isAsyncMode(sc)) {
                 adCodeBuffer.append("});");
             }
             adCodeBuffer.append("</script>");
+            if (disabledGptGhostTextHiding) {
+                adCodeBuffer.append("</div>");
+            }
 
             // TODO - currently only works from a JSP; if needed, refactor to allow extracting for non-JSP situations
             if (null != body) {

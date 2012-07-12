@@ -164,7 +164,10 @@
                 GS.ad.slots['${slotName}'] = googletag.defineSlot('/1002894/${slotName}', <c:choose>
                     <c:when test="${fn:length(adPosition.allSizes) > 1}">[<c:forEach var="size" items="${adPosition.allSizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
                     <c:otherwise>[${adPosition.size.width},${adPosition.size.height}]</c:otherwise>
-                </c:choose>, 'ad${adPosition.name}');
+                </c:choose>, <c:choose>
+                    <c:when test="${gsweb:contains(requestScope.pageHelper.adPositionsWithDisabledGptGhostTextHiding,adPosition)}">'gpt${adPosition.name}'</c:when>
+                    <c:otherwise>'ad${adPosition.name}'</c:otherwise>
+                </c:choose>);
                 GS.ad.slots['${slotName}'].addService(googletag.pubads());
             </c:forEach>
 
