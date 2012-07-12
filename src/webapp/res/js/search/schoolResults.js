@@ -154,7 +154,7 @@ GS.search.results = GS.search.results || (function() {
         window.location.search = queryString;
     };
 
-    var onPageSizeChangedForMap = function() {
+    var onDisplayResultsSizeChanged = function() {
         var pageSize = jQuery('#page-size').val();
         var queryData = GS.uri.Uri.getQueryData();
         queryData['pageSize'] = pageSize;
