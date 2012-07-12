@@ -5,6 +5,7 @@ var Boundary = (function (){
         this.name = name;
         this.position = new google.maps.LatLng(0,0);
         this.current = false;
+        this.redo = false;
     }
     State.prototype = {
         constructor: State
@@ -160,6 +161,10 @@ var Boundary = (function (){
                 STATES.searching.originalId = obj.data.id;
                 $map.boundaries('autozoom', obj.data);
             }
+            else if (state('browsing') && STATES.browsing.redo){
+                STATES.browsing.redo = false;
+                $map.boundaries('autozoom', obj.data);
+            }
             STATES.browsing.position = new google.maps.LatLng(obj.data.lat, obj.data.lon);
             $dropdown.val(obj.data.getKey());
             updateDistrictHeader(obj.data);
@@ -265,6 +270,7 @@ var Boundary = (function (){
     var redo = function (){
         enter('browsing');
         STATES.browsing.position = $map.data('boundaries').getMap().getCenter();
+        STATES.browsing.redo = true;
         clear();
         $redo.hide();
         $map.boundaries('refresh');
