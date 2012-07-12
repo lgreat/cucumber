@@ -322,6 +322,33 @@ public class BoundaryAjaxController {
         return prepareView(model,response);
     }
 
+    @RequestMapping("getSchoolByLocation.json")
+    public ModelAndView getSchoolForLocation(
+            @RequestParam("lat") double lat,
+            @RequestParam("lon") double lon,
+            @RequestParam("level") String levelParam,
+            Model model, HttpServletRequest request, HttpServletResponse response ){
+        response.setHeader("Cache-Control", "public, max-age=3600");
+        getSchoolsForLocation(lat, lon, levelParam,  model, request, response);
+        List<Map> schools = (List<Map>) model.asMap().get("schools");
+        List<Map> result = new ArrayList();
+        Map school = new HashMap();
+        if (schools!=null && schools.size()>0){
+            school = schools.get(0);
+            for (int i=1; i<schools.size(); i++){
+                Double area = (Double)((Map)school.get("coordinates")).get("area");
+                Double compare = (Double)((Map)schools.get(i).get("coordinates")).get("area");
+                if (area > compare) {
+                    school = schools.get(i);
+                }
+            }
+            result.add(school);
+        }
+        model.asMap().remove("schools");
+        model.addAttribute("schools", result);
+
+        return prepareView(model,response);
+    }
 
     @RequestMapping("getSchoolsByLocation.json")
     public ModelAndView getSchoolsForLocation(
@@ -356,7 +383,9 @@ public class BoundaryAjaxController {
         if (schools.size() > 0) {
             List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings(state, schools);
             for (SchoolWithRatings s: schoolsWithRatings) {
-                features.add(map(s.getSchool(), null, s.getRating(), request));
+                Map mapping = map(s.getSchool(), null, s.getRating(), request);
+                mapping.put("coordinates", map(schoolIdToBoundaryMap.get(s.getSchool().getId()).getGeometry()));
+                features.add(mapping);
             }
         }
         model.addAttribute("schools", features);

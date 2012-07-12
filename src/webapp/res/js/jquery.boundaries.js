@@ -322,7 +322,7 @@ Boundaries.prototype = {
             this.trigger('load', schools);
         }
 
-        BoundaryHelper.getSchoolsByLocation(lat, lng, level)
+        BoundaryHelper.getSchoolByLocation(lat, lng, level)
             .done($.proxy(success, this)).fail(function(){deferred.reject();});
 
         return deferred.promise();
@@ -335,9 +335,9 @@ Boundaries.prototype = {
      */
     , school_with_district:  function (option) {
         var success = function (schools) {
-            if (schools.length && schools.length>0) {
-                var school = schools[0];
-                var dsuccess = function (districts) {
+            var school = (schools.length>0) ? schools[0]:null;
+            $.when(this.districts(option)).then($.proxy(function(districts){
+                if (school){
                     for (var i=0; i<districts.length; i++) {
                         var id = (districts[i].id==school.districtId);
                         var state = (districts[i].state==school.state);
@@ -347,16 +347,13 @@ Boundaries.prototype = {
                             break;
                         }
                     }
-
                 }
-                $.when(this.districts(option)).then($.proxy(dsuccess, this));
-            }
-            else {
-                this.district(option);
-                this.districts(option);
-            }
-        };
-        $.when(this.school(option)).then($.proxy(success, this));
+                else {
+                    this.district(option);
+                }
+            }, this));
+        }
+        $.when(this.school(option)).always($.proxy(success, this));
     }
 
     , schools: function () {
@@ -650,10 +647,10 @@ var BoundaryHelper = (function($){
         return deferred.promise();
     }
 
-    var getSchoolsByLocation = function ( lat, lng, level ) {
+    var getSchoolByLocation = function ( lat, lng, level ) {
         var deferred = new jQuery.Deferred();
         $.ajax({
-            url: '/geo/boundary/ajax/getSchoolsByLocation.json',
+            url: '/geo/boundary/ajax/getSchoolByLocation.json',
             data: {lat: lat, lon: lng, level: level},
             cache: true,
             type: 'GET',
@@ -789,7 +786,7 @@ var BoundaryHelper = (function($){
         getDistrictsNearLocation: getDistrictsNearLocation,
         getDistrictsForLocation: getDistrictsForLocation,
         getSchoolsForDistrict: getSchoolsForDistrict,
-        getSchoolsByLocation: getSchoolsByLocation,
+        getSchoolByLocation: getSchoolByLocation,
         getNonDistrictSchoolsNearLocation: getNonDistrictSchoolsNearLocation,
         geocode: geocode,
         geocodeReverse: geocodeReverse
