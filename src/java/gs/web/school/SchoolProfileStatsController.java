@@ -55,10 +55,10 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
         School school = getSchool(request);
 
-        Map<String,Object> statsModel = new HashMap<String,Object>();
+        Map<String,Object> statsModel;
         statsModel = _censusCacheDao.getMapForSchool(school);
 
-        if (statsModel == null || statsModel.size() == 0) {
+        if (statsModel == null) {
 
             // Census Data Set ID --> Source
             Map<Integer, CensusDescription> dataTypeSourceMap = new HashMap<Integer,CensusDescription>();

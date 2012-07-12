@@ -130,9 +130,9 @@
             </div>
             <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.teachers and requestScope.schoolProfileTabMap.teachers eq 'selected'?'':'dn')}">
 
-                <school:schoolProfileStatsTable groupId="1" title="Teacher Credentials" statsTab="teachers"/>
+                <school:schoolProfileStatsTable groupId="5" title="Teacher Credentials" statsTab="teachers"/>
 
-                <school:schoolProfileStatsTable groupId="2" title="Teacher Experience" statsTab="teachers"/>
+                <school:schoolProfileStatsTable groupId="14" title="Teacher Experience" statsTab="teachers"/>
 
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->

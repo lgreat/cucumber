@@ -43,6 +43,8 @@
             ]]>
         </jsp:scriptlet>
 
+
+    <c:if test="${fn:length(rows) gt 0}">
         <table>
             <thead>
             <tr>
@@ -125,14 +127,15 @@
             <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->
             Source: ${(footnotes[statsTab])[footnoteIndex-1].source}
         </c:forEach>
+    </c:if>
 
-        <jsp:scriptlet>
-            <![CDATA[
-                java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
-                java.util.List descriptions = (java.util.List) footnotes.get(statsTab);
-                if (descriptions != null) {
-                    request.setAttribute("footnotesCount", descriptions.size());
-                }
-            ]]>
-        </jsp:scriptlet>
+    <jsp:scriptlet>
+        <![CDATA[
+            java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
+            java.util.List descriptions = (java.util.List) footnotes.get(statsTab);
+            if (descriptions != null) {
+                request.setAttribute("footnotesCount", descriptions.size());
+            }
+        ]]>
+    </jsp:scriptlet>
 </jsp:root>
