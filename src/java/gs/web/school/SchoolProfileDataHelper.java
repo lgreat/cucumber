@@ -288,16 +288,24 @@ public class SchoolProfileDataHelper {
 
     protected Set<Integer> getCensusDataTypeIdsForOverview() {
         Set set = new HashSet<Integer>();
-        set.add(CensusDataType.CLASS_SIZE);
-        set.add(CensusDataType.STUDENT_TEACHER_RATIO);
+        set.add(CensusDataType.CLASS_SIZE.getId());
+        set.add(CensusDataType.STUDENT_TEACHER_RATIO.getId());
         return set;
     }
 
     /**
-     * @return map of CensusDataType ID --> SchoolCensusValue
+     * @return map of CensusDataType --> SchoolCensusValue
      */
-    protected Map<Integer, SchoolCensusValue> getSchoolCensusValues(HttpServletRequest request) {
-        return _schoolProfileCensusHelper.getSchoolCensusValues(request);
+    protected Map<CensusDataType, SchoolCensusValue> getSchoolCensusValues(HttpServletRequest request) {
+        // CensusDataSet ID --> SchoolCensusValue
+        Map<Integer, SchoolCensusValue> schoolCensusValueMap = _schoolProfileCensusHelper.getSchoolCensusValues(request);
+
+        Map<CensusDataType, SchoolCensusValue> dataTypeIdSchoolValueMap = new HashMap<CensusDataType, SchoolCensusValue>();
+        for (Map.Entry<Integer, SchoolCensusValue> entry : schoolCensusValueMap.entrySet()) {
+            dataTypeIdSchoolValueMap.put(entry.getValue().getDataSet().getDataType(), entry.getValue());
+        }
+
+        return dataTypeIdSchoolValueMap;
     }
 
     // ============== The following setters are just for unit testing ===================

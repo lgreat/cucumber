@@ -8,7 +8,9 @@ import gs.data.school.census.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
+import gs.data.state.State;
 import gs.web.request.RequestAttributeHelper;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +23,7 @@ public class SchoolProfileCensusHelper {
     private final static String CENSUS_DATA = "censusData";
     public final static String CENSUS_DATA_SETS = "censusDataSets";
     public final static String CENSUS_STATE_CONFIG = "censusStateConfig";
+    private final static Logger _log = Logger.getLogger(SchoolProfileCensusHelper.class);
 
     @Autowired
     private RequestAttributeHelper _requestAttributeHelper;
@@ -59,26 +62,24 @@ public class SchoolProfileCensusHelper {
 
 
     /**
-     * Return map of CensusDataSet ID to CensusDataSets
+     * Gets CensusDataSets for the passed-in dataTypeIds.
+     * @return map of CensusDataSet ID to CensusDataSets
      */
-    public Map<Integer, CensusDataSet> getCensusDataSets(CensusStateConfig config, Set<Integer> dataTypeIds, School school ) {
-        List<CensusDataSet> censusDataSets = _censusDataSetDao.findLatestDataSetsForDataTypes(config.getState(), dataTypeIds, school);
+    public Map<Integer, CensusDataSet> getCensusDataSets(State state, Set<Integer> dataTypeIds, School school ) {
+        List<CensusDataSet> censusDataSets = _censusDataSetDao.findLatestDataSetsForDataTypes(state, dataTypeIds, school);
 
         // places Census Data Sets into a map of  groupID --> Census Data Set
         Map<Integer, CensusDataSet> groupIdsToCensusDataSets = new HashMap<Integer, CensusDataSet>();
+
         for (CensusDataSet censusDataSet : censusDataSets) {
-            Integer dataTypeId = censusDataSet.getDataType().getId();
-            Integer groupId = config.getDataTypeToGroupIdMap().get(dataTypeId);
-            if (groupId != null) {
-                groupIdsToCensusDataSets.put(censusDataSet.getId(), censusDataSet);
-            }
+            groupIdsToCensusDataSets.put(censusDataSet.getId(), censusDataSet);
         }
 
         return groupIdsToCensusDataSets;
     }
 
     /**
-     * Returns map of CensusDataSet ID --> CensusDataSet
+     * @return map of CensusDataSet ID --> CensusDataSet
      */
     protected Map<Integer, CensusDataSet> getCensusDataSets( HttpServletRequest request ) {
         // Make sure we have a school
@@ -98,7 +99,7 @@ public class SchoolProfileCensusHelper {
             Set<Integer> allDataTypeIds = new HashSet<Integer>();
             allDataTypeIds.addAll(dataTypeIds);
             allDataTypeIds.addAll(dataTypeIdsForOverview);
-            censusDataSetMap = getCensusDataSets(censusStateConfig, dataTypeIds, school);
+            censusDataSetMap = getCensusDataSets(censusStateConfig.getState(), dataTypeIds, school);
             request.setAttribute(CENSUS_DATA_SETS, censusDataSetMap);
         }
 
@@ -170,7 +171,7 @@ public class SchoolProfileCensusHelper {
         return censusStateConfig;
     }
 
-    // CensusDataType ID --> SchoolCensusValue
+    // @return CensusDataType ID --> SchoolCensusValue
     protected Map<Integer, SchoolCensusValue> getSchoolCensusValues( HttpServletRequest request ) {
 
         School school = _requestAttributeHelper.getSchool( request );
@@ -180,10 +181,14 @@ public class SchoolProfileCensusHelper {
 
         // CensusDataType ID --> SchoolCensusValue
         Map<Integer, SchoolCensusValue> schoolCensusValueMap = (Map<Integer, SchoolCensusValue>) request.getAttribute(CENSUS_DATA);
+
         if (schoolCensusValueMap == null) {
+            schoolCensusValueMap = new HashMap<Integer, SchoolCensusValue>();
             GroupedCensusDataSets groupedCensusDataSets = getGroupedCensusDataSets(request);
 
-            schoolCensusValueMap = findSchoolCensusValuesAndHandleOverrides(groupedCensusDataSets._dataSetsForSchoolData, school);
+            if (groupedCensusDataSets._dataSetsForSchoolData != null && groupedCensusDataSets._dataSetsForSchoolData.size() > 0) {
+                schoolCensusValueMap = findSchoolCensusValuesAndHandleOverrides(groupedCensusDataSets._dataSetsForSchoolData, school);
+            }
 
             request.setAttribute(CENSUS_DATA, schoolCensusValueMap);
         }
@@ -192,28 +197,42 @@ public class SchoolProfileCensusHelper {
     }
 
     /**
-     * Map of CensusDataSet ID to SchoolCensusValue
      * @param censusDataSets
      * @param school
-     * @return
+     * @return Map of CensusDataSet ID to SchoolCensusValue
      */
-    public Map<Integer, SchoolCensusValue> findSchoolCensusValuesAndHandleOverrides(Map<Integer, CensusDataSet> censusDataSets, School school) {
+    public Map<Integer, SchoolCensusValue> findSchoolCensusValuesAndHandleOverrides(
+            Map<Integer, CensusDataSet> censusDataSets, // CensusDataSet ID --> CensusDataSet
+            School school)
+    {
+        if (censusDataSets == null || school == null) {
+            throw new IllegalArgumentException("Neither censusDataSets nor school should be null");
+        }
+
         List<School> schools = new ArrayList<School>(1);
         schools.add(school);
         System.out.println("before searching census school values: " + System.nanoTime() / 1000000);
-        List<SchoolCensusValue> schoolCensusValues = _censusDataSchoolValueDao.findSchoolCensusValues(school.getDatabaseState(), censusDataSets.values(), schools);
+        List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
+        if (censusDataSets.size() > 0) {
+            schoolCensusValues = _censusDataSchoolValueDao.findSchoolCensusValues(school.getDatabaseState(), censusDataSets.values(), schools);
+        }
+
         System.out.println("after searching census school values: " + System.nanoTime() / 1000000);
         Map<Integer, SchoolCensusValue> schoolCensusValueMap = new HashMap<Integer,SchoolCensusValue>();
 
         // Data Type ID  -->  (max) year
         Map<Integer,Integer> dataTypeMaxYears = new HashMap<Integer,Integer>();
 
+
+        // grade + data_type_id + breakdown_id | level_code + subject_id --> Census Data Set
+        Map<String, SchoolCensusValue> dataSetSchoolValueMap = new HashMap<String, SchoolCensusValue>();
+
         // Most logic here is to handle manual overrides.
         // requires one iteration over CensusDataSets, and one iteration over all fetched SchoolCensusValues
 
         // first, figure out what the most recent year is for each data type
         for (CensusDataSet censusDataSet : censusDataSets.values()) {
-            Integer year = dataTypeMaxYears.get(censusDataSet.getDataType());
+            Integer year = dataTypeMaxYears.get(censusDataSet.getDataType().getId());
             if (year == null) {
                 year = censusDataSet.getYear();
             } else {
@@ -237,52 +256,57 @@ public class SchoolProfileCensusHelper {
         // second, figure out if each School has any CensusSchoolValues with recent-enough manual override
         for (SchoolCensusValue schoolCensusValue : schoolCensusValues) {
             Boolean override = false;
-            Integer maxYear = dataTypeMaxYears.get(schoolCensusValue.getDataSet().getDataType().getId());
+            // Here we get the CensusDataSet that was passed in, by ID. The CensusDataSets that are on the
+            // CensusDataSchoolValue are not complete
+            CensusDataSet censusDataSet = censusDataSets.get(schoolCensusValue.getDataSet().getId());
+            Integer maxYear = dataTypeMaxYears.get(censusDataSet.getDataType().getId());
 
             // if this SchoolValue's got override potential...
             if (schoolCensusValue.getDataSet().getYear() == 0 && schoolCensusValue.getModified() != null) {
                 Date modified = schoolCensusValue.getModified();
                 manualCalendar.setTime(modified);
-                dataSetCalendar.set(Calendar.YEAR, maxYear);
+                dataSetCalendar.set(Calendar.YEAR, maxYear-1);
 
                 override = manualCalendar.after(dataSetCalendar);
 
                 // it's an override!
                 if (override) {
                     // use this school value for the data set
-                    schoolCensusValueMap.put(schoolCensusValue.getDataSet().getId(), schoolCensusValue);
+                    dataSetSchoolValueMap.put(getCensusDataSetHash(censusDataSet), schoolCensusValue);
                 }
             } else {
                 // sorry, no override potential
                 // only use this school value if there's no existing school value for this data set
-                if (schoolCensusValueMap.get(schoolCensusValue.getDataSet().getId()) == null) {
-                    schoolCensusValueMap.put(schoolCensusValue.getDataSet().getId(), schoolCensusValue);
+                if (dataSetSchoolValueMap.get(getCensusDataSetHash(censusDataSet)) == null) {
+                    dataSetSchoolValueMap.put(getCensusDataSetHash(censusDataSet), schoolCensusValue);
                 }
             }
         }
         System.out.println("done with census school values: " + System.nanoTime() / 1000000);
 
+        for (SchoolCensusValue schoolCensusValue : dataSetSchoolValueMap.values()) {
+            schoolCensusValueMap.put(schoolCensusValue.getDataSet().getId(), schoolCensusValue);
+        }
+
         return schoolCensusValueMap;
     }
 
+    /**
+     * Construct a hash based on the properties of a CensusDataSet, minus the year
+     * @param censusDataSet
+     * @return
+     */
+    public String getCensusDataSetHash(CensusDataSet censusDataSet) {
+        // grade + data_type_id + breakdown_id | level_code + subject_id --> Census Data Set
+        String result = (censusDataSet.getBreakdownOnly() != null ? String.valueOf(censusDataSet.getBreakdownOnly().hashCode()) : "|");
+        result += (censusDataSet.getLevelCode() != null ? String.valueOf(censusDataSet.getLevelCode().getCommaSeparatedString()) : "|");
+        result += (censusDataSet.getDataType() != null ? String.valueOf(censusDataSet.getDataType().getId()) : "|");
+        result += (censusDataSet.getGradeLevels() != null ? String.valueOf(censusDataSet.getGradeLevels().getCommaSeparatedString()) : "|");
+        result += (censusDataSet.getSubject() != null ? String.valueOf(censusDataSet.getSubject().getSubjectId()) : "|");
 
-    // ============== The following setters are just for unit testing ===================
-
-    public void setRequestAttributeHelper( RequestAttributeHelper requestAttributeHelper ) {
-        _requestAttributeHelper = requestAttributeHelper;
+        return result;
     }
 
-    public void setCensusDataSchoolValueDao(ICensusDataSchoolValueDao censusDataSchoolValueDao) {
-        _censusDataSchoolValueDao = censusDataSchoolValueDao;
-    }
-
-    public void setCensusDataSetDao(ICensusDataSetDao censusDataSetDao) {
-        _censusDataSetDao = censusDataSetDao;
-    }
-
-    public void setCensusDataConfigDao(ICensusDataConfigEntryDao censusDataConfigDao) {
-        _censusDataConfigDao = censusDataConfigDao;
-    }
 }
 
 
