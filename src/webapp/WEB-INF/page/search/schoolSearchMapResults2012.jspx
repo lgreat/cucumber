@@ -147,7 +147,7 @@
             </div>
         </c:set>
 
-        <div class="line">
+        <div class="line" id="js-mapPageNav">
             <div class="unit size1of2">
                 ${searchResultsPagingSummary}
             </div>

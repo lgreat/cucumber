@@ -32,10 +32,17 @@ GS.util.htmlMirrors = GS.util.htmlMirrors || (function() {
         }
 
         var $elementToCopyFrom = $('#' + $dataRecipient.data(recipientDataAttribute));
-        $dataRecipient.html($elementToCopyFrom.html());
+        if(($elementToCopyFrom.length == 0 || $elementToCopyFrom.html() == '') && $dataRecipient.attr('id') === 'totalResultsText') {
+            $dataRecipient.html('0');
+            $('#js-noResultsPopup').show();
+        }
+        else {
+            $dataRecipient.html($elementToCopyFrom.html());
+        }
     };
 
     var updateAll = function() {
+        $('#js-noResultsPopup').hide();
         $('[data-' + recipientDataAttribute + ']').each(function() {
             updateOneMirror($(this));
         });

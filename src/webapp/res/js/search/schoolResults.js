@@ -276,9 +276,12 @@ GS.search.results = GS.search.results || (function() {
     };
 
     var renderDataForMap = function(data) {
+        var pageNav = $('#js-mapPageNav');
         if(data.noSchoolsFound == true) {
             $('.js-rightResultsGrid').hide();
             $('.js-leftResultsGrid').hide();
+            pageNav.find('#total-results-count').html('');
+            pageNav.hide();
             $('#js-school-search-results-table-body').show();
             return;
         }
@@ -292,8 +295,9 @@ GS.search.results = GS.search.results || (function() {
 
         updateSortAndPageSize();
 
-        $('.js-search-results-paging-summary').html("Showing " + page.offset + "-" + page.lastOffsetOnPage + " of " +
+        pageNav.find('.js-search-results-paging-summary').html("Showing " + page.offset + "-" + page.lastOffsetOnPage + " of " +
             "<span id='total-results-count'>" + page.totalResults + "</span> schools");
+        pageNav.show();
 
         updatePageNav(page);
 
