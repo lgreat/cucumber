@@ -335,14 +335,20 @@ public class BoundaryAjaxController {
         Map school = new HashMap();
         if (schools!=null && schools.size()>0){
             school = schools.get(0);
+            boolean duplicate = false;
             for (int i=1; i<schools.size(); i++){
                 Double area = (Double)((Map)school.get("coordinates")).get("area");
                 Double compare = (Double)((Map)schools.get(i).get("coordinates")).get("area");
                 if (area > compare) {
                     school = schools.get(i);
+                    duplicate = false;
+                } else if (area.equals(compare)) {
+                    duplicate = true;
                 }
             }
-            result.add(school);
+            if (!duplicate){
+                result.add(school);
+            }
         }
         model.asMap().remove("schools");
         model.addAttribute("schools", result);
