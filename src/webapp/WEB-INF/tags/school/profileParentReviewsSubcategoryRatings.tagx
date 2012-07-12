@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
         >
     <jsp:directive.attribute name="ratings" required="true" description="List of NameValuePair of String,Integer"
                              type="java.util.List"/>
@@ -11,8 +12,9 @@
             <c:forEach var="rating" items="${pageScope.ratings}">
                 <li class="slStylesV1-0">
                     <div class="media">
-                    <span class="sprite stars_s_${rating.value}_b img mrs"
-                          title="${rating.key}: ${rating.value} out of 5 stars"><!-- do not collapse --></span>
+                        <ratings:stars curSR="${rating.value}"/>
+                    <!--<span class="sprite stars_s_${rating.value}_b img mrs"-->
+                          <!--title="${rating.key}: ${rating.value} out of 5 stars">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
 
                         <div class="bd"><p class="smallest bottom">${rating.key}</p></div>
                     </div>

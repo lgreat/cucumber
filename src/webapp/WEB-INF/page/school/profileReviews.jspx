@@ -60,9 +60,9 @@
 
 
                 <div class="spacer_5"><!-- do not collapse --></div>
-
-                        <span class="sprite stars_xl_${cmd.ratings.overall}_b"
-                              title="${cmd.ratings.overall} star rating"><!-- do not collapse --></span>
+                    <ratings:stars curSR="${cmd.ratings.overall}"/>
+                        <!--<span class="sprite stars_xl_${cmd.ratings.overall}_b"-->
+                              <!--title="${cmd.ratings.overall} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
 
                 <!-- TODO-10633 -->
                 <c:if test="${not empty ratingsByYear}">
@@ -70,7 +70,9 @@
                     <div id="js-bubbleInfo-7">
                         <div class="js-trigger">
                             <p class="smallText1-06b">
-                                Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'} <span class="sprite i-sparklet"><!-- do not collapse --></span>
+                                Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}
+                                <!--<ratings:stars curSR="${cmd.ratings.count}"/>-->
+                                <!--<span class="sprite i-sparklet">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                             </p>
                         </div>
 
@@ -93,7 +95,8 @@
                                             <c:when test="${ratingByYear.numRatings gt 0}">
                                                 <div class="unit size7of19">
                                                     <!-- numStars = -->
-                                                    <span class="sprite stars_sm_${ratingByYear.numStars}"><!-- do not collapse --></span>
+                                                    <ratings:stars curSR="${ratingByYear.numStars}"/>
+                                                    <!--<span class="sprite stars_sm_${ratingByYear.numStars}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                                                 </div>
                                                 <div class="unit size9of19 lastUnit">
                                                     <!-- numRatings = -->
@@ -149,10 +152,10 @@
                         </div>
                         <div class="reviewSubRatings">
                             <div id="parentRatings">
-                                <school:parentReviewsSubcategoryRatings ratings="${parentRatings}"/>
+                                <school:profileParentReviewsSubcategoryRatings ratings="${parentRatings}"/>
                             </div>
                             <div id="studentRatings" class="hidden">
-                                <school:parentReviewsSubcategoryRatings ratings="${studentRatings}"/>
+                                <school:profileParentReviewsSubcategoryRatings ratings="${studentRatings}"/>
                             </div>
                             <!--${aboutTheseRatings}-->
                         </div>
@@ -160,7 +163,7 @@
                     <c:when test="${not empty communityRatings}">
                         <div class="reviewSubRatings">
                             <div id="communityRatings">
-                                <school:parentReviewsSubcategoryRatings ratings="${communityRatings}"/>
+                                <school:profileParentReviewsSubcategoryRatings ratings="${communityRatings}"/>
                             </div>
                             <!--${aboutTheseRatings}-->
                         </div>
@@ -199,7 +202,7 @@
                 </div></div></div>
         <!-- end reviewColumn1 -->
         <div class="grid_11 omega" id="reviewColumn2">
-            <school:schoolReviewForm school="${school}" pageName="parentReviews"/>
+            <school:profileSchoolReviewForm school="${school}" pageName="parentReviews"/>
         </div>
         <!-- end reviewColumn2 -->
         <div class="spacer_15"><!-- do not collapse --></div>
@@ -371,7 +374,7 @@
                                 <c:if test="${curStarRating ne 'decline'}">
                                 <!--<span class="sprite stars_lg_${curStarRating} img mrm vam"-->
                                       <!--title="${curStarRating} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                    <div class="fl mrl"><ratings:stars curSR="${curStarRating}"/></div>
+                                    <div class="mrl"><ratings:stars curSR="${curStarRating}"/></div>
                                 </c:if>
 
                                 <div class="author smallText1 bd fl">
@@ -445,12 +448,9 @@
 
             </c:if>
             <!-- end: review -->
-            <c:set var="addSpacingBelow" value="" />
-            <c:if test="${!empty reviewsPagination}">
-                <c:set var="addSpacingBelow" value="mbl" />
-            </c:if>
 
-            <hr class="${addSpacingBelow}" />
+
+            <hr class="mbl" />
         </c:forEach>
 
         <div class="spacer_10"><!-- do not collapse --></div>
@@ -458,7 +458,11 @@
         <div class="fr">
             ${reviewsPagination}
         </div>
-        <div class="ptl" style="clear: both;"><!-- do not collapse --></div>
+                <c:set var="addSpacingBelow" value="" />
+                <c:if test="${!empty reviewsPagination}">
+                    <c:set var="addSpacingBelow" value="mbl" />
+                </c:if>
+        <div class="${addSpacingBelow}" style="clear: both;"><!-- do not collapse --></div>
             </div>
         </c:if>
 
