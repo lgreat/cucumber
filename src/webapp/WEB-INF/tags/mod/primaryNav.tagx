@@ -74,11 +74,17 @@
                     <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-findaschool-19.3.jpg" width="130" height="66"
                               alt="find a school hot topic"/>
 
-                    <p class="text3 allCaps">Hot Topic</p>
+                    <!-- GS-12882 -->
+                    <!--<p class="text3 allCaps">Hot Topic</p>-->
 
-                    <p><a href="/find-a-school/moving/3986-choosing-a-school-from-a-distance.gs?page=1"
-                          id="PN_F_HT-ChoosingASchoolFromADistance"
-                          class="GS_CI9_">Choosing a school from a distance</a></p>
+                    <!--<p><a href="/find-a-school/moving/3986-choosing-a-school-from-a-distance.gs?page=1"-->
+                    <!--id="PN_F_HT-ChoosingASchoolFromADistance"-->
+                    <!--class="GS_CI9_">Choosing a school from a distance</a></p>-->
+                    <p class="text3 allCaps">NEW!</p>
+
+                    <p><a href="/school-district-boundaries-map/"
+                          id="PN_F_HT-SchoolAndDistrictBoundariesMap"
+                          class="GS_CI9_">School and District Boundaries Map</a></p>
                 </div>
             </div>
         </div>
