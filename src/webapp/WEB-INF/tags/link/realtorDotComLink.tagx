@@ -27,9 +27,9 @@
         <c:if test="${not empty requestScope.omniturePageName}">
             <c:set var="onclick">if (s.tl) {s.tl(this,'o', '${customLinkValue}');} return true;</c:set>
         </c:if>
-        <div class="media">
+        <div class="media skin-1">
         <span class="${styleClass} img mrs"><!-- icon --></span>
-        <a class="bd smaller" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
+        <a class="bd small" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
             <jsp:doBody/>
         </a>
         </div>

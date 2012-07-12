@@ -136,11 +136,10 @@ GS.map.getMap = GS.map.getMap ||(function(){
             zIndex: null,
             boxStyle: {
                 opacity: 1,
-                width: "300px",
-                background: "white"
+                width: "320px",
             },
-            closeBoxMargin: "8px",
-            closeBoxURL: "http://staging.greatschools.org/res/mobile/img/icon_close_24x24.png",
+            closeBoxMargin: "8px 8px 0 8px",
+            closeBoxURL:"/res/img/googleMaps/16x16_close.png",
             infoBoxClearance: new google.maps.Size(1, 1),
             isHidden: false,
             pane: "floatPane",
@@ -332,11 +331,11 @@ GS.map.getMap = GS.map.getMap ||(function(){
 //        }
 
         // set appropriate list item background color
-        selectedSchool.addClass('highlight');
+        selectedSchool.css('background', '#E2F1F7');
     }
 
     var removeHighlight = function() {
-        selectedSchool.removeClass('highlight');
+        selectedSchool.css('background', '#FFF');
 //        var patternWhiteCommunityRating = /sprite stars_sm_(\d|[a-z_]{7})/gi;
 //        var communityRating = selectedSchool.find('.js-communityRating .sprite');
 //        var communityRatingClass = communityRating.attr('class');
