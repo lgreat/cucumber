@@ -139,6 +139,7 @@
     <!--<ad:adTag position="SponsoredSearch_Top_423x68"/>-->
     <!--<ad:adTag position="SponsoredSearch_Bottom_423x68"/>-->
 
+    <!-- Any change to the syle classes applied to navigation would require a change in the javascript code where this is updated for ajax refresh -->
     <div class="alpha grid_16 omega mts">
         <c:set var="searchResultsPagingSummary">
             <div class="js-search-results-paging-summary text3">
@@ -158,6 +159,7 @@
                 </div>
             </div>
         </div>
+
         <div class="alpha grid_16 omega">
             <div class="gsTabs1">
                 <ul class="tabStyle-2-1">
@@ -205,6 +207,9 @@
             to see boundaries in this area.</p>
     </div>
 
+
+    <!-- Any change to the syle classes applied to the infobox content would require a change to the js-infoBoxTemplate
+    that this is updated for ajax refresh -->
     <c:set var="points" value="0"/>
     <c:set var="latLonExists" value="${false}"/>
     <c:set var="pointsArray">
@@ -597,6 +602,8 @@
     </div>
 </div>
 
+<!-- Any change to the syle classes applied to the list items would require a change to the js-schoolListTemplate
+    that this is updated for ajax refresh -->
 <div class="bd">
     <c:choose>
         <!--<c:when test="${requestScope.schoolSearchCommand.view eq 'map'}">-->

@@ -152,7 +152,7 @@
             <label for="page-size">Display: </label>
             <select id="page-size" name="pageSize">
                 <c:choose>
-                    <c:when test="${pageSize eq 25}">
+                    <c:when test="${page.pager.pageSize eq 25}">
                         <option value="25" selected="selected">25 schools</option>
                     </c:when>
                     <c:otherwise>
@@ -160,7 +160,7 @@
                     </c:otherwise>
                 </c:choose>
                 <c:choose>
-                    <c:when test="${pageSize eq 50}">
+                    <c:when test="${page.pager.pageSize eq 50}">
                         <option value="50" selected="selected">50 schools</option>
                     </c:when>
                     <c:otherwise>
@@ -168,7 +168,7 @@
                     </c:otherwise>
                 </c:choose>
                 <c:choose>
-                    <c:when test="${pageSize eq 100}">
+                    <c:when test="${page.pager.pageSize eq 100}">
                         <option value="100" selected="selected">100 schools</option>
                     </c:when>
                     <c:otherwise>
