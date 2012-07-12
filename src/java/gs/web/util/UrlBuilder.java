@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.290 2012/07/10 21:15:28 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.291 2012/07/12 21:17:23 cauer Exp $
  */
 
 package gs.web.util;
@@ -213,6 +213,7 @@ public class UrlBuilder {
     public static final VPage SCHOOLS_IN_STATE = new VPage("vpage:schoolsInState");
 
     public static final VPage ABOUT_US = new VPage("vpage:aboutUs");
+    public static final VPage BOUNDARY_MAP = new VPage("vpage:boundaryMap");
     public static final VPage BOARD_OF_DIRECTORS = new VPage("vpage:boardOfDirectors");
     public static final VPage ADVISORS = new VPage("vpage:advisors");
     public static final VPage SENIOR_MANAGEMENT = new VPage("vpage:seniorManagement");
@@ -939,6 +940,8 @@ public class UrlBuilder {
             _path = "/about/aboutUs.page";
         } else if (BOARD_OF_DIRECTORS.equals(page)) {
             _path = "/about/boardOfDirectors.page";
+        } else if (BOUNDARY_MAP.equals(page)) {
+            _path = "/school-district-boundaries-map/";
         } else if (ADVISORS.equals(page)) {
             _path = "/about/advisors.page";
         } else if (SENIOR_MANAGEMENT.equals(page)) {

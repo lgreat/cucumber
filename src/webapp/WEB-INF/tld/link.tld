@@ -891,6 +891,29 @@
         </attribute>
     </tag>
     <tag>
+        <name>boundaryMap</name>
+        <tag-class>gs.web.jsp.link.BoundaryMapTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>School District Boundary Map</display-name>
+        <description>
+            <![CDATA[Link to our School district boundary map page.]]>
+        </description>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>CSS class name(s)</description>
+        </attribute>
+        <attribute>
+            <name>target</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>target window to open link in</description>
+        </attribute>
+    </tag>
+    <tag>
         <name>advisors</name>
         <tag-class>gs.web.jsp.link.AdvisorsTagHandler</tag-class>
         <body-content>JSP</body-content>

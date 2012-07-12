@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.149 2012/04/02 14:41:39 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.150 2012/07/12 21:17:23 cauer Exp $
  */
 
 package gs.web.util;
@@ -369,6 +369,9 @@ public class UrlBuilderSaTest extends BaseTestCase {
 
         UrlBuilder builder = new UrlBuilder(UrlBuilder.ARTICLE_LIBRARY, State.WY);
         assertEquals("/education-topics/", builder.asSiteRelative(request));
+
+        builder = new UrlBuilder(UrlBuilder.BOUNDARY_MAP);
+        assertEquals("/school-district-boundaries-map/", builder.asSiteRelative(request));
 
         builder = new UrlBuilder(UrlBuilder.MY_SCHOOL_LIST);
         assertEquals("/mySchoolList.page", builder.asSiteRelative(request));

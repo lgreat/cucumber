@@ -394,12 +394,21 @@ href="/res/css/school/parentReviewForm_ie7.css" />
         </c:otherwise>
     </c:choose>
 </div>
-<c:if test="${requestScope.context.showRealtorDotComPromos}">
-    <div class="spacer_5"><!-- do not collapse --></div>
-    <div class="smallAlertText">
-        <gslink:realtorDotComLink address="${school.physicalAddress}">Homes for sale</gslink:realtorDotComLink>
-    </div>
-</c:if>
+<div class="spacer_5"><!-- do not collapse --></div>
+<div>
+    <c:if test="${requestScope.context.showRealtorDotComPromos}">
+        <div class="smallAlertText fltlt unit size1of3">
+            <gslink:realtorDotComLink address="${school.physicalAddress}">Homes for sale</gslink:realtorDotComLink>
+        </div>
+    </c:if>
+    <!-- TODO: GS-12882 remove once New York City information is loaded -->
+    <!-- If New York City data is not ready, we need to not show this link for any school in NYC -->
+    <!--<c:if test="${!empty school.databaseState and school.databaseState ne 'NY'}">-->
+        <div class="smallAlertText fltlt unit size2of3">
+            <link:boundaryMap>School and District Boundaries Map</link:boundaryMap>
+        </div>
+    <!--</c:if>-->
+</div>
 
 <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
 <div class="spacer_10"><!-- do not collapse --></div>
