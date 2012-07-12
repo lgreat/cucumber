@@ -55,38 +55,57 @@ jQuery(document).ready(function() {
         $("#js_"+destination).triggerHandler('click').stopPropagation();
         return false;
     }
+    starRating(16, 5, "overallStarRating");
 
+
+});
+
+/********************************************************************************************************
+ *
+ *  currently created to work with the review page form!!!!
+ *
+ * @param iconW         icon width needs to have a css component that it is compatible with.
+ * @param starsT        total stars currently set to 5 -- also needs to be changed as default value in the jspx or tagx
+ * @param overallSR     sets the hidden value of a form field
+ */
+
+function starRating(iconW, starsT, overallSR){
     /* star rating */
-    var iconWidth = 16;
-    var totalStars = 5;
+    var iconWidth = iconW;
+    var totalStars = starsT;
+    var iconStr =  "i-"+iconWidth+"-star-";
+    var removeClassStr = "";
+    var starsOn = $('#starRatingContainer .starsOn');
+    var starsOff = $('#starRatingContainer .starsOff');
+    var overallStarRating = $("#"+overallSR);
+
+    for(var i=1; i<=totalStars; i++){
+        removeClassStr += iconStr+i;
+        if(i != totalStars){
+            removeClassStr += " ";
+        }
+    }
     $('#starRatingContainer').mousemove(function(e){
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
         var currentStar = Math.floor(x/iconWidth) +1;
-        if(currentStar > 5) currentStar = 5;
-        $('#starRatingContainer .starsOn').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
-        $('#starRatingContainer .starsOn').addClass("i-16-star-"+ currentStar);
-        $('#starRatingContainer .starsOff').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
-        $('#starRatingContainer .starsOff').addClass("i-16-star-"+ (totalStars - currentStar));
+        if(currentStar > totalStars) currentStar = totalStars;
+        starsOn.removeClass(removeClassStr).addClass(iconStr + currentStar);
+        starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
     });
     $('#starRatingContainer').click(function(e){
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
         var currentStar = Math.floor(x/iconWidth) +1;
-        if(currentStar > 5) currentStar = 5;
-        $("#overallStarRating").val(currentStar);
-        $('#starRatingContainer .starsOn').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
-        $('#starRatingContainer .starsOn').addClass("i-16-star-"+ currentStar);
-        $('#starRatingContainer .starsOff').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
-        $('#starRatingContainer .starsOff').addClass("i-16-star-"+ (totalStars - currentStar));
+        if(currentStar > totalStars) currentStar = totalStars;
+        overallStarRating.val(currentStar);
+        starsOn.removeClass(removeClassStr).addClass(iconStr + currentStar);
+        starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
 
     });
     $('#starRatingContainer').mouseout(function(e){
-        var currentRating = $("#overallStarRating").val();
-        $('#starRatingContainer .starsOn').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
-        $('#starRatingContainer .starsOn').addClass("i-16-star-"+ currentRating);
-        $('#starRatingContainer .starsOff').removeClass("i-16-star-0 i-16-star-1 i-16-star-2 i-16-star-3 i-16-star-4 i-16-star-5");
-        $('#starRatingContainer .starsOff').addClass("i-16-star-"+ (totalStars - currentRating));
+        var currentRating = overallStarRating.val();
+        starsOn.removeClass(removeClassStr).addClass(iconStr + currentRating);
+        starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentRating));
     });
-
-});
+}
