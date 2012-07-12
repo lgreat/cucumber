@@ -316,20 +316,20 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
     var addHighlight = function() {
         var isWhite = null;
-        var patternBlueClassMarker = /_b/gi;
-        var communityRatingToHighlight = selectedSchool.find('.communityRating .sprite');
-        var gsRatingToHighlight = selectedSchool.find('.gsRating .sprite');
-        var communityRatingToHighlightClass = communityRatingToHighlight.attr('class');
-        var gsRatingToHighlightClass = gsRatingToHighlight.attr('class');
-
-        (communityRatingToHighlightClass.match(patternBlueClassMarker) === null) ? isWhite = true : isWhite = false;
-
-        if(isWhite){
-            var blueCommunityRatingClass = communityRatingToHighlightClass + '_b';
-            var blueGsRatingClass = gsRatingToHighlightClass + '_b';
-            communityRatingToHighlight.removeClass(communityRatingToHighlightClass).addClass(blueCommunityRatingClass);
-            gsRatingToHighlight.removeClass(gsRatingToHighlightClass).addClass(blueGsRatingClass);
-        }
+//        var patternBlueClassMarker = /_b/gi;
+//        var communityRatingToHighlight = selectedSchool.find('.js-communityRating .sprite');
+//        var gsRatingToHighlight = selectedSchool.find('.js-gsRating .sprite');
+//        var communityRatingToHighlightClass = communityRatingToHighlight.attr('class');
+//        var gsRatingToHighlightClass = gsRatingToHighlight.attr('class');
+//
+//        (communityRatingToHighlightClass.match(patternBlueClassMarker) === null) ? isWhite = true : isWhite = false;
+//
+//        if(isWhite){
+//            var blueCommunityRatingClass = communityRatingToHighlightClass + '_b';
+//            var blueGsRatingClass = gsRatingToHighlightClass + '_b';
+//            communityRatingToHighlight.removeClass(communityRatingToHighlightClass).addClass(blueCommunityRatingClass);
+//            gsRatingToHighlight.removeClass(gsRatingToHighlightClass).addClass(blueGsRatingClass);
+//        }
 
         // set appropriate list item background color
         selectedSchool.addClass('highlight');
@@ -337,17 +337,17 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
     var removeHighlight = function() {
         selectedSchool.removeClass('highlight');
-        var patternWhiteCommunityRating = /sprite stars_sm_(\d|[a-z_]{7})/gi;
-        var communityRating = selectedSchool.find('.communityRating .sprite');
-        var communityRatingClass = communityRating.attr('class');
-        var whiteCommunityRatingClass = communityRatingClass.match(patternWhiteCommunityRating)[0];
-        communityRating.removeClass(communityRatingClass).addClass(whiteCommunityRatingClass);
-
-        var patternWhiteGsRating = /fltlft sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
-        var gsRating = selectedSchool.find('.gsRating .sprite');
-        var gsRatingClass = gsRating.attr('class');
-        var whiteGsRatingClass = gsRatingClass.match(patternWhiteGsRating)[0];
-        gsRating.removeClass(gsRatingClass).addClass(whiteGsRatingClass);
+//        var patternWhiteCommunityRating = /sprite stars_sm_(\d|[a-z_]{7})/gi;
+//        var communityRating = selectedSchool.find('.js-communityRating .sprite');
+//        var communityRatingClass = communityRating.attr('class');
+//        var whiteCommunityRatingClass = communityRatingClass.match(patternWhiteCommunityRating)[0];
+//        communityRating.removeClass(communityRatingClass).addClass(whiteCommunityRatingClass);
+//
+//        var patternWhiteGsRating = /fltlft sprite badge_sm_(\d{1,2}|[a-z]{2})/gi;
+//        var gsRating = selectedSchool.find('.js-gsRating .sprite');
+//        var gsRatingClass = gsRating.attr('class');
+//        var whiteGsRatingClass = gsRatingClass.match(patternWhiteGsRating)[0];
+//        gsRating.removeClass(gsRatingClass).addClass(whiteGsRatingClass);
         selectedSchool = null;
     }
 
