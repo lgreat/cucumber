@@ -8,8 +8,8 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
         >
-    <jsp:directive.tag import="gs.data.school.Grades"/>
-    <jsp:directive.tag import="gs.data.school.Grade"/>
+<jsp:directive.tag import="gs.data.school.Grades"/>
+<jsp:directive.tag import="gs.data.school.Grade"/>
 
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
@@ -19,358 +19,373 @@
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="schoolId" value="${school.id}"/>
 
-
-    <div class="mod standard_2-1">
-    <div class="inner">
-    <div class="bd">
-
-
 <![CDATA[<a name="schoolReviewSubmitForm"></a>]]>
 
 <jsp:scriptlet>
     boolean showStudent = true;
     Grades below9 = Grades.createGrades(Grade.PRESCHOOL, Grade.G_8);
     if (school.getGradeLevels().containsAny(below9)) {
-        showStudent = false;
+    showStudent = false;
     }
     request.setAttribute("schoolReviewShowStudent", showStudent);
 </jsp:scriptlet>
 
-        <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-        <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
-            <fieldset>
+<div class="spacer_10"><!-- do not collapse --></div>
+<gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
+<fieldset>
 
-                <!--Begin star ratings.
-                    Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
-                    But because this page may load slowly, that's not an option.
-                -->
-                <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
-                <pageHelper:externalJavascript file="/res/js/starRating.js"/>
+<!--Begin star ratings.
+    Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
+    But because this page may load slowly, that's not an option.
+-->
+<!--<pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>-->
 
-                <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
+<input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
 
-                <div class="line rating">
-                    <div class="unit size2of5 ">
-                        <h4 class="subhead6 label3"><strong>Rate this school</strong> <em
-                                class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
-                        </h4>
-                    </div>
+<div class="line rating">
+    <div class="unit size2of5">
+        <h4 class="subhead6 label3">Rate this school <em
+                class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
+        </h4>
+    </div>
+    <div class="unit size3of5 lastUnit">
+        <ul class="star-rating large-star fltlft">
+            <li id="currentStarDisplay" class="current-rating"
+                style="width:0;"><!-- -->
+            </li>
+            <li><a href="#" title="1 star out of 5" class="one-star"
+                   onclick="this.hideFocus=true;return false;"
+                    >1</a></li>
+            <li><a href="#" title="2 stars out of 5" class="two-stars"
+                   onclick="this.hideFocus=true;return false;"
+                    >2</a></li>
+            <li><a href="#" title="3 stars out of 5" class="three-stars"
+                   onclick="this.hideFocus=true;return false;"
+                    >3</a></li>
+            <li><a href="#" title="4 stars out of 5" class="four-stars"
+                   onclick="this.hideFocus=true;return false;"
+                    >4</a></li>
+            <li><a href="#" title="5 stars out of 5" class="five-stars"
+                   onclick="this.hideFocus=true;return false;"
+                    >5</a></li>
+        </ul>
+                        <span class="top_5">
+                            <div id="ratingTitle" class="text3italic"><!-- --></div>
+                        </span>
+        <!-- end star ratings -->
+    </div>
 
-                    <div class="unit size3of5 lastUnit pma" style="background-color: #FFFFFF">
-                        <div id="starRatingContainer" class="fl">
-                            <div id="" class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
-                            <div id="" class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
-                        </div>
-                        <div class="top_5">
-                            <div class="fr smaller">Click on stars to rate</div>
-                        </div>
-                        <!-- end star ratings -->
-                    </div>
-                </div>
+    <div class="spacer_15">
+        <div class="form-error formErrorText media">
+            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                <input type="hidden" name="id" value="${schoolId}"/>
-                <input type="hidden" name="state" value="${state}"/>
-                <input type="hidden" name="source" value="${pageName}"/>
+            <div class="bd">Please select a star rating for this school.</div>
+        </div>
+    </div>
+
+</div>
+
+<input type="hidden" name="id" value="${schoolId}"/>
+<input type="hidden" name="state" value="${state}"/>
+<input type="hidden" name="source" value="${pageName}"/>
 
 
-                <div class="spacer_5"><!-- do not collapse --></div>
-                <div id="js-bubbleInfo-6" class="text3">
-                <div class="js-trigger line review-text">
-                    <div class="unit size1of1 lastUnit">
-                        <textarea id="js-reviewText"
-                                  class="text1-ededed text3"
-                                  name="comments"
-                                  onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
-                                  onblur="if(this.value==''){this.value='[Enter your review here]';}"
-                                   style="width:97%" rows="5">[Enter your review here]</textarea>
-                    </div>
-                </div>
-                    <div class="js-popup">
-                            <!--<div id="popup-contents-6" class="box-shadow">-->
-                            <div id="popup-contents-6">
-                                <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                <span class="arrow-outline-right"><!-- do not collapse --></span>
-                                <span class="arrow-right"><!-- do not collapse --></span>
-                                <ul class="unordered-list2 text3"><span class="text3bold">Don't forget</span>
-                                    <br/>GreatSchools won’t post reviews that contain:
-                                    <li class="list-item"><span class="text3">Inappropriate language</span></li>
-                                    <li class="list-item"><span class="text3">Allegations of criminal conduct</span></li>
-                                    <li class="list-item"><span class="text3">Names of students, teachers, or staff</span></li>
-                                </ul>
+<div class="spacer_5"><!-- do not collapse --></div>
+<div id="js-bubbleInfo-6" class="text3">
+    <div class="js-trigger line review-text">
+        <div class="unit size1of1 lastUnit">
+            <textarea id="js-reviewText"
+                      class="text1-ededed text3"
+                      name="comments"
+                      onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
+                      onblur="if(this.value==''){this.value='[Enter your review here]';}"
+                      rows="" cols="">[Enter your review here]</textarea>
+        </div>
+    </div>
+    <div class="js-popup">
+        <!--<div id="popup-contents-6" class="box-shadow">-->
+        <div id="popup-contents-6">
+            <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+            <span class="arrow-outline-right"><!-- do not collapse --></span>
+            <span class="arrow-right"><!-- do not collapse --></span>
+            <ul class="unordered-list2 text3"><span class="text3bold">Don't forget</span>
+                <br/>GreatSchools won’t post reviews that contain:
+                <li class="list-item"><span class="text3">Inappropriate language</span></li>
+                <li class="list-item"><span class="text3">Allegations of criminal conduct</span></li>
+                <li class="list-item"><span class="text3">Names of students, teachers, or staff</span></li>
+            </ul>
 
-                                <div class="spacer_7 brdbtm_dotted"><!-- do not collapse --></div>
-                                <div class="spacer_7"><!-- do not collapse --></div>
-                                <ul class="unordered-list2 text3"><span class="text3bold">A great school has:</span>
-                                    <li class="list-item"><span class="text3">Excellent teachers</span></li>
-                                    <li class="list-item"><span class="text3">Strong principal/school leadership</span></li>
-                                    <li class="list-item"><span class="text3">Challenging academic programs</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <!--</div>-->
-                </div>
+            <div class="spacer_7 brdbtm_dotted"><!-- do not collapse --></div>
+            <div class="spacer_7"><!-- do not collapse --></div>
+            <ul class="unordered-list2 text3"><span class="text3bold">A great school has:</span>
+                <li class="list-item"><span class="text3">Excellent teachers</span></li>
+                <li class="list-item"><span class="text3">Strong principal/school leadership</span></li>
+                <li class="list-item"><span class="text3">Challenging academic programs</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-                <div class="line">
-                    <div class="unit size1of1 lastUnit">
-                        <div id="js-charCount" class="formHelperText fltrt mrm">1200 characters remaining</div>
-                    </div>
-                </div>
+<div class="line">
+    <div class="unit size1of1 lastUnit">
+        <div id="js-charCount" class="formHelperText fltrt mrm">1200 characters remaining</div>
+    </div>
+</div>
 
-                <div class="line email">
-                    <div class="unit size4of7">
-                        <div class="line">
-                            <label for="frmPRModule-email" class="unit size1of4">Email:
-                                <em class="sprite i-required"><!-- do not collapse --></em>
-                            </label>
-                            <c:choose>
-                                <c:when test="${validUser.email eq null}">
-                                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size7of10"
-                                           type="text"
-                                           value="[Enter email address]"
-                                           onfocus="if(this.value=='[Enter email address]'){this.value='';}"
-                                           onblur="if(this.value==''){this.value='[Enter email address]';}"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size7of10"
-                                           type="text"
-                                           value="${validUser.email}" disabled="disabled"/>
-                                </c:otherwise>
-                            </c:choose>
+<div class="line email">
+    <div class="unit size4of7">
+        <div class="line">
+            <label for="frmPRModule-email" class="unit size1of4">Email:
+                <em class="sprite i-required"><!-- do not collapse --></em>
+            </label>
+            <c:choose>
+                <c:when test="${validUser.email eq null}">
+                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size7of10"
+                           type="text"
+                           value="[Enter email address]"
+                           onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                           onblur="if(this.value==''){this.value='[Enter email address]';}"/>
+                </c:when>
+                <c:otherwise>
+                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size7of10"
+                           type="text"
+                           value="${validUser.email}" disabled="disabled"/>
+                </c:otherwise>
+            </c:choose>
 
-                            <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
-                        </div>
-                        <div class="spacer_8"><!-- do not collapse --></div>
-                    </div>
+            <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
+        </div>
+        <div class="spacer_8"><!-- do not collapse --></div>
+    </div>
 
-                    <div class="unit size3of7 lastUnit"><!-- do not collapse -->
-                        <div class="formErrorText media form-error">
-                            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
+    <div class="unit size3of7 lastUnit"><!-- do not collapse -->
+        <div class="formErrorText media form-error">
+            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd">Please enter your email.</div>
-                        </div>
-                        <div class="smallText1-333 media form-alert">
-                            <span class="sprite i-confirm-sm img mrs"><!-- do not collapse --></span>
+            <div class="bd">Please enter your email.</div>
+        </div>
+        <div class="smallText1-333 media form-alert">
+            <span class="sprite i-confirm-sm img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd">You must verify your email address on submit.</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="bd">You must verify your email address on submit.</div>
+        </div>
+    </div>
+</div>
 
-                <div class="line role">
-                    <div class="unit size4of7">
-                        <div class="line">
-                            <label for="affiliation" class="unit size1of4">I am a:
-                                <em class="sprite i-required"><!-- do not collapse --></em>
-                            </label>
-                            <select id="affiliation" name="posterAsString" class="unit size7of10">
-                                <option value="" selected="selected">- Select one -</option>
-                                <option value="parent">parent</option>
-                                <c:if test="${schoolReviewShowStudent}">
-                                    <option value="student">student</option>
-                                </c:if>
-                                <option value="teacher">teacher/staff member</option>
-                                <option value="other">other</option>
-                            </select>
-                            <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
-                        </div>
-                        <div class="spacer_8"><!-- do not collapse --></div>
-                    </div>
-                    <div class="unit size3of7 lastUnit"><!-- do not collapse -->
-                        <div class="formErrorText media form-error">
-                            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
-
-                            <div class="bd">Please indicate your relationship to the school.</div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="subStarRatings" style="display:none;">
-                    <div class="spacer_5"><!-- do not collapse --></div>
-                    <div class="text3bold-d61">How do you rate this school in these additional areas?</div>
-                    <div class="spacer_10"><!-- do not collapse --></div>
-                    <div id="js-bubbleInfo-2" class="text3 teacher">
-                        <div class="js-trigger student_only line">
-                            <div class="catRatingLabel text3 unit size2of7">Teacher quality</div>
-                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="teacherAsString"
-                                                                                           additionalClass="med-star"/>
-                            </div>
-                        </div>
-                        <div class="js-popup">
-                            <!--<div id="popup-contents-2" class="box-shadow">-->
-                            <div id="popup-contents-2">
-                                <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                <span class="arrow-outline-right"><!-- do not collapse --></span>
-                                <span class="arrow-right"><!-- do not collapse --></span>
-
-                                <ul class="unordered-list2"><span class="text3bold">Teacher quality</span> <br/>These ratings reflect parents’ or students’ overall experience with the school’s teachers. Among other things, great teachers:
-                                    <li class="list-item"><span class="text3">Talk to parents regularly about their children's progress.</span></li>
-                                    <li class="list-item"><span class="text3">Challenge students to learn.</span></li>
-                                    <li class="list-item"><span class="text3">Give students the attention they need to thrive in class.</span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <c:if test="${school.levelCode ne 'p'}">
-                        <div id="js-bubbleInfo-3" class="text3 principal">
-                            <div class="spacer_5"><!-- do not collapse --></div>
-
-                            <div class="js-trigger line">
-                                <div class="catRatingLabel text3 unit size2of7">Principal leadership</div>
-                                <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="principalAsString"
-                                                                                               additionalClass="med-star"/>
-                                </div>
-                            </div>
-                            <div class="js-popup">
-                                <!--<div id="popup-contents-3" class="box-shadow">-->
-                                <div id="popup-contents-3">
-                                    <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                    <span class="arrow-outline-right"><!-- do not collapse --></span>
-                                    <span class="arrow-right"><!-- do not collapse --></span>
-
-                                    <ul class="unordered-list2"><span class="text3bold">Principal leadership</span> <br/>This is an assessment of the principal, or other leadership, at the school. Among other things, strong principals or school leaders:
-                                        <li class="list-item"><span
-                                                class="text3">Reach out to parents.</span>
-                                        </li>
-                                        <li class="list-item"><span class="text3">Listen to and answer questions from parents and students.</span>
-                                        </li>
-                                        <li class="list-item"><span
-                                                class="text3">Make efforts to improve the quality of the school.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </c:if>
-
-                    <div id="js-bubbleInfo-4" class="text3 parents">
-                        <div class="spacer_5"><!-- do not collapse --></div>
-
-                        <div class="js-trigger line">
-                            <div class="catRatingLabel text3 unit size2of7">Parent involvement</div>
-                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="parentAsString"
-                                                                                           additionalClass="med-star"/>
-                            </div>
-                        </div>
-                        <div class="js-popup">
-                            <!--<div id="popup-contents-4" class="box-shadow">-->
-                            <div id="popup-contents-4">
-                                <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                <span class="arrow-outline-right"><!-- do not collapse --></span>
-                                <span class="arrow-right"><!-- do not collapse --></span>
-
-                                <ul class="unordered-list2"><span class="text3bold">Parent involvement</span> <br/>A supportive community &amp;mdash; which includes active, involved parents &amp;mdash; is one mark of a great school. This rating reflects to what degree the school:
-                                    <li class="list-item"><span
-                                            class="text3">Offers opportunities for parent involvement.</span>
-                                    </li>
-                                    <li class="list-item"><span class="text3">Encourages all parents to volunteer.</span>
-                                    </li>
-                                    <li class="list-item"><span
-                                            class="text3">Treats parents like partners, not outsiders.</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <c:if test="${school.levelCode eq 'p'}">
-                        <div id="js-bubbleInfo-5" class="text3">
-                            <div class="spacer_5"><!-- do not collapse --></div>
-
-                            <div class="js-trigger line">
-                                <div class="catRatingLabel text3 unit size2of7">Facilities &amp;amp; equipment</div>
-                                <div class="catRating unit size5of7 lastUnit"><gsml:starRating
-                                        id="pFacilitiesAsString"
-                                        additionalClass="med-star"/>
-                                </div>
-                            </div>
-                            <div class="js-popup">
-                                <!--<div id="popup-contents-5" class="box-shadow">-->
-                                <div id="popup-contents-5">
-                                    <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                    <span class="arrow-outline-right"><!-- do not collapse --></span>
-                                    <span class="arrow-right"><!-- do not collapse --></span>
-
-                                    <ul class="unordered-list2"><span class="text3bold">Facilities &amp;amp; equipment</span>
-                                        <br/>This is an assessment of the physical environment of the preschool. The rating reflects to what degree the preschool:
-                                        <li class="list-item"><span
-                                                class="text3">Maintains a clean, safe, inviting environment.</span>
-                                        </li>
-                                        <li class="list-item"><span
-                                                class="text3">Has ample indoor and outdoor play space.</span>
-                                        </li>
-                                        <li class="list-item"><span
-                                                class="text3">Provides diverse, age-appropriate learning materials and toys.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </c:if>
-                    <div class="spacer_15"><!-- do not collapse --></div>
-                </div>
-
-                <div class="line terms">
-                    <div class="unit size1of1 lastUnit">
-                        <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
-                        <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <link:termsOfUse
-                                target="_blank">GreatSchools Terms of Use</link:termsOfUse> and
-                            <link:parentReviewGuidelines
-                                    target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
-                            <em class="sprite i-required"><!-- do not collapse --></em>
-                        </label>
-                    </div>
-                </div>
-
-                <c:if test="${!isUserSubscribedToMss and (school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
-                    <div class="line terms">
-                        <div class="unit size1of1 lastUnit">
-                            <gsml:checkbox name="mssSub" styleClass="checkbox" styleId="rememberMeBox" checked="true"/>
-                            <label for="rememberMeBox"
-                                   class="smallText1 frmPRLabel-2">Yes, send me monthly email updates about this school.
-                            </label>
-                        </div>
-                    </div>
+<div class="line role">
+    <div class="unit size4of7">
+        <div class="line">
+            <label for="affiliation" class="unit size1of4">I am a:
+                <em class="sprite i-required"><!-- do not collapse --></em>
+            </label>
+            <select id="affiliation" name="posterAsString" class="unit size7of10">
+                <option value="" selected="selected">- Select one -</option>
+                <option value="parent">parent</option>
+                <c:if test="${schoolReviewShowStudent}">
+                    <option value="student">student</option>
                 </c:if>
+                <option value="teacher">teacher/staff member</option>
+                <option value="other">other</option>
+            </select>
+            <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
+        </div>
+        <div class="spacer_8"><!-- do not collapse --></div>
+    </div>
+    <div class="unit size3of7 lastUnit"><!-- do not collapse -->
+        <div class="formErrorText media form-error">
+            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                <div class="spacer_15">
-                    <div class="form-error formErrorText media" id="js-termsError">
-                        <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
+            <div class="bd">Please indicate your relationship to the school.</div>
+        </div>
+    </div>
 
-                        <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
-                    </div>
+</div>
+
+<div class="subStarRatings" style="display:none;">
+    <div class="spacer_5"><!-- do not collapse --></div>
+    <div class="text3bold-d61">How do you rate this school in these additional areas?</div>
+    <div class="spacer_10"><!-- do not collapse --></div>
+    <div id="js-bubbleInfo-2" class="text3 teacher">
+        <div class="js-trigger student_only line">
+            <div class="catRatingLabel text3 unit size2of7">Teacher quality</div>
+            <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="teacherAsString"
+                                                                           additionalClass="med-star"/>
+            </div>
+        </div>
+        <div class="js-popup">
+            <!--<div id="popup-contents-2" class="box-shadow">-->
+            <div id="popup-contents-2">
+                <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                <span class="arrow-outline-right"><!-- do not collapse --></span>
+                <span class="arrow-right"><!-- do not collapse --></span>
+
+                <ul class="unordered-list2"><span class="text3bold">Teacher quality</span> <br/>These ratings reflect parents’ or students’ overall experience with the school’s teachers. Among other things, great teachers:
+                    <li class="list-item"><span class="text3">Talk to parents regularly about their children's progress.</span></li>
+                    <li class="list-item"><span class="text3">Challenge students to learn.</span></li>
+                    <li class="list-item"><span class="text3">Give students the attention they need to thrive in class.</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <c:if test="${school.levelCode ne 'p'}">
+        <div id="js-bubbleInfo-3" class="text3 principal">
+            <div class="spacer_5"><!-- do not collapse --></div>
+
+            <div class="js-trigger line">
+                <div class="catRatingLabel text3 unit size2of7">Principal leadership</div>
+                <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="principalAsString"
+                                                                               additionalClass="med-star"/>
                 </div>
+            </div>
+            <div class="js-popup">
+                <!--<div id="popup-contents-3" class="box-shadow">-->
+                <div id="popup-contents-3">
+                    <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                    <span class="arrow-outline-right"><!-- do not collapse --></span>
+                    <span class="arrow-right"><!-- do not collapse --></span>
 
-
-            </fieldset>
-            <fieldset>
-                <button id="parentReviewFormSubmit" class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit
-                </button>
-                <div class="helperMessage formText1 media">
-                    <span class="sprite i-required img"><!-- do not collapse --></span>
-                    <div class="bd">Indicates a required field</div>
+                    <ul class="unordered-list2"><span class="text3bold">Principal leadership</span> <br/>This is an assessment of the principal, or other leadership, at the school. Among other things, strong principals or school leaders:
+                        <li class="list-item"><span
+                                class="text3">Reach out to parents.</span>
+                        </li>
+                        <li class="list-item"><span class="text3">Listen to and answer questions from parents and students.</span>
+                        </li>
+                        <li class="list-item"><span
+                                class="text3">Make efforts to improve the quality of the school.</span>
+                        </li>
+                    </ul>
                 </div>
-            </fieldset>
-        </gsweb:form>
-        <script type="text/javascript">
-            jQuery(function () {
-                jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-200,topPosition:-95});
-                jQuery('#js-bubbleInfo-3').popup({appear:'left',leftPosition:-200,topPosition:-95});
-                jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-200,topPosition:-95});
-                jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-200,topPosition:-95});
-                jQuery('#js-bubbleInfo-6').popup({appear:'left',leftPosition:-200,topPosition:1});
-                jQuery('#js-reviewText').characterCounter({charLimit:1200});
-            });
-        </script>
+            </div>
+        </div>
+    </c:if>
+
+    <div id="js-bubbleInfo-4" class="text3 parents">
+        <div class="spacer_5"><!-- do not collapse --></div>
+
+        <div class="js-trigger line">
+            <div class="catRatingLabel text3 unit size2of7">Parent involvement</div>
+            <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="parentAsString"
+                                                                           additionalClass="med-star"/>
+            </div>
+        </div>
+        <div class="js-popup">
+            <!--<div id="popup-contents-4" class="box-shadow">-->
+            <div id="popup-contents-4">
+                <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                <span class="arrow-outline-right"><!-- do not collapse --></span>
+                <span class="arrow-right"><!-- do not collapse --></span>
+
+                <ul class="unordered-list2"><span class="text3bold">Parent involvement</span> <br/>A supportive community &amp;mdash; which includes active, involved parents &amp;mdash; is one mark of a great school. This rating reflects to what degree the school:
+                    <li class="list-item"><span
+                            class="text3">Offers opportunities for parent involvement.</span>
+                    </li>
+                    <li class="list-item"><span class="text3">Encourages all parents to volunteer.</span>
+                    </li>
+                    <li class="list-item"><span
+                            class="text3">Treats parents like partners, not outsiders.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <c:if test="${school.levelCode eq 'p'}">
+        <div id="js-bubbleInfo-5" class="text3">
+            <div class="spacer_5"><!-- do not collapse --></div>
+
+            <div class="js-trigger line">
+                <div class="catRatingLabel text3 unit size2of7">Facilities &amp;amp; equipment</div>
+                <div class="catRating unit size5of7 lastUnit"><gsml:starRating
+                        id="pFacilitiesAsString"
+                        additionalClass="med-star"/>
+                </div>
+            </div>
+            <div class="js-popup">
+                <!--<div id="popup-contents-5" class="box-shadow">-->
+                <div id="popup-contents-5">
+                    <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                    <span class="arrow-outline-right"><!-- do not collapse --></span>
+                    <span class="arrow-right"><!-- do not collapse --></span>
+
+                    <ul class="unordered-list2"><span class="text3bold">Facilities &amp;amp; equipment</span>
+                        <br/>This is an assessment of the physical environment of the preschool. The rating reflects to what degree the preschool:
+                        <li class="list-item"><span
+                                class="text3">Maintains a clean, safe, inviting environment.</span>
+                        </li>
+                        <li class="list-item"><span
+                                class="text3">Has ample indoor and outdoor play space.</span>
+                        </li>
+                        <li class="list-item"><span
+                                class="text3">Provides diverse, age-appropriate learning materials and toys.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </c:if>
+    <div class="spacer_15"><!-- do not collapse --></div>
+</div>
+
+<div class="line terms">
+    <div class="unit size1of1 lastUnit">
+        <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
+        <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <link:termsOfUse
+                target="_blank">GreatSchools Terms of Use</link:termsOfUse> and
+            <link:parentReviewGuidelines
+                    target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
+            <em class="sprite i-required"><!-- do not collapse --></em>
+        </label>
+    </div>
+</div>
+
+<c:if test="${!isUserSubscribedToMss and (school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
+    <div class="line terms">
+        <div class="unit size1of1 lastUnit">
+            <gsml:checkbox name="mssSub" styleClass="checkbox" styleId="rememberMeBox" checked="true"/>
+            <label for="rememberMeBox"
+                   class="smallText1 frmPRLabel-2">Yes, send me monthly email updates about this school.
+            </label>
+        </div>
+    </div>
+</c:if>
+
+<div class="spacer_15">
+    <div class="form-error formErrorText media" id="js-termsError">
+        <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
+
+        <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
+    </div>
+</div>
 
 
-    <!-- Force recalculation of column heights -->
-    <script type="text/javascript">
-        function GS_resizeColumns() {
-            //document.getElementById('${mainColumnId}').style.height = null;
-            //document.getElementById('col_right').style.height = null;
-            //BoxHeights.equalize('${mainColumnId}','col_right');
-        }
-    </script>
-                </div></div></div>
+</fieldset>
+<fieldset>
+    <button id="parentReviewFormSubmit" class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit
+    </button>
+    <div class="helperMessage formText1 media">
+        <span class="sprite i-required img"><!-- do not collapse --></span>
+        <div class="bd">Indicates a required field</div>
+    </div>
+</fieldset>
+</gsweb:form>
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-200,topPosition:-95});
+        jQuery('#js-bubbleInfo-3').popup({appear:'left',leftPosition:-200,topPosition:-95});
+        jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-200,topPosition:-95});
+        jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-200,topPosition:-95});
+        jQuery('#js-bubbleInfo-6').popup({appear:'left',leftPosition:-200,topPosition:1});
+        jQuery('#js-reviewText').characterCounter({charLimit:1200});
+    });
+</script>
+
+
+<!-- Force recalculation of column heights -->
+<script type="text/javascript">
+    function GS_resizeColumns() {
+        //document.getElementById('${mainColumnId}').style.height = null;
+        //document.getElementById('col_right').style.height = null;
+        //BoxHeights.equalize('${mainColumnId}','col_right');
+    }
+</script>
 </jsp:root>
