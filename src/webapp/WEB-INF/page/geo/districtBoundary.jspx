@@ -160,6 +160,7 @@
                 <div class="alpha grid_17 omega fltrt">
                     <div class="js_showWithMap hidden">
                         <div id="map-wrapper">
+
                             <div id="map-canvas"><!-- not empty --></div>
                             <div id="js_loading" class="but but-sm but-2 hidden">Loading ...</div>
                             <button class="but but-sm but-2" id="js_reloadMap">Redo search at this location
@@ -231,13 +232,14 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="prefix_15 grid_9">
+    <div class="prefix_15 grid_9">
             <span class="smaller quiet">
                 School Boundaries &#169; Maponics 2012. Duplication is strictly prohibited.
             </span>
+    </div>
 </div>
+
+
 
 
 <div class="prefix_7 grid_17 mbl">
@@ -245,10 +247,10 @@
         <div class="alpha grid_7">
             <h6 class="bottom">Show schools that are not part of a district:</h6>
         </div>
-        <div class="grid_10 omega">
+        <div class="grid_10 omega tal">
             <div class="di vam"><gsml:checkbox name="schoolType_public" styleId="js_schoolType_public" styleClass="hidden"
                            checked="${true}"/></div>
-            <div class="di vam mrm"><label style="display:none;" for="js_schoolType_public"
+            <div class="di vam"><label style="display:none;" for="js_schoolType_public"
                    class="checkbox">Public/Charter schools (in district)</label></div>
             <div class="di vam"><gsml:checkbox name="schoolType_charter" styleId="js_schoolType_charter" checked="${false}"
                            onclick="clickCapture.capture('eVar74','Dist Bounds Charter Filter'); return true;"/></div>
