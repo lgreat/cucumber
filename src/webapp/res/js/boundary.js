@@ -158,6 +158,7 @@ var Boundary = (function (){
         if (obj.data.type == 'district'){
             if (state('searching') && !STATES.searching.originalId){
                 STATES.searching.originalId = obj.data.id;
+                $map.boundaries('autozoom', obj.data);
             }
             STATES.browsing.position = new google.maps.LatLng(obj.data.lat, obj.data.lon);
             $dropdown.val(obj.data.getKey());

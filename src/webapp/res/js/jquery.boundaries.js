@@ -399,7 +399,13 @@ Boundaries.prototype = {
         this.trigger('outbounds');
     }
 
-    , autozoom: function () {
+    , autozoom: function (option) {
+        if (this.exists(option)) {
+            if (option.type && option.type=='district'){
+                this.getMap().fitBounds(option.getPolygon().getBounds());
+            }
+        }
+
         if (this.getOptions().autozoom) {
             this.shown($.proxy(function(markers){
                 var bounds = new google.maps.LatLngBounds();
@@ -466,7 +472,18 @@ var Mappable = function(){
     this.getPosition = function(){return new google.maps.LatLng(lat, lon);}
     this.getName = function(){return name;}
 };
-
+google.maps.Polygon.prototype.getBounds = function() {
+    var bounds = new google.maps.LatLngBounds();
+    var paths = this.getPaths();
+    var path;
+    for (var i = 0; i < paths.getLength(); i++) {
+        path = paths.getAt(i);
+        for (var ii = 0; ii < path.getLength(); ii++) {
+            bounds.extend(path.getAt(ii));
+        }
+    }
+    return bounds;
+}
 Mappable.prototype = {
     constructor: Mappable
     , getMarker: function(){
