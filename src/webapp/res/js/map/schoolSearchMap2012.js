@@ -315,7 +315,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
     }
 
     var addHighlight = function() {
-        var isWhite = null;
+//        var isWhite = null;
 //        var patternBlueClassMarker = /_b/gi;
 //        var communityRatingToHighlight = selectedSchool.find('.js-communityRating .sprite');
 //        var gsRatingToHighlight = selectedSchool.find('.js-gsRating .sprite');
