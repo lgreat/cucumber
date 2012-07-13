@@ -1,6 +1,8 @@
 package gs.web.school;
 
 import gs.data.community.IReportedEntityDao;
+import gs.data.community.ReportedEntity;
+import gs.data.community.User;
 import gs.data.school.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
@@ -67,6 +69,21 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
     }
 
     // Tests for EspData
+    public void testEspNoEntries() {
+
+        // Data the controller needs to load for this test
+
+        expect( _espResponseDao.getResponses( _school ) ).andReturn( null );
+        replay(_espResponseDao);
+        Map<String, List<EspResponse>> response1 = _schoolProfileDataHelper.getEspDataForSchool( getRequest() );
+        // This request should not cause another DB request because the fact that there is no data should have been saved
+        Map<String, List<EspResponse>> response2 = _schoolProfileDataHelper.getEspDataForSchool( getRequest() );
+        verify(_espResponseDao);
+
+        assertNull("testEspNoEntries: not null response1", response1);
+        assertNull("testEspNoEntries: not null response2", response2);
+    }
+
     public void testEspOneEntry() {
 
         // Data the controller needs to load for this test
@@ -111,18 +128,38 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
 
         // Data the controller needs to load for this test
         List<SchoolMedia> l = new ArrayList<SchoolMedia>();
-        l.add(createSchoolMedia("file1"));
+        Integer mediaId1 = new Integer(1);
+        l.add(createSchoolMedia("file1", mediaId1 ));
+        Integer mediaId2 = new Integer(2);
+        l.add(createSchoolMedia("file1", mediaId2 ));
 
         expect( _schoolMediaDao.getAllActiveBySchool( _school ) ).andReturn(l);
         replay(_schoolMediaDao);
         List<SchoolMedia> sm = _schoolProfileDataHelper.getSchoolMedia( getRequest() );
         verify(_schoolMediaDao);
 
-        assertEquals("testSchoolMedia: size wrong", 1, sm.size());
+        assertEquals("testSchoolMedia: size wrong", 2, sm.size());
         assertEquals("testSchoolMedia: contents wrong", "file1", sm.get(0).getOriginalFileName());
+
+        // Now test the getReportsForSchoolMedia()
+        User user = new User();
+        user.setId( new Integer(25) );
+        // Expect a DB call for each different Media ID
+        expect(_reportedEntityDao.hasUserReportedEntity(user, ReportedEntity.ReportedEntityType.schoolMedia, mediaId1)).andReturn( new Boolean(true));
+        expect(_reportedEntityDao.hasUserReportedEntity(user, ReportedEntity.ReportedEntityType.schoolMedia, mediaId2)).andReturn( new Boolean(false) );
+        replay(_reportedEntityDao);
+        // The following call will create a DB request for each media ID (and there are 2)
+        Map<Integer, Boolean> reportsForUser1 = _schoolProfileDataHelper.getReportsForSchoolMedia( getRequest(), user, l );
+        // This should no create any additional DB calls because we have cashed the results from the previous call in the request.  If DB calls occurred there would be a Mock exception thrown.
+        Map<Integer, Boolean> reportsForUser2 = _schoolProfileDataHelper.getReportsForSchoolMedia( getRequest(), user, l );
+        verify(_reportedEntityDao);
+
+
+        assertEquals( "testSchoolMedia: for media 1", true, reportsForUser1.get(mediaId1).booleanValue() );
+        assertEquals( "testSchoolMedia: for media 2", false, reportsForUser2.get(mediaId2).booleanValue() );
     }
 
-    // Tests for SchoolMedia
+    // Tests for SchoolRatings
     public void testRatings() {
 
         // Data the controller needs to load for this test
@@ -235,10 +272,11 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         return sb.toString();
     }
 
-    private SchoolMedia createSchoolMedia( String name ) {
+    private SchoolMedia createSchoolMedia( String name, Integer id ) {
         SchoolMedia sm = new SchoolMedia( _school.getId(), _state );
         sm.setContentType( "image/jpeg" );
         sm.setOriginalFileName( name );
+        sm.setId( id );
         return sm;
     }
 

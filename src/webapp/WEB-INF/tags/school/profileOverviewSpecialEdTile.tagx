@@ -26,10 +26,16 @@
         'call' - display the message "Call school for more information"  -->
     <c:set var="specEdPgmsProvided" value="${specialEdModel['SpecEdPgmsProvided']}" scope="page"/>
 
+    <!-- The following variable will contain 'call' if the school is to be called.  Otherwise it will be empty and there is before/after data to display -->
+    <c:set var="extdCareProvided" value="${specialEdModel['ExtdCareProvided']}" scope="page" />
+    <!-- Before and after information to be displayed -->
+    <c:set var="extdCareBefore"   value="${specialEdModel['ExtdCareBefore']}" scope="page" />
+    <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
 
-    <school:profileOverviewCell1 title="Special education">
-        <c:choose>
-            <c:when test="${display eq 'default'}">
+
+    <c:choose>
+        <c:when test="${display eq 'default'}">
+            <school:profileOverviewCell1 title="Special education">
                 <!-- Default Special Education display -->
                 <c:choose>
                     <c:when test="${not empty specEdPgms}">
@@ -49,33 +55,29 @@
                     <c:when test="${specEdPgmsProvided eq 'call'}">
                         <div class="">Call school for more information</div>
                     </c:when>
-
                 </c:choose>
-            </c:when>
-            <c:otherwise>
-                <!-- Substitute Special Education display -->
-            </c:otherwise>
+            </school:profileOverviewCell1>
+            <!-- Extended Care -->
+            <school:profileOverviewCell1 title="${specialEdModel['ExtdCareTitle']}">
+                <c:if test="${extdCareProvided eq 'call'}">
+                    <div class="">Call school for more information</div>
+                </c:if>
+                <c:if test="${not empty extdCareBefore}">
+                    <div class="">${extdCareBefore}</div>
+                </c:if>
+                <c:if test="${not empty extdCareAfter}">
+                    <div class="">${extdCareAfter}</div>
+                </c:if>
+            </school:profileOverviewCell1>
+        </c:when>
+        <c:otherwise>
+            <!-- ============ Substitute display - Nearby schools ========== -->
+            <school:profileOverviewCell1 title="Nearby schools">
+                <div class="">TODO - need to build nearby schools</div>
+            </school:profileOverviewCell1>
+        </c:otherwise>
         </c:choose>
-    </school:profileOverviewCell1>
-    
-    <!-- Extended Care -->
-    <!-- The following variable will contain 'call' if the school is to be called.  Otherwise it will be empty and there is before/after data to display -->
-    <c:set var="extdCareProvided" value="${specialEdModel['ExtdCareProvided']}" scope="page" />
-    <!-- Before and after information to be displayed -->
-    <c:set var="extdCareBefore"   value="${specialEdModel['ExtdCareBefore']}" scope="page" />
-    <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
 
-    <school:profileOverviewCell1 title="${specialEdModel['ExtdCareTitle']}">
-        <c:if test="${extdCareProvided eq 'call'}">
-            <div class="">Call school for more information</div>
-        </c:if>
-        <c:if test="${not empty extdCareBefore}">
-            <div class="">${extdCareBefore}</div>
-        </c:if>
-        <c:if test="${not empty extdCareAfter}">
-            <div class="">${extdCareAfter}</div>
-        </c:if>
-    </school:profileOverviewCell1>
 
 
 </jsp:root>

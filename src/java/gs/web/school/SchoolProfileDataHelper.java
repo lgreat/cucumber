@@ -28,7 +28,6 @@ public class SchoolProfileDataHelper {
 
     private final static String ESP_DATA_REQUEST_ATTRIBUTE = "espData";
     private final static String SCHOOL_MEDIA_REQUEST_ATTRIBUTE = "schoolMedia";
-    private final static String SCHOOL_REQUEST_ATTRIBUTE = "school";
     private final static String SCHOOL_RATINGS_ATTRIBUTE = "ratings";
     private final static String PUBLISHED_REVIEW_COUNT = "publishedReviewCount";
     private final static String REVIEWS = "reviews";
@@ -36,6 +35,13 @@ public class SchoolProfileDataHelper {
     private final static String SCHOOL_MEDIA_REPORTS_BY_USER = "reportsByUser";
 
     private final static String CENSUS_DATA = "censusData";
+
+    // The following attributes are used to keep track of no results to prevent multiple requests
+    private final static String NO_ESP_DATA_REQUEST_ATTRIBUTE = "espDataEmpty";
+    private final static String NO_SCHOOL_MEDIA_REQUEST_ATTRIBUTE = "schoolMediaEmpty";
+    private final static String NO_SCHOOL_RATINGS_ATTRIBUTE = "ratingsEmpty";
+    private final static String NO_PUBLISHED_REVIEW_COUNT = "publishedReviewCountEmpty";
+    private final static String NO_CENSUS_DATA = "censusDataEmpty";
 
     @Autowired
     private IEspResponseDao _espResponseDao;
@@ -67,6 +73,9 @@ public class SchoolProfileDataHelper {
     @Autowired
     SchoolProfileCensusHelper _schoolProfileCensusHelper;
 
+    @Autowired
+    ISchoolDao _schoolDao;
+
     protected Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
         // Make sure we have a school
@@ -81,6 +90,11 @@ public class SchoolProfileDataHelper {
 
         // If it isn't in the request try to retrieve it
         if( espData == null ) {
+            // Before going to DB se if we have ready done that and determined there is no data
+            if( request.getAttribute( NO_ESP_DATA_REQUEST_ATTRIBUTE ) != null ) {
+                return  null;
+            }
+
             List<EspResponse> results = _espResponseDao.getResponses( school );
 
             if( results != null && !results.isEmpty() ) {
@@ -90,6 +104,10 @@ public class SchoolProfileDataHelper {
                 espData = espResultsToMap(results);
 
                 request.setAttribute( ESP_DATA_REQUEST_ATTRIBUTE, espData ); // Save in request for future use
+            }
+            else {
+                // Set flag to prevent this DB request again
+                request.setAttribute( NO_ESP_DATA_REQUEST_ATTRIBUTE, "yes" );
             }
         }
 
@@ -132,22 +150,46 @@ public class SchoolProfileDataHelper {
 
         // If it isn't in the request try to retrieve it
         if( schoolMedia == null ) {
+            // Before going to DB se if we have ready done that and determined there is no data
+            if( request.getAttribute( NO_SCHOOL_MEDIA_REQUEST_ATTRIBUTE ) != null ) {
+                return  null;
+            }
+
             schoolMedia =_schoolMediaDao.getAllActiveBySchool(school);
 
             if( schoolMedia != null && !schoolMedia.isEmpty() ) {
                request.setAttribute( SCHOOL_MEDIA_REQUEST_ATTRIBUTE, schoolMedia ); // Save in request for future use
             }
+            else {
+                // Set flag to prevent this DB request again
+                request.setAttribute( NO_SCHOOL_MEDIA_REQUEST_ATTRIBUTE, "yes" );
+            }
         }
         return schoolMedia;
     }
 
+    /**
+     * Get "reports" information for a list of media.  A report is an indication that an authorized individual has flagged
+     * an image in some what - NEED BETTER EXPLANATION FROM ANTHONY
+     * @param request
+     * @param user - the user to get this information for
+     * @param schoolMediaList - a list of media to check
+     * @return - a Map with a key of mediaId and a boolean of true if this has been flagged
+     */
     protected Map<Integer, Boolean> getReportsForSchoolMedia(HttpServletRequest request, User user, List<SchoolMedia> schoolMediaList) {
         if (schoolMediaList == null || user == null) {
             return null;
         }
 
         // First see if it is already in the request
+        // The Map created in the next statement contains:
+        // key = userId
+        // Value = Map<mediaId, booleanValue where boolean value contains:
+        //    null if no value has been determined
+        //    True if there is a report
+        //    False if there is no report
         Map<Integer, Map<Integer, Boolean>> schoolMediaReportsByUser = (Map<Integer, Map<Integer, Boolean>>) request.getAttribute( SCHOOL_MEDIA_REPORTS_BY_USER );
+
         // Case 1 - no data at all - create the data and save it
         if( schoolMediaReportsByUser == null ) {
             // Create structure for schoolMediaReportsByUser and provide an empty structure for this user which will be filled in in the next step
@@ -156,8 +198,6 @@ public class SchoolProfileDataHelper {
             schoolMediaReportsByUser.put( user.getId(), reports );
             request.setAttribute( SCHOOL_MEDIA_REPORTS_BY_USER, schoolMediaReportsByUser );
         }
-
-
 
         // next process the schoolMediaList from the call and process it against the data stored in the request
         Map<Integer, Boolean> reportsStoredInRequest = schoolMediaReportsByUser.get( user.getId() );
@@ -196,10 +236,19 @@ public class SchoolProfileDataHelper {
 
         // If it isn't in the request try to retrieve it
         if( ratings == null ) {
+            // Before going to DB se if we have ready done that and determined there is no data
+            if( request.getAttribute( NO_SCHOOL_RATINGS_ATTRIBUTE ) != null ) {
+                return  null;
+            }
+
             ratings = _reviewDao.findRatingsBySchool(school);
 
             if( ratings != null ) {
                 request.setAttribute( SCHOOL_RATINGS_ATTRIBUTE, ratings ); // Save in request for future use
+            }
+            else {
+                // Set flag to prevent this DB request again
+                request.setAttribute( NO_SCHOOL_RATINGS_ATTRIBUTE, "yes" );
             }
         }
         return ratings;
@@ -219,10 +268,19 @@ public class SchoolProfileDataHelper {
 
         // If it isn't in the request try to retrieve it
         if( numberOfReviews == null ) {
+            // Before going to DB se if we have ready done that and determined there is no data
+            if( request.getAttribute( NO_PUBLISHED_REVIEW_COUNT ) != null ) {
+                return  null;
+            }
+
             numberOfReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school);
 
             if( numberOfReviews != null ) {
                 request.setAttribute(PUBLISHED_REVIEW_COUNT, numberOfReviews ); // Save in request for future use
+            }
+            else {
+                // Set flag to prevent this DB request again
+                request.setAttribute( NO_PUBLISHED_REVIEW_COUNT, "yes" );
             }
         }
         return numberOfReviews;
@@ -308,6 +366,18 @@ public class SchoolProfileDataHelper {
         return dataTypeIdSchoolValueMap;
     }
 
+    protected List<NearbySchool> getNearbySchools( HttpServletRequest request, int numSchools ) {
+
+        // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
+        if( school == null ) {
+            throw new IllegalArgumentException( "The request must already contain a school object" );
+        }
+
+        // Get Data
+        return _schoolDao.findNearbySchools(school, numSchools);
+    }
+
     // ============== The following setters are just for unit testing ===================
     public void setEspResponseDao( IEspResponseDao espResponseDao ) {
         _espResponseDao = espResponseDao;
@@ -339,6 +409,10 @@ public class SchoolProfileDataHelper {
 
     public void setCensusDataConfigDao(ICensusDataConfigEntryDao censusDataConfigDao) {
         _censusDataConfigDao = censusDataConfigDao;
+    }
+
+    public void setSchoolDao( ISchoolDao schoolDao ) {
+        _schoolDao = schoolDao;
     }
 }
 

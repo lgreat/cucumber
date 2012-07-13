@@ -25,7 +25,7 @@
 
                 <div class="line">
                     <div class="unit size32of100">
-                        <school:profileOverviewGsRatingsTile gsRatingsModel="${ratingsBreakdown}"/>
+                        <school:profileOverviewGsRatingsTile gsRatingsModel="${ratings}"/>
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
@@ -78,9 +78,29 @@
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
-                    <div class="unit size66of100 lastUnit">
-                        <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
-                    </div>
+                    <!-- The Application Info area can appear as one double wide tile or 2 separate tiles.
+                         Those descisions are made here for purpose of keeping the class="unit sizexxof100" info here  -->
+                    <c:set var="applInfoContent" value="${applInfo['content']}" scope="page"/>
+                    <c:choose>
+                        <c:when test="${applInfoContent eq 'default'}">
+                            <!-- double wide tile -->
+                            <div class="unit size66of100 lastUnit">
+                                <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
+                            </div>
+                        </c:when>
+                        <c:when test="${applInfoContent eq 'substitute1'}">
+                            <!-- single wide tile and single wide image-->
+                            <div class="unit size32of100">
+                                <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
+                            </div>
+                            <div class="unit size2of100">&amp;nbsp;</div>
+                            <div class="unit size32of100 lastUnit">substitute1 - single wide image goes here</div>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- double wide image -->
+                            <div class="unit size66of100 lastUnit">substitute2 - double wide image goes here</div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
 
                 <div class="line">

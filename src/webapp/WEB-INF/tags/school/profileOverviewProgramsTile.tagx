@@ -16,18 +16,46 @@
 
     <jsp:directive.attribute name="programsModel" type="java.lang.Object" required="true"/>
 
+    <c:set var="content" value="${programsModel['content']}" scope="page"/>
 
+    <c:choose>
+        <c:when test="${content eq 'default'}">
+            <school:profileOverviewCell1 title="Programs">
+                <ul>
+                    <c:forEach var="item" items="${programsModel['resultsList']}">
+                        <li>${item}</li>
+                    </c:forEach>
+                </ul>
+            </school:profileOverviewCell1>
+        </c:when>
 
-    <!--
-    <c:set var="xxx" value="${programsModel['school']}" scope="page"/>
-    <c:set var="yyy" value="${programsModel['ratings']}" scope="page"/>
-    <c:set var="zzz" value="${programsModel['numberOfReviews']}" scope="page"/>
-    -->
+        <c:when test="${content eq 'substitute1'}">
+            <school:profileOverviewCell1 title="Highlights">
+                <c:choose>
+                    <c:when test="${not empty programsModel['substitute1None']}">
+                        <div class="">There are no parent involvement opportunities</div>
+                    </c:when>
+                    <c:otherwise>
+                        <ul>
+                            <c:forEach var="item" items="${programsModel['substitute1List']}">
+                                <li>${item}</li>
+                            </c:forEach>
+                        </ul>
+                    </c:otherwise>
+                </c:choose>
+            </school:profileOverviewCell1>
+        </c:when>
 
-    <school:profileOverviewCell1 title="Programs">
-        <!-- Insert display code here -->
-
-    </school:profileOverviewCell1>
+        <c:otherwise>
+            <school:profileOverviewCell1 title="Highlights">
+                <ul>
+                    <c:forEach var="item" items="${programsModel['substitute2List']}">
+                        <li>${item}</li>
+                    </c:forEach>
+                </ul>
+            </school:profileOverviewCell1>
+        </c:otherwise>
+    </c:choose>
 
 
 </jsp:root>

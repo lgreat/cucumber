@@ -16,14 +16,38 @@
 
     <jsp:directive.attribute name="applInfoModel" type="java.lang.Object" required="true"/>
 
-    <!--
-    <c:set var="xxx" value="${applInfoModel['school']}" scope="page"/>
-    <c:set var="yyy" value="${applInfoModel['ratings']}" scope="page"/>
-    <c:set var="zzz" value="${applInfoModel['numberOfReviews']}" scope="page"/>
-    -->
-    <school:profileOverviewCell1 title="Application information">
-        <!-- Insert display code here -->
+    <c:set var="content" value="${applInfoModel['content']}" scope="page"/>
+    <c:set var="acceptanceRatePercent" value="${applInfoModel['acceptanceRatePercent']}" scope="page"/>
+    <c:set var="acceptanceRateYear" value="${applInfoModel['acceptanceRateYear']}" scope="page"/>
+    <c:set var="applicationDeadlineMsg" value="${applInfoModel['applicationDeadlineMsg']}" scope="page"/>
+    <c:set var="applicationDeadlineDate" value="${applInfoModel['applicationDeadlineDate']}" scope="page"/>
+    <c:set var="vouchers" value="${applInfoModel['vouchers']}" scope="page"/>
 
+    <school:profileOverviewCell1 title="Application information">
+        <c:choose>
+            <c:when test="${content eq 'default'}">
+                <!-- double wide tile -->
+                <!-- The following is on the left -->
+                <div class="">acceptanceRatePercent = ${acceptanceRatePercent}
+                    acceptanceRateYear = ${acceptanceRateYear}</div>
+                <!-- The following is on the right -->
+                <div class="">double wide tile<br/>applicationDeadlineMsg = ${applicationDeadlineMsg}, values are apply, call or yearround,<br/>
+                    applicationDeadlineDate = ${applicationDeadlineDate}<br/>>
+                    vouchers = ${vouchers}, values are no, yes or blank</div>
+            </c:when>
+            <c:when test="${content eq 'substitute1'}">
+                <!-- single wide tile and single wide image-->
+                <!-- This is the same as above on the right -->
+                <div class="">single wide tile<br/>applicationDeadlineMsg = ${applicationDeadlineMsg}, values are apply, call or yearround,<br/>
+                    applicationDeadlineDate = ${applicationDeadlineDate}<br/>>
+                    vouchers = ${vouchers}, values are no, yes or blank</div>
+            </c:when>
+            <c:otherwise>
+                <!-- double wide image -->
+                <!-- will never get here as this is handled outside of this tag -->
+            </c:otherwise>
+
+        </c:choose>
     </school:profileOverviewCell1>
 
 

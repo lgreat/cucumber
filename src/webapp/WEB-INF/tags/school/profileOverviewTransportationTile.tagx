@@ -16,14 +16,56 @@
 
     <jsp:directive.attribute name="transportationModel" type="java.lang.Object" required="true"/>
 
-    <!--
-    <c:set var="xxx" value="${transportationModel['school']}" scope="page"/>
-    <c:set var="yyy" value="${transportationModel['ratings']}" scope="page"/>
-    <c:set var="zzz" value="${transportationModel['numberOfReviews']}" scope="page"/>
-    -->
+    <c:set var="content" value="${transportationModel['content']}" scope="page"/>
 
-    <school:profileOverviewCell1 title="Transportation">
-        <!-- Insert display code here -->
-    </school:profileOverviewCell1>
+    <c:choose>
+        <c:when test="${content eq 'default'}">
+            <school:profileOverviewCell1 title="Transportation">
+                <c:set var="icon" value="${transportationModel['icon']}" scope="page"/>
+                <c:set var="shuttleStops" value="${transportationModel['shuttleStops']}" scope="page"/>
+                <c:set var="message" value="${transportationModel['transMsg']}" scope="page"/>
+                <c:choose>
+                    <c:when test="${icon eq 'metro'}">
+                        <div class="">Metro icon</div>
+                    </c:when>
+                    <c:when test="${icon eq 'walking'}">
+                        <div class="">Walking icon</div>
+                    </c:when>
+                    <c:when test="${icon eq 'passes'}">
+                        <div class="">Passes icon</div>
+                    </c:when>
+                    <c:when test="${icon eq 'bus'}">
+                        <div class="">Bus icon</div>
+                    </c:when>
+                    <c:when test="${icon eq 'handicapped'}">
+                        <div class="">Handicapped icon</div>
+                    </c:when>
+                </c:choose>
+                <c:if test="${not empty shuttleStops}">
+                    <div class="">School shuttle from ${shuttleStops}</div>
+                </c:if>
+                <div class="">${message}</div>
+            </school:profileOverviewCell1>
+        </c:when>
+
+        <c:when test="${content eq 'substitute1'}">
+            <c:set var="classSize" value="${transportationModel['substitute1ClassSize']}" scope="page"/>
+            <school:profileOverviewCell1 title="Average class size">
+                <c:choose>
+                    <c:when test="${not empty classSize}">
+                        <div class="">${classSize}</div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="">${transportationModel['substitute1StudentsPerTeacher']} : 1</div>
+                    </c:otherwise>
+                </c:choose>
+            </school:profileOverviewCell1>
+        </c:when>
+        <c:when test="${content eq 'substitute2'}">
+            <school:profileOverviewCell1 title="Check out our school boundry tool">
+                <!-- Insert display code here -->
+            </school:profileOverviewCell1>
+        </c:when>
+    </c:choose>
 
 </jsp:root>
