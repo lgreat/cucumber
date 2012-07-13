@@ -354,18 +354,13 @@ public class SchoolProfileDataHelper {
     /**
      * @return map of CensusDataType --> SchoolCensusValue
      */
-    protected Map<CensusDataType, List<SchoolCensusValue>> getSchoolCensusValues(HttpServletRequest request) {
+    protected Map<CensusDataType, SchoolCensusValue> getSchoolCensusValues(HttpServletRequest request) {
         // CensusDataSet ID --> SchoolCensusValue
         Map<Integer, SchoolCensusValue> schoolCensusValueMap = _schoolProfileCensusHelper.getSchoolCensusValues(request);
 
-        Map<CensusDataType, List<SchoolCensusValue>> dataTypeIdSchoolValueMap = new HashMap<CensusDataType, List<SchoolCensusValue>>();
+        Map<CensusDataType, SchoolCensusValue> dataTypeIdSchoolValueMap = new HashMap<CensusDataType, SchoolCensusValue>();
         for (Map.Entry<Integer, SchoolCensusValue> entry : schoolCensusValueMap.entrySet()) {
-            List<SchoolCensusValue> values = dataTypeIdSchoolValueMap.get(entry.getValue().getDataSet().getDataType());
-            if (values == null) {
-                values = new ArrayList<SchoolCensusValue>();
-            }
-            values.add(entry.getValue());
-            dataTypeIdSchoolValueMap.put(entry.getValue().getDataSet().getDataType(), values);
+                        dataTypeIdSchoolValueMap.put(entry.getValue().getDataSet().getDataType(), entry.getValue());
         }
 
         return dataTypeIdSchoolValueMap;
