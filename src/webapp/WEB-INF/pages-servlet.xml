@@ -1013,7 +1013,7 @@
         <property name="controllerFamily" value="DESKTOP"/>
         <property name="viewName" value="about/aboutUsCms"/>
         <property name="contentId" value="6838"/>
-        <property name="adSlotPrefix" value="AboutUs_Supporters"/
+        <property name="adSlotPrefix" value="AboutUs_Supporters"/>
         <property name="omniturePageName" value="Our Supporters"/>
         <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Our Supporters"/>
         <!-- AboutUsPageController properties: -->
