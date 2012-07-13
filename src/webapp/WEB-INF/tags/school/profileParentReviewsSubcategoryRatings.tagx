@@ -8,19 +8,22 @@
                              type="java.util.List"/>
 
     <c:if test="${not empty pageScope.ratings}">
-        <ul class="smallText2-777 none">
+
             <c:forEach var="rating" items="${pageScope.ratings}">
-                <li class="slStylesV1-0">
-                    <div class="media">
-                        <ratings:stars curSR="${rating.value}"/>
+                <!--<c:if test="${rating.key != 'Overall rating'}">-->
+
+                    <div class="tac">
+                        <div class="pvs" style="width:80px; height:16px; margin: auto;">
+                            <ratings:stars curSR="${rating.value}"/>
+                        </div>
                     <!--<span class="sprite stars_s_${rating.value}_b img mrs"-->
                           <!--title="${rating.key}: ${rating.value} out of 5 stars">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
 
-                        <div class="bd"><p class="smallest bottom">${rating.key}</p></div>
+                        <div class="bd"><p class="small bottom pbm">${rating.key}</p></div>
                     </div>
-                </li>
+                <!--</c:if>-->
             </c:forEach>
-        </ul>
+
     </c:if>
 
 </jsp:root>

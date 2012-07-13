@@ -56,27 +56,31 @@
                 <div class="inner">
                     <div class="hd pam"><strong>Community Rating</strong></div>
                     <div class="bd">
-            <div id="reviewOverallRating">
+            <div id="reviewOverallRating" class="tac">
 
 
-                <div class="spacer_5"><!-- do not collapse --></div>
+                <div class="ptm pbs" style="width:80px; height:16px; margin: auto;">
                     <ratings:stars curSR="${cmd.ratings.overall}"/>
+                </div>
+                    <div class=""><h3 class="bottom">${cmd.ratings.overall} stars</h3>
+                </div>
                         <!--<span class="sprite stars_xl_${cmd.ratings.overall}_b"-->
                               <!--title="${cmd.ratings.overall} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
 
                 <!-- TODO-10633 -->
                 <c:if test="${not empty ratingsByYear}">
-                    <div class="spacer_5"><!-- do not collapse --></div>
+                    <!--<div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                     <div id="js-bubbleInfo-7">
                         <div class="js-trigger">
-                            <p class="smallText1-06b">
+                            <p class="small bottom">
                                 Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}
                                 <!--<ratings:stars curSR="${cmd.ratings.count}"/>-->
                                 <!--<span class="sprite i-sparklet">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                             </p>
                         </div>
 
-                        <div class="js-popup">
+
+                        <div class="js-popup dn">
                             <!--<div id="popup-contents-7" class="box-shadow text3">-->
                             <div id="popup-contents-7" class="text3">
                                 <span class="arrow-outline-bottom"><!-- do not collapse --></span>
@@ -115,9 +119,9 @@
                         </div>
                     </div>
                 </c:if>
-
-                <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
-                <div class="spacer_10"><!-- do not collapse --></div>
+                <div class="pvm"><hr class="keyline2" /></div>
+                <!--<div class="spacer_10 brdbtm_dotted">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
                 <!-- DONE-10495 - Randall - START subcategory ratings -->
                 <c:set var="aboutTheseRatings">
@@ -144,7 +148,7 @@
 
                 <c:choose>
                     <c:when test="${not empty parentRatings and not empty studentRatings}">
-                        <div class="smallText2">
+                        <div class="smallText2 dn">
                             <span id="parentRatingsToggle" class="selected">Parent ratings</span> |
                             <span id="studentRatingsToggle">Student ratings</span>
 

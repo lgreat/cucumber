@@ -20,11 +20,17 @@
         <c:set var="totSR" value="5"/>
     </c:if>
     <c:set var="starOff" value="${totSR - curSR}"/>
+
+
+    <!--<c:set var="widthNeeded" value="${totSR * 16}"/>-->
     <!--<c:choose>-->
         <!--<c:when test="${empty smStars}">-->
-            <div class="iconx16-stars i-16-orange-star  i-16-star-${curSR} fl"><!-- not empty--></div>
-            <div class="iconx16-stars i-16-grey-star  i-16-star-${starOff} fl"><!-- not empty--></div>
-        <!--</c:when>-->
+
+            <span class="iconx16-stars i-16-orange-star  i-16-star-${curSR} fl"><!-- not empty--></span>
+            <span class="iconx16-stars i-16-grey-star  i-16-star-${starOff} fl"><!-- not empty--></span>
+
+
+    <!--</c:when>-->
         <!--<c:otherwise>-->
             <!--<div class="iconx12 i-12-orange-star  i-12-star-${curSR}">&lt;!&ndash; not empty&ndash;&gt;</div>-->
             <!--<div class="iconx12 i-12-grey-star  i-12-star-${starOff}">&lt;!&ndash; not empty&ndash;&gt;</div>-->
