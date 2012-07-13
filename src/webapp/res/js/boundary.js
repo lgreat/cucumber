@@ -360,7 +360,7 @@ var Boundary = (function (){
                 $listItem.data('school', school);
                 $listItem.on('click', function(){
                     $('.js-listItem').removeClass('selected');
-                    $(this).addClass('selected');
+                    $(this).addClass('selected').removeClass('list-over');
                     var val = $(this).data('school');
                     $map.boundaries('focus', val);
                 });
