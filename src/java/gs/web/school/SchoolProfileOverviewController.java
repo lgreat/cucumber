@@ -522,10 +522,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         }
 
-
-
-
-
         return specialEdModel;
     }
 
@@ -604,7 +600,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         else {
             // Substitute action.  Need to decide if 1 or 2
             /* Wait until Samson enhances the data helper */
-            Map<Integer, SchoolCensusValue> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
+            Map<CensusDataType, SchoolCensusValue> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
             if( censusValues!=null ) {
                 SchoolCensusValue classSize = censusValues.get( CensusDataType.CLASS_SIZE );
                 SchoolCensusValue studentsPerTeacher = censusValues.get( CensusDataType.STUDENT_TEACHER_RATIO );
