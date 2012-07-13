@@ -107,6 +107,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public static final String MODEL_CITY_BROWSE = "isCityBrowse";
     public static final String MODEL_DISTRICT_BROWSE = "isDistrictBrowse";
     public static final String MODEL_IS_NEARBY_SEARCH = "isNearbySearch";
+    public static final String MODEL_IS_AJAX_REQUEST = "isAjaxRequest";
 
     public static final int MAX_PAGE_SIZE = 100;
 
@@ -189,6 +190,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         model.put("commandAndFields", commandAndFields);
         model.put(MODEL_STATE, commandAndFields.getState());
         model.put(MODEL_IS_NEARBY_SEARCH, schoolSearchCommand.isNearbySearch());
+        model.put(MODEL_IS_AJAX_REQUEST, schoolSearchCommand.isAjaxRequest());
 
         ModelAndView modelAndView;
         if (commandAndFields.isCityBrowse()) {

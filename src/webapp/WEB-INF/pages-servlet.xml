@@ -557,7 +557,7 @@
         </property>
         <property name="viewName" value="search/schoolSearchResults2012"/>
         <property name="ajaxViewName" value="search/schoolSearchResultsTable2012" />
-        <property name="noResultsViewName" value="search/schoolSearchNoResults"/>
+        <property name="noResultsViewName" value="search/schoolSearchResults2012"/>
         <property name="noResultsAjaxViewName" value="search/schoolSearchNoResultsTable2012" />
         <property name="mapViewName" value="search/schoolSearchMapResults2012" />
     </bean>
