@@ -171,3 +171,39 @@
 
 /* Tool Links */
 .toolLinks li { list-style: none; display: inline-block; *display: inline; }
+
+
+
+
+/*  TAB STYLE 8 */
+.gsTabs  ul.tabStyle-8 {height:39px;padding: 0;margin:0;border-bottom: 1px solid #DDDDDD; margin-bottom:20px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#F3FAFD), to(#E2F1F7)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #F3FAFD, #E2F1F7); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #F3FAFD, #E2F1F7); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #F3FAFD, #E2F1F7); /* IE10 */
+    background-image:      -o-linear-gradient(top, #F3FAFD, #E2F1F7); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #F3FAFD, #E2F1F7); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#F3FAFD', EndColorStr='#E2F1F7'); /* IE6�IE9 */
+}
+.gsTabs  ul.tabStyle-8 li {list-style:none;display: inline-block;*display: inline;font: normal 12px/44px Arial, Helvetica, sans-serif; margin-bottom: 20px;outline:0 none;*line-height:21px;}
+.gsTabs ul.tabStyle-8 li a {font-weight:bold; padding:10px;color: #0066BB;text-decoration: none;margin-left: 2px;border: 1px solid #BCDEED;background-color: #D2E9F3;*zoom:1;
+    text-shadow: 0 1px 0 #FFFFFF;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#D2E9F3), to(#BCDEED)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #D2E9F3, #BCDEED); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #D2E9F3, #BCDEED); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #D2E9F3, #BCDEED); /* IE10 */
+    background-image:      -o-linear-gradient(top, #D2E9F3, #BCDEED); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #D2E9F3, #BCDEED); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#D2E9F3', EndColorStr='#BCDEED'); /* IE6�IE9 */
+}
+
+.gsTabs ul.tabStyle-8 li a {border-bottom:none;outline:0 none;
+    -webkit-border-radius: 6px 6px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 6px 6px 0 0; /* FF1-3.6 */
+    border-radius: 6px 6px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+.gsTabs ul.tabStyle-8 li a:hover {background: #E2F1F7 none;color: #0066BB;border: 1px solid #BCDEED;outline:0 none;}
+.gsTabs ul.tabStyle-8 li a:hover {border-bottom: none; padding-bottom: 11px;outline:0 none;}
+.gsTabs ul.tabStyle-8 li a:focus {outline:0 none;}
+.gsTabs ul.tabStyle-8 li a.selected {font-weight:bold; background: #fff none;color: #2b2b2b;border: 1px solid #BCDEED;outline:0 none;}
+.gsTabs ul.tabStyle-8 li a.selected {border-bottom: none; padding-bottom: 11px;outline:0 none;}

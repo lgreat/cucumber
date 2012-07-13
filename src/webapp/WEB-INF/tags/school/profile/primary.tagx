@@ -47,46 +47,46 @@
     </c:if>
 
     <div class="gsTabs">
-        <ul class="tabStyle-4">
+        <ul class="tabStyle-8">
             <c:if test="${(!empty overview)}">
                 <li><a id="js_overview" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'overview')}" title="${schoolName} | Overview" class="${requestScope.schoolProfileTabMap.overview}">Overview</a>
 
-                        <div class="${requestScope.schoolProfileTabMap.overview} arrowdiv" id="arrowdiv"></div>
+                        <!--<div class="${requestScope.schoolProfileTabMap.overview} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty reviews)}">
                 <li><a id="js_reviews" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}" title="${schoolName} | Reviews" class="${requestScope.schoolProfileTabMap.reviews}">Reviews</a>
 
-                        <div class="${requestScope.schoolProfileTabMap.reviews} arrowdiv" id="arrowdiv"></div>
+                        <!--<div class="${requestScope.schoolProfileTabMap.reviews} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty testscores)}">
                 <li><a id="js_testscores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores')}" title="${schoolName} | Test Scores" class="${requestScope.schoolProfileTabMap.testscores}">Test scores</a>
 
-                        <div class="${requestScope.schoolProfileTabMap.testscores} arrowdiv" id="arrowdiv"></div>
+                        <!--<div class="${requestScope.schoolProfileTabMap.testscores} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty schoolstats)}">
                 <li><a id="js_schoolstats" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'schoolstats')}" title="${schoolName} | School stats" class="${requestScope.schoolProfileTabMap.schoolstats}">School stats</a>
 
-                        <div class="${requestScope.schoolProfileTabMap.schoolstats} arrowdiv" id="arrowdiv"></div>
+                        <!--<div class="${requestScope.schoolProfileTabMap.schoolstats} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty programs)}">
                 <li><a id="js_programs" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.programs}">Programs &amp;amp; Extracurriculars</a>
 
-                        <div class="${requestScope.schoolProfileTabMap.programs} arrowdiv" id="arrowdiv"></div>
+                        <!--<div class="${requestScope.schoolProfileTabMap.programs} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty culture)}">
                 <li><a id="js_whatsitlike" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'whatsitlike')}" title="${schoolName} | What's It Like" class="${requestScope.schoolProfileTabMap.whatsitlike}">What's It Like</a>
 
-                        <div class="${requestScope.schoolProfileTabMap.whatsitlike} arrowdiv" id="arrowdiv"></div>
+                        <!--<div class="${requestScope.schoolProfileTabMap.whatsitlike} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
