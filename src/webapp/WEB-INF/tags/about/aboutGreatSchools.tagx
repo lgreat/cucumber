@@ -27,20 +27,20 @@
                     <li>
                         <c:choose>
                             <c:when test="${pageScope.selected eq 'overview'}">
-                                <span class="text2 noMargin">Overview</span>
+                                <span class="text2 noMargin">Our Mission</span>
                             </c:when>
                             <c:otherwise>
-                                <link:aboutUs>Overview</link:aboutUs>
+                                <link:aboutUs>Our Mission</link:aboutUs>
                             </c:otherwise>
                         </c:choose>
                     </li>
                     <li>
                         <c:choose>
                             <c:when test="${pageScope.selected eq 'management'}">
-                                <span class="text2">Senior Management</span>
+                                <span class="text2">Our People</span>
                             </c:when>
                             <c:otherwise>
-                                <link:seniorManagement>Senior Management</link:seniorManagement>
+                                <link:seniorManagement>Our People</link:seniorManagement>
                             </c:otherwise>
                         </c:choose>
                     </li>
@@ -66,11 +66,31 @@
                     </li>
                     <li>
                         <c:choose>
-                            <c:when test="${pageScope.selected eq 'advertisers'}">
-                                <span class="text2">Advertise With Us</span>
+                            <c:when test="${pageScope.selected eq 'supporters'}">
+                                <span class="text2">Our Supporters</span>
                             </c:when>
                             <c:otherwise>
-                                <a href="/about/advertiserOpportunities.page">Advertise With Us</a>
+                                <a href="/about/supporters.page">Our Supporters</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li>
+                        <c:choose>
+                            <c:when test="${pageScope.selected eq 'advertisers'}">
+                                <span class="text2">Advertising Info</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/about/advertiserOpportunities.page">Advertising Info</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li>
+                        <c:choose>
+                            <c:when test="${pageScope.selected eq 'licensing'}">
+                                <span class="text2">Licensing Info</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/about/licensing.page">Licensing Info</a>
                             </c:otherwise>
                         </c:choose>
                     </li>
@@ -87,10 +107,10 @@
                     <li>
                         <c:choose>
                             <c:when test="${pageScope.selected eq 'linkToUs'}">
-                                <span class="text2">Data Widgets &amp;amp; Tools</span>
+                                <span class="text2">Widgets &amp;amp; Tools</span>
                             </c:when>
                             <c:otherwise>
-                                <a href="/about/linkToUs.page">Data Widgets &amp;amp; Tools</a>
+                                <a href="/about/linkToUs.page">Widgets &amp;amp; Tools</a>
                             </c:otherwise>
                         </c:choose>
                     </li>

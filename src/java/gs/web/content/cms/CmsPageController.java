@@ -22,6 +22,9 @@ public class CmsPageController extends AbstractController implements IController
     private ICmsPageDao _pageDao;
     private String _viewName;
     private Long _contentId = null;
+    private String _adSlotPrefix = null;
+    private String _omniturePageName = null;
+    private String _omnitureHierarchy = null;
     private ControllerFamily _controllerFamily;
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) {
@@ -43,7 +46,23 @@ public class CmsPageController extends AbstractController implements IController
         Map<String, Object> model = new HashMap<String, Object>();
         model.put("page", page);
 
+        if (StringUtils.isNotBlank(_adSlotPrefix)) {
+            model.put("adSlotPrefix", _adSlotPrefix);
+        }
+        if (StringUtils.isNotBlank(_omniturePageName)) {
+            model.put("omniturePageName", _omniturePageName);
+        }
+        if (StringUtils.isNotBlank(_omnitureHierarchy)) {
+            model.put("omnitureHierarchy", _omnitureHierarchy);
+        }
+
+        populateModel(model);
+
         return new ModelAndView(_viewName, model);
+    }
+
+    public void populateModel(Map<String, Object> model) {
+        // does nothing by default but subclasses can override to add to the model
     }
 
     public void setCmsPageDao(ICmsPageDao pageDao) {
@@ -60,6 +79,18 @@ public class CmsPageController extends AbstractController implements IController
 
     public void setContentId(Long contentId) {
         _contentId = contentId;
+    }
+
+    public void setAdSlotPrefix(String adSlotPrefix) {
+        _adSlotPrefix = adSlotPrefix;
+    }
+
+    public void setOmniturePageName(String omniturePageName) {
+        _omniturePageName = omniturePageName;
+    }
+
+    public void setOmnitureHierarchy(String omnitureHierarchy) {
+        _omnitureHierarchy = omnitureHierarchy;
     }
 
     public ControllerFamily getControllerFamily() {

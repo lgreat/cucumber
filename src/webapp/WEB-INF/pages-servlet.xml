@@ -900,7 +900,7 @@
         </property>
     </bean>
 
-    <bean name="/about/aboutUs.page"
+    <bean name="/about/aboutUs-old.page"
           class="gs.web.mobile.ParameterizableViewControllerWithMobileAndDesktopViews"
           autowire="byName" lazy-init="true">
         <property name="viewName">
@@ -911,18 +911,22 @@
         </property>
     </bean>
 
-
-    <!-- TODO-12958 -->
-    <!--
+    <!-- TODO-12958 check that mobile still works -->
     <bean name="/about/aboutUs.page" class="org.springframework.stereotype.Controller" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <bean name="desktopAboutUsController"
-                      class="gs.web.content.cms.CmsPageController"
+                      class="gs.web.content.cms.AboutUsPageController"
                       autowire="byName" lazy-init="true">
+                    <!-- CmsPageController properties: -->
                     <property name="controllerFamily" value="DESKTOP"/>
-                    <property name="viewName" value="about/aboutUs"/>
-                    <property name="contentId" value="6769"/>
+                    <property name="viewName" value="about/aboutUsCms"/>
+                    <property name="contentId" value="6834"/>
+                    <property name="adSlotPrefix" value="AboutUs"/>
+                    <property name="omniturePageName" value="aboutUs"/>
+                    <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,AboutUsOverview"/>
+                    <!-- AboutUsPageController properties: -->
+                    <property name="leftNavSelectedItem" value="overview"/>
                 </bean>
                 <bean name="mobileAboutUs"
                       class="gs.web.mobile.MobileParameterizableViewController"
@@ -935,7 +939,164 @@
             </list>
         </constructor-arg>
     </bean>
-    -->
+
+    <bean name="/about/senior-management-old.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/seniorManagement</value>
+        </property>
+    </bean>
+
+    <bean name="/about/senior-management.page"
+          class="gs.web.content.cms.AboutUsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="about/aboutUsCms"/>
+        <property name="contentId" value="6835"/>
+        <property name="adSlotPrefix" value="AboutUs_Management"/>
+        <property name="omniturePageName" value="Senior Management"/>
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Senior Management"/>
+        <!-- AboutUsPageController properties: -->
+        <property name="leftNavSelectedItem" value="management"/>
+    </bean>
+
+    <bean name="/about/boardOfDirectors-old.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/boardOfDirectors</value>
+        </property>
+    </bean>
+
+    <bean name="/about/boardOfDirectors.page"
+          class="gs.web.content.cms.AboutUsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="about/aboutUsCms"/>
+        <property name="contentId" value="6836"/>
+        <property name="adSlotPrefix" value="AboutUs_Board"/>
+        <property name="omniturePageName" value="Board of Directors"/>
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Board of Directors"/>
+        <!-- AboutUsPageController properties: -->
+        <property name="leftNavSelectedItem" value="boardOfDirectors"/>
+    </bean>
+
+    <bean name="/about/advisors-old.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/advisors</value>
+        </property>
+    </bean>
+
+    <bean name="/about/advisors.page"
+          class="gs.web.content.cms.AboutUsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="about/aboutUsCms"/>
+        <property name="contentId" value="6837"/>
+        <property name="adSlotPrefix" value="AboutUs_Advisors"/>
+        <property name="omniturePageName" value="Meet Our Advisors"/>
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Meet Our Advisors"/>
+        <!-- AboutUsPageController properties: -->
+        <property name="leftNavSelectedItem" value="advisors"/>
+    </bean>
+
+    <bean name="/about/supporters.page"
+          class="gs.web.content.cms.AboutUsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="about/aboutUsCms"/>
+        <property name="contentId" value="6838"/>
+        <property name="adSlotPrefix" value="AboutUs_Supporters"/
+        <property name="omniturePageName" value="Our Supporters"/>
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Our Supporters"/>
+        <!-- AboutUsPageController properties: -->
+        <property name="leftNavSelectedItem" value="supporters"/>
+    </bean>
+
+    <bean name="/about/advertiserOpportunities-old.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName" value="about/advertiserOpportunities"/>
+    </bean>
+
+    <bean name="/about/advertiserOpportunities.page"
+          class="gs.web.content.cms.AboutUsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="about/aboutUsCms"/>
+        <property name="contentId" value="6839"/>
+        <property name="adSlotPrefix" value="AboutUs_Advertising"/>
+        <property name="omniturePageName" value="Advertising Info"/>
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Advertising Info"/>
+        <!-- AboutUsPageController properties: -->
+        <property name="leftNavSelectedItem" value="advertisers"/>
+    </bean>
+
+    <bean name="/about/licensing.page"
+          class="gs.web.content.cms.AboutUsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="about/aboutUsCms"/>
+        <property name="contentId" value="6840"/>
+        <property name="adSlotPrefix" value="AboutUs_Licensing"/>
+        <property name="omniturePageName" value="Licensing Info"/>
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Licensing Info"/>
+        <!-- AboutUsPageController properties: -->
+        <property name="leftNavSelectedItem" value="licensing"/>
+    </bean>
+
+    <bean name="/about/partnerOpportunities-old.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/partnerOpportunities</value>
+        </property>
+    </bean>
+
+    <bean name="/about/partnerOpportunities.page"
+          class="gs.web.content.cms.AboutUsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="about/aboutUsCms"/>
+        <property name="contentId" value="6841"/>
+        <property name="adSlotPrefix" value="AboutUs_Partners"/>
+        <property name="omniturePageName" value="partnerOpportunity"/>
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Partner Opportunities"/>
+        <!-- AboutUsPageController properties: -->
+        <property name="leftNavSelectedItem" value="partners"/>
+    </bean>
+
+    <bean name="/about/sponsors-old.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          autowire="byName" lazy-init="true">
+        <property name="viewName">
+            <value>about/sponsors</value>
+        </property>
+    </bean>
+
+    <bean name="/about/sponsors.page"
+          class="gs.web.content.cms.AboutUsPageController"
+          autowire="byName" lazy-init="true">
+        <!-- CmsPageController properties: -->
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="viewName" value="about/aboutUsCms"/>
+        <property name="contentId" value="6842"/>
+        <property name="adSlotPrefix" value="AboutUs_Sponsors"/>
+        <property name="omniturePageName" value="sponsors"/>
+        <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,SponsorsAndPartners"/>
+        <!-- AboutUsPageController properties: -->
+        <property name="leftNavSelectedItem" value=""/>
+    </bean>
 
     <bean name="/about/supportUs.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
@@ -960,16 +1121,6 @@
             <value>school/topHighSchoolsBadges</value>
         </property>
     </bean>
-
-
-    <bean name="/about/sponsors.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/sponsors</value>
-        </property>
-    </bean>
-
 
     <bean name="/about/gsNetwork.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
@@ -1025,20 +1176,6 @@
         </property>
     </bean>
 
-    <bean name="/about/partnerOpportunities.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/partnerOpportunities</value>
-        </property>
-    </bean>
-
-    <bean name="/about/advertiserOpportunities.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="about/advertiserOpportunities"/>
-    </bean>
-
     <bean id="feedbackValidator" class="gs.web.about.feedback.FeedbackValidator"
           autowire="byName" lazy-init="true"/>
     <bean name="/about/feedback.page"
@@ -1060,39 +1197,6 @@
           autowire="byName" lazy-init="true">
         <property name="formView" value="about/linkToUs"/>
         <property name="hideSchoolFinderWidgetPreschools" value="true"/>
-    </bean>
-
-    <bean name="/about/boardOfDirectors.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/boardOfDirectors</value>
-        </property>
-    </bean>
-
-    <bean name="/about/advisors.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/advisors</value>
-        </property>
-    </bean>
-
-    <bean name="/about/senior-management.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/seniorManagement</value>
-        </property>
-    </bean>
-
-    <!-- TODO-12958 - example only -->
-    <bean name="/about/senior-management-cms.page"
-          class="gs.web.content.cms.CmsPageController"
-          autowire="byName" lazy-init="true">
-        <property name="controllerFamily" value="DESKTOP"/>
-        <property name="viewName" value="about/seniorManagementCms"/>
-        <property name="contentId" value="6832"/>
     </bean>
 
     <bean name="/about/mobile.page"
