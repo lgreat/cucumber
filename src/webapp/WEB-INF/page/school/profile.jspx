@@ -143,8 +143,18 @@
 
     <div class="alpha grid_4">
         <!-- New GS Rating -->
-        <div class="mha mbs" style="height: 100px; width: 100px; background-color: green;">
-            <!-- TODO: Placeholder for new GreatSchools Rating -->
+        <!-- TODO: Placeholder for new GreatSchools Rating -->
+        <div class="mod badge-x96">
+            <div class="inner">
+                <div class="bd">
+                    <div class="horizon">
+                        <div class="bd-inner">
+                            <p class="number-x96">10</p>
+                            <p class="scale-x96">out of 10</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <p class="tac small bottom pbs mbm">GreatSchools Rating</p>
     </div>
@@ -152,7 +162,8 @@
     <div class="grid_12 omega">
         <!-- School name and sub data -->
         <h2 class="mbm">${school.name}</h2>
-        <div class="small mbs">
+        <div class="small mbs" style="height:23px;">
+            <span class="dib" style="line-height: 24px;">
             <!-- School Type -->
             <c:if test="${school.levelCode ne 'p'}">
                 ${gsweb:capitalize(school.type.schoolTypeName)}
@@ -175,47 +186,51 @@
             <c:if test="${not empty enrollmentOrCapacity and enrollmentOrCapacity > 0}">
                 | ${enrollmentOrCapacity} ${gsweb:pluralize(enrollmentOrCapacity, 'student')}
             </c:if>
+            </span>
             <promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
         </div>
 
         <hr class="keyline1"/>
 
         <!-- tool links -->
-        <ul class="none small mtm">
-            <li class="di">
-                <div class="media dib">
+        <div class="toolLinks">
+            <ul class="none small mtm">
+                <li>
+                <span class="media">
                     <span class="img iconx16 i-16-save mrs"><!-- do not collapse --></span>
                     <link:mySchoolList styleClass="bd" school="${school}"
                                        onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
                                        anchor="${headerLinkAnchor}"><strong>Save</strong></link:mySchoolList>
-                </div>
-            </li>
-            <li class="di mll">
-                <div class="media dib">
+                </span>
+                </li>
+                <li class="mll">
+                <span class="media">
                     <span class="img iconx16 i-16-email mrs"><!-- do not collapse --></span>
                     <a class="bd" href="javascript:void(0);"><strong>Send me updates</strong></a>
-                </div>
-            </li>
-            <li class="di mll">
-                <div class="media dib">
+                </span>
+                </li>
+                <li class="mll">
+                <span class="media">
                     <span class="img iconx16 i-16-review mrs"><!-- do not collapse --></span>
                     <a class="bd" href="javascript:void(0);"><strong>Write a review</strong></a>
-                </div>
-            </li>
-            <!-- TODO: Generate compareNearbyString -->
-            <c:if test="${not empty compareNearbyString}">
-                <c:set var="compareSource" value="overview"/>
-                <li class="di mll">
-                    <div class="media dib">
+                </span>
+                </li>
+                <!-- TODO: Generate compareNearbyString -->
+                <c:if test="${not empty compareNearbyString}">
+                    <c:set var="compareSource" value="overview"/>
+                    <li class="mll">
+                    <span class="media">
                         <span class="img iconx16 i-16-compare mrs"><!-- do not collapse --></span>
                         <link:compareSchools schools="${compareNearbyString}"
                                              source="sphead_${compareSource}_${school.databaseState}${school.id}"
                                              onclick="if (s.tl) {s.tl(this,'o','SchoolProfile_Compare_Inline_Link');} return true;"
                                              tab="overview"><strong>Compare schools</strong></link:compareSchools>
-                    </div>
-                </li>
-            </c:if>
-        </ul>
+                    </span>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
+
     </div>
     <div class="clear"><!-- do not collapse --></div>
 
@@ -242,11 +257,17 @@
     <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
 
     <div class="media">
-        <div class="img mrs">
+        <div class="img mrm">
+            <div class="mod standard_1-1 mbs">
+                <div class="inner">
+                    <div class="bd">
             <a href="http://maps.google.com/?q=${schoolAddressWithName}">
-                <img class="mbs" height="120" width="160" alt="Map thumbnail"
-                     src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=160x120&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
+                <img height="98" width="148" alt="Map thumbnail"
+                     src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=148x98&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
             </a>
+                    </div>
+                </div>
+            </div>
 
             <p class="smaller">
                 <a href="javascript:void(0);">Larger map</a>

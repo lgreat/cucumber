@@ -167,3 +167,7 @@
 .gsTabs ul.tabStyle-6 li a:focus {outline: 0 none;}
 
 .gsTabs ul.tabStyle-6 li a.selected {font-weight:bold; border-bottom: 2px solid #0065BA;outline: 0 none;}
+
+
+/* Tool Links */
+.toolLinks li { list-style: none; display: inline-block; *display: inline; }
