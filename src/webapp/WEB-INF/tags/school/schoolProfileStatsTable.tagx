@@ -19,7 +19,6 @@
     <jsp:directive.attribute name="statsTab" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="title" type="java.lang.String"/>
 
-    <h4>${title}</h4>
 
         <c:set var="groupIdDataTypeMap" value="${censusStateConfig.groupIdDataTypeMap}"/>
         <c:set var="teacherCredentialsDataTypes" value="${groupIdDataTypeMap[groupId]}"/>
@@ -45,6 +44,8 @@
 
 
     <c:if test="${fn:length(rows) gt 0}">
+        <h4>${title}</h4>
+
         <table>
             <thead>
             <tr>

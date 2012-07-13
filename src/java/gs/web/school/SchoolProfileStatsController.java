@@ -7,6 +7,7 @@ import gs.data.school.census.*;
 import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,6 +60,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         statsModel = _censusCacheDao.getMapForSchool(school);
 
         if (statsModel == null) {
+            statsModel = new HashMap<String,Object>();
 
             // Census Data Set ID --> Source
             Map<Integer, CensusDescription> dataTypeSourceMap = new HashMap<Integer,CensusDescription>();
@@ -209,7 +211,10 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
             Set<CensusDescription> source = entry.getValue().getCensusDescription();
 
-            StatsRow row = new StatsRow(
+            // filter out rows where school, district, and state values are all N/A
+            if (censusValueNotEmpty(schoolValue) || censusValueNotEmpty(districtValue) || censusValueNotEmpty(stateValue) ) {
+
+                StatsRow row = new StatsRow(
                     groupId,
                     censusDataSetId,
                     label,
@@ -218,18 +223,23 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                     stateValue,
                     source,
                     entry.getValue().getYear()
-                    );
+                );
 
-            List<StatsRow> statsRows = statsRowMap.get(groupId);
-            if (statsRows == null) {
-                statsRows = new ArrayList<StatsRow>();
-                statsRowMap.put(groupId, statsRows);
+                List<StatsRow> statsRows = statsRowMap.get(groupId);
+                if (statsRows == null) {
+                    statsRows = new ArrayList<StatsRow>();
+                    statsRowMap.put(groupId, statsRows);
+                }
+
+                statsRows.add(row);
             }
-
-            statsRows.add(row);
         }
 
         return statsRowMap;
+    }
+
+    private boolean censusValueNotEmpty(String value) {
+        return !StringUtils.isEmpty(value) && !"N/A".equalsIgnoreCase(value);
     }
 
     private String formatValue(Float value, CensusDataType.ValueType valueType) {
