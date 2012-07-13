@@ -900,18 +900,6 @@
         </property>
     </bean>
 
-    <bean name="/about/aboutUs-old.page"
-          class="gs.web.mobile.ParameterizableViewControllerWithMobileAndDesktopViews"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/aboutUs</value>
-        </property>
-        <property name="mobileViewName">
-            <value>about/aboutUs-mobile</value>
-        </property>
-    </bean>
-
-    <!-- TODO-12958 check that mobile still works -->
     <bean name="/about/aboutUs.page" class="org.springframework.stereotype.Controller" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
@@ -940,14 +928,6 @@
         </constructor-arg>
     </bean>
 
-    <bean name="/about/senior-management-old.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/seniorManagement</value>
-        </property>
-    </bean>
-
     <bean name="/about/senior-management.page"
           class="gs.web.content.cms.AboutUsPageController"
           autowire="byName" lazy-init="true">
@@ -962,14 +942,6 @@
         <property name="leftNavSelectedItem" value="management"/>
     </bean>
 
-    <bean name="/about/boardOfDirectors-old.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/boardOfDirectors</value>
-        </property>
-    </bean>
-
     <bean name="/about/boardOfDirectors.page"
           class="gs.web.content.cms.AboutUsPageController"
           autowire="byName" lazy-init="true">
@@ -982,14 +954,6 @@
         <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Board of Directors"/>
         <!-- AboutUsPageController properties: -->
         <property name="leftNavSelectedItem" value="boardOfDirectors"/>
-    </bean>
-
-    <bean name="/about/advisors-old.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/advisors</value>
-        </property>
     </bean>
 
     <bean name="/about/advisors.page"
@@ -1020,12 +984,6 @@
         <property name="leftNavSelectedItem" value="supporters"/>
     </bean>
 
-    <bean name="/about/advertiserOpportunities-old.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName" value="about/advertiserOpportunities"/>
-    </bean>
-
     <bean name="/about/advertiserOpportunities.page"
           class="gs.web.content.cms.AboutUsPageController"
           autowire="byName" lazy-init="true">
@@ -1054,14 +1012,6 @@
         <property name="leftNavSelectedItem" value="licensing"/>
     </bean>
 
-    <bean name="/about/partnerOpportunities-old.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/partnerOpportunities</value>
-        </property>
-    </bean>
-
     <bean name="/about/partnerOpportunities.page"
           class="gs.web.content.cms.AboutUsPageController"
           autowire="byName" lazy-init="true">
@@ -1074,14 +1024,6 @@
         <property name="omnitureHierarchy" value="Home,Corporate,AboutUs,Partner Opportunities"/>
         <!-- AboutUsPageController properties: -->
         <property name="leftNavSelectedItem" value="partners"/>
-    </bean>
-
-    <bean name="/about/sponsors-old.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
-          autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>about/sponsors</value>
-        </property>
     </bean>
 
     <bean name="/about/sponsors.page"
