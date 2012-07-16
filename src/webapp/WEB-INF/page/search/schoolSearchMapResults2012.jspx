@@ -304,7 +304,6 @@
                                 </div>
 
                                 <div class="unit size38of100">
-
                                     <c:set var="mslHasSchool" value="${false}"/>
                                     <c:forEach items="${mslSchools}" var="mslSchool">
                                         <c:if test="${mslSchool.schoolId eq school.id and mslSchool.state eq school.databaseState}">
@@ -314,43 +313,45 @@
 
                                     <c:set var="existsInMsl" value="none"/>
                                     <c:set var="notInMsl" value="none"/>
-                                <div class="js-add-msl-${school.databaseState}${school.id} js-add-msl">
-                                    <c:choose>
-                                        <c:when test="${mslHasSchool}">
-                                            <c:set var="existsInMsl" value="block"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <c:set var="notInMsl" value="block"/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    <div class="js-existsInMsl" style="display: ${existsInMsl};">
-                                        <div class="media skin-1 attribution">
-                                            <div class="img mrs">
-                                                <span class="iconx16 i-16-success"><!-- do not collapse --></span>
-                                            </div>
-                                            <div class="bd small bottom">
-                                                Added to <a href="/mySchoolList.page">My School List</a>
+
+                                    <div class="js-add-msl-${school.databaseState}${school.id} js-add-msl">
+                                        <c:choose>
+                                            <c:when test="${mslHasSchool}">
+                                                <c:set var="existsInMsl" value="block"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="notInMsl" value="block"/>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <div class="js-existsInMsl" style="display: ${existsInMsl};">
+                                            <div class="media skin-1 attribution">
+                                                <div class="img mrs">
+                                                    <span class="iconx16 i-16-success"><!-- do not collapse --></span>
+                                                </div>
+                                                <div class="bd small bottom">
+                                                    Added to <a href="/mySchoolList.page">My School List</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="js-notInMsl" style="display: ${notInMsl};">
-                                        <div class="media skin-1 attribution">
-                                            <div class="img mrs">
-                                                <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
-                                            </div>
-                                            <div class="js-msl-text bd small">
-                                                <a href="#" class="js-add-msl-link"
-                                                   id="js-add-msl-link-${school.databaseState}${school.id}"
-                                                   onclick="if(GS.showAddMslJoinHover('${omniturePageName}', '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this) == false){
+                                        <div class="js-notInMsl" style="display: ${notInMsl};">
+                                            <div class="media skin-1 attribution">
+                                                <div class="img mrs">
+                                                    <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
+                                                </div>
+                                                <div class="js-msl-text bd small">
+                                                    <a href="#" class="js-add-msl-link"
+                                                       id="js-add-msl-link-${school.databaseState}${school.id}"
+                                                       onclick="if(GS.showAddMslJoinHover('${omniturePageName}', '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this) == false){
                                                             GS.map.getMap.addSavedSchool('js-add-msl-link-${school.databaseState}${school.id}');
                                                          }
                                                          return false;">
-                                                    My School List
-                                                </a>
+                                                        My School List
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
                                 </div>
 
@@ -423,89 +424,121 @@
 </div>
 </div>
 
+
 <div id="js-schoolInfoBox" style="display: none;"><!-- not empty --></div>
 <div id="js-infoBoxTemplate" style="display: none;">
-    <div class="contain_7-1 js-schoolInfo">
-        <div class="inner">
-            <div class="line">
-                <div class="unit size4of7">
-                    <div class="text2">
-                        <a href="" data-href="{{schoolUrl}}">
-                            <strong>{{schoolName}}</strong>
-                        </a>
+    <div class="js-schoolInfo">
+        <!--Needs styling-->
 
-                        <p class="small ac1">
-                            {{schoolType}} {{gradesRange}}
-                        </p>
-                        <!--<div class="clearfloat pbm">&lt;!&ndash; &ndash;&gt;</div>-->
-                        <p class="small">
-                            {{street}}<br/>
-                            {{city}}, {{state}} {{zip}}
-                            <br/>
-                            <a href=""
-                               data-href="http://maps.google.com/maps?saddr=&amp;daddr={{street}}%20{{city}}%20{{state}}%20{{zip}}"
-                               target="_blank">Get directions</a>
-                        </p>
+        <div class="mod standard_5-1 mbm">
+            <div class="hd small bottom">
+                <a href="" data-href="{{schoolUrl}}">
+                    {{schoolName}}
+                </a>
+            </div>
+            <div class="bd">
+                <div class="small bottom ttc">
+                    {{schoolType}}, <span class="ttu">{{gradesRange}}</span>
+                </div>
+                <div class="line small bottom">
+                    <div class="unit size60of100">
+                        {{street}}<br/>
+                        {{city}}, {{state}} {{zip}}
+                    </div>
+                    <div class="unit size40of100 lastUnit">
+                        <div class="media skin-1 attribution">
+                            <div class="img mrs">
+                                <span class="iconx16 i-16-getDirections"><!--Do not collapse--></span>
+                            </div>
+                            <div class="bd">
+                                <a href="" data-href="http://maps.google.com/maps?saddr=&amp;daddr={{street}}%20{{city}}%20{{state}}%20{{zip}}"
+                                   target="_blank">Get directions</a>
+                            </div>
+                        </div>
+                        <div class="">
+                            <a href="" data-href="{{communityRatingUrl}}">
+                                <span class="sprite stars_sm_{{parentRating}}"><!-- do not collapse --></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="unit size3of7 lastUnit">
-                    <div class="smallText1-333 small pbs">
-                        <a href="" data-href="{{communityRatingUrl}}">
-                            <span class="sprite stars_sm_{{parentRating}}"><!-- do not collapse --></span>
-                        </a>
+            </div>
+            <div class="ft">
+                <!--Get back here-->
+                <div class="line">
+                    <div class="unit size24of100">
+                            <input id="disabled-{{state}}{{id}}"
+                                   class="compare-school-checkbox" type="checkbox"
+                                   disabled="disabled" style="display: {{isPkCompare}}"
+                                   title="Due to a lack of available data on preschools, they cannot be compared"/>
+                            <label class="checkbox"
+                                   for="disabled-{{state}}{{id}}"
+                                   style="display: {{isPkCompare}}">Compare</label>
+                            <input id="{{state}}{{id}}" class="js-compare-school-checkbox" type="checkbox"
+                                   style="display: {{showCompare}}"/>
+                            <label class="js-compareLabel checkbox" style="display: {{showCompare}}"
+                                   for="{{state}}{{id}}">Compare</label>
+                            <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW
+                            </button>
                     </div>
 
-                    <div class="smallText1-333 pbs">
-                        <input id="disabled-{{state}}{{id}}"
-                               class="compare-school-checkbox" type="checkbox"
-                               disabled="disabled" style="display: {{isPkCompare}}" title="Due to a lack of available data on preschools, they cannot be compared"/>
-                        <label class="smallText2-777"
-                               for="disabled-{{state}}{{id}}" style="display: {{isPkCompare}}"><i>COMPARE</i></label>
-                        <input id="{{state}}{{id}}" class="js-compare-school-checkbox" type="checkbox"
-                               style="display: {{showCompare}}"/>
-                        <label class="js-compareLabel" style="display: {{showCompare}}"
-                               for="{{state}}{{id}}">COMPARE</label>
-                        <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW</button>
-                    </div>
-
-                    <span class="media js-add-msl js-add-msl-{{state}}{{id}} smaller">
-                        <span class="js-existsInMsl" style="display: {{existsInMsl}}">
-                            <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
-                            <span class="msl-text">
-                                Added to <a href="/mySchoolList.page">My School List</a>
-                            </span>
-                        </span>
-                        <span class="js-notInMsl" style="display: {{notInMsl}}">
-                            <span class="sprite i-add-sm mrgtop_2 img mrs"><!-- do not collapse --></span>
-                            <span class="js-msl-text bd">
-                                <a href="#" class="js-add-msl-link" id="js-add-msl-link-{{state}}{{id}}"
-                                   onclick="if(GS.showAddMslJoinHover('{{omniturePageName}}', '{{jsEscapeName}}', {{id}}, '{{state}}', this) == false){
+                    <div class="unit size38of100">
+                        <div class="js-add-msl js-add-msl-{{state}}{{id}}">
+                            <div class="js-existsInMsl" style="display: {{existsInMsl}}">
+                                <div class="media skin-1 attribution">
+                                    <div class="img mrs">
+                                        <span class="iconx16 i-16-success"><!-- do not collapse --></span>
+                                    </div>
+                                    <div class="msl-text bd small">
+                                        Added to <a href="/mySchoolList.page">My School List</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="js-notInMsl" style="display: {{notInMsl}}">
+                                <div class="media skin-1 attribution">
+                                    <div class="img mrs">
+                                        <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
+                                    </div>
+                                    <div class="js-msl-text bd small">
+                                        <a href="#" class="js-add-msl-link" id="js-add-msl-link-{{state}}{{id}}"
+                                           onclick="if(GS.showAddMslJoinHover('{{omniturePageName}}', '{{jsEscapeName}}', {{id}}, '{{state}}', this) == false){
                                                 GS.map.getMap.addSavedSchool('js-add-msl-link-{{state}}{{id}}');
                                             }
                                             return false;">
-                                    My School List
-                                </a>
-                            </span>
-                        </span>
-                    </span>
-
-                    <div class="smallText1-333 smaller" style="display: {{homesForSale}}">
-                        <a href=""
-                           data-href="http://www.realtor.com/realestateandhomes-search/{{zip}}?gate=gs&amp;amp;cid=PRT300014"
-                           onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_{{omniturePageName}}_inlinelinkheader');} return true;"
-                           target="_blank"
-                           rel="nofollow">
-                            <span class="sprite i-house-sm"><!--not empty--></span>Homes for sale
-                        </a>
+                                            My School List
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
+                    <div class="unit size38of100 lastUnit">
+                        <div class="small bottom" style="display: {{homesForSale}}">
+                            <div class="media skin-1">
+                                <div class="img mrs">
+                                    <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
+                                </div>
+
+                                <div class="bd small bottom">
+                                    <a href=""
+                                       data-href="http://www.realtor.com/realestateandhomes-search/{{zip}}?gate=gs&amp;amp;cid=PRT300014"
+                                       onclick="if (s.tl) {s.tl(this,'o', 'RealtorModule_{{omniturePageName}}_inlinelinkheader');} return true;"
+                                       target="_blank"
+                                       rel="nofollow">
+                                        Homes for sale
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="clearfloat pbm"><!-- --></div>
-        </div>
-        <div class="arrow">
-            <div class="arrow-down-bg"><!-- not empty --></div>
-            <div class="arrow-down"><!-- not empty --></div>
+
+            <div class="down-pointer">
+                <div class="border-edge"><!-- not empty --></div>
+                <div class="border-bd"><!-- not empty --></div>
+            </div>
         </div>
     </div>
 </div>
@@ -643,7 +676,7 @@
     <c:choose>
         <!--<c:when test="${requestScope.schoolSearchCommand.view eq 'map'}">-->
         <c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">
-            <div class="" id="js-schoolList">
+            <div id="js-schoolList">
                 <c:forEach var="school" items="${schoolSearchResults}">
                     <div class="js-mouseover-open-bubble pam" style="border-bottom: 1px solid #f1f1f1" id="school-listitem-${school.databaseState}-${school.id}">
                         <!--<div id="mapBubble_${school.databaseState}_${school.id}" class="schoolInfoWindow">-->
@@ -708,34 +741,34 @@
         </c:when>
     </c:choose>
 
-    <!--Needs styling-->
-    <ul id="js-schoolListTemplate" style="display: none;">
-        <li class="js-mouseover-open-bubble" id="school-listitem-{{state}}-{{id}}">
-            <p class="medium_bold">
-                <a href="" data-href="{{schoolUrl}}">
-                    {{schoolName}}
-                </a>
-            </p>
+    <div id="js-schoolListTemplate" style="display: none;">
+        <div class="js-mouseover-open-bubble pam" style="border-bottom: 1px solid #f1f1f1" id="school-listitem-{{state}}-{{id}}">
+            <div class="line">
+                <div class="unit size75of100">
+                    <a href="" data-href="{{schoolUrl}}">
+                        <span class="small bottom">{{schoolName}}</span>
+                    </a>
+                </div>
+                <div class="unit size25of100 lastUnit">
+                    <span style="display:{{showDistance}}" class="small bottom fltrt">{{distance}} miles</span>
+                </div>
+            </div>
 
-            <p class="medium ac1">
-                {{schoolType}}, {{gradesRange}} | {{city}}, {{state}}
-            </p>
-                <span class="fltrt" style="display: {{showDistance}}">
-                    {{distance}} miles
-                </span>
-
-            <div class="img js-gsRating mrs">
+            <div class="ttc small bottom">{{schoolType}}, {{gradesRange}} | {{city}}, {{state}}</div>
+            <div class="media skin-1 attribution">
+            <div class="js-gsRating img mrm">
                 <a href="" data-href="{{gsRatingUrl}}">
-                    <span class="fltlft sprite badge_sm_{{gsRating}}"><!-- do not collapse --></span>
+                    <div class="round-small">{{gsRating}}<!-- do not collapse --></div>
                 </a>
             </div>
-            <div class="bd brdlft-solid js-communityRating pts">
+            <div class="bd small bottom js-communityRating">
                 <a href="" data-href="{{communityRatingUrl}}">
                     <span class="sprite stars_sm_{{parentRating}}"><!-- do not collapse --></span>
                 </a>
             </div>
-        </li>
-    </ul>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="ft">
