@@ -7,6 +7,7 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
           xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gsweb="gstaglib"
         >
 <!--
 
@@ -130,15 +131,15 @@ function initSchoolInfo() {
 
     mySchool = new Object();
 
-    mySchool.name = "${curSchool.name}";
-    mySchool.link = "${schoolUrl}";
+    mySchool.name = "${gsweb:escapeJavaScript(curSchool.name)}";
+    mySchool.link = "${gsweb:escapeJavaScript(schoolUrl)}";
     <c:if test="${s_cid ne null and s_cid > ''}">
-    mySchool.link += "?s_cid=${s_cid}";
+    mySchool.link += "?s_cid=${gsweb:escapeJavaScript(s_cid)}";
     </c:if>
-    mySchool.street = "${curSchool.physicalAddress.street}";
-    mySchool.city = "${curSchool.physicalAddress.city}";
+    mySchool.street = "${gsweb:escapeJavaScript(curSchool.physicalAddress.street)}";
+    mySchool.city = "${gsweb:escapeJavaScript(curSchool.physicalAddress.city)}";
     mySchool.state = "${curSchool.physicalAddress.state.abbreviation}";
-    mySchool.zip = "${curSchool.physicalAddress.zip}";
+    mySchool.zip = "${gsweb:escapeJavaScript(curSchool.physicalAddress.zip)}";
     mySchool.phone = '<c:if test="${not empty curSchool.phone}">${curSchool.phone}</c:if>';
     mySchool.address = mySchool.street + ' ' + mySchool.city + ', ' + mySchool.state + ' ' + mySchool.zip;
     mySchool.levelCode = "${curSchool.levelCode}";
