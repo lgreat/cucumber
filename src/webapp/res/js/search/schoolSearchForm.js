@@ -142,16 +142,11 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                 queryStringDataWithFilters = filtersModule.getQueryStringDataWithoutFilters();
             }
 
-            delete queryStringDataWithFilters.lat;
-            delete queryStringDataWithFilters.lon;
-            delete queryStringDataWithFilters.distance;
-            delete queryStringDataWithFilters.zipCode;
-            delete queryStringDataWithFilters.normalizedAddress;
-            delete queryStringDataWithFilters.locationType;
-            delete queryStringDataWithFilters.totalResults;
-            delete queryStringDataWithFilters.locationSearchString;
-            delete queryStringDataWithFilters.start;
-            delete queryStringDataWithFilters.rs;
+            for(var key in queryStringDataWithFilters) {
+                if(queryStringDataWithFilters[key] !== 'st' || queryStringDataWithFilters['gradeLevels']) {
+                    delete queryStringDataWithFilters[key];
+                }
+            }
 
             // if there's no current q param in the URL, we're on a byLocation search results page.
             // remove sort param when changing between byName and byLocation
@@ -217,7 +212,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                             var trimmedSearchQuery = $.trim(searchQuery.toLowerCase());
                             if(trimmedSearchQuery.startsWith(data['city'].toLowerCase()) &&
                                 trimmedSearchQuery.indexOf(data['state'].toLowerCase(), trimmedSearchQuery.length - data['city'].length) !== -1) {
-                                data['sortBy'] = 'GS_RATING_DESCENDING';;
+                                data['sortBy'] = 'GS_RATING_DESCENDING';
                             }
                         }
 
@@ -359,12 +354,14 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
 
         return {
             init:init,
-            submitByLocationSearch:submitByLocationSearch
+            submitByLocationSearch:submitByLocationSearch,
+            gsGeocode: gsGeocode
         }
     }();
 
     return {
-        init:init
+        init:init,
+        byLocation: byLocation
     }
 
 })();
