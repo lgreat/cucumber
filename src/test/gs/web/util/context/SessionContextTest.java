@@ -405,6 +405,7 @@ public class SessionContextTest extends BaseTestCase {
             testIsInterstitialEnabled() will return false when:
                 isCobranded is true or
                 isCrawler is true or
+                isAdvertisingOnline is false or
                 state is null or
                 property.INTERSTITIAL_ENABLED isn't set or
                 property.INTERSTITIAL_ENABLED isn't set to 'true' or
@@ -416,20 +417,40 @@ public class SessionContextTest extends BaseTestCase {
 
         String allStatesString = getAllStatesString();
         _sessionContext.setState(State.NJ);
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("false");
         replay(_propertyDao);
         assertFalse("Property is false, expect call to return false", _sessionContext.isInterstitialEnabled());
         verify(_propertyDao);
 
         reset(_propertyDao);
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("false");
+        // don't expect to check the interstitial enabled key at all because the if statement short-circuits before we get to it
+        replay(_propertyDao);
+        assertFalse("Advertising is disabled and interstitial is enabled, expect call to return false", _sessionContext.isInterstitialEnabled());
+        verify(_propertyDao);
+
+        reset(_propertyDao);
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
+        replay(_propertyDao);
+        assertTrue("Advertising is enabled and interstitial is enabled, expect call to return true", _sessionContext.isInterstitialEnabled());
+        verify(_propertyDao);
+
+        reset(_propertyDao);
         // Expect this call only three times, despite there being 6 calls to isInterstitialEnabled.
         // This is because the if statement gets short-circuited before the DB call in 3 of the cases
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
@@ -456,6 +477,7 @@ public class SessionContextTest extends BaseTestCase {
         reset(_propertyDao);
         // Expect this call only three times, despite there being 6 calls to isInterstitialEnabled.
         // This is because the if statement gets short-circuited before the DB call in 3 of the cases
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn(allStatesString);
 
@@ -469,6 +491,7 @@ public class SessionContextTest extends BaseTestCase {
          reset(_propertyDao);
         // Expect this call only three times, despite there being 6 calls to isInterstitialEnabled.
         // This is because the if statement gets short-circuited before the DB call in 3 of the cases
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_STATES_KEY, "")).andReturn("");
 
@@ -488,24 +511,44 @@ public class SessionContextTest extends BaseTestCase {
             testIsInterstitialEnabled() will return false when:
                 isCobranded is true or
                 isCrawler is true or
+                isAdvertisingOnline is false or
                 property.INTERSTITIAL_ENABLED isn't set or
                 property.INTERSTITIAL_ENABLED isn't set to 'true' or
                 property.INTERSTITIAL_DISPLAY_RATE isn't set to numeric value greater than 0, or
                 property.INTERSTITIAL_DISPLAY_RATE > 0 and < 100 AND a random number is generated that is greater than the value stored
          */
 
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("false");
         replay(_propertyDao);
         assertFalse("Property is false, expect call to return false", _sessionContext.isInterstitialEnabledIgnoreState());
         verify(_propertyDao);
 
         reset(_propertyDao);
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("false");
+        // don't expect to check the interstitial enabled key at all because the if statement short-circuits before we get to it
+        replay(_propertyDao);
+        assertFalse("Advertising is disabled and interstitial is enabled, expect call to return false", _sessionContext.isInterstitialEnabledIgnoreState());
+        verify(_propertyDao);
+
+        reset(_propertyDao);
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
+        expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        replay(_propertyDao);
+        assertTrue("Advertising is enabled and interstitial is enabled, expect call to return true", _sessionContext.isInterstitialEnabledIgnoreState());
+        verify(_propertyDao);
+
+        reset(_propertyDao);
         // Expect this call only three times, despite there being 6 calls to isInterstitialEnabled.
         // This is because the if statement gets short-circuited before the DB call in 3 of the cases
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
+        expect(_propertyDao.getProperty(IPropertyDao.ADVERTISING_ENABLED_KEY, "true")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")).andReturn("true");
         expect(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_DISPLAY_RATE_KEY, "100")).andReturn("100");
         replay(_propertyDao);

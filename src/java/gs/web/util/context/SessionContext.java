@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: SessionContext.java,v 1.75 2012/07/16 22:25:34 yfan Exp $
+ * $Id: SessionContext.java,v 1.76 2012/07/16 22:49:19 yfan Exp $
  */
 package gs.web.util.context;
 
@@ -381,19 +381,15 @@ public class SessionContext implements ApplicationContextAware, Serializable {
     }
 
     public boolean isInterstitialEnabled() {
-        Random r = new Random();
-        return !isCobranded() &&
-                !isCrawler() &&
-                isAdvertisingOnline() &&
-                "true".equals(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")) &&
-                isInterstitialEnabledForState(_state) &&
-                isInterstitialWithinTolerance(r.nextInt(100));
-
+        return isInterstitialEnabledIgnoreState() &&
+                isInterstitialEnabledForState(_state);
     }
 
     public boolean isInterstitialEnabledIgnoreState() {
         Random r = new Random();
-        return !isCobranded() && !isCrawler() &&
+        return !isCobranded() &&
+                !isCrawler() &&
+                isAdvertisingOnline() &&
                 "true".equals(_propertyDao.getProperty(IPropertyDao.INTERSTITIAL_ENABLED_KEY, "false")) &&
                 isInterstitialWithinTolerance(r.nextInt(100));
     }
