@@ -333,6 +333,12 @@
     </function>
 
     <function>
+        <name>removeQueryParamsFromUrl</name>
+        <function-class>gs.web.util.UrlUtil</function-class>
+        <function-signature>java.lang.String removeQueryParamsFromUrl(java.lang.String,java.lang.String)</function-signature>
+    </function>
+
+    <function>
         <name>getRequestURL</name>
         <function-class>gs.web.util.UrlUtil</function-class>
         <function-signature>java.lang.String getRequestURL(javax.servlet.http.HttpServletRequest)</function-signature>

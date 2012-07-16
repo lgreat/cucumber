@@ -57,6 +57,34 @@ jQuery(document).ready(function() {
     }
     starRating(16, 5, "overallStarRating");
 
+    var $parents = $('#showParents')
+        , $students = $('#showStudents')
+        , $teachers = $('#showTeachers')
+        , $sort = $('#sltRatingSort');
+
+    var ratings = function () {
+        var csv = new Array();
+        if ($parents && $parents.prop('checked')) csv.push('p');
+        if ($students && $students.prop('checked')) csv.push('s');
+        if ($teachers && $teachers.prop('checked')) csv.push('t');
+        if ($sort.val() && $sort.attr('action')){
+            var address = $sort.attr('action').split('?'), params = (address.length>1) ? address[1]:'';
+            params = GS.uri.Uri.removeFromQueryString(params, 'page');
+            params = GS.uri.Uri.putIntoQueryString(params, 'sortBy', $sort.val());
+            if (csv.length>0){
+                params = GS.uri.Uri.putIntoQueryString(params, 'reviewsBy', csv.join(','));
+            } else {
+                params = GS.uri.Uri.removeFromQueryString(params, 'reviewsBy');
+            }
+            location.href = address[0] + params + '#revPagination';
+        }
+    }
+
+    // sorting for reviews page
+    if ($sort) $sort.on('change', ratings);
+    if ($parents) $parents.on('click', ratings);
+    if ($students) $students.on('click', ratings);
+    if ($teachers) $teachers.on('click', ratings);
 
 });
 
@@ -99,6 +127,7 @@ function starRating(iconW, starsT, overallSR){
         var currentStar = Math.floor(x/iconWidth) +1;
         if(currentStar > totalStars) currentStar = totalStars;
         overallStarRating.val(currentStar);
+        overallStarRating.blur();
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentStar);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
 
