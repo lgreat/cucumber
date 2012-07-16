@@ -59,21 +59,21 @@
     <ad:enableGptAsynchronousMode/>
 
     <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false"/>
-    <pageHelper:externalJavascript file="/res/js/uri/uri.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/uri/uri.js"/>-->
 
-    <pageHelper:externalJavascript file="/res/js/search/schoolSearchForm.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchForm.js"/>-->
 
-    <pageHelper:externalJavascript file="/res/js/util/htmlMirrors.js"/>
-    <pageHelper:externalJavascript file="/res/js/search/filters.js"/>
-    <pageHelper:externalJavascript file="/res/js/search/compare.js"/>
-    <pageHelper:externalJavascript file="/res/js/tracking/customLinks.js"/>
-    <pageHelper:externalJavascript file="/res/js/search/schoolResults.js"/>
-    <pageHelper:externalJavascript file="/res/js/ui/contentDropdowns.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/util/htmlMirrors.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/search/filters.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/search/compare.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/tracking/customLinks.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/search/schoolResults.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/ui/contentDropdowns.js"/>-->
 
-    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>
-    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>-->
+    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>-->
     <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
-    <pageHelper:externalJavascript file="/res/js/history.min.js"/> <!-- TODO: Move this to bottom of page? -->
+    <!--<pageHelper:externalJavascript file="/res/js/history.min.js"/> &lt;!&ndash; TODO: Move this to bottom of page? &ndash;&gt;-->
 
     <k12:trafficDriverIncludes/>
 

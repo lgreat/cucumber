@@ -383,6 +383,17 @@
                                 <param>house_ads.js</param>
                                 <param>deferredcontent.js</param>
                                 <param>externalTracking.js</param>
+                                <param>search/schoolSearchForm.js</param>
+                                <param>util/htmlMirrors.js</param>
+                                <param>search/filters.js</param>
+                                <param>ui/contentDropdowns.js</param>
+                                <param>search/compare.js</param>
+                                <param>tracking/customLinks.js</param>
+                                <param>search/schoolResults.js</param>
+                                <param>map/schoolSearchMap2012.js</param>
+                                <param>search/schoolSearchResultsPage2012.js</param>
+                                <param>search/schoolSearchResultsTable2012.js</param>
+                                <param>history.min.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
