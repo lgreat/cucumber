@@ -16,38 +16,6 @@
 <![CDATA[<script type="text/javascript" src="/res/js/blogTracking/pageTracking.js"></script>]]>
 <![CDATA[<script type="text/javascript" src="/res/js/schoolReviewForm.js"></script>]]>
 <![CDATA[<script type="text/javascript" src="/res/js/parentReviewTabSchoolReviewForm.js"></script>]]>
-<![CDATA[<script type="text/javascript"><!--]]>
-
-<![CDATA[
-    function getReviewsByCsv() {
-        var p = document.getElementById('showParents');
-        var s = document.getElementById('showStudents');
-        var t = document.getElementById('showTeachers');
-        var csv = '';
-        if (p != null && p.checked) {
-            csv += 'p';
-        }
-        if (s != null && s.checked) {
-            if (csv != '') {
-                csv += ',';
-            }
-            csv += 's';
-        }
-        if (t != null && t.checked) {
-            if (csv != '') {
-                csv += ',';
-            }
-            csv += 't';
-        }
-        return csv;
-    }
-    ]]>
-    function go() {
-        var sort = document.getElementById('sltRatingSort');
-        var option = sort.options[sort.selectedIndex].value;
-        if (option) location.href = 'http://' + location.host + location.pathname + '?id=${school.id}&amp;state=${stateAbbrev}&amp;sortBy=' + option + '&amp;tab=reviews&amp;reviewsBy=' + getReviewsByCsv() + '#revPagination';
-    }
-<![CDATA[--></script>]]>
     <div class="alpha grid_16 omega ptl">
     <!--<a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>-->
         <!--Reviews for ${school.name}-->
@@ -269,10 +237,12 @@
         </c:if>
 
         <c:set var="reviewsPagination">
-            <c:set var="paginationUrl"><c:choose>
-                <c:when test="${empty reviewsByCsv}">/school/profile.page?id=${school.id}&amp;state=${stateAbbrev}&amp;tab=reviews&amp;sortBy=${cmd.sortBy}</c:when>
-                <c:otherwise>/school/profile.page?id=${school.id}&amp;state=${stateAbbrev}&amp;tab=reviews&amp;sortBy=${cmd.sortBy}&amp;reviewsBy=${reviewsByCsv}</c:otherwise>
-            </c:choose></c:set>
+            <c:set var="paginationUrl" value="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page')}"/>
+            <c:set var="paginationUrl" value="${gsweb:putQueryParamIntoUrl(paginationUrl, 'tab', 'reviews')}"/>
+            <c:set var="paginationUrl" value="${gsweb:putQueryParamIntoUrl(paginationUrl, 'sortBy', cmd.sortBy)}"/>
+            <c:if test="${!empty reviewsByCsv}">
+                <c:set var="paginationUrl" value="${gsweb:putQueryParamIntoUrl(paginationUrl, 'reviewsBy', reviewsByCsv)}"/>
+            </c:if>
             <community:pagination page="${page}"
                                   totalPages="${reviewsTotalPages}"
                                   url="${paginationUrl}"
@@ -302,8 +272,8 @@
         <div class="line">
             <div id="rankSort" class="alpha grid_8">
                 <span class="smallText1">Sort by: </span>
-                <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort"
-                             onchange="go();">
+                <c:set var="sortUrl" value="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}"/>
+                <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort" action="${sortUrl}">
                     <form:option value="dd">Date: newest to oldest</form:option>
                     <form:option value="da">Date: oldest to newest</form:option>
                     <form:option value="rd">Rating: highest to lowest</form:option>
@@ -317,11 +287,10 @@
                         <c:if test="${numParentReviews gt 0}">
                             <c:choose>
                                 <c:when test="${fn:contains(reviewsByCsv,'p')}">
-                                    <input type="checkbox" id="showParents" checked="checked"
-                                           onclick="go()"/>
+                                    <input type="checkbox" id="showParents" checked="checked" />
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" id="showParents" onclick="go()"/>
+                                    <input type="checkbox" id="showParents" />
                                 </c:otherwise>
                             </c:choose>
                             <label for="showParents">Parents</label>
@@ -329,11 +298,10 @@
                         <c:if test="${numStudentReviews gt 0}">
                             <c:choose>
                                 <c:when test="${fn:contains(reviewsByCsv,'s')}">
-                                    <input type="checkbox" id="showStudents" checked="checked"
-                                           onclick="go()"/>
+                                    <input type="checkbox" id="showStudents" />
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" id="showStudents" onclick="go()"/>
+                                    <input type="checkbox" id="showStudents" />
                                 </c:otherwise>
                             </c:choose>
                             <label for="showStudents">Students</label>
@@ -341,11 +309,10 @@
                         <c:if test="${numTeacherStaffReviews gt 0}">
                             <c:choose>
                                 <c:when test="${fn:contains(reviewsByCsv,'t')}">
-                                    <input type="checkbox" id="showTeachers" checked="checked"
-                                           onclick="go()"/>
+                                    <input type="checkbox" id="showTeachers" checked="checked" />
                                 </c:when>
                                 <c:otherwise>
-                                    <input type="checkbox" id="showTeachers" onclick="go()"/>
+                                    <input type="checkbox" id="showTeachers" />
                                 </c:otherwise>
                             </c:choose>
                             <label for="showTeachers">Teachers/Staff</label>
@@ -443,9 +410,7 @@
                     </p>
 
 
-                    <p class="respond text3italic"><link:schoolProfileParentReview
-                            school="${school}" anchor="schoolReviewSubmitForm" styleClass="no_interrupt"
-                            >Write your own review</link:schoolProfileParentReview></p>
+                    <p class="respond text3italic"><a href="#schoolReviewSubmitForm">Write your own review</a></p>
 
                 </div>
                 <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
