@@ -143,7 +143,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
             }
 
             for(var key in queryStringDataWithFilters) {
-                if(queryStringDataWithFilters[key] !== 'st' || queryStringDataWithFilters['gradeLevels']) {
+                if(key !== 'st' && key !== 'gradeLevels') {
                     delete queryStringDataWithFilters[key];
                 }
             }
