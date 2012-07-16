@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.community.User;
 import gs.data.school.*;
+import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.review.IReviewDao;
@@ -600,16 +601,20 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         else {
             // Substitute action.  Need to decide if 1 or 2
             /* Wait until Samson enhances the data helper */
-            Map<CensusDataType, SchoolCensusValue> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
-            if( censusValues!=null ) {
-                SchoolCensusValue classSize = censusValues.get( CensusDataType.CLASS_SIZE );
-                SchoolCensusValue studentsPerTeacher = censusValues.get( CensusDataType.STUDENT_TEACHER_RATIO );
+            Map<CensusDataType, List<CensusDataSet>> censusDataTypesToDataSets = _schoolProfileDataHelper.getSchoolCensusValues(request);
+
+
+
+            if( censusDataTypesToDataSets!=null ) {
+                List<CensusDataSet> classSize = censusDataTypesToDataSets.get( CensusDataType.CLASS_SIZE );
+                List<CensusDataSet> studentsPerTeacher = censusDataTypesToDataSets.get( CensusDataType.STUDENT_TEACHER_RATIO );
+
                 // Substitute action 1
-                if( classSize != null ) {
-                    model.put( "substitute1ClassSize", classSize.getValueInteger() );
+                if( classSize != null && classSize.size() > 0 && classSize.get(0).getSchoolData() != null) {
+                    model.put( "substitute1ClassSize", ((SchoolCensusValue) classSize.get(0).getSchoolData()).getValueInteger() );
                 }
-                else if( studentsPerTeacher != null ) {
-                    model.put( "substitute1StudentsPerTeacher", studentsPerTeacher.getValueInteger() );
+                else if( studentsPerTeacher != null && studentsPerTeacher.size() > 0 && studentsPerTeacher.get(0).getSchoolData() != null) {
+                    model.put( "substitute1StudentsPerTeacher", ((SchoolCensusValue) studentsPerTeacher.get(0).getSchoolData()).getValueInteger() );
                 }
                 else {
                     // Static test will be displayed.

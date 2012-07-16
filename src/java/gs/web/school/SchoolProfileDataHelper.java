@@ -354,16 +354,36 @@ public class SchoolProfileDataHelper {
     /**
      * @return map of CensusDataType --> SchoolCensusValue
      */
-    protected Map<CensusDataType, SchoolCensusValue> getSchoolCensusValues(HttpServletRequest request) {
+    protected Map<CensusDataType, List<CensusDataSet>> getSchoolCensusValues(HttpServletRequest request) {
+        // CensusDataSet ID --> CensusDataSet
+        Map<Integer, CensusDataSet> censusDataSets = _schoolProfileCensusHelper.getCensusDataSets(request);
+
         // CensusDataSet ID --> SchoolCensusValue
         Map<Integer, SchoolCensusValue> schoolCensusValueMap = _schoolProfileCensusHelper.getSchoolCensusValues(request);
 
-        Map<CensusDataType, SchoolCensusValue> dataTypeIdSchoolValueMap = new HashMap<CensusDataType, SchoolCensusValue>();
-        for (Map.Entry<Integer, SchoolCensusValue> entry : schoolCensusValueMap.entrySet()) {
-                        dataTypeIdSchoolValueMap.put(entry.getValue().getDataSet().getDataType(), entry.getValue());
+        Map<CensusDataType, List<CensusDataSet>> censusDataTypeToDataSetMap = new HashMap<CensusDataType, List<CensusDataSet>>();
+
+        for (Map.Entry<Integer, CensusDataSet> dataSetEntry : censusDataSets.entrySet()) {
+            Integer censusDataSetId = dataSetEntry.getKey();
+            CensusDataSet censusDataSet = dataSetEntry.getValue();
+
+            Set<SchoolCensusValue> schoolData = new HashSet<SchoolCensusValue>();
+
+            SchoolCensusValue value = schoolCensusValueMap.get(censusDataSetId);
+            if (value != null) {
+                schoolData.add(value);
+            }
+            censusDataSet.setSchoolData(schoolData);
+
+            List<CensusDataSet> censusDataSetsForDataType = censusDataTypeToDataSetMap.get(censusDataSet.getDataType());
+            if (censusDataSetsForDataType == null) {
+                censusDataSetsForDataType = new ArrayList<CensusDataSet>();
+            }
+            censusDataSetsForDataType.add(censusDataSet);
+            censusDataTypeToDataSetMap.put(censusDataSet.getDataType(), censusDataSetsForDataType);
         }
 
-        return dataTypeIdSchoolValueMap;
+        return censusDataTypeToDataSetMap;
     }
 
     protected List<NearbySchool> getNearbySchools( HttpServletRequest request, int numSchools ) {

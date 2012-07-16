@@ -8,11 +8,11 @@ import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,6 +47,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
     @Autowired
     ICensusCacheDao _censusCacheDao;
 
+    Logger _log = Logger.getLogger(SchoolProfileStatsController.class);
+
     @RequestMapping(method= RequestMethod.GET)
     public Map<String,Object> handle(HttpServletRequest request,
                                      HttpServletResponse response
@@ -56,8 +58,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
         School school = getSchool(request);
 
-        Map<String,Object> statsModel;
-        statsModel = _censusCacheDao.getMapForSchool(school);
+        Map<String,Object> statsModel = null;
+        //statsModel = _censusCacheDao.getMapForSchool(school);
 
         if (statsModel == null) {
             statsModel = new HashMap<String,Object>();
@@ -100,13 +102,14 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                     _schoolProfileCensusHelper.getCensusDataSets(request),
                     schoolValueMap, districtValueMap, stateValueMap);
 
+
             System.out.println("Combining took " + (System.nanoTime()-start)/1000000 + " milliseconds");
 
             statsModel.put("dataTypeSourceMap", dataTypeSourceMap);
             statsModel.put("censusStateConfig", _schoolProfileCensusHelper.getCensusStateConfig(request));
             statsModel.put("statsRows", groupIdToStatsRows);
 
-            cacheStatsModel(statsModel, school);
+            //cacheStatsModel(statsModel, school);
         }
 
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool(request);
@@ -147,7 +150,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
         // Data Type ID --> text label
         // TODO: get from cache
-        /*Map<Integer,String> dataTypeIdsToLabels = getDataTypeLabels();*/
         for (Map.Entry<Integer,CensusDataSet> entry : censusDataSets.entrySet()) {
             Set<Integer> configuredDataTypeIds = config.allDataTypeIds();
 
@@ -183,7 +185,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             SchoolCensusValue schoolCensusValue = schoolValueMap.get(censusDataSetId);
             if (schoolCensusValue != null) {
                 if (schoolCensusValue.getValueFloat() != null) {
-                    schoolValue = formatValue(schoolCensusValue.getValueFloat(), dataTypeEnum.getValueType());
+                    schoolValue = formatValueAsString(schoolCensusValue.getValueFloat(), dataTypeEnum.getValueType());
                 } else {
                     schoolValue = String.valueOf(schoolCensusValue.getValueText());
                 }
@@ -193,7 +195,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             DistrictCensusValue districtCensusValue = districtValueMap.get(censusDataSetId);
             if (districtCensusValue != null) {
                 if (districtCensusValue.getValueFloat() != null) {
-                    districtValue = formatValue(districtCensusValue.getValueFloat(), dataTypeEnum.getValueType());
+                    districtValue = formatValueAsString(districtCensusValue.getValueFloat(), dataTypeEnum.getValueType());
                 } else {
                     districtValue = String.valueOf(districtCensusValue.getValueText());
                 }
@@ -203,7 +205,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             StateCensusValue stateCensusValue = stateValueMap.get(censusDataSetId);
             if (stateCensusValue != null) {
                 if (stateCensusValue.getValueFloat() != null) {
-                    stateValue = formatValue(stateCensusValue.getValueFloat(), dataTypeEnum.getValueType());
+                    stateValue = formatValueAsString(stateCensusValue.getValueFloat(), dataTypeEnum.getValueType());
                 } else {
                     stateValue = String.valueOf(stateCensusValue.getValueText());
                 }
@@ -235,6 +237,20 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             }
         }
 
+
+        // Sort ethnicities based on school / state value
+        Long ethnicityTableGroupId = 6l;
+        List<StatsRow> statsRows = statsRowMap.get(ethnicityTableGroupId);
+        Collections.sort(statsRows, new Comparator<StatsRow>() {
+            public int compare(StatsRow statsRow1, StatsRow statsRow2) {
+                Float row1Value = formatValueAsFloat(statsRow1.getSchoolValue());
+                Float row2Value = formatValueAsFloat(statsRow2.getSchoolValue());
+                // reverse sort
+                return row2Value.compareTo(row1Value);
+            }
+        });
+
+
         return statsRowMap;
     }
 
@@ -242,7 +258,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         return !StringUtils.isEmpty(value) && !"N/A".equalsIgnoreCase(value);
     }
 
-    private String formatValue(Float value, CensusDataType.ValueType valueType) {
+    private String formatValueAsString(Float value, CensusDataType.ValueType valueType) {
         String result;
         if (CensusDataType.ValueType.PERCENT.equals(valueType)) {
             result = String.valueOf(Math.round(value)) + "%";
@@ -250,6 +266,24 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             result = "$" + String.valueOf(value);
         } else {
             result = String.valueOf(Math.round(value));
+        }
+
+        return result;
+    }
+
+    private Float formatValueAsFloat(String value) {
+        Float result = 0f;
+
+        if (StringUtils.isBlank(value)) {
+            return result;
+        }
+
+        value = value.replaceAll("[^0-9.]", "");
+
+        try {
+            result = new Float(value);
+        } catch (NumberFormatException e) {
+            _log.debug("Could not format " + value + " to float.", e);
         }
 
         return result;
