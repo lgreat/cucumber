@@ -162,8 +162,17 @@
             </tr>
             </table>
 
-        <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${requestScope.cityObject.name}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopCitiesFooter=${'true'}&amp;linkToSchoolChoice=${'true'}" />
-        
+        <!-- GS-12882: if New York data is not available for launch, uncomment choose statement so boundary marketing material isn't shown for NY -->
+        <!-- otherwise remove unnecessary code. -->
+        <!--<c:choose>-->
+            <!--<c:when test="${stateAbbrev eq 'NY'}">-->
+                <!--<jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${requestScope.cityObject.name}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showTopCitiesFooter=${'true'}&amp;linkToSchoolChoice=${'true'}" />-->
+            <!--</c:when>-->
+            <!--<c:otherwise>-->
+                <jsp:include page="/school/compareFooter.module?state=${stateAbbrev}&amp;city=${requestScope.cityObject.name}&amp;stateFullName=${requestScope.context.stateOrDefault.longName}&amp;showBoundaryMapFooter=${'true'}&amp;linkToSchoolChoice=${'true'}" />
+            <!--</c:otherwise>-->
+        <!--</c:choose>-->
+
         <mod:tracking pageName="Nearby Cities"
                       locale="${city}"
                       hier1="Home,City Home,Nearby Cities"/>

@@ -88,6 +88,12 @@
                               alt="Best Schools for Your Housing Dollars"/>
                 </link:cmsContent>
             </c:when>
+            <c:when test="${param.showBoundaryMapFooter ne null and param.showBoundaryMapFooter eq true}">
+                <link:boundaryMap>
+                    <gsml:img src="/res/img/promo/boundaryMap/districtBoundaries_269x113.jpg"
+                              alt="Find school district boundaries by city. Convenient tool lets you see school district boundaries for every city across the country."/>
+                </link:boundaryMap>
+            </c:when>
 
             <c:otherwise>
                 <link:movingWithKids>
