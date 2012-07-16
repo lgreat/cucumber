@@ -4,14 +4,11 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.LevelCode;
 import gs.web.ControllerFamily;
-import gs.web.IControllerFamilyFactory;
 import gs.web.IControllerFamilySpecifier;
 import org.apache.log4j.Logger;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
-import org.springframework.web.servlet.mvc.AbstractController;
-import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,10 +23,10 @@ import java.util.Map;
  * Time: 1:14 PM
  * To change this template use File | Settings | File Templates.
  */
-public class NearbySchoolSearchController extends AbstractCommandController implements IControllerFamilySpecifier {
-    private static final Logger _log = Logger.getLogger(NearbySchoolSearchController.class);
+public class NearbySchoolSearchController2012 extends AbstractCommandController implements IControllerFamilySpecifier {
+    private static final Logger _log = Logger.getLogger(NearbySchoolSearchController2012.class);
 
-    private SchoolSearchController _schoolSearchController;
+    private SchoolSearchController2012 _schoolSearchController2012;
     private IGeoDao _geoDao;
     private ControllerFamily _controllerFamily;
 
@@ -82,7 +79,7 @@ public class NearbySchoolSearchController extends AbstractCommandController impl
         searchCommand.setLon((double)zip.getLon());
         searchCommand.setState(zip.getState().getAbbreviationLowerCase());
 
-        return _schoolSearchController.handle(request, response, searchCommand, e);
+        return _schoolSearchController2012.handle(request, response, searchCommand, e);
     }
 
     private static String buildRedirectUrl(String redirectUrl, String distance, String selectedGradeLevel) {
@@ -97,12 +94,12 @@ public class NearbySchoolSearchController extends AbstractCommandController impl
                 (selectedGradeLevel != null ? "&gradeLevels=" + selectedGradeLevel : "");
     }
 
-    public SchoolSearchController getSchoolSearchController() {
-        return _schoolSearchController;
+    public SchoolSearchController2012 getSchoolSearchController2012() {
+        return _schoolSearchController2012;
     }
 
-    public void setSchoolSearchController(SchoolSearchController schoolSearchController) {
-        _schoolSearchController = schoolSearchController;
+    public void setSchoolSearchController2012(SchoolSearchController2012 schoolSearchController2012) {
+        _schoolSearchController2012 = schoolSearchController2012;
     }
 
     public IGeoDao getGeoDao() {

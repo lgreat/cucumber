@@ -601,6 +601,16 @@
     </bean>
 
     <bean name="/search/nearbySearch.page"
+          class="org.springframework.stereotype.Controller" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="nearbySearch"/>
+                <ref bean="nearbySearch2012"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean name="nearbySearch"
           class="gs.web.search.NearbySchoolSearchController" autowire="byName" lazy-init="true">
         <property name="schoolSearchController" ref="schoolSearchController"/>
         <property name="commandName">
@@ -614,6 +624,24 @@
         <property name="commandClass">
             <value>gs.web.search.NearbySchoolSearchCommand</value>
         </property>
+        <property name="controllerFamily" value="DESKTOP"/>
+    </bean>
+
+    <bean name="nearbySearch2012"
+          class="gs.web.search.NearbySchoolSearchController2012" autowire="byName" lazy-init="true">
+        <property name="schoolSearchController2012" ref="schoolSearchController2012"/>
+        <property name="commandName">
+            <value>nearbySchoolSearchCommand</value>
+        </property>
+        <property name="validators">
+            <list>
+                <ref local="nearbySchoolSearchCommandValidator"/>
+            </list>
+        </property>
+        <property name="commandClass">
+            <value>gs.web.search.NearbySchoolSearchCommand</value>
+        </property>
+        <property name="controllerFamily" value="FRUITCAKE"/>
     </bean>
 
     <!-- Search end -->
