@@ -12,25 +12,28 @@ define(['localStorage', 'tracking'], function(localStorage, tracking) {
             disabled = true;
         }
 
-        saveSchoolButton.click( function() {
-            if(disabled === false && localStorage.enabled === true) {
-                disabled = true;
-                saveSchoolButton.removeClass('but-2').addClass('but-2-inactive').text('Saving...');
-                if (saveSchool(schoolSave, state_schoolId)) {
-                    tracking.clear();
-                    tracking.successEvents = 'event68';
-                    tracking.send();
-                    saveSchoolButton.text('Saved');
-                } else {
-                    alert("To save schools, turn Private Browsing OFF in your browser settings.");
-                    saveSchoolButton.addClass('but-2').removeClass('but-2-inactive').text('Save');
+        if (!disabled) {
+            saveSchoolButton.on('click.saver', function() {
+                if(disabled === false && localStorage.enabled === true) {
+                    disabled = true;
+                    saveSchoolButton.removeClass('but-2').addClass('but-2-inactive').text('Saving...');
+                    if (saveSchool(schoolSave, state_schoolId)) {
+                        tracking.clear();
+                        tracking.successEvents = 'event68';
+                        tracking.send();
+                        saveSchoolButton.text('Saved');
+                        saveSchoolButton.off('click.saver');
+                    } else {
+                        alert("To save schools, turn Private Browsing OFF in your browser settings.");
+                        saveSchoolButton.addClass('but-2').removeClass('but-2-inactive').text('Save');
+                        disabled = false;
+                    }
+                } else if (localStorage.enabled === false) {
+                    alert("To save schools you must have local storage enabled.");
                     disabled = false;
                 }
-            } else {
-                alert("To save schools you must have local storage enabled.");
-                disabled = false;
-            }
-        });
+            });
+        }
     };
 
     var saveSchool = function(schoolSave, state_schoolId) {
