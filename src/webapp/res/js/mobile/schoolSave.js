@@ -8,7 +8,7 @@ define(['localStorage', 'tracking'], function(localStorage, tracking) {
         var disabled = false;
         var schoolMap = localStorage.getItem(schoolMapKey);
         if(schoolMap !== null && schoolMap.SchoolMap[0].hasOwnProperty(state_schoolId) === true) {
-            saveSchoolButton.removeClass('but-2').addClass('but-2-inactive').text('Saved');
+            saveSchoolButton.removeClass('but-2').addClass('but-2-inactive').text('Saved').on('click', function() {return false;});
             disabled = true;
         }
 
@@ -32,6 +32,7 @@ define(['localStorage', 'tracking'], function(localStorage, tracking) {
                     alert("To save schools you must have local storage enabled.");
                     disabled = false;
                 }
+                return false;
             });
         }
     };
