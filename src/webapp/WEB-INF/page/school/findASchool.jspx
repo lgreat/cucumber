@@ -338,22 +338,44 @@
                 <h6 class="bottom">Moving?</h6>
 
                 <div class="js-cabinet">
+                    <!-- GS-12882 -->
                     <ul class="bottom"> <!-- bullet type: disc/square/circle-->
+                        <li>
+                            <a href="/school-district-boundaries-map/">Discover school district boundaries with our new map tool</a>
+                        </li>
                         <li>
                             <a href="/find-a-school/moving/3986-choosing-a-school-from-a-distance.gs?page=1">How to choose schools from afar</a>
                         </li>
                         <li>
                             <a href="/parenting/health-nutrition/2375-neighborhoods-and-kids-well-being.gs?page=1">Choosing a healthy neighborhood</a>
                         </li>
+                    </ul>
+                    <ul class="bottom js-drawer hide">
                         <li>
                             <a href="/find-a-school/moving/173-help-your-child-with-the-transition.gs?page=1">Helping your child move schools</a>
                         </li>
-                    </ul>
-                    <ul class="bottom js-drawer hide">
                         <li>
                             <a href="/improvement/volunteering/490-school-finance-issues.gs?page=1">Learning what districts spend per pupil</a>
                         </li>
                     </ul>
+                    <!-- Remove above and uncomment below to restore previous functionality -->
+                    <!--<ul class="bottom"> &lt;!&ndash; bullet type: disc/square/circle&ndash;&gt;-->
+                        <!--<li>-->
+                            <!--<a href="/find-a-school/moving/3986-choosing-a-school-from-a-distance.gs?page=1">How to choose schools from afar</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="/parenting/health-nutrition/2375-neighborhoods-and-kids-well-being.gs?page=1">Choosing a healthy neighborhood</a>-->
+                        <!--</li>-->
+                        <!--<li>-->
+                            <!--<a href="/find-a-school/moving/173-help-your-child-with-the-transition.gs?page=1">Helping your child move schools</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    <!--<ul class="bottom js-drawer hide">-->
+                        <!--<li>-->
+                            <!--<a href="/improvement/volunteering/490-school-finance-issues.gs?page=1">Learning what districts spend per pupil</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    <!-- End GS-12882 -->
                     <p class="small">
                         <a href="javascript:void(0);" onclick="if (s.tl) {s.tl(true,'o','FAS_More_Moving');}"
                            class="js-open">More <span class="alertDoubleArrow">&amp;raquo;</span></a>
