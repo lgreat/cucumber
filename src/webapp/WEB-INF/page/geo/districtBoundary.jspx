@@ -55,8 +55,8 @@
 </head>
 <gsml:body adPageName="districtBoundary" pageLayout="leftside">
 <div class="slStylesV1-0  slFormsV1-0 mtl tac">
-<div class="phs tal"><h1 class="pbn mbn">School and District Boundaries Map</h1>
-    <p>Researching schools in your neighborhood is a snap with our interactive map tool. Enter your address or ZIP code to see school attendance and district boundary lines. Or browse your options based on a city and state. Go ahead and give it a spin.</p>
+<div class="phs tal"><h1 class="bottom">School and District Boundaries Map</h1>
+    <p class="mtm">Researching schools in your neighborhood is a snap with our interactive map tool. Enter your address or ZIP code to see school attendance and district boundary lines. Or browse your options based on a city and state. Go ahead and give it a spin.</p>
 </div>
 <div class="mod standard_4-1 tal">
     <div class="outer">
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="districtListDiv" class="mlm ptl">
+                        <div id="districtListDiv" class="mlm ptm">
                             <h6 class="bottom" id="district_name_header">District name</h6>
                             <hr class="keyline2"/>
                             <div class="mvm">
@@ -99,7 +99,7 @@
                             </div>
                         </div>
 
-                        <div class="mlm  ptl">
+                        <div class="mlm  ptm">
                             <h6 class="bottom">Grade level</h6>
                             <hr class="keyline2"/>
                             <div class="mvm">
@@ -121,7 +121,7 @@
                             </div>
                         </div>
 
-                        <div id="schoolListWrapper" class="hidden  ptl">
+                        <div id="schoolListWrapper" class="hidden  ptm">
                             <h6 class="mlm bottom">Schools in District</h6>
 
                             <div id="schoolListDiv">
@@ -212,10 +212,10 @@
                                 <div class="js_address"><!-- not empty --></div>
                                 <div class="mbm">
                                     <div class="media attribution js_homesforsale">
-                                        <div class="img">
+                                        <div class="img di prs mrn">
                                             <span class="iconx16 i-16-home-sales vam"><!-- do not collapse --></span>
                                         </div>
-                                        <div class="bd">
+                                        <div class="di mln pln">
                                             <a href="" class="vam">Homes for sale</a>
                                         </div>
                                     </div>
@@ -263,57 +263,53 @@
     </div>
     <hr class="keyline2"/>
     <!-- TODO: update legend -->
-    <div class="mtm">
-        <div class="alpha grid_2">
-            <div class="media attribution">
-                <div class="img mrs">
+    <div class="mtm tal grid_16">
+
+            <div class="media attribution fl mrm">
+                <div class="img prs">
                     <span class="iconx24 i-24-district"><!-- do not collapse --></span>
                 </div>
                 <div class="bd">
                     <span class="smaller">District</span>
                 </div>
             </div>
-        </div>
-        <div class="grid_3">
-            <div class="media attribution">
-                <div class="img mrs">
+
+            <div class="media attribution fl mrm">
+                <div class="img prs">
                     <span class="iconx24 i-24-private-school"><!-- do not collapse --></span>
                 </div>
                 <div class="bd">
-                    <span class="smaller">Private School</span>
+                    <span class="smaller">Private&amp;nbsp;School</span>
                 </div>
             </div>
-        </div>
-        <div class="grid_4">
-            <div class="media attribution">
-                <div class="img mrs">
+
+            <div class="media attribution fl mrm">
+                <div class="img prs ">
                     <span class="iconx24 i-24-public-charter-school"><!-- do not collapse --></span>
                 </div>
-                <div class="bk">
-                    <span class="smaller">Public/Charter School</span>
+                <div class="bd">
+                    <span class="smaller">Public/Charter&amp;nbsp;School</span>
                 </div>
             </div>
-        </div>
-        <div class="grid_4">
-            <div class="media attribution">
-                <div class="img mrs">
+
+            <div class="media attribution fl mrm">
+                <div class="img prs">
                     <span class="iconx24 i-24-school-enrollment"><!-- do not collapse --></span>
                 </div>
                 <div class="bd">
-                    <span class="smaller">School Enrollment</span>
+                    <span class="smaller">School&amp;nbsp;Enrollment</span>
                 </div>
             </div>
-        </div>
-        <div class="grid_4 omega">
-            <div class="media attribution">
-                <div class="img mrs">
+
+            <div class="media attribution fl">
+                <div class="img prs">
                     <span class="iconx24 i-24-district-boundary"><!-- do not collapse --></span>
                 </div>
                 <div class="bd">
-                    <span class="smaller">District Boundary</span>
+                    <span class="smaller">District&amp;nbsp;Boundary</span>
                 </div>
             </div>
-        </div>
+
     </div>
 </div>
 
