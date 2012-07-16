@@ -33,11 +33,12 @@ Boundaries.prototype = {
     constructor: Boundaries
 
     , boundary: function (obj) {
-        var found = false;
+        var found = false, deferred = new jQuery.Deferred();
         $.each(this.getPolygons(), $.proxy(function(index, value) {
             if ( value.key == obj.getKey() ){
                 this.getPolygons()[index].setMap(this.getMap());
                 found = true;
+                obj.polygon = this.getPolygons()[index];
             } else {
                 if (obj.getType()=='district' || (obj.getType()=='school' && value.type=='school')){
                     this.getPolygons()[index].setMap(null);
@@ -49,6 +50,8 @@ Boundaries.prototype = {
             polygon.setMap(this.getMap());
             this.getPolygons().push(polygon);
         }
+        deferred.resolve(obj);
+        return deferred.promise();
     }
 
     , center: function (option) {
@@ -147,9 +150,23 @@ Boundaries.prototype = {
     }
 
     , focus: function (obj) {
+
+        var districtKey = null;
         if (obj.getType()=='district'){
             this.hide('school');
+        } else {
+            districtKey = 'district-' + obj.state + '-' +obj.districtId;
         }
+
+        this.shown(function(markers){
+            for (var i=0; i<markers.length; i++) {
+                if (markers[i].key == obj.getKey() || (districtKey && districtKey==markers[i].key)){
+                    markers[i].setZIndex(5);
+                } else if(markers[i].getZIndex() > 3) {
+                    markers[i].setZIndex((markers[i].type=='school')?2:3);
+                }
+            }
+        });
         this.boundary(obj);
         this.info(obj);
         this.trigger('focus', obj);
