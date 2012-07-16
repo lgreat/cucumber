@@ -266,46 +266,46 @@
     <div class="mtm tal grid_16">
 
             <div class="media attribution fl mrm">
-                <div class="img prs">
+                <div class="img prs di">
                     <span class="iconx24 i-24-district"><!-- do not collapse --></span>
                 </div>
-                <div class="bd">
+                <div class="bd di vam">
                     <span class="smaller">District</span>
                 </div>
             </div>
 
             <div class="media attribution fl mrm">
-                <div class="img prs">
+                <div class="img prs di">
                     <span class="iconx24 i-24-private-school"><!-- do not collapse --></span>
                 </div>
-                <div class="bd">
+                <div class="bd di vam">
                     <span class="smaller">Private&amp;nbsp;School</span>
                 </div>
             </div>
 
             <div class="media attribution fl mrm">
-                <div class="img prs ">
+                <div class="img prs di">
                     <span class="iconx24 i-24-public-charter-school"><!-- do not collapse --></span>
                 </div>
-                <div class="bd">
+                <div class="bd di vam">
                     <span class="smaller">Public/Charter&amp;nbsp;School</span>
                 </div>
             </div>
 
             <div class="media attribution fl mrm">
-                <div class="img prs">
+                <div class="img prs di">
                     <span class="iconx24 i-24-school-enrollment"><!-- do not collapse --></span>
                 </div>
-                <div class="bd">
+                <div class="bd di vam">
                     <span class="smaller">School&amp;nbsp;Enrollment</span>
                 </div>
             </div>
 
             <div class="media attribution fl">
-                <div class="img prs">
+                <div class="img prs di">
                     <span class="iconx24 i-24-district-boundary"><!-- do not collapse --></span>
                 </div>
-                <div class="bd">
+                <div class="bd di vam">
                     <span class="smaller">District&amp;nbsp;Boundary</span>
                 </div>
             </div>
