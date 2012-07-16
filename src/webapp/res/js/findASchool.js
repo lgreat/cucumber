@@ -43,6 +43,8 @@ GS.findASchool.submitByLocationSearch = function() {
 //                byLocationForm.find('input[name="partialMatch"]').val(geocodeResult['partial_match']);
                 byLocationForm.find('input[name="normalizedAddress"]').val(geocodeResult['normalizedAddress']);
                 byLocationForm.find('input[name="totalResults"]').val(geocodeResult['totalResults']);
+                byLocationForm.find('input[name="city"]').val(geocodeResult['city']);
+                byLocationForm.find('input[name="zipCode"]').val(geocodeResult['zipCode']);
 
                 window.setTimeout(GS.findASchool.loadResultsPage, 1);
             } else {
@@ -117,6 +119,12 @@ GS.findASchool.gsGeocode = function(searchInput, callbackFunction) {
                     }
                     if (results[x].address_components[i].types.contains('country')) {
                         geocodeResult['country'] = results[x].address_components[i].short_name;
+                    }
+                    if (results[x].address_components[i].types.contains('postal_code')) {
+                        geocodeResult['zipCode'] = results[x].address_components[i].short_name;
+                    }
+                    if (results[x].address_components[i].types.contains('locality')) {
+                        geocodeResult['city'] = results[x].address_components[i].long_name;
                     }
                 }
                 // http://stackoverflow.com/questions/1098040/checking-if-an-associative-array-key-exists-in-javascript

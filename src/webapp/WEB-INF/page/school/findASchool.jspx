@@ -58,6 +58,8 @@
                 <input type="hidden" name="sortBy" value="DISTANCE"/>
                 <input type="hidden" name="normalizedAddress" value=""/>
                 <input type="hidden" name="totalResults" value="0"/>
+                <input type="hidden" name="city"/>
+                <input type="hidden" name="zipCode"/>
 
                 <div class="searchBarFas">
                     <h6 class="fltlft bottom"><input type="text" name="searchString" class="searchInput small bottom"
