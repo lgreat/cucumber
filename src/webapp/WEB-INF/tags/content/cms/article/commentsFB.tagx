@@ -62,7 +62,7 @@
         </ul>
         </c:if>
         <![CDATA[
-        <div class="fb_comments_min_height"><fb:comments href="${pageScope.feature.permaLinkForFbComments}" num_posts="3" width="${fbWidth}"><!--  sdgf  --></fb:comments></div>]]>
+        <div class="fb_comments_min_height"><fb:comments href="${pageScope.feature.permaLinkForFbComments}" num_posts="8" width="${fbWidth}"><!--  sdgf  --></fb:comments></div>]]>
         <!--<div class="fb-comments" data-href="${pageScope.feature.permaLink}" data-num-posts="3" data-width="${fbWidth}">&lt;!&ndash; &ndash;&gt;</div>-->
 
 
