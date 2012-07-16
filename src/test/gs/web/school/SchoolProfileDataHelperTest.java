@@ -251,7 +251,8 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
     }
 
     private Map<String,List<EspResponse>> convertToEspData(List<EspResponse> l) {
-        return SchoolProfileDataHelper.espResultsToMap( l );
+//        return SchoolProfileDataHelper.espResultsToMap( l );
+        return EspResponse.rollup(l);
     }
 
     // Create a pretty value by capitalizing thr first character and removing underscores

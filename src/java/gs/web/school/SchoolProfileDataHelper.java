@@ -101,7 +101,7 @@ public class SchoolProfileDataHelper {
 
                 // For performance reasons convert the results to a HashMap.  The key will be the espResponseKey
                 // and the value will be the corresponding list of EspResponse objects
-                espData = espResultsToMap(results);
+                espData = EspResponse.rollup(results);
 
                 request.setAttribute( ESP_DATA_REQUEST_ATTRIBUTE, espData ); // Save in request for future use
             }
@@ -114,27 +114,28 @@ public class SchoolProfileDataHelper {
         return espData;
     }
 
-    protected static Map<String, List<EspResponse>> espResultsToMap(List<EspResponse> results) {
-
-        Map<String, List<EspResponse>> resultsMap = new HashMap<String, List<EspResponse>>();
-
-        // Loop over the incoming results and construct the Map
-        for( EspResponse r : results ) {
-            String key = r.getKey();
-            List<EspResponse> existingList = resultsMap.get( key );
-            if( existingList != null ) {
-                // add to existing list
-                existingList.add( r );
-            }
-            else {
-                // Create new list and add to HashMap
-                List<EspResponse> newList = new ArrayList<EspResponse>();
-                newList.add( r );
-                resultsMap.put( key, newList );
-            }
-        }
-        return resultsMap;
-    }
+// The same functionality is includes in EspResponse.
+//    protected static Map<String, List<EspResponse>> espResultsToMap(List<EspResponse> results) {
+//
+//        Map<String, List<EspResponse>> resultsMap = new HashMap<String, List<EspResponse>>();
+//
+//        // Loop over the incoming results and construct the Map
+//        for( EspResponse r : results ) {
+//            String key = r.getKey();
+//            List<EspResponse> existingList = resultsMap.get( key );
+//            if( existingList != null ) {
+//                // add to existing list
+//                existingList.add( r );
+//            }
+//            else {
+//                // Create new list and add to HashMap
+//                List<EspResponse> newList = new ArrayList<EspResponse>();
+//                newList.add( r );
+//                resultsMap.put( key, newList );
+//            }
+//        }
+//        return resultsMap;
+//    }
 
     protected List<SchoolMedia> getSchoolMedia(HttpServletRequest request) {
 

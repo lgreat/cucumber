@@ -352,7 +352,8 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
     }
 
     private Map<String,List<EspResponse>> convertToEspData(List<EspResponse> l) {
-        return SchoolProfileDataHelper.espResultsToMap( l );
+//        return SchoolProfileDataHelper.espResultsToMap( l );
+        return EspResponse.rollup(l);
     }
 
 

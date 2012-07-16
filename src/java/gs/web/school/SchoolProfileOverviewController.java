@@ -236,7 +236,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 // It has the following format if all of the data is present.  If data is not present pieces get dropped.
                 // “school.city’s school.name is a school.type school serving ENROLLMENT students in grades X – Y.
                 // It is school.subtype and school.affiliation affiliated. The school belongs to the following
-                // associations: school.association.”
+                // associations: school.association.�?
                 StringBuilder sentence = new StringBuilder();
                 // From the spec create sentence 1.1 if the data is present
                 if( school.getCity()!=null && school.getCity().length()>0 ) {
@@ -317,16 +317,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                     // Finally build the sentence if any attributes are present
                     if( sentence2Attributes.size() > 0 ) {
                         sentence.append( " It is " );
-                        int size = sentence2Attributes.size();
-                        for( int i = 0; i < size; i++ ) {
-                            sentence.append(sentence2Attributes.get(i));
-                            if( i < size-2 ) {
-                                sentence.append(", ");
-                            }
-                            else if( i==size-2 ) {
-                                sentence.append(" and ");
-                            }
-                        }
+                        sentence.append( prettyCommaSeparatedString(sentence2Attributes) );
                         // has affiliation need to add "affiliated.", otherwise remove last space and add period
                         if( affiliation!=null && affiliation.length()>0 ) {
                             sentence.append( " affiliated. " );
@@ -410,15 +401,15 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 hasSpecEdCoord || isNotEmpty(beforeAfterCare) || isNotEmpty(beforeAfterCareStart) ||
                 isNotEmpty(beforeAfterCareEnd) ) {
             displayDefault = true;
-            specialEdModel.put( "SpecEdDisplaySelected", "default" ); // To help with unit tests
+            specialEdModel.put( "content", "default" ); // To help with unit tests
         }
         else {
             displayDefault = false;
-            specialEdModel.put( "SpecEdDisplaySelected", "substitute" ); // To help with unit tests
+            specialEdModel.put( "content", "substitute" ); // To help with unit tests
         }
 
         if( displayDefault ) {
-            // ========== Display Default content ==========
+            // 
             // ------------- Special Education -------------
             // For the default content there are 4 display options and if none of those conditions are met there is static text to display
             if( hasSpecEdLevelSpecified || isNotEmpty(specEdPgmsExist) || isNotEmpty(specEdPgms) || hasAcademicFocus ||
@@ -510,17 +501,32 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                     specialEdModel.put( "ExtdCareTitle", "Extended care" );
                 }
             }
+            specialEdModel.put( "content", "default" );
         }
         else {
-            // ========== Substitute action ==========
-            // 7/12/12 - Design is in progress.  Will not be nearby schools
-//            List<NearbySchool> nearbySchools = _schoolProfileDataHelper.getNearbySchools(request, 10);
-//
-//            specialEdModel.put( "nearbySchools", nearbySchools );
-            // ------------- Special Education -------------
+            // 
+            // Teachers and staff Autotext
+            List<EspResponse> administrator = espData.get("administrator_name");
+            List<EspResponse> staffResources = espData.get("staff_resources");
+            List<EspResponse> staffResourcesWoNone = copyAndRemove( staffResources, new String[]{"none"} );
 
-            // ------------- Extended Care -------------
+            if( isNotEmpty(administrator) || isNotEmpty(staffResourcesWoNone) ){
+                StringBuilder sentence = new StringBuilder();
+                // Sentence 1, about the school administrator
+                if( isNotEmpty( administrator ) ) {
+                    sentence.append( administrator.get(0).getPrettyValue() );
+                    sentence.append( " leads this school. " );
+                }
 
+                // Sentence 2, about the staff resources
+                if( isNotEmpty( staffResourcesWoNone ) ) {
+                    sentence.append( "Staff includes ");
+                    sentence.append( prettyCommaSeparatedStringOfEspResponse( staffResourcesWoNone ) );
+                }
+
+                specialEdModel.put( "teachersStaff", sentence.toString() );
+                specialEdModel.put( "content", "substitute" );
+            }
         }
 
         return specialEdModel;
@@ -601,27 +607,41 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         else {
             // Substitute action.  Need to decide if 1 or 2
             /* Wait until Samson enhances the data helper */
-            Map<CensusDataType, List<CensusDataSet>> censusDataTypesToDataSets = _schoolProfileDataHelper.getSchoolCensusValues(request);
-
-
-
-            if( censusDataTypesToDataSets!=null ) {
-                List<CensusDataSet> classSize = censusDataTypesToDataSets.get( CensusDataType.CLASS_SIZE );
-                List<CensusDataSet> studentsPerTeacher = censusDataTypesToDataSets.get( CensusDataType.STUDENT_TEACHER_RATIO );
-
+            boolean substitute1Ok = false;
+            Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
+            if( censusValues!=null ) {
+                List<CensusDataSet> classSize = censusValues.get( CensusDataType.CLASS_SIZE );
+                List<CensusDataSet> studentsPerTeacher = censusValues.get( CensusDataType.STUDENT_TEACHER_RATIO );
                 // Substitute action 1
-                if( classSize != null && classSize.size() > 0 && classSize.get(0).getSchoolData() != null) {
-                    model.put( "substitute1ClassSize", ((SchoolCensusValue) classSize.get(0).getSchoolData()).getValueInteger() );
+                // There are a lot of places an NPE can occur so just do a try/catch and see what happens
+                if( isNotEmpty(classSize) ) {
+                    try {
+                        SchoolCensusValue [] csv = (SchoolCensusValue [])classSize.get(0).getSchoolData().toArray(new SchoolCensusValue[1]);
+                        model.put("substitute1ClassSize", csv[0].getValueInteger());
+                        model.put( "content", "substitute1" );
+                        substitute1Ok = true;
+                    }
+                    catch( NullPointerException e ) {
+                        // Nothing to do
+                    }
                 }
-                else if( studentsPerTeacher != null && studentsPerTeacher.size() > 0 && studentsPerTeacher.get(0).getSchoolData() != null) {
-                    model.put( "substitute1StudentsPerTeacher", ((SchoolCensusValue) studentsPerTeacher.get(0).getSchoolData()).getValueInteger() );
+                else if( isNotEmpty(studentsPerTeacher) ) {
+                    try {
+                        SchoolCensusValue [] csv = (SchoolCensusValue [])studentsPerTeacher.get(0).getSchoolData().toArray(new SchoolCensusValue[1]);
+                        model.put("substitute1StudentsPerTeacher", csv[0].getValueInteger());
+                        model.put( "content", "substitute1" );
+                        substitute1Ok = true;
+                    }
+                    catch( NullPointerException e ) {
+                        // Nothing to do
+                    }
                 }
                 else {
+                    model.put( "content", "substitute2" );
                     // Static test will be displayed.
                 }
-                model.put( "content", "substitute1" );
             }
-            else {
+            if( substitute1Ok == false ) {
                 // Substitute action 2
                 model.put( "content", "substitute2" );
                 // Static test will be displayed.
@@ -1167,6 +1187,36 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
 
         return sb.toString();
+    }
+
+    /**
+     * Utility routine to convert a List of strings into a comma separated list but with 'and' instead
+     * of a comma for the last item
+     * @param attributes The list to convert
+     * @return the converted list
+     */
+    private String prettyCommaSeparatedString(List<String> attributes) {
+        StringBuilder sentence = new StringBuilder();
+        int size = attributes.size();
+        for( int i = 0; i < size; i++ ) {
+            sentence.append(attributes.get(i));
+            if( i < size-2 ) {
+                sentence.append(", ");
+            }
+            else if( i==size-2 ) {
+                sentence.append(" and ");
+            }
+        }
+        return sentence.toString();
+    }
+
+    private String prettyCommaSeparatedStringOfEspResponse( List<EspResponse> attributes ) {
+        List<String> stringList = new ArrayList<String>( attributes.size() );
+        for( EspResponse r : attributes ) {
+            stringList.add( r.getPrettyValue() );
+        }
+        String result = prettyCommaSeparatedString( stringList );
+        return result;
     }
 
     // The following setter dependency injection is just for the tester

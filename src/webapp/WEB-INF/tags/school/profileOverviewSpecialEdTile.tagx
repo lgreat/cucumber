@@ -17,7 +17,7 @@
     <jsp:directive.attribute name="specialEdModel" type="java.lang.Object" required="true"/>
 
     <!-- The display variable contains 'default' or 'substitute' for which content to display -->
-    <c:set var="display" value="${specialEdModel['SpecEdDisplaySelected']}" scope="page"/>
+    <c:set var="content" value="${specialEdModel['content']}" scope="page"/>
     <!-- specEdPgms contins a list of the special ed programs available.  If present they should be listed -->
     <c:set var="specEdPgms" value="${specialEdModel['SpecEdPgms']}" scope="page"/>
     <!-- specEdPgmsProvided describes the types of spec ed pgms provided.  It can contain:
@@ -32,9 +32,11 @@
     <c:set var="extdCareBefore"   value="${specialEdModel['ExtdCareBefore']}" scope="page" />
     <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
 
+    <!-- sentence for substitute -->
+    <c:set var="sentence"    value="${specialEdModel['teachersStaff']}"  scope="page" />
 
     <c:choose>
-        <c:when test="${display eq 'default'}">
+        <c:when test="${content eq 'default'}">
             <school:profileOverviewCell1 title="Special education">
                 <!-- Default Special Education display -->
                 <c:choose>
@@ -72,8 +74,8 @@
         </c:when>
         <c:otherwise>
             <!-- ============ Substitute display - Nearby schools ========== -->
-            <school:profileOverviewCell1 title="Nearby schools">
-                <div class="">TODO - need to build nearby schools</div>
+            <school:profileOverviewCell1 title="Teacher/staff info">
+                <div class="">${sentence}</div>
             </school:profileOverviewCell1>
         </c:otherwise>
         </c:choose>

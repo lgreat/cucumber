@@ -115,13 +115,13 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add(createEspResponse("XXX", "yyy"));
 
         // This path need school data
-        _school.setName( "Test school" );
+        _school.setName("Test school");
         _school.setCity("San Francisco");
         _school.setType(SchoolType.PUBLIC);
         _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY);
         SchoolSubtype subType = SchoolSubtype.create("special_education_program,high,all_male,nonprofit,Core_Knowledge");
         _school.setSubtype(subType);
-        _school.setGradeLevels( new Grades("PK,KG,1,2,3,4,5,6"));
+        _school.setGradeLevels(new Grades("PK,KG,1,2,3,4,5,6"));
         _school.setAssociation("NCEA, CEC, NAEYC");
         _school.setAffiliation( "Roman Catholic" );
 
@@ -132,10 +132,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertEquals("testGsRatingsSubstitute2A: content wrong", "substitute2", content);
         String autotext = (String) resultsModel.get( "autotext" );
         System.out.println( "testGsRatingsSubstitute2A: autotext is " + autotext );
-        assertTrue( "testGsRatingsSubstitute2A: beginning autotext wrong: " + autotext, autotext.startsWith( "San Francisco's Test school is a public school serving") );
-        assertTrue( "testGsRatingsSubstitute2A: ending autotext wrong: " + autotext, autotext.endsWith( "The school belongs to the following associations: NCEA, CEC, NAEYC.") );
-        assertTrue( "testGsRatingsSubstitute2A: ending autotext wrong: " + autotext, autotext.indexOf( "in grades")>0 );
-        assertTrue( "testGsRatingsSubstitute2A: middle autotext wrong: " + autotext, autotext.indexOf( "It is all male")>0 );
+        assertTrue("testGsRatingsSubstitute2A: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
+        assertTrue("testGsRatingsSubstitute2A: ending autotext wrong: " + autotext, autotext.endsWith("The school belongs to the following associations: NCEA, CEC, NAEYC."));
+        assertTrue("testGsRatingsSubstitute2A: ending autotext wrong: " + autotext, autotext.indexOf("in grades") > 0);
+        assertTrue("testGsRatingsSubstitute2A: middle autotext wrong: " + autotext, autotext.indexOf("It is all male") > 0);
     }
 
     // Test Substitute 2 - No associations, no affiliations and only all_male
@@ -146,13 +146,13 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add(createEspResponse("XXX", "yyy"));
 
         // This path need school data
-        _school.setName( "Test school" );
+        _school.setName("Test school");
         _school.setCity("San Francisco");
         _school.setType(SchoolType.PUBLIC);
         _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY);
         SchoolSubtype subType = SchoolSubtype.create("all_male");
         _school.setSubtype(subType);
-        _school.setGradeLevels( new Grades("PK,KG,1,2,3,4,5,6"));
+        _school.setGradeLevels(new Grades("PK,KG,1,2,3,4,5,6"));
 
         Map map = runController( convertToEspData( l ) );
 
@@ -160,10 +160,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         String content = (String) resultsModel.get("content");
         assertEquals("testGsRatingsSubstitute2B: content wrong", "substitute2", content);
         String autotext = (String) resultsModel.get( "autotext" );
-        System.out.println( "testGsRatingsSubstitute2B: autotext is " + autotext );
-        assertTrue( "testGsRatingsSubstitute2B: beginning autotext wrong: " + autotext, autotext.startsWith( "San Francisco's Test school is a public school serving") );
-        assertTrue( "testGsRatingsSubstitute2B: ending autotext wrong: " + autotext, autotext.indexOf( "The school belongs to the following associations")==-1 );
-        assertTrue( "testGsRatingsSubstitute2B: middle autotext wrong: " + autotext, autotext.indexOf( "It is all male")>0 );
+        System.out.println("testGsRatingsSubstitute2B: autotext is " + autotext);
+        assertTrue("testGsRatingsSubstitute2B: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
+        assertTrue("testGsRatingsSubstitute2B: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
+        assertTrue("testGsRatingsSubstitute2B: middle autotext wrong: " + autotext, autotext.indexOf("It is all male") > 0);
     }
 
     // Test Substitute 2 - No associations, no affiliations and no subtypes
@@ -174,11 +174,11 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add(createEspResponse("XXX", "yyy"));
 
         // This path need school data
-        _school.setName( "Test school" );
+        _school.setName("Test school");
         _school.setCity("San Francisco");
         _school.setType(SchoolType.PUBLIC);
-        _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY);
-        _school.setGradeLevels( new Grades("PK,KG,1,2,3,4,5,6"));
+        _school.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
+        _school.setGradeLevels(new Grades("PK,KG,1,2,3,4,5,6"));
 
         Map map = runController( convertToEspData( l ) );
 
@@ -186,10 +186,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         String content = (String) resultsModel.get("content");
         assertEquals("testGsRatingsSubstitute2C: content wrong", "substitute2", content);
         String autotext = (String) resultsModel.get( "autotext" );
-        System.out.println( "testGsRatingsSubstitute2C: autotext is " + autotext );
-        assertTrue( "testGsRatingsSubstitute2C: beginning autotext wrong: " + autotext, autotext.startsWith( "San Francisco's Test school is a public school serving") );
-        assertTrue( "testGsRatingsSubstitute2C: ending autotext wrong: " + autotext, autotext.indexOf( "The school belongs to the following associations")==-1 );
-        assertTrue( "testGsRatingsSubstitute2C: middle autotext wrong: " + autotext, autotext.indexOf( "It is ")==-1 );
+        System.out.println("testGsRatingsSubstitute2C: autotext is " + autotext);
+        assertTrue("testGsRatingsSubstitute2C: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
+        assertTrue("testGsRatingsSubstitute2C: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
+        assertTrue("testGsRatingsSubstitute2C: middle autotext wrong: " + autotext, autotext.indexOf("It is ") == -1);
     }
 
     // Test Substitute 2 - No associations, no affiliations and no subtypes and grade AE
@@ -203,8 +203,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setName( "Test school" );
         _school.setCity("San Francisco");
         _school.setType(SchoolType.PUBLIC);
-        _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY);
-        _school.setGradeLevels( new Grades("AE"));
+        _school.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
+        _school.setGradeLevels(new Grades("AE"));
 
         Map map = runController( convertToEspData( l ) );
 
@@ -212,10 +212,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         String content = (String) resultsModel.get("content");
         assertEquals("testGsRatingsSubstitute2E: content wrong", "substitute2", content);
         String autotext = (String) resultsModel.get( "autotext" );
-        System.out.println( "testGsRatingsSubstitute2D: autotext is " + autotext );
-        assertTrue( "testGsRatingsSubstitute2D: beginning autotext wrong: " + autotext, autotext.startsWith( "San Francisco's Test school is a public school serving") );
-        assertTrue( "testGsRatingsSubstitute2D: ending autotext wrong: " + autotext, autotext.indexOf( "The school belongs to the following associations")==-1 );
-        assertTrue( "testGsRatingsSubstitute2D: middle autotext wrong: " + autotext, autotext.indexOf( "It is ")==-1 );
+        System.out.println("testGsRatingsSubstitute2D: autotext is " + autotext);
+        assertTrue("testGsRatingsSubstitute2D: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
+        assertTrue("testGsRatingsSubstitute2D: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
+        assertTrue("testGsRatingsSubstitute2D: middle autotext wrong: " + autotext, autotext.indexOf("It is ") == -1);
     }
 
     // Test Substitute 2 - No associations, no affiliations and no subtypes and ungraded
@@ -226,12 +226,12 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add(createEspResponse("XXX", "yyy"));
 
         // This path need school data
-        _school.setName( "Test school" );
+        _school.setName("Test school");
         _school.setCity("San Francisco");
         _school.setType(SchoolType.PUBLIC);
-        _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY);
+        _school.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
         Grades grades = Grades.createGrades(Grade.UNGRADED);
-        _school.setGradeLevels( grades );
+        _school.setGradeLevels(grades);
 
         Map map = runController( convertToEspData( l ) );
 
@@ -240,8 +240,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertEquals("testGsRatingsSubstitute2E: content wrong", "substitute2", content);
         String autotext = (String) resultsModel.get( "autotext" );
         System.out.println( "testGsRatingsSubstitute2E: autotext is " + autotext );
-        assertTrue( "testGsRatingsSubstitute2E: beginning autotext wrong: " + autotext, autotext.startsWith( "San Francisco's Test school is a public school serving") );
-        assertTrue( "testGsRatingsSubstitute2E: ending autotext wrong: " + autotext, autotext.indexOf( "The school belongs to the following associations")==-1 );
+        assertTrue("testGsRatingsSubstitute2E: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
+        assertTrue("testGsRatingsSubstitute2E: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
         assertTrue( "testGsRatingsSubstitute2E: ungraded autotext wrong: " + autotext, autotext.indexOf( "ungraded")!=-1 );
     }
 
@@ -315,7 +315,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map map = runController( convertToEspData( l ) );
 
         Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
-        assertEquals( "testSpecEd1: Substitute content expected", "substitute", resultsModel.get("SpecEdDisplaySelected") );
+        assertFalse( "testSpecEd1: Substitute content expected", resultsModel.get("content").equals("default") );
         System.out.println("testSpecEd1 successful");
     }
 
@@ -559,6 +559,81 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
         assertEquals( "testExtdCareTitleC: default content expected", "Extended programs", resultsModel.get( "ExtdCareTitle") );
         System.out.println( "testExtdCareTitleC successful" );
+    }
+
+    // Tests the Special Education substitute (Teachers/staff) - no administrator
+    public void testSpecEdSubstitute1A() {
+
+        // *** Test Default content not selected
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "staff_resources", "art_teacher" ) );
+
+
+        Map map = runController( convertToEspData( l ) );
+
+        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
+        String sentence = (String) resultsModel.get("teachersStaff");
+        assertTrue( "testSpecEdSubstitute1A: Substitute content expected content not found", sentence.indexOf("Art teacher")>0 );
+        assertTrue( "testSpecEdSubstitute1A: Substitute content expected content not found", sentence.indexOf("Staff includes")==0 );
+        System.out.println("testSpecEdSubstitute1A successful");
+    }
+
+    // Tests the Special Education substitute (Teachers/staff) - no administrator, multiple staff_resources
+    public void testSpecEdSubstitute1B() {
+
+        // *** Test Default content not selected
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "staff_resources", "art_teacher" ) );
+        l.add( createEspResponse( "staff_resources", "computer_specialist" ) );
+
+
+        Map map = runController( convertToEspData( l ) );
+
+        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
+        String sentence = (String) resultsModel.get("teachersStaff");
+        assertTrue( "testSpecEdSubstitute1B: Substitute content expected content not found", sentence.indexOf("Art teacher")>0 );
+        assertTrue( "testSpecEdSubstitute1B: Substitute content expected content not found", sentence.indexOf("Computer specialist")>0 );
+        assertTrue( "testSpecEdSubstitute1B: Substitute content expected content not found", sentence.indexOf("Staff includes")==0 );
+        System.out.println("testSpecEdSubstitute1B successful");
+    }
+
+    // Tests the Special Education substitute (Teachers/staff) - administrator and 'none' staff_resources
+    public void testSpecEdSubstitute1C() {
+
+        // *** Test Default content not selected
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "administrator_name", "Ben Jones" ) );
+        l.add( createEspResponse( "staff_resources", "none" ) );
+
+
+        Map map = runController( convertToEspData( l ) );
+
+        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
+        String sentence = (String) resultsModel.get("teachersStaff");
+        assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf("Ben Jones")==0 );
+        assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf("Staff includes")==-1 );
+        System.out.println("testSpecEdSubstitute1C successful");
+    }
+
+    // Tests the Special Education substitute (Teachers/staff) - no administrator
+    public void testSpecEdSubstitute1D() {
+
+        // *** Test Default content not selected
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "administrator_name", "Ben Jones" ) );
+        l.add( createEspResponse( "staff_resources", "art_teacher" ) );
+        l.add( createEspResponse( "staff_resources", "ell_esl_coord" ) );
+        l.add( createEspResponse( "staff_resources", "gifted_specialist" ) );
+
+
+        Map map = runController( convertToEspData( l ) );
+
+        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
+        String sentence = (String) resultsModel.get("teachersStaff");
+        assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf("Ben Jones")==0 );
+        assertTrue( "testSpecEdSubstitute1D: Substitute content expected content not found", sentence.indexOf("Art teacher")>0 );
+        assertTrue( "testSpecEdSubstitute1D: Substitute content expected content not found", sentence.indexOf("Gifted specialist")>0 );
+        System.out.println("testSpecEdSubstitute1D successful");
     }
 
     // ========= Tests for Transportation default content ========
@@ -1056,7 +1131,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     private Map<String,List<EspResponse>> convertToEspData(List<EspResponse> l) {
-        return SchoolProfileDataHelper.espResultsToMap( l );
+//        return SchoolProfileDataHelper.espResultsToMap( l );
+        return EspResponse.rollup(l);
     }
 
 
