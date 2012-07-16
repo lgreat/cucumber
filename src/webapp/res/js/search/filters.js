@@ -51,7 +51,8 @@ GS.search.filters = GS.search.filters || (function() {
         'sports',
         'artsAndMusic',
         'studentClubs',
-        'ratingCategories'
+        'ratingCategories',
+        'staffResources'
     ];
 
     // strings must match checkbox group field names
