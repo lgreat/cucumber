@@ -174,7 +174,7 @@
                 </div></div></div>
         <!-- end reviewColumn1 -->
         <div class="grid_11 omega" id="reviewColumn2">
-            <school:profileSchoolReviewForm school="${school}" pageName="parentReviews"/>
+            <school:profileSchoolReviewForm school="${school}" pageName="profileReviews"/>
         </div>
         <!-- end reviewColumn2 -->
         <div class="spacer_15"><!-- do not collapse --></div>
@@ -438,5 +438,10 @@
     </div>
     </div>
 ${aboutTheseRatings}
-
+<script type="text/javascript">
+    jQuery(function () {
+        jQuery('#js-bubbleInfo-1').popup({appear:'below',leftPosition:-8,topPosition:8});
+        jQuery('#js-bubbleInfo-7').popup({appear:'above',leftPosition:-38,topPosition:-120});
+    });
+</script>
 </jsp:root>
