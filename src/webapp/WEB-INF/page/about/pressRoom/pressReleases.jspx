@@ -30,7 +30,7 @@
 
 <ad:setSlotPrefix slotPrefix="Press_Releases"/>
 
-<gsml:body adPageName="pressReleases" pageLayout="pressReleases">
+<gsml:body adPageName="pressReleases" pageLayout="pressReleases nocol">
 
     <div class="pageTitle">
         <h2>GreatSchools Press Releases</h2>

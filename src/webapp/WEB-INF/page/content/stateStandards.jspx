@@ -91,7 +91,7 @@
 </head>
 <c:set var="pageName" value="State Standards"/>
 <ad:setSlotPrefix slotPrefix="Library_Microsite_State_Standards"/>
-<gsml:body adPageName="content/stateStandards" pageLayout="stateStandards" startAdHierarchyAtPage="true">
+<gsml:body adPageName="content/stateStandards" pageLayout="stateStandards nocol" startAdHierarchyAtPage="true">
 <div>
     <div class="wrapBorder">
         <jsp:include page="/content/leftNav.module" />
@@ -183,4 +183,3 @@
 
 </html>
 </jsp:root>
-

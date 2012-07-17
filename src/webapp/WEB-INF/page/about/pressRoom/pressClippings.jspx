@@ -30,7 +30,7 @@
 
 <ad:setSlotPrefix slotPrefix="Press_Clippings"/>
 
-<gsml:body adPageName="pressClippings" pageLayout="pressClippings">
+<gsml:body adPageName="pressClippings" pageLayout="pressClippings nocol">
 
     <div class="pageTitle">
         <h2>GreatSchools in the News</h2>
