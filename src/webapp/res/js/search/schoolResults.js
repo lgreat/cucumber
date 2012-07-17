@@ -229,11 +229,15 @@ GS.search.results = GS.search.results || (function() {
         }
 
         var state = { queryString: "queryString"};
-        history.pushState(state, start, queryString);
+
+        if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+            // use HTML 5 history API to rewrite the current URL to represent the new state.
+            history.pushState(state, start, queryString);
+        }
 
         $.ajax({
             type: 'POST',
-            url: document.location
+            url: url() + queryString
         }).done(function(data) {
                 renderDataForMap(data);
                 GS.util.htmlMirrors.updateAll();

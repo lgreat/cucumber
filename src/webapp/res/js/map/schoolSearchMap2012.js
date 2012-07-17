@@ -136,7 +136,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
             zIndex: null,
             boxStyle: {
                 opacity: 1,
-                width: "320px",
+                width: "320px"
             },
             closeBoxMargin: "8px 8px 0 8px",
             closeBoxURL:"/res/img/googleMaps/16x16_close.png",
@@ -274,7 +274,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
     var showInfoBox = function(marker, infoBox, schoolIdentifier) {
         var div = document.createElement('div');
         div.innerHTML = marker.infoWindowMarkup;
-        div.style = "background: white";
+        div.setAttribute('style', 'background: white');
         $(div).tabs();
         infoBox.setContent(div);
         infoBox.open(map, marker);
