@@ -55,7 +55,7 @@ jQuery(document).ready(function() {
         $("#js_"+destination).triggerHandler('click').stopPropagation();
         return false;
     }
-    starRating(16, 5, "overallStarRating");
+    starRatingInterface("starRatingContainer1", 16, 5, "overallStarRating");
 
     var $parents = $('#showParents')
         , $students = $('#showStudents')
@@ -97,14 +97,14 @@ jQuery(document).ready(function() {
  * @param overallSR     sets the hidden value of a form field
  */
 
-function starRating(iconW, starsT, overallSR){
+function starRatingInterface(containerS, iconW, starsT, overallSR){
     /* star rating */
     var iconWidth = iconW;
     var totalStars = starsT;
     var iconStr =  "i-"+iconWidth+"-star-";
     var removeClassStr = "";
-    var starsOn = $('#starRatingContainer .starsOn');
-    var starsOff = $('#starRatingContainer .starsOff');
+    var starsOn = $('#'+containerS+' .starsOn');
+    var starsOff = $('#'+containerS+' .starsOff');
     var overallStarRating = $("#"+overallSR);
 
     for(var i=1; i<=totalStars; i++){
@@ -113,7 +113,8 @@ function starRating(iconW, starsT, overallSR){
             removeClassStr += " ";
         }
     }
-    $('#starRatingContainer').mousemove(function(e){
+    $('#'+containerS).mousemove(function(e){
+
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
         var currentStar = Math.floor(x/iconWidth) +1;
@@ -121,7 +122,8 @@ function starRating(iconW, starsT, overallSR){
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentStar);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
     });
-    $('#starRatingContainer').click(function(e){
+    $('#'+containerS).click(function(e){
+
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
         var currentStar = Math.floor(x/iconWidth) +1;
@@ -132,7 +134,8 @@ function starRating(iconW, starsT, overallSR){
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
 
     });
-    $('#starRatingContainer').mouseout(function(e){
+    $('#'+containerS).mouseout(function(e){
+
         var currentRating = overallStarRating.val();
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentRating);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentRating));
