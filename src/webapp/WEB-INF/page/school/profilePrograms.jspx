@@ -74,13 +74,13 @@ where each entry is the first bean for that section, this allows access to the s
                     <li><a id="js_highlights" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_highlights')}" title="${schoolName} | Highlights" class="${requestScope.schoolProfileTabMap.highlights}">Highlights</a></li>
                 </c:if>
                 <c:if test="${(!empty applicationtab)}">
-                    <li><a id="js_application" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_application')}" title="${schoolName} | Application Info" class="${requestScope.schoolProfileTabMap.application}">Application Info</a></li>
+                    <li><span class="graydivider">|</span><a id="js_application" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_application')}" title="${schoolName} | Application Info" class="${requestScope.schoolProfileTabMap.application}">Application Info</a></li>
                 </c:if>
                 <c:if test="${(!empty programsresourcestab)}">
-                    <li><a id="js_programsresources" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_programsresources')}" title="${schoolName} | Programs and Resources" class="${requestScope.schoolProfileTabMap.programsresources}">Programs &amp; Resources</a></li>
+                    <li><span class="graydivider">|</span><a id="js_programsresources" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_programsresources')}" title="${schoolName} | Programs and Resources" class="${requestScope.schoolProfileTabMap.programsresources}">Programs &amp; Resources</a></li>
                 </c:if>
                 <c:if test="${(!empty extracurricularstab)}">
-                    <li><a id="js_extracurriculars" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_extracurriculars')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.extracurriculars}">Extracurriculars</a></li>
+                    <li><span class="graydivider">|</span><a id="js_extracurriculars" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_extracurriculars')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.extracurriculars}">Extracurriculars</a></li>
                 </c:if>
             </ul>
 
