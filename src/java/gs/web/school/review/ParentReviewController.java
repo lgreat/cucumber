@@ -139,21 +139,23 @@ public class ParentReviewController extends AbstractController implements IContr
             int fromIndex = _parentReviewHelper.findFromIndex(page, reviews);
             int toIndex = _parentReviewHelper.findToIndex(page, fromIndex, reviews);
 
-            // page param is invalid number -- too high or too low, so redirect to first page and preserve any request params
             List<Review> reviewsToShow = new ArrayList<Review>();
             if (reviews.size()==0 || sessionContext.isCrawler() || StringUtils.isNotEmpty(request.getParameter(ParentReviewHelper.PARAM_VIEW_ALL))){
                 reviewsToShow = reviews;
             }
             else {
-                if (fromIndex >= toIndex || fromIndex < 0) {
+                if (fromIndex == 1 && toIndex == 1) {
+                    // the only published review is a principal review, so no other reviews to show
+                } else if (fromIndex >= toIndex || fromIndex < 0) {
+                    // page param is invalid number -- too high or too low, so redirect to first page and preserve any request params
                     String queryString = request.getQueryString();
                     if (queryString != null) {
                         queryString = UrlUtil.putQueryParamIntoQueryString(queryString, "page", "1");
                     }
                     return new ModelAndView(new RedirectView(request.getRequestURI() + (queryString != null ? "?" + queryString : "")));
+                } else {
+                    reviewsToShow = _parentReviewHelper.handlePagination(request, reviews, page, fromIndex, toIndex);
                 }
-
-                reviewsToShow = _parentReviewHelper.handlePagination(request, reviews, page, fromIndex, toIndex);
             }
             model.put("reviewsToShow", reviewsToShow);
             model.put("page", page);
