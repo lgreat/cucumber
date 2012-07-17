@@ -42,7 +42,6 @@
         if (enableGomez != null &amp;&amp; Boolean.valueOf(enableGomez)) {
             request.setAttribute("enableGomez", true);
         }
-        request.setAttribute("enableGomez", true);
     </jsp:scriptlet>
     <c:if test="${not empty enableGomez and enableGomez eq true}">
         <script language="JavaScript">
