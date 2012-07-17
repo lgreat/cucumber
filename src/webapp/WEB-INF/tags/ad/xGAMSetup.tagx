@@ -157,7 +157,7 @@
         </c:if>
 
         <![CDATA[
-            if(googletag.pubads() !== undefined) {
+            if(googletag.pubads !== undefined) {
         ]]>
             <c:forEach var="slotName" items="${GAMadNames}">
                 <c:set var="adPosition" value="${GPTadNameAdPositionMap[slotName]}"/>
