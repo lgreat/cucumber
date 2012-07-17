@@ -13,14 +13,20 @@ public class ContactUsCommand implements ICaptchaCommand {
         incorrectSchoolDistrictInfo_incorrectDistrict,
         schoolRatingsReviews,
         esp,
-        join
+        join,
+        gsRatings,
+        newsletters,
+        advertising,
+        licensing,
+        other
     }
     private FeedbackType _feedbackType = FeedbackType.defaultOption;
     private SchoolInfoFields _schoolInfoFields;
     private DistrictInfoFields _districtInfoFields;
-    private JoinFields _schoolRatingsReviewsFields;
+    private GeneralFields _schoolRatingsReviewsFields;
+    private GeneralFields _gsRatingsFields;
     private EspFields _espFields;
-    private JoinFields _joinFields;
+    private GeneralFields _generalFields;
     private String submitterName;
     private String submitterEmail;
     private String _schoolId;
@@ -33,9 +39,10 @@ public class ContactUsCommand implements ICaptchaCommand {
     public ContactUsCommand() {
         _schoolInfoFields = new SchoolInfoFields();
         _districtInfoFields = new DistrictInfoFields();
-        _schoolRatingsReviewsFields = new JoinFields();
+        _schoolRatingsReviewsFields = new GeneralFields();
+        _gsRatingsFields = new GeneralFields();
         _espFields = new EspFields();
-        _joinFields = new JoinFields();
+        _generalFields = new GeneralFields();
     }
 
     public FeedbackType getFeedbackType() {
@@ -62,12 +69,20 @@ public class ContactUsCommand implements ICaptchaCommand {
         _districtInfoFields = districtInfoFields;
     }
 
-    public JoinFields getSchoolRatingsReviewsFields() {
+    public GeneralFields getSchoolRatingsReviewsFields() {
         return _schoolRatingsReviewsFields;
     }
 
-    public void setSchoolRatingsReviewsFields(JoinFields schoolRatingsReviewsFields) {
+    public void setSchoolRatingsReviewsFields(GeneralFields schoolRatingsReviewsFields) {
         _schoolRatingsReviewsFields = schoolRatingsReviewsFields;
+    }
+
+    public GeneralFields getGsRatingsFields() {
+        return _gsRatingsFields;
+    }
+
+    public void setGsRatingsFields(GeneralFields gsRatingsFields) {
+        _gsRatingsFields = gsRatingsFields;
     }
 
     public EspFields getEspFields() {
@@ -78,12 +93,12 @@ public class ContactUsCommand implements ICaptchaCommand {
         _espFields = espFields;
     }
 
-    public JoinFields getJoinFields() {
-        return _joinFields;
+    public GeneralFields getGeneralFields() {
+        return _generalFields;
     }
 
-    public void setJoinFields(JoinFields joinFields) {
-        _joinFields = joinFields;
+    public void setGeneralFields(GeneralFields generalFields) {
+        _generalFields = generalFields;
     }
 
     public String getSubmitterName() {

@@ -8,6 +8,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:about="urn:jsptagdir:/WEB-INF/tags/about"
+          xmlns:feedback="urn:jsptagdir:/WEB-INF/tags/about/feedback"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsweb="gstaglib"
           xmlns:link="urn:www.greatschools.org/taglib/link"
@@ -52,7 +53,9 @@
 
                 $j('div.jqFeedback').hide();
                 $j('#' + selectedValue + 'Feedback').show();
-                if (selectedValue == 'schoolRatingsReviews' || selectedValue == 'esp' || selectedValue == 'join') {
+                if (selectedValue == 'schoolRatingsReviews' || selectedValue == 'esp' || selectedValue == 'join' ||
+                    selectedValue == 'gsRatings' || selectedValue == 'newsletters' ||
+                    selectedValue == 'advertising' || selectedValue == 'licensing' || selectedValue == 'other') {
                     var captchaDiv = selectedValue + '_captcha';
                     Recaptcha.create(
                             "6LdG4wkAAAAAAHVSQPDpiPPjz4w5PB28eZj8yhlL",
@@ -131,6 +134,7 @@
 
             setupStateCityAjax("schoolInfoFields");
             setupStateCityAjax("schoolRatingsReviewsFields");
+            setupStateCityAjax("gsRatingsFields");
             setupStateCityAjax("espFields");
 
             // Do this last
@@ -161,8 +165,11 @@
 
 <gsml:body adPageName="contactUs" pageLayout="leftside">
 
-<div class="grid_24">
-<p class="breadcrumbs smallAlertText">
+<!-- WARNING: The slStylesV1-0 class is applied only to the breadcrumbs and heading only ON PURPOSE.
+              It would require a lot of CSS changes the rest of the contact us page to switch everything
+              to new styles, so we're not going to tackle that right now. -->
+<div class="slStylesV1-0 grid_24">
+<p class="smaller mvm">
     <link:home>Home</link:home>
     &amp;gt;
     <link:contactUs>Contact Us</link:contactUs>
@@ -172,7 +179,6 @@
 
 </div>
 
-<div class="spacer_15"><!-- do not collapse --></div>
 <div class="grid_5">
     <about:aboutGreatSchools selected="contactUs"/>
 </div>
@@ -197,10 +203,10 @@
             <option value="incorrectSchoolDistrictInfo">Incorrect or missing school/district information</option>
             <option value="gsRatings">GreatSchools Ratings &amp;amp; test scores</option>
             <option value="schoolRatingsReviews">School ratings &amp;amp; reviews</option>
-            <option value="articlesCommunity">Articles &amp;amp; community</option>
             <option value="newsletters">Newsletters</option>
             <option value="esp">Official School Profiles for school administrators</option>
-            <option value="advertising">Advertising &amp;amp; partnerships</option>
+            <option value="advertising">Advertising</option>
+            <option value="licensing">Licensing</option>
             <option value="join">Trouble joining or signing in</option>
             <option value="other">Something else</option>
         </select>
@@ -662,29 +668,11 @@
 <div id="gsRatingsFeedback" class="jqFeedback" style="display: none;">
     <p class="text2">
         Have questions, ideas, problems, or praise about GreatSchools Ratings or test score information?
-        Post in our feedback community with the form below!
     </p>
+
     <div class="spacer_10"><!-- do not collapse --></div>
-    <script type="text/javascript" charset="utf-8">
-        var is_ssl = ("https:" == document.location.protocol);
-        var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-        document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
 
-    <script type="text/javascript" charset="utf-8">
-        var feedback_widget_options = {};
-
-        feedback_widget_options.display = "inline";
-        feedback_widget_options.company = "greatschools";
-
-        feedback_widget_options.style = "question";
-        feedback_widget_options.product = "greatschools_greatschools_ratings_test_scores";
-
-        feedback_widget_options.limit = "3";
-
-        var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-    </script>
-
+    <feedback:generalFormWithSchoolSelection feedbackType="gsRatings"/>
 </div>
 
 <!-- *********************************** -->
@@ -703,219 +691,20 @@
 
     <div class="spacer_10"><!-- do not collapse --></div>
 
-    <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
-               id="schoolRatingsReviews"
-               onsubmit="schoolRatingsReviews_challenge.value = Recaptcha.get_challenge(); schoolRatingsReviews_response.value = Recaptcha.get_response();">
-
-        <fieldset class="fieldset1 bg-fff">
-            <legend class="legend1">
-                <span class="legend1-position">Your Details</span>
-            </legend>
-            <ol class="formlist1">
-
-                <input type="hidden" name="feedbackType" value="schoolRatingsReviews"/>
-                <form:hidden path="challenge" id="schoolRatingsReviews_challenge"/>
-                <form:hidden path="response" id="schoolRatingsReviews_response"/>
-
-                <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="submitterName" for="schoolRatingsReviews_submitterName">
-                        Your name <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
-                    </form:label>
-                    <form:input cssClass="text1-ededed" path="submitterName" id="schoolRatingsReviews_submitterName"/>
-                    <!--<form:errors path="submitterName"/>-->
-                    <form:errors path="submitterName">
-                        <c:forEach items="${messages}" var="message"> 
-                            <strong class="errorMessage1 formErrorText">
-                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                            </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-
-                <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="submitterEmail" for="schoolRatingsReviews_submitterEmail">
-                        Your email <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
-                    </form:label>
-                    <form:input cssClass="text1-ededed" path="submitterEmail" id="schoolRatingsReviews_submitterEmail"/>
-                    <!--<form:errors path="submitterEmail"/>-->
-                    <form:errors path="submitterEmail">
-                        <c:forEach items="${messages}" var="message">
-                            <strong class="errorMessage1 formErrorText">
-                                &amp;nbsp;<span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                            </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-
-            </ol>
-        </fieldset>
-
-        <fieldset class="fieldset1 bg-ebebeb">
-            <legend class="legend1">
-                <span class="legend1-position">School Details</span>
-            </legend>
-            <ol class="formlist1">
-                <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="state" for="schoolRatingsReviewsFields.state">State
-                        <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></form:label>
-                    <form:select path="state" id="schoolRatingsReviewsFields.state">
-                        <form:options items="${requestScope.allStateOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <!--<form:errors path="state"/>-->
-                    <form:errors path="state">
-                        <c:forEach items="${messages}" var="message"> 
-                            <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                            </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-
-                <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="cityName" for="schoolRatingsReviewsFields.cityName">City
-                        <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></form:label>
-                    <form:select path="cityName" id="schoolRatingsReviewsFields.cityName">
-                        <form:option value="" label="- Choose city -"/>
-                        <form:options items="${requestScope.cityOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <!--<form:errors path="cityName"/>-->
-                    <form:errors path="cityName">
-                        <c:forEach items="${messages}" var="message"> 
-                            <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                            </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-
-                <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="schoolId" for="schoolRatingsReviewsFields.schoolId">School
-                        <em class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></form:label>
-                    <form:select path="schoolId" id="schoolRatingsReviewsFields.schoolId">
-                        <form:option value="" label="- Choose School -"/>
-                        <form:options items="${requestScope.schoolOptions}" itemValue="value" itemLabel="name"/>
-                    </form:select>
-                    <!--<form:errors path="schoolId"/>-->
-                    <form:errors path="schoolId">
-                        <c:forEach items="${messages}" var="message"> 
-                            <strong class="errorMessage1 formErrorText"><span
-                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                            </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-
-                <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="schoolRatingsReviewsFields.comment"
-                                for="schoolRatingsComment">Comment <em
-                            class="sprite i-required requiredIndicator1"><!-- do not collapse --></em><strong
-                            class="helperMessage2 formHelperText">If you are submitting a correction, list both the information as it appears on our site and your corrected version.</strong></form:label>
-                    <form:textarea cssClass="text1-fff" id="schoolRatingsComment"
-                                   path="schoolRatingsReviewsFields.comment" rows="10" cols="40"/>
-                    <!--<form:errors path="schoolRatingsReviewsFields.comment"/>-->
-                    <form:errors path="schoolRatingsReviewsFields.comment">
-                        <c:forEach items="${messages}" var="message"> 
-                            <strong class="textarea1 errorMessage1 formErrorText"><span
-                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                            </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-
-                <li class="fl1-item">
-                    <div class="captcha" id="schoolRatingsReviews_captcha">
-                        <!-- no collapse -->
-                    </div>
-                    <!--<form:errors path="response"/>-->
-                    <form:errors path="response">
-                        <c:forEach items="${messages}" var="message"> 
-                            <strong class="captcha errorMessage1 formErrorText"><span
-                                    class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                            </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-            </ol>
-        </fieldset>
-        <!--<input type="submit" name="Submit" value="submit"/>-->
-        <fieldset class="fs1-submit">
-            <button class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit</button>
-        </fieldset>
-        <br class="clearfloat"/>
-    </form:form>
-
-    <div class="spacer_25"><!-- do not collapse --></div>
-    <div class="helperMessage3 formText1"><span
-            class="sprite i-required"><!-- do not collapse --></span>&amp;nbsp;Indicates a required field
-    </div>
-    <div class="spacer_15"><!-- do not collapse --></div>
-    <p class="alertBox1 text3">
-        <span class="sprite i-alert"><!-- do not collapse --></span>
-        &amp;nbsp;Note: GreatSchools is an independent nonprofit organization. We do not have information about
-        school calendars, job openings, transcripts or classmates. For these topics, please contact the
-        school or district directly.
-    </p>
-</div>
-
-<!-- ***************************** -->
-<!-- ** 7. Articles & community ** -->
-<!-- ***************************** -->
-<div id="articlesCommunityFeedback" class="jqFeedback" style="display: none;">
-    <p class="text2">Have questions, ideas, problems, or praise about our articles or community? Post in our feedback community with the form below!</p>
-    <div class="spacer_10"><!-- do not collapse --></div>
-    <script type="text/javascript" charset="utf-8">
-        var is_ssl = ("https:" == document.location.protocol);
-        var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-        document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-
-    <script type="text/javascript" charset="utf-8">
-        var feedback_widget_options = {};
-
-        feedback_widget_options.display = "inline";
-        feedback_widget_options.company = "greatschools";
-
-
-        feedback_widget_options.style = "question";
-        feedback_widget_options.product = "greatschools_articles_community";
-
-
-        feedback_widget_options.limit = "3";
-
-
-        var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-    </script>
+    <feedback:generalFormWithSchoolSelection feedbackType="schoolRatingsReviews"/>
 </div>
 
 <!-- ******************** -->
-<!-- ** 8. Newsletters ** -->
+<!-- ** 7. Newsletters ** -->
 <!-- ******************** -->
 <div id="newslettersFeedback" class="jqFeedback" style="display: none;">
-    <p class="text2">Have questions, ideas, problems, or praise about our newsletters? Post in our feedback community with the form below!</p>
+    <p class="text2">Have questions, ideas, problems, or praise about our newsletters?</p>
     <div class="spacer_10"><!-- do not collapse --></div>
-    <script type="text/javascript" charset="utf-8">
-        var is_ssl = ("https:" == document.location.protocol);
-        var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/" : "http://s3.amazonaws.com/getsatisfaction.com/";
-        document.write(unescape("%3Cscript src='" + asset_host + "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-
-    <script type="text/javascript" charset="utf-8">
-        var feedback_widget_options = {};
-
-        feedback_widget_options.display = "inline";
-        feedback_widget_options.company = "greatschools";
-
-        feedback_widget_options.style = "question";
-        feedback_widget_options.product = "greatschools_email_newsletters";
-
-        feedback_widget_options.limit = "3";
-
-        var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-    </script>
+    <feedback:generalForm feedbackType="newsletters"/>
 </div>
 
 <!-- *********************************************************** -->
-<!-- ** 9. Enhanced School Profiles for school administrators ** -->
+<!-- ** 8. Enhanced School Profiles for school administrators ** -->
 <!-- *********************************************************** -->
 <div id="espFeedback" class="jqFeedback" style="display: none;">
     <p class="text2">
@@ -1098,22 +887,40 @@
     </div>
 </div>
 
-<!-- ************************************ -->
-<!-- ** 10. Advertising & partnerships ** -->
-<!-- ************************************ -->
+<!-- ******************** -->
+<!-- ** 9. Advertising ** -->
+<!-- ******************** -->
 <div id="advertisingFeedback" class="jqFeedback" style="display: none;">
 
     <div class="spacer_20"><!-- do not collapse --></div>
     <p class="text2bold" href="#">
-        <a href="/about/partnerOpportunities.page">
-        <span class="alertDoubleArrow">&amp;raquo;</span> Detailed information on advertising or partnering with GreatSchools.
+        <a href="/about/advertiserOpportunities.page">
+        <span class="alertDoubleArrow">&amp;raquo;</span> Detailed information on advertising with GreatSchools.
         </a>
     </p>
     <div class="spacer_15"><!-- do not collapse --></div>
     <p class="text2bold">For advertising sales, please contact:</p>
     <ul class="unordered-list1 text2-d61">
-        <li class="list-item"><span class="text2">Ryan Grabenkort, Managing Director, Media, <a href="mailto:rgrabenkort@greatschools.org">rgrabenkort@greatschools.org</a>, 415.983.3810</span></li>
+        <li class="list-item"><span class="text2">Ryan Grabenkort, Managing Director, Media, <a href="mailto:rgrabenkort@greatschools.org">rgrabenkort@greatschools.org</a>, (415) 977-0700</span></li>
     </ul>
+
+    <div class="spacer_10"><!-- do not collapse --></div>
+
+    <feedback:generalForm feedbackType="advertising"/>
+
+</div>
+
+<!-- ********************* -->
+<!-- ** 10. Licensing ** -->
+<!-- ********************* -->
+<div id="licensingFeedback" class="jqFeedback" style="display: none;">
+
+    <div class="spacer_20"><!-- do not collapse --></div>
+    <p class="text2bold" href="#">
+        <a href="/about/licensing.page">
+            <span class="alertDoubleArrow">&amp;raquo;</span> Detailed information on licensing from GreatSchools.
+        </a>
+    </p>
     <div class="spacer_15"><!-- do not collapse --></div>
     <p class="text2bold">For business development and licensing, please contact:</p>
     <br/>
@@ -1123,6 +930,10 @@
         <li class="list-item"><span class="text2">Jennifer Leibick, Senior Business Development Manager</span></li>
         <li class="list-item"><span class="text2">Weezie Hough, Business Development Account Executive</span></li>
     </ul>
+
+    <div class="spacer_10"><!-- do not collapse --></div>
+
+    <feedback:generalForm feedbackType="licensing"/>
 
 </div>
 
@@ -1136,120 +947,16 @@
     </p>
 
     <div class="spacer_10"><!-- do not collapse --></div>
-    <form:form action="/about/feedback.page" method="post" commandName="feedbackCommand"
-               id="join"
-               onsubmit="join_challenge.value = Recaptcha.get_challenge(); join_response.value = Recaptcha.get_response();">
 
-        <fieldset class="fieldset1 bg-fff">
-            <legend class="legend1">
-                <span class="legend1-position">Your Details</span>
-            </legend>
-            <ol class="formlist1">
+    <feedback:generalForm feedbackType="join"/>
 
-                <input type="hidden" name="feedbackType" value="join"/>
-                <form:hidden path="challenge" id="join_challenge"/>
-                <form:hidden path="response" id="join_response"/>
-
-                <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="submitterName"
-                                for="joinFields.submitterName">Your name <em
-                            class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></form:label>
-                    <form:input cssClass="text1-ededed" path="submitterName" id="joinFields.submitterName"/>
-                    <!--<form:errors path="submitterName"/>-->
-                    <form:errors path="submitterName">
-                        <c:forEach items="${messages}" var="message">
-                             <strong class="errorMessage1 formErrorText"><span
-                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-
-                <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="submitterEmail"
-                                for="joinFields.submitterEmail">Your email <em
-                            class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></form:label>
-                    <form:input cssClass="text1-ededed" path="submitterEmail" id="joinFields.submitterEmail"/>
-                    <!--<form:errors path="submitterEmail"/>-->
-                    <form:errors path="submitterEmail">
-                        <c:forEach items="${messages}" var="message">
-                            <strong class="errorMessage1 formErrorText">
-                                <span class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                            </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-
-                <li class="fl1-item">
-                    <form:label cssClass="label1 text2bold" path="joinFields.comment">Comment <em
-                            class="sprite i-required requiredIndicator1"><!-- do not collapse --></em></form:label>
-                    <form:textarea cssClass="text1-ededed" path="joinFields.comment" rows="10" cols="40"/>
-                    <!--<form:errors path="joinFields.comment"/>-->
-                    <form:errors path="joinFields.comment">
-                        <c:forEach items="${messages}" var="message">
-                             <strong class="textarea1 errorMessage1 formErrorText"><span
-                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-
-                <li class="fl1-item">
-                    <div class="captcha" id="join_captcha">
-                        <!-- no collapse -->
-                    </div>
-                    <!--<form:errors path="response"/>-->
-                    <form:errors path="response">
-                        <c:forEach items="${messages}" var="message">
-                             <strong class="captcha errorMessage1 formErrorText"><span
-                                class="sprite i-alert"><!-- do not collapse --></span>&amp;nbsp;${message}
-                        </strong>
-                        </c:forEach>
-                    </form:errors>
-                </li>
-
-            </ol>
-        </fieldset>
-        <!--<input type="submit" name="Submit" value="submit"/>-->
-        <fieldset class="fs1-submit">
-            <button class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit</button>
-        </fieldset>
-        <br class="clearfloat"/>
-    </form:form>
-
-    <div class="spacer_25"><!-- do not collapse --></div>
-    <div class="helperMessage3 formText1"><span
-            class="sprite i-required"><!-- do not collapse --></span>&amp;nbsp;Indicates a required field
-    </div>
 </div>
 
 <!-- *********************** -->
 <!-- ** 12.Something else ** -->
 <!-- *********************** -->
 <div id="otherFeedback" class="jqFeedback" style="display: none;">
-    <script type="text/javascript" charset="utf-8">
-        var is_ssl = ("https:" == document.location.protocol);
-        var asset_host = is_ssl ? "https://s3.amazonaws.com/getsatisfaction.com/"
-                : "http://s3.amazonaws.com/getsatisfaction.com/";
-        document.write(unescape("%3Cscript src='" + asset_host +
-                "javascripts/feedback-v2.js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-
-    <script type="text/javascript" charset="utf-8">
-        var feedback_widget_options = {};
-
-        feedback_widget_options.display = "inline";
-        feedback_widget_options.company = "greatschools";
-
-
-        feedback_widget_options.style = "question";
-
-
-        feedback_widget_options.limit = "5";
-
-
-        var feedback_widget = new GSFN.feedback_widget(feedback_widget_options);
-    </script>
+    <feedback:generalForm feedbackType="other"/>
 </div>
 
 </div>

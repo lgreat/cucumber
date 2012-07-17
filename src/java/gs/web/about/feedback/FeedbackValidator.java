@@ -29,11 +29,18 @@ public class FeedbackValidator implements Validator {
             case schoolRatingsReviews:
                 validateSchoolRatingsReviews(command, errors);
                 break;
+            case gsRatings:
+                validateGsRatings(command, errors);
+                break;
             case esp:
                 validateEsp(command, errors);
                 break;
             case join:
-                validateJoin(command, errors);
+            case newsletters:
+            case advertising:
+            case licensing:
+            case other:
+                validateGeneral(command, errors);
                 break;
             default:
                 throw new RuntimeException ("No feedback type in ContactUsCommand: " + command.getFeedbackType());
@@ -74,6 +81,16 @@ public class FeedbackValidator implements Validator {
     }
 
     protected void validateSchoolRatingsReviews(ContactUsCommand command, Errors errors) {
+        validateGeneralWithSchoolSelection(command, errors);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolRatingsReviewsFields.comment", null, FIELD_REQUIRED_MSG);
+    }
+
+    protected void validateGsRatings(ContactUsCommand command, Errors errors) {
+        validateGeneralWithSchoolSelection(command, errors);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gsRatingsFields.comment", null, FIELD_REQUIRED_MSG);
+    }
+
+    private void validateGeneralWithSchoolSelection(ContactUsCommand command, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
         if (errors.getFieldErrors("submitterEmail").size() > 0) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
@@ -81,7 +98,6 @@ public class FeedbackValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolId", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cityName", null, FIELD_REQUIRED_MSG);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "state", null, FIELD_REQUIRED_MSG);
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "schoolRatingsReviewsFields.comment", null, FIELD_REQUIRED_MSG);
 
         if (errors.getFieldErrors("submitterEmail").size() == 0 && !getEmailValidator().isValid(command.getSubmitterEmail())) {
             errors.rejectValue("submitterEmail", null, "Please enter a valid email address.");
@@ -110,12 +126,12 @@ public class FeedbackValidator implements Validator {
         }
     }
 
-    protected void validateJoin(ContactUsCommand command, Errors errors) {
+    protected void validateGeneral(ContactUsCommand command, Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterName", null, FIELD_REQUIRED_MSG);
         if (errors.getFieldErrors("submitterEmail").size() > 0) {
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "submitterEmail", null, FIELD_REQUIRED_MSG);
         }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "joinFields.comment", null, FIELD_REQUIRED_MSG);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "generalFields.comment", null, FIELD_REQUIRED_MSG);
 
         if (errors.getFieldErrors("submitterEmail").size() == 0 && !getEmailValidator().isValid(command.getSubmitterEmail())) {
             errors.rejectValue("submitterEmail", null, "Please enter a valid email address.");

@@ -35,6 +35,10 @@ public class ContactUsController extends SimpleFormController {
     public static final String SHOW_CONFIRMATION_MODEL = "showConfirmMessage";
     protected static final String SUPPORT_EMAIL = "gs_support@greatschools.org";
 
+    protected static final String DATA_EMAIL = "datahelp@greatschools.org";
+    protected static final String NEWSLETTERS_EMAIL = "gsnewsletters@gmail.com";
+    protected static final String ADVERTISING_EMAIL = "rgrabenkort@greatschools.org";
+    protected static final String LICENSING_EMAIL = "bizdev@greatschools.org";
     private JavaMailSender _mailSender;
     private IGeoDao _geoDao;
     private ISchoolDao _schoolDao;
@@ -154,29 +158,52 @@ public class ContactUsController extends SimpleFormController {
 
     protected void sendSupportEmail(ContactUsCommand command, HttpServletRequest request, School school) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(SUPPORT_EMAIL);
         message.setFrom(command.getSubmitterEmail());
         message.setSentDate(new Date());
 
         switch (command.getFeedbackType()) {
             case incorrectSchoolDistrictInfo_incorrectSchool:
+                message.setTo(SUPPORT_EMAIL);
                 customizeIncorrectSchoolInfoEmail(command, message);
                 break;
             case incorrectSchoolDistrictInfo_incorrectDistrict:
+                message.setTo(SUPPORT_EMAIL);
                 customizeIncorrectDistrictInfoEmail(command, message);
                 break;
             case schoolRatingsReviews:
-                customizeSchoolRatingsReviewsEmail(command, message);
+                message.setTo(SUPPORT_EMAIL);
+                customizeGeneralEmailWithSchoolSelection(command, message, "School ratings and review feedback", command.getSchoolRatingsReviewsFields());
                 break;
             case esp:
+                message.setTo(SUPPORT_EMAIL);
                 customizeEspEmail(command, message, request, school);
                 break;
             case join:
-                customizeJoinEmail(command, message);
+                message.setTo(SUPPORT_EMAIL);
+                customizeGeneralEmail(command, message, "Trouble joining or signing in");
+                break;
+            case gsRatings:
+                message.setTo(DATA_EMAIL);
+                customizeGeneralEmailWithSchoolSelection(command, message, "School Ratings & test scores", command.getGsRatingsFields());
+                break;
+            case newsletters:
+                message.setTo(NEWSLETTERS_EMAIL);
+                customizeGeneralEmail(command, message, "Newsletters");
+                break;
+            case advertising:
+                message.setTo(ADVERTISING_EMAIL);
+                customizeGeneralEmail(command, message, "Advertising");
+                break;
+            case licensing:
+                message.setTo(LICENSING_EMAIL);
+                customizeGeneralEmail(command, message, "Licensing");
+                break;
+            case other:
+                message.setTo(SUPPORT_EMAIL);
+                customizeGeneralEmail(command, message, "Something else");
                 break;
             default:
                 throw new RuntimeException ("Invalid feedback type in ContactUsCommand: " + command.getFeedbackType());
-
         }
 
         try {
@@ -221,11 +248,10 @@ public class ContactUsController extends SimpleFormController {
         message.setText(body.toString());
     }
 
-    protected void customizeSchoolRatingsReviewsEmail(ContactUsCommand command, SimpleMailMessage message) {
+    protected void customizeGeneralEmailWithSchoolSelection(ContactUsCommand command, SimpleMailMessage message, String subject, GeneralFields fields) {
         StringBuffer body = new StringBuffer();
 
-        message.setSubject("School ratings and review feedback");
-        JoinFields fields = command.getSchoolRatingsReviewsFields();
+        message.setSubject(subject);
         body.append("Submitter name: ").append(command.getSubmitterName()).append("\n");
         body.append("Submitter email: ").append(command.getSubmitterEmail()).append("\n");
         body.append("School: ").append(command.getSchoolId()).append(" - ").append(command.getSchoolName()).append("\n");
@@ -272,11 +298,11 @@ public class ContactUsController extends SimpleFormController {
         message.setText(body.toString());
     }
 
-    protected void customizeJoinEmail(ContactUsCommand command, SimpleMailMessage message) {
+    protected void customizeGeneralEmail(ContactUsCommand command, SimpleMailMessage message, String subject) {
         StringBuffer body = new StringBuffer();
 
-        message.setSubject("Trouble joining or signing in");
-        JoinFields fields = command.getJoinFields();
+        message.setSubject(subject);
+        GeneralFields fields = command.getGeneralFields();
         body.append("Submitter name: ").append(command.getSubmitterName()).append("\n");
         body.append("Submitter email: ").append(command.getSubmitterEmail()).append("\n");
         body.append("Question/comment: " ).append(fields.getComment()).append("\n");
