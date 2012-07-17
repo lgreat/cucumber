@@ -199,12 +199,14 @@ GS.search.results = GS.search.results || (function() {
         } else {
             queryString = GS.uri.Uri.removeFromQueryString(queryString, "sortBy");
         }
-        var queryStringData = GS.uri.Uri.getQueryData(queryString);
 
         if (typeof(window.History) === 'undefined' || window.History.enabled !== true) {
-            window.location.search = GS.uri.Uri.getQueryStringFromObject(queryStringData);
+            queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
+            window.location.search = queryString;
             return;
         }
+
+        var queryStringData = GS.uri.Uri.getQueryData(queryString);
 
         refreshAds();
         mapSearch(1, 25, queryStringData);
@@ -222,8 +224,11 @@ GS.search.results = GS.search.results || (function() {
     var pagination = function(pageNumber, pageSize) {
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             refreshAds();
+            mapSearch(pageNumber, pageSize);
         }
-        mapSearch(pageNumber, pageSize);
+        else {
+            page(pageNumber, pageSize);
+        }
     }
 
     var mapSearch = function(pageNumber, pageSize, queryStringData) {
@@ -246,10 +251,6 @@ GS.search.results = GS.search.results || (function() {
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             // use HTML 5 history API to rewrite the current URL to represent the new state.
             history.pushState(state, start, queryString);
-        }
-        else {
-            window.location.search = queryString;
-            return;
         }
 
         $.ajax({
