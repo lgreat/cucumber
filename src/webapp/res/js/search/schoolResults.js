@@ -44,6 +44,11 @@ GS.search.results = GS.search.results || (function() {
             queryData['sortBy'] = newSort;
             delete queryData.start;
 
+            if (typeof(window.History) === 'undefined' || window.History.enabled !== true) {
+                window.location.search = GS.uri.Uri.getQueryStringFromObject(queryData);
+                return;
+            }
+
             $('body [data-gs-sort-toggle]span').each(function() {
 //                $this.attributes["-webkit-transform: rotate(180deg);" -moz-transform: rotate(180deg); -ms-transform: rotate(180deg); -o-transform: rotate(180deg);transform: rotate(180deg);] ;
 //                $(this).html($(this).html().replace('2','3')); // just change whichever triangle is currently in use, to make it white
@@ -195,6 +200,12 @@ GS.search.results = GS.search.results || (function() {
             queryString = GS.uri.Uri.removeFromQueryString(queryString, "sortBy");
         }
         var queryStringData = GS.uri.Uri.getQueryData(queryString);
+
+        if (typeof(window.History) === 'undefined' || window.History.enabled !== true) {
+            window.location.search = GS.uri.Uri.getQueryStringFromObject(queryStringData);
+            return;
+        }
+
         refreshAds();
         mapSearch(1, 25, queryStringData);
     };
@@ -209,7 +220,9 @@ GS.search.results = GS.search.results || (function() {
     };
 
     var pagination = function(pageNumber, pageSize) {
-        refreshAds();
+        if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+            refreshAds();
+        }
         mapSearch(pageNumber, pageSize);
     }
 
@@ -233,6 +246,10 @@ GS.search.results = GS.search.results || (function() {
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             // use HTML 5 history API to rewrite the current URL to represent the new state.
             history.pushState(state, start, queryString);
+        }
+        else {
+            window.location.search = queryString;
+            return;
         }
 
         $.ajax({
