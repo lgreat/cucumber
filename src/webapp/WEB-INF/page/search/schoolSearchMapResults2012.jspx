@@ -425,7 +425,8 @@
 </div>
 </div>
 
-
+<!--Changes made to the styles would have to be updated in the javascript that uses hogan to render new data (identified by
+ {{ }} )for every ajax refresh -->
 <div id="js-schoolInfoBox" style="display: none;"><!-- not empty --></div>
 <div id="js-infoBoxTemplate" style="display: none;">
     <div class="js-schoolInfo">
@@ -458,7 +459,9 @@
                         </div>
                         <div class="">
                             <a href="" data-href="{{communityRatingUrl}}">
-                                <span class="sprite stars_sm_{{parentRating}}"><!-- do not collapse --></span>
+                                <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl" style="display: {{showParentRating}}"><!-- do not collapse --></span>
+                                <span class="iconx16-stars i-16-grey-star  i-16-star-{{starsOff}} fl" style="display: {{showParentRating}}"><!-- do not collapse --></span>
+                                <dfn style="display: {{showRateSchool}}">Rate this school</dfn>
                             </a>
                         </div>
                     </div>
@@ -742,6 +745,8 @@
         </c:when>
     </c:choose>
 
+    <!--Changes made to the styles would have to be updated in the javascript that uses hogan to render new data (identified by
+ {{ }} )for every ajax refresh -->
     <div id="js-schoolListTemplate" style="display: none;">
         <div class="js-mouseover-open-bubble pam" style="border-bottom: 1px solid #f1f1f1" id="school-listitem-{{state}}-{{id}}">
             <div class="line">
@@ -759,12 +764,15 @@
             <div class="media skin-1 attribution">
             <div class="js-gsRating img mrm">
                 <a href="" data-href="{{gsRatingUrl}}">
-                    <div class="round-small">{{gsRating}}<!-- do not collapse --></div>
+                    <div class="round-small" style="display: {{showNonPrivate}}">{{gsRating}}<!-- do not collapse --></div>
+                    <span class="iconx24 i-24-private-school-badge" style="display: {{showPrivate}}"><!-- do not collapse --></span>
                 </a>
             </div>
             <div class="bd small bottom js-communityRating">
                 <a href="" data-href="{{communityRatingUrl}}">
-                    <span class="sprite stars_sm_{{parentRating}}"><!-- do not collapse --></span>
+                    <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl" style="display: {{showParentRating}}"><!-- do not collapse --></span>
+                    <span class="iconx16-stars i-16-grey-star  i-16-star-{{starsOff}} fl" style="display: {{showParentRating}}"><!-- do not collapse --></span>
+                    <dfn style="display: {{showRateSchool}}">Rate this school</dfn>
                 </a>
             </div>
             </div>

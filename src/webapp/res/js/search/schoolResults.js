@@ -334,16 +334,28 @@ GS.search.results = GS.search.results || (function() {
         var points = [];
         for(var i = 1; i < data.schoolSearchResults.length; i++) {
             var school = data.schoolSearchResults[i];
+
             var parentRating = school.parentRating;
+            var showParentRating = 'block';
+            var showRateSchool = 'none';
+            var starsOff = 0;
             if(parentRating == null) {
-                parentRating = "rate_it";
+               showParentRating = 'none';
+               showRateSchool = 'block';
             }
+            else {
+                starsOff = 5 - parentRating;
+            }
+
             var gsRating = school.greatSchoolsRating;
+            var showNonPrivate = 'block';
+            var showPrivate = 'none';
             if(school.schoolType == 'private') {
-                gsRating = 'pr';
+                showNonPrivate = 'none';
+                showPrivate = 'block';
             }
             else if(gsRating == null) {
-                gsRating = 'na';
+                gsRating = 'n/a';
             }
 
             var isPkCompare = "none", showCompare = "inline";
@@ -379,6 +391,9 @@ GS.search.results = GS.search.results || (function() {
                 schoolType: school.schoolType,
                 schoolUrl: school.schoolUrl,
                 showCompare: showCompare,
+                showParentRating: showParentRating,
+                showRateSchool: showRateSchool,
+                starsOff: starsOff,
                 state: school.state,
                 street: school.street,
                 zip: school.zip
@@ -397,6 +412,11 @@ GS.search.results = GS.search.results || (function() {
                 schoolType: school.schoolType,
                 schoolUrl: school.schoolUrl,
                 showDistance: showDistance,
+                showParentRating: showParentRating,
+                showNonPrivate: showNonPrivate,
+                showPrivate: showPrivate,
+                showRateSchool: showRateSchool,
+                starsOff: starsOff,
                 state: school.state
             });
 
