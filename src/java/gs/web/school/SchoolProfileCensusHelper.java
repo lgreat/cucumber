@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Component("schoolProfileCensusHelper")
-public class SchoolProfileCensusHelper {
+public class SchoolProfileCensusHelper extends AbstractDataHelper {
 
     private final static String CENSUS_DATA = "censusData";
     public final static String CENSUS_DATA_SETS = "censusDataSets";
@@ -89,7 +89,7 @@ public class SchoolProfileCensusHelper {
         }
 
         // CensusDataSet ID --> CensusDataSet
-        Map<Integer, CensusDataSet> censusDataSetMap = (Map<Integer, CensusDataSet>) request.getAttribute(CENSUS_DATA_SETS);
+        Map<Integer, CensusDataSet> censusDataSetMap = (Map<Integer, CensusDataSet>) getSharedData(request, CENSUS_DATA_SETS);
         if (censusDataSetMap == null) {
             // get the census config for this state, school type, and level code
             CensusStateConfig censusStateConfig = getCensusStateConfig(request);
@@ -100,7 +100,7 @@ public class SchoolProfileCensusHelper {
             allDataTypeIds.addAll(dataTypeIds);
             allDataTypeIds.addAll(dataTypeIdsForOverview);
             censusDataSetMap = getCensusDataSets(censusStateConfig.getState(), dataTypeIds, school);
-            request.setAttribute(CENSUS_DATA_SETS, censusDataSetMap);
+            setSharedData(request, CENSUS_DATA_SETS, censusDataSetMap);
         }
 
         return censusDataSetMap;
@@ -184,10 +184,10 @@ public class SchoolProfileCensusHelper {
             throw new IllegalArgumentException( "The request must already contain a school object" );
         }
 
-        CensusStateConfig censusStateConfig = (CensusStateConfig) request.getAttribute(CENSUS_STATE_CONFIG);
+        CensusStateConfig censusStateConfig = (CensusStateConfig) getSharedData(request, CENSUS_STATE_CONFIG);
         if (censusStateConfig == null) {
             censusStateConfig =  _censusStateConfigDao.getConfigForSchoolsStateAndType(school);
-            request.setAttribute(CENSUS_STATE_CONFIG, censusStateConfig);
+            setSharedData(request, CENSUS_STATE_CONFIG, censusStateConfig);
         }
 
         return censusStateConfig;
@@ -202,7 +202,7 @@ public class SchoolProfileCensusHelper {
         }
 
         // CensusDataType ID --> SchoolCensusValue
-        Map<Integer, SchoolCensusValue> schoolCensusValueMap = (Map<Integer, SchoolCensusValue>) request.getAttribute(CENSUS_DATA);
+        Map<Integer, SchoolCensusValue> schoolCensusValueMap = (Map<Integer, SchoolCensusValue>) getSharedData(request, CENSUS_DATA);
 
         if (schoolCensusValueMap == null) {
             schoolCensusValueMap = new HashMap<Integer, SchoolCensusValue>();
@@ -212,7 +212,7 @@ public class SchoolProfileCensusHelper {
                 schoolCensusValueMap = findSchoolCensusValuesAndHandleOverrides(groupedCensusDataSets._dataSetsForSchoolData, school);
             }
 
-            request.setAttribute(CENSUS_DATA, schoolCensusValueMap);
+            setSharedData(request, CENSUS_DATA, schoolCensusValueMap);
         }
 
         return schoolCensusValueMap;
