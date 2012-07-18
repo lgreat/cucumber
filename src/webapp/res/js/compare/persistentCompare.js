@@ -261,6 +261,15 @@ GS.school.compare = (function() {
     var isMaxSchoolLimitReached = function() {
         var dfd = jQuery.Deferred();
         if (schoolsInCompare.length == maxSchoolsInCompare) {
+            var encodedCurrentUrl = encodeURIComponent(getSourceUrlFunc());
+
+            var schoolsArr = [];
+            for (var i = 0; i < schoolsInCompare.length; i++) {
+                schoolsArr[i] = schoolsInCompare[i].state + schoolsInCompare[i].schoolId;
+            }
+
+            GSType.hover.compareSchoolsLimitReached.show(schoolsArr.join(','), encodedCurrentUrl, clearSchoolsInCompare);
+
             dfd.reject()
         } else {
             dfd.resolve();
@@ -288,6 +297,7 @@ GS.school.compare = (function() {
         schoolsInCompare = [];
         GS.util.localStorage.removeItemFromLocalStorage(compareKeyInLocalStorage);
         $('#js_compareSchoolsDiv').children().remove();
+        showHideCompareModule();
     };
 
     //Hover to warn the users when they try to compare schools in 2 states.
@@ -386,7 +396,7 @@ $(function() {
     });
 
     //Bind the click handler to checkbox
-    $('.compare-school-checkbox').on('click',function() {
+    $('.compare-school-checkbox').on('click', function() {
         var schoolCheckbox = $(this);
         var schoolSelected = schoolCheckbox.attr('id');
         var schoolId = schoolSelected.substr(2, schoolSelected.length);
