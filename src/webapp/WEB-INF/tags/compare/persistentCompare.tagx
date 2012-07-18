@@ -18,4 +18,14 @@
         <button id="js_compareBtn" style="display: none">Compare</button>
     </div>
 
+
+    <!--Hover to warn the users when they try to compare schools in 2 states.-->
+    <div id="js_compareDifferentStatesWarningHover" class="dialog_white" style="display:none;">
+
+        <p><strong>Different states!!</strong></p>
+
+        <button class="button-1" type="button" id="js_compareDifferentStatePicked">Clear and Add</button>
+        <button type="button" id="js_compareDifferentStateCancel" class="button-1 js_compareDifferentStatesWarningHover_hideHover">Cancel</button>
+    </div>
+
 </jsp:root>
