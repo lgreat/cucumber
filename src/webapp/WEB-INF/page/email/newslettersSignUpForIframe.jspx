@@ -35,19 +35,14 @@
                     <newsletterSignUp:emailAddress showInstructions="${false}"/>
                     <input type="hidden" name="how" value="nlSubscriptionIframe"/>
 
-                    <div class="lineForIframe mtl pbl clearfix">
-                        <div class="unit size1of2 formStyles pas">
-                            <newsletterSignUp:dailyNewsletter/>
-                        </div>
-                        <div class="unit size1of2 pas lastUnit">
+                    <div class="line mtl clearfix">
+                        <div class="unit size1of3 pas">
                             <newsletterSignUp:weeklyNewsletter/>
                         </div>
-                    </div>
-                    <div class="lineForIframe last clearfix">
-                        <div class="unit size1of2 formStyles pas">
+                        <div class="unit size1of3 pas middle">
                             <newsletterSignUp:mySchoolStats/>
                         </div>
-                        <div class="unit size1of2 pas lastUnit">
+                        <div class="unit size1of3 pas lastUnit">
                             <newsletterSignUp:partnerOffers/>
                         </div>
                     </div>

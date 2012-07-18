@@ -42,8 +42,6 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
     private IUserDao _userDao;
     private static final SubscriptionProduct WEEKLY_PROD = SubscriptionProduct.PARENT_ADVISOR;
     private static final SubscriptionProduct WEEKLY_PROD_NOT_VERIFIED = SubscriptionProduct.PARENT_ADVISOR_NOT_VERIFIED;
-    private static final SubscriptionProduct DAILY_PROD = SubscriptionProduct.DAILY_TIP;
-    private static final SubscriptionProduct DAILY_PROD_NOT_VERIFIED = SubscriptionProduct.DAILY_TIP_NOT_VERIFIED;
 
     @RequestMapping(value = "/promo/emailSignUpAjax.page", method = RequestMethod.POST)
     public void handleEmailSignUp(@ModelAttribute("command") EmailSignUpCommand command,
@@ -55,14 +53,9 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
                 (user != null) && _subscriptionDao.isUserSubscribed(user, WEEKLY_PROD, null);
         boolean subscribedToNotVerifiedWeeklyProd =
                 (user != null) && _subscriptionDao.isUserSubscribed(user, WEEKLY_PROD_NOT_VERIFIED, null);
-        boolean subscribedToVerifiedDailyProd =
-                (user != null) && _subscriptionDao.isUserSubscribed(user, DAILY_PROD, null);
-        boolean subscribedToNotVerifiedDailyProd =
-                (user != null) && _subscriptionDao.isUserSubscribed(user, DAILY_PROD_NOT_VERIFIED, null);
 
         // variables needed for json response
-        String errors = validate(command, (user != null),
-                subscribedToVerifiedWeeklyProd, subscribedToVerifiedDailyProd);
+        String errors = validate(command, (user != null), subscribedToVerifiedWeeklyProd);
         String status;
         JsonBasedOmnitureTracking omnitureTracking = null;
 
@@ -88,20 +81,15 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
                     WEEKLY_PROD_NOT_VERIFIED, WEEKLY_PROD,
                     subscribedToNotVerifiedWeeklyProd, subscribedToVerifiedWeeklyProd);
 
-            // daily email (dailytip)
-            EmailSignUpState dailyState = processSubscription(user, isNewMember,
-                    DAILY_PROD_NOT_VERIFIED, DAILY_PROD,
-                    subscribedToNotVerifiedDailyProd, subscribedToVerifiedDailyProd);
-
-            if (weeklyState.isAddSuccessEvent() || dailyState.isAddSuccessEvent()) {
+            if (weeklyState.isAddSuccessEvent()) {
                 // add success event to track having signed up for emails
                 omnitureTracking = new JsonBasedOmnitureTracking();
                 omnitureTracking.addSuccessEvent(OmnitureTracking.SuccessEvent.EmailModuleSignup);
             }
 
-            if (isNewMember || weeklyState.isSendVerificationEmail() || dailyState.isSendVerificationEmail()) {
+            if (isNewMember || weeklyState.isSendVerificationEmail()) {
                 // send email verification email
-                sendVerificationEmail(request, user, weeklyState.isSendVerificationEmail(), dailyState.isSendVerificationEmail());
+                sendVerificationEmail(request, user, weeklyState.isSendVerificationEmail());
                 status = STATUS_SUCCESS_EMAIL_SENT;
             } else {
                 status = STATUS_SUCCESS_NO_EMAIL_SENT;
@@ -156,13 +144,13 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
         out.println("}");
     }
 
-    private void sendVerificationEmail(HttpServletRequest request, User user, boolean addedWeeklySubscription, boolean addedDailySubscription)
+    private void sendVerificationEmail(HttpServletRequest request, User user, boolean addedWeeklySubscription)
             throws IOException, MessagingException, NoSuchAlgorithmException {
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
         String redirectUrl = urlBuilder.asFullUrl(request);
         Map<String,String> otherParams = new HashMap<String,String>();
         otherParams.put(ExactTargetUtil.EMAIL_SUB_WELCOME_PARAM,
-                ExactTargetUtil.getEmailSubWelcomeParamValue(addedWeeklySubscription,addedDailySubscription,false,false));
+                ExactTargetUtil.getEmailSubWelcomeParamValue(addedWeeklySubscription,false,false,false));
         getEmailVerificationEmail().sendVerificationEmail(request, user, redirectUrl, otherParams);
     }
 
@@ -170,7 +158,7 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
      * Returns empty string if the command seems valid; otherwise, comma-separated list of fields with errors
      */
     protected String validate(EmailSignUpCommand command, boolean userExists,
-                              boolean subscribedToWeeklyProd, boolean subscribedToDailyProd) {
+                              boolean subscribedToWeeklyProd) {
         List<String> errorList = new ArrayList<String>();
 
         // validate not null email
@@ -182,7 +170,7 @@ public class EmailSignUpAjaxController implements ReadWriteAnnotationController 
             if (!emailValidator.isValid(command.getEmail())) {
                 errorList.add("emailInvalid");
             } else {
-                if (userExists && (subscribedToWeeklyProd && subscribedToDailyProd)) {
+                if (userExists && subscribedToWeeklyProd) {
                     errorList.add("emailAlreadySignedUp");
                 }
             }

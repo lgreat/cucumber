@@ -7692,6 +7692,7 @@ body.ie8 #savvysource span.arrow-right {
 }
 #newslettersSignUp.nlSubscription .weeklyNewsletter ul li{
     margin: 0 0 10px;
+    padding-right: 10px;
 }
 
 .nlSubscription select{
@@ -7723,21 +7724,18 @@ body.ie8 #savvysource span.arrow-right {
     padding-top: 1px;
 }
 
-.nlSubscription div.line{
+.nlSubscription div.line {
     border-top: 1px solid #ECECEC;
     border-bottom: 1px solid #ECECEC;
-    background-image: url(/res/img/nlSignUp/nlSignUpbackground.gif);
-    background-repeat: repeat-y;
 }
 
-.nlSubscription div.lineForIframe {
-    border-top: 1px solid #ECECEC;
-    background-image: url(/res/img/nlSignUp/nlSignUpbackgroundForIframe.png);
-    background-repeat: repeat-y;
+.nlSubscription div.line div.unit {
+    height: 320px;
 }
 
-.nlSubscription div.lineForIframe.last {
-    border-bottom: 1px solid #ECECEC;
+.nlSubscription div.line div.unit.middle {
+    border-left: 1px solid #ECECEC;
+    border-right: 1px solid #ECECEC;
 }
 
 .nlSubscription .error{

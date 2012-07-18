@@ -45,7 +45,7 @@
                                 <form:hidden path="my3Id"/>
                             </li>
                         </ul>
-                        <ul class="fltrt bottom">
+                        <ul class="fltlft bottom">
                             <li><form:checkbox value="my4" id="g4" path="my4"/><label
                                     for="g4">4th Grade</label>
                                 <form:hidden path="my4Id"/>

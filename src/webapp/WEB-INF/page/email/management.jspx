@@ -164,10 +164,12 @@
 
 </fieldset>
 
+<!-- GS-12991 temporarily hide the Daily Tip -->
+<!--
 <fieldset id="dailyTip">
 
     <div class="newsletterInfo">
-        <p class="newsletterHeader text2bold">Daily Newsletter<a name="sed_anchor">&amp;nbsp;</a></p>
+        <p class="newsletterHeader text2bold">Daily Newsletter<a name="daily_anchor">&amp;nbsp;</a></p>
 
         <p class="newsletterDescription text2">Daily tips and ideas that will enrich your child's education.</p>
         <ol class="none">
@@ -185,6 +187,7 @@
     </div>
 
 </fieldset>
+-->
 
 <fieldset>
 

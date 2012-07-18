@@ -25,8 +25,7 @@
 
                     <div class="section1">
                         <p class="jq-emailSignUpIntroText text2">
-                            <strong>Sign up for daily tips and ideas</strong> that will enrich your child's education.
-                            <!--<div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                            <strong>Sign up for tips and ideas</strong> that will enrich your child's education.
                         </p>
 
                         <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailInvalid">

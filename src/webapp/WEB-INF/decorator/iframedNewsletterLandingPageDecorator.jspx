@@ -5,7 +5,7 @@
         xmlns:decorator="http://www.opensymphony.com/sitemesh/decorator"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
-<pageHelper:bodyClass/>
+<pageHelper:bodyClass omitSiteGradient="${true}"/>
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <jsp:output doctype-root-element="html"
@@ -26,7 +26,7 @@
     <style type="text/css">
         body {
             background: none;
-            width: 520px;
+            width: 810px;
             min-width: 0px;
         }
     </style>

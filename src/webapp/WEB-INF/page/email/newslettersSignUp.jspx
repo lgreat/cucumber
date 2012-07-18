@@ -44,16 +44,13 @@
                     <input type="hidden" name="how" value="nlSubscriptionPage"/>
 
                     <div class="line mtl nlSignUpFrom">
-                        <div class="unit size25of100 formStyles pas">
-                            <newsletterSignUp:dailyNewsletter/>
-                        </div>
-                        <div class="unit size25of100 formStyles pas">
+                        <div class="unit size1of3 pas">
                             <newsletterSignUp:weeklyNewsletter/>
                         </div>
-                        <div class="unit size25of100 formStyles pas">
+                        <div class="unit size1of3 pas middle">
                             <newsletterSignUp:mySchoolStats/>
                         </div>
-                        <div class="unit size25of100 pas lastUnit">
+                        <div class="unit size1of3 pas lastUnit">
                             <newsletterSignUp:partnerOffers/>
                         </div>
                     </div>
