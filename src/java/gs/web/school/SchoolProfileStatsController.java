@@ -97,7 +97,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             System.out.println("Getting census state values took " + (System.nanoTime()-start)/1000000 + " milliseconds");
 
             // group ID --> List of StatsRow
-            Map<Long, List<StatsRow>> groupIdToStatsRows = combine(
+            Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows = combine(
                     _schoolProfileCensusHelper.getCensusStateConfig(request),
                     _schoolProfileCensusHelper.getCensusDataSets(request),
                     schoolValueMap, districtValueMap, stateValueMap);
@@ -124,12 +124,13 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         try {
             _censusCacheDao.save(school, statsModel);
         } catch (IOException e) {
+            _log.debug("Error while attempting to cache stats model. ", e);
             // all is lost. don't cache
         }
     }
 
     // group ID --> Stats Row
-    public Map<Long,List<StatsRow>> combine(
+    public Map<Long,List<SchoolProfileStatsDisplayRow>> combine(
             CensusStateConfig config,
             // CensusDataSet ID <--> CensusDataSet
             // If "extra" CensusDataSets are provided, they will be skipped
@@ -142,7 +143,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             Map<Integer,StateCensusValue> stateValueMap) {
 
 
-        Map<Long,List<StatsRow>> statsRowMap = new HashMap<Long,List<StatsRow>>();
+        Map<Long,List<SchoolProfileStatsDisplayRow>> statsRowMap = new HashMap<Long,List<SchoolProfileStatsDisplayRow>>();
 
         for (Map.Entry<Integer,CensusDataSet> entry : censusDataSets.entrySet()) {
 
@@ -255,7 +256,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             // filter out rows where school, district, and state values are all N/A
             if (censusValueNotEmpty(schoolValue) || censusValueNotEmpty(districtValue) || censusValueNotEmpty(stateValue) ) {
 
-                StatsRow row = new StatsRow(
+                SchoolProfileStatsDisplayRow row = new SchoolProfileStatsDisplayRow(
                     groupId,
                     censusDataSetId,
                     label,
@@ -266,9 +267,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                     entry.getValue().getYear()
                 );
 
-                List<StatsRow> statsRows = statsRowMap.get(groupId);
+                List<SchoolProfileStatsDisplayRow> statsRows = statsRowMap.get(groupId);
                 if (statsRows == null) {
-                    statsRows = new ArrayList<StatsRow>();
+                    statsRows = new ArrayList<SchoolProfileStatsDisplayRow>();
                     statsRowMap.put(groupId, statsRows);
                 }
 
@@ -280,10 +281,10 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         // Sort ethnicities based on school / state value
         // TODO: move to its own method
         Long ethnicityTableGroupId = 6l;
-        List<StatsRow> statsRows = statsRowMap.get(ethnicityTableGroupId);
+        List<SchoolProfileStatsDisplayRow> statsRows = statsRowMap.get(ethnicityTableGroupId);
         if (statsRows != null && statsRows.size() > 1) {
-            Collections.sort(statsRows, new Comparator<StatsRow>() {
-                public int compare(StatsRow statsRow1, StatsRow statsRow2) {
+            Collections.sort(statsRows, new Comparator<SchoolProfileStatsDisplayRow>() {
+                public int compare(SchoolProfileStatsDisplayRow statsRow1, SchoolProfileStatsDisplayRow statsRow2) {
                     Float row1Value = formatValueAsFloat(statsRow1.getSchoolValue());
                     Float row2Value = formatValueAsFloat(statsRow2.getSchoolValue());
                     // reverse sort
@@ -330,36 +331,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         }
 
         return result;
-    }
-
-    public class StatsRow implements Serializable {
-        private Long _groupId;
-        private Integer _censusDataSetId;
-        private String _text;
-        private String _schoolValue;
-        private String _districtValue;
-        private String _stateValue;
-        private Set<CensusDescription> _censusDescriptions;
-        private Integer _year;
-
-        public StatsRow(Long groupId, Integer censusDataSetId, String text, String schoolValue, String districtValue, String stateValue, Set<CensusDescription> censusDescriptions, Integer year) {
-            _groupId = groupId;
-            _censusDataSetId = censusDataSetId;
-            _text = text;
-            _schoolValue = schoolValue;
-            _districtValue = districtValue;
-            _stateValue = stateValue;
-            _censusDescriptions = censusDescriptions;
-            _year = year;
-        }
-
-        public Long getGroupId() { return _groupId; }
-        public String getText() { return _text; }
-        public String getSchoolValue() { return _schoolValue; }
-        public String getDistrictValue() { return _districtValue; }
-        public String getStateValue() { return _stateValue; }
-        public Set<CensusDescription> getCensusDescriptions() { return _censusDescriptions; }
-        public Integer getYear() { return _year; }
     }
 
     public Map<Integer, DistrictCensusValue> findDistrictValues(Map<Integer, CensusDataSet> censusDataSets, State state, School school) {

@@ -14,6 +14,7 @@
     <jsp:directive.tag import="gs.web.school.SchoolProfileStatsController"/>
     <jsp:directive.tag import="java.util.List"/>
     <jsp:directive.tag import="java.util.HashSet"/>
+    <jsp:directive.tag import="gs.web.school.SchoolProfileStatsDisplayRow"/>
 
     <jsp:directive.attribute name="groupId" type="java.lang.Long" description="Must be long to look up map entry via jstl"/>
     <jsp:directive.attribute name="statsTab" type="java.lang.String" required="true"/>
@@ -86,7 +87,7 @@
                     if (descriptions == null) {
                         descriptions = new java.util.ArrayList();
                     }
-                    for (CensusDescription description : (((SchoolProfileStatsController.StatsRow)jspContext.getAttribute("row")).getCensusDescriptions())) {
+                    for (CensusDescription description : (((SchoolProfileStatsDisplayRow)jspContext.getAttribute("row")).getCensusDescriptions())) {
                         if (!descriptions.contains(description)) {
                             descriptions.add(description);
                         }
