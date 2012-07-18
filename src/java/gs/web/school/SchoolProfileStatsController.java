@@ -241,6 +241,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         // Sort ethnicities based on school / state value
         Long ethnicityTableGroupId = 6l;
         List<StatsRow> statsRows = statsRowMap.get(ethnicityTableGroupId);
+        if (statsRows != null && statsRows.size() > 1) {
         Collections.sort(statsRows, new Comparator<StatsRow>() {
             public int compare(StatsRow statsRow1, StatsRow statsRow2) {
                 Float row1Value = formatValueAsFloat(statsRow1.getSchoolValue());
@@ -249,6 +250,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 return row2Value.compareTo(row1Value);
             }
         });
+        }
+
 
 
         return statsRowMap;
