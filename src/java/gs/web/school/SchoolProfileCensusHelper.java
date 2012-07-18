@@ -108,7 +108,8 @@ public class SchoolProfileCensusHelper {
 
 
     /**
-     * Splits CensusDataSets into GroupedCensusDataSets
+     * Gets CensusDataSets grouped into school,district,state buckets. Each bucket contains the CensusDataSets
+     * that will be used to obtain school values, district values, and state values, respectively
      * GroupedCensusDataSets = collections of CensusDataSets to be used to obtain school values, district values, and state values
      */
     public GroupedCensusDataSets splitDataSets(Map<Integer,CensusDataSet> censusDataSets, CensusStateConfig config) {
@@ -119,7 +120,22 @@ public class SchoolProfileCensusHelper {
         Map<Integer,CensusDataSet> dataSetsForStateData = new HashMap<Integer, CensusDataSet>();
 
         for (Map.Entry<Integer, CensusDataSet> censusDataSetEntry : censusDataSets.entrySet()) {
-            ICensusDataConfigEntry stateConfigEntry = config.get(censusDataSetEntry.getValue().getDataType().getId());
+            Integer dataTypeId = censusDataSetEntry.getValue().getDataType().getId();
+            Integer breakdownId = null;
+            if (censusDataSetEntry.getValue().getBreakdownOnly() != null) {
+                breakdownId = censusDataSetEntry.getValue().getBreakdownOnly().getId();
+            }
+
+            //ICensusDataConfigEntry stateConfigEntry = config.get(censusDataSetEntry.getValue().getDataType().getId());
+
+            // There may be one or many items in stateConfigEntries. but all of them must have the same data type ID
+            List<ICensusDataConfigEntry> stateConfigEntries = config.get(dataTypeId);
+
+
+            //TODO: should be iterate over all items in stateConfigEntries if there are multiple, and find the one with
+            // the matching breakdownId?
+            ICensusDataConfigEntry stateConfigEntry = stateConfigEntries.get(0);
+
             if (stateConfigEntry.hasSchoolData()) {
                 dataSetsForSchoolData.put(censusDataSetEntry.getKey(), censusDataSetEntry.getValue());
             }
@@ -135,6 +151,12 @@ public class SchoolProfileCensusHelper {
         return new GroupedCensusDataSets(dataSetsForSchoolData, dataSetsForDistrictData, dataSetsForStateData);
     }
 
+    /**
+     * Gets CensusDataSets grouped into school,district,state buckets. Each bucket contains the CensusDataSets
+     * that will be used to obtain school values, district values, and state values, respectively
+     * @param request
+     * @return
+     */
     protected GroupedCensusDataSets getGroupedCensusDataSets( HttpServletRequest request ) {
 
         // get the census config for this state, school type, and level code

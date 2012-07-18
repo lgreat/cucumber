@@ -59,7 +59,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         School school = getSchool(request);
 
         Map<String,Object> statsModel = null;
-        //statsModel = _censusCacheDao.getMapForSchool(school);
+        statsModel = _censusCacheDao.getMapForSchool(school);
 
         if (statsModel == null) {
             statsModel = new HashMap<String,Object>();
@@ -109,7 +109,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             statsModel.put("censusStateConfig", _schoolProfileCensusHelper.getCensusStateConfig(request));
             statsModel.put("statsRows", groupIdToStatsRows);
 
-            //cacheStatsModel(statsModel, school);
+            cacheStatsModel(statsModel, school);
         }
 
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool(request);
@@ -141,43 +141,82 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             // CensusDataSet ID --> StateCensusValue
             Map<Integer,StateCensusValue> stateValueMap) {
 
+
         Map<Long,List<StatsRow>> statsRowMap = new HashMap<Long,List<StatsRow>>();
 
-
-        LinkedHashMap<Integer,Integer> linkedHashMap = new LinkedHashMap<Integer, Integer>();
-        new ArrayList<Integer>(linkedHashMap.values());
-
-
-        // Data Type ID --> text label
-        // TODO: get from cache
         for (Map.Entry<Integer,CensusDataSet> entry : censusDataSets.entrySet()) {
-            Set<Integer> configuredDataTypeIds = config.allDataTypeIds();
 
-            // if this method was provided with more CensusDataSets then what was configured for the stats page,
-            // skip over them here
-            if (!configuredDataTypeIds.contains(entry.getValue().getDataType().getId())) {
-                continue;
+            Set<Integer> configuredDataTypeIds = config.allDataTypeIds();
+            CensusDataSet censusDataSet = entry.getValue();
+            Integer censusDataSetId = entry.getKey();
+            Integer dataTypeId = censusDataSet.getDataType().getId();
+            CensusDataType dataTypeEnum = CensusDataType.getEnum(dataTypeId);
+            Integer breakdownId = null;
+            Breakdown breakdown = censusDataSet.getBreakdownOnly();
+            if (breakdown != null) {
+                breakdownId = breakdown.getId();
             }
 
-            Integer censusDataSetId = entry.getKey();
-            Integer dataTypeId = entry.getValue().getDataType().getId();
-            CensusDataType dataTypeEnum = CensusDataType.getEnum(dataTypeId);
-            Integer groupIdInt = config.getDataTypeToGroupIdMap().get(entry.getValue().getDataType().getId());
+            // DataType enum gives us an int
+            Integer groupIdInt = config.getDataTypeToGroupIdMap().get(censusDataSet.getDataType().getId());
             Long groupId = null;
+            // But sometimes we store groupIds as longs, because JSTL converts number literals to longs
             if (groupIdInt != null) {
                 groupId = groupIdInt.longValue();
             }
 
             // look to see if there's a data type label "override" in the config entry for this data type
             // if not, just use the default data type label/description
-            String label;
-            Breakdown breakdown = entry.getValue().getBreakdownOnly();
-            if (breakdown != null && breakdown.getEthnicity() != null) {
-                label = breakdown.getEthnicity().getName();
+            String label = null;
+
+
+            // if this method was provided with more CensusDataSets then what was configured for the stats page,
+            // skip over them here
+            if (!configuredDataTypeIds.contains(censusDataSet.getDataType().getId())) {
+                continue;
+            }
+
+            // Get all the census data config entries for data type
+            List<ICensusDataConfigEntry> censusDataConfigEntries = config.getStateConfigEntryMap().get(dataTypeId);
+
+
+            // If there are more than one config entry per data type, then there should be
+            // a config entry for each breakdown within the data type
+            if (censusDataConfigEntries.size() > 1) {
+                // Find the entry that cooresponds with the data type and breakdown on this data set.
+                // If none exist, skip this data set
+                ICensusDataConfigEntry configEntry = config.getEntry(dataTypeId, breakdownId);
+
+                // If config doesnt exist for data type + breakdown, skip this data set
+                if (configEntry == null) {
+                    continue;
+                } else {
+                    // use the label specified in the census config entry
+                    label = configEntry.getDataTypeLabel();
+                    if (label == null) {
+                        // no entry was specified; if we have an ethnicity, use the ethnicity name. otherwise use data type description
+                        if (breakdown != null && breakdown.getEthnicity() != null) {
+                            label = breakdown.getEthnicity().getName();
+                        } else {
+                            label = configEntry.getDataType().getDescription();
+                        }
+                    }
+                };
             } else {
-                label = config.getStateConfigEntryMap().get(dataTypeId).getDataTypeLabel();
-                if (label == null) {
-                    label = entry.getValue().getDataType().getDescription();
+                // there's only one config entry for this one data type
+                ICensusDataConfigEntry configEntry = censusDataConfigEntries.get(0);
+
+                // If breakdown is set, but there was only one census config entry, this means that
+                // we're by default supposed to display all breakdowns available
+                if (breakdown != null && breakdown.getEthnicity() != null) {
+                    // set label to the breakdown's ethnicity name
+                    label = breakdown.getEthnicity().getName();
+                } else if (configEntry.getDataTypeLabel() != null) {
+                    // no breakdown available, but label was set on the config entry, so use that
+                    label = configEntry.getDataTypeLabel();
+                } else {
+                    // no labels specified; use data type's description
+                    label = configEntry.getDataType().getDescription();
                 }
             }
 
@@ -239,17 +278,18 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
 
         // Sort ethnicities based on school / state value
+        // TODO: move to its own method
         Long ethnicityTableGroupId = 6l;
         List<StatsRow> statsRows = statsRowMap.get(ethnicityTableGroupId);
         if (statsRows != null && statsRows.size() > 1) {
-        Collections.sort(statsRows, new Comparator<StatsRow>() {
-            public int compare(StatsRow statsRow1, StatsRow statsRow2) {
-                Float row1Value = formatValueAsFloat(statsRow1.getSchoolValue());
-                Float row2Value = formatValueAsFloat(statsRow2.getSchoolValue());
-                // reverse sort
-                return row2Value.compareTo(row1Value);
-            }
-        });
+            Collections.sort(statsRows, new Comparator<StatsRow>() {
+                public int compare(StatsRow statsRow1, StatsRow statsRow2) {
+                    Float row1Value = formatValueAsFloat(statsRow1.getSchoolValue());
+                    Float row2Value = formatValueAsFloat(statsRow2.getSchoolValue());
+                    // reverse sort
+                    return row2Value.compareTo(row1Value);
+                }
+            });
         }
 
 
