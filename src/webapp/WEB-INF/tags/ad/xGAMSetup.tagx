@@ -148,6 +148,7 @@
             var GS = GS || {};
             GS.ad = GS.ad || {};
             GS.ad.slots = GS.ad.slots || {};
+            GS.ad.slotTimers = GS.ad.slotTimers || {};
         ]]>
 
         <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
@@ -203,13 +204,17 @@
 
             <![CDATA[
                 GS.ad.refreshAds = function(slotKeys) {
-                    if(googletag.pubads() !== undefined) {
+                    if(googletag.pubads !== undefined) {
             ]]>
                     <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
             <![CDATA[
                         var adSlots = [];
                         for(key in slotKeys) {
-                            adSlots.push(GS.ad.slots[slotKeys[key]]);
+                            if(GS.ad.slotTimers[slotKeys[key]] === undefined ||
+                                    ((new Date().getTime()) - GS.ad.slotTimers[slotKeys[key]].timestamp >= 10000)) {
+                                GS.ad.slotTimers[slotKeys[key]] = new Timer(slotKeys[key], new Date().getTime());
+                                adSlots.push(GS.ad.slots[slotKeys[key]]);
+                            }
                         }
                         googletag.pubads().refresh(adSlots);
             ]]>
@@ -217,6 +222,11 @@
             <![CDATA[
                     }
                 };
+
+                function Timer(adSlot, timestamp) {
+                    this.adSlot = adSlot;
+                    this.timestamp = timestamp;
+                }
             ]]>
         <![CDATA[
         </script>
