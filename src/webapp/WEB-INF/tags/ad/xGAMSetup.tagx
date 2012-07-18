@@ -212,7 +212,7 @@
                         for(key in slotKeys) {
                             if(GS.ad.slotTimers[slotKeys[key]] === undefined ||
                                     ((new Date().getTime()) - GS.ad.slotTimers[slotKeys[key]].timestamp >= 10000)) {
-                                GS.ad.slotTimers[slotKeys[key]] = new Timer(slotKeys[key], new Date().getTime());
+                                GS.ad.slotTimers[slotKeys[key]] = new Timer(slotKeys[key]);
                                 adSlots.push(GS.ad.slots[slotKeys[key]]);
                             }
                         }
@@ -223,9 +223,9 @@
                     }
                 };
 
-                function Timer(adSlot, timestamp) {
+                function Timer(adSlot) {
                     this.adSlot = adSlot;
-                    this.timestamp = timestamp;
+                    this.timestamp = new Date().getTime();
                 }
             ]]>
         <![CDATA[

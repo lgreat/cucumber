@@ -164,8 +164,8 @@ GS.search.results = GS.search.results || (function() {
         var queryData = GS.uri.Uri.getQueryData();
         queryData['pageSize'] = pageSize;
         delete queryData.start;
+        refreshAds();
         if(queryData.view == 'map') {
-            refreshAds();
             mapSearch(1, pageSize, queryData);
         }
         else {
