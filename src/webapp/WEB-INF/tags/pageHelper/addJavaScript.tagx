@@ -38,15 +38,6 @@
             <gsml:url var="houseadsjs" value="/res/js/house_ads.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="externalTracking" value="/res/js/externalTracking.js" allowCdn="true"/>
-            <gsml:url var="htmlMirrorsjs" value="/res/js/util/htmlMirrors.js" allowCdn="true"/>
-            <gsml:url var="filtersjs" value="/res/js/search/filters.js" allowCdn="true"/>
-            <gsml:url var="contentDropdownsjs" value="/res/js/ui/contentDropdowns.js" allowCdn="true"/>
-            <gsml:url var="comparejs" value="/res/js/search/compare.js" allowCdn="true"/>
-            <gsml:url var="customLinksjs" value="/res/js/tracking/customLinks.js" allowCdn="true"/>
-            <gsml:url var="schoolResultsjs" value="/res/js/search/schoolResults.js" allowCdn="true"/>
-            <gsml:url var="schoolSearchMapjs" value="/res/js/map/schoolSearchMap2012.js" allowCdn="true"/>
-            <gsml:url var="schoolSearchResultsTablejs" value="/res/js/search/schoolSearchResultsTable2012.js" allowCdn="true"/>
-            <gsml:url var="historyjs" value="/res/js/history.min.js" allowCdn="true"/>
 
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
@@ -63,15 +54,6 @@
             <![CDATA[<script type="text/javascript" src="${houseadsjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${externalTracking}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${htmlMirrorsjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${filtersjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${contentDropdownsjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${comparejs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${customLinksjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${schoolResultsjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${schoolSearchMapjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${schoolSearchResultsTablejs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${historyjs}"></script>]]>
         </c:when>
         <c:otherwise>
             <gsml:url var="combinedjs" value="/res/js/combined.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
