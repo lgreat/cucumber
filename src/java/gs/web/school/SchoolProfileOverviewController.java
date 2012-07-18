@@ -1,10 +1,13 @@
 package gs.web.school;
 
 import gs.data.community.User;
+import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.*;
+import gs.data.school.census.Breakdown;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
+import gs.data.school.district.District;
 import gs.data.school.review.IReviewDao;
 import gs.data.util.CommunityUtil;
 import gs.web.util.PageHelper;
@@ -132,6 +135,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         // 7th row is Sports/Arts/Music
         model.put(SPORTS_MODEL_KEY, getSportsArtsMusicTile(espData));
+
+        _log.error("SchoolProfileOverviewController: " + request.getAttribute("SharedState") );
     }
 
     public String getBestKnownForQuoteTile(School school, Map<String, List<EspResponse>> espData) {
@@ -349,10 +354,34 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
-        // TODO - This is a stub - the appropriate code needs to be inserted below
-        // Default action
-
-        // Substitute action 1
+        // Get all of the date needed to make the required decisions
+        List<EspResponse> video = espData.get("school_video");
+        if( isNotEmpty( video ) ) {
+            model.put( "content", "default" );
+            model.put( "video", video.get(0).getSafeValue() );
+        }
+        else {
+            // Substitute action
+            // Which video to display will depend on the lowest level taught at the school.  For instance if level_code is e,m,h then just show for e
+            if( school.getLevelCode() != null ) {
+                String levelCodeList = school.getLevelCode().getCommaSeparatedString();
+                String [] levelCodes = levelCodeList.split(",");
+                // Pick smallest level code that is not p (preschool).  If p is the only level code use e
+                String levelCode = levelCodes[0];
+                if( "p".equals( levelCode ) ) {
+                    if( levelCodes.length > 1 ) {
+                        levelCode = levelCodes[1];
+                    }
+                    else {
+                        levelCode = "e";
+                    }
+                }
+                String lowestLevel = school.getLevelCode().getLowestLevel().getName();
+                model.put( "schoolLevel", levelCode );
+                // TODO - Ask Young where to get these values
+            }
+            model.put( "content", "substitute" );
+        }
 
         return model;
     }
@@ -363,9 +392,50 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         // TODO - This is a stub - the appropriate code needs to be inserted below
         // Default action
+        boolean defaultDisplay = false;
+        Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
+        if( censusValues!=null ) {
+            List<CensusDataSet> ethnicities = censusValues.get( CensusDataType.STUDENTS_ETHNICITY );
+            if( isNotEmpty( ethnicities) ) {
+                try {
+                    List<String> labels = new ArrayList<String>();
+                    List<Float> values = new ArrayList<Float>();
+                    Float largestValue = new Float(0.0);
+                    String largestLabel = "";
+                    for( CensusDataSet ethnicity : ethnicities ) {
+                        Breakdown b = ethnicity.getBreakdownOnly();
+                        String name = b.getEthnicity().getName();
+                        SchoolCensusValue [] schoolCensusValue = (SchoolCensusValue [])ethnicity.getSchoolData().toArray(new SchoolCensusValue[1]);
+                        if( schoolCensusValue.length >0 && schoolCensusValue[0]!=null && schoolCensusValue[0].getValueFloat()!=null ) {
+                            Float value = schoolCensusValue[0].getValueFloat();
+                            if( value.compareTo( largestValue ) > 0 ) {
+                                largestValue = value;
+                                largestLabel = name;
+                            }
+                            values.add( value );
+                            labels.add(name);
+                        }
+                    }
+                    if( values.size() > 0 ) {
+                        model.put("diversityValues", values);
+                        model.put("diversityLabels", labels);
+                        model.put("largestDiversityValue", largestValue);
+                        model.put("largestDiversityLabel", largestLabel);
+                        model.put( "content", "default" );
+                        defaultDisplay = true;
+                    }
+                }
+                catch( NullPointerException e ) {
+                    // Nothing to do
+                }
+
+            }
+        }
 
         // Substitute action 1
-
+        if( defaultDisplay == false ) {
+            model.put( "content", "substitute" );
+        }
         return model;
     }
 
@@ -909,10 +979,55 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
-        // TODO - This is a stub - the appropriate code needs to be inserted below
+        // TODO - Default content is in design.  Will have to display substitute for now
+
+        boolean doSubstitute = true;
+
+
         // Default action
 
         // Substitute action 1
+        if( doSubstitute ) {
+            model = getDistrictInfoTile( request, school, espData );
+        }
+
+        return model;
+    }
+
+    /**
+     * Builds the model data for the District Info tile if the required data is available, otherwise builds data for Neighborhood Info
+     * @param request
+     * @param school
+     * @param espData
+     * @return
+     */
+    private Map getDistrictInfoTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+
+        Map<String, Object> model = new HashMap<String, Object>(2);
+
+        // Check if this can be done or need to do substitute 2
+//        SchoolType schoolType = school.getType();
+//        int districtId = school.getDistrictId();
+//        int numSchools = 0;
+//        if( districtId > 0 ) {
+//            District district = school.getDistrict();
+//            if( district != null ) {
+//                if( schoolType.equals(SchoolType.PUBLIC) || (schoolType.equals(SchoolType.CHARTER) && district.getNumberOfSchools()>0 ) ) {
+//                    model.put( "districtName", district.getName() );
+//                    model.put( "districtNumSchools", new Integer(district.getNumberOfSchools()) );
+//                    model.put( "districtGrades", district.getGradeLevels().getRangeString() );
+//                    model.put( "districtNumStudents", "Samson is getting" );
+//                    model.put( "content", "districtInfo" );
+//                    return model;
+//                }
+//            }
+//        }
+//
+//        // Build neighborhood info
+//        BpZip sperlings = _schoolProfileDataHelper.getSperlingsInfo( request );
+//        if( sperlings != null ) {
+//
+//        }
 
         return model;
     }

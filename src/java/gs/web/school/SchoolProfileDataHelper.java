@@ -3,12 +3,16 @@ package gs.web.school;
 import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.community.User;
+import gs.data.geo.IGeoDao;
+import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.*;
 import gs.data.school.census.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.web.request.RequestAttributeHelper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +28,9 @@ import java.util.*;
  */
 
 @Component("schoolProfileDataHelper")
-public class SchoolProfileDataHelper {
+public class SchoolProfileDataHelper extends AbstractDataHelper {
+
+    protected static final Log _log = LogFactory.getLog(SchoolProfileDataHelper.class.getName());
 
     private final static String ESP_DATA_REQUEST_ATTRIBUTE = "espData";
     private final static String SCHOOL_MEDIA_REQUEST_ATTRIBUTE = "schoolMedia";
@@ -33,6 +39,8 @@ public class SchoolProfileDataHelper {
     private final static String REVIEWS = "reviews";
     private final static String REVIEWS_COUNT = "reviewsCount";
     private final static String SCHOOL_MEDIA_REPORTS_BY_USER = "reportsByUser";
+    private final static String ENROLLMENT = "enrollment";
+    private final static String SPERLINGS = "sperlings";
 
     private final static String CENSUS_DATA = "censusData";
 
@@ -42,6 +50,8 @@ public class SchoolProfileDataHelper {
     private final static String NO_SCHOOL_RATINGS_ATTRIBUTE = "ratingsEmpty";
     private final static String NO_PUBLISHED_REVIEW_COUNT = "publishedReviewCountEmpty";
     private final static String NO_CENSUS_DATA = "censusDataEmpty";
+    private final static String NO_ENROLLMENT = "enrollmentEmpty";
+    private final static String NO_SPERLINGS = "sperlingsEmpty";
 
     @Autowired
     private IEspResponseDao _espResponseDao;
@@ -76,6 +86,9 @@ public class SchoolProfileDataHelper {
     @Autowired
     ISchoolDao _schoolDao;
 
+    @Autowired
+    IGeoDao _geoDao;
+
     protected Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
         // Make sure we have a school
@@ -86,12 +99,11 @@ public class SchoolProfileDataHelper {
 
         // Get Data
         // First see if it is already in the request
-        Map<String, List<EspResponse>> espData = (Map<String, List<EspResponse>>) request.getAttribute( ESP_DATA_REQUEST_ATTRIBUTE );
-
+        Map<String, List<EspResponse>> espData = (Map<String, List<EspResponse>>) getSharedData( request, ESP_DATA_REQUEST_ATTRIBUTE );
         // If it isn't in the request try to retrieve it
         if( espData == null ) {
             // Before going to DB se if we have ready done that and determined there is no data
-            if( request.getAttribute( NO_ESP_DATA_REQUEST_ATTRIBUTE ) != null ) {
+            if( getSharedData( request, NO_ESP_DATA_REQUEST_ATTRIBUTE ) != null ) {
                 return  null;
             }
 
@@ -103,39 +115,57 @@ public class SchoolProfileDataHelper {
                 // and the value will be the corresponding list of EspResponse objects
                 espData = EspResponse.rollup(results);
 
-                request.setAttribute( ESP_DATA_REQUEST_ATTRIBUTE, espData ); // Save in request for future use
+                setSharedData( request, ESP_DATA_REQUEST_ATTRIBUTE, espData ); // Save in request for future use
             }
             else {
                 // Set flag to prevent this DB request again
-                request.setAttribute( NO_ESP_DATA_REQUEST_ATTRIBUTE, "yes" );
+                setSharedData( request, NO_ESP_DATA_REQUEST_ATTRIBUTE, "yes" );
             }
         }
 
         return espData;
     }
 
-// The same functionality is includes in EspResponse.
-//    protected static Map<String, List<EspResponse>> espResultsToMap(List<EspResponse> results) {
-//
-//        Map<String, List<EspResponse>> resultsMap = new HashMap<String, List<EspResponse>>();
-//
-//        // Loop over the incoming results and construct the Map
-//        for( EspResponse r : results ) {
-//            String key = r.getKey();
-//            List<EspResponse> existingList = resultsMap.get( key );
-//            if( existingList != null ) {
-//                // add to existing list
-//                existingList.add( r );
-//            }
-//            else {
-//                // Create new list and add to HashMap
-//                List<EspResponse> newList = new ArrayList<EspResponse>();
-//                newList.add( r );
-//                resultsMap.put( key, newList );
-//            }
-//        }
-//        return resultsMap;
-//    }
+    private void debugMsgIsNull(String msg, Object obj) {
+
+        StackTraceElement[] st =  Thread.currentThread().getStackTrace();
+        _log.error(msg + ((obj==null)?"null":"not null") + ", called from:\n  " + st[2].toString() + "\n  " + st[3].toString() + "\n");
+
+    }
+
+    protected Integer getEnrollment( HttpServletRequest request ) {
+
+        // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
+        if( school == null ) {
+            throw new IllegalArgumentException( "The request must already contain a school object" );
+        }
+
+        // Get Data
+        // First see if it is already in the request
+        Integer enrollment = (Integer) getSharedData( request, ENROLLMENT );
+
+        // If it isn't in the request try to retrieve it
+        if( enrollment == null ) {
+            // Before going to DB se if we have ready done that and determined there is no data
+            if( getSharedData( request, NO_ENROLLMENT ) != null ) {
+                return  null;
+            }
+
+            enrollment = school.getEnrollment();
+
+            if( enrollment != null ) {
+
+                setSharedData( request, ENROLLMENT, enrollment ); // Save in request for future use
+            }
+            else {
+                // Set flag to prevent this DB request again
+                setSharedData( request, NO_ENROLLMENT, "yes" );
+            }
+        }
+
+        return enrollment;
+    }
 
     protected List<SchoolMedia> getSchoolMedia(HttpServletRequest request) {
 
@@ -147,23 +177,23 @@ public class SchoolProfileDataHelper {
 
         // Get Data
         // First see if it is already in the request
-        List<SchoolMedia> schoolMedia = (List<SchoolMedia>) request.getAttribute( SCHOOL_MEDIA_REQUEST_ATTRIBUTE );
+        List<SchoolMedia> schoolMedia = (List<SchoolMedia>) getSharedData( request, SCHOOL_MEDIA_REQUEST_ATTRIBUTE );
 
         // If it isn't in the request try to retrieve it
         if( schoolMedia == null ) {
             // Before going to DB se if we have ready done that and determined there is no data
-            if( request.getAttribute( NO_SCHOOL_MEDIA_REQUEST_ATTRIBUTE ) != null ) {
+            if( getSharedData( request, NO_SCHOOL_MEDIA_REQUEST_ATTRIBUTE ) != null ) {
                 return  null;
             }
 
             schoolMedia =_schoolMediaDao.getAllActiveBySchool(school);
 
             if( schoolMedia != null && !schoolMedia.isEmpty() ) {
-               request.setAttribute( SCHOOL_MEDIA_REQUEST_ATTRIBUTE, schoolMedia ); // Save in request for future use
+               setSharedData( request, SCHOOL_MEDIA_REQUEST_ATTRIBUTE, schoolMedia ); // Save in request for future use
             }
             else {
                 // Set flag to prevent this DB request again
-                request.setAttribute( NO_SCHOOL_MEDIA_REQUEST_ATTRIBUTE, "yes" );
+                setSharedData( request, NO_SCHOOL_MEDIA_REQUEST_ATTRIBUTE, "yes" );
             }
         }
         return schoolMedia;
@@ -189,7 +219,7 @@ public class SchoolProfileDataHelper {
         //    null if no value has been determined
         //    True if there is a report
         //    False if there is no report
-        Map<Integer, Map<Integer, Boolean>> schoolMediaReportsByUser = (Map<Integer, Map<Integer, Boolean>>) request.getAttribute( SCHOOL_MEDIA_REPORTS_BY_USER );
+        Map<Integer, Map<Integer, Boolean>> schoolMediaReportsByUser = (Map<Integer, Map<Integer, Boolean>>) getSharedData( request, SCHOOL_MEDIA_REPORTS_BY_USER );
 
         // Case 1 - no data at all - create the data and save it
         if( schoolMediaReportsByUser == null ) {
@@ -197,7 +227,7 @@ public class SchoolProfileDataHelper {
             Map<Integer, Boolean> reports = new HashMap<Integer, Boolean>(schoolMediaList.size());
             schoolMediaReportsByUser = new HashMap<Integer, Map<Integer, Boolean>>(1);
             schoolMediaReportsByUser.put( user.getId(), reports );
-            request.setAttribute( SCHOOL_MEDIA_REPORTS_BY_USER, schoolMediaReportsByUser );
+            setSharedData( request, SCHOOL_MEDIA_REPORTS_BY_USER, schoolMediaReportsByUser );
         }
 
         // next process the schoolMediaList from the call and process it against the data stored in the request
@@ -233,23 +263,23 @@ public class SchoolProfileDataHelper {
 
         // Get Data
         // First see if it is already in the request
-        Ratings ratings =  (Ratings)request.getAttribute( SCHOOL_RATINGS_ATTRIBUTE );
+        Ratings ratings =  (Ratings)getSharedData( request, SCHOOL_RATINGS_ATTRIBUTE );
 
         // If it isn't in the request try to retrieve it
         if( ratings == null ) {
             // Before going to DB se if we have ready done that and determined there is no data
-            if( request.getAttribute( NO_SCHOOL_RATINGS_ATTRIBUTE ) != null ) {
+            if( getSharedData( request, NO_SCHOOL_RATINGS_ATTRIBUTE ) != null ) {
                 return  null;
             }
 
             ratings = _reviewDao.findRatingsBySchool(school);
 
             if( ratings != null ) {
-                request.setAttribute( SCHOOL_RATINGS_ATTRIBUTE, ratings ); // Save in request for future use
+                setSharedData( request, SCHOOL_RATINGS_ATTRIBUTE, ratings ); // Save in request for future use
             }
             else {
                 // Set flag to prevent this DB request again
-                request.setAttribute( NO_SCHOOL_RATINGS_ATTRIBUTE, "yes" );
+                setSharedData( request, NO_SCHOOL_RATINGS_ATTRIBUTE, "yes" );
             }
         }
         return ratings;
@@ -270,7 +300,7 @@ public class SchoolProfileDataHelper {
         // If it isn't in the request try to retrieve it
         if( numberOfReviews == null ) {
             // Before going to DB se if we have ready done that and determined there is no data
-            if( request.getAttribute( NO_PUBLISHED_REVIEW_COUNT ) != null ) {
+            if( getSharedData( request, NO_PUBLISHED_REVIEW_COUNT ) != null ) {
                 return  null;
             }
 
@@ -281,7 +311,7 @@ public class SchoolProfileDataHelper {
             }
             else {
                 // Set flag to prevent this DB request again
-                request.setAttribute( NO_PUBLISHED_REVIEW_COUNT, "yes" );
+                setSharedData( request, NO_PUBLISHED_REVIEW_COUNT, "yes" );
             }
         }
         return numberOfReviews;
@@ -296,14 +326,14 @@ public class SchoolProfileDataHelper {
         }
 
         // Get Data
-        List<Review> reviews = (List<Review>)request.getAttribute( REVIEWS );
+        List<Review> reviews = (List<Review>)getSharedData( request, REVIEWS );
         if( reviews == null ) {
             reviews = new ArrayList<Review>(0);
         }
 
         // Keep a count of the number of reviews available in the DB if more than that number have been requested.
         // This is to prevent asking for more than are available.
-//        Integer reviewsCount = (Integer)request.getAttribute( REVIEWS_COUNT );
+//        Integer reviewsCount = (Integer)getSharedData( request, REVIEWS_COUNT );
 
         // If the number stored request the number requested just return them
         if( reviews.size() == countRequested ) {
@@ -317,7 +347,7 @@ public class SchoolProfileDataHelper {
         else {
             // Fewer reviews are available than requested.
             // First see if we know how many are in the DB
-            Integer reviewsCount = (Integer)request.getAttribute( REVIEWS_COUNT );
+            Integer reviewsCount = (Integer)getSharedData( request, REVIEWS_COUNT );
             if( reviewsCount != null ) {
                 // See if we got fewer than we wanted and if so ???
                 // We have a count and this is the max we can return, so return them
@@ -327,15 +357,15 @@ public class SchoolProfileDataHelper {
                 // Go to the DB for the request number
                 reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school, countRequested);
                 if( reviews == null ) {
-                    request.setAttribute( REVIEWS_COUNT, new Integer(0) );  // Save the count (of 0) so we don't hit the DB again
+                    setSharedData( request, REVIEWS_COUNT, new Integer(0) );  // Save the count (of 0) so we don't hit the DB again
                     return null;    // No data is available, return null
                 }
                 else {
                     // Store for future use
-                    request.setAttribute( REVIEWS, reviews );
+                    setSharedData( request, REVIEWS, reviews );
                     // If we got fewer than requested save that count so we don't again ask for more than are present
                     if( reviews.size() < countRequested ) {
-                        request.setAttribute( REVIEWS_COUNT, new Integer(reviews.size()) );  // Save the count since we know the max now
+                        setSharedData( request, REVIEWS_COUNT, new Integer(reviews.size()) );  // Save the count since we know the max now
                     }
                 }
             }
@@ -390,13 +420,45 @@ public class SchoolProfileDataHelper {
     protected List<NearbySchool> getNearbySchools( HttpServletRequest request, int numSchools ) {
 
         // Make sure we have a school
-        School school = _requestAttributeHelper.getSchool( request );
+        School school = _requestAttributeHelper.getSchool(request);
         if( school == null ) {
             throw new IllegalArgumentException( "The request must already contain a school object" );
         }
 
         // Get Data
         return _schoolDao.findNearbySchools(school, numSchools);
+    }
+
+    protected BpZip getSperlingsInfo (HttpServletRequest request) {
+
+        // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
+        if( school == null ) {
+            throw new IllegalArgumentException( "The request must already contain a school object" );
+        }
+
+        // Get Data
+        // First see if it is already in the request
+        BpZip sperlings =  (BpZip)getSharedData( request, SPERLINGS );
+
+        // If it isn't in the request try to retrieve it
+        if( sperlings == null ) {
+            // Before going to DB se if we have ready done that and determined there is no data
+            if( getSharedData( request, NO_SPERLINGS ) != null ) {
+                return  null;
+            }
+
+            sperlings = _geoDao.findZip(school.getZipcode());
+
+            if( sperlings != null ) {
+                setSharedData( request, SPERLINGS, sperlings ); // Save in request for future use
+            }
+            else {
+                // Set flag to prevent this DB request again
+                setSharedData( request, NO_SPERLINGS, "yes" );
+            }
+        }
+        return sperlings;
     }
 
     // ============== The following setters are just for unit testing ===================
@@ -434,6 +496,10 @@ public class SchoolProfileDataHelper {
 
     public void setSchoolDao( ISchoolDao schoolDao ) {
         _schoolDao = schoolDao;
+    }
+
+    public void setGeoDao( IGeoDao geoDao ) {
+        _geoDao = geoDao;
     }
 }
 

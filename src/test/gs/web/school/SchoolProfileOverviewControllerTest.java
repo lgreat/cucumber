@@ -303,6 +303,90 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertEquals("testListTruncation: expected last item to be More...", "More...", boysSports.get(3));
     }
 
+    // =========== Tests for Tile 3 - school video ====================
+    // Tests the default action of returning the url of the video
+    public void testVideoDefaultA() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        String url = "http://www.youtube.com/watch?v=eImToAYIq7o";
+        l.add( createEspResponse( "school_video", url ) );
+
+        Map map = runController( convertToEspData( l ) );
+
+        Map<String, Object> resultsModel = (Map<String, Object>) map.get("video");
+        assertEquals( "testVideoDefaultA: content wrong", "default", resultsModel.get("content") );
+        assertEquals( "testVideoDefaultA: url wrong", url, resultsModel.get("video") );
+        System.out.println("testVideoDefaultA successful");
+    }
+
+    // Tests the substitute action of returning the lowest school level
+    public void testVideoSubstituteA() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "something", "doesnt matter what" ) );
+
+        // Set the school level since that controls which CMS video will be choosen
+        _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
+
+        Map map = runController( convertToEspData( l ) );
+
+        Map<String, Object> resultsModel = (Map<String, Object>) map.get("video");
+        assertEquals( "testVideoSubstituteA: content wrong", "substitute", resultsModel.get("content") );
+        assertEquals( "testVideoSubstituteA: school level wrong", "e", resultsModel.get("schoolLevel") );
+        System.out.println("testVideoSubstituteA successful");
+    }
+
+    // Tests the substitute action of returning the lowest school level
+    public void testVideoSubstituteB() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "something", "doesnt matter what" ) );
+
+        // Set the school level since that controls which CMS video will be choosen
+        _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
+
+        Map map = runController( convertToEspData( l ) );
+
+        Map<String, Object> resultsModel = (Map<String, Object>) map.get("video");
+        assertEquals( "testVideoSubstituteB: content wrong", "substitute", resultsModel.get("content") );
+        assertEquals( "testVideoSubstituteB: school level wrong", "e", resultsModel.get("schoolLevel") );
+        System.out.println("testVideoSubstituteB successful");
+    }
+
+    // Tests the substitute action of returning the lowest school level
+    public void testVideoSubstituteC() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "something", "doesnt matter what" ) );
+
+        // Set the school level since that controls which CMS video will be choosen
+        _school.setLevelCode( LevelCode.PRESCHOOL);
+
+        Map map = runController( convertToEspData( l ) );
+
+        Map<String, Object> resultsModel = (Map<String, Object>) map.get("video");
+        assertEquals( "testVideoSubstituteC: content wrong", "substitute", resultsModel.get("content") );
+        assertEquals( "testVideoSubstituteC: school level wrong", "e", resultsModel.get("schoolLevel") );
+        System.out.println("testVideoSubstituteC successful");
+    }
+
+    // Tests the substitute action of returning the lowest school level
+    public void testVideoSubstituteD() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "something", "doesnt matter what" ) );
+
+        // Set the school level since that controls which CMS video will be choosen
+        _school.setLevelCode( LevelCode.MIDDLE_HIGH);
+
+        Map map = runController( convertToEspData( l ) );
+
+        Map<String, Object> resultsModel = (Map<String, Object>) map.get("video");
+        assertEquals( "testVideoSubstituteD: content wrong", "substitute", resultsModel.get("content") );
+        assertEquals( "testVideoSubstituteD: school level wrong", "m", resultsModel.get("schoolLevel") );
+        System.out.println("testVideoSubstituteD successful");
+    }
+
     // =========== Tests for Tile 8 - Spec Ed / Extended care ====================
     // Tests the Special Education substitute display is selected
     public void testSpecEd1() {

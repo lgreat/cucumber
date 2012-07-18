@@ -36,6 +36,10 @@ public class SchoolProfileController extends AbstractSchoolController implements
         // TODO: Audit SchoolOverview2010Controller and refactor all shared logic such as number1expert cobrand.  The
         // new profile and old profile will coexist side by side for a while, so they need to share code.
 
+        // Create a map on the request used to save references to data that is to be reused.
+        // This needs to be done early in the request cycle or the item attached to the request can be lost.
+        AbstractDataHelper.initialize( request );
+
         return new ModelAndView(_viewName, model);
     }
 

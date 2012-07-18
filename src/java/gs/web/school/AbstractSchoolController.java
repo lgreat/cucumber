@@ -22,6 +22,9 @@ import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.mvc.LastModified;
 import org.springframework.web.servlet.support.WebContentGenerator;
 
+import java.io.ObjectStreamConstants;
+import java.util.Map;
+
 /**
  * This class is intended to be the base class for School Profile pages and other pages that need
  * access to a single school.  The state and the school id are required url parameters.
@@ -165,4 +168,5 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
     protected String getErrorViewName() {
         return _errorViewName;
     }
+
 }

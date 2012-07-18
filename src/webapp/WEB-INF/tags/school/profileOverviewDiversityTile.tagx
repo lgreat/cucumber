@@ -16,13 +16,28 @@
 
     <jsp:directive.attribute name="diversityModel" type="java.lang.Object" required="true"/>
 
-    <!--
-    <c:set var="xxx" value="${diversityModel['school']}" scope="page"/>
-    <c:set var="yyy" value="${diversityModel['ratings']}" scope="page"/>
-    <c:set var="zzz" value="${diversityModel['numberOfReviews']}" scope="page"/>
-    -->
+    <!-- The display variable contains 'default' or 'substitute' for which content to display -->
+    <c:set var="content" value="${diversityModel['content']}" scope="page"/>
+    <c:set var="values" value="${diversityModel['diversityValues']}" scope="page"/>
+    <c:set var="labels" value="${diversityModel['diversityLabels']}" scope="page"/>
+    <c:set var="largestValue" value="${diversityModel['largestDiversityValue']}" scope="page"/>
+    <c:set var="largestLabel" value="${diversityModel['largestDiversityLabel']}" scope="page"/>
 
     <school:profileOverviewCell1 title="Student diversity">
+        <c:choose>
+            <c:when test="${content eq 'default'}">
+                <!-- The ethnicity labels are in the labels variable and the values are in the values variable.  Here is how to access them -->
+                <c:forEach var="value" items="${values}" varStatus="status">
+                    <c:set var="label" value="${labels[status.index]}" scope="page"/>
+                    <div class="">${label} = ${value}</div>
+                </c:forEach>
+                <div class="">Largest group is ${largestLabel} with a value of ${largestValue}</div>
+            </c:when>
+            <c:otherwise>
+                <!-- Static text is to be displayed -->
+                <div class="">Student ethnicity data is not available for this school. Call the school to learn more about diversity.</div>
+            </c:otherwise>
+        </c:choose>
         <!-- Insert display code here -->
     </school:profileOverviewCell1>
 

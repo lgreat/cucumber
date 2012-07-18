@@ -4,6 +4,7 @@ import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.community.User;
 import gs.data.school.*;
+import gs.data.school.census.ICensusInfo;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 //import static org.easymock.EasyMock.createStrictMock;
+//import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
@@ -31,6 +33,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
     SchoolProfileDataHelper _schoolProfileDataHelper;
     private IEspResponseDao _espResponseDao;
     private ISchoolMediaDao _schoolMediaDao;
+//    private ICensusInfo _censusInfo;
     private IReviewDao _reviewDao;
     private IReportedEntityDao _reportedEntityDao;
     private RequestAttributeHelper _requestAttributeHelper;
@@ -42,6 +45,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         super.setUp();
         _espResponseDao = createStrictMock(IEspResponseDao.class);
         _schoolMediaDao = createStrictMock(ISchoolMediaDao.class);
+//        _censusInfo = createStrictMock( ICensusInfo.class );
         _reviewDao = createStrictMock(IReviewDao.class);
         _reportedEntityDao = createStrictMock(IReportedEntityDao.class);
         _requestAttributeHelper = createStrictMock( RequestAttributeHelper.class );
@@ -55,6 +59,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         _state = sm.getState( "CA" );
         _school = new School();
         getRequest().setAttribute( "school", _school );
+//        _school.setCensusInfo( _censusInfo );
         expect( _requestAttributeHelper.getSchool( getRequest() ) ).andReturn( _school );
         expectLastCall().anyTimes();
         replay( _requestAttributeHelper );
@@ -122,6 +127,26 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         verify(_espResponseDao);
 
    }
+
+    // Test for census info
+    public void testCensusInfoA() {
+
+        School school = createStrictMock( School.class );
+        getRequest().setAttribute( "school", school );
+        reset( _requestAttributeHelper );       // reset so we don't use the one from setUp()
+        expect( _requestAttributeHelper.getSchool( getRequest() ) ).andReturn( school ).times(2); // This will be called for each getEnrollment call
+        replay( _requestAttributeHelper );
+
+        expect( school.getEnrollment() ).andReturn( new Integer(500) );
+        replay(school);
+        Integer enrollment = _schoolProfileDataHelper.getEnrollment( getRequest() );
+        // getEnrollment again and if it calls school.getEnrollment() EasyMock will fail because only one call is expected
+        enrollment = _schoolProfileDataHelper.getEnrollment( getRequest() );
+        verify(school);
+        verify(_requestAttributeHelper);
+
+        assertEquals("testCensusInfoA: value wrong", 500, enrollment.intValue());
+    }
 
     // Tests for SchoolMedia
     public void testSchoolMedia() {
