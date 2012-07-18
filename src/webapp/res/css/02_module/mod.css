@@ -26,4 +26,4 @@ General comments:
 .slStylesV1-0 .mod{margin:0;}
 .slStylesV1-0 .mod .outer{}
 .slStylesV1-0 .mod .inner{}
-.bd, .ft, .hd{overflow:hidden; *overflow:visible; zoom:1;}
+.slStylesV1-0 .bd, .slStylesV1-0 .ft, .slStylesV1-0 .hd{min-height:0; zoom:1;}

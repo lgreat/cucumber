@@ -25,7 +25,7 @@
             <gsml:url var="reset" value="/res/css/00_reset/reset.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="grid960" value="/res/css/01_grids/grid_960.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gridoocss" value="/res/css/01_grids/grid_oocss.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="module" value="/res/css/02_module/mod.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="module" value="/res/css/02_module/mod-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="moduleskin" value="/res/css/02_module/mod_skins-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="media" value="/res/css/03_media/media-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="text" value="/res/css/04_text/typography-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>

@@ -26,4 +26,4 @@ General comments:
 .mod{margin:0;}
 .mod .outer{}
 .mod .inner{}
-.bd, .ft, .hd{overflow:hidden; *overflow:visible; zoom:1;}
+.bd, .ft, .hd{min-height:0; zoom:1;}
