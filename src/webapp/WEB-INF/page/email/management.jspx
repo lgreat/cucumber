@@ -164,9 +164,8 @@
 
 </fieldset>
 
-<!-- GS-12991 temporarily hide the Daily Tip -->
-<!--
-<fieldset id="dailyTip">
+<!-- GS-12991 temporarily hide the Daily Tip but use class="hidden" instead of commenting out so people don't get unsubscribed -->
+<fieldset id="dailyTip" class="hidden">
 
     <div class="newsletterInfo">
         <p class="newsletterHeader text2bold">Daily Newsletter<a name="daily_anchor">&amp;nbsp;</a></p>
@@ -187,7 +186,6 @@
     </div>
 
 </fieldset>
--->
 
 <fieldset>
 
