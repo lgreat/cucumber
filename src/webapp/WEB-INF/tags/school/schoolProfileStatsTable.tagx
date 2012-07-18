@@ -187,9 +187,11 @@
             ]);
 
             var options = {
-                'width': 200,
-                        'height': 200,
-                        'legend': 'none'
+                width: 200,
+                height: 200,
+                legend: 'none',
+                tooltip: {showColorCode: true,text:'percentage'},
+                pieSliceText: 'none'
 //                        'chartArea': {'left': 15, 'top': 15, 'right': 0, 'bottom': 0},
 //                'pieSliceText': 'value'
 //
