@@ -211,7 +211,7 @@
                         var adSlots = [];
                         for(key in slotKeys) {
                             if(GS.ad.slotTimers[slotKeys[key]] === undefined ||
-                                    ((new Date().getTime()) - GS.ad.slotTimers[slotKeys[key]].timestamp >= 10000)) {
+                                    ((new Date().getTime()) - GS.ad.slotTimers[slotKeys[key]].timestamp >= 1000)) {
                                 GS.ad.slotTimers[slotKeys[key]] = new Timer(slotKeys[key]);
                                 adSlots.push(GS.ad.slots[slotKeys[key]]);
                             }
