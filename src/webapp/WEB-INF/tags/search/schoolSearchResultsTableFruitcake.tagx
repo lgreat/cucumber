@@ -31,7 +31,7 @@
            <div class="unit size2of2 lastUnit">
                 <div class="pagination  js-pageNumbers" id="pagination">
                     <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
-                                         javascriptMethod="GS.search.results.page"/>
+                                         javascriptMethod="GS.search.results.pagination"/>
                 </div>
            </div>
         </div>

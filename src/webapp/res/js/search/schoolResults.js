@@ -230,7 +230,15 @@ GS.search.results = GS.search.results || (function() {
     var pagination = function(pageNumber, pageSize) {
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             refreshAds();
-            mapSearch(pageNumber, pageSize);
+            var queryData = GS.uri.Uri.getQueryData();
+            if(queryData.view === 'map') {
+                mapSearch(pageNumber, pageSize);
+            }
+            else {
+                var start = (pageNumber-1) * pageSize;
+                queryData.start = start;
+                update(queryData);
+            }
         }
         else {
             page(pageNumber, pageSize);
