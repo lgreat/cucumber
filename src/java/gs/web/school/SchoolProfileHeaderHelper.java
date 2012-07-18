@@ -17,6 +17,7 @@ import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -112,11 +113,27 @@ public class SchoolProfileHeaderHelper {
                 startTime = System.currentTimeMillis();
                 handleCompareNearbyString(school, model);
                 logDuration(System.currentTimeMillis() - startTime, "Handling compare nearby string");
+
+                startTime = System.currentTimeMillis();
+                handlePinItButton(request, school, model);
+                logDuration(System.currentTimeMillis() - startTime, "Handling PinIt button");
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);
         }
         logDuration(System.currentTimeMillis() - totalTime, "Entire SchoolProfileHeaderHelper");
+    }
+
+    protected void handlePinItButton(HttpServletRequest request, School school, Map<String, Object> model) {
+        String schoolSummary = school.getSchoolSummary();
+        if (schoolSummary != null) {
+            // remove links and other HTML tags to convert summary to plain text
+            model.put("plainTextSummary", schoolSummary.replaceAll("\\<.*?>",""));
+        }
+
+        // always provide school overview URL for Pin It button, even if on different school profile page
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        model.put("schoolOverviewUrl", urlBuilder.asFullUrl(request));
     }
 
     protected void handleCompareNearbyString(School school, Map<String, Object> model) {

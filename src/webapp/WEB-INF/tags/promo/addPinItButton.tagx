@@ -22,13 +22,6 @@
         jQuery(window).load(function() {
             jQuery.getScript("${pinterestjs}");
         });
-
-        jQuery(function() {
-            jQuery('#pinItButton').click(function() {
-                clickCapture.capture("events", "event63");
-            });
-        });
-
     </script>
 
     <a href="http://pinterest.com/pin/create/button/?url=${gsweb:urlEncode(url)}&amp;media=${gsweb:urlEncode(image)}&amp;description=${gsweb:urlEncode(title)}"

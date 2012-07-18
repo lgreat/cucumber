@@ -6327,6 +6327,16 @@ body.hover #startADiscussion .submit {
     height: 22px;
 }
 
+#schoolProfilePinIt, #schoolProfileFbLike {
+    margin-left: 5px;
+    float: left;
+    display: inline-block;
+}
+
+#schoolProfileFbLike .fb_iframe_widget span {
+    vertical-align: baseline;
+}
+
 #schoolToolLinks ul li {
     list-style: none outside none;
     display: inline;
