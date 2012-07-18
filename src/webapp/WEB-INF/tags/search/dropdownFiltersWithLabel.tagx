@@ -10,10 +10,10 @@
 
     <div id="${id}" class="${cssClass}">
         <div class="line">
-            <div class="unit size40of100">
+            <div class="unit size45of100">
                 <div class="small_bold bottom">${label}</div>
             </div>
-            <div class="unit size60of100 lastUnit">
+            <div class="unit size55of100 lastUnit">
                 <div class="small_bold bottom">
                     <search:dropdownFilters id="${id}" cssClass="${cssClass}" label="${selectedValueLabel}"
                                             title="Results will show schools with at least one of these:">

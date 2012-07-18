@@ -12,6 +12,7 @@
     <c:set var="blackTriangleDown" value="&amp;#9662;"/>
     <c:set var="whiteTriangleDown" value="&#160;"/>
     <c:set var="blackTriangleUp" value="&amp;#9652;"/>
+    <c:set var="blackTriangleUp" value="&amp;#9662;"/>
     <c:set var="whiteTriangleUp" value="&#160;"/>
 
     <c:choose>
@@ -36,13 +37,7 @@
             </c:choose>
         </c:otherwise>
     </c:choose>
-
-
-
     <a href="javascript:void(0);" data-gs-sort-toggle="${sortList}">${columnName}
-        <span data-gs-sort-toggle="${sortList}">${triangle}</span>
+        <a href="javascript:void(0);" class="noUnderline mls">${triangle}</a>
     </a>
-
-
-
 </jsp:root>

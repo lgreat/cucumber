@@ -9,17 +9,18 @@
     <jsp:directive.attribute name="label" required="true" type="java.lang.String"/>
 
     <jsp:directive.attribute name="hideApplyReset" required="false" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="noclear" required="false" type="java.lang.Boolean"/>
 
 
     <div id="${id}" class="${cssClass}">
         <div class="mod standard_6-2">
             <div class="line" data-gs-dropdown-opener="${id}">
-                <div class="unit size87of100">
+                <div class="unit size85of100">
                     <div class="bd">
                         <span class="small bottom" data-gs-filter-status="${id}">${label}</span>
                     </div>
                 </div>
-                <div class="unit size13of100 lastUnit">
+                <div class="unit size15of100 lastUnit">
                     <div class="button-8">&#9662;</div>
                 </div>
             </div>

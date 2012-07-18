@@ -43,6 +43,8 @@ GS.util.htmlMirrors = GS.util.htmlMirrors || (function() {
 
     var updateAll = function() {
         $('#js-noResultsPopup').hide();
+        $("#js-spinny-search").hide();
+        jQuery("#totalResultsText").show();
         $('[data-' + recipientDataAttribute + ']').each(function() {
             updateOneMirror($(this));
         });

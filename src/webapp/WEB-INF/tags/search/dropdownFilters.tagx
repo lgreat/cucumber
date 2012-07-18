@@ -11,23 +11,22 @@
     <jsp:directive.attribute name="label" required="true" type="java.lang.String"/>
 
     <jsp:directive.attribute name="hideApplyReset" required="false" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="noclear" required="false" type="java.lang.Boolean"/>
 
-    <mod:contentDropdown title="${title}" id="${id}" cssClass="${cssClass}" label="${label}" hideApplyReset="${hideApplyReset}">
+    <mod:contentDropdown title="${title}" id="${id}" cssClass="${cssClass}" label="${label}" hideApplyReset="${hideApplyReset}" noclear="${noclear}">
         <c:choose>
             <c:when test="${not empty pageScope.title or not hideApplyReset}">
                 <div class="mod standard_6-3" style="width: 250px;">
                     <c:if test="${not empty pageScope.title}">
                         <div class="hd">
                             <div class="line">
-                                <div class="unit size96of100">
-                                    <!--<c:if test="${not empty pageScope.title}">-->
+                                <div class="unit size85of100">
                                     <div class="small bottom">${title}</div>
-                                    <!--</c:if>-->
                                 </div>
-                                <div class="unit size4of100 lastUnit">
-                                    <!--<c:if test="${not hideApplyReset}">-->
-                                    <span class="" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">X</span>
-                                    <!--</c:if>-->
+                                <div class="unit size15of100 lastUnit">
+                                    <span class="fltrt" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">
+                                        <span class="iconx16 i-16-close"><!-- do not collapse --></span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -53,42 +52,24 @@
 
                 </div>
             </c:when>
+
+            <c:when test="${not empty pageScope.title or not empty noclear}">
+                <div class="mod standard_6-3" style="width: 144px;">
+                    <div class="bd" style="height:63px;">
+                        <jsp:doBody/>
+                    </div>
+                    <div class="ft">
+                        <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Save
+                        </button>
+                    </div>
+                </div>
+            </c:when>
+
             <c:otherwise>
                 <div class="mod standard_6-3">
-                    <!--<c:if test="${not empty pageScope.title}">-->
-                        <!--<div class="hd">-->
-                            <!--<div class="line">-->
-                                <!--<div class="unit size96of100">-->
-                                    <!--&lt;!&ndash;<c:if test="${not empty pageScope.title}">&ndash;&gt;-->
-                                    <!--<div class="small bottom">${title}</div>-->
-                                    <!--&lt;!&ndash;</c:if>&ndash;&gt;-->
-                                <!--</div>-->
-                                <!--<div class="unit size4of100 lastUnit">-->
-                                    <!--&lt;!&ndash;<c:if test="${not hideApplyReset}">&ndash;&gt;-->
-                                    <!--<span class="" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">X</span>-->
-                                    <!--&lt;!&ndash;</c:if>&ndash;&gt;-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</c:if>-->
-
                     <div class="bd">
                         <jsp:doBody/>
                     </div>
-
-                    <!--<c:if test="${not hideApplyReset}">-->
-                        <!--<div class="ft">-->
-                            <!--<div class="line">-->
-                                <!--<div class="unit size83of100">-->
-                                    <!--<button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Save-->
-                                    <!--</button>-->
-                                <!--</div>-->
-                                <!--<div class="unit size11of100 lastUnit">-->
-                                    <!--<a href="javascript:void(0);" data-gs-uncheckall="${id}">Clear</a>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</c:if>-->
                 </div>
             </c:otherwise>
         </c:choose>

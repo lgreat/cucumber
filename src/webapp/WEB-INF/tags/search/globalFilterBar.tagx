@@ -19,7 +19,8 @@
     <jsp:directive.attribute name="includeDistance" required="false" description="default is false"/>
 
     <div id="jq-filterBar" class="alpha grid_16 omega pbl">
-        <div id="js-schoolTypes" class="grid_4">
+        <div class="line">
+        <div id="js-schoolTypes" class="unit size24of100 mrl mlm mtm">
             <search:dropdownFilters id="stDropdown" label="All school types"
                                     title="" hideApplyReset="${true}">
 
@@ -59,7 +60,7 @@
             </search:dropdownFilters>
             <!--</div>-->
         </div>
-        <div id="js-gradeLevels" class="grid_4">
+        <div id="js-gradeLevels" class="unit size24of100 mrl mtm">
             <!--<div class="triggerMouseLeave">-->
             <search:dropdownFilters id="gradeLevels" label="All grades levels"
                                     title="" hideApplyReset="${true}">
@@ -97,10 +98,9 @@
             <!--</div>-->
         </div>
         <c:if test="${isCityBrowse ne true and isDistrictBrowse ne true and includeDistance eq true}">
-            <div id="js-radius" class="grid_4" style="${!commandAndFields.nearbySearch? 'display:none':''}">
+            <div id="js-radius" class="unit size24of100 mrl mtm" style="${!commandAndFields.nearbySearch? 'display:none':''}">
                 <search:dropdownFilters id="distance" label="Any distance"
                                         title="" hideApplyReset="${true}">
-                    <!--<div class="mod standard_6-3 grid_4">-->
                     <div class="grid_4">
                         <div class="line">
                             <div class="unit size50of100">
@@ -175,20 +175,23 @@
                                 </div>
                             </div>
                         </div>
-                    <!--</div>-->
                     </div>
                 </search:dropdownFilters>
             </div>
         </c:if>
 
-        <div class="grid_3 omega">
-            <div class="line">
-                <div class="unit size2of5">
-                    <div class="largest bottom"><span data-gs-html-mirror="total-results-count" id="totalResultsText"><!-- do not collapse --></span>
-                    </div >
+            <div class="unit size25of100 lastUnit mrm mll">
+                <div class="tar">
+                    <span data-gs-html-mirror="total-results-count" id="totalResultsText"
+                          class="largest bottom "><!-- do not collapse --></span>
+                    <div id="js-spinny-search" style="display:none;">
+                        <img src="/res/img/search/120717-preloader32.gif" alt="spinny img"/>
+                    </div>
                 </div>
-                <div class="unit size3of5 lastUnit">schools found</div>
-                <div id="js-noResultsPopup" style="display: none;">Oops! No results found. See tips below or broaden your search.</div>
+                <div class="tar"><span class="small bottom">schools found</span></div>
+                <div id="js-noResultsPopup"
+                     style="display: none;">Oops! No results found. See tips below or broaden your search.
+                </div>
             </div>
         </div>
         <script type="text/javascript">

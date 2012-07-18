@@ -82,8 +82,8 @@
                                                   label="English Language Learners (ELL) support"/>
                 </div>
                 <div class="unit size24of100 phm" style="border-left: 1px solid #DDD">
-                    <div class="small bottom"><strong>Local Rating</strong></div>
-                    <search:dropdownFilters id="ratingCategories" cssClass="mbl" label="All">
+                    <div class="small bottom"><strong>GreatSchools Rating</strong></div>
+                    <search:dropdownFilters id="ratingCategories" cssClass="mbl" label="All" hideApplyReset="${true}" noclear="${true}">
                             <search:searchFilterWithCount name="ratingCategories"
                                                           value="low" label="Low 1-3"/>
                             <search:searchFilterWithCount name="ratingCategories"

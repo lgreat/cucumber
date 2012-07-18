@@ -6,23 +6,26 @@
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings">
 
     <jsp:directive.attribute name="school" required="true" type="gs.data.search.beans.ISchoolSearchResult"/>
+    <div class="mbl">
+        <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}"
+                                            schoolId="${school.id}" styleClass="block" anchor="revPagination">
+            <c:choose>
+                <c:when test="${not empty school.parentRating}">
+                    <ratings:stars curSR="${school.parentRating}"/>
+                    <!--<span class="sprite stars_sm_${school.parentRating}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                </c:when>
+                <c:otherwise>
+                    <!--<span class="sprite stars_sm_rate_it">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                    <dfn>Rate this school</dfn>
+                </c:otherwise>
+            </c:choose>
+        </link:schoolProfileParentReview2010>
+    </div>
 
-    <link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" styleClass="block" anchor="revPagination">
-        <c:choose>
-            <c:when test="${not empty school.parentRating}">
-                <ratings:stars curSR="${school.parentRating}"/>
-                <!--<span class="sprite stars_sm_${school.parentRating}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-            </c:when>
-            <c:otherwise>
-                <!--<span class="sprite stars_sm_rate_it">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                <dfn>Rate this school</dfn>
-            </c:otherwise>
-        </c:choose>
-    </link:schoolProfileParentReview2010>
 
     <c:if test="${school.reviewCount gt 0 and not empty school.reviewBlurb}">
-        <div class="mtm small bottom reviewBlurb">
-        ${school.reviewBlurb}...
+        <div class="mtm reviewBlurb">
+            <span class="small bottom">${school.reviewBlurb}...</span>
         <div class="small bottom"><link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" anchor="revPagination">Read more (${school.reviewCount})&amp;#187;</link:schoolProfileParentReview2010></div>
         </div>
     </c:if>

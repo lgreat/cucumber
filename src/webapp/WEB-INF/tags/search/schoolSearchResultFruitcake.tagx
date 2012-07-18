@@ -104,15 +104,13 @@
                         </c:when>
                         <c:otherwise>
                             <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}"
-                                                          levelCode="${school.levelCode}">
+                                                          levelCode="${school.levelCode}" styleClass="noUnderline">
                                 <c:choose>
                                     <c:when test="${not empty school.greatSchoolsRating}">
-                                        <div class="round-small">${school.greatSchoolsRating}</div>
-                                        <!--<span class="sprite badge_sm_${school.greatSchoolsRating}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                        <div class="round-small noUnderline">${school.greatSchoolsRating}</div>
                                     </c:when>
                                     <c:otherwise>
-                                        <div class="round-small">n/a</div>
-                                        <!--<span class="sprite badge_sm_na">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                        <div class="round-small noUnderline">n/a</div>
                                     </c:otherwise>
                                 </c:choose>
                             </link:schoolProfileRating2010>
@@ -139,7 +137,6 @@
                         <div class="unit size20of100">
                             <div id="js-compare-${school.databaseState}${school.id}">
                                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
-                                <!-- DONE: Randall fixme -->
                                 <c:choose>
                                     <c:when test="${school.levelCode eq 'p'}">
                                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"

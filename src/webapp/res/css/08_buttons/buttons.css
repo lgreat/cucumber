@@ -1069,7 +1069,7 @@ Extends button-1 by changing:
 /* Email and Print buttons */
 .slStylesV1-0 .button-8{
     font-family: 14px/14px arial;
-    letter-spacing: 2px;
+    letter-spacing: -1px;
     color: #2B2B2B;
     width: 22px;
     height: 22px;

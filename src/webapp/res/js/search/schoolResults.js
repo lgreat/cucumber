@@ -32,6 +32,7 @@ GS.search.results = GS.search.results || (function() {
 //        var whiteTriangleUp = '&#9653;';
         $('body').on('click', '[data-gs-sort-toggle]', function() {
             var $this = $(this);
+            var $span = $this.find('span');
             var sorts = $this.data('gs-sort-toggle').split(',');
             var queryData = GS.uri.Uri.getQueryData();
             var currentSort = queryData['sortBy'];
@@ -50,14 +51,16 @@ GS.search.results = GS.search.results || (function() {
             }
 
             $('body [data-gs-sort-toggle]span').each(function() {
-//                $this.attributes["-webkit-transform: rotate(180deg);" -moz-transform: rotate(180deg); -ms-transform: rotate(180deg); -o-transform: rotate(180deg);transform: rotate(180deg);] ;
+                $span.html('&#160;');      //remove all other arrows
 //                $(this).html($(this).html().replace('2','3')); // just change whichever triangle is currently in use, to make it white
             });
 
             if (newSort.indexOf('DESCENDING') !== -1) {
-                $this.html(blackTriangleUp);
+//                $span.html('&#9662;');
+//                $this.html(blackTriangleUp);
             } else {
-                $this.html(blackTriangleDown);
+//                $this.html(blackTriangleDown);
+                $span.html('&#9662;');
             }
 
             refreshAds();
@@ -137,9 +140,12 @@ GS.search.results = GS.search.results || (function() {
             var onSearchError = function() {
                 clear();
                 jQuery("#spinner").hide();
+                jQuery("#js-spinny-search").hide();
             };
 
             jQuery('#spinner').show();
+            jQuery("#totalResultsText").hide();
+            jQuery("#js-spinny-search").show();
 
             jQuery('#js-school-search-results-table-body').animate(
                 { opacity: .2 },
@@ -252,6 +258,8 @@ GS.search.results = GS.search.results || (function() {
             // use HTML 5 history API to rewrite the current URL to represent the new state.
             history.pushState(state, start, queryString);
         }
+        jQuery("#totalResultsText").hide();
+        jQuery("#js-spinny-search").show();
 
         $.ajax({
             type: 'POST',
@@ -262,6 +270,7 @@ GS.search.results = GS.search.results || (function() {
             }
         ).fail(function() {
                 alert("error");
+                jQuery("#js-spinny-search").hide();
             }
         );
     }

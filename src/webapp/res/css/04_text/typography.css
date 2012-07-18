@@ -72,7 +72,7 @@ Misc classes
 
 .slStylesV1-0 p,
 .slStylesV1-0 .default     { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
-.slStylesV1-0 .largest     { font: normal 36px/40px Arial, Helvetica, sans-serif; text-shadow: 0 1px 0 #fff; margin-bottom: 20px;}
+.slStylesV1-0 .largest     { font: normal 27px/21px Arial, Helvetica, sans-serif; text-shadow: 0 1px 0 #fff; margin-bottom: 20px;}
 .slStylesV1-0 .medium      { font: normal 13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .slStylesV1-0 .medium_bold { font: bold   13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
 .slStylesV1-0 .small       { font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
@@ -92,6 +92,8 @@ Misc classes
 .slStylesV1-0 a:focus,
 .slStylesV1-0 a:hover     { text-decoration: underline; }
 .slStylesV1-0 a           { color: #06b; text-decoration: none; }
+.slStylesV1-0 a:hover.noUnderline {text-decoration: none;}
+.slStylesV1-0 a.noUnderline { color: #06b; text-decoration: none; }
 
 .slStylesV1-0 blockquote  { margin: 20px; color: #555; font-style: italic; }
 .slStylesV1-0 strong,
@@ -232,6 +234,14 @@ ol.none li  { list-style-type: none; }
 .slStylesV1-0 .ttn         { text-transform: none; }
 .slStylesV1-0 .make-uppercase,
 .slStylesV1-0 .ttu         { text-transform: uppercase; }
+
+/*.slStylesV1-0 .rotateArrow{ -webkit-transform: rotate(270deg);*/
+    /*-moz-transform: rotate(270deg);*/
+    /*-ms-transform: rotate(270deg);*/
+    /*-o-transform: rotate(270deg);*/
+    /*transform: rotate(270deg);*/
+    /*filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);*/
+    /*filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);}*/
 
 /* Additional Lists
 -------------------------------------------------------------- */
