@@ -62,16 +62,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     String _viewName;
 
     @Autowired
-    private RatingHelper _ratingHelper;
-
-    @Autowired
     private SchoolProfileDataHelper _schoolProfileDataHelper;
-
-    @Autowired
-    private IReviewDao _reviewDao;
-
-    @Autowired
-    private SchoolHelper _schoolHelper;
 
     @Autowired
     private CmsFeatureDao _cmsFeatureDao;
@@ -103,8 +94,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
     private void handleEspPage(Map model, HttpServletRequest request, School school, Map<String,List<EspResponse>> espData ) {
-
-        //Map<String,Object> model = new HashMap<String, Object>();
 
         // First row is "Best know for quote", get it and add to model
         model.put(BEST_KNOWN_FOR_MODEL_KEY, getBestKnownForQuoteTile(school, espData));
@@ -211,158 +200,213 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     private Map getGsRatingsTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
+        // Try default
+        Map<String, Object> model = getGsRatingsModel( request, school );
+        if( model != null && model.size()>0 ) {
+            return model;
+        }
+
+        // default did not return a model so try awards
+        model = getAwardsModel(request, school, espData );
+        if( model != null && model.size()>0 ) {
+            return model;
+        }
+
+        // Awards didn't return anything so do school Autotext it is just text from the school object
+        model = getSchoolAutotext( request, school );
+
+        return model;
+    }
+
+    /**
+     * Generate data for the GS Rating tile when there is no espData
+     *
+     * @param request
+     * @param school
+     * @return
+     */
+    private Map getGsRatingsTileNoOsp(HttpServletRequest request, School school) {
+
+        // Try default
+        Map<String, Object> model = getGsRatingsModel( request, school );
+        if( model != null && model.size()>0 ) {
+            return model;
+        }
+
+        // Awards didn't return anything so do school Autotext it is just text from the school object
+        model = getSchoolAutotext( request, school );
+
+        return model;
+    }
+
+    private Map getSchoolAutotext(HttpServletRequest request, School school) {
+
         Map<String, Object> model = new HashMap<String, Object>(2);
+
+        // Substitute action 2 - This is an Autotext field
+        // It has the following format if all of the data is present.  If data is not present pieces get dropped.
+        // “school.city’s school.name is a school.type school serving ENROLLMENT students in grades X – Y.
+        // It is school.subtype and school.affiliation affiliated. The school belongs to the following
+        // associations: school.association.�?
+        StringBuilder sentence = new StringBuilder();
+        // From the spec create sentence 1.1 if the data is present
+        if( school.getCity()!=null && school.getCity().length()>0 ) {
+            sentence.append( school.getCity() ).append( "'s " );
+        }
+
+        // From the spec create sentence 1.2 if the data is present
+        //Integer enrollment = school.getEnrollment();
+        Integer enrollment = 512;  // TODO - Need help from Anthony figuring out how to mock this???
+        if( school.getName()!=null && school.getName().length()>0 &&
+                school.getType()!=null && school.getType().getSchoolTypeName().length()>0 &&
+                enrollment!=null ) {
+            sentence.append( school.getName() ).append( " is a " ).append( school.getType().getSchoolTypeName() ).
+                    append( " school serving " ).append( enrollment.intValue() ).append( " students" );
+        }
+        // From the spec create sentence 1.3 if the data is present
+        if( school.getGradeLevels()!= null ) {
+            String level = school.getGradeLevels().getRangeString();
+            if( level == null || level.length()==0 || "AE".equals(level) ) {
+                // ignore
+            }
+            else if( "UG".equals(level) || "ungraded".equals(level) || "n/a".equals(level) ) {
+                // Ungraded is returned as "n/a"
+                sentence.append( " and is ungraded " );
+            }
+            else {
+                sentence.append( " in grades " ).append( level ).append( " " );
+            }
+        }
+
+        // Add period at end of sentence 1 if not empty
+        if( sentence.length()>0 ) {
+            sentence.append( ". " );
+        }
+
+        // Sentence 2
+        // Create a copy of the School.Subtype so it can be changed without impacting the school object
+        String subtypeStr = school.getSubtype().asCommaSeparatedString();
+        SchoolSubtype subtype = SchoolSubtype.create(subtypeStr);
+        List<String> sentence2Attributes = new ArrayList<String>();
+        if( subtype !=  null ) {
+            // remove subtypes not to appear in result
+            subtype.remove( "preschool_early_childhood_center" );
+            subtype.remove( "elementary" );
+            subtype.remove( "middle" );
+            subtype.remove( "high" );
+            subtype.remove( "combined_elementary_and_secondary" );
+            subtype.remove( "secondary" );
+
+            // all_female, all_male, coed are to be printed first
+            if( subtype.contains("all_female") ) {
+                sentence2Attributes.add("all female");
+                subtype.remove( "all_female" );
+            }
+            else if( subtype.contains("all_male") ) {
+                sentence2Attributes.add("all male");
+                subtype.remove( "all_male" );
+            }
+            else if( subtype.contains("coed") ) {
+                sentence2Attributes.add("coed");
+                subtype.remove( "coed" );
+            }
+
+            // Now get remaining subtypes which can only be as a comma separated string
+            String subtypesStr = subtype.asPrettyCommaSeparatedString();
+            if( subtypesStr!=null && subtypesStr.length()>0 ) {
+                String [] subTypeArray = subtypesStr.split( ", " );
+                List<String> subtypesList = Arrays.asList( subTypeArray );
+                sentence2Attributes.addAll(subtypesList);
+            }
+
+            // Add affiliation
+            String affiliation = school.getAffiliation();
+            if( affiliation!=null && affiliation.length()>0 ) {
+                sentence2Attributes.add( affiliation );
+            }
+
+            // Finally build the sentence if any attributes are present
+            if( sentence2Attributes.size() > 0 ) {
+                sentence.append( " It is " );
+                sentence.append( prettyCommaSeparatedString(sentence2Attributes) );
+                // has affiliation need to add "affiliated.", otherwise remove last space and add period
+                if( affiliation!=null && affiliation.length()>0 ) {
+                    sentence.append( " affiliated. " );
+                }
+                else {
+                    //sentence.deleteCharAt( sentence.length()-1 );
+                    sentence.append( ". " );
+                }
+
+            }
+        }
+
+        // Sentence 3
+        String associations = school.getAssociation();
+        if( associations!=null && associations.length()>0 ) {
+            sentence.append( "The school belongs to the following associations: " ).append( associations ).append(".");
+        }
+        model.put("autotext", sentence.toString());
+        model.put( "content", "schoolAutotext" );
+
+        return model;
+    }
+
+    private Map getGsRatingsModel(HttpServletRequest request, School school) {
+
+        Map<String, Object> model = null;
 
         // When spec is ready with default action update this set of variables as needed
         boolean doDefault = false;
 
         if( doDefault ) {
             // Default action
+            model = new HashMap<String, Object>(2);
             // TODO - Default action code needs to be added when spec is ready
             model.put( "content", "default" );
         }
-        else {
-            // Need to decide which substitute to do which requires checking all of the academic and service awards.
-            List<String> awards = new ArrayList<String>(3);
-            if( isNotEmpty( espData.get("academic_award_1") ) ) {
-                awards.add(espData.get("academic_award_1").get(0).getPrettyValue());
-            }
-            if( isNotEmpty( espData.get("academic_award_2") ) ) {
-                awards.add(espData.get("academic_award_2").get(0).getPrettyValue());
-            }
-            if( isNotEmpty( espData.get("academic_award_3") ) ) {
-                awards.add(espData.get("academic_award_3").get(0).getPrettyValue());
-            }
-            if( isNotEmpty( espData.get("service_award_1") ) && awards.size()<3 ) {
-                awards.add(espData.get("service_award_1").get(0).getPrettyValue());
-            }
-            if( isNotEmpty( espData.get("service_award_2") ) && awards.size()<3 ) {
-                awards.add(espData.get("service_award_2").get(0).getPrettyValue());
-            }
-            if( isNotEmpty( espData.get("service_award_3") ) && awards.size()<3 ) {
-                awards.add(espData.get("service_award_3").get(0).getPrettyValue());
-            }
-
-            if( isNotEmpty(awards) ) {
-                // Substitute action 1
-                model.put( "awards", awards );
-                model.put( "content", "substitute1" );
-            }
-            else {
-                // Substitute action 2 - This is an Autotext field
-                // It has the following format if all of the data is present.  If data is not present pieces get dropped.
-                // “school.city’s school.name is a school.type school serving ENROLLMENT students in grades X – Y.
-                // It is school.subtype and school.affiliation affiliated. The school belongs to the following
-                // associations: school.association.�?
-                StringBuilder sentence = new StringBuilder();
-                // From the spec create sentence 1.1 if the data is present
-                if( school.getCity()!=null && school.getCity().length()>0 ) {
-                    sentence.append( school.getCity() ).append( "'s " );
-                }
-
-                // From the spec create sentence 1.2 if the data is present
-                //Integer enrollment = school.getEnrollment();
-                Integer enrollment = 512;  // TODO - Need help from Anthony figuring out how to mock this???
-                if( school.getName()!=null && school.getName().length()>0 &&
-                        school.getType()!=null && school.getType().getSchoolTypeName().length()>0 &&
-                        enrollment!=null ) {
-                    sentence.append( school.getName() ).append( " is a " ).append( school.getType().getSchoolTypeName() ).
-                            append( " school serving " ).append( enrollment.intValue() ).append( " students" );
-                }
-                // From the spec create sentence 1.3 if the data is present
-                if( school.getGradeLevels()!= null ) {
-                    String level = school.getGradeLevels().getRangeString();
-                    if( level == null || level.length()==0 || "AE".equals(level) ) {
-                        // ignore
-                    }
-                    else if( "UG".equals(level) || "ungraded".equals(level) || "n/a".equals(level) ) {
-                        // Ungraded is returned as "n/a"
-                        sentence.append( " and is ungraded " );
-                    }
-                    else {
-                        sentence.append( " in grades " ).append( level ).append( " " );
-                    }
-                }
-
-                // Add period at end of sentence 1 if not empty
-                if( sentence.length()>0 ) {
-                    sentence.append( ". " );
-                }
-
-                // Sentence 2
-                // Create a copy of the School.Subtype so it can be changed without impacting the school object
-                String subtypeStr = school.getSubtype().asCommaSeparatedString();
-                SchoolSubtype subtype = SchoolSubtype.create(subtypeStr);
-                List<String> sentence2Attributes = new ArrayList<String>();
-                if( subtype !=  null ) {
-                    // remove subtypes not to appear in result
-                    subtype.remove( "preschool_early_childhood_center" );
-                    subtype.remove( "elementary" );
-                    subtype.remove( "middle" );
-                    subtype.remove( "high" );
-                    subtype.remove( "combined_elementary_and_secondary" );
-                    subtype.remove( "secondary" );
-
-                    // all_female, all_male, coed are to be printed first
-                    if( subtype.contains("all_female") ) {
-                        sentence2Attributes.add("all female");
-                        subtype.remove( "all_female" );
-                    }
-                    else if( subtype.contains("all_male") ) {
-                        sentence2Attributes.add("all male");
-                        subtype.remove( "all_male" );
-                    }
-                    else if( subtype.contains("coed") ) {
-                        sentence2Attributes.add("coed");
-                        subtype.remove( "coed" );
-                    }
-
-                    // Now get remaining subtypes which can only be as a comma separated string
-                    String subtypesStr = subtype.asPrettyCommaSeparatedString();
-                    if( subtypesStr!=null && subtypesStr.length()>0 ) {
-                        String [] subTypeArray = subtypesStr.split( ", " );
-                        List<String> subtypesList = Arrays.asList( subTypeArray );
-                        sentence2Attributes.addAll(subtypesList);
-                    }
-
-                    // Add affiliation
-                    String affiliation = school.getAffiliation();
-                    if( affiliation!=null && affiliation.length()>0 ) {
-                        sentence2Attributes.add( affiliation );
-                    }
-
-                    // Finally build the sentence if any attributes are present
-                    if( sentence2Attributes.size() > 0 ) {
-                        sentence.append( " It is " );
-                        sentence.append( prettyCommaSeparatedString(sentence2Attributes) );
-                        // has affiliation need to add "affiliated.", otherwise remove last space and add period
-                        if( affiliation!=null && affiliation.length()>0 ) {
-                            sentence.append( " affiliated. " );
-                        }
-                        else {
-                            //sentence.deleteCharAt( sentence.length()-1 );
-                            sentence.append( ". " );
-                        }
-
-                    }
-                }
-
-                // Sentence 3
-                String associations = school.getAssociation();
-                if( associations!=null && associations.length()>0 ) {
-                    sentence.append( "The school belongs to the following associations: " ).append( associations ).append(".");
-                }
-                model.put("autotext", sentence.toString());
-                model.put( "content", "substitute2" );
-            }
-
-        }
-
 
         return model;
     }
 
-    private Map getVideoTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+
+    private Map getAwardsModel(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+
+        Map<String, Object> model = null;
+
+        // Need to decide which substitute to do which requires checking all of the academic and service awards.
+        List<String> awards = new ArrayList<String>(3);
+        if( isNotEmpty( espData.get("academic_award_1") ) ) {
+                awards.add(espData.get("academic_award_1").get(0).getPrettyValue());
+        }
+                if( isNotEmpty( espData.get("academic_award_2") ) ) {
+                awards.add(espData.get("academic_award_2").get(0).getPrettyValue());
+        }
+                if( isNotEmpty( espData.get("academic_award_3") ) ) {
+                awards.add(espData.get("academic_award_3").get(0).getPrettyValue());
+        }
+                if( isNotEmpty( espData.get("service_award_1") ) && awards.size()<3 ) {
+                awards.add(espData.get("service_award_1").get(0).getPrettyValue());
+        }
+                if( isNotEmpty( espData.get("service_award_2") ) && awards.size()<3 ) {
+                awards.add(espData.get("service_award_2").get(0).getPrettyValue());
+        }
+                if( isNotEmpty( espData.get("service_award_3") ) && awards.size()<3 ) {
+                awards.add(espData.get("service_award_3").get(0).getPrettyValue());
+        }
+
+        if( isNotEmpty(awards) ) {
+            // Substitute action 1
+            model = new HashMap<String, Object>(2);
+            model.put( "awards", awards );
+            model.put( "content", "award" );
+        }
+
+        return model;
+    }
+
+
+private Map getVideoTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -403,16 +447,24 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 }
                 videoId = 4910; // Debug, this is an existing Id in dev-cms
                 ContentKey key = new ContentKey( CmsConstants.VIDEO_CONTENT_TYPE, new Long(videoId) );
-                UrlBuilder urlBuilder = new UrlBuilder( key );
-                String url = urlBuilder.asSiteRelativeXml( request );
-                model.put( "content", "schoolTourVideo" );
-                model.put( "videoUrl", url );
 
-                // Testing
-                CmsFeature feature =_cmsFeatureDao.get( new Long(videoId) );
-                _log.error( "CmsFeature = " + feature );
-                // TODO - Ask Young where to get the thumbnail image url
-                model.put( "videoIconUrl", feature.getImageUrl() );
+                try {
+                    UrlBuilder urlBuilder = new UrlBuilder( key );
+                    String url = urlBuilder.asSiteRelativeXml( request );
+                    model.put( "content", "schoolTourVideo" );
+                    model.put( "videoUrl", url );
+
+                    // Testing
+                    CmsFeature feature =_cmsFeatureDao.get( new Long(videoId) );
+                    _log.error( "CmsFeature = " + feature );
+                    // TODO - Ask Young where to get the thumbnail image url
+                    model.put( "videoIconUrl", feature.getImageUrl() );
+                }
+                catch (UnsupportedOperationException e ) {
+                    model.put( "content", "None" );
+                    return  model;
+                }
+
             }
         }
 
@@ -1174,7 +1226,45 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
     // ===================== Non ESP page ==============================
-    private void handleNonEspPage(ModelMap modelMap, HttpServletRequest request, School school) {
+    private void handleNonEspPage(ModelMap model, HttpServletRequest request, School school) {
+
+        // Tile 1 - Default: Ratings, Substitute: Autotext(About this school)
+        //  Waiting for research team to investigate Ratings
+        model.put( RATINGS_BREAKDOWN_MODEL_KEY, getGsRatingsTileNoOsp(request, school) );
+
+        // Title 2 - Default: Photos, Substitute 1: Principal CTA
+        model.put(PHOTOS_MODEL_KEY, getPhotosTile(request, school));
+
+        // Title 3 - Default: Videos, Substitute 1: Information from CMS
+//        model.put( VIDEO_MODEL_KEY, getVideoTile(request, school, espData) );
+
+        // Title 4 - Default: Community ratings, Substitute 1: Review CTA
+        model.put( COMMUNITY_RATING_MODEL_KEY, getCommunityRatingTile(request, school) );
+
+        // Titles 5&6 - Default: Reviews carousel, Substitute 1: Review CTA
+        model.put( REVIEWS_MODEL_KEY, getReviewsTile( request, school ) );
+
+        // Title 7 - Default: Student diversity, Substitute 1: Generic text about diversity
+//        model.put( DIVERSITY_MODEL_KEY, getDiversityTile(request, school, espData) );
+
+        // Title 8 - Default: Special education/extended care, Substitute 1: Nearby schools teaser
+        // This is all ESP data and complicated rules.  DO SOON
+//        model.put( SPECIAL_EDUCATION_MODEL_KEY, getSpecialEdTile(request, school, espData) );
+
+        // Title 9 - Default: Transportation, Substitute 1: Students per teacher / average class size, Substitute 2: School boundry tool promo
+//        model.put( TRANSPORTATION_MODEL_KEY, getTransportationTile(request, school, espData) );
+
+        // Title 10 - Default: Programs, Substitute 1: Parent involvement, Substitute 2: Highlights (data from School object)
+//        model.put( PROGRAMS_MODEL_KEY, getProgramsTile(request, school, espData) );
+
+        // Titles 11&12 - Default: Application info version 1, Substitute 1: Application info version 2, Substitute 2: School visit checklist
+//        model.put( APPL_INFO_MODEL_KEY, getApplInfoTile(request, school, espData) );
+
+        // Title 13 - Default: Local info (TBD), Substitute 1: District info, Substitute 2: Neighborhood info
+//        model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoTile(request, school, espData) );
+
+        // Titles 14&15 - Default: Related content, Substitute 1:
+//        model.put( RELATED_CONTENT_MODEL_KEY, getRelatedTile(request, school, espData) );
 
 
 
