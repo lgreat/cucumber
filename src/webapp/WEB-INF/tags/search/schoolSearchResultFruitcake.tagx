@@ -150,7 +150,7 @@
                                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
                                                type="checkbox"/>
                                         <label class="js-compareLabelNotChecked small"
-                                               for="${school.databaseState}${school.id}">Compare</label>
+                                               for="${school.databaseState}${school.id}" id="js_${school.databaseState}${school.id}_compare_label">Compare</label>
                                     </c:otherwise>
                                 </c:choose>
                             </div>

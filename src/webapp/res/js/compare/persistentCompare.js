@@ -355,6 +355,10 @@ GS.school.compare = (function() {
         }
     };
 
+    var getSchoolsInCompare = function() {
+        return schoolsInCompare;
+    };
+
     $(function() {
 
         compareDifferentStatesWarningHover.loadDialog();
@@ -384,7 +388,8 @@ GS.school.compare = (function() {
         addSchoolToCompare:addSchoolToCompare,
         removeSchoolFromCompare:removeSchoolFromCompare,
         compareSchools:compareSchools,
-        initializeSchoolsInCompare:initializeSchoolsInCompare
+        initializeSchoolsInCompare:initializeSchoolsInCompare,
+        getSchoolsInCompare :getSchoolsInCompare
     }
 })();
 
@@ -403,16 +408,31 @@ $(function() {
         var state = schoolSelected.substr(0, 2);
         var checked = schoolCheckbox.is(':checked');
         if (checked === true) {
-
             //If the checkbox was checked then try adding a school to the compare module.
             //If adding a school fails then un check the checkbox.
-            GS.school.compare.addSchoolToCompare(schoolId, state).fail(
+            GS.school.compare.addSchoolToCompare(schoolId, state).done(
+                function() {
+                    //If there are more than 2 schools in compare then the 'compare' label
+                    //should be switched to 'compare now' link.
+                    var schoolsInCompare = GS.school.compare.getSchoolsInCompare();
+                    if (schoolsInCompare.length >= 2) {
+                        for (var i = 0; i < schoolsInCompare.length; i++) {
+                            var schoolId = schoolsInCompare[i].schoolId;
+                            var state = schoolsInCompare[i].state;
+                            writeCompareNowLink(schoolId, state);
+                        }
+                    }
+                }).fail(
                 function() {
                     schoolCheckbox.removeAttr('checked');
                 }
             );
         } else {
             GS.school.compare.removeSchoolFromCompare(schoolId, state);
+            //After the school is removed, the 'compare now' link should be switched to 'compare' label.
+            //Also if there are less than 2 schools remaining in the compare module after this school has been deleted
+            //then switch all the the 'compare now' links to 'compare' label.
+            removeCompareNowLinks(schoolId, state);
         }
     });
 
@@ -425,6 +445,12 @@ $(function() {
 
             var schoolCheckBox = $('#' + state + schoolId);
             schoolCheckBox.prop("checked", true);
+
+            //If there are more than 2 schools in compare then the 'compare' label
+            //should be switched to 'compare now' link.
+            if (schoolsInCompare.length >= 2) {
+                writeCompareNowLink(schoolId, state);
+            }
         }
     });
 
@@ -433,6 +459,42 @@ $(function() {
     $('body').on('schoolRemoved', function(event, schoolId, state) {
         var checkBox = $('#' + state + schoolId);
         checkBox.removeAttr('checked');
+        //After the school is removed, the 'compare now' link should be switched to 'compare' label.
+        //Also if there are less than 2 schools remaining in the compare module after this school has been deleted
+        //then switch all the the 'compare now' links to 'compare' label.
+        removeCompareNowLinks(schoolId, state);
     });
+
+    $('body').on('click', '.js_compare_link', function() {
+        GS.school.compare.compareSchools();
+    });
+
+    var writeCompareNowLink = function(schoolId, state) {
+        //The 'compare' label should be switched to 'compare now' link.
+        var compareLabel = $('#js_' + state + schoolId + '_compare_label');
+        compareLabel.html('<a href="#" class="js_compare_link noInterstitial">Compare Now</a>');
+    };
+
+    var removeCompareNowLinks = function(schoolId, state) {
+        //The 'compare now' link should be switched to 'compare' label for the school that has been deleted.
+        removeCompareNowLink(schoolId, state);
+
+        //If there are less than 2 schools remaining in the compare module after the school has been deleted
+        //then switch all the the 'compare now' links to 'compare' label.
+        var schoolsInCompare = GS.school.compare.getSchoolsInCompare();
+        if (schoolsInCompare.length < 2) {
+            for (var i = 0; i < schoolsInCompare.length; i++) {
+                var schoolIdentifier = schoolsInCompare[i].schoolId;
+                var stateStr = schoolsInCompare[i].state;
+                removeCompareNowLink(schoolIdentifier, stateStr);
+            }
+        }
+    };
+
+    var removeCompareNowLink = function(schoolId, state) {
+        //The 'compare now' link should be switched to 'compare' label .
+        var compareLabel = $('#js_' + state + schoolId + '_compare_label');
+        compareLabel.html('Compare');
+    };
 
 });
