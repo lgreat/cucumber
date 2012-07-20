@@ -16,23 +16,37 @@
 
     <jsp:directive.attribute name="localInfoModel" type="java.lang.Object" required="true"/>
 
-    <!--
-    <c:set var="xxx" value="${localInfoModel['school']}" scope="page"/>
-    <c:set var="yyy" value="${localInfoModel['ratings']}" scope="page"/>
-    <c:set var="zzz" value="${localInfoModel['numberOfReviews']}" scope="page"/>
-    -->
-    <school:profileOverviewCell1 title="District Information">
-        <!-- This is prototype - replace with real display code -->
-        <p>${district.name}</p>
-        <ul>
-            <li>${district.gradeLevels.rangeString}</li>
-            <li>${district.numberOfSchools}</li>
-            <!-- TODO: number of students -->
-            <li><a href="#">District boundaries</a></li>
-        </ul>
+    <c:set var="content" value="${localInfoModel['content']}" scope="page"/>
 
-        <strong>Article:</strong> <a href="#">Article title</a>
+    <c:choose>
+        <c:when test="${content eq 'default'}">
+            <school:profileOverviewCell1 title="District Information">
+                <!-- The spec is currently under development for this option -->
+            </school:profileOverviewCell1>
+        </c:when>
+        <c:when test="${content eq 'districtInfo'}">
+            <school:profileOverviewCell1 title="District Information">
+                <c:set var="districtNumSchools" value="${localInfoModel['districtNumSchools']}" scope="page"/>
+                <c:set var="districtGrades" value="${localInfoModel['districtGrades']}" scope="page"/>
+                <c:set var="districtNumStudents" value="${localInfoModel['districtNumStudents']}" scope="page"/>
+                <div class=""><b>${localInfoModel['districtName']}</b></div>
+                <c:if test="${not empty districtNumSchools}">
+                    <div class="">Number of schools ${districtNumSchools}</div>
+                </c:if>
+                <c:if test="${not empty districtGrades}">
+                    <div class="">Grades ${districtGrades}</div>
+                </c:if>
+                <c:if test="${not empty districtNumStudents}">
+                    <div class="">Number of students ${districtNumStudents}</div>
+                </c:if>
+            </school:profileOverviewCell1>
+        </c:when>
+        <c:when test="${content eq 'neighborhoodInfo'}">
+            <school:profileOverviewCell1 title="Neighborhood Information">
+                <div class="">${localInfoModel['neighborhoodInfo']}</div>
+            </school:profileOverviewCell1>
+        </c:when>
+    </c:choose>
 
-    </school:profileOverviewCell1>
 
 </jsp:root>

@@ -7,6 +7,7 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.*;
 import gs.data.school.census.*;
+import gs.data.school.district.District;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
@@ -307,7 +308,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
             numberOfReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school);
 
             if( numberOfReviews != null ) {
-                request.setAttribute(PUBLISHED_REVIEW_COUNT, numberOfReviews ); // Save in request for future use
+                request.setAttribute(PUBLISHED_REVIEW_COUNT, numberOfReviews); // Save in request for future use
             }
             else {
                 // Set flag to prevent this DB request again
@@ -429,6 +430,11 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         return _schoolDao.findNearbySchools(school, numSchools);
     }
 
+    /**
+     * Gets Neighborhood info from the sperlings database
+     * @param request
+     * @return
+     */
     protected BpZip getSperlingsInfo (HttpServletRequest request) {
 
         // Make sure we have a school

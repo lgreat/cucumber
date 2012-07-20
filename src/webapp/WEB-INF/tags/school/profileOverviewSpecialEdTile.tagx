@@ -18,27 +18,25 @@
 
     <!-- The display variable contains 'default' or 'substitute' for which content to display -->
     <c:set var="content" value="${specialEdModel['content']}" scope="page"/>
-    <!-- specEdPgms contins a list of the special ed programs available.  If present they should be listed -->
-    <c:set var="specEdPgms" value="${specialEdModel['SpecEdPgms']}" scope="page"/>
-    <!-- specEdPgmsProvided describes the types of spec ed pgms provided.  It can contain:
-        'yes' - display message "Services are provided at this school"
-        'no' - display message "Services are not provided at this school"
-        'call' - display the message "Call school for more information"  -->
-    <c:set var="specEdPgmsProvided" value="${specialEdModel['SpecEdPgmsProvided']}" scope="page"/>
 
-    <!-- The following variable will contain 'call' if the school is to be called.  Otherwise it will be empty and there is before/after data to display -->
-    <c:set var="extdCareProvided" value="${specialEdModel['ExtdCareProvided']}" scope="page" />
-    <!-- Before and after information to be displayed -->
-    <c:set var="extdCareBefore"   value="${specialEdModel['ExtdCareBefore']}" scope="page" />
-    <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
-
-    <!-- sentence for substitute -->
-    <c:set var="sentence"    value="${specialEdModel['teachersStaff']}"  scope="page" />
 
     <c:choose>
         <c:when test="${content eq 'default'}">
             <school:profileOverviewCell1 title="Special education">
                 <!-- Default Special Education display -->
+                <!-- specEdPgms contins a list of the special ed programs available.  If present they should be listed -->
+                <c:set var="specEdPgms" value="${specialEdModel['SpecEdPgms']}" scope="page"/>
+                <!-- specEdPgmsProvided describes the types of spec ed pgms provided.  It can contain:
+                         'yes' - display message "Services are provided at this school"
+                         'no' - display message "Services are not provided at this school"
+                         'call' - display the message "Call school for more information"  -->
+                <c:set var="specEdPgmsProvided" value="${specialEdModel['SpecEdPgmsProvided']}" scope="page"/>
+
+                <!-- The following variable will contain 'call' if the school is to be called.  Otherwise it will be empty and there is before/after data to display -->
+                <c:set var="extdCareProvided" value="${specialEdModel['ExtdCareProvided']}" scope="page" />
+                <!-- Before and after information to be displayed -->
+                <c:set var="extdCareBefore"   value="${specialEdModel['ExtdCareBefore']}" scope="page" />
+                <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
                 <c:choose>
                     <c:when test="${not empty specEdPgms}">
                         <div class="">Services offered for:</div>
@@ -72,10 +70,17 @@
                 </c:if>
             </school:profileOverviewCell1>
         </c:when>
-        <c:otherwise>
-            <!-- ============ Substitute display - Nearby schools ========== -->
+        <c:when test="${content eq 'teachers/staff'}">
+            <!-- ============ Substitute display - Teachers / staff ========== -->
             <school:profileOverviewCell1 title="Teacher/staff info">
+                <c:set var="sentence"    value="${specialEdModel['teachersStaff']}"  scope="page" />
                 <div class="">${sentence}</div>
+            </school:profileOverviewCell1>
+        </c:when>
+        <c:otherwise>
+            <!-- ============ Substitute display - No data available.  Display a message or image TBD ========== -->
+            <school:profileOverviewCell1 title="Share your experience!">
+                <div class="">Spec not final - will probably be an image</div>
             </school:profileOverviewCell1>
         </c:otherwise>
         </c:choose>

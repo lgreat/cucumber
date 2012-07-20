@@ -16,14 +16,21 @@
 
     <jsp:directive.attribute name="videoModel" type="java.lang.Object" required="true"/>
 
-    <!--
-    <c:set var="xxx" value="${videoModel['school']}" scope="page"/>
-    <c:set var="yyy" value="${videoModel['ratings']}" scope="page"/>
-    <c:set var="zzz" value="${videoModel['numberOfReviews']}" scope="page"/>
-    -->
+    <c:set var="content" value="${videoModel['content']}" scope="page"/>
+    <c:set var="videoUrl" value="${videoModel['videoUrl']}" scope="page"/>
+    <c:set var="videoIconUrl" value="${videoModel['videoIconUrl']}" scope="page"/>
 
-    <school:profileOverviewCell1 title="School videos">
-        <!-- Put display code here -->
-    </school:profileOverviewCell1>
+    <c:choose>
+        <c:when test="${content eq 'default'}">
+            <school:profileOverviewCell1 title="School videos">
+                <!-- Show generiic video icon and clicking on it takes you to the video at videoUrl -->
+            </school:profileOverviewCell1>
+        </c:when>
+        <c:otherwise>
+            <school:profileOverviewCell1 title="School tour video">
+                <!-- Show video icon in variable  and clicking on it takes you to the video at videoUrl -->
+            </school:profileOverviewCell1>
+        </c:otherwise>
+    </c:choose>
 
 </jsp:root>

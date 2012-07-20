@@ -1,6 +1,10 @@
 package gs.web.school;
 
 import gs.data.community.User;
+import gs.data.content.cms.CmsConstants;
+import gs.data.content.cms.CmsFeature;
+import gs.data.content.cms.CmsFeatureDao;
+import gs.data.content.cms.ContentKey;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.*;
 import gs.data.school.census.Breakdown;
@@ -11,6 +15,7 @@ import gs.data.school.district.District;
 import gs.data.school.review.IReviewDao;
 import gs.data.util.CommunityUtil;
 import gs.web.util.PageHelper;
+import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.StringUtils;
@@ -47,6 +52,10 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String RELATED_CONTENT_MODEL_KEY = "related";
     private static final String SPORTS_MODEL_KEY = "sports";
 
+    private static final int VIDEO_ELEMENTARY = 6857;
+    private static final int VIDEO_MIDDLE = 6856;
+    private static final int VIDEO_HIGH = 6855;
+
 
     public enum NoneHandling{ ALWAYS_SHOW, SHOW_IF_ONLY_VALUE, HIDE_IF_ONLY_NONE }
 
@@ -54,13 +63,18 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     @Autowired
     private RatingHelper _ratingHelper;
+
     @Autowired
-//    private IEspResponseDao _espResponseDao;
     private SchoolProfileDataHelper _schoolProfileDataHelper;
+
     @Autowired
     private IReviewDao _reviewDao;
+
     @Autowired
     private SchoolHelper _schoolHelper;
+
+    @Autowired
+    private CmsFeatureDao _cmsFeatureDao;
 
 
     @RequestMapping(method= RequestMethod.GET)
@@ -135,8 +149,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         // 7th row is Sports/Arts/Music
         model.put(SPORTS_MODEL_KEY, getSportsArtsMusicTile(espData));
-
-        _log.error("SchoolProfileOverviewController: " + request.getAttribute("SharedState") );
     }
 
     public String getBestKnownForQuoteTile(School school, Map<String, List<EspResponse>> espData) {
@@ -358,7 +370,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         List<EspResponse> video = espData.get("school_video");
         if( isNotEmpty( video ) ) {
             model.put( "content", "default" );
-            model.put( "video", video.get(0).getSafeValue() );
+            model.put( "videoUrl", video.get(0).getSafeValue() );
         }
         else {
             // Substitute action
@@ -378,9 +390,30 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 }
                 String lowestLevel = school.getLevelCode().getLowestLevel().getName();
                 model.put( "schoolLevel", levelCode );
-                // TODO - Ask Young where to get these values
+                // determine which video to show
+                int videoId = 0;
+                if( "e".equals(levelCode) ) {
+                    videoId = VIDEO_ELEMENTARY;
+                }
+                else if( "m".equals(levelCode) ) {
+                    videoId = VIDEO_MIDDLE;
+                }
+                else if( "h".equals(levelCode) ) {
+                    videoId = VIDEO_HIGH;
+                }
+                videoId = 4910; // Debug, this is an existing Id in dev-cms
+                ContentKey key = new ContentKey( CmsConstants.VIDEO_CONTENT_TYPE, new Long(videoId) );
+                UrlBuilder urlBuilder = new UrlBuilder( key );
+                String url = urlBuilder.asSiteRelativeXml( request );
+                model.put( "content", "schoolTourVideo" );
+                model.put( "videoUrl", url );
+
+                // Testing
+                CmsFeature feature =_cmsFeatureDao.get( new Long(videoId) );
+                _log.error( "CmsFeature = " + feature );
+                // TODO - Ask Young where to get the thumbnail image url
+                model.put( "videoIconUrl", feature.getImageUrl() );
             }
-            model.put( "content", "substitute" );
         }
 
         return model;
@@ -575,7 +608,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
         else {
             // 
-            // Teachers and staff Autotext
+            // Substitute 1 - Teachers and staff Autotext
             List<EspResponse> administrator = espData.get("administrator_name");
             List<EspResponse> staffResources = espData.get("staff_resources");
             List<EspResponse> staffResourcesWoNone = copyAndRemove( staffResources, new String[]{"none"} );
@@ -595,7 +628,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 }
 
                 specialEdModel.put( "teachersStaff", sentence.toString() );
-                specialEdModel.put( "content", "substitute" );
+                specialEdModel.put( "content", "teachers/staff" );
             }
         }
 
@@ -920,7 +953,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    // This is a helper method for getApplInfoTile() and has been modes to a separate tile because it can be used in 2 places
+    // This is a helper method for getApplInfoTile() and has been moved to a separate tile because it can be used in 2 places
     private void getApplInfoDeadlineInfo(Map<String, List<EspResponse>> espData, Map<String, Object> model) {
         // Application deadline information
         List<EspResponse> applicationDeadlineList = espData.get("application_deadline");
@@ -1006,28 +1039,58 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, Object> model = new HashMap<String, Object>(2);
 
         // Check if this can be done or need to do substitute 2
-//        SchoolType schoolType = school.getType();
-//        int districtId = school.getDistrictId();
-//        int numSchools = 0;
-//        if( districtId > 0 ) {
-//            District district = school.getDistrict();
-//            if( district != null ) {
-//                if( schoolType.equals(SchoolType.PUBLIC) || (schoolType.equals(SchoolType.CHARTER) && district.getNumberOfSchools()>0 ) ) {
-//                    model.put( "districtName", district.getName() );
-//                    model.put( "districtNumSchools", new Integer(district.getNumberOfSchools()) );
-//                    model.put( "districtGrades", district.getGradeLevels().getRangeString() );
-//                    model.put( "districtNumStudents", "Samson is getting" );
-//                    model.put( "content", "districtInfo" );
-//                    return model;
-//                }
-//            }
-//        }
-//
-//        // Build neighborhood info
-//        BpZip sperlings = _schoolProfileDataHelper.getSperlingsInfo( request );
-//        if( sperlings != null ) {
-//
-//        }
+        SchoolType schoolType = school.getType();
+        int districtId = school.getDistrictId();
+        if( districtId > 0 ) {
+            District district = school.getDistrict();
+            if( district != null ) {
+                if( schoolType.equals(SchoolType.PUBLIC) || (schoolType.equals(SchoolType.CHARTER) && district.getNumberOfSchools()>0 ) ) {
+                    model.put( "districtName", district.getName() );
+                    model.put( "districtNumSchools", new Integer(district.getNumberOfSchools()) );
+                    model.put( "districtGrades", district.getGradeLevels().getRangeString() );
+                    model.put( "districtNumStudents", "Samson is getting" );
+                    model.put( "content", "districtInfo" );
+                    return model;
+                }
+            }
+        }
+
+        // Build neighborhood info
+        BpZip sperlings = _schoolProfileDataHelper.getSperlingsInfo( request );
+        if( sperlings != null ) {
+            StringBuilder sentence = new StringBuilder();
+            // sentence 1
+            String neighborType = sperlings.getNeighborhoodType();
+            if( "Suburban".equals( neighborType ) ) {
+                sentence.append( "Situated in a suburban neighborhood. " );
+            }
+            else if( "Rural".equals( neighborType ) ) {
+                sentence.append( "Situated in a rural neighborhood. " );
+            }
+            else if( "Small Town".equals( neighborType ) ) {
+                sentence.append( "Situated in a small town neighborhood. " );
+            }
+            else if( "City Neighborhood".equals( neighborType ) ) {
+                sentence.append( "Situated in an urban neighborhood. " );
+            }
+            else if( "Inner City".equals( neighborType ) ) {
+                sentence.append( "Situated in an inner city neighborhood. " );
+            }
+
+            // sentence 2
+            Float medianValue = sperlings.getHouseMedianValue();
+            if( medianValue != null ) {
+                sentence.append("The median home value is $").append( String.format("%,d", medianValue.intValue()) ).append(". ");
+            }
+
+            // sentence 3
+            Float rent = sperlings.getRentApt2br();
+            if( rent != null ) {
+                sentence.append("The average monthly rent for a 2 bedroom apartment is $").append( String.format("%,d", rent.intValue()) ).append(". ");
+            }
+            model.put( "neighborhoodInfo", sentence.toString()  );
+            model.put( "content", "neighborhoodInfo" );
+        }
 
         return model;
     }

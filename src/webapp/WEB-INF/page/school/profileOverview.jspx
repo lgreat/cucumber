@@ -15,7 +15,6 @@
     <!-- The page has different layouts depending if there is esp data or not -->
     <c:choose>
         <c:when test="${not empty espData}">
-            <b>ESP DATA IS PRESENT</b>
             <div class="grid_16 alpha omega">
                 <c:if test="${not empty bestKnownFor}">
                     <h4 class="pal">"${bestKnownFor}"</h4>
@@ -105,13 +104,13 @@
 
                 <div class="line">
                     <div class="unit size32of100">
-                        <school:profileOverviewLocalInfoTile localInfoModel="localInfo" />
+                        <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" />
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size66of100 lastUnit">
-                        <school:profileOverviewRelatedTile relatedModel="related" />
+                        <school:profileOverviewRelatedTile relatedModel="${}related}" />
                     </div>
                 </div>
 

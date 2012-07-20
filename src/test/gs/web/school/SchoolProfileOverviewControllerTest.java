@@ -4,6 +4,7 @@ import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
+import gs.data.school.district.District;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
@@ -25,6 +26,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     SchoolProfileDataHelper _schoolProfileDataHelper;
     State _state;
     School _school;
+    District _district;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -1167,6 +1169,24 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map<String, Object> resultsModel = (Map<String, Object>) map.get("applInfo");
         String contentType = (String) resultsModel.get( "content" );
         assertEquals( "testApplInfoSubstitute2A: content wrong", "substitute2", contentType );
+
+        System.out.println("testApplInfoSubstitute2A successful");
+    }
+
+    // Local info substitute 1 - District info
+    public void testLocalInfoSubstitute1A() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "application_process", "no" ) );      // Need something
+
+        _district = new District();
+        _district.setNumberOfSchools( 25 );
+
+        Map map = runController( convertToEspData( l ) );
+
+        Map<String, Object> resultsModel = (Map<String, Object>) map.get("localInfo");
+        String contentType = (String) resultsModel.get( "content" );
+        assertEquals( "testApplInfoSubstitute2A: content wrong", "districtInfo", contentType );
 
         System.out.println("testApplInfoSubstitute2A successful");
     }

@@ -38,7 +38,6 @@
                 <div class="">Student ethnicity data is not available for this school. Call the school to learn more about diversity.</div>
             </c:otherwise>
         </c:choose>
-        <!-- Insert display code here -->
     </school:profileOverviewCell1>
 
 
