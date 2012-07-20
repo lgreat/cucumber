@@ -64,9 +64,13 @@
             <div class="hd">
                 <div class="fltlft">
                     <form action="" id="searchLocationForm" onsubmit="return false;">
+                        <!--placeholder="Search by city and state or address"-->
                         <input type="text" alt="Search location" name="addressQuery" id="js_mapAddressQuery"
                                class="searchText input_8 mrm"
-                               placeholder="Search by city and state or address"/>
+
+                               value="Search by city and state or address"
+                               onfocus="if(this.value=='Search by city and state or address'){this.value='';}"
+                               onblur="if(this.value==''){this.value='Search by city and state or address';}"/>
                         <button type="submit" name="loadAddress" id="js_loadAddress" class="button-1">Search
                         </button>
                     </form>
