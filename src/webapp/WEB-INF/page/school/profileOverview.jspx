@@ -15,9 +15,16 @@
     <!-- The page has different layouts depending if there is esp data or not -->
     <c:choose>
         <c:when test="${not empty espData}">
+
             <div class="grid_16 alpha omega">
                 <c:if test="${not empty bestKnownFor}">
-                    <h4 class="pal">"${bestKnownFor}"</h4>
+                    <div class="mod bestKnownFor">
+                        <div class="inner">
+                            <div class="bd">
+                                <span>${bestKnownFor}</span>
+                            </div>
+                        </div>
+                    </div>
                 </c:if>
             </div>
             <div class="alpha grid_16 omega">
