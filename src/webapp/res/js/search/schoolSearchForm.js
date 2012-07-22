@@ -209,16 +209,9 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
 
                         if(geocodeResult['city'] !== undefined) {
                             data['city'] = geocodeResult['city'];
-                            var trimmedSearchQuery = $.trim(searchQuery.toLowerCase());
-                            if(trimmedSearchQuery.startsWith(data['city'].toLowerCase()) &&
-                                trimmedSearchQuery.indexOf(data['state'].toLowerCase(), trimmedSearchQuery.length - data['city'].length) !== -1) {
-                                data['sortBy'] = 'GS_RATING_DESCENDING';
-                            }
                         }
 
-                        if(data['sortBy'] === undefined) {
-                            data['sortBy'] = 'DISTANCE';
-                        }
+                        data['sortBy'] = 'GS_RATING_DESCENDING';
 
                         var queryStringDataWithFilters;
 
