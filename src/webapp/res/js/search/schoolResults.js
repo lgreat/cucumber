@@ -63,7 +63,6 @@ GS.search.results = GS.search.results || (function() {
                 $span.html('&#9662;');
             }
 
-            refreshAds();
             update(queryData);
         });
 
@@ -93,6 +92,7 @@ GS.search.results = GS.search.results || (function() {
             window.History.replaceState(null, document.title, queryString);
         }
 
+        refreshAds();
         jQuery.ajax({
             type: "get",
             url: url() + queryString,
@@ -170,7 +170,6 @@ GS.search.results = GS.search.results || (function() {
         var queryData = GS.uri.Uri.getQueryData();
         queryData['pageSize'] = pageSize;
         delete queryData.start;
-        refreshAds();
         if(queryData.view == 'map') {
             mapSearch(1, pageSize, queryData);
         }
@@ -214,7 +213,6 @@ GS.search.results = GS.search.results || (function() {
 
         var queryStringData = GS.uri.Uri.getQueryData(queryString);
 
-        refreshAds();
         mapSearch(1, 25, queryStringData);
     };
 
@@ -229,7 +227,6 @@ GS.search.results = GS.search.results || (function() {
 
     var pagination = function(pageNumber, pageSize) {
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
-            refreshAds();
             var queryData = GS.uri.Uri.getQueryData();
             if(queryData.view === 'map') {
                 mapSearch(pageNumber, pageSize);
@@ -269,6 +266,7 @@ GS.search.results = GS.search.results || (function() {
         jQuery("#totalResultsText").hide();
         jQuery("#js-spinny-search").show();
 
+        refreshAds();
         $.ajax({
             type: 'POST',
             url: url() + queryString
