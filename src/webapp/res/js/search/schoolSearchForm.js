@@ -228,17 +228,13 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                             queryStringDataWithFilters = filtersModule.getQueryStringDataWithoutFilters();
                         }
 
-                        // if there's a current q param in the URL, we're on a byName search results page.
-                        // remove sort param when changing between byName and byLocation
-                        if (queryStringDataWithFilters.hasOwnProperty('q')) {
-                            delete queryStringDataWithFilters.q;
-                            delete queryStringDataWithFilters.sortBy;
+                        for(var key in queryStringDataWithFilters) {
+                            if(key !== 'st' && key !== 'gradeLevels' && key !== 'distance') {
+                                delete queryStringDataWithFilters[key];
+                            }
                         }
 
                         var queryStringDataWithFilters = $.extend(queryStringDataWithFilters, data);
-
-                        delete queryStringDataWithFilters.start;
-                        delete queryStringDataWithFilters.rs;
 
                         window.setTimeout(function() {
                             window.location.href = window.location.protocol + '//' + window.location.host +

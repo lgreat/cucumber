@@ -72,9 +72,9 @@
             <div class="line">
                 <div class="unit size24of100 prm">
                     <div class="small bottom"><strong>Services</strong></div>
-                    <search:searchFilterWithCount styleClass="js-applyFilters" name="beforeAfterCare" value="before"
-                                                  label="After care"/>
                     <search:searchFilterWithCount styleClass="js-applyFilters" name="beforeAfterCare" value="after"
+                                                  label="After care"/>
+                    <search:searchFilterWithCount styleClass="js-applyFilters" name="beforeAfterCare" value="before"
                                                   label="Before care"/>
                     <search:searchFilterWithCount styleClass="js-applyFilters" name="transportation" value="transportation"
                                                   label="Transportation"/>
