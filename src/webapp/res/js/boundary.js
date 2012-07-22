@@ -156,7 +156,7 @@ var Boundary = (function (){
 
     // district brought into focus
     var focusOnDistrict = function (e, obj) {
-        if (obj.data.type == 'district'){
+        if (obj && obj.data && obj.data.type == 'district'){
             if (state('searching') && !STATES.searching.originalId){
                 STATES.searching.originalId = obj.data.id;
                 $map.boundaries('autozoom', obj.data);
@@ -183,7 +183,7 @@ var Boundary = (function (){
 
     // school brought into focus
     var focusOnSchool = function (e, obj) {
-        if (obj.data.type=='school'){
+        if (obj && obj.data && obj.data.type=='school'){
             $('.js-listItem').removeClass('selected');
             var $this = $('.js-listItem[id=' + obj.data.getKey() + ']');
             if ($this && $this.position()) {

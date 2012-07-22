@@ -18,7 +18,7 @@ var Boundaries = function(element, options){
 
     if (options.schools) {
         this.listen('focus', $.proxy(function (event, object ){
-            if (object.data && object.data.type=='district'){
+            if (object && object.data && object.data.type=='district'){
                 this.schools(object.data);
             }
         }, this));
@@ -60,13 +60,13 @@ Boundaries.prototype = {
         }
     }
 
-    , district: function (option) {
+    , district: function (option, id) {
         var deferred = new jQuery.Deferred()
             , lat=this.getMap().getCenter().lat()
             , lng=this.getMap().getCenter().lng()
             , level=this.getOptions().level;
 
-        if (this.exists(option)){
+        if (this.exists(option) && !id){
             lat = option.lat();
             lng = option.lng();
         }
@@ -77,8 +77,13 @@ Boundaries.prototype = {
             this.focus(districts[0]);
             deferred.resolve(districts);
         }
-        BoundaryHelper.getDistrictsForLocation(lat, lng, level)
-            .done($.proxy(success, this)).fail(function(){deferred.reject();});
+
+        if (id)
+            BoundaryHelper.getDistrictById(option, id)
+                .done($.proxy(success, this)).fail(function(){deferred.reject();});
+        else
+            BoundaryHelper.getDistrictsForLocation(lat, lng, level)
+                .done($.proxy(success, this)).fail(function(){deferred.reject();});
 
         return deferred.promise();
     }
@@ -355,14 +360,21 @@ Boundaries.prototype = {
             var school = (schools.length>0) ? schools[0]:null;
             $.when(this.districts(option)).then($.proxy(function(districts){
                 if (school){
+                    var found = false;
                     for (var i=0; i<districts.length; i++) {
                         var id = (districts[i].id==school.districtId);
                         var state = (districts[i].state==school.state);
                         if (id && state) {
                             this.focus(districts[i]);
                             this.focus(school);
+                            found = true;
                             break;
                         }
+                    }
+                    if (!found && school.districtId && school.state ) {
+                        $.when(this.district(school.state, school.districtId)).then($.proxy(function(){
+                            this.focus(school);
+                        },this));
                     }
                 }
                 else {
@@ -392,12 +404,11 @@ Boundaries.prototype = {
 
     , shown: function (callback) {
         var shown = new Array();
-        this.getMarkers().forEach($.proxy(function (marker, index, array){
-            if (this.exists(marker) && this.exists(marker.getMap())){
-                shown.push(marker);
+        for (var i=0; i<this.getMarkers().length; i++) {
+            if (this.exists(this.getMarkers()[i]) && this.exists(this.getMarkers()[i].getMap())){
+                shown.push(this.getMarkers()[i]);
             }
-        }, this));
-
+        }
         return (this.exists(callback)) ? callback(shown) : shown ;
     }
 
@@ -620,6 +631,19 @@ School.prototype.constructor = School;
  * ===============
  */
 var BoundaryHelper = (function($){
+
+    var getDistrictById = function (state, id) {
+        var deferred = new jQuery.Deferred();
+        var request = $.ajax({
+            url: '/geo/boundary/ajax/getDistrictById.json',
+            cache: true,
+            data: {state: state, id: id },
+            success:districtSuccess,
+            fail: fail,
+            context: deferred
+        })
+        return deferred.promise();
+    }
     var getDistrictsNearLocation = function(lat, lon, level) {
         var deferred = new jQuery.Deferred();
         var request = $.ajax({
@@ -819,6 +843,7 @@ var BoundaryHelper = (function($){
     return {
         getDistrictsNearLocation: getDistrictsNearLocation,
         getDistrictsForLocation: getDistrictsForLocation,
+        getDistrictById: getDistrictById,
         getSchoolsForDistrict: getSchoolsForDistrict,
         getSchoolByLocation: getSchoolByLocation,
         getNonDistrictSchoolsNearLocation: getNonDistrictSchoolsNearLocation,
