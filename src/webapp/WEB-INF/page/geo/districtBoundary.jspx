@@ -246,8 +246,8 @@
 
 
 
-<div class="prefix_7 grid_17 mbl">
-    <div class="lal clearfix">
+<div class="prefix_7 grid_17 ">
+    <div class="lal">
         <div class="alpha grid_7">
             <h6 class="bottom">Show schools that are not part of a district:</h6>
         </div>
@@ -317,7 +317,7 @@
     </div>
 </div>
 
-<hr class="keyline2"/>
+<hr class="keyline2 man pan"/>
 
 <div class="mtm smaller tal">
     <strong>Disclaimer:</strong>
