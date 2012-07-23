@@ -18,8 +18,9 @@
         </div>
         <div class="grid_5">
             <school:espCheckboxWithLabel key="foreign_language" value="none" label="None"/>
-            <school:espCheckboxWithLabel key="foreign_language" value="arabic" label="Arabic languages"/>
+            <school:espCheckboxWithLabel key="foreign_language" value="american_sign_language" label="American Sign Language (ASL)"/>
             <school:espCheckboxWithLabel key="foreign_language" value="amharic" label="Amharic"/>
+            <school:espCheckboxWithLabel key="foreign_language" value="arabic" label="Arabic languages"/>
             <school:espCheckboxWithLabel key="foreign_language" value="cantonese" label="Chinese (Cantonese)"/>
             <school:espCheckboxWithLabel key="foreign_language" value="mandarin" label="Chinese (Mandarin)"/>
             <school:espCheckboxWithLabel key="foreign_language" value="dutch" label="Dutch"/>
@@ -88,9 +89,9 @@
                     <school:espCheckboxWithLabel key="ell_languages" value="japanese" label="Japanese"/>
                     <school:espCheckboxWithLabel key="ell_languages" value="korean" label="Korean"/>
                     <school:espCheckboxWithLabel key="ell_languages" value="russian" label="Russian"/>
+                    <school:espCheckboxWithLabel key="ell_languages" value="spanish" label="Spanish"/>
                 </div>
                 <div class="grid_6 omega">
-                    <school:espCheckboxWithLabel key="ell_languages" value="spanish" label="Spanish"/>
                     <school:espCheckboxWithLabel key="ell_languages" value="tagalog" label="Tagalog"/>
                     <school:espCheckboxWithLabel key="ell_languages" value="urdu" label="Urdu"/>
                     <school:espCheckboxWithLabel key="ell_languages" value="vietnamese" label="Vietnamese"/>
@@ -167,16 +168,17 @@
         </div>
         <div class="grid_8">
             <school:espCheckboxWithLabel key="extra_learning_resources" value="none" label="None"/>
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="remediation" label="Remediation"/>
             <school:espCheckboxWithLabel key="extra_learning_resources" value="acceleration" label="Acceleration"/>
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="mentoring" label="Mentoring"/>
-        </div>
-        <div class="grid_8 omega">
-            <school:espCheckboxWithLabel key="extra_learning_resources" value="counseling" label="Counseling"/>
             <school:espCheckboxWithLabel key="extra_learning_resources" value="career_counseling"
                                          label="Career/college counseling"/>
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="counseling" label="Counseling"/>
             <school:espCheckboxWithLabel key="extra_learning_resources" value="differentiated"
                                          label="Differentiated learning programs"/>
+        </div>
+        <div class="grid_8 omega">
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="mentoring" label="Mentoring"/>
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="remediation" label="Remediation"/>
+            <school:espCheckboxWithLabel key="extra_learning_resources" value="tutoring" label="Tutoring"/>
             <school:espCheckboxWithLabel key="extra_learning_resources" value="other" label="Other:"
                                          styleClass="js_otherField_js_form_extra_learning_resources_other" nobr="true">
                 <input id="js_form_extra_learning_resources_other" class="js_otherField text-smaller input_4 mls"
@@ -297,8 +299,9 @@
             </div>
             <div class="grid_5">
                 <school:espCheckboxWithLabel key="staff_languages" value="none" label="None"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="arabic" label="Arabic languages"/>
+                <school:espCheckboxWithLabel key="staff_languages" value="american_sign_language" label="American Sign Language (ASL)"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="amharic" label="Amharic"/>
+                <school:espCheckboxWithLabel key="staff_languages" value="arabic" label="Arabic languages"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="cantonese"
                                              label="Chinese (Cantonese)"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="mandarin"
@@ -312,10 +315,9 @@
                 <school:espCheckboxWithLabel key="staff_languages" value="italian" label="Italian"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="japanese" label="Japanese"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="korean" label="Korean"/>
-
+                <school:espCheckboxWithLabel key="staff_languages" value="russian" label="Russian"/>
             </div>
             <div class="grid_6 omega">
-                <school:espCheckboxWithLabel key="staff_languages" value="russian" label="Russian"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="spanish" label="Spanish"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="tagalog" label="Tagalog"/>
                 <school:espCheckboxWithLabel key="staff_languages" value="urdu" label="Urdu"/>
@@ -636,6 +638,7 @@
         </div>
         <div class="grid_5 aplha">
             <school:espCheckboxWithLabel key="skills_training" value="none" label="None"/>
+            <school:espCheckboxWithLabel key="skills_training" value="agriculture" label="Agriculture"/>
             <school:espCheckboxWithLabel key="skills_training" value="mechanics" label="Auto mechanics"/>
             <school:espCheckboxWithLabel key="skills_training" value="management" label="Business management"/>
             <school:espCheckboxWithLabel key="skills_training" value="programming" label="Computer programming"/>
@@ -643,6 +646,7 @@
                                          label="Construction / Building"/>
         </div>
         <div class="grid_5">
+            <school:espCheckboxWithLabel key="skills_training" value="cosmetology" label="Cosmetology"/>
             <school:espCheckboxWithLabel key="skills_training" value="culinary" label="Culinary"/>
             <school:espCheckboxWithLabel key="skills_training" value="electrical" label="Electrical"/>
             <school:espCheckboxWithLabel key="skills_training" value="hvac" label="HVAC certification"/>
