@@ -52,7 +52,8 @@ General comments:
 =12c-3.2.1 infinite carousel 3 (video: 4 up GS-12049)
 =12c-3.3.1 infinite carousel 5 (photo: 1 up GS-12260)
 =12c-3.3.2 infinite carousel 6 (video: 1 up GS-12260)
-=12c-3.2.1 infinite carousel 7 (Photo gallery GS-12638)
+=12c-3.2.3 infinite carousel 7 (Photo gallery GS-12638)
+=12c-3.2.4 infinite carousel 8 (Article Photo gallery GS-12625)
 =12c-4 browse schools by city
 =12c-5 talk about it
 =12c-5.1 start a conversation
@@ -4522,7 +4523,6 @@ div .gallery-thumbnail-selected:hover {
     background-image: none;
               filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
-
 
 /* =12c-4 browse schools by city
 -------------------------------------------------------------------------------------------*/

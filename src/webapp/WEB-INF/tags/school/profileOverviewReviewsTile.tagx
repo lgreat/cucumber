@@ -19,12 +19,17 @@
     <c:set var="reviews" value="${reviewsModel['reviews']}" scope="page"/>
 
     <school:profileOverviewCell1 title="User Reviews">
-        <div class="">Randall - Reviews data is in the reviews object</div>
-        <ul>
-            <c:forEach var="review" items="${reviews}">
-                <li>${review.comments}</li>
-            </c:forEach>
-        </ul>
+        <div class="infiniteCarousel9">
+            <div class="wrapper">
+                <ul class="unordered-carousel none">
+                    <c:forEach var="review" items="${reviews}">
+                        <li>
+                            <p class="bottom"><em>${gsweb:abbreviateAtWhitespace(review.comments, 130)}</em></p>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
     </school:profileOverviewCell1>
 
 </jsp:root>

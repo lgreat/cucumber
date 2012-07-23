@@ -21,6 +21,7 @@ http://docs.jquery.com/Tutorials#Plugin_Development
 =4 debug (console.log or alert messaging)
 =5 characterCounter (textarea character count)
 =6 infiniteCarousel
+=6 infiniteCarousel - registration
 =7 tabs (create tabs using the styles in tabs.css)
 */
 
@@ -492,6 +493,12 @@ function debug(what) {
 
 // end of closure
 })(jQuery);
+
+/* =6 infiniteCarousel - registration
+-------------------------------------------------------------------------------------------*/
+jQuery(document).ready(function () {
+    jQuery('.infiniteCarousel9').infiniteCarousel();
+});
 
 /* =7 tabs (create tabs using the styles in tabs.css)
 -------------------------------------------------------------------------------------------*/
