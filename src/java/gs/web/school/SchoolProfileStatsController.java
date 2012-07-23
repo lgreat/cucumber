@@ -115,6 +115,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool(request);
         statsModel.put("espResults", espResults);
 
+        Map<String,String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
+        model.put("ethnicityMap", ethnicityMap);
+
         model.putAll(statsModel);
         System.out.println("School profile stats controller took " + (System.nanoTime() - start) / 1000000 + " milliseconds");
         return model;

@@ -4,6 +4,8 @@ import gs.data.community.IReportedEntityDao;
 import gs.data.community.ReportedEntity;
 import gs.data.community.User;
 import gs.data.school.*;
+import gs.data.school.breakdown.Ethnicity;
+import gs.data.school.breakdown.EthnicityDaoJava;
 import gs.data.school.census.*;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
@@ -42,6 +44,8 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
 
     @Autowired
     SchoolProfileDataHelper _schoolProfileDataHelper;
+
+    EthnicityDaoJava _ethnicityDaoJava = new EthnicityDaoJava();
 
 
     /**
@@ -193,7 +197,7 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
         return censusStateConfig;
     }
 
-    // @return CensusDataType ID --> SchoolCensusValue
+    // @return CensusDataSet ID --> SchoolCensusValue
     protected Map<Integer, SchoolCensusValue> getSchoolCensusValues( HttpServletRequest request ) {
 
         School school = _requestAttributeHelper.getSchool( request );
@@ -201,7 +205,7 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
             throw new IllegalArgumentException( "The request must already contain a school object" );
         }
 
-        // CensusDataType ID --> SchoolCensusValue
+        // CensusDataSet ID --> SchoolCensusValue
         Map<Integer, SchoolCensusValue> schoolCensusValueMap = (Map<Integer, SchoolCensusValue>) getSharedData(request, CENSUS_DATA);
 
         if (schoolCensusValueMap == null) {
@@ -216,6 +220,48 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
         }
 
         return schoolCensusValueMap;
+    }
+
+    protected Map<String, String> getEthnicityLabelValueMap(HttpServletRequest request) {
+        Map<String,String> ethnicityLabelMap = new HashMap<String,String>();
+
+        // Data Set ID --> SchoolCensusValue
+        Map<Integer, SchoolCensusValue> schoolCensusValueMap = getSchoolCensusValues(request);
+
+        Integer ethnicityDataTypeId = CensusDataType.STUDENTS_ETHNICITY.getId();
+        CensusDataType dataTypeEnum = CensusDataType.STUDENTS_ETHNICITY;
+
+        for (Map.Entry<Integer, SchoolCensusValue> entry : schoolCensusValueMap.entrySet()) {
+            SchoolCensusValue schoolCensusValue = entry.getValue();
+
+            if (schoolCensusValue.getDataSet().getDataType().getId().equals(ethnicityDataTypeId)) {
+                Float floatValue = entry.getValue().getValueFloat();
+                String value = null;
+                if (floatValue == null) {
+                    value = entry.getValue().getValueText();
+                } else {
+                    value = formatValueAsString(floatValue, CensusDataType.STUDENTS_ETHNICITY.getValueType());
+                }
+
+                if (value != null) {
+                    ethnicityLabelMap.put(_ethnicityDaoJava.getEthnicity(schoolCensusValue.getDataSet().getBreakdown().getId()).getName(), value);
+                }
+            }
+        }
+        return ethnicityLabelMap;
+    }
+
+    private String formatValueAsString(Float value, CensusDataType.ValueType valueType) {
+        String result;
+        if (CensusDataType.ValueType.PERCENT.equals(valueType)) {
+            result = String.valueOf(Math.round(value)) + "%";
+        } else if (CensusDataType.ValueType.MONETARY.equals(valueType)) {
+            result = "$" + String.valueOf(value);
+        } else {
+            result = String.valueOf(Math.round(value));
+        }
+
+        return result;
     }
 
     /**
