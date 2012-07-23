@@ -393,6 +393,69 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>default-minify</id>
+                        <configuration>
+                            <webappSourceDir>${basedir}/src/webapp</webappSourceDir>
+                            <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
+                            <cssSourceDir>/res/css</cssSourceDir>
+                            <cssSourceFiles>
+                                <param>00_reset/reset.css</param>
+                                <param>01_grids/grid_960.css</param>
+                                <param>01_grids/grid_oocss.css</param>
+                                <param>02_module/mod.css</param>
+                                <param>02_module/mod_skins.css</param>
+                                <param>03_media/media.css</param>
+                                <param>04_text/typography.css</param>
+                                <param>05_forms/forms.css</param>
+                                <param>06_sprites/icon.css</param>
+                                <param>06_sprites/icons.css</param>
+                                <param>06_sprites/ui.css</param>
+                                <param>07_navigation/primary.css</param>
+                                <param>07_navigation/secondary.css</param>
+                                <param>07_navigation/osp.css</param>
+                                <param>08_buttons/buttons.css</param>
+                                <param>09_spacing/spacing.css</param>
+                            </cssSourceFiles>
+                            <cssFinalFile>gs2010_styles.combined.IE_1of2.css</cssFinalFile>
+                            <cssTargetDir>/res/css</cssTargetDir>
+                            <!--<verbose>true</verbose>-->
+                        </configuration>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-minify</id>
+                        <configuration>
+                            <webappSourceDir>${basedir}/src/webapp</webappSourceDir>
+                            <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
+                            <cssSourceDir>/res/css</cssSourceDir>
+                            <cssSourceFiles>
+                                <param>10_css3/rounded_corners.css</param>
+                                <param>10_css3/linear_gradients.css</param>
+                                <param>10_css3/opacity_shadow.css</param>
+                                <param>12_advertising/ad.css</param>
+                                <param>13_tabs/tabs.css</param>
+                                <param>14_ratings/ratings.css</param>
+                                <param>38_special/cms_content.css</param>
+                                <param>38_special/community_hover.css</param>
+                                <param>38_special/district_boundary.css</param>
+                                <param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>
+                                <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
+                                <param>99_debugging/debug.css</param>
+                                <param>gs2010_styles.css</param>
+                                <param>house_ads.css</param>
+                                <param>jquery.autocomplete.css</param>
+                            </cssSourceFiles>
+                            <cssFinalFile>gs2010_styles.combined.IE_2of2.css</cssFinalFile>
+                            <cssTargetDir>/res/css</cssTargetDir>
+                            <!--<verbose>true</verbose>-->
+                        </configuration>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
+                    </execution>
+                    <execution>
                         <id>search-minify</id>
                         <configuration>
                             <webappSourceDir>${basedir}/src/webapp</webappSourceDir>

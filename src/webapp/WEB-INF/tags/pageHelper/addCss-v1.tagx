@@ -63,6 +63,7 @@
             1) up to 31 imports
             2) up to 4 levels deep
             3) 4,096 rules per style sheet
+            4) <= 285kb per file
             -->
 
             <!-- 01 --> <![CDATA[<link rel="stylesheet" href="${reset}" type="text/css" />]]>
