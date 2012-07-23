@@ -106,8 +106,8 @@
             <gsml:url var="gs_stylescssIE7_v1" value="/res/css/gs_styles_IE7-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gs_stylescssIE8_v1" value="/res/css/gs_styles_IE8-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<!--[if !IE]><link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" /><![endif]-->]]>
-            <![CDATA[<!--[if IE]><link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" /><![endif]-->]]>
-            <![CDATA[<!--[if IE]><link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" /><![endif]-->]]>
+            <![CDATA[<!--[if IE]><link rel="stylesheet" href="${gs2010_stylescss_IE_1of2}" type="text/css" /><![endif]-->]]>
+            <![CDATA[<!--[if IE]><link rel="stylesheet" href="${gs2010_stylescss_IE_2of2}" type="text/css" /><![endif]-->]]>
             <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${gs_stylescssIE7_v1}" type="text/css" /><![endif]-->]]>
             <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${gs_stylescssIE8_v1}" type="text/css" /><![endif]-->]]>
         </c:otherwise>
