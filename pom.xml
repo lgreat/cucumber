@@ -393,7 +393,7 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>default-minify</id>
+                        <id>default-minify-IE-1of2</id>
                         <configuration>
                             <webappSourceDir>${basedir}/src/webapp</webappSourceDir>
                             <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
@@ -425,7 +425,7 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>default-minify</id>
+                        <id>default-minify-IE-2of2</id>
                         <configuration>
                             <webappSourceDir>${basedir}/src/webapp</webappSourceDir>
                             <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
