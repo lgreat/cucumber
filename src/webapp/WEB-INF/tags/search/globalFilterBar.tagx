@@ -188,7 +188,10 @@
                         <img src="/res/img/search/120717-preloader32.gif" alt="spinny img"/>
                     </div>
                 </div>
-                <div class="tar"><span class="small bottom">schools found</span></div>
+                <div class="tar">
+                    <span class="small bottom" id="js-moreThanOne">schools found</span>
+                    <span class="small bottom" id="js-onlyOne">school found</span>
+                </div>
                 <div id="js-noResultsPopup"
                      style="display: none;">Oops! No results found. See tips below or broaden your search.
                 </div>

@@ -37,12 +37,21 @@ GS.util.htmlMirrors = GS.util.htmlMirrors || (function() {
             $('#js-noResultsPopup').show();
         }
         else {
-            $dataRecipient.html($elementToCopyFrom.html());
+            var count = $elementToCopyFrom.html();
+            if(parseInt(count) === 1) {
+                $('#js-onlyOne').show();
+            }
+            else if(parseInt(count) > 1) {
+                $('#js-moreThanOne').show();
+            }
+            $dataRecipient.html(count);
         }
     };
 
     var updateAll = function() {
         $('#js-noResultsPopup').hide();
+        $('#js-onlyOne').hide();
+        $('#js-moreThanOne').hide();
         $("#js-spinny-search").hide();
         jQuery("#totalResultsText").show();
         $('[data-' + recipientDataAttribute + ']').each(function() {
