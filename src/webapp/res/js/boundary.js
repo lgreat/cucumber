@@ -37,7 +37,12 @@ var Boundary = (function (){
 
         var params = getUrlParams()
             , paramsSet = (params.lat && params.lon)
-            , level = params.level ? params.level : 'e';
+            , level = params.level ? params.level : 'e'
+            , q = params.q ? params.q : '';
+        if (q!='') {
+            $search.find('#js_mapAddressQuery').val(q);
+            $districtNameHeader.html('Districts near ' + q);
+        }
 
         var options = {type:'districts', infoWindow: infoWindowMarkupCallback, autozoom: false, level: level};
         $map.boundaries(options);
@@ -230,7 +235,11 @@ var Boundary = (function (){
     }
 
     var history = function (lat, lng, level) {
-        var params = '?lat='+lat+'&lon='+lng+'&level='+level;
+        var q = $search.find('#js_mapAddressQuery').val();
+        if (q.indexOf('Search by')>=0) {
+            q = '';
+        }
+        var params = '?lat='+lat+'&lon='+lng+'&level='+level+'&q='+q;
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             window.History.replaceState(null, document.title, params);
         } else {

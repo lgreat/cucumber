@@ -72,9 +72,11 @@ Boundaries.prototype = {
         }
 
         var success = function (districts) {
-            this.show(districts[0]);
-            this.trigger('load', districts[0]);
-            this.focus(districts[0]);
+            if (districts && districts.length>0){
+                this.show(districts[0]);
+                this.trigger('load', districts[0]);
+                this.focus(districts[0]);
+            }
             deferred.resolve(districts);
         }
 
@@ -297,12 +299,12 @@ Boundaries.prototype = {
 
     , pin: function (obj) {
         var found = false;
-        $.each(this.getMarkers(), $.proxy(function(index, marker){
-            if (marker.key == obj.getKey()){
-                marker.setMap(this.getMap());
+        for (var i=0; i<this.getMarkers().length; i++) {
+            if (this.getMarkers()[i].key == obj.getKey()){
+                this.getMarkers()[i].setMap(this.getMap());
                 found = true;
             }
-        }, this));
+        }
         if (!found) {
             var module = this, marker = obj.getMarker();
             if (obj.getType()=='school') marker.school = obj;
@@ -345,7 +347,9 @@ Boundaries.prototype = {
         }
 
         BoundaryHelper.getSchoolByLocation(lat, lng, level)
-            .done($.proxy(success, this)).fail(function(){deferred.reject();});
+            .done($.proxy(success, this)).fail(function(){
+                deferred.reject();
+            });
 
         return deferred.promise();
     }
@@ -357,8 +361,11 @@ Boundaries.prototype = {
      */
     , school_with_district:  function (option) {
         var success = function (schools) {
-            var school = (schools.length>0) ? schools[0]:null;
+            var school = (schools && schools.length>0) ? schools[0]:null;
             $.when(this.districts(option)).then($.proxy(function(districts){
+                for (var i=0; i<districts.length; i++) {
+                    this.show(districts[i]);
+                }
                 if (school){
                     var found = false;
                     for (var i=0; i<districts.length; i++) {
@@ -382,7 +389,8 @@ Boundaries.prototype = {
                 }
             }, this));
         }
-        $.when(this.school(option)).always($.proxy(success, this));
+        if (option && option.lat) this.center(option);
+        this.school(option).always($.proxy(success, this));
     }
 
     , schools: function () {
@@ -714,9 +722,9 @@ var BoundaryHelper = (function($){
             type: 'GET',
             dataType: 'json',
             success: schoolSuccess,
-            fail: fail,
+            timeout: 6000,
             context: deferred
-        });
+        }).fail($.proxy(fail, deferred));
         return deferred.promise();
     }
 
