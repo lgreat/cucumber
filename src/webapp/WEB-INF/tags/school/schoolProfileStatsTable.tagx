@@ -19,7 +19,6 @@
     <jsp:directive.attribute name="groupId" type="java.lang.Long" description="Must be long to look up map entry via jstl"/>
     <jsp:directive.attribute name="statsTab" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="title" type="java.lang.String"/>
-    <jsp:directive.attribute name="ethnicity" type="java.lang.Boolean" required="false"/>
 
 
         <c:set var="groupIdDataTypeMap" value="${censusStateConfig.groupIdDataTypeMap}"/>
@@ -44,25 +43,13 @@
             ]]>
         </jsp:scriptlet>
 
-
     <c:if test="${fn:length(rows) gt 0}">
         <h4>${title}</h4>
 
         <table>
-            <c:if test="${ethnicity}">
-            <col width="220px"><!-- do not collapse --></col>
-            <col width="200px"><!-- do not collapse --></col>
-            <col width="100px"><!-- do not collapse --></col>
-            <col width="100px"><!-- do not collapse --></col>
-            </c:if>
             <thead>
             <tr>
-                <c:if test="${ethnicity}"><th></th></c:if>
                 <th>
-                    <!-- do not collapse -->
-                    <c:if test="${groupId eq 6}">
-                        Ethnicity
-                    </c:if>
                 </th>
                 <th class="tac">
                     This school
@@ -76,9 +63,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:set scope="request" var="ethnicityPieData" value="" />
 
-            <!--<td colspan="3"><table style="border: none;"></c:if>-->
             <c:forEach items="${rows}" var="row" varStatus="status">
                 <jsp:scriptlet>
                 <![CDATA[
@@ -99,20 +84,6 @@
                 ]]>
                 </jsp:scriptlet>
                 <tr>
-                    <c:if test="${ethnicity}">
-                        <c:choose>
-                            <c:when test="${status.first}">
-                                <c:set var="addRowSpan">${fn:length(rows)}</c:set>
-                                <c:set var="addPieGraph"><div id="piechart_ethnicity" style="width: 200px; height: 200px;"><!-- do not collapse --></div></c:set>
-                                <c:set var="graphRow"><td rowspan="${addRowSpan}">${addPieGraph}</td></c:set>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="graphRow" value=""/>
-                            </c:otherwise>
-                        </c:choose>
-                        ${graphRow}
-                        <!--<td rowspan="${addRowSpan}"> ${addPieGraph} </td>-->
-                    </c:if>
                     <td>${row.text}<!--<sup>[<a name="id${thisFootnote}" href="#ftn.id${thisFootnote}">${thisFootnote}</a>]</sup>--></td>
                     <c:if test="${showSchoolData}">
                         <c:choose>
@@ -169,87 +140,4 @@
             }
         ]]>
     </jsp:scriptlet>
-    <!--<pageHelper:externalJavascript file="https://www.google.com/jsapi"/>-->
-
-  <c:if test="${ethnicity}">
-      <script type="text/javascript" src="https://www.google.com/jsapi"><!-- do not collapse --></script>
-      <!--<script src="/res/js/highcharts/highcharts.js">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
-      <!--<script src="/res/js/highcharts/modules/exporting.js">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
-      <script type="text/javascript">
-
-
-        google.load("visualization", "1", {packages:["corechart"]});
-        google.setOnLoadCallback(drawVisualization);
-        function drawVisualization() {
-            // Create and populate the data table.
-            var data = google.visualization.arrayToDataTable([
-                ['Ethnicity','percentage']
-                ${ethnicityPieData}
-            ]);
-
-            var options = {
-                width: 200,
-                height: 200,
-                legend: 'none',
-                tooltip: {showColorCode: true,text:'percentage'},
-                pieSliceText: 'none'
-//                        'chartArea': {'left': 15, 'top': 15, 'right': 0, 'bottom': 0},
-//                'pieSliceText': 'value'
-//
-}
-
-            // Create and draw the visualization.
-            new google.visualization.PieChart(document.getElementById('piechart_ethnicity')).draw(data, options);
-        }
-
-//        $(function () {
-//            var chart;
-//            $(document).ready(function() {
-//                chart = new Highcharts.Chart({
-//                    chart: {
-//                        renderTo: 'containerpiechart',
-//                        plotBackgroundColor: null,
-//                        plotBorderWidth: null,
-//                        plotShadow: true
-//                    },
-//                    title: {
-//                        text: 'Source: CA Dept. of Education, 2008-2009'
-//                    },
-//                    tooltip: {
-//                        enabled: true
-//                    },
-//                    plotOptions: {
-//                        pie: {
-//                            allowPointSelect: true,
-//                            cursor: 'pointer',
-//                            dataLabels: {
-//                                enabled: false
-//                            },
-//                            showInLegend: true
-//                        }
-//                    },
-//                    legend: {
-//                        layout: 'vertical',
-//                        align: 'right',
-//                        verticalAlign: 'top',
-//                        x: 0,
-//                        y: 100
-//                    },
-//                    series: [{
-//                        type: 'pie',
-//                        name: 'Ethnicity',
-//                        data: [
-//                            ${fn:substring(ethnicityPieData,1,fn:length(ethnicityPieData) )}
-//
-//                        ]
-//                    }]
-//                });
-//            });
-
-//        });
-
-    </script>
-    <!--<div id="visualization" style="width: 500px; height: 500px;">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-      <!--<div id="containerpiechart" style="width: 500px; height:500px; margin: 0 auto">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-  </c:if>
 </jsp:root>

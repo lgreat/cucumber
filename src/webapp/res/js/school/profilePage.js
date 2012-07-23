@@ -49,6 +49,7 @@
 //<a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>
 
 jQuery(document).ready(function() {
+
     if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
 
     var linkToTabs = function(destination){
@@ -85,7 +86,7 @@ jQuery(document).ready(function() {
     if ($parents) $parents.on('click', ratings);
     if ($students) $students.on('click', ratings);
     if ($teachers) $teachers.on('click', ratings);
-
+//
 });
 
 /********************************************************************************************************
@@ -140,4 +141,23 @@ function starRatingInterface(containerS, iconW, starsT, overallSR){
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentRating);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentRating));
     });
+
+}
+function drawPieChart(dataIn, divNameId, dimensions) {
+    //console.log(dataIn+":"+divNameId+":"+dimensions);
+    // Create and populate the data table.
+    var data = google.visualization.arrayToDataTable(dataIn, true);
+
+    //  var theChartSize = sizePie;
+
+    var options = {
+        width: dimensions,
+        height: dimensions,
+        legend: 'none',
+        tooltip: {showColorCode: true,text:'percentage'},
+        pieSliceText: 'none'
+    }
+    //var test = $('#'+divName);
+    // Create and draw the visualization.
+    new google.visualization.PieChart(document.getElementById(divNameId)).draw(data, options);
 }

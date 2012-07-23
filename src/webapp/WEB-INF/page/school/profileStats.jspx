@@ -29,7 +29,7 @@
                 <!--</c:if>-->
             </ul>
             <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.students and requestScope.schoolProfileTabMap.students eq 'selected'?'':'dn')}">
-                <school:schoolProfileStatsTable groupId="6" title="Student Ethnicity" statsTab="students"/>
+                <school:schoolProfilePieChartTable groupId="6" title="Student Ethnicity" statsTab="students" pieDivId="ethnicityPieChart" pieDataSet="${ethnicityMap}"/>
 
                 <school:schoolProfileStatsTable groupId="13" title="Student Subgroups" statsTab="students"/>
 

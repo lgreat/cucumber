@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
+        >
+    <jsp:directive.tag import="gs.data.school.census.CensusDescription"/>
+    <jsp:directive.tag import="java.util.Set"/>
+    <jsp:directive.tag import="java.util.Map"/>
+    <jsp:directive.tag import="gs.web.school.SchoolProfileStatsController"/>
+    <jsp:directive.tag import="java.util.List"/>
+    <jsp:directive.tag import="java.util.HashSet"/>
+    <jsp:directive.tag import="gs.web.school.SchoolProfileStatsDisplayRow"/>
+
+    <jsp:directive.attribute name="groupId" type="java.lang.Long" description="Must be long to look up map entry via jstl"/>
+    <jsp:directive.attribute name="statsTab" type="java.lang.String" required="true"/>
+    <jsp:directive.attribute name="title" type="java.lang.String"/>
+    <jsp:directive.attribute name="pieDivId" type="java.lang.String" required="true"/>
+    <jsp:directive.attribute name="pieDataSet" type="java.util.Map" required="true"/>
+
+
+    <c:set var="groupIdDataTypeMap" value="${censusStateConfig.groupIdDataTypeMap}"/>
+    <c:set var="teacherCredentialsDataTypes" value="${groupIdDataTypeMap[groupId]}"/>
+
+
+    <c:set var="rows" value="${statsRows[groupId]}"/>
+    <c:set var="showSchoolData" value="${false}"/>
+    <c:set var="showDistrictData" value="${false}"/>
+    <c:set var="showStateAverages" value="${false}"/>
+    <c:forEach items="${rows}" var="row">
+        <c:set var="showSchoolData" value="${showSchoolData or not empty row.schoolValue}"/>
+        <c:set var="showDistrictData" value="${showDistrictData or not empty row.districtValue}"/>
+        <c:set var="showStateAverages" value="${showStateAverages or not empty row.stateValue}"/>
+    </c:forEach>
+
+
+<jsp:scriptlet>
+    <![CDATA[
+               java.util.Set footnotesForThisTable = new java.util.HashSet<Integer>();
+                jspContext.setAttribute("footnotesForThisTable", footnotesForThisTable);
+            ]]>
+</jsp:scriptlet>
+
+
+<c:if test="${fn:length(rows) gt 0}">
+    <h4>${title}</h4>
+
+    <table class="tableType1">
+
+        <col width="220px"><!-- do not collapse --></col>
+        <col width="200px"><!-- do not collapse --></col>
+        <col width="100px"><!-- do not collapse --></col>
+        <c:if test="${showStateAverages}"><col width="100px"><!-- do not collapse --></col> </c:if>
+
+        <thead>
+        <tr>
+            <th></th>
+            <th>Ethnicity</th>
+            <th class="tac">
+                This school
+            </th>
+            <!--<c:if test="${showDistrictData}">-->
+                <!--<th class="tac">District average</th>-->
+            <!--</c:if>-->
+            <c:if test="${showStateAverages}">
+                <th class="tac">State Average</th>
+            </c:if>
+        </tr>
+        </thead>
+        <tbody class="">
+        <!--<c:set scope="page" var="counterTableRows" value="0" />-->
+
+        <!--<td colspan="3"><table style="border: none;"></c:if>-->
+        <c:forEach items="${rows}" var="row" varStatus="status">
+            <jsp:scriptlet>
+                <![CDATA[
+                    java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
+                    java.util.List descriptions = (java.util.ArrayList) footnotes.get(statsTab);
+                    if (descriptions == null) {
+                        descriptions = new java.util.ArrayList();
+                    }
+                    for (CensusDescription description : (((SchoolProfileStatsDisplayRow)jspContext.getAttribute("row")).getCensusDescriptions())) {
+                        if (!descriptions.contains(description)) {
+                            descriptions.add(description);
+                        }
+                    }
+                    footnotes.put(statsTab, descriptions);
+                    jspContext.setAttribute("footnotes", footnotes);
+                    footnotesForThisTable.add(descriptions.size());
+                    jspContext.setAttribute("thisFootnote", descriptions.size());
+                ]]>
+            </jsp:scriptlet>
+
+            <!--<c:choose>-->
+                <!--<c:when test='${(status.index)%2 eq 0}'>-->
+                    <!--<c:set var="rowColor" value="even" scope="page"/>-->
+                <!--</c:when>-->
+                <!--<c:otherwise>-->
+                    <!--<c:set var="rowColor" value="odd" scope="page"/>-->
+                <!--</c:otherwise>-->
+            <!--</c:choose>-->
+            <tr>
+                <!--class="${rowColor}" >-->
+
+                    <c:choose>
+                        <c:when test="${status.first}">
+                            <c:set var="addRowSpan">${fn:length(rows)}</c:set>
+                            <c:set var="addPieGraph"><profile:pieChart chartData="${pieDataSet}" chartDrawDivId="${pieDivId}" chartSize="200"/></c:set>
+                            <c:set var="graphRow"><td rowspan="${addRowSpan}">${addPieGraph}</td></c:set>
+
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="graphRow" value=""/>
+                        </c:otherwise>
+                    </c:choose>
+                    ${graphRow}
+
+                    <!--<td rowspan="${addRowSpan}"> ${addPieGraph} </td>-->
+                <!--</c:if>-->
+                <td>${row.text}<!--<sup>[<a name="id${thisFootnote}" href="#ftn.id${thisFootnote}">${thisFootnote}</a>]</sup>--></td>
+                <c:if test="${showSchoolData}">
+                    <c:choose>
+                        <c:when test="${not empty row.schoolValue}">
+                            <td class="tac">${row.schoolValue}</td>
+                            <c:set scope="request" var="ethnicityPieData">${ethnicityPieData},["${row.text}",${fn:replace(row.schoolValue, "%", "")}]</c:set>
+                        </c:when>
+                        <c:otherwise>
+                            <td class="tac">N/A</td>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
+                <!--<c:if test="${showDistrictData}">-->
+                    <!--<c:choose>-->
+                        <!--<c:when test="${not empty row.districtValue}">-->
+                            <!--<td class="tac">${row.districtValue}</td>-->
+                        <!--</c:when>-->
+                        <!--<c:otherwise>-->
+                            <!--<td class="tac">N/A</td>-->
+                        <!--</c:otherwise>-->
+                    <!--</c:choose>-->
+                <!--</c:if>-->
+                <c:if test="${showStateAverages}">
+                    <c:choose>
+                        <c:when test="${not empty row.stateValue}">
+                            <td class="tac">${row.stateValue}</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td class="tac">N/A</td>
+                        </c:otherwise>
+                    </c:choose>
+                </c:if>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+    <div class="smaller pbl tar">
+        <c:forEach items="${footnotesForThisTable}" var="footnoteIndex">
+            <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->
+            Source: ${(footnotes[statsTab])[footnoteIndex-1].source}
+        </c:forEach>
+    </div>
+</c:if>
+
+<jsp:scriptlet>
+    <![CDATA[
+            java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
+            java.util.List descriptions = (java.util.List) footnotes.get(statsTab);
+            if (descriptions != null) {
+                request.setAttribute("footnotesCount", descriptions.size());
+            }
+        ]]>
+</jsp:scriptlet>
+</jsp:root>

@@ -25,14 +25,16 @@
         <pageHelper:addCss-v1/>
         <script src="/res/js/modernizr.js" type="text/javascript"><!-- do not collapse --></script>
         <script src="/res/js/jquery/jquery-1.7.2.min.js" type="text/javascript"><!-- do not collapse --></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"><!-- do not collapse --></script>
+        <script type="text/javascript">google.load("visualization", "1", {packages:["corechart"]});</script>
         <!--<script src="/res/js/require.min.js" data-main="/res/js/mobile/main" type="text/javascript">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
         <!--<gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.8.18.custom.min.js" allowCdn="true"/>-->
         <gsml:url var="globaljs" value="/res/js/global.js?v=$RELEASE_NUMBER" allowCdn="true"/>
 
-        <gsml:url var="modaljs" value="/res/js/modal/modalManager.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-        <gsml:url var="signinjs" value="/res/js/modal/signIn.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-        <gsml:url var="joinjs" value="/res/js/modal/join.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-        <!--<gsml:url var="hoverjs" value="/res/js/hover-v1.js?v=$RELEASE_NUMBER" allowCdn="true"/>-->
+        <!--<gsml:url var="modaljs" value="/res/js/modal/modalManager.js?v=$RELEASE_NUMBER" allowCdn="true"/>-->
+        <!--<gsml:url var="signinjs" value="/res/js/modal/signIn.js?v=$RELEASE_NUMBER" allowCdn="true"/>-->
+        <!--<gsml:url var="joinjs" value="/res/js/modal/join.js?v=$RELEASE_NUMBER" allowCdn="true"/>-->
+        <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <gsml:url var="jqueryautocomplete" value="/res/js/jquery/jquery.autocomplete.js" allowCdn="true"/>
         <gsml:url var="schoolautocomplete" value="/res/js/search/schoolAutocomplete.js" allowCdn="true"/>
@@ -42,11 +44,11 @@
         <gsml:url var="historyjs" value="/res/js/history.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <!--<script type="text/javascript" src="${jqueryuijs}">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
         <script type="text/javascript" src="${globaljs}"><!-- do not collapse --></script>
-        <script type="text/javascript" src="${modaljs}"><!-- do not collapse --></script>
-        <script type="text/javascript" src="${signinjs}"><!-- do not collapse --></script>
-        <script type="text/javascript" src="${joinjs}"><!-- do not collapse --></script>
+        <!--<script type="text/javascript" src="${modaljs}">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
+        <!--<script type="text/javascript" src="${signinjs}">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
+        <!--<script type="text/javascript" src="${joinjs}">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
 
-        <!--<script type="text/javascript" src="${hoverjs}">&lt;!&ndash; do not collapse &ndash;&gt;</script>-->
+        <script type="text/javascript" src="${hoverjs}"><!-- do not collapse --></script>
         <script type="text/javascript" src="${topnavjs}"><!-- do not collapse --></script>
         <script type="text/javascript" src="${jqueryautocomplete}"><!-- do not collapse --></script>
         <script type="text/javascript" src="${schoolautocomplete}"><!-- do not collapse --></script>
@@ -54,6 +56,7 @@
         <script type="text/javascript" src="${urijs}"><!-- do not collapse --></script>
         <script type="text/javascript" src="${jqextjs}"><!-- do not collapse --></script>
         <script type="text/javascript" src="${historyjs}"><!-- do not collapse --></script>
+
         <decorator:head/>
 
     <ad:xGAMSetup/>
