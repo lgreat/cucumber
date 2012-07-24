@@ -12,7 +12,7 @@
         >
 <div id="findASchoolTabs" class="mod standard_6-1">
 
-    <c:set var="byLocation" value="${commandAndFields.nearbySearch or isCityBrowse or isDistrictBrowse or isCityStateSearch ? true : false}" property="java.lang.Boolean"/>
+    <c:set var="byLocation" value="${commandAndFields.nearbySearch or isCityBrowse or isDistrictBrowse ? true : false}" property="java.lang.Boolean"/>
     <div class="bd gsTabs">
     <ul class="tabStyle-4">
         <li><a id="js-byLocationTab" class="${byLocation ? 'selected':''}">By location</a>

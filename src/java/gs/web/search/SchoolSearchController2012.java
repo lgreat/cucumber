@@ -11,6 +11,7 @@ import gs.data.pagination.DefaultPaginationConfig;
 import gs.data.pagination.PaginationConfig;
 import gs.data.school.LevelCode;
 import gs.data.school.SchoolHelper;
+import gs.data.school.SchoolType;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.search.*;
@@ -45,6 +46,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractCommandController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -172,6 +174,17 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             return new ModelAndView(getNoResultsView(request, commandAndFields), model);
         }
 
+        //if by name search, check if the serach string is a exact osp city state match, and redirect to the city browse page
+        if(!schoolSearchCommand.isNearbySearch() && !commandAndFields.isCityBrowse() && !commandAndFields.isDistrictBrowse()) {
+            String stateAbb = schoolSearchCommand.getState();
+            String city = schoolSearchCommand.getSearchString();
+            if(city != null && stateAbb !=null && SchoolHelper.isLocal(city, stateAbb)) {
+                LevelCode levelCode = (commandAndFields.getLevelCode() != null) ? commandAndFields.getLevelCode() : LevelCode.ALL_LEVELS;
+                Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+                UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.fromString(stateAbb), city, schoolTypes, levelCode);
+                return new ModelAndView(new RedirectView(builder.asSiteRelative(request)));
+            }
+        }
 
         // support new additional OSP filters for redesigned search
         showAdvancedFilters(schoolSearchCommand, commandAndFields, model);
@@ -361,9 +374,14 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
                 model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
             }
         }
-        else {
+        else if (commandWithFields.isNearbySearch()) {
             if (SchoolHelper.isZipForNewSearchFilters(schoolSearchCommand.getZipCode()) || (schoolSearchCommand.getZipCode() == null &&
                     SchoolHelper.isLocal(schoolSearchCommand.getCity(), schoolSearchCommand.getState()))) {
+                model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+            }
+        }
+        else {
+            if (SchoolHelper.isLocal(schoolSearchCommand.getSearchString(), schoolSearchCommand.getState())) {
                 model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
             }
         }
