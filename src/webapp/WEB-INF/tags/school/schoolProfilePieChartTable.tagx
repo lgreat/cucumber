@@ -73,9 +73,7 @@
         </tr>
         </thead>
         <tbody class="">
-        <!--<c:set scope="page" var="counterTableRows" value="0" />-->
 
-        <!--<td colspan="3"><table style="border: none;"></c:if>-->
         <c:forEach items="${rows}" var="row" varStatus="status">
             <jsp:scriptlet>
                 <![CDATA[
@@ -96,16 +94,15 @@
                 ]]>
             </jsp:scriptlet>
 
-            <!--<c:choose>-->
-                <!--<c:when test='${(status.index)%2 eq 0}'>-->
-                    <!--<c:set var="rowColor" value="even" scope="page"/>-->
-                <!--</c:when>-->
-                <!--<c:otherwise>-->
-                    <!--<c:set var="rowColor" value="odd" scope="page"/>-->
-                <!--</c:otherwise>-->
-            <!--</c:choose>-->
-            <tr>
-                <!--class="${rowColor}" >-->
+            <c:choose>
+                <c:when test='${(status.index+1)%2 eq 0}'>
+                    <c:set var="rowColor" value="even" scope="page"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="rowColor" value="odd" scope="page"/>
+                </c:otherwise>
+            </c:choose>
+            <tr class="${rowColor}" >
 
                     <c:choose>
                         <c:when test="${status.first}">
