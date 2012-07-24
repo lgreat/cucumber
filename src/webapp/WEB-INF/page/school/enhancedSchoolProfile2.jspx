@@ -280,7 +280,7 @@
             <school:espTableRow label="Special staff resources available to students" list="${responses.staff_resources}"
                                 hideIfEmpty="true"/>
 
-            <school:espTableRow label="Languages spoken by school staff" value="${staff_languages}"
+            <school:espTableRow label="Foreign languages spoken by school staff" value="${staff_languages}"
                                 hideIfEmpty="true"/>
 
             <c:if test="${not empty extra_learning_resources and fn:toLowerCase(extra_learning_resources) ne 'none'}">

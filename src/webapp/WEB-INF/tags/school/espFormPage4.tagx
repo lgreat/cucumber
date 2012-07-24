@@ -237,103 +237,98 @@
     <legend>School Resources</legend>
     <hr class="legend"><!--Do not collapse--></hr>
 
-    <c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
-        <div class="lal clearfix">
-            <div class="alpha grid_7">
-                <p class="labelGroup">What staff resources are available to students?</p>
-            </div>
-            <div class="grid_8">
-                <school:espCheckboxWithLabel key="staff_resources" value="none" label="None listed here"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="assistant_principal"
-                                             label="Assistant principal(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="art_teacher" label="Art teacher(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="college_counselor"
-                                             label="College counselor(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="computer_specialist"
-                                             label="Computer specialist(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="cooking_teacher"
-                                             label="Cooking/Nutrition teacher(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="dance_teacher" label="Dance teacher(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="ell_esl_coord" label="ELL/ESL Coordinator"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="garden_teacher" label="Gardening teacher(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="gifted_specialist"
-                                             label="Gifted specialist(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="instructional_aid"
-                                             label="Instructional aide(s)/coach(es)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="librarian"
-                                             label="Librarian/media specialist(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="math_specialist" label="Math specialist(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="music_teacher" label="Music teacher(s)"/>
-            </div>
-            <div class="grid_8 omega">
-                <school:espCheckboxWithLabel key="staff_resources" value="pe_instructor" label="PE instructor(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="nurse" label="Nurse(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="poetry_teacher"
-                                             label="Poetry/Creative writing teacher(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="priest"
-                                             label="Priest, pastor, or other religious personnel"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="reading_specialist"
-                                             label="Reading specialist(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="robotics_teacher"
-                                             label="Robotics/Technology specialist(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="security" label="Security personnel"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="school_psychologist"
-                                             label="School psychologist"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="school_counselor"
-                                             label="School social worker/counselors(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="special_ed_coordinator"
-                                             label="Special education coordinator"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="speech_therapist"
-                                             label="Speech and language therapist(s)"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="teacher_aid"
-                                             label="Teacher aid/assistant teacher"/>
-                <school:espCheckboxWithLabel key="staff_resources" value="tutor" label="Tutor(s)"/>
-            </div>
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">What staff resources are available to students?</p>
         </div>
-    </c:if>
-
-    <c:if test="${school.databaseState == 'DC' || school.databaseState == 'WI' || school.databaseState == 'IN'}">
-        <div class="lal clearfix">
-            <div class="alpha grid_7">
-                <p class="labelGroup">What languages other than English does the school staff speak?</p>
-            </div>
-            <div class="grid_5">
-                <school:espCheckboxWithLabel key="staff_languages" value="none" label="None"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="american_sign_language" label="American Sign Language (ASL)"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="amharic" label="Amharic"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="arabic" label="Arabic languages"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="cantonese"
-                                             label="Chinese (Cantonese)"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="mandarin"
-                                             label="Chinese (Mandarin)"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="dutch" label="Dutch"/>
-            </div>
-            <div class="grid_5">
-                <school:espCheckboxWithLabel key="staff_languages" value="french" label="French"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="german" label="German"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="hmong" label="Hmong"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="italian" label="Italian"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="japanese" label="Japanese"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="korean" label="Korean"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="russian" label="Russian"/>
-            </div>
-            <div class="grid_6 omega">
-                <school:espCheckboxWithLabel key="staff_languages" value="spanish" label="Spanish"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="tagalog" label="Tagalog"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="urdu" label="Urdu"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="vietnamese" label="Vietnamese"/>
-                <school:espCheckboxWithLabel key="staff_languages" value="other" label="Other:"
-                                             styleClass="js_otherField_js_form_staff_languages_other" nobr="true">
-                    <input id="js_form_staff_languages_other" class="js_otherField text-smaller input_4 mls" type="text"
-                           name="staff_languages_other"
-                           value="${responseMap['staff_languages_other'].value}"
-                           placeholder="[Please indicate]" maxlength="30"/>
-                </school:espCheckboxWithLabel>
-            </div>
-            <school:espFieldError text="Please specify a response" styleId="js_form_staff_languages_other_error" styleClass="grid_6 omega"/>
+        <div class="grid_8">
+            <school:espCheckboxWithLabel key="staff_resources" value="none" label="None listed here"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="assistant_principal"
+                                         label="Assistant principal(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="art_teacher" label="Art teacher(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="college_counselor"
+                                         label="College counselor(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="computer_specialist"
+                                         label="Computer specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="cooking_teacher"
+                                         label="Cooking/Nutrition teacher(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="dance_teacher" label="Dance teacher(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="ell_esl_coord" label="ELL/ESL Coordinator"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="garden_teacher" label="Gardening teacher(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="gifted_specialist"
+                                         label="Gifted specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="instructional_aid"
+                                         label="Instructional aide(s)/coach(es)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="librarian"
+                                         label="Librarian/media specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="math_specialist" label="Math specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="music_teacher" label="Music teacher(s)"/>
         </div>
-    </c:if>
+        <div class="grid_8 omega">
+            <school:espCheckboxWithLabel key="staff_resources" value="pe_instructor" label="PE instructor(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="nurse" label="Nurse(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="poetry_teacher"
+                                         label="Poetry/Creative writing teacher(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="priest"
+                                         label="Priest, pastor, or other religious personnel"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="reading_specialist"
+                                         label="Reading specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="robotics_teacher"
+                                         label="Robotics/Technology specialist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="security" label="Security personnel"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="school_psychologist"
+                                         label="School psychologist"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="school_counselor"
+                                         label="School social worker/counselors(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="special_ed_coordinator"
+                                         label="Special education coordinator"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="speech_therapist"
+                                         label="Speech and language therapist(s)"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="teacher_aid"
+                                         label="Teacher aid/assistant teacher"/>
+            <school:espCheckboxWithLabel key="staff_resources" value="tutor" label="Tutor(s)"/>
+        </div>
+    </div>
 
+    <div class="lal clearfix">
+        <div class="alpha grid_7">
+            <p class="labelGroup">What languages other than English does the school staff speak?</p>
+        </div>
+        <div class="grid_5">
+            <school:espCheckboxWithLabel key="staff_languages" value="none" label="None"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="american_sign_language" label="American Sign Language (ASL)"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="amharic" label="Amharic"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="arabic" label="Arabic languages"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="cantonese"
+                                         label="Chinese (Cantonese)"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="mandarin"
+                                         label="Chinese (Mandarin)"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="dutch" label="Dutch"/>
+        </div>
+        <div class="grid_5">
+            <school:espCheckboxWithLabel key="staff_languages" value="french" label="French"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="german" label="German"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="hmong" label="Hmong"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="italian" label="Italian"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="japanese" label="Japanese"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="korean" label="Korean"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="russian" label="Russian"/>
+        </div>
+        <div class="grid_6 omega">
+            <school:espCheckboxWithLabel key="staff_languages" value="spanish" label="Spanish"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="tagalog" label="Tagalog"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="urdu" label="Urdu"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="vietnamese" label="Vietnamese"/>
+            <school:espCheckboxWithLabel key="staff_languages" value="other" label="Other:"
+                                         styleClass="js_otherField_js_form_staff_languages_other" nobr="true">
+                <input id="js_form_staff_languages_other" class="js_otherField text-smaller input_4 mls" type="text"
+                       name="staff_languages_other"
+                       value="${responseMap['staff_languages_other'].value}"
+                       placeholder="[Please indicate]" maxlength="30"/>
+            </school:espCheckboxWithLabel>
+        </div>
+        <school:espFieldError text="Please specify a response" styleId="js_form_staff_languages_other_error" styleClass="grid_6 omega"/>
+    </div>
 
     <div class="lal clearfix">
         <div class="alpha grid_7">
