@@ -88,13 +88,13 @@
                          Those descisions are made here for purpose of keeping the class="unit sizexxof100" info here  -->
                     <c:set var="applInfoContent" value="${applInfo['content']}" scope="page"/>
                     <c:choose>
-                        <c:when test="${applInfoContent eq 'default'}">
+                        <c:when test="${applInfoContent eq 'applInfoV1'}">
                             <!-- double wide tile -->
                             <div class="unit size66of100 lastUnit">
                                 <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
                             </div>
                         </c:when>
-                        <c:when test="${applInfoContent eq 'substitute1'}">
+                        <c:when test="${applInfoContent eq 'applInfoV2'}">
                             <!-- single wide tile and single wide image-->
                             <div class="unit size32of100">
                                 <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
@@ -117,7 +117,7 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size66of100 lastUnit">
-                        <school:profileOverviewRelatedTile relatedModel="${}related}" />
+                        <school:profileOverviewRelatedTile relatedModel="${related}" />
                     </div>
                 </div>
 
@@ -132,6 +132,76 @@
         </c:when>
         <c:otherwise>
             <b>NO ESP DATA AVAILABLE</b>
+            <div class="alpha grid_16 omega">
+
+                <div class="line">
+                    <div class="unit size32of100">
+                        <school:profileOverviewGsRatingsTile gsRatingsModel="${ratings}"/>
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size32of100">
+                        <school:profileOverviewPhotosTile photosModel="${photos}"/>
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size32of100 lastUnit">
+                        <school:profileOverviewVideoTile videoModel="${video}" />
+                    </div>
+                </div>
+
+                <div class="line">
+                    <div class="unit size32of100">
+                        <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}" />
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size66of100 lastUnit">
+                        <school:profileOverviewReviewsTile reviewsModel="${reviews}" />
+                    </div>
+                </div>
+
+                <div class="line">
+                    <div class="unit size32of100">
+                        <school:profileOverviewDiversityTile diversityModel="${diversity}" />
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size32of100">
+                        <school:profileOverviewSpecialEdTile specialEdModel="${specialEd}" />
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size32of100 lastUnit">
+                        <school:profileOverviewTransportationTile transportationModel="${transportation}" />
+                    </div>
+                </div>
+
+                <div class="line">
+                    <div class="unit size32of100">
+                        <school:profileOverviewProgramsTile programsModel="${programs}" />
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size32of100">
+                        <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
+                    </div>
+
+                    <div class="unit size2of100">&amp;nbsp;</div>
+
+                    <div class="unit size32of100">
+                        <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" />
+                    </div>
+                </div>
+
+                <school:profileOverviewRelatedNoEspTile relatedModel="${sports}"/>
+            </div>
 
         </c:otherwise>
     </c:choose>

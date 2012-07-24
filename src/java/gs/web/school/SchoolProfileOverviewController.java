@@ -1,10 +1,8 @@
 package gs.web.school;
 
+import gs.data.cms.IPublicationDao;
 import gs.data.community.User;
-import gs.data.content.cms.CmsConstants;
-import gs.data.content.cms.CmsFeature;
-import gs.data.content.cms.CmsFeatureDao;
-import gs.data.content.cms.ContentKey;
+import gs.data.content.cms.*;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.*;
 import gs.data.school.census.Breakdown;
@@ -12,8 +10,8 @@ import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.district.District;
-import gs.data.school.review.IReviewDao;
 import gs.data.util.CommunityUtil;
+import gs.web.content.cms.CmsContentLinkResolver;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -52,6 +50,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String RELATED_CONTENT_MODEL_KEY = "related";
     private static final String SPORTS_MODEL_KEY = "sports";
 
+    private static final String SCHOOL_VISIT_CHECKLIST_MODEL_KEY = "schoolVisit";
+
     private static final int VIDEO_ELEMENTARY = 6857;
     private static final int VIDEO_MIDDLE = 6856;
     private static final int VIDEO_HIGH = 6855;
@@ -67,6 +67,11 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     @Autowired
     private CmsFeatureDao _cmsFeatureDao;
 
+    @Autowired
+    private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
+
+    @Autowired
+    private IPublicationDao _publicationDao;
 
     @RequestMapping(method= RequestMethod.GET)
     public String handle(ModelMap modelMap, HttpServletRequest request
@@ -96,51 +101,51 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private void handleEspPage(Map model, HttpServletRequest request, School school, Map<String,List<EspResponse>> espData ) {
 
         // First row is "Best know for quote", get it and add to model
-        model.put(BEST_KNOWN_FOR_MODEL_KEY, getBestKnownForQuoteTile(school, espData));
+        model.put(BEST_KNOWN_FOR_MODEL_KEY, getBestKnownForQuoteEspTile(school, espData));
 
         // Tile 1 - Default: Ratings, Substitute 1: Awards, Substitute 2: Autotext(About this school)
         //  Waiting for research team to investigate Ratings
-        model.put( RATINGS_BREAKDOWN_MODEL_KEY, getGsRatingsTile(request, school, espData) );
+        model.put( RATINGS_BREAKDOWN_MODEL_KEY, getGsRatingsEspTile(request, school, espData) );
 
         // Title 2 - Default: Photos, Substitute 1: Principal CTA
-        model.put(PHOTOS_MODEL_KEY, getPhotosTile(request, school));
+        model.put(PHOTOS_MODEL_KEY, getPhotosEspTile(request, school));
 
         // Title 3 - Default: Videos, Substitute 1: Information from CMS
-        model.put( VIDEO_MODEL_KEY, getVideoTile(request, school, espData) );
+        model.put( VIDEO_MODEL_KEY, getVideoEspTile(request, school, espData) );
 
         // Title 4 - Default: Community ratings, Substitute 1: Review CTA
-        model.put( COMMUNITY_RATING_MODEL_KEY, getCommunityRatingTile(request, school) );
+        model.put( COMMUNITY_RATING_MODEL_KEY, getCommunityRatingEspTile(request, school) );
 
         // Titles 5&6 - Default: Reviews carousel, Substitute 1: Review CTA
-        model.put( REVIEWS_MODEL_KEY, getReviewsTile( request, school ) );
+        model.put( REVIEWS_MODEL_KEY, getReviewsEspTile(request, school) );
 
         // Title 7 - Default: Student diversity, Substitute 1: Generic text about diversity
-        model.put( DIVERSITY_MODEL_KEY, getDiversityTile(request, school, espData) );
+        model.put( DIVERSITY_MODEL_KEY, getDiversityEspTile(request, school) );
 
         // Title 8 - Default: Special education/extended care, Substitute 1: Nearby schools teaser
         // This is all ESP data and complicated rules.  DO SOON
-        model.put( SPECIAL_EDUCATION_MODEL_KEY, getSpecialEdTile(request, school, espData) );
+        model.put( SPECIAL_EDUCATION_MODEL_KEY, getSpecialEdEspTile(request, school, espData) );
 
         // Title 9 - Default: Transportation, Substitute 1: Students per teacher / average class size, Substitute 2: School boundry tool promo
-        model.put( TRANSPORTATION_MODEL_KEY, getTransportationTile(request, school, espData) );
+        model.put( TRANSPORTATION_MODEL_KEY, getTransportationEspTile(request, school, espData) );
 
         // Title 10 - Default: Programs, Substitute 1: Parent involvement, Substitute 2: Highlights (data from School object)
-        model.put( PROGRAMS_MODEL_KEY, getProgramsTile(request, school, espData) );
+        model.put( PROGRAMS_MODEL_KEY, getProgramsEspTile(request, school, espData) );
 
         // Titles 11&12 - Default: Application info version 1, Substitute 1: Application info version 2, Substitute 2: School visit checklist
-        model.put( APPL_INFO_MODEL_KEY, getApplInfoTile(request, school, espData) );
+        model.put( APPL_INFO_MODEL_KEY, getApplInfoEspTile(request, school, espData) );
 
         // Title 13 - Default: Local info (TBD), Substitute 1: District info, Substitute 2: Neighborhood info
-        model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoTile(request, school, espData) );
+        model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoEspTile(request, school) );
 
         // Titles 14&15 - Default: Related content, Substitute 1:
-        model.put( RELATED_CONTENT_MODEL_KEY, getRelatedTile(request, school, espData) );
+        model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school) );
 
         // 7th row is Sports/Arts/Music
-        model.put(SPORTS_MODEL_KEY, getSportsArtsMusicTile(espData));
+        model.put(SPORTS_MODEL_KEY, getSportsArtsMusicEspTile(espData));
     }
 
-    public String getBestKnownForQuoteTile(School school, Map<String, List<EspResponse>> espData) {
+    public String getBestKnownForQuoteEspTile(School school, Map<String, List<EspResponse>> espData) {
 
         String bestKnownFor = null;
         List<EspResponse> espResponses = espData.get( "best_known_for" );
@@ -155,14 +160,14 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return bestKnownFor;
     }
 
-    private Map<String, Object> getReviewsTile(HttpServletRequest request, School school) {
+    private Map<String, Object> getReviewsEspTile(HttpServletRequest request, School school) {
         Map<String, Object> reviewsModel = new HashMap<String, Object>(2);
         reviewsModel.put( "reviews", _schoolProfileDataHelper.getNonPrincipalReviews(request, 5) );
 
         return reviewsModel;
     }
 
-    private Map<String, Object> getCommunityRatingTile(HttpServletRequest request, School school) {
+    private Map<String, Object> getCommunityRatingEspTile(HttpServletRequest request, School school) {
         Map<String, Object> communityModel = new HashMap<String, Object>(3);
         communityModel.put( "school", school );
         communityModel.put( "ratings", _schoolProfileDataHelper.getSchoolRatings( request ) );
@@ -171,7 +176,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return communityModel;
     }
 
-    private Map getPhotosTile(HttpServletRequest request, School school) {
+    private Map getPhotosEspTile(HttpServletRequest request, School school) {
 
         Map<String, Object> photosModel = new HashMap<String, Object>(2);
 
@@ -198,7 +203,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     }
 
-    private Map getGsRatingsTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map getGsRatingsEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         // Try default
         Map<String, Object> model = getGsRatingsModel( request, school );
@@ -406,72 +411,101 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
 
-private Map getVideoTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map getVideoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
-        Map<String, Object> model = new HashMap<String, Object>(2);
+        Map<String, Object> model = null;
 
         // Get all of the date needed to make the required decisions
         List<EspResponse> video = espData.get("school_video");
         if( isNotEmpty( video ) ) {
-            model.put( "content", "default" );
+            model = new HashMap<String, Object>(2);
+            model.put( "content", "video" );
             model.put( "videoUrl", video.get(0).getSafeValue() );
         }
         else {
             // Substitute action
-            // Which video to display will depend on the lowest level taught at the school.  For instance if level_code is e,m,h then just show for e
-            if( school.getLevelCode() != null ) {
-                String levelCodeList = school.getLevelCode().getCommaSeparatedString();
-                String [] levelCodes = levelCodeList.split(",");
-                // Pick smallest level code that is not p (preschool).  If p is the only level code use e
-                String levelCode = levelCodes[0];
-                if( "p".equals( levelCode ) ) {
-                    if( levelCodes.length > 1 ) {
-                        levelCode = levelCodes[1];
-                    }
-                    else {
-                        levelCode = "e";
-                    }
-                }
-                String lowestLevel = school.getLevelCode().getLowestLevel().getName();
-                model.put( "schoolLevel", levelCode );
-                // determine which video to show
-                int videoId = 0;
-                if( "e".equals(levelCode) ) {
-                    videoId = VIDEO_ELEMENTARY;
-                }
-                else if( "m".equals(levelCode) ) {
-                    videoId = VIDEO_MIDDLE;
-                }
-                else if( "h".equals(levelCode) ) {
-                    videoId = VIDEO_HIGH;
-                }
-                videoId = 4910; // Debug, this is an existing Id in dev-cms
-                ContentKey key = new ContentKey( CmsConstants.VIDEO_CONTENT_TYPE, new Long(videoId) );
+            model = getTourVideoModel( request, school );
 
-                try {
-                    UrlBuilder urlBuilder = new UrlBuilder( key );
-                    String url = urlBuilder.asSiteRelativeXml( request );
-                    model.put( "content", "schoolTourVideo" );
-                    model.put( "videoUrl", url );
-
-                    // Testing
-                    CmsFeature feature =_cmsFeatureDao.get( new Long(videoId) );
-                    _log.error( "CmsFeature = " + feature );
-                    // TODO - Ask Young where to get the thumbnail image url
-                    model.put( "videoIconUrl", feature.getImageUrl() );
-                }
-                catch (UnsupportedOperationException e ) {
-                    model.put( "content", "None" );
-                    return  model;
-                }
-
-            }
         }
 
         return model;
     }
 
-    private Map getDiversityTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map getTourVideoModel(HttpServletRequest request, School school) {
+
+        Map<String, Object> model = new HashMap<String, Object>(2);
+
+        // Which video to display will depend on the lowest level taught at the school.  For instance if level_code is e,m,h then just show for e
+        if( school.getLevelCode() != null ) {
+            String levelCodeList = school.getLevelCode().getCommaSeparatedString();
+            String [] levelCodes = levelCodeList.split(",");
+            // Pick smallest level code that is not p (preschool).  If p is the only level code use e
+            String levelCode = levelCodes[0];
+            if( "p".equals( levelCode ) ) {
+                if( levelCodes.length > 1 ) {
+                    levelCode = levelCodes[1];
+                }
+                else {
+                    levelCode = "e";
+                }
+            }
+            model.put( "schoolLevel", levelCode );
+            // determine which video to show
+            int videoId = 0;
+            if( "e".equals(levelCode) ) {
+                videoId = VIDEO_ELEMENTARY;
+            }
+            else if( "m".equals(levelCode) ) {
+                videoId = VIDEO_MIDDLE;
+            }
+            else if( "h".equals(levelCode) ) {
+                videoId = VIDEO_HIGH;
+            }
+            // videoId = 4910; // Debug, this is an existing Id in dev-cms
+
+            try {
+                // Implementation based on code in CmsVideoController
+                /* TODO this implementation is based on using CmsFeature which causes a database access the
+                   alternative would be to add a method to CmsFeatureSearchService.java (and
+                   CmsFeatureSearchServiceSolrImpl.java) and use Solr to fetch a search result for the video you're
+                   interested in, and call getImageUrl() from that search result instead of from the object fetched
+                   from the database.   */
+
+                CmsFeature feature = _cmsFeatureDao.get(new Long(videoId));
+                if( feature == null ) {
+                    // This should not happen unless the article is not present in CMS
+                    model.put( "content", "none" );
+                    return  model;
+                }
+
+                // it would be simpler to call UrlBuilder(feature.getContentKey()) but that calls publicationDao
+                // which can not overridden in UrlBuilder and thus can not be unit tested
+                Publication pub = _publicationDao.findByContentKey(feature.getContentKey());
+                if( pub == null ) {
+                    model.put( "content", "none" );
+                    return  model;
+                }
+                String fullUri = pub.getFullUri();
+                UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), fullUri);
+
+                model.put( "content", "schoolTourVideo" );
+                model.put( "contentUrl", urlBuilder.asSiteRelativeXml(request));
+                model.put( "videoIconUrl", feature.getImageUrl() );
+                model.put( "videoIconAltText", feature.getImageAltText() );
+            }
+            catch (UnsupportedOperationException e ) {
+                // This happens when CMS is down which shouldn't happen now.  But if it does happen don't try to display a video
+                model.put( "content", "none" );
+                return  model;
+            }
+
+        }
+
+        return model;
+    }
+
+
+    private Map getDiversityEspTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -524,7 +558,7 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
         return model;
     }
 
-    private Map getSpecialEdTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map getSpecialEdEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> specialEdModel = new HashMap<String, Object>(2);
 
@@ -687,7 +721,7 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
         return specialEdModel;
     }
 
-    private Map getTransportationTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map getTransportationEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -823,7 +857,7 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
         return null;  // No value in results
     }
 
-    private Map getProgramsTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map getProgramsEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -950,7 +984,7 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
         return model;
     }
 
-    private Map getApplInfoTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map getApplInfoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -970,7 +1004,7 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
                 applicationsReceivedYearList.get(0).getValue().equals(studentsAcceptedYearList.get(0).getValue()) ) {
             // The values should be valid numbers, but need to be sure
             try {
-                model.put( "content", "default" );
+                model.put( "content", "applInfoV1" );
                 // Acceptance Rate Calc
                 float studentsAccepted = Float.parseFloat(studentsAcceptedList.get(0).getValue());
                 float applicationsReceived = Float.parseFloat(applicationsReceivedList.get(0).getValue());
@@ -993,19 +1027,19 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
             // Decide which substitute to do
             if( hasApplicationProcessYes ) {
                 // Substitute action 1
-                model.put( "content", "substitute1" );
+                model.put( "content", "applInfoV2" );
                 getApplInfoDeadlineInfo(espData, model);
             }
             else {
-                // Substitute action 2
-                model.put( "content", "substitute2" );
+                // Substitute action 2, school visit checklist
+                model.put( "content", "visitChecklist" );
             }
         }
 
         return model;
     }
 
-    // This is a helper method for getApplInfoTile() and has been moved to a separate tile because it can be used in 2 places
+    // This is a helper method for getApplInfoEspTile() and has been moved to a separate tile because it can be used in 2 places
     private void getApplInfoDeadlineInfo(Map<String, List<EspResponse>> espData, Map<String, Object> model) {
         // Application deadline information
         List<EspResponse> applicationDeadlineList = espData.get("application_deadline");
@@ -1060,7 +1094,7 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
 
     }
 
-    private Map getLocalInfoTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map getLocalInfoEspTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -1073,7 +1107,7 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
 
         // Substitute action 1
         if( doSubstitute ) {
-            model = getDistrictInfoTile( request, school, espData );
+            model = getDistrictInfoModel(request, school);
         }
 
         return model;
@@ -1083,10 +1117,9 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
      * Builds the model data for the District Info tile if the required data is available, otherwise builds data for Neighborhood Info
      * @param request
      * @param school
-     * @param espData
      * @return
      */
-    private Map getDistrictInfoTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map getDistrictInfoModel(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -1147,19 +1180,17 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
         return model;
     }
 
-    private Map getRelatedTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map getRelatedEspTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
         // TODO - This is a stub - the appropriate code needs to be inserted below
         // Default action
 
-        // Substitute action 1
-
         return model;
     }
 
-    private Map<String, Object> getSportsArtsMusicTile(Map<String, List<EspResponse>> espData) {
+    private Map<String, Object> getSportsArtsMusicEspTile(Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> sportsModel = new HashMap<String, Object>(4);
         // Sports
@@ -1233,43 +1264,39 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
         model.put( RATINGS_BREAKDOWN_MODEL_KEY, getGsRatingsTileNoOsp(request, school) );
 
         // Title 2 - Default: Photos, Substitute 1: Principal CTA
-        model.put(PHOTOS_MODEL_KEY, getPhotosTile(request, school));
+        model.put(PHOTOS_MODEL_KEY, getPhotosEspTile(request, school));
 
         // Title 3 - Default: Videos, Substitute 1: Information from CMS
-//        model.put( VIDEO_MODEL_KEY, getVideoTile(request, school, espData) );
+        model.put( VIDEO_MODEL_KEY, getTourVideoModel(request, school) );
 
         // Title 4 - Default: Community ratings, Substitute 1: Review CTA
-        model.put( COMMUNITY_RATING_MODEL_KEY, getCommunityRatingTile(request, school) );
+        model.put( COMMUNITY_RATING_MODEL_KEY, getCommunityRatingEspTile(request, school) );
 
         // Titles 5&6 - Default: Reviews carousel, Substitute 1: Review CTA
-        model.put( REVIEWS_MODEL_KEY, getReviewsTile( request, school ) );
+        model.put( REVIEWS_MODEL_KEY, getReviewsEspTile(request, school) );
 
         // Title 7 - Default: Student diversity, Substitute 1: Generic text about diversity
-//        model.put( DIVERSITY_MODEL_KEY, getDiversityTile(request, school, espData) );
+        model.put( DIVERSITY_MODEL_KEY, getDiversityEspTile(request, school) );
 
-        // Title 8 - Default: Special education/extended care, Substitute 1: Nearby schools teaser
-        // This is all ESP data and complicated rules.  DO SOON
-//        model.put( SPECIAL_EDUCATION_MODEL_KEY, getSpecialEdTile(request, school, espData) );
+        // Title 8 - Default: School visit checklist
+        model.put( SCHOOL_VISIT_CHECKLIST_MODEL_KEY, getSchoolVisitChecklistTile(request, school) );
 
         // Title 9 - Default: Transportation, Substitute 1: Students per teacher / average class size, Substitute 2: School boundry tool promo
-//        model.put( TRANSPORTATION_MODEL_KEY, getTransportationTile(request, school, espData) );
+        model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoEspTile(request, school) );
 
-        // Title 10 - Default: Programs, Substitute 1: Parent involvement, Substitute 2: Highlights (data from School object)
-//        model.put( PROGRAMS_MODEL_KEY, getProgramsTile(request, school, espData) );
-
-        // Titles 11&12 - Default: Application info version 1, Substitute 1: Application info version 2, Substitute 2: School visit checklist
-//        model.put( APPL_INFO_MODEL_KEY, getApplInfoTile(request, school, espData) );
-
-        // Title 13 - Default: Local info (TBD), Substitute 1: District info, Substitute 2: Neighborhood info
-//        model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoTile(request, school, espData) );
-
-        // Titles 14&15 - Default: Related content, Substitute 1:
-//        model.put( RELATED_CONTENT_MODEL_KEY, getRelatedTile(request, school, espData) );
-
-
-
+        // Row 4 - Default: Related content
+        model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school) );
 
         return;
+    }
+
+    private Map getSchoolVisitChecklistTile(HttpServletRequest request, School school) {
+
+        Map<String, Object> model = new HashMap<String, Object>(1);
+
+        model.put( "content", "visitChecklist" );
+
+        return model;
     }
 
     // =================== Utility functions follow ============================
@@ -1500,6 +1527,19 @@ private Map getVideoTile(HttpServletRequest request, School school, Map<String, 
 
     public void setViewName(String viewName) {
         _viewName = viewName;
+    }
+
+    // ============== The following setters are just for unit testing ===================
+    public void setCmsFeatureDao( CmsFeatureDao cmsFeatureDao ) {
+        _cmsFeatureDao = cmsFeatureDao;
+    }
+
+    public void setCmsFeatureEmbeddedLinkResolver(CmsContentLinkResolver cmsFeatureEmbeddedLinkResolver) {
+        _cmsFeatureEmbeddedLinkResolver = cmsFeatureEmbeddedLinkResolver;
+    }
+
+    public  void setPublicationDao( IPublicationDao publicationDao ) {
+        _publicationDao = publicationDao;
     }
 
 

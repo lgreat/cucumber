@@ -26,7 +26,7 @@ import java.util.*;
 import static org.easymock.classextension.EasyMock.*;
 
 /**
- * Tester for SchoolProfileOverviewController
+ * Tester for SchoolProfileDataHelper
  * User: rraker
  * Date: 6/18/12
  */

@@ -19,17 +19,22 @@
     <c:set var="content" value="${videoModel['content']}" scope="page"/>
     <c:set var="videoUrl" value="${videoModel['videoUrl']}" scope="page"/>
     <c:set var="videoIconUrl" value="${videoModel['videoIconUrl']}" scope="page"/>
+    <c:set var="videoIconAltText" value="${videoModel['videoIconAltText']}" scope="page"/>
 
     <c:choose>
-        <c:when test="${content eq 'default'}">
+        <c:when test="${content eq 'video'}">
             <school:profileOverviewCell1 title="School videos">
-                <!-- Show generiic video icon and clicking on it takes you to the video at videoUrl -->
+                <!-- Show generic video icon and clicking on it takes you to the video at videoUrl -->
+            </school:profileOverviewCell1>
+        </c:when>
+        <c:when test="${content eq 'schoolTourVideo'}">
+            <school:profileOverviewCell1 title="School tour video">
+                <!-- Show video icon in variable videoIconUrl and clicking on it takes you to the video at videoUrl -->
+                <div class="">Display video at ${$videoUrl}</div>
             </school:profileOverviewCell1>
         </c:when>
         <c:otherwise>
-            <school:profileOverviewCell1 title="School tour video">
-                <!-- Show video icon in variable  and clicking on it takes you to the video at videoUrl -->
-            </school:profileOverviewCell1>
+            <!-- will only get there is CMS is down or the content has been deleted.  Leave a blank space -->
         </c:otherwise>
     </c:choose>
 
