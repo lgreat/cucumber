@@ -23,19 +23,19 @@
             <school:espCheckboxWithLabel key="foreign_language" value="arabic" label="Arabic languages"/>
             <school:espCheckboxWithLabel key="foreign_language" value="cantonese" label="Chinese (Cantonese)"/>
             <school:espCheckboxWithLabel key="foreign_language" value="mandarin" label="Chinese (Mandarin)"/>
-            <school:espCheckboxWithLabel key="foreign_language" value="dutch" label="Dutch"/>
-            <school:espCheckboxWithLabel key="foreign_language" value="french" label="French"/>
         </div>
         <div class="grid_5">
+            <school:espCheckboxWithLabel key="foreign_language" value="dutch" label="Dutch"/>
+            <school:espCheckboxWithLabel key="foreign_language" value="french" label="French"/>
             <school:espCheckboxWithLabel key="foreign_language" value="german" label="German"/>
             <school:espCheckboxWithLabel key="foreign_language" value="hmong" label="Hmong"/>
             <school:espCheckboxWithLabel key="foreign_language" value="italian" label="Italian"/>
             <school:espCheckboxWithLabel key="foreign_language" value="japanese" label="Japanese"/>
             <school:espCheckboxWithLabel key="foreign_language" value="korean" label="Korean"/>
-            <school:espCheckboxWithLabel key="foreign_language" value="latin" label="Latin"/>
-            <school:espCheckboxWithLabel key="foreign_language" value="russian" label="Russian"/>
         </div>
         <div class="grid_6 omega">
+            <school:espCheckboxWithLabel key="foreign_language" value="latin" label="Latin"/>
+            <school:espCheckboxWithLabel key="foreign_language" value="russian" label="Russian"/>
             <school:espCheckboxWithLabel key="foreign_language" value="spanish" label="Spanish"/>
             <school:espCheckboxWithLabel key="foreign_language" value="tagalog" label="Tagalog"/>
             <school:espCheckboxWithLabel key="foreign_language" value="urdu" label="Urdu"/>
@@ -303,18 +303,18 @@
                                          label="Chinese (Cantonese)"/>
             <school:espCheckboxWithLabel key="staff_languages" value="mandarin"
                                          label="Chinese (Mandarin)"/>
-            <school:espCheckboxWithLabel key="staff_languages" value="dutch" label="Dutch"/>
         </div>
         <div class="grid_5">
+            <school:espCheckboxWithLabel key="staff_languages" value="dutch" label="Dutch"/>
             <school:espCheckboxWithLabel key="staff_languages" value="french" label="French"/>
             <school:espCheckboxWithLabel key="staff_languages" value="german" label="German"/>
             <school:espCheckboxWithLabel key="staff_languages" value="hmong" label="Hmong"/>
             <school:espCheckboxWithLabel key="staff_languages" value="italian" label="Italian"/>
             <school:espCheckboxWithLabel key="staff_languages" value="japanese" label="Japanese"/>
             <school:espCheckboxWithLabel key="staff_languages" value="korean" label="Korean"/>
-            <school:espCheckboxWithLabel key="staff_languages" value="russian" label="Russian"/>
         </div>
         <div class="grid_6 omega">
+            <school:espCheckboxWithLabel key="staff_languages" value="russian" label="Russian"/>
             <school:espCheckboxWithLabel key="staff_languages" value="spanish" label="Spanish"/>
             <school:espCheckboxWithLabel key="staff_languages" value="tagalog" label="Tagalog"/>
             <school:espCheckboxWithLabel key="staff_languages" value="urdu" label="Urdu"/>

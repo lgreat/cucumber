@@ -152,9 +152,9 @@
                         <school:espCheckboxWithLabel key="immersion_language" value="french" label="French"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="german" label="German"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="hmong" label="Hmong"/>
-                        <school:espCheckboxWithLabel key="immersion_language" value="italian" label="Italian" nobr="true"/>
                     </div>
                     <div class="grid_6 omega">
+                        <school:espCheckboxWithLabel key="immersion_language" value="italian" label="Italian"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="japanese" label="Japanese"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="korean" label="Korean"/>
                         <school:espCheckboxWithLabel key="immersion_language" value="russian" label="Russian"/>
