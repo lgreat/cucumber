@@ -42,6 +42,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     CmsFeature _cmsFeature;
     IPublicationDao _publicationDaoMock;
     int _cmsVideoContentId = 0;
+    boolean _cmsEnabled;
 
 
     public void setUp() throws Exception {
@@ -56,7 +57,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         getRequest().setAttribute( "school", _school );
 
         // Things to setup to use UrlBuilder
-        CmsUtil.setCmsEnabled(true);
+        _cmsEnabled = CmsUtil.isCmsEnabled();
+        CmsUtil.enableCms();
         // Setup CmsFeature for testing
         _cmsFeatureDao = createStrictMock( CmsFeatureDao.class );
         _cmsFeature = createStrictMock( CmsFeature.class );
@@ -66,6 +68,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         _publicationDaoMock = createStrictMock(IPublicationDao.class);
         _schoolProfileOverviewController.setPublicationDao( _publicationDaoMock );
+    }
+
+    public void tearDown() {
+        CmsUtil.setCmsEnabled(_cmsEnabled);
     }
 
     /*
