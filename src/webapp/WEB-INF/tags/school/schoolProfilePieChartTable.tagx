@@ -52,10 +52,10 @@
 
     <table class="tableType1">
 
-        <col width="220px"><!-- do not collapse --></col>
-        <col width="200px"><!-- do not collapse --></col>
-        <col width="100px"><!-- do not collapse --></col>
-        <c:if test="${showStateAverages}"><col width="100px"><!-- do not collapse --></col> </c:if>
+        <col width="32%"><!-- do not collapse --></col>
+        <col width="35%"><!-- do not collapse --></col>
+        <col width="15%"><!-- do not collapse --></col>
+        <c:if test="${showStateAverages}"><col width="18%"><!-- do not collapse --></col> </c:if>
 
         <thead>
         <tr>
@@ -107,7 +107,7 @@
                     <c:choose>
                         <c:when test="${status.first}">
                             <c:set var="addRowSpan">${fn:length(rows)}</c:set>
-                            <c:set var="addPieGraph"><profile:pieChart chartData="${pieDataSet}" chartDrawDivId="${pieDivId}" chartSize="200"/></c:set>
+                            <c:set var="addPieGraph"><profile:pieChart chartData="${pieDataSet}" chartDrawDivId="${pieDivId}" chartSize="190"/></c:set>
                             <c:set var="graphRow"><td rowspan="${addRowSpan}">${addPieGraph}</td></c:set>
 
                         </c:when>

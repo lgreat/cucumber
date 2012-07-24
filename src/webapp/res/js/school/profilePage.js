@@ -155,7 +155,8 @@ function drawPieChart(dataIn, divNameId, dimensions) {
         height: dimensions,
         legend: 'none',
         tooltip: {showColorCode: true,text:'percentage'},
-        pieSliceText: 'none'
+        pieSliceText: 'none',
+        chartArea:{left:10,top:10,width:"80%",height:"80%"}
     }
     //var test = $('#'+divName);
     // Create and draw the visualization.
