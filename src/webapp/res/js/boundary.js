@@ -349,10 +349,11 @@ var Boundary = (function (){
     };
 
     var updateSchoolList = function ( schools ){
+        var ratingBase = "i-24-ratings";
         $list.empty();
         var itemTemplate = '<div class="js-listItem media skin-1 attribution pvs phm" style="border-bottom: 1px solid #f1f1f1"></div>'
-            , spriteTemplate = '<div class="img round-small mrm"><!--Do not collapse--></div>'
-            , nameTemplate = '<div class="bd" id=""></div>'
+            , spriteTemplate = '<div class="img iconx24-ratings mrm"><!-- do not collapse --></div>'
+            , nameTemplate = '<div class="small bd" id=""></div>'
             , htmlString = '';
         schools.sort(sort);
         for (var i = 0; i < schools.length; i++) {
@@ -361,9 +362,9 @@ var Boundary = (function (){
                 , $name = $(nameTemplate)
                 , $sprite = $(spriteTemplate)
                 , badge = (school.rating > 0 && school.rating < 11) ? school.rating :
-                    (school.schoolType=='private') ? 'PR' : 'N/A';
+                    (school.schoolType=='private') ? 'PR' : 'NA';
             if (school.schoolType!='private' && !(school.schoolType=='charter' && !school.districtId)){
-                $sprite.append(badge);
+                $sprite.addClass(ratingBase+badge);
                 $name.append(school.name);
                 var $listItem = $(itemTemplate).attr('id',school.getKey()).append($sprite).append($name).attr('id', school.getKey());
                 $listItem.data('school', school);
