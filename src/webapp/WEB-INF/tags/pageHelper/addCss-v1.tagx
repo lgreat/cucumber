@@ -89,8 +89,8 @@
             <!-- 21 --> <![CDATA[<link rel="stylesheet" href="${opacityshadow}" type="text/css" />]]>
             <!-- 22 --> <![CDATA[<link rel="stylesheet" href="${modal}" type="text/css" />]]>
             <!-- 23 --> <![CDATA[<link rel="stylesheet" href="${ad}" type="text/css" />]]>
-            <!-- 24 --> <![CDATA[<!--[if IE 7]>--><link rel="stylesheet" href="${adIE7}" type="text/css" /><!--<![endif]-->]]>
-            <!-- 25 --> <![CDATA[<!--[if IE 8]>--><link rel="stylesheet" href="${adIE8}" type="text/css" /><!--<![endif]-->]]>
+            <!-- 24 --> <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${adIE7}" type="text/css" /><![endif]-->]]>
+            <!-- 25 --> <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${adIE8}" type="text/css" /><![endif]-->]]>
             <!-- 26 --> <![CDATA[<link rel="stylesheet" href="${ratings}" type="text/css" />]]>
             <!-- 27 --> <![CDATA[<link rel="stylesheet" href="${tabcss}" type="text/css" />]]>
             <!--<![CDATA[<link rel="stylesheet" href="${cmscontent}" type="text/css" />]]>-->
@@ -107,8 +107,8 @@
             <gsml:url var="gs_stylescssIE7_v1" value="/res/css/gs_styles_IE7-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gs_stylescssIE8_v1" value="/res/css/gs_styles_IE8-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <![CDATA[<link rel="stylesheet" href="${gs_stylescss_v1}" type="text/css" />]]>
-            <![CDATA[<!--[if IE 7]>--><link rel="stylesheet" href="${gs_stylescssIE7_v1}" type="text/css" /><!--<![endif]-->]]>
-            <![CDATA[<!--[if IE 8]>--><link rel="stylesheet" href="${gs_stylescssIE8_v1}" type="text/css" /><!--<![endif]-->]]>
+            <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${gs_stylescssIE7_v1}" type="text/css" /><![endif]-->]]>
+            <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${gs_stylescssIE8_v1}" type="text/css" /><![endif]-->]]>
         </c:otherwise>
     </c:choose>
 
