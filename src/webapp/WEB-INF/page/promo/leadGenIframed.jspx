@@ -7,5 +7,7 @@
     <jsp:directive.page contentType="text/html"/>
 
     <!-- GS-12893 -->
-    <c:import url="file:///Users/yfan/code/gs/GSWeb/src/webapp/WEB-INF/page/promo/leadGen/redwood-day-school-2012.html"/>
+    <!--<c:import url="file:///Users/yfan/code/gs/GSWeb/src/webapp/WEB-INF/page/promo/leadGen/redwood-day-school-2012.html"/>-->
+    <!-- GS-13056 -->
+    <c:import url="file:///Users/yfan/code/gs/GSWeb/src/webapp/WEB-INF/page/promo/leadGen/rocketship-2012.html"/>
 </jsp:root>
