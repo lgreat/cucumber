@@ -45,8 +45,6 @@
                 jspContext.setAttribute("footnotesForThisTable", footnotesForThisTable);
             ]]>
 </jsp:scriptlet>
-
-
 <c:if test="${fn:length(rows) gt 0}">
     <h4>${title}</h4>
 
@@ -72,7 +70,7 @@
             </c:if>
         </tr>
         </thead>
-        <tbody class="">
+        <tbody class="striped">
 
         <c:forEach items="${rows}" var="row" varStatus="status">
             <jsp:scriptlet>
@@ -92,8 +90,12 @@
                     footnotesForThisTable.add(descriptions.size());
                     jspContext.setAttribute("thisFootnote", descriptions.size());
                 ]]>
-            </jsp:scriptlet>
-
+            </jsp:scriptlet>     <![CDATA[
+            <!--[if lt IE 9]><style>
+                .even{background-color: #f1f1f1;}
+                .odd{background-color: #FFFFFF;}
+            </style>
+            <![endif]--> ]]>
             <c:choose>
                 <c:when test='${(status.index+1)%2 eq 0}'>
                     <c:set var="rowColor" value="even" scope="page"/>
@@ -102,6 +104,14 @@
                     <c:set var="rowColor" value="odd" scope="page"/>
                 </c:otherwise>
             </c:choose>
+            <!--<c:choose>-->
+                <!--<c:when test='${(status.index+1)%2 eq 0}'>-->
+                    <!--<c:set var="rowColor" scope="page">background-color:red;</c:set>-->
+                <!--</c:when>-->
+                <!--<c:otherwise>-->
+                    <!--<c:set var="rowColor" scope="page">background-color:blue;</c:set>-->
+                <!--</c:otherwise>-->
+            <!--</c:choose>-->
             <tr class="${rowColor}" >
 
                     <c:choose>
