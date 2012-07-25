@@ -6,6 +6,7 @@ import gs.data.community.SubscriptionProduct;
 import gs.data.community.User;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
@@ -28,6 +29,12 @@ public class EmailSignUpController extends AbstractController {
         Map<String, Object> model = new HashMap<String, Object>();
 
         model.put("userIsAlreadySignedUp", getUserIsAlreadySignedUp(request));
+
+        String style = request.getParameter("style");
+        if (StringUtils.isBlank(style)) {
+            style = "2011";
+        }
+        model.put("style", style);
 
         return new ModelAndView(_viewName, model);
     }

@@ -592,7 +592,7 @@
 
                     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
                                                defaultCity="${school.city}"
-                                               defaultState="${school.databaseState.abbreviation}"/>
+                                               defaultState="${school.databaseState.abbreviation}" style="2011"/>
 
                     ${savvySource}
                 </c:when>
@@ -607,7 +607,7 @@
 
                     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" showAdPct="0" size="300x137"
                                                defaultCity="${school.city}"
-                                               defaultState="${school.databaseState.abbreviation}"/>
+                                               defaultState="${school.databaseState.abbreviation}" style="2011"/>
 
                     <!-- Community module -->
                     <c:set var="recentDiscussions" value=""/>

@@ -9,14 +9,24 @@
 
     <jsp:directive.attribute name="userIsAlreadySignedUp" required="true"
                              description="Whether or not the user has already signed up for the newsletter"/>
+    <jsp:directive.attribute name="style" required="true" type="java.lang.String"
+                             description="The visual style to use, e.g. '2011' or '2012'"/>
 
     <pageHelper:externalJavascript file="/res/js/omnitureEventNotifier.js"/>
     <pageHelper:externalJavascript file="/res/js/promo/emailSignUp.js" head="false"/>
 
-    <div class="mod standard emailSignUp jq-emailSignUpWrapper">
+    <div class="mod ${pageScope.style eq '2011' ? 'standard' : 'standard_1-1'} emailSignUp jq-emailSignUpWrapper">
         <div class="inner">
             <div class="hd">
-                <h3>Connect With Us</h3>
+                <c:choose>
+                    <c:when test="${pageScope.style eq '2012'}">
+                        <!-- TODO With or with? -->
+                        <h4 class="pvm plm bottom">Connect With Us</h4>
+                    </c:when>
+                    <c:otherwise>
+                        <h3>Connect With Us</h3>
+                    </c:otherwise>
+                </c:choose>
             </div>
 
             <div class="bd">
@@ -24,7 +34,7 @@
                 <c:if test="${!userIsAlreadySignedUp}">
 
                     <div class="section1">
-                        <p class="jq-emailSignUpIntroText text2">
+                        <p class="jq-emailSignUpIntroText ${pageScope.style eq '2011' ? 'text2' : 'small'}">
                             <strong>Sign up for tips and ideas</strong> that will enrich your child's education.
                         </p>
 
@@ -91,7 +101,7 @@
                             </div>
                         </div>
                         <div class="unit size1of2 lastUnit">
-                            <div class="brdlft_dotted plm">
+                            <div class="${pageScope.style eq '2011' ? 'brdlft_dotted' : 'brdlft'} plm">
                                 <div class="line">
                                     <div class="unit size1of3">
                                         <div class="text-align-cen">

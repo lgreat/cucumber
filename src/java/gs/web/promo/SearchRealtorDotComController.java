@@ -30,11 +30,13 @@ public class SearchRealtorDotComController extends AbstractController {
     public static final String SHOW_AD_PCT_PARAM = "showAdPct";
     public static final String OMNITURE_PAGE_NAME_PARAM = "omniturePageName";
     public static final String SIZE_PARAM = "size";
+    public static final String STYLE_PARAM = "style";
 
     public static final String MODEL_DEFAULT_CITY = "defaultCity";
     public static final String MODEL_DEFAULT_STATE = "defaultState";
     public static final String MODEL_OMNITURE_PAGE_NAME = "omniturePageName";
     public static final String MODEL_SIZE = "size";
+    public static final String MODEL_STYLE = "style";
 
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -75,6 +77,8 @@ public class SearchRealtorDotComController extends AbstractController {
                     size = "300x250";
                 }
                 model.put(MODEL_SIZE, size);
+                String style = request.getParameter(STYLE_PARAM);
+                model.put(MODEL_STYLE, style);
                 return new ModelAndView(_viewName, model);
             }
         } catch (Exception e) {

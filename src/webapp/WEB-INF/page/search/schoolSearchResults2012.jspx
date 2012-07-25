@@ -159,7 +159,7 @@
         <ad:AboveFold_300x250/>
 
         <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
-                                   showAdPct="0"/>
+                                   showAdPct="0" style="2012"/>
 
         <!-- Low Down module -->
         <div class="mtm">
@@ -177,7 +177,7 @@
         </c:if>
         ${recentDiscussions}
 
-        <jsp:include page="/promo/emailSignUp.module"/>
+        <jsp:include page="/promo/emailSignUp.module?style=2012"/>
 
         <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
         <ad:BelowFold_Top_300x125/>

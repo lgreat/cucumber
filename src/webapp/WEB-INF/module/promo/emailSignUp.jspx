@@ -3,6 +3,6 @@
           xmlns="http://www.w3c.org/1999/xhtml"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo">
 
-        <promo:emailSignUp userIsAlreadySignedUp="${userIsAlreadySignedUp}"/>
+        <promo:emailSignUp userIsAlreadySignedUp="${userIsAlreadySignedUp}" style="${style}"/>
 
 </jsp:root>

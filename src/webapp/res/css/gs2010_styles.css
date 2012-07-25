@@ -688,7 +688,10 @@ h4.subhead2 a {
 .findCompare .ft p{text-align:right;}
 /* ----- emailSignUp (extends standard) ------ */
 .emailSignUp .section1{background-color:#f4fafd;border-bottom:1px solid #c6c6c6;padding:15px 0 15px 10px;}
+.emailSignUp.standard_1-1 .section1{border-bottom:1px solid #e6e6e6;background-color:#fff;}
 .emailSignUp .section2{background-color:#ebebeb;border-bottom:1px solid #c6c6c6;padding:15px 0 20px 10px;}
+.emailSignUp.standard_1-1 .section2{background-color:#f5f5f5;border:none;}
+.emailSignUp.standard_1-1 .bd {background-color:#f5f5f5;}
 .emailSignUp .section1 p{margin:auto;padding:0 0 15px;*margin:0;}
 .emailSignUp .section2 p{margin:auto;padding:0;*margin:0;}
 .emailSignUp h3{font: 18px Georgia, "Times New Roman", Times, serif;}
@@ -9168,6 +9171,10 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
     border: solid #c6c6c6;
     border-width: 0 1px 1px;
     padding: 8px;
+}
+
+#realtorDotCom.mod.standard_1-1 .mod_bd {
+    border: none;
 }
 
 #realtorDotCom.rdc_thin .mod_bd {

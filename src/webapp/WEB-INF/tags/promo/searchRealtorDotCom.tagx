@@ -16,6 +16,8 @@
                              description="Per tag override of default ad ratio"/>
     <jsp:directive.attribute name="size" required="false" type="java.lang.String"
                              description="Size of module to render"/>
+    <jsp:directive.attribute name="style" required="true" type="java.lang.String"
+                             description="The visual style to use, e.g. '2011' or '2012'"/>
 
     <c:if test="${empty size}">
         <c:set var="size" value="300x250"/>
@@ -28,6 +30,7 @@
         <c:param name="defaultCity" value="${defaultCity}"/>
         <c:param name="defaultState" value="${defaultState}"/>
         <c:param name="size" value="${size}"/>
+        <c:param name="style" value="${pageScope.style}"/>
     </c:import>
 
     <c:choose>

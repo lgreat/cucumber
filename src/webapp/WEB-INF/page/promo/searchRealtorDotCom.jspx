@@ -162,10 +162,20 @@
 
 <!-- display either default or 160x600 skyscraper realtorDotCom here -->
 <c:if test="${requestScope.size ne '300x137'}">
-    <div class="mod standard ${alternateStyle}" id="realtorDotCom">
+    <div class="mod ${requestScope.style eq '2011' ? 'standard' : 'standard_1-1'} ${alternateStyle}" id="realtorDotCom">
+        <c:if test="${requestScope.style eq '2012'}">
+            <![CDATA[<div class="inner">]]>
+        </c:if>
         <c:if test="${requestScope.size ne '160x600'}">
             <div class="hd">
-                <h3>Find a Home</h3>
+                <c:choose>
+                    <c:when test="${requestScope.style eq '2012'}">
+                        <h4 class="pvm plm bottom">Find a Home</h4>
+                    </c:when>
+                    <c:otherwise>
+                        <h3>Find a Home</h3>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </c:if>
 
@@ -221,6 +231,9 @@
                 <span class="sprite i-RDC-thin logo"><!-- do not collapse --></span>
             </a>
         </div>
+        <c:if test="${requestScope.style eq '2012'}">
+            <![CDATA[</div>]]>
+        </c:if>
     </div>
 </c:if>
 

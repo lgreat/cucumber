@@ -551,7 +551,7 @@
 
     <!-- end map -->
 
-    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
+    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0" style="2011"/>
 
     <!-- Low Down module -->
     <content:makingSenseOfSchoolChoice style="2011"/>
