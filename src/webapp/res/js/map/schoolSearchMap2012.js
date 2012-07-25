@@ -12,6 +12,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
     var newMarkers = [];
     var tooltipInfoBox = null;
     var center = null;
+    var markerPersists = true;
 
     $(document).ready(function(){
         GS.search.results.updateSortAndPageSize();
@@ -19,6 +20,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
         var height = $('#js-map-canvas').css('height');
         schoolList.css({height: height, overflowY: 'auto'});
         $('.js-mouseover-open-bubble').live('mouseover', function() {
+            console.log('mouseover bubble trigger');
             var id = jQuery(this).attr('id');
             var schoolIdentifier = id.replace('school-listitem-', '');
             if (GS_openSchoolInfoBubble !== null) {
@@ -49,23 +51,37 @@ GS.map.getMap = GS.map.getMap ||(function(){
                     enableEventPropagation: false
                 };
 
-                tooltipInfoBox = new InfoBox(tooltipOptions);
-                tooltipInfoBox.open(map, marker);
+                //tooltipInfoBox = new InfoBox(tooltipOptions);
+                //tooltipInfoBox.open(map, marker);
                 marker.setZIndex(9999);
             }
         });
 
         $('.js-mouseover-open-bubble').live('mouseout', function() {
-            if(tooltipInfoBox !== null) {
-                tooltipInfoBox.close();
+            if (!markerPersists) {
+                closeInfoBox();
             }
         });
 
-        $('.js-mouseover-open-bubble').live('click', function() {
-            if(tooltipInfoBox !== null) {
-                tooltipInfoBox.close();
+        $('.js-mouseover-open-bubble').live('mouseover', function() {
+            if(GS_openSchoolInfoBubble !== null) {
+                // if a marker is open and it wasnt opened from an event triggered from the list, don't do anything
+                if (markerPersists) {
+                    return;
+                }
+                GS_openSchoolInfoBubble = null;
+                infoBoxInstance.close();
+                removeHighlight();
             }
+            var id = jQuery(this).attr('id');
+            var schoolIdentifier = id.replace('school-listitem-', '');
+            var marker = GS_mapMarkers[schoolIdentifier];
 
+            google.maps.event.trigger(marker, 'click');
+            markerPersists = false;
+        });
+
+        $('.js-mouseover-open-bubble').live('click', function() {
             if(GS_openSchoolInfoBubble !== null) {
                 GS_openSchoolInfoBubble = null;
                 infoBoxInstance.close();
@@ -76,6 +92,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
             var marker = GS_mapMarkers[schoolIdentifier];
 
             google.maps.event.trigger(marker, 'click');
+            markerPersists = true;
         });
     });
 
@@ -115,7 +132,13 @@ GS.map.getMap = GS.map.getMap ||(function(){
         $('#js-map-canvas').css({height:height});
 
         map = new google.maps.Map(document.getElementById("js-map-canvas"), myOptions);
-        loadMarkers(points);
+        if (points !== undefined && points.length > 0) {
+            loadMarkers(points);
+        } else if (optionalLat !== undefined && optionalLon !== undefined) {
+            // if there were no points (because there were no school results) we still want to do the minimum needed to draw the map
+            center = map.getCenter();
+            map.setZoom(17);
+        }
     }
 
     var loadMarkers = function (points) {
@@ -261,7 +284,9 @@ GS.map.getMap = GS.map.getMap ||(function(){
             tooltipInfoBox.close();
         }
         deleteMarkers();
-        loadMarkers(points);
+        if(points !== undefined && points !== null) {
+            loadMarkers(points);
+        }
     }
 
     var deleteMarkers = function() {
@@ -288,6 +313,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
     var closeInfoBox =  function() {
         if(infoBoxInstance !== null) {
+            markerPersists = true;
             infoBoxInstance.close();
         }
         GS_openSchoolInfoBubble = null;
