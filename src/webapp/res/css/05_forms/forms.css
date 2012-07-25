@@ -49,7 +49,7 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 
 /* Form element standard style */
 .slFormsV1-0 input[type=checkbox],
-.slFormsV1-0 input[type=radio] { margin-top:5px; margin-bottom:5px; outline:0; }
+.slFormsV1-0 input[type=radio] { margin-top:5px; margin-bottom:5px; *margin:auto; outline:0; }
 .ie7 .slFormsV1-0 input[type=checkbox],
 .ie7 .slFormsV1-0 input[type=radio] { vertical-align: middle; margin-bottom: 0px;}
 .slFormsV1-0 input[type=text],
