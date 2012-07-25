@@ -37,6 +37,7 @@
             <gsml:url var="primarynavigation" value="/res/css/07_navigation/primary.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="secondarynavigation" value="/res/css/07_navigation/secondary-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="ospnavigation" value="/res/css/07_navigation/osp.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="pagination" value="/res/css/07_navigation/pagination.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="footer" value="/res/css/07_navigation/footer-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="buttons" value="/res/css/08_buttons/buttons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="spacing" value="/res/css/09_spacing/spacing-v1.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -101,6 +102,7 @@
             <!--<![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>-->
             <!-- 29 --> <![CDATA[<link rel="stylesheet" href="${houseadscss}" type="text/css" />]]>
             <!-- 30 --> <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
+            <!-- 31 --> <![CDATA[<link rel="stylesheet" href="${pagination}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
             <gsml:url var="gs_stylescss_v1" value="/res/css/gs_styles-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>

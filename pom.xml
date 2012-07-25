@@ -566,6 +566,7 @@
                                 <param>05_forms/forms-v1.css</param>
                                 <param>06_sprites/icon.css</param>
                                 <param>06_sprites/ui.css</param>
+                                <param>07_navigation/pagination.css</param>
                                 <param>07_navigation/utilityLinks-v1.css</param>
                                 <param>07_navigation/topSearch-v1.css</param>
                                 <param>07_navigation/primary.css</param>
