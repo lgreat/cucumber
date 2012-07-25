@@ -39,7 +39,7 @@
     </c:choose>
 
     <div class="mod standard_1-1">
-        <div class="line inner" id="school-search-result-${school.databaseState}${school.id}">
+        <div class="line inner box-shadow-animation-1" id="school-search-result-${school.databaseState}${school.id}">
             <!-- School Name -->
             <div class="bd pam">
                 <div class="unit ${nameSearchWidth}"

@@ -47,6 +47,19 @@ General comments:
     border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
     /*padding: 10px;*/
 }
+
+.standard_1-1 .inner.box-shadow-animation-1:hover{
+    border-color:#b8b8b8;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Saf3-4 */
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* FF3.5 - 3.6 */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+    -webkit-transition: all 0.3s ease-in;  /* Saf3.2+, Chrome */
+    -moz-transition: all 0.3s ease-in;  /* FF4+ */
+    -ms-transition: all 0.3s ease-in;  /* IE10 */
+    -o-transition: all 0.3s ease-in;  /* Opera 10.5+ */
+    transition: all 0.3s ease-in;
+}
+
 .slStylesV1-0 .standard_1-1 .hd{
     background-color: #f5f5f5; /* for non-css3 browsers */
     background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#f1f1f1)); /* Saf4+, Chrome */
@@ -56,6 +69,7 @@ General comments:
     background-image:      -o-linear-gradient(top, #f5f5f5, #f1f1f1); /* Opera 11.10+ */
     background-image:         linear-gradient(top, #f5f5f5, #f1f1f1); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f1f1f1', EndColorStr='#f5f5f5'); /* IE6?IE9 */
+    border-bottom: 1px solid #dddddd;
 }
 .slStylesV1-0 .standard_1-1 .bd{
     background-color: #ffffff;
