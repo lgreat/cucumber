@@ -64,3 +64,46 @@ General comments:
           box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.2), -2px 2px 3px 0 rgba(0, 0, 0, 0.2); /* Opera 10.5, IE9, FF4+, Chrome 10+ */
   background-color: #ffffff;
 }
+
+.textshadow-1 {
+    text-shadow: 0 1px 0 #ffffff; /* FF3.5+, Opera 9+, Saf1+, Chrome, IE10 */
+}
+
+/* animation */
+
+/*
+.box-shadow-animation1:hover {
+    -webkit-animation: bsa1 3s infinite; */
+/* Saf5, Chrome *//*
+
+    -moz-animation: bsa1 3s infinite; */
+/* Firefox 5-15 *//*
+
+    -o-animation: bsa1 3s infinite; */
+/* Opera 12+ *//*
+
+    animation: bsa1 3s infinite; */
+/* Saf5, Chrome, Firefox 16+ *//*
+
+}
+
+@-webkit-keyframes bsa1 {
+  0%   { opacity: 0.0; }
+  50%  { opacity: 0.5; }
+  100% { opacity: 1.0; }
+}
+@-moz-keyframes bsa1 {
+  0%   { opacity: 0.0; }
+  50%  { opacity: 0.5; }
+  100% { opacity: 1.0; }
+}
+@-o-keyframes bsa1 {
+  0%   { opacity: 0.0; }
+  50%  { opacity: 0.5; }
+  100% { opacity: 1.0; }
+}
+@keyframes bsa1 {
+  0%   { opacity: 0.0; }
+  50%  { opacity: 0.5; }
+  100% { opacity: 1.0; }
+}*/

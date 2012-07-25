@@ -22,9 +22,9 @@
     </div>-->
 
     <div class="mod standard_1-1">
-        <div class="inner">
+        <div class="inner box-shadow-animation-1">
             <div class="hd">
-                <h5 class="pvs plm bottom">${title}</h5>
+                <p class="small_bold textshadow-1 pvs plm bottom">${title}</p>
             </div>
             <div class="bd">
                 <jsp:doBody/>

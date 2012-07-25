@@ -308,7 +308,7 @@
             <div>
                 <div class="media">
                     <span class="img iconx16 i-16-getDirections mrs"><!-- do not collapse --></span>
-                    <a class="bd smaller" href="http://maps.google.com/?daddr=${schoolAddressWithName}">Get directions</a>
+                    <a class="bd small" href="http://maps.google.com/?daddr=${schoolAddressWithName}">Get directions</a>
                 </div>
 
                 <c:if test="${requestScope.context.showRealtorDotComPromos}">
