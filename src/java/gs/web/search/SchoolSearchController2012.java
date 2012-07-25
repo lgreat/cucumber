@@ -946,7 +946,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public String determineViewName(SchoolSearchCommand schoolSearchCommand, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
         String viewOverride = schoolSearchCommand.getView();
         // if "view" URL query param is set to "map", use the map viewname
-        if ("map".equals(viewOverride) && searchResultsPage.getTotalResults() != 0) {
+        if ("map".equals(viewOverride)) {
             return getMapViewName();
         }
 

@@ -316,18 +316,17 @@ GS.search.results = GS.search.results || (function() {
 
     var renderDataForMap = function(data) {
         var pageNav = $('#js-mapPageNav');
-        if(data.noSchoolsFound == true) {
+        if(data.noSchoolsFound === true) {
             $('.js-rightResultsGrid').hide();
-            $('.js-leftResultsGrid').hide();
             pageNav.find('#total-results-count').html('');
             pageNav.hide();
-            $('#js-school-search-results-table-body').show();
+            $('#js-noSchoolsFound').show();
+            GS.map.getMap.refreshMarkers();
             return;
         }
         else {
-            $('#js-school-search-results-table-body').hide();
+            $('#js-noSchoolsFound').hide();
             $('.js-rightResultsGrid').show();
-            $('.js-leftResultsGrid').show();
         }
 
         var page = data.page[1];
