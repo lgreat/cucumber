@@ -258,6 +258,34 @@ General comments:
     border-top: 14px solid #FFFFFF;
 }
 
+.slStylesV1-0 .standard_5-1 .up-pointer{
+    position: relative;
+    z-index: 1000;
+}
+
+.slStylesV1-0 .standard_5-1 .up-pointer .border-edge{
+    position: absolute;
+    left: 95px;
+    top:-15px;
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 14px solid #777777;
+    margin-left: -14px;
+}
+
+.slStylesV1-0 .standard_5-1 .up-pointer .border-bd{
+    position: absolute;
+    left: 95px;
+    top: -14px;
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 14px solid #FFFFFF;
+    margin-left: -14px;
+}
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_6-1 ----------------- */
 /*--------------Search module-----------------*/

@@ -149,11 +149,11 @@
             </div>
         </div>
 
-        <div class="alpha grid_7">
+        <div class="alpha grid_7 mbm">
             ${searchResultsPagingSummary}
         </div>
 
-        <div class="omega">
+        <div class="prefix_5 grid_4 omega mbm">
             <label for="page-size">Display: </label>
             <select id="page-size" name="pageSize">
                 <c:choose>
@@ -183,11 +183,45 @@
             </select>
         </div>
 
-        <div class="grid_9 omega">
+        <hr class="keyline1"/>
+
+        <div class="prefix_7 grid_9 mvm">
             <div class="pagination" id="pagination">
                 <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
                                          javascriptMethod="GS.search.results.page"/>
             </div>
+        </div>
+
+        <hr class="keyline1"/>
+
+        <div class="grid_11 suffix_2 mtm">
+            <div class="grid_3">
+                <div class="media attribution">
+                    <div class="img mrm"><span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+                    </div>
+                    <div class="bd small bottom" style="margin-top: 3px;">Private school</div>
+                </div>
+            </div>
+            <div class="grid_4">
+                <div class="media attribution">
+                    <div class="img mrm">
+                        <span class="iconx24 i-24-public-school-badge"><!-- do not collapse --></span>
+                    </div>
+                    <div class="bd small bottom" style="margin-top: 3px;"> Public/Charter school</div>
+                </div>
+            </div>
+            <div class="grid_3">
+                <div class="media attribution">
+                    <div class="img mrm"><span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
+                    </div>
+                    <div class="bd small bottom" style="margin-top: 3px;">Preschool</div>
+                </div>
+            </div>
+        </div>
+        <div class="alpha grid_16 omega mts">
+            <span class="small bottom quiet">
+                <strong>Please note:</strong> Information about school programs and services is provided by school administrations, and not all schools have submitted this information to GreatSchools. Therefore, narrowing your search by applying filters may exclude some matching schools.
+            </span>
         </div>
 
     </div>

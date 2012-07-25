@@ -17,52 +17,73 @@
         </c:when>
         <c:otherwise>
             <c:set var="nearbyCitiesLabel" value="Schools in city:"/>
-            <c:set var="moreNearbyCitiesLabel" value="more cities"/>
+            <c:set var="moreNearbyCitiesLabel" value="More cities"/>
         </c:otherwise>
     </c:choose>
 
     <c:if test="${fn:length(citySearchResults) gt 3}">
         <div id="js-bubbleInfo-8"><span id="nearby-cities-link"
-                                        class="js-trigger smallAlertText">${moreNearbyCitiesLabel} <span
-                class="alertDoubleArrow">&amp;raquo;</span></span>
+                                        class="js-trigger small bottom"><a href="javascript:void(0);">${moreNearbyCitiesLabel}
+            <span>&amp;raquo;</span></a></span>
 
             <div id="nearby-cities" class="js-popup">
-                <div id="popup-contents-8">
-                    <span class="arrow-outline-top"><!-- do not collapse --></span>
-                    <span class="arrow-top"><!-- do not collapse --></span>
-                    <c:set var="openCloseTr">
-                        <![CDATA[</tr><tr>]]>
-                    </c:set>
-                    <c:choose>
-                        <c:when test="${fn:length(citySearchResults) lt 11}">
-                            <c:set var="cityTableColumns" value="${1}"/>
-                        </c:when>
-                        <c:when test="${fn:length(citySearchResults) ge 11 and fn:length(citySearchResults) lt 21}">
-                            <c:set var="cityTableColumns" value="${2}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="cityTableColumns" value="${3}"/>
-                        </c:otherwise>
-                    </c:choose>
-                    <c:set var="tableWidth" value="${132 * cityTableColumns}"/>
-                    <c:if test="${fn:length(citySearchResults) > 0}">
-                        <table cellspacing="0" width="${tableWidth}">
-                            <tbody>
-                            <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
-                            <tr>
+                <div id="" class="mod standard_5-1">
+                    <div class="up-pointer">
+                        <div class="border-edge"><!-- not empty --></div>
+                        <div class="border-bd"><!-- not empty --></div>
+                    </div>
+                    <div class="bd mvm">
+                        <!--<c:set var="openCloseDiv2col">-->
+                            <!--<![CDATA[</div><div class="unit size50of100 lastUnit">]]>-->
+                        <!--</c:set>-->
+                        <c:choose>
+                            <c:when test="${fn:length(citySearchResults) lt 11}">
+                                <c:set var="cityTableColumns" value="${1}"/>
+                                <c:set var="tableWidth" value="160"/>
+                            </c:when>
+                            <c:when test="${fn:length(citySearchResults) ge 11 and fn:length(citySearchResults) lt 21}">
+                                <c:set var="cityTableColumns" value="${2}"/>
+                                <c:set var="tableWidth" value="315"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="cityTableColumns" value="${3}"/>
+                                <c:set var="tableWidth" value="470"/>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:if test="${fn:length(citySearchResults) > 0}">
+                            <div style="width:${tableWidth}px">
+                                <c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>
                                 <c:forEach var="city" items="${citySearchResults}" begin="0"
                                            end="${fn:length(citySearchResults)-1}" varStatus="status">
-                                    <td><link:schools cityName="${city.city}"
+                                    <div class="alpha grid_4 small bottom">
+                                        <link:schools cityName="${city.city}"
                                                       state="${city.state}">${city.city}, ${city.state}</link:schools>
-                                    </td>
-                                    <c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">
-                                        ${openCloseTr}
-                                    </c:if>
+                                    </div>
                                 </c:forEach>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </c:if>
+                            </div>
+                        </c:if>
+                        <!--<c:set var="tableWidth" value="${132 * cityTableColumns}"/>-->
+                        <!--<c:if test="${fn:length(citySearchResults) > 0}">-->
+                            <!--<table cellspacing="0" width="${tableWidth}">-->
+                                <!--<tbody>-->
+                                <!--<c:set var="citiesPerColumn" value="${fn:length(citySearchResults)/3}"/>-->
+                                <!--<tr>-->
+                                    <!--<c:forEach var="city" items="${citySearchResults}" begin="0"-->
+                                               <!--end="${fn:length(citySearchResults)-1}" varStatus="status">-->
+                                        <!--<td>-->
+                                            <!--<link:schools cityName="${city.city}"-->
+                                                          <!--state="${city.state}">${city.city}, ${city.state}</link:schools>-->
+                                        <!--</td>-->
+                                        <!--<c:if test="${(status.count+cityTableColumns) % cityTableColumns == 0}">-->
+                                            <!--${openCloseTr}-->
+                                        <!--</c:if>-->
+                                    <!--</c:forEach>-->
+                                <!--</tr>-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                        <!--</c:if>-->
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -21,48 +21,66 @@
         </c:when>
         <c:otherwise>
             <c:set var="nearbyDistrictsLabel" value="Schools in district:"/>
-            <c:set var="moreNearbyDistrictsLabel" value="more districts"/>
+            <c:set var="moreNearbyDistrictsLabel" value="More districts"/>
         </c:otherwise>
     </c:choose>
 
     <c:if test="${fn:length(districtSearchResults) gt 0}">
         <div id="js-bubbleInfo-9"><span id="nearby-districts-link"
-                                        class="js-trigger smallAlertText">${moreNearbyDistrictsLabel} <span
-                class="alertDoubleArrow">&amp;raquo;</span></span>
+                                        class="js-trigger small bottom"><a href="javascript:void(0);">${moreNearbyDistrictsLabel}
+            <span>&amp;raquo;</span></a></span>
 
             <div id="nearby-districts" class="js-popup">
-                <div id="popup-contents-9">
-                    <span class="arrow-outline-top"><!-- do not collapse --></span>
-                    <span class="arrow-top"><!-- do not collapse --></span>
-                    <c:set var="openCloseTr">
-                        <![CDATA[</tr><tr>]]>
-                    </c:set>
-                    <c:choose>
-                        <c:when test="${fn:length(districtSearchResults) lt 5}">
-                            <c:set var="districtTableColumns" value="${1}"/>
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="districtTableColumns" value="${2}"/>
-                        </c:otherwise>
-                    </c:choose>
-                    <c:set var="tableWidth" value="${198 * districtTableColumns}"/>
-                    <c:if test="${fn:length(districtSearchResults) > 0}">
-                        <table cellspacing="0" width="${tableWidth}">
-                            <tbody>
-                            <tr>
+                <div id="" class="mod standard_5-1">
+                    <div class="up-pointer">
+                        <div class="border-edge"><!-- not empty --></div>
+                        <div class="border-bd"><!-- not empty --></div>
+                    </div>
+                    <!--<c:set var="openCloseTr">-->
+                    <!--<![CDATA[</tr><tr>]]>-->
+                    <!--</c:set>-->
+                    <div class="bd mts mbm">
+                        <c:choose>
+                            <c:when test="${fn:length(districtSearchResults) lt 5}">
+                                <c:set var="districtTableColumns" value="${1}"/>
+                                <c:set var="tableWidth" value="240"/>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="districtTableColumns" value="${2}"/>
+                                <c:set var="tableWidth" value="475"/>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:if test="${fn:length(districtSearchResults) > 0}">
+                            <div style="width:${tableWidth}px">
                                 <c:forEach var="district" items="${districtSearchResults}" begin="0"
                                            end="${fn:length(districtSearchResults)-1}" varStatus="status">
-                                    <td><link:schools state="${district.state}" districtId="${district.id}"
-                                                      districtName="${district.name}"
-                                                      cityName="${district.city}">${district.name}</link:schools></td>
-                                    <c:if test="${(status.count+districtTableColumns) % districtTableColumns == 0}">
-                                        ${openCloseTr}
-                                    </c:if>
+                                        <div class="alpha grid_6 small bottom">
+                                            <link:schools state="${district.state}" districtId="${district.id}"
+                                                          districtName="${district.name}"
+                                                          cityName="${district.city}">${district.name}</link:schools>
+                                        </div>
                                 </c:forEach>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </c:if>
+                                </div>
+                        </c:if>
+                    </div>
+                    <!--<c:if test="${fn:length(districtSearchResults) > 0}">-->
+                        <!--<table cellspacing="0" width="${tableWidth}">-->
+                            <!--<tbody>-->
+                            <!--<tr>-->
+                                <!--<c:forEach var="district" items="${districtSearchResults}" begin="0"-->
+                                           <!--end="${fn:length(districtSearchResults)-1}" varStatus="status">-->
+                                    <!--<td><link:schools state="${district.state}" districtId="${district.id}"-->
+                                                      <!--districtName="${district.name}"-->
+                                                      <!--cityName="${district.city}">${district.name}</link:schools></td>-->
+                                    <!--<c:if test="${(status.count+districtTableColumns) % districtTableColumns == 0}">-->
+                                        <!--${openCloseTr}-->
+                                    <!--</c:if>-->
+                                <!--</c:forEach>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
+                    <!--</c:if>-->
                 </div>
             </div>
         </div>

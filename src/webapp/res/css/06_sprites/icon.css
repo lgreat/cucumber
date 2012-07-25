@@ -46,7 +46,7 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 
 .iconx16 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x16/120703-16x16.png);
+    background-image: url(/res/img/sprites/icon/x16/120723-16x16.png);
     width: 16px;
     height: 16px;
 }
@@ -129,10 +129,47 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 .i-16-listView {
     background-position: -288px 0;
 }
+
+.i-16-close-grey {
+    background-position: -304px 0;
+}
+
+.i-16-key-rating {
+    background-position: -320px 0;
+}
+
+.i-16-key-private-rating {
+    background-position: -336px 0;
+}
+
+.i-16-key-high-rating {
+    background-position: -382px 0;
+}
+
+.i-16-key-average-rating {
+    background-position: -398px 0;
+}
+
+.i-16-key-lowrating {
+    background-position: -414px 0;
+}
+
+.i-16-key-preschool-rating {
+    background-position: -430px 0;
+}
+
+.i-16-flag {
+    background-position: -288px 0;
+}
+
 /* row 16 */
 
 a:hover .i-16-close {
     background-position: -144px -16px;
+}
+
+a:hover .i-16-close-grey {
+    background-position: -304px -16px;
 }
 
 /* =1 x16 (Stars)
@@ -181,7 +218,7 @@ a:hover .i-16-close {
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/120702-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/120724-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -235,6 +272,10 @@ a:hover .i-16-close {
 
 .i-24-legend-preschool {
     background-position: -264px 0;
+}
+
+.i-24-public-school-badge {
+    background-position: -288px 0;
 }
 
 /* row 24 */

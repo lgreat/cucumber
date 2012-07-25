@@ -87,8 +87,8 @@
     </c:if>
     <script type="text/javascript">
         jQuery(function () {
-            jQuery('#js-bubbleInfo-8').popup({appear:'below',leftPosition:-15,topPosition:8});
-            jQuery('#js-bubbleInfo-9').popup({appear:'below',leftPosition:-8,topPosition:8});
+            jQuery('#js-bubbleInfo-8').popup({appear:'below',leftPosition:-55,topPosition:20});
+            jQuery('#js-bubbleInfo-9').popup({appear:'below',leftPosition:-55,topPosition:20});
         });
     </script>
 
@@ -100,28 +100,26 @@
 
 <c:choose>
     <c:when test="${commandAndFields.cityBrowse || commandAndFields.districtBrowse || commandAndFields.nearbySearchByLocation}">
-        <c:set var="nearbyCitiesLabel" value="Nearby cities:"/>
+        <c:set var="nearbyCitiesLabel" value="Nearby cities"/>
         <c:set var="moreNearbyCitiesLabel" value="Nearby cities"/>
-        <c:set var="nearbyDistrictsLabel" value="Nearby districts:"/>
+        <c:set var="nearbyDistrictsLabel" value="Nearby districts"/>
         <c:set var="moreNearbyDistrictsLabel" value="Nearby districts"/>
     </c:when>
     <c:otherwise>
-        <c:set var="nearbyCitiesLabel" value="Schools in city:"/>
-        <c:set var="moreNearbyCitiesLabel" value="more cities"/>
-        <c:set var="nearbyDistrictsLabel" value="Schools in district:"/>
-        <c:set var="moreNearbyDistrictsLabel" value="more districts"/>
+        <c:set var="nearbyCitiesLabel" value="Schools in city"/>
+        <c:set var="moreNearbyCitiesLabel" value="More cities"/>
+        <c:set var="nearbyDistrictsLabel" value="Schools in district"/>
+        <c:set var="moreNearbyDistrictsLabel" value="More districts"/>
     </c:otherwise>
 </c:choose>
 
 <gsml:body adPageName="search" pageLayout="nocol">
-    <div class="grid_16 slStylesV1-0 slFormsV1-0">
-        <div class="alpha grid_12">
+    <div class="grid_16 slStylesV1-0 slFormsV1-0 mtl">
+        <div class="alpha grid_11">
             <search:schoolResultsFor_text/>
         </div>
-        <div class="alpha grid_3 omega">
-            <school:nearbyCitiesPopup/>
-        </div>
-        <div class="alpha grid_3 omega">
+        <div class="alpha grid_5 omega mtm">
+            <school:nearbyCitiesPopup/>&amp;nbsp;&amp;nbsp;
             <school:nearbyDistrictsPopup/>
         </div>
 

@@ -88,8 +88,8 @@
     </c:if>
     <script type="text/javascript">
         jQuery(function () {
-            jQuery('#js-bubbleInfo-8').popup({appear:'below', leftPosition:-15, topPosition:8});
-            jQuery('#js-bubbleInfo-9').popup({appear:'below', leftPosition:-8, topPosition:8});
+            jQuery('#js-bubbleInfo-8').popup({appear:'below', leftPosition:-55, topPosition:20});
+            jQuery('#js-bubbleInfo-9').popup({appear:'below', leftPosition:-55, topPosition:20});
         });
     </script>
 
@@ -116,14 +116,13 @@
 
 
 <gsml:body adPageName="searchMap" pageLayout="nocol">
-    <div class="grid_16 slStylesV1-0 slFormsV1-0">
+    <div class="grid_16 slStylesV1-0 slFormsV1-0 mtl">
 
-    <div class="grid_10 alpha">
+    <div class="alpha grid_11">
         <search:schoolResultsFor_text/>
     </div>
-
-    <div class="text3 grid_6 omega">
-        <school:nearbyCitiesPopup/>
+    <div class="alpha grid_5 omega mtm">
+        <school:nearbyCitiesPopup/>&amp;nbsp;&amp;nbsp;
         <school:nearbyDistrictsPopup/>
     </div>
 
@@ -188,26 +187,6 @@
 </div>
 
 <div class="alpha grid_16 omega js-leftResultsGrid">
-
-
-    <div id="js-showDistrictBoundaryLink"
-         style="${(isCityBrowse eq true or isDistrictBrowse eq true or commandAndFields.nearbySearch eq true) ? '' : 'display:none;'}">
-        <p class="small">Go to the
-            <c:choose>
-                <c:when test="${fn:length(commandAndFields.levelCode.commaSeparatedString) > 1 || fn:length(commandAndFields.levelCode.commaSeparatedString) eq 0}">
-                    <c:set var="districtBoundary"
-                           value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=e"/>
-                    <a href="${districtBoundary}">district boundary tool</a>
-                </c:when>
-                <c:otherwise>
-                    <c:set var="districtBoundary"
-                           value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=${commandAndFields.levelCode.commaSeparatedString}"/>
-                    <a href="${districtBoundary}">district boundary tool</a>
-                </c:otherwise>
-            </c:choose>
-            to see boundaries in this area.</p>
-    </div>
-
 
     <!-- Any change to the syle classes applied to the infobox content would require a change to the js-infoBoxTemplate
     that this is updated for ajax refresh -->
@@ -421,6 +400,62 @@
             </div>
         </c:when>
     </c:choose>
+
+    <div class="prefix_4 alpha grid_9 omega suffix_3 mvm">
+        <div id="js-showDistrictBoundaryLink"
+             style="${(isCityBrowse eq true or isDistrictBrowse eq true or commandAndFields.nearbySearch eq true) ? '' : 'display:none;'}">
+            <p class="small bottom">Go to the
+                <c:choose>
+                    <c:when test="${fn:length(commandAndFields.levelCode.commaSeparatedString) > 1 || fn:length(commandAndFields.levelCode.commaSeparatedString) eq 0}">
+                        <c:set var="districtBoundary"
+                               value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=e"/>
+                        <a href="${districtBoundary}">district boundary tool</a>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="districtBoundary"
+                               value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=${commandAndFields.levelCode.commaSeparatedString}"/>
+                        <a href="${districtBoundary}">district boundary tool</a>
+                    </c:otherwise>
+                </c:choose>
+                to see boundaries in this area.</p>
+        </div>
+    </div>
+
+    <hr class="keyline1"/>
+
+    <div class="grid_11 suffix_2 mtm">
+        <div class="grid_3">
+            <div class="media attribution">
+                <div class="img mrm"><span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+                </div>
+                <div class="bd small bottom" style="margin-top: 3px;">Private school</div>
+            </div>
+        </div>
+        <div class="grid_4">
+            <div class="media attribution">
+                <div class="img mrm">
+                    <span class="iconx24 i-24-public-school-badge"><!-- do not collapse --></span>
+                </div>
+                <div class="bd small bottom" style="margin-top: 3px;"> Public/Charter school</div>
+            </div>
+        </div>
+        <div class="grid_3">
+            <div class="media attribution">
+                <div class="img mrm"><span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
+                </div>
+                <div class="bd small bottom" style="margin-top: 3px;">Preschool</div>
+            </div>
+        </div>
+    </div>
+    <div class="alpha grid_16 omega mts">
+                <span class="small bottom quiet">
+                    <strong>Please note:</strong> Information about school programs and services is provided by school administrations, and not all schools have submitted this information to GreatSchools. Therefore, narrowing your search by applying filters may exclude some matching schools.
+                </span>
+    </div>
+
+
+
+
 </div>
 </div>
 
