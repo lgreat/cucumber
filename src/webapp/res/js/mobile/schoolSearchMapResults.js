@@ -22,6 +22,9 @@ define(['searchResultFilters', 'uri', 'tracking'], function(searchResultFilters,
     };
 
     var initializeMapImpl = function(points, optionalLat, optionalLon) {
+        if (points === undefined) {
+            return;
+        }
         optionalLat = optionalLat || 0;
         optionalLon = optionalLon || 0;
         var centerPoint = new google.maps.LatLng(optionalLat, optionalLon);

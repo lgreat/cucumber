@@ -148,7 +148,7 @@
             </div>
         </c:set>
 
-        <div class="line" id="js-mapPageNav">
+        <div class="line" id="js-mapPageNav" style="${page.pager.totalItems eq 0? 'display:none;':''}">
             <div class="unit size1of2">
                 ${searchResultsPagingSummary}
             </div>
@@ -604,7 +604,16 @@
 <ad:disableGptGhostTextHiding position="AboveFold_300x250"/>
 <ad:AboveFold_300x250/>
 
-<div class="js-rightResultsGrid standard_4-1 mtl">
+<div id="js-noSchoolsFound" class="standard_4-1 mtl" style="${page.pager.totalItems gt 0? 'display:none;':''}">
+    <div class="media">
+        <span class="sprite i-alert img"><!-- do not collapse --></span>
+
+        <p class="formErrorText bd">No results match your selection. Change or remove filters to get more matches.</p>
+
+    </div>
+</div>
+
+<div class="js-rightResultsGrid standard_4-1 mtl" style="${page.pager.totalItems eq 0? 'display:none':''}">
 <div class="">
     <div class="hd">
         <label for="map-sort">Sort by </label>
