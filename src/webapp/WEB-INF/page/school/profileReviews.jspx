@@ -115,23 +115,6 @@
                 </c:set>
 
                 <c:choose>
-                    <c:when test="${not empty parentRatings and not empty studentRatings}">
-                        <div class="smallText2 dn">
-                            <span id="parentRatingsToggle" class="selected">Parent ratings</span> |
-                            <span id="studentRatingsToggle">Student ratings</span>
-
-                            <div class="spacer_5"><!-- do not collapse --></div>
-                        </div>
-                        <div class="reviewSubRatings">
-                            <div id="parentRatings">
-                                <school:profileParentReviewsSubcategoryRatings ratings="${parentRatings}"/>
-                            </div>
-                            <div id="studentRatings" class="hidden">
-                                <school:profileParentReviewsSubcategoryRatings ratings="${studentRatings}"/>
-                            </div>
-                            <!--${aboutTheseRatings}-->
-                        </div>
-                    </c:when>
                     <c:when test="${not empty communityRatings}">
                         <div class="reviewSubRatings">
                             <div id="communityRatings">
