@@ -414,6 +414,21 @@ public class ParentReviewHelper {
         model.put("studentRatings", studentRatings);
     }
 
+    public void handleCombinedSubcategoryRatings(Map<String, Object> model, School school, Ratings ratings){
+        List<NameValuePair<String, Integer>> communityRatings = new ArrayList();
+        if (ratings.hasPreschool()){
+            addNameValueToRatingsList("Teacher quality", ratings.getAvgP_Teachers(), communityRatings);
+            addNameValueToRatingsList("Parent involvement", ratings.getAvgP_Parents(), communityRatings);
+            addNameValueToRatingsList("Facilities & equipmentd", ratings.getAvgP_Facilities(), communityRatings);
+        } else if (ratings.hasGradeschool()){
+            addNameValueToRatingsList("Overall rating", ratings.getOverall(), communityRatings);
+            addNameValueToRatingsList("Teacher quality", ratings.getAvgTeachers(), communityRatings);
+            addNameValueToRatingsList("Principal leadership", ratings.getAvgPrincipal(), communityRatings);
+            addNameValueToRatingsList("Parent involvement", ratings.getAvgParents(), communityRatings);
+        }
+        model.put("communityRatings", communityRatings);
+    }
+
     public int findCurrentPage(HttpServletRequest request){
         int page = 1;
         String pageParam = request.getParameter(PARAM_PAGE);

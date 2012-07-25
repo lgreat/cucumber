@@ -94,11 +94,10 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
                     ((serverPort != 80) ? ":" + serverPort : "") + request.getRequestURI();
 
             model.put(ParentReviewHelper.MODEL_URI, url);
-
             model.put("reviewsTotalPages", _parentReviewHelper.getReviewsTotalPages(numberOfNonPrincipalReviews.intValue()));
             model.put("param_reviewsby", ParentReviewHelper.PARAM_REVIEWS_BY);
 
-            _parentReviewHelper.handleSubcategoryRatings(model, school, ratings);
+            _parentReviewHelper.handleCombinedSubcategoryRatings(model, school, ratings);
 
             page = _parentReviewHelper.findCurrentPage(request);
             int fromIndex = _parentReviewHelper.findFromIndex(page, reviews);
@@ -110,15 +109,18 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
                 reviewsToShow = reviews;
             }
             else {
-                if (fromIndex >= toIndex || fromIndex < 0) {
+                if (fromIndex == 1 && toIndex == 1) {
+                    // the only published review is a principal review, so no other reviews to show
+                } else if (fromIndex >= toIndex || fromIndex < 0) {
                     String queryString = request.getQueryString();
                     if (queryString != null) {
                         queryString = UrlUtil.putQueryParamIntoQueryString(queryString, "page", "1");
                     }
                     response.sendRedirect(request.getRequestURI() + (queryString !=null ? "?" + queryString : ""));
+                } else {
+                    reviewsToShow = _parentReviewHelper.handlePagination(request, reviews, page, fromIndex, toIndex);
                 }
 
-                reviewsToShow = _parentReviewHelper.handlePagination(request, reviews, page, fromIndex, toIndex);
             }
             model.put("reviewsToShow", reviewsToShow);
             model.put("page", page);
