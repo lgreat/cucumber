@@ -748,7 +748,7 @@
                         <div class="media skin-1 attribution">
                             <div class="js-gsRating img mrm">
                                 <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}"
-                                                              levelCode="${school.levelCode}">
+                                                              levelCode="${school.levelCode}" styleClass="noUnderline">
                                     <c:choose>
                                         <c:when test="${school.schoolType} eq 'private'">
                                             <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
@@ -804,7 +804,7 @@
             <div class="ttc small bottom">{{schoolType}}, {{gradesRange}} | {{city}}, {{state}}</div>
             <div class="media skin-1 attribution">
             <div class="js-gsRating img mrm">
-                <a href="" data-href="{{gsRatingUrl}}">
+                <a href="" data-href="{{gsRatingUrl}}" class="noUnderline">
                     <div class="round-small" style="display: {{showNonPrivate}}">{{gsRating}}<!-- do not collapse --></div>
                     <span class="iconx24 i-24-private-school-badge" style="display: {{showPrivate}}"><!-- do not collapse --></span>
                 </a>
