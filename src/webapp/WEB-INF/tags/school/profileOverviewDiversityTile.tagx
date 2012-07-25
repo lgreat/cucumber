@@ -28,9 +28,9 @@
             <c:when test="${content eq 'default'}">
                 <!-- The ethnicity labels are in the diversityMap.key and the values are in the diversityMap.value variable.  Here is how to access them -->
 
-                <div class="pal"><profile:pieChart chartData="${diversityMap}" chartDrawDivId="overviewDiversityPieChart" chartSize="150"/></div>
+                <div class="phl ptm"><profile:pieChart chartData="${diversityMap}" chartDrawDivId="overviewDiversityPieChart" chartSize="150"/></div>
 
-                <div class="phm pbs">Largest group is ${largestLabel} with a value of ${largestValue}</div>
+                <div class="phm pvs">Largest group is ${largestLabel} with a value of ${largestValue}</div>
             </c:when>
             <c:otherwise>
                 <!-- Static text is to be displayed -->
