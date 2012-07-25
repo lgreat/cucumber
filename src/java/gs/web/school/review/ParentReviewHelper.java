@@ -421,7 +421,6 @@ public class ParentReviewHelper {
             addNameValueToRatingsList("Parent involvement", ratings.getAvgP_Parents(), communityRatings);
             addNameValueToRatingsList("Facilities & equipmentd", ratings.getAvgP_Facilities(), communityRatings);
         } else if (ratings.hasGradeschool()){
-            addNameValueToRatingsList("Overall rating", ratings.getOverall(), communityRatings);
             addNameValueToRatingsList("Teacher quality", ratings.getAvgTeachers(), communityRatings);
             addNameValueToRatingsList("Principal leadership", ratings.getAvgPrincipal(), communityRatings);
             addNameValueToRatingsList("Parent involvement", ratings.getAvgParents(), communityRatings);
