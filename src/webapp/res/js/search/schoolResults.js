@@ -26,9 +26,11 @@ GS.search.results = GS.search.results || (function() {
 
         compareModule.initializeRowsAndCheckedSchoolsArray();
 
-        var blackTriangleDown = '&#9662;';
+        var blackTriangleDown = '&#9652;';
+        var whiteTriangleDown = '&#160;';
+        var blackTriangleUp = '&#9662;';
+        var whiteTriangleUp = '&#160;';
 //        var whiteTriangleDown = '&#9663;';
-        var blackTriangleUp = '&#9652;';
 //        var whiteTriangleUp = '&#9653;';
         $('body').on('click', '[data-gs-sort-toggle]', function() {
             var $this = $(this);
@@ -52,15 +54,15 @@ GS.search.results = GS.search.results || (function() {
 
             $('body [data-gs-sort-toggle]span').each(function() {
                 $span.html('&#160;');      //remove all other arrows
-//                $(this).html($(this).html().replace('2','3')); // just change whichever triangle is currently in use, to make it white
             });
-
+            console.log(newSort);
             if (newSort.indexOf('DESCENDING') !== -1) {
-//                $span.html('&#9662;');
-//                $this.html(blackTriangleUp);
+                $span.attr(blackTriangleUp);
+//                $span.css("color","black");
+//                console.log($span);
+//                console.log("color:black")
             } else {
-//                $this.html(blackTriangleDown);
-                $span.html('&#9662;');
+                $span.attr(blackTriangleDown);
             }
 
             update(queryData);
