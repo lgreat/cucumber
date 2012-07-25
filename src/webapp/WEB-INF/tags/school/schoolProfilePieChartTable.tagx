@@ -90,7 +90,8 @@
                     footnotesForThisTable.add(descriptions.size());
                     jspContext.setAttribute("thisFootnote", descriptions.size());
                 ]]>
-            </jsp:scriptlet>     <![CDATA[
+            </jsp:scriptlet>
+            <![CDATA[
             <!--[if lt IE 9]><style>
                 .even{background-color: #f1f1f1;}
                 .odd{background-color: #FFFFFF;}
@@ -117,7 +118,7 @@
                     <c:choose>
                         <c:when test="${status.first}">
                             <c:set var="addRowSpan">${fn:length(rows)}</c:set>
-                            <c:set var="addPieGraph"><profile:pieChart chartData="${pieDataSet}" chartDrawDivId="${pieDivId}" chartSize="190"/></c:set>
+                            <c:set var="addPieGraph"><div class="plm ptm"><profile:pieChart chartData="${pieDataSet}" chartDrawDivId="${pieDivId}" chartSize="160"/></div></c:set>
                             <c:set var="graphRow"><td rowspan="${addRowSpan}">${addPieGraph}</td></c:set>
 
                         </c:when>

@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
@@ -26,14 +27,14 @@
         <c:choose>
             <c:when test="${content eq 'default'}">
                 <!-- The ethnicity labels are in the diversityMap.key and the values are in the diversityMap.value variable.  Here is how to access them -->
-                <c:forEach var="entry" items="${diversityMap}">
-                    <div class="">${entry.key} = ${entry.value}</div>
-                </c:forEach>
-                <div class="">Largest group is ${largestLabel} with a value of ${largestValue}</div>
+
+                <div class="pal"><profile:pieChart chartData="${diversityMap}" chartDrawDivId="overviewDiversityPieChart" chartSize="150"/></div>
+
+                <div class="phm pbs">Largest group is ${largestLabel} with a value of ${largestValue}</div>
             </c:when>
             <c:otherwise>
                 <!-- Static text is to be displayed -->
-                <div class="">Student ethnicity data is not available for this school. Call the school to learn more about diversity.</div>
+                <div class="small">Student ethnicity data is not available for this school. Call the school to learn more about diversity.</div>
             </c:otherwise>
         </c:choose>
     </school:profileOverviewCell1>
