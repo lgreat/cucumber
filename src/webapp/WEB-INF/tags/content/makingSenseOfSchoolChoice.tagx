@@ -6,7 +6,8 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:gsweb="gstaglib"
         >
-    <jsp:directive.attribute name="style" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="style" required="true" type="java.lang.String"
+                             description="The visual style to use, e.g. '2011' or '2012'"/>
 
     <div class="mod ${pageScope.style eq '2011' ? 'standard' : 'standard_1-1'}">
         <div class="inner">
