@@ -107,5 +107,10 @@ public class RequestAttributeHelper {
         return schoolId;
     }
 
-
+    /**
+     * Provided for unit tests.
+     */
+    public void setSchoolDao(ISchoolDao schoolDao) {
+        _schoolDao = schoolDao;
+    }
 }
