@@ -18,18 +18,16 @@
 
     <!-- The display variable contains 'default' or 'substitute' for which content to display -->
     <c:set var="content" value="${diversityModel['content']}" scope="page"/>
-    <c:set var="values" value="${diversityModel['diversityValues']}" scope="page"/>
-    <c:set var="labels" value="${diversityModel['diversityLabels']}" scope="page"/>
+    <c:set var="diversityMap" value="${diversityModel['diversityMap']}" scope="page"/>
     <c:set var="largestValue" value="${diversityModel['largestDiversityValue']}" scope="page"/>
     <c:set var="largestLabel" value="${diversityModel['largestDiversityLabel']}" scope="page"/>
 
     <school:profileOverviewCell1 title="Student diversity">
         <c:choose>
             <c:when test="${content eq 'default'}">
-                <!-- The ethnicity labels are in the labels variable and the values are in the values variable.  Here is how to access them -->
-                <c:forEach var="value" items="${values}" varStatus="status">
-                    <c:set var="label" value="${labels[status.index]}" scope="page"/>
-                    <div class="">${label} = ${value}</div>
+                <!-- The ethnicity labels are in the diversityMap.key and the values are in the diversityMap.value variable.  Here is how to access them -->
+                <c:forEach var="entry" items="${diversityMap}">
+                    <div class="">${entry.key} = ${entry.value}</div>
                 </c:forEach>
                 <div class="">Largest group is ${largestLabel} with a value of ${largestValue}</div>
             </c:when>

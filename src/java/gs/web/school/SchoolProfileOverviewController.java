@@ -509,7 +509,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
-        // TODO - This is a stub - the appropriate code needs to be inserted below
         // Default action
         boolean defaultDisplay = false;
         Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
@@ -517,8 +516,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             List<CensusDataSet> ethnicities = censusValues.get( CensusDataType.STUDENTS_ETHNICITY );
             if( isNotEmpty( ethnicities) ) {
                 try {
-                    List<String> labels = new ArrayList<String>();
-                    List<Float> values = new ArrayList<Float>();
+                    Map<String, String> ethnicityMap = new HashMap<String, String>();
                     Float largestValue = new Float(0.0);
                     String largestLabel = "";
                     for( CensusDataSet ethnicity : ethnicities ) {
@@ -531,13 +529,11 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                                 largestValue = value;
                                 largestLabel = name;
                             }
-                            values.add( value );
-                            labels.add(name);
+                            ethnicityMap.put( name, formatValueAsString(value, CensusDataType.STUDENTS_ETHNICITY.getValueType()) );
                         }
                     }
-                    if( values.size() > 0 ) {
-                        model.put("diversityValues", values);
-                        model.put("diversityLabels", labels);
+                    if( ethnicityMap.size() > 0 ) {
+                        model.put("diversityMap", ethnicityMap);
                         model.put("largestDiversityValue", largestValue);
                         model.put("largestDiversityLabel", largestLabel);
                         model.put( "content", "default" );
@@ -1511,6 +1507,20 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             stringList.add( r.getPrettyValue() );
         }
         String result = prettyCommaSeparatedString( stringList );
+        return result;
+    }
+
+    // Utility function to convert census data value to appropriate string
+    private String formatValueAsString(Float value, CensusDataType.ValueType valueType) {
+        String result;
+        if (CensusDataType.ValueType.PERCENT.equals(valueType)) {
+            result = String.valueOf(Math.round(value)) + "%";
+        } else if (CensusDataType.ValueType.MONETARY.equals(valueType)) {
+            result = "$" + String.valueOf(value);
+        } else {
+            result = String.valueOf(Math.round(value));
+        }
+
         return result;
     }
 
