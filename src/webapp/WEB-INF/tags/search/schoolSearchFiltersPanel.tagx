@@ -12,7 +12,7 @@
         <div class="js-schoolSearchFiltersPanel grid_16 alpha omega" style="${showAdvancedFilters eq true ? '' : 'display: none'}">
 
         <div id="js-moreFiltersLine" class="grid_16 alpha omega filtersControl" style="z-index:450;">
-            <div class="alpha prefix_6 grid_5 suffix_5 omega js-moreFiltersLink pam">
+            <div class="alpha prefix_6 grid_5 suffix_5 omega js-moreFiltersLink pas">
                 <h4 class="bottom">
                     <a href="javascript:void(0);">
                         <div class="media attribution">
@@ -322,7 +322,7 @@
         </div>
         </div>
         <div class="grid_16 alpha omega">
-            <div id="js-closeMoreFiltersLink" class="alpha prefix_7 grid_4 suffix_5 omega filtersControl pam"
+            <div id="js-closeMoreFiltersLink" class="alpha prefix_7 grid_4 suffix_5 omega filtersControl pas"
                  style="display: none;">
                 <h4 class="bottom">
                     <a href="javascript:void(0);">
