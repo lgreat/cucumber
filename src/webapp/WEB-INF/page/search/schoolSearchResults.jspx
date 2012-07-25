@@ -554,7 +554,7 @@
     <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH" showAdPct="0"/>
 
     <!-- Low Down module -->
-    <content:makingSenseOfSchoolChoice/>
+    <content:makingSenseOfSchoolChoice style="2011"/>
 
     <!-- Community module -->
     <c:set var="recentDiscussions" value=""/>

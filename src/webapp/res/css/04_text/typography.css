@@ -227,7 +227,7 @@ ol.none li  { list-style-type: none; }
 .slStylesV1-0 .first       { margin-left:0; padding-left:0; }
 .slStylesV1-0 .last        { margin-right:0; padding-right:0; }
 .slStylesV1-0 .top         { margin-top:0; padding-top:0; }
-.slStylesV1-0 .bottom      { margin-bottom:0; padding-bottom:0; }
+.slStylesV1-0 .bottom      { margin-bottom:0; }
 
 .slStylesV1-0 .ttc         { text-transform: capitalize; }
 .slStylesV1-0 .ttl         { text-transform: lowercase; }

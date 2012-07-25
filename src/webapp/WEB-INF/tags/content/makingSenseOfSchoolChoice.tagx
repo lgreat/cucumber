@@ -6,18 +6,27 @@
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:gsweb="gstaglib"
         >
-    <div class="mod standard">
+    <jsp:directive.attribute name="style" required="true" type="java.lang.String"/>
+
+    <div class="mod ${pageScope.style eq '2011' ? 'standard' : 'standard_1-1'}">
         <div class="inner">
             <div class="hd">
-                <h3>Making Sense of School Choice</h3>
+                <c:choose>
+                    <c:when test="${pageScope.style eq '2012'}">
+                        <h4 class="pvm plm bottom">Making Sense of School Choice</h4>
+                    </c:when>
+                    <c:otherwise>
+                        <h3>Making Sense of School Choice</h3>
+                    </c:otherwise>
+                </c:choose>
             </div>
             <div class="bd">
-                <div class="bd-inner">
+                <div class="bd-inner ${pageScope.style eq '2012' ? 'phm pvs' : ''}">
                     <div class="media mvm">
                         <span class="img sprite cms mrm"><!-- do not collapse --></span>
 
                         <div class="bd">
-                            <p><span class="text2bold">Insider tricks to assessing a school</span><br/>
+                            <p class="${pageScope.style eq '2012' ? 'bottom' : ''}"><span class="text2bold">Insider tricks to assessing a school</span><br/>
                                 For
                                 <a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_1627');} return true;" href="http://www.greatschools.org/find-a-school/defining-your-ideal/1627-insider-tricks-for-assessing-preschools.gs">preschool</a>,
                                 <a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_1628');} return true;" href="http://www.greatschools.org/find-a-school/defining-your-ideal/1628-insider-tricks-for-assessing-elementary-schools.gs">elementary school</a>,
@@ -30,7 +39,7 @@
                         <span class="img sprite cms mrm"><!-- do not collapse --></span>
 
                         <div class="bd">
-                            <p><span class="text2bold"><a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_59');} return true;" href="http://www.greatschools.org/find-a-school/defining-your-ideal/59-private-vs-public-schools.gs">Private versus public</a></span><br/>
+                            <p class="${pageScope.style eq '2012' ? 'bottom' : ''}"><span class="text2bold"><a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_59');} return true;" href="http://www.greatschools.org/find-a-school/defining-your-ideal/59-private-vs-public-schools.gs">Private versus public</a></span><br/>
                                 Should you go private? It all comes down to understanding what the differences really are.
                             </p>
                         </div>
@@ -39,7 +48,7 @@
                         <span class="img sprite cms mrm"><!-- do not collapse --></span>
 
                         <div class="bd">
-                            <p><span class="text2bold"><a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_192');} return true;" href="http://www.greatschools.org/find-a-school/defining-your-ideal/192-seven-facts-about-charter-schools.gs">Seven essentials about charter schools</a></span><br/>
+                            <p class="${pageScope.style eq '2012' ? 'bottom' : ''}"><span class="text2bold"><a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_192');} return true;" href="http://www.greatschools.org/find-a-school/defining-your-ideal/192-seven-facts-about-charter-schools.gs">Seven essentials about charter schools</a></span><br/>
                                 Tempted to go charter? These facts and factors will help you make an informed decision.
                             </p>
                         </div>
@@ -48,11 +57,13 @@
                         <span class="img sprite cms mrm"><!-- do not collapse --></span>
 
                         <div class="bd">
-                            <p><span class="text2bold"><a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_2080');} return true;" href="http://www.greatschools.org/students/media-kids/slideshows/2080-why-online-education-is-taking-off.gs">Is online education the future?</a></span><br/>
+                            <p class="${pageScope.style eq '2012' ? 'bottom' : ''}"><span class="text2bold"><a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_2080');} return true;" href="http://www.greatschools.org/students/media-kids/slideshows/2080-why-online-education-is-taking-off.gs">Is online education the future?</a></span><br/>
                                 More students are opting for digital learning. Find out why.</p>
                         </div>
                     </div>
-                    <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+                    <c:if test="${pageScope.style eq '2011'}">
+                        <div class="spacer_10 brdbtm_dotted"><!-- do not collapse --></div>
+                    </c:if>
                 </div>
             </div>
         </div>
