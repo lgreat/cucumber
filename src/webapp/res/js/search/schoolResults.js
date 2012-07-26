@@ -304,9 +304,14 @@ GS.search.results = GS.search.results || (function() {
 
         updateSortAndPageSize();
 
-        var formattedTotalResults = page.totalResults.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 3202 --> 2,202
-        pageNav.find('.js-search-results-paging-summary').html("Showing " + page.offset + "-" + page.lastOffsetOnPage + " of " +
-            "<span id='total-results-count'>" + formattedTotalResults + "</span> schools");
+        // 3202 --> 2,202
+        var formatWithCommas = function(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        };
+
+        pageNav.find('.js-search-results-paging-summary').html("Showing " + formatWithCommas(page.offset) + "-" +
+                formatWithCommas(page.lastOffsetOnPage) + " of " +
+            "<span id='total-results-count'>" + formatWithCommas(page.totalResults) + "</span> schools");
         pageNav.show();
 
         updatePageNav(page);

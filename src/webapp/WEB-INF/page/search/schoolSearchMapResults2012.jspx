@@ -141,7 +141,7 @@
     <div class="alpha grid_16 omega mts">
         <c:set var="searchResultsPagingSummary">
             <div class="js-search-results-paging-summary text3">
-                Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span
+                Showing <fmt:formatNumber value="${page.offset+1}" />-<fmt:formatNumber value="${page.lastOffsetOnPage+1}" /> of <span
                     id="total-results-count"><fmt:formatNumber value="${page.pager.totalItems}" /></span> schools
             </div>
         </c:set>
