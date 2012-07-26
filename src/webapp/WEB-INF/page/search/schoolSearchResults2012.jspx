@@ -132,9 +132,7 @@
         <!--</div>-->
 
         <div class="alpha grid_16 omega">
-            <ad:adTag position="SponsoredSearch_Top_423x120"/>
-            <ad:adTag position="SponsoredSearch_Top_423x68"/>
-            <ad:adTag position="SponsoredSearch_Bottom_423x68"/>
+            <ad:adTag position="Sponsor_630x40"/>
 
             <c:choose>
                 <c:when test="${page.pager.totalItems gt 0}">
