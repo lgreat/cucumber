@@ -142,8 +142,10 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                 queryStringDataWithFilters = filtersModule.getQueryStringDataWithoutFilters();
             }
 
+            var keysToPersist = ['st','gradeLevels','view'];
+
             for(var key in queryStringDataWithFilters) {
-                if(key !== 'st' && key !== 'gradeLevels') {
+                if ($.inArray(key, keysToPersist) === -1) {
                     delete queryStringDataWithFilters[key];
                 }
             }
@@ -221,8 +223,9 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                             queryStringDataWithFilters = filtersModule.getQueryStringDataWithoutFilters();
                         }
 
+                        var keysToPersist = ['st', 'gradeLevels', 'distance', 'view'];
                         for(var key in queryStringDataWithFilters) {
-                            if(key !== 'st' && key !== 'gradeLevels' && key !== 'distance') {
+                            if ($.inArray(key, keysToPersist) === -1) {
                                 delete queryStringDataWithFilters[key];
                             }
                         }
