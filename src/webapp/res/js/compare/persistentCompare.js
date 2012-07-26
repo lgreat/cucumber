@@ -384,7 +384,11 @@ GS.school.compare = (function() {
             '</div>' +
             '</div>' +
             '<hr class="keyline2"/>').appendTo('#js_compareSchoolsDiv');
+        //append this line when there is one entry
+        //<div id="js_selectOneMoreSchool" class="container_1-1 pvm tac small">Select at least one more school to compare.</div>
 
+        //append this line when there are no entries
+        //<div id="js_wantToCompareSchools" class="container_1-1 pvl tac small"><h3 class="bottom">Want to compare schools?</h3>Check the 'Compare' box in your search results.</div>
     };
 
     var showHideCompareModule = function() {
