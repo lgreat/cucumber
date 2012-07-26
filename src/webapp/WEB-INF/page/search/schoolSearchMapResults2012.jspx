@@ -754,11 +754,11 @@
                                             <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
                                         </c:when>
                                         <c:when test="${empty school.greatSchoolsRating}">
-                                            <div class="round-small">n/a</div>
+                                            <div class="iconx24-ratings i-24-ratingsNA"><!-- do not collapse --></div>
                                         </c:when>
                                         <c:otherwise>
                                             <!--<span class="fltlft sprite badge_sm_${school.greatSchoolsRating}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                            <div class="round-small">${school.greatSchoolsRating}</div>
+                                            <div class="iconx24-ratings i-24-ratings${school.greatSchoolsRating}"><!-- do not collapse --></div>
                                         </c:otherwise>
                                     </c:choose>
                                 </link:schoolProfileRating2010>
@@ -805,7 +805,7 @@
             <div class="media skin-1 attribution">
             <div class="js-gsRating img mrm">
                 <a href="" data-href="{{gsRatingUrl}}" class="noUnderline">
-                    <div class="round-small" style="display: {{showNonPrivate}}">{{gsRating}}<!-- do not collapse --></div>
+                    <div class="iconx24-ratings i-24-ratings{{gsRating}}" style="display: {{showNonPrivate}}"><!-- do not collapse --></div>
                     <span class="iconx24 i-24-private-school-badge" style="display: {{showPrivate}}"><!-- do not collapse --></span>
                 </a>
             </div>

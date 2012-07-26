@@ -107,10 +107,10 @@
                                                           levelCode="${school.levelCode}" styleClass="noUnderline">
                                 <c:choose>
                                     <c:when test="${not empty school.greatSchoolsRating}">
-                                        <div class="round-small noUnderline">${school.greatSchoolsRating}</div>
+                                        <div class="iconx24-ratings i-24-ratings${school.greatSchoolsRating}"><!-- do not collapse --></div>
                                     </c:when>
                                     <c:otherwise>
-                                        <div class="round-small noUnderline">n/a</div>
+                                        <div class="iconx24-ratings i-24-ratingsNA"><!-- do not collapse --></div>
                                     </c:otherwise>
                                 </c:choose>
                             </link:schoolProfileRating2010>
