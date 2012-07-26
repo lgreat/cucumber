@@ -62,7 +62,7 @@
         </div>
         <div id="js-gradeLevels" class="unit size24of100 mrl mtm">
             <!--<div class="triggerMouseLeave">-->
-            <search:dropdownFilters id="gradeLevels" label="All grades levels"
+            <search:dropdownFilters id="gradeLevels" label="All grade levels"
                                     title="" hideApplyReset="${true}">
                 <!--<div class="mod standard_6-3">-->
                     <div>
@@ -185,7 +185,7 @@
                     <span data-gs-html-mirror="total-results-count" id="totalResultsText"
                           class="largest bottom "><!-- do not collapse --></span>
                     <div id="js-spinny-search" style="display:none;">
-                        <img src="/res/img/search/120717-preloader32.gif" alt="spinny img"/>
+                        <img src="/res/img/search/120726-preloader21.gif" alt="spinny img"/>
                     </div>
                 </div>
                 <div class="tar">
