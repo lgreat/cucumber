@@ -7,7 +7,6 @@ import gs.data.geo.IGeoDao;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.*;
 import gs.data.school.census.*;
-import gs.data.school.district.District;
 import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
@@ -390,22 +389,14 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         // CensusDataSet ID --> CensusDataSet
         Map<Integer, CensusDataSet> censusDataSets = _schoolProfileCensusHelper.getCensusDataSets(request);
 
-        // CensusDataSet ID --> SchoolCensusValue
-        Map<Integer, SchoolCensusValue> schoolCensusValueMap = _schoolProfileCensusHelper.getSchoolCensusValues(request);
+        // CensusDataSet ID --> CensusDataSet
+        Map<Integer, CensusDataSet> censusDataSetMap = _schoolProfileCensusHelper.getCensusDataSetsWithSchoolData(request);
 
         Map<CensusDataType, List<CensusDataSet>> censusDataTypeToDataSetMap = new HashMap<CensusDataType, List<CensusDataSet>>();
 
         for (Map.Entry<Integer, CensusDataSet> dataSetEntry : censusDataSets.entrySet()) {
             Integer censusDataSetId = dataSetEntry.getKey();
             CensusDataSet censusDataSet = dataSetEntry.getValue();
-
-            Set<SchoolCensusValue> schoolData = new HashSet<SchoolCensusValue>();
-
-            SchoolCensusValue value = schoolCensusValueMap.get(censusDataSetId);
-            if (value != null) {
-                schoolData.add(value);
-            }
-            censusDataSet.setSchoolData(schoolData);
 
             List<CensusDataSet> censusDataSetsForDataType = censusDataTypeToDataSetMap.get(censusDataSet.getDataType());
             if (censusDataSetsForDataType == null) {

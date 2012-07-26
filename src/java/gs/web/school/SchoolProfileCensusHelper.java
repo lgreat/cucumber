@@ -1,18 +1,15 @@
 package gs.web.school;
 
-import gs.data.community.IReportedEntityDao;
-import gs.data.community.ReportedEntity;
-import gs.data.community.User;
 import gs.data.school.*;
-import gs.data.school.breakdown.Ethnicity;
 import gs.data.school.breakdown.EthnicityDaoJava;
 import gs.data.school.census.*;
-import gs.data.school.review.IReviewDao;
-import gs.data.school.review.Ratings;
-import gs.data.school.review.Review;
 import gs.data.state.State;
+import gs.data.util.Triplet;
 import gs.web.request.RequestAttributeHelper;
 import org.apache.log4j.Logger;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,11 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Component("schoolProfileCensusHelper")
-public class SchoolProfileCensusHelper extends AbstractDataHelper {
+public class SchoolProfileCensusHelper extends AbstractDataHelper implements BeanFactoryAware {
 
     private final static String CENSUS_DATA = "censusData";
     public final static String CENSUS_DATA_SETS = "censusDataSets";
     public final static String CENSUS_STATE_CONFIG = "censusStateConfig";
+    public final static String CENSUS_DATA_HOLDER = "censusDataHolder";
+
+    private BeanFactory _beanFactory;
     private final static Logger _log = Logger.getLogger(SchoolProfileCensusHelper.class);
 
     @Autowired
@@ -49,23 +49,6 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
 
 
     /**
-     * GroupedCensusDataSets = collections of CensusDataSets to be used to obtain school values, district values, and state values
-     */
-    public class GroupedCensusDataSets {
-        // CensusDataSet ID --> CensusDataSet
-        public final Map<Integer,CensusDataSet> _dataSetsForSchoolData;
-        public final Map<Integer,CensusDataSet>_dataSetsForDistrictData;
-        public final Map<Integer,CensusDataSet> _dataSetsForStateData;
-
-        public GroupedCensusDataSets(Map<Integer, CensusDataSet> dataSetsForSchoolData, Map<Integer, CensusDataSet> dataSetsForDistrictData, Map<Integer, CensusDataSet> dataSetsForStateData) {
-            _dataSetsForSchoolData = dataSetsForSchoolData;
-            _dataSetsForDistrictData = dataSetsForDistrictData;
-            _dataSetsForStateData = dataSetsForStateData;
-        }
-    }
-
-
-    /**
      * Gets CensusDataSets for the passed-in dataTypeIds.
      * @return map of CensusDataSet ID to CensusDataSets
      */
@@ -83,7 +66,8 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
     }
 
     /**
-     * @return map of CensusDataSet ID --> CensusDataSet
+     * @return map of CensusDataSet ID --> CensusDataSet.
+     * Returns censusDataSets for display on stats tab and overview tab of school profile
      */
     protected Map<Integer, CensusDataSet> getCensusDataSets( HttpServletRequest request ) {
         // Make sure we have a school
@@ -114,71 +98,50 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
     /**
      * Gets CensusDataSets grouped into school,district,state buckets. Each bucket contains the CensusDataSets
      * that will be used to obtain school values, district values, and state values, respectively
-     * GroupedCensusDataSets = collections of CensusDataSets to be used to obtain school values, district values, and state values
-     */
-    public GroupedCensusDataSets splitDataSets(Map<Integer,CensusDataSet> censusDataSets, CensusStateConfig config) {
-
-        // CensusDataSet ID --> CensusDataSet
-        Map<Integer,CensusDataSet> dataSetsForSchoolData = new HashMap<Integer, CensusDataSet>();
-        Map<Integer,CensusDataSet>  dataSetsForDistrictData = new HashMap<Integer, CensusDataSet>();
-        Map<Integer,CensusDataSet> dataSetsForStateData = new HashMap<Integer, CensusDataSet>();
-
-        for (Map.Entry<Integer, CensusDataSet> censusDataSetEntry : censusDataSets.entrySet()) {
-            Integer dataTypeId = censusDataSetEntry.getValue().getDataType().getId();
-            Integer breakdownId = null;
-            if (censusDataSetEntry.getValue().getBreakdownOnly() != null) {
-                breakdownId = censusDataSetEntry.getValue().getBreakdownOnly().getId();
-            }
-
-            //ICensusDataConfigEntry stateConfigEntry = config.get(censusDataSetEntry.getValue().getDataType().getId());
-
-            // There may be one or many items in stateConfigEntries. but all of them must have the same data type ID
-            List<ICensusDataConfigEntry> stateConfigEntries = config.get(dataTypeId);
-
-
-            //TODO: should be iterate over all items in stateConfigEntries if there are multiple, and find the one with
-            // the matching breakdownId?
-            ICensusDataConfigEntry stateConfigEntry = stateConfigEntries.get(0);
-
-            if (stateConfigEntry.hasSchoolData()) {
-                dataSetsForSchoolData.put(censusDataSetEntry.getKey(), censusDataSetEntry.getValue());
-            }
-
-            if (stateConfigEntry.hasDistrictData()) {
-                dataSetsForDistrictData.put(censusDataSetEntry.getKey(), censusDataSetEntry.getValue());
-            }
-
-            if (stateConfigEntry.hasStateData()) {
-                dataSetsForStateData.put(censusDataSetEntry.getKey(), censusDataSetEntry.getValue());
-            }
-        }
-        return new GroupedCensusDataSets(dataSetsForSchoolData, dataSetsForDistrictData, dataSetsForStateData);
-    }
-
-    /**
-     * Gets CensusDataSets grouped into school,district,state buckets. Each bucket contains the CensusDataSets
-     * that will be used to obtain school values, district values, and state values, respectively
      * @param request
      * @return
      */
-    protected GroupedCensusDataSets getGroupedCensusDataSets( HttpServletRequest request ) {
-
-        // get the census config for this state, school type, and level code
-        CensusStateConfig censusStateConfig = getCensusStateConfig(request);
-
-        Set<Integer> dataTypeIdsForOverview = _schoolProfileDataHelper.getCensusDataTypeIdsForOverview();
-
-        Map<Integer, CensusDataSet> censusDataSetMap = getCensusDataSets(request);
-
-        GroupedCensusDataSets groupedCensusDataSets = splitDataSets(censusDataSetMap, censusStateConfig);
-
-        for (Map.Entry<Integer,CensusDataSet> entry : censusDataSetMap.entrySet()) {
-            if (dataTypeIdsForOverview.contains(entry.getValue().getDataType().getId())) {
-                groupedCensusDataSets._dataSetsForSchoolData.put(entry.getKey(), entry.getValue());
-            }
+    protected CensusDataHolder getGroupedCensusDataSets( HttpServletRequest request ) {
+        // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
+        if( school == null ) {
+            throw new IllegalArgumentException( "The request must already contain a school object" );
         }
 
-        return groupedCensusDataSets;
+        CensusDataHolder censusDataHolder = (CensusDataHolder) getSharedData(request, CENSUS_DATA_HOLDER);
+
+        if (censusDataHolder == null) {
+            // get the census config for this state, school type, and level code
+            // Only contains info about censusDataSets that were configured for display on census tables on stats page on school profile
+            CensusStateConfig censusStateConfig = getCensusStateConfig(request);
+
+            Set<Integer> dataTypeIdsForOverview = _schoolProfileDataHelper.getCensusDataTypeIdsForOverview();
+
+            // Returns censusDataSets for display on stats tab and overview tab of school profile
+            Map<Integer, CensusDataSet> censusDataSetMap = getCensusDataSets(request);
+
+            // Split censusDataSets that were configured for display on census tables on stats page on school profile
+            Triplet<Map<Integer,CensusDataSet>, // CensusDataSet ID --> CensusDataSet
+                    Map<Integer,CensusDataSet>, // CensusDataSet ID --> CensusDataSet
+                    Map<Integer,CensusDataSet>> // CensusDataSet ID --> CensusDataSet
+                    triplet = censusStateConfig.splitCensusDataSets(censusDataSetMap);
+
+            for (Map.Entry<Integer,CensusDataSet> entry : censusDataSetMap.entrySet()) {
+                // since the group of data sets retrieved from CensusStateConfig only contain data types that
+                // should be displayed on the stats tab, we have to add back in the datasets retrieved from getCensusDataSets method
+                if (dataTypeIdsForOverview.contains(entry.getValue().getDataType().getId())) {
+                    triplet.getObj1().put(entry.getKey(), entry.getValue());
+                }
+            }
+
+            censusDataHolder = (CensusDataHolder) _beanFactory.getBean("censusDataHandler", new Object[] {
+                    school, censusDataSetMap, triplet.getObj1(), triplet.getObj2(), triplet.getObj3()
+            });
+
+            setSharedData(request, CENSUS_DATA_HOLDER, censusDataHolder);
+        }
+
+        return censusDataHolder;
     }
 
     protected CensusStateConfig getCensusStateConfig( HttpServletRequest request ) {
@@ -197,54 +160,42 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
         return censusStateConfig;
     }
 
-    // @return CensusDataSet ID --> SchoolCensusValue
-    protected Map<Integer, SchoolCensusValue> getSchoolCensusValues( HttpServletRequest request ) {
+    // @return CensusDataSet ID --> CensusDataSet
+    protected Map<Integer, CensusDataSet> getCensusDataSetsWithSchoolData(HttpServletRequest request) {
 
         School school = _requestAttributeHelper.getSchool( request );
         if( school == null ) {
             throw new IllegalArgumentException( "The request must already contain a school object" );
         }
 
-        // CensusDataSet ID --> SchoolCensusValue
-        Map<Integer, SchoolCensusValue> schoolCensusValueMap = (Map<Integer, SchoolCensusValue>) getSharedData(request, CENSUS_DATA);
-
-        if (schoolCensusValueMap == null) {
-            schoolCensusValueMap = new HashMap<Integer, SchoolCensusValue>();
-            GroupedCensusDataSets groupedCensusDataSets = getGroupedCensusDataSets(request);
-
-            if (groupedCensusDataSets._dataSetsForSchoolData != null && groupedCensusDataSets._dataSetsForSchoolData.size() > 0) {
-                schoolCensusValueMap = findSchoolCensusValuesAndHandleOverrides(groupedCensusDataSets._dataSetsForSchoolData, school);
-            }
-
-            setSharedData(request, CENSUS_DATA, schoolCensusValueMap);
-        }
-
-        return schoolCensusValueMap;
+        CensusDataHolder groupedCensusDataSets = getGroupedCensusDataSets(request);
+        return groupedCensusDataSets.retrieveDataSetsAndSchoolData();
     }
 
     protected Map<String, String> getEthnicityLabelValueMap(HttpServletRequest request) {
         Map<String,String> ethnicityLabelMap = new HashMap<String,String>();
 
         // Data Set ID --> SchoolCensusValue
-        Map<Integer, SchoolCensusValue> schoolCensusValueMap = getSchoolCensusValues(request);
+        Map<Integer, CensusDataSet> censusDataSetMap = getCensusDataSetsWithSchoolData(request);
 
         Integer ethnicityDataTypeId = CensusDataType.STUDENTS_ETHNICITY.getId();
-        CensusDataType dataTypeEnum = CensusDataType.STUDENTS_ETHNICITY;
 
-        for (Map.Entry<Integer, SchoolCensusValue> entry : schoolCensusValueMap.entrySet()) {
-            SchoolCensusValue schoolCensusValue = entry.getValue();
+        for (Map.Entry<Integer, CensusDataSet> entry : censusDataSetMap.entrySet()) {
+            CensusDataSet censusDataSet = entry.getValue();
 
-            if (schoolCensusValue.getDataSet().getDataType().getId().equals(ethnicityDataTypeId)) {
-                Float floatValue = entry.getValue().getValueFloat();
+            SchoolCensusValue schoolCensusValue = censusDataSet.getTheOnlySchoolValue();
+
+            if (schoolCensusValue != null && censusDataSet.getDataType().getId().equals(ethnicityDataTypeId)) {
+                Float floatValue = schoolCensusValue.getValueFloat();
                 String value = null;
                 if (floatValue == null) {
-                    value = entry.getValue().getValueText();
+                    value = schoolCensusValue.getValueText();
                 } else {
                     value = formatValueAsString(floatValue, CensusDataType.STUDENTS_ETHNICITY.getValueType());
                 }
 
                 if (value != null) {
-                    ethnicityLabelMap.put(_ethnicityDaoJava.getEthnicity(schoolCensusValue.getDataSet().getBreakdown().getId()).getName(), value);
+                    ethnicityLabelMap.put(censusDataSet.getBreakdownOnly().getEthnicity().getName(), value);
                 }
             }
         }
@@ -265,41 +216,34 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
     }
 
     /**
+     * Warning: do not use this with CensusDataSets that are attached to a hibernate session
+     * Finds override CensusSchoolValues attached to override CensusDataSets, and re-attaches those school values
+     * to CensusDataSets with same data type, breakdown, level, subject, etc (but with year non-zero).
+     * Used to make display-generation code easier
+     *
      * @param censusDataSets
-     * @param school
      * @return Map of CensusDataSet ID to SchoolCensusValue
      */
-    public Map<Integer, SchoolCensusValue> findSchoolCensusValuesAndHandleOverrides(
-            Map<Integer, CensusDataSet> censusDataSets, // CensusDataSet ID --> CensusDataSet
-            School school)
+    public void handleSchoolValueOverrides(Collection<CensusDataSet> censusDataSets)
     {
-        if (censusDataSets == null || school == null) {
-            throw new IllegalArgumentException("Neither censusDataSets nor school should be null");
+        if (censusDataSets == null || censusDataSets.isEmpty()) {
+            throw new IllegalArgumentException("CensusDataSets cannot be null or empty");
         }
-
-        List<School> schools = new ArrayList<School>(1);
-        schools.add(school);
-        System.out.println("before searching census school values: " + System.nanoTime() / 1000000);
-        List<SchoolCensusValue> schoolCensusValues = new ArrayList<SchoolCensusValue>();
-        if (censusDataSets.size() > 0) {
-            schoolCensusValues = _censusDataSchoolValueDao.findSchoolCensusValues(school.getDatabaseState(), censusDataSets.values(), schools);
-        }
-
-        System.out.println("after searching census school values: " + System.nanoTime() / 1000000);
-        Map<Integer, SchoolCensusValue> schoolCensusValueMap = new HashMap<Integer,SchoolCensusValue>();
 
         // Data Type ID  -->  (max) year
         Map<Integer,Integer> dataTypeMaxYears = new HashMap<Integer,Integer>();
 
+        // grade + data_type_id + breakdown_id | level_code + subject_id --> Census Data Set
+        Map<String, CensusDataSet> overrides = new HashMap<String, CensusDataSet>();
 
         // grade + data_type_id + breakdown_id | level_code + subject_id --> Census Data Set
-        Map<String, SchoolCensusValue> dataSetSchoolValueMap = new HashMap<String, SchoolCensusValue>();
+        Map<String, CensusDataSet> nonOverrides = new HashMap<String, CensusDataSet>();
 
         // Most logic here is to handle manual overrides.
         // requires one iteration over CensusDataSets, and one iteration over all fetched SchoolCensusValues
 
         // first, figure out what the most recent year is for each data type
-        for (CensusDataSet censusDataSet : censusDataSets.values()) {
+        for (CensusDataSet censusDataSet : censusDataSets) {
             Integer year = dataTypeMaxYears.get(censusDataSet.getDataType().getId());
             if (year == null) {
                 year = censusDataSet.getYear();
@@ -308,8 +252,6 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
             }
             dataTypeMaxYears.put(censusDataSet.getDataType().getId(), year);
         }
-        System.out.println("after populating census dataTypeMaxYears: " + System.nanoTime() / 1000000);
-
 
         Calendar manualCalendar = Calendar.getInstance();
         Calendar dataSetCalendar = Calendar.getInstance();
@@ -321,16 +263,25 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
         dataSetCalendar.set(Calendar.MINUTE, 0);
         dataSetCalendar.set(Calendar.SECOND, 0);
         dataSetCalendar.set(Calendar.MILLISECOND, 0);
+
         // second, figure out if each School has any CensusSchoolValues with recent-enough manual override
-        for (SchoolCensusValue schoolCensusValue : schoolCensusValues) {
+        //for (SchoolCensusValue schoolCensusValue : schoolCensusValues) {
+        Iterator<CensusDataSet> iterator = censusDataSets.iterator();
+        while (iterator.hasNext()) {
+            CensusDataSet censusDataSet = iterator.next();
+            SchoolCensusValue schoolCensusValue = censusDataSet.getTheOnlySchoolValue();
+            if (schoolCensusValue == null) {
+                continue;
+            }
+
             Boolean override = false;
             // Here we get the CensusDataSet that was passed in, by ID. The CensusDataSets that are on the
             // CensusDataSchoolValue are not complete
-            CensusDataSet censusDataSet = censusDataSets.get(schoolCensusValue.getDataSet().getId());
+            //CensusDataSet censusDataSet = censusDataSets.get(schoolCensusValue.getDataSet().getId());
             Integer maxYear = dataTypeMaxYears.get(censusDataSet.getDataType().getId());
 
             // if this SchoolValue's got override potential...
-            if (schoolCensusValue.getDataSet().getYear() == 0 && schoolCensusValue.getModified() != null) {
+            if (censusDataSet.getYear() == 0 && schoolCensusValue.getModified() != null) {
                 Date modified = schoolCensusValue.getModified();
                 manualCalendar.setTime(modified);
                 dataSetCalendar.set(Calendar.YEAR, maxYear-1);
@@ -339,24 +290,30 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
 
                 // it's an override!
                 if (override) {
-                    // use this school value for the data set
-                    dataSetSchoolValueMap.put(getCensusDataSetHash(censusDataSet), schoolCensusValue);
+                    overrides.put(getCensusDataSetHash(censusDataSet), censusDataSet);
                 }
             } else {
                 // sorry, no override potential
-                // only use this school value if there's no existing school value for this data set
-                if (dataSetSchoolValueMap.get(getCensusDataSetHash(censusDataSet)) == null) {
-                    dataSetSchoolValueMap.put(getCensusDataSetHash(censusDataSet), schoolCensusValue);
-                }
+                nonOverrides.put(getCensusDataSetHash(censusDataSet), censusDataSet);
             }
         }
-        System.out.println("done with census school values: " + System.nanoTime() / 1000000);
 
-        for (SchoolCensusValue schoolCensusValue : dataSetSchoolValueMap.values()) {
-            schoolCensusValueMap.put(schoolCensusValue.getDataSet().getId(), schoolCensusValue);
+        // for each dataset that contains a valid override:
+        //  find the cooresponding non-year-zero dataset that is the one being overridden
+        //  take the school value (should be only one) from the override dataset, and set it onto the school value being
+        // overridden
+        for (Map.Entry<String, CensusDataSet> overrideEntry : overrides.entrySet()) {
+            CensusDataSet overridingDataSet = overrideEntry.getValue();
+            String key = overrideEntry.getKey();
+            CensusDataSet overriddenDataSet = nonOverrides.get(key);
+
+            if (overriddenDataSet != null) {
+                overriddenDataSet.getTheOnlySchoolValue().setOverrideValue(overridingDataSet.getTheOnlySchoolValue());
+            } else {
+                _log.debug("Something went wrong; no non-zero dataset corresponds to overriding dataset with year zero");
+            }
         }
 
-        return schoolCensusValueMap;
     }
 
     /**
@@ -375,6 +332,9 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper {
         return result;
     }
 
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        _beanFactory = beanFactory;
+    }
 }
 
 

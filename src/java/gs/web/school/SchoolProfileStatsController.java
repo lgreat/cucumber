@@ -4,8 +4,6 @@ package gs.web.school;
 import gs.data.school.EspResponse;
 import gs.data.school.School;
 import gs.data.school.census.*;
-import gs.data.school.district.District;
-import gs.data.state.State;
 import gs.web.util.ReadWriteAnnotationController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -69,45 +67,28 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
             // Source --> source position (footnote)
             /*Map<CensusDescription, Integer> sourceFootnotes = getSourceFootnotes(dataTypeSourceMap);*/
-            SchoolProfileCensusHelper.GroupedCensusDataSets groupedCensusDataSets = _schoolProfileCensusHelper.getGroupedCensusDataSets(request);
+            CensusDataHolder groupedCensusDataSets = _schoolProfileCensusHelper.getGroupedCensusDataSets(request);
 
+            // make the census data holder load school data onto the census data sets
+            groupedCensusDataSets.retrieveDataSetsAndSchoolData();
 
-            // query for school values
-            // CensusDataSet ID --> CensusSchoolValue
-            Map<Integer, SchoolCensusValue> schoolValueMap = _schoolProfileCensusHelper.getSchoolCensusValues(request);
+            // make the census data holder load district data onto the census data sets
+            groupedCensusDataSets.retrieveDataSetsAndDistrictData();
 
-            System.out.println("Getting census school values took " + (System.nanoTime()-start)/1000000 + " milliseconds");
-
-            // query for district values
-            // CensusDataSet ID --> CensusDistrictValue
-            Map<Integer, DistrictCensusValue> districtValueMap = new HashMap<Integer,DistrictCensusValue>();
-            if (groupedCensusDataSets._dataSetsForDistrictData.size() > 0) {
-                 districtValueMap = findDistrictValues(groupedCensusDataSets._dataSetsForDistrictData, school.getDatabaseState(), school);
-            }
-
-            System.out.println("Getting census district values took " + (System.nanoTime()-start)/1000000 + " milliseconds");
-
-            // query for state averages
-            // CensusDataSet ID --> CensusStateValue
-            Map<Integer, StateCensusValue> stateValueMap = new HashMap<Integer,StateCensusValue>();
-            if (groupedCensusDataSets._dataSetsForStateData.size() > 0) {
-                stateValueMap = findStateValues(groupedCensusDataSets._dataSetsForStateData, school.getDatabaseState());
-            }
-
-            System.out.println("Getting census state values took " + (System.nanoTime()-start)/1000000 + " milliseconds");
+            // make the census data holder load state data onto the census data sets
+            groupedCensusDataSets.retrieveDataSetsAndStateData();
 
             // group ID --> List of StatsRow
-            Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows = combine(
-                    _schoolProfileCensusHelper.getCensusStateConfig(request),
-                    _schoolProfileCensusHelper.getCensusDataSets(request),
-                    schoolValueMap, districtValueMap, stateValueMap);
+            Map<Long, List<SchoolProfileStatsDisplayRow>> groupIdToStatsRows =
+                    buildDisplayRows(_schoolProfileCensusHelper.getCensusStateConfig(request), groupedCensusDataSets);
 
-
-            System.out.println("Combining took " + (System.nanoTime()-start)/1000000 + " milliseconds");
 
             statsModel.put("dataTypeSourceMap", dataTypeSourceMap);
             statsModel.put("censusStateConfig", _schoolProfileCensusHelper.getCensusStateConfig(request));
             statsModel.put("statsRows", groupIdToStatsRows);
+
+            Map<String,String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
+            model.put("ethnicityMap", ethnicityMap);
 
             cacheStatsModel(statsModel, school);
         }
@@ -115,11 +96,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool(request);
         statsModel.put("espResults", espResults);
 
-        Map<String,String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
-        model.put("ethnicityMap", ethnicityMap);
 
         model.putAll(statsModel);
-        System.out.println("School profile stats controller took " + (System.nanoTime() - start) / 1000000 + " milliseconds");
         return model;
     }
 
@@ -133,18 +111,11 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
     }
 
     // group ID --> Stats Row
-    public Map<Long,List<SchoolProfileStatsDisplayRow>> combine(
-            CensusStateConfig config,
-            // CensusDataSet ID <--> CensusDataSet
-            // If "extra" CensusDataSets are provided, they will be skipped
-            Map<Integer, CensusDataSet> censusDataSets,
-            // CensusDataSet ID --> SchoolCensusValue
-            Map<Integer,SchoolCensusValue> schoolValueMap,
-            // CensusDataSet ID --> DistrictCensusValue
-            Map<Integer,DistrictCensusValue> districtValueMap,
-            // CensusDataSet ID --> StateCensusValue
-            Map<Integer,StateCensusValue> stateValueMap) {
+    public Map<Long,List<SchoolProfileStatsDisplayRow>> buildDisplayRows(CensusStateConfig config,
+        CensusDataHolder groupedCensusDataSets
+    ) {
 
+        Map<Integer, CensusDataSet> censusDataSets = groupedCensusDataSets.getAllCensusDataSets();
 
         Map<Long,List<SchoolProfileStatsDisplayRow>> statsRowMap = new HashMap<Long,List<SchoolProfileStatsDisplayRow>>();
 
@@ -225,7 +196,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             }
 
             String schoolValue = "";
-            SchoolCensusValue schoolCensusValue = schoolValueMap.get(censusDataSetId);
+            SchoolCensusValue schoolCensusValue = censusDataSet.getTheOnlySchoolValue();
             if (schoolCensusValue != null) {
                 if (schoolCensusValue.getValueFloat() != null) {
                     schoolValue = formatValueAsString(schoolCensusValue.getValueFloat(), dataTypeEnum.getValueType());
@@ -235,7 +206,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             }
 
             String districtValue = "";
-            DistrictCensusValue districtCensusValue = districtValueMap.get(censusDataSetId);
+            DistrictCensusValue districtCensusValue = censusDataSet.getTheOnlyDistrictValue();
             if (districtCensusValue != null) {
                 if (districtCensusValue.getValueFloat() != null) {
                     districtValue = formatValueAsString(districtCensusValue.getValueFloat(), dataTypeEnum.getValueType());
@@ -244,8 +215,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 }
             }
 
+
             String stateValue = "";
-            StateCensusValue stateCensusValue = stateValueMap.get(censusDataSetId);
+            StateCensusValue stateCensusValue = censusDataSet.getStateCensusValue();
             if (stateCensusValue != null) {
                 if (stateCensusValue.getValueFloat() != null) {
                     stateValue = formatValueAsString(stateCensusValue.getValueFloat(), dataTypeEnum.getValueType());
@@ -334,35 +306,6 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         }
 
         return result;
-    }
-
-    public Map<Integer, DistrictCensusValue> findDistrictValues(Map<Integer, CensusDataSet> censusDataSets, State state, School school) {
-        List<District> districts = new ArrayList<District>(1);
-        districts.add(school.getDistrict());
-        List<DistrictCensusValue> schoolCensusValues = _censusDataDistrictValueDao.findDistrictCensusValues(state, censusDataSets.values(), districts);
-        Map<Integer, DistrictCensusValue> censusValueMap = new HashMap<Integer,DistrictCensusValue>();
-
-        Iterator<DistrictCensusValue> iterator = schoolCensusValues.iterator();
-        while (iterator.hasNext()) {
-            DistrictCensusValue censusValue = iterator.next();
-           censusValueMap.put(censusValue.getDataSet().getId(), censusValue);
-        }
-
-        return censusValueMap;
-    }
-
-    public Map<Integer, StateCensusValue> findStateValues(Map<Integer, CensusDataSet> censusDataSets, State state) {
-
-        List<StateCensusValue> schoolCensusValues = _censusDataStateValueDao.findStateCensusValues(state, censusDataSets.values());
-        Map<Integer, StateCensusValue> censusValueMap = new HashMap<Integer,StateCensusValue>();
-
-        Iterator<StateCensusValue> iterator = schoolCensusValues.iterator();
-        while (iterator.hasNext()) {
-            StateCensusValue censusValue = iterator.next();
-            censusValueMap.put(censusValue.getDataSet().getId(), censusValue);
-        }
-
-        return censusValueMap;
     }
 
     /**
