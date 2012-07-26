@@ -17,7 +17,8 @@
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
-          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings">
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -141,7 +142,7 @@
         <c:set var="searchResultsPagingSummary">
             <div class="js-search-results-paging-summary text3">
                 Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of <span
-                    id="total-results-count">${page.pager.totalItems}</span> schools
+                    id="total-results-count"><fmt:formatNumber value="${page.pager.totalItems}" /></span> schools
             </div>
         </c:set>
 
