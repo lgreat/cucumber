@@ -36,7 +36,7 @@
             </c:choose>
         </c:otherwise>
     </c:choose>
-    <a href="javascript:void(0);" class="noUnderline" data-gs-sort-toggle="${sortList}">${columnName}
+    <a href="javascript:void(0);" class="noUnderline small_bold" data-gs-sort-toggle="${sortList}">${columnName}
         <span class="mls">${triangle}</span>
     </a>
 </jsp:root>
