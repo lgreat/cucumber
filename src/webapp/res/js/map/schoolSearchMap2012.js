@@ -20,7 +20,6 @@ GS.map.getMap = GS.map.getMap ||(function(){
         var height = $('#js-map-canvas').css('height');
         schoolList.css({height: height, overflowY: 'auto'});
         $('.js-mouseover-open-bubble').live('mouseover', function() {
-            console.log('mouseover bubble trigger');
             var id = jQuery(this).attr('id');
             var schoolIdentifier = id.replace('school-listitem-', '');
             if (GS_openSchoolInfoBubble !== null) {
