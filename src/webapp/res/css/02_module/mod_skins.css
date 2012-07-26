@@ -77,6 +77,10 @@ General comments:
 .slStylesV1-0 .standard_1-1 .ft{
     background-color: #f5f5f5;
 }
+.slStylesV1-0 .standard_1-1 .compareScroll{
+    max-height: 200px; overflow-y: auto;
+}
+
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_1-2 ----------------- */
 .slStylesV1-0 .standard_1-2{

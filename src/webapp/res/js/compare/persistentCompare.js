@@ -376,8 +376,14 @@ GS.school.compare = (function() {
 
     //Draws the div for a given school in the compare module.
     var drawSchoolDivInCompareModule = function(schoolId, state, schoolName, schoolType, gradeRange, city, schoolUrl) {
-        $('<div id=js_compare_' + schoolId + '_' + state + '><a href="' + schoolUrl + '"> ' + schoolName + '</a><br/> ' + schoolType + ' ' + gradeRange + ' ' + city + ' ' + state +
-            ' <a href="#" class="js_removeSchoolFromCompare noInterstitial" id="js_compareRemove_' + schoolId + '_' + state + '">Remove</a></div>').appendTo('#js_compareSchoolsDiv');
+        $('<div id=js_compare_' + schoolId + '_' + state + '><div class="pam"><div class="fl" style="width: 90%"><a href="' + schoolUrl + '"> ' + schoolName
+            + '</a></div>' +
+            '<div class="fr"><a href="#" class="js_removeSchoolFromCompare noInterstitial iconx16 i-16-close" title="Remove" id="js_compareRemove_' + schoolId + '_' + state + '"></a></div>' +
+            '<div class="clearfloat"></div>' +
+            '<div class="small bottom">' + city + ' ' + state +
+            '</div>' +
+            '</div>' +
+            '<hr class="keyline2"/>').appendTo('#js_compareSchoolsDiv');
 
     };
 
