@@ -155,17 +155,18 @@
             </div>
         </div>
 
-        <div class="alpha grid_16 omega">
+        <div class="alpha grid_16 omega mbm">
             <div class="gsTabs1">
                 <ul class="tabStyle-2-1">
                     <li>
                         <a data-role="button" data-inline="true" class="js-listResultsLink">
-                            <span class="iconx16 i-16-listView mrm"><!-- do not collapse --></span>List
+                            <span class="iconx16 i-16-listView mrs vam"><!-- do not collapse --></span><span class="vam">List</span>
                         </a>
                     </li>
                     <li>
                         <a data-role="button" data-inline="true" class="js-mapResultsLink preSelected">
-                            <span class="iconx16 i-16-getDirections mrm"><!-- do not collapse --></span>Map</a>
+                            <span class="iconx16 i-16-getDirections mrs vam"><!-- do not collapse --></span><span class="vam">Map</span>
+                        </a>
                     </li>
                 </ul>
             </div>
