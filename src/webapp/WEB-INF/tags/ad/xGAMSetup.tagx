@@ -162,8 +162,9 @@
         ]]>
             <c:forEach var="slotName" items="${GAMadNames}">
                 <c:set var="adPosition" value="${GPTadNameAdPositionMap[slotName]}"/>
+                <c:set var="adSizes" value="${gsweb:contains(requestScope.pageHelper.adPositionsWithOmittedCompanionSizes,adPosition) ? adPosition.sizes : adPosition.allSizes}"/>
                 GS.ad.slots['${slotName}'] = googletag.defineSlot('/1002894/${slotName}', <c:choose>
-                    <c:when test="${fn:length(adPosition.allSizes) > 1}">[<c:forEach var="size" items="${adPosition.allSizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
+                    <c:when test="${fn:length(adSizes) > 1}">[<c:forEach var="size" items="${adSizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
                     <c:otherwise>[${adPosition.size.width},${adPosition.size.height}]</c:otherwise>
                 </c:choose>, <c:choose>
                     <c:when test="${gsweb:contains(requestScope.pageHelper.adPositionsWithDisabledGptGhostTextHiding,adPosition)}">'gpt${adPosition.name}'</c:when>

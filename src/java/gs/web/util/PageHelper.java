@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.108 2012/07/12 16:31:53 yfan Exp $
+ * $Id: PageHelper.java,v 1.109 2012/07/26 20:03:47 yfan Exp $
  */
 
 package gs.web.util;
@@ -278,6 +278,8 @@ public class PageHelper {
     private Set<AdPosition> _adPositions = new HashSet<AdPosition>();
     // ad positions on the current page which should not support GPT ghost text hiding
     private Set<AdPosition> _adPositionsWithDisabledGptGhostTextHiding = new HashSet<AdPosition>();
+    // ad positions on the current page which should have their companion sizes omitted in the defineSlot call
+    private Set<AdPosition> _adPositionsWithOmittedCompanionSizes = new HashSet<AdPosition>();
     /** ad keywords for current page.  Stored in a MultiMap so that multiple values can be associated with a given
      * key.  This functionality is allowed by the Google API and is required for at least one of our use cases.  This
      * MultiMap has Strings for keys and Collections of Strings for values.
@@ -431,6 +433,23 @@ public class PageHelper {
      */
     public Set<AdPosition> getAdPositionsWithDisabledGptGhostTextHiding() {
         return _adPositionsWithDisabledGptGhostTextHiding;
+    }
+
+    /**
+     * @param ad Ad position that should have companion sizes omitted in the defineSlot call
+     */
+    public void addAdPositionWithOmittedCompanionSizes(AdPosition ad) {
+        if (null == ad) {
+            throw new IllegalArgumentException("Ad cannot be null");
+        }
+        _adPositionsWithOmittedCompanionSizes.add(ad);
+    }
+
+    /**
+     * @return Returns a non-null list of ad positions for which companion sizes should be omitted in the defineSlot call
+     */
+    public Set<AdPosition> getAdPositionsWithOmittedCompanionSizes() {
+        return _adPositionsWithOmittedCompanionSizes;
     }
 
     private static UrlUtil _urlUtil = new UrlUtil();
