@@ -217,7 +217,6 @@ Boundaries.prototype = {
                     width: "300px"
                 },
                 closeBoxMargin: "8px",
-                // TODO: Change closeBoxURL from staging to www
                 closeBoxURL: "/res/img/googleMaps/16x16_close.png",
                 infoBoxClearance: new google.maps.Size(1, 1),
                 isHidden: false,

@@ -300,6 +300,8 @@ General comments:
     border-bottom: 14px solid #FFFFFF;
     margin-left: -14px;
 }
+
+#map-canvas .infoBox img { float: right; } /* school and district boundaries map bubble close button */
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_6-1 ----------------- */
 /*--------------Search module-----------------*/
