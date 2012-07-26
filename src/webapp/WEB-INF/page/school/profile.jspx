@@ -319,7 +319,21 @@
         </div>
     </div>
 
-    <p class="">Right column</p>
+    <div class="">
+        Right column
+        <c:set var="isDcNclbSchool" value="${school.physicalAddress.state eq 'DC' and (school.type.schoolTypeName eq 'public' or school.type.schoolTypeName eq 'charter') and school.levelCode ne 'p'}"/>
+        <c:if test="${requestScope.context.showDcNclbModules and isDcNclbSchool}">
+            <!-- WARNING: dcNclbReportCard.tagx IS SHARED WITH OTHER PAGES, Bracket all changes under style eq '2012' -->
+            <school:dcNclbReportCard
+                    school="${school}"
+                    showAllSchoolLinks="${requestScope.context.showDcNclbAllSchoolLinks}"
+                    schoolCodesToShow="${requestScope.context.dcNclbSchoolCodesToShow}"
+                    districtCodesToShow="${requestScope.context.dcNclbDistrictCodesToShow}"
+                    style="2012"
+                    />
+        </c:if>
+
+    </div>
 </div>
 
 <!-- TODO: Finalize omniture -->

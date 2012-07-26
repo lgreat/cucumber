@@ -10,6 +10,8 @@
     <jsp:directive.attribute name="showAllSchoolLinks" required="true" description="Whether or not to show all school report card links" type="java.lang.Boolean"/>
     <jsp:directive.attribute name="schoolCodesToShow" required="true" description="Set of school codes for which to show school report card links (Set of String)" type="java.util.Set"/>
     <jsp:directive.attribute name="districtCodesToShow" required="true" description="Set of LEA report card links" type="java.util.Set"/>
+    <jsp:directive.attribute name="style" required="false" type="java.lang.String"
+                             description="The visual style to use, e.g. '2011' or '2012'"/>
 
     <c:set var="schoolCode" value="${pageScope.school.stateId}"/>
     <c:set var="showDistrictLink" value="${gsweb:contains(pageScope.districtCodesToShow, pageScope.school.district.stateId)}"/>
