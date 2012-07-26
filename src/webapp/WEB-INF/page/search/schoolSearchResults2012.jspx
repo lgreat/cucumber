@@ -159,26 +159,15 @@
         <ad:omitCompanionSizes position="AboveFold_300x250"/>
         <ad:AboveFold_300x250/>
 
-        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
-                                   showAdPct="0" style="2012"/>
-
         <!-- Low Down module -->
         <div class="mtm">
             <content:makingSenseOfSchoolChoice style="2012"/>
         </div>
 
-        <!-- Community module -->
-        <c:set var="recentDiscussions" value=""/>
-        <c:if test="${not empty localBoardId and not empty localCityName}">
-            <gsweb:currentAbsolutePath var="myUrl" urlEncode="true"/>
-            <c:set var="recentDiscussions">
-                <c:import
-                        url="/community/profileRecentDiscussions.module?board_id=${localBoardId}&amp;limit=3&amp;uri=${myUrl}&amp;topic=${gsweb:urlEncode(localCityName)}&amp;discussionTopicFull=${gsweb:urlEncode(localCityName)}&amp;isLocal=true&amp;isFromProfile=false"/>
-            </c:set>
-        </c:if>
-        ${recentDiscussions}
-
         <jsp:include page="/promo/emailSignUp.module?style=2012"/>
+
+        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
+                                   showAdPct="0" style="2012"/>
 
         <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
         <ad:BelowFold_Top_300x125/>

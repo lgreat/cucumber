@@ -15,6 +15,8 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:content="urn:jsptagdir:/WEB-INF/tags/content"
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings">
 
 <jsp:output doctype-root-element="html"
@@ -449,8 +451,14 @@
                 </span>
     </div>
 
+    <div class="alpha grid_8 mtl">
+        <content:makingSenseOfSchoolChoice style="2012"/>
+    </div>
 
-
+    <div class="omega grid_8 mtl">
+        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
+                                   showAdPct="0" style="2012"/>
+    </div>
 
 </div>
 </div>
@@ -850,8 +858,10 @@
     </div>
 </div>
 </div>
-<ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
-<ad:BelowFold_Top_300x125/>
+
+<div class="mtm">
+    <jsp:include page="/promo/emailSignUp.module?style=2012"/>
+</div>
 </div>
 
 

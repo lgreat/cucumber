@@ -180,8 +180,17 @@
         </c:if>
 
         <div class="mod_bd">
-            <p><strong>Find a home nearby</strong>
-                from more than 3 million real estate listings, homes for sale, and rental properties</p>
+            <p>
+                <c:choose>
+                    <c:when test="${requestScope.style eq '2012'}">
+                        Find a home nearby from more than 3 million real estate listings, homes for sale, and rental properties
+                    </c:when>
+                    <c:otherwise>
+                        <strong>Find a home nearby</strong>
+                        from more than 3 million real estate listings, homes for sale, and rental properties
+                    </c:otherwise>
+                </c:choose>
+            </p>
 
             <p><label for="rdcCity">Location:</label>
                 <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}"/></p>
