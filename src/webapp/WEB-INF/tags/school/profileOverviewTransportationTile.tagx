@@ -50,16 +50,18 @@
 
         <c:when test="${content eq 'substitute1'}">
             <c:set var="classSize" value="${transportationModel['substitute1ClassSize']}" scope="page"/>
-            <school:profileOverviewCell1 title="Average class size">
-                <c:choose>
-                    <c:when test="${not empty classSize}">
-                        <div class="">${classSize}</div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="">${transportationModel['substitute1StudentsPerTeacher']} : 1</div>
-                    </c:otherwise>
-                </c:choose>
-            </school:profileOverviewCell1>
+            <c:choose>
+                <c:when test="${not empty classSize}">
+                    <school:profileOverviewCell1 title="Average class size">
+                     <div class="">${classSize}</div>
+                    </school:profileOverviewCell1>
+                </c:when>
+                <c:otherwise>
+                    <school:profileOverviewCell1 title="Students per teacher">
+                        <div class="">${transportationModel['substitute1StudentsPerTeacher']}</div>
+                    </school:profileOverviewCell1>
+                </c:otherwise>
+            </c:choose>
         </c:when>
         <c:when test="${content eq 'substitute2'}">
             <school:profileOverviewCell1 title="Check out our school boundry tool">
