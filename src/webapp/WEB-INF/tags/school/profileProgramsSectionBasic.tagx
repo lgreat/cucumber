@@ -34,7 +34,6 @@
             </c:when>
             <c:when test="${row.displayFormat == 'URL'}">
                 <school:profileProgramsRowUrl row="${row}" dataMap="${dataMap}"/>
-                <tr><td colspan="2">URL</td></tr>
             </c:when>
             <c:otherwise>
                 <tr><td colspan="2">I don't understand the display format: <c:out value="${row.displayFormat}"/></td></tr>

@@ -2,55 +2,38 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
-          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
 
     <jsp:directive.attribute name="row" type="gs.web.school.SchoolProfileDisplayBean" required="true"/>
     <jsp:directive.attribute name="dataMap" type="java.util.Map" required="true"/>
 
 
-    <!-- The actual data for each row is stored in the highlightsDisplayData which is a map where the
-        key comes from the display bean and the data comes from getters getUrlDescModelKey and getUrlValueModelKey.
-    -->
-    <c:set var="key" value="${row.modelKey}" scope="page"/>
-    <c:set var="values" value="${dataMap[key]}" scope="page"/>
-    <!-- <tr><td colspan="2"><div class="">***Debug*** Row = ${row}, key = ${key}, values = ${values}</div></td></tr> -->
-    <tr>
+     <tr>
         <td><b>${row.rowTitle}</b></td>
         <!-- Now display the data by looping over each data element -->
         <td><ul>
-            <c:set var="urlArrayModelKeys" value="${row.urlValueModelKeys}"/>
-            <c:forEach var="descModelKey" items="${row.urlDescModelKeys}" varStatus="status">
+            <c:set var="urlArrayModelKeys" value="${row.urlValueModelKeys}"/>    <!-- This is an array of EspResponse keys to the urls -->
+            <c:forEach var="descModelKey" items="${row.urlDescModelKeys}" varStatus="status">   <!-- each descModelKey points to a list of descriptions, we want the first one -->
                 <c:set var="urlModelKey" value="${urlArrayModelKeys[status.index]}"/>
-                <c:set var="desc" value="${dataMap[descModelKey]}"/>
-                <c:set var="url" value="${dataMap[urlModelKey]}"/>
-                <div class="">
-                <c:choose>
-                    <c:when test="${not empty desc and not empty url}">
-                        <c:if test="${not fn:startsWith(url, 'http://')}">
-                            <c:set var="url" value="http://${url}"/>
-                        </c:if>
-                        <a href="${url}">${desc}</a>
-                    </c:when>
-                    <c:when test="${not empty desc}">
-                        ${desc}
-                    </c:when>
-                    <c:when test="${not empty url}">
-                        <c:if test="${not fn:startsWith(url, 'http://')}">
-                            <c:set var="url" value="http://${url}"/>
-                        </c:if>
-                        <a href="${url}">${url}</a>
-                    </c:when>
-                </c:choose>
-                </div>
+                <c:set var="desc" value="${dataMap[descModelKey][0]}"/>
+                <c:set var="url" value="${dataMap[urlModelKey][0]}"/>
+                <c:if test="${fn:startsWith(url, 'Http://')}">    <!-- the url is a pretty value which would have been capitalized, change it back -->
+                    <c:set var="url" value="http://${fn:substringAfter(url, 'Http://')}"/>
+                </c:if>
+
+                    <c:choose>
+                        <c:when test="${(not empty desc) and (not empty url)}">
+                            <li><div class=""><a href="${url}">${desc}</a></div></li>
+                        </c:when>
+                        <c:when test="${not empty desc}">
+                            <li><div class="">${desc}</div></li>
+                        </c:when>
+                        <c:when test="${not empty url}">
+                            <li><div class=""><a href="${url}">${url}</a></div></li>
+                        </c:when>
+                    </c:choose>
+
             </c:forEach>
         </ul></td>
     </tr>

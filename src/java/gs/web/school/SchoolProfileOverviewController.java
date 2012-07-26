@@ -10,6 +10,7 @@ import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.district.District;
+import gs.data.school.review.Review;
 import gs.data.util.CommunityUtil;
 import gs.web.content.cms.CmsContentLinkResolver;
 import gs.web.util.PageHelper;
@@ -162,7 +163,14 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     private Map<String, Object> getReviewsEspTile(HttpServletRequest request, School school) {
         Map<String, Object> reviewsModel = new HashMap<String, Object>(2);
-        reviewsModel.put( "reviews", _schoolProfileDataHelper.getNonPrincipalReviews(request, 5) );
+        List<Review> reviews = _schoolProfileDataHelper.getNonPrincipalReviews(request, 5);
+        if( reviews.size() > 0 ) {
+            reviewsModel.put( "reviews", reviews );
+            reviewsModel.put( "content", "reviews" );
+        }
+        else {
+            reviewsModel.put( "content", "reviewsCTA" );
+        }
 
         return reviewsModel;
     }

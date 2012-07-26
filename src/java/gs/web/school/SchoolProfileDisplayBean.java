@@ -165,9 +165,9 @@ public class SchoolProfileDisplayBean {
     /**
      * Specify a URL descriptionEspResponseKey and valueEspResponseKey for the display.
      * @param descriptionEspResponseKey  The epsResponseKey for this description
-     * @param valueEspResponseKey  The espResponseKey for this url
+     * @param urlEspResponseKey  The espResponseKey for this url
      */
-    public void addUrl( String descriptionEspResponseKey, String valueEspResponseKey) {
+    public void addUrl( String descriptionEspResponseKey, String urlEspResponseKey) {
         // To support this requirement the following data structures need to be built:
         // 1. The values passed in, converted to modelKeys, are stored in _urlDescription and _urlValue.  These are used by the jspx.
         // 2. Both of the input values need to be added to the _espResponseKeys list so the data will be retrieved from the ESP database
@@ -193,11 +193,11 @@ public class SchoolProfileDisplayBean {
             _urlDescription.add("");
         }
 
-        if( valueEspResponseKey != null && valueEspResponseKey.length() > 0 ) {
-            String modelKey = calcModelKey(valueEspResponseKey);
+        if( urlEspResponseKey != null && urlEspResponseKey.length() > 0 ) {
+            String modelKey = calcModelKey(urlEspResponseKey);
             _urlValue.add( modelKey );
-            _additionalData.add( new AdditionalData( valueEspResponseKey ) );
-            _espResponseKeys.add(valueEspResponseKey);        // Need to retrieve data for this key
+            _additionalData.add( new AdditionalData( urlEspResponseKey ) );
+            _espResponseKeys.add(urlEspResponseKey);        // Need to retrieve data for this key
         }
         else {
             _urlValue.add("");

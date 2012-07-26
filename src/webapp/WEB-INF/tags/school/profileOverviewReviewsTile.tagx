@@ -16,20 +16,30 @@
 
     <jsp:directive.attribute name="reviewsModel" type="java.lang.Object" required="true"/>
 
+    <c:set var="content" value="${reviewsModel['content']}" scope="page"/>
     <c:set var="reviews" value="${reviewsModel['reviews']}" scope="page"/>
 
     <school:profileOverviewCell1 title="User Reviews">
-        <div class="infiniteCarousel9">
-            <div class="wrapper">
-                <ul class="unordered-carousel none">
-                    <c:forEach var="review" items="${reviews}">
-                        <li>
-                            <p class="bottom"><em>${gsweb:abbreviateAtWhitespace(review.comments, 130)}</em></p>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div>
-        </div>
+        <c:choose>
+            <c:when test="${content eq 'reviews'}">
+                <div class="infiniteCarousel9">
+                    <div class="wrapper">
+                        <ul class="unordered-carousel none">
+                            <c:forEach var="review" items="${reviews}">
+                                <li>
+                                    <p class="bottom"><em>${gsweb:abbreviateAtWhitespace(review.comments, 130)}</em></p>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <!-- Randall / Mitch - the following needs to be formatted as Substitute 1
+                     See: file://gsdata/Public/Design/Design_Review/school_profile/comps/visual/Tiles/slot_5+6.png -->
+                <div class=""><b>Is this your school?</b><br/><i>Be the first to review it and help out other families.</i></div>
+            </c:otherwise>
+        </c:choose>
     </school:profileOverviewCell1>
 
 </jsp:root>
