@@ -18,13 +18,12 @@ GS.search.results = GS.search.results || (function() {
         }
     }
 
-    var init = function(_filtersModule, _compareModule) {
+    var init = function(_filtersModule) {
         filtersModule = _filtersModule;
-        compareModule = _compareModule;
 
         attachEventHandlers();
 
-        compareModule.initializeRowsAndCheckedSchoolsArray();
+//        compareModule.initializeRowsAndCheckedSchoolsArray();
 
         var blackTriangleDown = '&#9652;';
         var whiteTriangleDown = '&#160;';
@@ -55,7 +54,7 @@ GS.search.results = GS.search.results || (function() {
             $('body [data-gs-sort-toggle]span').each(function() {
                 $span.html('&#160;');      //remove all other arrows
             });
-            console.log(newSort);
+            //console.log(newSort);
             if (newSort.indexOf('DESCENDING') !== -1) {
                 $span.attr(blackTriangleUp);
 //                $span.css("color","black");
@@ -125,7 +124,8 @@ GS.search.results = GS.search.results || (function() {
                     jQuery("#spinner").hide();
                     //reattach callbacks to dom element events
                     attachEventHandlers();
-                    compareModule.updateAllCheckedRows();
+                    // ask persistent compare to tell us what schools are in compare
+                    GS.school && GS.school.compare && GS.school.compare.triggerUpdatePageWithSchoolsEvent();
                 };
 
                 jQuery('#js-school-search-results-table').html(data);
@@ -186,7 +186,6 @@ GS.search.results = GS.search.results || (function() {
         var schoolTypes = [];
         var queryString = window.location.search;
 
-        queryString = persistCompareCheckboxesToQueryString(queryString);
         queryString = GS.uri.Uri.putIntoQueryString(queryString,"sortChanged",true, true);
         queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
         if (jQuery('#sort-by').val() !== '' && typeof(jQuery('#sort-by').val()) !== 'undefined') {
@@ -199,7 +198,6 @@ GS.search.results = GS.search.results || (function() {
 
     var onSortChangedForMap = function(selectValue) {
         var queryString = window.location.search;
-        queryString = persistCompareCheckboxesToQueryString(queryString);
 
         if (selectValue !== '' && typeof(selectValue) !== 'undefined') {
             queryString = GS.uri.Uri.putIntoQueryString(queryString,"sortBy",selectValue, true);
@@ -221,7 +219,6 @@ GS.search.results = GS.search.results || (function() {
     var page = function(pageNumber, pageSize) {
         var start = (pageNumber-1) * pageSize;
         var queryString = window.location.search;
-        queryString = persistCompareCheckboxesToQueryString(queryString);
         queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
 
         window.location.search = queryString;
@@ -248,14 +245,12 @@ GS.search.results = GS.search.results || (function() {
         var start = (pageNumber-1) * pageSize;
         if(queryStringData !== undefined) {
             var queryString = GS.uri.Uri.getQueryStringFromObject(queryStringData);
-            queryString = persistCompareCheckboxesToQueryString(queryString);
             queryStringData = GS.uri.Uri.getQueryData(queryString);
             queryStringData.start = start;
             queryString = GS.uri.Uri.getQueryStringFromObject(queryStringData);
         }
         else {
             var queryString = window.location.search;
-            queryString = persistCompareCheckboxesToQueryString(queryString);
             queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
         }
 
@@ -283,32 +278,8 @@ GS.search.results = GS.search.results || (function() {
         );
     }
 
-    var persistCompareCheckboxesToQueryString = function(queryString) {
-        var compareSchoolsList = compareModule.getCheckedSchools().join(',');
-        if (compareSchoolsList !== undefined && compareSchoolsList.length > 0) {
-            queryString = GS.uri.Uri.putIntoQueryString(queryString, "compareSchools", compareSchoolsList, true);
-        } else {
-            queryString = GS.uri.Uri.removeFromQueryString(queryString, "compareSchools");
-        }
-        return queryString;
-    };
-
-
-    var sendToCompare = function() {
-        var checkedSchools = compareModule.getCheckedSchools();
-        if (checkedSchools !== undefined && checkedSchools.length > 0) {
-            var encodedCurrentUrl = encodeURIComponent(window.location.pathname + filtersModule.getUpdatedQueryString());
-            window.location ='/school-comparison-tool/results.page?schools=' + checkedSchools.join(',') +
-                    '&source=' + encodedCurrentUrl;
-        }
-    };
-
     var attachEventHandlers = function() {
-        jQuery('.compare-school-checkbox').click(compareModule.onCompareCheckboxClicked);
         jQuery('#page-size').change(onDisplayResultsSizeChanged);
-        jQuery('.js-compareButton').click(sendToCompare());
-        jQuery('.js-num-checked-send-to-compare').click(sendToCompare());
-        jQuery('.js-compare-uncheck-all').click(compareModule.onCompareUncheckAllClicked);
         jQuery('#map-sort').change(function(){onSortChangedForMap($(this).find(":selected").val());});
         jQuery('#sort-by').change(onSortChanged);
         jQuery('.js-redobtn').click(redoSearch);
@@ -548,7 +519,6 @@ GS.search.results = GS.search.results || (function() {
         init:init,
         update:update,
         page:page,
-        sendToCompare:sendToCompare,
         pagination:pagination,
         mapSearch:mapSearch,
         updateSortAndPageSize:updateSortAndPageSize,

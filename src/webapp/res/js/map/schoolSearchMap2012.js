@@ -219,16 +219,17 @@ GS.map.getMap = GS.map.getMap ||(function(){
             });
 
             google.maps.event.addListener(infoBoxInstance, 'domready', function() {
-                var compareButton = $('.js-compareButton');
-                var compareCheck = $('.js-compare-school-checkbox');
+                // TODO: integrate persistentCompare
+//                var compareButton = $('.js-compareButton');
+//                var compareCheck = $('.js-compare-school-checkbox');
 
-                GS.search.compare.updateMapInfoBoxCompare(compareCheck, compareButton);
-                compareCheck.change(function() {
-                    GS.search.compare.addRemoveCheckedSchoolInMap(this, compareButton);
-                });
-                compareButton.click(function() {
-                    GS.search.results.sendToCompare();
-                });
+//                GS.search.compare.updateMapInfoBoxCompare(compareCheck, compareButton);
+//                compareCheck.change(function() {
+//                    GS.search.compare.addRemoveCheckedSchoolInMap(this, compareButton);
+//                });
+//                compareButton.click(function() {
+//                    GS.search.results.sendToCompare();
+//                });
 
                 updateInfoBoxText();
             });

@@ -63,7 +63,7 @@ GS.search.FilterTracking = function() {
 
 jQuery(function() {
     GS.search.filters.init();
-    GS.search.results.init(GS.search.filters, GS.search.compare);
+    GS.search.results.init(GS.search.filters);
 
     GS.search.filterTracking = new GS.search.FilterTracking();
 

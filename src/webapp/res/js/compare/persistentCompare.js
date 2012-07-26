@@ -57,9 +57,49 @@ GS.util.localStorage = (function() {
         hasItemInLocalStorage:hasItemInLocalStorage
     }
 })();
+// Invokes arguments synchronously, in order, with short-circuit behavior
+// Returns a promise that resolves iff all arguments resolve, and fails as soon as the first argument
+// to fail fails, without proceeding to invoke any following arguments
+GS.util.synchronousWhen = (function() {
+    // return a function that, when invoked, executes actionFunc and chains the resulting promise to a deferred
+    var getFunctionLinkingActionToDeferred = function (actionFunc, deferred) {
+        return function () {
+            actionFunc()
+                .done(deferred.resolve.gs_bind(deferred))
+                .fail(deferred.reject.gs_bind(deferred));
+        };
+    };
+
+    // Chains previousAction to nextAction and returns a deferred that is linked to nextAction
+    // If previousActionDeferred is rejected, then reject the masterDeferred -- interrupting the chain
+    // If previousActionDeferred is resolved, invoke nextAction
+    var failFastChain = function(masterDeferred, previousActionDeferred, nextAction) {
+        var nextActionDeferred = new jQuery.Deferred()
+            .fail(masterDeferred.reject.gs_bind(masterDeferred));
+        previousActionDeferred.done(getFunctionLinkingActionToDeferred(nextAction, nextActionDeferred));
+        return nextActionDeferred;
+    };
+
+    return function() {
+        var masterDeferred = new jQuery.Deferred();
+        var deferredArray = new Array();
+
+        var actionInQueue = new jQuery.Deferred();
+        actionInQueue.resolve(); // start the chain
+        for (var x = 0; x < arguments.length; x++) {
+            actionInQueue = failFastChain(masterDeferred, actionInQueue, arguments[x]);
+            deferredArray.push(actionInQueue);
+        }
+        jQuery.when.apply(this, deferredArray).done(function() {
+            masterDeferred.resolve();
+        });
+        return masterDeferred.promise();
+    };
+})();
 
 GS.school = GS.school || {};
 GS.school.compare = (function() {
+    var MODULE_ID = 'js_compareModule';
     var maxSchoolsInCompare = 8;
     var compareKeyInLocalStorage = "schoolsToCompare";
     var schoolsInCompare;
@@ -70,7 +110,7 @@ GS.school.compare = (function() {
     var initializeSchoolsInCompare = function(fromUrl) {
         schoolsInCompare = GS.util.localStorage.getItemFromLocalStorage(compareKeyInLocalStorage);
         compareBtn = $('#js_compareBtn');
-        compareModule = $('#js_compareModule');
+        compareModule = $('#' + MODULE_ID);
         getSourceUrlFunc = fromUrl;
 
         //If there are schools in local storage then get the details of the schools by making an ajax call.
@@ -87,8 +127,7 @@ GS.school.compare = (function() {
                         }
                     }
 
-                    //Trigger a custom event so that the caller can decide what to do once the schools have been initialized.
-                    $('body').trigger('schoolsInitialized', [schools]);
+                    triggerUpdatePageWithSchoolsEvent();
 
                     //Decide whether to show or hide the compare module.
                     showHideCompareModule();
@@ -111,10 +150,13 @@ GS.school.compare = (function() {
         //that the calling page can take action..
         //Once all the validations pass add the school to compare
         //and resolve the deferred so that the calling page can take action.
-        jQuery.when(
-            areSchoolStatesSame(state),
-            isSchoolInCompare(schoolId, state),
-            isMaxSchoolLimitReached()
+        var f_areSchoolStatesSame = function() {return areSchoolStatesSame(state);};
+        var f_isSchoolInCompare = function() {return isSchoolInCompare(schoolId, state);};
+        // if any validation fails, don't bother with the rest
+        GS.util.synchronousWhen(
+            f_areSchoolStatesSame,
+            f_isSchoolInCompare,
+            isMaxSchoolLimitReached
         ).done(
             function() {
                 addSchool(schoolId, state).done(
@@ -170,7 +212,7 @@ GS.school.compare = (function() {
             }
         );
         return dfd.promise();
-    }
+    };
 
     //Makes an ajax call to get the details of the schools.
     var getSchoolsInfo = function(schoolsIdsAndStates) {
@@ -275,7 +317,7 @@ GS.school.compare = (function() {
             dfd.resolve();
         }
         return dfd.promise();
-    }
+    };
 
     var areSchoolStatesSame = function(state) {
         var dfd = jQuery.Deferred();
@@ -294,6 +336,10 @@ GS.school.compare = (function() {
     };
 
     var clearSchoolsInCompare = function() {
+        for (var i = 0; i < schoolsInCompare.length; i++) {
+            // make sure to let the page know the schools are being removed
+            triggerSchoolRemovedEvent(schoolsInCompare[i].schoolId, schoolsInCompare[i].state);
+        }
         schoolsInCompare = [];
         GS.util.localStorage.removeItemFromLocalStorage(compareKeyInLocalStorage);
         $('#js_compareSchoolsDiv').children().remove();
@@ -302,7 +348,7 @@ GS.school.compare = (function() {
 
     //Hover to warn the users when they try to compare schools in 2 states.
     var CompareDifferentStatesWarningHover = function() {
-        this.dfd;
+        this.dfd = null;
         this.loadDialog = function() {
         };
 
@@ -325,7 +371,7 @@ GS.school.compare = (function() {
         };
     };
 
-    CompareDifferentStatesWarningHover.prototype = new GSType.hover.HoverDialog("js_compareDifferentStatesWarningHover", 640);
+    CompareDifferentStatesWarningHover.prototype = new GSType.hover.HoverDialog("js_compareDifferentStatesWarningHover", 480);
     var compareDifferentStatesWarningHover = new CompareDifferentStatesWarningHover();
 
     //Draws the div for a given school in the compare module.
@@ -359,6 +405,18 @@ GS.school.compare = (function() {
         return schoolsInCompare;
     };
 
+    var triggerSchoolRemovedEvent = function(schoolId, state) {
+        //Trigger a custom event so that the caller can decide what to do once the school is removed.
+        compareModule.trigger('schoolRemoved', [schoolId,state]);
+    };
+
+    //Trigger a custom event so that the caller can decide what to do once the schools have been initialized.
+    var triggerUpdatePageWithSchoolsEvent = function() {
+        if (schoolsInCompare.length > 0) {
+            compareModule.trigger('schoolsInitialized', [schoolsInCompare]);
+        }
+    };
+
     $(function() {
 
         compareDifferentStatesWarningHover.loadDialog();
@@ -370,9 +428,7 @@ GS.school.compare = (function() {
             var schoolId = schoolAndState.substr(0, schoolAndState.indexOf('_'));
             var state = schoolAndState.substr(schoolAndState.indexOf('_') + 1, schoolAndState.length);
             removeSchoolFromCompare(schoolId, state);
-
-            //Trigger a custom event so that the caller can decide what to do once the school is removed.
-            $('body').trigger('schoolRemoved', [schoolId,state]);
+            triggerSchoolRemovedEvent(schoolId,state);
             return false;
         });
 
@@ -389,112 +445,7 @@ GS.school.compare = (function() {
         removeSchoolFromCompare:removeSchoolFromCompare,
         compareSchools:compareSchools,
         initializeSchoolsInCompare:initializeSchoolsInCompare,
-        getSchoolsInCompare :getSchoolsInCompare
+        getSchoolsInCompare :getSchoolsInCompare,
+        triggerUpdatePageWithSchoolsEvent:triggerUpdatePageWithSchoolsEvent
     }
 })();
-
-$(function() {
-    //TODO move to a new file
-    //Initialize the schools to compare.
-    GS.school.compare.initializeSchoolsInCompare(function() {
-        return window.location.pathname + GS.search.filters.getUpdatedQueryString();
-    });
-
-    //Bind the click handler to checkbox
-    $('.compare-school-checkbox').on('click', function() {
-        var schoolCheckbox = $(this);
-        var schoolSelected = schoolCheckbox.attr('id');
-        var schoolId = schoolSelected.substr(2, schoolSelected.length);
-        var state = schoolSelected.substr(0, 2);
-        var checked = schoolCheckbox.is(':checked');
-        if (checked === true) {
-            //If the checkbox was checked then try adding a school to the compare module.
-            //If adding a school fails then un check the checkbox.
-            GS.school.compare.addSchoolToCompare(schoolId, state).done(
-                function() {
-                    //If there are more than 2 schools in compare then the 'compare' label
-                    //should be switched to 'compare now' link.
-                    var schoolsInCompare = GS.school.compare.getSchoolsInCompare();
-                    if (schoolsInCompare.length >= 2) {
-                        for (var i = 0; i < schoolsInCompare.length; i++) {
-                            var schoolId = schoolsInCompare[i].schoolId;
-                            var state = schoolsInCompare[i].state;
-                            writeCompareNowLink(schoolId, state);
-                        }
-                    }
-                }).fail(
-                function() {
-                    schoolCheckbox.removeAttr('checked');
-                }
-            );
-        } else {
-            GS.school.compare.removeSchoolFromCompare(schoolId, state);
-            //After the school is removed, the 'compare now' link should be switched to 'compare' label.
-            //Also if there are less than 2 schools remaining in the compare module after this school has been deleted
-            //then switch all the the 'compare now' links to 'compare' label.
-            removeCompareNowLinks(schoolId, state);
-        }
-    });
-
-    //Bind the custom event that gets triggered after the schools are initialized in the compare module.
-    //This is used to check the check boxes for the schools that are in the compare module.
-    $('body').on('schoolsInitialized', function(event, schoolsInCompare) {
-        for (var i = 0; i < schoolsInCompare.length; i++) {
-            var schoolId = schoolsInCompare[i].schoolId;
-            var state = schoolsInCompare[i].state;
-
-            var schoolCheckBox = $('#' + state + schoolId);
-            schoolCheckBox.prop("checked", true);
-
-            //If there are more than 2 schools in compare then the 'compare' label
-            //should be switched to 'compare now' link.
-            if (schoolsInCompare.length >= 2) {
-                writeCompareNowLink(schoolId, state);
-            }
-        }
-    });
-
-    //Bind the custom event that gets triggered after a school is removed from the compare module.
-    //This is used to un check the check boxes for the school that is removed from the compare module.
-    $('body').on('schoolRemoved', function(event, schoolId, state) {
-        var checkBox = $('#' + state + schoolId);
-        checkBox.removeAttr('checked');
-        //After the school is removed, the 'compare now' link should be switched to 'compare' label.
-        //Also if there are less than 2 schools remaining in the compare module after this school has been deleted
-        //then switch all the the 'compare now' links to 'compare' label.
-        removeCompareNowLinks(schoolId, state);
-    });
-
-    $('body').on('click', '.js_compare_link', function() {
-        GS.school.compare.compareSchools();
-    });
-
-    var writeCompareNowLink = function(schoolId, state) {
-        //The 'compare' label should be switched to 'compare now' link.
-        var compareLabel = $('#js_' + state + schoolId + '_compare_label');
-        compareLabel.html('<a href="#" class="js_compare_link noInterstitial">Compare Now</a>');
-    };
-
-    var removeCompareNowLinks = function(schoolId, state) {
-        //The 'compare now' link should be switched to 'compare' label for the school that has been deleted.
-        removeCompareNowLink(schoolId, state);
-
-        //If there are less than 2 schools remaining in the compare module after the school has been deleted
-        //then switch all the the 'compare now' links to 'compare' label.
-        var schoolsInCompare = GS.school.compare.getSchoolsInCompare();
-        if (schoolsInCompare.length < 2) {
-            for (var i = 0; i < schoolsInCompare.length; i++) {
-                var schoolIdentifier = schoolsInCompare[i].schoolId;
-                var stateStr = schoolsInCompare[i].state;
-                removeCompareNowLink(schoolIdentifier, stateStr);
-            }
-        }
-    };
-
-    var removeCompareNowLink = function(schoolId, state) {
-        //The 'compare now' link should be switched to 'compare' label .
-        var compareLabel = $('#js_' + state + schoolId + '_compare_label');
-        compareLabel.html('Compare');
-    };
-
-});
