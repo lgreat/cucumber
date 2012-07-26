@@ -164,7 +164,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private Map<String, Object> getReviewsEspTile(HttpServletRequest request, School school) {
         Map<String, Object> reviewsModel = new HashMap<String, Object>(2);
         List<Review> reviews = _schoolProfileDataHelper.getNonPrincipalReviews(request, 5);
-        if( reviews.size() > 0 ) {
+        if( reviews!=null && reviews.size() > 0 ) {
             reviewsModel.put( "reviews", reviews );
             reviewsModel.put( "content", "reviews" );
         }
