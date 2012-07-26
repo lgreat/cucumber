@@ -97,7 +97,7 @@
 
 
 <pageHelper:setPathway pathway="RESEARCH_COMPARE"/>
-<ad:setSlotPrefix slotPrefix="Search_Site"/>
+<ad:setSlotPrefix slotPrefix="Search_Results_Map"/>
 
 <c:choose>
     <c:when test="${commandAndFields.cityBrowse || commandAndFields.districtBrowse || commandAndFields.nearbySearchByLocation}">
@@ -132,12 +132,7 @@
 
     <!--<div class="spacer_15">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
-    <ad:adTag position="SponsoredSearch_Top_423x120"/>
-
     <div class="alpha grid_16 omega">
-    <!--<ad:adTag position="SponsoredSearch_Top_423x120"/>-->
-    <!--<ad:adTag position="SponsoredSearch_Top_423x68"/>-->
-    <!--<ad:adTag position="SponsoredSearch_Bottom_423x68"/>-->
 
     <!-- Any change to the syle classes applied to navigation would require a change in the javascript code where this is updated for ajax refresh -->
     <div class="alpha grid_16 omega mts">
