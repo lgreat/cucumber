@@ -811,7 +811,7 @@
                     </div>
                 </div>
                 <div class="unit size70of100 lastUnit">
-                    <div class="small bottom fltrt js-communityRating">
+                    <div class="small bottom js-communityRating">
                         <span class="fl mrs">Community rating: </span>
                         <a href="" data-href="{{communityRatingUrl}}">
                             <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl"
