@@ -6,10 +6,11 @@
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
 
 <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
-
+<pageHelper:externalCss file="/res/css/07_navigation/pagination.css"/>
     <div id="js-school-search-results-table" class="mts">
         <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
 
@@ -25,20 +26,19 @@
             </div>
         </c:set>
 
-        <div class="line">
-           <div class="unit size1of2">
-                ${searchResultsPagingSummary}
-           </div>
-           <div class="unit size2of2 lastUnit">
-                <div class="pagination  js-pageNumbers" id="pagination">
-                    <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
-                                         javascriptMethod="GS.search.results.pagination"/>
-                </div>
-           </div>
-        </div>
-
         <div class="alpha grid_16 omega">
-            <div class="alpha grid_16 omega">
+            <div class="alpha grid_16 omega pr">
+                <div class="line pa grid_11 omega" style="right: 0px; top:10px;">
+                    <div class="unit size1of2 plm">
+                        ${searchResultsPagingSummary}
+                    </div>
+                    <div class="unit size2of2 lastUnit">
+                        <div class="pagination  js-pageNumbers" id="pagination">
+                            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
+                                                     javascriptMethod="GS.search.results.pagination"/>
+                        </div>
+                    </div>
+                </div>
                 <div class="gsTabs1">
                     <ul class="tabStyle-2-1">
                         <li>
