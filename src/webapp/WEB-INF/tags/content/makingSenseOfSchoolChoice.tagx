@@ -24,7 +24,7 @@
             <div class="bd">
                 <div class="bd-inner ${pageScope.style eq '2012' ? 'phm pvs' : ''}">
                     <div class="media mvm">
-                        <span class="img sprite cms mrm"><!-- do not collapse --></span>
+                        <span class="img iconx16 i-16-article mrm"><!-- do not collapse --></span>
 
                         <div class="bd">
                             <p class="${pageScope.style eq '2012' ? 'small bottom' : ''}"><span class="${pageScope.style eq '2012' ? 'small_bold' : 'text2bold'}">Insider tricks to assessing a school</span><br/>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="media mvm">
-                        <span class="img sprite cms mrm"><!-- do not collapse --></span>
+                        <span class="img iconx16 i-16-article mrm"><!-- do not collapse --></span>
 
                         <div class="bd">
                             <p class="${pageScope.style eq '2012' ? 'small bottom' : ''}"><span class="${pageScope.style eq '2012' ? 'small_bold' : 'text2bold'}"><a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_59');} return true;" href="http://www.greatschools.org/find-a-school/defining-your-ideal/59-private-vs-public-schools.gs">Private versus public</a></span><br/>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="media mvm">
-                        <span class="img sprite cms mrm"><!-- do not collapse --></span>
+                        <span class="img iconx16 i-16-article mrm"><!-- do not collapse --></span>
 
                         <div class="bd">
                             <p class="${pageScope.style eq '2012' ? 'small bottom' : ''}"><span class="${pageScope.style eq '2012' ? 'small_bold' : 'text2bold'}"><a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_192');} return true;" href="http://www.greatschools.org/find-a-school/defining-your-ideal/192-seven-facts-about-charter-schools.gs">Seven essentials about charter schools</a></span><br/>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="media mvm">
-                        <span class="img sprite cms mrm"><!-- do not collapse --></span>
+                        <span class="img iconx16 i-16-article mrm"><!-- do not collapse --></span>
 
                         <div class="bd">
                             <p class="${pageScope.style eq '2012' ? 'small bottom' : ''}"><span class="${pageScope.style eq '2012' ? 'small_bold' : 'text2bold'}"><a onclick="if (s.tl) {s.tl(this,'o', 'SearchResults_SchoolChoiceModule_2080');} return true;" href="http://www.greatschools.org/students/media-kids/slideshows/2080-why-online-education-is-taking-off.gs">Is online education the future?</a></span><br/>

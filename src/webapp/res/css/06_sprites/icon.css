@@ -143,43 +143,43 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 }
 
 .i-16-key-high-rating {
-    background-position: -382px 0;
-}
-
-.i-16-key-average-rating {
-    background-position: -398px 0;
-}
-
-.i-16-key-lowrating {
-    background-position: -414px 0;
-}
-
-.i-16-key-preschool-rating {
-    background-position: -430px 0;
-}
-
-.i-16-flag {
-    background-position: -288px 0;
-}
-
-.i-16-article {
-    background-position: -304px 0;
-}
-
-.i-16-sort-list-arrow-up {
-    background-position: -320px 0;
-}
-
-.i-16-sort-list-arrow-down {
-    background-position: -336px 0;
-}
-
-.i-16-search-filter-arrow-down {
     background-position: -352px 0;
 }
 
-.i-16-search-filter-arrow-up {
+.i-16-key-average-rating {
     background-position: -368px 0;
+}
+
+.i-16-key-lowrating {
+    background-position: -384px 0;
+}
+
+.i-16-key-preschool-rating {
+    background-position: -400px 0;
+}
+
+.i-16-flag {
+    background-position: -416px 0;
+}
+
+.i-16-article {
+    background-position: -432px 0;
+}
+
+.i-16-sort-list-arrow-up {
+    background-position: -448px 0;
+}
+
+.i-16-sort-list-arrow-down {
+    background-position: -464px 0;
+}
+
+.i-16-search-filter-arrow-down {
+    background-position: -480px 0;
+}
+
+.i-16-search-filter-arrow-up {
+    background-position: -496px 0;
 }
 /* row 16 */
 
@@ -192,21 +192,21 @@ a:hover .i-16-close-grey {
 }
 
 a:hover .i-16-search-filter-arrow-down {
-    background-position: -352px -16px;
+    background-position: -480px -16px;
 }
 
 a:hover .i-16-search-filter-arrow-up {
-    background-position: -368px -16px;
+    background-position: -496px -16px;
 }
 
 /* row 32 */
 
 .i-16-search-filter-arrow-down-on {
-    background-position: -352px -32px;
+    background-position: -480px -32px;
 }
 
 .i-16-search-filter-arrow-up-on {
-    background-position: -368px -32px;
+    background-position: -496px -32px;
 }
 
 /* =1 x16 (Stars)
