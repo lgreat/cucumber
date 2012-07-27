@@ -12,7 +12,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
     var newMarkers = [];
     var tooltipInfoBox = null;
     var center = null;
-    var markerPersists = true;
+    var bubblesSticky = true;
 
     $(document).ready(function(){
         GS.search.results.updateSortAndPageSize();
@@ -57,7 +57,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
         });
 
         $('.js-mouseover-open-bubble').live('mouseout', function() {
-            if (!markerPersists) {
+            if (!bubblesSticky) {
                 closeInfoBox();
             }
         });
@@ -65,7 +65,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
         $('.js-mouseover-open-bubble').live('mouseover', function() {
             if(GS_openSchoolInfoBubble !== null) {
                 // if a marker is open and it wasnt opened from an event triggered from the list, don't do anything
-                if (markerPersists) {
+                if (bubblesSticky) {
                     return;
                 }
                 GS_openSchoolInfoBubble = null;
@@ -76,8 +76,10 @@ GS.map.getMap = GS.map.getMap ||(function(){
             var schoolIdentifier = id.replace('school-listitem-', '');
             var marker = GS_mapMarkers[schoolIdentifier];
 
-            google.maps.event.trigger(marker, 'click');
-            markerPersists = false;
+            showInfoBox(marker, infoBoxInstance, schoolIdentifier);
+            addMouseoverHighlight();
+//            google.maps.event.trigger(marker, 'click');
+            bubblesSticky = false;
         });
 
         $('.js-mouseover-open-bubble').live('click', function() {
@@ -90,8 +92,10 @@ GS.map.getMap = GS.map.getMap ||(function(){
             var schoolIdentifier = id.replace('school-listitem-', '');
             var marker = GS_mapMarkers[schoolIdentifier];
 
-            google.maps.event.trigger(marker, 'click');
-            markerPersists = true;
+            showInfoBox(marker, infoBoxInstance, schoolIdentifier);
+            addHighlight();
+//            google.maps.event.trigger(marker, 'click');
+            bubblesSticky = true;
         });
     });
 
@@ -313,7 +317,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
     var closeInfoBox =  function() {
         if(infoBoxInstance !== null) {
-            markerPersists = true;
+            bubblesSticky = true;
             infoBoxInstance.close();
         }
         GS_openSchoolInfoBubble = null;
@@ -358,6 +362,10 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
         // set appropriate list item background color
         selectedSchool.css('background', '#E2F1F7');
+    }
+
+    var addMouseoverHighlight = function() {
+        selectedSchool.css('background','#F8F8F8');
     }
 
     var removeHighlight = function() {
