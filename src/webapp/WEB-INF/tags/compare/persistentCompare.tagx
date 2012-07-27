@@ -7,7 +7,7 @@
                        description="Contains the schools that the user has added to compare.This is a sticky module and follows the user araound."/>
 
 
-    <div id="js_compareModule" class="mod standard_1-1 pvm">
+    <div id="js_compareModule" class="mod standard_1-1">
         <div class="inner">
             <div class="hd">
                 <div class="fl"><h4 class="pvm plm bottom">Compare <span id="js_compareCount"><!-- do not collapse --></span></h4></div>

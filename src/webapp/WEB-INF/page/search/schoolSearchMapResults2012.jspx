@@ -892,9 +892,9 @@
 <div class="mtm">
     <compare:persistentCompare/>
 </div>
-<div class="mtm">
-    <jsp:include page="/promo/emailSignUp.module?style=2012"/>
-</div>
+
+<jsp:include page="/promo/emailSignUp.module?style=2012"/>
+
 </div>
 
 

@@ -16,7 +16,7 @@
     <pageHelper:externalJavascript file="/res/js/promo/emailSignUp.js" head="false"/>
 
     <c:set var="emailSignUpFooter">
-        <div class="${pageScope.style eq '2011' ? 'section2' : 'ft'}">
+        <div class="${pageScope.style eq '2011' ? 'section2' : 'ft padtop_15 plm'}">
             <div class="line">
                 <div class="unit size1of2">
                     <div class="prm">
@@ -103,7 +103,7 @@
         </div>
     </c:set>
 
-    <div class="mod ${pageScope.style eq '2011' ? 'standard emailSignUp' : 'standard_1-3'} jq-emailSignUpWrapper">
+    <div class="mod ${pageScope.style eq '2011' ? 'standard emailSignUp' : 'standard_1-1'} jq-emailSignUpWrapper">
         <div class="inner">
             <div class="hd">
                 <c:choose>
@@ -116,7 +116,7 @@
                 </c:choose>
             </div>
 
-            <div class="bd ${pageScope.style eq '2011' ? '' : 'padtop_15 padbtm_15 plm'}">
+            <div class="bd ${pageScope.style eq '2011' ? '' : 'padtop_15 padbtm_15 plm bottomBorder'}">
 
                 <c:if test="${!userIsAlreadySignedUp}">
 
@@ -160,7 +160,7 @@
                         <form class="jq-emailSignUpForm" action="#" method="POST" autocomplete="off">
                             <div class="line">
 
-                            <input type="text" class="jq-emailSignUpEmail unit size3of5 ${pageScope.style eq '2011' ? 'formText1' : ''} mrm" name="email"
+                            <input type="text" class="jq-emailSignUpEmail unit size3of5 ${pageScope.style eq '2011' ? 'formText1' : 'height18'} mrm" name="email"
                                    onfocus="GS_textSwitch(this, '', '[Your email address]');"
                                    onblur="GS_textSwitch(this, '[Your email address]', '');"
                                    value="[Your email address]"
