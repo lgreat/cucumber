@@ -130,6 +130,9 @@ General comments:
     border-bottom:1px solid #e6e6e6;
     background-color:#fff;
 }
+.slStylesV1-0 .standard_1-3 .error .bd {
+    border: none;
+}
 .slStylesV1-0 .standard_1-3 .bd input[type=text],
 .slStylesV1-0 .standard_1-3 .bd input.text {
     height:18px;
