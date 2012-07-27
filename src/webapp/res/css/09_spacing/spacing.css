@@ -310,6 +310,10 @@ General comments:
     padding-top: 7px;
 }
 
+.padtop_15 {
+    padding-top: 15px;
+}
+
 .padrt_5 {
     padding-right: 5px;
 }
@@ -320,6 +324,10 @@ General comments:
 
 .padrt_15 {
     padding-right: 15px;
+}
+
+.padbtm_15 {
+    padding-bottom: 15px;
 }
 
 .padbtm_20 {

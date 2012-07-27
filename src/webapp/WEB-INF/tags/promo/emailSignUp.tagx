@@ -28,9 +28,18 @@
                             </div>
                             <div class="${pageScope.style eq '2011' ? 'bd' : ''}">
                                 <div>
-                                    <p class="${pageScope.style eq '2011' ? 'text3' : 'small'}"><a href="http://facebook.com/greatschools"
-                                                                                                   target="_blank">GreatSchools</a>
-                                    </p>
+                                    <c:choose>
+                                        <c:when test="${pageScope.style eq '2012'}">
+                                            <span class="small"><a href="http://facebook.com/greatschools"
+                                                                target="_blank">GreatSchools</a>
+                                            </span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <p class="text3"><a href="http://facebook.com/greatschools"
+                                                                target="_blank">GreatSchools</a>
+                                            </p>
+                                        </c:otherwise>
+                                    </c:choose>
 
                                     <div>
                                         <![CDATA[
@@ -107,24 +116,46 @@
                 </c:choose>
             </div>
 
-            <div class="bd">
+            <div class="bd ${pageScope.style eq '2011' ? '' : 'padtop_15 padbtm_15 plm'}">
 
                 <c:if test="${!userIsAlreadySignedUp}">
 
-                <c:if test="${pageScope.style eq '2011'}">
-                    <![CDATA[<div class="section1">]]>
-                </c:if>
-                        <p class="jq-emailSignUpIntroText ${pageScope.style eq '2011' ? 'text2' : 'small'}">
-                            <strong>Sign up for tips and ideas</strong> that will enrich your child's education.
-                        </p>
+                    <c:if test="${pageScope.style eq '2011'}">
+                        <![CDATA[<div class="section1">]]>
+                    </c:if>
 
-                        <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailInvalid">
-                            <div class="formErrorText">Please enter your email address to sign up.</div>
-                        </div>
+                    <c:choose>
+                        <c:when test="${pageScope.style eq '2012'}">
+                            <div class="jq-emailSignUpIntroText padbtm_15 small bottom">
+                                <strong>Sign up for tips and ideas</strong> that will enrich your child's education.
+                            </div>
 
-                        <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp">
-                            <div class="formErrorText">The email address is already signed up.</div>
-                        </div>
+                            <div class="media error jq-emailSignUpError jq-emailSignUpError-emailInvalid">
+                                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                <div class="bd">Please enter your email address to sign up.</div>
+                            </div>
+
+                            <div class="media error jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp">
+                                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                                <div class="bd">The email address is already signed up.</div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <p class="jq-emailSignUpIntroText text2">
+                                <strong>Sign up for tips and ideas</strong> that will enrich your child's education.
+                            </p>
+
+                            <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailInvalid">
+                                <div class="formErrorText">Please enter your email address to sign up.</div>
+                            </div>
+
+                            <div class="hidden jq-emailSignUpError jq-emailSignUpError-emailAlreadySignedUp">
+                                <div class="formErrorText">The email address is already signed up.</div>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
 
                         <form class="jq-emailSignUpForm" action="#" method="POST" autocomplete="off">
                             <div class="line">
@@ -152,9 +183,9 @@
                             <p>You've successfully subscribed to the GreatSchools newsletter.</p>
                         </div>
 
-                <c:if test="${pageScope.style eq '2011'}">
-                    <![CDATA[</div>]]>
-                </c:if>
+                    <c:if test="${pageScope.style eq '2011'}">
+                        <![CDATA[</div>]]>
+                    </c:if>
 
                 </c:if>
 
