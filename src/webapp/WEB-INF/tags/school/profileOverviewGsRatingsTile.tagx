@@ -21,7 +21,7 @@
 
 
     <c:choose>
-        <c:when test="${content eq 'default'}">
+        <c:when test="${content eq 'GsRatings'}">
             <school:profileOverviewCell1 title="GreatSchools ratings">
                 <!-- =================== The following is left over from a prototype - Replace it =================== -->
                 <c:set var="overallRating" value="${gsRatingsModel.overall}"/>
@@ -42,7 +42,7 @@
         </c:when>
 
         <c:when test="${content eq 'awards'}">
-            <school:profileOverviewCell1 title="Awards">
+            <school:profileOverviewCell1 title="Awards &amp; recognition">
                 <ul>
                     <c:forEach var="item" items="${gsRatingsModel['awards']}">
                         <li>${item}</li>

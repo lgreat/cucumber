@@ -284,10 +284,13 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             }
             else if( "UG".equals(level) || "ungraded".equals(level) || "n/a".equals(level) ) {
                 // Ungraded is returned as "n/a"
-                sentence.append( " and is ungraded " );
+                sentence.append( " and is ungraded" );
+            }
+            else if( level.indexOf('-') > 0 ) {      // If the level contains a dash there are multiple grades
+                sentence.append( " in grades " ).append( level );
             }
             else {
-                sentence.append( " in grades " ).append( level ).append( " " );
+                sentence.append( " in grade " ).append( level );
             }
         }
 
@@ -376,7 +379,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             // Default action
             model = new HashMap<String, Object>(2);
             // TODO - Default action code needs to be added when spec is ready
-            model.put( "content", "default" );
+            model.put( "content", "GsRatings" );
         }
 
         return model;
@@ -412,7 +415,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             // Substitute action 1
             model = new HashMap<String, Object>(2);
             model.put( "awards", awards );
-            model.put( "content", "award" );
+            model.put( "content", "awards" );
         }
 
         return model;

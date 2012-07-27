@@ -94,7 +94,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
         String content = (String) resultsModel.get("content");
-        assertEquals("testGsRatingsSubstitute1A: content wrong", "award", content);
+        assertEquals("testGsRatingsSubstitute1A: content wrong", "awards", content);
         List<String> awards = (List<String>) resultsModel.get( "awards" );
         assertEquals("testGsRatingsSubstitute1A: awards length wrong", 1, awards.size());
         assertEquals("testGsRatingsSubstitute1A: awards wrong", "Award 1", awards.get(0));
@@ -113,7 +113,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
         String content = (String) resultsModel.get("content");
-        assertEquals("testGsRatingsSubstitute1B: content wrong", "award", content);
+        assertEquals("testGsRatingsSubstitute1B: content wrong", "awards", content);
         List<String> awards = (List<String>) resultsModel.get( "awards" );
         assertEquals("testGsRatingsSubstitute1B: awards length wrong", 2, awards.size());
         assertEquals("testGsRatingsSubstitute1B: academic award wrong", "Award 1", awards.get(0));
@@ -135,12 +135,12 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
         String content = (String) resultsModel.get("content");
-        assertEquals("testGsRatingsSubstitute3: content wrong", "award", content);
+        assertEquals("testGsRatingsSubstitute1C: content wrong", "awards", content);
         List<String> awards = (List<String>) resultsModel.get( "awards" );
         assertEquals("testGsRatingsSubstitute1C: awards length wrong", 3, awards.size());
         assertEquals("testGsRatingsSubstitute1C: academic award wrong", "Award 1", awards.get(0));
         assertEquals("testGsRatingsSubstitute1C: academic award wrong", "Award 2", awards.get(1));
-        assertEquals("testGsRatingsSubstitute1: service award wrong", "Service 1", awards.get(2));
+        assertEquals("testGsRatingsSubstitute1C: service award wrong", "Service 1", awards.get(2));
     }
 
     // Test Substitute 2 - Test complete sentence building

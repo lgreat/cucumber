@@ -1,19 +1,16 @@
 package gs.web.school;
 
 import gs.data.school.EspResponse;
-import gs.data.school.IEspResponseDao;
 import gs.data.school.School;
-import gs.data.state.State;
-import gs.web.util.context.SessionContext;
-import gs.web.util.context.SessionContextUtil;
+import gs.data.school.SchoolSubtype;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -26,23 +23,16 @@ import java.util.*;
 public class SchoolProfileProgramsController extends AbstractSchoolProfileController {
     private static final Log _log = LogFactory.getLog(SchoolProfileProgramsController.class);
     public static final String VIEW = "school/profilePrograms";
-    /*  RJR - Comment out for now as this will be needed later
-    public static final String MODEL_SUPERUSER_ERROR = "superUserError";
-    */
-
-    /*
-    @Autowired
-    private ISchoolDao _schoolDao;
-    */
 
     // The following is a prefix for the Model items specific to this page
-    private static final String [] MODEL_PREFIXES = {"highlights", "application_info", "programs_resources", "extracurriculars"};
+    //* private static final String [] MODEL_PREFIXES = {"highlights", "application_info", "programs_resources", "extracurriculars"};
+    private static final String [] MODEL_PREFIXES = {"highlights", "programs_resources", "extracurriculars"};
 
     // The following drives creation of the display
     private static final List<SchoolProfileDisplayBean> DISPLAY_CONFIG = new ArrayList<SchoolProfileDisplayBean>();
     static {
         buildHighlightsDisplayStructure();
-        buildApplicationInfoDisplayStructure();
+        //* buildApplicationInfoDisplayStructure();
         buildProgResDisplayStructure();
         buildExtrasDisplayStructure();
     }
@@ -105,7 +95,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 //mergeResults( resultsModel, additionalResults );
 
                 // Perform unique data manipulation rules
-                applyUniqueDataRules( resultsModel, DISPLAY_CONFIG );
+                applyUniqueDataRules( school, resultsModel, DISPLAY_CONFIG, espResults );
 
                 // Put the data into the model so it will be passed to the jspx page
                 modelMap.put( "ProfileData", resultsModel );
@@ -154,7 +144,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
         // Build by row by iterating over the display bean
         for( SchoolProfileDisplayBean display : displayConfig ) {
-            List<String> rowData = getValuesForSectionAndKey(resultsMap, display );
+            List<String> rowData = buildDisplayDataForRow(resultsMap, display);
             // Check this displayConfig instance to see if this is the special additional data case in which case there will be a
             // linkedResultKey in which case it should be used.
             String key = display.getModelKey();
@@ -164,7 +154,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         return resultsModel;
     }
 
-    private List<String> getValuesForSectionAndKey(Map<String, List<EspResponse>> espResponseMap, SchoolProfileDisplayBean bean ) {
+    private List<String> buildDisplayDataForRow(Map<String, List<EspResponse>> espResponseMap, SchoolProfileDisplayBean bean) {
 
         List<String> results = new ArrayList<String>();
 
@@ -235,7 +225,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
 
    // Some rows need special manipulation for the display.  Those rules are applied here
-    private void applyUniqueDataRules(Map<String, List<String>> resultsModel, List<SchoolProfileDisplayBean> displayConfig) {
+    private void applyUniqueDataRules(School school, Map<String, List<String>> resultsModel, List<SchoolProfileDisplayBean> displayConfig, Map<String, List<EspResponse>> espResults) {
         // In the Application Info tab the application process data possibly consists of two data results.
         // All results are to be displayed but with different text than in the database
         // If the results include Yes then reply with "Call the school"
@@ -258,17 +248,17 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             resultsModel.put( "application_info/AppEnroll/admissions_contact_school", result );
         }
 
-        // For the Programs & Resources tab, Basics, Shuttle Info we may need to combine 2 results.
-        // If ModelKey: "program_resources/Basics/transportation_shuttle" contains "yes" then show "Yes"
-        // And, if there is a value in program_resources/Basics/transportation_shuttle_other add:
+        // For the Programs & Resources tab, Resources, Shuttle Info we may need to combine 2 results.
+        // If ModelKey: "program_resources/Resources/transportation_shuttle" contains "yes" then show "Yes"
+        // And, if there is a value in program_resources/Resources/transportation_shuttle_other add:
         // "Nearby lines: " and the value
-        List<String> shuttle_list = resultsModel.get( "programs_resources/Basics/transportation_shuttle" );
+        List<String> shuttle_list = resultsModel.get( "programs_resources/Resources/transportation_shuttle" );
         if( shuttle_list != null && shuttle_list.size() > 0 ) {
             String result = null;
             String shuttle = shuttle_list.get(0);
             if( shuttle.equalsIgnoreCase("yes")) {
                 // Now see if there the additional data
-                List<String> nearby_list = resultsModel.get( "programs_resources/Basics/transportation_shuttle_other" );
+                List<String> nearby_list = resultsModel.get( "programs_resources/Resources/transportation_shuttle_other" );
                 if( nearby_list != null && nearby_list.size() > 0 ) {
                     result = "Yes. Nearby lines: " + nearby_list.get(0);
                 }
@@ -277,11 +267,11 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 }
                 List<String> results = new ArrayList<String>(1);
                 results.add( result );
-                resultsModel.put("programs_resources/Basics/transportation_shuttle", results);
+                resultsModel.put("programs_resources/Resources/transportation_shuttle", results);
             }
             else {
                 // Since answer must be no, remove existing result so the line wil not show
-                resultsModel.remove( "program_resources/Basics/transportation_shuttle" );
+                resultsModel.remove( "program_resources/Resources/transportation_shuttle" );
             }
         }
 
@@ -349,10 +339,155 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
                     }
                 }
-            }   // for
+            }   // if
+        }  // for
 
 
+        // TODO This is just debug data for testing blue_ribbon_schools
+        String year = "2011";       // This would be from the blue_ribbon_schools table
+        String result = "This school was selected as a Blue Ribbon School in " + year + " by the US Department of Education.";
+        List<String> resultsList = new ArrayList<String>(1);
+        resultsList.add(result);
+        resultsModel.put( "highlights/Awards/blue_ribbon_schools_text", resultsList );
+        List<String> blueRibbonMoreInfo = new ArrayList<String>(1);
+        blueRibbonMoreInfo.add("More about the Blue Ribbon Schools Program");
+        resultsModel.put( "highlights/Awards/blue_ribbon_schools_more_info", blueRibbonMoreInfo );
+        List<String> blueRibbonMoreInfoUrl = new ArrayList<String>(1);
+        blueRibbonMoreInfoUrl.add("/definitions/natl/blueribbon.html");
+        resultsModel.put( "highlights/Awards/blue_ribbon_schools_more_info_url", blueRibbonMoreInfoUrl );
+
+        // academic awards and service awards have to be coerced into "award (year)" format
+        List<String> academicsList = new ArrayList<String>(3);
+        String academic1 = formatValueAndYear(espResults, "academic_award_1", "academic_award_1_year");
+        if( academic1 != null ) {
+            academicsList.add( academic1 );
         }
+        String academic2 = formatValueAndYear(espResults, "academic_award_2", "academic_award_2_year");
+        if( academic2 != null ) {
+            academicsList.add( academic2 );
+        }
+        String academic3 = formatValueAndYear(espResults, "academic_award_3", "academic_award_3_year");
+        if( academic3 != null ) {
+            academicsList.add( academic3 );
+        }
+        resultsModel.put("highlights/Awards/academic_award", academicsList);
+
+        List<String> servicesList = new ArrayList<String>(3);
+        String service1 = formatValueAndYear(espResults, "service_award_1", "service_award_1_year");
+        if( service1 != null ) {
+            servicesList.add( service1 );
+        }
+        String service2 = formatValueAndYear(espResults, "service_award_2", "service_award_2_year");
+        if( service2 != null ) {
+            servicesList.add( service2 );
+        }
+        String service3 = formatValueAndYear(espResults, "service_award_3", "service_award_3_year");
+        if( service3 != null ) {
+            servicesList.add( service3 );
+        }
+        resultsModel.put("highlights/Awards/service_award", servicesList);
+
+        // affiliation which comes from the school table
+        String affiliation = school.getAffiliation();
+        if( affiliation!=null && affiliation.length()>0 ) {
+            List<String> affiliationList = new ArrayList<String>(1);
+            affiliationList.add( affiliation );
+            resultsModel.put( "programs_resources/Basics/school_type_affiliation", affiliationList );
+        }
+
+        // association which comes from the school table
+        String associationCommaSep = school.getAssociation();
+        if( associationCommaSep!=null && associationCommaSep.length()>0 ) {
+            String [] associations = associationCommaSep.split(", ");
+            List<String> associationList = new ArrayList<String>(associations.length);
+            for( String v : associations ) {
+                associationList.add( v );
+            }
+            resultsModel.put( "programs_resources/Basics/school.association", associationList );
+        }
+
+
+        // Sometimes there is data in the school table that can be used to enhance the display results.  Those cases are handled below
+        // highlights tab
+        enhance_results( resultsModel, "highlights/SpecEd/academic_focus", "Special Education", school, "special_education_program" );
+        enhance_results( resultsModel, "highlights/SpecEd/academic_focus", "Special Education", school, "special_education" );
+        enhance_results( resultsModel, "highlights/Gifted/instructional_model", "Gifted / High performing", school, "gifted_talented");
+        // programs and resources tab
+        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Adult education", school, "adult_education");
+        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Waldorf", school, "Waldorf");
+        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Independent Study", school, "independent_study");
+        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Virtual school", school, "virtual_online");
+        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Continuation", school, "continuation");
+        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Core knowledge", school, "Core_Knowledge");
+        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Gifted / High performing", school, "gifted_talented");
+        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Montessori", school, "Montessori");
+        // coed - This is an extra special case in that this information is stored inactive in esp_response and the active values are in school
+        enhance_results( resultsModel, "programs_resources/Basics/coed", "All Girls", school, "all_female" );
+        enhance_results( resultsModel, "programs_resources/Basics/coed", "All Boys", school, "all_male" );
+        enhance_results( resultsModel, "programs_resources/Basics/coed", "Coed", school, "coed" );
+        // schedule
+        enhance_results( resultsModel, "programs_resources/Basics/schedule", "Year-round", school, "year_round" );
+        // Boarding
+        enhance_results( resultsModel, "programs_resources/Basics/boarding", "Some boarding, some day", school, "boarding" );
+        enhance_results( resultsModel, "programs_resources/Basics/boarding", "Boarding school", school, "boarding_and_day" );
+        // academic focus
+        enhance_results( resultsModel, "programs_resources/Programs/academic_focus", "Special Education", school, "special_education_program" );
+        enhance_results( resultsModel, "programs_resources/Programs/academic_focus", "Special Education", school, "special_education" );
+        enhance_results( resultsModel, "programs_resources/Programs/academic_focus", "Vocational education", school, "vocational_technical" );
+        enhance_results( resultsModel, "programs_resources/Programs/academic_focus", "Religious", school, "religious" );
+    }
+
+    /**
+     * Enhances a specific results model value with school.subtype data.  Specific rule is that if the school contains
+     * the specified school_subtype then if the resultsModel at resultsModelKey does not contain the value resultsModelValue
+     * then add that resultsModelValue
+     * @param resultsModel
+     * @param resultsModelKey
+     * @param resultsModelValue This MUST be the pretty value - see EspResponseDaoHibernate for the mapping from esp_response.response_value to pretty value
+     * @param school_subtype
+     */
+    private void enhance_results(Map<String,List<String>> resultsModel, String resultsModelKey, String resultsModelValue, School school, String school_subtype) {
+        if( resultsModel==null || resultsModelKey==null || school==null || school_subtype==null ) {
+            return;
+        }
+
+        // See if the school.subtype contains the specified subtype
+        SchoolSubtype subtype = school.getSubtype();
+        if( subtype.contains(school_subtype) ) {
+            // Have matching subtype, see if it needs to be added to the results
+            List<String> existingValues = resultsModel.get(resultsModelKey);
+            // make sure there is a set of values, if not create vales
+            if( existingValues == null ) {
+                existingValues = new ArrayList<String>(1);
+                resultsModel.put( resultsModelKey, existingValues );
+            }
+
+            // Only add the value if it does not exist
+            if( ! existingValues.contains(resultsModelValue) ) {
+                existingValues.add( resultsModelValue );
+            }
+        }
+    }
+
+    /**
+     * Helper to retrieve academic_award (or service_award) and corresponding year and format it into award (year) format
+     * @param espResults
+     * @param valueKey The award or service key
+     * @param yearKey The corresponding year
+     * @return The formatted result or null if there is no corresponding data
+     */
+    private String formatValueAndYear(Map<String,List<EspResponse>> espResults, String valueKey, String yearKey) {
+        List<EspResponse> responses = espResults.get( valueKey );
+        if( responses!=null && responses.size()>0 ) {
+            StringBuilder sb = new StringBuilder();
+            sb.append( responses.get(0).getPrettyValue() );
+            List<EspResponse> responseYears = espResults.get( yearKey );
+            if( responseYears!=null && responseYears.size()>0 ) {
+                sb.append( " (" ).append(responseYears.get(0).getPrettyValue()).append(")");
+            }
+            return sb.toString();
+        }
+        return null;
     }
 
     // The display requires that each section is a separate html table and rows with no data are not displayed.
@@ -448,18 +583,30 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
      */
     private static void buildHighlightsDisplayStructure() {
         String tabAbbrev = "highlights";
+        // Awards section
+        String awardsAbbrev = "Awards";
+        String awardsTitle = "Awards";
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, awardsAbbrev, awardsTitle, "National Blue Ribbon School",
+                "blue_ribbon_schools_text") );
+        getLastDisplayBean().addUrl("blue_ribbon_schools_text", null);
+        getLastDisplayBean().addUrl("blue_ribbon_schools_more_info", "blue_ribbon_schools_more_info_url");
+        // The following 2 beans will get their data created in the applyUniqueDataRules because the award and year fields need to be merged
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, awardsAbbrev, awardsTitle, "Academic awards received in the past 3 years",
+                "academic_award") );
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, awardsAbbrev, awardsTitle, "Community service awards received in the past 3 years",
+                "service_award") );
+
         // Special Education section
         String specEdAbbrev = "SpecEd";
         String specEdTitle = "Special Education/Special Needs";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, specEdAbbrev, specEdTitle, "Specific academic themes or areas of focus",
                 "academic_focus", new String[]{"special_education"}) );
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, specEdAbbrev, specEdTitle, "Special education programming offered",
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, specEdAbbrev, specEdTitle, "Level of special education programming offered",
                 "spec_ed_level") );
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, specEdAbbrev, specEdTitle, "Specialized programs for specific types of special education students",
                 "special_ed_programs") );
-        /* 6/19/12 - Michael Hicks said this one is to be removed, it is not special education related
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, specEdAbbrev, specEdTitle, "Extra learning resources offered",
-                "extra_learning_resources", new String[]{"differentiated"} )); */
+                "extra_learning_resources", new String[]{"differentiated"} ));
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, specEdAbbrev, specEdTitle, "Staff resources available to students",
                 "staff_resources", new String[]{"special_ed_coordinator", "speech_therapist"} ) );
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, specEdAbbrev, specEdTitle, "Clubs",
@@ -525,10 +672,9 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Foreign languages taught",
                 "foreign_language"));
         getLastDisplayBean().addKey("foreign_language_other");
-        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "ESL/ELL levels offered",
-                "ell_level", new String[]{"basic", "moderate", "intensive"}));
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, langAbbrev, langTitle, "ESL/ELL programming offered",
-                "ell_languages" ) );
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, langAbbrev, langTitle, "Level of ESL/ELL programming offered",
+                "ell_level" ) );
+        getLastDisplayBean().addKey("ell_languages");
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, langAbbrev, langTitle, "Staff resources available to students",
                 "staff_resources", new String[]{"ell_esl_coord", "speech_therapist"} ) );
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Languages spoken by staff",
@@ -569,6 +715,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "student_clubs", new String[]{"debate", "", "forensics", "its_academic", "nhs"} ) );
     }
 
+    // 7/18/12 - This is no longer part of this page
     private static void buildApplicationInfoDisplayStructure() {
         String tabAbbrev = "application_info";
         // Special Education section
@@ -605,26 +752,28 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "start_time" ) );
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "School end time",
                 "end_time" ) );
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "School Leader's name",
-                "administrator_name" ) );
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Best ways for parents to contact the school",
-                "contact_method", new String[]{"email", "phone", "other_contact"} ) );
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Before school or after school care / program onsite",
                 "before_after_care", new String[]{"after", "before"}));
         getLastDisplayBean().addKey("before_after_care_start");
         getLastDisplayBean().addKey("before_after_care_end");
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "School Leader's name",
+                "administrator_name" ) );
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Best ways for parents to contact the school",
+                "contact_method", new String[]{"email", "phone", "other_contact"} ) );
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Age at which early childhood or Pre-K program begins",
                 "age_pk_start"));
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Transportation provided for students by the school / district",
-                "transportation" ) );
-        getLastDisplayBean().addKey("transportation_other");
-        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School-run shuttle from nearby metro and bus stops",
-                "transportation_shuttle"));
-        getLastDisplayBean().addSupportInfo("transportation_shuttle_other");
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Special schedule",
-                "schedule" ) );
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Gender",
+                "coed"));
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Special schedule",
+                "schedule"));
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Boarding options",
+                "boarding"));
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Is there an application process?",
                 "application_process" ) );
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Affiliation",
+                "school_type_affiliation" ) );
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Associations",
+                "school.association" ) );
 
         // Programs section
         sectionAbbrev = "Programs";
@@ -651,20 +800,31 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "skills_training"));
         getLastDisplayBean().addSupportInfo("skills_training_other");
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Advanced Placement (AP) exams offered",
-                "advanced_placement_exams" ) ); // This key is a placeholder because the data does not come from the ESP table.  The data is filled in in applyUniqueDataRules
+                "advanced_placement_exams" ) ); // This key is a placeholder because the data does not come from the ESP table.  The data is provided in applyUniqueDataRules
 
         // Resources section
         sectionAbbrev = "Resources";
         sectionTitle = "Resources";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Staff resources available to students",
                 "staff_resources" ) );
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Languages spoken by staff",
-                "staff_languages" ) );
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Languages spoken by staff",
+                "staff_languages"));
         getLastDisplayBean().addKey("staff_languages_other");
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Extra learning resources offered",
                 "extra_learning_resources"));
         getLastDisplayBean().addKey("extra_learning_resources_other");
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "College preparation / awareness resources offered",
+                "college_prep"));
+        getLastDisplayBean().addKey("college_prep_other");
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School-run shuttle from nearby metro and bus stops",
+                "transportation_shuttle"));
+        getLastDisplayBean().addSupportInfo("transportation_shuttle_other");
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Transportation provided for students by the school / district",
+                "transportation"));
+        getLastDisplayBean().addKey("transportation_other");
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School facilities",
+                "facilities"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Partnerships with local resources and organizations",
                 "partnerships"));     // This key is just a placeholder
         getLastDisplayBean().addUrl("partnerships_name_1", "partnerships_url_1");
@@ -673,11 +833,6 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().addUrl("partnerships_name_4", "partnerships_url_4");
         getLastDisplayBean().addUrl("partnerships_name_5", "partnerships_url_5");
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.URL);
-        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School facilities",
-                "facilities"));
-        getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "College preparation / awareness resources offered",
-                "college_prep" ) );
         getLastDisplayBean().addKey("college_prep_other");
     }
 

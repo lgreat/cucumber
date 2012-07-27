@@ -379,8 +379,17 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         Set set = new HashSet<Integer>();
         set.add(CensusDataType.CLASS_SIZE.getId());
         set.add(CensusDataType.STUDENT_TEACHER_RATIO.getId());
+        set.add(CensusDataType.HEAD_OFFICIAL_NAME.getId());
+        set.add(CensusDataType.HEAD_OFFICIAL_EMAIL.getId());
+        set.add(CensusDataType.STUDENTS_ENROLLMENT.getId());     // This value is needed at both the school and district levels
+        set.add(CensusDataType.ADVANCED_PLACEMENT_EXAMS_OFFERED.getId());
+        set.add(CensusDataType.STUDENTS_ENROLLMENT.getId());
+        set.add(CensusDataType.STUDENTS_ETHNICITY.getId());
         return set;
     }
+
+
+
 
     /**
      * @return map of CensusDataType --> SchoolCensusValue
