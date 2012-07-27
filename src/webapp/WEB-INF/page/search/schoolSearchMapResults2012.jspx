@@ -236,7 +236,7 @@
                                 ${school.name}
                             </link:schoolProfileOverviewForPrimitives>
                         </div>
-                        <div class="bd">
+                        <div class="bd mbm">
                             <div class="small bottom ttc">
                                 ${school.schoolType}, <span class="ttu">${school.grades.rangeString}</span>
                             </div>
@@ -257,26 +257,13 @@
                                                    target="_blank">Get directions</a>
                                             </div>
                                         </div>
-                                        <button class="js-compareButton button-1Ext-2"
-                                                style="display: none;">COMPARE<br/>NOW
-                                        </button>
-
-                                        <div class="">
-                                            <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
-                                                                                state="${school.databaseState}"
-                                                                                schoolId="${school.id}"
-                                                                                styleClass="block"
-                                                                                anchor="revPagination">
-                                                <c:choose>
-                                                    <c:when test="${not empty school.parentRating}">
-                                                        <ratings:stars curSR="${school.parentRating}"/>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <dfn>Rate this school</dfn>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </link:schoolProfileParentReview2010>
-                                        </div>
+                                        <c:if test="${requestScope.context.showRealtorDotComPromos}">
+                                            <div class="small bottom">
+                                                <gslink:realtorDotComLink address="${school.address}"
+                                                                          customLinkSuffix="inlinelinkheader"
+                                                                          styleClass="iconx16 i-16-home-sales">Homes for sale</gslink:realtorDotComLink>
+                                            </div>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +271,7 @@
 
                         <div class="ft">
                             <div class="line">
-                                <div class="unit size24of100">
+                                <div class="unit size35of100">
                                     <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                                     <c:choose>
                                         <c:when test="${school.levelCode eq 'p'}">
@@ -296,20 +283,19 @@
                                                    title="${preschoolNoCompareMessage}">Compare</label>
                                         </c:when>
                                         <c:otherwise>
-
                                             <input id="${school.databaseState}${school.id}"
                                                    class="js-compare-school-checkbox"
                                                    type="checkbox"/>
                                             <label class="js-compareLabel checkbox"
                                                    for="${school.databaseState}${school.id}">Compare</label>
-                                            <!--<button class="js-compareButton button-1Ext-2"-->
-                                            <!--style="display: none;">COMPARE<br/>NOW-->
-                                            <!--</button>-->
+                                            <button class="js-compareButton button-1Ext-2"
+                                                    style="display: none;">Compare<br/>Now
+                                            </button>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
 
-                                <div class="unit size38of100">
+                                <div class="unit size65of100 lastUnit">
                                     <c:set var="mslHasSchool" value="${false}"/>
                                     <c:forEach items="${mslSchools}" var="mslSchool">
                                         <c:if test="${mslSchool.schoolId eq school.id and mslSchool.state eq school.databaseState}">
@@ -331,44 +317,29 @@
                                         </c:choose>
 
                                         <div class="js-existsInMsl" style="display: ${existsInMsl};">
-                                            <div class="media skin-1 attribution">
-                                                <div class="img mrs">
-                                                    <span class="iconx16 i-16-success"><!-- do not collapse --></span>
-                                                </div>
-                                                <div class="bd small bottom">
-                                                    Added to <a href="/mySchoolList.page">My School List</a>
-                                                </div>
+                                            <div class="fltlft mrs">
+                                                <span class="iconx16 i-16-success"><!-- do not collapse --></span>
+                                            </div>
+                                            <div class="fltlft small bottom">
+                                                Added to <a href="/mySchoolList.page">My School List</a>
                                             </div>
                                         </div>
                                         <div class="js-notInMsl" style="display: ${notInMsl};">
-                                            <div class="media skin-1 attribution">
-                                                <div class="img mrs">
-                                                    <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
-                                                </div>
-                                                <div class="js-msl-text bd small">
-                                                    <a href="#" class="js-add-msl-link"
-                                                       id="js-add-msl-link-${school.databaseState}${school.id}"
-                                                       onclick="if(GS.showAddMslJoinHover('${omniturePageName}', '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this) == false){
+                                            <div class="fltlft mrs">
+                                                <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
+                                            </div>
+                                            <div class="js-msl-text fltlft small bottom">
+                                                <a href="#" class="js-add-msl-link"
+                                                   id="js-add-msl-link-${school.databaseState}${school.id}"
+                                                   onclick="if(GS.showAddMslJoinHover('${omniturePageName}', '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this) == false){
                                                             GS.map.getMap.addSavedSchool('js-add-msl-link-${school.databaseState}${school.id}');
                                                          }
                                                          return false;">
-                                                        My School List
-                                                    </a>
-                                                </div>
+                                                    Add to My School List
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-
-                                <div class="unit size38of100 lastUnit">
-                                    <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                                        <div class="small bottom">
-                                            <gslink:realtorDotComLink address="${school.address}"
-                                                                      customLinkSuffix="inlinelinkheader"
-                                                                      styleClass="iconx16 i-16-home-sales">Homes for sale</gslink:realtorDotComLink>
-                                        </div>
-                                    </c:if>
                                 </div>
                             </div>
                         </div>
@@ -518,71 +489,11 @@
                                 <span class="iconx16 i-16-getDirections"><!--Do not collapse--></span>
                             </div>
                             <div class="bd">
-                                <a href="" data-href="http://maps.google.com/maps?saddr=&amp;daddr={{street}}%20{{city}}%20{{state}}%20{{zip}}"
+                                <a href=""
+                                   data-href="http://maps.google.com/maps?saddr=&amp;daddr={{street}}%20{{city}}%20{{state}}%20{{zip}}"
                                    target="_blank">Get directions</a>
                             </div>
                         </div>
-                        <div class="">
-                            <a href="" data-href="{{communityRatingUrl}}">
-                                <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl" style="display: {{showParentRating}}"><!-- do not collapse --></span>
-                                <span class="iconx16-stars i-16-grey-star  i-16-star-{{starsOff}} fl" style="display: {{showParentRating}}"><!-- do not collapse --></span>
-                                <dfn style="display: {{showRateSchool}}">Rate this school</dfn>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ft">
-                <!--Get back here-->
-                <div class="line">
-                    <div class="unit size24of100">
-                            <input id="disabled-{{state}}{{id}}"
-                                   class="compare-school-checkbox" type="checkbox"
-                                   disabled="disabled" style="display: {{isPkCompare}}"
-                                   title="Due to a lack of available data on preschools, they cannot be compared"/>
-                            <label class="checkbox"
-                                   for="disabled-{{state}}{{id}}"
-                                   style="display: {{isPkCompare}}">Compare</label>
-                            <input id="{{state}}{{id}}" class="js-compare-school-checkbox" type="checkbox"
-                                   style="display: {{showCompare}}"/>
-                            <label class="js-compareLabel checkbox" style="display: {{showCompare}}"
-                                   for="{{state}}{{id}}">Compare</label>
-                            <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW
-                            </button>
-                    </div>
-
-                    <div class="unit size38of100">
-                        <div class="js-add-msl js-add-msl-{{state}}{{id}}">
-                            <div class="js-existsInMsl" style="display: {{existsInMsl}}">
-                                <div class="media skin-1 attribution">
-                                    <div class="img mrs">
-                                        <span class="iconx16 i-16-success"><!-- do not collapse --></span>
-                                    </div>
-                                    <div class="msl-text bd small">
-                                        Added to <a href="/mySchoolList.page">My School List</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="js-notInMsl" style="display: {{notInMsl}}">
-                                <div class="media skin-1 attribution">
-                                    <div class="img mrs">
-                                        <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
-                                    </div>
-                                    <div class="js-msl-text bd small">
-                                        <a href="#" class="js-add-msl-link" id="js-add-msl-link-{{state}}{{id}}"
-                                           onclick="if(GS.showAddMslJoinHover('{{omniturePageName}}', '{{jsEscapeName}}', '{{id}}', '{{state}}', this) == false){
-                                                GS.map.getMap.addSavedSchool('js-add-msl-link-{{state}}{{id}}');
-                                            }
-                                            return false;">
-                                            My School List
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="unit size38of100 lastUnit">
                         <div class="small bottom" style="display: {{homesForSale}}">
                             <div class="media skin-1">
                                 <div class="img mrs">
@@ -596,6 +507,52 @@
                                        target="_blank"
                                        rel="nofollow">
                                         Homes for sale
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ft">
+                <div class="line">
+                    <div class="unit size35of100">
+                        <input id="disabled-{{state}}{{id}}"
+                               class="compare-school-checkbox" type="checkbox"
+                               disabled="disabled" style="display: {{isPkCompare}}"
+                               title="Due to a lack of available data on preschools, they cannot be compared"/>
+                        <label class="checkbox"
+                               for="disabled-{{state}}{{id}}"
+                               style="display: {{isPkCompare}}">Compare</label>
+                        <input id="{{state}}{{id}}" class="js-compare-school-checkbox" type="checkbox"
+                               style="display: {{showCompare}}"/>
+                        <label class="js-compareLabel checkbox" style="display: {{showCompare}}"
+                               for="{{state}}{{id}}">Compare</label>
+                        <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW
+                        </button>
+                    </div>
+
+                    <div class="unit size65of100">
+                        <div class="js-add-msl js-add-msl-{{state}}{{id}}">
+                            <div class="js-existsInMsl" style="display: {{existsInMsl}}">
+                                <div class="fltlft mrs">
+                                    <span class="iconx16 i-16-success"><!-- do not collapse --></span>
+                                </div>
+                                <div class="msl-textt fltlft small bottom">
+                                    Added to <a href="/mySchoolList.page">My School List</a>
+                                </div>
+                            </div>
+                            <div class="js-notInMsl" style="display: {{notInMsl}}">
+                                <div class="fltlft mrs">
+                                    <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
+                                </div>
+                                <div class="js-msl-text fltlft small bottom">
+                                    <a href="#" class="js-add-msl-link" id="js-add-msl-link-{{state}}{{id}}"
+                                       onclick="if(GS.showAddMslJoinHover('{{omniturePageName}}', '{{jsEscapeName}}', '{{id}}', '{{state}}', this) == false){
+                                                GS.map.getMap.addSavedSchool('js-add-msl-link-{{state}}{{id}}');
+                                            }
+                                            return false;">
+                                        My School List
                                     </a>
                                 </div>
                             </div>
@@ -778,40 +735,45 @@
                         </div>
 
                         <div class="ttc small bottom">${school.schoolType}, ${school.grades.rangeString} | ${school.city}, ${school.databaseState}</div>
-
-                        <div class="media skin-1 attribution">
-                            <div class="js-gsRating img mrm">
-                                <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}"
-                                                              levelCode="${school.levelCode}" styleClass="noUnderline">
-                                    <c:choose>
-                                        <c:when test="${school.schoolType} eq 'private'">
-                                            <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
-                                        </c:when>
-                                        <c:when test="${empty school.greatSchoolsRating}">
-                                            <div class="iconx24-ratings i-24-ratingsNA"><!-- do not collapse --></div>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <!--<span class="fltlft sprite badge_sm_${school.greatSchoolsRating}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                            <div class="iconx24-ratings i-24-ratings${school.greatSchoolsRating}"><!-- do not collapse --></div>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </link:schoolProfileRating2010>
+                        <div class="line">
+                            <div class="unit size30of100">
+                                <div class="js-gsRating mrm">
+                                    <link:schoolProfileRating2010 state="${school.databaseState}"
+                                                                  schoolId="${school.id}"
+                                                                  levelCode="${school.levelCode}"
+                                                                  styleClass="noUnderline">
+                                        <c:choose>
+                                            <c:when test="${school.schoolType} eq 'private'">
+                                                <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+                                            </c:when>
+                                            <c:when test="${empty school.greatSchoolsRating}">
+                                                <div class="iconx24-ratings i-24-ratingsNA"><!-- do not collapse --></div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <!--<span class="fltlft sprite badge_sm_${school.greatSchoolsRating}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                                <div class="iconx24-ratings i-24-ratings${school.greatSchoolsRating}"><!-- do not collapse --></div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </link:schoolProfileRating2010>
+                                </div>
                             </div>
-                            <div class="bd small bottom js-communityRating">
-                                <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
-                                                                    state="${school.databaseState}"
-                                                                    schoolId="${school.id}"
-                                                                    styleClass="block" anchor="revPagination">
-                                    <c:choose>
-                                        <c:when test="${not empty school.parentRating}">
-                                            <ratings:stars curSR="${school.parentRating}"/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <!--<span class="sprite stars_sm_rate_it">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                            <dfn>Rate this school</dfn>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </link:schoolProfileParentReview2010>
+                            <div class="unit size70of100 lastUnit">
+                                <div class="small bottom fltrt js-communityRating">
+                                    Community rating:
+                                    <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
+                                                                        state="${school.databaseState}"
+                                                                        schoolId="${school.id}"
+                                                                        styleClass="dib" anchor="revPagination">
+                                        <c:choose>
+                                            <c:when test="${not empty school.parentRating}">
+                                                <ratings:stars curSR="${school.parentRating}"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <dfn>Rate this school</dfn>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </link:schoolProfileParentReview2010>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -823,7 +785,8 @@
     <!--Changes made to the styles would have to be updated in the javascript that uses hogan to render new data (identified by
  {{ }} )for every ajax refresh -->
     <div id="js-schoolListTemplate" style="display: none;">
-        <div class="js-mouseover-open-bubble pam" style="border-bottom: 1px solid #f1f1f1" id="school-listitem-{{state}}-{{id}}">
+        <div class="js-mouseover-open-bubble pam" style="border-bottom: 1px solid #f1f1f1"
+             id="school-listitem-{{state}}-{{id}}">
             <div class="line">
                 <div class="unit size75of100">
                     <a href="" data-href="{{schoolUrl}}">
@@ -836,20 +799,29 @@
             </div>
 
             <div class="ttc small bottom">{{schoolType}}, {{gradesRange}} | {{city}}, {{state}}</div>
-            <div class="media skin-1 attribution">
-            <div class="js-gsRating img mrm">
-                <a href="" data-href="{{gsRatingUrl}}" class="noUnderline">
-                    <div class="iconx24-ratings i-24-ratings{{gsRating}}" style="display: {{showNonPrivate}}"><!-- do not collapse --></div>
-                    <span class="iconx24 i-24-private-school-badge" style="display: {{showPrivate}}"><!-- do not collapse --></span>
-                </a>
-            </div>
-            <div class="bd small bottom js-communityRating">
-                <a href="" data-href="{{communityRatingUrl}}">
-                    <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl" style="display: {{showParentRating}}"><!-- do not collapse --></span>
-                    <span class="iconx16-stars i-16-grey-star  i-16-star-{{starsOff}} fl" style="display: {{showParentRating}}"><!-- do not collapse --></span>
-                    <dfn style="display: {{showRateSchool}}">Rate this school</dfn>
-                </a>
-            </div>
+            <div class="line">
+                <div class="unit size30of100">
+                    <div class="js-gsRating img mrm">
+                        <a href="" data-href="{{gsRatingUrl}}" class="noUnderline">
+                            <div class="iconx24-ratings i-24-ratings{{gsRating}}"
+                                 style="display: {{showNonPrivate}}"><!-- do not collapse --></div>
+                            <span class="iconx24 i-24-private-school-badge"
+                                  style="display: {{showPrivate}}"><!-- do not collapse --></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="unit size70of100 lastUnit">
+                    <div class="small bottom fltrt js-communityRating">
+                        <span class="fl mrs">Community rating: </span>
+                        <a href="" data-href="{{communityRatingUrl}}">
+                            <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl"
+                                  style="display: {{showParentRating}}"><!-- do not collapse --></span>
+                            <span class="iconx16-stars i-16-grey-star  i-16-star-{{starsOff}} fl"
+                                  style="display: {{showParentRating}}"><!-- do not collapse --></span>
+                            <dfn style="display: {{showRateSchool}}">Rate this school</dfn>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
