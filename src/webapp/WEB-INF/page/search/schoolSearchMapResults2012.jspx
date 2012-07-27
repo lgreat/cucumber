@@ -736,7 +736,7 @@
 
                         <div class="ttc small bottom">${school.schoolType}, ${school.grades.rangeString} | ${school.city}, ${school.databaseState}</div>
                         <div class="line">
-                            <div class="unit size30of100">
+                            <div class="unit size28of100">
                                 <div class="js-gsRating mrm">
                                     <link:schoolProfileRating2010 state="${school.databaseState}"
                                                                   schoolId="${school.id}"
@@ -757,9 +757,12 @@
                                     </link:schoolProfileRating2010>
                                 </div>
                             </div>
-                            <div class="unit size70of100 lastUnit">
+                            <div class="unit size72of100 lastUnit">
                                 <div class="small bottom fltrt js-communityRating">
-                                    Community rating:
+                                    <div class="fl mrs">
+                                        Community rating:
+                                    </div>
+                                    <div class="fr">
                                     <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
                                                                         state="${school.databaseState}"
                                                                         schoolId="${school.id}"
@@ -773,6 +776,7 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </link:schoolProfileParentReview2010>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -800,7 +804,7 @@
 
             <div class="ttc small bottom">{{schoolType}}, {{gradesRange}} | {{city}}, {{state}}</div>
             <div class="line">
-                <div class="unit size30of100">
+                <div class="unit size28of100">
                     <div class="js-gsRating img mrm">
                         <a href="" data-href="{{gsRatingUrl}}" class="noUnderline">
                             <div class="iconx24-ratings i-24-ratings{{gsRating}}"
@@ -810,9 +814,10 @@
                         </a>
                     </div>
                 </div>
-                <div class="unit size70of100 lastUnit">
+                <div class="unit size72of100 lastUnit">
                     <div class="small bottom js-communityRating">
-                        <span class="fl mrs">Community rating: </span>
+                        <div class="fl mrs">Community rating: </div>
+                        <div class="fr">
                         <a href="" data-href="{{communityRatingUrl}}">
                             <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl"
                                   style="display: {{showParentRating}}"><!-- do not collapse --></span>
@@ -820,6 +825,7 @@
                                   style="display: {{showParentRating}}"><!-- do not collapse --></span>
                             <dfn style="display: {{showRateSchool}}">Rate this school</dfn>
                         </a>
+                        </div>
                     </div>
                 </div>
             </div>
