@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:gsweb="gstaglib"
+        >
+
+    <jsp:directive.tag body-content="empty"/>
+
+    <ul class="tabStyle-5">
+        <li><a id="js_tests"
+               href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores_tests')}"
+               title="${schoolName} | Test Scores"
+               class="${requestScope.schoolProfileTabMap.tests}">Test scores</a></li>
+        <li><span class="graydivider">|</span><a id="js_ratings"
+                                                 href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores_ratings')}"
+                                                 title="${schoolName} | Ratings Details"
+                                                 class="${requestScope.schoolProfileTabMap.ratings} mlm">Ratings details</a>
+        </li>
+    </ul>
+</jsp:root>

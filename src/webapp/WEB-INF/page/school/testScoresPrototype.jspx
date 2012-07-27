@@ -6,7 +6,8 @@
         >
 
 <c:if test="${! empty testScores}">
-    <div class="grid_16 ptl">
+    <div class="${(!empty requestScope.schoolProfileTabMap.tests and requestScope.schoolProfileTabMap.tests eq 'selected'?'':'dn')}">
+    <div class="grid_16">
         <div class="fl pbn"><h1 class="pbn mbs" style="color:#000000;" id="js_testLabelHeader"><!-- not empty --></h1></div>
         <div class="fr vab">
     <!--Display the test dropdowns-->
@@ -159,6 +160,7 @@
         //Trigger the test change event.
         $('#js_testSelect').change();
     </script>
+    </div>
     </div>
 </c:if>
 </jsp:root>

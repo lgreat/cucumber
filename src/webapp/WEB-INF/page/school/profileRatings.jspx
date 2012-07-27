@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile">
+    <jsp:directive.page import="java.util.Map"/>
+    <jsp:directive.page import="java.util.HashMap"/>
+    <jsp:directive.page import="java.util.Set"/>
+    <jsp:directive.page import="java.util.HashSet"/>
+
+    <div class="${(!empty requestScope.schoolProfileTabMap.ratings and requestScope.schoolProfileTabMap.ratings eq 'selected'?'':'dn')}">
+
+        <div class="alpha grid_16 omega">
+            <h2>GreatSchools Rating</h2>
+        </div>
+        <div class="alpha grid_16 omega">
+            <div class="alpha grid_8">
+                <div class="mod standard_1-1">
+                    <div class="inner">
+                        <div class="hd">
+                            <h4 class="pvm plm bottom">What makes up this rating?</h4>
+                        </div>
+                        <div class="bd">
+                            <p>The GreatSchools Rating is composed of two categories, Academic and Climate.
+                                Academic rating makes up 90% of the total rating, while the Climate rating
+                                makes up the remaining 10%.
+                                <a href="#">Learn more about our methodology &amp;raquo;</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid_8 omega">
+                <div class="mod standard_1-1">
+                    <div class="inner">
+                        <div class="hd">
+                            <h4 class="pvm plm bottom">What is the new GreatSchools Rating?</h4>
+                        </div>
+                        <div class="bd">
+                            <p>Sed ut perspiciatis
+                                <a href="#">Learn more about our old rating &amp;raquo;</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alpha grid_16 omega">
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h4 class="pvm plm bottom">Academic rating</h4>
+                    </div>
+                    <div class="bd">
+                        <p>Lorem ipsum</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alpha grid_16 omega">
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h4 class="pvm plm bottom">Climate ratings</h4>
+                    </div>
+                    <div class="bd">
+                        <p>Lorem ipsum</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</jsp:root>
