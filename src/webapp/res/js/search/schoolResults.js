@@ -263,7 +263,7 @@ GS.search.results = GS.search.results || (function() {
         jQuery("#totalResultsText").hide();
         jQuery("#js-spinny-search").show();
 
-        refreshAds();
+        refreshMapAds();
         $.ajax({
             type: 'POST',
             url: url() + queryString
@@ -516,10 +516,17 @@ GS.search.results = GS.search.results || (function() {
 
     var refreshAds = function() {
         var adSlotKeys = ['Search_Site_Footer_728x90', 'Search_Site_Header_728x90', 'Search_Site_AboveFold_300x250',
-            'Search_Site_BelowFold_Top_300x125', 'Search_Site_SponsoredSearch_Top_423x120',
-            'Search_Site_SponsoredSearch_Bottom_423x68', 'Search_Site_SponsoredSearch_Top_423x68'];
+            'Search_Site_BelowFold_Top_300x125', 'Search_Site_Sponsor_630x40', 'Search_Site_Custom_Welcome_Ad',
+            'Search_Site_Custom_Peelback_Ad', 'Search_Site_Global_NavPromo_970x30'];
         GS.ad.refreshAds(adSlotKeys);
-    }
+    };
+    
+    var refreshMapAds = function() {
+        var adSlotKeys = ['Search_Results_Map_Footer_728x90', 'Search_Results_Map_Header_728x90', 'Search_Results_Map_AboveFold_300x250',
+            'Search_Results_Map_BelowFold_Top_300x125', 'Search_Results_Map_Custom_Welcome_Ad',
+            'Search_Results_Map_Custom_Peelback_Ad', 'Search_Results_Map_Global_NavPromo_970x30'];
+        GS.ad.refreshAds(adSlotKeys);
+    };
 
     return {
         init:init,
