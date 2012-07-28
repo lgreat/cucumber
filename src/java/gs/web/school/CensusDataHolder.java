@@ -1,10 +1,7 @@
 package gs.web.school;
 
 import gs.data.school.School;
-import gs.data.school.census.CensusDataSet;
-import gs.data.school.census.ICensusDataDistrictValueDao;
-import gs.data.school.census.ICensusDataSchoolValueDao;
-import gs.data.school.census.ICensusDataStateValueDao;
+import gs.data.school.census.*;
 import gs.data.util.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -77,6 +74,7 @@ public class CensusDataHolder {
                 _censusDataSchoolValueDao.addInSchoolCensusValues(_school.getDatabaseState(), _dataSetsForSchoolData.values(), ListUtils.newArrayList(_school));
             }
             setSchoolDataDoneLoading(true);
+            CensusDataHelper.putSchoolValueOverridesOntoCorrectDatasets(_dataSetsForSchoolData.values());
         }
     }
 

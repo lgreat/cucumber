@@ -132,6 +132,10 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 breakdownId = breakdown.getId();
             }
 
+            if (censusDataSet.getYear() == 0) {
+                continue;
+            }
+
             // DataType enum gives us an int
             Integer groupIdInt = config.getDataTypeToGroupIdMap().get(censusDataSet.getDataType().getId());
             Long groupId = null;
@@ -196,7 +200,12 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             }
 
             String schoolValue = "";
-            SchoolCensusValue schoolCensusValue = censusDataSet.getTheOnlySchoolValue();
+            SchoolCensusValue schoolCensusValue = null;
+            if (censusDataSet.getSchoolOverrideValue() != null) {
+                schoolCensusValue = censusDataSet.getSchoolOverrideValue();
+            } else {
+                schoolCensusValue = censusDataSet.getTheOnlySchoolValue();
+            }
             if (schoolCensusValue != null) {
                 if (schoolCensusValue.getValueFloat() != null) {
                     schoolValue = formatValueAsString(schoolCensusValue.getValueFloat(), dataTypeEnum.getValueType());

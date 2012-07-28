@@ -45,8 +45,6 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
     @Autowired
     SchoolProfileDataHelper _schoolProfileDataHelper;
 
-    EthnicityDaoJava _ethnicityDaoJava = new EthnicityDaoJava();
-
 
     /**
      * Gets CensusDataSets for the passed-in dataTypeIds.
@@ -211,123 +209,6 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
         } else {
             result = String.valueOf(Math.round(value));
         }
-
-        return result;
-    }
-
-    /**
-     * Warning: do not use this with CensusDataSets that are attached to a hibernate session
-     * Finds override CensusSchoolValues attached to override CensusDataSets, and re-attaches those school values
-     * to CensusDataSets with same data type, breakdown, level, subject, etc (but with year non-zero).
-     * Used to make display-generation code easier
-     *
-     * @param censusDataSets
-     * @return Map of CensusDataSet ID to SchoolCensusValue
-     */
-    public void handleSchoolValueOverrides(Collection<CensusDataSet> censusDataSets)
-    {
-        if (censusDataSets == null || censusDataSets.isEmpty()) {
-            throw new IllegalArgumentException("CensusDataSets cannot be null or empty");
-        }
-
-        // Data Type ID  -->  (max) year
-        Map<Integer,Integer> dataTypeMaxYears = new HashMap<Integer,Integer>();
-
-        // grade + data_type_id + breakdown_id | level_code + subject_id --> Census Data Set
-        Map<String, CensusDataSet> overrides = new HashMap<String, CensusDataSet>();
-
-        // grade + data_type_id + breakdown_id | level_code + subject_id --> Census Data Set
-        Map<String, CensusDataSet> nonOverrides = new HashMap<String, CensusDataSet>();
-
-        // Most logic here is to handle manual overrides.
-        // requires one iteration over CensusDataSets, and one iteration over all fetched SchoolCensusValues
-
-        // first, figure out what the most recent year is for each data type
-        for (CensusDataSet censusDataSet : censusDataSets) {
-            Integer year = dataTypeMaxYears.get(censusDataSet.getDataType().getId());
-            if (year == null) {
-                year = censusDataSet.getYear();
-            } else {
-                year = Math.max(year, censusDataSet.getYear());
-            }
-            dataTypeMaxYears.put(censusDataSet.getDataType().getId(), year);
-        }
-
-        Calendar manualCalendar = Calendar.getInstance();
-        Calendar dataSetCalendar = Calendar.getInstance();
-        dataSetCalendar.roll(Calendar.YEAR, -1); // better than (dataSet.getYear() - 1)
-        dataSetCalendar.set(Calendar.MONTH, Calendar.OCTOBER);
-        dataSetCalendar.set(Calendar.DAY_OF_MONTH, 1);
-        //noinspection MagicNumber
-        dataSetCalendar.set(Calendar.HOUR_OF_DAY, 0);
-        dataSetCalendar.set(Calendar.MINUTE, 0);
-        dataSetCalendar.set(Calendar.SECOND, 0);
-        dataSetCalendar.set(Calendar.MILLISECOND, 0);
-
-        // second, figure out if each School has any CensusSchoolValues with recent-enough manual override
-        //for (SchoolCensusValue schoolCensusValue : schoolCensusValues) {
-        Iterator<CensusDataSet> iterator = censusDataSets.iterator();
-        while (iterator.hasNext()) {
-            CensusDataSet censusDataSet = iterator.next();
-            SchoolCensusValue schoolCensusValue = censusDataSet.getTheOnlySchoolValue();
-            if (schoolCensusValue == null) {
-                continue;
-            }
-
-            Boolean override = false;
-            // Here we get the CensusDataSet that was passed in, by ID. The CensusDataSets that are on the
-            // CensusDataSchoolValue are not complete
-            //CensusDataSet censusDataSet = censusDataSets.get(schoolCensusValue.getDataSet().getId());
-            Integer maxYear = dataTypeMaxYears.get(censusDataSet.getDataType().getId());
-
-            // if this SchoolValue's got override potential...
-            if (censusDataSet.getYear() == 0 && schoolCensusValue.getModified() != null) {
-                Date modified = schoolCensusValue.getModified();
-                manualCalendar.setTime(modified);
-                dataSetCalendar.set(Calendar.YEAR, maxYear-1);
-
-                override = manualCalendar.after(dataSetCalendar);
-
-                // it's an override!
-                if (override) {
-                    overrides.put(getCensusDataSetHash(censusDataSet), censusDataSet);
-                }
-            } else {
-                // sorry, no override potential
-                nonOverrides.put(getCensusDataSetHash(censusDataSet), censusDataSet);
-            }
-        }
-
-        // for each dataset that contains a valid override:
-        //  find the cooresponding non-year-zero dataset that is the one being overridden
-        //  take the school value (should be only one) from the override dataset, and set it onto the school value being
-        // overridden
-        for (Map.Entry<String, CensusDataSet> overrideEntry : overrides.entrySet()) {
-            CensusDataSet overridingDataSet = overrideEntry.getValue();
-            String key = overrideEntry.getKey();
-            CensusDataSet overriddenDataSet = nonOverrides.get(key);
-
-            if (overriddenDataSet != null) {
-                overriddenDataSet.getTheOnlySchoolValue().setOverrideValue(overridingDataSet.getTheOnlySchoolValue());
-            } else {
-                _log.debug("Something went wrong; no non-zero dataset corresponds to overriding dataset with year zero");
-            }
-        }
-
-    }
-
-    /**
-     * Construct a hash based on the properties of a CensusDataSet, minus the year
-     * @param censusDataSet
-     * @return
-     */
-    public String getCensusDataSetHash(CensusDataSet censusDataSet) {
-        // grade + data_type_id + breakdown_id | level_code + subject_id --> Census Data Set
-        String result = (censusDataSet.getBreakdownOnly() != null ? String.valueOf(censusDataSet.getBreakdownOnly().hashCode()) : "|");
-        result += (censusDataSet.getLevelCode() != null ? String.valueOf(censusDataSet.getLevelCode().getCommaSeparatedString()) : "|");
-        result += (censusDataSet.getDataType() != null ? String.valueOf(censusDataSet.getDataType().getId()) : "|");
-        result += (censusDataSet.getGradeLevels() != null ? String.valueOf(censusDataSet.getGradeLevels().getCommaSeparatedString()) : "|");
-        result += (censusDataSet.getSubject() != null ? String.valueOf(censusDataSet.getSubject().getSubjectId()) : "|");
 
         return result;
     }
