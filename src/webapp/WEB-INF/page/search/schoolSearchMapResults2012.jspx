@@ -595,13 +595,15 @@
 <ad:omitCompanionSizes position="AboveFold_300x250"/>
 <ad:AboveFold_300x250/>
 
-<div id="js-noSchoolsFound" class="standard_4-1 mtl" style="${page.pager.totalItems gt 0? 'display:none;':''}">
-    <div class="media">
-        <span class="sprite i-alert img"><!-- do not collapse --></span>
+<div id="js-noSchoolsFound" class="mtl" style="${page.pager.totalItems gt 0? 'display:none;':''}">
+    <hr class="keyline1"/>
+    <div class="pvl">
+        <h3 class="loud">No results found.</h3>
 
-        <p class="formErrorText bd">No results match your selection. Change or remove filters to get more matches.</p>
-
+        <div class="loud">No results match your selection. To get more matches, change or remove filters or click &#34;Reset all filters&#34;.</div>
     </div>
+    <hr class="keyline1"/>
+
 </div>
 
 <div class="js-rightResultsGrid standard_4-1 mtl" style="${page.pager.totalItems eq 0? 'display:none':''}">
