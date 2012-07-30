@@ -168,6 +168,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return VIEW;
     }
 
+    // TODO-13012 convert some class methods to static methods if possible, after placeholders are replaced with dao calls
+
     // ===================== Section 1 ==============================
     
     public Map<String,Object> getSection1Model(School school) {
@@ -263,42 +265,22 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         model.put(MODEL_SECTION_3_COPY_POST_SECONDARY_READINESS, getSection3CopyPostSecondaryReadiness(school));
 
         // SECTION 3 CHARTS
-        // TODO-13012
-        // TODO-FIXME
 
-        // TODO-13012 placeholder
-        model.put(MODEL_TEST_SCORE_RATING_YEAR, 2011);
-        // TODO-13012 placeholder
-        model.put(MODEL_SCHOOL_TEST_SCORE_RATING, 9);
-        // TODO-13012 placeholder
-        model.put(MODEL_CITY_TEST_SCORE_RATING, 5);
-        // TODO-13012 placeholder
-        model.put(MODEL_STATE_TEST_SCORE_RATING, 3);
-        // TODO-13012 move to helper method
-        if (State.DC.equals(school.getDatabaseState())) {
-            model.put(MODEL_SHOW_STATE_TEST_SCORE_RATING, false);
-        } else if (State.IN.equals(school.getDatabaseState())) {
-            model.put(MODEL_SHOW_STATE_TEST_SCORE_RATING, true);
-        } else if (State.WI.equals(school.getDatabaseState())) {
-            model.put(MODEL_SHOW_STATE_TEST_SCORE_RATING, true);
-        }
+        // test score ratings
 
-        // TODO-13012 placeholder
-        model.put(MODEL_STUDENT_GROWTH_RATING_YEAR, 2011);
-        // TODO-13012 placeholder
-        model.put(MODEL_SCHOOL_STUDENT_GROWTH_RATING, 9);
-        // TODO-13012 placeholder
-        model.put(MODEL_CITY_STUDENT_GROWTH_RATING, 5);
-        // TODO-13012 placeholder
-        model.put(MODEL_STATE_STUDENT_GROWTH_RATING, 3);
-        // TODO-13012 move to helper method
-        if (State.DC.equals(school.getDatabaseState())) {
-            model.put(MODEL_SHOW_STATE_STUDENT_GROWTH_RATING, false);
-        } else if (State.IN.equals(school.getDatabaseState())) {
-            model.put(MODEL_SHOW_STATE_STUDENT_GROWTH_RATING, true);
-        } else if (State.WI.equals(school.getDatabaseState())) {
-            model.put(MODEL_SHOW_STATE_STUDENT_GROWTH_RATING, true);
-        }
+        boolean showStateTestScoreRating = isShowStateTestScoreRating(school);
+        model.put(MODEL_SHOW_STATE_TEST_SCORE_RATING, showStateTestScoreRating);
+        model.putAll(getTestScoreRatingsModel(school, showStateTestScoreRating));
+
+        // student growth ratings
+
+        boolean showStateStudentGrowthRating = isShowStateStudentGrowthRating(school);
+        model.put(MODEL_SHOW_STATE_STUDENT_GROWTH_RATING, showStateStudentGrowthRating);
+        model.putAll(getStudentGrowthRatingsModel(school, showStateStudentGrowthRating));
+
+        // post-secondary readiness ratings
+
+        model.putAll(getPostSecondaryReadinessRatingsModel(school));
 
         // SECTION 3 SOURCES
 
@@ -308,6 +290,71 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         model.put(MODEL_POST_SECONDARY_READINESS_RATING_SOURCE, getPostSecondaryReadinessRatingSource(school));
 
+        return model;
+    }
+
+    public boolean isShowStateTestScoreRating(School school) {
+        return !State.DC.equals(school.getDatabaseState());
+    }
+
+    public boolean isShowStateStudentGrowthRating(School school) {
+        return !State.DC.equals(school.getDatabaseState());
+    }
+
+    public Map<String,Object> getTestScoreRatingsModel(School school, boolean showStateRating) {
+        Map<String,Object> model = new HashMap<String,Object>();
+
+        // TODO-13012 check if school has test score rating regardless of level code
+        if (true) {
+            // TODO-13012 placeholder - replace with call to get actual year
+            model.put(MODEL_TEST_SCORE_RATING_YEAR, 2012);
+
+            // TODO-13012 placeholder - replace with call to get actual rating
+            model.put(MODEL_SCHOOL_TEST_SCORE_RATING, 9);
+
+            // TODO-13012 placeholder - replace with call to get actual rating
+            model.put(MODEL_CITY_TEST_SCORE_RATING, 5);
+
+            if (showStateRating) {
+                // TODO-13012 placeholder - replace with call to get actual rating
+                model.put(MODEL_STATE_TEST_SCORE_RATING, 3);
+            }
+        }
+
+        return model;
+    }
+
+    public Map<String,Object> getStudentGrowthRatingsModel(School school, boolean showStateRating) {
+        Map<String,Object> model = new HashMap<String,Object>();
+
+        // TODO-13012 check if school has student growth rating regardless of level code
+        if (true && school.getLevelCode() != null && !school.getLevelCode().equals(LevelCode.HIGH)) {
+            // TODO-13012 placeholder - replace with call to get actual year
+            model.put(MODEL_STUDENT_GROWTH_RATING_YEAR, 2012);
+            // TODO-13012 placeholder - replace with call to get actual rating
+            model.put(MODEL_SCHOOL_STUDENT_GROWTH_RATING, 9);
+            // TODO-13012 placeholder - replace with call to get actual rating
+            model.put(MODEL_CITY_STUDENT_GROWTH_RATING, 5);
+            if (showStateRating) {
+                // TODO-13012 placeholder - replace with call to get actual rating
+                model.put(MODEL_STATE_STUDENT_GROWTH_RATING, 3);
+            }
+        }
+
+        return model;
+    }
+
+    public Map<String,Object> getPostSecondaryReadinessRatingsModel(School school) {
+        Map<String,Object> model = new HashMap<String,Object>();
+
+        // TODO-13012 check if school has post-secondary readiness rating regardless of level code
+        if (true && school.getLevelCode() != null && school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+            // TODO-13012 placeholder - replace with call to get actual year
+            model.put(MODEL_POST_SECONDARY_READINESS_RATING_YEAR, 2012);
+            // TODO-13012 placeholder - replace with call to get actual rating
+            model.put(MODEL_POST_SECONDARY_READINESS_RATING, 8);
+        }
+            
         return model;
     }
 
