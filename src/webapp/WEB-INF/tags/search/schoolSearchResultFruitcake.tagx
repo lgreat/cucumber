@@ -139,12 +139,7 @@
                                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                                 <c:choose>
                                     <c:when test="${school.levelCode eq 'p'}">
-                                        <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"
-                                               type="checkbox"
-                                               disabled="disabled" title="${preschoolNoCompareMessage}"/>
-                                        <label class="small"
-                                               for="${school.databaseState}${school.id}"
-                                               title="${preschoolNoCompareMessage}">Compare</label>
+                                        <!-- Preschools don't get compare -->
                                     </c:when>
                                     <c:otherwise>
                                         <input id="${school.databaseState}${school.id}" class="compare-school-checkbox"

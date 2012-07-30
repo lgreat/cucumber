@@ -60,25 +60,23 @@
     <pageHelper:externalCss file="/res/css/07_navigation/pagination.css"/>
     <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry"/>
     <pageHelper:externalJavascript file="/res/js/googleMapsInfobox.min.js"/>
-    <!--<pageHelper:externalJavascript file="/res/js/gs_jquery_extensions.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/uri/uri.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchForm.js"/>-->
 
-    <!--<pageHelper:externalJavascript file="/res/js/util/htmlMirrors.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/filters.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/ui/contentDropdowns.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/compare.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/tracking/customLinks.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolResults.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/map/schoolSearchMap2012.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>-->
-    <pageHelper:externalJavascript file="/res/js/combined.search.min.js"/>
+    <!-- uncomment to get un-minified -->
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchForm.js"/>
+    <pageHelper:externalJavascript file="/res/js/util/htmlMirrors.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/filters.js"/>
+    <pageHelper:externalJavascript file="/res/js/ui/contentDropdowns.js"/>
+    <pageHelper:externalJavascript file="/res/js/tracking/customLinks.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/schoolResults.js"/>
+    <pageHelper:externalJavascript file="/res/js/map/schoolSearchMap2012.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>
+    <pageHelper:externalJavascript file="/res/js/history.min.js"/>
+    <pageHelper:externalJavascript file="/res/js/compare/persistentCompare.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/combined.search.min.js"/>-->
 
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>-->
     <pageHelper:externalJavascript file="/res/js/hogan.js"/>
 
-    <!-- Following JS used by schoolSearchResultsTable.js: GS-11604 -->
-    <!--<pageHelper:externalJavascript file="/res/js/history.min.js"/>-->
 
     <k12:trafficDriverIncludes/>
 
@@ -91,6 +89,7 @@
     </c:if>
     <script type="text/javascript">
         jQuery(function () {
+            GS.map.getMap.init();
             jQuery('#js-bubbleInfo-8').popup({appear:'below', leftPosition:-55, topPosition:20});
             jQuery('#js-bubbleInfo-9').popup({appear:'below', leftPosition:-55, topPosition:20});
         });
@@ -147,7 +146,7 @@
         </c:set>
         <div class="alpha grid_16 omega mbm">
             <div class="alpha grid_16 omega pr">
-                <div class="line pa grid_11 omega ${page.pager.totalItems eq 0? 'dn':''}" style="right: 0px; top:10px; ">
+                <div id="js-mapPageNav" class="line pa grid_11 omega ${page.pager.totalItems eq 0? 'dn':''}" style="right: 0px; top:10px; ">
                     <div class="unit size1of2 plm">
                         ${searchResultsPagingSummary}
                     </div>
@@ -275,12 +274,7 @@
                                     <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                                     <c:choose>
                                         <c:when test="${school.levelCode eq 'p'}">
-                                            <input id="${school.databaseState}${school.id}"
-                                                   class="" type="checkbox"
-                                                   disabled="disabled" title="${preschoolNoCompareMessage}"/>
-                                            <label class="checkbox"
-                                                   for="${school.databaseState}${school.id}"
-                                                   title="${preschoolNoCompareMessage}">Compare</label>
+                                            <!-- Preschools don't get compare -->
                                         </c:when>
                                         <c:otherwise>
                                             <input id="${school.databaseState}${school.id}"
@@ -517,16 +511,17 @@
             <div class="ft">
                 <div class="line">
                     <div class="unit size35of100">
-                        <input id="disabled-{{state}}{{id}}"
-                               class="compare-school-checkbox" type="checkbox"
-                               disabled="disabled" style="display: {{isPkCompare}}"
-                               title="Due to a lack of available data on preschools, they cannot be compared"/>
-                        <label class="checkbox"
-                               for="disabled-{{state}}{{id}}"
-                               style="display: {{isPkCompare}}">Compare</label>
+                        <!-- Preschools don't get compare -->
+                        <!--<input id="disabled-{{state}}{{id}}"-->
+                               <!--class="compare-school-checkbox" type="checkbox"-->
+                               <!--disabled="disabled" style="display: {{isPkCompare}}"-->
+                               <!--title="Due to a lack of available data on preschools, they cannot be compared"/>-->
+                        <!--<label class="checkbox"-->
+                               <!--for="disabled-{{state}}{{id}}"-->
+                               <!--style="display: {{isPkCompare}}">Compare</label>-->
                         <input id="{{state}}{{id}}" class="js-compare-school-checkbox" type="checkbox"
                                style="display: {{showCompare}}"/>
-                        <label class="js-compareLabel checkbox" style="display: {{showCompare}}"
+                        <label class="js-compareLabel checkbox" style="display: {{showCompare}}" id="js-{{state}}{{id}}-compare-label"
                                for="{{state}}{{id}}">Compare</label>
                         <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW
                         </button>

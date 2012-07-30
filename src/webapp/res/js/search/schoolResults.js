@@ -6,6 +6,9 @@ GS.search.results = GS.search.results || (function() {
     var compareModule;
     var customLinksModule;
     var infoBoxTemplate, sidebarListTemplate;
+    var listResultsLinkSelector = '.js-listResultsLink';
+    var mapResultsLinkSelector = '.js-mapResultsLink';
+    var body = 'body';
 
     // http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
     // we use indexOf on some arrays in this .js file, but IE doesn't support it natively, so we have to implement it here
@@ -283,9 +286,31 @@ GS.search.results = GS.search.results || (function() {
         jQuery('#map-sort').change(function(){onSortChangedForMap($(this).find(":selected").val());});
         jQuery('#sort-by').change(onSortChanged);
         jQuery('.js-redobtn').click(redoSearch);
+        $(body).on('click', listResultsLinkSelector, function() {
+            if(GS.uri.Uri.getFromQueryString('view') === undefined) {
+                return;
+            }
+            else {
+                var uri = window.location.search;
+                uri = GS.uri.Uri.removeFromQueryString(uri, 'view');
+                window.location.search = uri;
+            }
+        });
+        $(body).on('click', mapResultsLinkSelector, function() {
+            if(GS.uri.Uri.getFromQueryString('view') === 'map') {
+                return;
+            }
+            else {
+                var uri = window.location.search;
+                uri = GS.uri.Uri.putIntoQueryString(uri, 'view', 'map', true);
+                window.location.search = uri;
+            }
+        });
+
     };
 
     var renderDataForMap = function(data) {
+        console.log(0);
         var pageNav = $('#js-mapPageNav');
         if(data.noSchoolsFound === true) {
             $('.js-rightResultsGrid').hide();
@@ -309,10 +334,18 @@ GS.search.results = GS.search.results || (function() {
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         };
 
+        console.log(page.totalResults);
+        console.log(page.offset);
+        console.log(page.lastOffsetOnPage);
+        console.log(formatWithCommas(page.totalResults));
+        console.log(formatWithCommas(page.offset));
+        console.log(formatWithCommas(page.lastOffsetOnPage));
+        console.log(1);
         pageNav.find('.js-search-results-paging-summary').html("Showing " + formatWithCommas(page.offset) + "-" +
                 formatWithCommas(page.lastOffsetOnPage) + " of " +
             "<span id='total-results-count'>" + formatWithCommas(page.totalResults) + "</span> schools");
         pageNav.show();
+        console.log(2);
 
         updatePageNav(page);
 

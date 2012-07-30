@@ -14,8 +14,12 @@ GS.map.getMap = GS.map.getMap ||(function(){
     var center = null;
     var bubblesSticky = true;
 
-    $(document).ready(function(){
+    var init = function(){
+        GS.search.schoolSearchForm.init(GS.search.filters, GS.ui.contentDropdowns);
         GS.search.results.updateSortAndPageSize();
+        GS.school.compare.initializeSchoolsInCompare(function() {
+            return window.location.pathname + GS.search.filters.getUpdatedQueryString();
+        });
         schoolList = $('#js-schoolList');
         var height = $('#js-map-canvas').css('height');
         schoolList.css({height: height, overflowY: 'auto'});
@@ -97,7 +101,21 @@ GS.map.getMap = GS.map.getMap ||(function(){
 //            google.maps.event.trigger(marker, 'click');
             bubblesSticky = true;
         });
-    });
+
+        //Bind the custom event that gets triggered after a school is removed from the compare module.
+        //This is used to un check the check boxes for the school that is removed from the compare module.
+        $('body').on('schoolRemoved', function(event, schoolId, state) {
+            var checkBox = $('#' + state + schoolId);
+            checkBox.prop('checked', false);
+            $('#js-' + state + schoolId + '-compare-label').html('Compare');
+            //After the school is removed, the 'compare now' link should be switched to 'compare' label.
+            //Also if there are less than 2 schools remaining in the compare module after this school has been deleted
+            //then switch all the the 'compare now' links to 'compare' label.
+            if (GS.school.compare.getSchoolsInCompare().length < 2) {
+                $('.js-compareLabel').html('Compare');
+            }
+        });
+    };
 
     var initMap = function (points, optionalLat, optionalLon) {
         optionalLat = optionalLat || 0;
@@ -218,30 +236,13 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 }
             })(marker, i, schoolIdentifier));
 
-            google.maps.event.addListener(infoBoxInstance,'closeclick', function() {
-                closeInfoBox();
-            });
-
-            google.maps.event.addListener(infoBoxInstance, 'domready', function() {
-                // TODO: integrate persistentCompare
-//                var compareButton = $('.js-compareButton');
-//                var compareCheck = $('.js-compare-school-checkbox');
-
-//                GS.search.compare.updateMapInfoBoxCompare(compareCheck, compareButton);
-//                compareCheck.change(function() {
-//                    GS.search.compare.addRemoveCheckedSchoolInMap(this, compareButton);
-//                });
-//                compareButton.click(function() {
-//                    GS.search.results.sendToCompare();
-//                });
-
-                updateInfoBoxText();
-            });
         }
 
-        google.maps.event.addListener(map, 'click', function(){
-            closeInfoBox();
-        });
+        google.maps.event.addListener(infoBoxInstance,'closeclick', closeInfoBox);
+
+        google.maps.event.addListener(infoBoxInstance, 'domready', attachEventsToBubble);
+
+        google.maps.event.addListener(map, 'click', closeInfoBox);
 
         google.maps.event.addListener(map, 'dragend', function(){
             closeInfoBox();
@@ -281,6 +282,67 @@ GS.map.getMap = GS.map.getMap ||(function(){
             center = map.getCenter();
         }
     }
+
+    var attachEventsToBubble = function() {
+        var compareCheck = $('.js-compare-school-checkbox');
+        // Bind the behavior when clicking on a compare checkbox in the list
+        compareCheck.on('click', function() {
+            var schoolCheckbox = $(this);
+            var schoolSelected = schoolCheckbox.attr('id');
+            var schoolId = schoolSelected.substr(2, schoolSelected.length);
+            var state = schoolSelected.substr(0, 2);
+            var checked = schoolCheckbox.is(':checked');
+            if (checked === true) {
+                //If the checkbox was checked then try adding a school to the compare module.
+                //If adding a school fails then un check the checkbox.
+                GS.school.compare.addSchoolToCompare(schoolId, state).done(
+                    function() {
+                        //If there are more than 2 schools in compare then the 'compare' label
+                        //should be switched to 'compare now' link.
+                        var schoolsInCompare = GS.school.compare.getSchoolsInCompare();
+                        if (schoolsInCompare.length >= 2) {
+                            for (var i = 0; i < schoolsInCompare.length; i++) {
+                                var $compareLabel = $('.js-compareLabel');
+                                $compareLabel.html('<a href="javascript:void(0);" class="js_compare_link noInterstitial">Compare Now</a>');
+                                $compareLabel.on('click', function () {
+                                    GS.school.compare.compareSchools();
+                                });
+                            }
+                        }
+                    }).fail(
+                    function() {
+                        schoolCheckbox.prop('checked', false);
+                    }
+                );
+            } else {
+                GS.school.compare.removeSchoolFromCompare(schoolId, state);
+                //After the school is removed, the 'compare now' link should be switched to 'compare' label.
+                //Also if there are less than 2 schools remaining in the compare module after this school has been deleted
+                //then switch all the the 'compare now' links to 'compare' label.
+                $('.js-compareLabel').html('Compare');
+            }
+        });
+
+        var schoolsInCompare = GS.school.compare.getSchoolsInCompare();
+        if (schoolsInCompare) {
+            var myState = compareCheck.attr('id').substr(0,2);
+            var myId = compareCheck.attr('id').substr(2);
+            for (var index=0; index < schoolsInCompare.length; index++) {
+                if (schoolsInCompare[index].state == myState && schoolsInCompare[index].schoolId == myId) {
+                    compareCheck.prop('checked', true);
+                    if (schoolsInCompare.length >= 2) {
+                        var $compareLabel = $('.js-compareLabel');
+                        $compareLabel.html('<a href="javascript:void(0);" class="js_compare_link noInterstitial">Compare Now</a>');
+                        $compareLabel.on('click', function () {
+                            GS.school.compare.compareSchools();
+                        });
+                    }
+                }
+            }
+        }
+
+        updateInfoBoxText();
+    };
 
     var refreshMarkers = function(points) {
         closeInfoBox();
@@ -403,6 +465,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
     }
 
     return {
+        init:init,
         initMap:initMap,
         refreshMarkers: refreshMarkers,
         addSavedSchool: addSavedSchool

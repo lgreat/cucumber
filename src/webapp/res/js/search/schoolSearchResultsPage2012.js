@@ -1,8 +1,6 @@
 GS = GS || {};
 
 GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
-    var listResultsLinkSelector = '.js-listResultsLink';
-    var mapResultsLinkSelector = '.js-mapResultsLink';
     var body = '#contentGS';
 
     var init = function() {
@@ -43,26 +41,6 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
 
 
     var registerEventHandlers = function() {
-        $(body).on('click', listResultsLinkSelector, function() {
-            if(GS.uri.Uri.getFromQueryString('view') === undefined) {
-                return;
-            }
-            else {
-                var uri = window.location.search;
-                uri = GS.uri.Uri.removeFromQueryString(uri, 'view');
-                window.location.search = uri;
-            }
-        });
-        $(body).on('click', mapResultsLinkSelector, function() {
-            if(GS.uri.Uri.getFromQueryString('view') === 'map') {
-                return;
-            }
-            else {
-                var uri = window.location.search;
-                uri = GS.uri.Uri.putIntoQueryString(uri, 'view', 'map', true);
-                window.location.search = uri;
-            }
-        });
         // Bind the behavior when clicking on a compare checkbox in the list
         $(body).on('click', '.compare-school-checkbox', function() {
             var schoolCheckbox = $(this);
@@ -87,7 +65,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
                         }
                     }).fail(
                     function() {
-                        schoolCheckbox.removeAttr('checked');
+                        schoolCheckbox.prop('checked', false);
                     }
                 );
             } else {
@@ -121,7 +99,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         //This is used to un check the check boxes for the school that is removed from the compare module.
         $(body).on('schoolRemoved', function(event, schoolId, state) {
             var checkBox = $('#' + state + schoolId);
-            checkBox.removeAttr('checked');
+            checkBox.prop('checked', false);
             //After the school is removed, the 'compare now' link should be switched to 'compare' label.
             //Also if there are less than 2 schools remaining in the compare module after this school has been deleted
             //then switch all the the 'compare now' links to 'compare' label.
@@ -140,7 +118,3 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
     }
 
 })();
-
-jQuery(function () {
-    GS.schoolSearchResultsPage.init();
-});
