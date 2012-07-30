@@ -28,7 +28,7 @@
 
 <head>
     <c:if test="${not empty title}">
-        <title>REDESIGN: ${title}</title>
+        <title>${title}</title>
     </c:if>
     <c:if test="${not empty metaDescription}">
         <meta name="description" content="${metaDescription}"/>
