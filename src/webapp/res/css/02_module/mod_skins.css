@@ -455,7 +455,6 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
     border-left: 10px solid transparent;
 }
 .popover.top .arrow2 {
-    position: absolute;
     top: -13px;
     left: 50%;
     margin-left: -10px;
@@ -467,15 +466,24 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
 
 .popover.right .arrow {
     top: 50%;
-    left: 0;
-    margin-top: -5px;
-    border-top: 5px solid transparent;
-    border-right: 5px solid #999999;
-    border-bottom: 5px solid transparent;
+    left: -5px;
+    margin-top: -10px;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #999999;
+    border-bottom: 10px solid transparent;
+}
+
+.popover.right .arrow2 {
+    top: 50%;
+    right: -11px;
+    margin-top: -10px;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #FFFFFF;
+    border-bottom: 10px solid transparent;
 }
 
 .popover.bottom .arrow {
-    top: 0;
+    top: -5px;
     left: 50%;
     margin-left: -10px;
     border-right: 10px solid transparent;
@@ -483,16 +491,39 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
     border-left: 10px solid transparent;
 }
 
+.popover.bottom .arrow2 {
+    bottom: -12px;
+    left: 50%;
+    margin-left: -10px;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #FFFFFF;
+    border-left: 10px solid transparent;
+}
+
 .popover.left .arrow {
     top: 50%;
-    right: 0;
-    margin-top: -5px;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 5px solid #999999;
+    right: -5px;
+    margin-top: -10px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #999999;
+}
+.popover.left .arrow2 {
+    top: 50%;
+    left: -11px;
+    margin-top: -10px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #FFFFFF;
 }
 
 .popover .arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+}
+
+.popover .arrow2 {
     position: absolute;
     width: 0;
     height: 0;

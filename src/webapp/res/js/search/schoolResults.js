@@ -141,10 +141,9 @@ GS.search.results = GS.search.results || (function() {
                 );
                 GS.util.htmlMirrors.updateAll();
                 if(jQuery("#js_totalResultsCountReturn").html() == "0" || jQuery("#js_totalResultsCountReturn").html() == 0 || jQuery("#js_totalResultsCountReturn").html() == ""){
-                    if($("#js_totalResultsCountReturn").html() == ""){$("#js_totalResultsCountReturn").html("0");$("#js-moreThanOne").show()}
+                    if(jQuery("#js_totalResultsCountReturn").html() == ""){jQuery("#js_totalResultsCountReturn").html("0");jQuery("#js-moreThanOne").show()}
                     jQuery("#js_totalResultsCountReturn").popover('show');
                     jQuery(".js_closeOopsPopover").click(function() {
-                        console.log("click event triggered");
                         jQuery("#js_totalResultsCountReturn").popover('hide');
                     });
                 }
@@ -285,10 +284,9 @@ GS.search.results = GS.search.results || (function() {
                 renderDataForMap(data);
                 GS.util.htmlMirrors.updateAll();
                 if(jQuery("#js_totalResultsCountReturn").html() == "0" || jQuery("#js_totalResultsCountReturn").html() == 0 || jQuery("#js_totalResultsCountReturn").html() == ""){
-                    if($("#js_totalResultsCountReturn").html() == ""){$("#js_totalResultsCountReturn").html("0");$("#js-moreThanOne").show()}
+                    if(jQuery("#js_totalResultsCountReturn").html() == ""){jQuery("#js_totalResultsCountReturn").html("0");jQuery("#js-moreThanOne").show()}
                     jQuery("#js_totalResultsCountReturn").popover('show');
                     jQuery(".js_closeOopsPopover").click(function() {
-                        console.log("click event triggered");
                         jQuery("#js_totalResultsCountReturn").popover('hide');
                     });
                 }
