@@ -107,12 +107,15 @@ GS.map.getMap = GS.map.getMap ||(function(){
         $('body').on('schoolRemoved', function(event, schoolId, state) {
             var checkBox = $('#' + state + schoolId);
             checkBox.prop('checked', false);
-            $('#js-' + state + schoolId + '-compare-label').html('Compare');
             //After the school is removed, the 'compare now' link should be switched to 'compare' label.
             //Also if there are less than 2 schools remaining in the compare module after this school has been deleted
             //then switch all the the 'compare now' links to 'compare' label.
             if (GS.school.compare.getSchoolsInCompare().length < 2) {
+                // change all
                 $('.js-compareLabel').html('Compare');
+            } else {
+                // change just the one
+                changeCompareLinkToLabel(state, schoolId);
             }
         });
     };
@@ -283,6 +286,18 @@ GS.map.getMap = GS.map.getMap ||(function(){
         }
     }
 
+    var changeCompareLabelToLink = function(state, schoolId) {
+        var $compareLabel = $('#js-' +state + schoolId + '-compare-label');
+        $compareLabel.html('<a href="javascript:void(0);" class="js_compare_link noInterstitial">Compare Now</a>');
+        $compareLabel.find('a').on('click', function () {
+            GS.school.compare.compareSchools();
+        });
+    };
+
+    var changeCompareLinkToLabel = function(state, schoolId) {
+        $('#js-' + state + schoolId + '-compare-label').html('Compare');
+    };
+
     var attachEventsToBubble = function() {
         var compareCheck = $('.js-compare-school-checkbox');
         // Bind the behavior when clicking on a compare checkbox in the list
@@ -302,11 +317,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
                         var schoolsInCompare = GS.school.compare.getSchoolsInCompare();
                         if (schoolsInCompare.length >= 2) {
                             for (var i = 0; i < schoolsInCompare.length; i++) {
-                                var $compareLabel = $('.js-compareLabel');
-                                $compareLabel.html('<a href="javascript:void(0);" class="js_compare_link noInterstitial">Compare Now</a>');
-                                $compareLabel.on('click', function () {
-                                    GS.school.compare.compareSchools();
-                                });
+                                changeCompareLabelToLink(schoolsInCompare[i].state, schoolsInCompare[i].schoolId);
                             }
                         }
                     }).fail(
@@ -317,9 +328,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
             } else {
                 GS.school.compare.removeSchoolFromCompare(schoolId, state);
                 //After the school is removed, the 'compare now' link should be switched to 'compare' label.
-                //Also if there are less than 2 schools remaining in the compare module after this school has been deleted
-                //then switch all the the 'compare now' links to 'compare' label.
-                $('.js-compareLabel').html('Compare');
+                changeCompareLinkToLabel(state, schoolId);
             }
         });
 
@@ -331,11 +340,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 if (schoolsInCompare[index].state == myState && schoolsInCompare[index].schoolId == myId) {
                     compareCheck.prop('checked', true);
                     if (schoolsInCompare.length >= 2) {
-                        var $compareLabel = $('.js-compareLabel');
-                        $compareLabel.html('<a href="javascript:void(0);" class="js_compare_link noInterstitial">Compare Now</a>');
-                        $compareLabel.on('click', function () {
-                            GS.school.compare.compareSchools();
-                        });
+                        changeCompareLabelToLink(schoolsInCompare[index].state, schoolsInCompare[index].schoolId);
                     }
                 }
             }

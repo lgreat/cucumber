@@ -280,7 +280,7 @@
                                             <input id="${school.databaseState}${school.id}"
                                                    class="js-compare-school-checkbox"
                                                    type="checkbox"/>
-                                            <label class="js-compareLabel checkbox"
+                                            <label class="js-compareLabel checkbox" id="js-${school.databaseState}${school.id}-compare-label"
                                                    for="${school.databaseState}${school.id}">Compare</label>
                                             <button class="js-compareButton button-1Ext-2"
                                                     style="display: none;">Compare<br/>Now
