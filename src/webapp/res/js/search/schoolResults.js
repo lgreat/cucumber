@@ -159,7 +159,6 @@ GS.search.results = GS.search.results || (function() {
             };
 
             jQuery('#spinner').show();
-            jQuery("#totalResultsText").hide();
             jQuery("#js-spinny-search").show();
 
             jQuery('#js-school-search-results-table-body').animate(
@@ -273,7 +272,6 @@ GS.search.results = GS.search.results || (function() {
             // use HTML 5 history API to rewrite the current URL to represent the new state.
             history.pushState(state, start, queryString);
         }
-        jQuery("#totalResultsText").hide();
         jQuery("#js-spinny-search").show();
 
         refreshMapAds();
