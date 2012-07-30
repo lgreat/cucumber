@@ -127,15 +127,17 @@
         <!--Display the about section-->
         <div class="alpha grid_16 omega">
             <h2 class="pbn mbs">About the tests</h2>
-            <hr class="keyline1" />
+            <hr class="keyline1"/>
             <div class="clear mbl"><!-- do not collapse --></div>
 
-            <c:forEach var="testToGrades" items="${testScores}">
+            <c:forEach var="testToGrades" items="${testScores}" varStatus="status">
                 <!--<c:forEach var="gradeToSubjects" items="${testToGrades.grades}">-->
+                <c:if test="${status.count eq 1}">
 
                     <p class="quiet">${testToGrades.description}</p>
 
-                <p class="quiet"><strong>Source:</strong> ${testToGrades.source}</p>
+                    <p class="small quiet"><strong>Source:</strong> ${testToGrades.source}</p>
+                </c:if>
                 <!--</c:forEach>-->
             </c:forEach>
         </div>
