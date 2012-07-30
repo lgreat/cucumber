@@ -219,7 +219,11 @@ caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bo
 .top         { margin-top:0; padding-top:0; }
 .bottom      { margin-bottom:0; padding-bottom:0; }
 
-.make-uppercase   { text-transform: uppercase; }
+.ttc         { text-transform: capitalize; }
+.ttl         { text-transform: lowercase; }
+.ttn         { text-transform: none; }
+.make-uppercase,
+.ttu         { text-transform: uppercase; }
 
 /*************************************************************
      LIST STYLES
