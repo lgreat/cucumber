@@ -17,20 +17,49 @@
                         <h4 class="pvm plm bottom">What makes up this rating?</h4>
                     </div>
                     <div class="bd pam">
-                        <div>[OVERALL RATING GRAPHIC: ${overallRating}]</div>
+                        <div>
+                            [OVERALL RATING GRAPHIC:
+                            <div>
+                                <c:choose>
+                                    <c:when test="${overallRating != null}">
+                                        ${overallRating}
+                                    </c:when>
+                                    <c:otherwise>
+                                        NR
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>]
+                        </div>
 
                         <div>
                             Academic rating
-                            <div>${overallAcademicRating} / 10</div>
+                            <div>
+                                <c:choose>
+                                    <c:when test="${overallAcademicRating != null}">
+                                        ${overallAcademicRating} / 10
+                                    </c:when>
+                                    <c:otherwise>
+                                        Not available
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                         <div>
                             Climate rating
-                            <div>${overallClimateRating} / 10</div>
+                            <div>
+                                <c:choose>
+                                    <c:when test="${not empty climateRatingAvailabilityText}">
+                                        ${climateRatingAvailabilityText}
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${overallClimateRating} / 10
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
 
-                        <p class="small bottom">The GreatSchools Rating is composed of two categories, Academic and Climate.
-                            Academic rating makes up 90% of the total rating, while the Climate rating
-                            makes up the remaining 10%.
+                        <p class="small bottom">
+                            ${section1Copy}
                             <a href="#">Learn more about our methodology &amp;raquo;</a></p>
                     </div>
                 </div>
@@ -66,44 +95,69 @@
                 </div>
                 <div class="bd pam">
                     <p class="small">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Curabitur nisi eros, elementum commodo luctus nec, sodales id odio. Ut at
-                        tellus aliquet nisi viverra vestibulum. Praesent risus nunc, pellentesque
-                        et faucibus non, vulputate ut sem. Aliquam a lectus urna, eget aliquam libero.
-                        Pellentesque consectetur libero nunc, nec posuere nibh. Curabitur euismod
-                        eleifend dignissim. Morbi lorem felis, tincidunt ut eleifend nec, tempor at leo.
+                        ${section3Copy}
+                        <c:if test="${not empty section3CopyPostSecondaryReadiness}">
+                            ${section3CopyPostSecondaryReadiness}
+                        </c:if>
                     </p>
 
-                    <hr class="keyline2"/>
+                    <c:if test="${overallAcademicRating != null}">
+                        <hr class="keyline2"/>
 
-                    <h5 class="mvm medium_bold tac">Overall academic performance is ${overallAcademicRating} / 10 <span
-                            class="ttu">${overallAcademicRatingLabel}</span></h5>
-
-                    <hr class="keyline2"/>
-
-                    <h6 class="mvm medium_bold">Test score rating ${testScoreRatingYear}2011*</h6>
-
-                    <div>This school: ${schoolTestScoreRating}</div>
-                    <div>District: ${districtTestScoreRating}</div>
-                    <c:if test="${showStateTestScoreRating}">
-                        <div>State: ${stateTestScoreRating}</div>
+                        <h5 class="mvm medium_bold tac">Overall academic performance is ${overallAcademicRating} / 10 <span
+                                class="ttu">${overallAcademicRatingLabel}</span></h5>
                     </c:if>
 
-                    <hr class="keyline2"/>
+                    <c:if test="${schoolTestScoreRating != null}">
+                        <hr class="keyline2"/>
 
-                    <h6 class="mvm medium_bold">Student growth rating ${studentGrowthRatingYear}**</h6>
+                        <h6 class="mvm medium_bold">Test score rating ${testScoreRatingYear}2011*</h6>
 
-                    <div>This school: ${schoolStudentGrowthRating}</div>
-                    <div>District: ${districtStudentGrowthRating}</div>
-                    <c:if test="${showStateStudentGrowthRating}">
-                        <div>State: ${stateStudentGrowthRating}</div>
+                        <div>This school: ${schoolTestScoreRating}</div>
+                        <div>District: ${districtTestScoreRating}</div>
+                        <c:if test="${showStateTestScoreRating}">
+                            <div>State: ${stateTestScoreRating}</div>
+                        </c:if>
                     </c:if>
 
-                    <hr class="keyline2"/>
+                    <c:if test="${schoolStudentGrowthRating != null}">
+                        <hr class="keyline2"/>
 
-                    <p class="smaller bottom pts">*${testScoreRatingFootnote}</p>
+                        <h6 class="mvm medium_bold">Student growth rating ${studentGrowthRatingYear}**</h6>
 
-                    <p class="smaller bottom">**${studentGrowthRatingFootnote}</p>
+                        <div>This school: ${schoolStudentGrowthRating}</div>
+                        <div>District: ${districtStudentGrowthRating}</div>
+                        <c:if test="${showStateStudentGrowthRating}">
+                            <div>State: ${stateStudentGrowthRating}</div>
+                        </c:if>
+                    </c:if>
+
+                    <c:if test="${postSecondaryReadinessRating != null}">
+                        <hr class="keyline2"/>
+
+                        <h6 class="mvm medium_bold">Post-secondary readiness rating ${postSecondaryReadinessRatingYear}***</h6>
+
+                        <div>This school: ${postSecondaryReadinessRating}</div>
+                    </c:if>
+
+                    <c:if test="${schoolTestScoreRating != null or
+                                  schoolStudentGrowthRating != null or
+                                  postSecondaryReadinessRating != null}">
+                        <hr class="keyline2"/>
+                    </c:if>
+
+                    <c:if test="${schoolTestScoreRating != null}">
+                        <p class="smaller bottom pts">*${testScoreRatingSource}</p>
+                    </c:if>
+
+                    <c:if test="${schoolStudentGrowthRating != null}">
+                        <p class="smaller bottom">**${studentGrowthRatingSource}</p>
+                    </c:if>
+
+                    <c:if test="${postSecondaryReadinessRating != null}">
+                        <p class="smaller bottom">***${postSecondaryReadinessSource}</p>
+                    </c:if>
+
                 </div>
             </div>
         </div>
