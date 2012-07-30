@@ -395,19 +395,19 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     }
 
     public String getSection3Copy(School school) {
-        // TODO-13012 placeholder - check whether school has academic performance data
-        if (false) {
-            return SECTION_3_COPY_DATA_UNAVAILABLE;
-        } else {
-            if (State.DC.equals(school.getDatabaseState())) {
-                return SECTION_3_COPY_DC;
-            } else if (State.IN.equals(school.getDatabaseState())) {
-                return SECTION_3_COPY_IN;
-            } else if (State.WI.equals(school.getDatabaseState())) {
+        if (State.DC.equals(school.getDatabaseState())) {
+            return SECTION_3_COPY_DC;
+        } else if (State.IN.equals(school.getDatabaseState())) {
+            return SECTION_3_COPY_IN;
+        } else if (State.WI.equals(school.getDatabaseState())) {
+            // TODO-13012 placeholder - check whether school has academic performance data
+            if (true) {
                 return SECTION_3_COPY_WI;
             } else {
-                throw new IllegalArgumentException("School is from unsupported state");
+                return SECTION_3_COPY_DATA_UNAVAILABLE;
             }
+        } else {
+            throw new IllegalArgumentException("School is from unsupported state");
         }
     }
 
@@ -462,4 +462,5 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     }
 
     // ===================== UTILITY METHODS ========================
+    // TODO-13012 any methods to add here?
 }

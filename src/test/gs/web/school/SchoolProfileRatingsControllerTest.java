@@ -359,6 +359,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         String copy;
 
         // TODO-13012 Data unavailable copy
+        //s.setDatabaseState(State.WI);
         //copy = _controller.getSection3Copy(s);
         //assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_DATA_UNAVAILABLE, copy);
 
