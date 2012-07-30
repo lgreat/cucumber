@@ -43,8 +43,8 @@
                     Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
                     But because this page may load slowly, that's not an option.
                 -->
-                <pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>
-                <pageHelper:externalJavascript file="/res/js/starRating.js"/>
+                <!--<pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>-->
+                <!--<pageHelper:externalJavascript file="/res/js/starRating.js"/>-->
 
                 <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
 
@@ -55,14 +55,15 @@
                         </h4>
                     </div>
 
-                    <div class="unit size3of5 lastUnit pma" style="background-color: #FFFFFF">
-                        <div id="starRatingContainer" class="fl">
+                    <div class="unit size3of5 lastUnit pas" style="background-color: #FFFFFF">
+                        <div id="starRatingContainer1" class="fl pan man">
                             <div id="" class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
                             <div id="" class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                         </div>
-                        <div class="top_5">
-                            <div class="fr smaller">Click on stars to rate</div>
-                        </div>
+
+                            <div class="fr smaller pan man make-999999">Click on stars to rate</div>
+
+                        <div class="clear pan man"><!-- do not collapse --></div>
                         <!-- end star ratings -->
                     </div>
                 </div>
@@ -111,7 +112,7 @@
 
                 <div class="line">
                     <div class="unit size1of1 lastUnit">
-                        <div id="js-charCount" class="formHelperText fltrt mrm">1200 characters remaining</div>
+                        <div id="js-charCount" class="formHelperText smaller fr mrm">1200 characters remaining</div>
                     </div>
                 </div>
 
@@ -145,17 +146,17 @@
                         <div class="formErrorText media form-error">
                             <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd">Please enter your email.</div>
+                            <div class="bd smaller">Please enter your email.</div>
                         </div>
                         <div class="smallText1-333 media form-alert">
                             <span class="sprite i-confirm-sm img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd">You must verify your email address on submit.</div>
+                            <div class="bd smaller">You must verify your email address on submit.</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="line role">
+                <div class="line role ptm">
                     <div class="unit size4of7">
                         <div class="line">
                             <label for="affiliation" class="unit size1of4">I am a:
@@ -309,10 +310,10 @@
                     <div class="spacer_15"><!-- do not collapse --></div>
                 </div>
 
-                <div class="line terms">
+                <div class="line terms ptm">
                     <div class="unit size1of1 lastUnit">
                         <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
-                        <label for="terms" class="smallText1 frmPRLabel-2">I agree to the <link:termsOfUse
+                        <label for="terms" class="smaller frmPRLabel-2">I agree to the <link:termsOfUse
                                 target="_blank">GreatSchools Terms of Use</link:termsOfUse> and
                             <link:parentReviewGuidelines
                                     target="_blank">School Review Guidelines</link:parentReviewGuidelines>.
@@ -322,11 +323,11 @@
                 </div>
 
                 <c:if test="${!isUserSubscribedToMss and (school.type.schoolTypeName ne 'private') and (school.levelCode ne 'p')}">
-                    <div class="line terms">
+                    <div class="line terms pvm">
                         <div class="unit size1of1 lastUnit">
                             <gsml:checkbox name="mssSub" styleClass="checkbox" styleId="rememberMeBox" checked="true"/>
                             <label for="rememberMeBox"
-                                   class="smallText1 frmPRLabel-2">Yes, send me monthly email updates about this school.
+                                   class="smaller frmPRLabel-2">Yes, send me monthly email updates about this school.
                             </label>
                         </div>
                     </div>
@@ -343,24 +344,28 @@
 
             </fieldset>
             <fieldset>
-                <button id="parentReviewFormSubmit" class="button-1 fltlft" type="submit" name="Submit" value="submit" onclick="">Submit
+
+                <button id="parentReviewFormSubmit" class="but-1 fl but-rg but" type="submit" name="Submit" value="submit" onclick="">Submit
                 </button>
-                <div class="helperMessage formText1 media">
+                <div class="helperMessage smaller media">
                     <span class="sprite i-required img"><!-- do not collapse --></span>
-                    <div class="bd">Indicates a required field</div>
+                    <div class="bd dn">Indicates a required field</div>
                 </div>
+
             </fieldset>
         </gsweb:form>
-        <script type="text/javascript">
-            jQuery(function () {
-                jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-200,topPosition:-95});
-                jQuery('#js-bubbleInfo-3').popup({appear:'left',leftPosition:-200,topPosition:-95});
-                jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-200,topPosition:-95});
-                jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-200,topPosition:-95});
-                jQuery('#js-bubbleInfo-6').popup({appear:'left',leftPosition:-200,topPosition:1});
-                jQuery('#js-reviewText').characterCounter({charLimit:1200});
-            });
-        </script>
+
+                </div></div></div>
+    <script type="text/javascript">
+        jQuery(function () {
+//            jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-200,topPosition:-95});
+//            jQuery('#js-bubbleInfo-3').popup({appear:'left',leftPosition:-200,topPosition:-95});
+//            jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-200,topPosition:-95});
+//            jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-200,topPosition:-95});
+//            jQuery('#js-bubbleInfo-6').popup({appear:'left',leftPosition:-200,topPosition:1});
+//            jQuery('#js-reviewText').characterCounter({charLimit:1200});
+        });
+    </script>
 
 
     <!-- Force recalculation of column heights -->
@@ -371,5 +376,4 @@
             //BoxHeights.equalize('${mainColumnId}','col_right');
         }
     </script>
-                </div></div></div>
 </jsp:root>

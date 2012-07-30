@@ -95,7 +95,7 @@
                 <c:set var="aboutTheseRatings">
                     <div class="spacer_5"><!-- do not collapse --></div>
                     <div class="infoBox1 smallText1">
-                        <div id="js-bubbleInfo-1">
+                        <div id="js-bubbleInfo1-1">
                             <div class="media">
                                 <span class="js-trigger sprite i-info img mrs"><!-- do not collapse --></span>
 
@@ -253,7 +253,7 @@
             <hr class="mvm" />
         <div class="spacer_15"><!-- do not collapse --></div>
         <div class="line">
-            <div id="rankSort" class="alpha grid_8">
+            <div id="rankSort" class="alpha grid_6">
                 <span class="smallText1">Sort by: </span>
                 <c:set var="sortUrl" value="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}"/>
                 <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort" action="${sortUrl}">
@@ -264,7 +264,7 @@
                 </form:select>
             </div>
             <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
-                <div id="typeSort"  class="omega grid_8 tar">
+                <div id="typeSort"  class="omega grid_10 tar">
                     <form id="showReviews" class="smallText1" action="">
                         <span>Show reviews by: </span>
                         <c:if test="${numParentReviews gt 0}">
@@ -331,7 +331,7 @@
                                     <div class="mrl"><ratings:stars curSR="${curStarRating}"/></div>
                                 </c:if>
 
-                                <div class="author smallText1 bd fl">
+                                <div class="author small make-999999 bd fl plm pbn mbn">
                                     Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
                                     <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                                         <c:choose>
@@ -357,13 +357,12 @@
                                 </c:when>
 
                                 <c:otherwise>
-                                    <div class="reportReview media smallText1">
-                                        <span class="sprite reportIt-nbg img mrs"><!-- do not collapse --></span>
-
+                                    <div class="reportReview">
                                         <div class="bd">
-                                            <a class="reportIt" href="${loginRedirectUrl}"
+                                            <div class="dib"><div class="iconx16 i-16-flag mrs"><!-- do not collapse --></div></div>
+                                            <div class="dib vat"><a class="reportIt small" href="${loginRedirectUrl}"
                                                onclick="return false;"
-                                               id="report_schoolReview_${review.id}">Report it</a>
+                                               id="report_schoolReview_${review.id}">Report it</a></div>
                                         </div>
                                     </div>
                                 </c:otherwise>
@@ -393,8 +392,8 @@
                     </p>
 
 
-                    <p class="respond text3italic"><a href="#schoolReviewSubmitForm">Write your own review</a></p>
-
+                    <div class="fr respond small pan man"><a href="#schoolReviewSubmitForm">Write your own review</a></div>
+                    <div class="clear pan man"><!-- do not collapse --></div>
                 </div>
                 <div class="spacer_15 brdbtm_dotted"><!-- do not collapse --></div>
 
@@ -422,9 +421,9 @@
     </div>
 ${aboutTheseRatings}
 <script type="text/javascript">
-    jQuery(function () {
-        jQuery('#js-bubbleInfo-1').popup({appear:'below',leftPosition:-8,topPosition:8});
-        jQuery('#js-bubbleInfo-7').popup({appear:'above',leftPosition:-38,topPosition:-120});
-    });
+//    jQuery(function () {
+//        jQuery('#js-bubbleInfo-1').popup({appear:'below',leftPosition:-8,topPosition:8});
+//        jQuery('#js-bubbleInfo-7').popup({appear:'above',leftPosition:-38,topPosition:-120});
+//    });
 </script>
 </jsp:root>
