@@ -223,22 +223,6 @@
                 <!--end dc_unit content -->
             </div>
             <!--end dc_unit 4-->
-            <br class="clearfloat"/>
-
-            <div id="donate">
-                <h3>
-                    <img src="/res/img/geo/landing/donate.gif" alt="Donate"/>
-                </h3>
-                <ul class="none">
-                    <li><span class="contribution">Your contribution helps support D.C. School Chooser and our GreatSchools D.C. program.</span></li>
-                </ul>
-                <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g">
-                    <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now"/>
-                </gsml:a>
-            </div>
-            <!-- end donate -->
-            <br class="spacer_10"/>
-            <br class="clearfloat"/>
         </div>
         <!--end colrt -->
         <br class="clearfloat"/>

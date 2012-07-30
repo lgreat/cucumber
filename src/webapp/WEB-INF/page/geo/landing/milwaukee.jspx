@@ -173,17 +173,6 @@
                 </ul>
             </div>
         </div>
-        <div id="donate">
-            <h3>
-                <img src="/res/img/geo/landing/donate.gif" alt="Donate" />
-            </h3>
-            <ul class="none">
-                <li>Your contribution helps support Milwaukee School Chooser and our GreatSchools Milwaukee program.</li>
-            </ul>
-            <gsml:a href="https://secure.entango.com/donate/rpdfMtPPh2g" >
-                <img src="/res/img/geo/landing/donatenowbutton.gif" alt="Donate Now" />
-            </gsml:a>
-        </div>
     </div>
 
 <div id="landingEditorialFooter" class="clearBoth">&#38;nbsp;</div>

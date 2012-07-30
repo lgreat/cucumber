@@ -154,12 +154,6 @@ div#right-content {
         color:#777777;
     }
 
-        div#right-content div#donate li,
-        div#right-content div#daytondonate li{
-            background-position: 0 3px;
-            line-height: 18px;
-        }
-
 div#grid {
    position:relative;
    width: 648px;
@@ -335,47 +329,6 @@ div#grid div.gridbox {
                position: relative;
                top: 3px;
            }
-
-div#donate,div#daytondonate {
-    margin-top:20px;
-    border:2px solid #DDDDDD;
-    position:relative;
-    height:96px;
-    width:643px;
-}
-
-    div#donate h3,div#daytondonate h3 {
-        background:#66CCCC;
-        width:96px;
-        height:86px;
-        margin:5px;
-    }
-
-    div#donate h3 img,div#daytondonate h3 img {
-       position:relative;
-       top:35px;
-       left:12px;
-    }
-
-    div#donate ul,div#daytondonate ul {
-        position:absolute;
-        top:29px;
-        left:120px;
-        width: 350px;
-    }
-    div#daytondonate ul{
-       top:19px;
-    }
-    div#right-content div#donate ul li,
-    div#right-content div#daytondonate ul li {
-        background: 0;
-    }
-
-    div#donate a,div#daytondonate a {
-        position:absolute;
-        top:38px;
-        left:480px;
-    }
 
       div#landingEditorialFooter{
           margin-left:52px;
