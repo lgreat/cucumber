@@ -234,7 +234,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
-    public String getClimateRatingAvailabilityText(School school) {
+    public static String getClimateRatingAvailabilityText(School school) {
         if (State.DC.equals(school.getDatabaseState())) {
             return CLIMATE_RATING_AVAILABILITY_TEXT_DC;
         } else if (State.IN.equals(school.getDatabaseState())) {
@@ -246,7 +246,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    public String getSection1Copy(School school) {
+    public static String getSection1Copy(School school) {
         if (State.DC.equals(school.getDatabaseState())) {
             return SECTION_1_COPY_DC;
         } else if (State.IN.equals(school.getDatabaseState())) {
@@ -272,6 +272,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Section 3 ==============================
 
+    // TODO-13012 for efficiency, might want to move data check further out
     public Map<String,Object> getSection3Model(School school) {
         Map<String,Object> model = new HashMap<String,Object>();
 
@@ -312,11 +313,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
-    public boolean isShowStateTestScoreRating(State state) {
+    public static boolean isShowStateTestScoreRating(State state) {
         return !State.DC.equals(state);
     }
 
-    public boolean isShowStateStudentGrowthRating(State state) {
+    public static boolean isShowStateStudentGrowthRating(State state) {
         return !State.DC.equals(state);
     }
 
@@ -380,7 +381,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
-    public String getTestScoreRatingSource(School school) {
+    public static String getTestScoreRatingSource(School school) {
         if (State.DC.equals(school.getDatabaseState())) {
             return TEST_SCORE_RATING_SOURCE_DC;
         } else if (State.IN.equals(school.getDatabaseState())) {
@@ -392,7 +393,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    public String getStudentGrowthRatingSource(School school) {
+    public static String getStudentGrowthRatingSource(School school) {
         if (State.DC.equals(school.getDatabaseState())) {
             return STUDENT_GROWTH_RATING_SOURCE_DC;
         } else if (State.IN.equals(school.getDatabaseState())) {
@@ -404,7 +405,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    public String getPostSecondaryReadinessRatingSource(School school) {
+    public static String getPostSecondaryReadinessRatingSource(School school) {
         if (State.DC.equals(school.getDatabaseState())) {
             return POST_SECONDARY_READINESS_RATING_SOURCE_DC;
         } else if (State.IN.equals(school.getDatabaseState())) {
@@ -434,7 +435,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    public String getSection3CopyPostSecondaryReadiness(School school) {
+    public static String getSection3CopyPostSecondaryReadiness(School school) {
         // TODO-13012 placeholder - check if post-secondary readiness rating is available for this school (even if contains High School level code)
         LevelCode levelCode = school.getLevelCode();
         if (levelCode != null && levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
@@ -454,6 +455,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Section 4 ==============================
 
+    // TODO-13012 for efficiency, might want to move data check further out
     public Map<String,Object> getSection4Model(School school) {
         Map<String,Object> model = new HashMap<String,Object>();
 
@@ -468,10 +470,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         if (showClimateRatingDetails) {
             model.putAll(getClimateRatingDetailsModel(school));
         }
-
-
-        // TODO-13012
-        // TODO-FIXME
 
         return model;
     }
@@ -494,7 +492,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    public boolean isShowClimateRatingDetails(State state) {
+    public static boolean isShowClimateRatingDetails(State state) {
         return State.WI.equals(state);
     }
 
