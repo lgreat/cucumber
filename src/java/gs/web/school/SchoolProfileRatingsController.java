@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO-13012 validate simplifying assumption -- behavior switches between Milwaukee, DC, and Indianapolis use state only, not city
+
 @Controller
 @RequestMapping("/school/profileRatings.page")
 public class SchoolProfileRatingsController extends AbstractSchoolProfileController implements ReadWriteAnnotationController {
@@ -144,6 +146,20 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_SHOW_CLIMATE_RATING_DETAILS = "showClimateRatingsDetails";
     public static final String MODEL_CLIMATE_RATING_NUM_RESPONSES = "climateRatingNumResponses";
 
+    public static final String MODEL_SECTION_4_COPY = "section4Copy";
+    // TODO-13012 placeholder
+    public static final String SECTION_4_COPY_DATA_UNAVAILABLE =
+            "Data unavailable - section 4 copy";
+    // TODO-13012 placeholder
+    public static final String SECTION_4_COPY_DC =
+            "DC - section 4 copy - no data this year";
+    // TODO-13012 placeholder
+    public static final String SECTION_4_COPY_IN =
+            "IN - section 4 copy - no data yet";
+    // TODO-13012 placeholder
+    public static final String SECTION_4_COPY_WI =
+            "WI - section 4 copy - data is present in the section below";
+
     public static final String MODEL_SCHOOL_ENVIRONMENT_RATING = "schoolEnvironmentRating";
     public static final String MODEL_SOCIAL_EMOTIONAL_LEARNING_RATING = "socialEmotionalLearningRating";
     public static final String MODEL_HIGH_EXPECTATIONS_RATING = "highExpectationsRating";
@@ -160,6 +176,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         School school = getSchool(request);
         modelMap.put("school", school);
 
+        // TODO-13012 for efficiency, might want to move data check here, using some helpers to avoid unnecessary db calls
+
         modelMap.addAllAttributes(getSection1Model(school));
         modelMap.addAllAttributes(getSection2Model(school));
         modelMap.addAllAttributes(getSection3Model(school));
@@ -171,7 +189,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     // TODO-13012 convert some class methods to static methods if possible, after placeholders are replaced with dao calls
 
     // ===================== Section 1 ==============================
-    
+
+    // TODO-13012 for efficiency, might want to move data check further out
     public Map<String,Object> getSection1Model(School school) {
         Map<String,Object> model = new HashMap<String,Object>();
 
@@ -268,13 +287,13 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         // test score ratings
 
-        boolean showStateTestScoreRating = isShowStateTestScoreRating(school);
+        boolean showStateTestScoreRating = isShowStateTestScoreRating(school.getDatabaseState());
         model.put(MODEL_SHOW_STATE_TEST_SCORE_RATING, showStateTestScoreRating);
         model.putAll(getTestScoreRatingsModel(school, showStateTestScoreRating));
 
         // student growth ratings
 
-        boolean showStateStudentGrowthRating = isShowStateStudentGrowthRating(school);
+        boolean showStateStudentGrowthRating = isShowStateStudentGrowthRating(school.getDatabaseState());
         model.put(MODEL_SHOW_STATE_STUDENT_GROWTH_RATING, showStateStudentGrowthRating);
         model.putAll(getStudentGrowthRatingsModel(school, showStateStudentGrowthRating));
 
@@ -293,14 +312,15 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
-    public boolean isShowStateTestScoreRating(School school) {
-        return !State.DC.equals(school.getDatabaseState());
+    public boolean isShowStateTestScoreRating(State state) {
+        return !State.DC.equals(state);
     }
 
-    public boolean isShowStateStudentGrowthRating(School school) {
-        return !State.DC.equals(school.getDatabaseState());
+    public boolean isShowStateStudentGrowthRating(State state) {
+        return !State.DC.equals(state);
     }
 
+    // TODO-13012 for efficiency, might want to move data check further out
     public Map<String,Object> getTestScoreRatingsModel(School school, boolean showStateRating) {
         Map<String,Object> model = new HashMap<String,Object>();
 
@@ -324,6 +344,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
+    // TODO-13012 for efficiency, might want to move data check further out
     public Map<String,Object> getStudentGrowthRatingsModel(School school, boolean showStateRating) {
         Map<String,Object> model = new HashMap<String,Object>();
 
@@ -344,6 +365,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
+    // TODO-13012 for efficiency, might want to move data check further out
     public Map<String,Object> getPostSecondaryReadinessRatingsModel(School school) {
         Map<String,Object> model = new HashMap<String,Object>();
 
@@ -394,6 +416,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
+    // TODO-13012 for efficiency, might want to move data check further out
     public String getSection3Copy(School school) {
         if (State.DC.equals(school.getDatabaseState())) {
             return SECTION_3_COPY_DC;
@@ -434,27 +457,69 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public Map<String,Object> getSection4Model(School school) {
         Map<String,Object> model = new HashMap<String,Object>();
 
+        // SECTION 4 COPY
+
+        model.put(MODEL_SECTION_4_COPY, getSection4Copy(school));
+
+        // SECTION 4 CLIMATE DETAILS
+
+        boolean showClimateRatingDetails = isShowClimateRatingDetails(school.getDatabaseState());
+        model.put(MODEL_SHOW_CLIMATE_RATING_DETAILS, showClimateRatingDetails);
+        if (showClimateRatingDetails) {
+            model.putAll(getClimateRatingDetailsModel(school));
+        }
+
+
         // TODO-13012
         // TODO-FIXME
 
-        if (State.DC.equals(school.getDatabaseState())) {
-            model.put(MODEL_SHOW_CLIMATE_RATING_DETAILS, false);
-        } else if (State.IN.equals(school.getDatabaseState())) {
-            model.put(MODEL_SHOW_CLIMATE_RATING_DETAILS, false);
-        } else if (State.WI.equals(school.getDatabaseState())) {
-            model.put(MODEL_SHOW_CLIMATE_RATING_DETAILS, true);
+        return model;
+    }
 
-            // TODO-13012 placeholder
+    // TODO-13012 for efficiency, might want to move data check further out
+    public String getSection4Copy(School school) {
+        if (State.DC.equals(school.getDatabaseState())) {
+            return SECTION_4_COPY_DC;
+        } else if (State.IN.equals(school.getDatabaseState())) {
+            return SECTION_4_COPY_IN;
+        } else if (State.WI.equals(school.getDatabaseState())) {
+            // TODO-13012 placeholder - check whether school has climate data
+            if (true) {
+                return SECTION_4_COPY_WI;
+            } else {
+                return SECTION_4_COPY_DATA_UNAVAILABLE;
+            }
+        } else {
+            throw new IllegalArgumentException("School is from unsupported state");
+        }
+    }
+
+    public boolean isShowClimateRatingDetails(State state) {
+        return State.WI.equals(state);
+    }
+
+    // TODO-13012 for efficiency, might want to move data check further out
+    public Map<String,Object> getClimateRatingDetailsModel(School school) {
+        Map<String,Object> model = new HashMap<String,Object>();
+
+        // TODO-13012 placeholder - check whether school has climate data
+        if (true) {
+            // TODO-13012 placeholder - replace with call to get actual number
             model.put(MODEL_CLIMATE_RATING_NUM_RESPONSES, 16);
-            // TODO-13012 placeholder
+
+            // TODO-13012 placeholder - replace with call to get actual rating
             model.put(MODEL_SCHOOL_ENVIRONMENT_RATING, 6);
-            // TODO-13012 placeholder
+
+            // TODO-13012 placeholder - replace with call to get actual rating
             model.put(MODEL_SOCIAL_EMOTIONAL_LEARNING_RATING, 7);
-            // TODO-13012 placeholder
+
+            // TODO-13012 placeholder - replace with call to get actual rating
             model.put(MODEL_HIGH_EXPECTATIONS_RATING, 6);
-            // TODO-13012 placeholder
+
+            // TODO-13012 placeholder - replace with call to get actual rating
             model.put(MODEL_TEACHER_SUPPORT_RATING, 4);
-            // TODO-13012 placeholder
+
+            // TODO-13012 placeholder - replace with call to get actual rating
             model.put(MODEL_FAMILY_ENGAGEMENT_RATING, 7);
         }
 

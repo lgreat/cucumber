@@ -174,10 +174,7 @@
                 </div>
                 <div class="bd pam">
                     <p class="small bottom">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros, elementum
-                        commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra vestibulum. Praesent
-                        risus nunc, pellentesque et faucibus non, vulputate ut sem. Aliquam a lectus urna, eget
-                        aliquam libero. Pellentesque consectetur libero nunc, nec posuere nibh.
+                        ${section4Copy}
                     </p>
 
                     <c:if test="${showClimateRatingsDetails}">

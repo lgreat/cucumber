@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-// TODO-13012 simplifying assumption -- uses state only, not city
 public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     private SchoolProfileRatingsController _controller;
 
@@ -551,56 +550,143 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     }
 
     public void testIsShowStateTestScoreRating() {
-        School s = new School();
         Boolean showStateRating;
 
         // Milwaukee
-        s.setDatabaseState(State.WI);
-        showStateRating = _controller.isShowStateTestScoreRating(s);
+        showStateRating = _controller.isShowStateTestScoreRating(State.WI);
         assertTrue(showStateRating);
 
         // DC
-        s.setDatabaseState(State.DC);
-        showStateRating = _controller.isShowStateTestScoreRating(s);
+        showStateRating = _controller.isShowStateTestScoreRating(State.DC);
         assertFalse(showStateRating);
 
         // Indy
-        s.setDatabaseState(State.IN);
-        showStateRating = _controller.isShowStateTestScoreRating(s);
+        showStateRating = _controller.isShowStateTestScoreRating(State.IN);
         assertTrue(showStateRating);
 
         // other state
-        s.setDatabaseState(State.AK);
-        showStateRating = _controller.isShowStateTestScoreRating(s);
+        showStateRating = _controller.isShowStateTestScoreRating(State.AK);
         assertTrue(showStateRating);
     }
 
     public void testIsShowStateStudentGrowthRating() {
-        School s = new School();
         Boolean showStateRating;
 
         // Milwaukee
-        s.setDatabaseState(State.WI);
-        showStateRating = _controller.isShowStateStudentGrowthRating(s);
+        showStateRating = _controller.isShowStateStudentGrowthRating(State.WI);
         assertTrue(showStateRating);
 
         // DC
-        s.setDatabaseState(State.DC);
-        showStateRating = _controller.isShowStateStudentGrowthRating(s);
+        showStateRating = _controller.isShowStateStudentGrowthRating(State.DC);
         assertFalse(showStateRating);
 
         // Indy
-        s.setDatabaseState(State.IN);
-        showStateRating = _controller.isShowStateStudentGrowthRating(s);
+        showStateRating = _controller.isShowStateStudentGrowthRating(State.IN);
         assertTrue(showStateRating);
 
         // other state
-        s.setDatabaseState(State.AK);
-        showStateRating = _controller.isShowStateStudentGrowthRating(s);
+        showStateRating = _controller.isShowStateStudentGrowthRating(State.AK);
         assertTrue(showStateRating);
     }
 
     public void testGetSection4Model() throws Exception {
+        Map<String,Object> model;
 
+        School s = new School();
+        s.setDatabaseState(State.WI);
+        s.setLevelCode(LevelCode.ELEMENTARY_MIDDLE_HIGH);
+
+        model = _controller.getSection4Model(s);
+
+        // SECTION 4 COPY
+
+        Object section4Copy = model.get(SchoolProfileRatingsController.MODEL_SECTION_4_COPY);
+        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_WI, section4Copy);
+
+        // SECTION 4 CLIMATE DETAILS
+
+        Object showClimateRatingDetails =
+                model.get(SchoolProfileRatingsController.MODEL_SHOW_CLIMATE_RATING_DETAILS);
+        assertEquals(Boolean.TRUE, showClimateRatingDetails);
+
+        // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
+        assertEquals(16, model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_NUM_RESPONSES));
+        assertEquals(6, model.get(SchoolProfileRatingsController.MODEL_SCHOOL_ENVIRONMENT_RATING));
+        assertEquals(7, model.get(SchoolProfileRatingsController.MODEL_SOCIAL_EMOTIONAL_LEARNING_RATING));
+        assertEquals(6, model.get(SchoolProfileRatingsController.MODEL_HIGH_EXPECTATIONS_RATING));
+        assertEquals(4, model.get(SchoolProfileRatingsController.MODEL_TEACHER_SUPPORT_RATING));
+        assertEquals(7, model.get(SchoolProfileRatingsController.MODEL_FAMILY_ENGAGEMENT_RATING));
+    }
+
+    public void testGetSection4Copy() {
+        School s = new School();
+        String copy;
+
+        // TODO-13012 Data unavailable copy
+        //s.setDatabaseState(State.WI);
+        //copy = _controller.getSection4Copy(s);
+        //assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_DATA_UNAVAILABLE, copy);
+
+        // Milwaukee
+        s.setDatabaseState(State.WI);
+        copy = _controller.getSection4Copy(s);
+        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_WI, copy);
+
+        // DC
+        s.setDatabaseState(State.DC);
+        copy = _controller.getSection4Copy(s);
+        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_DC, copy);
+
+        // Indy
+        s.setDatabaseState(State.IN);
+        copy = _controller.getSection4Copy(s);
+        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_IN, copy);
+
+        // unsupported state
+        boolean threwException = false;
+        s.setDatabaseState(State.AK);
+        try {
+            copy = _controller.getSection4Copy(s);
+        } catch (Exception e) {
+            threwException = true;
+            assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
+            assertEquals("School is from unsupported state", e.getMessage());
+        }
+        assertTrue(threwException);
+    }
+
+    public void testIsShowClimateRatingDetails() {
+        Boolean showStateRating;
+
+        // Milwaukee
+        showStateRating = _controller.isShowClimateRatingDetails(State.WI);
+        assertTrue(showStateRating);
+
+        // DC
+        showStateRating = _controller.isShowClimateRatingDetails(State.DC);
+        assertFalse(showStateRating);
+
+        // Indy
+        showStateRating = _controller.isShowClimateRatingDetails(State.IN);
+        assertFalse(showStateRating);
+
+        // other state
+        showStateRating = _controller.isShowClimateRatingDetails(State.AK);
+        assertFalse(showStateRating);
+    }
+
+    public void testGetClimateRatingDetailsModel() {
+        Map<String,Object> model;
+        School s = new School();
+
+        model = _controller.getClimateRatingDetailsModel(s);
+
+        // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
+        assertEquals(16, model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_NUM_RESPONSES));
+        assertEquals(6, model.get(SchoolProfileRatingsController.MODEL_SCHOOL_ENVIRONMENT_RATING));
+        assertEquals(7, model.get(SchoolProfileRatingsController.MODEL_SOCIAL_EMOTIONAL_LEARNING_RATING));
+        assertEquals(6, model.get(SchoolProfileRatingsController.MODEL_HIGH_EXPECTATIONS_RATING));
+        assertEquals(4, model.get(SchoolProfileRatingsController.MODEL_TEACHER_SUPPORT_RATING));
+        assertEquals(7, model.get(SchoolProfileRatingsController.MODEL_FAMILY_ENGAGEMENT_RATING));
     }
 }
