@@ -19,41 +19,8 @@
 
         <c:set var="totalResults" value="${page.pager.totalItems}"/>
 
-        <c:set var="searchResultsPagingSummary">
-            <div class="js-search-results-paging-summary text3">
-                Showing <fmt:formatNumber value="${page.offset+1}" />-<fmt:formatNumber value="${page.lastOffsetOnPage+1}" /> of
-                <strong><span id="total-results-count"><fmt:formatNumber value="${page.pager.totalItems}" /></span> schools</strong>
-            </div>
-        </c:set>
+        <search:schoolSearchResultsNavigation pageOffset="${page.offset+1}" pageLastOffsetOnPage="${page.lastOffsetOnPage+1}" pageTotalItems="${totalResults}" tabSelect="list" />
 
-        <div class="alpha grid_16 omega">
-            <div class="alpha grid_16 omega pr">
-                <div class="line pa grid_11 omega" style="right: 0px; top:10px;">
-                    <div class="unit size1of2 plm">
-                        ${searchResultsPagingSummary}
-                    </div>
-                    <div class="unit size2of2 lastUnit">
-                        <div class="pagination  js-pageNumbers" id="pagination">
-                            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
-                                                     javascriptMethod="GS.search.results.pagination"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="gsTabs1">
-                    <ul class="tabStyle-2-1">
-                        <li>
-                            <a data-role="button" data-inline="true" class="js-listResultsLink preSelected">
-                                <span class="iconx16 i-16-listView mrs vam"><!-- do not collapse --></span><span class="vam">List</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a data-role="button" data-inline="true" class="js-mapResultsLink">
-                                <span class="iconx16 i-16-getDirections mrs vam"><!-- do not collapse --></span><span class="vam">Map</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div class="alpha grid_16 omega">
             <c:choose>
                 <c:when test="${not empty schoolSearchResults[0].distance and (not empty param.zipCode or not empty param.lat)}">
