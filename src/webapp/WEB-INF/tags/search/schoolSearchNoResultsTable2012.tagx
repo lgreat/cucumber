@@ -9,12 +9,12 @@
     <div class="alpha grid_16 omega mtm">
         <c:choose>
             <c:when test="${isAjaxRequest}">
-                <div id="js-school-search-results-table-body" class="errorBox2">
+                <div id="js-school-search-results-table-body" class="">
                     <hr class="keyline1"/>
                     <div class="pvl">
-                        <h3 class="loud">No results found.</h3>
+                        <h3>No results found.</h3>
 
-                        <div class="loud">No results match your selection. To get more matches, change or remove filters or click &#34;Reset all filters&#34;.</div>
+                        <div>No results match your selection. To get more matches, change or remove filters or click &#34;Reset all filters&#34;.</div>
                     </div>
                     <hr class="keyline1"/>
                 </div>
@@ -22,17 +22,17 @@
             <c:otherwise>
                 <c:set var="badSearch"><c:out value="${searchString}" escapeXml="true"/></c:set>
 
-                <div id="failedSearch">
+                <div id="">
                     <c:choose>
                         <c:when test="${isNearbySearch and param.zipCode}">
-                            <p class="">Your search for <strong>${param.zipCode}</strong> did not match any schools.</p>
+                            <h3>Your search for <strong>${param.zipCode}</strong> did not match any schools.</h3>
                         </c:when>
                         <c:when test="${empty state}">
-                            <p class="">No results were found because a state was not selected. Please choose a state and try your search again.</p>
+                            <h3>No results were found because a state was not selected. Please choose a state and try your search again.</h3>
                         </c:when>
                         <c:otherwise>
-                            <p class="">Your search for
-                                <strong>${badSearch}</strong> did not match any schools in ${state.longName}.</p>
+                            <h3>Your search for
+                                <strong>${badSearch}</strong> did not match any schools in ${state.longName}.</h3>
                         </c:otherwise>
                     </c:choose>
 
