@@ -5,69 +5,58 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
-    <div class="alpha grid_16 omega">
-        <div class="alpha grid_16 omega">
-            <div class="gsTabs1">
-                <ul class="tabStyle-2-1">
-                    <li>
-                        <a data-role="button" data-inline="true" class="js-listResultsLink preSelected">
-                            <span class="iconx16 i-16-listView mrm"><!-- do not collapse --></span>List
-                        </a>
-                    </li>
-                    <li>
-                        <a data-role="button" data-inline="true" class="js-mapResultsLink">
-                            <span class="iconx16 i-16-getDirections mrm"><!-- do not collapse --></span>Map</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <br class="clearfloat"/>
 
-    <c:choose>
-        <c:when test="${isAjaxRequest}">
-            <div id="js-school-search-results-table-body" class="errorBox2">
-                <div class="media">
-                    <span class="sprite i-alert img"><!-- do not collapse --></span>
+    <div class="alpha grid_16 omega mtm">
+        <c:choose>
+            <c:when test="${isAjaxRequest}">
+                <div id="js-school-search-results-table-body" class="errorBox2">
+                    <hr class="keyline1"/>
+                    <div class="pvl">
+                        <h3 class="loud">No results found.</h3>
 
-                    <p class="formErrorText bd">No results match your selection. Change or remove filters to get more matches.</p>
+                        <div class="loud">No results match your selection. To get more matches, change or remove filters or click &#34;Reset all filters&#34;.</div>
+                    </div>
+                    <hr class="keyline1"/>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <c:set var="badSearch"><c:out value="${searchString}" escapeXml="true"/></c:set>
+
+                <div id="failedSearch">
+                    <c:choose>
+                        <c:when test="${isNearbySearch and param.zipCode}">
+                            <p class="">Your search for <strong>${param.zipCode}</strong> did not match any schools.</p>
+                        </c:when>
+                        <c:when test="${empty state}">
+                            <p class="">No results were found because a state was not selected. Please choose a state and try your search again.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <p class="">Your search for
+                                <strong>${badSearch}</strong> did not match any schools in ${state.longName}.</p>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <c:if test="${didYouMean ne null}">
+                        <p class="">
+                            Did you mean: <span class=""><link:schoolSearch query="${didYouMean}"
+                                                                            schoolType="${stOmniture}"
+                                                                            styleClass="noInterstitial"
+                                                                            schoolSearchType="LOOSE"><span
+                                style="text-decoration: underline;">${didYouMean}</span></link:schoolSearch></span>
+                        </p>
+                    </c:if>
+
+                    <p class="">Suggestions:</p>
+
+                    <ul class="">
+                        <li><span class="">Make sure all words are spelled correctly.</span></li>
+                        <li><span class="">Try different or fewer keywords.</span></li>
+                        <li><span class="">Try more general keywords.</span></li>
+                    </ul>
 
                 </div>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <c:set var="badSearch"><c:out value="${searchString}" escapeXml="true"/></c:set>
-
-            <div id="failedSearch">
-                <c:choose>
-                    <c:when test="${isNearbySearch and param.zipCode}">
-                        <p class="introText-c03">Your search for <strong>${param.zipCode}</strong> did not match any schools.</p>
-                    </c:when>
-                    <c:when test="${empty state}">
-                        <p class="introText-c03">No results were found because a state was not selected. Please choose a state and try your search again.</p>
-                    </c:when>
-                    <c:otherwise>
-                        <p class="introText-c03">Your search for <strong>${badSearch}</strong> did not match any schools in ${state.longName}.</p>
-                    </c:otherwise>
-                </c:choose>
-
-                <c:if test="${didYouMean ne null}">
-                    <p class="introText">
-                        Did you mean: <span class="introTextitalic"><link:schoolSearch query="${didYouMean}" schoolType="${stOmniture}" styleClass="noInterstitial" schoolSearchType="LOOSE"><span style="text-decoration: underline;">${didYouMean}</span></link:schoolSearch></span>
-                    </p>
-                </c:if>
-
-
-                <p class="text1bold">Suggestions:</p>
-
-                <ul class="text1-d61">
-                    <li><span class="text1">Make sure all words are spelled correctly.</span></li>
-                    <li><span class="text1">Try different or fewer keywords.</span></li>
-                    <li><span class="text1">Try more general keywords.</span></li>
-                </ul>
-
-            </div>
-        </c:otherwise>
-    </c:choose>
+            </c:otherwise>
+        </c:choose>
+    </div>
 
 </jsp:root>
