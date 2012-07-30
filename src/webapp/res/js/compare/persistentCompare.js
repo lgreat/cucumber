@@ -128,9 +128,6 @@ GS.school.compare = (function() {
                     }
 
                     triggerUpdatePageWithSchoolsEvent();
-
-                    //Decide whether to show or hide the compare module.
-                    showHideCompareModule();
                 }
             ).fail(
                 function() {
@@ -140,6 +137,9 @@ GS.school.compare = (function() {
         } else {
             schoolsInCompare = [];
         }
+
+        //Decide whether to show or hide the compare module.
+        showHideCompareModule();
     };
 
     var addSchoolToCompare = function(schoolId, state) {
@@ -384,22 +384,22 @@ GS.school.compare = (function() {
             '</div>' +
             '</div>' +
             '<hr class="keyline2"/>').appendTo('#js_compareSchoolsDiv');
-        //append this line when there is one entry
-        //<div id="js_selectOneMoreSchool" class="container_1-1 pvm tac small">Select at least one more school to compare.</div>
-
-        //append this line when there are no entries
-        //<div id="js_wantToCompareSchools" class="container_1-1 pvl tac small"><h3 class="bottom">Want to compare schools?</h3>Check the 'Compare' box in your search results.</div>
     };
 
     var showHideCompareModule = function() {
-        //If there are at least 1 school in the compare array then display the compare module.
-        if (schoolsInCompare.length >= 1) {
-            compareModule.show();
-            //Decide whether to show or hide the compare button.
-            showHideCompareButton();
-        } else {
-            compareModule.hide();
+        //Display text in the compare module, based on how many schools have been added to the compare module.
+        if (schoolsInCompare.length === 1) {
+            $('#js_wantToCompareSchools').hide();
+            $('#js_selectOneMoreSchool').show();
+        } else if (schoolsInCompare.length < 1) {
+            $('#js_selectOneMoreSchool').hide();
+            $('#js_wantToCompareSchools').show();
+        } else if (schoolsInCompare.length > 1) {
+            $('#js_selectOneMoreSchool').hide();
+            $('#js_wantToCompareSchools').hide();
         }
+        //Decide whether to show or hide the compare button.
+        showHideCompareButton();
     };
 
     var showHideCompareButton = function() {
@@ -438,7 +438,7 @@ GS.school.compare = (function() {
             var schoolId = schoolAndState.substr(0, schoolAndState.indexOf('_'));
             var state = schoolAndState.substr(schoolAndState.indexOf('_') + 1, schoolAndState.length);
             removeSchoolFromCompare(schoolId, state);
-            triggerSchoolRemovedEvent(schoolId,state);
+            triggerSchoolRemovedEvent(schoolId, state);
             return false;
         });
 
