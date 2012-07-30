@@ -131,11 +131,42 @@ dd          { margin-left: 1.5em;}
 /* Tables
 -------------------------------------------------------------- */
 
+
+
+
+/*
+    You can zebra-stripe your tables in outdated browsers by adding
+    the class "even" to every other table row.
+ */
+
+tbody tr.odd td,
+.tableType1 tbody tr.odd td {
+    background-color: #ffffff;
+}
+
+tbody tr.even td,
+.tableType1 tbody tr.even td {
+    background-color: #f1f1f1;
+}
+
+tbody tr:nth-child(odd) td,
+.tableType1 tbody tr:nth-child(odd) td{
+    background-color: #ffffff;
+}
+
+tbody tr:nth-child(even) td,
+.tableType1 tbody tr:nth-child(even) td{
+    background-color: #f1f1f1;
+}
+
+
+
 /*
     Because of the need for padding on TH and TD, the vertical rhythm
     on table cells has to be 27px, instead of the standard 18px or 36px
     of other elements.
  */
+
 table, table.tableType1       { table-layout: fixed; font-size: 12px; line-height: 16px; margin-bottom: 20px; width:100%; color: #2b2b2b; border:1px solid #cccccc; border-collapse: collapse;
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
     -moz-border-radius: 4px; /* FF1-3.6 */
@@ -164,22 +195,7 @@ tr.subhead th, thead tr.subhead th, .tableType1 tr.subhead th, .tableType1 thead
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#dddddd', EndColorStr='#cccccc'); /* IE6-IE9 */
 }
 th, td, .tableType1 th, .tableType1 td       { padding: 10px;vertical-align: top; word-wrap: break-word;}
-/*
-    You can zebra-stripe your tables in outdated browsers by adding
-    the class "even" to every other table row.
- */
-tbody tr:nth-child(odd) td,
-tbody tr.odd td,
-.tableType1 tbody tr:nth-child(odd) td,
-.tableType1 tbody tr.odd td {
-    background-color: #ffffff;
-}
-tbody tr:nth-child(even) td,
-tbody tr.even td,
-.tableType1 tbody tr:nth-child(even) td,
-.tableType1 tbody tr.even td {
-    background-color: #f1f1f1;
-}
+
 tfoot, .tableType1 tfoot       { font-style: italic; }
 caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bottom: 10px; background: #fff; text-align:left; }
 
@@ -207,6 +223,7 @@ caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bo
 .quiet       { color: #787878; }
 .loud        { color: #2b2b2b; }
 .make-FFCC66 { color: #FFCC66; }
+.make-999999 { color: #999999; }
 .make-06b    { color: #06b; }
 .make-d61 { color: #d61; }
 .error_msg   { color: #900; }
