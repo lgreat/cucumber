@@ -46,8 +46,10 @@
                 <!--<pageHelper:externalCss file="/res/css/starRating/star_rating.css"/>-->
                 <!--<pageHelper:externalJavascript file="/res/js/starRating.js"/>-->
 
-                <input type="hidden" id="overallStarRating" value="0" name="overallAsString"/>
-
+                <input type="hidden" id="overallAsString" value="0" name="overallAsString"/>
+                <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
+                <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
+                <input type="hidden" id="parentAsString" value="0" name="parentAsString"/>
                 <div class="line rating">
                     <div class="unit size2of5 ">
                         <h4 class="subhead6 label3"><strong>Rate this school</strong> <em
@@ -187,14 +189,23 @@
 
                 <div class="subStarRatings" style="display:none;">
                     <div class="spacer_5"><!-- do not collapse --></div>
-                    <div class="text3bold-d61">How do you rate this school in these additional areas?</div>
-                    <div class="spacer_10"><!-- do not collapse --></div>
-                    <div id="js-bubbleInfo-2" class="text3 teacher">
+                    <div class="medium ptl mbs"><strong>How do you rate this school in these additional areas?</strong></div>
+                    <hr class="keyline2"><!-- do not collapse --></hr>
+                    <div id="js-bubbleInfo-2" class="text3 teacher  mtm">
                         <div class="js-trigger student_only line">
-                            <div class="catRatingLabel text3 unit size2of7">Teacher quality</div>
-                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="teacherAsString"
-                                                                                           additionalClass="med-star"/>
+                            <div class="unit size3of5 pas" style="background-color: #FFFFFF">
+                                <div class="fl medium pan man pls">Teacher quality</div>
+                                <div id="starRatingContainer2" class="fr pan man mrs">
+                                    <div id="" class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                                    <div id="" class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                                </div>
+                                <div class="clear pan man"><!-- do not collapse --></div>
+                                <!-- end star ratings -->
                             </div>
+                            <!--<div class="catRatingLabel text3 unit size2of7">Teacher quality</div>-->
+                            <!--<div class="catRating unit size5of7 lastUnit"><gsml:starRating id="teacherAsString"-->
+                                                                                           <!--additionalClass="med-star"/>-->
+                            <!--</div>-->
                         </div>
                         <div class="js-popup">
                             <!--<div id="popup-contents-2" class="box-shadow">-->
@@ -213,14 +224,25 @@
                     </div>
 
                     <c:if test="${school.levelCode ne 'p'}">
-                        <div id="js-bubbleInfo-3" class="text3 principal">
+                        <div id="js-bubbleInfo-3" class="text3 principal  mtm">
+
+
                             <div class="spacer_5"><!-- do not collapse --></div>
 
                             <div class="js-trigger line">
-                                <div class="catRatingLabel text3 unit size2of7">Principal leadership</div>
-                                <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="principalAsString"
-                                                                                               additionalClass="med-star"/>
+                                <div class="unit size3of5 pas" style="background-color: #FFFFFF">
+                                    <div class="fl medium pan man pls">Principal leadership</div>
+                                    <div id="starRatingContainer3" class="fr pan man mrs">
+                                        <div id="" class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                                        <div id="" class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                                    </div>
+                                    <div class="clear pan man"><!-- do not collapse --></div>
+                                    <!-- end star ratings -->
                                 </div>
+                                <!--<div class="catRatingLabel text3 unit size2of7">Principal leadership</div>-->
+                                <!--<div class="catRating unit size5of7 lastUnit"><gsml:starRating id="principalAsString"-->
+                                                                                               <!--additionalClass="med-star"/>-->
+                                <!--</div>-->
                             </div>
                             <div class="js-popup">
                                 <!--<div id="popup-contents-3" class="box-shadow">-->
@@ -244,14 +266,23 @@
                         </div>
                     </c:if>
 
-                    <div id="js-bubbleInfo-4" class="text3 parents">
+                    <div id="js-bubbleInfo-4" class="text3 parents mtm">
                         <div class="spacer_5"><!-- do not collapse --></div>
 
                         <div class="js-trigger line">
-                            <div class="catRatingLabel text3 unit size2of7">Parent involvement</div>
-                            <div class="catRating unit size5of7 lastUnit"><gsml:starRating id="parentAsString"
-                                                                                           additionalClass="med-star"/>
+                            <div class="unit size3of5 pas" style="background-color: #FFFFFF">
+                                <div class="fl medium pan man pls">Parent involvement</div>
+                                <div id="starRatingContainer4" class="fr pan man mrs">
+                                    <div id="" class="starsOn iconx16-stars i-16-orange-star  i-16-star-0 fl"><!-- not empty--></div>
+                                    <div id="" class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
+                                </div>
+                                <div class="clear pan man"><!-- do not collapse --></div>
+                                <!-- end star ratings -->
                             </div>
+                            <!--<div class="catRatingLabel text3 unit size2of7">Parent involvement</div>-->
+                            <!--<div class="catRating unit size5of7 lastUnit"><gsml:starRating id="parentAsString"-->
+                                                                                           <!--additionalClass="med-star"/>-->
+                            <!--</div>-->
                         </div>
                         <div class="js-popup">
                             <!--<div id="popup-contents-4" class="box-shadow">-->

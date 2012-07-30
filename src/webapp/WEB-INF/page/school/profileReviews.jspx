@@ -265,7 +265,7 @@
             </div>
             <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
                 <div id="typeSort"  class="omega grid_10 tar">
-                    <form id="showReviews" class="smallText1" action="">
+                    <form id="showReviews" class="small" action="">
                         <span>Show reviews by: </span>
                         <c:if test="${numParentReviews gt 0}">
                             <c:choose>
@@ -276,7 +276,7 @@
                                     <input type="checkbox" id="showParents" />
                                 </c:otherwise>
                             </c:choose>
-                            <label for="showParents">Parents</label>
+                            <label for="showParents" class="small">Parents</label>
                         </c:if>
                         <c:if test="${numStudentReviews gt 0}">
                             <c:choose>
@@ -287,7 +287,7 @@
                                     <input type="checkbox" id="showStudents" />
                                 </c:otherwise>
                             </c:choose>
-                            <label for="showStudents">Students</label>
+                            <label for="showStudents" class="small">Students</label>
                         </c:if>
                         <c:if test="${numTeacherStaffReviews gt 0}">
                             <c:choose>
@@ -298,7 +298,7 @@
                                     <input type="checkbox" id="showTeachers" />
                                 </c:otherwise>
                             </c:choose>
-                            <label for="showTeachers">Teachers/Staff</label>
+                            <label for="showTeachers" class="small">Teachers/Staff</label>
                         </c:if>
                     </form>
                 </div>
