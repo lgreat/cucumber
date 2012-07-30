@@ -19,7 +19,6 @@
                     <div class="bd pam">
                         <div>
                             [OVERALL RATING GRAPHIC:
-                            <div>
                                 <c:choose>
                                     <c:when test="${overallRating != null}">
                                         ${overallRating}
@@ -28,7 +27,7 @@
                                         NR
                                     </c:otherwise>
                                 </c:choose>
-                            </div>]
+                            ]
                         </div>
 
                         <div>
@@ -94,7 +93,7 @@
                     <h4 class="pvm plm bottom">Academic rating</h4>
                 </div>
                 <div class="bd pam">
-                    <p class="small">
+                    <p class="small mbl">
                         ${section3Copy}
                         <c:if test="${not empty section3CopyPostSecondaryReadiness}">
                             ${section3CopyPostSecondaryReadiness}
@@ -102,47 +101,51 @@
                     </p>
 
                     <c:if test="${overallAcademicRating != null}">
-                        <hr class="keyline2"/>
+                        <div class="pbm">
+                            <hr class="keyline2"/>
 
-                        <h5 class="mvm medium_bold tac">Overall academic performance is ${overallAcademicRating} / 10 <span
-                                class="ttu">${overallAcademicRatingLabel}</span></h5>
+                            <h5 class="mvm medium_bold tac">Overall academic performance is ${overallAcademicRating} / 10
+                                <span class="ttu"><em>${overallAcademicRatingLabel}</em></span></h5>
+
+                            <hr class="keyline2"/>
+                        </div>
                     </c:if>
 
                     <c:if test="${schoolTestScoreRating != null}">
+                        <div class="pbm">
+                            <h6 class="mvm medium_bold">Test score rating ${testScoreRatingYear}*</h6>
+
+                            <div>This school: ${schoolTestScoreRating}</div>
+                            <div>City: ${cityTestScoreRating}</div>
+                            <c:if test="${showStateTestScoreRating}">
+                                <div>State: ${stateTestScoreRating}</div>
+                            </c:if>
+                        </div>
+
                         <hr class="keyline2"/>
-
-                        <h6 class="mvm medium_bold">Test score rating ${testScoreRatingYear}2011*</h6>
-
-                        <div>This school: ${schoolTestScoreRating}</div>
-                        <div>District: ${districtTestScoreRating}</div>
-                        <c:if test="${showStateTestScoreRating}">
-                            <div>State: ${stateTestScoreRating}</div>
-                        </c:if>
                     </c:if>
 
                     <c:if test="${schoolStudentGrowthRating != null}">
+                        <div class="pbm">
+                            <h6 class="mvm medium_bold">Student growth rating ${studentGrowthRatingYear}**</h6>
+
+                            <div>This school: ${schoolStudentGrowthRating}</div>
+                            <div>City: ${cityStudentGrowthRating}</div>
+                            <c:if test="${showStateStudentGrowthRating}">
+                                <div>State: ${stateStudentGrowthRating}</div>
+                            </c:if>
+                        </div>
+
                         <hr class="keyline2"/>
-
-                        <h6 class="mvm medium_bold">Student growth rating ${studentGrowthRatingYear}**</h6>
-
-                        <div>This school: ${schoolStudentGrowthRating}</div>
-                        <div>District: ${districtStudentGrowthRating}</div>
-                        <c:if test="${showStateStudentGrowthRating}">
-                            <div>State: ${stateStudentGrowthRating}</div>
-                        </c:if>
                     </c:if>
 
                     <c:if test="${postSecondaryReadinessRating != null}">
-                        <hr class="keyline2"/>
+                        <div class="pbm">
+                            <h6 class="mvm medium_bold">Post-secondary readiness rating ${postSecondaryReadinessRatingYear}***</h6>
 
-                        <h6 class="mvm medium_bold">Post-secondary readiness rating ${postSecondaryReadinessRatingYear}***</h6>
+                            <div>This school: ${postSecondaryReadinessRating}</div>
+                        </div>
 
-                        <div>This school: ${postSecondaryReadinessRating}</div>
-                    </c:if>
-
-                    <c:if test="${schoolTestScoreRating != null or
-                                  schoolStudentGrowthRating != null or
-                                  postSecondaryReadinessRating != null}">
                         <hr class="keyline2"/>
                     </c:if>
 
@@ -169,8 +172,8 @@
                 <div class="hd">
                     <h4 class="pvm plm bottom">Climate ratings</h4>
                 </div>
-                <div class="bd">
-                    <p>
+                <div class="bd pam">
+                    <p class="small bottom">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros, elementum
                         commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra vestibulum. Praesent
                         risus nunc, pellentesque et faucibus non, vulputate ut sem. Aliquam a lectus urna, eget
@@ -181,7 +184,7 @@
 
                         <c:if test="${climateRatingNumResponses gt 0}">
                             <div>
-                                Number of responses: climateRatingNumResponses
+                                Number of responses: <span class="">${climateRatingNumResponses}</span>
                             </div>
                         </c:if>
 
@@ -195,7 +198,7 @@
                         <h6 class="mvm medium_bold">School environment</h6>
 
                         <div>[SCHOOL ENVIRONMENT RATING GRAPHIC: ${schoolEnvironmentRating}]</div>
-                        <p>
+                        <p class="small">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros,
                             elementum commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra
                             vestibulum. Praesent risus nunc, pellentesque et faucibus non, vulputate ut sem.
@@ -208,7 +211,7 @@
                         <h6 class="mvm medium_bold">Social &amp;amp; emotional learning</h6>
 
                         <div>[SOCIAL AND EMOTIONAL LEARNING GRAPHIC: ${socialEmotionalLearningRating}]</div>
-                        <p>
+                        <p class="small">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros,
                             elementum commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra
                             vestibulum. Praesent risus nunc, pellentesque et faucibus non, vulputate ut sem.
@@ -221,7 +224,7 @@
                         <h6 class="mvm medium_bold">Culture of high expectations</h6>
 
                         <div>[HIGH EXPECTATIONS GRAPHIC: ${highExpectationsRating}]</div>
-                        <p>
+                        <p class="small">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros,
                             elementum commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra
                             vestibulum. Praesent risus nunc, pellentesque et faucibus non, vulputate ut sem.
@@ -234,7 +237,7 @@
                         <h6 class="mvm medium_bold">Teacher support</h6>
 
                         <div>[TEACHER SUPPORT GRAPHIC: ${teacherSupportRating}]</div>
-                        <p>
+                        <p class="small">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros,
                             elementum commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra
                             vestibulum. Praesent risus nunc, pellentesque et faucibus non, vulputate ut sem.
@@ -247,7 +250,7 @@
                         <h6 class="mvm medium_bold">Family engagement</h6>
 
                         <div>[FAMILY ENGAGEMENT GRAPHIC: ${familyEngagementRating}]</div>
-                        <p>
+                        <p class="small">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros,
                             elementum commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra
                             vestibulum. Praesent risus nunc, pellentesque et faucibus non, vulputate ut sem.

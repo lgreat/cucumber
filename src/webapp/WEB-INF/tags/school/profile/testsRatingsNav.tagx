@@ -6,14 +6,17 @@
 
     <jsp:directive.tag body-content="empty"/>
 
+    <jsp:directive.attribute name="schoolName" required="true" type="java.lang.String"
+                             description="Name of the school"/>
+
     <ul class="tabStyle-5">
         <li><a id="js_tests"
                href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores_tests')}"
-               title="${schoolName} | Test Scores"
+               title="${pageScope.schoolName} | Test Scores"
                class="${requestScope.schoolProfileTabMap.tests}">Test scores</a></li>
         <li><span class="graydivider">|</span><a id="js_ratings"
                                                  href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores_ratings')}"
-                                                 title="${schoolName} | Ratings Details"
+                                                 title="${pageScope.schoolName} | Ratings Details"
                                                  class="${requestScope.schoolProfileTabMap.ratings} mlm">Ratings details</a>
         </li>
     </ul>
