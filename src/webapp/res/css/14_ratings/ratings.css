@@ -145,11 +145,17 @@ Created by Mitchell Seltzer
 */
 
 .bar_container{
-    border:solid thin #B8B8B8;
+    border:1px solid #B8B8B8;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4);
     height:14px;
     width:100%;
 }
+
+.bar_container.blue { border:1px solid #a6d3e7; }
+
+.bar_container.thin { height:8px; margin: 5px auto; }
+.bar_container.medium { height:14px; }
+.bar_container.thck { height:20px; }
 
 .bar_container div{
     background: #777777; /* for non-css3 browsers */
@@ -165,7 +171,7 @@ Created by Mitchell Seltzer
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFFFFF', EndColorStr='#777777'); /* IE6�IE9 */
 }
 
-.bar_container div.blue{
+.bar_container.blue div{
     background: #79BEDC; /* for non-css3 browsers */
     width:0;
     height:100%;

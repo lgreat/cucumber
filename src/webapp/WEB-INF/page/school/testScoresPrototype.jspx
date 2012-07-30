@@ -8,33 +8,41 @@
 <c:if test="${! empty testScores}">
     <div class="${(!empty requestScope.schoolProfileTabMap.tests and requestScope.schoolProfileTabMap.tests eq 'selected'?'':'dn')}">
     <div class="grid_16">
-        <div class="fl pbn"><h1 class="pbn mbs" style="color:#000000;" id="js_testLabelHeader"><!-- not empty --></h1></div>
-        <div class="fr vab">
-    <!--Display the test dropdowns-->
-    <select id="js_testSelect">
-        <c:forEach var="testToGrades" items="${testScores}">
-            <option value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">${testToGrades.testLabel}</option>
-        </c:forEach>
-    </select>
+        <div class="fl pbn">
+            <h2 class="pbn mbs" id="js_testLabelHeader"><!-- not empty --></h2>
         </div>
-    <div class="clearfloat" style="border-top:#CCCCCC solid 1px;"><!-- not empty --></div>
-    <div class="grid_4 alpha">
-        <div><h4 class="mbs ptl"><strong>Grade Levels</strong></h4></div>
-        <!--Display the grades for the test selected-->
-    <c:forEach var="testToGrades" items="${testScores}">
+        <div class="fr vab">
+            <!--Display the test dropdowns-->
+            <select id="js_testSelect">
+                <c:forEach var="testToGrades" items="${testScores}">
+                    <option value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">${testToGrades.testLabel}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <hr class="keyline1" />
+        <div class="clear mbl"><!-- do not collapse --></div>
 
-        <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}_grades"
-             style="display: none" class="js_grades">
+        <div class="grid_4 alpha">
+            <h4 class="mbs"><strong>Grade Levels</strong></h4>
+            <!--Display the grades for the test selected-->
+            <c:forEach var="testToGrades" items="${testScores}">
 
-            <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
-                <div style="padding:5px; width:90%; background:#FFFFFF;"><a class="js_grade" style="text-decoration:none;" href="#"
-                   id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}">
-                    ${gradeToSubjects.gradeLabel}</a></div>
+                <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}_grades"
+                     style="display: none" class="js_grades">
+
+                    <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
+                        <div style="padding:5px; width:90%; background:#FFFFFF;">
+                            <a id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}"
+                               class="js_grade"
+                               style="text-decoration:none;"
+                               href="javascript:void(0);">${gradeToSubjects.gradeLabel}</a>
+                        </div>
+                    </c:forEach>
+                </div>
             </c:forEach>
 
         </div>
-    </c:forEach>
-    </div>
+
     <div class="grid_12 omega">
     <!--Display the data for the test and grade selected-->
     <c:forEach var="testToGrades" items="${testScores}">
@@ -43,7 +51,6 @@
                  style="display: none" class="js_subjects">
 
                 <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
-
 
                     <c:choose>
                         <c:when test="${fn:indexOf(testToGrades.testLabel,'_subgroup') >=0}">
@@ -60,7 +67,6 @@
                         <c:otherwise>
                             <c:set var="scalesUsed"><div class="smaller fr">Scale:${testToGrades.scale}</div></c:set>
                             <c:set var="scoresContent">
-                                <div class="grid_6 omega">
                                     <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="loopCount">
                                         <c:set var="firstTimeBlue" value="" />
                                         <!--Display the state average for only the latest year-->
@@ -70,45 +76,69 @@
                                             <c:set var="firstTimeBlue" value="blue" />
                                         </c:if>
                                         <div class="line">
-                                            <div class="unit size12of100 small bottom"><strong>${testValue.year}</strong></div>
+                                            <div class="unit size12of100">
+                                                <p class="small bottom"><strong>${testValue.year}</strong></p>
+                                            </div>
                                             <div class="unit size5of100">&amp;nbsp;</div>
-                                            <div class="unit size66of100"><div class="bar_container"><div class="${firstTimeBlue}" style="width:${testValue.testScoreLabel}%"><!-- not empty --></div></div></div>
+                                            <div class="unit size66of100">
+                                                <div class="bar_container thin ${firstTimeBlue}">
+                                                    <div style="width:${testValue.testScoreLabel}%"><!-- not empty --></div>
+                                                </div>
+                                            </div>
                                             <div class="unit size5of100">&amp;nbsp;</div>
                                             <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
-                                            <c:if test="${testValue.testScoreLabel == 'Data not available'}"><c:set var="thePercentage" value="n/a" /></c:if>
+                                            <c:if test="${testValue.testScoreLabel == 'Data not available'}">
+                                                <c:set var="thePercentage" value="n/a" />
+                                            </c:if>
                                             <div class="unit size12of100 small lastUnit bottom"><strong>${thePercentage}</strong></div>
                                         </div>
 
                                     </c:forEach>
-                                </div>
                             </c:set>
-                            <div class="mod standard_2-1 mtl">
+
+                            <div class="mod standard_1-1">
                                 <div class="inner">
                                     <div class="bd">
-                                        <div class="grid_5 alpha">
-                                            <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
-                                            <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
+                                        <div class="line">
+                                            <div class="unit size38of100 pam">
+                                                <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
+
+                                                <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
+                                            </div>
+                                            <div class="unit size62of100 lastUnit pam">
+                                                <c:out value="${scoresContent}" escapeXml="false"/>
+                                            </div>
                                         </div>
-                                        <c:out value="${scoresContent}" escapeXml="false"/>
                                     </div>
                                 </div>
                             </div>
+
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
                 <c:out value="${scalesUsed}" escapeXml="false" />
                 <div class="clearfloat"><!-- not empty --></div>
-                <div class="contain_2-1">
-                    <strong>Source:</strong> ${testToGrades.source}
-                </div>
-                <div class="contain_2-1">
-                    <strong>Description:</strong> ${testToGrades.description}
-                </div>
             </div>
         </c:forEach>
     </c:forEach>
 
     </div>
+
+        <!--Display the about section-->
+        <div class="alpha grid_16 omega">
+            <h2 class="pbn mbs">About the tests</h2>
+            <hr class="keyline1" />
+            <div class="clear mbl"><!-- do not collapse --></div>
+
+            <c:forEach var="testToGrades" items="${testScores}">
+                <!--<c:forEach var="gradeToSubjects" items="${testToGrades.grades}">-->
+
+                    <p class="quiet">${testToGrades.description}</p>
+
+                <p class="quiet"><strong>Source:</strong> ${testToGrades.source}</p>
+                <!--</c:forEach>-->
+            </c:forEach>
+        </div>
 
     <!--TODO - move to a different file.-->
     <script type="text/javascript">

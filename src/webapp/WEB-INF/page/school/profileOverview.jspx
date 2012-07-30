@@ -24,7 +24,7 @@
                     <div class="mod bestKnownFor">
                         <div class="inner">
                             <div class="bd">
-                                <span>${bestKnownFor}</span>
+                                <span class="quote"><span class="punctuation">&amp;ldquo;</span>${bestKnownFor}<span class="punctuation">&amp;rdquo;</span></span>
                             </div>
                         </div>
                     </div>
