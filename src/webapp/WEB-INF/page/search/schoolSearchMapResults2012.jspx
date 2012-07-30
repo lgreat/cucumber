@@ -564,8 +564,6 @@
     </div>
 </div>
 
-<compare:compareSchoolsLimitReachedHover/>
-
 <div id="js-redoSearch" style="display: none;">
     <div class="js-redobtn dn mvn pvn">
         <button class="but but-sm but-2">Redo Search</button>
