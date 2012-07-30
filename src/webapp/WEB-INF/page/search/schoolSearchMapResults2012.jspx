@@ -118,91 +118,28 @@
 
 
 <gsml:body adPageName="searchMap" pageLayout="nocol">
-    <div class="grid_16 slStylesV1-0 slFormsV1-0 mtl">
+<div class="grid_16 slStylesV1-0 slFormsV1-0 mtl">
 
-    <div class="alpha grid_11">
-        <search:schoolResultsFor_text/>
-    </div>
-    <div class="alpha grid_5 omega mtm">
-        <school:nearbyCitiesPopup/>&amp;nbsp;&amp;nbsp;
-        <school:nearbyDistrictsPopup/>
-    </div>
+<div class="alpha grid_11">
+    <search:schoolResultsFor_text/>
+</div>
+<div class="alpha grid_5 omega mtm">
+    <school:nearbyCitiesPopup/>&amp;nbsp;&amp;nbsp;
+    <school:nearbyDistrictsPopup/>
+</div>
 
-    <div class="alpha grid_16 omega">
-        <school:findASchoolForm/>
-    </div>
+<div class="alpha grid_16 omega">
+    <school:findASchoolForm/>
+</div>
 
-    <!--<div class="spacer_15">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+<!--<div class="spacer_15">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
-    <!--<div class="alpha grid_16 omega">-->
+<!--<div class="alpha grid_16 omega">-->
 
-    <!-- Any change to the syle classes applied to navigation would require a change in the javascript code where this is updated for ajax refresh -->
-    <div class="alpha grid_16 omega mts">
-        <c:set var="searchResultsPagingSummary">
-            <div class="js-search-results-paging-summary text3">
-                Showing <fmt:formatNumber value="${page.offset+1}" />-<fmt:formatNumber value="${page.lastOffsetOnPage+1}" /> of <strong><span
-                    id="total-results-count"><fmt:formatNumber value="${page.pager.totalItems}" /></span> schools</strong>
-            </div>
-        </c:set>
-        <div class="alpha grid_16 omega mbm">
-            <div class="alpha grid_16 omega pr">
-                <div id="js-mapPageNav" class="line pa grid_11 omega ${page.pager.totalItems eq 0? 'dn':''}" style="right: 0px; top:10px; ">
-                    <div class="unit size1of2 plm">
-                        ${searchResultsPagingSummary}
-                    </div>
-                    <div class="unit size2of2 lastUnit">
-                        <div class="pagination  js-pageNumbers" id="pagination">
-                            <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
-                                                     javascriptMethod="GS.search.results.pagination"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="gsTabs1">
-                    <ul class="tabStyle-2-1">
-                        <li>
-                            <a data-role="button" data-inline="true" class="js-listResultsLink">
-                                <span class="iconx16 i-16-listView mrs vam"><!-- do not collapse --></span><span class="vam">List</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a data-role="button" data-inline="true" class="js-mapResultsLink preSelected">
-                                <span class="iconx16 i-16-getDirections mrs vam"><!-- do not collapse --></span><span class="vam">Map</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!--<div class="line" id="js-mapPageNav" style="${page.pager.totalItems eq 0? 'display:none;':''}">-->
-            <!--<div class="unit size1of2">-->
-                <!--${searchResultsPagingSummary}-->
-            <!--</div>-->
-            <!--<div class="unit size2of2 lastUnit">-->
-                <!--<div class="pagination js-pageNumbers" id="pagination">-->
-                    <!--<search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"-->
-                                             <!--javascriptMethod="GS.search.results.pagination"/>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+<!-- Any change to the syle classes applied to navigation would require a change in the javascript code where this is updated for ajax refresh -->
+<div class="alpha grid_16 omega mts">
 
-        <!--<div class="alpha grid_16 omega mbm">-->
-            <!--<div class="gsTabs1">-->
-                <!--<ul class="tabStyle-2-1">-->
-                    <!--<li>-->
-                        <!--<a data-role="button" data-inline="true" class="js-listResultsLink">-->
-                            <!--<span class="iconx16 i-16-listView mrs vam">&lt;!&ndash; do not collapse &ndash;&gt;</span><span class="vam">List</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a data-role="button" data-inline="true" class="js-mapResultsLink preSelected">-->
-                            <!--<span class="iconx16 i-16-getDirections mrs vam">&lt;!&ndash; do not collapse &ndash;&gt;</span><span class="vam">Map</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
+<search:schoolSearchResultsNavigation pageOffset="${page.offset+1}" pageLastOffsetOnPage="${page.lastOffsetOnPage+1}" pageTotalItems="${page.pager.totalItems}" tabSelect="map" />
 <div id="js-school-search-results-table-body" class="pbm alpha grid_16 omega" style="display: none;">
     <div class="media">
         <span class="sprite i-alert img"><!-- do not collapse --></span>
@@ -214,243 +151,243 @@
 
 <div class="alpha grid_16 omega js-leftResultsGrid">
 
-    <!-- Any change to the syle classes applied to the infobox content would require a change to the js-infoBoxTemplate
-    that this is updated for ajax refresh -->
-    <c:set var="points" value="0"/>
-    <c:set var="latLonExists" value="${false}"/>
-    <c:set var="pointsArray">
-        var points = [];
-        <c:forEach var="school" items="${schoolSearchResults}">
-            <c:set var="infoWindowMarkup">
+<!-- Any change to the syle classes applied to the infobox content would require a change to the js-infoBoxTemplate
+that this is updated for ajax refresh -->
+<c:set var="points" value="0"/>
+<c:set var="latLonExists" value="${false}"/>
+<c:set var="pointsArray">
+    var points = [];
+    <c:forEach var="school" items="${schoolSearchResults}">
+        <c:set var="infoWindowMarkup">
 
-                <div class="js-schoolInfo">
-                    <div class="mod standard_5-1 mbm">
-                        <div class="hd small bottom">
-                            <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link"
-                                                                     schoolId="${school.id}"
-                                                                     databaseState="${school.databaseState}"
-                                                                     name="${school.name}"
-                                                                     physicalAddress="${school.address}"
-                                                                     levelCode="${school.levelCode}">
-                                ${school.name}
-                            </link:schoolProfileOverviewForPrimitives>
+            <div class="js-schoolInfo">
+                <div class="mod standard_5-1 mbm">
+                    <div class="hd small bottom">
+                        <link:schoolProfileOverviewForPrimitives styleClass="js-overview-link"
+                                                                 schoolId="${school.id}"
+                                                                 databaseState="${school.databaseState}"
+                                                                 name="${school.name}"
+                                                                 physicalAddress="${school.address}"
+                                                                 levelCode="${school.levelCode}">
+                            ${school.name}
+                        </link:schoolProfileOverviewForPrimitives>
+                    </div>
+                    <div class="bd mbm">
+                        <div class="small bottom ttc">
+                            ${school.schoolType}, <span class="ttu">${school.grades.rangeString}</span>
                         </div>
-                        <div class="bd mbm">
-                            <div class="small bottom ttc">
-                                ${school.schoolType}, <span class="ttu">${school.grades.rangeString}</span>
+                        <div class="line small bottom">
+                            <div class="unit size60of100">
+                                ${school.street}<br/>
+                                ${school.city}, ${school.databaseState} ${school.zip}
                             </div>
-                            <div class="line small bottom">
-                                <div class="unit size60of100">
-                                    ${school.street}<br/>
-                                    ${school.city}, ${school.databaseState} ${school.zip}
-                                </div>
 
-                                <div class="unit size40of100 lastUnit">
-                                    <div class="mhm">
-                                        <div class="media skin-1 attribution">
-                                            <div class="img mrs">
-                                                <span class="iconx16 i-16-getDirections"><!--Do not collapse--></span>
-                                            </div>
-                                            <div class="bd">
-                                                <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.street}%20${school.city}%20${school.databaseState}%20${school.zip}"
-                                                   target="_blank">Get directions</a>
-                                            </div>
+                            <div class="unit size40of100 lastUnit">
+                                <div class="mhm">
+                                    <div class="media skin-1 attribution">
+                                        <div class="img mrs">
+                                            <span class="iconx16 i-16-getDirections"><!--Do not collapse--></span>
                                         </div>
-                                        <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                                            <div class="small bottom">
-                                                <gslink:realtorDotComLink address="${school.address}"
-                                                                          customLinkSuffix="inlinelinkheader"
-                                                                          styleClass="iconx16 i-16-home-sales">Homes for sale</gslink:realtorDotComLink>
-                                            </div>
-                                        </c:if>
+                                        <div class="bd">
+                                            <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.street}%20${school.city}%20${school.databaseState}%20${school.zip}"
+                                               target="_blank">Get directions</a>
+                                        </div>
                                     </div>
+                                    <c:if test="${requestScope.context.showRealtorDotComPromos}">
+                                        <div class="small bottom">
+                                            <gslink:realtorDotComLink address="${school.address}"
+                                                                      customLinkSuffix="inlinelinkheader"
+                                                                      styleClass="iconx16 i-16-home-sales">Homes for sale</gslink:realtorDotComLink>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="ft">
-                            <div class="line">
-                                <div class="unit size35of100">
-                                    <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
+                    <div class="ft">
+                        <div class="line">
+                            <div class="unit size35of100">
+                                <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
+                                <c:choose>
+                                    <c:when test="${school.levelCode eq 'p'}">
+                                        <!-- Preschools don't get compare -->
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input id="${school.databaseState}${school.id}"
+                                               class="js-compare-school-checkbox"
+                                               type="checkbox"/>
+                                        <label class="js-compareLabel checkbox" id="js-${school.databaseState}${school.id}-compare-label"
+                                               for="${school.databaseState}${school.id}">Compare</label>
+                                        <button class="js-compareButton button-1Ext-2"
+                                                style="display: none;">Compare<br/>Now
+                                        </button>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+
+                            <div class="unit size65of100 lastUnit">
+                                <c:set var="mslHasSchool" value="${false}"/>
+                                <c:forEach items="${mslSchools}" var="mslSchool">
+                                    <c:if test="${mslSchool.schoolId eq school.id and mslSchool.state eq school.databaseState}">
+                                        <c:set var="mslHasSchool" value="${true}"/>
+                                    </c:if>
+                                </c:forEach>
+
+                                <c:set var="existsInMsl" value="none"/>
+                                <c:set var="notInMsl" value="none"/>
+
+                                <div class="js-add-msl-${school.databaseState}${school.id} js-add-msl">
                                     <c:choose>
-                                        <c:when test="${school.levelCode eq 'p'}">
-                                            <!-- Preschools don't get compare -->
+                                        <c:when test="${mslHasSchool}">
+                                            <c:set var="existsInMsl" value="block"/>
                                         </c:when>
                                         <c:otherwise>
-                                            <input id="${school.databaseState}${school.id}"
-                                                   class="js-compare-school-checkbox"
-                                                   type="checkbox"/>
-                                            <label class="js-compareLabel checkbox" id="js-${school.databaseState}${school.id}-compare-label"
-                                                   for="${school.databaseState}${school.id}">Compare</label>
-                                            <button class="js-compareButton button-1Ext-2"
-                                                    style="display: none;">Compare<br/>Now
-                                            </button>
+                                            <c:set var="notInMsl" value="block"/>
                                         </c:otherwise>
                                     </c:choose>
-                                </div>
 
-                                <div class="unit size65of100 lastUnit">
-                                    <c:set var="mslHasSchool" value="${false}"/>
-                                    <c:forEach items="${mslSchools}" var="mslSchool">
-                                        <c:if test="${mslSchool.schoolId eq school.id and mslSchool.state eq school.databaseState}">
-                                            <c:set var="mslHasSchool" value="${true}"/>
-                                        </c:if>
-                                    </c:forEach>
-
-                                    <c:set var="existsInMsl" value="none"/>
-                                    <c:set var="notInMsl" value="none"/>
-
-                                    <div class="js-add-msl-${school.databaseState}${school.id} js-add-msl">
-                                        <c:choose>
-                                            <c:when test="${mslHasSchool}">
-                                                <c:set var="existsInMsl" value="block"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <c:set var="notInMsl" value="block"/>
-                                            </c:otherwise>
-                                        </c:choose>
-
-                                        <div class="js-existsInMsl" style="display: ${existsInMsl};">
-                                            <div class="fltlft mrs">
-                                                <span class="iconx16 i-16-success"><!-- do not collapse --></span>
-                                            </div>
-                                            <div class="fltlft small bottom">
-                                                Added to <a href="/mySchoolList.page">My School List</a>
-                                            </div>
+                                    <div class="js-existsInMsl" style="display: ${existsInMsl};">
+                                        <div class="fltlft mrs">
+                                            <span class="iconx16 i-16-success"><!-- do not collapse --></span>
                                         </div>
-                                        <div class="js-notInMsl" style="display: ${notInMsl};">
-                                            <div class="fltlft mrs">
-                                                <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
-                                            </div>
-                                            <div class="js-msl-text fltlft small bottom">
-                                                <a href="#" class="js-add-msl-link"
-                                                   id="js-add-msl-link-${school.databaseState}${school.id}"
-                                                   onclick="if(GS.showAddMslJoinHover('${omniturePageName}', '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this) == false){
+                                        <div class="fltlft small bottom">
+                                            Added to <a href="/mySchoolList.page">My School List</a>
+                                        </div>
+                                    </div>
+                                    <div class="js-notInMsl" style="display: ${notInMsl};">
+                                        <div class="fltlft mrs">
+                                            <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
+                                        </div>
+                                        <div class="js-msl-text fltlft small bottom">
+                                            <a href="#" class="js-add-msl-link"
+                                               id="js-add-msl-link-${school.databaseState}${school.id}"
+                                               onclick="if(GS.showAddMslJoinHover('${omniturePageName}', '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this) == false){
                                                             GS.map.getMap.addSavedSchool('js-add-msl-link-${school.databaseState}${school.id}');
                                                          }
                                                          return false;">
-                                                    Add to My School List
-                                                </a>
-                                            </div>
+                                                Add to My School List
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="down-pointer">
-                            <div class="border-edge"><!-- not empty --></div>
-                            <div class="border-bd"><!-- not empty --></div>
-                        </div>
+                    <div class="down-pointer">
+                        <div class="border-edge"><!-- not empty --></div>
+                        <div class="border-bd"><!-- not empty --></div>
                     </div>
                 </div>
-            </c:set>
-            points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude},
-            lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}',
-            infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}', state: '${gsweb:escapeJavaScript(school.databaseState)}',
-            id: '${school.id}'});
-            <c:set var="points" value="${points + 1}"/>
-        </c:forEach>
+            </div>
+        </c:set>
+        points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude},
+        lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}',
+        infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}', state: '${gsweb:escapeJavaScript(school.databaseState)}',
+        id: '${school.id}'});
+        <c:set var="points" value="${points + 1}"/>
+    </c:forEach>
 
-        <!-- Determine a location to center map on if there are no schools -->
-        <c:choose>
-            <c:when test="${not empty district and not empty district.lat and not empty district.lon}">
-                var calculatedLat = ${district.lat};
-                var calculatedLon = ${district.lon};
-                <c:set var="latLonExists" value="${true}"/>
-            </c:when>
-            <c:when test="${not empty city and not empty city.lat and not empty city.lon}">
-                var calculatedLat = ${city.lat};
-                var calculatedLon = ${city.lon};
-                <c:set var="latLonExists" value="${true}"/>
-            </c:when>
-            <c:when test="${not empty schoolSearchCommand.lat and not empty schoolSearchCommand.lon}">
-                var calculatedLat = ${schoolSearchCommand.lat};
-                var calculatedLon = ${schoolSearchCommand.lon};
-                <c:set var="latLonExists" value="${true}"/>
-            </c:when>
-            <c:otherwise>
-                var calculatedLat = 0;
-                var calculatedLon = 0;
-            </c:otherwise>
-        </c:choose>
-    </c:set>
-
-    <!--${fn:length(pointsArray)}-->
+    <!-- Determine a location to center map on if there are no schools -->
     <c:choose>
-        <!--<c:when test="${requestScope.schoolSearchCommand.view eq 'map'}">-->
-
-        <c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">
-            <script type="text/javascript">
-                ${pointsArray}
-                GS.map.getMap.initMap(points, calculatedLat, calculatedLon);
-            </script>
-            <div data-role="content">
-                <div id="js-map-canvas"><!-- no collapse --></div>
-            </div>
+        <c:when test="${not empty district and not empty district.lat and not empty district.lon}">
+            var calculatedLat = ${district.lat};
+            var calculatedLon = ${district.lon};
+            <c:set var="latLonExists" value="${true}"/>
         </c:when>
+        <c:when test="${not empty city and not empty city.lat and not empty city.lon}">
+            var calculatedLat = ${city.lat};
+            var calculatedLon = ${city.lon};
+            <c:set var="latLonExists" value="${true}"/>
+        </c:when>
+        <c:when test="${not empty schoolSearchCommand.lat and not empty schoolSearchCommand.lon}">
+            var calculatedLat = ${schoolSearchCommand.lat};
+            var calculatedLon = ${schoolSearchCommand.lon};
+            <c:set var="latLonExists" value="${true}"/>
+        </c:when>
+        <c:otherwise>
+            var calculatedLat = 0;
+            var calculatedLon = 0;
+        </c:otherwise>
     </c:choose>
+</c:set>
 
-    <div class="prefix_4 alpha grid_9 omega suffix_3 mvm">
-        <div id="js-showDistrictBoundaryLink"
-             style="${(isCityBrowse eq true or isDistrictBrowse eq true or commandAndFields.nearbySearch eq true) ? '' : 'display:none;'}">
-            <p class="small bottom">Go to the
-                <c:choose>
-                    <c:when test="${fn:length(commandAndFields.levelCode.commaSeparatedString) > 1 || fn:length(commandAndFields.levelCode.commaSeparatedString) eq 0}">
-                        <c:set var="districtBoundary"
-                               value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=e"/>
-                        <a href="${districtBoundary}">district boundary tool</a>
-                    </c:when>
-                    <c:otherwise>
-                        <c:set var="districtBoundary"
-                               value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=${commandAndFields.levelCode.commaSeparatedString}"/>
-                        <a href="${districtBoundary}">district boundary tool</a>
-                    </c:otherwise>
-                </c:choose>
-                to see boundaries in this area.</p>
+<!--${fn:length(pointsArray)}-->
+<c:choose>
+    <!--<c:when test="${requestScope.schoolSearchCommand.view eq 'map'}">-->
+
+    <c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">
+        <script type="text/javascript">
+            ${pointsArray}
+            GS.map.getMap.initMap(points, calculatedLat, calculatedLon);
+        </script>
+        <div data-role="content">
+            <div id="js-map-canvas"><!-- no collapse --></div>
+        </div>
+    </c:when>
+</c:choose>
+
+<div class="prefix_4 alpha grid_9 omega suffix_3 mvm">
+    <div id="js-showDistrictBoundaryLink"
+         style="${(isCityBrowse eq true or isDistrictBrowse eq true or commandAndFields.nearbySearch eq true) ? '' : 'display:none;'}">
+        <p class="small bottom">Go to the
+            <c:choose>
+                <c:when test="${fn:length(commandAndFields.levelCode.commaSeparatedString) > 1 || fn:length(commandAndFields.levelCode.commaSeparatedString) eq 0}">
+                    <c:set var="districtBoundary"
+                           value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=e"/>
+                    <a href="${districtBoundary}">district boundary tool</a>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="districtBoundary"
+                           value="/school-district-boundaries-map/?lat=${commandAndFields.latitude}&amp;lon=${commandAndFields.longitude}&amp;level=${commandAndFields.levelCode.commaSeparatedString}"/>
+                    <a href="${districtBoundary}">district boundary tool</a>
+                </c:otherwise>
+            </c:choose>
+            to see boundaries in this area.</p>
+    </div>
+</div>
+
+<hr class="keyline1"/>
+
+<div class="grid_11 suffix_2 mtm">
+    <div class="grid_3">
+        <div class="media attribution">
+            <div class="img mrm"><span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+            </div>
+            <div class="bd small bottom" style="margin-top: 3px;">Private school</div>
         </div>
     </div>
-
-    <hr class="keyline1"/>
-
-    <div class="grid_11 suffix_2 mtm">
-        <div class="grid_3">
-            <div class="media attribution">
-                <div class="img mrm"><span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
-                </div>
-                <div class="bd small bottom" style="margin-top: 3px;">Private school</div>
+    <div class="grid_4">
+        <div class="media attribution">
+            <div class="img mrm">
+                <span class="iconx24 i-24-public-school-badge"><!-- do not collapse --></span>
             </div>
-        </div>
-        <div class="grid_4">
-            <div class="media attribution">
-                <div class="img mrm">
-                    <span class="iconx24 i-24-public-school-badge"><!-- do not collapse --></span>
-                </div>
-                <div class="bd small bottom" style="margin-top: 3px;"> Public/Charter school</div>
-            </div>
-        </div>
-        <div class="grid_3">
-            <div class="media attribution">
-                <div class="img mrm"><span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
-                </div>
-                <div class="bd small bottom" style="margin-top: 3px;">Preschool</div>
-            </div>
+            <div class="bd small bottom" style="margin-top: 3px;"> Public/Charter school</div>
         </div>
     </div>
-    <div class="alpha grid_16 omega mts">
+    <div class="grid_3">
+        <div class="media attribution">
+            <div class="img mrm"><span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
+            </div>
+            <div class="bd small bottom" style="margin-top: 3px;">Preschool</div>
+        </div>
+    </div>
+</div>
+<div class="alpha grid_16 omega mts">
                 <span class="small bottom quiet">
                     <strong>Please note:</strong> Information about school programs and services is provided by school administrations, and not all schools have submitted this information to GreatSchools. Therefore, narrowing your search by applying filters may exclude some matching schools.
                 </span>
-    </div>
+</div>
 
-    <div class="alpha grid_8 mtl">
-        <content:makingSenseOfSchoolChoice style="2012"/>
-    </div>
+<div class="alpha grid_8 mtl">
+    <content:makingSenseOfSchoolChoice style="2012"/>
+</div>
 
-    <div class="omega grid_8 mtl">
-        <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
-                                   showAdPct="0" style="2012"/>
-    </div>
+<div class="omega grid_8 mtl">
+    <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
+                               showAdPct="0" style="2012"/>
+</div>
 
 </div>
 </div>
@@ -511,12 +448,12 @@
                     <div class="unit size35of100">
                         <!-- Preschools don't get compare -->
                         <!--<input id="disabled-{{state}}{{id}}"-->
-                               <!--class="compare-school-checkbox" type="checkbox"-->
-                               <!--disabled="disabled" style="display: {{isPkCompare}}"-->
-                               <!--title="Due to a lack of available data on preschools, they cannot be compared"/>-->
+                        <!--class="compare-school-checkbox" type="checkbox"-->
+                        <!--disabled="disabled" style="display: {{isPkCompare}}"-->
+                        <!--title="Due to a lack of available data on preschools, they cannot be compared"/>-->
                         <!--<label class="checkbox"-->
-                               <!--for="disabled-{{state}}{{id}}"-->
-                               <!--style="display: {{isPkCompare}}">Compare</label>-->
+                        <!--for="disabled-{{state}}{{id}}"-->
+                        <!--style="display: {{isPkCompare}}">Compare</label>-->
                         <input id="{{state}}{{id}}" class="js-compare-school-checkbox" type="checkbox"
                                style="display: {{showCompare}}"/>
                         <label class="js-compareLabel checkbox" style="display: {{showCompare}}" id="js-{{state}}{{id}}-compare-label"
@@ -756,19 +693,19 @@
                                         Community rating:
                                     </div>
                                     <div class="fr">
-                                    <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
-                                                                        state="${school.databaseState}"
-                                                                        schoolId="${school.id}"
-                                                                        styleClass="dib" anchor="revPagination">
-                                        <c:choose>
-                                            <c:when test="${not empty school.parentRating}">
-                                                <ratings:stars curSR="${school.parentRating}"/>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <dfn>Rate this school</dfn>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </link:schoolProfileParentReview2010>
+                                        <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
+                                                                            state="${school.databaseState}"
+                                                                            schoolId="${school.id}"
+                                                                            styleClass="dib" anchor="revPagination">
+                                            <c:choose>
+                                                <c:when test="${not empty school.parentRating}">
+                                                    <ratings:stars curSR="${school.parentRating}"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <dfn>Rate this school</dfn>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </link:schoolProfileParentReview2010>
                                     </div>
                                 </div>
                             </div>
@@ -811,13 +748,13 @@
                     <div class="small bottom js-communityRating">
                         <div class="fl mrs">Community rating: </div>
                         <div class="fr">
-                        <a href="" data-href="{{communityRatingUrl}}">
+                            <a href="" data-href="{{communityRatingUrl}}">
                             <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl"
                                   style="display: {{showParentRating}}"><!-- do not collapse --></span>
                             <span class="iconx16-stars i-16-grey-star  i-16-star-{{starsOff}} fl"
                                   style="display: {{showParentRating}}"><!-- do not collapse --></span>
-                            <dfn style="display: {{showRateSchool}}">Rate this school</dfn>
-                        </a>
+                                <dfn style="display: {{showRateSchool}}">Rate this school</dfn>
+                            </a>
                         </div>
                     </div>
                 </div>
