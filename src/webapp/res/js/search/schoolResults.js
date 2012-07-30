@@ -140,6 +140,17 @@ GS.search.results = GS.search.results || (function() {
                     afterFadeIn
                 );
                 GS.util.htmlMirrors.updateAll();
+                if(jQuery("#js_totalResultsCountReturn").html() == "0" || jQuery("#js_totalResultsCountReturn").html() == 0 || jQuery("#js_totalResultsCountReturn").html() == ""){
+                    if($("#js_totalResultsCountReturn").html() == ""){$("#js_totalResultsCountReturn").html("0");$("#js-moreThanOne").show()}
+                    jQuery("#js_totalResultsCountReturn").popover('show');
+                    jQuery(".js_closeOopsPopover").click(function() {
+                        console.log("click event triggered");
+                        jQuery("#js_totalResultsCountReturn").popover('hide');
+                    });
+                }
+                else{
+                    $("#js_totalResultsCountReturn").popover('hide');
+                }
             };
 
             var onSearchError = function() {
@@ -273,6 +284,17 @@ GS.search.results = GS.search.results || (function() {
         }).done(function(data) {
                 renderDataForMap(data);
                 GS.util.htmlMirrors.updateAll();
+                if(jQuery("#js_totalResultsCountReturn").html() == "0" || jQuery("#js_totalResultsCountReturn").html() == 0 || jQuery("#js_totalResultsCountReturn").html() == ""){
+                    if($("#js_totalResultsCountReturn").html() == ""){$("#js_totalResultsCountReturn").html("0");$("#js-moreThanOne").show()}
+                    jQuery("#js_totalResultsCountReturn").popover('show');
+                    jQuery(".js_closeOopsPopover").click(function() {
+                        console.log("click event triggered");
+                        jQuery("#js_totalResultsCountReturn").popover('hide');
+                    });
+                }
+                else{
+                    jQuery("#js_totalResultsCountReturn").popover('hide');
+                }
             }
         ).fail(function() {
                 alert("error");
