@@ -13,6 +13,39 @@ import java.util.Set;
 public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     private SchoolProfileRatingsController _controller;
 
+    private static Set<LevelCode> NON_HIGH_ONLY_LEVEL_CODES = new HashSet<LevelCode>();
+    static {
+        NON_HIGH_ONLY_LEVEL_CODES.add(LevelCode.ALL_LEVELS);
+        NON_HIGH_ONLY_LEVEL_CODES.add(LevelCode.MIDDLE);
+        NON_HIGH_ONLY_LEVEL_CODES.add(LevelCode.MIDDLE_HIGH);
+        NON_HIGH_ONLY_LEVEL_CODES.add(LevelCode.ELEMENTARY);
+        NON_HIGH_ONLY_LEVEL_CODES.add(LevelCode.ELEMENTARY_MIDDLE);
+        NON_HIGH_ONLY_LEVEL_CODES.add(LevelCode.ELEMENTARY_MIDDLE_HIGH);
+        NON_HIGH_ONLY_LEVEL_CODES.add(LevelCode.ELEMENTARY_HIGH);
+        NON_HIGH_ONLY_LEVEL_CODES.add(LevelCode.PRESCHOOL);
+        NON_HIGH_ONLY_LEVEL_CODES.add(LevelCode.PRESCHOOL_ELEMENTARY);
+        NON_HIGH_ONLY_LEVEL_CODES.add(LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
+    }
+
+    private static Set<LevelCode> NON_HIGH_LEVEL_CODES = new HashSet<LevelCode>();
+    static {
+        NON_HIGH_LEVEL_CODES.add(LevelCode.MIDDLE);
+        NON_HIGH_LEVEL_CODES.add(LevelCode.ELEMENTARY);
+        NON_HIGH_LEVEL_CODES.add(LevelCode.ELEMENTARY_MIDDLE);
+        NON_HIGH_LEVEL_CODES.add(LevelCode.PRESCHOOL);
+        NON_HIGH_LEVEL_CODES.add(LevelCode.PRESCHOOL_ELEMENTARY);
+        NON_HIGH_LEVEL_CODES.add(LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
+    }
+
+    private static Set<LevelCode> CONTAINS_HIGH_LEVEL_CODES = new HashSet<LevelCode>();
+    static {
+        CONTAINS_HIGH_LEVEL_CODES.add(LevelCode.HIGH);
+        CONTAINS_HIGH_LEVEL_CODES.add(LevelCode.ALL_LEVELS);
+        CONTAINS_HIGH_LEVEL_CODES.add(LevelCode.MIDDLE_HIGH);
+        CONTAINS_HIGH_LEVEL_CODES.add(LevelCode.ELEMENTARY_HIGH);
+        CONTAINS_HIGH_LEVEL_CODES.add(LevelCode.ELEMENTARY_MIDDLE_HIGH);
+    }
+
     public void setUp() throws Exception {
         super.setUp();
         _controller = new SchoolProfileRatingsController();
@@ -274,19 +307,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // schools with non-high-only level codes should have student growth ratings
 
-        Set<LevelCode> nonHighOnlyLevelCodes = new HashSet<LevelCode>();
-        nonHighOnlyLevelCodes.add(LevelCode.ALL_LEVELS);
-        nonHighOnlyLevelCodes.add(LevelCode.MIDDLE);
-        nonHighOnlyLevelCodes.add(LevelCode.MIDDLE_HIGH);
-        nonHighOnlyLevelCodes.add(LevelCode.ELEMENTARY);
-        nonHighOnlyLevelCodes.add(LevelCode.ELEMENTARY_MIDDLE);
-        nonHighOnlyLevelCodes.add(LevelCode.ELEMENTARY_MIDDLE_HIGH);
-        nonHighOnlyLevelCodes.add(LevelCode.ELEMENTARY_HIGH);
-        nonHighOnlyLevelCodes.add(LevelCode.PRESCHOOL);
-        nonHighOnlyLevelCodes.add(LevelCode.PRESCHOOL_ELEMENTARY);
-        nonHighOnlyLevelCodes.add(LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
-
-        for (LevelCode levelCode : nonHighOnlyLevelCodes) {
+        for (LevelCode levelCode : NON_HIGH_ONLY_LEVEL_CODES) {
             s.setLevelCode(levelCode);
             model = _controller.getStudentGrowthRatingsModel(s,true);
             // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
@@ -313,15 +334,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // schools with no high level code: no post-secondary readiness ratings
 
-        Set<LevelCode> nonHighLevelCodes = new HashSet<LevelCode>();
-        nonHighLevelCodes.add(LevelCode.MIDDLE);
-        nonHighLevelCodes.add(LevelCode.ELEMENTARY);
-        nonHighLevelCodes.add(LevelCode.ELEMENTARY_MIDDLE);
-        nonHighLevelCodes.add(LevelCode.PRESCHOOL);
-        nonHighLevelCodes.add(LevelCode.PRESCHOOL_ELEMENTARY);
-        nonHighLevelCodes.add(LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
-
-        for (LevelCode levelCode : nonHighLevelCodes) {
+        for (LevelCode levelCode : NON_HIGH_LEVEL_CODES) {
             s.setLevelCode(levelCode);
             model = _controller.getPostSecondaryReadinessRatingsModel(s);
             assertNull(model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_YEAR));
@@ -332,14 +345,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // schools containing high level code should have post-secondary readiness ratings
 
-        Set<LevelCode> containsHighLevelCodes = new HashSet<LevelCode>();
-        containsHighLevelCodes.add(LevelCode.HIGH);
-        containsHighLevelCodes.add(LevelCode.ALL_LEVELS);
-        containsHighLevelCodes.add(LevelCode.MIDDLE_HIGH);
-        containsHighLevelCodes.add(LevelCode.ELEMENTARY_HIGH);
-        containsHighLevelCodes.add(LevelCode.ELEMENTARY_MIDDLE_HIGH);
-
-        for (LevelCode levelCode : containsHighLevelCodes) {
+        for (LevelCode levelCode : CONTAINS_HIGH_LEVEL_CODES) {
             s.setLevelCode(levelCode);
             model = _controller.getPostSecondaryReadinessRatingsModel(s);
             // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
@@ -409,64 +415,42 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // any school with level code containing 'high' should have post-secondary readiness copy
 
-        s.setLevelCode(LevelCode.ELEMENTARY_HIGH);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_IN, copy);
+        for (LevelCode levelCode : CONTAINS_HIGH_LEVEL_CODES) {
+            s.setLevelCode(levelCode);
+            copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+            assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_IN, copy);
+        }
 
-        s.setLevelCode(LevelCode.ELEMENTARY_MIDDLE_HIGH);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_IN, copy);
-
-        s.setLevelCode(LevelCode.MIDDLE_HIGH);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_IN, copy);
-
-        s.setLevelCode(LevelCode.ALL_LEVELS);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_IN, copy);
-
-        s.setLevelCode(LevelCode.ELEMENTARY);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertNull(copy);
-
-        s.setLevelCode(LevelCode.MIDDLE);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertNull(copy);
-
-        s.setLevelCode(LevelCode.ELEMENTARY_MIDDLE);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertNull(copy);
-
-        s.setLevelCode(LevelCode.PRESCHOOL);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertNull(copy);
-
-        s.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertNull(copy);
-
-        s.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertNull(copy);
-
-        // unsupported state - does not contains High level code
-        s.setDatabaseState(State.AK);
-        s.setLevelCode(LevelCode.MIDDLE);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertNull(copy);
+        for (LevelCode levelCode : NON_HIGH_LEVEL_CODES) {
+            s.setLevelCode(levelCode);
+            copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+            assertNull(copy);
+        }
 
         // unsupported state - contains High level code
         s.setDatabaseState(State.AK);
-        s.setLevelCode(LevelCode.MIDDLE_HIGH);
         boolean threwException = false;
-        try {
-            copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        } catch (Exception e) {
-            threwException = true;
-            assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
-            assertEquals("School is from unsupported state", e.getMessage());
+        for (LevelCode levelCode : CONTAINS_HIGH_LEVEL_CODES) {
+            s.setLevelCode(levelCode);
+            try {
+
+                copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+            } catch (Exception e) {
+                threwException = true;
+                assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
+                assertEquals("School is from unsupported state", e.getMessage());
+            }
+            assertTrue(threwException);
         }
-        assertTrue(threwException);
+
+        // unsupported state - does not contain High level code
+        s.setDatabaseState(State.AK);
+        for (LevelCode levelCode : NON_HIGH_LEVEL_CODES) {
+            s.setLevelCode(levelCode);
+            copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+            assertNull(copy);
+        }
+
     }
 
     public void testGetTestScoreRatingSource() {
