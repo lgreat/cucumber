@@ -383,9 +383,7 @@
         <c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">
             <script type="text/javascript">
                 ${pointsArray}
-                $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function () {
-                    GS.map.getMap.initMap(points, calculatedLat, calculatedLon);
-                });
+                GS.map.getMap.initMap(points, calculatedLat, calculatedLon);
             </script>
             <div data-role="content">
                 <div id="js-map-canvas"><!-- no collapse --></div>
