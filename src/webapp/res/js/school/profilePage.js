@@ -56,7 +56,10 @@ jQuery(document).ready(function() {
         $("#js_"+destination).triggerHandler('click').stopPropagation();
         return false;
     }
-    starRatingInterface("starRatingContainer1", 16, 5, "overallStarRating");
+    starRatingInterface("starRatingContainer1", 16, 5, "overallAsString");
+    starRatingInterface("starRatingContainer2", 16, 5, "teacherAsString");
+    starRatingInterface("starRatingContainer3", 16, 5, "principalAsString");
+    starRatingInterface("starRatingContainer4", 16, 5, "parentAsString");
 
     var $parents = $('#showParents')
         , $students = $('#showStudents')
