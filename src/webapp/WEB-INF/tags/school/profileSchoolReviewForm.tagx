@@ -75,7 +75,7 @@
 
 
                 <div class="spacer_5"><!-- do not collapse --></div>
-                <div id="js-bubbleInfo-6" class="text3">
+                <div id="js-bubbleInfo6" class="text3">
                 <div class="js-trigger line review-text">
                     <div class="unit size1of1 lastUnit">
                         <textarea id="js-reviewText"
@@ -88,11 +88,8 @@
                 </div>
                     <div class="js-popup">
                             <!--<div id="popup-contents-6" class="box-shadow">-->
-                            <div id="popup-contents-6">
-                                <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                <span class="arrow-outline-right"><!-- do not collapse --></span>
-                                <span class="arrow-right"><!-- do not collapse --></span>
-                                <ul class="unordered-list2 text3"><span class="text3bold">Don't forget</span>
+
+                        <ul  style=" list-style: inside; width:200px;" class="small phs"><span class="medium"><strong>Don't forget</strong></span>
                                     <br/>GreatSchools won’t post reviews that contain:
                                     <li class="list-item"><span class="text3">Inappropriate language</span></li>
                                     <li class="list-item"><span class="text3">Allegations of criminal conduct</span></li>
@@ -101,13 +98,13 @@
 
                                 <div class="spacer_7 brdbtm_dotted"><!-- do not collapse --></div>
                                 <div class="spacer_7"><!-- do not collapse --></div>
-                                <ul class="unordered-list2 text3"><span class="text3bold">A great school has:</span>
+                        <ul  style=" list-style: inside; width:200px;" class="small phs"><span class="medium"><strong>A great school has:</strong></span>
                                     <li class="list-item"><span class="text3">Excellent teachers</span></li>
                                     <li class="list-item"><span class="text3">Strong principal/school leadership</span></li>
                                     <li class="list-item"><span class="text3">Challenging academic programs</span></li>
                                 </ul>
                             </div>
-                        </div>
+                        <!--</div>-->
                         <!--</div>-->
                 </div>
 
@@ -125,14 +122,14 @@
                             </label>
                             <c:choose>
                                 <c:when test="${validUser.email eq null}">
-                                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size7of10"
+                                    <input id="frmPRModule-email" name="email" class="unit size7of10 text-padding-3"
                                            type="text"
                                            value="[Enter email address]"
                                            onfocus="if(this.value=='[Enter email address]'){this.value='';}"
                                            onblur="if(this.value==''){this.value='[Enter email address]';}"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <input id="frmPRModule-email" name="email" class="text1-ededed text3 unit size7of10"
+                                    <input id="frmPRModule-email" name="email" class="unit size7of10 text-padding-3"
                                            type="text"
                                            value="${validUser.email}" disabled="disabled"/>
                                 </c:otherwise>
@@ -163,7 +160,7 @@
                             <label for="affiliation" class="unit size1of4">I am a:
                                 <em class="sprite i-required"><!-- do not collapse --></em>
                             </label>
-                            <select id="affiliation" name="posterAsString" class="unit size7of10">
+                            <select id="affiliation" name="posterAsString" class="unit size7of10 text-padding-3">
                                 <option value="" selected="selected">- Select one -</option>
                                 <option value="parent">parent</option>
                                 <c:if test="${schoolReviewShowStudent}">
@@ -180,7 +177,7 @@
                         <div class="formErrorText media form-error">
                             <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd">Please indicate your relationship to the school.</div>
+                            <div class="bd smaller">Please indicate your relationship to the school.</div>
                         </div>
                     </div>
 
@@ -212,22 +209,20 @@
                                 <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                                 <!--<span class="arrow-outline-right">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                                 <!--<span class="arrow-right">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-
-                                <ul  style=" list-style: inside; width:200px;"><span class="medium"><strong>Teacher quality</strong></span> <br/>These ratings reflect parents’ or students’ overall experience with the school’s teachers. Among other things, great teachers:
+                            <div class="small phs"  style="width:200px;" >
+                                <span class="medium"><strong>Teacher quality</strong></span>
+                                <br/>These ratings reflect parents’ or students’ overall experience with the school’s teachers. Among other things, great teachers:
+                                <ul>
                                     <li class="list-item"><span class="small">Talk to parents regularly about their children's progress.</span></li>
                                     <li class="list-item"><span class="small">Challenge students to learn.</span></li>
                                     <li class="list-item"><span class="small">Give students the attention they need to thrive in class.</span></li>
                                 </ul>
-                            <!--</div>-->
+                            </div>
                         </div>
                     </div>
 
                     <c:if test="${school.levelCode ne 'p'}">
-                        <div id="js-bubbleInfo-3" class="text3 principal  mtm">
-
-
-                            <div class="spacer_5"><!-- do not collapse --></div>
-
+                        <div id="js-bubbleInfo3" class="principal  mtm">
                             <div class="js-trigger line">
                                 <div class="unit size3of5 pas" style="background-color: #FFFFFF">
                                     <div class="fl medium pan man pls">Principal leadership</div>
@@ -238,37 +233,24 @@
                                     <div class="clear pan man"><!-- do not collapse --></div>
                                     <!-- end star ratings -->
                                 </div>
-                                <!--<div class="catRatingLabel text3 unit size2of7">Principal leadership</div>-->
-                                <!--<div class="catRating unit size5of7 lastUnit"><gsml:starRating id="principalAsString"-->
-                                                                                               <!--additionalClass="med-star"/>-->
-                                <!--</div>-->
+
                             </div>
                             <div class="js-popup">
-                                <!--<div id="popup-contents-3" class="box-shadow">-->
-                                <div id="popup-contents-3">
-                                    <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                    <span class="arrow-outline-right"><!-- do not collapse --></span>
-                                    <span class="arrow-right"><!-- do not collapse --></span>
-
-                                    <ul class="unordered-list2"><span class="text3bold">Principal leadership</span> <br/>This is an assessment of the principal, or other leadership, at the school. Among other things, strong principals or school leaders:
-                                        <li class="list-item"><span
-                                                class="text3">Reach out to parents.</span>
-                                        </li>
-                                        <li class="list-item"><span class="text3">Listen to and answer questions from parents and students.</span>
-                                        </li>
-                                        <li class="list-item"><span
-                                                class="text3">Make efforts to improve the quality of the school.</span>
-                                        </li>
+                                <div class="small phs"  style="width:200px;" >
+                                    <span class="medium"><strong>Principal leadership</strong></span>
+                                    <br/>This is an assessment of the principal, or other leadership, at the school. Among other things, strong principals or school leaders:
+                                    <ul>
+                                        <li>Reach out to parents.</li>
+                                        <li>Listen to and answer questions from parents and students.</li>
+                                        <li>Make efforts to improve the quality of the school.</li>
                                     </ul>
                                 </div>
-                            </div>
+                             </div>
                         </div>
                     </c:if>
 
                     <div id="js-bubbleInfo-4" class="text3 parents mtm">
-                        <div class="spacer_5"><!-- do not collapse --></div>
-
-                        <div class="js-trigger line">
+                         <div class="js-trigger line">
                             <div class="unit size3of5 pas" style="background-color: #FFFFFF">
                                 <div class="fl medium pan man pls">Parent involvement</div>
                                 <div id="starRatingContainer4" class="fr pan man mrs">
@@ -285,26 +267,20 @@
                         </div>
                         <div class="js-popup">
                             <!--<div id="popup-contents-4" class="box-shadow">-->
-                            <div id="popup-contents-4">
-                                <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                <span class="arrow-outline-right"><!-- do not collapse --></span>
-                                <span class="arrow-right"><!-- do not collapse --></span>
+                            <div class="small phs"  style="width:200px;" >
+                                <span class="medium"><strong>Parent involvement</strong></span>
+                                <br/>A supportive community &amp;mdash; which includes active, involved parents &amp;mdash; is one mark of a great school. This rating reflects to what degree the school:
 
-                                <ul class="unordered-list2"><span class="text3bold">Parent involvement</span> <br/>A supportive community &amp;mdash; which includes active, involved parents &amp;mdash; is one mark of a great school. This rating reflects to what degree the school:
-                                    <li class="list-item"><span
-                                            class="text3">Offers opportunities for parent involvement.</span>
-                                    </li>
-                                    <li class="list-item"><span class="text3">Encourages all parents to volunteer.</span>
-                                    </li>
-                                    <li class="list-item"><span
-                                            class="text3">Treats parents like partners, not outsiders.</span>
-                                    </li>
+                                <ul>
+                                    <li>Offers opportunities for parent involvement.</li>
+                                    <li>Encourages all parents to volunteer.</li>
+                                    <li>Treats parents like partners, not outsiders.</li>
                                 </ul>
-                            </div>
+                              </div>
                         </div>
                     </div>
                     <c:if test="${school.levelCode eq 'p'}">
-                        <div id="js-bubbleInfo-5" class="text3">
+                        <div id="js-bubbleInfo5" class="text3">
                             <div class="spacer_5"><!-- do not collapse --></div>
 
                             <div class="js-trigger line">
@@ -315,13 +291,8 @@
                                 </div>
                             </div>
                             <div class="js-popup">
-                                <!--<div id="popup-contents-5" class="box-shadow">-->
-                                <div id="popup-contents-5">
-                                    <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                    <span class="arrow-outline-right"><!-- do not collapse --></span>
-                                    <span class="arrow-right"><!-- do not collapse --></span>
 
-                                    <ul class="unordered-list2"><span class="text3bold">Facilities &amp;amp; equipment</span>
+                                    <ul  style="width:200px; list-style: inside" class="smaller phs" ><span class="medium"><strong>Facilities &amp;amp; equipment</strong></span>
                                         <br/>This is an assessment of the physical environment of the preschool. The rating reflects to what degree the preschool:
                                         <li class="list-item"><span
                                                 class="text3">Maintains a clean, safe, inviting environment.</span>
@@ -335,7 +306,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+
                     </c:if>
                     <div class="spacer_15"><!-- do not collapse --></div>
                 </div>
@@ -389,7 +360,12 @@
     <script type="text/javascript">
         jQuery(document).ready(function() {
 //            console.log(jQuery("#js-bubbleInfo2 .js-trigger").html());
-            jQuery("#js-bubbleInfo2  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo2 .js-popup").html(), placement:'left'});
+            jQuery("#js-bubbleInfo2  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo2 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});
+            jQuery("#js-bubbleInfo3  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo3 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});
+            jQuery("#js-bubbleInfo4  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo4 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});
+            jQuery("#js-bubbleInfo5  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo5 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});
+            jQuery("#js-bubbleInfo6  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo6 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});
+
 //            jQuery("#js-bubbleInfo2  .js-trigger").popover({content:"Hello", placement:'top'});
 
 //              jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-200,topPosition:-95});

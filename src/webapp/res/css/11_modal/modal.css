@@ -64,65 +64,65 @@ General comments:
     z-index: 1;
 }
 
-#js-bubbleInfo-0,
-#js-bubbleInfo-1,
-#js-bubbleInfo-2,
-#js-bubbleInfo-3,
-#js-bubbleInfo-4,
-#js-bubbleInfo-5,
-#js-bubbleInfo-6,
-#js-bubbleInfo-7 {
-    position: relative;
-}
+/*#js-bubbleInfo-0,*/
+/*#js-bubbleInfo-1,*/
+/*#js-bubbleInfo-2,*/
+/*#js-bubbleInfo-3,*/
+/*#js-bubbleInfo-4,*/
+/*#js-bubbleInfo-5,*/
+/*#js-bubbleInfo-6,*/
+/*#js-bubbleInfo-7 {*/
+    /*position: relative;*/
+/*}*/
 
-#js-bubbleInfo-espHelp,
-#js-bubbleInfo-8,
-#js-bubbleInfo-9 {
-    position: relative;
-    display: inline-block;
-    *display: inline;
-    *z-index: 1000;
-}
+/*#js-bubbleInfo-espHelp,*/
+/*#js-bubbleInfo-8,*/
+/*#js-bubbleInfo-9 {*/
+    /*position: relative;*/
+    /*display: inline-block;*/
+    /**display: inline;*/
+    /**z-index: 1000;*/
+/*}*/
 
-#popup-contents-0 {
-    background: #FFF;
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 288px;
-    text-align: left;
-    margin-left: 15px;
-}
+/*#popup-contents-0 {*/
+    /*background: #FFF;*/
+    /*border: 1px solid #ccc;*/
+    /*padding: 10px;*/
+    /*width: 288px;*/
+    /*text-align: left;*/
+    /*margin-left: 15px;*/
+/*}*/
 
-#popup-contents-1 {
-    background: #FFF;
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 138px;
-    text-align: left;
-    margin-top: 15px;
-}
+/*#popup-contents-1 {*/
+    /*background: #FFF;*/
+    /*border: 1px solid #ccc;*/
+    /*padding: 10px;*/
+    /*width: 138px;*/
+    /*text-align: left;*/
+    /*margin-top: 15px;*/
+/*}*/
 
-#popup-contents-2,
-#popup-contents-3,
-#popup-contents-4,
-#popup-contents-5,
-#popup-contents-6 {
-    background: #FFF;
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 173px;
-    text-align: left;
-    margin-right: 15px;
-}
+/*#popup-contents-2,*/
+/*#popup-contents-3,*/
+/*#popup-contents-4,*/
+/*#popup-contents-5,*/
+/*#popup-contents-6 {*/
+    /*background: #FFF;*/
+    /*border: 1px solid #ccc;*/
+    /*padding: 10px;*/
+    /*width: 173px;*/
+    /*text-align: left;*/
+    /*margin-right: 15px;*/
+/*}*/
 
-#popup-contents-7 {
-    background: #FFF;
-    border: 1px solid #ccc;
-    padding: 10px 15px;
-    width: 220px;
-    text-align: left;
-    margin-bottom: 15px;
-}
+/*#popup-contents-7 {*/
+    /*background: #FFF;*/
+    /*border: 1px solid #ccc;*/
+    /*padding: 10px 15px;*/
+    /*width: 220px;*/
+    /*text-align: left;*/
+    /*margin-bottom: 15px;*/
+/*}*/
 #frmPRModule .form-error,
 #frmPRModule .form-alert{
     display: none;
