@@ -31,7 +31,7 @@
         <school:profileModuleInclude tabName="ratings" page="/school/profileRatings.page?state=${school.stateAbbreviation}&amp;id=${school.id}&amp;tabName=${tabName}" />
     </c:set>
     <c:set var="schoolstats">
-        <school:profileModuleInclude tabName="schoolstats" page="/school/profileStats.page?state=${school.stateAbbreviation}&amp;id=${school.id}&amp;tabName=${tabName}" />
+        <school:profileModuleInclude tabName="demographics" page="/school/profileStats.page?state=${school.stateAbbreviation}&amp;id=${school.id}&amp;tabName=${tabName}" />
     </c:set>
     <c:set var="reviews">
         <school:profileModuleInclude tabName="reviews" page="/school/profileReviews.page?state=${school.stateAbbreviation}&amp;id=${school.id}&amp;tabName=${tabName}" />
@@ -39,13 +39,13 @@
     <c:set var="programs">
         <school:profileModuleInclude tabName="programs" page="/school/profilePrograms.page?state=${school.stateAbbreviation}&amp;id=${school.id}&amp;tabName=${tabName}" />
     </c:set>
-    <c:set var="culture"></c:set>
+    <c:set var="admissions"></c:set>
 
     <c:if test="${param.debug}">
         [overview took ${requestScope['overviewtime']}ms] <br/>
         [test scores took ${requestScope['testscorestime']}ms] <br/>
         [ratings took ${requestScope['ratingstime']}ms] <br/>
-        [stats took ${requestScope['schoolstatstime']}ms] <br/>
+        [stats took ${requestScope['demographicstime']}ms] <br/>
         [reviews took ${requestScope['reviewstime']}ms] <br/>
         [programs took ${requestScope['programstime']}ms] <br/>
     </c:if>
@@ -53,42 +53,42 @@
     <div class="gsTabs">
         <ul class="tabStyle-8">
             <c:if test="${(!empty overview)}">
-                <li><a id="js_overview" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'overview')}" title="${schoolName} | Overview" class="${requestScope.schoolProfileTabMap.overview}">Overview</a>
+                <li><a id="js_overview" href="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'tab')}" title="${schoolName} | Overview" class="${requestScope.schoolProfileTabMap['overview-master']}">Overview</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.overview} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty reviews)}">
-                <li><a id="js_reviews" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}" title="${schoolName} | Reviews" class="${requestScope.schoolProfileTabMap.reviews}">Reviews</a>
+                <li><a id="js_reviews" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}" title="${schoolName} | Reviews" class="${requestScope.schoolProfileTabMap['reviews-master']}">Reviews</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.reviews} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty testscores)}">
-                <li><a id="js_testscores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores')}" title="${schoolName} | Test Scores" class="${requestScope.schoolProfileTabMap.testscores}">Tests &amp;amp; ratings</a>
+                <li><a id="js_testscores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}" title="${schoolName} | Tests &amp;amp; ratings" class="${requestScope.schoolProfileTabMap['test-scores-master']}">Tests &amp;amp; ratings</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.testscores} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty schoolstats)}">
-                <li><a id="js_schoolstats" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'schoolstats')}" title="${schoolName} | School stats" class="${requestScope.schoolProfileTabMap.schoolstats}">School stats</a>
+                <li><a id="js_schoolstats" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="${schoolName} | Students &amp;amp; teachers" class="${requestScope.schoolProfileTabMap['students-teachers-master']}">Students &amp;amp; teachers</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.schoolstats} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty programs)}">
-                <li><a id="js_programs" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.programs}">Programs &amp;amp; extracurriculars</a>
+                <li><a id="js_programs" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}" title="${schoolName} | Programs &amp;amp; culture" class="${requestScope.schoolProfileTabMap['programs-master']}">Programs &amp;amp; culture</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.programs} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
-            <c:if test="${(!empty culture)}">
-                <li><a id="js_whatsitlike" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'whatsitlike')}" title="${schoolName} | What's It Like" class="${requestScope.schoolProfileTabMap.whatsitlike}">What's it like</a>
+            <c:if test="${(!empty admissions)}">
+                <li><a id="js_whatsitlike" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'admissions')}" title="${schoolName} | Admissions" class="${requestScope.schoolProfileTabMap['admissions-master']}">Admissions</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.whatsitlike} arrowdiv" id="arrowdiv"></div>-->
 
@@ -96,24 +96,22 @@
             </c:if>
         </ul>
 
-        <!-- TODO: Do we need this useBean??? -->
-        <jsp:useBean id="now" class="java.util.Date" scope="page" />
         <c:if test="${(!empty overview)}">
-            <div data-gs-tab-body="overview" style="display:${(!empty requestScope.schoolProfileTabMap.overview and requestScope.schoolProfileTabMap.overview eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="overview" style="display:${(!empty requestScope.schoolProfileTabMap['overview-master'] and requestScope.schoolProfileTabMap['overview-master'] eq 'selected'?'block;':'none')}">
                 <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${overview}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty reviews)}">
-            <div data-gs-tab-body="reviews" style=" display:${(!empty requestScope.schoolProfileTabMap.reviews and requestScope.schoolProfileTabMap.reviews eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="reviews" style=" display:${(!empty requestScope.schoolProfileTabMap['reviews-master'] and requestScope.schoolProfileTabMap['reviews-master'] eq 'selected'?'block;':'none')}">
                 <!--<gsweb:cache key="profileReviews-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${reviews}' escapeXml="false" />
                 <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty testscores || !empty ratings)}">
-            <div data-gs-tab-body="testScores" style="display:${(!empty requestScope.schoolProfileTabMap.testscores and requestScope.schoolProfileTabMap.testscores eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="testScores" style="display:${(!empty requestScope.schoolProfileTabMap['test-scores-master'] and requestScope.schoolProfileTabMap['test-scores-master'] eq 'selected'?'block;':'none')}">
                 <div class="gsTabs">
                     <profile:testsRatingsNav schoolName="${schoolName}"/>
                     <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
@@ -128,18 +126,18 @@
             </div>
         </c:if>
         <c:if test="${(!empty schoolstats)}">
-            <div data-gs-tab-body="stats" style="display:${(!empty requestScope.schoolProfileTabMap.schoolstats and requestScope.schoolProfileTabMap.schoolstats eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="stats" style="display:${(!empty requestScope.schoolProfileTabMap['students-teachers-master'] and requestScope.schoolProfileTabMap['students-teachers-master'] eq 'selected'?'block;':'none')}">
                 <c:out value='${schoolstats}' escapeXml="false" />
             </div>
         </c:if>
         <c:if test="${(!empty programs)}">
-            <div data-gs-tab-body="programsExtras" style="display:${(!empty requestScope.schoolProfileTabMap.programs and requestScope.schoolProfileTabMap.programs eq 'selected'?'block;':'none')}">
+            <div data-gs-tab-body="programsExtras" style="display:${(!empty requestScope.schoolProfileTabMap['programs-master'] and requestScope.schoolProfileTabMap['programs-master'] eq 'selected'?'block;':'none')}">
                 <c:out value='${programs}' escapeXml="false" />
             </div>
         </c:if>
-        <c:if test="${(!empty culture)}">
-            <div data-gs-tab-body="culture" style=" display:${(!empty requestScope.schoolProfileTabMap.culture and requestScope.schoolProfileTabMap.culture eq 'selected'?'block;':'none')}">
-                <c:out value='${culture}' escapeXml="false" />
+        <c:if test="${(!empty admissions)}">
+            <div data-gs-tab-body="admissions" style=" display:${(!empty requestScope.schoolProfileTabMap['admissions-master'] and requestScope.schoolProfileTabMap['admissions-master'] eq 'selected'?'block;':'none')}">
+                <c:out value='${admissions}' escapeXml="false" />
             </div>
         </c:if>
     </div>

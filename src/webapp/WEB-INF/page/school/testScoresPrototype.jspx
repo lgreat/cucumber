@@ -6,7 +6,7 @@
         >
 
 <c:if test="${! empty testScores}">
-    <div class="${(!empty requestScope.schoolProfileTabMap.tests and requestScope.schoolProfileTabMap.tests eq 'selected'?'':'dn')}">
+    <div class="${(!empty requestScope.schoolProfileTabMap['test-scores'] and requestScope.schoolProfileTabMap['test-scores'] eq 'selected'?'':'dn')}">
     <div class="grid_16">
         <div class="fl pbn">
             <h3 class="pbn mbs" id="js_testLabelHeader"><!-- not empty --></h3>

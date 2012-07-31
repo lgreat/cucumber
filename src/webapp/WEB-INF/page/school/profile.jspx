@@ -244,12 +244,39 @@
     </div>
     <div class="clear"><!-- do not collapse --></div>
 
+    <!-- - - - - - - - - - -->
+    <!-- TAB CONFIGURATION -->
+    <!-- - - - - - - - - - -->
+
     <jsp:useBean id="schoolProfileTabMap" class="java.util.HashMap" scope="request" />
     <c:set target="${requestScope.schoolProfileTabMap}" property="key" value="on"/>
 
-    <c:forEach var="itemtab" items="${fn:split(param.tab,'_')}">
-        <c:set target="${requestScope.schoolProfileTabMap}" property="${itemtab}" value="selected"/>
-    </c:forEach>
+    <c:set target="${requestScope.schoolProfileTabMap}" property="${param.tab}" value="selected"/>
+
+    <!-- Configure which sub-tabs live under which master tabs -->
+    <c:if test="${empty param.tab or param.tab eq 'overview'}">
+        <c:set target="${requestScope.schoolProfileTabMap}" property="overview-master" value="selected"/>
+    </c:if>
+    <c:if test="${param.tab eq 'reviews'}">
+        <c:set target="${requestScope.schoolProfileTabMap}" property="reviews-master" value="selected"/>
+    </c:if>
+    <c:if test="${param.tab eq 'test-scores' or param.tab eq 'ratings'}">
+        <c:set target="${requestScope.schoolProfileTabMap}" property="test-scores-master" value="selected"/>
+    </c:if>
+    <c:if test="${param.tab eq 'demographics' or param.tab eq 'teachers'}">
+        <c:set target="${requestScope.schoolProfileTabMap}" property="students-teachers-master" value="selected"/>
+    </c:if>
+    <c:if test="${param.tab eq 'programs-culture' or param.tab eq 'culture' or param.tab eq 'programs-resources' or param.tab eq 'extracurriculars'}">
+        <c:set target="${requestScope.schoolProfileTabMap}" property="programs-master" value="selected"/>
+    </c:if>
+    <c:if test="${param.tab eq 'admissions'}">
+        <c:set target="${requestScope.schoolProfileTabMap}" property="admissions-master" value="selected"/>
+    </c:if>
+
+    <!-- - - - - - - - - - - - -->
+    <!-- END TAB CONFIGURATION -->
+    <!-- - - - - - - - - - - - -->
+
     <profile:primary schoolName="${school.name}" schoolId="${school.id}" schoolState="${school.databaseState}"
                  tabName="${param.tab}"/>
 </div>

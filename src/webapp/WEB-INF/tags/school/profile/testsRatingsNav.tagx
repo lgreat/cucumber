@@ -11,12 +11,12 @@
 
     <ul class="tabStyle-5">
         <li><a id="js_tests"
-               href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores_tests')}"
-               title="${pageScope.schoolName} | Test Scores"
-               class="${requestScope.schoolProfileTabMap.tests}">Test scores</a></li>
+               href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}"
+               title="${pageScope.schoolName} | Test scores"
+               class="${requestScope.schoolProfileTabMap['test-scores']}">Test scores</a></li>
         <li><span class="graydivider">|</span><a id="js_ratings"
-                                                 href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores_ratings')}"
-                                                 title="${pageScope.schoolName} | Ratings Details"
+                                                 href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'ratings')}"
+                                                 title="${pageScope.schoolName} | Ratings details"
                                                  class="${requestScope.schoolProfileTabMap.ratings} mlm">Ratings details</a>
         </li>
     </ul>

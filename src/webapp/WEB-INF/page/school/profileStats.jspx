@@ -21,14 +21,14 @@
         <div class="gsTabs">
             <ul class="tabStyle-5">
                 <!--<c:if test="${(!empty studentstab)}">-->
-                    <li><a id="js_students" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'schoolstats_students')}" title="${schoolName} | Students" class="${requestScope.schoolProfileTabMap.students}">Students</a></li>
+                    <li><a id="js_students" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="${schoolName} | Students" class="${requestScope.schoolProfileTabMap.demographics}">Students</a></li>
                 <!--</c:if>-->
 
                 <!--<c:if test="${(!empty teacherstab)}">-->
-                    <li><span class="graydivider">|</span><a id="js_teachers" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'schoolstats_teachers')}" title="${schoolName} | Teachers" class="${requestScope.schoolProfileTabMap.teachers} mlm">Teachers</a></li>
+                    <li><span class="graydivider">|</span><a id="js_teachers" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'teachers')}" title="${schoolName} | Teachers" class="${requestScope.schoolProfileTabMap.teachers} mlm">Teachers</a></li>
                 <!--</c:if>-->
             </ul>
-            <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.students and requestScope.schoolProfileTabMap.students eq 'selected'?'':'dn')}">
+            <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.demographics and requestScope.schoolProfileTabMap.demographics eq 'selected'?'':'dn')}">
                 <school:schoolProfilePieChartTable groupId="6" title="Student Ethnicity" statsTab="students" pieDivId="ethnicityPieChart" pieDataSet="${ethnicityMap}"/>
 
                 <school:schoolProfileStatsTable groupId="13" title="Student Subgroups" statsTab="students"/>
