@@ -274,8 +274,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         Object overallAcademicRating = dataMap.get(DATA_OVERALL_ACADEMIC_RATING);
         if (overallAcademicRating != null) {
             model.put(MODEL_OVERALL_ACADEMIC_RATING, overallAcademicRating);
-            // TODO-13012 replace string literal with call to helper method translating numeric rating to label
-            model.put(MODEL_OVERALL_ACADEMIC_RATING_LABEL, "High");
+            // TODO-13012 replace with better call to more permanent rating-to-label helper method for new rating; fix object->string->float->string conversion
+            model.put(MODEL_OVERALL_ACADEMIC_RATING_LABEL,
+                    getLabelForAcademicRating(Float.valueOf(overallAcademicRating.toString())));
         }
 
         // CLIMATE RATING
@@ -287,8 +288,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             model.put(MODEL_CLIMATE_RATING_AVAILABILITY_TEXT, getClimateRatingAvailabilityText(school));
         } else if (hasClimateRating) {
             model.put(MODEL_OVERALL_CLIMATE_RATING, overallClimateRating);
-            // TODO-13012 replace string literal with call to helper method translating numeric rating to label
-            model.put(MODEL_OVERALL_CLIMATE_RATING_LABEL, "Average");
+            // TODO-13012 replace with better call to more permanent rating-to-label helper method for new rating; fix object->string->float->string conversion
+            model.put(MODEL_OVERALL_CLIMATE_RATING_LABEL,
+                    getLabelForClimateRating(Float.valueOf(overallClimateRating.toString())));
         }
 
         // SECTION 1 COPY
@@ -567,5 +569,30 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     }
 
     // ===================== UTILITY METHODS ========================
-    // TODO-13012 any methods to add here?
+
+    // TODO-13012 temporary: to be replaced with a more global helper/util method for new ratings
+    public static String getLabelForAcademicRating(double rating) {
+        if (rating >= 1 && rating <= 3) {
+            return "Poor";
+        } else if (rating >= 4 && rating <= 7) {
+            return "Average";
+        } else if (rating >= 8 && rating <= 10) {
+            return "High";
+        } else {
+            throw new IllegalArgumentException("Rating must be from 1 to 10");
+        }
+    }
+
+    // TODO-13012 temporary: to be replaced with a more global helper/util method for new ratings
+    public static String getLabelForClimateRating(double climateRating) {
+        if (climateRating >= 1 && climateRating <= 3) {
+            return "Poor";
+        } else if (climateRating >= 4 && climateRating <= 7) {
+            return "Average";
+        } else if (climateRating >= 8 && climateRating <= 10) {
+            return "High";
+        } else {
+            throw new IllegalArgumentException("Rating must be from 1 to 10");
+        }
+    }
 }

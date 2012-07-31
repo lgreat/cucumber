@@ -86,8 +86,9 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         overallAcademicRatingLabel =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING_LABEL);
         assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING), overallAcademicRating);
-        // TODO-13012 replace label
-        assertEquals("High", overallAcademicRatingLabel);
+        assertEquals(SchoolProfileRatingsController.getLabelForAcademicRating(
+                Float.valueOf(_dataMap.get(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING).toString())),
+                overallAcademicRatingLabel);
 
         // TODO-13012 school with no academic rating
         // assertNull(overallAcademicRating);
@@ -105,8 +106,9 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         overallClimateRatingLabel =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_CLIMATE_RATING_LABEL);
         assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING), overallClimateRating);
-        // TODO-13012 replace label
-        assertEquals("Average", overallClimateRatingLabel);
+        assertEquals(SchoolProfileRatingsController.getLabelForClimateRating(
+                Float.valueOf(_dataMap.get(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING).toString())),
+                overallClimateRatingLabel);
         assertNull(climateRatingAvailabilityText);
 
 
