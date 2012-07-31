@@ -3,20 +3,23 @@ package gs.web.school;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
+import gs.data.test.*;
 import gs.web.util.ReadWriteAnnotationController;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 // TODO-13012 validate simplifying assumption -- behavior switches between Milwaukee, DC, and Indianapolis use state only, not city
+// TODO-13012 add logic to handle incomplete data, e.g. only some climate ratings
 
 @Controller
 @RequestMapping("/school/profileRatings.page")
@@ -24,7 +27,17 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     private static final Log _log = LogFactory.getLog(SchoolProfileRatingsController.class);
     public static final String VIEW = "school/profileRatings";
 
-    // ===================== CONSTANTS ==============================
+    @Autowired
+    private ITestDataSetDao _testDataSetDao;
+
+    // TODO-13012 not needed?
+    @Autowired
+    private ITestDataTypeDao _testDataTypeDao;
+
+    @Autowired
+    private ITestDataSchoolValueDao _testDataSchoolValueDao;
+
+    // ===================== COPY ===================================
 
     public static final String CLIMATE_RATING_AVAILABILITY_TEXT_DC =
             "Coming 2013";
@@ -184,28 +197,30 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== REQUEST HANDLERS =======================
 
+    // TODO-13012 temporary? way to toggle between sample vs. database data
+    // optional request param for development/QA purposes, to toggle between sample data vs. database data
+    // e.g. &src=db or &src=sample
+    // currently defaults to "sample" but this will change
     @RequestMapping(method=RequestMethod.GET)
     public String showRatingsPage(ModelMap modelMap,
                                      HttpServletRequest request,
-                                     HttpServletResponse response
+                                     @RequestParam(value="src", required=false) String src
     ) {
         School school = getSchool(request);
         modelMap.put("school", school);
 
         Map<String,Object> dataMap;
-        // TODO-13012 remove this switch or allow a way to pull in sample data with request parameter
-        if (true) {
+        // TODO-13012 switch this to default to getData, or get rid of any way to call getSampleData()
+        if (StringUtils.isBlank(src) || "sample".equals(src)) {
             // sample data
             dataMap = getSampleData();
         } else {
-            // TODO-13012 getData should make actual dao calls
             dataMap = getData(school);
         }
 
         modelMap.addAllAttributes(getSection1Model(school, dataMap));
 
-        // no dynamic data in section 2, so we can comment this out
-        //modelMap.addAllAttributes(getSection2Model(school, dataMap));
+        // no dynamic data in section 2
 
         modelMap.addAllAttributes(getSection3Model(school, dataMap));
 
@@ -216,10 +231,112 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Data ===================================
 
+    // TODO-13012 TEMPORARY! move these constants out of here or replace with config file/XML
+    private static final int RATING_ACADEMIC_ACHIEVEMENT = 164;
+    private static final int RATING_ACADEMIC_VALUE_ADDED = 165;
+    private static final int RATING_ACADEMIC_POST_SECONDARY_READINESS = 166;
+    private static final int RATING_OVERALL_ACADEMIC = 167;
+    private static final int RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS = 168;
+    private static final int RATING_CLIMATE_FAMILY_ENGAGEMENT = 169;
+    private static final int RATING_CLIMATE_TEACHER_SUPPORT = 170;
+    private static final int RATING_CLIMATE_SCHOOL_ENVIRONMENT = 171;
+    private static final int RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING = 172;
+    private static final int RATING_OVERALL_CLIMATE = 173;
+    private static final int RATING_OVERALL = 174;
+    private static final Set<Integer> RATING_TEST_DATA_TYPE_IDS = new HashSet<Integer>();
+    static {
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_ACHIEVEMENT);
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_VALUE_ADDED);
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_POST_SECONDARY_READINESS);
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_OVERALL_ACADEMIC);
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS);
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_CLIMATE_FAMILY_ENGAGEMENT);
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_CLIMATE_TEACHER_SUPPORT);
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_CLIMATE_SCHOOL_ENVIRONMENT);
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING);
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_OVERALL_CLIMATE);
+        RATING_TEST_DATA_TYPE_IDS.add(RATING_OVERALL);
+    }
+
+    // TODO-13012 not optimized, may need to be rewritten
     public Map<String,Object> getData(School school) {
         Map<String,Object> dataMap = new HashMap<String,Object>();
 
-        // TODO-13012 maybe make use of some existing helper methods to determine if a db call is needed
+        // TODO-13012 don't hard-code year to fetch
+        Set<Integer> years = new HashSet<Integer>();
+        years.add(2012);
+
+        // SCHOOL DATA
+
+        List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(
+                school.getDatabaseState(), years, RATING_TEST_DATA_TYPE_IDS,
+                null, null, null, null, true, null);
+        List<SchoolTestValue> schoolTestValues = _testDataSchoolValueDao.findValues(testDataSets, school);
+
+        // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
+        for (SchoolTestValue value : schoolTestValues) {
+            switch (value.getDataSet().getDataTypeId()) {
+                // overall ratings
+                case RATING_OVERALL :
+                    dataMap.put(DATA_OVERALL_RATING, value.getValueFloat().intValue());
+                    break;
+                case RATING_OVERALL_ACADEMIC :
+                    dataMap.put(DATA_OVERALL_ACADEMIC_RATING, value.getValueFloat().intValue());
+                    break;
+                case RATING_OVERALL_CLIMATE :
+                    dataMap.put(DATA_OVERALL_CLIMATE_RATING, value.getValueFloat().intValue());
+                    dataMap.put(DATA_CLIMATE_RATING_NUM_RESPONSES, value.getNumberTested());
+                    break;
+
+                // academic ratings
+                case RATING_ACADEMIC_ACHIEVEMENT :
+                    dataMap.put(DATA_TEST_SCORE_RATING_YEAR, value.getDataSet().getYear());
+                    dataMap.put(DATA_SCHOOL_TEST_SCORE_RATING, value.getValueFloat().intValue());
+                    break;
+                case RATING_ACADEMIC_VALUE_ADDED :
+                    dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, value.getDataSet().getYear());
+                    dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
+                    break;
+                case RATING_ACADEMIC_POST_SECONDARY_READINESS :
+                    dataMap.put(DATA_POST_SECONDARY_READINESS_RATING_YEAR, value.getDataSet().getYear());
+                    dataMap.put(DATA_POST_SECONDARY_READINESS_RATING, value.getValueFloat().intValue());
+                    break;
+
+                // climate ratings
+                case RATING_CLIMATE_SCHOOL_ENVIRONMENT :
+                    dataMap.put(DATA_SCHOOL_ENVIRONMENT_RATING, value.getValueFloat().intValue());
+                    break;
+                case RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING :
+                    dataMap.put(DATA_SOCIAL_EMOTIONAL_LEARNING_RATING, value.getValueFloat().intValue());
+                    break;
+                case RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS :
+                    dataMap.put(DATA_HIGH_EXPECTATIONS_RATING, value.getValueFloat().intValue());
+                    break;
+                case RATING_CLIMATE_TEACHER_SUPPORT :
+                    dataMap.put(DATA_TEACHER_SUPPORT_RATING, value.getValueFloat().intValue());
+                    break;
+                case RATING_CLIMATE_FAMILY_ENGAGEMENT :
+                    dataMap.put(DATA_FAMILY_ENGAGEMENT_RATING, value.getValueFloat().intValue());
+                    break;
+            }
+        }
+
+        if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING) || dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING)) {
+            // TODO-13012 city data
+            // CITY DATA
+
+            //dataMap.put(DATA_CITY_TEST_SCORE_RATING, 5);
+            //dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, 5);
+
+            if (isShowStateTestScoreRating(school.getDatabaseState()) ||
+                isShowStateStudentGrowthRating(school.getDatabaseState())) {
+                // TODO-13012 state data
+                // STATE DATA
+
+                //dataMap.put(DATA_STATE_TEST_SCORE_RATING, 3);
+                //dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, 3);
+            }
+        }
 
         return dataMap;
     }
@@ -328,15 +445,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Section 2 ==============================
 
-    /*
-    public static Map<String,Object> getSection2Model(School school, Map<String,Object> dataMap) {
-        Map<String,Object> model = new HashMap<String,Object>();
-
-        // nothing to do
-
-        return model;
-    }
-    */
+    // no code needed here
 
     // ===================== Section 3 ==============================
 
@@ -593,5 +702,19 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else {
             throw new IllegalArgumentException("Rating must be from 1 to 10");
         }
+    }
+
+    // ===================== SETTERS FOR UNIT TESTS =================
+
+    void setTestDataSetDao(ITestDataSetDao testDataSetDao) {
+        _testDataSetDao = testDataSetDao;
+    }
+
+    void setTestDataTypeDao(ITestDataTypeDao testDataTypeDao) {
+        _testDataTypeDao = testDataTypeDao;
+    }
+
+    public void setTestDataSchoolValueDao(ITestDataSchoolValueDao testDataSchoolValueDao) {
+        _testDataSchoolValueDao = testDataSchoolValueDao;
     }
 }
