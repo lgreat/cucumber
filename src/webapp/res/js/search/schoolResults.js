@@ -40,6 +40,8 @@ GS.search.results = GS.search.results || (function() {
             var queryData = GS.uri.Uri.getQueryData();
             var currentSort = queryData['sortBy'];
 
+//            $this.addClass('selected');
+
             var newSort = sorts[0];
             if (sorts[0] === currentSort) {
                 newSort = sorts[1];
@@ -56,13 +58,16 @@ GS.search.results = GS.search.results || (function() {
             $('body [data-gs-sort-toggle]span').each(function() {
 //                $span.html('&#160;');      //remove all other arrows
                 $span.addClass('i-16-white-space');
+                $this.removeClass('selected');
             });
             if (newSort.indexOf('DESCENDING') !== -1) {
 //                $span.attr(blackTriangleUp);
                 $span.addClass('i-16-sort-list-arrow-down');
+//                $this.addClass('selected');
             } else {
 //                $span.attr(blackTriangleDown);
                 $span.addClass('i-16-sort-list-arrow-up');
+//                $this.addClass('selected');
             }
 
             update(queryData);
