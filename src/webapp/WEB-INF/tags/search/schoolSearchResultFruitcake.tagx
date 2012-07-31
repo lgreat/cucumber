@@ -125,9 +125,13 @@
                 <!-- School photo -->
                 <div class="unit ${photoSearchWidth} lastUnit">
                     <c:if test="${not empty school.smallSizePhotos}">
-                        <img src="${basePhotoPath}${school.smallSizePhotos[0]}" alt="Photos of this school"
-                             width="70" height="70"/>
-
+                        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
+                                                                 databaseState="${school.databaseState}"
+                                                                 name="${school.name}"
+                                                                 physicalAddress="${school.address}"
+                                                                 levelCode="${school.levelCode}">
+                            <img src="${basePhotoPath}${school.smallSizePhotos[0]}" alt="Photo of ${school.name}" width="70" height="70"/>
+                        </link:schoolProfileOverviewForPrimitives>
                     </c:if>
                 </div>
             </div>
