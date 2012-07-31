@@ -84,7 +84,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // school with no overall rating
 
-        // temporarily remove overall rating for this test
+        // temporarily remove rating for this test
         Object overallRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_RATING);
 
         model = _controller.getSection1Model(s, _dataMap);
@@ -92,7 +92,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_RATING);
         assertNull(overallRating);
 
-        // restore overall rating
+        // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_RATING, overallRatingOrigValue);
 
         // ACADEMIC RATING
@@ -111,7 +111,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // school with no academic rating
 
-        // temporarily remove overall rating for this test
+        // temporarily remove rating for this test
         Object overallAcademicRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING);
 
         model = _controller.getSection1Model(s, _dataMap);
@@ -122,7 +122,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertNull(overallAcademicRating);
         assertNull(overallAcademicRatingLabel);
 
-        // restore overall rating
+        // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING, overallAcademicRatingOrigValue);
 
         // CLIMATE RATING
@@ -146,7 +146,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // Milwaukee - no climate rating for this school
 
-        // temporarily remove overall rating for this test
+        // temporarily remove rating for this test
         Object overallClimateRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING);
 
         s.setDatabaseState(State.WI);
@@ -161,7 +161,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertNull(overallClimateRatingLabel);
         assertEquals(SchoolProfileRatingsController.CLIMATE_RATING_AVAILABILITY_TEXT_WI, climateRatingAvailabilityText);
 
-        // restore overall rating
+        // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING, overallClimateRatingOrigValue);
 
         // DC
@@ -349,7 +349,19 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertNull(model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
         assertNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
 
-        // TODO-13012 check if school has student growth rating regardless of level code
+        // check if school has student growth rating regardless of level code
+
+        // temporarily remove rating for this test
+        Object overallSchoolStudentGrowthRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_SCHOOL_STUDENT_GROWTH_RATING);
+
+        s.setLevelCode(LevelCode.ELEMENTARY);
+        model = _controller.getStudentGrowthRatingsModel(s, true, _dataMap);
+        assertNull(model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
+        assertNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
+
+        // restore rating
+        _dataMap.put(SchoolProfileRatingsController.DATA_SCHOOL_STUDENT_GROWTH_RATING, overallSchoolStudentGrowthRatingOrigValue);
+
 
         // schools with non-high-only level codes should have student growth ratings
 
@@ -392,7 +404,18 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
             assertNull(model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING));
         }
 
-        // TODO-13012 check if school has post-secondary readiness rating regardless of level code
+        // check if school has post-secondary readiness rating regardless of level code
+
+        // temporarily remove rating for this test
+        Object postSecondaryReadinessRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING);
+
+        s.setLevelCode(LevelCode.ELEMENTARY);
+        model = _controller.getPostSecondaryReadinessRatingsModel(s, _dataMap);
+        assertNull(model.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR));
+        assertNull(model.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING));
+
+        // restore rating
+        _dataMap.put(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING, postSecondaryReadinessRatingOrigValue);
 
         // schools containing high level code should have post-secondary readiness ratings
 
@@ -410,10 +433,18 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         School s = new School();
         String copy;
 
-        // TODO-13012 Data unavailable copy
-        //s.setDatabaseState(State.WI);
-        //copy = _controller.getSection3Copy(s);
-        //assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_DATA_UNAVAILABLE, copy);
+        // Milwaukee, no climate rating - data unavailable copy
+
+        // temporarily remove rating for this test
+        Object overallAcademicRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING);
+
+        s.setDatabaseState(State.WI);
+        copy = _controller.getSection3Copy(s, _dataMap);
+        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_DATA_UNAVAILABLE, copy);
+
+        // restore rating
+        _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING, overallAcademicRatingOrigValue);
+
 
         // Milwaukee
         s.setDatabaseState(State.WI);
@@ -446,8 +477,6 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     public void testGetSection3CopyPostSecondaryReadiness() {
         School s = new School();
         String copy;
-
-        // TODO-13012 check if post-secondary readiness rating is available for this school (even if contains High School level code)
 
         s.setLevelCode(LevelCode.HIGH);
 
@@ -680,10 +709,17 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         School s = new School();
         String copy;
 
-        // TODO-13012 Data unavailable copy
-        //s.setDatabaseState(State.WI);
-        //copy = _controller.getSection4Copy(s);
-        //assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_DATA_UNAVAILABLE, copy);
+        // Milwaukee, no climate rating - data unavailable copy
+
+        // temporarily remove rating for this test
+        Object overallClimateRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING);
+
+        s.setDatabaseState(State.WI);
+        copy = _controller.getSection4Copy(s, _dataMap);
+        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_DATA_UNAVAILABLE, copy);
+
+        // restore rating
+        _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING, overallClimateRatingOrigValue);
 
         // Milwaukee
         s.setDatabaseState(State.WI);

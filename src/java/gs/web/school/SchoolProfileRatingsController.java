@@ -199,7 +199,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             dataMap = getSampleData();
         } else {
             // TODO-13012 getData should make actual dao calls
-            //dataMap = getData(school);
+            dataMap = getData(school);
         }
 
         modelMap.addAllAttributes(getSection1Model(school, dataMap));
@@ -547,7 +547,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return State.WI.equals(state);
     }
 
-    // TODO-13012 remove unused school variable or keep for consistency?
     public static Map<String,Object> getClimateRatingDetailsModel(School school, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
 
