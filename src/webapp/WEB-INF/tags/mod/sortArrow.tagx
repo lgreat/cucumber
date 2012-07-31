@@ -9,19 +9,19 @@
     <jsp:directive.attribute name="currentSort" required="true" type="java.lang.String" />
     <jsp:directive.attribute name="columnName" required="true" type="java.lang.String" />
 
-    <c:set var="blackTriangleDown" value="&amp;#9652;"/>
-    <c:set var="whiteTriangleDown" value="&#160;"/>
-    <c:set var="blackTriangleUp" value="&amp;#9662;"/>
-    <c:set var="whiteTriangleUp" value="&#160;"/>
+    <c:set var="blackTriangleDown" value="i-16-sort-list-arrow-down"/>
+    <c:set var="whiteTriangleDown" value="i-16-white-space"/>
+    <c:set var="blackTriangleUp" value="i-16-sort-list-arrow-up"/>
+    <c:set var="whiteTriangleUp" value="i-16-white-space"/>
 
     <c:choose>
         <c:when test="${not empty currentSort and fn:contains(sortList, currentSort)}">
             <c:choose>
                 <c:when test="${fn:contains(currentSort, 'DESCENDING')}">
-                    <c:set var="triangle" value="${blackTriangleUp}"/>
+                    <c:set var="triangle" value="${blackTriangleDown}"/>
                 </c:when>
                 <c:otherwise>
-                    <c:set var="triangle" value="${blackTriangleDown}"/>
+                    <c:set var="triangle" value="${blackTriangleUp}"/>
                 </c:otherwise>
             </c:choose>
         </c:when>
@@ -36,7 +36,8 @@
             </c:choose>
         </c:otherwise>
     </c:choose>
-    <a href="javascript:void(0);" class="noUnderline small_bold" data-gs-sort-toggle="${sortList}">${columnName}
-        <span class="mls">${triangle}</span>
+    <a href="javascript:void(0);" class="noUnderline small_bold bottom" data-gs-sort-toggle="${sortList}">
+        ${columnName}
+        <span class="iconx16 ${triangle} vam"><!--Do not collapse--></span>
     </a>
 </jsp:root>

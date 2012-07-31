@@ -28,12 +28,11 @@ GS.search.results = GS.search.results || (function() {
 
 //        compareModule.initializeRowsAndCheckedSchoolsArray();
 
-        var blackTriangleDown = '&#9652;';
-        var whiteTriangleDown = '&#160;';
-        var blackTriangleUp = '&#9662;';
-        var whiteTriangleUp = '&#160;';
-//        var whiteTriangleDown = '&#9663;';
-//        var whiteTriangleUp = '&#9653;';
+        var blackTriangleDown = 'i-16-sort-list-arrow-down';
+        var whiteTriangleDown = 'i-16-white-space';
+        var blackTriangleUp = 'i-16-sort-list-arrow-up';
+        var whiteTriangleUp = 'i-16-white-space';
+
         $('body').on('click', '[data-gs-sort-toggle]', function() {
             var $this = $(this);
             var $span = $this.find('span');
@@ -55,16 +54,15 @@ GS.search.results = GS.search.results || (function() {
             }
 
             $('body [data-gs-sort-toggle]span').each(function() {
-                $span.html('&#160;');      //remove all other arrows
+//                $span.html('&#160;');      //remove all other arrows
+                $span.addClass('i-16-white-space');
             });
-            //console.log(newSort);
             if (newSort.indexOf('DESCENDING') !== -1) {
-                $span.attr(blackTriangleUp);
-//                $span.css("color","black");
-//                console.log($span);
-//                console.log("color:black")
+//                $span.attr(blackTriangleUp);
+                $span.addClass('i-16-sort-list-arrow-down');
             } else {
-                $span.attr(blackTriangleDown);
+//                $span.attr(blackTriangleDown);
+                $span.addClass('i-16-sort-list-arrow-up');
             }
 
             update(queryData);
