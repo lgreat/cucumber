@@ -22,7 +22,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
             return window.location.pathname + GS.search.filters.getUpdatedQueryString();
         });
         schoolList = $('#js-schoolList');
-        var height = $('#js-map-canvas').css('height');
+        var height = getHeight();
         schoolList.css({height: height, overflowY: 'auto'});
         $('.js-mouseover-open-bubble').live('mouseover', function() {
             var id = jQuery(this).attr('id');
@@ -150,13 +150,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
         // need to change the difference based on design or
         // if frontend can do the same with css, then remove this block
-        var height;
-        if (window.innerHeight){
-            height = (window.innerHeight > 1000)? window.innerHeight/2 : 500;
-        }
-        else {
-            height = 500;
-        }
+        var height = getHeight();
 
         $('#js-map-canvas').css({height:height});
 
@@ -169,6 +163,17 @@ GS.map.getMap = GS.map.getMap ||(function(){
             map.setZoom(17);
         }
     }
+
+    var getHeight = function() {
+        var height;
+        if (window.innerHeight){
+            height = (window.innerHeight > 1000)? window.innerHeight/2 : 500;
+        }
+        else {
+            height = 500;
+        }
+        return height;
+    };
 
     var loadMarkers = function (points) {
         var bounds = new google.maps.LatLngBounds();
@@ -280,7 +285,6 @@ GS.map.getMap = GS.map.getMap ||(function(){
         }
 
         var newData = {};
-        console.log("current center", currentCenter);
 
         geocoder.geocode({latLng: currentCenter}, function(results, status) {
             if(status === google.maps.GeocoderStatus.OK) {
