@@ -194,7 +194,7 @@
                                 </div>
 
                                 <div>
-                                    <input type="radio" name="distance" value="5" id="js-radius-5"/>
+                                    <input type="radio" name="distance" value="5" id="js-radius-5" checked="checked"/>
                                     <label for="js-radius-5">5 miles</label>
                                 </div>
                             </div>
@@ -212,8 +212,7 @@
                                     <label for="js-radius-20">20 miles</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="distance" value="25" id="js-radius-25"
-                                           checked="checked"/>
+                                    <input type="radio" name="distance" value="25" id="js-radius-25" />
                                     <label for="js-radius-25">25 miles</label>
                                 </div>
                                 <div>
