@@ -23,10 +23,10 @@ GS.util.localStorage = (function() {
     };
 
     var getItemFromLocalStorage = function(key) {
-        var item = "";
+        var item = '';
         if (enabled) {
             item = localStorage.getItem(namespacePrefix + key);
-            if (item != undefined && item != null && item.length > 0 && (item[0] === '{' || item[0] === '[')) {
+            if (item != undefined && item != null && item.length > 0 && (item.charAt(0) === '{' || item.charAt(0) === '[')) {
                 item = JSON.parse(item);
             }
         }
@@ -43,11 +43,11 @@ GS.util.localStorage = (function() {
     };
 
     var hasItemInLocalStorage = function(key) {
-        var item = "";
+        var item = '';
         if (enabled) {
             item = localStorage.getItem(namespacePrefix + key);
         }
-        return item != "";
+        return item != '';
     };
 
     return {
@@ -57,6 +57,51 @@ GS.util.localStorage = (function() {
         hasItemInLocalStorage:hasItemInLocalStorage
     }
 })();
+
+
+GS.util.storeSchools = (function() {
+    var subCookiePropertyName = 'compareSchools';
+    var cookieExpiryDays = 30;
+
+    //First tries to store schools in local storage.If that fails, then uses cookies as a fallback.
+    //The cookies are expired after 30 days.
+    var putSchools = function(key, value) {
+        if (!GS.util.localStorage.putItemInLocalStorage(key, value)) {
+            if (typeof value === "object") {
+                value = JSON.stringify(value);
+            }
+            subCookie.setObjectProperty(key, subCookiePropertyName, value, cookieExpiryDays);
+        }
+    };
+
+    //First tries to get the schools from local storage.If that fails, then reads from cookies as a fallback.
+    var getSchools = function(key) {
+        var item = GS.util.localStorage.getItemFromLocalStorage(key);
+        if (item === '') {
+            item = subCookie.getObjectProperty(key, subCookiePropertyName);
+            if (item != undefined && item != null && item.length > 0 && (item.charAt(0) === '{' || item.charAt(0) === '[')) {
+                item = JSON.parse(item);
+            } else if (item === undefined || item === null) {
+                item = '';
+            }
+        }
+        return item;
+    };
+
+    //First tries to remove the schools from local storage.If that fails, expires the cookie.
+    var removeSchools = function(key) {
+        if (!GS.util.localStorage.removeItemFromLocalStorage(key)) {
+            subCookie.setObject(key);
+        }
+    };
+
+    return {
+        putSchools:putSchools,
+        getSchools:getSchools,
+        removeSchools:removeSchools
+    }
+})();
+
 // Invokes arguments synchronously, in order, with short-circuit behavior
 // Returns a promise that resolves iff all arguments resolve, and fails as soon as the first argument
 // to fail fails, without proceeding to invoke any following arguments
@@ -101,20 +146,20 @@ GS.school = GS.school || {};
 GS.school.compare = (function() {
     var MODULE_ID = 'js_compareModule';
     var maxSchoolsInCompare = 8;
-    var compareKeyInLocalStorage = "schoolsToCompare";
+    var compareKey = "schoolsToCompare";
     var schoolsInCompare;
     var compareBtn;
     var compareModule;
     var getSourceUrlFunc;
 
     var initializeSchoolsInCompare = function(fromUrl) {
-        schoolsInCompare = GS.util.localStorage.getItemFromLocalStorage(compareKeyInLocalStorage);
+        schoolsInCompare = GS.util.storeSchools.getSchools(compareKey);
         compareBtn = $('#js_compareBtn');
         compareModule = $('#' + MODULE_ID);
         getSourceUrlFunc = fromUrl;
 
-        //If there are schools in local storage then get the details of the schools by making an ajax call.
-        if (schoolsInCompare != null && schoolsInCompare != undefined) {
+        //If there are schools in local storage/cookies then get the details of the schools by making an ajax call.
+        if (schoolsInCompare != null && schoolsInCompare != undefined && schoolsInCompare.length > 0) {
             jQuery.when(
                 getSchoolsInfo(schoolsInCompare)).done(
                 function(schools) {
@@ -192,9 +237,8 @@ GS.school.compare = (function() {
                     newSchool['state'] = schools[0].state;
                     schoolsInCompare.push(newSchool);
 
-                    //Add the school to local storage.
-                    GS.util.localStorage.putItemInLocalStorage(compareKeyInLocalStorage, schoolsInCompare);
-
+                    //Add the school to local storage/cookies.
+                    GS.util.storeSchools.putSchools(compareKey, schoolsInCompare);
                     //Draw the div in the compare module.
                     drawSchoolDivInCompareModule(schools[0].schoolId, schools[0].state, schools[0].name, schools[0].type,
                         schools[0].gradeRange, schools[0].city, schools[0].schoolUrl);
@@ -244,7 +288,7 @@ GS.school.compare = (function() {
 
 
     var removeSchoolFromCompare = function(schoolId, state) {
-        //Remove the school from the local storage array.
+        //Remove the school from the local storage/cookies array.
         for (var i = 0; i < schoolsInCompare.length; i++) {
             if (schoolsInCompare[i].schoolId == schoolId && schoolsInCompare[i].state == state) {
                 schoolsInCompare.splice(i, 1);
@@ -252,12 +296,12 @@ GS.school.compare = (function() {
             }
         }
 
-        //If there are no more schools present remove the entire compare key from local storage.
-        //Else write the new array of schools into the local storage.
+        //If there are no more schools present remove the entire compare key from local storage/cookies.
+        //Else write the new array of schools into the local storage/cookies.
         if (schoolsInCompare.length == 0) {
-            GS.util.localStorage.removeItemFromLocalStorage(compareKeyInLocalStorage);
+            GS.util.storeSchools.removeSchools(compareKey);
         } else {
-            GS.util.localStorage.putItemInLocalStorage(compareKeyInLocalStorage, schoolsInCompare);
+            GS.util.storeSchools.putSchools(compareKey, schoolsInCompare);
         }
 
         //Remove the div from the compare module.
@@ -341,7 +385,7 @@ GS.school.compare = (function() {
             triggerSchoolRemovedEvent(schoolsInCompare[i].schoolId, schoolsInCompare[i].state);
         }
         schoolsInCompare = [];
-        GS.util.localStorage.removeItemFromLocalStorage(compareKeyInLocalStorage);
+        GS.util.storeSchools.removeSchools(compareKey);
         $('#js_compareSchoolsDiv').children().remove();
         showHideCompareModule();
     };

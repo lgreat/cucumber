@@ -462,6 +462,7 @@
                             <webappTargetDir>${basedir}/src/webapp</webappTargetDir>
                             <jsSourceDir>/res/js</jsSourceDir>
                             <jsSourceFiles>
+                                <param>json2.js</param>
                                 <param>search/schoolSearchForm.js</param>
                                 <param>util/htmlMirrors.js</param>
                                 <param>search/filters.js</param>
