@@ -30,12 +30,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     @Autowired
     private ITestDataSetDao _testDataSetDao;
 
-    // TODO-13012 not needed?
-    @Autowired
-    private ITestDataTypeDao _testDataTypeDao;
-
     @Autowired
     private ITestDataSchoolValueDao _testDataSchoolValueDao;
+
+    @Autowired
+    private ITestDataStateValueDao _testDataStateValueDao;
 
     // ===================== COPY ===================================
 
@@ -231,7 +230,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Data ===================================
 
-    // TODO-13012 TEMPORARY! move these constants out of here or replace with config file/XML
+    // TODO-13012 TEMPORARY! move these constants and sets out of here or replace with config file/XML
+
     private static final int RATING_ACADEMIC_ACHIEVEMENT = 164;
     private static final int RATING_ACADEMIC_VALUE_ADDED = 165;
     private static final int RATING_ACADEMIC_POST_SECONDARY_READINESS = 166;
@@ -243,6 +243,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     private static final int RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING = 172;
     private static final int RATING_OVERALL_CLIMATE = 173;
     private static final int RATING_OVERALL = 174;
+
+    // test data types for school ratings
     private static final Set<Integer> RATING_TEST_DATA_TYPE_IDS = new HashSet<Integer>();
     static {
         RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_ACHIEVEMENT);
@@ -258,15 +260,16 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         RATING_TEST_DATA_TYPE_IDS.add(RATING_OVERALL);
     }
 
-    // TODO-13012 not optimized, may need to be rewritten
-    public Map<String,Object> getData(School school) {
+    // TODO-13012 only used by state (maybe city as well, if using equivalent schema)
+    // test data types for state ratings
+    private static final Set<Integer> STATE_RATING_TEST_DATA_TYPE_IDS = new HashSet<Integer>();
+    static {
+        STATE_RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_ACHIEVEMENT);
+        STATE_RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_VALUE_ADDED);
+    }
+
+    public Map<String,Object> getSchoolData(School school, Set<Integer> years) {
         Map<String,Object> dataMap = new HashMap<String,Object>();
-
-        // TODO-13012 don't hard-code year to fetch
-        Set<Integer> years = new HashSet<Integer>();
-        years.add(2012);
-
-        // SCHOOL DATA
 
         List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(
                 school.getDatabaseState(), years, RATING_TEST_DATA_TYPE_IDS,
@@ -321,20 +324,65 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             }
         }
 
-        if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING) || dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING)) {
-            // TODO-13012 city data
-            // CITY DATA
+        return dataMap;
+    }
 
-            //dataMap.put(DATA_CITY_TEST_SCORE_RATING, 5);
-            //dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, 5);
+    public Map<String,Object> getCityData(School school, Set<Integer> years) {
+        Map<String,Object> dataMap = new HashMap<String,Object>();
+
+        // TODO-13012
+        // CITY DATA
+        //dataMap.put(DATA_CITY_TEST_SCORE_RATING, 5);
+        //dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, 5);
+
+        return dataMap;
+    }
+
+    public Map<String,Object> getStateData(School school, Set<Integer> years) {
+        Map<String,Object> dataMap = new HashMap<String,Object>();
+
+        List<TestDataSet> stateTestDataSets = _testDataSetDao.findDataSets(
+                school.getDatabaseState(), years, STATE_RATING_TEST_DATA_TYPE_IDS,
+                null, null, null, null, true, null);
+        List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(stateTestDataSets, school.getDatabaseState());
+
+        // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
+        for (StateTestValue value : stateTestValues) {
+            switch (value.getDataSet().getDataTypeId()) {
+                case RATING_ACADEMIC_ACHIEVEMENT :
+                    dataMap.put(DATA_STATE_TEST_SCORE_RATING, value.getValueFloat().intValue());
+                    break;
+                case RATING_ACADEMIC_VALUE_ADDED :
+                    dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
+                    break;
+            }
+        }
+
+        return dataMap;
+    }
+
+        // TODO-13012 not optimized, may need to be rewritten
+    public Map<String,Object> getData(School school) {
+        Map<String,Object> dataMap = new HashMap<String,Object>();
+
+        // TODO-13012 don't hard-code year to fetch
+        Set<Integer> years = new HashSet<Integer>();
+        years.add(2012);
+
+        // SCHOOL DATA
+        dataMap.putAll(getSchoolData(school,years));
+
+        // must be run after school data is fetched
+        if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING) || dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING)) {
+
+            // CITY DATA
+            dataMap.putAll(getCityData(school,years));
 
             if (isShowStateTestScoreRating(school.getDatabaseState()) ||
                 isShowStateStudentGrowthRating(school.getDatabaseState())) {
-                // TODO-13012 state data
-                // STATE DATA
 
-                //dataMap.put(DATA_STATE_TEST_SCORE_RATING, 3);
-                //dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, 3);
+                // STATE DATA
+                dataMap.putAll(getStateData(school,years));
             }
         }
 
@@ -710,11 +758,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         _testDataSetDao = testDataSetDao;
     }
 
-    void setTestDataTypeDao(ITestDataTypeDao testDataTypeDao) {
-        _testDataTypeDao = testDataTypeDao;
-    }
-
     public void setTestDataSchoolValueDao(ITestDataSchoolValueDao testDataSchoolValueDao) {
         _testDataSchoolValueDao = testDataSchoolValueDao;
+    }
+
+    public void setTestDataStateValueDao(ITestDataStateValueDao testDataStateValueDao) {
+        _testDataStateValueDao = testDataStateValueDao;
     }
 }
