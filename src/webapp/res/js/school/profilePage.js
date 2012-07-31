@@ -159,7 +159,7 @@ function drawPieChart(dataIn, divNameId, dimensions) {
         legend: 'none',
         tooltip: {showColorCode: true,text:'value'},
         pieSliceText: 'none',
-        chartArea:{left:10,top:10,bottom:10,right:10,width:"90%",height:"90%"},
+        chartArea:{left:10,top:10,bottom:10,right:10,width:"88%",height:"88%"},
         pieSliceBorderColor:'gray'
     }
     //var test = $('#'+divName);
