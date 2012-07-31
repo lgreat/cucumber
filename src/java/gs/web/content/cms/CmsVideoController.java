@@ -198,6 +198,9 @@ public class CmsVideoController extends AbstractController {
         }
         pageHelper.addAdKeyword("article_id", String.valueOf(feature.getContentKey().getIdentifier()));
 
+        // GS-13081 targeting attribute so we can target ads to all videos instead of only specific videos
+        pageHelper.addAdKeywordMulti(GAM_AD_ATTRIBUTE_KEY, "cmsvideo");
+
         // note: "referer" is a typo in the HTTP spec -- don't fix it here
         String referrer = request.getHeader("referer");
         if (referrer != null) {
