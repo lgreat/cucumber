@@ -98,6 +98,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
             var marker = GS_mapMarkers[schoolIdentifier];
 
             showInfoBox(marker, infoBoxInstance, schoolIdentifier);
+            scrollSchoolList();
             addHighlight();
 //            google.maps.event.trigger(marker, 'click');
             bubblesSticky = true;
@@ -246,6 +247,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
                         removeHighlight();
                     }
                     showInfoBox(marker, infoBoxInstance, schoolIdentifier);
+                    scrollSchoolList();
                 }
             })(marker, i, schoolIdentifier));
 
@@ -408,7 +410,6 @@ GS.map.getMap = GS.map.getMap ||(function(){
         GS_openSchoolInfoBubble = schoolIdentifier;
         selectedSchool = $('#school-listitem-' + schoolIdentifier);
         addHighlight();
-        scrollSchoolList();
     }
 
     var closeInfoBox =  function() {
