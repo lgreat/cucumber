@@ -67,7 +67,7 @@
                 </li>
             </c:if>
             <c:if test="${(!empty testscores)}">
-                <li><a id="js_testscores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores')}" title="${schoolName} | Test Scores" class="${requestScope.schoolProfileTabMap.testscores}">Tests &amp;amp; Ratings</a>
+                <li><a id="js_testscores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'testscores')}" title="${schoolName} | Test Scores" class="${requestScope.schoolProfileTabMap.testscores}">Tests &amp;amp; ratings</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.testscores} arrowdiv" id="arrowdiv"></div>-->
 
@@ -81,14 +81,14 @@
                 </li>
             </c:if>
             <c:if test="${(!empty programs)}">
-                <li><a id="js_programs" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.programs}">Programs &amp;amp; Extracurriculars</a>
+                <li><a id="js_programs" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.programs}">Programs &amp;amp; extracurriculars</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.programs} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty culture)}">
-                <li><a id="js_whatsitlike" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'whatsitlike')}" title="${schoolName} | What's It Like" class="${requestScope.schoolProfileTabMap.whatsitlike}">What's It Like</a>
+                <li><a id="js_whatsitlike" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'whatsitlike')}" title="${schoolName} | What's It Like" class="${requestScope.schoolProfileTabMap.whatsitlike}">What's it like</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.whatsitlike} arrowdiv" id="arrowdiv"></div>-->
 

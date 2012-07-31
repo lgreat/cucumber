@@ -118,8 +118,7 @@ tt { font: 1em/1.5 'andale mono','lucida console', monospace; margin-left: 20px;
 li ul,
 li ol       { margin: 0; }
 ul,
-ol          { margin: 0 1.5em 1.5em 0; padding-left: 2.0em; }
-ol          { *padding-left: 2.0em; }
+ol          { padding-left: 2.0em; }
 
 ul li       { list-style-type: disc; }
 ol li       { list-style-type: decimal; }

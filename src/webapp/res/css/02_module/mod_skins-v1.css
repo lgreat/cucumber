@@ -270,7 +270,7 @@ General comments:
 }
 .bestKnownFor .bd { text-align: center; }
 .bestKnownFor .bd .quote { font: normal 21px/38px Arial, Helvetica, sans-serif; color: #0578aa; }
-.bestKnownFor .bd .quote .punctuation { font-size: xx-large; vertical-align: bottom; }
+.bestKnownFor .bd .quote .punctuation { font-size: x-large; vertical-align: bottom; }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------------ badge-x96 ------------------ */
