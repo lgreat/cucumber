@@ -190,7 +190,7 @@
                 </div>
                 <div class="tar">
                     <span class="small bottom" id="js-moreThanOne">schools found</span>
-                    <span class="small bottom" id="js-onlyOne">school found</span>
+                    <span class="small bottom" id="js-onlyOne" style="display:none;">school found</span>
                 </div>
                 <div id="js-noResultsPopover" class="hidden" style="display: none;">
                 <div style="width:170px;"><div class='fl' style='width:90%'><strong>Oops!</strong> No results found. See tips below or broaden your search.</div>
