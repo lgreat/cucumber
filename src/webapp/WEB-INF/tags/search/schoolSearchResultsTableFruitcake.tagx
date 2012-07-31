@@ -75,7 +75,10 @@
 
                 <c:if test="${fn:length(schoolSearchResults) gt 0}">
 
-                    <ad:adTag position="Sponsor_630x40"/>
+                    <div class="mod standard_1-1">
+                        <ad:adTag position="Sponsor_630x40"/>
+                    </div>
+
                     <c:forEach items="${schoolSearchResults}" var="s" begin="0" end="${totalResults - 1}">
                             <search:schoolSearchResultFruitcake school="${s}"
                                                                 omniturePageName="${pageScope.omniturePageName}"/>
