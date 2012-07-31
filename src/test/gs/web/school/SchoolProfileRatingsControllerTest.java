@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     private SchoolProfileRatingsController _controller;
+    private Map<String,Object> _dataMap;
 
     private static Set<LevelCode> NON_HIGH_ONLY_LEVEL_CODES = new HashSet<LevelCode>();
     static {
@@ -48,6 +49,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     public void setUp() throws Exception {
         super.setUp();
         _controller = new SchoolProfileRatingsController();
+        _dataMap = SchoolProfileRatingsController.getSampleData();
 
     }
 
@@ -65,25 +67,26 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // OVERALL RATING
 
-        // TODO-13012 school with 1-10 overall rating
+        // school with 1-10 overall rating
         s.setDatabaseState(State.WI);
-        model = _controller.getSection1Model(s);
+        model = _controller.getSection1Model(s, _dataMap);
         overallRating =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_RATING);
-        assertEquals(10, overallRating);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_OVERALL_RATING), overallRating);
 
         // TODO-13012 school with no overall rating
         // assertNull(overallRating);
 
         // ACADEMIC RATING
 
-        // TODO-13012 school with 1-10 academic rating
-        model = _controller.getSection1Model(s);
+        // school with 1-10 academic rating
+        model = _controller.getSection1Model(s, _dataMap);
         overallAcademicRating =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING);
         overallAcademicRatingLabel =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING_LABEL);
-        assertEquals(9.5, overallAcademicRating);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING), overallAcademicRating);
+        // TODO-13012 replace label
         assertEquals("High", overallAcademicRatingLabel);
 
         // TODO-13012 school with no academic rating
@@ -94,25 +97,25 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // Milwaukee - 1-10 rating
         s.setDatabaseState(State.WI);
-        model = _controller.getSection1Model(s);
+        model = _controller.getSection1Model(s, _dataMap);
         climateRatingAvailabilityText =
                 model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_AVAILABILITY_TEXT);
         overallClimateRating =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_CLIMATE_RATING);
         overallClimateRatingLabel =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_CLIMATE_RATING_LABEL);
-        // TODO-13012 MI 1-10 rating, label
-        assertEquals(6, overallClimateRating);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING), overallClimateRating);
+        // TODO-13012 replace label
         assertEquals("Average", overallClimateRatingLabel);
         assertNull(climateRatingAvailabilityText);
 
 
-        // TODO-13012 Milwaukee - no climate rating
+        // TODO-13012 Milwaukee - no climate rating for this school
         //assertEquals("Not available", climateRatingAvailabilityText);
 
         // DC
         s.setDatabaseState(State.DC);
-        model = _controller.getSection1Model(s);
+        model = _controller.getSection1Model(s, _dataMap);
         climateRatingAvailabilityText =
                 model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_AVAILABILITY_TEXT);
         assertEquals(SchoolProfileRatingsController.CLIMATE_RATING_AVAILABILITY_TEXT_DC, climateRatingAvailabilityText);
@@ -121,7 +124,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // Milwaukee
         s.setDatabaseState(State.WI);
-        model = _controller.getSection1Model(s);
+        model = _controller.getSection1Model(s, _dataMap);
         section1Copy = model.get(SchoolProfileRatingsController.MODEL_SECTION_1_COPY);
         assertEquals(SchoolProfileRatingsController.SECTION_1_COPY_WI, section1Copy);
     }
@@ -202,7 +205,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         s.setDatabaseState(State.WI);
         s.setLevelCode(LevelCode.ELEMENTARY_MIDDLE_HIGH);
 
-        model = _controller.getSection3Model(s);
+        model = _controller.getSection3Model(s, _dataMap);
 
         // SECTION 3 COPY
 
@@ -218,19 +221,18 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // SECTION 3 TEST SCORE RATING CHART
 
-        // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
         Object testScoreRatingYear =
                 model.get(SchoolProfileRatingsController.MODEL_TEST_SCORE_RATING_YEAR);
-        assertEquals(2012, testScoreRatingYear);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR), testScoreRatingYear);
         Object schoolTestScoreRating =
                 model.get(SchoolProfileRatingsController.MODEL_SCHOOL_TEST_SCORE_RATING);
-        assertEquals(9, schoolTestScoreRating);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_TEST_SCORE_RATING), schoolTestScoreRating);
         Object cityTestScoreRating =
                 model.get(SchoolProfileRatingsController.MODEL_CITY_TEST_SCORE_RATING);
-        assertEquals(5, cityTestScoreRating);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_CITY_TEST_SCORE_RATING), cityTestScoreRating);
         Object stateTestScoreRating =
                 model.get(SchoolProfileRatingsController.MODEL_STATE_TEST_SCORE_RATING);
-        assertEquals(3, stateTestScoreRating);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_STATE_TEST_SCORE_RATING), stateTestScoreRating);
 
         Object showStateTestScoreRating =
                 model.get(SchoolProfileRatingsController.MODEL_SHOW_STATE_TEST_SCORE_RATING);
@@ -238,19 +240,18 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // SECTION 3 STUDENT GROWTH RATING CHART
 
-        // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
         Object studentGrowthRatingYear =
                 model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR);
-        assertEquals(2012, studentGrowthRatingYear);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR), studentGrowthRatingYear);
         Object schoolStudentGrowthRating =
                 model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING);
-        assertEquals(9, schoolStudentGrowthRating);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_STUDENT_GROWTH_RATING), schoolStudentGrowthRating);
         Object cityStudentGrowthRating =
                 model.get(SchoolProfileRatingsController.MODEL_CITY_STUDENT_GROWTH_RATING);
-        assertEquals(5, cityStudentGrowthRating);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_CITY_STUDENT_GROWTH_RATING), cityStudentGrowthRating);
         Object stateStudentGrowthRating =
                 model.get(SchoolProfileRatingsController.MODEL_STATE_STUDENT_GROWTH_RATING);
-        assertEquals(3, stateStudentGrowthRating);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_STATE_STUDENT_GROWTH_RATING), stateStudentGrowthRating);
 
         Object showStateStudentGrowthRating =
                 model.get(SchoolProfileRatingsController.MODEL_SHOW_STATE_STUDENT_GROWTH_RATING);
@@ -258,13 +259,12 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // SECTION 3 POST-SECONDARY READINESS RATING CHART
 
-        // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
         Object postSecondaryReadinessRatingYear =
                 model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_YEAR);
-        assertEquals(2012, postSecondaryReadinessRatingYear);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR), postSecondaryReadinessRatingYear);
         Object postSecondaryReadinessRating =
                 model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING);
-        assertEquals(8, postSecondaryReadinessRating);
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING), postSecondaryReadinessRating);
 
         // SECTION 3 SOURCES
 
@@ -298,7 +298,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         // schools with high-only level code: no student growth ratings
 
         s.setLevelCode(LevelCode.HIGH);
-        model = _controller.getStudentGrowthRatingsModel(s, true);
+        model = _controller.getStudentGrowthRatingsModel(s, true, _dataMap);
         assertNull(model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
         assertNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
 
@@ -308,22 +308,27 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         for (LevelCode levelCode : NON_HIGH_ONLY_LEVEL_CODES) {
             s.setLevelCode(levelCode);
-            model = _controller.getStudentGrowthRatingsModel(s,true);
-            // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
-            assertEquals(2012, model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
-            assertEquals(9, model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
-            assertEquals(5, model.get(SchoolProfileRatingsController.MODEL_CITY_STUDENT_GROWTH_RATING));
-            assertEquals(3, model.get(SchoolProfileRatingsController.MODEL_STATE_STUDENT_GROWTH_RATING));
+            model = _controller.getStudentGrowthRatingsModel(s, true, _dataMap);
+            assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR),
+                    model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
+            assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_STUDENT_GROWTH_RATING),
+                    model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
+            assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_CITY_STUDENT_GROWTH_RATING),
+                    model.get(SchoolProfileRatingsController.MODEL_CITY_STUDENT_GROWTH_RATING));
+            assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_STATE_STUDENT_GROWTH_RATING),
+                    model.get(SchoolProfileRatingsController.MODEL_STATE_STUDENT_GROWTH_RATING));
         }
 
         // omit state rating
 
-        model = _controller.getStudentGrowthRatingsModel(s,false);
+        model = _controller.getStudentGrowthRatingsModel(s, false, _dataMap);
         s.setLevelCode(LevelCode.ALL_LEVELS);
-        // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
-        assertEquals(2012, model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
-        assertEquals(9, model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
-        assertEquals(5, model.get(SchoolProfileRatingsController.MODEL_CITY_STUDENT_GROWTH_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR),
+                model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_STUDENT_GROWTH_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_CITY_STUDENT_GROWTH_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_CITY_STUDENT_GROWTH_RATING));
         assertNull(model.get(SchoolProfileRatingsController.MODEL_STATE_STUDENT_GROWTH_RATING));
     }
 
@@ -335,7 +340,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         for (LevelCode levelCode : NON_HIGH_LEVEL_CODES) {
             s.setLevelCode(levelCode);
-            model = _controller.getPostSecondaryReadinessRatingsModel(s);
+            model = _controller.getPostSecondaryReadinessRatingsModel(s, _dataMap);
             assertNull(model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_YEAR));
             assertNull(model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING));
         }
@@ -346,10 +351,11 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         for (LevelCode levelCode : CONTAINS_HIGH_LEVEL_CODES) {
             s.setLevelCode(levelCode);
-            model = _controller.getPostSecondaryReadinessRatingsModel(s);
-            // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
-            assertEquals(2012, model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_YEAR));
-            assertEquals(8, model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING));
+            model = _controller.getPostSecondaryReadinessRatingsModel(s, _dataMap);
+            assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR),
+                    model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_YEAR));
+            assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING),
+                    model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING));
         }
     }
 
@@ -364,24 +370,24 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // Milwaukee
         s.setDatabaseState(State.WI);
-        copy = _controller.getSection3Copy(s);
+        copy = _controller.getSection3Copy(s, _dataMap);
         assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_WI, copy);
 
         // DC
         s.setDatabaseState(State.DC);
-        copy = _controller.getSection3Copy(s);
+        copy = _controller.getSection3Copy(s, _dataMap);
         assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_DC, copy);
 
         // Indy
         s.setDatabaseState(State.IN);
-        copy = _controller.getSection3Copy(s);
+        copy = _controller.getSection3Copy(s, _dataMap);
         assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_IN, copy);
 
         // unsupported state
         boolean threwException = false;
         s.setDatabaseState(State.AK);
         try {
-            copy = _controller.getSection3Copy(s);
+            copy = _controller.getSection3Copy(s, _dataMap);
         } catch (Exception e) {
             threwException = true;
             assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
@@ -596,7 +602,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         s.setDatabaseState(State.WI);
         s.setLevelCode(LevelCode.ELEMENTARY_MIDDLE_HIGH);
 
-        model = _controller.getSection4Model(s);
+        model = _controller.getSection4Model(s, _dataMap);
 
         // SECTION 4 COPY
 
@@ -609,13 +615,18 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
                 model.get(SchoolProfileRatingsController.MODEL_SHOW_CLIMATE_RATING_DETAILS);
         assertEquals(Boolean.TRUE, showClimateRatingDetails);
 
-        // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
-        assertEquals(16, model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_NUM_RESPONSES));
-        assertEquals(6, model.get(SchoolProfileRatingsController.MODEL_SCHOOL_ENVIRONMENT_RATING));
-        assertEquals(7, model.get(SchoolProfileRatingsController.MODEL_SOCIAL_EMOTIONAL_LEARNING_RATING));
-        assertEquals(6, model.get(SchoolProfileRatingsController.MODEL_HIGH_EXPECTATIONS_RATING));
-        assertEquals(4, model.get(SchoolProfileRatingsController.MODEL_TEACHER_SUPPORT_RATING));
-        assertEquals(7, model.get(SchoolProfileRatingsController.MODEL_FAMILY_ENGAGEMENT_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_CLIMATE_RATING_NUM_RESPONSES),
+                model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_NUM_RESPONSES));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_ENVIRONMENT_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_SCHOOL_ENVIRONMENT_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SOCIAL_EMOTIONAL_LEARNING_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_SOCIAL_EMOTIONAL_LEARNING_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_HIGH_EXPECTATIONS_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_HIGH_EXPECTATIONS_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_TEACHER_SUPPORT_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_TEACHER_SUPPORT_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_FAMILY_ENGAGEMENT_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_FAMILY_ENGAGEMENT_RATING));
     }
 
     public void testGetSection4Copy() {
@@ -629,24 +640,24 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // Milwaukee
         s.setDatabaseState(State.WI);
-        copy = _controller.getSection4Copy(s);
+        copy = _controller.getSection4Copy(s, _dataMap);
         assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_WI, copy);
 
         // DC
         s.setDatabaseState(State.DC);
-        copy = _controller.getSection4Copy(s);
+        copy = _controller.getSection4Copy(s, _dataMap);
         assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_DC, copy);
 
         // Indy
         s.setDatabaseState(State.IN);
-        copy = _controller.getSection4Copy(s);
+        copy = _controller.getSection4Copy(s, _dataMap);
         assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_IN, copy);
 
         // unsupported state
         boolean threwException = false;
         s.setDatabaseState(State.AK);
         try {
-            copy = _controller.getSection4Copy(s);
+            copy = _controller.getSection4Copy(s, _dataMap);
         } catch (Exception e) {
             threwException = true;
             assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
@@ -679,14 +690,19 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         Map<String,Object> model;
         School s = new School();
 
-        model = _controller.getClimateRatingDetailsModel(s);
+        model = _controller.getClimateRatingDetailsModel(s, _dataMap);
 
-        // TODO-13012 fix unit tests after placeholders replaced with actual data calls, including school with no data
-        assertEquals(16, model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_NUM_RESPONSES));
-        assertEquals(6, model.get(SchoolProfileRatingsController.MODEL_SCHOOL_ENVIRONMENT_RATING));
-        assertEquals(7, model.get(SchoolProfileRatingsController.MODEL_SOCIAL_EMOTIONAL_LEARNING_RATING));
-        assertEquals(6, model.get(SchoolProfileRatingsController.MODEL_HIGH_EXPECTATIONS_RATING));
-        assertEquals(4, model.get(SchoolProfileRatingsController.MODEL_TEACHER_SUPPORT_RATING));
-        assertEquals(7, model.get(SchoolProfileRatingsController.MODEL_FAMILY_ENGAGEMENT_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_CLIMATE_RATING_NUM_RESPONSES),
+                model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_NUM_RESPONSES));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_ENVIRONMENT_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_SCHOOL_ENVIRONMENT_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SOCIAL_EMOTIONAL_LEARNING_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_SOCIAL_EMOTIONAL_LEARNING_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_HIGH_EXPECTATIONS_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_HIGH_EXPECTATIONS_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_TEACHER_SUPPORT_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_TEACHER_SUPPORT_RATING));
+        assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_FAMILY_ENGAGEMENT_RATING),
+                model.get(SchoolProfileRatingsController.MODEL_FAMILY_ENGAGEMENT_RATING));
     }
 }

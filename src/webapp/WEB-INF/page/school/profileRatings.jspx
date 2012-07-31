@@ -75,10 +75,7 @@
 
                         <div>TODO: RATING LEGEND GRAPHIC</div>
                         <p class="small bottom">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Curabitur nisi eros, elementum commodo luctus nec, sodales id odio. Ut at
-                            tellus aliquet nisi viverra vestibulum. Praesent risus nunc, pellentesque
-                            et faucibus non, vulputate ut sem. Aliquam a lectus urna, eget aliquam libero.
+                            section 2 copy
                             <a href="#">Learn more about our old rating &amp;raquo;</a></p>
                     </div>
                 </div>
@@ -95,7 +92,7 @@
                 <div class="bd pam">
                     <p class="small mbl">
                         ${section3Copy}
-                        <c:if test="${not empty section3CopyPostSecondaryReadiness}">
+                        <c:if test="${postSecondaryReadinessRating != null and not empty section3CopyPostSecondaryReadiness}">
                             ${section3CopyPostSecondaryReadiness}
                         </c:if>
                     </p>
@@ -111,7 +108,7 @@
                         </div>
                     </c:if>
 
-                    <c:if test="${schoolTestScoreRating != null}">
+                    <c:if test="${schoolTestScoreRating != null and testScoreRatingYear != null}">
                         <div class="pbm">
                             <h6 class="mvm medium_bold">Test score rating ${testScoreRatingYear}*</h6>
 
@@ -125,7 +122,7 @@
                         <hr class="keyline2"/>
                     </c:if>
 
-                    <c:if test="${schoolStudentGrowthRating != null}">
+                    <c:if test="${schoolStudentGrowthRating != null and studentGrowthRatingYear != null}">
                         <div class="pbm">
                             <h6 class="mvm medium_bold">Student growth rating ${studentGrowthRatingYear}**</h6>
 
@@ -139,7 +136,7 @@
                         <hr class="keyline2"/>
                     </c:if>
 
-                    <c:if test="${postSecondaryReadinessRating != null}">
+                    <c:if test="${postSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
                         <div class="pbm">
                             <h6 class="mvm medium_bold">Post-secondary readiness rating ${postSecondaryReadinessRatingYear}***</h6>
 
@@ -149,15 +146,15 @@
                         <hr class="keyline2"/>
                     </c:if>
 
-                    <c:if test="${schoolTestScoreRating != null}">
+                    <c:if test="${schoolTestScoreRating != null and not empty testScoreRatingSource}">
                         <p class="smaller bottom pts">*${testScoreRatingSource}</p>
                     </c:if>
 
-                    <c:if test="${schoolStudentGrowthRating != null}">
+                    <c:if test="${schoolStudentGrowthRating != null and not empty studentGrowthRatingSource}">
                         <p class="smaller bottom">**${studentGrowthRatingSource}</p>
                     </c:if>
 
-                    <c:if test="${postSecondaryReadinessRating != null}">
+                    <c:if test="${postSecondaryReadinessRating != null and not empty postSecondaryReadinessSource}">
                         <p class="smaller bottom">***${postSecondaryReadinessSource}</p>
                     </c:if>
 
@@ -187,8 +184,8 @@
 
                         <hr class="keyline2"/>
 
-                        <h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10 <span
-                                class="ttu">${overallClimateRatingLabel}</span></h5>
+                        <h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10
+                            <span class="ttu"><em>${overallClimateRatingLabel}</em></span></h5>
 
                         <hr class="keyline2"/>
 
@@ -196,11 +193,7 @@
 
                         <div>[SCHOOL ENVIRONMENT RATING GRAPHIC: ${schoolEnvironmentRating}]</div>
                         <p class="small">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros,
-                            elementum commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra
-                            vestibulum. Praesent risus nunc, pellentesque et faucibus non, vulputate ut sem.
-                            Aliquam a lectus urna, eget aliquam libero. Pellentesque consectetur libero nunc,
-                            nec posuere nibh. Curabitur euismod eleifend dignissim.
+                            school environment copy
                         </p>
 
                         <hr class="keyline2"/>
@@ -209,11 +202,7 @@
 
                         <div>[SOCIAL AND EMOTIONAL LEARNING GRAPHIC: ${socialEmotionalLearningRating}]</div>
                         <p class="small">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros,
-                            elementum commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra
-                            vestibulum. Praesent risus nunc, pellentesque et faucibus non, vulputate ut sem.
-                            Aliquam a lectus urna, eget aliquam libero. Pellentesque consectetur libero nunc,
-                            nec posuere nibh. Curabitur euismod eleifend dignissim.
+                            social and emotional learning copy
                         </p>
 
                         <hr class="keyline2"/>
@@ -222,11 +211,7 @@
 
                         <div>[HIGH EXPECTATIONS GRAPHIC: ${highExpectationsRating}]</div>
                         <p class="small">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros,
-                            elementum commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra
-                            vestibulum. Praesent risus nunc, pellentesque et faucibus non, vulputate ut sem.
-                            Aliquam a lectus urna, eget aliquam libero. Pellentesque consectetur libero nunc,
-                            nec posuere nibh. Curabitur euismod eleifend dignissim.
+                            culture of high expectations copy
                         </p>
 
                         <hr class="keyline2"/>
@@ -235,11 +220,7 @@
 
                         <div>[TEACHER SUPPORT GRAPHIC: ${teacherSupportRating}]</div>
                         <p class="small">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros,
-                            elementum commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra
-                            vestibulum. Praesent risus nunc, pellentesque et faucibus non, vulputate ut sem.
-                            Aliquam a lectus urna, eget aliquam libero. Pellentesque consectetur libero nunc,
-                            nec posuere nibh. Curabitur euismod eleifend dignissim.
+                            teacher support copy
                         </p>
 
                         <hr class="keyline2"/>
@@ -248,11 +229,7 @@
 
                         <div>[FAMILY ENGAGEMENT GRAPHIC: ${familyEngagementRating}]</div>
                         <p class="small">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi eros,
-                            elementum commodo luctus nec, sodales id odio. Ut at tellus aliquet nisi viverra
-                            vestibulum. Praesent risus nunc, pellentesque et faucibus non, vulputate ut sem.
-                            Aliquam a lectus urna, eget aliquam libero. Pellentesque consectetur libero nunc,
-                            nec posuere nibh. Curabitur euismod eleifend dignissim.
+                            family engagement copy
                         </p>
 
                     </c:if>
