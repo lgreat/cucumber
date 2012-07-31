@@ -25,15 +25,15 @@ General comments:
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* -------------------- form --------------------- */
 .slStylesV1-0 .form{
-  margin-bottom:20px;
+    margin-bottom:20px;
 }
 .slStylesV1-0 .form .inner{
-  border:1px solid #e6e6e6; 
-  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px; /* FF1-3.6 */
-          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-  background-color:#fafafa;
-  padding:14px 19px;
+    border:1px solid #e6e6e6;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    background-color:#fafafa;
+    padding:14px 19px;
 }
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_1-1 ----------------- */
@@ -110,88 +110,88 @@ General comments:
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_2-1 ----------------- */
 .slStylesV1-0 .standard_2-1{
-  margin-bottom:10px;
+    margin-bottom:10px;
 }
 .slStylesV1-0 .standard_2-1 .inner{
-  border:1px solid #dddddd; 
-  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px; /* FF1-3.6 */
-          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-  background-color:#fafafa;
-  padding:10px;
+    border:1px solid #dddddd;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    background-color:#fafafa;
+    padding:10px;
 }
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_2-2 ----------------- */
 .slStylesV1-0 .standard_2-2{
-  margin-bottom:10px;
+    margin-bottom:10px;
 }
 .slStylesV1-0 .standard_2-2 .inner{
-  border:1px solid #dddddd; 
-  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px; /* FF1-3.6 */
-          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-  background-color:#fafafa;
-  padding:20px;
+    border:1px solid #dddddd;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    background-color:#fafafa;
+    padding:20px;
 }
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_3-1 ----------------- */
 .slStylesV1-0 .standard_3-1{
-  margin-bottom:10px;
+    margin-bottom:10px;
 }
 .slStylesV1-0 .standard_3-1 .outer{
-  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px; /* FF1-3.6 */
-          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-  background-color:#f3fafd;
-  padding:5px;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    background-color:#f3fafd;
+    padding:5px;
 }
 .slStylesV1-0 .standard_3-1 .inner{
-  border:1px solid #d2e9f3; 
-  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px; /* FF1-3.6 */
-          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-  background-color:#ffffff;
-  padding:10px;
+    border:1px solid #d2e9f3;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    background-color:#ffffff;
+    padding:10px;
 }
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_3-2 ----------------- */
 .slStylesV1-0 .standard_3-2{
-  margin-bottom:10px;
+    margin-bottom:10px;
 }
 .slStylesV1-0 .standard_3-2 .outer{
-  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px; /* FF1-3.6 */
-          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-  background-color:#f1f1f1;
-  padding:5px;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    background-color:#f1f1f1;
+    padding:5px;
 }
 .slStylesV1-0 .standard_3-2 .inner{
-  border:1px solid #e6e6e6; 
-  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px; /* FF1-3.6 */
-          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
-  background-color:#ffffff;
-  padding:10px;
+    border:1px solid #e6e6e6;
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    background-color:#ffffff;
+    padding:10px;
 }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_4-1 ----------------- */
 .slStylesV1-0 .standard_4-1 {
-  /*border: 1px solid #DDD;*/
-  -webkit-border-radius: 4px 4px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px 4px 0 0; /* FF1-3.6 */
-          border-radius: 4px 4px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    /*border: 1px solid #DDD;*/
+    -webkit-border-radius: 4px 4px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px 4px 0 0; /* FF1-3.6 */
+    border-radius: 4px 4px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
 
 .slStylesV1-0 .standard_4-1 .hd{
-  background-color: #f1f1f1;
-  border-right: 1px solid #DDD;
-  border-top: 1px solid #DDD;
-  border-left: 1px solid #DDD;
-  padding: 8px;
-  -webkit-border-radius: 4px 4px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px 4px 0 0; /* FF1-3.6 */
-          border-radius: 4px 4px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    background-color: #f1f1f1;
+    border-right: 1px solid #DDD;
+    border-top: 1px solid #DDD;
+    border-left: 1px solid #DDD;
+    padding: 8px;
+    -webkit-border-radius: 4px 4px 0 0; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px 4px 0 0; /* FF1-3.6 */
+    border-radius: 4px 4px 0 0; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
 
 .slStylesV1-0 .standard_4-1 .bd{
@@ -206,8 +206,8 @@ General comments:
     border-left: 1px solid #DDD;
     padding: 8px;
     -webkit-border-radius: 0 0 4px 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-       -moz-border-radius: 0 0 4px 4px; /* FF1-3.6 */
-            border-radius: 0 0 4px 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    -moz-border-radius: 0 0 4px 4px; /* FF1-3.6 */
+    border-radius: 0 0 4px 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 
 }
 
@@ -215,13 +215,13 @@ General comments:
 /* ---------------- standard_5-1 ----------------- */
 /*---------------Map hover modules----------------*/
 .slStylesV1-0 .standard_5-1 {
-  background: #FFF;
-  border: 1px solid #777;
-  /*padding: 10px;*/
-  box-shadow: 0 0 8px rgba(100, 100, 100, 0.8);
-  -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-     -moz-border-radius: 4px; /* FF1-3.6 */
-          border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    background: #FFF;
+    border: 1px solid #777;
+    /*padding: 10px;*/
+    box-shadow: 0 0 8px rgba(100, 100, 100, 0.8);
+    -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
 
 .slStylesV1-0 .standard_5-1 .hd{
@@ -229,16 +229,16 @@ General comments:
     background-color: #FFF;
     border: none;
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-         -moz-border-radius: 4px; /* FF1-3.6 */
-              border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
 
 .slStylesV1-0 .standard_5-1 .bd{
     padding: 0 0 0 10px;
     border: none;
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-         -moz-border-radius: 4px; /* FF1-3.6 */
-              border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
 
 .slStylesV1-0 .standard_5-1 .ft{
@@ -246,8 +246,8 @@ General comments:
     background: #F3FAFD;
     border-top: 1px solid #D2E9F3;
     -webkit-border-radius: 0 0 4px 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-       -moz-border-radius: 0 0 4px 4px; /* FF1-3.6 */
-            border-radius: 0 0 4px 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    -moz-border-radius: 0 0 4px 4px; /* FF1-3.6 */
+    border-radius: 0 0 4px 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
     background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF 20%), to(#F3FAFD 100%)); /* Saf4+, Chrome */
     background-image: -webkit-linear-gradient(bottom, #FFFFFF 20%, #F3FAFD 100%); /* Chrome 10+, Saf5.1+, iOS 5+ */
     background-image: -moz-linear-gradient(bottom, #FFFFFF 20%, #F3FAFD 100%); /* FF3.6 */
@@ -322,8 +322,8 @@ General comments:
     border: 1px solid #DDD;
     border-radius: 4px;
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
-       -moz-border-radius: 4px; /* FF1-3.6 */
-            border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+    -moz-border-radius: 4px; /* FF1-3.6 */
+    border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
 
 .slStylesV1-0 .standard_6-1 .hd{
@@ -352,8 +352,8 @@ General comments:
 .slStylesV1-0 .standard_6-1 .ft .filtersPanel{
     background: #E8E8E8;
     -webkit-box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.2);
-       -moz-box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.2);
-            box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.2);
+    -moz-box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.2);
 }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
@@ -380,8 +380,8 @@ General comments:
     z-index: 100;
     position: absolute;
     -webkit-box-shadow: 0 3px 8px rgba(100,100,100,0.6);
-       -moz-box-shadow: 0 3px 8px rgba(100,100,100,0.6);
-           box-shadow: 0 3px 8px rgba(100,100,100,0.6);
+    -moz-box-shadow: 0 3px 8px rgba(100,100,100,0.6);
+    box-shadow: 0 3px 8px rgba(100,100,100,0.6);
 }
 
 .slStylesV1-0 .standard_6-3 .hd{
@@ -455,7 +455,7 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
     border-left: 10px solid transparent;
 }
 .popover.top .arrow2 {
-    top: -13px;
+    top: -10px;
     left: 50%;
     margin-left: -10px;
     border-top: 10px solid #FFFFFF;
@@ -503,7 +503,7 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
 .popover.left .arrow {
     top: 50%;
     right: -5px;
-    margin-top: -10px;
+    /*margin-top: -10px;*/
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
     border-left: 10px solid #999999;
@@ -535,6 +535,7 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
     /*padding: 10px;*/
     /*box-shadow: 0 0 8px rgba(100, 100, 100, 0.8);*/
 
+
     padding: 1px;
     overflow: hidden;
     background: #999999;
@@ -548,6 +549,7 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
 }
 
 .popover-title {
+    display: none;
     /*padding: 9px 15px;*/
     /*line-height: 1;*/
     /*background-color: #f5f5f5;*/
@@ -558,7 +560,8 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
 }
 
 .popover-content {
-    padding: 14px;
+    padding: 10px;
+    /*margin: 0;*/
     background-color: #ffffff;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;

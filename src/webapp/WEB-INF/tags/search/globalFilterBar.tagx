@@ -210,8 +210,9 @@
                 if($("#js_totalResultsCountReturn").html() == "0" || $("#js_totalResultsCountReturn").html() == 0 || $("#js_totalResultsCountReturn").html() == ""){
                     if($("#js_totalResultsCountReturn").html() == ""){$("#js_totalResultsCountReturn").html("0");$("#js-moreThanOne").show()}
                     $("#js_totalResultsCountReturn").popover('show');
-                    $(".popover.top").css('margin-top', '30px');
-
+                    if($.browser.webkit){
+                        $(".popover.top").css('margin-top', '30px');
+                    }
                     $(".js_closeOopsPopover").click(function() {
                         $("#js_totalResultsCountReturn").popover('hide');
                     });
