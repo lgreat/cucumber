@@ -26,7 +26,7 @@
     <c:if test="${school.reviewCount gt 0 and not empty school.reviewBlurb}">
         <div class="mtm reviewBlurb">
             <span class="small bottom">${school.reviewBlurb}...</span>
-        <div class="small bottom"><link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" anchor="revPagination">Read more (${school.reviewCount})&amp;#187;</link:schoolProfileParentReview2010></div>
+        <div class="small bottom"><link:schoolProfileParentReview2010 levelCode="${school.levelCode}" state="${school.databaseState}" schoolId="${school.id}" anchor="revPagination">Read more (${school.reviewCount}) &amp;#187;</link:schoolProfileParentReview2010></div>
         </div>
     </c:if>
 </jsp:root>
