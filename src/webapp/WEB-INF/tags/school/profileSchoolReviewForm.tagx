@@ -12,9 +12,8 @@
 
 <jsp:directive.attribute name="school" required="true" description="School object" type="gs.data.school.School"/>
 <jsp:directive.attribute name="pageName" required="true" description="Page this module appears on"/>
-<pageHelper:externalCss file="/res/css/school/parentReviews/schoolReviewForm.css"/>
-<pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>
-<pageHelper:externalJavascript file="/res/js/parentReviewTabSchoolReviewForm.js"/>
+
+
 <c:set var="state" value="${school.databaseState.abbreviationLowerCase}"/>
 <c:set var="schoolId" value="${school.id}"/>
 
@@ -191,7 +190,7 @@
                     <div class="spacer_5"><!-- do not collapse --></div>
                     <div class="medium ptl mbs"><strong>How do you rate this school in these additional areas?</strong></div>
                     <hr class="keyline2"><!-- do not collapse --></hr>
-                    <div id="js-bubbleInfo-2" class="text3 teacher  mtm">
+                    <div id="js-bubbleInfo2" class="text3 teacher  mtm">
                         <div class="js-trigger student_only line">
                             <div class="unit size3of5 pas" style="background-color: #FFFFFF">
                                 <div class="fl medium pan man pls">Teacher quality</div>
@@ -209,17 +208,17 @@
                         </div>
                         <div class="js-popup">
                             <!--<div id="popup-contents-2" class="box-shadow">-->
-                            <div id="popup-contents-2">
+                            <!--<div id="popup-contents-2">-->
                                 <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                <span class="arrow-outline-right"><!-- do not collapse --></span>
-                                <span class="arrow-right"><!-- do not collapse --></span>
+                                <!--<span class="arrow-outline-right">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                <!--<span class="arrow-right">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
 
-                                <ul class="unordered-list2"><span class="text3bold">Teacher quality</span> <br/>These ratings reflect parents’ or students’ overall experience with the school’s teachers. Among other things, great teachers:
-                                    <li class="list-item"><span class="text3">Talk to parents regularly about their children's progress.</span></li>
-                                    <li class="list-item"><span class="text3">Challenge students to learn.</span></li>
-                                    <li class="list-item"><span class="text3">Give students the attention they need to thrive in class.</span></li>
+                                <ul  style=" list-style: inside; width:200px;"><span class="medium"><strong>Teacher quality</strong></span> <br/>These ratings reflect parents’ or students’ overall experience with the school’s teachers. Among other things, great teachers:
+                                    <li class="list-item"><span class="small">Talk to parents regularly about their children's progress.</span></li>
+                                    <li class="list-item"><span class="small">Challenge students to learn.</span></li>
+                                    <li class="list-item"><span class="small">Give students the attention they need to thrive in class.</span></li>
                                 </ul>
-                            </div>
+                            <!--</div>-->
                         </div>
                     </div>
 
@@ -376,7 +375,7 @@
             </fieldset>
             <fieldset>
 
-                <button id="parentReviewFormSubmit" class="but-1 fl but-rg but" type="submit" name="Submit" value="submit" onclick="">Submit
+                <button id="parentReviewFormSubmit" class="button-1 fl " type="submit" name="Submit" value="submit" onclick="">Submit
                 </button>
                 <div class="helperMessage smaller media">
                     <span class="sprite i-required img"><!-- do not collapse --></span>
@@ -388,8 +387,12 @@
 
                 </div></div></div>
     <script type="text/javascript">
-        jQuery(function () {
-//            jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-200,topPosition:-95});
+        jQuery(document).ready(function() {
+//            console.log(jQuery("#js-bubbleInfo2 .js-trigger").html());
+            jQuery("#js-bubbleInfo2  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo2 .js-popup").html(), placement:'left'});
+//            jQuery("#js-bubbleInfo2  .js-trigger").popover({content:"Hello", placement:'top'});
+
+//              jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-200,topPosition:-95});
 //            jQuery('#js-bubbleInfo-3').popup({appear:'left',leftPosition:-200,topPosition:-95});
 //            jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-200,topPosition:-95});
 //            jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-200,topPosition:-95});
