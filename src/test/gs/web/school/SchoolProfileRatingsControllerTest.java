@@ -5,6 +5,7 @@ import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -50,8 +51,14 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         super.setUp();
         _controller = new SchoolProfileRatingsController();
         _dataMap = SchoolProfileRatingsController.getSampleData();
-
     }
+
+//    private static Map<String,Object> copyDataMap(Map<String,Object> srcMap) {
+//        Map<String,Object> destMap = new HashMap<String,Object>();
+//        for (Map.Entry<String,Object> entry : srcMap.entrySet()) {
+//            entry.clo
+//        }
+//    }
 
     // see individual tests for section 1 copy, etc.
     public void testGetSection1Model() throws Exception {
@@ -68,18 +75,30 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         // OVERALL RATING
 
         // school with 1-10 overall rating
+
         s.setDatabaseState(State.WI);
         model = _controller.getSection1Model(s, _dataMap);
         overallRating =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_RATING);
         assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_OVERALL_RATING), overallRating);
 
-        // TODO-13012 school with no overall rating
-        // assertNull(overallRating);
+        // school with no overall rating
+
+        // temporarily remove overall rating for this test
+        Object overallRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_RATING);
+
+        model = _controller.getSection1Model(s, _dataMap);
+        overallRating =
+                model.get(SchoolProfileRatingsController.MODEL_OVERALL_RATING);
+        assertNull(overallRating);
+
+        // restore overall rating
+        _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_RATING, overallRatingOrigValue);
 
         // ACADEMIC RATING
 
         // school with 1-10 academic rating
+
         model = _controller.getSection1Model(s, _dataMap);
         overallAcademicRating =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING);
@@ -90,13 +109,26 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
                 Float.valueOf(_dataMap.get(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING).toString())),
                 overallAcademicRatingLabel);
 
-        // TODO-13012 school with no academic rating
-        // assertNull(overallAcademicRating);
-        // assertNull(overallAcademicRatingLabel);
+        // school with no academic rating
+
+        // temporarily remove overall rating for this test
+        Object overallAcademicRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING);
+
+        model = _controller.getSection1Model(s, _dataMap);
+        overallAcademicRating =
+                model.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING);
+        overallAcademicRatingLabel =
+                model.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING_LABEL);
+        assertNull(overallAcademicRating);
+        assertNull(overallAcademicRatingLabel);
+
+        // restore overall rating
+        _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING, overallAcademicRatingOrigValue);
 
         // CLIMATE RATING
 
         // Milwaukee - 1-10 rating
+
         s.setDatabaseState(State.WI);
         model = _controller.getSection1Model(s, _dataMap);
         climateRatingAvailabilityText =
@@ -112,8 +144,25 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertNull(climateRatingAvailabilityText);
 
 
-        // TODO-13012 Milwaukee - no climate rating for this school
-        //assertEquals("Not available", climateRatingAvailabilityText);
+        // Milwaukee - no climate rating for this school
+
+        // temporarily remove overall rating for this test
+        Object overallClimateRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING);
+
+        s.setDatabaseState(State.WI);
+        model = _controller.getSection1Model(s, _dataMap);
+        overallClimateRating =
+                model.get(SchoolProfileRatingsController.MODEL_OVERALL_CLIMATE_RATING);
+        overallClimateRatingLabel =
+                model.get(SchoolProfileRatingsController.MODEL_OVERALL_CLIMATE_RATING_LABEL);
+        climateRatingAvailabilityText =
+                model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_AVAILABILITY_TEXT);
+        assertNull(overallClimateRating);
+        assertNull(overallClimateRatingLabel);
+        assertEquals(SchoolProfileRatingsController.CLIMATE_RATING_AVAILABILITY_TEXT_WI, climateRatingAvailabilityText);
+
+        // restore overall rating
+        _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING, overallClimateRatingOrigValue);
 
         // DC
         s.setDatabaseState(State.DC);
