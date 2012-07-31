@@ -328,7 +328,7 @@ that this is updated for ajax refresh -->
         </script>
         <div data-role="content">
             <div id="js-map-canvas"><!-- no collapse --></div>
-            <div id="js_reloadMap" class="pa pam" style="display:none; top:735px; width:63%; background: rgba(0, 0, 0, .6); ">
+            <div id="js_reloadMap" class="pa pam" style="display:none; top:735px; left:10px; width:610px; height:45px; background: rgba(0, 0, 0, .6);">
                 <div class="line">
                     <div class="unit size33of100">
                         <span class="fltrt prm"><button class="but but-lg but-2">Redo search</button></span>
