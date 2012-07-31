@@ -15,7 +15,7 @@
     <jsp:directive.attribute name="pageTotalItems" required="true" type="java.lang.String"/>
 
     <c:set var="searchResultsPagingSummary">
-        <div class="js-search-results-paging-summary text3">
+        <div class="js-search-results-paging-summary small bottom">
             Showing <fmt:formatNumber value="${pageOffset}" />-<fmt:formatNumber value="${pageLastOffsetOnPage}" /> of
             <strong><span id="total-results-count"><fmt:formatNumber value="${pageTotalItems}" /></span> schools</strong>
         </div>

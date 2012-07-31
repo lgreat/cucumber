@@ -44,5 +44,5 @@ color: #fff;
 }
 
 .pagination span.prv_nxt {
-/*text-transform: uppercase;*/
+text-transform: capitalize;
 }
