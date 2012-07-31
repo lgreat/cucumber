@@ -193,8 +193,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         modelMap.put("school", school);
 
         Map<String,Object> dataMap;
+        // TODO-13012 remove this switch or allow a way to pull in sample data with request parameter
         if (true) {
-            // TODO-13012 sample data
+            // sample data
             dataMap = getSampleData();
         } else {
             // TODO-13012 getData should make actual dao calls
@@ -202,8 +203,12 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
 
         modelMap.addAllAttributes(getSection1Model(school, dataMap));
-        modelMap.addAllAttributes(getSection2Model(school, dataMap));
+
+        // no dynamic data in section 2, so we can comment this out
+        //modelMap.addAllAttributes(getSection2Model(school, dataMap));
+
         modelMap.addAllAttributes(getSection3Model(school, dataMap));
+
         modelMap.addAllAttributes(getSection4Model(school, dataMap));
 
         return VIEW;
@@ -213,6 +218,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     public Map<String,Object> getData(School school) {
         Map<String,Object> dataMap = new HashMap<String,Object>();
+
+        // TODO-13012 maybe make use of some existing helper methods to determine if a db call is needed
 
         return dataMap;
     }
@@ -248,11 +255,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return dataMap;
     }
 
-    // TODO-13012 convert some class methods to static methods if possible, after placeholders are replaced with dao calls
-
     // ===================== Section 1 ==============================
 
-    public Map<String,Object> getSection1Model(School school, Map<String,Object> dataMap) {
+    public static Map<String,Object> getSection1Model(School school, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
 
         // OVERALL RATING
@@ -275,7 +280,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         // CLIMATE RATING
 
-        // TODO-13012 check if school has a climate rating (irrespective of state)
         Object overallClimateRating = dataMap.get(DATA_OVERALL_CLIMATE_RATING);
         boolean hasClimateRating = (overallClimateRating != null);
         if ((State.DC.equals(school.getDatabaseState()) || State.IN.equals(school.getDatabaseState())) ||
@@ -322,17 +326,19 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Section 2 ==============================
 
-    public Map<String,Object> getSection2Model(School school, Map<String,Object> dataMap) {
+    /*
+    public static Map<String,Object> getSection2Model(School school, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
 
-        // TODO-13012 nothing to do right now
+        // nothing to do
 
         return model;
     }
+    */
 
     // ===================== Section 3 ==============================
 
-    public Map<String,Object> getSection3Model(School school, Map<String,Object> dataMap) {
+    public static Map<String,Object> getSection3Model(School school, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
 
         // SECTION 3 COPY
@@ -380,7 +386,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return !State.DC.equals(state);
     }
 
-    public Map<String,Object> getTestScoreRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap) {
+    public static Map<String,Object> getTestScoreRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
 
         if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING)) {
@@ -397,7 +403,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
-    public Map<String,Object> getStudentGrowthRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap) {
+    public static Map<String,Object> getStudentGrowthRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
 
         if (dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING) &&
@@ -415,7 +421,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
-    public Map<String,Object> getPostSecondaryReadinessRatingsModel(School school, Map<String,Object> dataMap) {
+    public static Map<String,Object> getPostSecondaryReadinessRatingsModel(School school, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
 
         if (dataMap.containsKey(DATA_POST_SECONDARY_READINESS_RATING) &&
@@ -465,7 +471,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    public String getSection3Copy(School school, Map<String,Object> dataMap) {
+    public static String getSection3Copy(School school, Map<String,Object> dataMap) {
         if (State.DC.equals(school.getDatabaseState())) {
             return SECTION_3_COPY_DC;
         } else if (State.IN.equals(school.getDatabaseState())) {
@@ -501,7 +507,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Section 4 ==============================
 
-    public Map<String,Object> getSection4Model(School school, Map<String,Object> dataMap) {
+    public static Map<String,Object> getSection4Model(School school, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
 
         // SECTION 4 COPY
@@ -519,7 +525,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
-    public String getSection4Copy(School school, Map<String,Object> dataMap) {
+    public static String getSection4Copy(School school, Map<String,Object> dataMap) {
         if (State.DC.equals(school.getDatabaseState())) {
             return SECTION_4_COPY_DC;
         } else if (State.IN.equals(school.getDatabaseState())) {
@@ -540,7 +546,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     }
 
     // TODO-13012 remove unused school variable or keep for consistency?
-    public Map<String,Object> getClimateRatingDetailsModel(School school, Map<String,Object> dataMap) {
+    public static Map<String,Object> getClimateRatingDetailsModel(School school, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
 
         if (dataMap.containsKey(DATA_OVERALL_CLIMATE_RATING)) {

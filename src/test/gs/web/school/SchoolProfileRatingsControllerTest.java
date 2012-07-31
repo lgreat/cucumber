@@ -193,10 +193,6 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertTrue(threwException);
     }
 
-    public void testGetSection2Model() throws Exception {
-        // TODO-13012 nothing to do right now
-    }
-
     // see individual tests for section 3 copy, section 3 post-secondary readiness, etc.
     public void testGetSection3Model() throws Exception {
         Map<String,Object> model;
