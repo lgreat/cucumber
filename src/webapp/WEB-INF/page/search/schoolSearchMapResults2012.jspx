@@ -75,6 +75,8 @@
     <!--<pageHelper:externalJavascript file="/res/js/compare/persistentCompare.js"/>-->
     <pageHelper:externalJavascript file="/res/js/combined.search.min.js"/>
 
+    <pageHelper:externalJavascript file="/res/js/bootstrap/bootstrap-tooltip.js"/>
+    <pageHelper:externalJavascript file="/res/js/bootstrap/bootstrap-popover.js"/>
     <pageHelper:externalJavascript file="/res/js/hogan.js"/>
 
 
@@ -326,6 +328,7 @@ that this is updated for ajax refresh -->
         </script>
         <div data-role="content">
             <div id="js-map-canvas"><!-- no collapse --></div>
+                <button class="but but-sm but-2" id="js_reloadMap" style="display:none">Redo search at this location</button>
         </div>
     </c:when>
 </c:choose>
