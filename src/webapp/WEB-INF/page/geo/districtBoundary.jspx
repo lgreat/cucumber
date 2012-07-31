@@ -174,11 +174,11 @@
 
                             <div id="map-canvas"><!-- not empty --></div>
                             <div id="js_loading" class="but but-sm but-2 hidden">Loading ...</div>
-                            <button class="but but-sm but-2" id="js_reloadMap">Redo search at this location
+                            <button class="but but-sm but-2 db-reload" id="js_reloadMap">Redo search at this location
                             </button>
                         </div>
                         <c:if test="${param.debug}">
-                            <button name="reload" id="js_reloadMap">Reload at this location</button>
+                            <button name="reload" class="db-reload" id="js_reloadMap">Reload at this location</button>
                             <button name="clearAll" id="js_clearAll">Debug: Clear All</button>
                             <button name="clearPolygons" id="js_clearPolygons">Debug: Clear Polygons</button>
                             <button name="drawAllDistricts" id="js_drawAllDistricts"

@@ -45,7 +45,7 @@ General comments:
     left: 300px;
 }
 
-#js_reloadMap {
+.db-reload {
     position: absolute;
     bottom: 15px;
     left: 274px;
