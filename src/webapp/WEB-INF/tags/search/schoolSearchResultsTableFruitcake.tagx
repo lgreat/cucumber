@@ -25,14 +25,14 @@
         <div class="alpha grid_16 omega">
             <c:choose>
                 <c:when test="${not empty schoolSearchResults[0].distance and (not empty param.zipCode or not empty param.lat)}">
-                    <c:set var="nameSearchWidth" value="size37of100"/>
-                    <c:set var="distanceSearchWidth" value="size11of100"/>
-                    <c:set var="ratingSearchWidth" value="size15of100"/>
-                    <c:set var="communitySearchWidth" value="size25of100"/>
+                    <c:set var="nameSearchWidth" value="size33of100"/>
+                    <c:set var="distanceSearchWidth" value="size12of100"/>
+                    <c:set var="ratingSearchWidth" value="size13of100"/>
+                    <c:set var="communitySearchWidth" value="size24of100"/>
                     <c:set var="photoSearchWidth" value="size11of100"/>
                 </c:when>
                 <c:otherwise>
-                    <c:set var="nameSearchWidth" value="size45of100"/>
+                    <c:set var="nameSearchWidth" value="size37of100"/>
                     <c:set var="distanceSearchWidth" value=""/>
                     <c:set var="ratingSearchWidth" value="size15of100"/>
                     <c:set var="communitySearchWidth" value="size27of100"/>
@@ -46,24 +46,24 @@
                             currentSort="${commandAndFields.fieldSort.name}"/>
                 </div>
                 <c:if test="${not empty param.zipCode or not empty param.lat}">
-                    <div class="unit ${distanceSearchWidth}">
+                    <div class="unit ${distanceSearchWidth} mlm">
                         <mod:sortArrow columnName="Distance"
                                 sortList="DISTANCE,DISTANCE_DESCENDING"
                                 currentSort="${commandAndFields.fieldSort.name}"/>
                     </div>
                 </c:if>
-                <div class="unit ${ratingSearchWidth}">
+                <div class="unit ${ratingSearchWidth} mlm">
                     <mod:sortArrow columnName="Greatschools Rating"
                             sortList="GS_RATING_DESCENDING,GS_RATING_ASCENDING"
                             currentSort="${commandAndFields.fieldSort.name}"/>
 
                 </div>
-                <div class="unit ${communitySearchWidth}">
+                <div class="unit ${communitySearchWidth} mlm">
                     <mod:sortArrow columnName="Community Rating"
                             sortList="PARENT_RATING_DESCENDING,PARENT_RATING_ASCENDING"
                             currentSort="${commandAndFields.fieldSort.name}"/>
                 </div>
-                <div class="unit ${photoSearchWidth} lastUnit">
+                <div class="unit ${photoSearchWidth} lastUnit mlm">
                     <a href="javascript:void(0);"><!-- do not collapse --></a>
                 </div>
             </div>

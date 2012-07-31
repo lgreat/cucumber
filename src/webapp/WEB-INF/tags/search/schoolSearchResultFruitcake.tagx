@@ -23,14 +23,14 @@
 
     <c:choose>
         <c:when test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
-            <c:set var="nameSearchWidth" value="size37of100"/>
-            <c:set var="distanceSearchWidth" value="size11of100"/>
-            <c:set var="ratingSearchWidth" value="size15of100"/>
-            <c:set var="communitySearchWidth" value="size25of100"/>
+            <c:set var="nameSearchWidth" value="size33of100"/>
+            <c:set var="distanceSearchWidth" value="size12of100"/>
+            <c:set var="ratingSearchWidth" value="size13of100"/>
+            <c:set var="communitySearchWidth" value="size24of100"/>
             <c:set var="photoSearchWidth" value="size11of100"/>
         </c:when>
         <c:otherwise>
-            <c:set var="nameSearchWidth" value="size45of100"/>
+            <c:set var="nameSearchWidth" value="size37of100"/>
             <c:set var="distanceSearchWidth" value=""/>
             <c:set var="ratingSearchWidth" value="size15of100"/>
             <c:set var="communitySearchWidth" value="size27of100"/>
@@ -75,7 +75,7 @@
                 </div>
 
                 <c:if test="${not empty school.distance and (not empty param.zipCode or not empty param.lat)}">
-                    <div class="unit ${distanceSearchWidth}">
+                    <div class="unit ${distanceSearchWidth} mlm">
                         <div class="js-school-search-result-distance small bottom"><fmt:formatNumber
                                 value="${school.distance}"
                                 maxFractionDigits="2"/> miles
@@ -84,7 +84,7 @@
                 </c:if>
 
                 <!-- GreatSchools Rating -->
-                <div class="unit ${ratingSearchWidth}">
+                <div class="unit ${ratingSearchWidth} mlm">
                     <c:choose>
                         <c:when test="${school.levelCode eq 'p' or school.schoolType eq 'private'}">
                             <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
@@ -119,26 +119,29 @@
                 </div>
 
                 <!-- Community Rating -->
-                <div class="unit ${communitySearchWidth}">
+                <div class="unit ${communitySearchWidth} mlm">
                     <search:parentRatingAndReviewBlurb school="${school}"/>
                 </div>
                 <!-- School photo -->
-                <div class="unit ${photoSearchWidth} lastUnit">
-                    <c:if test="${not empty school.smallSizePhotos}">
-                        <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
-                                                                 databaseState="${school.databaseState}"
-                                                                 name="${school.name}"
-                                                                 physicalAddress="${school.address}"
-                                                                 levelCode="${school.levelCode}">
-                            <img src="${basePhotoPath}${school.smallSizePhotos[0]}" alt="Photo of ${school.name}" width="70" height="70"/>
-                        </link:schoolProfileOverviewForPrimitives>
-                    </c:if>
+                <div class="unit ${photoSearchWidth} lastUnit mlm">
+                    <div class="fltrt">
+                        <c:if test="${not empty school.smallSizePhotos}">
+                            <link:schoolProfileOverviewForPrimitives schoolId="${school.id}"
+                                                                     databaseState="${school.databaseState}"
+                                                                     name="${school.name}"
+                                                                     physicalAddress="${school.address}"
+                                                                     levelCode="${school.levelCode}">
+                                <img src="${basePhotoPath}${school.smallSizePhotos[0]}" alt="Photo of ${school.name}"
+                                     width="70" height="70"/>
+                            </link:schoolProfileOverviewForPrimitives>
+                        </c:if>
+                    </div>
                 </div>
             </div>
             <div class="ft pam">
                 <div class="alpha grid_11 suffix_5 omega">
                     <div class="line">
-                        <div class="unit size20of100">
+                        <div class="unit size30of100">
                             <div id="js-compare-${school.databaseState}${school.id}">
                                 <c:set var="schoolKey" value="${school.databaseState}${school.id}"/>
                                 <c:choose>
@@ -158,7 +161,7 @@
                             <search:addToMslLinkOrText school="${school}" omniturePageName="${omniturePageName}"/>
                         </div>
                         <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                            <div class="unit size40of100 lastUnit">
+                            <div class="unit size30of100 lastUnit">
                                 <div class="alpha grid_8">
                                     <gslink:realtorDotComLink address="${school.address}"
                                                               customLinkSuffix="inlinelinkheader"
