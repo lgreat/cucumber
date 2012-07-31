@@ -355,30 +355,8 @@ that this is updated for ajax refresh -->
 
 <hr class="keyline1"/>
 
-<div class="grid_11 suffix_2 mtm">
-    <div class="grid_3">
-        <div class="media attribution">
-            <div class="img mrm"><span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
-            </div>
-            <div class="bd small bottom" style="margin-top: 3px;">Private school</div>
-        </div>
-    </div>
-    <div class="grid_4">
-        <div class="media attribution">
-            <div class="img mrm">
-                <span class="iconx24 i-24-public-school-badge"><!-- do not collapse --></span>
-            </div>
-            <div class="bd small bottom" style="margin-top: 3px;"> Public/Charter school</div>
-        </div>
-    </div>
-    <div class="grid_3">
-        <div class="media attribution">
-            <div class="img mrm"><span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
-            </div>
-            <div class="bd small bottom" style="margin-top: 3px;">Preschool</div>
-        </div>
-    </div>
-</div>
+<search:schoolSearchResultsMapLegend />
+
 <div class="alpha grid_16 omega mts">
                 <span class="small bottom quiet">
                     <strong>Please note:</strong> Information about school programs and services is provided by school administrations, and not all schools have submitted this information to GreatSchools. Therefore, narrowing your search by applying filters may exclude some matching schools.
