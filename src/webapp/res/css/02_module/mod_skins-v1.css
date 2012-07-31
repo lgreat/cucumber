@@ -559,7 +559,7 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
     border-left: 10px solid transparent;
 }
 .popover.top .arrow2 {
-    top: -11px;
+    top: -10px;
     left: 50%;
     margin-left: -10px;
     border-top: 10px solid #FFFFFF;
