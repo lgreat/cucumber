@@ -13,17 +13,17 @@
     <c:set var="whiteTriangleDown" value="i-16-white-space"/>
     <c:set var="blackTriangleUp" value="i-16-sort-list-arrow-up"/>
     <c:set var="whiteTriangleUp" value="i-16-white-space"/>
-    <c:set var="linkClass" scope="page" value="noUnderline small_bold bottom " />
+    <c:set var="linkClass" scope="page" value="small_bold bottom" />
 
     <c:choose>
         <c:when test="${not empty currentSort and fn:contains(sortList, currentSort)}">
-            <c:set var="linkClass" scope="page" value="${linkClass} selected" />
+            <c:set var="linkClass" scope="page" value="${linkClass} selectedSort" />
             <c:choose>
                 <c:when test="${fn:contains(currentSort, 'DESCENDING')}">
-                    <c:set var="triangle" value="${blackTriangleDown} selected"/>
+                    <c:set var="triangle" value="${blackTriangleDown} selectedSort"/>
                 </c:when>
                 <c:otherwise>
-                    <c:set var="triangle" value="${blackTriangleUp} selected"/>
+                    <c:set var="triangle" value="${blackTriangleUp} selectedSort"/>
                 </c:otherwise>
             </c:choose>
         </c:when>
