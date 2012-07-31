@@ -9,7 +9,7 @@
     <div class="${(!empty requestScope.schoolProfileTabMap.tests and requestScope.schoolProfileTabMap.tests eq 'selected'?'':'dn')}">
     <div class="grid_16">
         <div class="fl pbn">
-            <h2 class="pbn mbs" id="js_testLabelHeader"><!-- not empty --></h2>
+            <h3 class="pbn mbs" id="js_testLabelHeader"><!-- not empty --></h3>
         </div>
         <div class="fr vab">
             <!--Display the test dropdowns-->
@@ -23,7 +23,7 @@
         <div class="clear mbl"><!-- do not collapse --></div>
 
         <div class="grid_4 alpha">
-            <h4 class="mbs"><strong>Grade Levels</strong></h4>
+            <p class="medium_bold loud mbs"><strong>Grade level</strong></p>
             <!--Display the grades for the test selected-->
             <c:forEach var="testToGrades" items="${testScores}">
 
@@ -31,7 +31,7 @@
                      style="display: none" class="js_grades">
 
                     <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
-                        <div style="padding:5px; width:90%; background:#FFFFFF;">
+                        <div class="small bottom" style="padding:3px 5px; width:90%; background:#FFFFFF;">
                             <a id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}"
                                class="js_grade"
                                style="text-decoration:none;"
@@ -126,7 +126,7 @@
 
         <!--Display the about section-->
         <div class="alpha grid_16 omega">
-            <h2 class="pbn mbs">About the tests</h2>
+            <h4 class="pbn mbs">About the tests</h4>
             <hr class="keyline1"/>
             <div class="clear mbl"><!-- do not collapse --></div>
 
