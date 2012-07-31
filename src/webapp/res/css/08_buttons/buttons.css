@@ -985,6 +985,71 @@ Extends button-1 by changing:
 }
 
 
+/* Button Themes
+******************************************************************************/
+/* Button 1
+******************************************************************************/
+.but-1{
+    background-color: #2092C4; /* for non-css3 browsers */
+    color: #ffffff;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#79BEDC), to(#2092C4)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #79BEDC, #2092C4); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #79BEDC, #2092C4); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #79BEDC, #2092C4); /* IE10 */
+    background-image:      -o-linear-gradient(top, #79BEDC, #2092C4); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #79BEDC, #2092C4); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#79BEDC', EndColorStr='#2092C4'); /* IE6�IE9 */
+    border: 1px solid #0578AA;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.but-1:hover{
+    background: #4DA8D0; /* for non-css3 browsers */
+    text-decoration: none;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#A6D3E7), to(#2092C4)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #A6D3E7, #2092C4); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #A6D3E7, #2092C4); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #A6D3E7, #2092C4); /* IE10 */
+    background-image:      -o-linear-gradient(top, #A6D3E7, #2092C4); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #A6D3E7, #2092C4); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#A6D3E7', EndColorStr='#2092C4'); /* IE6�IE9 */
+}
+
+.but-1:active{
+    background: #79BEDC; /* for non-css3 browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#2092C4), to(#79BEDC)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, #2092C4, #79BEDC); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-linear-gradient(top, #2092C4, #79BEDC); /* FF3.6 */
+    background-image:     -ms-linear-gradient(top, #2092C4, #79BEDC); /* IE10 */
+    background-image:      -o-linear-gradient(top, #2092C4, #79BEDC); /* Opera 11.10+ */
+    background-image:         linear-gradient(top, #2092C4, #79BEDC); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#2092C4', EndColorStr='#79BEDC'); /* IE6�IE9 */
+    -moz-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, .3);
+}
+
+.but-1-inactive{
+    background: #A6D3E7; /* for non-css3 browsers */
+    color: #F3FAFD;
+    border: 1px solid #2092C4;
+}
+
+/* IE7 bug: vertical centering */
+*+html button.but-1,
+*+html button.but-1-inactive {
+    line-height: 20px;
+}
+
+/* Firefox: remove outline of text on focus within button */
+.button-1:-moz-focus-inner,
+.button-1-inactive::-moz-focus-inner {
+    border: none;
+}
+
 .but-2{
     background: #F8F8F8; /* for non-css3 browsers */
     color: #555555;
