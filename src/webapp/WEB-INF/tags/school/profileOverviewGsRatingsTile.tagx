@@ -52,7 +52,7 @@
         </c:when>
 
         <c:otherwise>
-            <school:profileOverviewCell1 title="About this school">
+            <school:profileOverviewCell1 title="About the school">
                 <div class="">${gsRatingsModel['autotext']}</div>
             </school:profileOverviewCell1>
         </c:otherwise>

@@ -92,22 +92,34 @@
                     <c:set var="applInfoContent" value="${applInfo['content']}" scope="page"/>
                     <c:choose>
                         <c:when test="${applInfoContent eq 'applInfoV1'}">
-                            <!-- double wide tile -->
+                            <!-- Double wide tile, application info -->
                             <div class="unit size66of100 lastUnit">
                                 <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
                             </div>
                         </c:when>
                         <c:when test="${applInfoContent eq 'applInfoV2'}">
-                            <!-- single wide tile and single wide image-->
+                            <!-- Two single wide tiles -->
                             <div class="unit size32of100">
+                                <!-- Single wide application info -->
                                 <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
                             </div>
                             <div class="unit size2of100">&amp;nbsp;</div>
-                            <div class="unit size32of100 lastUnit">substitute1 - single wide image goes here</div>
+                            <div class="unit size32of100 lastUnit">
+                                <!-- Single wide school video tour -->
+                                <school:profileOverviewTourVideoTile tourModel="${applInfo}" />
+                            </div>
                         </c:when>
                         <c:otherwise>
-                            <!-- double wide image -->
-                            <div class="unit size66of100 lastUnit">substitute2 - double wide image goes here</div>
+                            <!-- Single wide image and single wide tile -->
+                            <div class="unit size32of100">
+                                <!-- Single wide image with the checklist superimposed on it -->
+                                <school:profileOverviewChecklistTile checklistModel="${applInfo}" />
+                            </div>
+                            <div class="unit size2of100">&amp;nbsp;</div>
+                            <div class="unit size32of100 lastUnit">
+                                <!-- Single wide school video tour -->
+                                <school:profileOverviewTourVideoTile tourModel="${applInfo}" />
+                            </div>
                         </c:otherwise>
                     </c:choose>
                 </div>
@@ -124,13 +136,11 @@
                     </div>
                 </div>
 
-                <!-- 7th Row - Default content: Sports/Arts/Music Substitute content: hide row -->
-                <c:choose>
-                    <c:when test="${SportsArtsMusic ne 'Hide'}">
-                        <!-- SportsArtsMusic data is available -->
-                        <school:profileOverviewSportsArtsMusicTile sportsModel="${sports}"/>
-                    </c:when>
-                </c:choose>
+                <!-- 7th Row - Default content: Facebook integration Substitiute content: hide row -->
+                <school:profileOverviewFacebookTile faceboolModel="${facebook}" />
+
+                <!-- 8th Row - Default content: Sports/Arts/Music Substitute content: hide row -->
+                <school:profileOverviewSportsArtsMusicTile sportsModel="${sports}"/>
             </div>
         </c:when>
         <c:otherwise>
@@ -139,7 +149,7 @@
             <!--  ==================================== -->
             <div class="alpha grid_16 omega">
 
-                <div class="line">   <!-- row 1 -->
+                <div class="line">   <!-- row 1, tiles 1-3 -->
                     <div class="unit size32of100">
                         <school:profileOverviewGsRatingsTile gsRatingsModel="${ratings}"/>
                     </div>
@@ -157,7 +167,7 @@
                     </div>
                 </div>
 
-                <div class="line">   <!-- row 2 -->
+                <div class="line">   <!-- row 2, tiles 4-6 -->
                     <div class="unit size32of100">
                         <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}" />
                     </div>
@@ -169,7 +179,7 @@
                     </div>
                 </div>
 
-                <div class="line">   <!-- row 3 -->
+                <div class="line">   <!-- row 3, tiles 7-9 -->
                     <div class="unit size32of100">
                         <school:profileOverviewDiversityTile diversityModel="${diversity}" />
                     </div>
@@ -191,6 +201,9 @@
                         <school:profileOverviewRelatedTile relatedModel="${related}" />
                     </div>
                 </div>
+
+                <!-- 5th Row - Default content: Facebook Substitute content: hide row -->
+                <school:profileOverviewSportsArtsMusicTile sportsModel="${sports}"/>
             </div>
 
         </c:otherwise>

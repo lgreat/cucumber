@@ -18,7 +18,7 @@
 
     <c:set var="content" value="${applInfoModel['content']}" scope="page"/>
 
-    <school:profileOverviewCell1 title="Application information">
+    <school:profileOverviewCell1 title="Getting in">
         <c:choose>
             <c:when test="${content eq 'applInfoV1'}">
                 <!-- double wide tile -->
@@ -28,17 +28,10 @@
                 <c:set var="applicationDeadlineDate" value="${applInfoModel['applicationDeadlineDate']}" scope="page"/>
                 <c:set var="vouchers" value="${applInfoModel['vouchers']}" scope="page"/>
                 <!-- The following is on the left -->
-                <div class="">acceptanceRatePercent = ${acceptanceRatePercent}
+                <div class="">acceptanceRate = ${acceptanceRate} out of 10<br/>
                     acceptanceRateYear = ${acceptanceRateYear}</div>
                 <!-- The following is on the right -->
                 <div class="">double wide tile<br/>applicationDeadlineMsg = ${applicationDeadlineMsg}, values are apply, call or yearround,<br/>
-                    applicationDeadlineDate = ${applicationDeadlineDate}<br/>>
-                    vouchers = ${vouchers}, values are no, yes or blank</div>
-            </c:when>
-            <c:when test="${content eq 'applInfoV2'}">
-                <!-- single wide tile and single wide image-->
-                <!-- This is the same as above on the right -->
-                <div class="">single wide tile<br/>applicationDeadlineMsg = ${applicationDeadlineMsg}, values are apply, call or yearround,<br/>
                     applicationDeadlineDate = ${applicationDeadlineDate}<br/>>
                     vouchers = ${vouchers}, values are no, yes or blank</div>
             </c:when>

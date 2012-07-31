@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.EspResponse;
 import gs.data.school.School;
+import gs.data.school.SchoolSubtype;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
@@ -314,6 +315,45 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         List<String> results = resultsModel.get( "programs_resources/Programs/instructional_model" );
         assertTrue( "testNoneHandling: expected one result but got: " + results.size(), results.size() == 1);
         assertEquals( "testNoneHandling: expected None to be suppressed", "Gifted", results.get(0) );
+    }
+
+    /**
+     * School subtype values will be used in certain cases if there is no corresponding ESP data.
+     * These are defined in the applyUniqueDataRules() method by calling the enhance_results() method
+     */
+    public void testSchoolSubtype1() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "instructional_model", "continuation" ) );
+        l.add( createEspResponse( "coed", "coed" ) );
+
+        _school.setSubtype( SchoolSubtype.create("continuation") );
+        _school.setSubtype( SchoolSubtype.create("all_female") );
+
+        ModelMap map = runController( convertToEspData( l ) );
+        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
+
+        List<String> results = resultsModel.get( "programs_resources/Programs/instructional_model" );
+        assertEquals( "testSchoolSubtype1: expected Continuation to be added", "Continuation", results.get(0) );
+
+        results = resultsModel.get( "programs_resources/Basics/coed" );
+        assertEquals( "testSchoolSubtype1: expected EspResponse:coed to take precedence over school.subtype", "Coed", results.get(0) );
+
+    }
+
+    public void testSchoolSubtype2() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "instructional_model", "continuation" ) );
+
+        _school.setSubtype( SchoolSubtype.create("all_female") );
+
+        ModelMap map = runController( convertToEspData( l ) );
+        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
+
+        List<String> results = resultsModel.get( "programs_resources/Basics/coed" );
+        assertEquals( "All Girls", results.get(0) );
+
     }
 
     /*

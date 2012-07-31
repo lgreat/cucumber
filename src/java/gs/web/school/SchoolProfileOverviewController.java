@@ -49,6 +49,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String APPL_INFO_MODEL_KEY = "applInfo";
     private static final String LOCAL_INFO_MODEL_KEY = "localInfo";
     private static final String RELATED_CONTENT_MODEL_KEY = "related";
+    private static final String FACEBOOK_MODEL_KEY = "facebook";
     private static final String SPORTS_MODEL_KEY = "sports";
 
     private static final String SCHOOL_VISIT_CHECKLIST_MODEL_KEY = "schoolVisit";
@@ -142,7 +143,10 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Titles 14&15 - Default: Related content, Substitute 1:
         model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school) );
 
-        // 7th row is Sports/Arts/Music
+        // 7th row is Facebook integration
+        model.put(FACEBOOK_MODEL_KEY, getFacebookTile( request, school) );
+
+        // 8th row is Sports/Arts/Music
         model.put(SPORTS_MODEL_KEY, getSportsArtsMusicEspTile(espData));
     }
 
@@ -424,19 +428,17 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     private Map getVideoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
-        Map<String, Object> model = null;
+        Map<String, Object> model = new HashMap<String, Object>(2);
 
         // Get all of the date needed to make the required decisions
         List<EspResponse> video = espData.get("school_video");
         if( isNotEmpty( video ) ) {
-            model = new HashMap<String, Object>(2);
             model.put( "content", "video" );
             model.put( "videoUrl", video.get(0).getSafeValue() );
         }
         else {
-            // Substitute action
-            model = getTourVideoModel( request, school );
-
+            // Substitute action, school boundary tool promo
+            model.put( "content", "schoolBoundaryToolPromo" );
         }
 
         return model;
@@ -565,7 +567,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    private Map getSpecialEdEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map getSpecialEdEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> specialEdModel = new HashMap<String, Object>(2);
 
@@ -627,18 +629,38 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                     specialEdModel.put( "SpecEdPgmsProvided", "yes" );
                     specialEdModel.put( "SpecEdPgmsOptSelected", "b" ); // To help with unit tests
                 }
-                else if( specEdPgmsExistNoOrBlank && (hasSpecEdLevelNotNone || hasAcademicFocus || hasSpecEdCoord) ) {
-                    // Display option 'c' - Services are provided
-                    specialEdModel.put( "SpecEdPgmsProvided", "yes" );
-                    specialEdModel.put( "SpecEdPgmsOptSelected", "c" ); // To help with unit tests
-                }
-                else if ( (specEdPgmsExistNo || hasSpecEdLevelNone) && !hasAcademicFocus && !hasSpecEdCoord ) {
-                    // Display option 'd' - Services are not provided
-                    specialEdModel.put( "SpecEdPgmsProvided", "no" );
-                    specialEdModel.put( "SpecEdPgmsOptSelected", "d" ); // To help with unit tests
+                else if( specEdPgmsExistNoOrBlank ) {
+                    // Display option 'c' - exact message depends on spec_ed_level
+                    if( checkEspResponseListForValue(specEdLevel, new String[]{"basic"} ) ) {
+                        specialEdModel.put( "SpecEdPgmsProvided", "basic" );
+                        specialEdModel.put( "SpecEdPgmsOptSelected", "c-basic" ); // To help with unit tests
+                    }
+                    else if( checkEspResponseListForValue(specEdLevel, new String[]{"moderate"} ) ) {
+                        specialEdModel.put( "SpecEdPgmsProvided", "moderate" );
+                        specialEdModel.put( "SpecEdPgmsOptSelected", "c-moderate" ); // To help with unit tests
+                    }
+                    else if( checkEspResponseListForValue(specEdLevel, new String[]{"intensive"} ) ) {
+                        specialEdModel.put( "SpecEdPgmsProvided", "intensive" );
+                        specialEdModel.put( "SpecEdPgmsOptSelected", "c-intensive" ); // To help with unit tests
+                    }
+                    else if( hasAcademicFocus ) {
+                        // Display option 'd' - school has a focus
+                        specialEdModel.put( "SpecEdPgmsProvided", "focuses" );
+                        specialEdModel.put( "SpecEdPgmsOptSelected", "d" ); // To help with unit tests
+                    }
+                    else if ( hasSpecEdCoord ) {
+                        // Display option 'e' - special ed coordinator
+                        specialEdModel.put( "SpecEdPgmsProvided", "coordinator" );
+                        specialEdModel.put( "SpecEdPgmsOptSelected", "e" ); // To help with unit tests
+                    }
+                    else if ( specEdPgmsExistNo || (hasSpecEdLevelNone && !hasAcademicFocus && !hasSpecEdCoord) ) {
+                        // Display option 'f' - No services
+                        specialEdModel.put( "SpecEdPgmsProvided", "no" );
+                        specialEdModel.put( "SpecEdPgmsOptSelected", "f" ); // To help with unit tests
+                    }
                 }
                 else {
-                    // Spec doesn't specify what happens here - Services are not provided???
+                    // Call the school
                     specialEdModel.put( "SpecEdPgmsProvided", "call" );  // Is this right
                     specialEdModel.put( "SpecEdPgmsOptSelected", "unspecified" ); // To help with unit tests
                 }
@@ -683,7 +705,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             }
             else {
                 // No specific content is available - show call school message
-                specialEdModel.put( "ExtdCareProvided", "call" );  // In the end - can we get rid of this
+                specialEdModel.put( "ExtdCareProvided", "noInfo" );  // In the end - can we get rid of this
 
             }
             // Now determine what the header should be based on the type of school
@@ -722,6 +744,10 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
                 specialEdModel.put( "teachersStaff", sentence.toString() );
                 specialEdModel.put( "content", "teachers/staff" );
+            }
+            else {
+                // Substitute 2 - Static text
+                specialEdModel.put( "content", "reviewCta" );
             }
         }
 
@@ -1015,9 +1041,13 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 // Acceptance Rate Calc
                 float studentsAccepted = Float.parseFloat(studentsAcceptedList.get(0).getValue());
                 float applicationsReceived = Float.parseFloat(applicationsReceivedList.get(0).getValue());
-                int acceptanceRatePercent = (int) ((studentsAccepted/applicationsReceived)*100);
-                String acceptanceRatePercentStr = Integer.toString( acceptanceRatePercent );
-                model.put( "acceptanceRatePercent", acceptanceRatePercentStr );
+                int acceptanceRate = (int) ((studentsAccepted/applicationsReceived)*10);
+                // if acceptanceRate is 0 but there were some applications then show 1
+                if( acceptanceRate == 0 && studentsAccepted > 0 ) {
+                    acceptanceRate = 1;
+                }
+                String acceptanceRateStr = Integer.toString( acceptanceRate );
+                model.put( "acceptanceRate", acceptanceRateStr );
                 model.put( "acceptanceRateYear", studentsAcceptedYearList.get(0).getValue() );
 
                 // Get the stuff for the right half
@@ -1034,12 +1064,26 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             // Decide which substitute to do
             if( hasApplicationProcessYes ) {
                 // Substitute action 1
-                model.put( "content", "applInfoV2" );
+                // Left content (tile 11) , ApplInfo deadline & vouchers
                 getApplInfoDeadlineInfo(espData, model);
+
+                // Right content (tile 12), school video tour
+                Map<String, Object> tourVideoModel = getTourVideoModel( request, school );
+                model.putAll( tourVideoModel );
+
+                model.put( "content", "applInfoV2" );
             }
             else {
                 // Substitute action 2, school visit checklist
-                model.put( "content", "visitChecklist" );
+                // Left content (tile 11), school visit checklist
+                Map<String, Object> checklistModel = getSchoolVisitChecklistTile(request, school);
+                model.putAll( checklistModel );
+
+                // Right content (tile 12), school video tour
+                Map<String, Object> tourVideoModel = getTourVideoModel( request, school );
+                model.putAll( tourVideoModel );
+
+                model.put("content", "applInfoV3");
             }
         }
 
@@ -1087,7 +1131,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Voucher info
         List<EspResponse> vouchersList = espData.get("vouchers");
         boolean hasVouchersYes = checkEspResponseListForValue(vouchersList, new String[]{"yes"});
-        boolean hasVouchersNo = checkEspResponseListForValue( vouchersList, new String[]{"no"} );
+        boolean hasVouchersNo = checkEspResponseListForValue(vouchersList, new String[]{"no"});
 
         if( hasVouchersYes ) {
             model.put( "vouchers", "yes" );
@@ -1257,10 +1301,20 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         int total = boysSports.size() + girlsSports.size() + artsMedia.size() + artsPerformingWritten.size() +
                 artsVisual.size() + music.size();
         if( total == 0 ) {
-            sportsModel.put("SportsArtsMusic", "Hide");
+            sportsModel.put("content", "Hide");
         }
 
         return sportsModel;
+    }
+
+    private Object getFacebookTile(HttpServletRequest request, School school) {
+
+        Map<String, Object> facebookModel = new HashMap<String, Object>(4);
+
+        facebookModel.put( "content", "hide" ); // set this if no data available
+        facebookModel.put( "content", "show" );
+
+        return facebookModel;
     }
 
     // ===================== Non ESP page ==============================
@@ -1300,6 +1354,18 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private Map getSchoolVisitChecklistTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(1);
+
+        LevelCode levelCode = school.getLevelCode();
+        if( levelCode != null ) {
+            List<String> levels = new ArrayList<String>();
+            if( levelCode.containsLevelCode(LevelCode.Level.PRESCHOOL_LEVEL) )  levels.add( "Preschool" );
+            if( levelCode.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL) )  levels.add( "Elementary school" );
+            if( levelCode.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL) )  levels.add( "Middle school" );
+            if( levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL) )  levels.add( "High school" );
+            if( levels.size() > 0 ) {
+                model.put( "checklist", levels );
+            }
+        }
 
         model.put( "content", "visitChecklist" );
 

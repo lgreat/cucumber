@@ -70,14 +70,9 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
         // Get Data
         if (school != null) {
-            // Replaced by call below -- List<EspResponse> results = _espResponseDao.getResponsesByKeys( school, _keyValuesToExtract );
             Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request );
 
             if( espResults != null && !espResults.isEmpty() ) {
-
-                // For performance reasons convert the results to a HashMap.  The key will be the espResponseKey
-                // and the value will be the corresponding list of EspResponse objects
-                // Replaced with above -- Map<String, List<EspResponse>>espResults = dbResultsToMap(results);
 
                 // The following builds the display data based on the DB results and the display requirements.
                 // The key is the ModelKey and the value is a list of the values for that key
@@ -112,28 +107,6 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     }
 
     private void buildSupportDisplayData() {
-    }
-
-    private Map<String, List<EspResponse>> dbResultsToMap(List<EspResponse> results) {
-
-        Map<String, List<EspResponse>> resultsMap = new HashMap<String, List<EspResponse>>();
-
-        // Loop over the incoming results and construct the Map
-        for( EspResponse r : results ) {
-            String key = r.getKey();
-            List<EspResponse> existingList = resultsMap.get( key );
-            if( existingList != null ) {
-                // add to existing list
-                existingList.add( r );
-            }
-            else {
-                // Create new list and add to HashMap
-                List<EspResponse> newList = new ArrayList<EspResponse>();
-                newList.add( r );
-                resultsMap.put( key, newList );
-            }
-        }
-        return resultsMap;
     }
 
     // Build the display data by merging the display structure and DB results data
@@ -442,8 +415,9 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
      * the specified school_subtype then if the resultsModel at resultsModelKey does not contain the value resultsModelValue
      * then add that resultsModelValue
      * @param resultsModel
-     * @param resultsModelKey
+     * @param resultsModelKey Key in results model that my need to be enhanced
      * @param resultsModelValue This MUST be the pretty value - see EspResponseDaoHibernate for the mapping from esp_response.response_value to pretty value
+     * @param school
      * @param school_subtype
      */
     private void enhance_results(Map<String,List<String>> resultsModel, String resultsModelKey, String resultsModelValue, School school, String school_subtype) {

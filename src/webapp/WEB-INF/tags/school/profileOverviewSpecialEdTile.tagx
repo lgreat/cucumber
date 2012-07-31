@@ -39,7 +39,7 @@
                 <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
                 <c:choose>
                     <c:when test="${not empty specEdPgms}">
-                        <div class="">Services offered for:</div>
+                        <div class="">The school provides support for:</div>
                         <div class=""><ul>
                             <c:forEach var="item" items="${specEdPgms}">
                                 <li>${item}</li>
@@ -47,20 +47,35 @@
                         </ul></div>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'yes'}">
-                        <div class="">Services are provided at this school</div>
+                        <div class="">The school provides a full program for particular needs.</div>
+                    </c:when>
+                    <c:when test="${specEdPgmsProvided eq 'basic'}">
+                        <div class="">The school provides services based on the needs of individual students.</div>
+                    </c:when>
+                    <c:when test="${specEdPgmsProvided eq 'moderate'}">
+                        <div class="">The school provides a full program for particular needs.</div>
+                    </c:when>
+                    <c:when test="${specEdPgmsProvided eq 'intensive'}">
+                        <div class="">The school provides a full program for many needs..</div>
+                    </c:when>
+                    <c:when test="${specEdPgmsProvided eq 'focuses'}">
+                        <div class="">The school focuses on special education.</div>
+                    </c:when>
+                    <c:when test="${specEdPgmsProvided eq 'coordinator'}">
+                        <div class="">The school has a special education coordinator on staff.</div>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'no'}">
-                        <div class="">Services are not provided at this school</div>
+                        <div class="">The school does not provide services.</div>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'call'}">
-                        <div class="">Call school for more information</div>
+                        <div class="">The school has not provided this information yet. Please call school to learn more.</div>
                     </c:when>
                 </c:choose>
             </school:profileOverviewCell1>
             <!-- Extended Care -->
             <school:profileOverviewCell1 title="${specialEdModel['ExtdCareTitle']}">
-                <c:if test="${extdCareProvided eq 'call'}">
-                    <div class="">Call school for more information</div>
+                <c:if test="${extdCareProvided eq 'noInfo'}">
+                    <div class="">The school has not provided this information yet.</div>
                 </c:if>
                 <c:if test="${not empty extdCareBefore}">
                     <div class="">${extdCareBefore}</div>

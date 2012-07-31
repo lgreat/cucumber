@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:content="urn:www.greatschools.org/taglib/content"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsweb="gstaglib"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+
+    <jsp:directive.attribute name="tourModel" type="java.lang.Object" required="true"/>
+
+    <c:set var="content" value="${tourModel['content']}" scope="page"/>
+    <c:set var="videoUrl" value="${tourModel['videoUrl']}" scope="page"/>
+    <c:set var="videoIconUrl" value="${tourModel['videoIconUrl']}" scope="page"/>
+    <c:set var="videoIconAltText" value="${tourModel['videoIconAltText']}" scope="page"/>
+
+    <school:profileOverviewCell1 title="How to choose a school">
+        <!-- Show video icon in variable videoIconUrl and clicking on it takes you to the video at videoUrl -->
+        <div class="">Display video at ${$videoUrl}</div>
+    </school:profileOverviewCell1>
+
+</jsp:root>

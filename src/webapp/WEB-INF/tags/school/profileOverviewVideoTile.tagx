@@ -23,18 +23,16 @@
 
     <c:choose>
         <c:when test="${content eq 'video'}">
-            <school:profileOverviewCell1 title="School videos">
+            <school:profileOverviewCell1 title="Videos">
                 <!-- Show generic video icon and clicking on it takes you to the video at videoUrl -->
             </school:profileOverviewCell1>
         </c:when>
-        <c:when test="${content eq 'schoolTourVideo'}">
-            <school:profileOverviewCell1 title="School tour video">
-                <!-- Show video icon in variable videoIconUrl and clicking on it takes you to the video at videoUrl -->
-                <div class="">Display video at ${$videoUrl}</div>
-            </school:profileOverviewCell1>
-        </c:when>
         <c:otherwise>
-            <!-- will only get there is CMS is down or the content has been deleted.  Leave a blank space -->
+        <!-- This is a static image -->
+            <!-- Needs frontend formatting -->
+
+            <!-- Show video icon in variable videoIconUrl and clicking on it takes you to the video at videoUrl -->
+            <div class="">Frontend: put static image here</div>
         </c:otherwise>
     </c:choose>
 

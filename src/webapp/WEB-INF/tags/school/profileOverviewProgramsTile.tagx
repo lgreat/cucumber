@@ -30,7 +30,7 @@
         </c:when>
 
         <c:when test="${content eq 'substitute1'}">
-            <school:profileOverviewCell1 title="Highlights">
+            <school:profileOverviewCell1 title="How parents get involved">
                 <c:choose>
                     <c:when test="${not empty programsModel['substitute1None']}">
                         <div class="">There are no parent involvement opportunities</div>

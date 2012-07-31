@@ -19,7 +19,7 @@
     <c:set var="content" value="${reviewsModel['content']}" scope="page"/>
     <c:set var="reviews" value="${reviewsModel['reviews']}" scope="page"/>
 
-    <school:profileOverviewCell1 title="User reviews">
+    <school:profileOverviewCell1 title="Community reviews">
         <c:choose>
             <c:when test="${content eq 'reviews'}">
                 <div class="infiniteCarousel9">

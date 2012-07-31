@@ -14,71 +14,74 @@
         >
 
     <jsp:directive.attribute name="sportsModel" type="java.lang.Object" required="true"/>
+    <c:set var="content" value="${sportsModel['content']}"/>
     <c:set var="boysSports" value="${sportsModel['boys_sports']}" scope="page"/>
     <c:set var="girlsSports" value="${sportsModel.girls_sports}" scope="page"/>
     <c:set var="arts" value="${sportsModel.arts}" scope="page"/>
     <c:set var="music" value="${sportsModel.music}" scope="page"/>
 
 
-    <c:set var="extraCurricular">
-        <div class="line">
-            <div class="unit size50of100">
-                <span>Sports</span>
+    <c:if test="${content ne 'Hide'}">
+        <c:set var="extraCurricular">
+            <div class="line">
+                <div class="unit size50of100">
+                    <span>Sports</span>
+                </div>
+                <div class="unit size25of100">
+                    <span>Arts</span>
+                </div>
+                <div class="unit size25of100 lastUnit">
+                    <span>Music</span>
+                </div>
             </div>
-            <div class="unit size25of100">
-                <span>Arts</span>
-            </div>
-            <div class="unit size25of100 lastUnit">
-                <span>Music</span>
-            </div>
-        </div>
-    </c:set>
+        </c:set>
 
-    <school:profileOverviewCell1 title="${extraCurricular}">
-        <div class="line mam">
-            <!-- Boys sports -->
-            <div class="unit size25of100">
-                <strong>Boys</strong>
-                <div>
-                    <ul class="small bottom">
-                        <c:forEach var="item" items="${boysSports}">
-                            <li>${item}</li>
-                        </c:forEach>
-                    </ul>
+        <school:profileOverviewCell1 title="${extraCurricular}">
+            <div class="line mam">
+                <!-- Boys sports -->
+                <div class="unit size25of100">
+                    <strong>Boys</strong>
+                    <div>
+                        <ul class="small bottom">
+                            <c:forEach var="item" items="${boysSports}">
+                                <li>${item}</li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Girls sports -->
+                <div class="unit size25of100">
+                    <strong>Girls</strong>
+                    <div>
+                        <ul class="small bottom">
+                            <c:forEach var="item" items="${girlsSports}">
+                                <li>${item}</li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Arts -->
+                <div class="unit size25of100">
+                    <div style="height: 90px;border-left:1px solid #e6e6e6;">
+                        <ul class="small bottom">
+                            <c:forEach var="item" items="${arts}">
+                                <li>${item}</li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Music -->
+                <div class="unit size25of100 lastUnit">
+                    <div style="height: 90px;border-left:1px solid #e6e6e6;">
+                        <ul class="small bottom">
+                            <c:forEach var="item" items="${music}">
+                                <li>${item}</li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <!-- Girls sports -->
-            <div class="unit size25of100">
-                <strong>Girls</strong>
-                <div>
-                    <ul class="small bottom">
-                        <c:forEach var="item" items="${girlsSports}">
-                            <li>${item}</li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </div>
-            <!-- Arts -->
-            <div class="unit size25of100">
-                <div style="height: 90px;border-left:1px solid #e6e6e6;">
-                    <ul class="small bottom">
-                        <c:forEach var="item" items="${arts}">
-                            <li>${item}</li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </div>
-            <!-- Music -->
-            <div class="unit size25of100 lastUnit">
-                <div style="height: 90px;border-left:1px solid #e6e6e6;">
-                    <ul class="small bottom">
-                        <c:forEach var="item" items="${music}">
-                            <li>${item}</li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </school:profileOverviewCell1>
+        </school:profileOverviewCell1>
+    </c:if>
 
 </jsp:root>
