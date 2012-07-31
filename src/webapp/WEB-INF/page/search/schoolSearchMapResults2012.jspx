@@ -396,7 +396,7 @@ that this is updated for ajax refresh -->
                     {{schoolName}}
                 </a>
             </div>
-            <div class="bd">
+            <div class="bd mbm">
                 <div class="small bottom ttc">
                     {{schoolType}}, <span class="ttu">{{gradesRange}}</span>
                 </div>
