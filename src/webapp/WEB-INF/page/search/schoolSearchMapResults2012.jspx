@@ -328,7 +328,17 @@ that this is updated for ajax refresh -->
         </script>
         <div data-role="content">
             <div id="js-map-canvas"><!-- no collapse --></div>
-                <button class="but but-sm but-2" id="js_reloadMap" style="display:none">Redo search at this location</button>
+            <div id="js_reloadMap" class="pa pam" style="display:none; top:735px; width:63%; background: rgba(0, 0, 0, .6); ">
+                <div class="line">
+                    <div class="unit size33of100">
+                        <span class="fltrt prm"><button class="but but-lg but-2">Redo search</button></span>
+                    </div>
+                    <div class="unit size67of100 lastUnit">
+                        <div class="small_bold bottom make-FFCC66">Your search filters are unavailable for this area.</div>
+                        <div class="small bottom make-ffffff">Redoing search in this area will remove all applied filters.</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </c:when>
 </c:choose>
