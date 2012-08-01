@@ -27,7 +27,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
     private static final Logger _log = Logger.getLogger(SchoolProfileTestScoresController.class);
 
     //TODO change the name of the jspx page.
-    public static final String VIEW = "school/testScoresPrototype";
+    public static final String VIEW = "school/profileTestScores";
     public static final String ERROR_VIEW = "/school/error";
 
     public static final String LABEL_DATA_NOT_AVAILABLE = "Data not available";

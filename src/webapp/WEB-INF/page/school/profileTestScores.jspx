@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+
+<c:if test="${! empty testScores}">
+    <div class="${(!empty requestScope.schoolProfileTabMap.tests and requestScope.schoolProfileTabMap.tests eq 'selected'?'':'dn')}">
+    <div class="grid_16">
+        <div class="fl pbn">
+            <h3 class="pbn mbs" id="js_testLabelHeader"><!-- not empty --></h3>
+        </div>
+        <div class="fr vab">
+            <!--Display the test dropdowns-->
+            <select id="js_testSelect">
+                <c:forEach var="testToGrades" items="${testScores}">
+                    <option value="${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}">${testToGrades.testLabel}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <hr class="keyline1" />
+        <div class="clear mbl"><!-- do not collapse --></div>
+
+        <div class="grid_4 alpha">
+            <p class="medium_bold loud mbs"><strong>Grade level</strong></p>
+            <!--Display the grades for the test selected-->
+            <c:forEach var="testToGrades" items="${testScores}">
+
+                <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}_grades"
+                     style="display: none" class="js_grades">
+
+                    <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
+                        <div class="small bottom" style="padding:3px 5px; width:90%; background:#FFFFFF;">
+                            <a id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}"
+                               class="js_grade"
+                               style="text-decoration:none;"
+                               href="javascript:void(0);">${gradeToSubjects.gradeLabel}</a>
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:forEach>
+
+        </div>
+
+    <div class="grid_12 omega">
+    <!--Display the data for the test and grade selected-->
+    <c:forEach var="testToGrades" items="${testScores}">
+        <c:forEach var="gradeToSubjects" items="${testToGrades.grades}">
+            <div id="js_${testToGrades.testDataTypeId}${testToGrades.isSubgroup eq true ?'_subgroup' : ''}${gradeToSubjects.jsFriendlyGradeLabel}_subjects"
+                 style="display: none" class="js_subjects">
+
+                <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
+
+                    <c:choose>
+                        <c:when test="${fn:indexOf(testToGrades.testLabel,'_subgroup') >=0}">
+                            <c:set var="scalesUsed" value="" />
+                            <table class="tableType1 mtl">
+                            <tr><th colspan="2">${subjectToYears.subjectLabel}</th></tr>
+                            <c:forEach var="testValue" items="${subjectToYears.testValues}">
+                                <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
+                                <c:if test="${testValue.testScoreLabel == 'Data not available'}"><c:set var="thePercentage" value="n/a" /></c:if>
+                                <tr><td>${testValue.breakdownLabel}</td><td style="text-align: right;"><strong>${thePercentage}</strong></td></tr>
+                            </c:forEach>
+                            </table>
+                        </c:when>
+                        <c:otherwise>
+                            <c:set var="scalesUsed"><div class="smaller fr">Scale:${testToGrades.scale}</div></c:set>
+                            <c:set var="scoresContent">
+                                    <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="loopCount">
+                                        <c:set var="firstTimeBlue" value="" />
+                                        <!--Display the state average for only the latest year-->
+                                        <c:if test="${loopCount.count eq 1}">
+                                            <c:set var="stateAvg" value="${testValue.stateAvg}" />
+                                            <c:set var="testYearAvg" value="${testValue.year}" />
+                                            <c:set var="firstTimeBlue" value="blue" />
+                                        </c:if>
+                                        <div class="line">
+                                            <div class="unit size12of100">
+                                                <p class="small bottom"><strong>${testValue.year}</strong></p>
+                                            </div>
+                                            <div class="unit size5of100">&amp;nbsp;</div>
+                                            <div class="unit size66of100">
+                                                <div class="bar_container thin ${firstTimeBlue}">
+                                                    <div style="width:${testValue.testScoreLabel}%"><!-- not empty --></div>
+                                                </div>
+                                            </div>
+                                            <div class="unit size5of100">&amp;nbsp;</div>
+                                            <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
+                                            <c:if test="${testValue.testScoreLabel == 'Data not available'}">
+                                                <c:set var="thePercentage" value="n/a" />
+                                            </c:if>
+                                            <div class="unit size12of100 small lastUnit bottom"><strong>${thePercentage}</strong></div>
+                                        </div>
+
+                                    </c:forEach>
+                            </c:set>
+
+                            <div class="mod standard_1-1">
+                                <div class="inner">
+                                    <div class="bd">
+                                        <div class="line">
+                                            <div class="unit size38of100 pam">
+                                                <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
+
+                                                <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
+                                            </div>
+                                            <div class="unit size62of100 lastUnit pam">
+                                                <c:out value="${scoresContent}" escapeXml="false"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <c:out value="${scalesUsed}" escapeXml="false" />
+                <div class="clearfloat"><!-- not empty --></div>
+                <h4 class="pbn mbs">About the tests</h4>
+                <hr class="keyline1"/>
+                <div class="clear mbl"><!-- do not collapse --></div>
+                <p class="quiet">${testToGrades.description}</p>
+
+                <p class="small quiet"><strong>Source:</strong> ${testToGrades.source}</p>
+            </div>
+        </c:forEach>
+    </c:forEach>
+
+    </div>
+
+    <!--TODO - move to a different file.-->
+    <script type="text/javascript">
+
+        //Add the handler for changing the test drop-down.
+        $('#js_testSelect').on('change', function() {
+            var testSelected = $('#js_testSelect').val();
+            $("#js_testLabelHeader").html($("#js_testSelect option[value='"+testSelected+"']").text());
+
+            //Hide all the grades and the subject data
+            $('.js_grades').hide();
+            $('.js_subjects').hide();
+
+            //Show the grades for the test.
+            $('#js_' + testSelected + '_grades').show();
+
+            //Select the first grade by default for the test and trigger its click event, so that the data is displayed.
+            var firstGradeToSelect = $('#js_' + testSelected + '_grades').children(":first").find("a");
+            firstGradeToSelect.trigger('click');
+        });
+
+        //Add the handler for clicking a specific grade.
+        $('.js_grade').on('click', function() {
+            var gradeSelected = $(this).attr('id');
+            $(this).parent().css("background-color", "#C9E4F1");
+            $(this).parent().addClass("selected");
+            $(this).parent().siblings().removeClass("selected");
+            $(this).parent().siblings().css("background-color", "#FFFFFF");
+
+            //Hide all the data
+            $('.js_subjects').hide();
+
+            //Show the data for the grade selected.
+            $('#' + gradeSelected + '_subjects').show();
+        });
+
+        $('.js_grade').hover( function() {
+                if(!$(this).parent().hasClass( "selected" )){
+                    $(this).parent().css("background-color", "#F1F1F1");
+                }
+            },
+            function() {
+                if(!$(this).parent().hasClass( "selected" )){
+                    $(this).parent().css("background-color", "#FFFFFF");
+                }
+            }
+        );
+
+        //Trigger the test change event.
+        $('#js_testSelect').change();
+    </script>
+    </div>
+    </div>
+</c:if>
+</jsp:root>
