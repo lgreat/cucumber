@@ -65,12 +65,13 @@
                 <div class="line">
                     <div class="unit size68of100">
                         <input type="text" name="q"
-                               class="text-bigger input_13"
+                               class="text-bigger"
+                               style="width: 400px;padding-right:102px;"
                                id="js-findByNameBox"
                                placeholder="Search by school or district ..."
                                value="${searchString}"/>
                     </div>
-                    <div class="unit size17of100 mts pr">
+                    <div class="unit size17of100 mrgtop_7 pr">
                         <span class="quiet bottom"> | </span>
                         <span class="showState make-06b"><!-- Do not collapse--></span>
                         <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
