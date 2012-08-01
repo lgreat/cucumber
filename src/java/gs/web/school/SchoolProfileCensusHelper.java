@@ -85,7 +85,7 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
             Set<Integer> allDataTypeIds = new HashSet<Integer>();
             allDataTypeIds.addAll(dataTypeIds);
             allDataTypeIds.addAll(dataTypeIdsForOverview);
-            censusDataSetMap = getCensusDataSets(censusStateConfig.getState(), allDataTypeIds, school);
+            censusDataSetMap = getCensusDataSets(censusStateConfig.getState(), dataTypeIds, school);
             setSharedData(request, CENSUS_DATA_SETS, censusDataSetMap);
         }
 
