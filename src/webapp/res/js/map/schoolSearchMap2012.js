@@ -312,7 +312,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
                 GS.search.results.mapSearch(1, pageSize, queryData);
                 var $redoSearch = $("#js_reloadMap");
-                $redoSearch.show();
+                $redoSearch.hide();
             }
         });
     };
