@@ -78,6 +78,8 @@ public class NearbySchoolSearchController2012 extends AbstractCommandController 
         searchCommand.setLat((double)zip.getLat());
         searchCommand.setLon((double)zip.getLon());
         searchCommand.setState(zip.getState().getAbbreviationLowerCase());
+        searchCommand.setCity(zip.getName());
+        searchCommand.setZipCode(zip.getZip());
 
         return _schoolSearchController2012.handle(request, response, searchCommand, e);
     }

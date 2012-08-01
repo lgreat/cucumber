@@ -294,6 +294,10 @@ public class DirectoryStructureUrlFields {
         return _schoolTypesParams;
     }
 
+    public void setSchoolTypesParams(String[] schoolTypesParams) {
+        _schoolTypesParams = schoolTypesParams;
+    }
+
     public void setLevelCode(LevelCode levelCode) {
         _levelCode = levelCode;
     }

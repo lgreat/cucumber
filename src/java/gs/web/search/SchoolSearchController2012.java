@@ -160,6 +160,10 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             fields.setLevelCode(null);
         }
 
+        if(schoolSearchCommand.isAjaxRequest() && !schoolSearchCommand.hasSchoolTypes()) {
+            fields.setSchoolTypesParams(null);
+        }
+
         // Get nearbySearchInfo from the request and update session context's state attribute if needed
         Map nearbySearchInfo = updateSessionContextStateFromNearbySearchInfo(request, response, schoolSearchCommand);
 
@@ -838,6 +842,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         SchoolSearchCommandWithFields commandAndFields = new SchoolSearchCommandWithFields(schoolSearchCommand, fields, nearbySearchInfo);
         commandAndFields.setDistrictDao(_districtDao);
         commandAndFields.setGeoDao(_geoDao);
+        commandAndFields.getLevelCode();
+        commandAndFields.getSchoolTypes();
         return commandAndFields;
     }
 
