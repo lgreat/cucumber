@@ -61,7 +61,7 @@ public class SchoolSearchCommandWithFields {
 
     public String[] getGradeLevels() {
         String[] gradeLevels = null;
-        if (_command != null && _command.hasGradeLevels()) {
+        if (_command != null && _command.hasGradeLevels() && !(_command.getGradeLevels().length == 1 && "".equals(_command.getGradeLevels()[0]))) {
             gradeLevels = _command.getGradeLevels();
         } else if (_fields != null && _fields.getLevelCode() != null) {
             gradeLevels = _fields.getLevelCode().getCommaSeparatedString().split(",");
