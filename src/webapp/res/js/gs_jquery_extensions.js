@@ -123,7 +123,7 @@ jQuery(document).ready(function() {
 
 /* =2 popup (informational popup bubbles)
 -------------------------------------------------------------------------------------------*/
-
+//Refer parents review page through ond school profile for the popup example
 //You need an anonymous function to wrap around your function to avoid conflict
 (function ($) {
 

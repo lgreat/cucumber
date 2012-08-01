@@ -92,8 +92,8 @@
     <script type="text/javascript">
         jQuery(function () {
             GS.map.getMap.init();
-            jQuery('#js-bubbleInfo-8').popup({appear:'below', leftPosition:-55, topPosition:20});
-            jQuery('#js-bubbleInfo-9').popup({appear:'below', leftPosition:-55, topPosition:20});
+            jQuery('#js-bubbleInfo-8').popup({appear:'below', leftPosition:-55, topPosition:5, hideDelay:0});
+            jQuery('#js-bubbleInfo-9').popup({appear:'below', leftPosition:-55, topPosition:5, hideDelay:0});
         });
     </script>
 
