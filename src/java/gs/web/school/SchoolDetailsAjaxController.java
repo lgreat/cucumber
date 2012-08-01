@@ -26,6 +26,7 @@ import java.util.Map;
 @RequestMapping("/school/schoolDetails.page")
 public class SchoolDetailsAjaxController implements ReadWriteAnnotationController {
     private static final Logger _log = Logger.getLogger(SchoolDetailsAjaxController.class);
+    private static final int MAX_SCHOOLS = 15;
 
     @Autowired
     private ISchoolDao _schoolDao;
@@ -54,20 +55,23 @@ public class SchoolDetailsAjaxController implements ReadWriteAnnotationControlle
             return schools;
         }
 
-        for (int i = 0; i < schoolIdsAndStatesJsonArray.length(); i++) {
-            JSONObject schoolIdAndState = (JSONObject) schoolIdsAndStatesJsonArray.get(i);
+        //Limiting the number of schools in a request to prevent any malicious intent.
+        if (schoolIdsAndStatesJsonArray.length() <= MAX_SCHOOLS) {
+            for (int i = 0; i < schoolIdsAndStatesJsonArray.length(); i++) {
+                JSONObject schoolIdAndState = (JSONObject) schoolIdsAndStatesJsonArray.get(i);
 
-            try {
-                State state = State.fromString((String) schoolIdAndState.get("state"));
-                Integer schoolId = Integer.parseInt((String) schoolIdAndState.get("schoolId"));
-                School school = _schoolDao.getSchoolById(state, schoolId);
-                if (school != null && school.isActive()) {
-                    schools.add(school);
+                try {
+                    State state = State.fromString((String) schoolIdAndState.get("state"));
+                    Integer schoolId = Integer.parseInt((String) schoolIdAndState.get("schoolId"));
+                    School school = _schoolDao.getSchoolById(state, schoolId);
+                    if (school != null && school.isActive()) {
+                        schools.add(school);
+                    }
+
+                } catch (Exception ex) {
+                    _log.error("Exception while fetching school." + ex);
+                    continue;
                 }
-
-            } catch (Exception ex) {
-                _log.error("Exception while fetching school." + ex);
-                continue;
             }
         }
         return schools;
