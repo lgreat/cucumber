@@ -9,6 +9,7 @@ GS.search.results = GS.search.results || (function() {
     var listResultsLinkSelector = '.js-listResultsLink';
     var mapResultsLinkSelector = '.js-mapResultsLink';
     var body = 'body';
+    var numResultsPerPage;
 
     // http://stackoverflow.com/questions/1744310/how-to-fix-array-indexof-in-javascript-for-ie-browsers
     // we use indexOf on some arrays in this .js file, but IE doesn't support it natively, so we have to implement it here
@@ -192,7 +193,11 @@ GS.search.results = GS.search.results || (function() {
         }
         else {
             update(queryData);
+            if(parseInt(numResultsPerPage) > parseInt(pageSize)) {
+                window.scrollTo(0,0);
+            }
         }
+        numResultsPerPage = pageSize;
     };
 
     var onSortChanged = function() {
