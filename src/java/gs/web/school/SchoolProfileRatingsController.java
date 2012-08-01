@@ -260,12 +260,41 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         RATING_TEST_DATA_TYPE_IDS.add(RATING_OVERALL);
     }
 
+    // TODO-13012 TEMPORARY! move these constants and sets out of here or replace with config file/XML
     // TODO-13012 only used by state (maybe city as well, if using equivalent schema)
     // test data types for state ratings
     private static final Set<Integer> STATE_RATING_TEST_DATA_TYPE_IDS = new HashSet<Integer>();
     static {
         STATE_RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_ACHIEVEMENT);
         STATE_RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_VALUE_ADDED);
+    }
+
+    // TODO-13012 not optimized, may need to be rewritten
+    public Map<String,Object> getData(School school) {
+        Map<String,Object> dataMap = new HashMap<String,Object>();
+
+        // TODO-13012 don't hard-code year to fetch
+        Set<Integer> years = new HashSet<Integer>();
+        years.add(2012);
+
+        // SCHOOL DATA
+        dataMap.putAll(getSchoolData(school,years));
+
+        // must be run after school data is fetched
+        if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING) || dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING)) {
+
+            // CITY DATA
+            dataMap.putAll(getCityData(school,years));
+
+            if (isShowStateTestScoreRating(school.getDatabaseState()) ||
+                    isShowStateStudentGrowthRating(school.getDatabaseState())) {
+
+                // STATE DATA
+                dataMap.putAll(getStateData(school,years));
+            }
+        }
+
+        return dataMap;
     }
 
     public Map<String,Object> getSchoolData(School school, Set<Integer> years) {
@@ -361,33 +390,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return dataMap;
     }
 
-        // TODO-13012 not optimized, may need to be rewritten
-    public Map<String,Object> getData(School school) {
-        Map<String,Object> dataMap = new HashMap<String,Object>();
-
-        // TODO-13012 don't hard-code year to fetch
-        Set<Integer> years = new HashSet<Integer>();
-        years.add(2012);
-
-        // SCHOOL DATA
-        dataMap.putAll(getSchoolData(school,years));
-
-        // must be run after school data is fetched
-        if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING) || dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING)) {
-
-            // CITY DATA
-            dataMap.putAll(getCityData(school,years));
-
-            if (isShowStateTestScoreRating(school.getDatabaseState()) ||
-                isShowStateStudentGrowthRating(school.getDatabaseState())) {
-
-                // STATE DATA
-                dataMap.putAll(getStateData(school,years));
-            }
-        }
-
-        return dataMap;
-    }
+    // sample data: used by unit test and controller
 
     public static Map<String,Object> getSampleData() {
         Map<String,Object> dataMap = new HashMap<String,Object>();
