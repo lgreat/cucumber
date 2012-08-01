@@ -203,7 +203,7 @@
                 </div>
 
                 <!-- 5th Row - Default content: Facebook Substitute content: hide row -->
-                <school:profileOverviewSportsArtsMusicTile sportsModel="${sports}"/>
+                <school:profileOverviewFacebookTile faceboolModel="${facebook}" />
             </div>
 
         </c:otherwise>
