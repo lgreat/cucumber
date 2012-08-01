@@ -359,21 +359,11 @@
                 </div></div></div>
     <script type="text/javascript">
         jQuery(document).ready(function() {
-//            console.log(jQuery("#js-bubbleInfo2 .js-trigger").html());
             jQuery("#js-bubbleInfo2  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo2 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});
             jQuery("#js-bubbleInfo3  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo3 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});
             jQuery("#js-bubbleInfo4  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo4 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});
             jQuery("#js-bubbleInfo5  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo5 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});
             jQuery("#js-bubbleInfo6  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo6 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});
-
-//            jQuery("#js-bubbleInfo2  .js-trigger").popover({content:"Hello", placement:'top'});
-
-//              jQuery('#js-bubbleInfo-2').popup({appear:'left',leftPosition:-200,topPosition:-95});
-//            jQuery('#js-bubbleInfo-3').popup({appear:'left',leftPosition:-200,topPosition:-95});
-//            jQuery('#js-bubbleInfo-4').popup({appear:'left',leftPosition:-200,topPosition:-95});
-//            jQuery('#js-bubbleInfo-5').popup({appear:'left',leftPosition:-200,topPosition:-95});
-//            jQuery('#js-bubbleInfo-6').popup({appear:'left',leftPosition:-200,topPosition:1});
-//            jQuery('#js-reviewText').characterCounter({charLimit:1200});
         });
     </script>
 

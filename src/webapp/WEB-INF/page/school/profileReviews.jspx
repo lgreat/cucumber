@@ -13,16 +13,16 @@
         >
 
 <c:set var="stateAbbrev" value="${school.databaseState.abbreviationLowerCase}"/>
-<![CDATA[<script type="text/javascript" src="/res/js/blogTracking/pageTracking.js"></script>]]>
-<![CDATA[<script type="text/javascript" src="/res/js/schoolReviewForm.js"></script>]]>
-<![CDATA[<script type="text/javascript" src="/res/js/parentReviewTabSchoolReviewForm.js"></script>]]>
+<!--<![CDATA[<script type="text/javascript" src="/res/js/blogTracking/pageTracking.js"></script>]]>-->
+<!--<![CDATA[<script type="text/javascript" src="/res/js/schoolReviewForm.js"></script>]]>-->
+<!--<![CDATA[<script type="text/javascript" src="/res/js/parentReviewTabSchoolReviewForm.js"></script>]]>-->
     <div class="alpha grid_16 omega ptl">
     <!--<a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>-->
         <!--Reviews for ${school.name}-->
         <div class="alpha grid_5" id="reviewColumn1">
             <div class="mod standard_1-1">
                 <div class="inner">
-                    <div class="hd pam"><strong>Community Rating</strong></div>
+                    <div class="hd pam medium-strong" id="js-bubbleInformation"><strong>Community Rating</strong><div class="iconx16 i-16-info"><!-- do not collapse --></div> </div>
                     <div class="bd">
             <div id="reviewOverallRating" class="tac">
 
@@ -38,21 +38,20 @@
                 <!-- TODO-10633 -->
                 <c:if test="${not empty ratingsByYear}">
                     <!--<div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-                    <div id="js-bubbleInfo-7">
+                    <div id="js-bubbleInfo7">
                         <div class="js-trigger">
-                            <p class="small bottom">
+                            <a class="small bottom">
                                 Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}
                                 <!--<ratings:stars curSR="${cmd.ratings.count}"/>-->
                                 <!--<span class="sprite i-sparklet">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                            </p>
+                            </a>
                         </div>
 
 
-                        <div class="js-popup dn">
+                        <div class="js-popup">
                             <!--<div id="popup-contents-7" class="box-shadow text3">-->
-                            <div id="popup-contents-7" class="text3">
-                                <span class="arrow-outline-bottom"><!-- do not collapse --></span>
-                                <span class="arrow-bottom"><!-- do not collapse --></span>
+                            <div>
+
                                 <h5 class="text3bold">Community Rating by Year</h5>
                                 <div class="spacer_5"><!-- do not collapse --></div>
 
@@ -93,9 +92,9 @@
 
                 <!-- DONE-10495 - Randall - START subcategory ratings -->
                 <c:set var="aboutTheseRatings">
-                    <div class="spacer_5"><!-- do not collapse --></div>
+
                     <div class="infoBox1 smallText1">
-                        <div id="js-bubbleInfo1-1">
+                        <div id="js-bubbleInfoFirst">
                             <div class="media">
                                 <span class="js-trigger sprite i-info img mrs"><!-- do not collapse --></span>
 
@@ -420,10 +419,12 @@
     </div>
     </div>
 ${aboutTheseRatings}
+
 <script type="text/javascript">
-//    jQuery(function () {
-//        jQuery('#js-bubbleInfo-1').popup({appear:'below',leftPosition:-8,topPosition:8});
-//        jQuery('#js-bubbleInfo-7').popup({appear:'above',leftPosition:-38,topPosition:-120});
-//    });
+    jQuery(document).ready(function() {
+
+        jQuery("#js-bubbleInfo7  .js-trigger").popover({content:jQuery("#js-bubbleInfo7 .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
+        jQuery("#js-bubbleInformation").popover({content: jQuery("#js-bubbleInfoFirst .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
+    });
 </script>
 </jsp:root>
