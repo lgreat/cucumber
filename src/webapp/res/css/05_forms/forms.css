@@ -108,6 +108,31 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 .ral select { margin: 5px; }
 .ie7 .slFormsV1-0 .ral select { margin-top: 0px; }
 
+.slFormsV1-0 .showState {
+    /*position: absolute;*/
+    /*left: 15px;*/
+    color: #06B;
+    font-size:12px;
+}
+
+.slFormsV1-0 select.stateSelect {
+    opacity: 0;
+    filter: alpha(opacity = 0);
+    position: absolute;
+    z-index: 5;
+    border: 0;
+    color: #0066bb;
+    padding: 0;
+    width: 87px;
+    left: 5px;
+    top: 2px;
+}
+.slFormsV1-0 select.stateSelect option {
+    width:60px;
+    padding: 3px 0 3px 8px;
+    border: 0;
+}
+
 .slFormsV1-0 input.text {padding:5px 5px;}
 .slFormsV1-0 input.searchText {padding:5px 5px;}
 .slFormsV1-0 input.text-smaller {padding:2px;}

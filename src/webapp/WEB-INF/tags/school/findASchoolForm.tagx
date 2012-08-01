@@ -70,18 +70,16 @@
                                placeholder="Search by school or district ..."
                                value="${searchString}"/>
                     </div>
-                    <div class="unit size17of100 mts">
+                    <div class="unit size17of100 mts pr">
                         <span class="quiet bottom"> | </span>
                         <span class="showState make-06b"><!-- Do not collapse--></span>
-                        <span style="opacity: 0;">
                         <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
                                              noStateLabel="Select state"
                                              usingLongNames="false"
                                              state="${requestScope.context.state}"
                                              styleClass="stateSelect"
                                              styleId="js-findByNameStateSelect"/>
-                        </span>
-                        <span>&#9662;</span>
+                        <span class="pa" style="left:80px;">&#9662;</span>
                     </div>
                     <div class="unit size20of100 lastUnit">
                         <button class="button-4 searchSubmit" type="submit">Search</button>
