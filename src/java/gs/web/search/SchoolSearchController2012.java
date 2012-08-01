@@ -842,8 +842,6 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         SchoolSearchCommandWithFields commandAndFields = new SchoolSearchCommandWithFields(schoolSearchCommand, fields, nearbySearchInfo);
         commandAndFields.setDistrictDao(_districtDao);
         commandAndFields.setGeoDao(_geoDao);
-        commandAndFields.getLevelCode();
-        commandAndFields.getSchoolTypes();
         return commandAndFields;
     }
 
