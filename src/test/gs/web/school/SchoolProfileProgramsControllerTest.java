@@ -84,14 +84,14 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         assertEquals("testAllDataReturned: Expected number of results is wrong", expected_count, actual_count);
 
         // This is also a good place to perform some basic tests on the DISPLAY structure returned by the controller
-        // Both the "highlights" and "highlightsMap" should have information for 2 sections
+        // "highlights" (which is titles) should have one entry since only 1 section will be shown. "highlightsMap" should have information for 2 sections
         List<SchoolProfileDisplayBean> highlightsDisplay = (List<SchoolProfileDisplayBean>) map.get("highlights");
         int actualHightlightsCount =     highlightsDisplay.size();
-        assertEquals( "testAllDataReturned: Wrong number of display sections", 2, actualHightlightsCount);
+        assertEquals( "testAllDataReturned: Wrong number of display sections", 1, actualHightlightsCount);
 
         // This should have one entry for "Language" and that entry should be a list of 2 items for "staff_language" and "immersion_language"
         Map<String, List<SchoolProfileDisplayBean>> highlightsDisplayMap = (Map<String, List<SchoolProfileDisplayBean>>) map.get("highlightsMap");
-        assertEquals( "testAllDataReturned: Wrong number of display map entries", 2, highlightsDisplayMap.size());
+        assertEquals( "testAllDataReturned: Wrong number of display map entries", 1, highlightsDisplayMap.size());
         List<SchoolProfileDisplayBean> highlightsDisplayRowsForLanguage = highlightsDisplayMap.get( "Language" );
         assertEquals( "testAllDataReturned: Wrong number of display map entries for \"Language\"", 2, highlightsDisplayRowsForLanguage.size());
     }

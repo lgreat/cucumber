@@ -397,6 +397,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     protected Map<CensusDataType, List<CensusDataSet>> getSchoolCensusValues(HttpServletRequest request) {
         // CensusDataSet ID --> CensusDataSet
         Map<Integer, CensusDataSet> censusDataSets = _schoolProfileCensusHelper.getCensusDataSets(request);
+        CensusDataHolder cdh = _schoolProfileCensusHelper.getGroupedCensusDataSets(request);
 
         // CensusDataSet ID --> CensusDataSet
         Map<Integer, CensusDataSet> censusDataSetMap = _schoolProfileCensusHelper.getCensusDataSetsWithSchoolData(request);

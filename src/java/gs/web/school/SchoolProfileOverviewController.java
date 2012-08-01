@@ -215,7 +215,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     }
 
-    private Map getGsRatingsEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map getGsRatingsEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         // Try default
         Map<String, Object> model = getGsRatingsModel( request, school );
@@ -426,7 +426,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
 
-    private Map getVideoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map getVideoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -444,7 +444,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    private Map getTourVideoModel(HttpServletRequest request, School school) {
+    Map getTourVideoModel(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -524,8 +524,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         // Default action
         boolean defaultDisplay = false;
-        Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
-        if( censusValues!=null ) {
+        Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);        if( censusValues!=null ) {
             List<CensusDataSet> ethnicities = censusValues.get( CensusDataType.STUDENTS_ETHNICITY );
             if( isNotEmpty( ethnicities) ) {
                 try {
@@ -754,7 +753,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return specialEdModel;
     }
 
-    private Map getTransportationEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map getTransportationEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -890,7 +889,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return null;  // No value in results
     }
 
-    private Map getProgramsEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map getProgramsEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -1017,7 +1016,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    private Map getApplInfoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map getApplInfoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -1145,7 +1144,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     }
 
-    private Map getLocalInfoEspTile(HttpServletRequest request, School school) {
+    Map getLocalInfoEspTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -1241,7 +1240,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    private Map<String, Object> getSportsArtsMusicEspTile(Map<String, List<EspResponse>> espData) {
+    Map<String, Object> getSportsArtsMusicEspTile(Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> sportsModel = new HashMap<String, Object>(4);
         // Sports
@@ -1351,7 +1350,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return;
     }
 
-    private Map getSchoolVisitChecklistTile(HttpServletRequest request, School school) {
+    Map getSchoolVisitChecklistTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(1);
 

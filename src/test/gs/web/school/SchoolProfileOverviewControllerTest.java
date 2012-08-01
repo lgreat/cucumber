@@ -16,6 +16,7 @@ import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
 import gs.web.BaseControllerTestCase;
 import gs.web.request.RequestAttributeHelper;
+import gs.web.util.FixedNameController;
 import gs.web.util.SpringUtil;
 import org.springframework.ui.ModelMap;
 
@@ -62,8 +63,6 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         // Setup CmsFeature for testing
         _cmsFeatureDao = createStrictMock( CmsFeatureDao.class );
         _cmsFeature = createStrictMock( CmsFeature.class );
-
-
         _schoolProfileOverviewController.setCmsFeatureDao( _cmsFeatureDao );
 
         _publicationDaoMock = createStrictMock(IPublicationDao.class);
@@ -84,15 +83,15 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
     // ================== Tests for GSRatings tile =================
     // Test w/ 1 academic award.  Expect one back
-    public void old_testGsRatingsSubstitute1A() {
+    public void testGsRatingsSubstitute1A() {
 
         // Data the controller needs to load for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add(createEspResponse("academic_award_1", "Award 1"));
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
         String content = (String) resultsModel.get("content");
         assertEquals("testGsRatingsSubstitute1A: content wrong", "awards", content);
         List<String> awards = (List<String>) resultsModel.get( "awards" );
@@ -101,17 +100,17 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Test w/ 1 academic award 1 service award.  Expect two back
-    public void old_testGsRatingsSubstitute1B() {
+    public void testGsRatingsSubstitute1B() {
 
         // Data the controller needs to load for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
         // Need to add something that is not Sorts/Arts/Music related just so the NonEsp route is not taken
         l.add(createEspResponse("academic_award_1", "Award 1"));
         l.add(createEspResponse("service_award_1", "Service 1"));
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
         String content = (String) resultsModel.get("content");
         assertEquals("testGsRatingsSubstitute1B: content wrong", "awards", content);
         List<String> awards = (List<String>) resultsModel.get( "awards" );
@@ -121,7 +120,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Test w/ 4 awards.  Expect only 3 back because that is the max number per the spec
-    public void old_testGsRatingsSubstitute1C() {
+    public void testGsRatingsSubstitute1C() {
 
         // Data the controller needs to load for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
@@ -130,10 +129,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add(createEspResponse("academic_award_2", "Award 2"));
         l.add(createEspResponse("service_award_1", "Service 1"));
         l.add(createEspResponse("service_award_2", "Service 2"));
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
         String content = (String) resultsModel.get("content");
         assertEquals("testGsRatingsSubstitute1C: content wrong", "awards", content);
         List<String> awards = (List<String>) resultsModel.get( "awards" );
@@ -144,11 +143,12 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Test Substitute 2 - Test complete sentence building
-    public void XtestGsRatingsSubstitute2A() {
+    public void testSchoolAutotextA() {
 
         // No data is needed for this test but use the following as it is not needed for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add(createEspResponse("XXX", "yyy"));
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         // This path need school data
         _school.setName("Test school");
@@ -161,27 +161,24 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setAssociation("NCEA, CEC, NAEYC");
         _school.setAffiliation( "Roman Catholic" );
 
-        _cmsVideoContentId = 6857;  // This is contentId for elementary school video
-
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
+        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
         String content = (String) resultsModel.get("content");
-        assertEquals("testGsRatingsSubstitute2A: content wrong", "schoolAutotext", content);
+        assertEquals("testSchoolAutotextA: content wrong", "schoolAutotext", content);
         String autotext = (String) resultsModel.get( "autotext" );
-        System.out.println( "testGsRatingsSubstitute2A: autotext is " + autotext );
-        assertTrue("testGsRatingsSubstitute2A: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
-        assertTrue("testGsRatingsSubstitute2A: ending autotext wrong: " + autotext, autotext.endsWith("The school belongs to the following associations: NCEA, CEC, NAEYC."));
-        assertTrue("testGsRatingsSubstitute2A: ending autotext wrong: " + autotext, autotext.indexOf("in grades") > 0);
-        assertTrue("testGsRatingsSubstitute2A: middle autotext wrong: " + autotext, autotext.indexOf("It is all male") > 0);
+        System.out.println( "testSchoolAutotextA: autotext is " + autotext );
+        assertTrue("testSchoolAutotextA: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
+        assertTrue("testSchoolAutotextA: ending autotext wrong: " + autotext, autotext.endsWith("The school belongs to the following associations: NCEA, CEC, NAEYC."));
+        assertTrue("testSchoolAutotextA: ending autotext wrong: " + autotext, autotext.indexOf("in grades") > 0);
+        assertTrue("testSchoolAutotextA: middle autotext wrong: " + autotext, autotext.indexOf("It is all male") > 0);
     }
 
     // Test Substitute 2 - No associations, no affiliations and only all_male
-    public void XtestGsRatingsSubstitute2B() {
+    public void testSchoolAutotextB() {
 
         // No data is needed for this test but use the following as it is not needed for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add(createEspResponse("XXX", "yyy"));
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         // This path need school data
         _school.setName("Test school");
@@ -190,28 +187,26 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY);
         SchoolSubtype subType = SchoolSubtype.create("all_male");
         _school.setSubtype(subType);
-        _school.setGradeLevels(new Grades("PK,KG,1,2,3,4,5,6"));
+        _school.setGradeLevels(new Grades("PK"));
 
-        _cmsVideoContentId = 6857;  // This is contentId for elementary school video
-
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
+        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
         String content = (String) resultsModel.get("content");
-        assertEquals("testGsRatingsSubstitute2B: content wrong", "schoolAutotext", content);
+        assertEquals("testSchoolAutotextB: content wrong", "schoolAutotext", content);
         String autotext = (String) resultsModel.get( "autotext" );
-        System.out.println("testGsRatingsSubstitute2B: autotext is " + autotext);
-        assertTrue("testGsRatingsSubstitute2B: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
-        assertTrue("testGsRatingsSubstitute2B: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
-        assertTrue("testGsRatingsSubstitute2B: middle autotext wrong: " + autotext, autotext.indexOf("It is all male") > 0);
+        System.out.println("testSchoolAutotextB: autotext is " + autotext);
+        assertTrue("testSchoolAutotextB: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
+        assertTrue("testSchoolAutotextB: grades autotext wrong: " + autotext, autotext.indexOf("in grade ") > 0);
+        assertTrue("testSchoolAutotextB: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
+        assertTrue("testSchoolAutotextB: middle autotext wrong: " + autotext, autotext.indexOf("It is all male") > 0);
     }
 
     // Test Substitute 2 - No associations, no affiliations and no subtypes
-    public void XtestGsRatingsSubstitute2C() {
+    public void testSchoolAutotextC() {
 
         // No data is needed for this test but use the following as it is not needed for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add(createEspResponse("XXX", "yyy"));
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         // This path need school data
         _school.setName("Test school");
@@ -220,26 +215,24 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
         _school.setGradeLevels(new Grades("PK,KG,1,2,3,4,5,6"));
 
-        _cmsVideoContentId = 6857;  // This is contentId for elementary school video
-
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
+        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
         String content = (String) resultsModel.get("content");
-        assertEquals("testGsRatingsSubstitute2C: content wrong", "schoolAutotext", content);
+        assertEquals("testSchoolAutotextC: content wrong", "schoolAutotext", content);
         String autotext = (String) resultsModel.get( "autotext" );
-        System.out.println("testGsRatingsSubstitute2C: autotext is " + autotext);
-        assertTrue("testGsRatingsSubstitute2C: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
-        assertTrue("testGsRatingsSubstitute2C: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
-        assertTrue("testGsRatingsSubstitute2C: middle autotext wrong: " + autotext, autotext.indexOf("It is ") == -1);
+        System.out.println("testSchoolAutotextC: autotext is " + autotext);
+        assertTrue("testSchoolAutotextC: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
+        assertTrue("testSchoolAutotextC: grades autotext wrong: " + autotext, autotext.indexOf("in grades ") > 0);
+        assertTrue("testSchoolAutotextC: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
+        assertTrue("testSchoolAutotextC: middle autotext wrong: " + autotext, autotext.indexOf("It is ") == -1);
     }
 
     // Test Substitute 2 - No associations, no affiliations and no subtypes and grade AE
-    public void XtestGsRatingsSubstitute2D() {
+    public void testSchoolAutotextD() {
 
         // No data is needed for this test but use the following as it is not needed for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add(createEspResponse("XXX", "yyy"));
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         // This path need school data
         _school.setName( "Test school" );
@@ -248,26 +241,24 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
         _school.setGradeLevels(new Grades("AE"));
 
-        _cmsVideoContentId = 6857;  // This is contentId for elementary school video
+        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
 
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
         String content = (String) resultsModel.get("content");
-        assertEquals("testGsRatingsSubstitute2E: content wrong", "schoolAutotext", content);
+        assertEquals("testSchoolAutotextD: content wrong", "schoolAutotext", content);
         String autotext = (String) resultsModel.get( "autotext" );
-        System.out.println("testGsRatingsSubstitute2D: autotext is " + autotext);
-        assertTrue("testGsRatingsSubstitute2D: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
-        assertTrue("testGsRatingsSubstitute2D: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
-        assertTrue("testGsRatingsSubstitute2D: middle autotext wrong: " + autotext, autotext.indexOf("It is ") == -1);
+        System.out.println("testSchoolAutotextD: autotext is " + autotext);
+        assertTrue("testSchoolAutotextD: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
+        assertTrue("testSchoolAutotextD: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
+        assertTrue("testSchoolAutotextD: middle autotext wrong: " + autotext, autotext.indexOf("It is ") == -1);
     }
 
     // Test Substitute 2 - No associations, no affiliations and no subtypes and ungraded
-    public void XtestGsRatingsSubstitute2E() {
+    public void testSchoolAutotextE() {
 
         // No data is needed for this test but use the following as it is not needed for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add(createEspResponse("XXX", "yyy"));
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         // This path need school data
         _school.setName("Test school");
@@ -277,37 +268,33 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Grades grades = Grades.createGrades(Grade.UNGRADED);
         _school.setGradeLevels(grades);
 
-        _cmsVideoContentId = 6857;  // This is contentId for elementary school video
-
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("ratings");
+        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
         String content = (String) resultsModel.get("content");
-        assertEquals("testGsRatingsSubstitute2E: content wrong", "schoolAutotext", content);
+        assertEquals("testSchoolAutotextE: content wrong", "schoolAutotext", content);
         String autotext = (String) resultsModel.get( "autotext" );
-        System.out.println( "testGsRatingsSubstitute2E: autotext is " + autotext );
-        assertTrue("testGsRatingsSubstitute2E: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
-        assertTrue("testGsRatingsSubstitute2E: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
-        assertTrue( "testGsRatingsSubstitute2E: ungraded autotext wrong: " + autotext, autotext.indexOf( "ungraded")!=-1 );
+        System.out.println( "testSchoolAutotextE: autotext is " + autotext );
+        assertTrue("testSchoolAutotextE: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
+        assertTrue("testSchoolAutotextE: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
+        assertTrue( "testGsRatingsSchoolAutotextSubstitute2E: ungraded autotext wrong: " + autotext, autotext.indexOf( "ungraded")!=-1 );
     }
 
     // Tests for no Sports/Arts/Music data
-    public void old_testSportsArtsMusicNoData() {
+    public void testSportsArtsMusicNoData() {
 
         // Data the controller needs to load for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
         // Need to add something that is not Sorts/Arts/Music related just so the NonEsp route is not taken
         l.add(createEspResponse("staff_languages", "arabic"));
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("sports");
-        String result = (String) resultsModel.get("SportsArtsMusic");
+        String result = (String) resultsModel.get("content");
         assertEquals("testSportsArtsMusicNoData: expected no results", "Hide", result);
     }
 
     // Tests for Sports/Arts/Music data
-    public void old_testSportsArtsMusicSports() {
+    public void testSportsArtsMusicSports() {
 
         // Data the controller needs to load for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
@@ -315,10 +302,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add(createEspResponse("boys_sports", "football"));
         l.add( createEspResponse( "boys_sports", "baseball" ) );
         l.add( createEspResponse( "girls_sports", "none" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("sports");
         List<String> boysSports = (List<String>) resultsModel.get("boys_sports");
         List<String> girlsSports = (List<String>) resultsModel.get("girls_sports");
 
@@ -329,20 +316,20 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests that a list is truncated
-    public void old_testListTruncation() {
+    public void testSportsArtsMusicListTruncation() {
 
         // Data the controller needs to load for this test
         List<EspResponse> l = new ArrayList<EspResponse>();
         // Need to add something that is not Sorts/Arts/Music related just so the NonEsp route is not taken
-        l.add(createEspResponse("boys_sports", "football"));
+        l.add( createEspResponse( "boys_sports", "football"));
         l.add( createEspResponse( "boys_sports", "baseball" ) );
         l.add( createEspResponse( "boys_sports", "basketball" ) );
         l.add( createEspResponse( "boys_sports", "soccer" ) );
         l.add( createEspResponse( "boys_sports", "track" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("sports");
         List<String> boysSports = (List<String>) resultsModel.get("boys_sports");
 
         assertEquals("testListTruncation: expected list length is wrong", 4, boysSports.size());
@@ -351,131 +338,102 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
     // =========== Tests for Tile 3 - school video ====================
     // Tests the default action of returning the url of the video
-    public void old_testVideoDefaultA() {
+    public void testVideoDefaultA() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         String url = "http://www.youtube.com/watch?v=eImToAYIq7o";
         l.add( createEspResponse( "school_video", url ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+//        Map map = runController( convertToEspData( l ) );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("video");
+        Map resultsModel = _schoolProfileOverviewController.getVideoEspTile(_request, _school, espData);
+//        Map<String, Object> resultsModel = (Map<String, Object>) map.get("video");
         assertEquals( "testVideoDefaultA: content wrong", "video", resultsModel.get("content") );
         assertEquals( "testVideoDefaultA: url wrong", url, resultsModel.get("videoUrl") );
         System.out.println("testVideoDefaultA successful");
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void old_testVideoSubstituteA() {
-
-        List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "something", "doesnt matter what" ) );
+    public void testSchoolTourVideoA() {
 
         // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
-        _cmsVideoContentId = 6857;  // This is contentId for elementary school video
+        int cmsVideoContentId = 6857;  // This is contentId for elementary school video
 
-        Map map = runController( convertToEspData( l ) );
+        Map<String, String> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
-        Map<String, String> resultsModel = (Map<String, String>) map.get("video");
-        assertEquals( "testVideoSubstituteA: content wrong", "schoolTourVideo", resultsModel.get("content") );
-        assertEquals( "testVideoSubstituteA: school level wrong", "e", resultsModel.get("schoolLevel") );
-        assertTrue( "testVideoSubstituteA: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
-        System.out.println("testVideoSubstituteA successful");
+        assertEquals( "testSchoolTourVideoA: content wrong", "schoolTourVideo", resultsModel.get("content") );
+        assertEquals( "testSchoolTourVideoA: school level wrong", "e", resultsModel.get("schoolLevel") );
+        assertTrue( "testSchoolTourVideoA: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        System.out.println("testSchoolTourVideoA successful");
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void old_testVideoSubstituteB() {
+    public void testSchoolTourVideoB() {
 
-        List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "something", "doesnt matter what" ) );
-
-        // Set the school level since that controls which CMS video will be choosen
+        // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.HIGH);
-        _cmsVideoContentId = 6855;  // This is contentId for high school video
+        int cmsVideoContentId = 6855;  // This is contentId for high school video
 
-        Map map = runController( convertToEspData( l ) );
+        Map<String, String> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
-        Map<String, String> resultsModel = (Map<String, String>) map.get("video");
-        assertEquals( "testVideoSubstituteB: content wrong", "schoolTourVideo", resultsModel.get("content") );
-        assertEquals( "testVideoSubstituteB: school level wrong", "h", resultsModel.get("schoolLevel") );
-        assertTrue( "testVideoSubstituteB: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
-        System.out.println("testVideoSubstituteB successful");
+        assertEquals( "testSchoolTourVideoB: content wrong", "schoolTourVideo", resultsModel.get("content") );
+        assertEquals( "testSchoolTourVideoB: school level wrong", "h", resultsModel.get("schoolLevel") );
+        assertTrue( "testSchoolTourVideoB: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        System.out.println("testSchoolTourVideoB successful");
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void old_testVideoSubstituteC() {
+    public void testSchoolTourVideoC() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "something", "doesnt matter what" ) );
 
         // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.PRESCHOOL);
-        _cmsVideoContentId = 6857;  // This is contentId for elementary school video
+        int cmsVideoContentId = 6857;  // This is contentId for elementary school video
 
-        Map map = runController( convertToEspData( l ) );
+        Map<String, String> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
-        Map<String, String> resultsModel = (Map<String, String>) map.get("video");
-        assertEquals( "testVideoSubstituteC: content wrong", "schoolTourVideo", resultsModel.get("content") );
-        assertEquals( "testVideoSubstituteC: school level wrong", "e", resultsModel.get("schoolLevel") );
-        assertTrue( "testVideoSubstituteC: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
-        System.out.println("testVideoSubstituteC successful");
+        assertEquals( "testSchoolTourVideoC: content wrong", "schoolTourVideo", resultsModel.get("content") );
+        assertEquals( "testSchoolTourVideoC: school level wrong", "e", resultsModel.get("schoolLevel") );
+        assertTrue( "testSchoolTourVideoC: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        System.out.println("testSchoolTourVideoC successful");
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void old_testVideoSubstituteD() {
-
-        List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "something", "doesnt matter what" ) );
+    public void testSchoolTourVideoD() {
 
         // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.MIDDLE_HIGH);
-        _cmsVideoContentId = 6856;  // This is contentId for middle school video
+        int cmsVideoContentId = 6856;  // This is contentId for middle school video
 
-        Map map = runController( convertToEspData( l ) );
+        Map<String, String> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
-        Map<String, String> resultsModel = (Map<String, String>) map.get("video");
-        assertEquals( "testVideoSubstituteD: content wrong", "schoolTourVideo", resultsModel.get("content") );
-        assertEquals( "testVideoSubstituteD: school level wrong", "m", resultsModel.get("schoolLevel") );
-        assertTrue( "testVideoSubstituteD: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
-        System.out.println("testVideoSubstituteD successful");
+        assertEquals( "testSchoolTourVideoD: content wrong", "schoolTourVideo", resultsModel.get("content") );
+        assertEquals( "testSchoolTourVideoD: school level wrong", "m", resultsModel.get("schoolLevel") );
+        assertTrue( "testSchoolTourVideoD: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        System.out.println("testSchoolTourVideoD successful");
     }
 
     // =========== Tests for Tile 8 - Spec Ed / Extended care ====================
     // Tests the Special Education substitute display is selected
-    public void old_testSpecEd1() {
+    public void testSpecEd1() {
 
         // *** Test Default content not selected
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "immersion", "yes" ) );  // There has to be something in the EspResponse list or the non-ESP path runs
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
+        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
         assertFalse( "testSpecEd1: Substitute content expected", resultsModel.get("content").equals("default") );
         System.out.println("testSpecEd1 successful");
     }
 
     // Tests the Special Education Default with display option a is selected
-    public void Old_testSpecEdA() {
-
-        // *** Test Default content not selected
-        List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "special_ed_programs_exists", "yes" ) );  // This should trigger default display
-        l.add( createEspResponse( "special_ed_programs", "blindness" ) );  // This should trigger default display
-
-
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
-        List<String> specEdPgms = (List<String>) resultsModel.get("SpecEdPgms");
-        assertTrue("testSpecEdA: expected list of spec ed pgms", specEdPgms.size() > 0);
-        assertEquals("testSpecEdA: wrong option", "a", resultsModel.get("SpecEdPgmsOptSelected"));
-        System.out.println("testSpecEdA successful");
-    }
-
-    public void new_testSpecEdA() {
+    public void testSpecEdA() {
 
         // *** Test Default content not selected
         List<EspResponse> l = new ArrayList<EspResponse>();
@@ -492,7 +450,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the Special Education Default with display option b is selected
-    public void new_testSpecEdB() {
+    public void testSpecEdB() {
 
         // *** Test Default content not selected
         List<EspResponse> l = new ArrayList<EspResponse>();
@@ -740,7 +698,6 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         _school.setLevelCode( LevelCode.MIDDLE);
-        _cmsVideoContentId = 6856;  // This is contentId for middle school video
 
         Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
@@ -749,55 +706,51 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the Extended care Title
-    public void XtestExtdCareTitleB() {
+    public void testExtdCareTitleB() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "before_after_care", "before" ) );
         l.add( createEspResponse( "before_after_care", "after" ) );
         l.add( createEspResponse( "before_after_care_start", "7:00 AM" ) );
         l.add( createEspResponse( "before_after_care_end", "4:00 PM" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         _school.setLevelCode( LevelCode.HIGH);
-        _cmsVideoContentId = 6855;  // This is contentId for high school video
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
         assertEquals( "testExtdCareTitleB: default content expected", "Extended programs", resultsModel.get( "ExtdCareTitle") );
         System.out.println( "testExtdCareTitleB successful" );
     }
 
     // Tests the Extended care Title
-    public void XtestExtdCareTitleC() {
+    public void testExtdCareTitleC() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "before_after_care", "before" ) );
         l.add( createEspResponse( "before_after_care", "after" ) );
         l.add( createEspResponse( "before_after_care_start", "7:00 AM" ) );
         l.add( createEspResponse( "before_after_care_end", "4:00 PM" ) );
-
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         _school.setLevelCode(LevelCode.MIDDLE_HIGH);
-        _cmsVideoContentId = 6856;  // This is contentId for middle school video
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
         assertEquals( "testExtdCareTitleC: default content expected", "Extended programs", resultsModel.get( "ExtdCareTitle") );
         System.out.println( "testExtdCareTitleC successful" );
     }
 
     // Tests the Special Education substitute (Teachers/staff) - no administrator
-    public void old_testSpecEdSubstitute1A() {
+    public void testSpecEdSubstitute1A() {
 
         // *** Test Default content not selected
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "staff_resources", "art_teacher" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
+        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
         String sentence = (String) resultsModel.get("teachersStaff");
         assertTrue( "testSpecEdSubstitute1A: Substitute content expected content not found", sentence.indexOf("Art teacher")>0 );
         assertTrue( "testSpecEdSubstitute1A: Substitute content expected content not found", sentence.indexOf("Staff includes")==0 );
@@ -805,17 +758,16 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the Special Education substitute (Teachers/staff) - no administrator, multiple staff_resources
-    public void old_testSpecEdSubstitute1B() {
+    public void testSpecEdSubstitute1B() {
 
         // *** Test Default content not selected
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "staff_resources", "art_teacher" ) );
         l.add( createEspResponse( "staff_resources", "computer_specialist" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
+        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
         String sentence = (String) resultsModel.get("teachersStaff");
         assertTrue( "testSpecEdSubstitute1B: Substitute content expected content not found", sentence.indexOf("Art teacher")>0 );
         assertTrue( "testSpecEdSubstitute1B: Substitute content expected content not found", sentence.indexOf("Computer specialist")>0 );
@@ -824,17 +776,16 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the Special Education substitute (Teachers/staff) - administrator and 'none' staff_resources
-    public void old_testSpecEdSubstitute1C() {
+    public void testSpecEdSubstitute1C() {
 
         // *** Test Default content not selected
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "administrator_name", "Ben Jones" ) );
         l.add( createEspResponse( "staff_resources", "none" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
+        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
         String sentence = (String) resultsModel.get("teachersStaff");
         assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf("Ben Jones")==0 );
         assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf("Staff includes")==-1 );
@@ -842,7 +793,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the Special Education substitute (Teachers/staff) - no administrator
-    public void old_testSpecEdSubstitute1D() {
+    public void testSpecEdSubstitute1D() {
 
         // *** Test Default content not selected
         List<EspResponse> l = new ArrayList<EspResponse>();
@@ -850,11 +801,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "staff_resources", "art_teacher" ) );
         l.add( createEspResponse( "staff_resources", "ell_esl_coord" ) );
         l.add( createEspResponse( "staff_resources", "gifted_specialist" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
+        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
         String sentence = (String) resultsModel.get("teachersStaff");
         assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf("Ben Jones")==0 );
         assertTrue( "testSpecEdSubstitute1D: Substitute content expected content not found", sentence.indexOf("Art teacher")>0 );
@@ -864,129 +814,129 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
     // ========= Tests for Transportation default content ========
     // Test option a
-    public void old_testTransportationDefaultA() {
+    public void testTransportationDefaultA() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "transportation_shuttle", "yes" ) );
         l.add( createEspResponse( "transportation_shuttle_other", "a, b, c" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("transportation");
         assertEquals( "testTransportationDefaultA: icon wrong", "metro", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultA: shuttleStops wrong", "A, b, c", resultsModel.get( "shuttleStops") );
         System.out.println( "testTransportationDefaultA successful" );
     }
 
     // Test option b
-    public void old_testTransportationDefaultB() {
+    public void testTransportationDefaultB() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "transportation_shuttle", "yes" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("transportation");
         assertEquals( "testTransportationDefaultB: icon wrong", "metro", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultB: shuttleStops wrong", "Shuttles are provide to local Metro stops", resultsModel.get( "transMsg") );
         System.out.println( "testTransportationDefaultB successful" );
     }
 
     // Test option c
-    public void old_testTransportationDefaultC() {
+    public void testTransportationDefaultC() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "transportation_shuttle", "no" ) );
         l.add( createEspResponse( "transportation_shuttle_other", "a, b, c" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("transportation");
         assertEquals( "testTransportationDefaultC: icon wrong", "walking", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultC: shuttleStops wrong", "No transportation provided", resultsModel.get( "transMsg") );
         System.out.println( "testTransportationDefaultC successful" );
     }
 
     // Test option d
-    public void old_testTransportationDefaultD() {
+    public void testTransportationDefaultD() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "transportation", "passes" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("transportation");
         assertEquals( "testTransportationDefaultD: icon wrong", "passes", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultD: message wrong", "Passes/tokens for public transportation", resultsModel.get( "transMsg") );
         System.out.println( "testTransportationDefaultD successful" );
     }
 
     // Test option e
-    public void old_testTransportationDefaultE() {
+    public void testTransportationDefaultE() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "transportation", "special_ed_only" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("transportation");
         assertEquals( "testTransportationDefaultE: icon wrong", "handicapped", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultE: message wrong", "Transportation provided for special education students only", resultsModel.get( "transMsg") );
         System.out.println( "testTransportationDefaultE successful" );
     }
 
     // Test option f
-    public void old_testTransportationDefaultF() {
+    public void testTransportationDefaultF() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "transportation", "busses" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("transportation");
         assertEquals( "testTransportationDefaultF: icon wrong", "bus", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultF: message wrong", "Busses/vans for our students only", resultsModel.get( "transMsg") );
         System.out.println( "testTransportationDefaultF successful" );
     }
 
     // Test option g
-    public void old_testTransportationDefaultG() {
+    public void testTransportationDefaultG() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "transportation", "shared_bus" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("transportation");
         assertEquals( "testTransportationDefaultG: icon wrong", "bus", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultG: message wrong", "School shares bus/van with other schools", resultsModel.get( "transMsg") );
         System.out.println( "testTransportationDefaultG successful" );
     }
 
     // Test option h
-    public void old_testTransportationDefaultH() {
+    public void testTransportationDefaultH() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "transportation", "none" ) );
         l.add( createEspResponse( "transportation_other", "skateboard" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("transportation");
         assertEquals( "testTransportationDefaultH: icon wrong", "walking", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultH: message wrong", "Other transportation provided", resultsModel.get( "transMsg") );
         System.out.println( "testTransportationDefaultH successful" );
     }
 
     // Test option i
-    public void old_testTransportationDefaultI() {
+    public void testTransportationDefaultI() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "transportation", "none" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("transportation");
         assertEquals( "testTransportationDefaultI: icon wrong", "walking", resultsModel.get( "icon") );
         assertEquals( "testTransportationDefaultI: message wrong", "No transportation provided", resultsModel.get( "transMsg") );
         System.out.println( "testTransportationDefaultI successful" );
@@ -995,7 +945,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
 
     // Tests for Transportation substitute1 content
-    public void old_testTransportSubstitute1A() {
+    public void XtestTransportSubstitute1A() {
 
         // TODO - come back to this after Samson has enhanced the SchoolProfileDataHelper class
 
@@ -1009,13 +959,13 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "before_after_care", "after" ) );
         l.add( createEspResponse( "before_after_care_start", "7:00 AM" ) );
         l.add( createEspResponse( "before_after_care_end", "4:00 PM" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
+
+        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
 
         _school.setLevelCode( LevelCode.MIDDLE_HIGH);
 
-        Map map = runController( convertToEspData( l ) );
-
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("specialEd");
         assertEquals( "testExtdCareTitleC: default content expected", "Extended programs", resultsModel.get( "ExtdCareTitle") );
         System.out.println( "testExtdCareTitleC successful" );
         */
@@ -1023,32 +973,32 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
     // ============= Tests for Programs Tile ===============
     // immersion no, instructional model none, academic focus none
-    public void old_testProgramsDefaultA() {
+    public void testProgramsDefaultA() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "immersion", "no" ) );
         l.add( createEspResponse( "instructional_model", "none" ) );
         l.add( createEspResponse( "academic_focus", "none" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getProgramsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("programs");
         List<String> resultsList = (List<String>) resultsModel.get( "resultsList" );
         assertNull( "testProgramsDefaultA: expected no results", resultsList );
         System.out.println( "testProgramsDefaultA successful" );
     }
 
     // immersion yes but no languages, instructional model one value, academic focus one value
-    public void old_testProgramsDefaultB() {
+    public void testProgramsDefaultB() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "immersion", "yes" ) );
         l.add( createEspResponse( "instructional_model", "honors" ) );
         l.add( createEspResponse( "academic_focus", "science" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getProgramsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("programs");
         List<String> resultsList = (List<String>) resultsModel.get( "resultsList" );
         assertEquals("testProgramsDefaultB: immersion wrong", "Language immersion", resultsList.get(0));
         assertEquals("testProgramsDefaultB: instructional_model wrong", "Honors", resultsList.get(1));
@@ -1057,7 +1007,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // immersion yes with languages, instructional model two values, academic focus two values
-    public void old_testProgramsDefaultC() {
+    public void testProgramsDefaultC() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "immersion", "yes" ) );
@@ -1066,10 +1016,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "instructional_model", "independent_study" ) );
         l.add( createEspResponse( "academic_focus", "technology" ) );
         l.add( createEspResponse( "academic_focus", "science" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getProgramsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("programs");
         List<String> resultsList = (List<String>) resultsModel.get( "resultsList" );
         assertEquals("testProgramsDefaultC: immersion wrong", "Chinese immersion", resultsList.get(0));
         assertEquals("testProgramsDefaultC: instructional_model wrong", "Honors, Independent study", resultsList.get(1));
@@ -1078,7 +1028,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // immersion yes with language_other, instructional model two values + other, academic focus two values and other
-    public void old_testProgramsDefaultD() {
+    public void testProgramsDefaultD() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "immersion", "yes" ) );
@@ -1090,10 +1040,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "academic_focus", "technology" ) );
         l.add( createEspResponse( "academic_focus", "science" ) );
         l.add( createEspResponse( "academic_focus_other", "something else" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getProgramsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("programs");
         List<String> resultsList = (List<String>) resultsModel.get( "resultsList" );
         assertEquals("testProgramsDefaultD: immersion wrong", "Language immersion", resultsList.get(0));
         assertEquals("testProgramsDefaultD: instructional_model wrong", "Honors, Independent study, Basket weaving", resultsList.get(1));
@@ -1102,17 +1052,17 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // immersion yes with language_other, instructional model two values + other, academic focus two values and other
-    public void old_testProgramsDefaultE() {
+    public void testProgramsDefaultE() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "immersion", "yes" ) );
         l.add( createEspResponse( "immersion_language_other", "vietnamese" ) );
         l.add( createEspResponse( "instructional_model_other", "basket weaving" ) );
         l.add( createEspResponse( "academic_focus_other", "something else" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getProgramsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("programs");
         List<String> resultsList = (List<String>) resultsModel.get( "resultsList" );
         assertEquals("testProgramsDefaultE: immersion wrong", "Language immersion", resultsList.get(0));
         assertEquals("testProgramsDefaultE: instructional_model wrong", "Basket weaving", resultsList.get(1));
@@ -1121,28 +1071,28 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Substitute 1 with parent_involvement = 'none'
-    public void old_testProgramsSubstitute1A() {
+    public void testProgramsSubstitute1A() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "parent_involvement", "none" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getProgramsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("programs");
         assertEquals("testProgramsSubstitute1A: wrong", "true", resultsModel.get("substitute1None"));
         System.out.println( "testProgramsSubstitute1A successful" );
     }
 
     // Substitute 1 with parent_involvement of 2 values
-    public void old_testProgramsSubstitute1B() {
+    public void testProgramsSubstitute1B() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "parent_involvement", "parent_nights_req" ) );
         l.add( createEspResponse( "parent_involvement", "chaperone_req" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getProgramsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("programs");
         List<String> results = (List<String>) resultsModel.get( "substitute1List" );
         assertEquals( "testProgramsSubstitute1B: wrong", 2, results.size() );
         assertEquals( "testProgramsSubstitute1B: wrong", "Chaperone req", results.get(0) );
@@ -1151,19 +1101,19 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Substitute 1 with parent_involvement = 'none'
-    public void old_testProgramsSubstitute2A() {
+    public void testProgramsSubstitute2A() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "parent_involvementXXX", "none" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         SchoolSubtype subType = SchoolSubtype.create("high, magnet, all_male");
         _school.setSubtype(subType);
         _school.setAssociation( "NCEA" );
         _school.setAffiliation( "Roman Catholic" );
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getProgramsEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("programs");
         assertEquals("testProgramsSubstitute2A: wrong content value", "substitute2", resultsModel.get("content"));
         List<String> values = (List<String>) resultsModel.get( "substitute2List" );
         assertEquals("testProgramsSubstitute2A: wrong size", 4, values.size() );
@@ -1177,7 +1127,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
     // ============= Tests for Application Info Tile ===============
     // all data provided
-    public void old_testApplInfoDefaultA() {
+    public void testApplInfoDefaultA() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "application_process", "yes" ) );
@@ -1190,15 +1140,16 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "application_deadline_date", "July 30, 2012" ) );
 
         l.add( createEspResponse( "vouchers", "blank" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile(_request, _school, espData);
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("applInfo");
         String contentType = (String) resultsModel.get( "content" );
         assertEquals( "testApplInfoDefaultA: content wrong", "applInfoV1", contentType );
-        String percent = (String) resultsModel.get( "acceptanceRatePercent" );
-        System.out.println( "testApplInfoDefaultA acceptance Rate Percent = " + percent );
-        assertNotNull( "testApplInfoDefaultA: acceptanceRatePercent should not be null", percent );
+        String rate = (String) resultsModel.get( "acceptanceRate" );
+        System.out.println( "testApplInfoDefaultA acceptance Rate = " + rate );
+        assertNotNull( "testApplInfoDefaultA: acceptanceRate should not be null", rate );
+        assertEquals( "testApplInfoDefaultA: acceptanceRate wrong", "2", rate );
 
         assertEquals( "testApplInfoDefaultA: applicationDeadlineMsg wrong", "apply", (String) resultsModel.get( "applicationDeadlineMsg" ) );
         assertEquals( "testApplInfoDefaultA: applicationDeadlineDate wrong", "July 30, 2012", (String) resultsModel.get( "applicationDeadlineDate" ) );
@@ -1209,11 +1160,11 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // application deadline = date but the date is missing and vouchers
-    public void old_testApplInfoDefaultB() {
+    public void testApplInfoDefaultB() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "application_process", "yes" ) );
-        l.add( createEspResponse( "students_accepted", "123" ) );
+        l.add( createEspResponse( "students_accepted", "5" ) );
         l.add( createEspResponse( "applications_received", "592" ) );
         l.add( createEspResponse( "applications_received_year", "2011-2012" ) );
         l.add( createEspResponse( "students_accepted_year", "2011-2012" ) );
@@ -1221,15 +1172,16 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "application_deadline", "date" ) );
 
         l.add( createEspResponse( "vouchers", "yes" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("applInfo");
         String contentType = (String) resultsModel.get( "content" );
         assertEquals( "testApplInfoDefaultB: content wrong", "applInfoV1", contentType );
-        String percent = (String) resultsModel.get( "acceptanceRatePercent" );
-        System.out.println( "testApplInfoDefaultB acceptance Rate Percent = " + percent );
-        assertNotNull("testApplInfoDefaultB: acceptanceRatePercent should not be null", percent);
+        String rate = (String) resultsModel.get( "acceptanceRate" );
+        System.out.println( "testApplInfoDefaultB acceptance Rate Percent = " + rate );
+        assertNotNull("testApplInfoDefaultB: acceptanceRate should not be null", rate);
+        assertEquals("testApplInfoDefaultB: acceptanceRate wrong", "1", rate);
 
         assertEquals( "testApplInfoDefaultB: applicationDeadlineMsg wrong", "call", (String) resultsModel.get( "applicationDeadlineMsg" ) );
 
@@ -1239,7 +1191,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // application deadline = yearround and no vouchers
-    public void old_testApplInfoDefaultC() {
+    public void testApplInfoDefaultC() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "application_process", "yes" ) );
@@ -1251,15 +1203,15 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "application_deadline", "parents_contact" ) );
 
         l.add( createEspResponse( "vouchers", "no" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("applInfo");
         String contentType = (String) resultsModel.get( "content" );
         assertEquals( "testApplInfoDefaultC: content wrong", "applInfoV1", contentType );
-        String percent = (String) resultsModel.get( "acceptanceRatePercent" );
-        System.out.println( "testApplInfoDefaultC acceptance Rate Percent = " + percent );
-        assertNotNull("testApplInfoDefaultC: acceptanceRatePercent should not be null", percent);
+        String rate = (String) resultsModel.get( "acceptanceRate" );
+        System.out.println( "testApplInfoDefaultC acceptance Rate Percent = " + rate );
+        assertNotNull("testApplInfoDefaultC: acceptanceRatePercent should not be null", rate);
 
         assertEquals( "testApplInfoDefaultC: applicationDeadlineMsg wrong", "call", (String) resultsModel.get( "applicationDeadlineMsg" ) );
 
@@ -1269,7 +1221,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // application process yes but no data to calc acceptance rate, deadline = date with date supplied and no vouchers
-    public void old_testApplInfoSubstitute1A() {
+    public void testApplInfoSubstitute1A() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "application_process", "yes" ) );
@@ -1278,10 +1230,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "application_deadline_date", "July 30, 2012" ) );
 
         l.add( createEspResponse( "vouchers", "no" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile( _request, _school, espData );
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("applInfo");
         String contentType = (String) resultsModel.get( "content" );
         assertEquals( "testApplInfoSubstitute1A: content wrong", "applInfoV2", contentType );
 
@@ -1294,7 +1246,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // application process yes but no data to calc acceptance rate, deadline = date with date supplied and no vouchers
-    public void old_testApplInfoSubstitute2A() {
+    public void testSchoolVisitChecklistA() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "application_process", "no" ) );
@@ -1303,21 +1255,18 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "application_deadline_date", "July 30, 2012" ) );
 
         l.add( createEspResponse( "vouchers", "no" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getSchoolVisitChecklistTile(_request, _school);
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("applInfo");
         String contentType = (String) resultsModel.get( "content" );
-        assertEquals( "testApplInfoSubstitute2A: content wrong", "visitChecklist", contentType );
+        assertEquals( "testSchoolVisitChecklistA: content wrong", "visitChecklist", contentType );
 
-        System.out.println("testApplInfoSubstitute2A successful");
+        System.out.println("testSchoolVisitChecklistA successful");
     }
 
     // Local info substitute 1 - District info
-    public void old_testLocalInfoSubstitute1A() {
-
-        List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "application_process", "no" ) );      // Need something
+    public void testLocalInfoSubstitute1A() {
 
         _district = new District();
         _district.setNumberOfSchools(25);
@@ -1332,34 +1281,29 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         expect(districtDao.findDistrictById(_state, 13)).andReturn(_district);
         replay(districtDao);
 
-
-        Map map = runController( convertToEspData( l ) );
+        Map resultsModel = _schoolProfileOverviewController.getLocalInfoEspTile(_request, _school);
 
         verify(districtDao);
 
-        Map<String, Object> resultsModel = (Map<String, Object>) map.get("localInfo");
         String contentType = (String) resultsModel.get( "content" );
-        assertEquals( "testApplInfoSubstitute2A: content wrong", "districtInfo", contentType );
+        assertEquals( "testLocalInfoSubstitute1A: content wrong", "districtInfo", contentType );
+        assertEquals( "testLocalInfoSubstitute1A: district  num schools wrong", 25, resultsModel.get( "districtNumSchools" ));
 
-        System.out.println("testApplInfoSubstitute2A successful");
+        System.out.println("testLocalInfoSubstitute1A successful");
     }
-
-
-
 
     /*
        ************ End of Tests - support functions follow ************
     */
-//    private ModelMap runController( List<EspResponse> espResponses) {
-//        ModelMap map = new ModelMap();
-//
-//        expect( _espResponseDao.getResponsesByKeys(_school, _schoolProfileOverviewController.getKeyValuesToExtract() ) ).andReturn( espResponses );
-//        replay(_espResponseDao);
-//        _schoolProfileOverviewController.showHighlightsPage(map, getRequest(), 1, _state);
-//        verify(_espResponseDao);
-//        return map;
-//    }
 
+    /**
+     * Runs the entire SchoolProfileOverviewController.  This has now worked out well because a varying set of
+     * mocked objects are needed.
+     * @param espData
+     * @return  The model from the controller
+     *
+     * @deprecated
+     */
     private Map runController( Map<String, List<EspResponse>> espData) {
         ModelMap map = new ModelMap();
 
@@ -1396,6 +1340,35 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         verify( _cmsFeature );
 
         return map;
+    }
+
+    private Map<String, String> runCmsVideoTourModel(int cmsVideoContentId) {
+
+        Long contentId = new Long(cmsVideoContentId );
+        ContentKey contentKey = new ContentKey( "video", new Long(_cmsVideoContentId) );
+        expect( _cmsFeature.getContentKey() ).andReturn(contentKey).times(2);
+        expect( _cmsFeature.getImageUrl() ).andReturn( "/imageUrl.gs" );
+        expect( _cmsFeature.getImageAltText() ).andReturn( "alt text" );
+
+        expect( _cmsFeatureDao.get( contentId) ).andReturn(_cmsFeature);
+
+        Publication pub = new Publication();
+        pub.setFullUri("http://somehost/fullUri");
+        expect( _publicationDaoMock.findByContentKey(contentKey) ).andReturn(pub);
+
+        replay( _cmsFeature );
+        replay( _cmsFeatureDao );
+        replay(_schoolProfileDataHelper);
+        replay(_publicationDaoMock);
+
+        Map<String, String> resultsModel = _schoolProfileOverviewController.getTourVideoModel(_request, _school);
+
+        verify(_publicationDaoMock);
+        verify(_schoolProfileDataHelper);
+        verify( _cmsFeatureDao );
+        verify( _cmsFeature );
+
+        return resultsModel;
     }
 
     private EspResponse createEspResponse( String key, String value ) {

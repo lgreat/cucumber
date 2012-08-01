@@ -316,18 +316,20 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         }  // for
 
 
-        // TODO This is just debug data for testing blue_ribbon_schools
-        String year = "2011";       // This would be from the blue_ribbon_schools table
-        String result = "This school was selected as a Blue Ribbon School in " + year + " by the US Department of Education.";
-        List<String> resultsList = new ArrayList<String>(1);
-        resultsList.add(result);
-        resultsModel.put( "highlights/Awards/blue_ribbon_schools_text", resultsList );
-        List<String> blueRibbonMoreInfo = new ArrayList<String>(1);
-        blueRibbonMoreInfo.add("More about the Blue Ribbon Schools Program");
-        resultsModel.put( "highlights/Awards/blue_ribbon_schools_more_info", blueRibbonMoreInfo );
-        List<String> blueRibbonMoreInfoUrl = new ArrayList<String>(1);
-        blueRibbonMoreInfoUrl.add("/definitions/natl/blueribbon.html");
-        resultsModel.put( "highlights/Awards/blue_ribbon_schools_more_info_url", blueRibbonMoreInfoUrl );
+        // Blue ribbon school data has been removed from the project scope for now.
+        // GSData classes (BlueRibbonSchoolDaoHibernate) have been started to get this data but they need some cleaning up.
+//        // This is just debug data for testing blue_ribbon_schools
+//        String year = "2011";       // This would be from the blue_ribbon_schools table
+//        String result = "This school was selected as a Blue Ribbon School in " + year + " by the US Department of Education.";
+//        List<String> resultsList = new ArrayList<String>(1);
+//        resultsList.add(result);
+//        resultsModel.put( "highlights/Awards/blue_ribbon_schools_text", resultsList );
+//        List<String> blueRibbonMoreInfo = new ArrayList<String>(1);
+//        blueRibbonMoreInfo.add("More about the Blue Ribbon Schools Program");
+//        resultsModel.put( "highlights/Awards/blue_ribbon_schools_more_info", blueRibbonMoreInfo );
+//        List<String> blueRibbonMoreInfoUrl = new ArrayList<String>(1);
+//        blueRibbonMoreInfoUrl.add("/definitions/natl/blueribbon.html");
+//        resultsModel.put( "highlights/Awards/blue_ribbon_schools_more_info_url", blueRibbonMoreInfoUrl );
 
         // academic awards and service awards have to be coerced into "award (year)" format
         List<String> academicsList = new ArrayList<String>(3);
@@ -560,10 +562,11 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Awards section
         String awardsAbbrev = "Awards";
         String awardsTitle = "Awards";
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, awardsAbbrev, awardsTitle, "National Blue Ribbon School",
-                "blue_ribbon_schools_text") );
-        getLastDisplayBean().addUrl("blue_ribbon_schools_text", null);
-        getLastDisplayBean().addUrl("blue_ribbon_schools_more_info", "blue_ribbon_schools_more_info_url");
+        // Blue Ribbon schools have been removed from the project as of 8/1/12 Bob Raker
+//        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, awardsAbbrev, awardsTitle, "National Blue Ribbon School",
+//                "blue_ribbon_schools_text") );
+//        getLastDisplayBean().addUrl("blue_ribbon_schools_text", null);
+//        getLastDisplayBean().addUrl("blue_ribbon_schools_more_info", "blue_ribbon_schools_more_info_url");
         // The following 2 beans will get their data created in the applyUniqueDataRules because the award and year fields need to be merged
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, awardsAbbrev, awardsTitle, "Academic awards received in the past 3 years",
                 "academic_award") );

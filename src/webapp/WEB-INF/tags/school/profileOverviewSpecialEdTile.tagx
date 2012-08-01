@@ -39,7 +39,7 @@
                 <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
                 <c:choose>
                     <c:when test="${not empty specEdPgms}">
-                        <div class="">The school provides support for:</div>
+                        <div class="">The school offers support for:</div>
                         <div class=""><ul>
                             <c:forEach var="item" items="${specEdPgms}">
                                 <li>${item}</li>
