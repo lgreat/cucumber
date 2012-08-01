@@ -222,7 +222,9 @@
                 <li class="mll">
                 <span class="media">
                     <span class="img iconx16 i-16-review mrs"><!-- do not collapse --></span>
-                    <a class="bd" href="javascript:void(0);"><strong>Write a review</strong></a>
+                    <!--<a class="bd" onclick="return linkToTabs('reviews'); jumpToAnchor(''); return false;" href="javascript:void(0);"><strong>Write a review</strong></a>-->
+                    <a class="bd" id="js_profileHeadWriteReviewLink"
+                       href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}#schoolReviewSubmitForm"><strong>Write a review</strong></a>
                 </span>
                 </li>
                 <!-- TODO: Generate compareNearbyString -->
@@ -288,10 +290,19 @@
     <c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress.asSingleLineString)}"/>
     <c:set var="schoolAddressWithName"
            value="${schoolAddress}+(${gsweb:escapeHtml(school.name)})"/>
-    <!-- TODO: references mobile -->
-    <c:set var="mapMarkerUrl"
-           value="http://www.greatschools.org/res/mobile/img/map_pins/32x32/schoolRating_na.png"/>
-    <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
+    <!-- TODO: references mobile, needs accurate rating -->
+    <c:choose>
+        <c:when test="${not empty gs_rating}">
+            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_${gs_rating}.png"/>
+        </c:when>
+        <c:when test="${school.type.schoolTypeName eq 'private'}">
+            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_private.png"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_na.png"/>
+        </c:otherwise>
+    </c:choose>
+    <c:set var="mapMarkerParam" value="icon:http://www.greatschools.org${mapMarkerUrl}|${schoolAddress}"/>
 
     <div class="media">
         <div class="img mrm">

@@ -48,14 +48,42 @@
 //})();
 //<a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>
 
+var GS = GS || {};
+GS.util = GS.util || {};
+GS.profile = GS.profile || {};
+
+GS.util.jumpToAnchor = function(hash) {
+    window.location.hash=hash;
+    return false;
+};
+
+GS.profile.linkToTabs = function(destination){
+    $("#js_"+destination).triggerHandler('click');
+    return false;
+};
+
+GS.profile.linkToTabAndAnchor = function(destinationTab, hash) {
+    try {
+        GS.profile.linkToTabs(destinationTab);
+        GS.util.jumpToAnchor(hash);
+    } catch (e) {
+        // on error, fall back on default click handling
+        return true;
+    }
+    return false;
+};
+
 jQuery(document).ready(function() {
+
+    /* Set up event handlers */
+    jQuery('#js_profileHeadWriteReviewLink').on('click', function() {
+        return GS.profile.linkToTabAndAnchor('reviews', 'schoolReviewSubmitForm');
+    });
+
+    /* End set up event handlers */
 
     if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
 
-    var linkToTabs = function(destination){
-        $("#js_"+destination).triggerHandler('click').stopPropagation();
-        return false;
-    }
     starRatingInterface("starRatingContainer1", 16, 5, "overallAsString");
     starRatingInterface("starRatingContainer2", 16, 5, "teacherAsString");
     starRatingInterface("starRatingContainer3", 16, 5, "principalAsString");
