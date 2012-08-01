@@ -249,7 +249,7 @@
                         </div>
                     </c:if>
 
-                    <div id="js-bubbleInfo-4" class="text3 parents mtm">
+                    <div id="js-bubbleInfo4" class="parents mtm">
                          <div class="js-trigger line">
                             <div class="unit size3of5 pas" style="background-color: #FFFFFF">
                                 <div class="fl medium pan man pls">Parent involvement</div>

@@ -136,24 +136,26 @@
 
             </div>
 
-            <c:if test="${empty principalReview and school.levelCode != 'p'}">
-                <div class="mod parentReviewRating">
-                    <div class="inner">
-                        <div class="bd">
-                            <div class="media">
-                                <span class="sprite pencil_med img mrm"><!-- do not collapse --></span>
 
-                                <div class="text3bold-06b bd">Are you<br/>the principal?<br/>
-                                    <link:schoolEspRegister styleClass="text3-06b no_interrupt" styleId="espLink">Complete your school's profile</link:schoolEspRegister>
-                                </div>
+
+        </div>
+                </div></div><c:if test="${empty principalReview and school.levelCode != 'p'}">
+            <div class="mod standard_3-1 parentReviewRating">
+            <div class="outer">
+                <div class="inner">
+                    <div class="bd">
+                        <div class="media">
+                            <span class="sprite pencil_med img mrm"><!-- do not collapse --></span>
+
+                            <div class="medium bd bottom"><strong>Are you<br/>the principal?</strong><br/>
+                                <link:schoolEspRegister styleClass="bottom small no_interrupt" styleId="espLink">Complete your school's profile</link:schoolEspRegister>
                             </div>
                         </div>
                     </div>
                 </div>
-            </c:if>
-
-        </div>
-                </div></div></div>
+                </div>
+            </div>
+        </c:if></div>
         <!-- end reviewColumn1 -->
         <div class="grid_11 omega" id="reviewColumn2">
             <school:profileSchoolReviewForm school="${school}" pageName="profileReviews"/>
