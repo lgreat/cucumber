@@ -22,7 +22,12 @@
         <div class="alpha grid_5" id="reviewColumn1">
             <div class="mod standard_1-1">
                 <div class="inner">
-                    <div class="hd pam medium-strong" id="js-bubbleInformation"><strong>Community Rating</strong><div class="iconx16 i-16-info"><!-- do not collapse --></div> </div>
+                    <div class="hd" id="js-bubbleInformation">
+                        <div class="media pvs mhm">
+                            <div class="imgExt iconx16 i-16-information mrl"><!-- do not collapse --></div>
+                            <p class="bd small_bold textshadow-1  bottom " style="background: none">Community Rating</p>
+                        </div>
+                    </div>
                     <div class="bd">
             <div id="reviewOverallRating" class="tac">
 
@@ -50,28 +55,28 @@
 
                         <div class="js-popup">
                             <!--<div id="popup-contents-7" class="box-shadow text3">-->
-                            <div>
+                            <div style="width:250px;">
 
-                                <h5 class="text3bold">Community Rating by Year</h5>
-                                <div class="spacer_5"><!-- do not collapse --></div>
+                                <span class="small pbm"><strong>Community Rating by Year</strong></span>
+
 
                                 <c:forEach var="ratingByYear" items="${ratingsByYear}">
-                                    <div class="spacer_5"><!-- do not collapse --></div>
+
                                     <div class="line">
-                                        <div class="unit size3of19">
+                                        <div class="unit size3of20">
                                             <!-- year = -->
-                                            <span class="year smallText1-999">${ratingByYear.year}</span>:
+                                            <span class="year small">${ratingByYear.year}</span>:
                                         </div>
                                         <c:choose>
                                             <c:when test="${ratingByYear.numRatings gt 0}">
-                                                <div class="unit size7of19">
+                                                <div class="unit size7of20">
                                                     <!-- numStars = -->
                                                     <ratings:stars curSR="${ratingByYear.numStars}"/>
                                                     <!--<span class="sprite stars_sm_${ratingByYear.numStars}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                                                 </div>
-                                                <div class="unit size9of19 lastUnit">
+                                                <div class="unit size10of20 lastUnit">
                                                     <!-- numRatings = -->
-                                                    <span class="numRatings smallText1">Based on ${ratingByYear.numRatings} ratings</span>
+                                                    <span class="numRatings small">Based on ${ratingByYear.numRatings} ratings</span>
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
@@ -93,8 +98,9 @@
                 <!-- DONE-10495 - Randall - START subcategory ratings -->
                 <c:set var="aboutTheseRatings">
 
-                    <div class="infoBox1 smallText1">
-                        <div id="js-bubbleInfoFirst">
+
+                    <div id="js-bubbleInfoFirst">
+
                             <div class="media">
                                 <span class="js-trigger sprite i-info img mrs"><!-- do not collapse --></span>
 
@@ -102,14 +108,13 @@
                             </div>
                             <div class="js-popup">
                                 <!--<div id="popup-contents-1" class="box-shadow text3">-->
-                                <div id="popup-contents-1" class="text3">
-                                    <span class="arrow-outline-top"><!-- do not collapse --></span>
-                                    <span class="arrow-top"><!-- do not collapse --></span>
+                                <div style="width:250px;">
 
-                                    <p>The Community Rating is the school’s average rating from its community members (e.g., parents, students, and school staff). The highest possible rating is five stars; the lowest is one star.</p>
+
+                                    <p class="small">The Community Rating is the school’s average rating from its community members (e.g., parents, students, and school staff). The highest possible rating is five stars; the lowest is one star.</p>
                                 </div>
                             </div>
-                        </div>
+
                     </div>
                 </c:set>
 

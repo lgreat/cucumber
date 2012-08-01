@@ -18,7 +18,7 @@
 <c:set var="schoolId" value="${school.id}"/>
 
 
-    <div class="mod standard_2-1">
+    <div class="mod form">
     <div class="inner">
     <div class="bd">
 
@@ -76,36 +76,30 @@
 
                 <div class="spacer_5"><!-- do not collapse --></div>
                 <div id="js-bubbleInfo6" class="text3">
-                <div class="js-trigger line review-text">
-                    <div class="unit size1of1 lastUnit">
-                        <textarea id="js-reviewText"
-                                  class="text1-ededed text3"
-                                  name="comments"
-                                  onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
-                                  onblur="if(this.value==''){this.value='[Enter your review here]';}"
-                                   style="width:97%" rows="5">[Enter your review here]</textarea>
+                    <div class="js-trigger line review-text">
+                        <div class="unit size1of1 lastUnit">
+                            <textarea id="js-reviewText"
+                                      class="text1-ededed text3"
+                                      name="comments"
+                                      onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
+                                      onblur="if(this.value==''){this.value='[Enter your review here]';}"
+                                       style="width:97%" rows="5">[Enter your review here]</textarea>
+                        </div>
                     </div>
-                </div>
                     <div class="js-popup">
-                            <!--<div id="popup-contents-6" class="box-shadow">-->
-
-                        <ul  style=" list-style: inside; width:200px;" class="small phs"><span class="medium"><strong>Don't forget</strong></span>
-                                    <br/>GreatSchools won’t post reviews that contain:
-                                    <li class="list-item"><span class="text3">Inappropriate language</span></li>
-                                    <li class="list-item"><span class="text3">Allegations of criminal conduct</span></li>
-                                    <li class="list-item"><span class="text3">Names of students, teachers, or staff</span></li>
-                                </ul>
-
-                                <div class="spacer_7 brdbtm_dotted"><!-- do not collapse --></div>
-                                <div class="spacer_7"><!-- do not collapse --></div>
-                        <ul  style=" list-style: inside; width:200px;" class="small phs"><span class="medium"><strong>A great school has:</strong></span>
-                                    <li class="list-item"><span class="text3">Excellent teachers</span></li>
-                                    <li class="list-item"><span class="text3">Strong principal/school leadership</span></li>
-                                    <li class="list-item"><span class="text3">Challenging academic programs</span></li>
-                                </ul>
-                            </div>
-                        <!--</div>-->
-                        <!--</div>-->
+                        <ul class="small phs prw"><strong>Don't forget</strong>
+                            <br/>GreatSchools won’t post reviews that contain:
+                            <li>Inappropriate language</li>
+                            <li>Allegations of criminal conduct</li>
+                            <li>Names of students, teachers, or staff</li>
+                        </ul>
+                        <div class="pvs"><!-- do not collapse --></div>
+                         <ul  class="small phs prw"><strong>A great school has:</strong>
+                            <li>Excellent teachers</li>
+                            <li>Strong principal/school leadership</li>
+                            <li>Challenging academic programs</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="line">
@@ -137,19 +131,19 @@
 
                             <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
                         </div>
-                        <div class="spacer_8"><!-- do not collapse --></div>
+                        <!--<div class="spacer_8">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                     </div>
 
-                    <div class="unit size3of7 lastUnit"><!-- do not collapse -->
+                    <div class="unit size3of7 lastUnit pts bottom"><!-- do not collapse -->
                         <div class="formErrorText media form-error">
-                            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd smaller">Please enter your email.</div>
+                            <div class=" smaller">Please enter your email.</div>
                         </div>
-                        <div class="smallText1-333 media form-alert">
-                            <span class="sprite i-confirm-sm img mrs"><!-- do not collapse --></span>
+                        <div class="formErrorText media form-alert">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd smaller">You must verify your email address on submit.</div>
+                            <div class="smaller">You must verify your email address on submit.</div>
                         </div>
                     </div>
                 </div>
@@ -173,11 +167,11 @@
                         </div>
                         <div class="spacer_8"><!-- do not collapse --></div>
                     </div>
-                    <div class="unit size3of7 lastUnit"><!-- do not collapse -->
+                    <div class="unit size3of7 lastUnit pts bottom"><!-- do not collapse -->
                         <div class="formErrorText media form-error">
-                            <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd smaller">Please indicate your relationship to the school.</div>
+                            <div class="smaller">Please indicate your relationship to the school.</div>
                         </div>
                     </div>
 
@@ -209,14 +203,15 @@
                                 <!--<span class="arrow-outline-shadow-right opacity25">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                                 <!--<span class="arrow-outline-right">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                                 <!--<span class="arrow-right">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                            <div class="small phs"  style="width:200px;" >
-                                <span class="medium"><strong>Teacher quality</strong></span>
-                                <br/>These ratings reflect parents’ or students’ overall experience with the school’s teachers. Among other things, great teachers:
+                            <div class="small phs man prw">
+                                <span class="small"><strong>Teacher quality</strong></span>
+                                <p class="bottom small">These ratings reflect parents’ or students’ overall experience with the school’s teachers. Among other things, great teachers:
                                 <ul>
-                                    <li class="list-item"><span class="small">Talk to parents regularly about their children's progress.</span></li>
-                                    <li class="list-item"><span class="small">Challenge students to learn.</span></li>
-                                    <li class="list-item"><span class="small">Give students the attention they need to thrive in class.</span></li>
+                                    <li>Talk to parents regularly about their children's progress.</li>
+                                    <li>Challenge students to learn.</li>
+                                    <li>Give students the attention they need to thrive in class.</li>
                                 </ul>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -236,7 +231,7 @@
 
                             </div>
                             <div class="js-popup">
-                                <div class="small phs"  style="width:200px;" >
+                                <div class="small phs man prw" >
                                     <span class="medium"><strong>Principal leadership</strong></span>
                                     <br/>This is an assessment of the principal, or other leadership, at the school. Among other things, strong principals or school leaders:
                                     <ul>
@@ -267,7 +262,7 @@
                         </div>
                         <div class="js-popup">
                             <!--<div id="popup-contents-4" class="box-shadow">-->
-                            <div class="small phs"  style="width:200px;" >
+                            <div class="small phs man prw" >
                                 <span class="medium"><strong>Parent involvement</strong></span>
                                 <br/>A supportive community &amp;mdash; which includes active, involved parents &amp;mdash; is one mark of a great school. This rating reflects to what degree the school:
 
@@ -292,7 +287,7 @@
                             </div>
                             <div class="js-popup">
 
-                                    <ul  style="width:200px; list-style: inside" class="smaller phs" ><span class="medium"><strong>Facilities &amp;amp; equipment</strong></span>
+                                    <ul  style="width:250px; list-style: inside" class="smaller phs" ><span class="medium"><strong>Facilities &amp;amp; equipment</strong></span>
                                         <br/>This is an assessment of the physical environment of the preschool. The rating reflects to what degree the preschool:
                                         <li class="list-item"><span
                                                 class="text3">Maintains a clean, safe, inviting environment.</span>
@@ -336,9 +331,9 @@
 
                 <div class="spacer_15">
                     <div class="form-error formErrorText media" id="js-termsError">
-                        <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                        <div class="bd">Please read and accept our Terms of Use to join GreatSchools.</div>
+                        <div class="smaller">Please read and accept our Terms of Use to join GreatSchools.</div>
                     </div>
                 </div>
 

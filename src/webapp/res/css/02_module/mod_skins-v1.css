@@ -680,3 +680,4 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
 .popover-content ol {
     margin-bottom: 0;
 }
+.prw { width:250px; list-style: inside;}
