@@ -2,19 +2,11 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:content="urn:www.greatschools.org/taglib/content"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
-          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:gsweb="gstaglib"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
 
     <jsp:directive.attribute name="videoModel" type="java.lang.Object" required="true"/>
+    <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
 
     <c:set var="content" value="${videoModel['content']}" scope="page"/>
     <c:set var="videoUrl" value="${videoModel['videoUrl']}" scope="page"/>
@@ -27,9 +19,19 @@
             </school:profileOverviewCell1>
         </c:when>
         <c:otherwise>
-        <!-- This is a static image for school boundary tool-->
-            <!-- Needs frontend formatting -->
-            <div class="">Frontend: put static image here for School boundry tool promo</div>
+            <c:set var="districtParam" value=""/>
+            <c:if test="${school.districtId ne 0}">
+                <c:set var="districtParam" value="&amp;amp;districtId=${school.districtId}"/>
+            </c:if>
+            <a href="/school-district-boundaries-map/?schoolId=${school.id}&amp;amp;state=${school.databaseState}${districtParam}">
+                <div class="mod standard_1-1">
+                    <div class="inner box-shadow-animation-1">
+                        <div class="bd">
+                            What schools are available to you?
+                        </div>
+                    </div>
+                </div>
+            </a>
         </c:otherwise>
     </c:choose>
 

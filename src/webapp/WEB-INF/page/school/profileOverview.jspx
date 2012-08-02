@@ -46,7 +46,7 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100 lastUnit">
-                        <school:profileOverviewVideoTile videoModel="${video}" />
+                        <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
                     </div>
                 </div>
 
@@ -163,7 +163,7 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100 lastUnit">
-                        <school:profileOverviewVideoTile videoModel="${video}" />
+                        <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
                     </div>
                 </div>
 
