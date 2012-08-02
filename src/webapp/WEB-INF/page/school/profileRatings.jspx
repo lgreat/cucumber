@@ -2,7 +2,8 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile">
 
 <div class="${(!empty requestScope.schoolProfileTabMap.ratings and requestScope.schoolProfileTabMap.ratings eq 'selected'?'':'dn')}">
 
@@ -110,37 +111,40 @@
 
                     <c:if test="${schoolTestScoreRating != null and testScoreRatingYear != null}">
                         <div class="pbm">
-                            <h6 class="mvm medium_bold">Test score rating ${testScoreRatingYear}*</h6>
-
-                            <div>This school: ${schoolTestScoreRating}</div>
-                            <div>City: ${cityTestScoreRating}</div>
-                            <c:if test="${showStateTestScoreRating}">
-                                <div>State: ${stateTestScoreRating}</div>
-                            </c:if>
+                            <h6 class="mtm medium_bold bottom pbm">Test score rating ${testScoreRatingYear}*</h6>
+                            <profile:ratingsBarChart ratingDivId="ratingTestResults1"
+                                                     schoolRating="${schoolTestScoreRating}"
+                                                     cityRating="${cityTestScoreRating}"
+                                                     stateRatingShow="${showStateTestScoreRating}"
+                                                     stateRating="${stateTestScoreRating}" />
                         </div>
 
                         <hr class="keyline2"/>
                     </c:if>
 
                     <c:if test="${schoolStudentGrowthRating != null and studentGrowthRatingYear != null}">
-                        <div class="pbm">
-                            <h6 class="mvm medium_bold">Student growth rating ${studentGrowthRatingYear}**</h6>
+                        <div class="pbm ptm">
+                            <h6 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}**</h6>
+                            <profile:ratingsBarChart ratingDivId="ratingTestResults2"
+                                                     schoolRating="${schoolStudentGrowthRating}"
+                                                     cityRating="${cityStudentGrowthRating}"
+                                                     stateRatingShow="${showStateStudentGrowthRating}"
+                                                     stateRating="${stateStudentGrowthRating}" />
 
-                            <div>This school: ${schoolStudentGrowthRating}</div>
-                            <div>City: ${cityStudentGrowthRating}</div>
-                            <c:if test="${showStateStudentGrowthRating}">
-                                <div>State: ${stateStudentGrowthRating}</div>
-                            </c:if>
                         </div>
 
                         <hr class="keyline2"/>
                     </c:if>
 
                     <c:if test="${postSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
-                        <div class="pbm">
-                            <h6 class="mvm medium_bold">Post-secondary readiness rating ${postSecondaryReadinessRatingYear}***</h6>
+                        <div class="pbm ptm">
+                            <h6 class="mtm medium_bold bottom pbm">Post-secondary readiness rating ${postSecondaryReadinessRatingYear}***</h6>
 
-                            <div>This school: ${postSecondaryReadinessRating}</div>
+                            <profile:ratingsBarChart ratingDivId="ratingTestResults3"
+                                                          schoolRating="${postSecondaryReadinessRating}"
+                                                          cityRating="false"
+                                                          stateRatingShow="false"
+                                                          stateRating="false" />
                         </div>
 
                         <hr class="keyline2"/>

@@ -184,3 +184,35 @@ Created by Mitchell Seltzer
     background-image:         linear-gradient(top, #FFFFFF, #79BEDC); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFFFFF', EndColorStr='#79BEDC'); /* IE6�IE9 */
 }
+
+/*************************************************************************************************************************
+
+    Bar Graph layout for the ratings page under school profile
+
+*************************************************************************************************************************/
+
+.bargraph {}
+.bargraph .graphContainer {position:relative; height:76px; float:left;}
+.bargraph .graphContainer .barDrawing{position:absolute; top:0px; left:1px;}
+.bargraph .graphContainer .spacerW{width:37px; border-right:1px solid #999999; float:left; height:100%;}
+.bargraph .graphContainer .spacerFirst{width:37px; border-left:1px solid #333333; border-right:1px solid #999999; float:left; height:100%;}
+.bargraph .graphContainer .spacerH{height:10px;}
+
+
+.bargraph .graphLabelsY{position:relative; float:left; padding-right:10px; text-align:right;}
+.bargraph .graphLabelsY .spacerLabel{position:relative; height:10px; margin-top:10px; line-height:10px; }
+
+.bargraph .graphLabelsX{position:relative; clear:both}
+.bargraph .graphLabelsX .spacerOffset{width:19px; height:10px; float:left;}
+.bargraph .graphLabelsX .spacerWNumbers{width:38px; float:left; padding-top:10px; text-align:center;}
+
+.bargraph .graphContainer .barContainer{
+    /*border:solid 1px #999999;*/
+    /*box-shadow: inset 0 1px 1px rgba(255, 255, 255, .6);*/
+    height:10px;
+    margin-top:10px;
+}
+.bargraph .graphContainer .barContainer div{ width:100%; height:100%;}
+.bargraph .graphContainer .barContainer .lineGreen { background-color:#5E9D4C }
+.bargraph .graphContainer .barContainer .lineRed { background-color:#C1423F }
+.bargraph .graphContainer .barContainer .lineYellow { background-color:#F1AF31 }
