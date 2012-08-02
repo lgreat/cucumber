@@ -23,7 +23,7 @@
 
 <div class="alpha grid_16 omega">
     <div class="alpha grid_16 omega pr">
-        <div class="line pa grid_11 omega" style="right: 0px; top:10px;">
+        <div id="js-mapPageNav" class="line pa grid_11 omega" style="right: 0px; top:10px;">
             <div class="unit size1of2 plm">
                 ${searchResultsPagingSummary}
             </div>
