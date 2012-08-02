@@ -308,6 +308,11 @@ GS.school.compare = (function() {
         var schoolDiv = $('#js_compareSchoolsDiv').children('#js_compare_' + schoolId + '_' + state);
         schoolDiv.remove();
 
+        //Add omniture tracking when user clicks the remove button in compare module.
+        if (s.tl) {
+            s.tl(true, 'o', 'Compare_Module_Remove_Item');
+        }
+
         //Decide whether to show or hide the compare module.
         showHideCompareModule();
     };
@@ -315,6 +320,11 @@ GS.school.compare = (function() {
     var compareSchools = function() {
         //If there are at least 2 schools in compare , then take the user to the compare tool.
         if (schoolsInCompare.length >= 2) {
+
+            //Add omniture tracking to the compare feature.
+            if (s.tl) {
+                s.tl(this, 'o', 'Compare_Module_CompareNow');
+            }
             var schoolsInCompareArr = [];
             for (var i = 0; i < schoolsInCompare.length; i++) {
                 schoolsInCompareArr[i] = schoolsInCompare[i].state + schoolsInCompare[i].schoolId;

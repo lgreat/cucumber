@@ -361,6 +361,12 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 //After the school is removed, the 'compare now' link should be switched to 'compare' label.
                 changeCompareLinkToLabel(state, schoolId);
             }
+
+            //Add omniture tracking to the check/un check of the compare checkbox.
+            if (s.tl) {
+                s.tl(true, 'o', 'Search_Map_Compare_Check');
+            }
+
         });
 
         var schoolsInCompare = GS.school.compare.getSchoolsInCompare();

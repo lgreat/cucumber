@@ -75,6 +75,12 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
                 //then switch all the the 'compare now' links to 'compare' label.
                 removeCompareNowLinks(schoolId, state);
             }
+
+            //Add omniture tracking to the check/un check of the compare checkbox.
+            if (s.tl) {
+                s.tl(true, 'o', 'Search_List_Compare_Check');
+            }
+
         });
 
         //Bind the custom event that gets triggered after the schools are initialized in the compare module.
