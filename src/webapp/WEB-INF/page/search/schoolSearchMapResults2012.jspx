@@ -521,7 +521,7 @@ that this is updated for ajax refresh -->
     <div class="pvl">
         <h3 class="loud">No results found.</h3>
 
-        <div class="loud">No results match your selection. To get more matches, change or remove filters or click &#34;Reset all filters&#34;.</div>
+        <div class="loud">No results match your selection. Change or remove filters to get more matches.</div>
     </div>
     <hr class="keyline1"/>
 
