@@ -10,11 +10,9 @@
           xmlns:gsweb="gstaglib"
         >
 
-    <!--<jsp:directive.attribute name="chartName" type="java.lang.String" required="true" description="The name of the chart to display"/>-->
     <jsp:directive.attribute name="chartData" type="java.util.Map" required="true" description="Data to populate the chart"/>
     <jsp:directive.attribute name="chartDrawDivId" type="java.lang.String" required="true" description="Where to draw the piechart"/>
     <jsp:directive.attribute name="chartSize" type="java.lang.Integer" required="false" description="Size of the display in pixels"/>
-    <!--<jsp:directive.attribute name="chartColors" type="java.lang.String" required="true" description="To be consistent with other content would need to pass this in."/>-->
 
     <c:set var="cSize" value="${chartSize}"/>
     <c:if test="${empty chartSize || chartSize == 0}">
@@ -31,7 +29,6 @@
     <c:set var="chartParameters">${pieData},'${chartDrawDivId}',${cSize}</c:set>
     <div id="${chartDrawDivId}" style="width: ${cSize}px; height: ${cSize}px;"><!-- do not collapse --></div>
 
-    <!--${chartParameters}-->
     <script type="text/javascript">
         google.setOnLoadCallback(function(){ drawPieChart(${chartParameters}) });
     </script>
