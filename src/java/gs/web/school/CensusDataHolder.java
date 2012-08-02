@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.School;
 import gs.data.school.census.*;
+import gs.data.school.district.District;
 import gs.data.util.ListUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -72,9 +73,9 @@ public class CensusDataHolder {
         if (!isSchoolDataDoneLoading()) {
             if (_dataSetsForSchoolData != null && !_dataSetsForSchoolData.isEmpty()) {
                 _censusDataSchoolValueDao.addInSchoolCensusValues(_school.getDatabaseState(), _dataSetsForSchoolData.values(), ListUtils.newArrayList(_school));
+                CensusDataHelper.putSchoolValueOverridesOntoCorrectDatasets(_dataSetsForSchoolData.values());
             }
             setSchoolDataDoneLoading(true);
-            CensusDataHelper.putSchoolValueOverridesOntoCorrectDatasets(_dataSetsForSchoolData.values());
         }
     }
 
@@ -90,10 +91,13 @@ public class CensusDataHolder {
     private void loadDistrictDataIfNeeded() {
         if (!isDistrictDataDoneLoading()) {
             if (_dataSetsForDistrictData != null && !_dataSetsForDistrictData.isEmpty()) {
-                _censusDataDistrictValueDao.addDistrictValuesToDataSets(
-                        _school.getDistrict().getDatabaseState(),
+                District district = _school.getDistrict();
+                if (district != null) {
+                    _censusDataDistrictValueDao.addDistrictValuesToDataSets(
+                        district.getDatabaseState(),
                         _dataSetsForDistrictData.values(),
-                        ListUtils.newArrayList(_school.getDistrict()));
+                        ListUtils.newArrayList(district));
+                }
             }
             setDistrictDataDoneLoading(true);
         }
