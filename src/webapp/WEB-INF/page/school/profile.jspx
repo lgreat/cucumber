@@ -227,19 +227,6 @@
                        href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}#schoolReviewSubmitForm"><strong>Write a review</strong></a>
                 </span>
                 </li>
-                <!-- TODO: Generate compareNearbyString -->
-                <c:if test="${not empty compareNearbyString}">
-                    <c:set var="compareSource" value="overview"/>
-                    <li class="mll">
-                    <span class="media">
-                        <span class="img iconx16 i-16-compare mrs"><!-- do not collapse --></span>
-                        <link:compareSchools schools="${compareNearbyString}"
-                                             source="sphead_${compareSource}_${school.databaseState}${school.id}"
-                                             onclick="if (s.tl) {s.tl(this,'o','SchoolProfile_Compare_Inline_Link');} return true;"
-                                             tab="overview"><strong>Compare schools</strong></link:compareSchools>
-                    </span>
-                    </li>
-                </c:if>
             </ul>
         </div>
 
@@ -318,7 +305,11 @@
             </div>
 
             <p class="smaller">
-                <a href="javascript:void(0);">Larger map</a>
+                <c:set var="districtParam" value=""/>
+                <c:if test="${school.districtId ne 0}">
+                    <c:set var="districtParam" value="&amp;amp;districtId=${school.districtId}"/>
+                </c:if>
+                <a href="/school-district-boundaries-map/?schoolId=${school.id}&amp;amp;state=${school.databaseState}${districtParam}">Larger map</a>
             </p>
         </div>
 
