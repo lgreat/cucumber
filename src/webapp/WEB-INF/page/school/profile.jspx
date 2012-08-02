@@ -53,12 +53,9 @@
     <meta name="decorator" content="standardDecorator-v1"/>
     <meta name="description" content="${gsweb:schoolPageDescription(school)}"/>
     <meta name="keywords" content="${gsweb:schoolPageKeywords(school)}"/>
-    <script type="text/javascript" src="/res/js/school/profilePage.js"><!-- do not collapse --> </script>
     <title>School Profile</title>
-    <!--<pageHelper:externalCss file="/res/css/school/parentReviews/schoolReviewForm.css"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/schoolReviewForm.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/parentReviewTabSchoolReviewForm.js"/>-->
-    <!--<script type="text/javascript" src="/res/js/blogTracking/pageTracking.js">&lt;!&ndash; no collapse &ndash;&gt;</script>-->
+    <script type="text/javascript" src="/res/js/history.min.js"><!-- do not collapse --> </script>
+    <script type="text/javascript" src="/res/js/school/profilePage.js"><!-- do not collapse --> </script>
     <script type="text/javascript" src="/res/js/schoolReviewForm.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/parentReviewTabSchoolReviewForm.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/bootstrap/bootstrap-tooltip.js"><!-- no collapse --></script>
