@@ -336,7 +336,6 @@ GS.search.results = GS.search.results || (function() {
     };
 
     var renderDataForMap = function(data) {
-        console.log(0);
         var pageNav = $('#js-mapPageNav');
         if(data.noSchoolsFound === true) {
             $('.js-rightResultsGrid').hide();
