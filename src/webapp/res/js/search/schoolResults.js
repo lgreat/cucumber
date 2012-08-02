@@ -40,6 +40,15 @@ GS.search.results = GS.search.results || (function() {
             var sorts = $this.data('gs-sort-toggle').split(',');
             var queryData = GS.uri.Uri.getQueryData();
             var currentSort = queryData['sortBy'];
+            /*
+            seo urls do not have query parameters. Examples - http://dev.greatschools.org/indiana/speedway/schools/
+                                                    http://dev.greatschools.org/indiana/indianapolis/public/schools/
+            The default sort for these pages is GS_RATING_DESCENDING. Assuming that this is the sort for all pages that
+            have empty query string data, the current sort is set to this value.
+             */
+            if(jQuery.isEmptyObject(queryData)) {
+                currentSort = 'GS_RATING_DESCENDING';
+            }
 
 //            $this.addClass('selected');
 
