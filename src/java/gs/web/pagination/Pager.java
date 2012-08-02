@@ -54,28 +54,31 @@ public class Pager {
 
     /**
      * Copied from logic in a tagx. Assists in determining which page numbers to show in pagination area under results view
+     *
+     * Generates a list of three pages that will be displayed in the pagination bar along with the first page and last page.
+     * Returns current page, plus one page to the left and one to the right
      * 
      * @param pageNumber
      * @return
      */
     public List<Page> getPageSequence(int pageNumber) {
-        int fifthPageNumber = isZeroBasedPages() ? 4:5;
+        int thirdPageNumber = isZeroBasedPages() ? 2:3;
 
         Integer firstPageInSeries;
         Integer lastPageInSeries;
 
-        if (getTotalPages() <= fifthPageNumber) {
+        if (getTotalPages() <= thirdPageNumber) {
             firstPageInSeries = getFirstPageNumber();
             lastPageInSeries = getLastPageNumber();
-        } else if (pageNumber < fifthPageNumber) {
+        } else if (pageNumber < thirdPageNumber) {
             firstPageInSeries = getFirstPageNumber();
-            lastPageInSeries = fifthPageNumber;
-        } else if (pageNumber > (getTotalPages() - 4) && getTotalPages() > fifthPageNumber) {
-            firstPageInSeries = getLastPageNumber() - 4;
+            lastPageInSeries = thirdPageNumber;
+        } else if (pageNumber > (getTotalPages() - 2) && getTotalPages() > thirdPageNumber) {
+            firstPageInSeries = getLastPageNumber() - 2;
             lastPageInSeries = getLastPageNumber();
         } else {
-            firstPageInSeries = pageNumber - 2;
-            lastPageInSeries = pageNumber + 2;
+            firstPageInSeries = pageNumber - 1;
+            lastPageInSeries = pageNumber + 1;
         }
 
         List<Page> series = new ArrayList<Page>();

@@ -60,7 +60,7 @@
 
             <c:set var="pageSequence" value="${page.pageSequence}"/>
 
-            <c:if test="${totalPages gt 5 and page.pageNumber ge 5}">
+            <c:if test="${totalPages gt 3 and page.pageNumber ge 3}">
                 <c:set var="targetPage" value="${page.pager.firstPage}" scope="page"/>
 
                 <c:choose>
@@ -101,7 +101,7 @@
                 </c:choose>
             </c:forEach>
 
-            <c:if test="${totalPages gt 5 and (page.pageNumber lt 5 or page.pageNumber le totalPages - 4)}">
+            <c:if test="${totalPages gt 3 and (page.pageNumber lt 3 or page.pageNumber le totalPages - 2)}">
                 <c:set var="targetPage" value="${page.pager.lastPage}"/>
 
                 <span class="ellipsis">...</span>
