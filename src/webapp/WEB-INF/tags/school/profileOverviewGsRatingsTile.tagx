@@ -42,8 +42,11 @@
         </c:when>
 
         <c:when test="${content eq 'awards'}">
-            <school:profileOverviewCell1 title="Awards &amp; recognition">
-                <ul class="medium mvm mrm">
+            <c:set var="iawards">
+                <span class="iconx16 i-16-awards vam"><!-- do not collapse --></span>
+            </c:set>
+            <school:profileOverviewCell1 title="${iawards} Awards &amp; recognition">
+                <ul class="small mvm mrm">
                     <c:forEach var="item" items="${gsRatingsModel['awards']}">
                         <li>${gsweb:abbreviateAtWhitespace(item, 50)}</li>
                     </c:forEach>
