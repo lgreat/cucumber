@@ -4,6 +4,8 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.data.test.*;
+import gs.data.test.rating.CityRating2;
+import gs.data.test.rating.ICityRating2Dao;
 import gs.web.util.ReadWriteAnnotationController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -35,6 +37,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     @Autowired
     private ITestDataStateValueDao _testDataStateValueDao;
+
+    @Autowired
+    private ICityRating2Dao _cityRating2Dao;
 
     // ===================== COPY ===================================
 
@@ -230,34 +235,20 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Data ===================================
 
-    // TODO-13012 TEMPORARY! move these constants and sets out of here or replace with config file/XML
-
-    private static final int RATING_ACADEMIC_ACHIEVEMENT = 164;
-    private static final int RATING_ACADEMIC_VALUE_ADDED = 165;
-    private static final int RATING_ACADEMIC_POST_SECONDARY_READINESS = 166;
-    private static final int RATING_OVERALL_ACADEMIC = 167;
-    private static final int RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS = 168;
-    private static final int RATING_CLIMATE_FAMILY_ENGAGEMENT = 169;
-    private static final int RATING_CLIMATE_TEACHER_SUPPORT = 170;
-    private static final int RATING_CLIMATE_SCHOOL_ENVIRONMENT = 171;
-    private static final int RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING = 172;
-    private static final int RATING_OVERALL_CLIMATE = 173;
-    private static final int RATING_OVERALL = 174;
-
     // test data types for school ratings
     private static final Set<Integer> RATING_TEST_DATA_TYPE_IDS = new HashSet<Integer>();
     static {
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_ACHIEVEMENT);
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_VALUE_ADDED);
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_POST_SECONDARY_READINESS);
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_OVERALL_ACADEMIC);
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS);
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_CLIMATE_FAMILY_ENGAGEMENT);
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_CLIMATE_TEACHER_SUPPORT);
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_CLIMATE_SCHOOL_ENVIRONMENT);
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING);
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_OVERALL_CLIMATE);
-        RATING_TEST_DATA_TYPE_IDS.add(RATING_OVERALL);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_ACHIEVEMENT);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_VALUE_ADDED);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_OVERALL_ACADEMIC);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_FAMILY_ENGAGEMENT);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_TEACHER_SUPPORT);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_SCHOOL_ENVIRONMENT);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_OVERALL_CLIMATE);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_OVERALL);
     }
 
     // TODO-13012 TEMPORARY! move these constants and sets out of here or replace with config file/XML
@@ -265,8 +256,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     // test data types for state ratings
     private static final Set<Integer> STATE_RATING_TEST_DATA_TYPE_IDS = new HashSet<Integer>();
     static {
-        STATE_RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_ACHIEVEMENT);
-        STATE_RATING_TEST_DATA_TYPE_IDS.add(RATING_ACADEMIC_VALUE_ADDED);
+        STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_ACHIEVEMENT);
+        STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_VALUE_ADDED);
     }
 
     // TODO-13012 not optimized, may need to be rewritten
@@ -309,45 +300,45 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         for (SchoolTestValue value : schoolTestValues) {
             switch (value.getDataSet().getDataTypeId()) {
                 // overall ratings
-                case RATING_OVERALL :
+                case TestDataType.RATING_OVERALL :
                     dataMap.put(DATA_OVERALL_RATING, value.getValueFloat().intValue());
                     break;
-                case RATING_OVERALL_ACADEMIC :
+                case TestDataType.RATING_OVERALL_ACADEMIC :
                     dataMap.put(DATA_OVERALL_ACADEMIC_RATING, value.getValueFloat().intValue());
                     break;
-                case RATING_OVERALL_CLIMATE :
+                case TestDataType.RATING_OVERALL_CLIMATE :
                     dataMap.put(DATA_OVERALL_CLIMATE_RATING, value.getValueFloat().intValue());
                     dataMap.put(DATA_CLIMATE_RATING_NUM_RESPONSES, value.getNumberTested());
                     break;
 
                 // academic ratings
-                case RATING_ACADEMIC_ACHIEVEMENT :
+                case TestDataType.RATING_ACADEMIC_ACHIEVEMENT :
                     dataMap.put(DATA_TEST_SCORE_RATING_YEAR, value.getDataSet().getYear());
                     dataMap.put(DATA_SCHOOL_TEST_SCORE_RATING, value.getValueFloat().intValue());
                     break;
-                case RATING_ACADEMIC_VALUE_ADDED :
+                case TestDataType.RATING_ACADEMIC_VALUE_ADDED :
                     dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, value.getDataSet().getYear());
                     dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
                     break;
-                case RATING_ACADEMIC_POST_SECONDARY_READINESS :
+                case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS :
                     dataMap.put(DATA_POST_SECONDARY_READINESS_RATING_YEAR, value.getDataSet().getYear());
                     dataMap.put(DATA_POST_SECONDARY_READINESS_RATING, value.getValueFloat().intValue());
                     break;
 
                 // climate ratings
-                case RATING_CLIMATE_SCHOOL_ENVIRONMENT :
+                case TestDataType.RATING_CLIMATE_SCHOOL_ENVIRONMENT :
                     dataMap.put(DATA_SCHOOL_ENVIRONMENT_RATING, value.getValueFloat().intValue());
                     break;
-                case RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING :
+                case TestDataType.RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING :
                     dataMap.put(DATA_SOCIAL_EMOTIONAL_LEARNING_RATING, value.getValueFloat().intValue());
                     break;
-                case RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS :
+                case TestDataType.RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS :
                     dataMap.put(DATA_HIGH_EXPECTATIONS_RATING, value.getValueFloat().intValue());
                     break;
-                case RATING_CLIMATE_TEACHER_SUPPORT :
+                case TestDataType.RATING_CLIMATE_TEACHER_SUPPORT :
                     dataMap.put(DATA_TEACHER_SUPPORT_RATING, value.getValueFloat().intValue());
                     break;
-                case RATING_CLIMATE_FAMILY_ENGAGEMENT :
+                case TestDataType.RATING_CLIMATE_FAMILY_ENGAGEMENT :
                     dataMap.put(DATA_FAMILY_ENGAGEMENT_RATING, value.getValueFloat().intValue());
                     break;
             }
@@ -359,10 +350,20 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public Map<String,Object> getCityData(School school, Set<Integer> years) {
         Map<String,Object> dataMap = new HashMap<String,Object>();
 
-        // TODO-13012
-        // CITY DATA
-        //dataMap.put(DATA_CITY_TEST_SCORE_RATING, 5);
-        //dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, 5);
+        List<CityRating2> ratings = _cityRating2Dao.getLatestCityRatingsByCity(school.getDatabaseState(), school.getCity());
+        if (ratings != null) {
+            for (CityRating2 rating : ratings) {
+                switch (rating.getDataTypeId()) {
+                    // overall ratings
+                    case TestDataType.RATING_ACADEMIC_ACHIEVEMENT :
+                        dataMap.put(DATA_CITY_TEST_SCORE_RATING, new Float(rating.getRating()).intValue());
+                        break;
+                    case TestDataType.RATING_ACADEMIC_VALUE_ADDED :
+                        dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, new Float(rating.getRating()).intValue());
+                        break;
+                }
+            }
+        }
 
         return dataMap;
     }
@@ -378,10 +379,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
         for (StateTestValue value : stateTestValues) {
             switch (value.getDataSet().getDataTypeId()) {
-                case RATING_ACADEMIC_ACHIEVEMENT :
+                case TestDataType.RATING_ACADEMIC_ACHIEVEMENT :
                     dataMap.put(DATA_STATE_TEST_SCORE_RATING, value.getValueFloat().intValue());
                     break;
-                case RATING_ACADEMIC_VALUE_ADDED :
+                case TestDataType.RATING_ACADEMIC_VALUE_ADDED :
                     dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
                     break;
             }
@@ -767,5 +768,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     public void setTestDataStateValueDao(ITestDataStateValueDao testDataStateValueDao) {
         _testDataStateValueDao = testDataStateValueDao;
+    }
+
+    public void setCityRating2Dao(ICityRating2Dao cityRating2Dao) {
+        _cityRating2Dao = cityRating2Dao;
     }
 }
