@@ -85,7 +85,7 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
             Set<Integer> allDataTypeIds = new HashSet<Integer>();
             allDataTypeIds.addAll(dataTypeIds);
             allDataTypeIds.addAll(dataTypeIdsForOverview);
-            censusDataSetMap = getCensusDataSets(censusStateConfig.getState(), dataTypeIds, school);
+            censusDataSetMap = getCensusDataSets(censusStateConfig.getState(), allDataTypeIds, school);
             setSharedData(request, CENSUS_DATA_SETS, censusDataSetMap);
         }
 
@@ -119,7 +119,7 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
             Map<Integer, CensusDataSet> censusDataSetMap = getCensusDataSets(request);
 
             // Split censusDataSets that were configured for display on census tables on stats page on school profile
-            Triplet<Map<Integer,CensusDataSet>, // CensusDataSet ID --> CensusDataSet
+            Triplet<Map<Integer,CensusDataSet>, // CensusDataSet ID --> CensusDataSet.
                     Map<Integer,CensusDataSet>, // CensusDataSet ID --> CensusDataSet
                     Map<Integer,CensusDataSet>> // CensusDataSet ID --> CensusDataSet
                     triplet = censusStateConfig.splitCensusDataSets(censusDataSetMap);

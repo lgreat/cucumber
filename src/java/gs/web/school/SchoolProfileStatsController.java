@@ -171,7 +171,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                     continue;
                 } else {
                     // use the label specified in the census config entry
-                    label = configEntry.getDataTypeLabel();
+                    label = configEntry.getLabel();
                     if (label == null) {
                         // no entry was specified; if we have an ethnicity, use the ethnicity name. otherwise use data type description
                         if (breakdown != null && breakdown.getEthnicity() != null) {
@@ -190,9 +190,9 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 if (breakdown != null && breakdown.getEthnicity() != null) {
                     // set label to the breakdown's ethnicity name
                     label = breakdown.getEthnicity().getName();
-                } else if (configEntry.getDataTypeLabel() != null) {
+                } else if (configEntry.getLabel() != null) {
                     // no breakdown available, but label was set on the config entry, so use that
-                    label = configEntry.getDataTypeLabel();
+                    label = configEntry.getLabel();
                 } else {
                     // no labels specified; use data type's description
                     label = configEntry.getDataType().getDescription();
