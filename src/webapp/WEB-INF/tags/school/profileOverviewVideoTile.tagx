@@ -18,21 +18,18 @@
 
     <c:set var="content" value="${videoModel['content']}" scope="page"/>
     <c:set var="videoUrl" value="${videoModel['videoUrl']}" scope="page"/>
-    <c:set var="videoIconUrl" value="${videoModel['videoIconUrl']}" scope="page"/>
-    <c:set var="videoIconAltText" value="${videoModel['videoIconAltText']}" scope="page"/>
 
     <c:choose>
         <c:when test="${content eq 'video'}">
             <school:profileOverviewCell1 title="Videos">
                 <!-- Show generic video icon and clicking on it takes you to the video at videoUrl -->
+                <div class="">Url is: ${videoUrl}</div>
             </school:profileOverviewCell1>
         </c:when>
         <c:otherwise>
-        <!-- This is a static image -->
+        <!-- This is a static image for school boundary tool-->
             <!-- Needs frontend formatting -->
-
-            <!-- Show video icon in variable videoIconUrl and clicking on it takes you to the video at videoUrl -->
-            <div class="">Frontend: put static image here</div>
+            <div class="">Frontend: put static image here for School boundry tool promo</div>
         </c:otherwise>
     </c:choose>
 
