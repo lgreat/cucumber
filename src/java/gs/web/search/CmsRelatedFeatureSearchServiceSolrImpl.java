@@ -125,7 +125,7 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
         }
 
         // otherwise return next story in the queue
-        return content.get(category).pop();
+        return content.get(category).12remove();
     }
 
     /**
