@@ -137,7 +137,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
    }
 
     // Test for census info
-    public void testCensusInfoA() {
+    public void testGetEnrollment() {
 
         School school = createStrictMock( School.class );
         getRequest().setAttribute( "school", school );
@@ -145,15 +145,15 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         expect( _requestAttributeHelper.getSchool( getRequest() ) ).andReturn( school ).times(2); // This will be called for each getEnrollment call
         replay(_requestAttributeHelper);
 
-        expect( school.getEnrollment() ).andReturn(new Integer(500));
+        expect( school.getEnrollmentOrCapacity() ).andReturn(500);
         replay(school);
-        Integer enrollment = _schoolProfileDataHelper.getEnrollment(getRequest());
+        _schoolProfileDataHelper.getEnrollment(getRequest());
         // getEnrollment again and if it calls school.getEnrollment() EasyMock will fail because only one call is expected
-        enrollment = _schoolProfileDataHelper.getEnrollment( getRequest() );
+        Integer enrollment = _schoolProfileDataHelper.getEnrollment( getRequest() );
         verify(school);
         verify(_requestAttributeHelper);
 
-        assertEquals("testCensusInfoA: value wrong", 500, enrollment.intValue());
+        assertEquals("Incorrect value", 500, enrollment.intValue());
     }
 
     // Tests for SchoolMedia

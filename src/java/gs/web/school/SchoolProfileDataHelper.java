@@ -152,7 +152,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                 return  null;
             }
 
-            enrollment = school.getEnrollment();
+            enrollment = school.getEnrollmentOrCapacity();
 
             if( enrollment != null ) {
 

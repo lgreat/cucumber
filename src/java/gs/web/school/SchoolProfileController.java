@@ -4,10 +4,6 @@ import gs.data.school.School;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.IDirectoryStructureUrlController;
-import gs.web.request.RequestInfo;
-import gs.web.util.UrlBuilder;
-import gs.web.util.UrlUtil;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,21 +20,23 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
     private String _viewName;
     private ControllerFamily _controllerFamily;
+    private SchoolProfileDataHelper _schoolProfileDataHelper;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, Object> model = new HashMap<String, Object>();
 
-
         School school = _requestAttributeHelper.getSchool(request);
         model.put("school", school);
-
-        // TODO: Audit SchoolOverview2010Controller and refactor all shared logic such as number1expert cobrand.  The
-        // new profile and old profile will coexist side by side for a while, so they need to share code.
 
         // Create a map on the request used to save references to data that is to be reused.
         // This needs to be done early in the request cycle or the item attached to the request can be lost.
         AbstractDataHelper.initialize( request );
+
+        // TODO: Audit SchoolOverview2010Controller and refactor all shared logic such as number1expert cobrand.  The
+        // new profile and old profile will coexist side by side for a while, so they need to share code.
+
+        model.put("schoolEnrollment", _schoolProfileDataHelper.getEnrollment(request));
 
         return new ModelAndView(_viewName, model);
     }
@@ -58,5 +56,13 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
     public void setControllerFamily(ControllerFamily controllerFamily) {
         _controllerFamily = controllerFamily;
+    }
+
+    public SchoolProfileDataHelper getSchoolProfileDataHelper() {
+        return _schoolProfileDataHelper;
+    }
+
+    public void setSchoolProfileDataHelper(SchoolProfileDataHelper schoolProfileDataHelper) {
+        _schoolProfileDataHelper = schoolProfileDataHelper;
     }
 }
