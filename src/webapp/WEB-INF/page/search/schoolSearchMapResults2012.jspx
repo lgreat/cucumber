@@ -151,7 +151,7 @@
     </div>
 </div>
 
-<div class="alpha grid_16 omega js-leftResultsGrid">
+<div class="alpha grid_16 omega js-leftResultsGrid mtm">
 
 <!-- Any change to the syle classes applied to the infobox content would require a change to the js-infoBoxTemplate
 that this is updated for ajax refresh -->
