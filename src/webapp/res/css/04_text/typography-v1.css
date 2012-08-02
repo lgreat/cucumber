@@ -242,6 +242,12 @@ caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bo
 .make-uppercase,
 .ttu         { text-transform: uppercase; }
 
+a.tdn:focus,
+a.tdn:hover,
+.tdn         { text-decoration: none; }
+.tdo         { text-decoration: overline; }
+.tdu         { text-decoration: underline; }
+
 /*************************************************************
      LIST STYLES
 *****************************************/

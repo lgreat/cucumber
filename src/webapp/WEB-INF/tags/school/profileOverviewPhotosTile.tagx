@@ -46,12 +46,24 @@
             </school:profileOverviewCell1>
         </c:when>
         <c:otherwise>
-            <div class="text2">
-                <!-- See the spec at file://gsdata/Public/Design/Design_Review/school_profile/comps/visual/120618_schoolProfile_wOSP_wPromos.png
-for a sample of what the substitute tile looks like.  It is the one that says: Do you work at this school?  ... -->
-                No photos are available - use the tile that starts with Do you work at this school?
-                <!--  Not this <content:ratingsSummary school="${school}"/>-->
+            <link:schoolEspRegister styleClass="no_interrupt tdn">
+            <div class="mod standard_3-1">
+                <div class="outer">
+                    <div class="inner">
+                        <div class="hd">
+                            <h3 class="bottom">Add photos</h3>
+                        </div>
+                        <div class="bd">
+                            <p class="small mtm">
+                                <span class="make-555555">Schools,</span><br />
+                                join today<br />
+                                <span class="make-555555">and update<br />photos.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
+            </link:schoolEspRegister>
         </c:otherwise>
     </c:choose>
 
