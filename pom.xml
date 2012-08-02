@@ -588,6 +588,7 @@
                                 <param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>
                                 <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
                                 <param>99_debugging/debug.css</param>
+                                <param>hovers-v0.css</param>
                                 <param>house_ads.css</param>
                                 <param>jquery.autocomplete.css</param>
                             </cssSourceFiles>
