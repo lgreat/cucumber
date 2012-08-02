@@ -131,11 +131,17 @@ GS.uri.Uri.getQueryData = function(queryString) {
         queryString = queryString.substring(1);
     }
     else {
-        queryString = window.location.href.slice(window.location.href.indexOf('?') + 1);
+        var index = window.location.href.indexOf('?');
+        if(index === -1) {
+            queryString = "";
+        }
+        else {
+            queryString = window.location.href.slice(index + 1);
+        }
     }
 
-    var hashes = queryString.split('&')
-    if (hashes.length > 1) {
+    var hashes = queryString.split('&');
+    if (queryString.length > 0 && hashes.length > 0) {
         for (var i = 0; i < hashes.length; i++) {
             var hash = hashes[i].split('=');
             var key = hash[0];
