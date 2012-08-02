@@ -84,6 +84,7 @@ jQuery(document).ready(function() {
 
     if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
 
+    /* this initializes all of the star rating options on the reviews page */
     starRatingInterface("starRatingContainer1", 16, 5, "overallAsString");
     starRatingInterface("starRatingContainer2", 16, 5, "teacherAsString");
     starRatingInterface("starRatingContainer3", 16, 5, "principalAsString");
@@ -146,7 +147,6 @@ function starRatingInterface(containerS, iconW, starsT, overallSR){
         }
     }
     $('#'+containerS).mousemove(function(e){
-
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
         var currentStar = Math.floor(x/iconWidth) +1;
@@ -155,7 +155,6 @@ function starRatingInterface(containerS, iconW, starsT, overallSR){
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
     });
     $('#'+containerS).click(function(e){
-
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
         var currentStar = Math.floor(x/iconWidth) +1;
@@ -164,33 +163,44 @@ function starRatingInterface(containerS, iconW, starsT, overallSR){
         overallStarRating.blur();
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentStar);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
-
     });
     $('#'+containerS).mouseout(function(e){
-
         var currentRating = overallStarRating.val();
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentRating);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentRating));
     });
-
 }
 function drawPieChart(dataIn, divNameId, dimensions) {
-    //console.log(dataIn+":"+divNameId+":"+dimensions);
+
     // Create and populate the data table.
     var data = google.visualization.arrayToDataTable(dataIn, true);
-
-    //  var theChartSize = sizePie;
 
     var options = {
         width: dimensions,
         height: dimensions,
         legend: 'none',
         tooltip: {showColorCode: true,text:'value'},
+        colors:['#327FA0','#E2B66C','#DB7258','#A4B41E','#38A37A','#B66483','#7B498F','#414F7B'],
         pieSliceText: 'none',
         chartArea:{left:10,top:10,bottom:10,right:10,width:"88%",height:"88%"},
-        pieSliceBorderColor:'gray'
+        pieSliceBorderColor:'white'
     }
-    //var test = $('#'+divName);
+
     // Create and draw the visualization.
     new google.visualization.PieChart(document.getElementById(divNameId)).draw(data, options);
+}
+
+function drawBarChart(dataIn, divNameId, c, w, h) {
+    var data = google.visualization.arrayToDataTable(dataIn, true);
+
+    var options = {
+        colors: c,
+        hAxis: {minValue: 0, maxValue: 10, gridlines:{count:11}},
+        legend: 'none',
+        width:w,
+        height:h
+    };
+
+    var chart = new google.visualization.BarChart(document.getElementById(divNameId));
+    chart.draw(data, options);
 }
