@@ -10,7 +10,27 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           version="2.0" xmlns:gsweb="gstaglib" xmlns:x_rt="http://java.sun.com/jstl/xml_rt">
+    <jsp:directive.page import="gs.web.request.RequestInfo"/>
 
+
+    <jsp:scriptlet>
+    System.out.println("*********************");
+    System.out.println(request.getAttribute("javax.servlet.forward.request_uri"));
+    System.out.println(request.getAttribute("javax.servlet.include.request_uri"));
+    System.out.println(request.getRequestURI());
+    System.out.println(request.getAttribute("javax.servlet.forward.query_string"));
+    System.out.println(request.getAttribute("javax.servlet.include.query_string"));
+    System.out.println(request.getQueryString());
+    System.out.println(gs.web.util.UrlUtil.getRequestHostAndPath(request));
+    System.out.println(((gs.web.request.RequestInfo)request.getAttribute(gs.web.request.RequestInfo.REQUEST_ATTRIBUTE_NAME)).getRequestURL());
+    System.out.println("*********************");
+</jsp:scriptlet>
+
+    ${requestScope.request.serverName} |
+    ${request.requestURL} |
+    ${request.requestURI} |
+    ${requestInfo.requestURL} |
+    ${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}
 
     <c:set var="highlightstab"><c:if test="${fn:length(highlights) gt 0}">
         <div class="ptl">

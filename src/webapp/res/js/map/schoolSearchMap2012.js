@@ -216,11 +216,13 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 title: point.name
             };
 
-            var imageUrl = '/res/mobile/img/map_pins/32x32/schoolRatingMapPinSprite.png';
+            var imageUrl = '/res/img/sprites/icon/mapPins/x32/120523-mapPinsx32.png';
             var pixelOffset = 320; // default to n/a
 
             if (point.gsRating != "" && parseInt(point.gsRating) > 0) {
                 pixelOffset = (10 - point.gsRating) * 32;
+            } else if (point.levelCode === 'p') {
+                pixelOffset = 352; // TODO GS-13099 Where is preschool?
             } else if (point.schoolType === 'private') {
                 pixelOffset = 352;
             }

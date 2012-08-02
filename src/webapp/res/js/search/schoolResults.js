@@ -359,18 +359,10 @@ GS.search.results = GS.search.results || (function() {
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         };
 
-        console.log(page.totalResults);
-        console.log(page.offset);
-        console.log(page.lastOffsetOnPage);
-        console.log(formatWithCommas(page.totalResults));
-        console.log(formatWithCommas(page.offset));
-        console.log(formatWithCommas(page.lastOffsetOnPage));
-        console.log(1);
         pageNav.find('.js-search-results-paging-summary').html("Showing " + formatWithCommas(page.offset) + "-" +
                 formatWithCommas(page.lastOffsetOnPage) + " of " +
             "<span id='total-results-count'>" + formatWithCommas(page.totalResults) + "</span> schools");
         pageNav.show();
-        console.log(2);
 
         updatePageNav(page);
 
@@ -399,11 +391,20 @@ GS.search.results = GS.search.results || (function() {
             }
 
             var gsRating = school.greatSchoolsRating;
+            var gsRatingUrl = school.gsRatingUrl;
             var showNonPrivate = 'block';
             var showPrivate = 'none';
-            if(school.schoolType == 'private') {
+            var showPreschool = 'none';
+            if (school.levelCode == 'p') {
+                showNonPrivate = 'none';
+                showPrivate = 'none';
+                showPreschool = 'block';
+                gsRatingUrl = school.schoolUrl;
+            } else if(school.schoolType == 'private') {
                 showNonPrivate = 'none';
                 showPrivate = 'block';
+                showPreschool = 'none';
+                gsRatingUrl = school.schoolUrl;
             }
             else if(gsRating == null) {
                 gsRating = 'n/a';
@@ -456,7 +457,7 @@ GS.search.results = GS.search.results || (function() {
                 distance: school.distance,
                 gradesRange: school.rangeString,
                 gsRating: gsRating,
-                gsRatingUrl: school.gsRatingUrl,
+                gsRatingUrl: gsRatingUrl,
                 id: school.id,
                 parentRating: parentRating,
                 schoolName: school.name,
@@ -466,6 +467,7 @@ GS.search.results = GS.search.results || (function() {
                 showParentRating: showParentRating,
                 showNonPrivate: showNonPrivate,
                 showPrivate: showPrivate,
+                showPreschool: showPreschool,
                 showRateSchool: showRateSchool,
                 starsOff: starsOff,
                 state: school.state
@@ -473,7 +475,7 @@ GS.search.results = GS.search.results || (function() {
 
             points.push({name: school.jsEscapeName, lat: school.latitude, lng: school.longitude,
                 gsRating: school.greatSchoolsRating, schoolType: school.schoolType, infoWindowMarkup: infoBoxHtml,
-                state: school.state, id: school.id});
+                state: school.state, id: school.id, levelCode: school.levelCode});
 
             schoolList.append(sidebarListHtml);
             schoolList.find('a').each(function() {
