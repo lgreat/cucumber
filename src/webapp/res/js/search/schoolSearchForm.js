@@ -213,7 +213,7 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                             data['city'] = geocodeResult['city'];
                         }
 
-                        data['sortBy'] = 'GS_RATING_DESCENDING';
+                        data['sortBy'] = 'DISTANCE';
 
                         var queryStringDataWithFilters;
 
