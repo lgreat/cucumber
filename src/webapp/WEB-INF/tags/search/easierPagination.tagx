@@ -47,12 +47,12 @@
                 <c:choose>
                     <c:when test="${useJavascriptPaging}">
                         <span class="prv_nxt" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                            &amp;#171; Prev
+                            &amp;#171;
                         </span>
                     </c:when>
                     <c:otherwise>
                         <span class="prv_nxt">
-                             <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">&amp;#171; Prev</a>
+                             <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">&amp;#171;</a>
                         </span>
                     </c:otherwise>
                 </c:choose>
@@ -125,13 +125,14 @@
 
                 <c:choose>
                     <c:when test="${useJavascriptPaging}">
-                        <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                            Next &amp;#187;
+                        <span class="${pageNumberStyleClass}"
+                              onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
+                            &amp;#187;
                         </span>
                     </c:when>
                     <c:otherwise>
                         <span class="prv_nxt">
-                            <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">Next &amp;#187;</a>
+                            <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">&amp;#187;</a>
                         </span>
                     </c:otherwise>
                 </c:choose>

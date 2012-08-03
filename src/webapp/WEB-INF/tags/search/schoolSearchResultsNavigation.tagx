@@ -23,11 +23,11 @@
 
 <div class="alpha grid_16 omega">
     <div class="alpha grid_16 omega pr">
-        <div id="js-mapPageNav" class="line pa grid_11 omega" style="right: 0px; top:10px;">
-            <div class="unit size1of2 plm">
+        <div id="js-mapPageNav" class="pa" style="right: 0px; top:10px;width:443px;">
+            <div class="fltlft plm">
                 ${searchResultsPagingSummary}
             </div>
-            <div class="unit size2of2 lastUnit">
+            <div class="fltrt plm">
                 <div class="pagination  js-pageNumbers" id="pagination">
                     <search:easierPagination page="${page}" mode="offset" useJavascriptPaging="true"
                                              javascriptMethod="GS.search.results.pagination"/>
