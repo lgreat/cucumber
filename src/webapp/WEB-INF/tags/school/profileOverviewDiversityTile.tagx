@@ -30,11 +30,11 @@
 
                 <div class="phl ptm"><profile:pieChart chartData="${diversityMap}" chartDrawDivId="overviewDiversityPieChart" chartSize="150"/></div>
 
-                <div class="phm pvs">Largest group is ${largestLabel} with a value of ${largestValue}</div>
+                <p class="tac small bottom phm pvs"><span class="small_bold">${largestValue}% of students</span> at this school are ${largestLabel}.</p>
             </c:when>
             <c:otherwise>
-                <!-- Static text is to be displayed -->
-                <div class="small">Student ethnicity data is not available for this school. Call the school to learn more about diversity.</div>
+                <!-- Static text is to be displayed when data not available -->
+                <p class="tac small_bold">Looks like we have no information about the race or ethnicity of the student body.</p>
             </c:otherwise>
         </c:choose>
     </school:profileOverviewCell1>
