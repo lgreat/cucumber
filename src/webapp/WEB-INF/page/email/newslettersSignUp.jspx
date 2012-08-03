@@ -47,7 +47,7 @@
                         <div class="unit size1of3 pas">
                             <newsletterSignUp:weeklyNewsletter/>
                         </div>
-                        <div class="unit size1of3 pas middle">
+                        <div class="unit size1of3 pas">
                             <newsletterSignUp:mySchoolStats/>
                         </div>
                         <div class="unit size1of3 pas lastUnit">
