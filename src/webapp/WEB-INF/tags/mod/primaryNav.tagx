@@ -24,7 +24,7 @@
 <c:set var="pw" value="${requestScope.context.pathway}"/>
 
 <div class="menuContainer">
-<table id="primary">
+<table id="gs-primary">
 <tbody>
 <tr>
 <td class="${(pw == tabs.HOME ? 'selected' : '')} menuItem home">

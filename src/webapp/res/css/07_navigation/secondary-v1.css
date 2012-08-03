@@ -16,7 +16,7 @@ General comments:
 
 /* Menu Container */
 
-#secondary {
+#gs-secondary {
     z-index: 3;
     position: relative;
     list-style: none;
@@ -36,7 +36,7 @@ General comments:
 
 /* Menu Items */
 
-#secondary .menuItem {
+#gs-secondary .menuItem {
     float: left;
     display: block;
     text-align: center;
@@ -46,13 +46,13 @@ General comments:
     border: none;
 }
 
-#secondary .menuItem:hover {
+#gs-secondary .menuItem:hover {
     /* Background color */
     background-color: #06b;
     outline:0;
 }
 
-#secondary .menuItem .menuItemAnchorText {
+#gs-secondary .menuItem .menuItemAnchorText {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13px;
     line-height: 32px;
@@ -63,15 +63,15 @@ General comments:
     padding: 0 13px;
 }
 
-#secondary .menuItem .last {
+#gs-secondary .menuItem .last {
     padding: 0 11px;
 }
 
-#secondary .menuItem:hover .menuItemAnchorText {
+#gs-secondary .menuItem:hover .menuItemAnchorText {
     color: white;
 }
 
-.ie7 #secondary .menuItem .i-sn-arrow {
+.ie7 #gs-secondary .menuItem .i-sn-arrow {
     vertical-align: middle;
 }
 
@@ -107,12 +107,12 @@ General comments:
 
 /* Drop Down Containers */
 
-#secondary .dropdown_1,
-#secondary .dropdown_2,
-#secondary .dropdown_3,
-#secondary .dropdown_4,
-#secondary .dropdown_5,
-#secondary .dropdown_6 {
+#gs-secondary .dropdown_1,
+#gs-secondary .dropdown_2,
+#gs-secondary .dropdown_3,
+#gs-secondary .dropdown_4,
+#gs-secondary .dropdown_5,
+#gs-secondary .dropdown_6 {
     margin: 0 auto 1px;
     position: absolute;
     left: -999em; /* Hides the drop down */
@@ -124,37 +124,37 @@ General comments:
     background: white;
 }
 
-#secondary .dropdown_1,
-#secondary .dropdown_2,
-#secondary .dropdown_3,
-#secondary .dropdown_4,
-#secondary .dropdown_5,
-#secondary .dropdown_6 {
+#gs-secondary .dropdown_1,
+#gs-secondary .dropdown_2,
+#gs-secondary .dropdown_3,
+#gs-secondary .dropdown_4,
+#gs-secondary .dropdown_5,
+#gs-secondary .dropdown_6 {
     min-width: 100%;
 }
 
-.ie7 #secondary .dropdown_1{min-width:0;width:245px;}
-.ie7 #secondary .dropdown_2{min-width:0;width:174px;}
-.ie7 #secondary .dropdown_3{min-width:0;width:131px;}
-.ie7 #secondary .dropdown_4{min-width:0;width:157px;}
-.ie7 #secondary .dropdown_5{min-width:0;width:145px;}
-.ie7 #secondary .dropdown_6{min-width:0;width:188px;}
+.ie7 #gs-secondary .dropdown_1{min-width:0;width:245px;}
+.ie7 #gs-secondary .dropdown_2{min-width:0;width:174px;}
+.ie7 #gs-secondary .dropdown_3{min-width:0;width:131px;}
+.ie7 #gs-secondary .dropdown_4{min-width:0;width:157px;}
+.ie7 #gs-secondary .dropdown_5{min-width:0;width:145px;}
+.ie7 #gs-secondary .dropdown_6{min-width:0;width:188px;}
 
-#secondary .menuItem:hover .dropdown_2,
-#secondary .menuItem:hover .dropdown_3,
-#secondary .menuItem:hover .dropdown_4,
-#secondary .menuItem:hover .dropdown_5,
-#secondary .menuItem:hover .dropdown_6 {
+#gs-secondary .menuItem:hover .dropdown_2,
+#gs-secondary .menuItem:hover .dropdown_3,
+#gs-secondary .menuItem:hover .dropdown_4,
+#gs-secondary .menuItem:hover .dropdown_5,
+#gs-secondary .menuItem:hover .dropdown_6 {
     left: auto;
     top: auto;
 }
 
-#secondary .menuItem:hover .dropdown_1{
+#gs-secondary .menuItem:hover .dropdown_1{
     left:-1px;
     top: auto;
 }
 
-#secondary .menuItem:hover .dropdown_align_right {
+#gs-secondary .menuItem:hover .dropdown_align_right {
     left: auto;
     right: 0;
     top: auto;
@@ -162,12 +162,12 @@ General comments:
 
 /* Drop Down Menu Content Stylings */
 
-#secondary .dropdown_1 .subMenuItem,
-#secondary .dropdown_2 .subMenuItem,
-#secondary .dropdown_3 .subMenuItem,
-#secondary .dropdown_4 .subMenuItem,
-#secondary .dropdown_5 .subMenuItem,
-#secondary .dropdown_6 .subMenuItem {
+#gs-secondary .dropdown_1 .subMenuItem,
+#gs-secondary .dropdown_2 .subMenuItem,
+#gs-secondary .dropdown_3 .subMenuItem,
+#gs-secondary .dropdown_4 .subMenuItem,
+#gs-secondary .dropdown_5 .subMenuItem,
+#gs-secondary .dropdown_6 .subMenuItem {
     display: block;
     text-align: center;
     /*position:relative;*/
@@ -178,23 +178,23 @@ General comments:
     width: 100%;
 }
 
-#secondary .dropdown_1 .subMenuItem:hover,
-#secondary .dropdown_2 .subMenuItem:hover,
-#secondary .dropdown_3 .subMenuItem:hover,
-#secondary .dropdown_4 .subMenuItem:hover,
-#secondary .dropdown_5 .subMenuItem:hover,
-#secondary .dropdown_6 .subMenuItem:hover {
+#gs-secondary .dropdown_1 .subMenuItem:hover,
+#gs-secondary .dropdown_2 .subMenuItem:hover,
+#gs-secondary .dropdown_3 .subMenuItem:hover,
+#gs-secondary .dropdown_4 .subMenuItem:hover,
+#gs-secondary .dropdown_5 .subMenuItem:hover,
+#gs-secondary .dropdown_6 .subMenuItem:hover {
     /* Background color */
     background-color: #06b;
     outline:0;
 }
 
-#secondary .dropdown_1 .subMenuItem .subMenuItemAnchorText,
-#secondary .dropdown_2 .subMenuItem .subMenuItemAnchorText,
-#secondary .dropdown_3 .subMenuItem .subMenuItemAnchorText,
-#secondary .dropdown_4 .subMenuItem .subMenuItemAnchorText,
-#secondary .dropdown_5 .subMenuItem .subMenuItemAnchorText,
-#secondary .dropdown_6 .subMenuItem .subMenuItemAnchorText {
+#gs-secondary .dropdown_1 .subMenuItem .subMenuItemAnchorText,
+#gs-secondary .dropdown_2 .subMenuItem .subMenuItemAnchorText,
+#gs-secondary .dropdown_3 .subMenuItem .subMenuItemAnchorText,
+#gs-secondary .dropdown_4 .subMenuItem .subMenuItemAnchorText,
+#gs-secondary .dropdown_5 .subMenuItem .subMenuItemAnchorText,
+#gs-secondary .dropdown_6 .subMenuItem .subMenuItemAnchorText {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     line-height: 32px;
@@ -206,12 +206,12 @@ General comments:
     padding: 0 13px;
 }
 
-#secondary .dropdown_1 .subMenuItem:hover .subMenuItemAnchorText,
-#secondary .dropdown_2 .subMenuItem:hover .subMenuItemAnchorText,
-#secondary .dropdown_3 .subMenuItem:hover .subMenuItemAnchorText,
-#secondary .dropdown_4 .subMenuItem:hover .subMenuItemAnchorText,
-#secondary .dropdown_5 .subMenuItem:hover .subMenuItemAnchorText,
-#secondary .dropdown_6 .subMenuItem:hover .subMenuItemAnchorText {
+#gs-secondary .dropdown_1 .subMenuItem:hover .subMenuItemAnchorText,
+#gs-secondary .dropdown_2 .subMenuItem:hover .subMenuItemAnchorText,
+#gs-secondary .dropdown_3 .subMenuItem:hover .subMenuItemAnchorText,
+#gs-secondary .dropdown_4 .subMenuItem:hover .subMenuItemAnchorText,
+#gs-secondary .dropdown_5 .subMenuItem:hover .subMenuItemAnchorText,
+#gs-secondary .dropdown_6 .subMenuItem:hover .subMenuItemAnchorText {
     color: white;
 }
 

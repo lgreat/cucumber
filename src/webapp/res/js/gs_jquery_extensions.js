@@ -103,9 +103,9 @@ jQuery(document).ready(function() {
     // disable selection of button-3-inactive class
     jQuery('.button-6-inactive').disableSelection();
     // disable selection of text in primary navigation
-    jQuery('#primary').disableSelection();
+    jQuery('#gs-primary').disableSelection();
     // disable selection of text in secondary navigation
-    jQuery('#secondary').disableSelection();
+    jQuery('#gs-secondary').disableSelection();
     // disable selection of text on Office School Profile mahjong tiles
     jQuery('#js_espFormNav').disableSelection();
     // disable selection of text on topic center tabs

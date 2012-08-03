@@ -20,7 +20,7 @@ General comments:
     margin: 0 auto;
 }
 
-#primary {
+#gs-primary {
     z-index: 4;
     position: relative;
     list-style: none;
@@ -40,7 +40,7 @@ General comments:
 
 /* Primary Menu Items */
 
-#primary .menuItem {
+#gs-primary .menuItem {
     padding: 0;
     margin: 0;
     border: 0 none;
@@ -61,26 +61,26 @@ General comments:
     zoom:1;
 }
 
-#primary .menuItem:hover {
+#gs-primary .menuItem:hover {
     background-color: white;
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
     filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');
 }
 
-#primary .menuItem:focus {
+#gs-primary .menuItem:focus {
     background-color: white;
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
     filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');
 }
 
-#primary .drop:hover {
+#gs-primary .drop:hover {
     background-color: white;
     height: 32px;
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)";
     filter: progid:DXImageTransform.Microsoft.gradient(enabled='false');
 }
 
-#primary .menuItem.selected {
+#gs-primary .menuItem.selected {
     /* Background color and gradients */
     background-color: #FFBD00; /* Old browsers */
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFE9BE), color-stop(33%,#FFC14B), color-stop(75%,#FFA72B), color-stop(95%,#FFC65B), color-stop(100%,#FFA529)); /* Chrome,Safari4+ */
@@ -95,7 +95,7 @@ General comments:
     zoom:1;
 }
 
-#primary .menuItem .menuItemAnchorText {
+#gs-primary .menuItem .menuItemAnchorText {
     font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 16px;
     line-height: 32px;
@@ -110,20 +110,20 @@ General comments:
     text-align: center;
 }
 
-#primary .menuItem.home {
+#gs-primary .menuItem.home {
     width: 35px;
 }
 
-#primary .menuItem.home .menuItemAnchorText{
+#gs-primary .menuItem.home .menuItemAnchorText{
     line-height: 0;
 }
 
-#primary .menuItem.selected .menuItemAnchorText{
+#gs-primary .menuItem.selected .menuItemAnchorText{
     text-shadow: none;
     color:#333;
 }
 
-#primary .menuItem:hover .menuItemAnchorText {
+#gs-primary .menuItem:hover .menuItemAnchorText {
     color: #06b;
     text-shadow: none;
     background-color: white;
@@ -131,22 +131,22 @@ General comments:
 
 /* Primary Drop Down Containers */
 
-#primary .dropdownReference{
+#gs-primary .dropdownReference{
     position:relative;
     display: block;
     border-right: 1px solid #c6c6c6;
 }
 
-#primary .lastNavUnit .dropdownReference{
+#gs-primary .lastNavUnit .dropdownReference{
     border-right: none;
 }
 
-#primary .dropdown_1,
-#primary .dropdown_2,
-#primary .dropdown_3,
-#primary .dropdown_4,
-#primary .dropdown_5,
-#primary .dropdown_6 {
+#gs-primary .dropdown_1,
+#gs-primary .dropdown_2,
+#gs-primary .dropdown_3,
+#gs-primary .dropdown_4,
+#gs-primary .dropdown_5,
+#gs-primary .dropdown_6 {
     margin: 0 auto 1px;
     position: absolute;
     left: -999em; /* Hides the drop down */
@@ -159,29 +159,29 @@ General comments:
     background: white;
 }
 
-#primary .dropdown_1 {
+#gs-primary .dropdown_1 {
     width: 455px;
 }
 
-#primary .dropdown_2,
-#primary .dropdown_3,
-#primary .dropdown_4,
-#primary .dropdown_5,
-#primary .dropdown_6 {
+#gs-primary .dropdown_2,
+#gs-primary .dropdown_3,
+#gs-primary .dropdown_4,
+#gs-primary .dropdown_5,
+#gs-primary .dropdown_6 {
     width: 358px;
 }
 
-#primary .menuItem:hover .dropdown_1,
-#primary .menuItem:hover .dropdown_2,
-#primary .menuItem:hover .dropdown_3,
-#primary .menuItem:hover .dropdown_4,
-#primary .menuItem:hover .dropdown_5,
-#primary .menuItem:hover .dropdown_6 {
+#gs-primary .menuItem:hover .dropdown_1,
+#gs-primary .menuItem:hover .dropdown_2,
+#gs-primary .menuItem:hover .dropdown_3,
+#gs-primary .menuItem:hover .dropdown_4,
+#gs-primary .menuItem:hover .dropdown_5,
+#gs-primary .menuItem:hover .dropdown_6 {
     left: -1px;
     top: auto;
 }
 
-#primary .menuItem:hover .dropdown_align_right {
+#gs-primary .menuItem:hover .dropdown_align_right {
     left: auto;
     right: -1px;
     top: auto;
@@ -212,42 +212,42 @@ General comments:
 
 /* Primary Menu Content Stylings */
 
-#primary .col_content {
+#gs-primary .col_content {
     margin: 15px 0 20px;
     padding: 0 20px;
 }
 
-#primary .col_content li {
+#gs-primary .col_content li {
     margin-bottom: 10px;
 }
 
-#primary .col_content li.lastone {
+#gs-primary .col_content li.lastone {
     margin-bottom: auto;
 }
 
-#primary .dropdown_1 .ft_content{
+#gs-primary .dropdown_1 .ft_content{
     width: 415px;
 }
 
-#primary .dropdown_2 .ft_content,
-#primary .dropdown_3 .ft_content,
-#primary .dropdown_4 .ft_content,
-#primary .dropdown_5 .ft_content,
-#primary .dropdown_6 .ft_content{
+#gs-primary .dropdown_2 .ft_content,
+#gs-primary .dropdown_3 .ft_content,
+#gs-primary .dropdown_4 .ft_content,
+#gs-primary .dropdown_5 .ft_content,
+#gs-primary .dropdown_6 .ft_content{
     width: 318px;
 }
 
-#primary .ft_content {
+#gs-primary .ft_content {
     padding: 15px 20px;
     background-color: #ececec;
     outline:0 none;
     border:0 none;
 }
 
-#primary .ft_content p {
+#gs-primary .ft_content p {
     margin-bottom: 5px;
 }
 
-#primary .ft_content img {
+#gs-primary .ft_content img {
     margin-right: 20px;
 }
