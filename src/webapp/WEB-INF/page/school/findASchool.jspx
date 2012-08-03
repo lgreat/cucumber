@@ -85,29 +85,22 @@
                         </div>
                         <div id="dropDown-FAS-1" class="dropDown-FAS">
                             <div class="col_2">
+                                <div class="pas small bottom"> Show only:</div>
                                 <div>
-                                    <input type="checkbox" checked="checked" name="st" id="js-school-type-all"
-                                           value=""/>
-                                    <label for="js-school-type-all">All School Types</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st"
+                                    <input type="checkbox" class="jq-school-type" name="st"
                                            id="js-school-type-public" value="public"/>
                                     <label for="js-school-type-public">Public</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st"
+                                    <input type="checkbox" class="jq-school-type" name="st"
                                            id="js-school-type-charter" value="charter"/>
                                     <label for="js-school-type-charter">Public charter</label>
                                 </div>
                                 <div class="mbm">
-                                    <input type="checkbox" class="jq-school-type" checked="checked" name="st"
+                                    <input type="checkbox" class="jq-school-type" name="st"
                                            id="js-school-type-private" value="private"/>
                                     <label for="js-school-type-private">Private</label>
                                 </div>
-                                <button class="button-1" type="button" id="hideDropDown-1"
-                                        onclick="javascript:void(0)">Done
-                                </button>
                             </div>
                         </div>
                         <!--</div>-->
@@ -124,39 +117,27 @@
                         </div>
                         <div id="dropDown-FAS-2" class="dropDown-FAS">
                             <div class="col_2">
+                                <div class="pas small bottom"> Show only:</div>
                                 <div>
-                                    <input type="checkbox" checked="checked" name="gradeLevels"
-                                           id="js-grade-level-all"
-                                           value=""/>
-                                    <label for="js-grade-level-all">All Grade Levels</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked"
-                                           name="gradeLevels"
+                                    <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-p" value="p"/>
                                     <label for="js-grade-level-p">Preschool</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked"
-                                           name="gradeLevels"
+                                    <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-e" value="e"/>
                                     <label for="js-grade-level-e">Elementary School (K-5)</label>
                                 </div>
                                 <div>
-                                    <input type="checkbox" class="jq-grade-level" checked="checked"
-                                           name="gradeLevels"
+                                    <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-m" value="m"/>
                                     <label for="js-grade-level-m">Middle School (6-8)</label>
                                 </div>
                                 <div class="mbm">
-                                    <input type="checkbox" class="jq-grade-level" checked="checked"
-                                           name="gradeLevels"
+                                    <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-h" value="h"/>
                                     <label for="js-grade-level-h">High School (9-12)</label>
                                 </div>
-                                <button class="button-1" id="hideDropDown-2" type="button"
-                                        onclick="javascript:void(0)">Done
-                                </button>
                             </div>
                         </div>
                         <!--</div>-->
@@ -166,7 +147,7 @@
 
                         <div id="category-3" class="filterCategory small bottom">
 
-                            <span id="js-radius-label" class="fltlft vert-align-mid defaultText">25 miles</span>
+                            <span id="js-radius-label" class="fltlft vert-align-mid defaultText">5 miles</span>
                             <a href="javascript:void(0)">
                                 <span class="navSprite dropDown-default fltrt"><!--Do not Collapse--></span>
                                 <span class="navSprite dropDown-hover fltrt"><!--Do not Collapse--></span>
@@ -225,16 +206,6 @@
                                 </div>
                             </div>
                             </div>
-                            <div class="line">
-                                <div class="unit size1of1 lastUnit">
-                            <div class="doneButton">
-                                <button class="button-1 mtm" id="hideDropDown-3" type="button"
-                                        onclick="javascript:void(0)">Done
-                                </button>
-                            </div>
-                                </div>
-                            </div>
-
                         </div>
 
                     </div>
