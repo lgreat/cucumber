@@ -60,6 +60,11 @@
     <script type="text/javascript" src="/res/js/parentReviewTabSchoolReviewForm.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/bootstrap/bootstrap-tooltip.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/bootstrap/bootstrap-popover.js"><!-- no collapse --></script>
+
+    <!--Needed for photogallery-->
+    <script type="text/javascript" src="/res/js/gs_jquery_extensions.js"><!-- no collapse --></script>
+    <script type="text/javascript" src="/res/js/omnitureEventNotifier.js"><!-- no collapse --></script>
+    <script type="text/javascript" src="/res/js/photoGallery.js"><!-- no collapse --></script>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 

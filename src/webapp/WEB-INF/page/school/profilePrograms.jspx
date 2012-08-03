@@ -66,8 +66,52 @@ where each entry is the first bean for that section, this allows access to the s
             </div>
         </c:if>
     </c:set>
+    <c:set var="culturetab">
+        <c:if test="${fn:length(culture) gt 0}">
+            <div class="ptl">
+                <c:forEach var="section" items="${culture}" >
+                    <school:profileProgramsSectionBasic displayBean="${section}" rowList="${cultureMap[section.sectionAbbreviation]}" dataMap="${cultureProfileData}"/>
+                </c:forEach>
+            </div>
 
-    <c:if test="${(!empty highlightstab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab)}">
+                <c:if test="${not empty photoGalleryImages}">
+                    <div class="mvm">
+                        <div class="line">
+                            <div class="unit size2of5 lastUnit">
+                                <div class="mediumThumbnail bgtint-eb" id="school-photo-medium"><p
+                                        class="text3">Photos of this school</p><a
+                                        href="javascript:void(0)" onclick="scroll(0,0)" class="js-photo-gallery-trigger"><img
+                                        src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
+                                        alt="Photos of this school"
+                                        width="130" height="130"/></a>
+                                    <c:choose>
+                                        <c:when test="${fn:length(photoGalleryImages) > 1}">
+                                            <p class="smallText1-06b"><a href="javascript:void(0)" onclick="scroll(0,0)"
+                                                                         class="js-photo-gallery-trigger">View all photos (${fn:length(photoGalleryImages)})</a>
+                                            </p>
+                                        </c:when>
+                                        <c:when test="${fn:length(photoGalleryImages) eq 1}">
+                                            <p class="smallText1-06b"><a href="javascript:void(0)" onclick="scroll(0,0)"
+                                                                         class="js-photo-gallery-trigger">View photo</a></p>
+                                        </c:when>
+                                    </c:choose>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
+                        <school:photoGallery cssClass="js-photo-gallery-trigger" images="${photoGalleryImages}" school="${school}" />
+                    </c:if>
+
+                </c:if>
+
+
+        </c:if>
+    </c:set>
+
+    <c:if test="${(!empty highlightstab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab || !empty culturetab)}">
         <div class="gsTabs">
             <ul class="tabStyle-5">
                 <c:if test="${(!empty highlightstab)}">
@@ -81,6 +125,9 @@ where each entry is the first bean for that section, this allows access to the s
                 </c:if>
                 <c:if test="${(!empty extracurricularstab)}">
                     <li><span class="graydivider">|</span><a id="js_extracurriculars" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'extracurriculars')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.extracurriculars}">Extracurriculars</a></li>
+                </c:if>
+                <c:if test="${(!empty culturetab)}">
+                    <li><span class="graydivider">|</span><a id="js_culture" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'culture')}" title="${schoolName} | Culture" class="${requestScope.schoolProfileTabMap.culture}">Culture</a></li>
                 </c:if>
             </ul>
 
@@ -107,12 +154,20 @@ where each entry is the first bean for that section, this allows access to the s
                 </div>
             </c:if>
             <c:if test="${(!empty extracurricularstab)}">
-                <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.extracurriculars and requestScope.schoolProfileTabMap.extracurriculars eq 'selected'?'':'dn')}">
+            <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.extracurriculars and requestScope.schoolProfileTabMap.extracurriculars eq 'selected'?'':'dn')}">
+                <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
+                <c:out value='${extracurricularstab}' escapeXml="false" />
+                <!--</gsweb:cache>-->
+            </div>
+        </c:if>
+            <c:if test="${(!empty culturetab)}">
+                <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.culture and requestScope.schoolProfileTabMap.culture eq 'selected'?'':'dn')}">
                     <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
-                    <c:out value='${extracurricularstab}' escapeXml="false" />
+                    <c:out value='${culturetab}' escapeXml="false" />
                     <!--</gsweb:cache>-->
                 </div>
             </c:if>
         </div>
+        <div id="fade" class="black_overlay"><!-- do not collapse --></div>
     </c:if>
 </jsp:root>

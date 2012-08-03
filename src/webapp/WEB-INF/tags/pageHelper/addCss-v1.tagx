@@ -58,6 +58,7 @@
             <gsml:url var="hovercss" value="/res/css/hovers-v0.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="houseadscss" value="/res/css/house_ads.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="jquery_autocomplete_css" value="/res/css/jquery.autocomplete.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="photoGallery" value="/res/css/school/photoGallery.css?v=$RELEASE_NUMBER" allowCdn="true"/>
 
             <!--
             IE CSS limits:
@@ -103,6 +104,7 @@
             <!-- 30 --> <![CDATA[<link rel="stylesheet" href="${houseadscss}" type="text/css" />]]>
             <!-- 31 --> <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
             <!-- 32 --> <![CDATA[<link rel="stylesheet" href="${pagination}" type="text/css" />]]>
+            <!-- 32 --> <![CDATA[<link rel="stylesheet" href="${photoGallery}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
             <gsml:url var="gs_stylescss_v1" value="/res/css/gs_styles-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>

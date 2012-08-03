@@ -58,6 +58,9 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     @Autowired
     private SchoolProfileDataHelper _schoolProfileDataHelper;
 
+    @Autowired
+    private SchoolProfileCultureController _schoolProfileCultureController;
+
     @RequestMapping(method = RequestMethod.GET)
     public String showHighlightsPage(ModelMap modelMap, HttpServletRequest request) {
 
@@ -67,6 +70,9 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
         // Add the display structure to the model for use in building the page structure
         modelMap.put( "ProfileDisplayStructure", DISPLAY_CONFIG);
+
+        //Add culture info to the model
+        _schoolProfileCultureController.getCultureDetails(modelMap,request);
 
         // Get Data
         if (school != null) {
@@ -110,7 +116,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     }
 
     // Build the display data by merging the display structure and DB results data
-    private Map<String, List<String>> buildDisplayData(Map<String, List<EspResponse>> resultsMap, List<SchoolProfileDisplayBean> displayConfig) {
+    public static Map<String, List<String>> buildDisplayData(Map<String, List<EspResponse>> resultsMap, List<SchoolProfileDisplayBean> displayConfig) {
 
         // Create a Map to store the data in
         Map<String, List<String>> resultsModel = new HashMap<String, List<String>>();
@@ -127,7 +133,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         return resultsModel;
     }
 
-    private List<String> buildDisplayDataForRow(Map<String, List<EspResponse>> espResponseMap, SchoolProfileDisplayBean bean) {
+    private static List<String> buildDisplayDataForRow(Map<String, List<EspResponse>> espResponseMap, SchoolProfileDisplayBean bean) {
 
         List<String> results = new ArrayList<String>();
 
@@ -471,7 +477,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     // And, if a section has no data it should not be displayed at all.
     // As each section is built the first display bean
     // will be added to a master List of all sections to be displayed.  If there is no data for a section the List will be empty.
-    private void buildDisplayModel(String[] modelPrefix, Map<String, List<String>> results,
+    public static void buildDisplayModel(String[] modelPrefix, Map<String, List<String>> results,
                                    List<SchoolProfileDisplayBean> displayConfig, ModelMap modelMap) {
 
         List<SchoolProfileDisplayBean> masterSectionList = new ArrayList<SchoolProfileDisplayBean>();

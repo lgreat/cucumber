@@ -591,6 +591,7 @@
                                 <param>hovers-v0.css</param>
                                 <param>house_ads.css</param>
                                 <param>jquery.autocomplete.css</param>
+                                <param>photoGallery.css</param>
                             </cssSourceFiles>
                             <cssFinalFile>gs_styles-v1.combined.css</cssFinalFile>
                             <cssTargetDir>/res/css</cssTargetDir>
