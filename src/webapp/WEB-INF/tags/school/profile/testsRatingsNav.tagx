@@ -17,7 +17,7 @@
         <li><span class="graydivider">|</span><a id="js_ratings"
                                                  href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'ratings')}"
                                                  title="${pageScope.schoolName} | Ratings details"
-                                                 class="${requestScope.schoolProfileTabMap.ratings} mlm">Ratings details</a>
+                                                 class="${requestScope.schoolProfileTabMap.ratings}">Ratings details</a>
         </li>
     </ul>
 </jsp:root>

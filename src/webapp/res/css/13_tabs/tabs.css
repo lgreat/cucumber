@@ -148,13 +148,13 @@
 
 /*  TAB STYLE 5 (Text with underscore for over style tabs)
 ----------------------------------------------------------------------------- */
-.gsTabs  ul.tabStyle-5 {height: 48px;padding: 0;margin: 12px 0 0 0;}
+.gsTabs  ul.tabStyle-5 {height: 48px;padding: 0;margin: 0 0 0 0;}
 .gsTabs  ul.tabStyle-5 li {list-style: none; display: inline-block;*display: inline;font: normal 12px/20px Arial, Helvetica, sans-serif;outline: 0 none;*line-height: 21px;}
 .gsTabs ul.tabStyle-5 li a {color: #79BEDC;text-decoration: none;*zoom: 1;outline: 0 none; padding-bottom: 3px; margin-right: 10px;}
 .gsTabs ul.tabStyle-5 li a:hover {border-bottom: 2px solid #79BEDC;}
 .gsTabs ul.tabStyle-5 li a:focus {outline: 0 none;}
 .gsTabs ul.tabStyle-5 li a.selected {font-weight:bold; border-bottom: 2px solid #79BEDC;outline: 0 none;}
-.gsTabs ul.tabStyle-5 .graydivider{color: #CCCCCC;}
+.gsTabs ul.tabStyle-5 .graydivider{color: #CCCCCC; margin-right: 10px;}
 
 /*  TAB STYLE 6 (Shows up on left side for grade level in testscores -  style tabs)
 ----------------------------------------------------------------------------- */
