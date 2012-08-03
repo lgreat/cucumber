@@ -12,6 +12,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
         >
 
     <jsp:directive.attribute name="communityRatingsModel" type="java.lang.Object" required="true"/>
@@ -20,38 +21,23 @@
     <c:set var="ratings" value="${communityRatingsModel['ratings']}" scope="page"/>
     <c:set var="numberOfReviews" value="${communityRatingsModel['numberOfReviews']}" scope="page"/>
 
-
-
     <c:set var="overallRating" value="${ratings.overall}"/>
     <c:if test="${empty ratings.overall}">
         <c:set var="overallRating" value="0"/>
     </c:if>
 
+    <school:profileOverviewCell1 title="Community ratings">
 
-
-    <school:profileOverviewCell1
-            title="Community ratings">
-        <link:schoolProfileParentReview school="${school}">
-            <span class="sprite stars_lg_${overallRating}_b stars_${overallRating}" title="${overallRating} star rating"><!-- do not collapse --></span>
-        </link:schoolProfileParentReview>
-        <div class="">Randall - Why aren't the stars appearing.</div>
-
-        <div class="spacer_5"><!-- do not collapse --></div>
+        <div class="mtl mha mbs clearfix" style="width:80px;">
+            <ratings:stars curSR="${overallRating}"/>
+        </div>
 
         <c:choose>
-            <c:when test="${numberOfReviews gt 0}">
-                <link:schoolProfileParentReview school="${school}" styleClass="smallAlertText">
-                    <c:choose>
-                        <c:when test="${numberOfReviews eq 1}">Read the review</c:when>
-                        <c:otherwise>Read all ${numberOfReviews} reviews</c:otherwise>
-                    </c:choose>
-                </link:schoolProfileParentReview>
-
-                <div class="spacer_5"><!-- do not collapse --></div>
+            <c:when test="${overallRating eq 0}">
+                <p class="tac"><em>Rate this school</em></p>
             </c:when>
             <c:otherwise>
-                <link:schoolProfileParentReview
-                        school="${school}">Be the first to review</link:schoolProfileParentReview>
+                <p class="tac">${overallRating} stars</p>
             </c:otherwise>
         </c:choose>
 
