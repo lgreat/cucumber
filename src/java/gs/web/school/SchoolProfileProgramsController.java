@@ -72,7 +72,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         modelMap.put( "ProfileDisplayStructure", DISPLAY_CONFIG);
 
         //Add culture info to the model
-        _schoolProfileCultureController.getCultureDetails(modelMap,request);
+//        _schoolProfileCultureController.getCultureDetails(modelMap,request);
 
         // Get Data
         if (school != null) {
