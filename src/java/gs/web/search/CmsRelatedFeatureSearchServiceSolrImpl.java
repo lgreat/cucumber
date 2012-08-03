@@ -138,7 +138,7 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
 
         // TODO: need to add caching layer to prevent too many calls to SOLR
         SearchResultsPage resultsPage = _cmsFeatureSearchService.getCmsFeaturesByType(Arrays.asList(new CmsCategory[]{cmsCategory}), "Article", rows, 0);
-        if (!resultsPage.getSearchResults().isEmpty()){
+        if (resultsPage!=null && resultsPage.getSearchResults()!=null && !resultsPage.getSearchResults().isEmpty()){
             return new LinkedList<ICmsFeatureSearchResult>(resultsPage.getSearchResults());
         }
         return new LinkedList<ICmsFeatureSearchResult>();
