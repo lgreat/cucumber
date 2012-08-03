@@ -36,7 +36,6 @@
 
         <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
         <gsweb:form id="frmPRModule" action="/school/review/postReview.page" method="post">
-            <fieldset>
 
                 <!--Begin star ratings.
                     Not using the starRating tag since that tag relies on onload to set click and mouse listeners.
@@ -49,9 +48,9 @@
                 <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
                 <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
                 <input type="hidden" id="parentAsString" value="0" name="parentAsString"/>
-                <div class="line rating">
+                <div class="">
                     <div class="unit size2of5 ">
-                        <h4 class="subhead6 label3"><strong>Rate this school</strong> <em
+                        <h4 class="large"><strong style="color:#787878">Rate this school</strong> <em
                                 class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
                         </h4>
                     </div>
@@ -73,13 +72,12 @@
                 <input type="hidden" name="state" value="${state}"/>
                 <input type="hidden" name="source" value="${pageName}"/>
 
-
-                <div class="spacer_5"><!-- do not collapse --></div>
-                <div id="js-bubbleInfo6" class="text3">
-                    <div class="js-trigger line review-text">
-                        <div class="unit size1of1 lastUnit">
+                <div style="clear: both;"><!-- do not collapse --></div>
+                <div id="js-bubbleInfo6" class="bottom">
+                    <div class="js-trigger review-text bottom">
+                        <div class="unit size1of1 lastUnit bottom">
                             <textarea id="js-reviewText"
-                                      class="text1-ededed text3"
+                                      class="small bottom"
                                       name="comments"
                                       onfocus="if(this.value=='[Enter your review here]'){this.value='';}"
                                       onblur="if(this.value==''){this.value='[Enter your review here]';}"
@@ -104,7 +102,7 @@
 
                 <div class="line">
                     <div class="unit size1of1 lastUnit">
-                        <div id="js-charCount" class="formHelperText smaller fr mrm">1200 characters remaining</div>
+                        <div id="js-charCount" class=" smaller fr mrm">1200 characters remaining</div>
                     </div>
                 </div>
 
@@ -275,7 +273,7 @@
                         </div>
                     </div>
                     <c:if test="${school.levelCode eq 'p'}">
-                        <div id="js-bubbleInfo5" class="text3">
+                        <div id="js-bubbleInfo5">
                             <div class="spacer_5"><!-- do not collapse --></div>
 
                             <div class="js-trigger line">
@@ -306,7 +304,7 @@
                     <div class="spacer_15"><!-- do not collapse --></div>
                 </div>
 
-                <div class="line terms ptm">
+                <div class="line ptm">
                     <div class="unit size1of1 lastUnit">
                         <input id="terms" name="terms" class="checkbox" type="checkbox" value="1"/>
                         <label for="terms" class="smaller frmPRLabel-2">I agree to the <link:termsOfUse
@@ -338,8 +336,7 @@
                 </div>
 
 
-            </fieldset>
-            <fieldset>
+
 
                 <button id="parentReviewFormSubmit" class="button-1 fl " type="submit" name="Submit" value="submit" onclick="">Submit
                 </button>
@@ -348,10 +345,11 @@
                     <div class="bd dn">Indicates a required field</div>
                 </div>
 
-            </fieldset>
+
         </gsweb:form>
 
-                </div></div></div>
+                </div>
+    <div style="clear: both;"><!-- do not collapse --></div></div></div>
     <script type="text/javascript">
         jQuery(document).ready(function() {
             jQuery("#js-bubbleInfo2  .js-trigger div:first").popover({content:jQuery("#js-bubbleInfo2 .js-popup").html(), placement:'left', delay:{ show: 100, hide: 100 }});

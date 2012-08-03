@@ -13,13 +13,11 @@
         >
 
 <c:set var="stateAbbrev" value="${school.databaseState.abbreviationLowerCase}"/>
-<!--<![CDATA[<script type="text/javascript" src="/res/js/blogTracking/pageTracking.js"></script>]]>-->
-<!--<![CDATA[<script type="text/javascript" src="/res/js/schoolReviewForm.js"></script>]]>-->
-<!--<![CDATA[<script type="text/javascript" src="/res/js/parentReviewTabSchoolReviewForm.js"></script>]]>-->
+
     <div class="alpha grid_16 omega ptl">
     <!--<a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>-->
         <!--Reviews for ${school.name}-->
-        <div class="alpha grid_5" id="reviewColumn1">
+        <div class="alpha grid_5">
             <div class="mod standard_1-1">
                 <div class="inner">
                     <div class="hd" id="js-bubbleInformation">
@@ -29,7 +27,7 @@
                         </div>
                     </div>
                     <div class="bd">
-            <div id="reviewOverallRating" class="tac">
+            <div  class="tac">
 
 
                 <div class="ptm pbs" style="width:80px; height:16px; margin: auto;">
@@ -120,7 +118,7 @@
 
                 <c:choose>
                     <c:when test="${not empty communityRatings}">
-                        <div class="reviewSubRatings">
+                        <div>
                             <div id="communityRatings">
                                 <school:profileParentReviewsSubcategoryRatings ratings="${communityRatings}"/>
                             </div>
@@ -128,13 +126,13 @@
                         </div>
                     </c:when>
                     <c:when test="${cmd.ratings.count gt 0}">
-                        <div class="reviewSubRatings">
+                        <div>
                             <!--${aboutTheseRatings}-->
                         </div>
                     </c:when>
                     <c:otherwise>
                         <div class="spacer_5"><!-- do not collapse --></div>
-                        <p class="smallText1">There are no reviews yet<br/>for this school. Be the first!</p>
+                        <p class="small">There are no reviews yet<br/>for this school. Be the first!</p>
                     </c:otherwise>
                 </c:choose>
                 <!-- DONE-10495 - Randall - END subcategory ratings -->
@@ -145,7 +143,7 @@
 
         </div>
                 </div></div><c:if test="${empty principalReview and school.levelCode != 'p'}">
-            <div class="mod standard_3-1 parentReviewRating">
+            <div class="mod standard_3-1">
             <div class="outer">
                 <div class="inner">
                     <div class="bd">
@@ -162,7 +160,7 @@
             </div>
         </c:if></div>
         <!-- end reviewColumn1 -->
-        <div class="grid_11 omega" id="reviewColumn2">
+        <div class="grid_11 omega">
             <school:profileSchoolReviewForm school="${school}" pageName="profileReviews"/>
         </div>
         <!-- end reviewColumn2 -->
@@ -197,7 +195,7 @@
                         </p>
                     </c:when>
                     <c:otherwise>
-                        <p class="smallText1">Posted ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</p>
+                        <p class="small">Posted ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</p>
                     </c:otherwise>
                 </c:choose>
                 <gsml:ifUserCanDeleteContent pageUser="${validUser}">
@@ -258,7 +256,7 @@
 
             <hr class="mvm" />
         <div class="spacer_15"><!-- do not collapse --></div>
-        <div class="line">
+        <!--<div class="line">-->
             <div id="rankSort" class="alpha grid_6">
                 <span class="smallText1">Sort by: </span>
                 <c:set var="sortUrl" value="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}"/>
@@ -310,7 +308,7 @@
                 </div>
             </c:if>
         </div>
-      </div>
+      <!--</div>-->
             <div class="grid_16 alpha omega ptl">
         <c:forEach var="review" items="${reviewsToShow}">
             <c:set var="who" value=""/>
@@ -334,10 +332,11 @@
                                 <c:if test="${curStarRating ne 'decline'}">
                                 <!--<span class="sprite stars_lg_${curStarRating} img mrm vam"-->
                                       <!--title="${curStarRating} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                    <div class="mrl"><ratings:stars curSR="${curStarRating}"/></div>
+                                    <div class="prm fl"><ratings:stars curSR="${curStarRating}"/></div>
+                                    <!--<div class="prm">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                                 </c:if>
 
-                                <div class="author small make-999999 bd fl plm pbn mbn">
+                                <div class="author small make-999999 fl pbn mbn">
                                     Posted ${gsweb:periodBetweenDates(review.posted,cmd.currentDate)}
                                     <gsml:ifUserCanDeleteContent pageUser="${validUser}">
                                         <c:choose>
@@ -354,6 +353,7 @@
                                     </gsml:ifUserCanDeleteContent>
                                 </div>
                             </div>
+                            <div class="clearFloat"><!-- --></div>
                         </div>
 
                         <div class="unit size2of5 lastUnit fr">
