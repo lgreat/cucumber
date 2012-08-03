@@ -3,6 +3,7 @@ package gs.web.school;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.SchoolType;
+import gs.data.school.breakdown.EthnicityDaoJava;
 import gs.data.school.census.*;
 import gs.data.state.State;
 import gs.data.test.Subject;
@@ -94,6 +95,61 @@ public class SchoolProfileCensusHelperTest {
         entries.add(entry);
 
         return entries;
+    }
+
+    @Test
+    public void testGetEthnicityLabelMap() {
+        Breakdown breakdown1 = new Breakdown();
+        breakdown1.setEthnicity(new EthnicityDaoJava().getEthnicity(1));
+        Breakdown breakdown2 = new Breakdown();
+        breakdown2.setEthnicity(new EthnicityDaoJava().getEthnicity(2));
+        Breakdown breakdown3 = new Breakdown();
+        breakdown3.setEthnicity(new EthnicityDaoJava().getEthnicity(3));
+        Map<Integer, CensusDataSet> censusDataSetMap = new HashMap<Integer, CensusDataSet>();
+        CensusDataSet cds1 = getCensusDataSet(1000001);
+        cds1.setDataType(CensusDataType.STUDENTS_ETHNICITY);
+        cds1.setBreakdownOnly(breakdown1);
+        CensusDataSet cds2 = getCensusDataSet(1000002);
+        cds2.setDataType(CensusDataType.STUDENTS_ETHNICITY);
+        cds2.setBreakdownOnly(breakdown2);
+        CensusDataSet cds3 = getCensusDataSet(1000003);
+        cds3.setDataType(CensusDataType.STUDENTS_ETHNICITY);
+        cds3.setBreakdownOnly(breakdown3);
+        SchoolCensusValue scv1 = new SchoolCensusValue();
+        SchoolCensusValue scv2 = new SchoolCensusValue();
+        SchoolCensusValue scv3 = new SchoolCensusValue();
+        scv1.setValueFloat(50f);
+        scv2.setValueFloat(50f);
+        scv3.setValueFloat(51f);
+        cds1.setSchoolData(newHashSet(scv1));
+        cds2.setSchoolData(newHashSet(scv2));
+        cds3.setSchoolData(newHashSet(scv3));
+
+        censusDataSetMap.put(1000001, cds1);
+        censusDataSetMap.put(1000002, cds2);
+        censusDataSetMap.put(1000003, cds3);
+
+
+        Map<String,String> result = _schoolProfileCensusHelper.getEthnicityLabelValueMap(censusDataSetMap);
+
+        assertEquals("expect resulting map to have same number of entries as input map", 3, result.size());
+        int pos = 0;
+        for (Map.Entry<String,String> entry : result.entrySet()) {
+            if (pos == 0) {
+                assertEquals("expect first item in map to have largest value", "51%", entry.getValue());
+            } else {
+                assertEquals("expect remaining items in map to be a tie", "50%", entry.getValue());
+            }
+            pos++;
+        }
+    }
+
+    public static <T> HashSet<T> newHashSet(T... items) {
+        HashSet set = new HashSet<T>(items.length);
+        for (T item : items) {
+            set.add(item);
+        }
+        return set;
     }
 
     public Set<Integer> getDataTypeIds() {

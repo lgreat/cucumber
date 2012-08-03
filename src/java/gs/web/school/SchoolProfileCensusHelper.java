@@ -1,11 +1,15 @@
 package gs.web.school;
 
+import com.google.common.base.Functions;
+import com.google.common.collect.ImmutableSortedMap;
+import com.google.common.collect.Ordering;
 import gs.data.school.*;
 import gs.data.school.breakdown.EthnicityDaoJava;
 import gs.data.school.census.*;
 import gs.data.state.State;
 import gs.data.util.Triplet;
 import gs.web.request.RequestAttributeHelper;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
@@ -170,11 +174,21 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
         return groupedCensusDataSets.retrieveDataSetsAndSchoolData();
     }
 
-    protected Map<String, String> getEthnicityLabelValueMap(HttpServletRequest request) {
-        Map<String,String> ethnicityLabelMap = new HashMap<String,String>();
+    protected Map<String, String> getEthnicityLabelValueMap(Map<Integer, CensusDataSet> censusDataSetMap) {
 
-        // Data Set ID --> SchoolCensusValue
-        Map<Integer, CensusDataSet> censusDataSetMap = getCensusDataSetsWithSchoolData(request);
+        Comparator<String> comparator = new Comparator<String>() {
+            public int compare(String value1, String value2) {
+                Float row1Value = formatValueAsFloat(value1);
+                Float row2Value = formatValueAsFloat(value2);
+                // reverse sort
+                return row2Value.compareTo(row1Value);
+            }
+        };
+
+        LinkedHashMap<String,String> ethnicityLabelMap = new LinkedHashMap<String,String>();
+
+        // stackoverflow.com/questions/109383/É
+        Comparator<String> valueComparator = Ordering.from(comparator).onResultOf(Functions.forMap(ethnicityLabelMap)).compound(Ordering.natural());
 
         Integer ethnicityDataTypeId = CensusDataType.STUDENTS_ETHNICITY.getId();
 
@@ -197,7 +211,18 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
                 }
             }
         }
-        return ethnicityLabelMap;
+
+        return ImmutableSortedMap.copyOf(ethnicityLabelMap, valueComparator);
+    }
+
+
+
+    protected Map<String, String> getEthnicityLabelValueMap(HttpServletRequest request) {
+
+        // Data Set ID --> SchoolCensusValue
+        Map<Integer, CensusDataSet> censusDataSetMap = getCensusDataSetsWithSchoolData(request);
+
+        return getEthnicityLabelValueMap(censusDataSetMap);
     }
 
     private String formatValueAsString(Float value, CensusDataType.ValueType valueType) {
@@ -213,9 +238,29 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
         return result;
     }
 
+    private Float formatValueAsFloat(String value) {
+        Float result = 0f;
+
+        if (StringUtils.isBlank(value)) {
+            return result;
+        }
+
+        value = value.replaceAll("[^0-9.]", "");
+
+        try {
+            result = new Float(value);
+        } catch (NumberFormatException e) {
+            _log.debug("Could not format " + value + " to float.", e);
+        }
+
+        return result;
+    }
+
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         _beanFactory = beanFactory;
     }
+
+
 }
 
 
