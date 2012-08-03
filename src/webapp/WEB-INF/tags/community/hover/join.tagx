@@ -253,6 +253,7 @@
                                 <button class="button-1" id="gradeDone" type="button">Done</button>
                             </div>
                         </div>
+                        <div class="clear"><!-- do not collapse --></div>
                     </div>
                 </li>
             </ul>
