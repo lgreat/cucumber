@@ -51,13 +51,14 @@
     <table class="tableType1">
 
         <col width="32%"><!-- do not collapse --></col>
-        <col width="35%"><!-- do not collapse --></col>
+        <col width="4%"><!-- do not collapse --></col>
+        <col width="31%"><!-- do not collapse --></col>
         <col width="15%"><!-- do not collapse --></col>
         <c:if test="${showStateAverages}"><col width="18%"><!-- do not collapse --></col> </c:if>
 
         <thead>
         <tr>
-            <th></th>
+            <th></th><th></th>
             <th>Ethnicity</th>
             <th class="tac">
                 This school
@@ -71,8 +72,23 @@
         </tr>
         </thead>
         <tbody class="striped">
-
+        <jsp:scriptlet>
+            <![CDATA[
+                java.util.List colorList = new java.util.ArrayList();
+                colorList.add("#327FA0");
+                colorList.add("#E2B66C");
+                colorList.add("#DB7258");
+                colorList.add("#A4B41E");
+                colorList.add("#38A37A");
+                colorList.add("#B66483");
+                colorList.add("#7B498F");
+                colorList.add("#414F7B");
+                jspContext.setAttribute("pieChartColorList", colorList);
+            ]]>
+        </jsp:scriptlet>
+        <c:set var="counterPie" value="0" />
         <c:forEach items="${rows}" var="row" varStatus="status">
+
             <jsp:scriptlet>
                 <![CDATA[
                     java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
@@ -130,18 +146,29 @@
 
                     <!--<td rowspan="${addRowSpan}"> ${addPieGraph} </td>-->
                 <!--</c:if>-->
-                <td>${row.text}<!--<sup>[<a name="id${thisFootnote}" href="#ftn.id${thisFootnote}">${thisFootnote}</a>]</sup>--></td>
+                <c:set var="schoolScoreToShow" value="" />
+                <c:set var="schoolColorToShow" value="#FFFFFF" />
                 <c:if test="${showSchoolData}">
+
                     <c:choose>
                         <c:when test="${not empty row.schoolValue}">
-                            <td class="tac">${row.schoolValue}</td>
-                            <c:set scope="request" var="ethnicityPieData">${ethnicityPieData},["${row.text}",${fn:replace(row.schoolValue, "%", "")}]</c:set>
+
+                            <c:set var="schoolScoreToShow"><td class="tac">${row.schoolValue}</td></c:set>
+                            <c:set var="pieValueNoPercent" value="${fn:replace(row.schoolValue, '%', '')}" />
+                            <c:if test="${pieValueNoPercent > 0}">
+                                <c:set var="schoolColorToShow" value="${pieChartColorList[counterPie]}" />
+                                <c:set var="counterPie" value="${counterPie + 1}" />
+                            </c:if>
+                            <!--<c:set scope="request" var="ethnicityPieData">${ethnicityPieData},["${row.text}",${fn:replace(row.schoolValue, "%", "")}]</c:set>-->
                         </c:when>
                         <c:otherwise>
-                            <td class="tac">N/A</td>
+                            <c:set var="schoolScoreToShow"><td class="tac">N/A</td></c:set>
                         </c:otherwise>
                     </c:choose>
                 </c:if>
+                <td class="tac"><div class="grayBoxForPieChartLegend" style=" background-color: ${schoolColorToShow};"><!-- do not collapse --></div></td>
+                <td>${row.text}<!--<sup>[<a name="id${thisFootnote}" href="#ftn.id${thisFootnote}">${thisFootnote}</a>]</sup>--></td>
+                ${schoolScoreToShow}
                 <!--<c:if test="${showDistrictData}">-->
                     <!--<c:choose>-->
                         <!--<c:when test="${not empty row.districtValue}">-->
@@ -163,6 +190,7 @@
                     </c:choose>
                 </c:if>
             </tr>
+
         </c:forEach>
         </tbody>
     </table>
