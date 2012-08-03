@@ -17,48 +17,50 @@
                     <div class="hd">
                         <h4 class="pvm plm bottom">What makes up this rating?</h4>
                     </div>
-                    <div class="bd pam">
-                        <div>
-                            [OVERALL RATING GRAPHIC:
-                                <c:choose>
-                                    <c:when test="${overallRating != null}">
-                                        ${overallRating}
-                                    </c:when>
-                                    <c:otherwise>
-                                        NR
-                                    </c:otherwise>
-                                </c:choose>
-                            ]
-                        </div>
-
-                        <div>
-                            Academic rating
-                            <div>
-                                <c:choose>
-                                    <c:when test="${overallAcademicRating != null}">
-                                        ${overallAcademicRating} / 10
-                                    </c:when>
-                                    <c:otherwise>
-                                        Not available
-                                    </c:otherwise>
-                                </c:choose>
+                    <div class="bd pam ratingsGraphicMakesUp">
+                            <div style="padding-left: 105px" class="bottom">
+                                    <c:choose>
+                                        <c:when test="${overallRating != null}">
+                                            <div class="iconx72-ratings-rb i-72-ratings${overallRating} bottom"><!-- do not collapse --></div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="iconx72-ratings-rb i-72-ratingsNR"><!-- do not collapse --></div>
+                                        </c:otherwise>
+                                    </c:choose>
                             </div>
-                        </div>
-                        <div>
-                            Climate rating
-                            <div>
-                                <c:choose>
-                                    <c:when test="${not empty climateRatingAvailabilityText}">
-                                        ${climateRatingAvailabilityText}
-                                    </c:when>
-                                    <c:otherwise>
-                                        ${overallClimateRating} / 10
-                                    </c:otherwise>
-                                </c:choose>
+                            <div class="lineDown" style="padding-top:0px; margin-top: 0px"><!-- do not collapse --></div>
+                            <div class="splitConnect"><!-- do not collapse --></div>
+                            <div class="pll">
+                                <div class="grayBox mrl small"><strong>
+                                    Academic rating
+                                    <br />
+                                        <c:choose>
+                                            <c:when test="${overallAcademicRating != null}">
+                                                ${overallAcademicRating} / 10
+                                            </c:when>
+                                            <c:otherwise>
+                                                Not available
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </strong>
+                                </div>
+                                <div class="grayBox small"><strong>
+                                    Climate rating
+                                    <div>
+                                        <c:choose>
+                                            <c:when test="${not empty climateRatingAvailabilityText}">
+                                                ${climateRatingAvailabilityText}
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${overallClimateRating} / 10
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div></strong>
+                                </div>
+                                <div class="clear"><!-- do not collapse --></div>
                             </div>
-                        </div>
 
-                        <p class="small bottom">
+                        <p class="small bottom tal">
                             ${section1Copy}
                             <a href="#">Learn more about our methodology &amp;raquo;</a></p>
                     </div>

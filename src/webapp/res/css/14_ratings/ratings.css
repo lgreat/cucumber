@@ -192,27 +192,165 @@ Created by Mitchell Seltzer
 *************************************************************************************************************************/
 
 .bargraph {}
-.bargraph .graphContainer {position:relative; height:76px; float:left;}
-.bargraph .graphContainer .barDrawing{position:absolute; top:0px; left:1px;}
-.bargraph .graphContainer .spacerW{width:37px; border-right:1px solid #999999; float:left; height:100%;}
-.bargraph .graphContainer .spacerFirst{width:37px; border-left:1px solid #333333; border-right:1px solid #999999; float:left; height:100%;}
-.bargraph .graphContainer .spacerH{height:10px;}
+.bargraph .graphContainer { position:relative; float:left; }
+.bargraph .graphContainer .barDrawing { position:absolute; top:0px; left:1px; }
+.bargraph .graphContainer .spacerW { width:37px; border-right:1px solid #DDDDDD; float:left; height:100%; }
+.bargraph .graphContainer .spacerFirst { width:37px; border-left:1px solid #333333; border-right:1px solid #999999; float:left; height:100%; }
+.bargraph .graphContainer .spacerH { height:10px; }
 
+.bargraph .graphLabelsY { position:relative; float:left; padding-right:10px; text-align:right; }
+.bargraph .graphLabelsY .spacerLabel { position:relative; height:10px; margin-top:10px; line-height:10px; }
 
-.bargraph .graphLabelsY{position:relative; float:left; padding-right:10px; text-align:right;}
-.bargraph .graphLabelsY .spacerLabel{position:relative; height:10px; margin-top:10px; line-height:10px; }
+.bargraph .graphLabelsX { position:relative; clear:both; }
+.bargraph .graphLabelsX .spacerOffset { width:19px; height:10px; float:left; }
+.bargraph .graphLabelsX .spacerWNumbers { width:38px; float:left; padding-top:10px; text-align:center; }
 
-.bargraph .graphLabelsX{position:relative; clear:both}
-.bargraph .graphLabelsX .spacerOffset{width:19px; height:10px; float:left;}
-.bargraph .graphLabelsX .spacerWNumbers{width:38px; float:left; padding-top:10px; text-align:center;}
-
-.bargraph .graphContainer .barContainer{
-    /*border:solid 1px #999999;*/
-    /*box-shadow: inset 0 1px 1px rgba(255, 255, 255, .6);*/
-    height:10px;
-    margin-top:10px;
-}
-.bargraph .graphContainer .barContainer div{ width:100%; height:100%;}
+.bargraph .graphContainer .barContainer { height:10px;margin-top:10px; }
+.bargraph .graphContainer .barContainer div { width:100%; height:100%; }
 .bargraph .graphContainer .barContainer .lineGreen { background-color:#5E9D4C }
 .bargraph .graphContainer .barContainer .lineRed { background-color:#C1423F }
 .bargraph .graphContainer .barContainer .lineYellow { background-color:#F1AF31 }
+
+
+/**********************************************************************************************************************
+
+    gray box for ratings page
+
+*********************************************************************************************************************/
+.ratingsGraphicMakesUp .grayBox{
+    float: left;
+    width:110px;
+    border:1px #DDDDDD solid;
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 5px 0 5px 0;
+    -webkit-border-radius: 3px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 3px; /* FF1-3.6 */
+    border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
+.ratingsGraphicMakesUp .splitConnect {
+    border: 1px solid #999999; border-bottom: none; height:9px; width:132px; margin-left:75px;
+}
+.ratingsGraphicMakesUp .lineDown {
+    border-left: 1px solid #999999; border-bottom: none; height:8px; width:1px; margin-left:141px;
+}
+
+
+/* **************** SPRITE Ratings Rainbow ***************** */
+
+/* **************** 24 px  uses rating 24 pixel sprite spacing from icon.css ***************** */
+.iconx24-ratings-rb {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/ratings/ratings_24x24.png);
+    width: 24px;
+    height: 24px;
+}
+
+/* **************** 72 px ***************** */
+
+.iconx72-ratings-rb {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/ratings/ratings_72x72.png);
+    width: 72px;
+    height: 72px;
+}
+
+/* row 0 */
+.i-72-ratings1 {
+    background-position: 0 0;
+}
+
+.i-72-ratings2 {
+    background-position: -72px 0;
+}
+
+.i-72-ratings3 {
+    background-position: -144px 0;
+}
+
+.i-72-ratings4 {
+    background-position: -216px 0;
+}
+
+.i-72-ratings5 {
+    background-position: -288px 0;
+}
+
+.i-72-ratings6 {
+    background-position: -360px 0;
+}
+
+.i-72-ratings7 {
+    background-position: -432px 0;
+}
+
+.i-72-ratings8 {
+    background-position: -504px 0;
+}
+
+.i-72-ratings9 {
+    background-position: -576px 0;
+}
+
+.i-72-ratings10 {
+    background-position: -648px 0;
+}
+
+.i-72-ratingsNR {
+    background-position: -720px 0;
+}
+
+
+/* **************** 72 px ***************** */
+
+.iconx96-ratings-rb {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/ratings/ratings_96x96.png);
+    width: 96px;
+    height: 96px;
+}
+
+/* row 0 */
+.i-96-ratings1 {
+    background-position: 0 0;
+}
+
+.i-96-ratings2 {
+    background-position: -96px 0;
+}
+
+.i-96-ratings3 {
+    background-position: -192px 0;
+}
+
+.i-96-ratings4 {
+    background-position: -288px 0;
+}
+
+.i-96-ratings5 {
+    background-position: -384px 0;
+}
+
+.i-96-ratings6 {
+    background-position: -480px 0;
+}
+
+.i-96-ratings7 {
+    background-position: -576px 0;
+}
+
+.i-96-ratings8 {
+    background-position: -672px 0;
+}
+
+.i-96-ratings9 {
+    background-position: -768px 0;
+}
+
+.i-96-ratings10 {
+    background-position: -864px 0;
+}
+
+.i-96-ratingsNR {
+    background-position: -960px 0;
+}
