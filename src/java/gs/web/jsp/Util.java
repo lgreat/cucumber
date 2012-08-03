@@ -530,7 +530,7 @@ public class Util {
         }
     }
 
-    private final static Pattern IMAGE_PATTERN = Pattern.compile("^.*\\.(png|jpg|gif|js|css)$", Pattern.CASE_INSENSITIVE);
+    private final static Pattern IMAGE_PATTERN = Pattern.compile("^.*\\.(png|jpg|gif|js|css|ico)$", Pattern.CASE_INSENSITIVE);
 
     public static boolean showBasicError404Page(String requestUri) {
         if (requestUri != null) {
