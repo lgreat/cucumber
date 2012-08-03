@@ -74,39 +74,14 @@ where each entry is the first bean for that section, this allows access to the s
                 </c:forEach>
             </div>
 
-                <c:if test="${not empty photoGalleryImages}">
-                    <div class="mvm">
-                        <div class="line">
-                            <div class="unit size2of5 lastUnit">
-                                <div class="mediumThumbnail bgtint-eb" id="school-photo-medium"><p
-                                        class="text3">Photos of this school</p><a
-                                        href="javascript:void(0)" onclick="scroll(0,0)" class="js-photo-gallery-trigger"><img
-                                        src="${basePhotoPath}${photoGalleryImages[0].mediumSizeFile}"
-                                        alt="Photos of this school"
-                                        width="130" height="130"/></a>
-                                    <c:choose>
-                                        <c:when test="${fn:length(photoGalleryImages) > 1}">
-                                            <p class="smallText1-06b"><a href="javascript:void(0)" onclick="scroll(0,0)"
-                                                                         class="js-photo-gallery-trigger">View all photos (${fn:length(photoGalleryImages)})</a>
-                                            </p>
-                                        </c:when>
-                                        <c:when test="${fn:length(photoGalleryImages) eq 1}">
-                                            <p class="smallText1-06b"><a href="javascript:void(0)" onclick="scroll(0,0)"
-                                                                         class="js-photo-gallery-trigger">View photo</a></p>
-                                        </c:when>
-                                    </c:choose>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
+                <div id="js_photo_gallery_container">
+                    <school:photosCarousel/>
+                </div>
 
-
-                    <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
-                        <school:photoGallery cssClass="js-photo-gallery-trigger" images="${photoGalleryImages}" school="${school}" />
-                    </c:if>
-
-                </c:if>
-
+                <school:photoGallery cssClass="js-photo-gallery-trigger" images="${photoGalleryImages}"
+                                     school="${school}"/>
+            </c:if>
 
         </c:if>
     </c:set>

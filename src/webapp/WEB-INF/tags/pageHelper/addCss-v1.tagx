@@ -104,7 +104,7 @@
             <!-- 30 --> <![CDATA[<link rel="stylesheet" href="${houseadscss}" type="text/css" />]]>
             <!-- 31 --> <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
             <!-- 32 --> <![CDATA[<link rel="stylesheet" href="${pagination}" type="text/css" />]]>
-            <!-- 32 --> <![CDATA[<link rel="stylesheet" href="${photoGallery}" type="text/css" />]]>
+            <!-- 33 --> <![CDATA[<link rel="stylesheet" href="${photoGallery}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
             <gsml:url var="gs_stylescss_v1" value="/res/css/gs_styles-v1.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>
