@@ -15,48 +15,17 @@
     <jsp:directive.attribute name="cityRating" type="java.lang.String" required="true" description="City rating value"/>
     <jsp:directive.attribute name="stateRatingShow" type="java.lang.String" required="true" description="Do we show the state rating"/>
     <jsp:directive.attribute name="stateRating" type="java.lang.String" required="true" description="State rating value"/>
-
+    <!--ratings div = ${ratingDivId}<br />-->
+    <!--${schoolRating}             <br />-->
+    <!--${cityRating}                     <br />-->
+    <!--${stateRatingShow}                      <br />-->
+    <!--${stateRating}                                <br />-->
     <!--
         need to calculate width and color of the bars for the grpah.  Width value is set in ratings.css
         current width value is 38 need to subtract 1px from total so it is not over the Y axis
         so width is: rating * 38 - 1
         height needs to be calculated 10(bottom spacing) + 22 for each bar.  (padding-top:10 - border:2px and bar height:10xp
     -->
-
-
-
-
-   <!--<c:set var="testData">[-->
-        <!--['This school', ${schoolRating}-->
-        <!--<c:if test="${cityRating ne 'false'}">-->
-            <!--,${cityRating}-->
-        <!--</c:if>-->
-        <!--<c:if test="${stateRatingShow}">-->
-            <!--, ${stateRating}-->
-        <!--</c:if>-->
-       <!--]-->
-        <!--]</c:set>-->
-    <!--<c:set var="ratingColors">[-->
-    <!--<c:if test="${schoolRating le 3}">'#FF0000'</c:if>-->
-    <!--<c:if test="${schoolRating ge 4 and schoolRating le 6}">'#FFB90F'</c:if>-->
-    <!--<c:if test="${schoolRating ge 7}">'#00FF00'</c:if>-->
-
-    <!--<c:if test="${cityRating ne 'false'}">-->
-        <!--,-->
-        <!--<c:if test="${cityRating le 3}">'#FF0000'</c:if>-->
-        <!--<c:if test="${cityRating ge 4 and cityRating le 6}">'#FFB90F'</c:if>-->
-        <!--<c:if test="${cityRating ge 7}">'#00FF00'</c:if>-->
-    <!--</c:if>-->
-    <!--<c:if test="${stateRatingShow}">-->
-    <!--,-->
-        <!--<c:if test="${stateRating le 3}">'#FF0000'</c:if>-->
-        <!--<c:if test="${stateRating ge 4 and stateRating le 6}">'#FFB90F'</c:if>-->
-        <!--<c:if test="${stateRating ge 7}">'#00FF00'</c:if>-->
-    <!--</c:if>-->
-    <!--]</c:set>-->
-
-    <!--<c:set var="chartParameters">${testData},'${ratingDivId}',${ratingColors}, ${barChartWidth}, ${barChartHeight}</c:set>-->
-    <!--<div id="${ratingDivId}" style="width: ${barChartWidth}px; height: ${barChartHeight}px;">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
     <c:set var="schoolWidth" value="${schoolRating * 38 - 1}"/>
     <c:set var="barChartHeight" value="${20+10}"/>
@@ -65,12 +34,12 @@
     <c:set var="cityWidth" value=""/>
     <c:set var="stateWidth" value=""/>
 
-    <c:if test="${cityRating ne 'false'}">
+    <c:if test="${cityRating ne ''}">
         <c:set var="cityWidth" value="${cityRating * 38 - 1}"/>
         <c:set var="barChartHeight" value="${barChartHeight +20}"/>
         <c:set var="cityRatingColor"><c:if test="${cityRating le 3}">lineRed</c:if><c:if test="${cityRating ge 4 and cityRating le 6}">lineYellow</c:if><c:if test="${cityRating ge 7}">lineGreen</c:if></c:set>
     </c:if>
-    <c:if test="${stateRatingShow}">
+    <c:if test="${stateRatingShow and stateRating ne ''}">
         <c:set var="stateWidth" value="${stateRating * 38 - 1}"/>
         <c:set var="barChartHeight" value="${barChartHeight +20}"/>
         <c:set var="stateRatingColor"><c:if test="${stateRating le 3}">lineRed</c:if><c:if test="${stateRating ge 4 and stateRating le 6}">lineYellow</c:if><c:if test="${stateRating ge 7}">lineGreen</c:if></c:set>
@@ -79,22 +48,22 @@
     <div class="bargraph" id="${ratingDivId}">
         <div class="graphLabelsY">
             <div class="spacerLabel small bottom">This school</div>
-            <c:if test="${cityRating ne 'false'}">
+            <c:if test="${cityRating ne ''}">
                 <div class="spacerLabel small bottom">City</div>
             </c:if>
-            <c:if test="${stateRatingShow}">
+            <c:if test="${stateRatingShow and stateRating ne ''}">
                 <div class="spacerLabel small bottom">State</div>
             </c:if>
         </div>
         <div style="float:left">
             <div class="graphContainer" style="height:${barChartHeight}px;">
                 <div class="barDrawing">
-                    <div class="barContainer" style="width:341px"><div class="${schoolRatingColor}"><!-- do not collapse --></div></div>
+                    <div class="barContainer" style="width:${schoolWidth}px"><div class="${schoolRatingColor}"><!-- do not collapse --></div></div>
                     <c:if test="${cityRating ne 'false'}">
-                        <div class="barContainer" style="width:189px"><div class="${cityRatingColor}"><!-- do not collapse --></div></div>
+                        <div class="barContainer" style="width:${cityWidth}px"><div class="${cityRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
                     <c:if test="${stateRatingShow}">
-                        <div class="barContainer" style="width:113px"><div class="${stateRatingColor}"><!-- do not collapse --></div></div>
+                        <div class="barContainer" style="width:${stateWidth}px"><div class="${stateRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
                 </div>
                 <div class="spacerFirst"><!-- do not collapse --></div>

@@ -142,9 +142,9 @@
 
                             <profile:ratingsBarChart ratingDivId="ratingTestResults3"
                                                           schoolRating="${postSecondaryReadinessRating}"
-                                                          cityRating="false"
+                                                          cityRating=""
                                                           stateRatingShow="false"
-                                                          stateRating="false" />
+                                                          stateRating="" />
                         </div>
 
                         <hr class="keyline2"/>
