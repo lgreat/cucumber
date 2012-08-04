@@ -24,27 +24,29 @@
                 <c:set var="icon" value="${transportationModel['icon']}" scope="page"/>
                 <c:set var="shuttleStops" value="${transportationModel['shuttleStops']}" scope="page"/>
                 <c:set var="message" value="${transportationModel['transMsg']}" scope="page"/>
+                <div class="mha" style="width: 96px;">
                 <c:choose>
                     <c:when test="${icon eq 'metro'}">
-                        <div class="">Metro icon</div>
+                        <span class="iconx96 i-96-metro"><!-- do not collapse --></span>
                     </c:when>
                     <c:when test="${icon eq 'walking'}">
-                        <div class="">Walking icon</div>
+                        <span class="iconx96 i-96-walking"><!-- do not collapse --></span>
                     </c:when>
                     <c:when test="${icon eq 'passes'}">
-                        <div class="">Passes icon</div>
+                        <span class="iconx96 i-96-passes"><!-- do not collapse --></span>
                     </c:when>
                     <c:when test="${icon eq 'bus'}">
-                        <div class="">Bus icon</div>
+                        <span class="iconx96 i-96-bus"><!-- do not collapse --></span>
                     </c:when>
                     <c:when test="${icon eq 'handicapped'}">
-                        <div class="">Handicapped icon</div>
+                        <span class="iconx96 i-96-handicapped"><!-- do not collapse --></span>
                     </c:when>
                 </c:choose>
+                </div>
                 <c:if test="${not empty shuttleStops}">
                     <div class="">School shuttle from ${shuttleStops}</div>
                 </c:if>
-                <div class="">${message}</div>
+                <p class="small tac mhm">${message}</p>
             </school:profileOverviewCell1>
         </c:when>
 
@@ -53,20 +55,44 @@
             <c:choose>
                 <c:when test="${not empty classSize}">
                     <school:profileOverviewCell1 title="Average class size">
-                     <div class="">${classSize}</div>
+                        <div class="mam">
+                            <p class="big bottom tac">${classSize}</p>
+
+                            <p class="small tac">students</p>
+                        </div>
                     </school:profileOverviewCell1>
                 </c:when>
                 <c:otherwise>
                     <school:profileOverviewCell1 title="Students per teacher">
-                        <div class="">${transportationModel['substitute1StudentsPerTeacher']}</div>
+                        <div class="mam">
+                            <p class="big bottom tac">${transportationModel['substitute1StudentsPerTeacher']}</p>
+
+                            <p class="small tac">students</p>
+                        </div>
                     </school:profileOverviewCell1>
                 </c:otherwise>
             </c:choose>
         </c:when>
         <c:when test="${content eq 'substitute2'}">
-            <school:profileOverviewCell1 title="Check out our school boundry tool">
-                <!-- Insert display code here -->
-            </school:profileOverviewCell1>
+            <a class="tdn" href="javascript:void(0);">
+                <div class="mod standard_3-1">
+                    <div class="outer">
+                        <div class="inner mobileApp">
+                            <div class="hd">
+                                <h3 class="bottom">GreatSchools mobile</h3>
+                            </div>
+                            <div class="bd">
+                                <p class="small mtm">
+                                    Finding great<br/>
+                                    schools is <br/>
+                                    now at your<br/>
+                                    fingertips  &amp;raquo;
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </c:when>
     </c:choose>
 

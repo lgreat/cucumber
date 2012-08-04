@@ -625,9 +625,9 @@ span.i-48-gallery-next-default:hover{
 /* =6 x96
 -------------------------------------------------------------------------------------------*/
 
-.iconx64 {
+.iconx96 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x64/120803-96x96.png);
+    background-image: url(/res/img/sprites/icon/x96/120803-96x96.png);
     width: 94px;
     height: 94px;
 }
@@ -635,11 +635,11 @@ span.i-48-gallery-next-default:hover{
 /* **************** VIEWPORT ***************** */
 
 /* row 0 */
-.i-96-shuttle {
+.i-96-metro {
     background-position: 0 0;
 }
 
-.i-96-muni {
+.i-96-passes {
     background-position: -96px 0;
 }
 
@@ -647,11 +647,11 @@ span.i-48-gallery-next-default:hover{
     background-position: -192px 0;
 }
 
-.i-96-se_bus {
+.i-96-handicapped {
     background-position: -288px 0;
 }
 
-.i-96-diy {
+.i-96-walking {
     background-position: -384px 0;
 }
 
