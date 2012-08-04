@@ -13,6 +13,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
         >
 
     <jsp:directive.attribute name="diversityModel" type="java.lang.Object" required="true"/>
@@ -30,7 +31,9 @@
 
                 <div class="phl ptm"><profile:pieChart chartData="${diversityMap}" chartDrawDivId="overviewDiversityPieChart" chartSize="150"/></div>
 
-                <p class="tac small bottom phm pvs"><span class="small_bold">${largestValue}% of students</span> at this school are ${largestLabel}.</p>
+                <p class="tac small bottom phm pvs">
+                    <span class="small_bold"><fmt:formatNumber value="${largestValue}" maxFractionDigits="0" minFractionDigits="0"/>% of students</span> at this school are ${largestLabel}.
+                </p>
             </c:when>
             <c:otherwise>
                 <!-- Static text is to be displayed when data not available -->
