@@ -45,7 +45,7 @@
                                 <c:set var="showMax" value="${3}"/>
                                 <c:forEach var="item" items="${specEdPgms}" varStatus="status">
                                     <c:if test="${status.count le showMax}">
-                                        <li>${item}</li>
+                                        <li>${gsweb:abbreviateAtWhitespace(item,30)}</li>
                                     </c:if>
                                 </c:forEach>
                             </ul>
