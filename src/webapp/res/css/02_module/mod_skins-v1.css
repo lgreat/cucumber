@@ -273,6 +273,13 @@ General comments:
 .bestKnownFor .bd .quote .punctuation { font-size: x-large; vertical-align: bottom; }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ------------- module backgrounds -------------- */
+
+.addPhotos { background-image: url("/res/img/module/background/addPhotos.png"); }
+.districtMap { background-image: url("/res/img/module/background/districtMap.png"); }
+.writeReviews { background-image: url("/res/img/module/background/reviews.png"); }
+
+/* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------------ badge-x96 ------------------ */
 
 .badge-x96 { width:96px; margin: 0 auto 5px; }
@@ -383,7 +390,7 @@ General comments:
 }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
-/* ------------------- modal_1 ------------------- */
+/* ------------- infinite carousel 9 ------------- */
 
 .infiniteCarousel9{
     width: 414px;

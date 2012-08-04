@@ -49,7 +49,7 @@
             <link:schoolEspRegister styleClass="no_interrupt tdn">
             <div class="mod standard_3-1">
                 <div class="outer">
-                    <div class="inner">
+                    <div class="inner addPhotos">
                         <div class="hd">
                             <h3 class="bottom">Add photos</h3>
                         </div>

@@ -621,4 +621,40 @@ span.i-48-gallery-next-default:hover{
     background-position: -192px 0;
 }
 
-/* row 32 */
+
+/* =6 x96
+-------------------------------------------------------------------------------------------*/
+
+.iconx64 {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/x64/120803-96x96.png);
+    width: 94px;
+    height: 94px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-96-shuttle {
+    background-position: 0 0;
+}
+
+.i-96-muni {
+    background-position: -96px 0;
+}
+
+.i-96-bus {
+    background-position: -192px 0;
+}
+
+.i-96-se_bus {
+    background-position: -288px 0;
+}
+
+.i-96-diy {
+    background-position: -384px 0;
+}
+
+.i-96-video_placeholder {
+    background-position: -480px 0;
+}
