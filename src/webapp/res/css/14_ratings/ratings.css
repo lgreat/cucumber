@@ -234,7 +234,9 @@ Created by Mitchell Seltzer
 .ratingsGraphicMakesUp .lineDown {
     border-left: 1px solid #999999; border-bottom: none; height:8px; width:1px; margin-left:141px;
 }
-
+.ratingsGraphicMakesUp .iconTop {
+    padding-left: 105px; height: 72px;
+}
 
 /* **************** SPRITE Ratings Rainbow ***************** */
 

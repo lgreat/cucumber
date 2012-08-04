@@ -18,7 +18,7 @@
                         <h4 class="pvm plm bottom">What makes up this rating?</h4>
                     </div>
                     <div class="bd pam ratingsGraphicMakesUp">
-                            <div style="padding-left: 105px" class="bottom">
+                            <div class="iconTop">
                                     <c:choose>
                                         <c:when test="${overallRating != null}">
                                             <div class="iconx72-ratings-rb i-72-ratings${overallRating} bottom"><!-- do not collapse --></div>
@@ -28,7 +28,7 @@
                                         </c:otherwise>
                                     </c:choose>
                             </div>
-                            <div class="lineDown" style="padding-top:0px; margin-top: 0px"><!-- do not collapse --></div>
+                            <div class="lineDown"><!-- do not collapse --></div>
                             <div class="splitConnect"><!-- do not collapse --></div>
                             <div class="pll">
                                 <div class="grayBox mrl small"><strong>
