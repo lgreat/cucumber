@@ -11,6 +11,7 @@
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
 
 <c:set var="stateAbbrev" value="${school.databaseState.abbreviationLowerCase}"/>
@@ -437,4 +438,8 @@ ${aboutTheseRatings}
         jQuery("#js-bubbleInformation").popover({content: jQuery("#js-bubbleInfoFirst .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
     });
 </script>
+
+
+<pageHelper:registerTrackingData key="reviews" pageName="Parent Reviews" hier1="School,Parent Reviews"/>
+
 </jsp:root>

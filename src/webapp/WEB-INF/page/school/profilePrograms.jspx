@@ -90,19 +90,19 @@ where each entry is the first bean for that section, this allows access to the s
         <div class="gsTabs">
             <ul class="tabStyle-5">
                 <c:if test="${(!empty highlightstab)}">
-                    <li><a id="js_highlights" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}" title="${schoolName} | Highlights" class="${requestScope.schoolProfileTabMap['programs-culture']}">Highlights</a></li>
+                    <li data-gs-tab="highlights"><a id="js_highlights" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}" title="${schoolName} | Highlights" class="${requestScope.schoolProfileTabMap['programs-culture']}">Highlights</a></li>
                 </c:if>
                 <c:if test="${(!empty applicationtab)}">
-                    <li><span class="graydivider">|</span><a id="js_application" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_application')}" title="${schoolName} | Application info" class="${requestScope.schoolProfileTabMap.application}">Application info</a></li>
+                    <li data-gs-tab="admissions"><span class="graydivider">|</span><a id="js_application" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_application')}" title="${schoolName} | Application info" class="${requestScope.schoolProfileTabMap.application}">Application info</a></li>
                 </c:if>
                 <c:if test="${(!empty programsresourcestab)}">
-                    <li><span class="graydivider">|</span><a id="js_programsresources" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-resources')}" title="${schoolName} | Programs and resources" class="${requestScope.schoolProfileTabMap['programs-resources']}">Programs &amp; resources</a></li>
+                    <li data-gs-tab="programs"><span class="graydivider">|</span><a id="js_programsresources" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-resources')}" title="${schoolName} | Programs and resources" class="${requestScope.schoolProfileTabMap['programs-resources']}">Programs &amp; resources</a></li>
                 </c:if>
                 <c:if test="${(!empty extracurricularstab)}">
-                    <li><span class="graydivider">|</span><a id="js_extracurriculars" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'extracurriculars')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.extracurriculars}">Extracurriculars</a></li>
+                    <li data-gs-tab="extracurriculars"><span class="graydivider">|</span><a id="js_extracurriculars" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'extracurriculars')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.extracurriculars}">Extracurriculars</a></li>
                 </c:if>
                 <c:if test="${(!empty culturetab)}">
-                    <li><span class="graydivider">|</span><a id="js_culture" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'culture')}" title="${schoolName} | Culture" class="${requestScope.schoolProfileTabMap.culture}">Culture</a></li>
+                    <li data-gs-tab="culture"><span class="graydivider">|</span><a id="js_culture" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'culture')}" title="${schoolName} | Culture" class="${requestScope.schoolProfileTabMap.culture}">Culture</a></li>
                 </c:if>
             </ul>
 
@@ -145,4 +145,10 @@ where each entry is the first bean for that section, this allows access to the s
         </div>
         <div id="fade" class="black_overlay"><!-- do not collapse --></div>
     </c:if>
+
+    <pageHelper:registerTrackingData key="highlights" pageName="Highlights" hier1="School,Programs"/>
+    <pageHelper:registerTrackingData key="programs" pageName="Programs Resources" hier1="School,Programs"/>
+    <pageHelper:registerTrackingData key="extracurriculars" pageName="Extracurriculars" hier1="School,Programs"/>
+    <pageHelper:registerTrackingData key="admissions" pageName="Admissions" hier1="School"/> <!-- TODO: admissions/application-->
+    <pageHelper:registerTrackingData key="culture" pageName="Culture" hier1="School,Programs"/>
 </jsp:root>

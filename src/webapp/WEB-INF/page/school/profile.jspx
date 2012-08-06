@@ -384,6 +384,12 @@
                   school="${school}" schoolGSRating="${gs_rating}" schoolPhotosTracking="${schoolPhotosTracking}"/>
 </div>
 
+<c:set var="currentTab" value="${param.tab}"/>
+<c:if test="${empty currentTab}">
+    <c:set var="currentTab" value="overview"/>
+</c:if>
+<pageHelper:trackPage name="${param.tab}"/>
+
 </gsml:body>
 </html>
 </jsp:root>

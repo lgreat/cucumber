@@ -119,6 +119,12 @@ jQuery(document).ready(function() {
     if ($students) $students.on('click', ratings);
     if ($teachers) $teachers.on('click', ratings);
 //
+
+    $('[data-gs-tab] a').on('click', function() {
+        var $this = $(this);
+        var $tabName = $this.parent().data('gs-tab');
+        GS.tracking.sendOmnitureData($tabName);
+    });
 });
 
 /********************************************************************************************************

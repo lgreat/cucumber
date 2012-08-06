@@ -5,7 +5,9 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:gsweb="gstaglib">
 
 <jsp:directive.page contentType="text/html"/>
 <jsp:output doctype-root-element="html"
@@ -210,5 +212,6 @@
     </c:choose>
     </div>
 
+    <pageHelper:registerTrackingData key="overview" pageName="${gsweb:capitalize(school.type.name)} School Overview" hier1="School,SchoolProfileOverview"/>
 
 </jsp:root>

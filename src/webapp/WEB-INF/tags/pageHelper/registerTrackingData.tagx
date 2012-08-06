@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root
+        xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+
+    <jsp:directive.attribute name="key" description="The name to register the tracking data under (data will be stored in a hash)"/>
+    <jsp:directive.attribute name="pageName" />
+    <jsp:directive.attribute name="hier1" />
+
+    <script type="text/javascript">
+        GS.tracking.registerTrackingData('${key}', {
+           pageName:'${pageName}',
+           hierarchy:'${hier1}'
+        });
+    </script>
+
+</jsp:root>
