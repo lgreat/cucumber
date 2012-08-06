@@ -56,14 +56,23 @@
                     <c:choose>
                         <c:when test="${fn:indexOf(testToGrades.testLabel,'_subgroup') >=0}">
                             <c:set var="scalesUsed" value="" />
-                            <table class="tableType1 mtl">
-                            <tr><th colspan="2">${subjectToYears.subjectLabel}</th></tr>
+                            <div class="mod standard_1-1">
+                            <div class="inner">
+                            <div class="hd">
+                                <h4 class="pvm plm bottom">${subjectToYears.subjectLabel}</h4>
+                            </div>
+                            <div class="bd pan bottom">
+                            <table class="tableType1 bottom">
+                            <!--<tr><th colspan="2">${subjectToYears.subjectLabel}</th></tr>-->
                             <c:forEach var="testValue" items="${subjectToYears.testValues}">
                                 <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
                                 <c:if test="${testValue.testScoreLabel == 'Data not available'}"><c:set var="thePercentage" value="n/a" /></c:if>
                                 <tr><td>${testValue.breakdownLabel}</td><td style="text-align: right;"><strong>${thePercentage}</strong></td></tr>
                             </c:forEach>
                             </table>
+                            </div>
+                            </div>
+                            </div>
                         </c:when>
                         <c:otherwise>
                             <c:set var="scalesUsed"><div class="smaller fr">Scale:${testToGrades.scale}</div></c:set>

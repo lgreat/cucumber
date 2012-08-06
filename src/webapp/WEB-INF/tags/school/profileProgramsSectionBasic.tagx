@@ -17,7 +17,16 @@
     <jsp:directive.attribute name="rowList" type="java.util.List" required="true"/>
     <jsp:directive.attribute name="dataMap" type="java.util.Map" required="true"/>
 
-    <table class="tableType1"><col width="210"/><col width="auto"/><thead><tr><th colspan="2">${displayBean.sectionTitle}</th></tr></thead><tbody class="striped">
+
+    <div class="mod standard_1-1">
+    <div class="inner">
+    <div class="hd">
+        <h4 class="pvm plm bottom">${displayBean.sectionTitle}</h4>
+    </div>
+    <div class="bd pan">
+    <table class="tableType1" border="0"><col width="210"/><col width="auto"/>
+        <!--<thead><tr><th colspan="2">${displayBean.sectionTitle}</th></tr></thead>-->
+        <tbody class="striped">
     <!-- now process the row data which will be stored in the model under the name highlightsMap
         highlightsMap is a Map with a key of the sectionAbbreviation and the value is a list of the SchoolProfileDisplayBean's for
         each row that contains data -->
@@ -43,4 +52,7 @@
 
     </c:forEach>
     </tbody></table>
+    </div>
+    </div>
+    </div>
 </jsp:root>

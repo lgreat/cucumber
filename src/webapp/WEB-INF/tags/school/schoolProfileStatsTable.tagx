@@ -44,8 +44,13 @@
         </jsp:scriptlet>
 
     <c:if test="${fn:length(rows) gt 0}">
-        <h4>${title}</h4>
-
+        <!--<h4>${title}</h4>-->
+        <div class="mod standard_1-1">
+        <div class="inner">
+        <div class="hd">
+            <h4 class="pvm plm bottom">${title}</h4>
+        </div>
+        <div class="bd pan">
         <table>
             <thead>
             <tr>
@@ -123,6 +128,9 @@
 
             </tbody>
         </table>
+        </div>
+        </div>
+        </div>
         <div class="smaller pbl tar">
         <c:forEach items="${footnotesForThisTable}" var="footnoteIndex">
             <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->

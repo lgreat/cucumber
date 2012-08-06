@@ -42,14 +42,21 @@
                     or fn:length(espResults['post_graduation_vocational']) gt 0 or fn:length(espResults['post_graduation_workforce']) gt 0
                     or fn:length(espResults['destination_school_1']) gt 0 or fn:length(espResults['destination_school_2']) gt 0 or fn:length(espResults['destination_school_3']) gt 0
                 }">
+
+                    <div class="mod standard_1-1">
+                    <div class="inner">
+                    <div class="hd">
+                        <h4 class="pvm plm bottom">Schools</h4>
+                    </div>
+                    <div class="bd pan">
                     <table>
-                        <thead>
-                            <tr>
-                                <th colspan="2">
-                                    Schools
-                                </th>
-                            </tr>
-                        </thead>
+                        <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th colspan="2">-->
+                                    <!--Schools-->
+                                <!--</th>-->
+                            <!--</tr>-->
+                        <!--</thead>-->
                         <tbody>
                             <c:if test="${fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0}">
                                 <tr>
@@ -126,7 +133,11 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div>Source: Manually entered by a school official.</div>
+
+                    </div>
+                    </div>
+                    </div>
+                    <div class="smaller pbl tar">Source: Manually entered by a school official.</div>
                 </c:if>
 
             </div>
@@ -141,14 +152,20 @@
                 <c:if test="${fn:length(espResults['administrator_name']) gt 0 or fn:length(espResults['staff_resources']) gt 0
                 or fn:length(espResults['staff_languages']) gt 0 or fn:length(espResults['staff_languages_other']) gt 0
                 }">
+                    <div class="mod standard_1-1">
+                        <div class="inner">
+                            <div class="hd">
+                                <h4 class="pvm plm bottom">Schools</h4>
+                            </div>
+                            <div class="bd pan">
                     <table>
-                        <thead>
-                            <tr>
-                                <th colspan="2">
-                                    Schools
-                                </th>
-                            </tr>
-                        </thead>
+                        <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th colspan="2">-->
+                                    <!--Schools-->
+                                <!--</th>-->
+                            <!--</tr>-->
+                        <!--</thead>-->
                         <tbody>
                             <c:if test="${fn:length(espResults['administrator_name']) gt 0}">
                                 <tr>
@@ -188,7 +205,11 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div>Source: Manually entered by a school official.</div>
+            </div>
+        </div>
+    </div>
+    <div class="smaller pbl tar">Source: Manually entered by a school official.</div>
+
                 </c:if>
             </div>
 
