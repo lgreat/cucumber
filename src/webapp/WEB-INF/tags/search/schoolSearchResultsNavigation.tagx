@@ -36,13 +36,13 @@
         </div>
         <div class="gsTabs1">
             <ul class="tabStyle-2-1">
-                <li>
-                    <a data-role="button" data-inline="true" class="js-listResultsLink ${(tabSelect eq 'map'?'':'preSelected')}">
+                <li class="ieHack">
+                    <a data-role="button" data-inline="true" class="js-listResultsLink" id="${(tabSelect eq 'map'?'':'preSelected')}">
                         <span class="iconx16 i-16-listView mrs vam"><!-- do not collapse --></span><span class="vam">List</span>
                     </a>
                 </li>
-                <li>
-                    <a data-role="button" data-inline="true" class="js-mapResultsLink  ${(tabSelect eq 'list'?'':'preSelected')}">
+                <li class="ieHack">
+                    <a data-role="button" data-inline="true" class="js-mapResultsLink" id="${(tabSelect eq 'list'?'':'preSelected')}">
                         <span class="iconx16 i-16-getDirections mrs vam"><!-- do not collapse --></span><span class="vam">Map</span></a>
                 </li>
             </ul>
