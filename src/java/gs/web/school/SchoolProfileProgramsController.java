@@ -72,7 +72,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         modelMap.put( "ProfileDisplayStructure", DISPLAY_CONFIG);
 
         //Add culture info to the model
-//        _schoolProfileCultureController.getCultureDetails(modelMap,request);
+        _schoolProfileCultureController.getCultureDetails(modelMap,request);
 
         // Get Data
         if (school != null) {
@@ -556,6 +556,10 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     // This function is just to support the tester
     public Set<String> getKeyValuesToExtract() {
         return _keyValuesToExtract;
+    }
+
+    public void setSchoolProfileCultureController(SchoolProfileCultureController schoolProfileCultureController) {
+        _schoolProfileCultureController = schoolProfileCultureController;
     }
 
     /* *****************************************************************************************************

@@ -2,6 +2,7 @@ package gs.web.school;
 
 import gs.data.school.EspResponse;
 import gs.data.school.School;
+import gs.data.school.SchoolMedia;
 import gs.data.school.SchoolSubtype;
 import gs.data.state.State;
 import gs.data.state.StateManager;
@@ -21,6 +22,7 @@ import static org.easymock.classextension.EasyMock.*;
 public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase {
 
     SchoolProfileProgramsController _schoolProfileProgramsHighlightsController;
+    SchoolProfileCultureController _schoolProfileCultureController;
 //    IEspResponseDao _espResponseDao;
     SchoolProfileDataHelper _schoolProfileDataHelper;
     State _state;
@@ -31,6 +33,9 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 //        _espResponseDao = createStrictMock( IEspResponseDao.class );
         _schoolProfileDataHelper = createStrictMock( SchoolProfileDataHelper.class );
         _schoolProfileProgramsHighlightsController = new SchoolProfileProgramsController();
+        _schoolProfileCultureController = new SchoolProfileCultureController();
+        _schoolProfileCultureController.setSchoolProfileDataHelper(_schoolProfileDataHelper);
+        _schoolProfileProgramsHighlightsController.setSchoolProfileCultureController(_schoolProfileCultureController);
 //        _schoolProfileProgramsHighlightsController.setIEspResponseDao( _espResponseDao );
         _schoolProfileProgramsHighlightsController.setSchoolProfileDataHelper( _schoolProfileDataHelper );
         _schoolProfileProgramsHighlightsController.setRequestAttributeHelper(new RequestAttributeHelper());
@@ -371,7 +376,14 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
     private ModelMap runController( Map<String, List<EspResponse>> espData) {
         ModelMap map = new ModelMap();
+        //ESP data for school is fetched on the culture tab.
+        expect(_schoolProfileDataHelper.getEspDataForSchool(getRequest())).andReturn(espData);
+        if (espData != null && espData.size() > 0) {
+            List<SchoolMedia> photoGalleryImages = new ArrayList<SchoolMedia>();
+            expect(_schoolProfileDataHelper.getSchoolMedia(getRequest())).andReturn(photoGalleryImages);
+        }
 
+        //ESP data for school is fetched on the highlights/extracurriculars/programs&resources tab.
         expect( _schoolProfileDataHelper.getEspDataForSchool( getRequest() ) ).andReturn( espData );
         replay(_schoolProfileDataHelper);
         _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest());

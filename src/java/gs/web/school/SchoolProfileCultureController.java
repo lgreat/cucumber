@@ -18,15 +18,15 @@ import java.util.*;
 @RequestMapping("/school/profileCulture.page")
 public class SchoolProfileCultureController extends AbstractSchoolProfileController {
     private static final Log _log = LogFactory.getLog(SchoolProfileCultureController.class);
-    public static final String VIEW = "school/profileCulture";
 
     @Autowired
     private SchoolProfileDataHelper _schoolProfileDataHelper;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String getCulturePage(ModelMap modelMap, HttpServletRequest request) {
-        return VIEW;
-    }
+      //If this controller needs to be called directly then add a handler mapping for RequestMethod.GET and create a VIEW page.
+//    @RequestMapping(method = RequestMethod.GET)
+//    public String getCulturePage(ModelMap modelMap, HttpServletRequest request) {
+//        return VIEW;
+//    }
 
     private static final String [] MODEL_PREFIXES = {"culture"};
 
@@ -35,18 +35,22 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         buildCultureDisplayStructure();
     }
 
-    protected void getCultureDetails(ModelMap modelMap,HttpServletRequest request) {
+    protected void getCultureDetails(ModelMap modelMap, HttpServletRequest request) {
         Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool(request);
-        Map<String, List<String>> resultsModel = SchoolProfileProgramsController.buildDisplayData( espResults, DISPLAY_CONFIG);
-        modelMap.put( "cultureProfileData", resultsModel );
-        SchoolProfileProgramsController.buildDisplayModel(MODEL_PREFIXES, resultsModel, DISPLAY_CONFIG, modelMap );
-        getSchoolPhotos(modelMap,request);
+        if (espResults != null && espResults.size() > 0) {
+            Map<String, List<String>> resultsModel = SchoolProfileProgramsController.buildDisplayData(espResults, DISPLAY_CONFIG);
+            modelMap.put("cultureProfileData", resultsModel);
+            SchoolProfileProgramsController.buildDisplayModel(MODEL_PREFIXES, resultsModel, DISPLAY_CONFIG, modelMap);
+            getSchoolPhotos(modelMap, request);
+        }
     }
 
-    protected void getSchoolPhotos(ModelMap modelMap,HttpServletRequest request) {
+    protected void getSchoolPhotos(ModelMap modelMap, HttpServletRequest request) {
         List<SchoolMedia> photoGalleryImages = _schoolProfileDataHelper.getSchoolMedia(request);
-        modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
-        modelMap.put("photoGalleryImages", photoGalleryImages);
+        if (photoGalleryImages != null && photoGalleryImages.size() > 0) {
+            modelMap.put("basePhotoPath", CommunityUtil.getMediaPrefix());
+            modelMap.put("photoGalleryImages", photoGalleryImages);
+        }
     }
 
     private static void buildCultureDisplayStructure() {
@@ -67,5 +71,10 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
                 "school_mascot" ) );
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Anything else",
                 "anything_else" ) );
+    }
+
+    // The following setter dependency injection is just for the tester
+    public void setSchoolProfileDataHelper( SchoolProfileDataHelper schoolProfileDataHelper ) {
+        _schoolProfileDataHelper = schoolProfileDataHelper;
     }
 }
