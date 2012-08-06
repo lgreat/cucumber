@@ -10,9 +10,12 @@
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
+          xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
         >
 
 <c:set var="stateAbbrev" value="${school.databaseState.abbreviationLowerCase}"/>
+
+    <communityHover:schoolReviewPosted schoolName="${school.name}"/>
 
     <div class="alpha grid_16 omega ptl">
     <!--<a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>-->
