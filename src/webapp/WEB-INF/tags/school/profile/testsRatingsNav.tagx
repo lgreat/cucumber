@@ -2,19 +2,23 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:gsweb="gstaglib"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
     <jsp:directive.tag body-content="empty"/>
 
     <jsp:directive.attribute name="schoolName" required="true" type="java.lang.String"
                              description="Name of the school"/>
+    <jsp:directive.attribute name="showTestScores" type="java.lang.Boolean" description="False to hide the test scores nav"/>
 
     <ul class="tabStyle-5">
-        <li><a id="js_tests"
-               href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}"
-               title="${pageScope.schoolName} | Test scores"
-               class="${requestScope.schoolProfileTabMap['test-scores']}">Test scores</a></li>
-        <li><span class="graydivider">|</span><a id="js_ratings"
+        <c:if test="${empty showTestScores or showTestScores eq true}">
+            <li><a id="js_tests"
+                   href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}"
+                   title="${pageScope.schoolName} | Test scores"
+                   class="${requestScope.schoolProfileTabMap['test-scores']}">Test scores</a></li>
+        </c:if>
+        <li><c:if test="${empty showTestScores or showTestScores eq true}"><span class="graydivider">|</span></c:if><a id="js_ratings"
                                                  href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'ratings')}"
                                                  title="${pageScope.schoolName} | Ratings details"
                                                  class="${requestScope.schoolProfileTabMap.ratings}">Ratings details</a>

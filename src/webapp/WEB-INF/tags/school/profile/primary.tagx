@@ -66,7 +66,7 @@
 
                 </li>
             </c:if>
-            <c:if test="${(!empty testscores)}">
+            <c:if test="${(!empty testscores) or (!empty ratings)}">
                 <li><a id="js_test-scores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}" title="${schoolName} | Tests &amp;amp; ratings" class="${requestScope.schoolProfileTabMap['test-scores-master']}">Tests &amp;amp; ratings</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.testscores} arrowdiv" id="arrowdiv"></div>-->
@@ -113,7 +113,7 @@
         <c:if test="${(!empty testscores || !empty ratings)}">
             <div data-gs-tab-body="testScores" style="display:${(!empty requestScope.schoolProfileTabMap['test-scores-master'] and requestScope.schoolProfileTabMap['test-scores-master'] eq 'selected'?'block;':'none')}">
                 <div class="gsTabs">
-                    <profile:testsRatingsNav schoolName="${schoolName}"/>
+                    <profile:testsRatingsNav schoolName="${schoolName}" showTestScores="${not empty testscores}"/>
                     <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
                     <c:if test="${(!empty testscores)}">
                         <c:out value='${testscores}' escapeXml="false"/>
