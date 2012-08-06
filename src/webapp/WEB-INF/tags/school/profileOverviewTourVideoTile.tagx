@@ -17,13 +17,17 @@
     <jsp:directive.attribute name="tourModel" type="java.lang.Object" required="true"/>
 
     <c:set var="content" value="${tourModel['content']}" scope="page"/>
-    <c:set var="videoUrl" value="${tourModel['videoUrl']}" scope="page"/>
+    <c:set var="contentUrl" value="${tourModel['contentUrl']}" scope="page"/>
     <c:set var="videoIconUrl" value="${tourModel['videoIconUrl']}" scope="page"/>
     <c:set var="videoIconAltText" value="${tourModel['videoIconAltText']}" scope="page"/>
 
     <school:profileOverviewCell1 title="How to choose a school">
         <!-- Show video icon in variable videoIconUrl and clicking on it takes you to the video at videoUrl -->
-        <div class="">Display video at ${$videoUrl}</div>
+        <div class="">Display video at ${contentUrl}</div>
+        <div class="">Video icon is: ${videoIconUrl}</div>
+        <c:if test="${empty contentUrl}">
+            <div class="">Video not found on CMS</div>
+        </c:if>
     </school:profileOverviewCell1>
 
 </jsp:root>

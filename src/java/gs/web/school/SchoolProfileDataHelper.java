@@ -11,6 +11,9 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.web.request.RequestAttributeHelper;
+import gs.web.search.CmsRelatedFeatureSearchService;
+import gs.web.search.CmsRelatedFeatureSearchServiceSolrImpl;
+import gs.web.search.ICmsFeatureSearchResult;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     private final static String SCHOOL_MEDIA_REPORTS_BY_USER = "reportsByUser";
     private final static String ENROLLMENT = "enrollment";
     private final static String SPERLINGS = "sperlings";
+    private final static String RELATED_CONTENT = "relatedContent";
 
     private final static String CENSUS_DATA = "censusData";
 
@@ -52,6 +56,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     private final static String NO_CENSUS_DATA = "censusDataEmpty";
     private final static String NO_ENROLLMENT = "enrollmentEmpty";
     private final static String NO_SPERLINGS = "sperlingsEmpty";
+    private final static String NO_RELATED_CONTENT = "relatedContentEmpty";
 
     @Autowired
     private IEspResponseDao _espResponseDao;
@@ -88,6 +93,9 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
     @Autowired
     IGeoDao _geoDao;
+
+    @Autowired
+    CmsRelatedFeatureSearchService _cmsRelatedFeatureSearchService;
 
     protected Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
@@ -468,6 +476,45 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         return sperlings;
     }
 
+    /**
+     * Gets article and video content from CMS based on the school and EspResponse data
+     * @param request
+     * @param espData EspResponse data to analyze
+     * @param numItems Max number of items to return
+     * @return
+     */
+    protected List<ICmsFeatureSearchResult> getCmsRelatedContent (HttpServletRequest request, Map <String, List<EspResponse>> espData, int numItems) {
+
+        // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
+        if( school == null ) {
+            throw new IllegalArgumentException( "The request must already contain a school object" );
+        }
+
+        // Get Data
+        // First see if it is already in the request
+        List<ICmsFeatureSearchResult> cmsResults =  (List<ICmsFeatureSearchResult>)getSharedData( request, RELATED_CONTENT );
+
+        // If it isn't in the request try to retrieve it
+        if( cmsResults == null ) {
+            // Before going to DB se if we have ready done that and determined there is no data
+            if( getSharedData( request, NO_RELATED_CONTENT ) != null ) {
+                return  null;
+            }
+
+            cmsResults = _cmsRelatedFeatureSearchService.getRelatedFeatures( school, espData, numItems );
+
+            if( cmsResults != null && !cmsResults.isEmpty()) {
+                setSharedData( request, RELATED_CONTENT, cmsResults ); // Save in request for future use
+            }
+            else {
+                // Set flag to prevent this DB request again
+                setSharedData( request, NO_RELATED_CONTENT, "yes" );
+            }
+        }
+        return cmsResults;
+    }
+
     // ============== The following setters are just for unit testing ===================
     public void setEspResponseDao( IEspResponseDao espResponseDao ) {
         _espResponseDao = espResponseDao;
@@ -507,6 +554,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
     public void setGeoDao( IGeoDao geoDao ) {
         _geoDao = geoDao;
+    }
+
+    public void setCmsRelatedFeatureSearchService( CmsRelatedFeatureSearchService cmsRelatedFeatureSearchService) {
+        _cmsRelatedFeatureSearchService = cmsRelatedFeatureSearchService;
     }
 }
 

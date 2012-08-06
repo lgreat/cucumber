@@ -19,25 +19,37 @@
     <c:set var="content" value="${applInfoModel['content']}" scope="page"/>
 
     <school:profileOverviewCell1 title="Getting in">
+        <c:set var="applicationDeadlineDate" value="${applInfoModel['applicationDeadlineDate']}" scope="page"/>
+        <c:set var="vouchers" value="${applInfoModel['vouchers']}" scope="page"/>
+        <!-- vouchers can contain the following values:
+               "yes" Vouchers are accepted
+               "no" Vouchers are not accepted
+               "blank" The ESP does not caontain a value
+        -->
+        <c:set var="applicationDeadlineMsg" value="${applInfoModel['applicationDeadlineMsg']}" scope="page"/>
+        <!-- applicationDeadlineMsg can contain the following values:
+               "apply" in which case applicationDeadlineDate has a value
+               "call"  No date provied, call the school
+               "yearround" Yearround addmission
+        -->
         <c:choose>
             <c:when test="${content eq 'applInfoV1'}">
                 <!-- double wide tile -->
-                <c:set var="acceptanceRatePercent" value="${applInfoModel['acceptanceRatePercent']}" scope="page"/>
+                <c:set var="acceptanceRate" value="${applInfoModel['acceptanceRate']}" scope="page"/>
                 <c:set var="acceptanceRateYear" value="${applInfoModel['acceptanceRateYear']}" scope="page"/>
-                <c:set var="applicationDeadlineMsg" value="${applInfoModel['applicationDeadlineMsg']}" scope="page"/>
-                <c:set var="applicationDeadlineDate" value="${applInfoModel['applicationDeadlineDate']}" scope="page"/>
-                <c:set var="vouchers" value="${applInfoModel['vouchers']}" scope="page"/>
                 <!-- The following is on the left -->
-                <div class="">acceptanceRate = ${acceptanceRate} out of 10<br/>
+                <div class="">double wide tile<br/>acceptanceRate = ${acceptanceRate} out of 10<br/>
                     acceptanceRateYear = ${acceptanceRateYear}</div>
                 <!-- The following is on the right -->
-                <div class="">double wide tile<br/>applicationDeadlineMsg = ${applicationDeadlineMsg}, values are apply, call or yearround,<br/>
-                    applicationDeadlineDate = ${applicationDeadlineDate}<br/>>
-                    vouchers = ${vouchers}, values are no, yes or blank</div>
+                <div class="">applicationDeadlineMsg = ${applicationDeadlineMsg}, [values are apply, call or yearround],<br/>
+                    applicationDeadlineDate = ${applicationDeadlineDate}<br/>
+                    vouchers = ${vouchers}, [values are no, yes or blank]</div>
             </c:when>
             <c:otherwise>
-                <!-- double wide image -->
-                <!-- will never get here as this is handled outside of this tag -->
+                <!-- single wide image -->
+                <div class="">single wide tile<br/>applicationDeadlineMsg = ${applicationDeadlineMsg}, [values are apply, call or yearround],<br/>
+                    applicationDeadlineDate = ${applicationDeadlineDate}<br/>
+                    vouchers = ${vouchers}, [values are no, yes or blank]</div>
             </c:otherwise>
 
         </c:choose>

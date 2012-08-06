@@ -36,9 +36,11 @@
                 <c:if test="${not empty districtGrades}">
                     <div class="">Grades ${districtGrades}</div>
                 </c:if>
+                <!-- This was removed from the spec because it will be time comsuming to obtain.  rraker 8/2/12
                 <c:if test="${not empty districtNumStudents}">
                     <div class="">Number of students ${districtNumStudents}</div>
                 </c:if>
+                -->
             </school:profileOverviewCell1>
         </c:when>
         <c:when test="${content eq 'neighborhoodInfo'}">

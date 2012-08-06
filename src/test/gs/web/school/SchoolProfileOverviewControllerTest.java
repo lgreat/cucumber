@@ -20,6 +20,7 @@ import gs.web.util.FixedNameController;
 import gs.web.util.SpringUtil;
 import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 //import static org.easymock.EasyMock.createStrictMock;
@@ -161,7 +162,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setAssociation("NCEA, CEC, NAEYC");
         _school.setAffiliation( "Roman Catholic" );
 
-        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
+        //Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
+        Map resultsModel = runGsRatingsEspTileWithCensusMockController( _request, _school, espData, 500 );
         String content = (String) resultsModel.get("content");
         assertEquals("testSchoolAutotextA: content wrong", "schoolAutotext", content);
         String autotext = (String) resultsModel.get( "autotext" );
@@ -170,6 +172,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertTrue("testSchoolAutotextA: ending autotext wrong: " + autotext, autotext.endsWith("The school belongs to the following associations: NCEA, CEC, NAEYC."));
         assertTrue("testSchoolAutotextA: ending autotext wrong: " + autotext, autotext.indexOf("in grades") > 0);
         assertTrue("testSchoolAutotextA: middle autotext wrong: " + autotext, autotext.indexOf("It is all male") > 0);
+        assertTrue("testSchoolAutotextA: number of students autotext wrong: " + autotext, autotext.indexOf("serving 500 students") > 0);
     }
 
     // Test Substitute 2 - No associations, no affiliations and only all_male
@@ -189,7 +192,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setSubtype(subType);
         _school.setGradeLevels(new Grades("PK"));
 
-        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
+        Map resultsModel = runGsRatingsEspTileWithCensusMockController( _request, _school, espData, 512 );
         String content = (String) resultsModel.get("content");
         assertEquals("testSchoolAutotextB: content wrong", "schoolAutotext", content);
         String autotext = (String) resultsModel.get( "autotext" );
@@ -215,7 +218,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
         _school.setGradeLevels(new Grades("PK,KG,1,2,3,4,5,6"));
 
-        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
+        Map resultsModel = runGsRatingsEspTileWithCensusMockController( _request, _school, espData, 512 );
         String content = (String) resultsModel.get("content");
         assertEquals("testSchoolAutotextC: content wrong", "schoolAutotext", content);
         String autotext = (String) resultsModel.get( "autotext" );
@@ -241,8 +244,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setLevelCode(LevelCode.PRESCHOOL_ELEMENTARY);
         _school.setGradeLevels(new Grades("AE"));
 
-        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
-
+        Map resultsModel = runGsRatingsEspTileWithCensusMockController( _request, _school, espData, 512 );
         String content = (String) resultsModel.get("content");
         assertEquals("testSchoolAutotextD: content wrong", "schoolAutotext", content);
         String autotext = (String) resultsModel.get( "autotext" );
@@ -268,7 +270,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Grades grades = Grades.createGrades(Grade.UNGRADED);
         _school.setGradeLevels(grades);
 
-        Map resultsModel = _schoolProfileOverviewController.getGsRatingsEspTile( _request, _school, espData );
+        Map resultsModel = runGsRatingsEspTileWithCensusMockController( _request, _school, espData, 512 );
         String content = (String) resultsModel.get("content");
         assertEquals("testSchoolAutotextE: content wrong", "schoolAutotext", content);
         String autotext = (String) resultsModel.get( "autotext" );
@@ -276,6 +278,35 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertTrue("testSchoolAutotextE: beginning autotext wrong: " + autotext, autotext.startsWith("San Francisco's Test school is a public school serving"));
         assertTrue("testSchoolAutotextE: ending autotext wrong: " + autotext, autotext.indexOf("The school belongs to the following associations") == -1);
         assertTrue( "testGsRatingsSchoolAutotextSubstitute2E: ungraded autotext wrong: " + autotext, autotext.indexOf( "ungraded")!=-1 );
+    }
+
+    private Map<String, Object> runGsRatingsEspTileWithCensusMockController( HttpServletRequest request, School school, Map<String, List<EspResponse>> espData, Integer numStudents ) {
+
+        Map<CensusDataType, List<CensusDataSet>> censusValues = new HashMap<CensusDataType, List<CensusDataSet>>(2);
+
+        // setup avg class size census data
+        if( numStudents > 0 ) {
+            List<CensusDataSet> enrollment = new ArrayList<CensusDataSet>();
+            censusValues.put( CensusDataType.STUDENTS_ENROLLMENT, enrollment );
+            CensusDataSet enrollmentCDS = new CensusDataSet( CensusDataType.STUDENTS_ENROLLMENT, 2011 );
+            enrollment.add(enrollmentCDS);
+            Set<SchoolCensusValue> enrollmentSet = new HashSet<SchoolCensusValue>(1);
+            enrollmentCDS.setSchoolData(enrollmentSet);
+            SchoolCensusValue enrollmentCSV = new SchoolCensusValue();
+            enrollmentSet.add(enrollmentCSV);
+            enrollmentCSV.setSchool(_school);
+            enrollmentCSV.setValueInteger(numStudents);
+        }
+
+        expect( _schoolProfileDataHelper.getSchoolCensusValues(getRequest()) ).andReturn( censusValues );
+
+        replay(_schoolProfileDataHelper);
+
+        Map<String, Object> model = _schoolProfileOverviewController.getGsRatingsEspTile(request, _school, espData);
+
+        verify(_schoolProfileDataHelper);
+
+        return model;
     }
 
     // Tests for no Sports/Arts/Music data
@@ -780,14 +811,13 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         // *** Test Default content not selected
         List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "administrator_name", "Ben Jones" ) );
         l.add( createEspResponse( "staff_resources", "none" ) );
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
-
+        String adminName = "Ben Jones";
+        Map resultsModel = runSpecialEdEspTileWithCensusMockController( _request, _school, espData, adminName );
         String sentence = (String) resultsModel.get("teachersStaff");
-        assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf("Ben Jones")==0 );
+        assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf(adminName)==0 );
         assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf("Staff includes")==-1 );
         System.out.println("testSpecEdSubstitute1C successful");
     }
@@ -797,19 +827,48 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         // *** Test Default content not selected
         List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "administrator_name", "Ben Jones" ) );
         l.add( createEspResponse( "staff_resources", "art_teacher" ) );
         l.add( createEspResponse( "staff_resources", "ell_esl_coord" ) );
         l.add( createEspResponse( "staff_resources", "gifted_specialist" ) );
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
+        String adminName = "Ben Jones";
+        Map resultsModel = runSpecialEdEspTileWithCensusMockController( _request, _school, espData, adminName );
 
         String sentence = (String) resultsModel.get("teachersStaff");
         assertTrue( "testSpecEdSubstitute1C: Substitute content expected content not found", sentence.indexOf("Ben Jones")==0 );
         assertTrue( "testSpecEdSubstitute1D: Substitute content expected content not found", sentence.indexOf("Art teacher")>0 );
         assertTrue( "testSpecEdSubstitute1D: Substitute content expected content not found", sentence.indexOf("Gifted specialist")>0 );
         System.out.println("testSpecEdSubstitute1D successful");
+    }
+
+    private Map<String, Object> runSpecialEdEspTileWithCensusMockController( HttpServletRequest request, School school, Map<String, List<EspResponse>> espData, String administrator ) {
+
+        Map<CensusDataType, List<CensusDataSet>> censusValues = new HashMap<CensusDataType, List<CensusDataSet>>(2);
+
+        // setup avg class size census data
+        if( administrator != null ) {
+            List<CensusDataSet> adminCDSs = new ArrayList<CensusDataSet>();
+            censusValues.put( CensusDataType.HEAD_OFFICIAL_NAME, adminCDSs );
+            CensusDataSet adminCDS = new CensusDataSet( CensusDataType.HEAD_OFFICIAL_NAME, 2011 );
+            adminCDSs.add(adminCDS);
+            Set<SchoolCensusValue> adminSet = new HashSet<SchoolCensusValue>(1);
+            adminCDS.setSchoolData(adminSet);
+            SchoolCensusValue enrollmentCSV = new SchoolCensusValue();
+            adminSet.add(enrollmentCSV);
+            enrollmentCSV.setSchool(_school);
+            enrollmentCSV.setValueText(administrator);
+        }
+
+        expect( _schoolProfileDataHelper.getSchoolCensusValues(getRequest()) ).andReturn( censusValues );
+
+        replay(_schoolProfileDataHelper);
+
+        Map<String, Object> model = _schoolProfileOverviewController.getSpecialEdEspTile(request, _school, espData);
+
+        verify(_schoolProfileDataHelper);
+
+        return model;
     }
 
     // ========= Tests for Transportation default content ========
@@ -944,31 +1003,192 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
 
 
-    // Tests for Transportation substitute1 content
-    public void XtestTransportSubstitute1A() {
+    // Tests for Transportation substitute1 content which is students/teacher and avg class size
+    public void testTransportSubstitute1A() {
 
-        // TODO - come back to this after Samson has enhanced the SchoolProfileDataHelper class
+        // Test special case for TX and NY where only students per teacher is useful
+        String stateAbbrev = "TX";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2012;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2011;
 
-        /*
-        List<CensusDataSet> l = new ArrayList<CensusDataSet>();
-        CensusDataSet cds1 = new CensusDataSet( CensusDataType.CLASS_SIZE, 2012 );
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
 
-        SchoolCensusValue csv1 =
-        cds1.
-        l.add( createEspResponse( "before_after_care", "before" ) );
-        l.add( createEspResponse( "before_after_care", "after" ) );
-        l.add( createEspResponse( "before_after_care_start", "7:00 AM" ) );
-        l.add( createEspResponse( "before_after_care_end", "4:00 PM" ) );
+        assertEquals( "testTransportSubstitute1A: students per teacher wrong", (int)studentsPerTeacherValue, resultInteger.intValue() );
+        System.out.println( "testTransportSubstitute1A successful" );
+    }
+
+    // Tests for Transportation substitute1 content which is students/teacher and avg class size
+    public void testTransportSubstitute1B() {
+
+        // Test special case for TX and NY where only students per teacher is useful
+        String stateAbbrev = "TX";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2012;
+        float studentsPerTeacherValue = 0;
+        int studentsPerTeacherYear = 0;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+
+        assertEquals( "testTransportSubstitute1B: substitute2 content expected", "substitute2", resultsModel.get("content") );
+        System.out.println("testTransportSubstitute1B successful");
+    }
+
+    // Tests for Transportation substitute1 content which is students/teacher and avg class size
+    public void testTransportSubstitute1C() {
+
+        // Test using latest year
+        String stateAbbrev = "CA";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2012;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2011;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1ClassSize");
+
+        assertEquals( "testTransportSubstitute1C: class size expected", (int)classSizeValue, resultInteger.intValue() );
+        System.out.println( "testTransportSubstitute1C successful" );
+    }
+
+    // Tests for Transportation substitute1 content which is students/teacher and avg class size
+    public void testTransportSubstitute1D() {
+
+        // Test same year for both
+        String stateAbbrev = "CA";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2011;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2011;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1ClassSize");
+
+        assertEquals( "testTransportSubstitute1D: class size expected", (int)classSizeValue, resultInteger.intValue() );
+        System.out.println( "testTransportSubstitute1D successful" );
+    }
+
+    // Tests for Transportation substitute1 content which is students/teacher and avg class size
+    public void testTransportSubstitute1E() {
+
+        // Test students per teacher more recent
+        String stateAbbrev = "CA";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2011;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2012;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+
+        assertEquals( "testTransportSubstitute1E: students per teacher expected", (int)studentsPerTeacherValue, resultInteger.intValue() );
+        System.out.println( "testTransportSubstitute1E successful" );
+    }
+
+    // Tests for Transportation substitute1 content which is students/teacher and avg class size
+    public void testTransportSubstitute1F() {
+
+        // Test no students per teacher
+        String stateAbbrev = "CA";
+        float classSizeValue = 10.0f;
+        int classSizeYear = 2012;
+        float studentsPerTeacherValue = 0f;
+        int studentsPerTeacherYear = 0;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1ClassSize");
+
+        assertEquals( "testTransportSubstitute1F: class size expected", (int)classSizeValue, resultInteger.intValue() );
+        System.out.println( "testTransportSubstitute1F successful" );
+    }
+
+    // Tests for Transportation substitute1 content which is students/teacher and avg class size
+    public void testTransportSubstitute1G() {
+
+        // Test no class size data
+        String stateAbbrev = "CA";
+        float classSizeValue = 0f;
+        int classSizeYear = 0;
+        float studentsPerTeacherValue = 24.0f;
+        int studentsPerTeacherYear = 2011;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+
+        assertEquals( "testTransportSubstitute1G: students per teacher expected", (int)studentsPerTeacherValue, resultInteger.intValue() );
+        System.out.println( "testTransportSubstitute1G successful" );
+    }
+
+    // Tests for Transportation substitute1 content which is students/teacher and avg class size
+    public void testTransportSubstitute1H() {
+
+        // Test no census data
+        String stateAbbrev = "CA";
+        float classSizeValue = 0f;
+        int classSizeYear = 0;
+        float studentsPerTeacherValue = 0f;
+        int studentsPerTeacherYear = 0;
+
+        Map<String, Object> resultsModel = runTransportationForCensusController(stateAbbrev, classSizeValue, classSizeYear, studentsPerTeacherValue, studentsPerTeacherYear);
+        Integer resultInteger = (Integer) resultsModel.get("substitute1StudentsPerTeacher");
+
+        assertEquals( "testTransportSubstitute1H: default content expected", "substitute2", resultsModel.get("content") );
+        System.out.println( "testTransportSubstitute1H successful" );
+    }
+
+    private Map<String, Object> runTransportationForCensusController(String stateAbbrev, float classSizeValue, int classSizeYear, float studentsPerTeacherValue, int studentsPerTeacherYear) {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "something", "none" ) );
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
-        Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
+        StateManager sm = new StateManager();
+        State state = sm.getState( stateAbbrev );
+        _school.setStateAbbreviation(state);
+
+        Map<CensusDataType, List<CensusDataSet>> censusValues = new HashMap<CensusDataType, List<CensusDataSet>>(2);
+
+        // setup avg class size census data
+        if( classSizeYear > 0 ) {
+            List<CensusDataSet> avgClassSize = new ArrayList<CensusDataSet>();
+            censusValues.put( CensusDataType.CLASS_SIZE, avgClassSize );
+            CensusDataSet classSizeCDS = new CensusDataSet( CensusDataType.CLASS_SIZE, classSizeYear );
+            avgClassSize.add(classSizeCDS);
+            Set<SchoolCensusValue> classSizeSet = new HashSet<SchoolCensusValue>(1);
+            classSizeCDS.setSchoolData(classSizeSet);
+            SchoolCensusValue classSizeCSV = new SchoolCensusValue();
+            classSizeSet.add(classSizeCSV);
+            classSizeCSV.setSchool(_school);
+            classSizeCSV.setValueFloat(new Float(classSizeValue));
+        }
 
 
-        _school.setLevelCode( LevelCode.MIDDLE_HIGH);
+        // setup student per teacher census data
+        if( studentsPerTeacherYear > 0 ) {
+            List<CensusDataSet> studentsPerTeacher = new ArrayList<CensusDataSet>();
+            censusValues.put( CensusDataType.STUDENT_TEACHER_RATIO, studentsPerTeacher );
+            CensusDataSet studentsPerTeacherCDS = new CensusDataSet( CensusDataType.STUDENT_TEACHER_RATIO, studentsPerTeacherYear );
+            studentsPerTeacher.add(studentsPerTeacherCDS);
+            Set<SchoolCensusValue> studentsPerTeacherSet = new HashSet<SchoolCensusValue>(1);
+            studentsPerTeacherCDS.setSchoolData(studentsPerTeacherSet);
+            SchoolCensusValue studentsPerTeacherCSV = new SchoolCensusValue();
+            studentsPerTeacherSet.add(studentsPerTeacherCSV);
+            studentsPerTeacherCSV.setSchool(_school);
+            studentsPerTeacherCSV.setValueFloat(new Float(studentsPerTeacherValue));
+        }
 
-        assertEquals( "testExtdCareTitleC: default content expected", "Extended programs", resultsModel.get( "ExtdCareTitle") );
-        System.out.println( "testExtdCareTitleC successful" );
-        */
+        expect( _schoolProfileDataHelper.getSchoolCensusValues(getRequest()) ).andReturn( censusValues );
+
+        replay(_schoolProfileDataHelper);
+
+        Map<String, Object> model = _schoolProfileOverviewController.getTransportationEspTile(getRequest(), _school, espData );
+
+        verify(_schoolProfileDataHelper);
+
+        return model;
     }
 
     // ============= Tests for Programs Tile ===============
@@ -1022,8 +1242,9 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         List<String> resultsList = (List<String>) resultsModel.get( "resultsList" );
         assertEquals("testProgramsDefaultC: immersion wrong", "Chinese immersion", resultsList.get(0));
-        assertEquals("testProgramsDefaultC: instructional_model wrong", "Honors, Independent study", resultsList.get(1));
-        assertEquals("testProgramsDefaultC: academic_focus wrong", "School focus: Science, Technology", resultsList.get(2));
+        assertEquals("testProgramsDefaultC: instructional_model wrong", "Honors", resultsList.get(1));
+        assertEquals("testProgramsDefaultC: instructional_model wrong", "Independent study", resultsList.get(2));
+        assertEquals("testProgramsDefaultC: academic_focus wrong", "School focus: Science, Technology", resultsList.get(3));
         System.out.println( "testProgramsDefaultC successful" );
     }
 
@@ -1046,8 +1267,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         List<String> resultsList = (List<String>) resultsModel.get( "resultsList" );
         assertEquals("testProgramsDefaultD: immersion wrong", "Language immersion", resultsList.get(0));
-        assertEquals("testProgramsDefaultD: instructional_model wrong", "Honors, Independent study, Basket weaving", resultsList.get(1));
-        assertEquals("testProgramsDefaultD: academic_focus wrong", "School focus: Science, Technology, Something else", resultsList.get(2));
+        assertEquals("testProgramsDefaultD: instructional_model wrong", "Honors", resultsList.get(1));
+        assertEquals("testProgramsDefaultD: instructional_model wrong", "Independent study", resultsList.get(2));
+        assertEquals("testProgramsDefaultD: instructional_model wrong", "Basket weaving", resultsList.get(3));
+        assertEquals("testProgramsDefaultD: academic_focus wrong", "School focus: Science, Technology, Something else", resultsList.get(4));
         System.out.println( "testProgramsDefaultD successful" );
     }
 

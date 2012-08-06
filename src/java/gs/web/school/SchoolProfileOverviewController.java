@@ -13,6 +13,7 @@ import gs.data.school.district.District;
 import gs.data.school.review.Review;
 import gs.data.util.CommunityUtil;
 import gs.web.content.cms.CmsContentLinkResolver;
+import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -183,7 +184,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, Object> communityModel = new HashMap<String, Object>(3);
         communityModel.put( "school", school );
         communityModel.put( "ratings", _schoolProfileDataHelper.getSchoolRatings( request ) );
-        communityModel.put( "numberOfReviews", _schoolProfileDataHelper.getCountPublishedNonPrincipalReviews(request) );
+        // communityModel.put( "numberOfReviews", _schoolProfileDataHelper.getCountPublishedNonPrincipalReviews(request) );
 
         return communityModel;
     }
@@ -272,8 +273,15 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
 
         // From the spec create sentence 1.2 if the data is present
-        //Integer enrollment = school.getEnrollment();
-        Integer enrollment = 512;  // TODO - Need help from Anthony figuring out how to mock this???
+        /* It is better to get the enrollment from the census data because school.getEnrollment causes a database lookup
+        Integer enrollment = school.getEnrollment();
+         */
+        // Enrollment is from the census data
+        SchoolCensusValue enrollmentSCV = getSchoolCensusValue( request, CensusDataType.STUDENTS_ENROLLMENT );
+        Integer enrollment = null;
+        if( enrollmentSCV != null ) {
+                enrollment = enrollmentSCV.getValueInteger();
+        }
         if( school.getName()!=null && school.getName().length()>0 &&
                 school.getType()!=null && school.getType().getSchoolTypeName().length()>0 &&
                 enrollment!=null ) {
@@ -723,15 +731,20 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         else {
             // 
             // Substitute 1 - Teachers and staff Autotext
-            List<EspResponse> administrator = espData.get("administrator_name");
+//            List<EspResponse> administrator = espData.get("administrator_name");
+            SchoolCensusValue administratorSCV = getSchoolCensusValue( request, CensusDataType.HEAD_OFFICIAL_NAME );
+            String administrator = null;
+            if( administratorSCV != null ) {
+                administrator = administratorSCV.getValueText();
+            }
             List<EspResponse> staffResources = espData.get("staff_resources");
             List<EspResponse> staffResourcesWoNone = copyAndRemove( staffResources, new String[]{"none"} );
 
-            if( isNotEmpty(administrator) || isNotEmpty(staffResourcesWoNone) ){
+            if( StringUtils.isNotEmpty(administrator) || isNotEmpty(staffResourcesWoNone) ){
                 StringBuilder sentence = new StringBuilder();
                 // Sentence 1, about the school administrator
-                if( isNotEmpty( administrator ) ) {
-                    sentence.append( administrator.get(0).getPrettyValue() );
+                if( StringUtils.isNotEmpty( administrator ) ) {
+                    sentence.append( administrator );
                     sentence.append( " leads this school. " );
                 }
 
@@ -771,7 +784,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         List<EspResponse> transpOther = espData.get("transportation_other");
 
-        if( isNotEmpty(transp) || isNotEmpty(transpShuttle) ) {
+        if( isNotEmpty(transp) || isNotEmpty(transpOther) || isNotEmpty(transpShuttle) || isNotEmpty(transpShuttleOther)) {
             // Default action
             model.put( "content", "default" );
             if( isTranspShuttleYes && isNotEmpty(transpShuttleOther) ) {
@@ -831,35 +844,72 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             boolean substitute1Ok = false;
             Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
             if( censusValues!=null ) {
-                List<CensusDataSet> classSize = censusValues.get( CensusDataType.CLASS_SIZE );
-                List<CensusDataSet> studentsPerTeacher = censusValues.get( CensusDataType.STUDENT_TEACHER_RATIO );
+                List<CensusDataSet> classSizeCensusDataSet = censusValues.get( CensusDataType.CLASS_SIZE );
+                List<CensusDataSet> studentsPerTeacherCensusDataSet = censusValues.get( CensusDataType.STUDENT_TEACHER_RATIO );
                 // Substitute action 1
                 // There are a lot of places an NPE can occur so just do a try/catch and see what happens
-                if( isNotEmpty(classSize) ) {
+                Integer classSize = -1;
+                int classSizeYear = -1;
+                Integer studentsPerTeacher = -1;
+                int studentsPerTeacherYear = -1;
+
+                if( isNotEmpty(classSizeCensusDataSet) ) {
                     try {
-                        SchoolCensusValue [] csv = (SchoolCensusValue [])classSize.get(0).getSchoolData().toArray(new SchoolCensusValue[1]);
-                        model.put("substitute1ClassSize", csv[0].getValueInteger());
-                        model.put( "content", "substitute1" );
-                        substitute1Ok = true;
+                        SchoolCensusValue [] csv = (SchoolCensusValue [])classSizeCensusDataSet.get(0).getSchoolData().toArray(new SchoolCensusValue[1]);
+                        classSize = csv[0].getValueInteger();
+                        classSizeYear = classSizeCensusDataSet.get(0).getYear();
                     }
                     catch( NullPointerException e ) {
                         // Nothing to do
                     }
                 }
-                else if( isNotEmpty(studentsPerTeacher) ) {
+                if( isNotEmpty(studentsPerTeacherCensusDataSet) ) {
                     try {
-                        SchoolCensusValue [] csv = (SchoolCensusValue [])studentsPerTeacher.get(0).getSchoolData().toArray(new SchoolCensusValue[1]);
-                        model.put("substitute1StudentsPerTeacher", csv[0].getValueInteger());
-                        model.put( "content", "substitute1" );
-                        substitute1Ok = true;
+                        SchoolCensusValue [] csv = (SchoolCensusValue [])studentsPerTeacherCensusDataSet.get(0).getSchoolData().toArray(new SchoolCensusValue[1]);
+                        studentsPerTeacher = csv[0].getValueInteger();
+                        studentsPerTeacherYear = studentsPerTeacherCensusDataSet.get(0).getYear();
                     }
                     catch( NullPointerException e ) {
                         // Nothing to do
                     }
                 }
-                else {
-                    model.put( "content", "substitute2" );
-                    // Static test will be displayed.
+                String state = school.getStateAbbreviation().getAbbreviation();
+                // Special rules for NY and TX.  Only use studentsPerTeacher otherwise do substitute 2
+                if( (state.equals("NY") || state.equals("TX")) ) {
+                    if( studentsPerTeacher > 0 ) {
+                        model.put("substitute1StudentsPerTeacher", studentsPerTeacher);
+                        model.put("substitute1StudentsPerTeacherYear", new Integer(studentsPerTeacherYear));
+                        model.put( "content", "substitute1" );
+                        substitute1Ok = true;
+                    }
+                    else {
+                        // No students/teacher data - fall through to substitute2
+                    }
+                }
+                else if( classSize > 0 && studentsPerTeacher > 0) {
+                    // If we have both, use the one with the later year
+                    if( classSizeYear >= studentsPerTeacherYear ) {
+                        model.put("substitute1ClassSize", classSize);
+                        model.put("substitute1ClassSizeYear", new Integer(classSizeYear));
+                        model.put( "content", "substitute1" );
+                        substitute1Ok = true;
+                    }
+                    else {
+                        model.put("substitute1StudentsPerTeacher", studentsPerTeacher);
+                        model.put("substitute1StudentsPerTeacherYear", new Integer(studentsPerTeacherYear));
+                        model.put( "content", "substitute1" );
+                        substitute1Ok = true;
+                    }
+                }
+                else if( classSize > 0 ) {
+                    model.put("substitute1ClassSize", classSize);
+                    model.put( "content", "substitute1" );
+                    substitute1Ok = true;
+                }
+                else if( studentsPerTeacher > 0 ) {
+                    model.put("substitute1StudentsPerTeacher", studentsPerTeacher);
+                    model.put( "content", "substitute1" );
+                    substitute1Ok = true;
                 }
             }
             if( substitute1Ok == false ) {
@@ -924,22 +974,15 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 }
             }
 
-            // Instructional model
+            // Instructional model -  each item is a separate list item
             String instructionalModel = "";
             if( instrModelWoNone.size()>0 ){
-                instructionalModel = createCommaList(instrModelWoNone);
+                for( EspResponse r : instrModelWoNone ) {
+                    results.add( r.getPrettyValue() );
+                }
             }
             if( instrModelOther!=null && instrModelOther.size()>0 ){
-                // append other
-                if( instructionalModel.length() > 0 ) {
-                    instructionalModel += ", " + instrModelOther.get(0).getPrettyValue();
-                }
-                else {
-                    instructionalModel = instrModelOther.get(0).getPrettyValue();
-                }
-            }
-            if( instructionalModel.length() > 0 ) {
-                results.add(  instructionalModel );
+                results.add( instrModelOther.get(0).getPrettyValue() );
             }
 
             // Academic focus
@@ -1044,6 +1087,9 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 // if acceptanceRate is 0 but there were some applications then show 1
                 if( acceptanceRate == 0 && studentsAccepted > 0 ) {
                     acceptanceRate = 1;
+                }
+                else if( acceptanceRate > 10 ) {
+                    acceptanceRate = 10;
                 }
                 String acceptanceRateStr = Integer.toString( acceptanceRate );
                 model.put( "acceptanceRate", acceptanceRateStr );
@@ -1179,11 +1225,10 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         if( districtId > 0 ) {
             District district = school.getDistrict();
             if( district != null ) {
-                if( schoolType.equals(SchoolType.PUBLIC) || (schoolType.equals(SchoolType.CHARTER) && district.getNumberOfSchools()>0 ) ) {
+                if( schoolType.equals(SchoolType.PUBLIC) || (schoolType.equals(SchoolType.CHARTER) && district.getNumberOfSchools()>1 ) ) {
                     model.put( "districtName", district.getName() );
                     model.put( "districtNumSchools", new Integer(district.getNumberOfSchools()) );
                     model.put( "districtGrades", district.getGradeLevels().getRangeString() );
-                    model.put( "districtNumStudents", "Samson is getting" );
                     model.put( "content", "districtInfo" );
                     return model;
                 }
@@ -1230,12 +1275,47 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
+    /**
+     * Helper to get the right SchoolCensusValue from all of the census data available
+     * @param censusDataType
+     * @return
+     */
+    private SchoolCensusValue getSchoolCensusValue(HttpServletRequest request, CensusDataType censusDataType) {
+        Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
+        if( censusValues!=null ) {
+            List<CensusDataSet> censusDataSets = censusValues.get( censusDataType );
+            if( censusDataSets != null && censusDataSets.size() > 0 ) {
+                //  Go through the list and only examine those with year not 0
+                for( CensusDataSet cds : censusDataSets ) {
+                    if( cds.getYear() > 0 ) {
+                        SchoolCensusValue csv = cds.getSchoolOverrideValue();
+                        if( csv != null ) {
+                            return csv;
+                        }
+                        else {
+                            return cds.getTheOnlySchoolValue();
+                        }
+                    }
+                }
+                // if we get here we need to go back and use the first CDS
+                SchoolCensusValue [] csv = (SchoolCensusValue[])(censusDataSets.get(0).getSchoolData().toArray(new SchoolCensusValue[1]));
+                return csv[0];
+            }
+        }
+
+        return null;
+    }
+
     private Map getRelatedEspTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
-        // TODO - This is a stub - the appropriate code needs to be inserted below
         // Default action
+        Map<String, List<EspResponse>> espData = _schoolProfileDataHelper.getEspDataForSchool(request);
+        List<ICmsFeatureSearchResult> cmsResults = _schoolProfileDataHelper.getCmsRelatedContent(request, espData, 5);
+
+        model.put( "content", "default" );
+        model.put( "cmsResults", cmsResults );
 
         return model;
     }
@@ -1432,7 +1512,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
     /**
-     * Utility to convert a list of EspResponse objects into a sort comma separated String
+     * Utility to convert a list of EspResponse objects into a sorted comma separated String
      * @param espResponse - the list to sort and convert to a String
      * @return - The sorted comma separated result
      */

@@ -14,13 +14,19 @@ import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
+import gs.web.promo.GetSurveyHoverInterceptConfigurationController;
 import gs.web.request.RequestAttributeHelper;
+import gs.web.search.CmsRelatedFeatureSearchService;
+import gs.web.search.CmsRelatedFeatureSearchServiceSolrImpl;
+import gs.web.search.ICmsFeatureSearchResult;
+import gs.web.search.SolrCmsFeatureSearchResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+//import static org.easymock.EasyMock.createStrictMock;
 //import static org.easymock.EasyMock.createStrictMock;
 //import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.classextension.EasyMock.*;
@@ -41,6 +47,8 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
     private IReportedEntityDao _reportedEntityDao;
     private RequestAttributeHelper _requestAttributeHelper;
     private IGeoDao _geoDao;
+    //private CmsRelatedFeatureSearchService _cmsRelatedFeatureSearchService;
+    private CmsRelatedFeatureSearchService _cmsRelatedFeatureSearchService;
 
     State _state;
     School _school;
@@ -54,6 +62,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         _reportedEntityDao = createStrictMock(IReportedEntityDao.class);
         _requestAttributeHelper = createStrictMock( RequestAttributeHelper.class );
         _geoDao = createStrictMock( IGeoDao.class );
+        _cmsRelatedFeatureSearchService = createStrictMock( CmsRelatedFeatureSearchServiceSolrImpl.class );
 
         _schoolProfileDataHelper = new SchoolProfileDataHelper();
         _schoolProfileDataHelper.setEspResponseDao( _espResponseDao );
@@ -62,6 +71,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         _schoolProfileDataHelper.setReportedEntityDao( _reportedEntityDao );
         _schoolProfileDataHelper.setRequestAttributeHelper( _requestAttributeHelper );
         _schoolProfileDataHelper.setGeoDao( _geoDao );
+        _schoolProfileDataHelper.setCmsRelatedFeatureSearchService( _cmsRelatedFeatureSearchService );
 
         StateManager sm = new StateManager();
         _state = sm.getState( "CA" );
@@ -257,7 +267,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
         String zipCode = "12345";
 
         School school = createStrictMock( School.class );
-        getRequest().setAttribute( "school", school );
+        getRequest().setAttribute("school", school);
         reset(_requestAttributeHelper);       // reset so we don't use the one from setUp()
         expect( _requestAttributeHelper.getSchool( getRequest() ) ).andReturn( school ); // This will be called for each getDistrictInfo call
         replay(_requestAttributeHelper);
@@ -267,12 +277,52 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
 
         expect( _geoDao.findZip(zipCode) ).andReturn(sperlings);
         replay(_geoDao);
-        BpZip result = _schoolProfileDataHelper.getSperlingsInfo( getRequest() );
+        BpZip result = _schoolProfileDataHelper.getSperlingsInfo(getRequest());
         verify(_geoDao);
         verify(school);
         verify(_requestAttributeHelper);
 
         assertEquals("testGeo: neighborhood type wrong", neighborhoodType, result.getNeighborhoodType());
+    }
+
+    // Tests for Geo data
+    public void testCmsRelatedContent1() {
+
+        // Setup results based on spreadsheet from Jira GS-12954
+        // First setup the school
+        SchoolSubtype subtype = SchoolSubtype.create( "all_male" ); // Gets cmsId 434
+        _school.setSubtype(subtype);
+
+        // Setup some EspData
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
+
+        // Setup the expected results
+        List<ICmsFeatureSearchResult> cmsResults = new ArrayList<ICmsFeatureSearchResult>();
+        ICmsFeatureSearchResult cmsResult1 = new SolrCmsFeatureSearchResult();
+        cmsResult1.setTitle( "Single sex schools" );
+        Long contentId = 434L;
+        cmsResult1.setContentId(contentId);
+        cmsResults.add(cmsResult1);
+        expect(_cmsRelatedFeatureSearchService.getRelatedFeatures(_school, espData, 5)).andReturn(cmsResults);
+        replay( _cmsRelatedFeatureSearchService );
+
+        List<ICmsFeatureSearchResult> results = _schoolProfileDataHelper.getCmsRelatedContent(getRequest(), espData, 5);
+        verify(_cmsRelatedFeatureSearchService);
+
+        assertTrue("testCmsRelatedContent1: ContentId: " + contentId + " not found.", isCmsIdInResult( results, contentId ) );
+    }
+
+    private boolean isCmsIdInResult( List<ICmsFeatureSearchResult> results, Long expectedCmsId ) {
+
+        for( ICmsFeatureSearchResult r : results ) {
+            if( r.getContentId().equals( expectedCmsId ) ) {
+                return true;
+            }
+        }
+
+        // No match
+        return false;
     }
 
     /*

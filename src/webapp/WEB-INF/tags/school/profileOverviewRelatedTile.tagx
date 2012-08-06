@@ -16,14 +16,26 @@
 
     <jsp:directive.attribute name="relatedModel" type="java.lang.Object" required="true"/>
 
-    <!--
-    <c:set var="xxx" value="${relatedModel['school']}" scope="page"/>
-    <c:set var="yyy" value="${relatedModel['ratings']}" scope="page"/>
-    <c:set var="zzz" value="${relatedModel['numberOfReviews']}" scope="page"/>
-    -->
+    <c:set var="contents" value="${relatedModel['content']}" scope="page"/>
+    <c:set var="cmsResults" value="${relatedModel['cmsResults']}" scope="page"/>
 
     <school:profileOverviewCell1 title="Interested in this school? These articles are for you">
-        <!-- Insert display code here -->
+        <!-- cmsResults is: List<ICmsFeatureSearchResult> -->
+        <c:choose>
+            <c:when test="${not empty cmsResults}">
+                <ul>
+                    <c:forEach var="item" items="${cmsResults}">
+                        <li>CMS Id: ${item.contentId}, Title: ${item.title}, Content Type: ${item.contentType}, Thumbnail url: ${item.previewImageUrl}</li>
+                    </c:forEach>
+                </ul>
+            </c:when>
+            <c:otherwise>
+                <!-- According to the spec there should always be related content available -->
+                <div class="">No articles are available</div>
+            </c:otherwise>
+        </c:choose>
+        <c:if test="">
+        </c:if>
 
     </school:profileOverviewCell1>
 
