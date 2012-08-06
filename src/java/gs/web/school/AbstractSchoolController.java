@@ -148,7 +148,7 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
         urlBuilder.removeParameter("tab");
         urlBuilder.removeParameter("state");
         urlBuilder.removeParameter("id");
-        if (tab != null) {
+        if (tab != null && tab != NewProfileTabs.overview) {
             urlBuilder.addParameter("tab", tab.getParameterValue());
         }
         return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));

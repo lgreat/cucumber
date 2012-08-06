@@ -8,6 +8,7 @@ import gs.web.util.UrlUtil;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
@@ -15,6 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 public class TeachersStudentsController extends PerlFetchController {
     private String _privateSchoolContentPath;
     private String _publicSchoolContentPath;
+
+    @Override
+    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
+        // GS-13082 Redirect to new profile if eligible
+        if (shouldRedirectToNewProfile(school, request)) {
+            return getRedirectToNewProfileModelAndView(school, request, NewProfileTabs.demographics);
+        }
+        return super.handleRequestInternal(request, response);
+    }
 
     @Override
     protected boolean shouldIndex(School school, String perlResponse) {

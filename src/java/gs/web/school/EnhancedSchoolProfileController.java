@@ -189,6 +189,11 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
             return new ModelAndView(new RedirectView301(canonicalUrl.asFullUrl(httpServletRequest)));
         }
 
+        // GS-13082 Redirect to new profile if eligible
+        if (shouldRedirectToNewProfile(school, httpServletRequest)) {
+            return getRedirectToNewProfileModelAndView(school, httpServletRequest, NewProfileTabs.programsCulture);
+        }
+
         // esp raw responses
         List<EspResponse> listResponses = _espResponseDao.getResponses(school);
         Map<String, List<EspResponse>> responses = EspResponse.rollup(listResponses);

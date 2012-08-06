@@ -12,7 +12,6 @@ import gs.data.school.LevelCode;
 import gs.data.school.NearbySchool;
 import gs.data.school.School;
 import gs.data.school.review.*;
-import gs.data.security.Permission;
 import gs.data.util.NameValuePair;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
@@ -87,6 +86,12 @@ public class ParentReviewController extends AbstractController implements IContr
         KindercareLeadGenHelper.checkForKindercare(request,response,school,model);
 
         if (null != school) {
+            // GS-13082 Redirect to new profile if eligible
+            if (AbstractSchoolController.shouldRedirectToNewProfile(school, request)) {
+                return AbstractSchoolController.getRedirectToNewProfileModelAndView
+                        (school, request, AbstractSchoolController.NewProfileTabs.reviews);
+            }
+
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
 
             boolean includeInactive = _parentReviewHelper.handleMssUser(school, sessionContext, request, model);

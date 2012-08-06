@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsController.java,v 1.24 2011/09/19 00:19:53 ssprouse Exp $
+ * $Id: RatingsController.java,v 1.25 2012/08/06 22:08:40 aroy Exp $
  */
 package gs.web.test.rating;
 
@@ -14,6 +14,7 @@ import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.request.RequestInfo;
+import gs.web.school.AbstractSchoolController;
 import gs.web.school.SchoolProfileHeaderHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
@@ -78,6 +79,13 @@ public class RatingsController extends AbstractCommandController {
                             return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
                         }
                     }
+
+                    // GS-13082 Redirect to new profile if eligible
+                    if (AbstractSchoolController.shouldRedirectToNewProfile(s, request)) {
+                        return AbstractSchoolController.getRedirectToNewProfileModelAndView
+                                (s, request, AbstractSchoolController.NewProfileTabs.ratings);
+                    }
+
 
                     ratingsCommand.setSchool(s);
                 } else {

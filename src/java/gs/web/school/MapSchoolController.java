@@ -40,6 +40,11 @@ public class MapSchoolController extends AbstractSchoolController {
         // the school is obtained from the request by our super class: AbstractSchoolController
         School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
 
+        // GS-13082 Redirect to new profile if eligible
+        if (shouldRedirectToNewProfile(school, request)) {
+            return getRedirectToNewProfileModelAndView(school, request, NewProfileTabs.overview);
+        }
+
         // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
         if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
             RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);

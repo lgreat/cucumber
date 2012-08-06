@@ -6,6 +6,7 @@ import gs.data.school.School;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.web.request.RequestInfo;
+import gs.web.school.AbstractSchoolController;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.school.SchoolProfileHeaderHelper;
 import gs.web.util.RedirectView301;
@@ -46,6 +47,12 @@ public class SurveyResultsController extends AbstractController {
 
         // This controller is configured to be school-aware in pages-servlet.xml
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
+
+        // GS-13082 Redirect to new profile if eligible
+        if (AbstractSchoolController.shouldRedirectToNewProfile(school, request)) {
+            return AbstractSchoolController.getRedirectToNewProfileModelAndView(school, request, AbstractSchoolController
+                    .NewProfileTabs.programsCulture);
+        }
 
         // Preschool profile pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
         ModelAndView preschoolRedirectMAndV = getPreschoolRedirectViewIfNeeded(request, school);
