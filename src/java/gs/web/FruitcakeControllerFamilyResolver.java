@@ -24,6 +24,22 @@ public class FruitcakeControllerFamilyResolver implements IControllerFamilyResol
             throw new IllegalStateException("Request cannot be null.");
         }
 
+        if (isFruitcakeEnabled(request)) {
+            School school = _requestAttributeHelper.getSchool(request);
+            if (school != null) {
+                // for school pages, serve fruitcake version only if the school is in local and is not a preschool
+                if (SchoolHelper.isSchoolForNewProfile(school)) {
+                    family = ControllerFamily.FRUITCAKE;
+                }
+            } else {
+                // for non-school pages (like search), it's true as long as fruitcakeEnabled is true
+                family = ControllerFamily.FRUITCAKE;
+            }
+        }
+        return family;
+    }
+
+    public static boolean isFruitcakeEnabled(HttpServletRequest request) {
         boolean fruitcakeEnabled = UrlUtil.isDeveloperWorkstation(request.getServerName()) ||
                 (UrlUtil.isDevEnvironment(request.getServerName()) && !UrlUtil.isQAServer(request.getServerName()));
 
@@ -34,19 +50,14 @@ public class FruitcakeControllerFamilyResolver implements IControllerFamilyResol
                 fruitcakeEnabled = true;
             }
         }
+        return fruitcakeEnabled;
+    }
 
-        if (fruitcakeEnabled) {
-            School school = _requestAttributeHelper.getSchool(request);
-            if (school != null) {
-                // for school pages, serve fruitcake version only if the school is in local and is not a preschool
-                if (!school.isPreschoolOnly() && SchoolHelper.isSchoolForNewProfile(school)) {
-                    family = ControllerFamily.FRUITCAKE;
-                }
-            } else {
-                // for non-school pages (like search), it's true as long as fruitcakeEnabled is true
-                family = ControllerFamily.FRUITCAKE;
-            }
-        }
-        return family;
+    /** For unit testing */
+    public void setRequestAttributeHelper(RequestAttributeHelper requestAttributeHelper) {
+        _requestAttributeHelper = requestAttributeHelper;
+    }
+    public RequestAttributeHelper getRequestAttributeHelper() {
+        return _requestAttributeHelper;
     }
 }

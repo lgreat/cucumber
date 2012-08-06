@@ -3,14 +3,13 @@ package gs.web.school;
 import gs.data.school.ISchoolDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
-import gs.data.state.State;
+import gs.data.school.SchoolHelper;
+import gs.web.FruitcakeControllerFamilyResolver;
 import gs.web.path.DirectoryStructureUrlFields;
-import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlBuilder.VPage;
-import gs.web.util.context.SessionContextUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +21,6 @@ import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.mvc.LastModified;
 import org.springframework.web.servlet.support.WebContentGenerator;
 
-import java.io.ObjectStreamConstants;
-import java.util.Map;
-
 /**
  * This class is intended to be the base class for School Profile pages and other pages that need
  * access to a single school.  The state and the school id are required url parameters.
@@ -32,7 +28,24 @@ import java.util.Map;
  * @author Chris Kimm <mailto:chriskimm@greatschools.org>
  */
 public abstract class AbstractSchoolController extends WebContentGenerator implements Controller {
-    
+
+    public static enum NewProfileTabs {
+        overview, reviews, testScores("test-scores"), ratings, demographics, teachers,
+        programsCulture("programs-culture"), programsResources("programs-resources"), extracurriculars, culture;
+
+        private String _parameterValue;
+        NewProfileTabs() {
+            _parameterValue = name();
+        }
+        NewProfileTabs(String parameterValue) {
+            _parameterValue=parameterValue;
+        }
+        public String getParameterValue() {
+            return _parameterValue;
+        }
+    }
+
+
     private static VPage resolveVPage(DirectoryStructureUrlFields fields) {
         if(fields.getExtraResourceIdentifier() != null) {
             switch(fields.getExtraResourceIdentifier()) {
@@ -120,6 +133,25 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
             ((fields.hasLevelCode() && fields.getLevelCode().equals(LevelCode.PRESCHOOL) &&
                 fields.hasSchoolName() && fields.hasSchoolID()) ||
              (!fields.hasLevelCode() && fields.hasSchoolName() && fields.hasSchoolID()));
+    }
+
+    public static boolean shouldRedirectToNewProfile(School school, HttpServletRequest request) {
+        return school != null && request != null
+                && FruitcakeControllerFamilyResolver.isFruitcakeEnabled(request)
+                && SchoolHelper.isSchoolForNewProfile(school);
+    }
+
+    public static ModelAndView getRedirectToNewProfileModelAndView(School school, HttpServletRequest request, NewProfileTabs tab) {
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        urlBuilder.addParametersFromRequest(request);
+        // filter out certain parameters we don't want passed through
+        urlBuilder.removeParameter("tab");
+        urlBuilder.removeParameter("state");
+        urlBuilder.removeParameter("id");
+        if (tab != null) {
+            urlBuilder.addParameter("tab", tab.getParameterValue());
+        }
+        return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
     }
 
     /**
