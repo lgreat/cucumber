@@ -88,7 +88,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
             statsModel.put("statsRows", groupIdToStatsRows);
 
             Map<String,String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
-            model.put("ethnicityMap", ethnicityMap);
+            statsModel.put("ethnicityMap", ethnicityMap);
 
             cacheStatsModel(statsModel, school);
         }

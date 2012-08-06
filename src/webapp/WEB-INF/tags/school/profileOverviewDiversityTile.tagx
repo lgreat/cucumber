@@ -32,7 +32,7 @@
                 <div class="phl ptm"><profile:pieChart chartData="${diversityMap}" chartDrawDivId="overviewDiversityPieChart" chartSize="150"/></div>
 
                 <p class="tac small bottom phm pvs">
-                    <span class="small_bold"><fmt:formatNumber value="${largestValue}" maxFractionDigits="0" minFractionDigits="0"/>% of students</span> at this school are ${largestLabel}.
+                    <span class="small_bold">${largestValue} of students</span> at this school are ${largestLabel}.
                 </p>
             </c:when>
             <c:otherwise>

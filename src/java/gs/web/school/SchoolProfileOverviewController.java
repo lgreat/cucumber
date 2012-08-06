@@ -68,6 +68,9 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private SchoolProfileDataHelper _schoolProfileDataHelper;
 
     @Autowired
+    private SchoolProfileCensusHelper _schoolProfileCensusHelper;
+
+    @Autowired
     private CmsFeatureDao _cmsFeatureDao;
 
     @Autowired
@@ -536,22 +539,10 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             List<CensusDataSet> ethnicities = censusValues.get( CensusDataType.STUDENTS_ETHNICITY );
             if( isNotEmpty( ethnicities) ) {
                 try {
-                    Map<String, String> ethnicityMap = new HashMap<String, String>();
-                    Float largestValue = new Float(0.0);
-                    String largestLabel = "";
-                    for( CensusDataSet ethnicity : ethnicities ) {
-                        Breakdown b = ethnicity.getBreakdownOnly();
-                        String name = b.getEthnicity().getName();
-                        SchoolCensusValue [] schoolCensusValue = (SchoolCensusValue [])ethnicity.getSchoolData().toArray(new SchoolCensusValue[1]);
-                        if( schoolCensusValue.length >0 && schoolCensusValue[0]!=null && schoolCensusValue[0].getValueFloat()!=null ) {
-                            Float value = schoolCensusValue[0].getValueFloat();
-                            if( value.compareTo( largestValue ) > 0 ) {
-                                largestValue = value;
-                                largestLabel = name;
-                            }
-                            ethnicityMap.put( name, formatValueAsString(value, CensusDataType.STUDENTS_ETHNICITY.getValueType()) );
-                        }
-                    }
+                    Map<String, String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
+                    Map.Entry<String,String> largestEntry = ethnicityMap.entrySet().iterator().next();
+                    String largestLabel = largestEntry.getKey();
+                    String largestValue = largestEntry.getValue();
                     if( ethnicityMap.size() > 0 ) {
                         model.put("diversityMap", ethnicityMap);
                         model.put("largestDiversityValue", largestValue);
