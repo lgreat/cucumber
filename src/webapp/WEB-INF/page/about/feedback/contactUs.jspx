@@ -956,6 +956,12 @@
 <!-- ** 12.Something else ** -->
 <!-- *********************** -->
 <div id="otherFeedback" class="jqFeedback" style="display: none;">
+    <p class="text2">
+        Not sure where to direct your question? Someone will help you shortly.
+    </p>
+
+    <div class="spacer_10"><!-- do not collapse --></div>
+
     <feedback:generalForm feedbackType="other"/>
 </div>
 
