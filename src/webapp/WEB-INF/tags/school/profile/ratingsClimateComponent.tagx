@@ -16,14 +16,14 @@
 
     <c:set var="pointerLeftMargin" value="${3.78 * climateVarRating - 25}" />
 
-    <!--<c:set var="pointerLeftMargin" value="0" />-->
+    <hr class="keyline2"/>
     <div>
         <div class="fl"><h6 class="mvm medium_bold bottom">${climateVarName}</h6></div>
 
         <div class="fr ratingsClimateBar">
-        <div class="barRed"><!-- do not collapse --></div>
-        <div class="barYellow"><!-- do not collapse --></div>
-        <div class="barGreen"><!-- do not collapse --></div>
+        <div class="barShort ratingsRed"><!-- do not collapse --></div>
+        <div class="barLong ratingsYellow"><!-- do not collapse --></div>
+        <div class="barShort ratingsGreen"><!-- do not collapse --></div>
         <div class="clearFloatRatings pan man"><!-- do not collapse --></div>
         <div class="tac" style="margin-left: ${pointerLeftMargin}px"><!-- set margin to move left and right -->
             <div class="ratingsClimatePointer">

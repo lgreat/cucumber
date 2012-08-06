@@ -120,13 +120,16 @@
                     <c:if test="${overallAcademicRating != null}">
                         <div class="pbm">
                             <hr class="keyline2"/>
+                            <c:set var="overallAcademicRatingColor"><c:if test="${fn:containsIgnoreCase(overallAcademicRatingLabel,'Poor')}">ratingsRedText</c:if><c:if test="${fn:containsIgnoreCase(overallAcademicRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:containsIgnoreCase(overallAcademicRatingLabel,'High')}">ratingsGreenText</c:if></c:set>
 
                             <h5 class="mvm medium_bold tac">Overall academic performance is ${overallAcademicRating} / 10
-                                <span class="ttu"><em>${overallAcademicRatingLabel}</em></span></h5>
+                                <em class="${overallAcademicRatingColor}">${overallAcademicRatingLabel}</em></h5>
 
                             <hr class="keyline2"/>
                         </div>
                     </c:if>
+
+                    <c:set var="footnoteStarAssoc" value="0" />
 
                     <c:if test="${schoolTestScoreRating != null and testScoreRatingYear != null}">
                         <div class="pbm">
@@ -193,42 +196,41 @@
                     <h4 class="pvm plm bottom">Climate ratings</h4>
                 </div>
                 <div class="bd pam">
-                    <p class="small bottom">
-                        ${section4Copy}
-                    </p>
-
+                    <c:set var="widthForClimateHeaderContent" value="" />
+                    <c:if test="${showClimateRatingsDetails}">
+                        <c:if test="${climateRatingNumResponses gt 0}">
+                            <c:set var="widthForClimateHeaderContent" value="size73of100" />
+                        </c:if>
+                    </c:if>
+                    <div class="fl ${widthForClimateHeaderContent}">
+                        <p class="small bottom">
+                            ${section4Copy}
+                        </p>
+                    </div>
                     <c:if test="${showClimateRatingsDetails}">
 
                         <c:if test="${climateRatingNumResponses gt 0}">
-                            <div>
-                                Number of responses: <span class="">${climateRatingNumResponses}</span>
+                            <div class="ratingsClimateHeader size25of100 fr">
+                                <div class="grayBox small">
+                                Number of responses<br /><span class="numberFormat">${climateRatingNumResponses}</span>
+                                </div>
                             </div>
                         </c:if>
-
+                        <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
                         <hr class="keyline2"/>
+                        <c:set var="overallClimateRatingColor"><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Poor')}">ratingsRedText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'High')}">ratingsGreenText</c:if></c:set>
 
-                        <h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10</h5>
 
-                        <span class="ttu"><em>${overallClimateRatingLabel}</em></span>
-
-                        <hr class="keyline2"/>
+                        <!--<c:set var="overallClimateRatingColor"><c:if test="${overallClimateRatingLabel  eq 'Poor'}">ratingsRedText</c:if><c:if test="${overallClimateRatingLabel eq 'Average'}">ratingsYellowText</c:if><c:if test="${overallClimateRatingLabel eq 'High'}">ratingsGreenText</c:if></c:set>-->
+                        <h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10 <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em></h5>
 
                         <profile:ratingsClimateComponent climateVarName="School environment" climateVarRating="${schoolEnvironmentRating}" climateVarContent="school environment copy" />
 
-
-                        <hr class="keyline2"/>
-
                         <profile:ratingsClimateComponent climateVarName="Social &amp;amp; emotional learning" climateVarRating="${socialEmotionalLearningRating}" climateVarContent="social and emotional learning copy" />
-
-                        <hr class="keyline2"/>
 
                         <profile:ratingsClimateComponent climateVarName="Culture of high expectations" climateVarRating="${highExpectationsRating}" climateVarContent="culture of high expectations copy" />
 
-                        <hr class="keyline2"/>
-
                         <profile:ratingsClimateComponent climateVarName="Teacher support" climateVarRating="${teacherSupportRating}" climateVarContent="teacher support copy" />
-
-                        <hr class="keyline2"/>
 
                         <profile:ratingsClimateComponent climateVarName="Family engagement" climateVarRating="${familyEngagementRating}" climateVarContent="family engagement copy" />
 
