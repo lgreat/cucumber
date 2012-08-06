@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:gsweb="gstaglib"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+    <jsp:directive.tag body-content="empty"/>
+
+    <jsp:directive.attribute name="climateVarName" required="true" type="java.lang.String"
+                             description="Title for section"/>
+    <jsp:directive.attribute name="climateVarRating" required="true" type="java.lang.String"
+                             description="This moves the pointer to the correct location"/>
+    <jsp:directive.attribute name="climateVarContent" required="true" type="java.lang.String"
+                             description="Shows the content below the title and bar"/>
+
+    <c:set var="pointerLeftMargin" value="${3.78 * climateVarRating - 25}" />
+
+    <!--<c:set var="pointerLeftMargin" value="0" />-->
+    <div>
+        <div class="fl"><h6 class="mvm medium_bold bottom">${climateVarName}</h6></div>
+
+        <div class="fr ratingsClimateBar">
+        <div class="barRed"><!-- do not collapse --></div>
+        <div class="barYellow"><!-- do not collapse --></div>
+        <div class="barGreen"><!-- do not collapse --></div>
+        <div class="clearFloatRatings pan man"><!-- do not collapse --></div>
+        <div class="tac" style="margin-left: ${pointerLeftMargin}px"><!-- set margin to move left and right -->
+            <div class="ratingsClimatePointer">
+                <div class="arrowUpOut"><div class="arrowUpIn"><!-- do not collapse --></div></div>
+                <div class="ratingsBottomBox"><!-- do not collapse --></div>
+                <div class="ratingsTextBelowBox smaller">This school</div>
+            </div>
+        </div>
+        </div>
+        <div class="clearFloatRatings"><!-- do not collapse --></div>
+        <!--<div>[SCHOOL ENVIRONMENT RATING GRAPHIC: ${schoolEnvironmentRating}]</div>-->
+        <p class="small">
+            ${climateVarContent}
+        </p>
+    </div>
+</jsp:root>

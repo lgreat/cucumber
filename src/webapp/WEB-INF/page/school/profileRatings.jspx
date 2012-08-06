@@ -17,7 +17,7 @@
                     <div class="hd">
                         <h4 class="pvm plm bottom">What makes up this rating?</h4>
                     </div>
-                    <div class="bd pam ratingsGraphicMakesUp">
+                    <div class="bd pam ratingsGraphicMakesUp ptl">
                             <div class="iconTop">
                                     <c:choose>
                                         <c:when test="${overallRating != null}">
@@ -31,9 +31,9 @@
                             <div class="lineDown"><!-- do not collapse --></div>
                             <div class="splitConnect"><!-- do not collapse --></div>
                             <div class="pll">
-                                <div class="grayBox mrl small"><strong>
+                                <div class="grayBox mrl small">
                                     Academic rating
-                                    <br />
+                                    <br /><strong>
                                         <c:choose>
                                             <c:when test="${overallAcademicRating != null}">
                                                 ${overallAcademicRating} / 10
@@ -44,9 +44,9 @@
                                         </c:choose>
                                     </strong>
                                 </div>
-                                <div class="grayBox small"><strong>
+                                <div class="grayBox small">
                                     Climate rating
-                                    <div>
+                                    <br /><strong>
                                         <c:choose>
                                             <c:when test="${not empty climateRatingAvailabilityText}">
                                                 ${climateRatingAvailabilityText}
@@ -55,7 +55,7 @@
                                                 ${overallClimateRating} / 10
                                             </c:otherwise>
                                         </c:choose>
-                                    </div></strong>
+                                    </strong>
                                 </div>
                                 <div class="clear"><!-- do not collapse --></div>
                             </div>
@@ -75,10 +75,27 @@
                     </div>
                     <div class="bd pam">
                         <h5>Rating legend</h5>
+                        <div class="small ratingsLegend">
 
-                        <div>TODO: RATING LEGEND GRAPHIC</div>
+                                <div class="iconx24-ratings-rb i-24-ratingsLegend"><!-- do not collapse --></div>
+                                <div class="spacerFirst">
+                                    <div class="bracketUp3"><!-- do not collapse --></div>
+                                    <span>Poor</span>
+                                </div>
+                                <div class="spacerBetween">
+                                    <div class="bracketUp3"><!-- do not collapse --></div>
+                                    <span>Average</span>
+                                </div>
+                                <div class="spacerBetween">
+                                    <div class="bracketUp4"><!-- do not collapse --></div>
+                                    <span>Good</span>
+                                </div>
+
+                        </div>
+                        <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
+
                         <p class="small bottom">
-                            section 2 copy
+
                             <a href="#">Learn more about our old rating &amp;raquo;</a></p>
                     </div>
                 </div>
@@ -190,53 +207,30 @@
 
                         <hr class="keyline2"/>
 
-                        <h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10
-                            <span class="ttu"><em>${overallClimateRatingLabel}</em></span></h5>
+                        <h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10</h5>
+
+                        <span class="ttu"><em>${overallClimateRatingLabel}</em></span>
 
                         <hr class="keyline2"/>
 
-                        <h6 class="mvm medium_bold">School environment</h6>
+                        <profile:ratingsClimateComponent climateVarName="School environment" climateVarRating="${schoolEnvironmentRating}" climateVarContent="school environment copy" />
 
-                        <div>[SCHOOL ENVIRONMENT RATING GRAPHIC: ${schoolEnvironmentRating}]</div>
-                        <p class="small">
-                            school environment copy
-                        </p>
 
                         <hr class="keyline2"/>
 
-                        <h6 class="mvm medium_bold">Social &amp;amp; emotional learning</h6>
-
-                        <div>[SOCIAL AND EMOTIONAL LEARNING GRAPHIC: ${socialEmotionalLearningRating}]</div>
-                        <p class="small">
-                            social and emotional learning copy
-                        </p>
+                        <profile:ratingsClimateComponent climateVarName="Social &amp;amp; emotional learning" climateVarRating="${socialEmotionalLearningRating}" climateVarContent="social and emotional learning copy" />
 
                         <hr class="keyline2"/>
 
-                        <h6 class="mvm medium_bold">Culture of high expectations</h6>
-
-                        <div>[HIGH EXPECTATIONS GRAPHIC: ${highExpectationsRating}]</div>
-                        <p class="small">
-                            culture of high expectations copy
-                        </p>
+                        <profile:ratingsClimateComponent climateVarName="Culture of high expectations" climateVarRating="${highExpectationsRating}" climateVarContent="culture of high expectations copy" />
 
                         <hr class="keyline2"/>
 
-                        <h6 class="mvm medium_bold">Teacher support</h6>
-
-                        <div>[TEACHER SUPPORT GRAPHIC: ${teacherSupportRating}]</div>
-                        <p class="small">
-                            teacher support copy
-                        </p>
+                        <profile:ratingsClimateComponent climateVarName="Teacher support" climateVarRating="${teacherSupportRating}" climateVarContent="teacher support copy" />
 
                         <hr class="keyline2"/>
 
-                        <h6 class="mvm medium_bold">Family engagement</h6>
-
-                        <div>[FAMILY ENGAGEMENT GRAPHIC: ${familyEngagementRating}]</div>
-                        <p class="small">
-                            family engagement copy
-                        </p>
+                        <profile:ratingsClimateComponent climateVarName="Family engagement" climateVarRating="${familyEngagementRating}" climateVarContent="family engagement copy" />
 
                     </c:if>
 

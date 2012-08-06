@@ -238,6 +238,47 @@ Created by Mitchell Seltzer
     padding-left: 105px; height: 72px;
 }
 
+/************  Ratings Legend **************************/
+.ratingsLegend .bracketUp3 { border: 1px solid #999999; border-top: none; height:9px; width:48px;}
+.ratingsLegend .bracketUp4 { border: 1px solid #999999; border-top: none; height:9px; width:72px;}
+.ratingsLegend .spacerFirst { margin-left:12px; float: left; text-align: center;}
+.ratingsLegend .spacerBetween { margin-left:22px; float: left; text-align: center;}
+
+/************  Ratings Climate Bar **************************/
+.ratingsClimateBar { padding-top: 17px; position: relative;}
+.ratingsClimateBar .barRed { float:left;  height:6px; width:76px; background-color: #C1423F; }
+.ratingsClimateBar .barYellow { float:left; height:6px; width:226px; background-color: #F1AF31;}
+.ratingsClimateBar .barGreen { float:left;  height:6px; width:76px; background-color: #5E9D4C;}
+.ratingsClimateBar .ratingsClimatePointer { margin-left:-5px; float: left; text-align: center; position: relative;}
+
+.ratingsClimatePointer{ margin-top: 7px; position: relative; }
+.ratingsClimatePointer .arrowUpOut {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -6px;
+    left: 50%;
+    margin-left: -5px;
+    border-right: 5px solid transparent;
+    border-bottom: 6px solid #999999;
+    border-left: 5px solid transparent;
+}
+.ratingsClimatePointer .arrowUpIn {
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: -7px;
+    left: 50%;
+    margin-left: -5px;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid #DADADA;
+    border-left: 5px solid transparent;
+}
+.ratingsClimatePointer .ratingsBottomBox {left: 50%;position: absolute;
+    margin-left: -5px; border: 1px solid #999999; border-top:none; background-color: #DADADA; width:8px; height: 8px;}
+.ratingsClimatePointer .ratingsTextBelowBox {margin-top: 5px;}
+.clearFloatRatings{clear: both;}
+
 /* **************** SPRITE Ratings Rainbow ***************** */
 
 /* **************** 24 px  uses rating 24 pixel sprite spacing from icon.css ***************** */
@@ -248,6 +289,9 @@ Created by Mitchell Seltzer
     height: 24px;
 }
 
+.i-24-ratingsLegend {
+    width:240px;
+}
 /* **************** 72 px ***************** */
 
 .iconx72-ratings-rb {
