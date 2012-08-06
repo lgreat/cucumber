@@ -146,7 +146,7 @@
     margin-left: -8px;
 
 }
-#arrowdiv.selected { display:block; }
+#arrowdiv.selected { display:block;*display: inline; }
 
 /*  TAB STYLE 5 (Text with underscore for over style tabs)
 ----------------------------------------------------------------------------- */
