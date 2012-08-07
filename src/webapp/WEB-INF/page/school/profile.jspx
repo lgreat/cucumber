@@ -60,6 +60,7 @@
     <script type="text/javascript" src="/res/js/parentReviewTabSchoolReviewForm.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/bootstrap/bootstrap-tooltip.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/bootstrap/bootstrap-popover.js"><!-- no collapse --></script>
+    <script type="text/javascript" src="/res/js/tracking/customLinks.js"><!-- no collapse --></script>
 
     <!--Needed for photogallery-->
     <script type="text/javascript" src="/res/js/gs_jquery_extensions.js"><!-- no collapse --></script>
@@ -157,7 +158,7 @@
         <!-- New GS Rating -->
         <!-- TODO: need actual variable for rating -->
         <c:set var="tempOverallRating" value="8"/>
-        <div class="iconx96-ratings-rb i-96-ratings${tempOverallRating}"><!-- do not collapse --></div>
+        <div data-gs-custom-link="header_rating" class="iconx96-ratings-rb i-96-ratings${tempOverallRating}"><!-- do not collapse --></div>
         <!--<div class="mod badge-x96">-->
             <!--<div class="inner">-->
                 <!--<div class="bd">-->
@@ -170,7 +171,7 @@
                 <!--</div>-->
             <!--</div>-->
         <!--</div>-->
-        <p class="tac small bottom pbs mbm">GreatSchools Rating</p>
+        <p data-gs-custom-link="header_rating" class="tac small bottom pbs mbm">GreatSchools Rating</p>
     </div>
 
     <div class="grid_12 omega">
@@ -311,7 +312,7 @@
                 <c:if test="${school.districtId ne 0}">
                     <c:set var="districtParam" value="&amp;amp;districtId=${school.districtId}"/>
                 </c:if>
-                <a href="/school-district-boundaries-map/?schoolId=${school.id}&amp;amp;state=${school.databaseState}${districtParam}">Larger map</a>
+                <a onclick="if (s.tl) { s.tl(this, 'o', 'header_largermap'); }" href="/school-district-boundaries-map/?schoolId=${school.id}&amp;amp;state=${school.databaseState}${districtParam}">Larger map</a>
             </p>
         </div>
 

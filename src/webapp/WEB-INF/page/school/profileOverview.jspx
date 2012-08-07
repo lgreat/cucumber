@@ -35,55 +35,55 @@
             <div class="alpha grid_16 omega">
 
                 <div class="line">   <!-- row 2, tiles 1-3 -->
-                    <div class="unit size32of100">
+                    <div data-gs-custom-link="overview_ratings" class="unit size32of100">
                         <school:profileOverviewGsRatingsTile gsRatingsModel="${ratings}"/>
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
-                    <div class="unit size32of100">
+                    <div data-gs-custom-link="overview_photos" class="unit size32of100">
                         <school:profileOverviewPhotosTile photosModel="${photos}"/>
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
-                    <div class="unit size32of100 lastUnit">
+                    <div data-gs-custom-link="overview_schoolvideo" class="unit size32of100 lastUnit">
                         <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
                     </div>
                 </div>
 
                 <div class="line">   <!-- row 3, tiles 4-6 -->
-                    <div class="unit size32of100">
+                    <div data-gs-custom-link="overview_communityrating" class="unit size32of100">
                         <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}" />
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
-                    <div class="unit size66of100 lastUnit">
+                    <div data-gs-custom-link="overview_reviews" class="unit size66of100 lastUnit">
                         <school:profileOverviewReviewsTile reviewsModel="${reviews}" />
                     </div>
                 </div>
 
                 <div class="line">   <!-- row 4, tiles 7-9 -->
-                    <div class="unit size32of100">
+                    <div data-gs-custom-link="overview_diversity" class="unit size32of100">
                         <school:profileOverviewDiversityTile diversityModel="${diversity}" />
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
-                    <div class="unit size32of100">
+                    <div data-gs-custom-link="overview_specialed" class="unit size32of100">
                         <school:profileOverviewSpecialEdTile specialEdModel="${specialEd}" />
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
-                    <div class="unit size32of100 lastUnit">
+                    <div data-gs-custom-link="overview_transportation" class="unit size32of100 lastUnit">
                         <school:profileOverviewTransportationTile transportationModel="${transportation}" />
                     </div>
                 </div>
 
                 <div class="line">   <!-- row 5, tiles 10-12 -->
-                    <div class="unit size32of100">
+                    <div data-gs-custom-link="overview_programs" class="unit size32of100">
                         <school:profileOverviewProgramsTile programsModel="${programs}" />
                     </div>
 
@@ -95,13 +95,13 @@
                     <c:choose>
                         <c:when test="${applInfoContent eq 'applInfoV1'}">
                             <!-- Double wide tile, application info -->
-                            <div class="unit size66of100 lastUnit">
+                            <div data-gs-custom-link="overview_application2x" class="unit size66of100 lastUnit">
                                 <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
                             </div>
                         </c:when>
                         <c:when test="${applInfoContent eq 'applInfoV2'}">
                             <!-- Two single wide tiles -->
-                            <div class="unit size32of100">
+                            <div data-gs-custom-link="overview_application1x" class="unit size32of100">
                                 <!-- Single wide application info -->
                                 <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
                             </div>
