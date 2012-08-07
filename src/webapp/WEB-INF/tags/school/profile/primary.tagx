@@ -111,7 +111,7 @@
             </div>
         </c:if>
         <c:if test="${(!empty testscores || !empty ratings)}">
-            <div data-gs-tab-body="testScores" style="display:${(!empty requestScope.schoolProfileTabMap['test-scores-master'] and requestScope.schoolProfileTabMap['test-scores-master'] eq 'selected'?'block;':'none')}">
+            <div style="display:${(!empty requestScope.schoolProfileTabMap['test-scores-master'] and requestScope.schoolProfileTabMap['test-scores-master'] eq 'selected'?'block;':'none')}">
                 <div class="gsTabs">
                     <profile:testsRatingsNav schoolName="${schoolName}" showTestScores="${not empty testscores}"/>
                     <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
