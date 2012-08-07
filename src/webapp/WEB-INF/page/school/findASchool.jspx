@@ -224,8 +224,8 @@
                     <div class="unit size84of100">
                         <div class="searchBarFas">
                             <div class="searchTextBox fltlft">
-                                <h6 class="fltlft bottom"><input type="text" name="q"
-                                                                 class="searchInput small bottom mrs"
+                                <h6 class="fltlft bottom pbn"><input type="text" name="q"
+                                                                 class="searchInput small bottom mrs pbn"
                                                                  id="js-findByNameBox"
                                                                  onfocus="GS_textSwitch(this, '', '   Search by school or district ...');"
                                                                  onblur="GS_textSwitch(this, '   Search by school or district ...', '');"
