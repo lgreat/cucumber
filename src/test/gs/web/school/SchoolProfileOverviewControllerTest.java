@@ -346,27 +346,6 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertEquals("testSportsArtsMusicSports: expected girls_sports None", "None", girlsSports.get(0));
     }
 
-    // Tests that a list is truncated
-    public void testSportsArtsMusicListTruncation() {
-
-        // Data the controller needs to load for this test
-        List<EspResponse> l = new ArrayList<EspResponse>();
-        // Need to add something that is not Sorts/Arts/Music related just so the NonEsp route is not taken
-        l.add( createEspResponse( "boys_sports", "football"));
-        l.add( createEspResponse( "boys_sports", "baseball" ) );
-        l.add( createEspResponse( "boys_sports", "basketball" ) );
-        l.add( createEspResponse( "boys_sports", "soccer" ) );
-        l.add( createEspResponse( "boys_sports", "track" ) );
-        Map<String, List<EspResponse>> espData = convertToEspData(l);
-
-        Map resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
-
-        List<String> boysSports = (List<String>) resultsModel.get("boys_sports");
-
-        assertEquals("testListTruncation: expected list length is wrong", 4, boysSports.size());
-        assertEquals("testListTruncation: expected last item to be More...", "More...", boysSports.get(3));
-    }
-
     // =========== Tests for Tile 3 - school video ====================
     // Tests the default action of returning the url of the video
     public void testVideoDefaultA() {

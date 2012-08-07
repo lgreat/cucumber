@@ -1327,11 +1327,9 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Sports
         List<String> boysSports = getEspDataByKey( "boys_sports", NoneHandling.SHOW_IF_ONLY_VALUE, espData );
         Collections.sort(boysSports);
-        setMaxLength( boysSports, 4 );
         sportsModel.put("boys_sports", boysSports);
         List<String> girlsSports = getEspDataByKey("girls_sports", NoneHandling.SHOW_IF_ONLY_VALUE, espData);
         Collections.sort(girlsSports);
-        setMaxLength( girlsSports, 4 );
         sportsModel.put("girls_sports", girlsSports);
 
         // Arts
@@ -1367,14 +1365,12 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 arts.addAll( artsVisual );
             }
             Collections.sort(arts);
-            setMaxLength( arts, 5 );
             sportsModel.put("arts", arts);
         }
 
         // Music
         List<String> music = getEspDataByKey("arts_music", NoneHandling.SHOW_IF_ONLY_VALUE, espData);
         Collections.sort( music );
-        setMaxLength( music, 5 );
         sportsModel.put("music", music);
 
         // Check if no data and flag that Substitute content is to be displayed
