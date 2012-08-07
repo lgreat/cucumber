@@ -174,18 +174,6 @@ public class MonitorController implements ReadWriteController {
 
         model.put("mobileSiteEnabled", isMobileSiteEnabled(request));
 
-        // fruitcake school pages can be disabled / enabled with a cookie
-        boolean fruitcakeEnabled = isFruitcakeEnabled(request);
-        String fruitcakeAction = request.getParameter("fruitcakeAction");
-        if ("enable".equalsIgnoreCase(fruitcakeAction)) {
-            enableFruitcake(request, response);
-            fruitcakeEnabled = true;
-        } else if ("disable".equalsIgnoreCase(fruitcakeAction)){
-            disableFruitcake(request, response);
-            fruitcakeEnabled = false;
-        }
-        model.put("fruitcakeEnabled", fruitcakeEnabled);
-
         // Test setting some values in the session to try session replication
         HttpSession session = request.getSession(true);
 

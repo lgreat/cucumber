@@ -129,36 +129,6 @@
         </td>
     </tr>
     <tr>
-        <td class="statustitle">
-            Fruitcake school search / profile
-        </td>
-        <td class="statusvalue">
-            <c:choose>
-                <c:when test="${fruitcakeEnabled}">
-                    enabled
-                </c:when>
-                <c:otherwise>
-                    disabled
-                </c:otherwise>
-            </c:choose>
-        </td>
-        <td class="statuserror">
-            <!-- not empty -->
-            <c:if test="${not empty requestInfo and requestInfo.hostData.devEnvironment}">
-                <form action="/status/monitor.page" method="get">
-                    <c:choose>
-                        <c:when test="${fruitcakeEnabled}">
-                            <input type="submit" name="fruitcakeAction" value="disable"/>
-                        </c:when>
-                        <c:otherwise>
-                            <input type="submit" name="fruitcakeAction" value="enable"/>
-                        </c:otherwise>
-                    </c:choose>
-                </form>
-            </c:if>
-        </td>
-    </tr>
-    <tr>
         <td class="statustitle">HTTP_X_CLUSTER_CLIENT_IP attribute</td>
         <td class="statusvalue">${x_cluster_client_ip_attr}</td>
         <td class="statuserror"></td>
