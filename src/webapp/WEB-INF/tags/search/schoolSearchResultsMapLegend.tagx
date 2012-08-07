@@ -4,26 +4,28 @@
 
 
 <div class="grid_16 mtm">
-    <div class="fl">
-        <div class=" media attribution">
-            <div class="img prm"><span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+    <div class="line">
+        <div class="unit size20of100">
+            <div class="media attribution">
+                <div class="img prm"><span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+                </div>
+                <div class="small bottom mrgtop_3">Private school</div>
             </div>
-            <div class="imgExt small bottom" style="margin-top: 3px;">Private school</div>
         </div>
-    </div>
-    <div class="pll fl">
-        <div class=" media attribution">
-            <div class="img prm">
-                <span class="iconx24 i-24-public-school-badge"><!-- do not collapse --></span>
+        <div class="unit size27of100">
+            <div class="media attribution">
+                <div class="img prm">
+                    <span class="iconx24 i-24-public-school-badge"><!-- do not collapse --></span>
+                </div>
+                <div class="small bottom mrgtop_3">Public/Charter school</div>
             </div>
-            <div class="imgExt small bottom" style="margin-top: 3px;">Public/Charter school</div>
         </div>
-    </div>
-    <div class="pll fl">
-        <div class="media attribution">
-            <div class="img mrm"><span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
+        <div class="unit size53of100 lastUnit">
+            <div class="media attribution">
+                <div class="img mrm"><span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
+                </div>
+                <div class="small bottom mrgtop_3">Preschool</div>
             </div>
-            <div class="imgExt small bottom" style="margin-top: 3px;">Preschool</div>
         </div>
     </div>
 </div>
