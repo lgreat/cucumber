@@ -13,7 +13,7 @@
     <jsp:directive.page import="gs.web.request.RequestInfo"/>
 
     <c:set var="highlightstab"><c:if test="${fn:length(highlights) gt 0}">
-        <div class="ptl">
+        <div class="ptn">
             <!--<b>Highlights Data</b>-->
             <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->

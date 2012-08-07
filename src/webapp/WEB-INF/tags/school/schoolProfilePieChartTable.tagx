@@ -184,7 +184,7 @@
     </div>
 </div>
         </div>
-    <div class="smaller pbl tar">
+    <div class="smaller pbm tar">
         <c:forEach items="${footnotesForThisTable}" var="footnoteIndex">
             <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->
             Source: ${(footnotes[statsTab])[footnoteIndex-1].source}

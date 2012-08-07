@@ -205,7 +205,7 @@
                     </div>
                     </div>
                     </div>
-                    <div class="smaller pbl tar">Source: Manually entered by a school official.</div>
+                    <div class="smaller pbm tar">Source: Manually entered by a school official.</div>
                 </c:if>
 
             </div>
@@ -313,7 +313,7 @@
             </div>
         </div>
     </div>
-    <div class="smaller pbl tar">Source: Manually entered by a school official.</div>
+    <div class="smaller pbm tar">Source: Manually entered by a school official.</div>
 
                 </c:if>
             </div>
