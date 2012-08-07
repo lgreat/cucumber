@@ -5,6 +5,7 @@ var Boundary = (function (){
         this.name = name;
         this.position = new google.maps.LatLng(0,0);
         this.current = false;
+        this.autozoomed = false;
         this.redo = false;
     }
     State.prototype = {
@@ -164,11 +165,17 @@ var Boundary = (function (){
         if (obj && obj.data && obj.data.type == 'district'){
             if (state('searching') && !STATES.searching.originalId){
                 STATES.searching.originalId = obj.data.id;
-                $map.boundaries('autozoom', obj.data);
+                if (!STATES.searching.autozoomed) {
+                    $map.boundaries('autozoom', obj.data);
+                    STATES.searching.autozoomed=true;
+                }
             }
             else if (state('browsing') && STATES.browsing.redo){
                 STATES.browsing.redo = false;
-                $map.boundaries('autozoom', obj.data);
+                if (!STATES.browsing.autozoomed){
+                    $map.boundaries('autozoom', obj.data);
+                    STATES.browsing.autozoomed=true;
+                }
             }
             STATES.browsing.position = new google.maps.LatLng(obj.data.lat, obj.data.lon);
             $dropdown.val(obj.data.getKey());
@@ -189,6 +196,12 @@ var Boundary = (function (){
     // school brought into focus
     var focusOnSchool = function (e, obj) {
         if (obj && obj.data && obj.data.type=='school'){
+            if (state('searching') && !STATES.searching.originalId){
+                if (!STATES.searching.autozoomed) {
+                    $map.boundaries('autozoom', obj.data);
+                    STATES.searching.autozoomed=true;
+                }
+            }
             $('.js-listItem').removeClass('selected');
             var $this = $('.js-listItem[id=' + obj.data.getKey() + ']');
             if ($this && $this.position()) {
@@ -236,7 +249,7 @@ var Boundary = (function (){
 
     var history = function (lat, lng, level) {
         var q = $search.find('#js_mapAddressQuery').val();
-        if (q.indexOf('Search by')>=0) {
+        if (q.indexOf('Enter an address')>=0) {
             q = '';
         }
         var params = '?lat='+lat+'&lon='+lng+'&level='+level+'&q='+q;
@@ -252,6 +265,7 @@ var Boundary = (function (){
             if (STATES[key].name == state) {
                 STATES[key].originalId = null;
                 STATES[key].current = true;
+                STATES[key].autozoomed = false;
             }
             else
                 STATES[key].current = false;

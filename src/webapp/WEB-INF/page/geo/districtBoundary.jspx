@@ -58,7 +58,7 @@
 <gsml:body adPageName="districtBoundary" pageLayout="leftside">
 <div class="slStylesV1-0  slFormsV1-0 mtl tac">
 <div class="phs tal"><h1 class="bottom">School and District Boundaries Map</h1>
-    <p class="mtm">Researching schools in your neighborhood is a snap with our interactive map tool. Enter your address or ZIP code to see school attendance and district boundary lines. Or browse your options based on a city and state. Go ahead and give it a spin.</p>
+    <p class="mtm">Researching schools in your neighborhood is a snap with our interactive map tool. Enter an address to see school attendance and district boundary lines. Go ahead and give it a spin.</p>
 </div>
 <div class="mod standard_4-1 tal">
     <div class="outer">
@@ -66,13 +66,13 @@
             <div class="hd">
                 <div class="fltlft">
                     <form action="" id="searchLocationForm" onsubmit="return false;">
-                        <!--placeholder="Search by city and state or address"-->
+                        <!--placeholder="Enter an address to see available schools"-->
                         <input type="text" alt="Search location" name="addressQuery" id="js_mapAddressQuery"
                                class="searchText input_8 mrm"
 
-                               value="Search by city and state or address"
-                               onfocus="if(this.value=='Search by city and state or address'){this.value='';}"
-                               onblur="if(this.value==''){this.value='Search by city and state or address';}"/>
+                               value="Enter an address to see available schools"
+                               onfocus="if(this.value=='Enter an address to see available schools'){this.value='';}"
+                               onblur="if(this.value==''){this.value='Enter an address to see available schools';}"/>
                         <button type="submit" name="loadAddress" id="js_loadAddress" class="button-1">Search
                         </button>
                     </form>
@@ -328,7 +328,7 @@
 
 <div class="mtm smaller tal">
     <strong>Disclaimer:</strong>
-    School Boundaries information is compiled from various sources and is for general informational purposes only. School attendance zone information is subject to change throughout the year. The School and District Boundary Map is not appropriate for use in determining the legal eligibility of any individual or resident of a particular structure to attend any particular school system, or to use or benefit from any other provided for or on behalf of any city, town, state, or other governmental entity, or any other service dependent upon residence within a given geographical area. To verify legal descriptions of boundaries or to determine school locations or attendance, please contact the school or school district directly.
+    Map data on this page for school attendance zones is compiled from multiple sources and is subject to change. We've done our best to get broad coverage (up to 70% of the country's schools). In some cases data for your address may not be available. We always recommend double-checking with the district or school about enrollment and attendance rules and to determine legal eligibility.
     <div class="mtl">
         From more information about the School and District Boundary Map, see our <a href="/about/gsFaq.page">FAQs</a>.
     </div>
