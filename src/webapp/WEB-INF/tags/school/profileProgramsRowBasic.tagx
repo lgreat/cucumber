@@ -24,7 +24,7 @@
         <c:set var="values" value="${dataMap[key]}" scope="page"/>
         <!-- <tr><td colspan="2"><div class="">***Debug*** Row = ${row}, key = ${key}, values = ${values}</div></td></tr> -->
         <tr class="${rowColor}">
-            <td><b>${row.rowTitle}</b></td>
+            <td>${row.rowTitle}</td>
             <!-- Now display the data by looping over each data element -->
             <td><ul>
                 <c:forEach var="value" items="${values}">

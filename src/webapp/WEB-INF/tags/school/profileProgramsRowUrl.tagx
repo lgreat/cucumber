@@ -11,7 +11,7 @@
 
 
      <tr class="${rowColor}">
-        <td><b>${row.rowTitle}</b></td>
+        <td>${row.rowTitle}</td>
         <!-- Now display the data by looping over each data element -->
         <td><ul>
             <c:set var="urlArrayModelKeys" value="${row.urlValueModelKeys}"/>    <!-- This is an array of EspResponse keys to the urls -->

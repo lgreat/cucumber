@@ -50,9 +50,9 @@
                 <input type="hidden" id="parentAsString" value="0" name="parentAsString"/>
                 <div class="">
                     <div class="unit size2of5 ">
-                        <h4 class="large"><strong style="color:#787878">Rate this school</strong> <em
+                        <h3>Rate this school <em
                                 class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
-                        </h4>
+                        </h3>
                     </div>
 
                     <div class="unit size3of5 lastUnit pas" style="background-color: #FFFFFF">
@@ -177,7 +177,7 @@
 
                 <div class="subStarRatings" style="display:none;">
                     <div class="spacer_5"><!-- do not collapse --></div>
-                    <div class="medium ptl mbs"><strong>How do you rate this school in these additional areas?</strong></div>
+                    <div class="medium ptl mbs"><h6 class="bottom">How do you rate this school in these additional areas?</h6></div>
                     <hr class="keyline2"><!-- do not collapse --></hr>
                     <div id="js-bubbleInfo2" class="text3 teacher  mtm">
                         <div class="js-trigger student_only line">
@@ -204,7 +204,7 @@
                             <div class="small phs man prw">
                                 <span class="small"><strong>Teacher quality</strong></span>
                                 <p class="bottom small">These ratings reflect parents’ or students’ overall experience with the school’s teachers. Among other things, great teachers:
-                                <ul>
+                                <ul class="small phs prw">
                                     <li>Talk to parents regularly about their children's progress.</li>
                                     <li>Challenge students to learn.</li>
                                     <li>Give students the attention they need to thrive in class.</li>
@@ -232,7 +232,7 @@
                                 <div class="small phs man prw" >
                                     <span class="medium"><strong>Principal leadership</strong></span>
                                     <br/>This is an assessment of the principal, or other leadership, at the school. Among other things, strong principals or school leaders:
-                                    <ul>
+                                    <ul class="small phs prw">
                                         <li>Reach out to parents.</li>
                                         <li>Listen to and answer questions from parents and students.</li>
                                         <li>Make efforts to improve the quality of the school.</li>
@@ -264,7 +264,7 @@
                                 <span class="medium"><strong>Parent involvement</strong></span>
                                 <br/>A supportive community &amp;mdash; which includes active, involved parents &amp;mdash; is one mark of a great school. This rating reflects to what degree the school:
 
-                                <ul>
+                                <ul class="small phs prw">
                                     <li>Offers opportunities for parent involvement.</li>
                                     <li>Encourages all parents to volunteer.</li>
                                     <li>Treats parents like partners, not outsiders.</li>
