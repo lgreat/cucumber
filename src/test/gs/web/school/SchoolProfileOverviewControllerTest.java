@@ -1362,7 +1362,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "application_deadline", "date" ) );
         l.add( createEspResponse( "application_deadline_date", "July 30, 2012" ) );
 
-        l.add( createEspResponse( "student_vouchers", "blank" ) );
+        l.add( createEspResponse( "students_vouchers", "blank" ) );
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile(_request, _school, espData);
@@ -1394,7 +1394,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         l.add( createEspResponse( "application_deadline", "date" ) );
 
-        l.add( createEspResponse( "student_vouchers", "yes" ) );
+        l.add( createEspResponse( "students_vouchers", "yes" ) );
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile( _request, _school, espData );
@@ -1425,7 +1425,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         l.add( createEspResponse( "application_deadline", "parents_contact" ) );
 
-        l.add( createEspResponse( "student_vouchers", "no" ) );
+        l.add( createEspResponse( "students_vouchers", "no" ) );
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile( _request, _school, espData );
@@ -1452,7 +1452,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "application_deadline", "date" ) );
         l.add( createEspResponse( "application_deadline_date", "July 30, 2012" ) );
 
-        l.add( createEspResponse( "student_vouchers", "no" ) );
+        l.add( createEspResponse( "students_vouchers", "no" ) );
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile( _request, _school, espData );
@@ -1477,7 +1477,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "application_deadline", "date" ) );
         l.add( createEspResponse( "application_deadline_date", "July 30, 2012" ) );
 
-        l.add( createEspResponse( "student_vouchers", "no" ) );
+        l.add( createEspResponse( "students_vouchers", "no" ) );
         Map<String, List<EspResponse>> espData = convertToEspData(l);
 
         Map resultsModel = _schoolProfileOverviewController.getSchoolVisitChecklistTile(_request, _school);

@@ -1165,7 +1165,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
 
         // Voucher info
-        List<EspResponse> vouchersList = espData.get("student_vouchers");
+        List<EspResponse> vouchersList = espData.get("students_vouchers");
         boolean hasVouchersYes = checkEspResponseListForValue(vouchersList, new String[]{"yes"});
         boolean hasVouchersNo = checkEspResponseListForValue(vouchersList, new String[]{"no"});
 
