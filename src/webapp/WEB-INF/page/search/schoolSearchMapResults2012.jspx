@@ -659,7 +659,7 @@ that this is updated for ajax refresh -->
 
                         <div class="ttc small bottom">${school.schoolType}, ${school.grades.rangeString} | ${school.city}, ${school.databaseState}</div>
                         <div class="line">
-                            <div class="unit size28of100">
+                            <div class="unit size20of100">
                                 <div class="js-gsRating mrm">
                                     <c:choose>
                                         <c:when test="${school.levelCode eq 'p' or school.schoolType eq 'private'}">
@@ -697,11 +697,8 @@ that this is updated for ajax refresh -->
                                     </c:choose>
                                 </div>
                             </div>
-                            <div class="unit size72of100 lastUnit">
+                            <div class="unit size80of100 lastUnit">
                                 <div class="small bottom fltrt js-communityRating">
-                                    <div class="fl mrs">
-                                        Community rating:
-                                    </div>
                                     <div class="fr">
                                         <link:schoolProfileParentReview2010 levelCode="${school.levelCode}"
                                                                             state="${school.databaseState}"
@@ -716,6 +713,9 @@ that this is updated for ajax refresh -->
                                                 </c:otherwise>
                                             </c:choose>
                                         </link:schoolProfileParentReview2010>
+                                    </div>
+                                    <div class="fr mrs">
+                                        Community rating:
                                     </div>
                                 </div>
                             </div>
@@ -744,7 +744,7 @@ that this is updated for ajax refresh -->
 
             <div class="ttc small bottom">{{schoolType}}, {{gradesRange}} | {{city}}, {{state}}</div>
             <div class="line">
-                <div class="unit size28of100">
+                <div class="unit size20of100">
                     <div class="js-gsRating img mrm">
                         <a href="" data-href="{{gsRatingUrl}}" class="noUnderline">
                             <div class="iconx24-ratings i-24-ratings{{gsRating}}"
@@ -756,7 +756,7 @@ that this is updated for ajax refresh -->
                         </a>
                     </div>
                 </div>
-                <div class="unit size72of100 lastUnit">
+                <div class="unit size80of100 lastUnit">
                     <div class="small bottom js-communityRating">
                         <div class="fl mrs">Community rating: </div>
                         <div class="fr">
