@@ -7,15 +7,28 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         >
 
-    <jsp:directive.attribute name="key" description="The name to register the tracking data under (data will be stored in a hash)"/>
-    <jsp:directive.attribute name="pageName" />
-    <jsp:directive.attribute name="hier1" />
+    <jsp:directive.attribute name="key" required="false"
+        description="The name to register the tracking data under (data will be stored in a hash). If not specified, data will be tracked on all tabs"/>
+    <jsp:directive.attribute name="pageName" required="false" />
+    <jsp:directive.attribute name="hier1" required="false" />
+    <jsp:directive.attribute name="hasOsp" required="false" />
+    <jsp:directive.attribute name="numberOfReviews" required="false" />
 
     <script type="text/javascript">
-        GS.tracking.registerTrackingData('${key}', {
-           pageName:'${pageName}',
-           hierarchy:'${hier1}'
-        });
+        var key = '${key}';
+        var sharedKey = '_shared';
+        if (key === '') {
+            key = sharedKey;
+        }
+        var data = {};
+        if ('${pageName}' !== '') {
+            data['pageName'] = '${pageName}';
+        }
+        if ('${hier1}' !== '') {
+            data['hierarchy'] = '${hier1}';
+        }
+
+        GS.tracking.registerTrackingData('${key}', data);
     </script>
 
 </jsp:root>
