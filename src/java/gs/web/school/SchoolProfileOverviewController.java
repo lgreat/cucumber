@@ -1165,7 +1165,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
 
         // Voucher info
-        List<EspResponse> vouchersList = espData.get("vouchers");
+        List<EspResponse> vouchersList = espData.get("student_vouchers");
         boolean hasVouchersYes = checkEspResponseListForValue(vouchersList, new String[]{"yes"});
         boolean hasVouchersNo = checkEspResponseListForValue(vouchersList, new String[]{"no"});
 
@@ -1382,7 +1382,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, Object> facebookModel = new HashMap<String, Object>(4);
 
         facebookModel.put( "content", "hide" ); // set this if no data available
-        facebookModel.put( "content", "show" );
+        // facebookModel.put( "content", "show" );  set this if data is available
 
         return facebookModel;
     }
