@@ -87,7 +87,7 @@ public class ParentReviewController extends AbstractController implements IContr
 
         if (null != school) {
             // GS-13082 Redirect to new profile if eligible
-            if (AbstractSchoolController.shouldRedirectToNewProfile(school, request)) {
+            if (AbstractSchoolController.shouldRedirectToNewProfile(school)) {
                 return AbstractSchoolController.getRedirectToNewProfileModelAndView
                         (school, request, AbstractSchoolController.NewProfileTabs.reviews);
             }

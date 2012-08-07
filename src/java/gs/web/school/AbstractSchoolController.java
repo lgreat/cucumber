@@ -135,10 +135,8 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
              (!fields.hasLevelCode() && fields.hasSchoolName() && fields.hasSchoolID()));
     }
 
-    public static boolean shouldRedirectToNewProfile(School school, HttpServletRequest request) {
-        return school != null && request != null
-                && FruitcakeControllerFamilyResolver.isFruitcakeEnabled(request)
-                && SchoolHelper.isSchoolForNewProfile(school);
+    public static boolean shouldRedirectToNewProfile(School school) {
+        return school != null && SchoolHelper.isSchoolForNewProfile(school);
     }
 
     public static ModelAndView getRedirectToNewProfileModelAndView(School school, HttpServletRequest request, NewProfileTabs tab) {

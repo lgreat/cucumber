@@ -49,7 +49,7 @@ public class SurveyResultsController extends AbstractController {
         School school = (School) request.getAttribute(SchoolPageInterceptor.SCHOOL_ATTRIBUTE);
 
         // GS-13082 Redirect to new profile if eligible
-        if (AbstractSchoolController.shouldRedirectToNewProfile(school, request)) {
+        if (AbstractSchoolController.shouldRedirectToNewProfile(school)) {
             return AbstractSchoolController.getRedirectToNewProfileModelAndView(school, request, AbstractSchoolController
                     .NewProfileTabs.programsCulture);
         }

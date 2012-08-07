@@ -41,7 +41,7 @@ public class MapSchoolController extends AbstractSchoolController {
         School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
 
         // GS-13082 Redirect to new profile if eligible
-        if (shouldRedirectToNewProfile(school, request)) {
+        if (shouldRedirectToNewProfile(school)) {
             return getRedirectToNewProfileModelAndView(school, request, NewProfileTabs.overview);
         }
 

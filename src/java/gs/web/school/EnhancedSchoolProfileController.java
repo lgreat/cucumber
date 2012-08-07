@@ -190,7 +190,7 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         }
 
         // GS-13082 Redirect to new profile if eligible
-        if (shouldRedirectToNewProfile(school, httpServletRequest)) {
+        if (shouldRedirectToNewProfile(school)) {
             return getRedirectToNewProfileModelAndView(school, httpServletRequest, NewProfileTabs.programsCulture);
         }
 

@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsController.java,v 1.25 2012/08/06 22:08:40 aroy Exp $
+ * $Id: RatingsController.java,v 1.26 2012/08/07 17:31:11 aroy Exp $
  */
 package gs.web.test.rating;
 
@@ -81,7 +81,7 @@ public class RatingsController extends AbstractCommandController {
                     }
 
                     // GS-13082 Redirect to new profile if eligible
-                    if (AbstractSchoolController.shouldRedirectToNewProfile(s, request)) {
+                    if (AbstractSchoolController.shouldRedirectToNewProfile(s)) {
                         return AbstractSchoolController.getRedirectToNewProfileModelAndView
                                 (s, request, AbstractSchoolController.NewProfileTabs.ratings);
                     }
