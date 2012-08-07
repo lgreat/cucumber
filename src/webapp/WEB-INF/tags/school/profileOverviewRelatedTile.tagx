@@ -19,23 +19,31 @@
     <c:set var="contents" value="${relatedModel['content']}" scope="page"/>
     <c:set var="cmsResults" value="${relatedModel['cmsResults']}" scope="page"/>
 
-    <school:profileOverviewCell1 title="Interested in this school? These articles are for you">
-        <!-- cmsResults is: List<ICmsFeatureSearchResult> -->
-        <c:choose>
-            <c:when test="${not empty cmsResults}">
-                <ul>
-                    <c:forEach var="item" items="${cmsResults}">
-                        <li>CMS Id: ${item.contentId}, Title: ${item.title}, Content Type: ${item.contentType}, Thumbnail url: ${item.previewImageUrl}</li>
-                    </c:forEach>
-                </ul>
-            </c:when>
-            <c:otherwise>
-                <!-- According to the spec there should always be related content available -->
-                <div class="">No articles are available</div>
-            </c:otherwise>
-        </c:choose>
-        <c:if test="">
-        </c:if>
+    <school:profileOverviewCell1 title="In the know: Get our expert advice on schools">
+        <div class="mam">
+            <!-- cmsResults is: List<ICmsFeatureSearchResult> -->
+            <c:choose>
+                <c:when test="${not empty cmsResults}">
+                    <div class="media">
+                        <div class="img mrl">
+                            <span class="iconx96 i-96-video_placeholder mrm"><!-- do not collapse --></span>
+                        </div>
+                        <div class="bd">
+                            <ul class="small bottom">
+                                <c:forEach var="item" items="${cmsResults}">
+                                    <gsweb:articlelink articleId="${gsweb:abbreviateAtWhitespace(item.contentId,60)}" wrappingElement="li"/>
+                                    <!--<li>CMS Id: ${item.contentId}, Title: ${item.title}, Content Type: ${item.contentType}, Thumbnail url: ${item.previewImageUrl}</li>-->
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <!-- According to the spec there should always be related content available -->
+                    <p class="small_bold bottom tac">No articles are available</p>
+                </c:otherwise>
+            </c:choose>
+        </div>
 
     </school:profileOverviewCell1>
 
