@@ -20,16 +20,20 @@
 
     <c:choose>
         <c:when test="${content eq 'default'}">
-            <school:profileOverviewCell1 title="District Information">
+            <school:profileOverviewCell1 title="Local information">
+                <div class="mam">
+                    <h4 class="bottom tac">TBD</h4>
                 <!-- The spec is currently under development for this option -->
+                </div>
             </school:profileOverviewCell1>
         </c:when>
         <c:when test="${content eq 'districtInfo'}">
-            <school:profileOverviewCell1 title="District Information">
+            <school:profileOverviewCell1 title="District information">
+                <div class="mam">
                 <c:set var="districtNumSchools" value="${localInfoModel['districtNumSchools']}" scope="page"/>
                 <c:set var="districtGrades" value="${localInfoModel['districtGrades']}" scope="page"/>
                 <c:set var="districtNumStudents" value="${localInfoModel['districtNumStudents']}" scope="page"/>
-                <div class=""><b>${localInfoModel['districtName']}</b></div>
+                    <h4 class="bottom tac">${localInfoModel['districtName']}</h4>
                 <c:if test="${not empty districtNumSchools}">
                     <div class="">Number of schools ${districtNumSchools}</div>
                 </c:if>
@@ -41,11 +45,14 @@
                     <div class="">Number of students ${districtNumStudents}</div>
                 </c:if>
                 -->
+                </div>
             </school:profileOverviewCell1>
         </c:when>
         <c:when test="${content eq 'neighborhoodInfo'}">
             <school:profileOverviewCell1 title="Neighborhood Information">
+                <div class="mam">
                 <div class="">${localInfoModel['neighborhoodInfo']}</div>
+                </div>
             </school:profileOverviewCell1>
         </c:when>
     </c:choose>
