@@ -21,7 +21,7 @@
     <c:choose>
         <c:when test="${content eq 'default'}">
             <school:profileOverviewCell1 title="Programs">
-                <div class="mam">
+                <div class="mvm mrm">
                     <ul class="small bottom">
                         <c:set var="showMax" value="${4}"/>
                         <c:forEach var="item" items="${programsModel['resultsList']}" varStatus="status">
@@ -36,12 +36,14 @@
 
         <c:when test="${content eq 'substitute1'}">
             <school:profileOverviewCell1 title="How parents get involved">
-                <div class="mam">
-                    <c:choose>
-                        <c:when test="${not empty programsModel['substitute1None']}">
+                <c:choose>
+                    <c:when test="${not empty programsModel['substitute1None']}">
+                        <div class="mam">
                             <p class="small_bold bottom tac">There are no parent involvement opportunities</p>
-                        </c:when>
-                        <c:otherwise>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="mvm mrm">
                             <ul class="small bottom">
                                 <c:set var="showMax" value="${4}"/>
                                 <c:forEach var="item" items="${programsModel['substitute1List']}" varStatus="status">
@@ -50,15 +52,15 @@
                                     </c:if>
                                 </c:forEach>
                             </ul>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </school:profileOverviewCell1>
         </c:when>
 
         <c:otherwise>
             <school:profileOverviewCell1 title="Highlights">
-                <div class="mam">
+                <div class="mvm mrm">
                     <ul class="small bottom">
                         <c:set var="showMax" value="${4}"/>
                         <c:forEach var="item" items="${programsModel['substitute2List']}" varStatus="status">
