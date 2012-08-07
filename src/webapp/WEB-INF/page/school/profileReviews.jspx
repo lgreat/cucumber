@@ -441,6 +441,7 @@ ${aboutTheseRatings}
 </script>
 
 
-<pageHelper:registerTrackingData key="reviews" pageName="Parent Reviews" hier1="School,Parent Reviews"/>
+<pageHelper:registerTrackingData key="reviews" pageName="Parent Reviews"
+                                 hier1="School,Parent Reviews" numberOfReviews="${cmd.totalReviews}"/>
 
 </jsp:root>
