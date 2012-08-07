@@ -25,9 +25,10 @@
             <div class="mod standard_1-1">
                 <div class="inner">
                     <div class="hd" id="js-bubbleInformation">
-                        <div class="media pvs mhm">
-                            <div class="imgExt iconx16 i-16-information mrl"><!-- do not collapse --></div>
-                            <p class="bd small_bold textshadow-1  bottom " style="background: none">Community Rating</p>
+                        <div class="pvs mhm">
+                            <div class="fl small_bold textshadow-1 bottom ">Community Rating</div>
+                            <div class="fl iconx16 i-16-information mlm"><!-- do not collapse --></div>
+                            <div class="clear"><!-- do not collapse --></div>
                         </div>
                     </div>
                     <div class="bd">
@@ -434,8 +435,8 @@ ${aboutTheseRatings}
 <script type="text/javascript">
     jQuery(document).ready(function() {
 
-        jQuery("#js-bubbleInfo7  .js-trigger").popover({content:jQuery("#js-bubbleInfo7 .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
-        jQuery("#js-bubbleInformation").popover({content: jQuery("#js-bubbleInfoFirst .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
+        jQuery("#js-bubbleInfo7  .js-trigger a").popover({content:jQuery("#js-bubbleInfo7 .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
+        jQuery("#js-bubbleInformation .i-16-information").popover({content: jQuery("#js-bubbleInfoFirst .js-popup").html(), placement:'right', delay:{ show: 100, hide: 100 }});
     });
 </script>
 

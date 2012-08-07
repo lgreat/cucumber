@@ -44,14 +44,14 @@
         </jsp:scriptlet>
 
     <c:if test="${fn:length(rows) gt 0}">
-        <!--<h4>${title}</h4>-->
+
         <div class="mod standard_1-1">
         <div class="inner">
         <div class="hd">
             <h4 class="pvm plm bottom">${title}</h4>
         </div>
         <div class="bd pan">
-        <table>
+        <table class="tableType1">
             <thead>
             <tr>
                 <th>
@@ -88,7 +88,16 @@
                     jspContext.setAttribute("thisFootnote", descriptions.size());
                 ]]>
                 </jsp:scriptlet>
-                <tr>
+
+                <c:choose>
+                    <c:when test='${(status.index+1)%2 eq 0}'>
+                        <c:set var="rowColor" value="even" scope="page"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="rowColor" value="odd" scope="page"/>
+                    </c:otherwise>
+                </c:choose>
+                <tr class="${rowColor}" >
                     <td>${row.text}<!--<sup>[<a name="id${thisFootnote}" href="#ftn.id${thisFootnote}">${thisFootnote}</a>]</sup>--></td>
                     <c:if test="${showSchoolData}">
                         <c:choose>

@@ -200,8 +200,6 @@ td, .tableType1 td       { padding: 10px; vertical-align: top; word-wrap: break-
 tfoot, .tableType1 tfoot       { font-style: italic; }
 caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bottom: 10px; background: #fff; text-align:left; }
 
-.even{background-color: #f1f1f1;}
-.odd{background-color: #FFFFFF;}
 .grayBoxForPieChartLegend {margin-top:2px; border:1px solid #CCCCCC; width: 10px; height: 10px;}
 
 .make-000000 { color: #000000; }

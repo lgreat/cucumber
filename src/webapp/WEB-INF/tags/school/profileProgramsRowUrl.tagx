@@ -7,9 +7,10 @@
 
     <jsp:directive.attribute name="row" type="gs.web.school.SchoolProfileDisplayBean" required="true"/>
     <jsp:directive.attribute name="dataMap" type="java.util.Map" required="true"/>
+    <jsp:directive.attribute name="rowColor" type="java.lang.String" required="true"/>
 
 
-     <tr>
+     <tr class="${rowColor}">
         <td><b>${row.rowTitle}</b></td>
         <!-- Now display the data by looping over each data element -->
         <td><ul>

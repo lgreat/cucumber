@@ -64,10 +64,19 @@
                             <div class="bd pan bottom">
                             <table class="tableType1 bottom">
                             <!--<tr><th colspan="2">${subjectToYears.subjectLabel}</th></tr>-->
-                            <c:forEach var="testValue" items="${subjectToYears.testValues}">
+                            <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="status">
                                 <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
                                 <c:if test="${testValue.testScoreLabel == 'Data not available'}"><c:set var="thePercentage" value="n/a" /></c:if>
-                                <tr><td>${testValue.breakdownLabel}</td><td style="text-align: right;"><strong>${thePercentage}</strong></td></tr>
+                                <c:choose>
+                                    <c:when test='${(status.index+1)%2 eq 0}'>
+                                        <c:set var="rowColor" value="even" scope="page"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="rowColor" value="odd" scope="page"/>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
+                                <tr class="${rowColor}" ><td>${testValue.breakdownLabel}</td><td style="text-align: right;"><strong>${thePercentage}</strong></td></tr>
                             </c:forEach>
                             </table>
                             </div>

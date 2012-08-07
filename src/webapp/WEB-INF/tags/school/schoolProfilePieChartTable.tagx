@@ -46,7 +46,6 @@
             ]]>
 </jsp:scriptlet>
 <c:if test="${fn:length(rows) gt 0}">
-    <!--<h4>${title}</h4>-->
     <div class="mod standard_1-1">
         <div class="inner">
             <div class="hd">
@@ -68,9 +67,7 @@
             <th class="tac">
                 This school
             </th>
-            <!--<c:if test="${showDistrictData}">-->
-                <!--<th class="tac">District average</th>-->
-            <!--</c:if>-->
+
             <c:if test="${showStateAverages}">
                 <th class="tac">State Average</th>
             </c:if>
@@ -112,12 +109,7 @@
                     jspContext.setAttribute("thisFootnote", descriptions.size());
                 ]]>
             </jsp:scriptlet>
-            <![CDATA[
-            <!--[if lt IE 9]><style>
-                .even{background-color: #f1f1f1;}
-                .odd{background-color: #FFFFFF;}
-            </style>
-            <![endif]--> ]]>
+
             <c:choose>
                 <c:when test='${(status.index+1)%2 eq 0}'>
                     <c:set var="rowColor" value="even" scope="page"/>
@@ -126,31 +118,21 @@
                     <c:set var="rowColor" value="odd" scope="page"/>
                 </c:otherwise>
             </c:choose>
-            <!--<c:choose>-->
-                <!--<c:when test='${(status.index+1)%2 eq 0}'>-->
-                    <!--<c:set var="rowColor" scope="page">background-color:red;</c:set>-->
-                <!--</c:when>-->
-                <!--<c:otherwise>-->
-                    <!--<c:set var="rowColor" scope="page">background-color:blue;</c:set>-->
-                <!--</c:otherwise>-->
-            <!--</c:choose>-->
             <tr class="${rowColor}" >
 
-                    <c:choose>
-                        <c:when test="${status.first}">
-                            <c:set var="addRowSpan">${fn:length(rows)}</c:set>
-                            <c:set var="addPieGraph"><div class="plm ptm"><profile:pieChart chartData="${pieDataSet}" chartDrawDivId="${pieDivId}" chartSize="160"/></div></c:set>
-                            <c:set var="graphRow"><td rowspan="${addRowSpan}">${addPieGraph}</td></c:set>
+                <c:choose>
+                    <c:when test="${status.first}">
+                        <c:set var="addRowSpan">${fn:length(rows)}</c:set>
+                        <c:set var="addPieGraph"><div class="plm ptm"><profile:pieChart chartData="${pieDataSet}" chartDrawDivId="${pieDivId}" chartSize="160"/></div></c:set>
+                        <c:set var="graphRow"><td rowspan="${addRowSpan}">${addPieGraph}</td></c:set>
 
-                        </c:when>
-                        <c:otherwise>
-                            <c:set var="graphRow" value=""/>
-                        </c:otherwise>
-                    </c:choose>
-                    ${graphRow}
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="graphRow" value=""/>
+                    </c:otherwise>
+                </c:choose>
+                ${graphRow}
 
-                    <!--<td rowspan="${addRowSpan}"> ${addPieGraph} </td>-->
-                <!--</c:if>-->
                 <c:set var="schoolScoreToShow" value="" />
                 <c:set var="schoolColorToShow" value="#FFFFFF" />
                 <c:if test="${showSchoolData}">

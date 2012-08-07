@@ -15,6 +15,7 @@
 
     <jsp:directive.attribute name="row" type="gs.web.school.SchoolProfileDisplayBean" required="true"/>
     <jsp:directive.attribute name="dataMap" type="java.util.Map" required="true"/>
+    <jsp:directive.attribute name="rowColor" type="java.lang.String" required="true"/>
 
 
         <!-- The actual data for each row is stored in the highlightsDisplayData which is a map where the
@@ -22,7 +23,7 @@
         <c:set var="key" value="${row.modelKey}" scope="page"/>
         <c:set var="values" value="${dataMap[key]}" scope="page"/>
         <!-- <tr><td colspan="2"><div class="">***Debug*** Row = ${row}, key = ${key}, values = ${values}</div></td></tr> -->
-        <tr>
+        <tr class="${rowColor}">
             <td><b>${row.rowTitle}</b></td>
             <!-- Now display the data by looping over each data element -->
             <td><ul>
