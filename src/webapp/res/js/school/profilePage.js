@@ -185,11 +185,12 @@ function drawPieChart(dataIn, divNameId, dimensions) {
         width: dimensions,
         height: dimensions,
         legend: 'none',
-        tooltip: {showColorCode: true,text:'value'},
+        tooltip: {showColorCode: true,text:'value',textStyle:{color: '#2b2b2b', fontName: 'Arial', fontSize: '10'}},
         colors:['#327FA0','#E2B66C','#DB7258','#A4B41E','#38A37A','#B66483','#7B498F','#414F7B'],
         pieSliceText: 'none',
         chartArea:{left:10,top:10,bottom:10,right:10,width:"88%",height:"88%"},
         pieSliceBorderColor:'white'
+
     }
 
     // Create and draw the visualization.
