@@ -37,7 +37,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
     private final static String ESP_DATA_REQUEST_ATTRIBUTE = "espData";
     private final static String SCHOOL_MEDIA_REQUEST_ATTRIBUTE = "schoolMedia";
-    private final static String SCHOOL_RATINGS_ATTRIBUTE = "ratings";
+    private final static String COMMUNITY_RATINGS_ATTRIBUTE = "communityRatings";
     private final static String PUBLISHED_REVIEW_COUNT = "publishedReviewCount";
     private final static String REVIEWS = "reviews";
     private final static String REVIEWS_COUNT = "reviewsCount";
@@ -51,7 +51,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     // The following attributes are used to keep track of no results to prevent multiple requests
     private final static String NO_ESP_DATA_REQUEST_ATTRIBUTE = "espDataEmpty";
     private final static String NO_SCHOOL_MEDIA_REQUEST_ATTRIBUTE = "schoolMediaEmpty";
-    private final static String NO_SCHOOL_RATINGS_ATTRIBUTE = "ratingsEmpty";
+    private final static String NO_COMMUNITY_RATINGS_ATTRIBUTE = "communityRatingsEmpty";
     private final static String NO_PUBLISHED_REVIEW_COUNT = "publishedReviewCountEmpty";
     private final static String NO_CENSUS_DATA = "censusDataEmpty";
     private final static String NO_ENROLLMENT = "enrollmentEmpty";
@@ -261,7 +261,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     }
 
 
-    protected Ratings getSchoolRatings (HttpServletRequest request) {
+    protected Ratings getCommunityRatings (HttpServletRequest request) {
 
         // Make sure we have a school
         School school = _requestAttributeHelper.getSchool( request );
@@ -271,23 +271,23 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
         // Get Data
         // First see if it is already in the request
-        Ratings ratings =  (Ratings)getSharedData( request, SCHOOL_RATINGS_ATTRIBUTE );
+        Ratings ratings =  (Ratings)getSharedData( request, COMMUNITY_RATINGS_ATTRIBUTE );
 
         // If it isn't in the request try to retrieve it
         if( ratings == null ) {
             // Before going to DB se if we have ready done that and determined there is no data
-            if( getSharedData( request, NO_SCHOOL_RATINGS_ATTRIBUTE ) != null ) {
+            if( getSharedData( request, NO_COMMUNITY_RATINGS_ATTRIBUTE ) != null ) {
                 return  null;
             }
 
             ratings = _reviewDao.findRatingsBySchool(school);
 
             if( ratings != null ) {
-                setSharedData( request, SCHOOL_RATINGS_ATTRIBUTE, ratings ); // Save in request for future use
+                setSharedData( request, COMMUNITY_RATINGS_ATTRIBUTE, ratings ); // Save in request for future use
             }
             else {
                 // Set flag to prevent this DB request again
-                setSharedData( request, NO_SCHOOL_RATINGS_ATTRIBUTE, "yes" );
+                setSharedData( request, NO_COMMUNITY_RATINGS_ATTRIBUTE, "yes" );
             }
         }
         return ratings;

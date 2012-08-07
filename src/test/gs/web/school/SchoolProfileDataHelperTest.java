@@ -210,7 +210,7 @@ public class SchoolProfileDataHelperTest extends BaseControllerTestCase {
 
         expect( _reviewDao.findRatingsBySchool(_school) ).andReturn(r);
         replay(_reviewDao);
-        Ratings result = _schoolProfileDataHelper.getSchoolRatings( getRequest() );
+        Ratings result = _schoolProfileDataHelper.getCommunityRatings( getRequest() );
         verify(_reviewDao);
 
         assertEquals("testRatings: contents wrong", 4, result.getAvgQuality().intValue());

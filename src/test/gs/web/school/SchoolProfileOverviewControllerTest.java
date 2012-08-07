@@ -1532,7 +1532,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         expect( _schoolProfileDataHelper.getEspDataForSchool(getRequest()) ).andReturn( espData );
         expect( _schoolProfileDataHelper.getSchoolMedia(getRequest())).andReturn(null);
-        expect( _schoolProfileDataHelper.getSchoolRatings(getRequest())).andReturn(null);
+        expect( _schoolProfileDataHelper.getCommunityRatings(getRequest())).andReturn(null);
         expect( _schoolProfileDataHelper.getCountPublishedNonPrincipalReviews(getRequest()) ).andReturn( new Long(0l));
         expect(_schoolProfileDataHelper.getNonPrincipalReviews(getRequest(), 5)).andReturn(null);
         expect( _schoolProfileDataHelper.getSchoolCensusValues(getRequest()) ).andReturn(null).times(1, 2);

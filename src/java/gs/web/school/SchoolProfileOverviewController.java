@@ -186,7 +186,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private Map<String, Object> getCommunityRatingEspTile(HttpServletRequest request, School school) {
         Map<String, Object> communityModel = new HashMap<String, Object>(3);
         communityModel.put( "school", school );
-        communityModel.put( "ratings", _schoolProfileDataHelper.getSchoolRatings( request ) );
+        communityModel.put( "ratings", _schoolProfileDataHelper.getCommunityRatings( request ) );
         // communityModel.put( "numberOfReviews", _schoolProfileDataHelper.getCountPublishedNonPrincipalReviews(request) );
 
         return communityModel;
