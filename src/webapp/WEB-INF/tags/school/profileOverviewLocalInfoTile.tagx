@@ -75,9 +75,9 @@
             </school:profileOverviewCell1>
         </c:when>
         <c:when test="${content eq 'neighborhoodInfo'}">
-            <school:profileOverviewCell1 title="${localInfoModel['title']}">
+            <school:profileOverviewCell1 title="${gsweb:abbreviateAtWhitespace(localInfoModel['title'],26)}">
                 <div class="mam">
-                <div class="">${localInfoModel['neighborhoodInfo']}</div>
+                    <p class="small">${localInfoModel['neighborhoodInfo']}</p>
                 </div>
             </school:profileOverviewCell1>
         </c:when>
