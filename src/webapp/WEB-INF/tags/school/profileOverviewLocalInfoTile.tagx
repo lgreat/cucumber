@@ -22,29 +22,55 @@
         <c:when test="${content eq 'default'}">
             <school:profileOverviewCell1 title="Local information">
                 <div class="mam">
+                    <!-- The spec is currently under development for this option -->
                     <h4 class="bottom tac">TBD</h4>
-                <!-- The spec is currently under development for this option -->
                 </div>
             </school:profileOverviewCell1>
         </c:when>
         <c:when test="${content eq 'districtInfo'}">
             <school:profileOverviewCell1 title="District information">
                 <div class="mam">
-                <c:set var="districtNumSchools" value="${localInfoModel['districtNumSchools']}" scope="page"/>
-                <c:set var="districtGrades" value="${localInfoModel['districtGrades']}" scope="page"/>
-                <c:set var="districtNumStudents" value="${localInfoModel['districtNumStudents']}" scope="page"/>
-                    <h4 class="bottom tac">${localInfoModel['districtName']}</h4>
-                <c:if test="${not empty districtNumSchools}">
-                    <div class="">Number of schools ${districtNumSchools}</div>
-                </c:if>
-                <c:if test="${not empty districtGrades}">
-                    <div class="">Grades ${districtGrades}</div>
-                </c:if>
-                <!-- This was removed from the spec because it will be time comsuming to obtain.  rraker 8/2/12
-                <c:if test="${not empty districtNumStudents}">
-                    <div class="">Number of students ${districtNumStudents}</div>
-                </c:if>
-                -->
+                    <c:set var="districtNumSchools" value="${localInfoModel['districtNumSchools']}" scope="page"/>
+                    <c:set var="districtGrades" value="${localInfoModel['districtGrades']}" scope="page"/>
+                    <c:set var="districtNumStudents" value="${localInfoModel['districtNumStudents']}" scope="page"/>
+                    <h4 class="tac">${localInfoModel['districtName']}</h4>
+                    <c:if test="${not empty districtNumSchools}">
+                        <div class="line mvs">
+                            <div class="unit size70of100">
+                                <p class="small_bold bottom">Number of schools:</p>
+                            </div>
+                            <div class="unit size30of100 lastUnit">
+                                <p class="small bottom fr">${districtNumSchools}</p>
+                            </div>
+                        </div>
+                        <hr class="keyline2"/>
+                    </c:if>
+                    <!--This was removed from the spec because it will be time comsuming to obtain.  rraker 8/2/12-->
+                    <!--
+                    <c:if test="${not empty districtNumStudents}">
+                        <div class="line mvs">
+                            <div class="unit size70of100">
+                                <p class="small_bold bottom">Number of students:</p>
+                            </div>
+                            <div class="unit size30of100 lastUnit">
+                                <p class="small bottom fr">${districtNumStudents}</p>
+                            </div>
+                        </div>
+                        <hr class="keyline2"/>
+                    </c:if>
+                    -->
+                    <c:if test="${not empty districtGrades}">
+                        <div class="line mvs">
+                            <div class="unit size70of100">
+                                <p class="small_bold bottom">Grades:</p>
+                            </div>
+                            <div class="unit size30of100 lastUnit">
+                                <p class="small bottom fr">${districtGrades}</p>
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <p class="small bottom tac"><a href="javascript:void(0);">See district boundaries</a></p>
                 </div>
             </school:profileOverviewCell1>
         </c:when>
