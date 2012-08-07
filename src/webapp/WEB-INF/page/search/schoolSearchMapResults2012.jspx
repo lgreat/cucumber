@@ -747,8 +747,8 @@ that this is updated for ajax refresh -->
                 <div class="unit size20of100">
                     <div class="js-gsRating img mrm">
                         <a href="" data-href="{{gsRatingUrl}}" class="noUnderline">
-                            <div class="iconx24-ratings i-24-ratings{{gsRating}}"
-                                 style="display: {{showNonPrivate}}"><!-- do not collapse --></div>
+                            <span class="iconx24-ratings i-24-ratings{{gsRating}}"
+                                 style="display: {{showNonPrivate}}"><!-- do not collapse --></span>
                             <span class="iconx24 i-24-private-school-badge"
                                   style="display: {{showPrivate}}"><!-- do not collapse --></span>
                             <span class="iconx24 i-24-preschool-badge"
@@ -758,16 +758,16 @@ that this is updated for ajax refresh -->
                 </div>
                 <div class="unit size80of100 lastUnit">
                     <div class="small bottom js-communityRating">
-                        <div class="fl mrs">Community rating: </div>
                         <div class="fr">
                             <a href="" data-href="{{communityRatingUrl}}">
-                            <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl"
+                                <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl"
                                   style="display: {{showParentRating}}"><!-- do not collapse --></span>
-                            <span class="iconx16-stars i-16-grey-star  i-16-star-{{starsOff}} fl"
+                                <span class="iconx16-stars i-16-grey-star  i-16-star-{{starsOff}} fl"
                                   style="display: {{showParentRating}}"><!-- do not collapse --></span>
                                 <dfn style="display: {{showRateSchool}}">Rate this school</dfn>
                             </a>
                         </div>
+                        <div class="fr mrs">Community rating:</div>
                     </div>
                 </div>
             </div>

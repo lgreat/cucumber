@@ -508,7 +508,7 @@ GS.search.results = GS.search.results || (function() {
         }
 
         if(page.pageNumber > 1) {
-            pageNav += setPageNavIndex(page.previousPage, page.pageSize, '« Prev');
+            pageNav += setPageNavIndex(page.previousPage, page.pageSize, '«');
         }
 
         if(page.totalPages >= 5 && page.pageNumber >= 5) {
@@ -532,7 +532,7 @@ GS.search.results = GS.search.results || (function() {
         }
 
         if(page.pageNumber < page.totalPages) {
-            pageNav += setPageNavIndex(page.nextPage, page.pageSize, 'Next »');
+            pageNav += setPageNavIndex(page.nextPage, page.pageSize, '»');
         }
         pageNumbers.html(pageNav);
     }
