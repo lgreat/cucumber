@@ -21,38 +21,53 @@
     <c:choose>
         <c:when test="${content eq 'default'}">
             <school:profileOverviewCell1 title="Programs">
-                <ul>
-                    <c:forEach var="item" items="${programsModel['resultsList']}">
-                        <li>${item}</li>
-                    </c:forEach>
-                </ul>
+                <div class="mam">
+                    <ul class="small bottom">
+                        <c:set var="showMax" value="${4}"/>
+                        <c:forEach var="item" items="${programsModel['resultsList']}" varStatus="status">
+                            <c:if test="${status.count le showMax}">
+                                <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
+                            </c:if>
+                        </c:forEach>
+                    </ul>
+                </div>
             </school:profileOverviewCell1>
         </c:when>
 
         <c:when test="${content eq 'substitute1'}">
             <school:profileOverviewCell1 title="How parents get involved">
-                <c:choose>
-                    <c:when test="${not empty programsModel['substitute1None']}">
-                        <div class="">There are no parent involvement opportunities</div>
-                    </c:when>
-                    <c:otherwise>
-                        <ul>
-                            <c:forEach var="item" items="${programsModel['substitute1List']}">
-                                <li>${item}</li>
-                            </c:forEach>
-                        </ul>
-                    </c:otherwise>
-                </c:choose>
+                <div class="mam">
+                    <c:choose>
+                        <c:when test="${not empty programsModel['substitute1None']}">
+                            <p class="small_bold bottom tac">There are no parent involvement opportunities</p>
+                        </c:when>
+                        <c:otherwise>
+                            <ul class="small bottom">
+                                <c:set var="showMax" value="${4}"/>
+                                <c:forEach var="item" items="${programsModel['substitute1List']}" varStatus="status">
+                                    <c:if test="${status.count le showMax}">
+                                        <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
+                                    </c:if>
+                                </c:forEach>
+                            </ul>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </school:profileOverviewCell1>
         </c:when>
 
         <c:otherwise>
             <school:profileOverviewCell1 title="Highlights">
-                <ul>
-                    <c:forEach var="item" items="${programsModel['substitute2List']}">
-                        <li>${item}</li>
-                    </c:forEach>
-                </ul>
+                <div class="mam">
+                    <ul class="small bottom">
+                        <c:set var="showMax" value="${4}"/>
+                        <c:forEach var="item" items="${programsModel['substitute2List']}" varStatus="status">
+                            <c:if test="${status.count le showMax}">
+                                <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
+                            </c:if>
+                        </c:forEach>
+                    </ul>
+                </div>
             </school:profileOverviewCell1>
         </c:otherwise>
     </c:choose>
