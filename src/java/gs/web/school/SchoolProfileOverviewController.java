@@ -1229,6 +1229,16 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Build neighborhood info
         BpZip sperlings = _schoolProfileDataHelper.getSperlingsInfo( request );
         if( sperlings != null ) {
+            // Get city name for title
+            String cityName = school.getCity();
+            if( StringUtils.isNotEmpty( cityName ) ) {
+                model.put( "title", "Living in " + cityName );
+            }
+            else {
+                model.put( "title", "Neighbor Information" );
+            }
+
+            // Build content sentence
             StringBuilder sentence = new StringBuilder();
             // sentence 1
             String neighborType = sperlings.getNeighborhoodType();
