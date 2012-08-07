@@ -16,93 +16,93 @@
 
 <c:set var="stateAbbrev" value="${school.databaseState.abbreviationLowerCase}"/>
 
-    <communityHover:schoolReviewPosted schoolName="${school.name}"/>
+<communityHover:schoolReviewPosted schoolName="${school.name}"/>
 
-    <div class="alpha grid_16 omega ptl">
-    <!--<a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>-->
-        <!--Reviews for ${school.name}-->
-        <div class="alpha grid_5">
-            <div class="mod standard_1-1">
-                <div class="inner">
-                    <div class="hd" id="js-bubbleInformation">
-                        <div class="pvs mhm">
-                            <div class="fl small_bold textshadow-1 bottom ">Community Rating</div>
-                            <div class="fl iconx16 i-16-information mlm"><!-- do not collapse --></div>
-                            <div class="clear"><!-- do not collapse --></div>
-                        </div>
+<div class="alpha grid_16 omega ptm">
+<!--<a href="/school/profile.page?tab=programs_extracurriculars&amp;state=ca&amp;id=1" onClick="linkToTabs('extracurriculars');">Link to Programs</a>-->
+<!--Reviews for ${school.name}-->
+<div class="alpha grid_5">
+    <div class="mod standard_1-1">
+        <div class="inner">
+            <div class="hd" id="js-bubbleInformation">
+                <div class="pvs mhm">
+                    <div class="fl small_bold textshadow-1 bottom ">Community Rating</div>
+                    <div class="fl iconx16 i-16-information mlm"><!-- do not collapse --></div>
+                    <div class="clear"><!-- do not collapse --></div>
+                </div>
+            </div>
+            <div class="bd">
+                <div  class="tac">
+
+
+                    <div class="ptm pbs" style="width:80px; height:16px; margin: auto;">
+                        <ratings:stars curSR="${cmd.ratings.overall}"/>
                     </div>
-                    <div class="bd">
-            <div  class="tac">
-
-
-                <div class="ptm pbs" style="width:80px; height:16px; margin: auto;">
-                    <ratings:stars curSR="${cmd.ratings.overall}"/>
-                </div>
                     <div class=""><h3 class="bottom">${cmd.ratings.overall} stars</h3>
-                </div>
-                        <!--<span class="sprite stars_xl_${cmd.ratings.overall}_b"-->
-                              <!--title="${cmd.ratings.overall} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                    </div>
+                    <!--<span class="sprite stars_xl_${cmd.ratings.overall}_b"-->
+                    <!--title="${cmd.ratings.overall} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
 
-                <!-- TODO-10633 -->
-                <c:if test="${not empty ratingsByYear}">
-                    <!--<div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-                    <div id="js-bubbleInfo7">
-                        <div class="js-trigger">
-                            <a class="small bottom">
-                                Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}
-                                <!--<ratings:stars curSR="${cmd.ratings.count}"/>-->
-                                <!--<span class="sprite i-sparklet">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                            </a>
-                        </div>
-
-
-                        <div class="js-popup">
-                            <!--<div id="popup-contents-7" class="box-shadow text3">-->
-                            <div style="width:250px;">
-
-                                <span class="small pbm"><strong>Community Rating by Year</strong></span>
+                    <!-- TODO-10633 -->
+                    <c:if test="${not empty ratingsByYear}">
+                        <!--<div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                        <div id="js-bubbleInfo7">
+                            <div class="js-trigger">
+                                <a class="small bottom">
+                                    Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}
+                                    <!--<ratings:stars curSR="${cmd.ratings.count}"/>-->
+                                    <!--<span class="sprite i-sparklet">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                </a>
+                            </div>
 
 
-                                <c:forEach var="ratingByYear" items="${ratingsByYear}">
+                            <div class="js-popup">
+                                <!--<div id="popup-contents-7" class="box-shadow text3">-->
+                                <div style="width:250px;">
 
-                                    <div class="line">
-                                        <div class="unit size3of20">
-                                            <!-- year = -->
-                                            <span class="year small">${ratingByYear.year}</span>:
+                                    <span class="small pbm"><strong>Community Rating by Year</strong></span>
+
+
+                                    <c:forEach var="ratingByYear" items="${ratingsByYear}">
+
+                                        <div class="line">
+                                            <div class="unit size3of20">
+                                                <!-- year = -->
+                                                <span class="year small">${ratingByYear.year}</span>:
+                                            </div>
+                                            <c:choose>
+                                                <c:when test="${ratingByYear.numRatings gt 0}">
+                                                    <div class="unit size7of20">
+                                                        <!-- numStars = -->
+                                                        <ratings:stars curSR="${ratingByYear.numStars}"/>
+                                                        <!--<span class="sprite stars_sm_${ratingByYear.numStars}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                                    </div>
+                                                    <div class="unit size10of20 lastUnit">
+                                                        <!-- numRatings = -->
+                                                        <span class="numRatings small">Based on ${ratingByYear.numRatings} ratings</span>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="unit size16of19 lastUnit">
+                                                        <span class="smallText1-italic">No new ratings</span>
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
-                                        <c:choose>
-                                            <c:when test="${ratingByYear.numRatings gt 0}">
-                                                <div class="unit size7of20">
-                                                    <!-- numStars = -->
-                                                    <ratings:stars curSR="${ratingByYear.numStars}"/>
-                                                    <!--<span class="sprite stars_sm_${ratingByYear.numStars}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                                </div>
-                                                <div class="unit size10of20 lastUnit">
-                                                    <!-- numRatings = -->
-                                                    <span class="numRatings small">Based on ${ratingByYear.numRatings} ratings</span>
-                                                </div>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <div class="unit size16of19 lastUnit">
-                                                    <span class="smallText1-italic">No new ratings</span>
-                                                </div>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </div>
-                                </c:forEach>
+                                    </c:forEach>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </c:if>
-                <div class="pvm"><hr class="keyline2" /></div>
-                <!--<div class="spacer_10 brdbtm_dotted">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-                <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                    </c:if>
+                    <div class="pvm"><hr class="keyline2" /></div>
+                    <!--<div class="spacer_10 brdbtm_dotted">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                    <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
-                <!-- DONE-10495 - Randall - START subcategory ratings -->
-                <c:set var="aboutTheseRatings">
+                    <!-- DONE-10495 - Randall - START subcategory ratings -->
+                    <c:set var="aboutTheseRatings">
 
 
-                    <div id="js-bubbleInfoFirst">
+                        <div id="js-bubbleInfoFirst">
 
                             <div class="media">
                                 <span class="js-trigger sprite i-info img mrs"><!-- do not collapse --></span>
@@ -118,134 +118,134 @@
                                 </div>
                             </div>
 
-                    </div>
-                </c:set>
-
-                <c:choose>
-                    <c:when test="${not empty communityRatings}">
-                        <div>
-                            <div id="communityRatings">
-                                <school:profileParentReviewsSubcategoryRatings ratings="${communityRatings}"/>
-                            </div>
-                            <!--${aboutTheseRatings}-->
                         </div>
-                    </c:when>
-                    <c:when test="${cmd.ratings.count gt 0}">
-                        <div>
-                            <!--${aboutTheseRatings}-->
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <div class="spacer_5"><!-- do not collapse --></div>
-                        <p class="small">There are no reviews yet<br/>for this school. Be the first!</p>
-                    </c:otherwise>
-                </c:choose>
-                <!-- DONE-10495 - Randall - END subcategory ratings -->
-
-            </div>
-
-
-
-        </div>
-                </div></div><c:if test="${empty principalReview and school.levelCode != 'p'}">
-            <div class="mod standard_3-1">
-            <div class="outer">
-                <div class="inner">
-                    <div class="bd">
-                        <div class="media">
-                            <span class="sprite pencil_med img mrm"><!-- do not collapse --></span>
-
-                            <div class="medium bd bottom"><strong>Are you<br/>the principal?</strong><br/>
-                                <link:schoolEspRegister styleClass="bottom small no_interrupt" styleId="espLink">Complete your school's profile</link:schoolEspRegister>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </c:if></div>
-        <!-- end reviewColumn1 -->
-        <div class="grid_11 omega">
-            <school:profileSchoolReviewForm school="${school}" pageName="profileReviews"/>
-        </div>
-        <!-- end reviewColumn2 -->
-        <div class="spacer_15"><!-- do not collapse --></div>
-    <div class="grid_16 alpha omega" >
-
-        <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
-        <c:if test="${not empty principalReview}">
-            <div id="principalsPOV">
-                <h4 class="text1bold">The Principal's point of view</h4>
-
-                <div class="spacer_5"><!-- do not collapse --></div>
-                <div class="principalsIMG">
-                    <c:if test="${not empty principalReview.user and
-                            not empty principalReview.user.userProfile and principalReview.user.userProfile.active}">
-                        <link:userProfile user="${principalReview.user}">
-                            <community:avatar user="${principalReview.user}" width="46" height="46"/>
-                        </link:userProfile>
-                    </c:if>
-                </div>
-                <c:choose>
-                    <c:when test="${principalReview.who eq 'principal' and not empty principalReview.user and
-                            not empty principalReview.user.userProfile and principalReview.user.userProfile.active}">
-                        <c:set var="principalName" value="${principalReview.user.firstName}"/>
-                        <c:if test="${not empty (principalReview.user.lastName)}">
-                            <c:set var="principalName" value="${principalName} ${principalReview.user.lastName}"/>
-                        </c:if>
-
-                        <p class="principalName text3">
-                            <link:userProfile user="${principalReview.user}">${principalName}</link:userProfile>
-                            <span class="smallText1">, ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</span>
-                        </p>
-                    </c:when>
-                    <c:otherwise>
-                        <p class="small">Posted ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</p>
-                    </c:otherwise>
-                </c:choose>
-                <gsml:ifUserCanDeleteContent pageUser="${validUser}">
-                    <c:choose>
-                        <c:when test="${principalReview.status eq 'd'}">
-                            (deleted)
-                            | <a href="javascript:void(0);" class="enableLink link"
-                                 onclick="enableReview(${principalReview.id}); return false;">Enable</a>
-                        </c:when>
-                        <c:when test="${principalReview.status eq 'p'}">
-                            | <a href="javascript:void(0);" class="disableLink link"
-                                 onclick="disableReview(${principalReview.id}); return false;">Disable</a>
-                        </c:when>
-                    </c:choose>
-                </gsml:ifUserCanDeleteContent>
-
-                <p class="text3">
-                    <c:set var="escapedComments">
-                        <c:out value="${principalReview.comments}" escapeXml="true"/>
                     </c:set>
-                    ${escapedComments}
-                </p>
 
-                <div class="clearfloat"><!-- do not collapse --></div>
+                    <c:choose>
+                        <c:when test="${not empty communityRatings}">
+                            <div>
+                                <div id="communityRatings">
+                                    <school:profileParentReviewsSubcategoryRatings ratings="${communityRatings}"/>
+                                </div>
+                                <!--${aboutTheseRatings}-->
+                            </div>
+                        </c:when>
+                        <c:when test="${cmd.ratings.count gt 0}">
+                            <div>
+                                <!--${aboutTheseRatings}-->
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="spacer_5"><!-- do not collapse --></div>
+                            <p class="small">There are no reviews yet<br/>for this school. Be the first!</p>
+                        </c:otherwise>
+                    </c:choose>
+                    <!-- DONE-10495 - Randall - END subcategory ratings -->
+
+                </div>
+
+
+
             </div>
-        </c:if>
+        </div></div><c:if test="${empty principalReview and school.levelCode != 'p'}">
+    <div class="mod standard_3-1">
+        <div class="outer">
+            <div class="inner">
+                <div class="bd">
+                    <div class="media">
+                        <span class="sprite pencil_med img mrm"><!-- do not collapse --></span>
 
-        <c:set var="reviewsPagination">
-            <c:set var="paginationUrl" value="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page')}"/>
-            <c:set var="paginationUrl" value="${gsweb:putQueryParamIntoUrl(paginationUrl, 'tab', 'reviews')}"/>
-            <c:set var="paginationUrl" value="${gsweb:putQueryParamIntoUrl(paginationUrl, 'sortBy', cmd.sortBy)}"/>
-            <c:if test="${!empty reviewsByCsv}">
-                <c:set var="paginationUrl" value="${gsweb:putQueryParamIntoUrl(paginationUrl, 'reviewsBy', reviewsByCsv)}"/>
+                        <div class="bd"><h4 class="bottom">Are you<br/>the principal?</h4>
+                            <link:schoolEspRegister styleClass="bottom small no_interrupt" styleId="espLink">Complete your school's profile&amp;#187;</link:schoolEspRegister>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:if></div>
+<!-- end reviewColumn1 -->
+<div class="grid_11 omega">
+    <school:profileSchoolReviewForm school="${school}" pageName="profileReviews"/>
+</div>
+<!-- end reviewColumn2 -->
+<div class="spacer_15"><!-- do not collapse --></div>
+<div class="grid_16 alpha omega" >
+
+<c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
+<c:if test="${not empty principalReview}">
+    <div id="principalsPOV">
+        <h4 class="text1bold">The Principal's point of view</h4>
+
+        <div class="spacer_5"><!-- do not collapse --></div>
+        <div class="principalsIMG">
+            <c:if test="${not empty principalReview.user and
+                            not empty principalReview.user.userProfile and principalReview.user.userProfile.active}">
+                <link:userProfile user="${principalReview.user}">
+                    <community:avatar user="${principalReview.user}" width="46" height="46"/>
+                </link:userProfile>
             </c:if>
-            <community:pagination page="${page}"
-                                  totalPages="${reviewsTotalPages}"
-                                  url="${paginationUrl}"
-                                  styleClass="pagination"
-                                  pageNumberStyleClass="pager-tab"
-                    />
-        </c:set>
+        </div>
+        <c:choose>
+            <c:when test="${principalReview.who eq 'principal' and not empty principalReview.user and
+                            not empty principalReview.user.userProfile and principalReview.user.userProfile.active}">
+                <c:set var="principalName" value="${principalReview.user.firstName}"/>
+                <c:if test="${not empty (principalReview.user.lastName)}">
+                    <c:set var="principalName" value="${principalName} ${principalReview.user.lastName}"/>
+                </c:if>
 
-        <c:if test="${cmd.totalReviews gt 0}">
-        <div class="spacer_15"><!-- do not collapse --></div>
-      <div class="grid_16 alpha omega ptl">
+                <p class="principalName text3">
+                    <link:userProfile user="${principalReview.user}">${principalName}</link:userProfile>
+                    <span class="smallText1">, ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</span>
+                </p>
+            </c:when>
+            <c:otherwise>
+                <p class="small">Posted ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</p>
+            </c:otherwise>
+        </c:choose>
+        <gsml:ifUserCanDeleteContent pageUser="${validUser}">
+            <c:choose>
+                <c:when test="${principalReview.status eq 'd'}">
+                    (deleted)
+                    | <a href="javascript:void(0);" class="enableLink link"
+                         onclick="enableReview(${principalReview.id}); return false;">Enable</a>
+                </c:when>
+                <c:when test="${principalReview.status eq 'p'}">
+                    | <a href="javascript:void(0);" class="disableLink link"
+                         onclick="disableReview(${principalReview.id}); return false;">Disable</a>
+                </c:when>
+            </c:choose>
+        </gsml:ifUserCanDeleteContent>
+
+        <p class="text3">
+            <c:set var="escapedComments">
+                <c:out value="${principalReview.comments}" escapeXml="true"/>
+            </c:set>
+            ${escapedComments}
+        </p>
+
+        <div class="clearfloat"><!-- do not collapse --></div>
+    </div>
+</c:if>
+
+<c:set var="reviewsPagination">
+    <c:set var="paginationUrl" value="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page')}"/>
+    <c:set var="paginationUrl" value="${gsweb:putQueryParamIntoUrl(paginationUrl, 'tab', 'reviews')}"/>
+    <c:set var="paginationUrl" value="${gsweb:putQueryParamIntoUrl(paginationUrl, 'sortBy', cmd.sortBy)}"/>
+    <c:if test="${!empty reviewsByCsv}">
+        <c:set var="paginationUrl" value="${gsweb:putQueryParamIntoUrl(paginationUrl, 'reviewsBy', reviewsByCsv)}"/>
+    </c:if>
+    <community:pagination page="${page}"
+                          totalPages="${reviewsTotalPages}"
+                          url="${paginationUrl}"
+                          styleClass="pagination"
+                          pageNumberStyleClass="pager-tab"
+            />
+</c:set>
+
+<c:if test="${cmd.totalReviews gt 0}">
+    <div class="spacer_15"><!-- do not collapse --></div>
+    <div class="grid_16 alpha omega ptm">
         <div id="revPagination">
             <div class="fl">
                 <h3 class="subhead2 mbs">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h3>
@@ -259,62 +259,62 @@
 
 
 
-            <hr class="mvm" />
+        <div class="mvm"><hr class="keyline1" /></div>
         <div class="spacer_15"><!-- do not collapse --></div>
         <!--<div class="line">-->
-            <div id="rankSort" class="alpha grid_6">
-                <span class="smallText1">Sort by: </span>
-                <c:set var="sortUrl" value="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}"/>
-                <form:select path="cmd.sortBy" cssClass="sortReviews smallText1" id="sltRatingSort" action="${sortUrl}">
-                    <form:option value="dd">Date: newest to oldest</form:option>
-                    <form:option value="da">Date: oldest to newest</form:option>
-                    <form:option value="rd">Rating: highest to lowest</form:option>
-                    <form:option value="ra">Rating: lowest to highest</form:option>
-                </form:select>
-            </div>
-            <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
-                <div id="typeSort"  class="omega grid_10 tar">
-                    <form id="showReviews" class="small" action="">
-                        <span>Show reviews by: </span>
-                        <c:if test="${numParentReviews gt 0}">
-                            <c:choose>
-                                <c:when test="${fn:contains(reviewsByCsv,'p')}">
-                                    <input type="checkbox" id="showParents" checked="checked" />
-                                </c:when>
-                                <c:otherwise>
-                                    <input type="checkbox" id="showParents" />
-                                </c:otherwise>
-                            </c:choose>
-                            <label for="showParents" class="small">Parents</label>
-                        </c:if>
-                        <c:if test="${numStudentReviews gt 0}">
-                            <c:choose>
-                                <c:when test="${fn:contains(reviewsByCsv,'s')}">
-                                    <input type="checkbox" id="showStudents" />
-                                </c:when>
-                                <c:otherwise>
-                                    <input type="checkbox" id="showStudents" />
-                                </c:otherwise>
-                            </c:choose>
-                            <label for="showStudents" class="small">Students</label>
-                        </c:if>
-                        <c:if test="${numTeacherStaffReviews gt 0}">
-                            <c:choose>
-                                <c:when test="${fn:contains(reviewsByCsv,'t')}">
-                                    <input type="checkbox" id="showTeachers" checked="checked" />
-                                </c:when>
-                                <c:otherwise>
-                                    <input type="checkbox" id="showTeachers" />
-                                </c:otherwise>
-                            </c:choose>
-                            <label for="showTeachers" class="small">Teachers/Staff</label>
-                        </c:if>
-                    </form>
-                </div>
-            </c:if>
+        <div id="rankSort" class="alpha grid_6">
+            <span class="small">Sort by: </span>
+            <c:set var="sortUrl" value="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}"/>
+            <form:select path="cmd.sortBy" cssClass="sortReviews small" id="sltRatingSort" action="${sortUrl}">
+                <form:option value="dd">Date: newest to oldest</form:option>
+                <form:option value="da">Date: oldest to newest</form:option>
+                <form:option value="rd">Rating: highest to lowest</form:option>
+                <form:option value="ra">Rating: lowest to highest</form:option>
+            </form:select>
         </div>
-      <!--</div>-->
-            <div class="grid_16 alpha omega ptl">
+        <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
+            <div id="typeSort"  class="omega grid_10 tar">
+                <form id="showReviews" class="small" action="">
+                    <span>Show reviews by: </span>
+                    <c:if test="${numParentReviews gt 0}">
+                        <c:choose>
+                            <c:when test="${fn:contains(reviewsByCsv,'p')}">
+                                <input type="checkbox" id="showParents" checked="checked" class="mlm" />
+                            </c:when>
+                            <c:otherwise>
+                                <input type="checkbox" id="showParents" class="mlm" />
+                            </c:otherwise>
+                        </c:choose>
+                        <label for="showParents" class="small">Parents</label>
+                    </c:if>
+                    <c:if test="${numStudentReviews gt 0}">
+                        <c:choose>
+                            <c:when test="${fn:contains(reviewsByCsv,'s')}">
+                                <input type="checkbox" id="showStudents" class="mlm" />
+                            </c:when>
+                            <c:otherwise>
+                                <input type="checkbox" id="showStudents" class="mlm" />
+                            </c:otherwise>
+                        </c:choose>
+                        <label for="showStudents" class="small">Students</label>
+                    </c:if>
+                    <c:if test="${numTeacherStaffReviews gt 0}">
+                        <c:choose>
+                            <c:when test="${fn:contains(reviewsByCsv,'t')}">
+                                <input type="checkbox" id="showTeachers" checked="checked" class="mlm" />
+                            </c:when>
+                            <c:otherwise>
+                                <input type="checkbox" id="showTeachers" class="mlm" />
+                            </c:otherwise>
+                        </c:choose>
+                        <label for="showTeachers" class="small">Teachers/Staff</label>
+                    </c:if>
+                </form>
+            </div>
+        </c:if>
+    </div>
+    <!--</div>-->
+    <div class="grid_16 alpha omega ptl">
         <c:forEach var="review" items="${reviewsToShow}">
             <c:set var="who" value=""/>
             <c:if test="${!(empty(review.who) or review.who eq 'other')}">
@@ -335,8 +335,8 @@
                                     <c:set var="curStarRating" value="${review.POverall.name}"/>
                                 </c:if>
                                 <c:if test="${curStarRating ne 'decline'}">
-                                <!--<span class="sprite stars_lg_${curStarRating} img mrm vam"-->
-                                      <!--title="${curStarRating} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                                    <!--<span class="sprite stars_lg_${curStarRating} img mrm vam"-->
+                                    <!--title="${curStarRating} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                                     <div class="prm fl"><ratings:stars curSR="${curStarRating}"/></div>
                                     <!--<div class="prm">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                                 </c:if>
@@ -372,8 +372,8 @@
                                         <div class="bd">
                                             <div class="dib"><div class="iconx16 i-16-flag mrs"><!-- do not collapse --></div></div>
                                             <div class="dib vat"><a class="reportIt small" href="${loginRedirectUrl}"
-                                               onclick="return false;"
-                                               id="report_schoolReview_${review.id}">Report it</a></div>
+                                                                    onclick="return false;"
+                                                                    id="report_schoolReview_${review.id}">Report it</a></div>
                                         </div>
                                     </div>
                                 </c:otherwise>
@@ -412,7 +412,7 @@
             <!-- end: review -->
 
 
-            <hr class="mbl" />
+            <div class="mvm"><hr class=" keyline2 " /></div>
         </c:forEach>
 
         <div class="spacer_10"><!-- do not collapse --></div>
@@ -420,16 +420,16 @@
         <div class="fr">
             ${reviewsPagination}
         </div>
-                <c:set var="addSpacingBelow" value="" />
-                <c:if test="${!empty reviewsPagination}">
-                    <c:set var="addSpacingBelow" value="mbl" />
-                </c:if>
-        <div class="${addSpacingBelow}" style="clear: both;"><!-- do not collapse --></div>
-            </div>
+        <c:set var="addSpacingBelow" value="" />
+        <c:if test="${!empty reviewsPagination}">
+            <c:set var="addSpacingBelow" value="mbl" />
         </c:if>
+        <div class="${addSpacingBelow}" style="clear: both;"><!-- do not collapse --></div>
+    </div>
+</c:if>
 
-    </div>
-    </div>
+</div>
+</div>
 ${aboutTheseRatings}
 
 <script type="text/javascript">
