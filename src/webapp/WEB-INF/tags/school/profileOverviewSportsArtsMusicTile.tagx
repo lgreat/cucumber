@@ -25,13 +25,13 @@
         <c:set var="t19t20t21dc">
             <div class="line pvs plm">
                 <div class="unit size50of100">
-                    <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-awards vam"><!-- do not collapse --></span> Sports</p>
+                    <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-sports vam"><!-- do not collapse --></span> Sports</p>
                 </div>
                 <div class="unit size25of100">
-                    <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-awards vam"><!-- do not collapse --></span> Arts</p>
+                    <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-arts vam"><!-- do not collapse --></span> Arts</p>
                 </div>
                 <div class="unit size25of100 lastUnit">
-                    <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-awards vam"><!-- do not collapse --></span> Music</p>
+                    <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-music vam"><!-- do not collapse --></span> Music</p>
                 </div>
             </div>
         </c:set>
