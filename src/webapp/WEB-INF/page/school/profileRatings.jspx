@@ -113,7 +113,8 @@
                 <div class="bd pam">
                     <p class="small mbl">
                         ${section3Copy}
-                        <c:if test="${postSecondaryReadinessRating != null and not empty section3CopyPostSecondaryReadiness}">
+                        <!--TODO Is this needed-->
+                        <c:if test="${schoolPostSecondaryReadinessRating != null and not empty section3CopyPostSecondaryReadiness}">
                             ${section3CopyPostSecondaryReadiness}
                         </c:if>
                     </p>
@@ -159,15 +160,15 @@
                         <hr class="keyline2"/>
                     </c:if>
 
-                    <c:if test="${postSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
+                    <c:if test="${schoolPostSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
                         <div class="pbm ptm">
                             <h6 class="mtm medium_bold bottom pbm">Post-secondary readiness rating ${postSecondaryReadinessRatingYear}***</h6>
 
                             <profile:ratingsBarChart ratingDivId="ratingTestResults3"
-                                                          schoolRating="${postSecondaryReadinessRating}"
-                                                          cityRating=""
-                                                          stateRatingShow="false"
-                                                          stateRating="" />
+                                                          schoolRating="${schoolPostSecondaryReadinessRating}"
+                                                          cityRating="${cityPostSecondaryReadinessRating}"
+                                                          stateRatingShow="${showStatePostSecondaryReadinessRating}"
+                                                          stateRating="${statePostSecondaryReadinessRating}" />
                         </div>
 
                         <hr class="keyline2"/>
@@ -181,7 +182,7 @@
                         <p class="smaller bottom">**${studentGrowthRatingSource}</p>
                     </c:if>
 
-                    <c:if test="${postSecondaryReadinessRating != null and not empty postSecondaryReadinessSource}">
+                    <c:if test="${schoolPostSecondaryReadinessRating != null and not empty postSecondaryReadinessSource}">
                         <p class="smaller bottom">***${postSecondaryReadinessSource}</p>
                     </c:if>
 

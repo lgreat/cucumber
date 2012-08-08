@@ -553,6 +553,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     static {
         STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_ACHIEVEMENT);
         STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_VALUE_ADDED);
+        STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS);
     }
 // ===================== DATA ===================================
 
@@ -569,7 +570,8 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     public static final String DATA_STATE_STUDENT_GROWTH_RATING = "stateStudentGrowthRating"; // TestDataType.id = 165
 
     public static final String DATA_POST_SECONDARY_READINESS_RATING_YEAR = "postSecondaryReadinessRatingYear"; // TestDataType.id = 166 (TestDataSchoolValue.year)
-    public static final String DATA_POST_SECONDARY_READINESS_RATING = "postSecondaryReadinessRating"; // TestDataType.id = 166
+    public static final String DATA_SCHOOL_POST_SECONDARY_READINESS_RATING = "schoolPostSecondaryReadinessRating"; // TestDataType.id = 166
+    public static final String DATA_STATE_POST_SECONDARY_READINESS_RATING = "statePostSecondaryReadinessRating"; // TestDataType.id = 166
 
     public static final String DATA_CLIMATE_RATING_NUM_RESPONSES = "climateRatingNumResponses"; // TestDataType.id = 173 (TestDataSchoolValue.number_tested)
     public static final String DATA_SCHOOL_ENVIRONMENT_RATING = "schoolEnvironmentRating"; // TestDataType.id = 172
@@ -647,7 +649,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                         break;
                     case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS:
                         dataMap.put(DATA_POST_SECONDARY_READINESS_RATING_YEAR, value.getDataSet().getYear());
-                        dataMap.put(DATA_POST_SECONDARY_READINESS_RATING, value.getValueFloat().intValue());
+                        dataMap.put(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING, value.getValueFloat().intValue());
                         break;
 
                     // climate ratings
@@ -683,6 +685,9 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                             break;
                         case TestDataType.RATING_ACADEMIC_VALUE_ADDED:
                             dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
+                            break;
+                        case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS:
+                            dataMap.put(DATA_STATE_POST_SECONDARY_READINESS_RATING, value.getValueFloat().intValue());
                             break;
                     }
                 }

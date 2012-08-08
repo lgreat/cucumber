@@ -147,7 +147,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_SHOW_STATE_STUDENT_GROWTH_RATING = "showStateStudentGrowthRating";
 
     public static final String MODEL_POST_SECONDARY_READINESS_RATING_YEAR = "postSecondaryReadinessRatingYear";
-    public static final String MODEL_POST_SECONDARY_READINESS_RATING = "postSecondaryReadinessRating";
+    public static final String MODEL_SCHOOL_POST_SECONDARY_READINESS_RATING = "schoolPostSecondaryReadinessRating";
+    public static final String MODEL_CITY_POST_SECONDARY_READINESS_RATING = "cityPostSecondaryReadinessRating";
+    public static final String MODEL_STATE_POST_SECONDARY_READINESS_RATING = "statePostSecondaryReadinessRating";
+    public static final String MODEL_SHOW_STATE_POST_SECONDARY_READINESS_RATING  = "showStatePostSecondaryReadinessRating";
 
     public static final String MODEL_TEST_SCORE_RATING_SOURCE = "testScoreRatingSource";
 
@@ -183,7 +186,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String DATA_STATE_STUDENT_GROWTH_RATING = "stateStudentGrowthRating"; // TestDataType.id = 165
 
     public static final String DATA_POST_SECONDARY_READINESS_RATING_YEAR = "postSecondaryReadinessRatingYear"; // TestDataType.id = 166 (TestDataSchoolValue.year)
-    public static final String DATA_POST_SECONDARY_READINESS_RATING = "postSecondaryReadinessRating"; // TestDataType.id = 166
+    public static final String DATA_SCHOOL_POST_SECONDARY_READINESS_RATING = "schoolPostSecondaryReadinessRating"; // TestDataType.id = 166
+    public static final String DATA_CITY_POST_SECONDARY_READINESS_RATING = "cityPostSecondaryReadinessRating"; // TBD
+    public static final String DATA_STATE_POST_SECONDARY_READINESS_RATING = "statePostSecondaryReadinessRating"; // TestDataType.id = 166
 
     public static final String DATA_CLIMATE_RATING_NUM_RESPONSES = "climateRatingNumResponses"; // TestDataType.id = 173 (TestDataSchoolValue.number_tested)
     public static final String DATA_SCHOOL_ENVIRONMENT_RATING = "schoolEnvironmentRating"; // TestDataType.id = 172
@@ -209,7 +214,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         Map<String,Object> dataMap;
         // TODO-13012 switch this to default to getData, or get rid of any way to call getSampleData()
-        if (StringUtils.isBlank(src) || "sample".equals(src)) {
+        if ("sample".equals(src)) {
             // sample data
             dataMap = getSampleData();
         } else {
@@ -267,6 +272,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     case TestDataType.RATING_ACADEMIC_VALUE_ADDED :
                         dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, new Float(rating.getRating()).intValue());
                         break;
+                    case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS :
+                        dataMap.put(DATA_CITY_POST_SECONDARY_READINESS_RATING, new Float(rating.getRating()).intValue());
+                        break;
                 }
             }
         }
@@ -294,7 +302,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, 3);
 
         dataMap.put(DATA_POST_SECONDARY_READINESS_RATING_YEAR, 2012);
-        dataMap.put(DATA_POST_SECONDARY_READINESS_RATING, 8);
+        dataMap.put(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING, 8);
+        dataMap.put(DATA_CITY_POST_SECONDARY_READINESS_RATING, 3);
+        dataMap.put(DATA_STATE_POST_SECONDARY_READINESS_RATING, 4);
 
         dataMap.put(DATA_CLIMATE_RATING_NUM_RESPONSES, 16);
 
@@ -411,7 +421,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         // post-secondary readiness ratings
 
-        model.putAll(getPostSecondaryReadinessRatingsModel(school, dataMap));
+        boolean showStatePostSecondaryReadinessGrowthRating = isShowStatePostSecondaryReadinessRating(school.getDatabaseState());
+        model.put(MODEL_SHOW_STATE_POST_SECONDARY_READINESS_RATING, showStatePostSecondaryReadinessGrowthRating);
+        model.putAll(getPostSecondaryReadinessRatingsModel(school, showStatePostSecondaryReadinessGrowthRating, dataMap));
 
         // SECTION 3 SOURCES
 
@@ -429,6 +441,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     }
 
     public static boolean isShowStateStudentGrowthRating(State state) {
+        return !State.DC.equals(state);
+    }
+
+    //TODO is this needed?
+    public static boolean isShowStatePostSecondaryReadinessRating(State state) {
         return !State.DC.equals(state);
     }
 
@@ -467,15 +484,19 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
-    public static Map<String,Object> getPostSecondaryReadinessRatingsModel(School school, Map<String,Object> dataMap) {
+    public static Map<String,Object> getPostSecondaryReadinessRatingsModel(School school,boolean showStateRating, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
 
-        if (dataMap.containsKey(DATA_POST_SECONDARY_READINESS_RATING) &&
+        if (dataMap.containsKey(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING) &&
                 school.getLevelCode() != null &&
                 school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
 
             model.put(MODEL_POST_SECONDARY_READINESS_RATING_YEAR, dataMap.get(DATA_POST_SECONDARY_READINESS_RATING_YEAR));
-            model.put(MODEL_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_POST_SECONDARY_READINESS_RATING));
+            model.put(MODEL_SCHOOL_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING));
+            model.put(MODEL_CITY_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_CITY_POST_SECONDARY_READINESS_RATING));
+            if (showStateRating) {
+                model.put(MODEL_STATE_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_STATE_POST_SECONDARY_READINESS_RATING));
+            }
         }
             
         return model;
