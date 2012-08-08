@@ -4,6 +4,7 @@ import gs.data.school.School;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.util.UrlBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,6 +36,9 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
         // TODO: Audit SchoolOverview2010Controller and refactor all shared logic such as number1expert cobrand.  The
         // new profile and old profile will coexist side by side for a while, so they need to share code.
+        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+        String fullCanonicalUrl = urlBuilder.asFullUrl(request);
+        model.put("relCanonical", fullCanonicalUrl);
 
         model.put("schoolEnrollment", _schoolProfileDataHelper.getEnrollment(request));
 
