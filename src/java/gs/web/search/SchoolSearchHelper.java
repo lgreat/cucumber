@@ -56,11 +56,10 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
     protected static String getOmniturePageName(HttpServletRequest request, int currentPage, int totalResults,
                                                 boolean foundDidYouMeanSuggestions) {
         String pageName = "";
-
-        String paramMap = request.getParameter("map");
+        String map = ("map".equals(request.getParameter("view"))) ? "Map" : "";
 
         if (totalResults > 0) {
-            pageName = "School Search:Page" + currentPage;
+            pageName = "School Search:" + map + "Page" + currentPage;
         } else {
             String pageNamePartTwo = null;
             if (foundDidYouMeanSuggestions) {
@@ -68,7 +67,7 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
             } else {
                 pageNamePartTwo = "noresults";
             }
-            pageName = "School Search:" + pageNamePartTwo;
+            pageName = "School Search:" + pageNamePartTwo + map;
         }
         return pageName;
     }
@@ -83,21 +82,22 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         if (totalResults > 0) {
             hierarchy = "Search,School Search," + currentPage;
         } else {
-            String hierarchyPartTwo;
-            if (hasCityResults) {
-                if (hasDistrictResults) {
-                    hierarchyPartTwo = "City and District only";
-                } else {
-                    hierarchyPartTwo = "City only";
-                }
-            } else {
-                if (hasDistrictResults) {
-                    hierarchyPartTwo = "District Only";
-                } else {
-                    hierarchyPartTwo = "Pagenoresults";
-                }
-            }
+            String hierarchyPartTwo = "Pagenoresults";
             hierarchy = "Search,School Search," + hierarchyPartTwo;
+        }
+        return hierarchy;
+    }
+
+    protected static String getMapOmnitureHierarchy(int currentPage, int totalResults,
+                                                 List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
+        String hierarchy = "";
+
+        if (totalResults > 0) {
+            hierarchy = "Search,School Search,Map" + currentPage;
+
+        } else {
+            String hierarchyPartTwo = "Pagenoresults";
+            hierarchy = "Search,School Search,Map" + hierarchyPartTwo;
         }
         return hierarchy;
     }
@@ -108,7 +108,13 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         Map<String,Object> model = new HashMap<String,Object>();
         RequestedPage requestedPage = commandAndFields.getRequestedPage();
         String omniturePageName = getOmniturePageName(request, requestedPage.pageNumber, totalResults, isDidYouMeanResults);
-        String omnitureHierarchy = getOmnitureHierarchy(requestedPage.pageNumber, totalResults, citySearchResults, districtSearchResults);
+        String omnitureHierarchy = "";
+        if("map".equals(request.getParameter("view"))){
+            omnitureHierarchy = getMapOmnitureHierarchy(requestedPage.pageNumber, totalResults, citySearchResults, districtSearchResults);
+        }
+        else {
+            omnitureHierarchy = getOmnitureHierarchy(requestedPage.pageNumber, totalResults, citySearchResults, districtSearchResults);
+        }
         model.put(MODEL_OMNITURE_PAGE_NAME, omniturePageName);
         model.put(MODEL_OMNITURE_HIERARCHY, omnitureHierarchy);
         return model;

@@ -43,25 +43,29 @@
                 <div class="unit ${nameSearchWidth}">
                     <mod:sortArrow columnName="Name"
                             sortList="SCHOOL_NAME_ASCENDING,SCHOOL_NAME_DESCENDING"
-                            currentSort="${commandAndFields.fieldSort.name}"/>
+                            currentSort="${commandAndFields.fieldSort.name}"
+                            customLink="Search_Sort_by_Name_Column"/>
                 </div>
                 <c:if test="${not empty param.zipCode or not empty param.lat}">
                     <div class="unit ${distanceSearchWidth} mlm">
                         <mod:sortArrow columnName="Distance"
                                 sortList="DISTANCE,DISTANCE_DESCENDING"
-                                currentSort="${commandAndFields.fieldSort.name}"/>
+                                currentSort="${commandAndFields.fieldSort.name}"
+                                customLink="Search_Sort_by_Distance_Column"/>
                     </div>
                 </c:if>
                 <div class="unit ${ratingSearchWidth} mlm">
                     <mod:sortArrow columnName="Greatschools Rating"
                             sortList="GS_RATING_DESCENDING,GS_RATING_ASCENDING"
-                            currentSort="${commandAndFields.fieldSort.name}"/>
+                            currentSort="${commandAndFields.fieldSort.name}"
+                            customLink="Search_Sort_by_GSRatings_Column"/>
 
                 </div>
                 <div class="unit ${communitySearchWidth} mlm">
                     <mod:sortArrow columnName="Community Rating"
                             sortList="PARENT_RATING_DESCENDING,PARENT_RATING_ASCENDING"
-                            currentSort="${commandAndFields.fieldSort.name}"/>
+                            currentSort="${commandAndFields.fieldSort.name}"
+                            customLink="Search_Sort_by_CommRatings_Column"/>
                 </div>
                 <div class="unit ${photoSearchWidth} lastUnit mlm">
                     <a href="javascript:void(0);"><!-- do not collapse --></a>

@@ -817,7 +817,23 @@ that this is updated for ajax refresh -->
 
 </div>
 
+<c:set var="omnitureLocale"><c:choose>
+    <c:when test="${isCityBrowse}">${city.name}</c:when>
+    <c:when test="${isDistrictBrowse}">${district.name}</c:when>
+    <c:otherwise>${null}</c:otherwise>
+</c:choose></c:set>
 
-<mod:tracking pageName="school search map page"/>
+<mod:tracking pageName="${omniturePageName}"
+              query="${omnitureQuery}"
+              hier1="${omnitureHierarchy}"
+              schoolType="${omnitureSchoolType}"
+              schoolLevel="${omnitureSchoolLevel}"
+              sortSelection="${omnitureSortSelection}"
+              distanceRadius="${commandAndFields.schoolSearchCommand.distance}"
+              resultsPerPage="${omnitureResultsPerPage}"
+              findASchoolByAddress="${omnitureAddressSearch}"
+              findASchoolByName="${omnitureNameSearch}"
+              locale="${omnitureLocale}"
+        />
 </gsml:body>
 </jsp:root>

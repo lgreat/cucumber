@@ -29,7 +29,9 @@ public class SchoolSearchCommonHelper extends AbstractSchoolSearchHelper {
         Map<String,Object> map = new HashMap<String,Object>();
         String[] schoolSearchTypes = commandAndFields.getSchoolTypes();
         boolean sortChanged = commandAndFields.getSchoolSearchCommand().isSortChanged();
-        String omnitureQuery = commandAndFields.isSearch()? getOmnitureQuery(commandAndFields.getSearchString()) : null;
+        String searchString = (commandAndFields.getSearchString() != null) ? commandAndFields.getSearchString() :
+                commandAndFields.getSchoolSearchCommand().getLocationSearchString();
+        String omnitureQuery = commandAndFields.isSearch()? getOmnitureQuery(searchString) : null;
         map.put(MODEL_OMNITURE_QUERY, omnitureQuery);
         map.put(MODEL_OMNITURE_SCHOOL_TYPE, getOmnitureSchoolType(schoolSearchTypes));
         map.put(MODEL_OMNITURE_SCHOOL_LEVEL, getOmnitureSchoolLevel(commandAndFields.getLevelCode()));
@@ -59,7 +61,7 @@ public class SchoolSearchCommonHelper extends AbstractSchoolSearchHelper {
         // currently, there's no url that will take you to a page with all school type filters unchecked,
         // for which we should be logging "nothing checked" in Omniture;
         // that's why the code here doesn't ever return it. it can be implemented if we ever add such a url
-        if (schoolSearchTypes == null || schoolSearchTypes.length == 3) {
+        if (schoolSearchTypes == null) {
             return null;
         } else {
             return StringUtils.join(schoolSearchTypes, ",");
@@ -70,7 +72,7 @@ public class SchoolSearchCommonHelper extends AbstractSchoolSearchHelper {
         // currently, there's no url that will take you to a page with all level code filters unchecked,
         // for which we should be logging "nothing checked" in Omniture;
         // that's why the code here doesn't ever return it. it can be implemented if we ever add such a url
-        if (levelCode != null && !levelCode.equals(LevelCode.ALL_LEVELS)) {
+        if (levelCode != null) {
             return levelCode.getCommaSeparatedString();
         }
         return null;
@@ -102,11 +104,7 @@ public class SchoolSearchCommonHelper extends AbstractSchoolSearchHelper {
                 resultsPerPage = "50";
                 break;
             case 100:
-                if (totalResults <= 100) {
-                    resultsPerPage = "All";
-                } else {
-                    resultsPerPage = "100";
-                }
+                resultsPerPage = "100";
                 break;
         }
         return resultsPerPage;

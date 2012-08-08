@@ -11,15 +11,17 @@
           xmlns:spring="http://www.springframework.org/tags/form" xmlns:form="http://www.springframework.org/tags/form"
         >
 <div id="findASchoolTabs" class="mod standard_6-1">
+    <c:set var="onclickLocation">if (s.tl) {s.tl(true,'o', 'Search_location_tab_click');} return true;</c:set>
+    <c:set var="onclickName">if (s.tl) {s.tl(true,'o', 'Search_name_tab_click');} return true;</c:set>
 
     <c:set var="byLocation" value="${commandAndFields.nearbySearch or isCityBrowse or isDistrictBrowse ? true : false}" property="java.lang.Boolean"/>
     <div class="bd gsTabs">
     <ul class="tabStyle-4">
-        <li><a id="js-byLocationTab" class="${byLocation ? 'selected':''}">By location</a>
+        <li><a id="js-byLocationTab" class="${byLocation ? 'selected':''}" onclick="${onclickLocation}" >By location</a>
             <div id="arrowdiv" class="${byLocation ? 'selected':''} arrowdiv"><!--Do not collapse--></div>
 
         </li>
-        <li class="mlm"><a id="js-byNameTab" class="${!byLocation ? 'selected':''}">By name</a>
+        <li class="mlm"><a id="js-byNameTab" class="${!byLocation ? 'selected':''}" onclick="${onclickName}">By name</a>
             <div id="arrowdiv"  class="down-pointer ${!byLocation ? 'selected':''} arrowdiv"><!--Do not collapse--></div>
 
         </li>

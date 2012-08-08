@@ -8,6 +8,7 @@
     <jsp:directive.attribute name="sortList" required="true" type="java.lang.String" />
     <jsp:directive.attribute name="currentSort" required="true" type="java.lang.String" />
     <jsp:directive.attribute name="columnName" required="true" type="java.lang.String" />
+    <jsp:directive.attribute name="customLink" required="false" type="java.lang.String" />
 
     <c:set var="blackTriangleDown" value="i-16-sort-list-arrow-down"/>
     <c:set var="whiteTriangleDown" value="i-16-white-space"/>
@@ -38,7 +39,7 @@
             </c:choose>
         </c:otherwise>
     </c:choose>
-    <a href="javascript:void(0);" class="${linkClass}" data-gs-sort-toggle="${sortList}">
+    <a href="javascript:void(0);" class="${linkClass}" data-gs-sort-toggle="${sortList}" data-gs-custom-link="${customLink}">
         ${columnName}
         <span class="iconx16 ${triangle} vam"><!--Do not collapse--></span>
     </a>

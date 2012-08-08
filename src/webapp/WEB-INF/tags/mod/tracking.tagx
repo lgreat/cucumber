@@ -150,6 +150,10 @@
         name="gradeLevelFilter"
         description="The grade level filter for the district boundaries tool"
         required="false"/>
+    <jsp:directive.attribute
+        name="distanceRadius"
+        description="The distance set for by location search"
+        required="false"/>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
@@ -258,6 +262,7 @@
             s.prop41 = clickCapture.getProp(41,"${contentSearchQuery}");
             s.prop45 = clickCapture.getProp(45,"${boundariesSearchQuery}");
             s.prop46 = clickCapture.getProp(46,"${gradeLevelFilter}");
+            s.prop47 = clickCapture.getProp(47,"${distanceRadius}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";

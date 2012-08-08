@@ -250,6 +250,10 @@ GS.map.getMap = GS.map.getMap ||(function(){
                     }
                     showInfoBox(marker, infoBoxInstance, schoolIdentifier);
                     scrollSchoolList();
+
+                    if (s.tl) {
+                        s.tl(true, 'o', 'SearchResults_Map_School_Pin_Click');
+                    }
                 }
             })(marker, i, schoolIdentifier));
 
@@ -317,6 +321,10 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 $redoSearch.hide();
             }
         });
+
+        if (s.tl) {
+            s.tl(true, 'o', 'SearchResults_Map_Redo_Search');
+        }
     };
 
     var changeCompareLabelToLink = function(state, schoolId) {

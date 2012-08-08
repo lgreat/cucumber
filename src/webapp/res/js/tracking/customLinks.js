@@ -16,18 +16,17 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
 
         $container.on('click', customLinkSelector, function() {
             var $this = $(this);
-            var track = false;
 
-            if ($this.is(':checkbox') || $this.is(':radio')) {
-                if ($this.prop('checked') === true) {
-                    track = true;
+            if (s.tl) {
+                if($this.hasClass('jq-school-type') || $this.hasClass('jq-grade-level')) {
+                    if($this.is(':checked')) {
+                        s.tl(true,'o', $this.data(customLinkDataAttribute) + '_check', {});
+                    }
+                    else {
+                        s.tl(true,'o', $this.data(customLinkDataAttribute) + '_uncheck', {});
+                    }
                 }
-            } else {
-                track = true;
-            }
-
-            if (track === true) {
-                if (s.tl) {
+                else {
                     s.tl(true, 'o', $this.data(customLinkDataAttribute));
                 }
             }

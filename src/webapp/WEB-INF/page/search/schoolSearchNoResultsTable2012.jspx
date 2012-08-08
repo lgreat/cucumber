@@ -10,7 +10,7 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-    <search:schoolSearchNoResultsTable2012/>
+    <search:schoolSearchNoResultsTable2012 omniturePageName="${pageScope.omniturePageName}"/>
 
 
 </jsp:root>

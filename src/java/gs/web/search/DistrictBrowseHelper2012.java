@@ -75,25 +75,42 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
     public Map<String,Object> getOmnitureHierarchyAndPageName(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, int totalResults) {
         Map<String,Object> model = new HashMap<String,Object>();
         RequestedPage requestedPage = commandAndFields.getRequestedPage();
-        String omniturePageName = getOmniturePageName(request, requestedPage.pageNumber);
-        String omnitureHierarchy = getOmnitureHierarchy(requestedPage.pageNumber, totalResults);
+        String omniturePageName = getOmniturePageName(request, requestedPage.pageNumber, totalResults);
+        String omnitureHierarchy = "";
+        if("map".equals(request.getParameter("view"))) {
+            omnitureHierarchy = getOmnitureMapHierarchy(requestedPage.pageNumber, totalResults);
+        }
+        else {
+            omnitureHierarchy = getOmnitureHierarchy(requestedPage.pageNumber, totalResults);
+        }
         model.put(MODEL_OMNITURE_PAGE_NAME, omniturePageName);
         model.put(MODEL_OMNITURE_HIERARCHY, omnitureHierarchy);
         return model;
     }
 
     public String getOmnitureHierarchy(int currentPage, int totalResults) {
-        String hierarchy = "Search,Schools,District," + (totalResults > 0 ? currentPage : "noresults");
+        String hierarchy = "Search,Schools,District," + currentPage;
         
         return hierarchy;
     }
 
-    protected String getOmniturePageName(HttpServletRequest request, int currentPage) {
+    public String getOmnitureMapHierarchy(int currentPage, int totalResults) {
+        String hierarchy = "Search,Schools,District,Map" + currentPage;
+
+        return hierarchy;
+    }
+
+    protected String getOmniturePageName(HttpServletRequest request, int currentPage, int totalResults) {
         String pageName = "";
 
-        String paramMap = request.getParameter("map");
+        String map = "map".equals(request.getParameter("view")) ? "Map" : "";
 
-        pageName = "schools:district:" + currentPage + ("1".equals(paramMap) ? ":map" : "");
+        if(totalResults > 0) {
+            pageName = "schools:district:" + map + currentPage;
+        }
+        else {
+            pageName = "schools:district:noresults" + map;
+        }
 
         return pageName;
     }

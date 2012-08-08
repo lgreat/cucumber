@@ -244,6 +244,9 @@ GS.search.results = GS.search.results || (function() {
         var queryStringData = GS.uri.Uri.getQueryData(queryString);
 
         mapSearch(1, 25, queryStringData);
+        if (s) {
+            s.prop15 = clickCapture.getProp(15,$('#map-sort').val());
+        }
     };
 
     var page = function(pageNumber, pageSize) {
@@ -310,6 +313,10 @@ GS.search.results = GS.search.results || (function() {
                 else{
                     jQuery("#js_totalResultsCountReturn").popover('hide');
                 }
+//                window.setTimeout(function(){}, 250);
+                pageTracking.clear();
+                pageTracking.pageName = data.page[1].omniturePageName;
+                pageTracking.send();
             }
         ).fail(function() {
                 alert("error");
@@ -348,7 +355,7 @@ GS.search.results = GS.search.results || (function() {
 
     var renderDataForMap = function(data) {
         var pageNav = $('#js-mapPageNav');
-        if(data.noSchoolsFound === true) {
+        if(data.page !== undefined && data.page[1].noSchoolsFound === true) {
             $('.js-rightResultsGrid').hide();
             pageNav.find('#total-results-count').html('');
             pageNav.hide();
