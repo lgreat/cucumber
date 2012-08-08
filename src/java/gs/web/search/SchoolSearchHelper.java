@@ -74,17 +74,11 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
 
     protected static String getOmnitureHierarchy(int currentPage, int totalResults,
                                                  List<ICitySearchResult> citySearchResults, List<IDistrictSearchResult> districtSearchResults) {
-        String hierarchy = "";
+        String hierarchy = "Search,School Search," + currentPage;
 
         boolean hasCityResults = (citySearchResults != null && citySearchResults.size() > 0);
         boolean hasDistrictResults = (districtSearchResults != null && districtSearchResults.size() > 0);
 
-        if (totalResults > 0) {
-            hierarchy = "Search,School Search," + currentPage;
-        } else {
-            String hierarchyPartTwo = "Pagenoresults";
-            hierarchy = "Search,School Search," + hierarchyPartTwo;
-        }
         return hierarchy;
     }
 
