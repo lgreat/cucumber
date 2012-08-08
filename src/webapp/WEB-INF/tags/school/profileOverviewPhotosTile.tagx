@@ -24,7 +24,10 @@
 
     <c:choose>
         <c:when test="${not empty images}">
-            <school:profileOverviewCell1 title="Photos">
+            <c:set var="t2dc">
+                <p class="small_bold textshadow-1 pvs plm bottom">Photos</p>
+            </c:set>
+            <school:profileOverviewCell1 title="${t2dc}">
                 <div class="mediumThumbnail bgtint-eb" id="school-photo-medium"><p
                         class="text3">Photos of this school</p><a
                         href="javascript:void(0)" onclick="scroll(0,0)" class="js-photo-gallery-trigger"><img

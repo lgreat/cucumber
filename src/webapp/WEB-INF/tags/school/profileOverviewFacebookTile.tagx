@@ -21,7 +21,10 @@
     <c:if test="${content ne 'hide'}">
         <div class="line">   <!-- row 6, tiles 13-15 -->
             <div class="unit size100of100 lastUnit">
-                <school:profileOverviewCell1 title="Facebook integration">
+                <c:set var="t16t17t18dc">
+                    <p class="small_bold textshadow-1 pvs plm bottom">Facebook integration</p>
+                </c:set>
+                <school:profileOverviewCell1 title="${t16t17t18dc}">
                     <!-- Insert display code here -->
 
                 </school:profileOverviewCell1>

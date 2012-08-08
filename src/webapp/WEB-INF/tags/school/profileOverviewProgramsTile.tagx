@@ -20,7 +20,10 @@
 
     <c:choose>
         <c:when test="${content eq 'default'}">
-            <school:profileOverviewCell1 title="Programs">
+            <c:set var="t10dc">
+                <p class="small_bold textshadow-1 pvs plm bottom">Programs</p>
+            </c:set>
+            <school:profileOverviewCell1 title="${t10dc}">
                 <div class="mvm mrm">
                     <ul class="small bottom">
                         <c:set var="showMax" value="${4}"/>
@@ -35,7 +38,10 @@
         </c:when>
 
         <c:when test="${content eq 'substitute1'}">
-            <school:profileOverviewCell1 title="How parents get involved">
+            <c:set var="t10s1">
+                <p class="small_bold textshadow-1 pvs plm bottom">How parents get involved</p>
+            </c:set>
+            <school:profileOverviewCell1 title="${t10s1}">
                 <c:choose>
                     <c:when test="${not empty programsModel['substitute1None']}">
                         <div class="mam">
@@ -59,7 +65,10 @@
         </c:when>
 
         <c:otherwise>
-            <school:profileOverviewCell1 title="Highlights">
+            <c:set var="t10s2">
+                <p class="small_bold textshadow-1 pvs plm bottom">Highlights</p>
+            </c:set>
+            <school:profileOverviewCell1 title="${t10s2}">
                 <div class="mvm mrm">
                     <ul class="small bottom">
                         <c:set var="showMax" value="${4}"/>

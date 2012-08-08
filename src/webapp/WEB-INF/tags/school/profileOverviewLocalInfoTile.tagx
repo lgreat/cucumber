@@ -20,15 +20,22 @@
 
     <c:choose>
         <c:when test="${content eq 'default'}">
-            <school:profileOverviewCell1 title="Local information">
+            <c:set var="t13dc">
+                <p class="small_bold textshadow-1 pvs plm bottom">Local information</p>
+            </c:set>
+            <school:profileOverviewCell1 title="${t13dc}">
                 <div class="mam">
                     <!-- The spec is currently under development for this option -->
                     <h4 class="bottom tac">TBD</h4>
                 </div>
             </school:profileOverviewCell1>
         </c:when>
+
         <c:when test="${content eq 'districtInfo'}">
-            <school:profileOverviewCell1 title="District information">
+            <c:set var="t13s1">
+                <p class="small_bold textshadow-1 pvs plm bottom">District information</p>
+            </c:set>
+            <school:profileOverviewCell1 title="${t13s1}">
                 <div class="mam">
                     <c:set var="districtNumSchools" value="${localInfoModel['districtNumSchools']}" scope="page"/>
                     <c:set var="districtGrades" value="${localInfoModel['districtGrades']}" scope="page"/>
@@ -74,8 +81,12 @@
                 </div>
             </school:profileOverviewCell1>
         </c:when>
+
         <c:when test="${content eq 'neighborhoodInfo'}">
-            <school:profileOverviewCell1 title="${gsweb:abbreviateAtWhitespace(localInfoModel['title'],26)}">
+            <c:set var="t13s2">
+                <p class="small_bold textshadow-1 pvs plm bottom">${gsweb:abbreviateAtWhitespace(localInfoModel['title'],26)}</p>
+            </c:set>
+            <school:profileOverviewCell1 title="${t13s2}">
                 <div class="mam">
                     <p class="small">${localInfoModel['neighborhoodInfo']}</p>
                 </div>

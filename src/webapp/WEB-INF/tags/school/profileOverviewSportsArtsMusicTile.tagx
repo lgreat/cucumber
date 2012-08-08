@@ -22,38 +22,47 @@
 
 
     <c:if test="${content ne 'Hide'}">
-        <c:set var="extraCurricular">
-            <div class="line">
+        <c:set var="t19t20t21dc">
+            <div class="line pvs plm">
                 <div class="unit size50of100">
-                    <span>Sports</span>
+                    <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-awards vam"><!-- do not collapse --></span> Sports</p>
                 </div>
                 <div class="unit size25of100">
-                    <span>Arts</span>
+                    <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-awards vam"><!-- do not collapse --></span> Arts</p>
                 </div>
                 <div class="unit size25of100 lastUnit">
-                    <span>Music</span>
+                    <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-awards vam"><!-- do not collapse --></span> Music</p>
                 </div>
             </div>
         </c:set>
 
-        <school:profileOverviewCell1 title="${extraCurricular}">
+        <school:profileOverviewCell1 title="${t19t20t21dc}">
             <div class="line mam">
                 <!-- Boys sports -->
                 <div class="unit size25of100">
-                    <strong>Boys</strong>
+                    <p class="small_bold bottom">Boys</p>
                     <div>
                         <ul class="small bottom">
-                            <c:forEach var="item" items="${boysSports}">
-                                <li>${item}</li>
+                            <c:set var="showMax" value="${4}"/>
+                            <c:forEach var="item" items="${boysSports}" varStatus="status">
+                                <c:choose>
+                                    <c:when test="${status.count le showMax}">
+                                        <li>${item}</li>
+                                    </c:when>
+                                    <c:otherwise>
+
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </ul>
                     </div>
                 </div>
                 <!-- Girls sports -->
                 <div class="unit size25of100">
-                    <strong>Girls</strong>
+                    <p class="small_bold bottom">Girls</p>
                     <div>
                         <ul class="small bottom">
+
                             <c:forEach var="item" items="${girlsSports}">
                                 <li>${item}</li>
                             </c:forEach>

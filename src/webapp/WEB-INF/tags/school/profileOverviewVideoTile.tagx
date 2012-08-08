@@ -13,7 +13,10 @@
 
     <c:choose>
         <c:when test="${content eq 'video'}">
-            <school:profileOverviewCell1 title="Videos">
+            <c:set var="t3dc">
+                <p class="small_bold textshadow-1 pvs plm bottom">Videos</p>
+            </c:set>
+            <school:profileOverviewCell1 title="${t3dc}">
                 <!-- Show generic video icon and clicking on it takes you to the video at videoUrl -->
                 <div class="">Url is: ${videoUrl}</div>
             </school:profileOverviewCell1>

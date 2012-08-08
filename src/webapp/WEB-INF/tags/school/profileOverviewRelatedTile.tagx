@@ -19,7 +19,10 @@
     <c:set var="contents" value="${relatedModel['content']}" scope="page"/>
     <c:set var="cmsResults" value="${relatedModel['cmsResults']}" scope="page"/>
 
-    <school:profileOverviewCell1 title="In the know: Get our expert advice on schools">
+    <c:set var="t14t15dc">
+        <p class="small_bold textshadow-1 pvs plm bottom">In the know: Get our expert advice on schools</p>
+    </c:set>
+    <school:profileOverviewCell1 title="${t14t15dc}">
         <div class="mam">
             <!-- cmsResults is: List<ICmsFeatureSearchResult> -->
             <c:choose>
