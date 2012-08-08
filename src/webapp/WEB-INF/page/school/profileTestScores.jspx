@@ -199,7 +199,7 @@
         $('#js_testSelect').change();
     </script>
     </div>
-    <pageHelper:registerTrackingData key="testscores" pageName="Test Scores" hier1="School,TestScores"/>
+    <pageHelper:registerTrackingData key="test-scores" pageName="Test Scores" hier1="School,TestScores"/>
 </c:if>
 
 </jsp:root>

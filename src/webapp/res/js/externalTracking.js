@@ -6,6 +6,7 @@ var pageTracking = {
     hierarchy: "",
     successEvents: "",
     eVars: {},
+    props: {},
 
     send: function(){
         s.pageName = this.pageName;
@@ -14,7 +15,10 @@ var pageTracking = {
         s.events = this.successEvents;
         for (var evar in this.eVars){
             s[evar] = this.eVars[evar];
-        }        
+        }
+        for (var prop in this.props){
+            s[prop] = this.props[prop];
+        }
         var s_code=s.t();
         if(s_code){
             document.write(s_code);
@@ -25,5 +29,52 @@ var pageTracking = {
         this.hierarchy = "";
         this.successEvents = "";
         this.eVars = {};
+        this.props = {};
+    }
+};
+
+var GS = GS || {};
+GS.tracking = GS.tracking || {};
+GS.tracking.data = GS.tracking.data || {};
+GS.tracking.registerTrackingData = function(key, data) {
+    // copy data from provided data hash into GS.tracking.data. Only copy values not equal to empty string
+
+    if (GS.tracking.data[key] === undefined) {
+        GS.tracking.data[key] = {};
+        GS.tracking.data[key].props = {};
+    }
+
+    var destination = GS.tracking.data[key];
+
+    if (data.props !== undefined) {
+        var propData = data.props;
+        for (var p in propData) {
+            if (propData.hasOwnProperty(p)) {
+                if (propData[p] !== '') {
+                    destination.props[p] = propData[p];
+                }
+            }
+        }
+    }
+
+    for (var k in data) {
+        if (data.hasOwnProperty(k)) {
+            var item = data[k];
+            if (item !== '' && item !== "" && k !== 'props') {
+                destination[k] = item;
+            }
+        }
+    }
+};
+GS.tracking.sendOmnitureData = function(key) {
+    var data = GS.tracking.data[key];
+    var sharedData = GS.tracking.data['_shared'];
+    if (data !== undefined) {
+        pageTracking.clear();
+        $.extend(pageTracking, data);
+        if (sharedData !== undefined) {
+            $.extend(pageTracking, sharedData);
+        }
+        pageTracking.send();
     }
 };

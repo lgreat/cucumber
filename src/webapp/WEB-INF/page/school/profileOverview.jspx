@@ -212,6 +212,9 @@
     </c:choose>
     </div>
 
-    <pageHelper:registerTrackingData key="overview" pageName="${gsweb:capitalize(school.type.name)} School Overview" hier1="School,SchoolProfileOverview"/>
+    <pageHelper:registerTrackingData key="overview"
+                                     pageName="${gsweb:capitalize(school.type.name)} School Overview"
+                                     hier1="School,SchoolProfileOverview"/>
+    <pageHelper:registerTrackingData hasOsp="${not empty espData}" />
 
 </jsp:root>

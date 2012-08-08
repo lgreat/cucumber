@@ -15,20 +15,14 @@
     <jsp:directive.attribute name="numberOfReviews" required="false" />
 
     <script type="text/javascript">
-        var key = '${key}';
-        var sharedKey = '_shared';
-        if (key === '') {
-            key = sharedKey;
-        }
-        var data = {};
-        if ('${pageName}' !== '') {
-            data['pageName'] = '${pageName}';
-        }
-        if ('${hier1}' !== '') {
-            data['hierarchy'] = '${hier1}';
-        }
-
-        GS.tracking.registerTrackingData('${key}', data);
+            GS.tracking.registerTrackingData("${not empty pageScope.key? pageScope.key : '_shared'}", {
+                pageName : '${pageScope.pageName}',
+                hierarchy : '${pageScope.hier1}',
+                props: {
+                    prop47 : clickCapture.getProp(47,'${pageScope.hasOsp}'),
+                    prop48 : clickCapture.getProp(48,"${pageScope.numberOfReviews}")
+                }
+            });
     </script>
 
 </jsp:root>

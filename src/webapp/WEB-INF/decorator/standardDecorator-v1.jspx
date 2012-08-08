@@ -34,22 +34,6 @@
                 compressedScripts="${param.compressedScripts}"
                 serverName="${pageContext.request.serverName}"/>
 
-        <script type="text/javascript">
-            var GS = GS || {};
-            GS.tracking = GS.tracking || {};
-            GS.tracking.registerTrackingData = function(key, data) {
-                GS.tracking.data = GS.tracking.data || {};
-                GS.tracking.data[key] = data;
-            };
-            GS.tracking.sendOmnitureData = function(key) {
-                var data = GS.tracking.data[key];
-                if (data !== undefined) {
-                    pageTracking.clear();
-                    $.extend(pageTracking, GS.tracking.data[key]);
-                    pageTracking.send();
-                }
-            }
-        </script>
         <decorator:head/>
 
     <ad:xGAMSetup/>
