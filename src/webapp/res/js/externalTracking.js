@@ -60,7 +60,7 @@ GS.tracking.registerTrackingData = function(key, data) {
     for (var k in data) {
         if (data.hasOwnProperty(k)) {
             var item = data[k];
-            if (item !== '' && item !== "" && k !== 'props') {
+            if (item !== '' && k !== 'props') {
                 destination[k] = item;
             }
         }
