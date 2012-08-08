@@ -20,10 +20,10 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
             if (s.tl) {
                 if($this.hasClass('jq-school-type') || $this.hasClass('jq-grade-level')) {
                     if($this.is(':checked')) {
-                        s.tl(true,'o', $this.data(customLinkDataAttribute) + '_check', {});
+                        s.tl(true,'o', $this.data(customLinkDataAttribute) + '_check');
                     }
                     else {
-                        s.tl(true,'o', $this.data(customLinkDataAttribute) + '_uncheck', {});
+                        s.tl(true,'o', $this.data(customLinkDataAttribute) + '_uncheck');
                     }
                 }
                 else {
