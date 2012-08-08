@@ -248,7 +248,11 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         List<SolrSchoolSearchResult> solrSchoolSearchResults = (List<SolrSchoolSearchResult>) model.get(MODEL_SCHOOL_SEARCH_RESULTS);
 
         if(solrSchoolSearchResults == null || (solrSchoolSearchResults != null && solrSchoolSearchResults.size() == 0)) {
-            responseJson.accumulate("noSchoolsFound", true);
+            responseJson.accumulate(MODEL_PAGE, new HashMap<String, Object>());
+            searchResults = new HashMap<String, Object>();
+            searchResults.put("noSchoolsFound", true);
+            searchResults.put("omniturePageName", model.get("omniturePageName"));
+            responseJson.accumulate(MODEL_PAGE, searchResults);
             return;
         }
 
