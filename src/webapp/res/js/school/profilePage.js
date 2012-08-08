@@ -52,20 +52,84 @@ var GS = GS || {};
 GS.util = GS.util || {};
 GS.profile = GS.profile || {};
 
+GS.profile.getTabs = function() {
+    var tabs = {};
+    tabs.overview = {
+        selector: "#js_overview"
+    };
+    tabs.reviews = {
+        selector: "#js_reviews"
+    };
+    tabs.testsAndRatings = {
+        selector: "#js_test-scores"
+    };
+    tabs.testScores = {
+        selector: "#js_tests",
+        parent: tabs.testsAndRatings
+    };
+    tabs.ratings = {
+        selector: "#js_ratings",
+        parent: tabs.testsAndRatings
+    };
+    tabs.teachersAndStudents = {
+        selector: "#js_demographics"
+    };
+    tabs.students = {
+        selector: "#js_students",
+        parent: tabs.teachersAndStudents
+    };
+    tabs.parents = {
+        selector: "#js_parents",
+        parent: tabs.teachersAndStudents
+    };
+    tabs.programsAndCulture = {
+        selector: "#js_programs-culture"
+    };
+    tabs.highlights = {
+        selector: "#js_highlights",
+        parent: tabs.programsAndCulture
+    };
+    tabs.programsAndResources = {
+        selector: "#js_programsresources",
+        parent:tabs.programsAndCulture
+    };
+    tabs.extracurriculars = {
+        selector: "#js_extracurriculars",
+        parent:tabs.programsAndCulture
+    };
+    tabs.culture = {
+        selector: "#js_culture",
+        parent:tabs.programsAndCulture
+    };
+    return tabs;
+};
+
+
 GS.util.jumpToAnchor = function(hash) {
     window.location.hash=hash;
     return false;
 };
 
-GS.profile.linkToTabs = function(destination){
-    $("#js_"+destination).triggerHandler('click');
+GS.profile.linkToTabs = function(selector){
+    $(selector).triggerHandler('click');
     return false;
 };
 
 GS.profile.linkToTabAndAnchor = function(destinationTab, hash) {
+    if (typeof destinationTab === 'string') {
+        destinationTab = GS.profile.tabs[destinationTab];
+    }
+
     try {
-        GS.profile.linkToTabs(destinationTab);
-        GS.util.jumpToAnchor(hash);
+        if (destinationTab.parent !== undefined) {
+            GS.profile.linkToTabAndAnchor(destinationTab.parent); // recursion
+        }
+        var selector = destinationTab.selector;
+        GS.profile.linkToTabs(selector);
+
+        if(hash !== undefined) {
+            GS.util.jumpToAnchor(hash);
+        }
     } catch (e) {
         // on error, fall back on default click handling
         return true;
@@ -74,10 +138,16 @@ GS.profile.linkToTabAndAnchor = function(destinationTab, hash) {
 };
 
 jQuery(document).ready(function() {
+    GS.profile.tabs = GS.profile.getTabs();
+
+
 
     /* Set up event handlers */
     jQuery('#js_profileHeadWriteReviewLink').on('click', function() {
         return GS.profile.linkToTabAndAnchor('reviews', 'schoolReviewSubmitForm');
+    });
+    jQuery('#js_profileStatsProgramsResourcesLink').on('click', function() {
+        return GS.profile.linkToTabAndAnchor('programsAndResources', 'Resources_table');
     });
 
     /* End set up event handlers */
