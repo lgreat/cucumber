@@ -389,7 +389,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, Object> model = new HashMap<String, Object>();
         // TODO - Default action code needs to be added when spec is ready
         Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
-        if (ratingsMap != null) {
+        if (ratingsMap != null && !ratingsMap.isEmpty()) {
             model.put("overallRating", ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING));
             model.put("academicRating", ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING));
             model.put("climateRating", ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING));

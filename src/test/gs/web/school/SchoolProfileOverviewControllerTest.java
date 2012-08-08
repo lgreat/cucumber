@@ -298,6 +298,9 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
             enrollmentCSV.setValueInteger(numStudents);
         }
 
+        //school has no ratings.
+        Map<String, Object> ratingsMap = new HashMap();
+        expect( _schoolProfileDataHelper.getGsRatings(getRequest())).andReturn(ratingsMap);
         expect( _schoolProfileDataHelper.getSchoolCensusValues(getRequest()) ).andReturn( censusValues );
 
         replay(_schoolProfileDataHelper);
