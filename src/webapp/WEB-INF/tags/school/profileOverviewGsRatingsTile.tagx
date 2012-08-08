@@ -27,7 +27,12 @@
             </c:set>
             <school:profileOverviewCell1 title="${t1dc}">
                 <!-- =================== The following is left over from a prototype - Replace it =================== -->
-                <c:set var="overallRating" value="${gsRatingsModel.overall}"/>
+                <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
+                <c:set var="climateRating" value="${gsRatingsModel.climateRating}"/>
+                <c:set var="academicRating" value="${gsRatingsModel.academicRating}"/>
+                overall :- ${overallRating}
+                climateRating :- ${climateRating}
+                academicRating :- ${academicRating}
                 <c:if test="${empty gsRatingsModel.overall}">
                     <c:set var="overallRating" value="0"/>
                 </c:if>

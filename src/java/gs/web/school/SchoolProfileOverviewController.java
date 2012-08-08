@@ -385,18 +385,16 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     private Map getGsRatingsModel(HttpServletRequest request, School school) {
 
-        Map<String, Object> model = null;
-
-        // When spec is ready with default action update this set of variables as needed
-        boolean doDefault = false;
-
-        if( doDefault ) {
-            // Default action
-            model = new HashMap<String, Object>(2);
-            // TODO - Default action code needs to be added when spec is ready
-            model.put( "content", "GsRatings" );
+        // Default action
+        Map<String, Object> model = new HashMap<String, Object>();
+        // TODO - Default action code needs to be added when spec is ready
+        Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
+        if (ratingsMap != null) {
+            model.put("overallRating", ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING));
+            model.put("academicRating", ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING));
+            model.put("climateRating", ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING));
+            model.put("content", "GsRatings");
         }
-
         return model;
     }
 
