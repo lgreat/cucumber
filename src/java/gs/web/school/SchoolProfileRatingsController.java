@@ -30,16 +30,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String VIEW = "school/profileRatings";
 
     @Autowired
-    private ITestDataSetDao _testDataSetDao;
-
-    @Autowired
-    private ITestDataSchoolValueDao _testDataSchoolValueDao;
-
-    @Autowired
-    private ITestDataStateValueDao _testDataStateValueDao;
-
-    @Autowired
     private ICityRating2Dao _cityRating2Dao;
+
+    @Autowired
+    private SchoolProfileDataHelper _schoolProfileDataHelper;
 
     // ===================== COPY ===================================
 
@@ -219,7 +213,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             // sample data
             dataMap = getSampleData();
         } else {
-            dataMap = getData(school);
+            dataMap = getData(school,request);
         }
 
         modelMap.addAllAttributes(getSection1Model(school, dataMap));
@@ -235,113 +229,25 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Data ===================================
 
-    // test data types for school ratings
-    private static final Set<Integer> RATING_TEST_DATA_TYPE_IDS = new HashSet<Integer>();
-    static {
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_ACHIEVEMENT);
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_VALUE_ADDED);
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS);
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_OVERALL_ACADEMIC);
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS);
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_FAMILY_ENGAGEMENT);
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_TEACHER_SUPPORT);
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_SCHOOL_ENVIRONMENT);
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING);
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_OVERALL_CLIMATE);
-        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_OVERALL);
-    }
-
-    // TODO-13012 TEMPORARY! move these constants and sets out of here or replace with config file/XML
-    // TODO-13012 only used by state (maybe city as well, if using equivalent schema)
-    // test data types for state ratings
-    private static final Set<Integer> STATE_RATING_TEST_DATA_TYPE_IDS = new HashSet<Integer>();
-    static {
-        STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_ACHIEVEMENT);
-        STATE_RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_ACADEMIC_VALUE_ADDED);
-    }
-
     // TODO-13012 not optimized, may need to be rewritten
-    public Map<String,Object> getData(School school) {
+    public Map<String,Object> getData(School school,HttpServletRequest request) {
         Map<String,Object> dataMap = new HashMap<String,Object>();
 
         // TODO-13012 don't hard-code year to fetch
         Set<Integer> years = new HashSet<Integer>();
         years.add(2012);
 
-        // SCHOOL DATA
-        dataMap.putAll(getSchoolData(school,years));
+        //Get school and state ratings data
+        Map<String, Object> ratingsMap =  _schoolProfileDataHelper.getGsRatings(request);
+        if (ratingsMap != null) {
+            dataMap.putAll(ratingsMap);
+        }
 
         // must be run after school data is fetched
         if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING) || dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING)) {
 
-            // CITY DATA
+            //Get city ratings data
             dataMap.putAll(getCityData(school,years));
-
-            if (isShowStateTestScoreRating(school.getDatabaseState()) ||
-                    isShowStateStudentGrowthRating(school.getDatabaseState())) {
-
-                // STATE DATA
-                dataMap.putAll(getStateData(school,years));
-            }
-        }
-
-        return dataMap;
-    }
-
-    public Map<String,Object> getSchoolData(School school, Set<Integer> years) {
-        Map<String,Object> dataMap = new HashMap<String,Object>();
-
-        List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(
-                school.getDatabaseState(), years, RATING_TEST_DATA_TYPE_IDS,
-                null, null, null, null, true, null);
-        List<SchoolTestValue> schoolTestValues = _testDataSchoolValueDao.findValues(testDataSets, school);
-
-        // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
-        for (SchoolTestValue value : schoolTestValues) {
-            switch (value.getDataSet().getDataTypeId()) {
-                // overall ratings
-                case TestDataType.RATING_OVERALL :
-                    dataMap.put(DATA_OVERALL_RATING, value.getValueFloat().intValue());
-                    break;
-                case TestDataType.RATING_OVERALL_ACADEMIC :
-                    dataMap.put(DATA_OVERALL_ACADEMIC_RATING, value.getValueFloat().intValue());
-                    break;
-                case TestDataType.RATING_OVERALL_CLIMATE :
-                    dataMap.put(DATA_OVERALL_CLIMATE_RATING, value.getValueFloat().intValue());
-                    dataMap.put(DATA_CLIMATE_RATING_NUM_RESPONSES, value.getNumberTested());
-                    break;
-
-                // academic ratings
-                case TestDataType.RATING_ACADEMIC_ACHIEVEMENT :
-                    dataMap.put(DATA_TEST_SCORE_RATING_YEAR, value.getDataSet().getYear());
-                    dataMap.put(DATA_SCHOOL_TEST_SCORE_RATING, value.getValueFloat().intValue());
-                    break;
-                case TestDataType.RATING_ACADEMIC_VALUE_ADDED :
-                    dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, value.getDataSet().getYear());
-                    dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
-                    break;
-                case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS :
-                    dataMap.put(DATA_POST_SECONDARY_READINESS_RATING_YEAR, value.getDataSet().getYear());
-                    dataMap.put(DATA_POST_SECONDARY_READINESS_RATING, value.getValueFloat().intValue());
-                    break;
-
-                // climate ratings
-                case TestDataType.RATING_CLIMATE_SCHOOL_ENVIRONMENT :
-                    dataMap.put(DATA_SCHOOL_ENVIRONMENT_RATING, value.getValueFloat().intValue());
-                    break;
-                case TestDataType.RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING :
-                    dataMap.put(DATA_SOCIAL_EMOTIONAL_LEARNING_RATING, value.getValueFloat().intValue());
-                    break;
-                case TestDataType.RATING_CLIMATE_CULTURE_HIGH_EXPECTATIONS :
-                    dataMap.put(DATA_HIGH_EXPECTATIONS_RATING, value.getValueFloat().intValue());
-                    break;
-                case TestDataType.RATING_CLIMATE_TEACHER_SUPPORT :
-                    dataMap.put(DATA_TEACHER_SUPPORT_RATING, value.getValueFloat().intValue());
-                    break;
-                case TestDataType.RATING_CLIMATE_FAMILY_ENGAGEMENT :
-                    dataMap.put(DATA_FAMILY_ENGAGEMENT_RATING, value.getValueFloat().intValue());
-                    break;
-            }
         }
 
         return dataMap;
@@ -362,29 +268,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                         dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, new Float(rating.getRating()).intValue());
                         break;
                 }
-            }
-        }
-
-        return dataMap;
-    }
-
-    public Map<String,Object> getStateData(School school, Set<Integer> years) {
-        Map<String,Object> dataMap = new HashMap<String,Object>();
-
-        List<TestDataSet> stateTestDataSets = _testDataSetDao.findDataSets(
-                school.getDatabaseState(), years, STATE_RATING_TEST_DATA_TYPE_IDS,
-                null, null, null, null, true, null);
-        List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(stateTestDataSets, school.getDatabaseState());
-
-        // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
-        for (StateTestValue value : stateTestValues) {
-            switch (value.getDataSet().getDataTypeId()) {
-                case TestDataType.RATING_ACADEMIC_ACHIEVEMENT :
-                    dataMap.put(DATA_STATE_TEST_SCORE_RATING, value.getValueFloat().intValue());
-                    break;
-                case TestDataType.RATING_ACADEMIC_VALUE_ADDED :
-                    dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
-                    break;
             }
         }
 
@@ -757,18 +640,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     }
 
     // ===================== SETTERS FOR UNIT TESTS =================
-
-    void setTestDataSetDao(ITestDataSetDao testDataSetDao) {
-        _testDataSetDao = testDataSetDao;
-    }
-
-    public void setTestDataSchoolValueDao(ITestDataSchoolValueDao testDataSchoolValueDao) {
-        _testDataSchoolValueDao = testDataSchoolValueDao;
-    }
-
-    public void setTestDataStateValueDao(ITestDataStateValueDao testDataStateValueDao) {
-        _testDataStateValueDao = testDataStateValueDao;
-    }
 
     public void setCityRating2Dao(ICityRating2Dao cityRating2Dao) {
         _cityRating2Dao = cityRating2Dao;

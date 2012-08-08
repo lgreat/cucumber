@@ -38,6 +38,12 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
         model.put("schoolEnrollment", _schoolProfileDataHelper.getEnrollment(request));
 
+
+        Map<String, Object> ratingsMap =  _schoolProfileDataHelper.getGsRatings(request);
+        if (ratingsMap != null) {
+            model.put("overallRating",ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING));
+        }
+
         return new ModelAndView(_viewName, model);
     }
 

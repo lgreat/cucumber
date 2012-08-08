@@ -156,21 +156,14 @@
 
     <div class="alpha grid_4 tac">
         <!-- New GS Rating -->
-        <!-- TODO: need actual variable for rating -->
-        <c:set var="tempOverallRating" value="8"/>
-        <div data-gs-custom-link="header_rating" class="iconx96-ratings-rb i-96-ratings${tempOverallRating}"><!-- do not collapse --></div>
-        <!--<div class="mod badge-x96">-->
-            <!--<div class="inner">-->
-                <!--<div class="bd">-->
-                    <!--<div class="horizon">-->
-                        <!--<div class="bd-inner">-->
-                            <!--<p class="number-x96">10</p>-->
-                            <!--<p class="scale-x96">out of 10</p>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+        <c:choose>
+            <c:when test="${overallRating != null}">
+                <div class="iconx96-ratings-rb i-96-ratings${overallRating}"><!-- do not collapse --></div>
+            </c:when>
+            <c:otherwise>
+                <div class="iconx96-ratings-rb i-96-ratingsNR"><!-- do not collapse --></div>
+            </c:otherwise>
+        </c:choose>
         <p data-gs-custom-link="header_rating" class="tac small bottom pbs mbm">GreatSchools Rating</p>
     </div>
 
