@@ -847,7 +847,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
     protected String getNearbySearchTitlePrefix(SchoolSearchCommand schoolSearchCommand) {
         String nearbySearchTitlePrefix = "Schools";
-        if (schoolSearchCommand.hasGradeLevels()) {
+        /*if (schoolSearchCommand.hasGradeLevels()) {
             String[] gradeLevels = schoolSearchCommand.getGradeLevels();
             if (gradeLevels.length == 1) {
                 LevelCode levelCode = LevelCode.createLevelCode(gradeLevels[0]);
@@ -859,7 +859,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
                     }
                 }
             }
-        }
+        } */
         return nearbySearchTitlePrefix;
     }
 
