@@ -21,10 +21,10 @@
     <div class="mod standard_1-1">
     <div class="inner">
     <div class="hd">
-        <h4 class="pvm plm bottom">${displayBean.sectionTitle}</h4>
+        <h4 class="pvm plm bottom" id="${displayBean.sectionTitle}_table">${displayBean.sectionTitle}</h4>
     </div>
     <div class="bd pan">
-    <table class="tableType1" id="${displayBean.sectionTitle}_table" border="0"><col width="210"/><col width="auto"/>
+    <table class="tableType1" border="0"><col width="210"/><col width="auto"/>
         <!--<thead><tr><th colspan="2">${displayBean.sectionTitle}</th></tr></thead>-->
         <tbody class="striped">
     <!-- now process the row data which will be stored in the model under the name highlightsMap

@@ -196,7 +196,7 @@
                         </c:choose>
                         <tr class="${rowColor}" >
                                 <td colspan="2">
-                                    <a id="js_profileStatsProgramsResourcesLink" href="javascript:void(0);">Read more about resources at this school</a>
+                                    <a data-gs-show-tab="programsAndResources" data-gs-tab-options="Resources_table"  href="javascript:void(0);">Read more about resources at this school</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -305,7 +305,7 @@
                             <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
                             <tr class="${rowColor}" >
                                 <td colspan="2">
-                                    <a href="#">Read more about programs at this school</a>
+                                    <a data-gs-show-tab="programsAndResources" data-gs-tab-options="Programs_table"  href="javascript:void(0);">Read more about programs at this school</a>
                                 </td>
                             </tr>
                         </tbody>

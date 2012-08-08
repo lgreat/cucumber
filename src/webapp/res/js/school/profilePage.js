@@ -137,10 +137,18 @@ GS.profile.linkToTabAndAnchor = function(destinationTab, hash) {
     return false;
 };
 
+GS.profile.setupTabClickHandlers = function() {
+    $('body').on('click', 'a[data-gs-show-tab]', function() {
+        var $this = $(this);
+        var tabName = $this.data('gs-show-tab');
+        var tabOptions = $this.data('gs-tab-options');
+        GS.profile.linkToTabAndAnchor(tabName, tabOptions);
+    });
+};
+
 jQuery(document).ready(function() {
     GS.profile.tabs = GS.profile.getTabs();
-
-
+    GS.profile.setupTabClickHandlers();
 
     /* Set up event handlers */
     jQuery('#js_profileHeadWriteReviewLink').on('click', function() {
