@@ -85,10 +85,10 @@ jQuery(document).ready(function() {
     if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
 
     /* this initializes all of the star rating options on the reviews page */
-    starRatingInterface("starRatingContainer1", 16, 5, "overallAsString");
-    starRatingInterface("starRatingContainer2", 16, 5, "teacherAsString");
-    starRatingInterface("starRatingContainer3", 16, 5, "principalAsString");
-    starRatingInterface("starRatingContainer4", 16, 5, "parentAsString");
+    starRatingInterface("starRatingContainer1", 16, 5, "overallAsString", true);
+    starRatingInterface("starRatingContainer2", 16, 5, "teacherAsString", false);
+    starRatingInterface("starRatingContainer3", 16, 5, "principalAsString", false);
+    starRatingInterface("starRatingContainer4", 16, 5, "parentAsString", false);
 
     var $parents = $('#showParents')
         , $students = $('#showStudents')
@@ -131,12 +131,13 @@ jQuery(document).ready(function() {
  *
  *  currently created to work with the review page form!!!!
  *
+ * @param containerS    the id of the layer that contains the star rating.
  * @param iconW         icon width needs to have a css component that it is compatible with.
  * @param starsT        total stars currently set to 5 -- also needs to be changed as default value in the jspx or tagx
  * @param overallSR     sets the hidden value of a form field
  */
 
-function starRatingInterface(containerS, iconW, starsT, overallSR){
+function starRatingInterface(containerS, iconW, starsT, overallSR, topStarSelector){
     /* star rating */
     var iconWidth = iconW;
     var totalStars = starsT;
@@ -145,6 +146,8 @@ function starRatingInterface(containerS, iconW, starsT, overallSR){
     var starsOn = $('#'+containerS+' .starsOn');
     var starsOff = $('#'+containerS+' .starsOff');
     var overallStarRating = $("#"+overallSR);
+    var arrStarValuesText = ['Click on stars to rate','Unsatisfactory', 'Below average','Average','Above average','Excellent'];
+    var arrStarValueDefault = 'Click on stars to rate';
 
     for(var i=1; i<=totalStars; i++){
         removeClassStr += iconStr+i;
@@ -159,6 +162,9 @@ function starRatingInterface(containerS, iconW, starsT, overallSR){
         if(currentStar > totalStars) currentStar = totalStars;
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentStar);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
+        if(topStarSelector){
+            $(reviewTopStarDescriptor).html(arrStarValuesText[currentStar]);
+        }
     });
     $('#'+containerS).click(function(e){
         var offset = $(this).offset();
@@ -169,11 +175,15 @@ function starRatingInterface(containerS, iconW, starsT, overallSR){
         overallStarRating.blur();
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentStar);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
+
     });
-    $('#'+containerS).mouseout(function(e){
+    $('#'+containerS).mouseleave (function(e){
         var currentRating = overallStarRating.val();
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentRating);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentRating));
+        if(topStarSelector){
+            $(reviewTopStarDescriptor).html(arrStarValuesText[currentRating]);
+        }
     });
 }
 function drawPieChart(dataIn, divNameId, dimensions) {

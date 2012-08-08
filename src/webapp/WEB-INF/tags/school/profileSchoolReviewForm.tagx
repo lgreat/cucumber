@@ -61,7 +61,7 @@
                             <div id="" class="starsOff iconx16-stars i-16-grey-star  i-16-star-5 fl"><!-- not empty--></div>
                         </div>
 
-                            <div class="fr smaller pan man make-999999">Click on stars to rate</div>
+                            <div id="reviewTopStarDescriptor" class="fr smaller pan man make-999999 prm">Click on stars to rate</div>
 
                         <div class="clear pan man"><!-- do not collapse --></div>
                         <!-- end star ratings -->
