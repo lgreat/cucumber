@@ -19,8 +19,8 @@
                 pageName : '${pageScope.pageName}',
                 hierarchy : '${pageScope.hier1}',
                 props: {
-                    prop47 : clickCapture.getProp(47,'${pageScope.hasOsp}'),
-                    prop48 : clickCapture.getProp(48,"${pageScope.numberOfReviews}")
+                    prop47 : clickCapture.getProp(63,'${pageScope.hasOsp}'), // TODO: get correct prop value
+                    prop48 : clickCapture.getProp(64,"${pageScope.numberOfReviews}")
                 }
             });
     </script>
