@@ -62,6 +62,14 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     public enum NoneHandling{ ALWAYS_SHOW, SHOW_IF_ONLY_VALUE, HIDE_IF_ONLY_NONE }
 
+    public  static final  String MODEL_OVERALL_RATING = "overallRating";
+    public  static final  String MODEL_CLIMATE_RATING = "climateRating";
+    public  static final  String MODEL_ACADEMIC_RATING = "academicRating";
+    public  static final  String MODEL_CLIMATE_RATING_NO_DATA = "climateRatingNoDataText";
+    public  static final  String CLIMATE_RATING_NO_DATA_TEXT = "Data not available";
+    public  static final  String CLIMATE_RATING_NO_DATA_TEXT_DC = "Coming 2013";
+    public  static final  String CLIMATE_RATING_NO_DATA_TEXT_IN = "Coming soon";
+
     String _viewName;
 
     @Autowired
@@ -389,10 +397,23 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, Object> model = new HashMap<String, Object>();
         // TODO - Default action code needs to be added when spec is ready
         Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
-        if (ratingsMap != null && !ratingsMap.isEmpty()) {
-            model.put("overallRating", ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING));
-            model.put("academicRating", ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING));
-            model.put("climateRating", ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING));
+        //Only display ratings tile if there is overall rating and academic rating.
+        if (ratingsMap != null && !ratingsMap.isEmpty()
+                && ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING) != null
+                && ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING) != null) {
+
+            model.put(MODEL_OVERALL_RATING, ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING));
+            model.put(MODEL_ACADEMIC_RATING, ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING));
+
+            Object climateRating = ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING);
+            if (climateRating == null) {
+                String climateRatingNoDataText = school.getDatabaseState().equals("DC") ? CLIMATE_RATING_NO_DATA_TEXT_DC :
+                        school.getDatabaseState().equals("IN") ? CLIMATE_RATING_NO_DATA_TEXT_IN : CLIMATE_RATING_NO_DATA_TEXT;
+                model.put(MODEL_CLIMATE_RATING_NO_DATA, climateRatingNoDataText);
+            }else{
+                model.put(MODEL_CLIMATE_RATING, climateRating);
+            }
+
             model.put("content", "GsRatings");
         }
         return model;
