@@ -15,7 +15,7 @@
 
     <jsp:directive.attribute name="sportsModel" type="java.lang.Object" required="true"/>
     <c:set var="content" value="${sportsModel['content']}"/>
-    <c:set var="boysSports" value="${sportsModel['boys_sports']}" scope="page"/>
+    <c:set var="boysSports" value="${sportsModel.boys_sports}" scope="page"/>
     <c:set var="girlsSports" value="${sportsModel.girls_sports}" scope="page"/>
     <c:set var="arts" value="${sportsModel.arts}" scope="page"/>
     <c:set var="music" value="${sportsModel.music}" scope="page"/>
@@ -38,56 +38,73 @@
 
         <school:profileOverviewCell1 title="${t19t20t21dc}">
             <div class="line mam">
-                <!-- Boys sports -->
-                <div class="unit size25of100">
-                    <p class="small_bold bottom">Boys</p>
-                    <div>
-                        <ul class="small bottom">
-                            <c:set var="showMax" value="${4}"/>
-                            <c:forEach var="item" items="${boysSports}" varStatus="status">
-                                <c:choose>
-                                    <c:when test="${status.count le showMax}">
-                                        <li>${item}</li>
-                                    </c:when>
-                                    <c:otherwise>
 
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Girls sports -->
-                <div class="unit size25of100">
-                    <p class="small_bold bottom">Girls</p>
-                    <div>
-                        <ul class="small bottom">
+                <c:choose>
+                    <c:when test="${empty boysSports and empty girlsSports}">
+                        <!-- No girls or boys sports -->
+                        <div class="unit size50of100">
+                            <p><em>Call the school for more information</em></p>
+                        </div>
+                    </c:when>
+                    <c:when test="${not empty boysSports and empty girlsSports}">
+                        <!-- Boys sports only -->
+                        <div class="unit size50of100">
+                            <school:profileOverviewBoysSports sportsModel="${sports}"/>
+                        </div>
+                    </c:when>
+                    <c:when test="${empty boysSports and not empty girlsSports}">
+                        <!-- Girls sports only -->
+                        <div class="unit size50of100">
+                            <school:profileOverviewGirlsSports sportsModel="${sports}"/>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <!-- Boys sports -->
+                        <div class="unit size25of100">
+                            <school:profileOverviewBoysSports sportsModel="${sports}"/>
+                        </div>
+                        <!-- Girls sports -->
+                        <div class="unit size25of100">
+                            <school:profileOverviewGirlsSports sportsModel="${sports}"/>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
 
-                            <c:forEach var="item" items="${girlsSports}">
-                                <li>${item}</li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </div>
                 <!-- Arts -->
                 <div class="unit size25of100">
-                    <div style="height: 90px;border-left:1px solid #e6e6e6;">
-                        <ul class="small bottom">
-                            <c:forEach var="item" items="${arts}">
-                                <li>${item}</li>
-                            </c:forEach>
-                        </ul>
-                    </div>
+                    <c:choose>
+                        <c:when test="${empty arts}">
+                            <p><em>Call the school for more information</em></p>
+                        </c:when>
+                        <c:otherwise>
+                            <div style="height: 90px;border-left:1px solid #e6e6e6;">
+                                <ul class="small bottom">
+                                    <c:set var="showArtMax" value="${5}"/>
+                                    <c:forEach var="item" items="${arts}">
+                                        <li>${item}</li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <!-- Music -->
                 <div class="unit size25of100 lastUnit">
-                    <div style="height: 90px;border-left:1px solid #e6e6e6;">
-                        <ul class="small bottom">
-                            <c:forEach var="item" items="${music}">
-                                <li>${item}</li>
-                            </c:forEach>
-                        </ul>
-                    </div>
+                    <c:choose>
+                        <c:when test="${empty music}">
+                            <p><em>Call the school for more information</em></p>
+                        </c:when>
+                        <c:otherwise>
+                            <div style="height: 90px;border-left:1px solid #e6e6e6;">
+                                <ul class="small bottom">
+                                    <c:set var="showMusicMax" value="${5}"/>
+                                    <c:forEach var="item" items="${music}">
+                                        <li>${item}</li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </school:profileOverviewCell1>
