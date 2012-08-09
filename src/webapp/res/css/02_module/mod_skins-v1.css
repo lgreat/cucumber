@@ -275,10 +275,11 @@ General comments:
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------- module backgrounds -------------- */
 
-.addPhotos { background-image: url("/res/img/module/background/addPhotos.png"); }
-.districtMap { background-image: url("/res/img/module/background/districtMap.png"); }
-.writeReviews { background-image: url("/res/img/module/background/reviews.png"); }
-.mobileApp { background-image: url("/res/img/module/background/mobile.png"); }
+.bg-addPhotos { background-image: url("/res/img/module/background/addPhotos.png"); }
+.bg-districtMap { background-image: url("/res/img/module/background/districtMap.png"); }
+.bg-writeReviews { background-image: url("/res/img/module/background/reviews.png"); }
+.bg-mobileApp { background-image: url("/res/img/module/background/mobile.png"); }
+.bg-checklist { background-image: url("/res/img/module/background/checklist.png"); }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------------ badge-x96 ------------------ */

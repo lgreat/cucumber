@@ -29,7 +29,7 @@
             <a class="tdn" href="/school-district-boundaries-map/?schoolId=${school.id}&amp;amp;state=${school.databaseState}${districtParam}">
                 <div class="mod standard_3-1">
                     <div class="outer">
-                        <div class="inner districtMap">
+                        <div class="inner bg-districtMap">
                             <div class="hd">
                                 <h3 class="bottom">What schools are available to you?</h3>
                             </div>

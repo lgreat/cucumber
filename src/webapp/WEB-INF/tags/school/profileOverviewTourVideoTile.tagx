@@ -21,13 +21,30 @@
     <c:set var="videoIconUrl" value="${tourModel['videoIconUrl']}" scope="page"/>
     <c:set var="videoIconAltText" value="${tourModel['videoIconAltText']}" scope="page"/>
 
-    <school:profileOverviewCell1 title="How to choose a school">
-        <!-- Show video icon in variable videoIconUrl and clicking on it takes you to the video at videoUrl -->
-        <div class="">Display video at ${contentUrl}</div>
-        <div class="">Video icon is: ${videoIconUrl}</div>
-        <c:if test="${empty contentUrl}">
-            <div class="">Video not found on CMS</div>
-        </c:if>
-    </school:profileOverviewCell1>
+    <c:set var="t12s1">
+        <p class="small_bold textshadow-1 pvs plm bottom make-555555">How to choose a school</p>
+    </c:set>
+
+    <c:choose>
+        <c:when test="${empty contentUrl}">
+            <school:profileOverviewCell1 title="${t12s1}">
+                <div class="mam">
+                    <p><em>Video content was not found on the CMS</em></p>
+                </div>
+            </school:profileOverviewCell1>
+        </c:when>
+        <c:otherwise>
+            <a class="tdn" href="${contentUrl}">
+                <school:profileOverviewCell1 title="${t12s1}">
+                    <div class="mam">
+                        <!-- Show video icon in variable videoIconUrl and clicking on it takes you to the video at videoUrl -->
+                        <span class="iconx96 i-96-video_placeholder mha db"><!-- do not collapse --></span>
+                        <!--<p class="small bottom">Display video at ${contentUrl}</p>-->
+                        <!--<p class="small bottom">Video icon is: ${videoIconUrl}</p>-->
+                    </div>
+                </school:profileOverviewCell1>
+            </a>
+        </c:otherwise>
+    </c:choose>
 
 </jsp:root>

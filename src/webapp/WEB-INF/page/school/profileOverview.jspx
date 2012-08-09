@@ -21,7 +21,7 @@
         <!--  ==================================== -->
         <c:when test="${not empty espData}">
 
-            <div class="grid_16 alpha omega">   <!-- row 1 -->
+            <div class="grid_16 alpha omega">   <!-- row 0 -->
                 <c:if test="${not empty bestKnownFor}">
                     <div class="mod bestKnownFor">
                         <div class="inner">
@@ -34,7 +34,7 @@
             </div>
             <div class="alpha grid_16 omega">
 
-                <div class="line">   <!-- row 2, tiles 1-3 -->
+                <div class="line">   <!-- row 1, tiles 1-3 -->
                     <div data-gs-custom-link="overview_ratings" class="unit size32of100">
                         <school:profileOverviewGsRatingsTile gsRatingsModel="${ratings}"/>
                     </div>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                <div class="line">   <!-- row 3, tiles 4-6 -->
+                <div class="line">   <!-- row 2, tiles 4-6 -->
                     <div data-gs-custom-link="overview_communityrating" class="unit size32of100">
                         <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}" />
                     </div>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <div class="line">   <!-- row 4, tiles 7-9 -->
+                <div class="line">   <!-- row 3, tiles 7-9 -->
                     <div data-gs-custom-link="overview_diversity" class="unit size32of100">
                         <school:profileOverviewDiversityTile diversityModel="${diversity}" />
                     </div>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
 
-                <div class="line">   <!-- row 5, tiles 10-12 -->
+                <div class="line">   <!-- row 4, tiles 10-12 -->
                     <div data-gs-custom-link="overview_programs" class="unit size32of100">
                         <school:profileOverviewProgramsTile programsModel="${programs}" />
                     </div>
@@ -126,7 +126,7 @@
                     </c:choose>
                 </div>
 
-                <div class="line">   <!-- row 6, tiles 13-15 -->
+                <div class="line">   <!-- row 5, tiles 13-15 -->
                     <div class="unit size32of100">
                         <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" />
                     </div>
@@ -138,10 +138,10 @@
                     </div>
                 </div>
 
-                <!-- 7th Row - Default content: Facebook integration Substitiute content: hide row -->
+                <!-- row 6 - Default content: Facebook integration Substitiute content: hide row -->
                 <school:profileOverviewFacebookTile faceboolModel="${facebook}" />
 
-                <!-- 8th Row - Default content: Sports/Arts/Music Substitute content: hide row -->
+                <!-- row 7 - Default content: Sports/Arts/Music Substitute content: hide row -->
                 <school:profileOverviewSportsArtsMusicTile sportsModel="${sports}"/>
             </div>
         </c:when>
@@ -171,19 +171,19 @@
 
                 <div class="line">   <!-- row 2, tiles 4-6 -->
                     <div class="unit size32of100">
-                        <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}" />
+                        <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}"/>
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size66of100 lastUnit">
-                        <school:profileOverviewReviewsTile reviewsModel="${reviews}" />
+                        <school:profileOverviewReviewsTile reviewsModel="${reviews}"/>
                     </div>
                 </div>
 
                 <div class="line">   <!-- row 3, tiles 7-9 -->
                     <div class="unit size32of100">
-                        <school:profileOverviewDiversityTile diversityModel="${diversity}" />
+                        <school:profileOverviewDiversityTile diversityModel="${diversity}"/>
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
@@ -193,19 +193,15 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size32of100">
-                        <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}" />
+                        <school:profileOverviewLocalInfoTile localInfoModel="${localInfo}"/>
                     </div>
                 </div>
 
-                <div class="line">   <!-- row 4 -->
-                    <!-- Note to frontend - This is a full width vesion of slot 14-15 from the ESP version -->
-                    <div class="unit size99of100 lastUnit">
-                        <school:profileOverviewRelatedTile relatedModel="${related}" />
-                    </div>
-                </div>
+                <!-- row 4 - Note to frontend - This is a full width vesion of slot 14-15 from the ESP version -->
+                <school:profileOverviewRelatedTile relatedModel="${related}"/>
 
-                <!-- 5th Row - Default content: Facebook Substitute content: hide row -->
-                <school:profileOverviewFacebookTile faceboolModel="${facebook}" />
+                <!-- row 5 - Default content: Facebook Substitute content: hide row -->
+                <school:profileOverviewFacebookTile faceboolModel="${facebook}"/>
             </div>
 
         </c:otherwise>
