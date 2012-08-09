@@ -19,6 +19,7 @@
         <!--<div id="spinner"><gsml:img src="/res/img/admin/spinner.gif" alt="loading"/>&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
 
         <c:set var="totalResults" value="${page.pager.totalItems}"/>
+        <input type="hidden" id="jq-omniturePageName" value="${omniturePageName}"/>
 
         <search:schoolSearchResultsNavigation pageOffset="${page.offset+1}" pageLastOffsetOnPage="${page.lastOffsetOnPage+1}" pageTotalItems="${totalResults}" tabSelect="list" />
 

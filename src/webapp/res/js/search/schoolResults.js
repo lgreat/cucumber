@@ -163,6 +163,9 @@ GS.search.results = GS.search.results || (function() {
                 else{
                     $("#js_totalResultsCountReturn").popover('hide');
                 }
+                pageTracking.clear();
+                pageTracking.pageName = $('#jq-omniturePageName').val();
+                pageTracking.send();
             };
 
             var onSearchError = function() {

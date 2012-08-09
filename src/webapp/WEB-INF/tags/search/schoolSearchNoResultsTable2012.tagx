@@ -6,6 +6,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
     <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
+    <input type="hidden" id="jq-omniturePageName" value="${omniturePageName}"/>
     <div class="alpha grid_16 omega mtm">
         <c:choose>
             <c:when test="${isAjaxRequest}">
