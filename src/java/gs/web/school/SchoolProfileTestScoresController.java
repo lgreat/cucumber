@@ -26,7 +26,6 @@ import java.util.regex.Pattern;
 public class SchoolProfileTestScoresController extends AbstractSchoolProfileController {
     private static final Logger _log = Logger.getLogger(SchoolProfileTestScoresController.class);
 
-    //TODO change the name of the jspx page.
     public static final String VIEW = "school/profileTestScores";
     public static final String ERROR_VIEW = "/school/error";
 
@@ -40,7 +39,6 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
 
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView getTestScores(HttpServletRequest request) {
-        System.out.println("TEST");
         School school = getSchool(request);
         Map<String, Object> model = new HashMap<String, Object>();
 
