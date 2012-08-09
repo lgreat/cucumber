@@ -154,19 +154,17 @@ jQuery(document).ready(function() {
     jQuery('#js_profileHeadWriteReviewLink').on('click', function() {
         return GS.profile.linkToTabAndAnchor('reviews', 'schoolReviewSubmitForm');
     });
-    jQuery('#js_profileStatsProgramsResourcesLink').on('click', function() {
-        return GS.profile.linkToTabAndAnchor('programsAndResources', 'Resources_table');
-    });
+
 
     /* End set up event handlers */
 
     if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
 
     /* this initializes all of the star rating options on the reviews page */
-    starRatingInterface("starRatingContainer1", 16, 5, "overallAsString", true);
-    starRatingInterface("starRatingContainer2", 16, 5, "teacherAsString", false);
-    starRatingInterface("starRatingContainer3", 16, 5, "principalAsString", false);
-    starRatingInterface("starRatingContainer4", 16, 5, "parentAsString", false);
+    starRatingInterface("starRatingContainer1", 16, 5, "overallAsString", "js_reviewTopStarDescriptor");
+    starRatingInterface("starRatingContainer2", 16, 5, "teacherAsString", "");
+    starRatingInterface("starRatingContainer3", 16, 5, "principalAsString", "");
+    starRatingInterface("starRatingContainer4", 16, 5, "parentAsString", "");
 
     var $parents = $('#showParents')
         , $students = $('#showStudents')
@@ -215,7 +213,7 @@ jQuery(document).ready(function() {
  * @param overallSR     sets the hidden value of a form field
  */
 
-function starRatingInterface(containerS, iconW, starsT, overallSR, topStarSelector){
+function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextValues){
     /* star rating */
     var iconWidth = iconW;
     var totalStars = starsT;
@@ -233,18 +231,18 @@ function starRatingInterface(containerS, iconW, starsT, overallSR, topStarSelect
             removeClassStr += " ";
         }
     }
-    $('#'+containerS).mousemove(function(e){
+    $('#'+containerS).mousemove (function(e){
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
         var currentStar = Math.floor(x/iconWidth) +1;
         if(currentStar > totalStars) currentStar = totalStars;
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentStar);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentStar));
-        if(topStarSelector){
-            $(reviewTopStarDescriptor).html(arrStarValuesText[currentStar]);
+        if(divWriteTextValues != ""){
+            $("#"+divWriteTextValues).html(arrStarValuesText[currentStar]);
         }
     });
-    $('#'+containerS).click(function(e){
+    $('#'+containerS).click (function(e){
         var offset = $(this).offset();
         var x = e.pageX - offset.left;
         var currentStar = Math.floor(x/iconWidth) +1;
@@ -259,8 +257,8 @@ function starRatingInterface(containerS, iconW, starsT, overallSR, topStarSelect
         var currentRating = overallStarRating.val();
         starsOn.removeClass(removeClassStr).addClass(iconStr + currentRating);
         starsOff.removeClass(removeClassStr).addClass(iconStr+ (totalStars - currentRating));
-        if(topStarSelector){
-            $(reviewTopStarDescriptor).html(arrStarValuesText[currentRating]);
+        if(divWriteTextValues != ""){
+            $("#"+divWriteTextValues).html(arrStarValuesText[currentRating]);
         }
     });
 }
