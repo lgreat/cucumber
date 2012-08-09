@@ -329,6 +329,12 @@ GSType.hover.JoinHover = function() {
             window.location = GSType.hover.joinHover.loadOnExitUrl;
         });
     };
+    this.executeOnExit = function(f) {
+        var joinHover = jQuery('#joinHover');
+        joinHover.bind('dialogclose', function() {
+            f();
+        });
+    };
     this.cancelLoadOnExit = function() {
         GSType.hover.joinHover.loadOnExitUrl = null;
         jQuery('#joinHover').unbind('dialogclose');
@@ -356,6 +362,9 @@ GSType.hover.JoinHover = function() {
         var arr = GS.getElementsByCondition(
                 function(el) {
                     if (el.tagName == "A") {
+                        if (el.parentNode.parentNode.parentNode.className === 'gsTabs') { // meh, what's best way to ignore the links that are part of profile tabs?
+                            return false;
+                        }
                         if (el.target || el.onclick)
                             return false;
                         if (el.className && el.className.indexOf('no_interrupt') > -1)
@@ -379,7 +388,10 @@ GSType.hover.JoinHover = function() {
                         createCookieWithExpiresDate('seenHoverOnExitRecently','1',threeMinuteDuration);
                         window.destUrl = gRedirectAnchor.href;
                         // show hover
-                        GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
+                        //GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
+                        GSType.hover.joinHover.executeOnExit(function() {
+
+                        });
                         showHoverFunction();
                         return false;
                     }
@@ -388,6 +400,26 @@ GSType.hover.JoinHover = function() {
                 return true;
             };
         }
+
+        // TODO: move out of hover.js into profilePage.js?
+        var $gsTabs = $('.gsTabs li>a');
+        $gsTabs.on('click', function(event) {
+            $this = $(this);
+            var tabSelector = $this.attr('id');
+            if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')) {
+                var threeMinuteDuration = getCookieExpiresDate(0,0,3);
+                createCookieWithExpiresDate('seenHoverOnExitRecently','1',threeMinuteDuration);
+                // show hover
+                //GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
+                GSType.hover.joinHover.executeOnExit(function() {
+                    // TODO: how to show tab without actually triggering click event? Might need to rethink tab event handling
+                    GS.profile.linkToTabs('#' + tabSelector);
+                });
+                showHoverFunction();
+                event.stopImmediatePropagation();
+            }
+            return false;
+        });
     };
     this.configureForMss = function(schoolName, schoolId, schoolState) {
         if (schoolName) {

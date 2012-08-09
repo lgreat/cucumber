@@ -74,6 +74,8 @@
     <script type="text/javascript" src="/res/js/gs_jquery_extensions.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/omnitureEventNotifier.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/photoGallery.js"><!-- no collapse --></script>
+
+    <script type="text/javascript" src="/res/js/mssAutoHoverInterceptor.js"><!-- no collapse --></script>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 
@@ -391,6 +393,13 @@
     <c:set var="currentTab" value="overview"/>
 </c:if>
 <pageHelper:trackPage name="${param.tab}"/>
+
+<!--<pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showMssAutoHoverOnExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');"/>-->
+<!--<school:hovers school="${school}" tab="still needed?"/> Why doesnt this tag work? -->
+
+<script type="text/javascript">
+    GSType.hover.joinHover.showMssAutoHoverOnExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');
+</script>
 
 </gsml:body>
 </html>
