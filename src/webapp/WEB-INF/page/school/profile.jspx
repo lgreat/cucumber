@@ -285,8 +285,8 @@
            value="${schoolAddress}+(${gsweb:escapeHtml(school.name)})"/>
     <!-- TODO: references mobile, needs accurate rating -->
     <c:choose>
-        <c:when test="${not empty gs_rating}">
-            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_${gs_rating}.png"/>
+        <c:when test="${not empty overallRating}">
+            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_${overallRating}.png"/>
         </c:when>
         <c:when test="${school.type.schoolTypeName eq 'private'}">
             <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_private.png"/>
@@ -385,7 +385,7 @@
 <div style="display: none;">
     <mod:tracking pageName="${pageName}"
                   hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
-                  school="${school}" schoolGSRating="${gs_rating}" schoolPhotosTracking="${schoolPhotosTracking}"/>
+                  school="${school}" schoolGSRating="${overallRating}" schoolPhotosTracking="${schoolPhotosTracking}"/>
 </div>
 
 <c:set var="currentTab" value="${param.tab}"/>
