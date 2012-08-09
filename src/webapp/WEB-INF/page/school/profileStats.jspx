@@ -6,7 +6,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
     <jsp:directive.page import="java.util.Map"/>
     <jsp:directive.page import="java.util.HashMap"/>
     <jsp:directive.page import="java.util.Set"/>
@@ -321,7 +321,7 @@
         </div>
     </div>
 
-    <pageHelper:registerTrackingData key="teachers" pageName="Teachers" hier1="School,Teachers|Students"/>
-    <pageHelper:registerTrackingData key="students" pageName="Students" hier1="School,Teachers|Students"/>
+    <mod:deferredTracking key="teachers" pageName="Teachers" hier1="School,Teachers|Students"/>
+    <mod:deferredTracking key="students" pageName="Students" hier1="School,Teachers|Students"/>
 
 </jsp:root>

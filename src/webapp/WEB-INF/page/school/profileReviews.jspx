@@ -11,7 +11,7 @@
           xmlns:form="http://www.springframework.org/tags/form"
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
 
 <c:set var="stateAbbrev" value="${school.databaseState.abbreviationLowerCase}"/>
@@ -441,8 +441,7 @@ ${aboutTheseRatings}
 </script>
 
 
-<pageHelper:registerTrackingData key="reviews" pageName="Parent Reviews"
-                                 hier1="School,Parent Reviews"/>
-<pageHelper:registerTrackingData numberOfReviews="${cmd.totalReviews}"/>
+<mod:deferredTracking key="reviews" pageName="Parent Reviews" hier1="School,Parent Reviews,Read Reviews"/>
+<mod:deferredTracking numberOfReviews="${cmd.totalReviews}"/>
 
 </jsp:root>

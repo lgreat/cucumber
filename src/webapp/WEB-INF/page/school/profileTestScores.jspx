@@ -3,7 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
 
 <c:if test="${! empty testScores}">
@@ -199,7 +199,7 @@
         $('#js_testSelect').change();
     </script>
     </div>
-    <pageHelper:registerTrackingData key="test-scores" pageName="Test Scores" hier1="School,TestScores"/>
+    <mod:deferredTracking key="test-scores" pageName="Test Scores" hier1="School,TestScores,MainTestScorePage"/>
 </c:if>
 
 </jsp:root>

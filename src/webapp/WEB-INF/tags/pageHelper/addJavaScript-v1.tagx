@@ -62,5 +62,19 @@
             <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
         </c:otherwise>
     </c:choose>
+    <c:if test="${!requestScope.context.crawler}">
+        <!-- SiteCatalyst code version: H.2. Copyright 1997-2005 Omniture, Inc. More info available at http://www.omniture.com -->
+        <c:if test="${requestScope.pageHelper.devEnvironment}">
+            <gsml:url var="js" value="/res/js/s_code_dev.js" allowCdn="true"/>
+            <c:set var="gsnet" value="gsnetdev"/>
+        </c:if>
+        <c:if test="${not requestScope.pageHelper.devEnvironment}">
+            <gsml:url var="js" value="/res/js/s_code.js" allowCdn="true"/>
+            <c:set var="gsnet" value="gsnet"/>
+        </c:if>
+        <script type="text/javascript" src="${js}">
+            /* this comment keeps the tag from collapsing */
+        </script>
+    </c:if>
 
 </jsp:root>

@@ -4,7 +4,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper">
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 
 <div class="${(!empty requestScope.schoolProfileTabMap.ratings and requestScope.schoolProfileTabMap.ratings eq 'selected'?'':'dn')}">
 
@@ -244,6 +244,6 @@
     </div>
 </div>
 
-<pageHelper:registerTrackingData key="ratings" pageName="Ratings" hier1="School"/>
+<mod:deferredTracking key="ratings" pageName="Ratings" hier1="School,Ratings"/>
 
 </jsp:root>

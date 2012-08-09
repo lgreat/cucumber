@@ -146,9 +146,9 @@ where each entry is the first bean for that section, this allows access to the s
         <div id="fade" class="black_overlay"><!-- do not collapse --></div>
     </c:if>
 
-    <pageHelper:registerTrackingData key="programs-culture" pageName="Highlights" hier1="School,Programs"/>
-    <pageHelper:registerTrackingData key="programs" pageName="Programs Resources" hier1="School,Programs"/>
-    <pageHelper:registerTrackingData key="extracurriculars" pageName="Extracurriculars" hier1="School,Programs"/>
-    <pageHelper:registerTrackingData key="admissions" pageName="Admissions" hier1="School"/> <!-- TODO: admissions/application-->
-    <pageHelper:registerTrackingData key="culture" pageName="Culture" hier1="School,Programs"/>
+    <mod:deferredTracking key="programs-culture" pageName="Highlights" hier1="School,Programs"/>
+    <mod:deferredTracking key="programs" pageName="Programs Resources" hier1="School,Programs"/>
+    <mod:deferredTracking key="extracurriculars" pageName="Extracurriculars" hier1="School,Programs"/>
+    <mod:deferredTracking key="admissions" pageName="Admissions" hier1="School"/> <!-- TODO: admissions/application-->
+    <mod:deferredTracking key="culture" pageName="Culture" hier1="School,Programs"/>
 </jsp:root>

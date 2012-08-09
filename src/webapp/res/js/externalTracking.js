@@ -73,7 +73,7 @@ GS.tracking.sendOmnitureData = function(key) {
         pageTracking.clear();
         $.extend(pageTracking, data);
         if (sharedData !== undefined) {
-            $.extend(pageTracking, sharedData);
+            $.extend(true, pageTracking, sharedData);
         }
         pageTracking.send();
     }

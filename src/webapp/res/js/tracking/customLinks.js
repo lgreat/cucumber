@@ -4,6 +4,7 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
 
     var init = function() {
         registerDataAttributeHandlers();
+        registerDataAttributeHandlersWithDelay();
     };
 
     var registerDataAttributeHandlers = function(containerSelector) {
@@ -27,6 +28,34 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
                     }
                 }
                 else {
+                    s.tl(true, 'o', $this.data(customLinkDataAttribute));
+                }
+            }
+        });
+    };
+
+    var registerDataAttributeHandlersWithDelay = function(containerSelector) {
+        containerSelector = containerSelector || 'body';
+
+        var customLinkDataAttribute = 'gs-custom-link';
+        var customLinkSelector = '[data-' + customLinkDataAttribute + ']';
+
+        var $container = $(containerSelector);
+
+        $container.on('click', customLinkSelector, function() {
+            var $this = $(this);
+            var track = false;
+
+            if ($this.is(':checkbox') || $this.is(':radio')) {
+                if ($this.prop('checked') === true) {
+                    track = true;
+                }
+            } else {
+                track = true;
+            }
+
+            if (track === true) {
+                if (s.tl) {
                     s.tl(true, 'o', $this.data(customLinkDataAttribute));
                 }
             }
