@@ -32,7 +32,7 @@ GS.util.htmlMirrors = GS.util.htmlMirrors || (function() {
         }
 
         var $elementToCopyFrom = $('#' + $dataRecipient.data(recipientDataAttribute));
-        if(($elementToCopyFrom.length == 0 || $elementToCopyFrom.html() == '') && $dataRecipient.attr('id') === '#js_totalResultsCountReturn') {
+        if(($elementToCopyFrom.length == 0 || $elementToCopyFrom.html() == '') && $dataRecipient.attr('id') === 'js_totalResultsCountReturn') {
             $dataRecipient.html('0');
             $('#js-noResultsPopup').show();
         }

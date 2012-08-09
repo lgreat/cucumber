@@ -23,7 +23,7 @@
             <c:otherwise>
                 <c:set var="badSearch"><c:out value="${searchString}" escapeXml="true"/></c:set>
 
-                <div id="">
+                <div id="js-school-search-results-table-body">
                     <c:choose>
                         <c:when test="${isNearbySearch and param.zipCode}">
                             <h3>Your search for <strong>${param.zipCode}</strong> did not match any schools.</h3>
