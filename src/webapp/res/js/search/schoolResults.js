@@ -332,7 +332,6 @@ GS.search.results = GS.search.results || (function() {
         jQuery('#page-size').change(onDisplayResultsSizeChanged);
         jQuery('#map-sort').change(function(){onSortChangedForMap($(this).find(":selected").val());});
         jQuery('#sort-by').change(onSortChanged);
-        jQuery('.js-redobtn').click(redoSearch);
         $(body).on('click', listResultsLinkSelector, function() {
             if(GS.uri.Uri.getFromQueryString('view') === undefined) {
                 return;
@@ -556,25 +555,6 @@ GS.search.results = GS.search.results || (function() {
     var setEllipsisOrActive = function(className, value) {
         var index = "<span class=" + className + ">" + value + "</span>\n";
         return index;
-    }
-
-    var redoSearch = function() {
-        var redoSearchDiv = $("#js-redoSearch");
-        redoSearchDiv.dialog('close');
-        var queryString = window.location.search;
-        var queryStringData = GS.uri.Uri.getQueryData(queryString);
-        for(var key in queryStringData) {
-            if(key !== 'search_type' && key !== 'c' && key !== 'view') {
-                delete queryStringData[key];
-            }
-        }
-        queryStringData.start = 0;
-        queryStringData.state = redoSearchDiv.find('#js-redoState').val();
-        queryStringData.lat = redoSearchDiv.find('#js-redoLat').val();
-        queryStringData.lon = redoSearchDiv.find('#js-redoLng').val();
-        queryStringData.zipCode = redoSearchDiv.find('#js-redoZipCode').val();
-        queryStringData.rs = true;
-        window.location.search = GS.uri.Uri.getQueryStringFromObject(queryStringData);
     }
 
     var updateSortAndPageSize = function() {

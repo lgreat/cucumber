@@ -335,7 +335,7 @@ that this is updated for ajax refresh -->
                     </div>
                     <div class="unit size67of100 lastUnit">
                         <div class="small_bold bottom make-FFCC66">Your search filters are unavailable for this area.</div>
-                        <div class="small bottom make-ffffff">Redoing search in this area will remove all applied filters.</div>
+                        <div class="small bottom make-ffffff"> Redoing search in this area may remove some applied filters.</div>
                     </div>
                 </div>
             </div>
@@ -489,19 +489,6 @@ that this is updated for ajax refresh -->
             </div>
         </div>
     </div>
-</div>
-
-<div id="js-redoSearch" style="display: none;">
-    <div class="js-redobtn dn mvn pvn">
-        <button class="but but-sm but-2">Redo Search</button>
-    </div>
-    <p class="small_bold">Your search filters are unavailable for this area.</p>
-    Redoing search in this area will remove all applied filters.
-    <input type="hidden" value="0" id="js-redoLat"/>
-    <input type="hidden" value="0" id="js-redoLng"/>
-    <input type="hidden" value="0" id="js-redoState"/>
-    <input type="hidden" value="0" id="js-redoCity"/>
-    <input type="hidden" value="0" id="js-redoZipCode"/>
 </div>
 
 </div>

@@ -122,6 +122,9 @@ GS.map.getMap = GS.map.getMap ||(function(){
         });
 
         $('#contentGS').on('click', '#js_reloadMap', function() {
+            if (s.tl) {
+                s.tl(this, 'o', 'SearchResults_Map_Redo_Search');
+            }
             redoSearchOnMapMove();
         });
     };
@@ -282,49 +285,41 @@ GS.map.getMap = GS.map.getMap ||(function(){
     };
 
     var redoSearchOnMapMove = function() {
+        var queryString = window.location.search;
+        var queryStringData = GS.uri.Uri.getQueryData(queryString);
+
+        var geocoder = new google.maps.Geocoder();
         var currentCenter = map.getCenter();
-                var geocoder = new google.maps.Geocoder();
-
-        var queryData = GS.uri.Uri.getQueryData(window.location.search);
-
-        var pageSize = queryData.pageSize;
-        if (pageSize === undefined) {
-            pageSize = defaultPageSize;
-        }
-
         var newData = {};
-
         geocoder.geocode({latLng: currentCenter}, function(results, status) {
             if(status === google.maps.GeocoderStatus.OK) {
                 var addressComponents = results[0].address_components;
                 $.each(addressComponents, function(i, addressComponent) {
                     if(addressComponent.types[0] === 'administrative_area_level_1') {
-                newData.state = addressComponent.short_name;
+                        newData.state = addressComponent.short_name;
                     }
                     else if(addressComponent.types[0] === 'locality') {
-                newData.city = addressComponent.long_name;
+                        newData.city = addressComponent.long_name;
                     }
                     else if(addressComponent.types[0] === 'postal_code') {
-                newData.zipCode = addressComponent.short_name;
+                        newData.zipCode = addressComponent.short_name;
                     }
                 });
-
-                delete queryData.q;
 
                 newData.lat = currentCenter.lat();
                 newData.lon = currentCenter.lng();
 
-                $.extend(queryData, newData);
+                for(var key in queryStringData) {
+                    if(key !== 'search_type' && key !== 'c' && key !== 'view') {
+                        delete queryStringData[key];
+                    }
+                }
+                queryStringData.start = 0;
+                queryStringData.rs = true;
+                $.extend(queryStringData, newData);
 
-                GS.search.results.mapSearch(1, pageSize, queryData);
-                var $redoSearch = $("#js_reloadMap");
-                $redoSearch.hide();
-            }
+                window.location.search = GS.uri.Uri.getQueryStringFromObject(queryStringData);            }
         });
-
-        if (s.tl) {
-            s.tl(true, 'o', 'SearchResults_Map_Redo_Search');
-        }
     };
 
     var changeCompareLabelToLink = function(state, schoolId) {
