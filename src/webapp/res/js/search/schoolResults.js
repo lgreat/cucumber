@@ -387,9 +387,9 @@ GS.search.results = GS.search.results || (function() {
 
         updatePageNav(page);
 
-        var homesForSale = "block";
+        var showHomesForSale = 'block';
         if(!data.salePromo[1].homesForSale) {
-            homesForSale = "none";
+            showHomesForSale = 'hidden';
         }
 
         var schoolList = $('#js-schoolList');
@@ -401,10 +401,10 @@ GS.search.results = GS.search.results || (function() {
 
             var parentRating = school.parentRating;
             var showParentRating = 'block';
-            var showRateSchool = 'none';
+            var showRateSchool = 'hidden';
             var starsOff = 0;
             if(parentRating == null) {
-               showParentRating = 'none';
+               showParentRating = 'hidden';
                showRateSchool = 'block';
             }
             else {
@@ -414,17 +414,17 @@ GS.search.results = GS.search.results || (function() {
             var gsRating = school.greatSchoolsRating;
             var gsRatingUrl = school.gsRatingUrl;
             var showNonPrivate = 'block';
-            var showPrivate = 'none';
-            var showPreschool = 'none';
+            var showPrivate = 'hidden';
+            var showPreschool = 'hidden';
             if (school.levelCode == 'p') {
-                showNonPrivate = 'none';
-                showPrivate = 'none';
+                showNonPrivate = 'hidden';
+                showPrivate = 'hidden';
                 showPreschool = 'block';
                 gsRatingUrl = school.schoolUrl;
             } else if(school.schoolType == 'private') {
-                showNonPrivate = 'none';
+                showNonPrivate = 'hidden';
                 showPrivate = 'block';
-                showPreschool = 'none';
+                showPreschool = 'hidden';
                 gsRatingUrl = school.schoolUrl;
             }
             else if(gsRating == null) {
@@ -434,30 +434,30 @@ GS.search.results = GS.search.results || (function() {
             var isPkCompare = "none", showCompare = "inline";
             if(school.levelCode == 'p') {
                 isPkCompare = "inline";
-                showCompare = "none";
+                showCompare = "hidden";
             }
 
-            var existsInMsl = "none", notInMsl = "block";
+            var showExistsInMsl = "hidden", showNotInMsl = "block";
             if(school.mslHasSchool) {
-                existsInMsl = "block";
-                notInMsl = "none";
+                showExistsInMsl = 'block';
+                showNotInMsl = 'none';
             }
 
             var showDistance = "inline";
             if(school.distance == null) {
-                showDistance = "none";
+                showDistance = "hidden";
             }
 
             var infoBoxHtml = infoBoxTemplate.render({
                 city: school.city,
                 communityRatingUrl: school.communityRatingUrl,
-                existsInMsl: existsInMsl,
+                showExistsInMsl: showExistsInMsl,
                 gradesRange: school.rangeString,
                 id: school.id,
                 isPkCompare: isPkCompare,
-                homesForSale: homesForSale,
+                showHomesForSale: showHomesForSale,
                 jsEscapeName: school.jsEscapeName,
-                notInMsl: notInMsl,
+                showNotInMsl: showNotInMsl,
                 omniturePageName: page.omniturePageName,
                 parentRating: parentRating,
                 schoolName: school.name,

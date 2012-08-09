@@ -416,7 +416,7 @@ that this is updated for ajax refresh -->
                                    target="_blank">Get directions</a>
                             </div>
                         </div>
-                        <div class="small bottom" style="display: {{homesForSale}}">
+                        <div class="small bottom {{showHomesForSale}}">
                             <div class="media skin-1">
                                 <div class="img mrs">
                                     <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
@@ -447,9 +447,8 @@ that this is updated for ajax refresh -->
                         <!--<label class="checkbox"-->
                         <!--for="disabled-{{state}}{{id}}"-->
                         <!--style="display: {{isPkCompare}}">Compare</label>-->
-                        <input id="{{state}}{{id}}" class="js-compare-school-checkbox" type="checkbox"
-                               style="display: {{showCompare}}"/>
-                        <label class="js-compareLabel checkbox" style="display: {{showCompare}}" id="js-{{state}}{{id}}-compare-label"
+                        <input id="{{state}}{{id}}" class="js-compare-school-checkbox {{showCompare}}" type="checkbox"/>
+                        <label class="js-compareLabel checkbox {{showCompare}}" id="js-{{state}}{{id}}-compare-label"
                                for="{{state}}{{id}}">Compare</label>
                         <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW
                         </button>
@@ -457,7 +456,7 @@ that this is updated for ajax refresh -->
 
                     <div class="unit size65of100">
                         <div class="js-add-msl js-add-msl-{{state}}{{id}}">
-                            <div class="js-existsInMsl" style="display: {{existsInMsl}}">
+                            <div class="js-existsInMsl {{showExistsInMsl}}">
                                 <div class="fltlft mrs">
                                     <span class="iconx16 i-16-success"><!-- do not collapse --></span>
                                 </div>
@@ -465,7 +464,7 @@ that this is updated for ajax refresh -->
                                     Added to <a href="/mySchoolList.page">My School List</a>
                                 </div>
                             </div>
-                            <div class="js-notInMsl" style="display: {{notInMsl}}">
+                            <div class="js-notInMsl {{showNotInMsl}}">
                                 <div class="fltlft mrs">
                                     <span class="iconx16 i-16-cross"><!-- do not collapse --></span>
                                 </div>
@@ -738,7 +737,7 @@ that this is updated for ajax refresh -->
                     </a>
                 </div>
                 <div class="unit size25of100 lastUnit">
-                    <span style="display:{{showDistance}}" class="small bottom fltrt">{{distance}} miles</span>
+                    <span class="small bottom fltrt {{showDistance}}">{{distance}} miles</span>
                 </div>
             </div>
 
@@ -747,12 +746,9 @@ that this is updated for ajax refresh -->
                 <div class="unit size20of100">
                     <div class="js-gsRating img mrm">
                         <a href="" data-href="{{gsRatingUrl}}" class="noUnderline">
-                            <span class="iconx24-ratings i-24-ratings{{gsRating}}"
-                                 style="display: {{showNonPrivate}}"><!-- do not collapse --></span>
-                            <span class="iconx24 i-24-private-school-badge"
-                                  style="display: {{showPrivate}}"><!-- do not collapse --></span>
-                            <span class="iconx24 i-24-preschool-badge"
-                                  style="display: {{showPreschool}}"><!-- do not collapse --></span>
+                            <span class="iconx24-ratings i-24-ratings{{gsRating}} {{showNonPrivate}}"><!-- do not collapse --></span>
+                            <span class="iconx24 i-24-private-school-badge {{showPrivate}}"><!-- do not collapse --></span>
+                            <span class="iconx24 i-24-preschool-badge {{showPreschool}}"><!-- do not collapse --></span>
                         </a>
                     </div>
                 </div>
@@ -760,11 +756,11 @@ that this is updated for ajax refresh -->
                     <div class="small bottom js-communityRating">
                         <div class="fr">
                             <a href="" data-href="{{communityRatingUrl}}">
-                                <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl"
-                                  style="display: {{showParentRating}}"><!-- do not collapse --></span>
-                                <span class="iconx16-stars i-16-grey-star  i-16-star-{{starsOff}} fl"
-                                  style="display: {{showParentRating}}"><!-- do not collapse --></span>
-                                <dfn style="display: {{showRateSchool}}">Rate this school</dfn>
+                                <span class="iconx16-stars i-16-orange-star  i-16-star-{{parentRating}} fl {{showParentRating}}">
+                                    <!-- do not collapse --></span>
+                                <span class="iconx16-stars i-16-grey-star  i-16-star-{{starsOff}} fl {{showParentRating}}">
+                                    <!-- do not collapse --></span>
+                                <dfn class="{{showRateSchool}}">Rate this school</dfn>
                             </a>
                         </div>
                         <div class="fr mrs">Community rating:</div>
