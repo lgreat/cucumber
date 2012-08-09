@@ -5,7 +5,10 @@ import gs.data.content.related.RelatedCmsCategoryComparator;
 import gs.data.content.related.SchoolCmsCategoryMapper;
 import gs.data.school.EspResponse;
 import gs.data.school.School;
+import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
+import org.apache.commons.lang.StringUtils;
+import org.apache.solr.client.solrj.SolrQuery;
 
 import java.util.*;
 
@@ -18,6 +21,7 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
 
     private SchoolCmsCategoryMapper _schoolCmsCategoryMapper;
     private CmsFeatureSearchService _cmsFeatureSearchService;
+    private CmsRelatedFeatureCacheManager _cmsRelatedFeatureCacheManager;
 
     /**
      * Get the related features from solr based on the school, esp responses and the
@@ -67,7 +71,7 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
      * @return java.util.List
      */
     private List<ICmsFeatureSearchResult> populate(List<CmsCategory> categories, int rows) {
-
+        long start = System.currentTimeMillis();
         if (categories==null || categories.isEmpty()){
             return new ArrayList<ICmsFeatureSearchResult>();
         }
@@ -116,7 +120,11 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
         // if content doesn't contain key yet, pull a few stories
         // to populate the queue
         if (!content.containsKey(category)){
-            content.put(category, content(category, rows));
+            try {
+                content.put(category, content(category, rows));
+            } catch (SearchException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
         }
 
         // if the content is empty, then return null
@@ -134,12 +142,17 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
      * @param rows
      * @return
      */
-    private LinkedList<ICmsFeatureSearchResult> content(CmsCategory cmsCategory, int rows){
+    private LinkedList<ICmsFeatureSearchResult> content(CmsCategory cmsCategory, int rows) throws SearchException {
 
         // TODO: need to add caching layer to prevent too many calls to SOLR
-        SearchResultsPage resultsPage = _cmsFeatureSearchService.getCmsFeaturesByType(Arrays.asList(new CmsCategory[]{cmsCategory}), "Article", rows, 0);
-        if (resultsPage!=null && resultsPage.getSearchResults()!=null && !resultsPage.getSearchResults().isEmpty()){
-            return new LinkedList<ICmsFeatureSearchResult>(resultsPage.getSearchResults());
+        List<Long> ids = _cmsRelatedFeatureCacheManager.findFeatureIds(cmsCategory);
+        if (!ids.isEmpty()){
+            SolrQuery query = new SolrQuery();
+            query.setQuery("+contentId:(" + StringUtils.join(ids, " OR ") + ") +contentType:(Article)");
+            SearchResultsPage resultsPage = _cmsFeatureSearchService.search(query);
+            if (resultsPage!=null && resultsPage.getSearchResults()!=null && !resultsPage.getSearchResults().isEmpty()){
+                return new LinkedList<ICmsFeatureSearchResult>(resultsPage.getSearchResults());
+            }
         }
         return new LinkedList<ICmsFeatureSearchResult>();
     }
@@ -168,5 +181,13 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
 
     public void setCmsFeatureSearchService(CmsFeatureSearchService cmsFeatureSearchService) {
         _cmsFeatureSearchService = cmsFeatureSearchService;
+    }
+
+    public CmsRelatedFeatureCacheManager getCmsRelatedFeatureCacheManager() {
+        return _cmsRelatedFeatureCacheManager;
+    }
+
+    public void setCmsRelatedFeatureCacheManager(CmsRelatedFeatureCacheManager cmsRelatedFeatureCacheManager) {
+        _cmsRelatedFeatureCacheManager = cmsRelatedFeatureCacheManager;
     }
 }

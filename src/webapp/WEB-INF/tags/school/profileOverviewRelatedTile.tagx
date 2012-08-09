@@ -34,7 +34,11 @@
                         <div class="bd">
                             <ul class="small bottom mvm">
                                 <c:forEach var="item" items="${cmsResults}">
-                                    <gsweb:articlelink articleId="${gsweb:abbreviateAtWhitespace(item.contentId,60)}" wrappingElement="li"/>
+                                    <li>
+                                        <link:cmsContent contentKey="${item.contentKey}" fullUri="${item.fullUri}" >
+                                            <c:out value="${item.title}" escapeXml="false"/>
+                                        </link:cmsContent>
+                                    </li>
                                     <!--<li>CMS Id: ${item.contentId}, Title: ${item.title}, Content Type: ${item.contentType}, Thumbnail url: ${item.previewImageUrl}</li>-->
                                 </c:forEach>
                             </ul>

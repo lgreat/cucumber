@@ -240,8 +240,11 @@
     <bean id="solrCmsFeatureSearchService" class="gs.web.search.CmsFeatureSearchServiceSolrImpl" init-method="init">
     </bean>
 
+    <bean id="cmsRelatedFeatureCacheManager" class="gs.web.search.CmsRelatedFeatureCacheManagerEhcacheImpl" autowire="byType"></bean>
+
     <bean id="solrCmsRelatedFeatureSearchService" class="gs.web.search.CmsRelatedFeatureSearchServiceSolrImpl" autowire="byType">
     </bean>
+
 
     <bean id="solrSchoolSearchService" class="gs.data.search.services.SchoolSearchServiceSolrImpl">
     </bean>
