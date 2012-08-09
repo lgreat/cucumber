@@ -7,6 +7,8 @@ GS.search.filters = GS.search.filters || (function() {
         $(function() {
             $('.js-applyFilters').on('click', function(){
                 /*if (window.location.pathname.indexOf('search.page') > -1) {*/
+                jQuery("#js_totalResultsCountReturn").hide();
+                jQuery("#js-spinny-search").show();
                 GS.search.results.update();
                 GS.search.filters.save();
                 var dropdownId = $(this).data('gs-dropdown-hider');

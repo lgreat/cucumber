@@ -137,7 +137,6 @@ GS.search.results = GS.search.results || (function() {
         else {
             var onSearchSuccess = function(data) {
                 var afterFadeIn = function() {
-                    jQuery("#spinner").hide();
                     //reattach callbacks to dom element events
                     attachEventHandlers();
                     // ask persistent compare to tell us what schools are in compare
@@ -170,13 +169,8 @@ GS.search.results = GS.search.results || (function() {
 
             var onSearchError = function() {
                 clear();
-                jQuery("#spinner").hide();
                 jQuery("#js-spinny-search").hide();
             };
-
-            jQuery('#spinner').show();
-            jQuery("#js_totalResultsCountReturn").hide();
-            jQuery("#js-spinny-search").show();
 
             jQuery('#js-school-search-results-table-body').animate(
                 { opacity: .2 },
@@ -296,8 +290,6 @@ GS.search.results = GS.search.results || (function() {
             // use HTML 5 history API to rewrite the current URL to represent the new state.
             history.pushState(state, start, queryString);
         }
-        jQuery("#js_totalResultsCountReturn").hide();
-        jQuery("#js-spinny-search").show();
 
         refreshMapAds();
         $.ajax({
@@ -316,7 +308,6 @@ GS.search.results = GS.search.results || (function() {
                 else{
                     jQuery("#js_totalResultsCountReturn").popover('hide');
                 }
-//                window.setTimeout(function(){}, 250);
                 pageTracking.clear();
                 pageTracking.pageName = data.page[1].omniturePageName;
                 pageTracking.send();
