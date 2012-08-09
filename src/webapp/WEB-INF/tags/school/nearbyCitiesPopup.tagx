@@ -21,7 +21,7 @@
         </c:otherwise>
     </c:choose>
 
-    <c:if test="${fn:length(citySearchResults) gt 3}">
+    <c:if test="${fn:length(citySearchResults) gt 0}">
         <div id="js-bubbleInfo-8"><span id="nearby-cities-link"
                                         class="js-trigger small bottom"><a href="javascript:void(0);">${moreNearbyCitiesLabel}
             <span>&amp;raquo;</span></a></span>
