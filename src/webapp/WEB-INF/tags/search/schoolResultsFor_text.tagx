@@ -19,7 +19,7 @@
         <h1 class="js-schoolResultsHeader">
             <c:choose>
                 <c:when test="${param.rs}">
-                    ${page.pager.totalItems} results near this location
+                    Schools near this location
                 </c:when>
                 <c:when test="${commandAndFields.nearbySearch eq true and param.zipCode}">
                     ${nearbySearchTitlePrefix} near ${param.zipCode}
