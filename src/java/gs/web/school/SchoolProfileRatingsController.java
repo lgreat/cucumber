@@ -585,8 +585,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         boolean showClimateRatingDetails = isShowClimateRatingDetails(school.getDatabaseState());
         model.put(MODEL_SHOW_CLIMATE_RATING_DETAILS, showClimateRatingDetails);
-        if (showClimateRatingDetails) {
-            model.putAll(getClimateRatingDetailsModel(school, dataMap));
+
+        Map<String,Object> climateRatingDetailsMap = getClimateRatingDetailsModel(school, dataMap);
+        if (showClimateRatingDetails && climateRatingDetailsMap!= null && !climateRatingDetailsMap.isEmpty()) {
+            model.putAll(climateRatingDetailsMap);
         }
 
         return model;
