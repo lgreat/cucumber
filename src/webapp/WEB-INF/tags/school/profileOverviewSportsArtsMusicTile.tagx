@@ -72,39 +72,53 @@
 
                 <!-- Arts -->
                 <div class="unit size25of100">
-                    <c:choose>
-                        <c:when test="${empty arts}">
-                            <p><em>Call the school for more information</em></p>
-                        </c:when>
-                        <c:otherwise>
-                            <div>
+                    <div style="height: 100px;border-left: 1px solid #e6e6e6;">
+                        <c:choose>
+                            <c:when test="${empty arts}">
+                                <p class="mam"><em>Call the school for more information</em></p>
+                            </c:when>
+                            <c:otherwise>
                                 <ul class="small bottom">
                                     <c:set var="showArtMax" value="${5}"/>
-                                    <c:forEach var="item" items="${arts}">
-                                        <li>${item}</li>
+                                    <c:set var="loopArtMax" value="${fn:length(arts) le showArtMax ? fn:length(arts) : 4}"/>
+                                    <c:set var="showMoreArt" value="${fn:length(arts) gt showArtMax ? 'true' : 'false'}"/>
+                                    <c:forEach var="item" items="${arts}" varStatus="status">
+                                        <c:if test="${status.count le loopArtMax}">
+                                            <li>${gsweb:abbreviateAtWhitespace(item,25)}</li>
+                                        </c:if>
+                                        <c:if test="${status.count eq loopArtMax and showMoreArt}">
+                                            <li><a href="javascript:void(0);">More &amp;raquo;</a></li>
+                                        </c:if>
                                     </c:forEach>
                                 </ul>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
                 <!-- Music -->
                 <div class="unit size25of100 lastUnit">
-                    <c:choose>
-                        <c:when test="${empty music}">
-                            <p><em>Call the school for more information</em></p>
-                        </c:when>
-                        <c:otherwise>
-                            <div>
+                    <div style="height: 100px;border-left: 1px solid #e6e6e6;">
+                        <c:choose>
+                            <c:when test="${empty music}">
+                                <p class="mam"><em>Call the school for more information</em></p>
+                            </c:when>
+                            <c:otherwise>
                                 <ul class="small bottom">
                                     <c:set var="showMusicMax" value="${5}"/>
-                                    <c:forEach var="item" items="${music}">
-                                        <li>${item}</li>
+                                    <c:set var="loopMusicMax" value="${fn:length(music) le showMusicMax ? fn:length(music) : 4}"/>
+                                    <c:set var="showMoreMusic" value="${fn:length(music) gt showMusicMax ? 'true' : 'false'}"/>
+                                    <c:forEach var="item" items="${music}" varStatus="status">
+                                        <c:if test="${status.count le loopMusicMax}">
+                                            <li>${gsweb:abbreviateAtWhitespace(item,25)}</li>
+                                        </c:if>
+                                        <c:if test="${status.count eq loopArtMax and showMoreMusic}">
+                                            <li><a href="javascript:void(0);">More &amp;raquo;</a></li>
+                                        </c:if>
                                     </c:forEach>
                                 </ul>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
             </div>
         </school:profileOverviewCell1>
