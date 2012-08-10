@@ -417,8 +417,8 @@ GS.search.results = GS.search.results || (function() {
                 showPreschool = 'hidden';
                 gsRatingUrl = school.schoolUrl;
             }
-            else if(gsRating == null) {
-                gsRating = 'n/a';
+            else if(gsRating === null) {
+                gsRating = 'NA';
             }
 
             var isPkCompare = "none", showCompare = "inline";
