@@ -508,7 +508,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Section 4 ==============================
 
-    public static void populateSection4Model(School school, Map<String,Object> dataMap,ModelMap model) {
+    public static void populateSection4Model(School school, Map<String, Object> dataMap, ModelMap model) {
 
         // SECTION 4 COPY
 
@@ -517,10 +517,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         // SECTION 4 CLIMATE DETAILS
 
         boolean showClimateRatingDetails = isShowClimateRatingDetails(school.getDatabaseState());
+        Map<String, Object> climateRatingDetailsMap = getClimateRatingDetailsModel(school, dataMap);
+        showClimateRatingDetails = showClimateRatingDetails && climateRatingDetailsMap != null && !climateRatingDetailsMap.isEmpty();
         model.put(MODEL_SHOW_CLIMATE_RATING_DETAILS, showClimateRatingDetails);
 
-        Map<String,Object> climateRatingDetailsMap = getClimateRatingDetailsModel(school, dataMap);
-        if (showClimateRatingDetails && climateRatingDetailsMap!= null && !climateRatingDetailsMap.isEmpty()) {
+        if (showClimateRatingDetails) {
             model.putAll(climateRatingDetailsMap);
         }
 
