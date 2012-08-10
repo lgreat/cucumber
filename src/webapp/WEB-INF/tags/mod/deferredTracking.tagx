@@ -16,80 +16,41 @@
     <jsp:directive.attribute name="hier1" required="false" />
     <jsp:directive.attribute name="hasOsp" required="false" />
     <jsp:directive.attribute name="numberOfReviews" required="false" />
-    <jsp:directive.attribute name="school" required="false" type="gs.data.school.School" />
     <jsp:directive.attribute name="schoolPhotosTracking" required="false" />
     <jsp:directive.attribute name="schoolGSRating" required="false" />
-    <jsp:directive.attribute name="schoolType" description="public, private or charter" required="false" />
-    <jsp:directive.attribute name="schoolLevel" description="p,e,m,h or combinations thereof -- but should actually be Preschool+Elementary+Middle+High or combinations thereof -- bug will be filed to deal with p,e,m,h in schoolResults.jspx and schoolsTable.jspx" required="false"/>
-    <jsp:directive.attribute name="locale" description="could be county, city or metro somethingerother" required="false"/>
-
-
-    <jsp:scriptlet>
-        request.setAttribute("scheme", request.getScheme());
-        if (null != school) {
-            try {
-                jspContext.setAttribute("id", school.getId().toString());
-                jspContext.setAttribute("schoolType", school.getType().getSchoolTypeName());
-                Address address = school.getPhysicalAddress();
-                if (address != null) {
-                    jspContext.setAttribute("locale", address.getCity());
-                } else {
-                    jspContext.setAttribute("locale", school.getCounty());
-                }
-                StringBuffer buffer = new StringBuffer(40);
-                Iterator iter = school.getLevelCode().getIndividualLevelCodes().iterator();
-                while (iter.hasNext()) {
-                    buffer.append(((LevelCode.Level) iter.next()).getLongName());
-                    if (iter.hasNext()) {
-                        buffer.append("+");
-                    }
-                }
-                schoolLevel = buffer.toString();
-                jspContext.setAttribute("schoolLevel", schoolLevel);
-            } catch (Exception e) {
-            }
-        }
-    </jsp:scriptlet>
-
-
+    <jsp:directive.attribute name="school" required="false" type="gs.data.school.School"/>
 
     <script type="text/javascript">
         GS.tracking.registerTrackingData("${not empty pageScope.key? pageScope.key : '_shared'}", {
             pageName : '${pageScope.pageName}',
             hierarchy : '${pageScope.hier1}',
             props: (function() {
-                var locationAnchor = '';
-                var prop9 = '';
 
-                if (location.href &amp;&amp; location.href.indexOf('#from..') > -1) {
-                    locationAnchor = location.href.substring(location.href.indexOf('#from..')+7);
-                    prop9 = '${pageScope.pageName} ' + locationAnchor;
-                } else {
-                    prop9 = '${pageScope.pageName} ' + clickCapture.getProp(9);
-                }
 
                 // set props. Values that evaluate to empty string will be thrown out later
                 var props =  {
-                    prop2 : clickCapture.getProp(2,'${schoolType}'),
-                    prop3 : clickCapture.getProp(3,'${schoolLevel}'),
-                    prop4 : clickCapture.getProp(4,'${locale}'),
-                    prop5 : clickCapture.getProp(5,"${not empty(requestScope.context.userHash) ?  'Registered' : empty(requestScope.context.nickname) ? 'Not logged in' : 'Logged in'}"),
-                    prop6 : clickCapture.getProp(6,"${query}"),
-                    prop8 : clickCapture.getProp(8,"${not empty param.cpn? param.cpn : pageScope.pageName}"),
-                    prop10 : clickCapture.getProp(10,"${requestScope.context.screenName}"),
-                    prop11 : clickCapture.getProp(11,"${community?'Community':'GreatSchools'}"),
-
                     prop31 : clickCapture.getProp(31,'${schoolGSRating}'),
                     prop34 : clickCapture.getProp(34,'${schoolPhotosTracking}'),
-
-                    prop47 : clickCapture.getProp(63,'${pageScope.hasOsp}'), // TODO: get correct prop value
-                    prop48 : clickCapture.getProp(64,"${pageScope.numberOfReviews}")
+                    prop63 : clickCapture.getProp(63,'${pageScope.hasOsp}'), // TODO: get correct prop value
+                    prop64 : clickCapture.getProp(64,"${pageScope.numberOfReviews}")
                 };
 
-                // if page name was not passed in, setting prop7 or prop9 here will overwrite prop9 with a potentially incorrect value
+                // if page name was not passed in, setting these props (that use page name) here will overwrite these props with potentially incorrect values
                 if ('${pageScope.pageName}' !== '') {
-                    props.prop9 = prop9;
                     props.prop7 = clickCapture.getProp(7,"${pageScope.pageName}:${requestScope.context.ABVersion}");
+                    props.prop8 = clickCapture.getProp(8,"${not empty param.cpn? param.cpn : pageScope.pageName}");
+
+                    var locationAnchor = '';
+                    var prop9 = '';
+
+                    if (location.href &amp;&amp; location.href.indexOf('#from..') > -1) {
+                        locationAnchor = location.href.substring(location.href.indexOf('#from..')+7);
+                        prop9 = '${pageScope.pageName} ' + locationAnchor;
+                    } else {
+                        prop9 = '${pageScope.pageName} ' + clickCapture.getProp(9);
+                    }
+
+                    props.prop9 = prop9;
                 }
 
                 return props;

@@ -154,6 +154,7 @@
         name="distanceRadius"
         description="The distance set for by location search"
         required="false"/>
+    <jsp:directive.attribute name="augmentInitialRequestWithDataForTab" description="If set, will append S with extra data that has been stored in a hash" required="false"/>
 
     <!-- This tag simply sets the request var modTracking which is then displayed in the decorator -->
     <c:set var="modTracking" scope="request"/>
@@ -279,7 +280,16 @@
             s.eVar10 = clickCapture.getEVar(10);
         //--></script>
         ]]>
-        <![CDATA[
+        <!-- if tab name is provided, call new, custom JS method to append tab's omniture props and send request -->
+        <!-- otherwise, make omniture request as usual -->
+        <c:choose>
+            <c:when test="${not empty augmentInitialRequestWithDataForTab}">
+                <script type="text/javascript" language="JavaScript">
+                GS.tracking.sendOmnitureData('${augmentInitialRequestWithDataForTab}');
+                </script>
+            </c:when>
+            <c:otherwise>
+                <![CDATA[
     <script type="text/javascript" language="JavaScript"><!--
     var s_code=s.t();if(s_code)document.write(s_code)//--></script>
     <script type="text/javascript" language="JavaScript"><!--
@@ -289,6 +299,11 @@
     height="1" width="1" border="0" alt="" /></noscript><!--/DO NOT REMOVE/-->
     <!-- End SiteCatalyst code version: H.2. -->
     ]]>
+            </c:otherwise>
+        </c:choose>
+
+
+
     <![CDATA[
         <script type="text/javascript">
 

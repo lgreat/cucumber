@@ -382,17 +382,11 @@
 </div>
 
 <!-- TODO: Finalize omniture -->
-<!--<div style="display: none;">
-    <mod:tracking pageName="${pageName}"
-                  hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
-                  school="${school}" schoolGSRating="${overallRating}" schoolPhotosTracking="${schoolPhotosTracking}"/>
-</div>-->
-
-<c:set var="currentTab" value="${param.tab}"/>
-<c:if test="${empty currentTab}">
-    <c:set var="currentTab" value="overview"/>
-</c:if>
-<pageHelper:trackPage name="${currentTab}"/>
+<div style="display: none;">
+    <mod:tracking pageName="If you see this being sent to omniture, something is wrong"
+                  hier1="If you see this being sent to omniture, something is wrong"
+                  school="${school}" augmentInitialRequestWithDataForTab="${not empty param.tab? param.tab : 'overview'}"/>
+</div>
 
 <!--<pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showMssAutoHoverOnExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');"/>-->
 <!--<school:hovers school="${school}" tab="still needed?"/> Why doesnt this tag work? -->
