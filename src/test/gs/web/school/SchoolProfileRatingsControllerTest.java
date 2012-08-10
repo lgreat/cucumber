@@ -4,6 +4,7 @@ import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.state.State;
 import gs.web.BaseControllerTestCase;
+import org.springframework.ui.ModelMap;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -64,7 +65,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
     // see individual tests for section 1 copy, etc.
     public void testGetSection1Model() throws Exception {
-        Map<String,Object> model;
+        ModelMap model = new ModelMap();
         School s = new School();
         Object overallRating;
         Object overallAcademicRating;
@@ -79,7 +80,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         // school with 1-10 overall rating
 
         s.setDatabaseState(State.WI);
-        model = _controller.getSection1Model(s, _dataMap);
+        _controller.populateSection1Model(s, _dataMap,model);
         overallRating =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_RATING);
         assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_OVERALL_RATING), overallRating);
@@ -89,7 +90,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         // temporarily remove rating for this test
         Object overallRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_RATING);
 
-        model = _controller.getSection1Model(s, _dataMap);
+        _controller.populateSection1Model(s, _dataMap,model);
         overallRating =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_RATING);
         assertNull(overallRating);
@@ -101,7 +102,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // school with 1-10 academic rating
 
-        model = _controller.getSection1Model(s, _dataMap);
+        _controller.populateSection1Model(s, _dataMap,model);
         overallAcademicRating =
                 model.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING);
         overallAcademicRatingLabel =
@@ -115,15 +116,15 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // temporarily remove rating for this test
         Object overallAcademicRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING);
+        ModelMap emptyModel = new ModelMap();
 
-        model = _controller.getSection1Model(s, _dataMap);
+        _controller.populateSection1Model(s, _dataMap, emptyModel);
         overallAcademicRating =
-                model.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING);
+                emptyModel.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING);
         overallAcademicRatingLabel =
-                model.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING_LABEL);
+                emptyModel.get(SchoolProfileRatingsController.MODEL_OVERALL_ACADEMIC_RATING_LABEL);
         assertNull(overallAcademicRating);
         assertNull(overallAcademicRatingLabel);
-
         // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING, overallAcademicRatingOrigValue);
 
@@ -132,7 +133,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         // Milwaukee - 1-10 rating
 
         s.setDatabaseState(State.WI);
-        model = _controller.getSection1Model(s, _dataMap);
+        _controller.populateSection1Model(s, _dataMap,model);
         climateRatingAvailabilityText =
                 model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_AVAILABILITY_TEXT);
         overallClimateRating =
@@ -152,13 +153,15 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         Object overallClimateRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING);
 
         s.setDatabaseState(State.WI);
-        model = _controller.getSection1Model(s, _dataMap);
+        emptyModel = new ModelMap();
+
+        _controller.populateSection1Model(s, _dataMap,emptyModel);
         overallClimateRating =
-                model.get(SchoolProfileRatingsController.MODEL_OVERALL_CLIMATE_RATING);
+                emptyModel.get(SchoolProfileRatingsController.MODEL_OVERALL_CLIMATE_RATING);
         overallClimateRatingLabel =
-                model.get(SchoolProfileRatingsController.MODEL_OVERALL_CLIMATE_RATING_LABEL);
+                emptyModel.get(SchoolProfileRatingsController.MODEL_OVERALL_CLIMATE_RATING_LABEL);
         climateRatingAvailabilityText =
-                model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_AVAILABILITY_TEXT);
+                emptyModel.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_AVAILABILITY_TEXT);
         assertNull(overallClimateRating);
         assertNull(overallClimateRatingLabel);
         assertEquals(SchoolProfileRatingsController.CLIMATE_RATING_AVAILABILITY_TEXT_WI, climateRatingAvailabilityText);
@@ -168,7 +171,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // DC
         s.setDatabaseState(State.DC);
-        model = _controller.getSection1Model(s, _dataMap);
+        _controller.populateSection1Model(s, _dataMap,model);
         climateRatingAvailabilityText =
                 model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_AVAILABILITY_TEXT);
         assertEquals(SchoolProfileRatingsController.CLIMATE_RATING_AVAILABILITY_TEXT_DC, climateRatingAvailabilityText);
@@ -177,7 +180,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // Milwaukee
         s.setDatabaseState(State.WI);
-        model = _controller.getSection1Model(s, _dataMap);
+        _controller.populateSection1Model(s, _dataMap,model);
         section1Copy = model.get(SchoolProfileRatingsController.MODEL_SECTION_1_COPY);
         assertEquals(SchoolProfileRatingsController.SECTION_1_COPY_WI, section1Copy);
     }
@@ -248,13 +251,12 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
     // see individual tests for section 3 copy, section 3 post-secondary readiness, etc.
     public void testGetSection3Model() throws Exception {
-        Map<String,Object> model;
-
+        ModelMap model = new ModelMap();
         School s = new School();
         s.setDatabaseState(State.WI);
         s.setLevelCode(LevelCode.ELEMENTARY_MIDDLE_HIGH);
 
-        model = _controller.getSection3Model(s, _dataMap);
+        _controller.populateSection3Model(s, _dataMap,model);
 
         // SECTION 3 COPY
 
@@ -341,13 +343,13 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     }
 
     public void testGetStudentGrowthRatingsModel() {
-        Map<String,Object> model;
+        ModelMap model = new ModelMap();
         School s = new School();
 
         // schools with high-only level code: no student growth ratings
 
         s.setLevelCode(LevelCode.HIGH);
-        model = _controller.getStudentGrowthRatingsModel(s, true, _dataMap);
+        _controller.populateStudentGrowthRatingsModel(s, true, _dataMap,model);
         assertNull(model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
         assertNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
 
@@ -357,7 +359,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         Object overallSchoolStudentGrowthRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_SCHOOL_STUDENT_GROWTH_RATING);
 
         s.setLevelCode(LevelCode.ELEMENTARY);
-        model = _controller.getStudentGrowthRatingsModel(s, true, _dataMap);
+        _controller.populateStudentGrowthRatingsModel(s, true, _dataMap,model);
         assertNull(model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
         assertNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
 
@@ -369,7 +371,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         for (LevelCode levelCode : NON_HIGH_ONLY_LEVEL_CODES) {
             s.setLevelCode(levelCode);
-            model = _controller.getStudentGrowthRatingsModel(s, true, _dataMap);
+            _controller.populateStudentGrowthRatingsModel(s, true, _dataMap,model);
             assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR),
                     model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
             assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_STUDENT_GROWTH_RATING),
@@ -381,8 +383,8 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         }
 
         // omit state rating
-
-        model = _controller.getStudentGrowthRatingsModel(s, false, _dataMap);
+        model = new ModelMap();
+        _controller.populateStudentGrowthRatingsModel(s, false, _dataMap,model);
         s.setLevelCode(LevelCode.ALL_LEVELS);
         assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR),
                 model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
@@ -394,14 +396,14 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     }
 
     public void testGetPostSecondaryReadinessRatingsModel() {
-        Map<String,Object> model;
+        ModelMap model = new ModelMap();
         School s = new School();
 
         // schools with no high level code: no post-secondary readiness ratings
 
         for (LevelCode levelCode : NON_HIGH_LEVEL_CODES) {
             s.setLevelCode(levelCode);
-            model = _controller.getPostSecondaryReadinessRatingsModel(s,true, _dataMap);
+            _controller.populatePostSecondaryReadinessRatingsModel(s,true, _dataMap,model);
             assertNull(model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_YEAR));
             assertNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_POST_SECONDARY_READINESS_RATING));
         }
@@ -412,7 +414,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         Object postSecondaryReadinessRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING);
 
         s.setLevelCode(LevelCode.ELEMENTARY);
-        model = _controller.getPostSecondaryReadinessRatingsModel(s,true, _dataMap);
+        _controller.populatePostSecondaryReadinessRatingsModel(s,true, _dataMap,model);
         assertNull(model.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR));
         assertNull(model.get(SchoolProfileRatingsController.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING));
 
@@ -423,7 +425,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         for (LevelCode levelCode : CONTAINS_HIGH_LEVEL_CODES) {
             s.setLevelCode(levelCode);
-            model = _controller.getPostSecondaryReadinessRatingsModel(s,true, _dataMap);
+            _controller.populatePostSecondaryReadinessRatingsModel(s,true, _dataMap,model);
             assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR),
                     model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_YEAR));
             assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING),
@@ -674,13 +676,13 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     }
 
     public void testGetSection4Model() throws Exception {
-        Map<String,Object> model;
+        ModelMap model = new ModelMap();
 
         School s = new School();
         s.setDatabaseState(State.WI);
         s.setLevelCode(LevelCode.ELEMENTARY_MIDDLE_HIGH);
 
-        model = _controller.getSection4Model(s, _dataMap);
+        _controller.populateSection4Model(s, _dataMap,model);
 
         // SECTION 4 COPY
 

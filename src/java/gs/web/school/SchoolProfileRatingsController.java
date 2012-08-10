@@ -208,13 +208,13 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         Map<String,Object> dataMap = getData(school,request);
 
-        modelMap.addAllAttributes(getSection1Model(school, dataMap));
+        populateSection1Model(school, dataMap, modelMap);
 
         // no dynamic data in section 2
 
-        modelMap.addAllAttributes(getSection3Model(school, dataMap));
+        populateSection3Model(school, dataMap, modelMap);
 
-        modelMap.addAllAttributes(getSection4Model(school, dataMap));
+        populateSection4Model(school, dataMap, modelMap);
 
         return VIEW;
     }
@@ -223,30 +223,25 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // TODO-13012 not optimized, may need to be rewritten
     public Map<String,Object> getData(School school,HttpServletRequest request) {
-        Map<String,Object> dataMap = new HashMap<String,Object>();
-
-        // TODO-13012 don't hard-code year to fetch
-        Set<Integer> years = new HashSet<Integer>();
-        years.add(2012);
 
         //Get school and state ratings data
-        Map<String, Object> ratingsMap =  _schoolProfileDataHelper.getGsRatings(request);
-        if (ratingsMap != null) {
-            dataMap.putAll(ratingsMap);
+        Map<String, Object> dataMap =  _schoolProfileDataHelper.getGsRatings(request);
+
+        if(dataMap == null){
+          return new HashMap<String, Object>();
         }
 
         // must be run after school data is fetched
         if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING) || dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING)) {
 
             //Get city ratings data
-            dataMap.putAll(getCityData(school,years));
+            populateCityData(school,dataMap);
         }
 
         return dataMap;
     }
 
-    public Map<String,Object> getCityData(School school, Set<Integer> years) {
-        Map<String,Object> dataMap = new HashMap<String,Object>();
+    public void populateCityData(School school, Map<String, Object> dataMap) {
 
         List<CityRating2> ratings = _cityRating2Dao.getLatestCityRatingsByCity(school.getDatabaseState(), school.getCity());
         if (ratings != null) {
@@ -266,13 +261,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             }
         }
 
-        return dataMap;
     }
 
     // ===================== Section 1 ==============================
-
-    public static Map<String,Object> getSection1Model(School school, Map<String,Object> dataMap) {
-        Map<String,Object> model = new HashMap<String,Object>();
+    public static void populateSection1Model(School school, Map<String,Object> dataMap ,ModelMap model) {
 
         // OVERALL RATING
 
@@ -310,8 +302,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         // SECTION 1 COPY
 
         model.put(MODEL_SECTION_1_COPY, getSection1Copy(school));
-
-        return model;
     }
 
     public static String getClimateRatingAvailabilityText(School school) {
@@ -346,11 +336,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Section 3 ==============================
 
-    public static Map<String,Object> getSection3Model(School school, Map<String,Object> dataMap) {
-        Map<String,Object> model = new HashMap<String,Object>();
+    public static void populateSection3Model(School school, Map<String,Object> dataMap,ModelMap model) {
 
         // SECTION 3 COPY
-
         model.put(MODEL_SECTION_3_COPY, getSection3Copy(school, dataMap));
 
         // SECTION 3 POST-SECONDARY READINESS COPY
@@ -363,19 +351,19 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         boolean showStateTestScoreRating = isShowStateTestScoreRating(school.getDatabaseState());
         model.put(MODEL_SHOW_STATE_TEST_SCORE_RATING, showStateTestScoreRating);
-        model.putAll(getTestScoreRatingsModel(school, showStateTestScoreRating, dataMap));
+        populateTestScoreRatingsModel(school, showStateTestScoreRating, dataMap, model);
 
         // student growth ratings
 
         boolean showStateStudentGrowthRating = isShowStateStudentGrowthRating(school.getDatabaseState());
         model.put(MODEL_SHOW_STATE_STUDENT_GROWTH_RATING, showStateStudentGrowthRating);
-        model.putAll(getStudentGrowthRatingsModel(school, showStateStudentGrowthRating, dataMap));
+        populateStudentGrowthRatingsModel(school, showStateStudentGrowthRating, dataMap, model);
 
         // post-secondary readiness ratings
 
         boolean showStatePostSecondaryReadinessGrowthRating = isShowStatePostSecondaryReadinessRating(school.getDatabaseState());
         model.put(MODEL_SHOW_STATE_POST_SECONDARY_READINESS_RATING, showStatePostSecondaryReadinessGrowthRating);
-        model.putAll(getPostSecondaryReadinessRatingsModel(school, showStatePostSecondaryReadinessGrowthRating, dataMap));
+        populatePostSecondaryReadinessRatingsModel(school, showStatePostSecondaryReadinessGrowthRating, dataMap, model);
 
         // SECTION 3 SOURCES
 
@@ -385,7 +373,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         model.put(MODEL_POST_SECONDARY_READINESS_RATING_SOURCE, getPostSecondaryReadinessRatingSource(school));
 
-        return model;
     }
 
     public static boolean isShowStateTestScoreRating(State state) {
@@ -405,8 +392,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return State.WI.equals(state);
     }
 
-    public static Map<String,Object> getTestScoreRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap) {
-        Map<String,Object> model = new HashMap<String,Object>();
+    public static void populateTestScoreRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap,ModelMap model) {
 
         if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING)) {
 
@@ -418,12 +404,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                 model.put(MODEL_STATE_TEST_SCORE_RATING, dataMap.get(DATA_STATE_TEST_SCORE_RATING));
             }
         }
-
-        return model;
     }
 
-    public static Map<String,Object> getStudentGrowthRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap) {
-        Map<String,Object> model = new HashMap<String,Object>();
+    public static void populateStudentGrowthRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap,ModelMap model) {
 
         if (dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING) &&
                 school.getLevelCode() != null && !school.getLevelCode().equals(LevelCode.HIGH)) {
@@ -436,12 +419,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                 model.put(MODEL_STATE_STUDENT_GROWTH_RATING, dataMap.get(DATA_STATE_STUDENT_GROWTH_RATING));
             }
         }
-
-        return model;
     }
 
-    public static Map<String,Object> getPostSecondaryReadinessRatingsModel(School school,boolean showStateRating, Map<String,Object> dataMap) {
-        Map<String,Object> model = new HashMap<String,Object>();
+    public static void populatePostSecondaryReadinessRatingsModel(School school,boolean showStateRating, Map<String,Object> dataMap,ModelMap model) {
 
         if (dataMap.containsKey(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING) &&
                 school.getLevelCode() != null &&
@@ -454,8 +434,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                 model.put(MODEL_STATE_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_STATE_POST_SECONDARY_READINESS_RATING));
             }
         }
-            
-        return model;
     }
 
     public static String getTestScoreRatingSource(School school) {
@@ -530,8 +508,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Section 4 ==============================
 
-    public static Map<String,Object> getSection4Model(School school, Map<String,Object> dataMap) {
-        Map<String,Object> model = new HashMap<String,Object>();
+    public static void populateSection4Model(School school, Map<String,Object> dataMap,ModelMap model) {
 
         // SECTION 4 COPY
 
@@ -547,7 +524,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             model.putAll(climateRatingDetailsMap);
         }
 
-        return model;
     }
 
     public static String getSection4Copy(School school, Map<String,Object> dataMap) {
