@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="unit size15of100 lastUnit">
-                    <div class="button-8">&#9662;</div>
+                    <div class="button-8"><span class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span></div>
                 </div>
             </div>
         </div>
