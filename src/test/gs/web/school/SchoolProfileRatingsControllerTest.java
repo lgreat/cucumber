@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     private SchoolProfileRatingsController _controller;
+    private SchoolProfileDataHelper _profileDataHelper;
     private Map<String,Object> _dataMap;
 
     private static Set<LevelCode> NON_HIGH_ONLY_LEVEL_CODES = new HashSet<LevelCode>();
@@ -50,7 +51,8 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     public void setUp() throws Exception {
         super.setUp();
         _controller = new SchoolProfileRatingsController();
-        _dataMap = SchoolProfileRatingsController.getSampleData();
+        _profileDataHelper = new SchoolProfileDataHelper();
+        _dataMap = getSampleData();
     }
 
 //    private static Map<String,Object> copyDataMap(Map<String,Object> srcMap) {
@@ -787,5 +789,40 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
                 model.get(SchoolProfileRatingsController.MODEL_TEACHER_SUPPORT_RATING));
         assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_FAMILY_ENGAGEMENT_RATING),
                 model.get(SchoolProfileRatingsController.MODEL_FAMILY_ENGAGEMENT_RATING));
+    }
+
+    // sample data: used by unit test and controller
+
+    public static Map<String,Object> getSampleData() {
+        Map<String,Object> dataMap = new HashMap<String,Object>();
+
+        dataMap.put(SchoolProfileDataHelper.DATA_OVERALL_RATING, 10);
+        dataMap.put(SchoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING, 9.5);
+        dataMap.put(SchoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING, 6);
+
+        dataMap.put(SchoolProfileDataHelper.DATA_TEST_SCORE_RATING_YEAR, 2012);
+        dataMap.put(SchoolProfileDataHelper.DATA_SCHOOL_TEST_SCORE_RATING, 9);
+        dataMap.put(SchoolProfileRatingsController.DATA_CITY_TEST_SCORE_RATING, 5);
+        dataMap.put(SchoolProfileDataHelper.DATA_STATE_TEST_SCORE_RATING, 3);
+
+        dataMap.put(SchoolProfileDataHelper.DATA_STUDENT_GROWTH_RATING_YEAR, 2012);
+        dataMap.put(SchoolProfileDataHelper.DATA_SCHOOL_STUDENT_GROWTH_RATING, 9);
+        dataMap.put(SchoolProfileRatingsController.DATA_CITY_STUDENT_GROWTH_RATING, 5);
+        dataMap.put(SchoolProfileDataHelper.DATA_STATE_STUDENT_GROWTH_RATING, 3);
+
+        dataMap.put(SchoolProfileDataHelper.DATA_POST_SECONDARY_READINESS_RATING_YEAR, 2012);
+        dataMap.put(SchoolProfileDataHelper.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING, 8);
+        dataMap.put(SchoolProfileRatingsController.DATA_CITY_POST_SECONDARY_READINESS_RATING, 3);
+        dataMap.put(SchoolProfileDataHelper.DATA_STATE_POST_SECONDARY_READINESS_RATING, 4);
+
+        dataMap.put(SchoolProfileDataHelper.DATA_CLIMATE_RATING_NUM_RESPONSES, 16);
+
+        dataMap.put(SchoolProfileDataHelper.DATA_SCHOOL_ENVIRONMENT_RATING, 6);
+        dataMap.put(SchoolProfileDataHelper.DATA_SOCIAL_EMOTIONAL_LEARNING_RATING, 7);
+        dataMap.put(SchoolProfileDataHelper.DATA_HIGH_EXPECTATIONS_RATING, 6);
+        dataMap.put(SchoolProfileDataHelper.DATA_TEACHER_SUPPORT_RATING, 4);
+        dataMap.put(SchoolProfileDataHelper.DATA_FAMILY_ENGAGEMENT_RATING, 7);
+
+        return dataMap;
     }
 }

@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -200,26 +199,14 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== REQUEST HANDLERS =======================
 
-    // TODO-13012 temporary? way to toggle between sample vs. database data
-    // optional request param for development/QA purposes, to toggle between sample data vs. database data
-    // e.g. &src=db or &src=sample
-    // currently defaults to "sample" but this will change
     @RequestMapping(method=RequestMethod.GET)
     public String showRatingsPage(ModelMap modelMap,
-                                     HttpServletRequest request,
-                                     @RequestParam(value="src", required=false) String src
-    ) {
+                                     HttpServletRequest request) {
+
         School school = getSchool(request);
         modelMap.put("school", school);
 
-        Map<String,Object> dataMap;
-        // TODO-13012 switch this to default to getData, or get rid of any way to call getSampleData()
-        if ("sample".equals(src)) {
-            // sample data
-            dataMap = getSampleData();
-        } else {
-            dataMap = getData(school,request);
-        }
+        Map<String,Object> dataMap = getData(school,request);
 
         modelMap.addAllAttributes(getSection1Model(school, dataMap));
 
@@ -278,41 +265,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                 }
             }
         }
-
-        return dataMap;
-    }
-
-    // sample data: used by unit test and controller
-
-    public static Map<String,Object> getSampleData() {
-        Map<String,Object> dataMap = new HashMap<String,Object>();
-
-        dataMap.put(DATA_OVERALL_RATING, 10);
-        dataMap.put(DATA_OVERALL_ACADEMIC_RATING, 9.5);
-        dataMap.put(DATA_OVERALL_CLIMATE_RATING, 6);
-
-        dataMap.put(DATA_TEST_SCORE_RATING_YEAR, 2012);
-        dataMap.put(DATA_SCHOOL_TEST_SCORE_RATING, 9);
-        dataMap.put(DATA_CITY_TEST_SCORE_RATING, 5);
-        dataMap.put(DATA_STATE_TEST_SCORE_RATING, 3);
-
-        dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, 2012);
-        dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING, 9);
-        dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, 5);
-        dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, 3);
-
-        dataMap.put(DATA_POST_SECONDARY_READINESS_RATING_YEAR, 2012);
-        dataMap.put(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING, 8);
-        dataMap.put(DATA_CITY_POST_SECONDARY_READINESS_RATING, 3);
-        dataMap.put(DATA_STATE_POST_SECONDARY_READINESS_RATING, 4);
-
-        dataMap.put(DATA_CLIMATE_RATING_NUM_RESPONSES, 16);
-
-        dataMap.put(DATA_SCHOOL_ENVIRONMENT_RATING, 6);
-        dataMap.put(DATA_SOCIAL_EMOTIONAL_LEARNING_RATING, 7);
-        dataMap.put(DATA_HIGH_EXPECTATIONS_RATING, 6);
-        dataMap.put(DATA_TEACHER_SUPPORT_RATING, 4);
-        dataMap.put(DATA_FAMILY_ENGAGEMENT_RATING, 7);
 
         return dataMap;
     }
@@ -447,6 +399,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     //TODO is this needed?
     public static boolean isShowStatePostSecondaryReadinessRating(State state) {
         return !State.DC.equals(state);
+    }
+
+    public static boolean isShowClimateRatingDetails(State state) {
+        return State.WI.equals(state);
     }
 
     public static Map<String,Object> getTestScoreRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap) {
@@ -610,9 +566,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    public static boolean isShowClimateRatingDetails(State state) {
-        return State.WI.equals(state);
-    }
 
     public static Map<String,Object> getClimateRatingDetailsModel(School school, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
