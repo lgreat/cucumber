@@ -38,6 +38,10 @@
 	background: white url('/res/img/admin/spinner.gif') right center no-repeat;
 }
 
+.slFormsV1-0 .ac_loading{
+    background: none;
+}
+
 .ac_odd {
 	background-color: #f6f6f6;
 }
