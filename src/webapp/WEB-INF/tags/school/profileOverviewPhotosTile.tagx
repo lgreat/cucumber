@@ -28,6 +28,7 @@
                 <p class="small_bold textshadow-1 pvs plm bottom">Photos</p>
             </c:set>
             <school:profileOverviewCell1 title="${t2dc}">
+                <div class="mam">
                 <div class="mediumThumbnail bgtint-eb" id="school-photo-medium"><p
                         class="text3">Photos of this school</p><a
                         href="javascript:void(0)" onclick="scroll(0,0)" class="js-photo-gallery-trigger"><img
@@ -45,6 +46,7 @@
                                                          class="js-photo-gallery-trigger">View photo</a></p>
                         </c:when>
                     </c:choose>
+                </div>
                 </div>
             </school:profileOverviewCell1>
         </c:when>

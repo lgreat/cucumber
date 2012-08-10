@@ -77,7 +77,7 @@
                             <p><em>Call the school for more information</em></p>
                         </c:when>
                         <c:otherwise>
-                            <div style="height: 90px;border-left:1px solid #e6e6e6;">
+                            <div>
                                 <ul class="small bottom">
                                     <c:set var="showArtMax" value="${5}"/>
                                     <c:forEach var="item" items="${arts}">
@@ -95,7 +95,7 @@
                             <p><em>Call the school for more information</em></p>
                         </c:when>
                         <c:otherwise>
-                            <div style="height: 90px;border-left:1px solid #e6e6e6;">
+                            <div>
                                 <ul class="small bottom">
                                     <c:set var="showMusicMax" value="${5}"/>
                                     <c:forEach var="item" items="${music}">
