@@ -75,7 +75,7 @@
                     <div style="height: 100px;border-left: 1px solid #e6e6e6;">
                         <c:choose>
                             <c:when test="${empty arts}">
-                                <p class="mam"><em>Call the school for more information</em></p>
+                                <p class="mhm"><em>Call the school for more information</em></p>
                             </c:when>
                             <c:otherwise>
                                 <ul class="small bottom">
@@ -100,7 +100,7 @@
                     <div style="height: 100px;border-left: 1px solid #e6e6e6;">
                         <c:choose>
                             <c:when test="${empty music}">
-                                <p class="mam"><em>Call the school for more information</em></p>
+                                <p class="mhm"><em>Call the school for more information</em></p>
                             </c:when>
                             <c:otherwise>
                                 <ul class="small bottom">
