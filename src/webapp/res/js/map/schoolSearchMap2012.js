@@ -159,7 +159,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
         $('#js-map-canvas').css({height:height});
 
         map = new google.maps.Map(document.getElementById("js-map-canvas"), myOptions);
-        if (points !== undefined && points.length > 0) {
+        if (points !== undefined) {
             loadMarkers(points);
         } else if (optionalLat !== undefined && optionalLon !== undefined) {
             // if there were no points (because there were no school results) we still want to do the minimum needed to draw the map
@@ -181,7 +181,10 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
     var loadMarkers = function (points) {
         var bounds = new google.maps.LatLngBounds();
-        var p_length = points.length;
+        var p_length = 0;
+        if(points !== null) {
+            p_length = points.length;
+        }
         // shape defines clickable region of icon as a series of points
         // coordinates increase in the X direction to the right and in the Y direction down.
         var markerShape = {
@@ -262,11 +265,18 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
         }
 
-        google.maps.event.addListener(infoBoxInstance,'closeclick', closeInfoBox);
+        if(p_length > 0) {
+            google.maps.event.addListener(infoBoxInstance,'closeclick', closeInfoBox);
 
-        google.maps.event.addListener(infoBoxInstance, 'domready', attachEventsToBubble);
+            google.maps.event.addListener(infoBoxInstance, 'domready', attachEventsToBubble);
 
-        google.maps.event.addListener(map, 'click', closeInfoBox);
+            google.maps.event.addListener(map, 'click', closeInfoBox);
+        }
+        else {
+            var queryData = GS.uri.Uri.getQueryData();
+            var position = new google.maps.LatLng(queryData['lat'], queryData['lon']);
+            bounds.extend(position);
+        }
 
         google.maps.event.addListener(map, 'dragend', function() {
             closeInfoBox();

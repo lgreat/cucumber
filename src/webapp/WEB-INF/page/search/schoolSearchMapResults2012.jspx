@@ -319,10 +319,10 @@ that this is updated for ajax refresh -->
 <c:choose>
     <!--<c:when test="${requestScope.schoolSearchCommand.view eq 'map'}">-->
 
-    <c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">
+    <c:when test="${latLonExists eq true}">
         <script type="text/javascript">
             ${pointsArray}
-            $.getScript('/res/js/mobile/googleMapsInfobox.min.js').done(function () {
+            $.getScript('/res/js/googleMapsInfobox.min.js').done(function () {
                 GS.map.getMap.initMap(points, calculatedLat, calculatedLon);
             });
         </script>
