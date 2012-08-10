@@ -401,7 +401,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         if (ratingsMap != null && !ratingsMap.isEmpty()
                 && ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING) != null
                 && ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING) != null) {
-
+            model = new HashMap<String, Object>(5);
             model.put(MODEL_OVERALL_RATING, ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING));
             model.put(MODEL_ACADEMIC_RATING, ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING));
 
