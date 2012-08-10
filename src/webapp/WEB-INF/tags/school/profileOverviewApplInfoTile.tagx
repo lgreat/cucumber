@@ -55,10 +55,10 @@
                     </c:choose>
                 </c:when>
                 <c:when test="${applicationDeadlineMsg eq 'call'}">
-                    <p class="tac"><em>Call the school for<br/>more information</em></p>
+                    <p class="small tac"><em>Call the school for<br/>more information</em></p>
                 </c:when>
                 <c:when test="${applicationDeadlineMsg eq 'yearround'}">
-                    <p class="tac">Year-round/rolling admissions</p>
+                    <p class="small tac">Year-round/rolling admissions</p>
                 </c:when>
             </c:choose>
             <hr class="keyline2"/>
