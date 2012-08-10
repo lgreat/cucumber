@@ -499,6 +499,9 @@ function debug(what) {
 jQuery(document).ready(function () {
     jQuery('.infiniteCarousel9').infiniteCarousel();
 });
+jQuery(document).ready(function () {
+    jQuery('.infiniteCarousel10').infiniteCarousel();
+});
 
 /* =7 tabs (create tabs using the styles in tabs.css)
 -------------------------------------------------------------------------------------------*/

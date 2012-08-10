@@ -461,6 +461,76 @@ General comments:
     text-decoration: none;
 }
 
+/* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ------------ infinite carousel 10 ------------- */
+
+.infiniteCarousel10{
+    width: 180px;
+    height: 137px;
+    position: relative;
+    margin:0;
+    outline:0;
+
+    /* backkground */
+    background-color: #ffffff; /* Old browsers */
+}
+
+.infiniteCarousel10 .wrapper {
+    clear:both;
+    width: 130px; /* .infiniteCarousel10 width - (.wrapper margin-left + .wrapper margin-right) */
+    overflow: hidden;
+    height: 130px;
+    position: absolute;
+    top: 2px;
+    left: 25px;
+}
+
+.infiniteCarousel10 .wrapper ul {
+    width: 9999px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 0;
+}
+
+.infiniteCarousel10 ul li {
+    display: block;
+    float: left;
+    padding: 0 5px;
+    width: 129px;
+    height: 130px;
+}
+
+.infiniteCarousel10 .arrow {
+    display: block;
+    top: 50px;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    cursor: pointer;
+    font: bold 24px/19px Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: #787878;
+    /*background*/
+    background-color: #ffffff; /* Old browsers */
+}
+
+.infiniteCarousel10 .forward {right: 0;}
+.infiniteCarousel10 .back {left: 0;}
+
+.infiniteCarousel10 .forward:hover,
+.infiniteCarousel10 .forward:active {
+    text-decoration: none;
+}
+
+.infiniteCarousel10 .back:hover,
+.infiniteCarousel10 .back:active {
+    text-decoration: none;
+}
+
 /**************************************************************************************************************
 
 New Popover for all arrow popups.  Uses the bootstrap-popover module which also uses the bootstrap-tooltip module
