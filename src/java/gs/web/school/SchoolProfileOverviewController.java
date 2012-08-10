@@ -156,7 +156,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school) );
 
         // 7th row is Facebook integration
-        model.put(FACEBOOK_MODEL_KEY, getFacebookTile( request, school) );
+        model.put(FACEBOOK_MODEL_KEY, getFacebookTile( request, school, espData) );
 
         // 8th row is Sports/Arts/Music
         model.put(SPORTS_MODEL_KEY, getSportsArtsMusicEspTile(espData));
@@ -394,8 +394,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private Map getGsRatingsModel(HttpServletRequest request, School school) {
 
         // Default action
-        Map<String, Object> model = new HashMap<String, Object>();
-        // TODO - Default action code needs to be added when spec is ready
+        Map<String, Object> model = null;
+
         Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
         //Only display ratings tile if there is overall rating and academic rating.
         if (ratingsMap != null && !ratingsMap.isEmpty()
@@ -460,7 +460,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
-        // Get all of the date needed to make the required decisions
+        // Get all of the data needed to make the required decisions
         List<EspResponse> video = espData.get("school_video");
         if( isNotEmpty( video ) ) {
             model.put( "content", "video" );
@@ -1093,17 +1093,22 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 // Acceptance Rate Calc
                 float studentsAccepted = Float.parseFloat(studentsAcceptedList.get(0).getValue());
                 float applicationsReceived = Float.parseFloat(applicationsReceivedList.get(0).getValue());
-                int acceptanceRate = (int) ((studentsAccepted/applicationsReceived)*10);
-                // if acceptanceRate is 0 but there were some applications then show 1
-                if( acceptanceRate == 0 && studentsAccepted > 0 ) {
-                    acceptanceRate = 1;
+                if( studentsAccepted > 0.0 && applicationsReceived > 0.0 ) {
+                    int acceptanceRate = (int) ((studentsAccepted/applicationsReceived)*10);
+                    // if acceptanceRate is 0 but there were some applications then show 1
+                    if( acceptanceRate == 0 && studentsAccepted > 0 ) {
+                        acceptanceRate = 1;
+                    }
+                    else if( acceptanceRate > 10 ) {
+                        acceptanceRate = 10;
+                    }
+                    String acceptanceRateStr = Integer.toString( acceptanceRate );
+                    model.put( "acceptanceRate", acceptanceRateStr );
+                    model.put( "acceptanceRateYear", studentsAcceptedYearList.get(0).getValue() );
                 }
-                else if( acceptanceRate > 10 ) {
-                    acceptanceRate = 10;
+                else {
+                    doSubstitute = true;
                 }
-                String acceptanceRateStr = Integer.toString( acceptanceRate );
-                model.put( "acceptanceRate", acceptanceRateStr );
-                model.put( "acceptanceRateYear", studentsAcceptedYearList.get(0).getValue() );
 
                 // Get the stuff for the right half
                 getApplInfoDeadlineInfo(espData, model);
@@ -1344,10 +1349,10 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> sportsModel = new HashMap<String, Object>(4);
         // Sports
-        List<String> boysSports = getEspDataByKey( "boys_sports", NoneHandling.SHOW_IF_ONLY_VALUE, espData );
+        List<String> boysSports = getEspDataByKey( "boys_sports", NoneHandling.HIDE_IF_ONLY_NONE, espData );
         Collections.sort(boysSports);
         sportsModel.put("boys_sports", boysSports);
-        List<String> girlsSports = getEspDataByKey("girls_sports", NoneHandling.SHOW_IF_ONLY_VALUE, espData);
+        List<String> girlsSports = getEspDataByKey("girls_sports", NoneHandling.HIDE_IF_ONLY_NONE, espData);
         Collections.sort(girlsSports);
         sportsModel.put("girls_sports", girlsSports);
 
@@ -1402,12 +1407,27 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return sportsModel;
     }
 
-    private Object getFacebookTile(HttpServletRequest request, School school) {
+    private Object getFacebookTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> facebookModel = new HashMap<String, Object>(4);
 
-        facebookModel.put( "content", "hide" ); // set this if no data available
-        // facebookModel.put( "content", "show" );  set this if data is available
+        List<EspResponse> facebook = espData.get("facebook_url");
+        boolean validFacebookPage = false;
+        String facebookUrl = null;
+        if( isNotEmpty(facebook) ) {
+            facebookUrl = SchoolProfileCultureController.cleanUpUrl(facebook.get(0).getSafeValue(), "facebook.com");
+            if( facebookUrl != null ) {
+                validFacebookPage = SchoolProfileCultureController.isValidFacebookPage(facebookUrl);
+            }
+        }
+
+        if( validFacebookPage ) {
+            facebookModel.put( "content", "show" );
+            facebookModel.put( "facebookUrl", facebookUrl );
+        }
+        else {
+            facebookModel.put( "content", "hide" ); // set this if no data available
+        }
 
         return facebookModel;
     }
@@ -1597,7 +1617,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         List<EspResponse> espResponses = espData.get( key );
         if (espResponses != null && espResponses.size() > 0) {
             // Check for none
-            if( espResponses.size() == 1 && espResponses.get(0).getValue().equals("none")) {
+            if( espResponses.size() == 1 && espResponses.get(0).getValue().equalsIgnoreCase("none")) {
                 if( noneHandling == NoneHandling.HIDE_IF_ONLY_NONE ) {
                     return results;
                 }
@@ -1607,7 +1627,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 }
             }
             for( EspResponse espResponse : espResponses ) {
-                if( espResponse.getSafeValue().equals("none")) {
+                if( espResponse.getSafeValue().equalsIgnoreCase("none")) {
                     if( noneHandling == NoneHandling.ALWAYS_SHOW ) {
                         results.add( espResponse.getPrettyValue() );
                     }

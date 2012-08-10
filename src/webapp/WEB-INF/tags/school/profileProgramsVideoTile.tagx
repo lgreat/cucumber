@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+        >
+
+    <jsp:directive.attribute name="videoModel" type="java.lang.Object" required="true"/>
+
+    <c:set var="content" value="${videoModel['content']}" scope="page"/>
+    <c:set var="videoUrl" value="${videoModel['videoUrl']}" scope="page"/>
+
+    <c:choose>
+        <c:when test="${content eq 'video'}">
+            <!-- Randall - This is from the profileOverviewVideoTile.tagx -->
+            <school:profileCell2 title="Videos">
+                <!-- Show generic video icon and clicking on it takes you to the video at videoUrl -->
+                <div class="">Url is: ${videoUrl}</div>
+            </school:profileCell2>
+        </c:when>
+        <c:otherwise>
+            <!-- Substitute content of the Principal CTA -->
+            <!-- Randall - see the mock: School Culture, alt tiles -->
+            <div class="">Show "Add videos" Prinicpal CTA</div>
+        </c:otherwise>
+    </c:choose>
+
+</jsp:root>

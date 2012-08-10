@@ -67,6 +67,31 @@ where each entry is the first bean for that section, this allows access to the s
         </c:if>
     </c:set>
     <c:set var="culturetab">
+        <!-- Space 1 - Photos if available otherwise hide -->
+        <school:profileProgramsPhotosTile photosModel="${photos}"/>
+
+        <!-- Space 2 - Facebook if no culture ratings are available and videos are available -->
+        <school:profileProgramsFacebookTile facebookModel="${facebook}" currentSpace="space2"/>
+
+        <!-- Spaces 3 & 4 are together on one line -->
+        <div class="line">
+            <!-- Space 3 - Videos otherwise principal CTA -->
+            <div class="unit size49of100">
+                <school:profileProgramsVideoTile videoModel="${video}" />
+            </div>
+
+            <div class="unit size2of100">&amp;nbsp;</div>
+
+            <!-- Space 4 - Culture ratings or Culture tips -->
+            <div class="unit size49of100 lastUnit">
+                <school:profileProgramsClimateTile climateModel="${climateRating}" />
+            </div>
+        </div>
+
+        <!-- Space 5 - Facebook or hide -->
+        <school:profileProgramsFacebookTile facebookModel="${facebook}" currentSpace="space5"/>
+
+        <!-- Space 6 - OSP data -->
         <c:if test="${fn:length(culture) gt 0}">
             <div class="ptl">
                 <c:forEach var="section" items="${culture}" >
@@ -74,17 +99,10 @@ where each entry is the first bean for that section, this allows access to the s
                 </c:forEach>
             </div>
 
-            <c:if test="${not empty photoGalleryImages and fn:length(photoGalleryImages) > 0}">
-                <div id="js_photo_gallery_container">
-                    <school:photosCarousel/>
-                </div>
-
-                <school:photoGallery cssClass="js-photo-gallery-trigger" images="${photoGalleryImages}"
-                                     school="${school}"/>
-            </c:if>
-
         </c:if>
     </c:set>
+
+    <!-- Build tabs -->
 
     <c:if test="${(!empty highlightstab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab || !empty culturetab)}">
         <div class="gsTabs">

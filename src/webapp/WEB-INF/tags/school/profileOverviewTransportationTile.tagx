@@ -55,6 +55,7 @@
 
         <c:when test="${content eq 'substitute1'}">
             <c:set var="classSize" value="${transportationModel['substitute1ClassSize']}" scope="page"/>
+            <c:set var="studentsPerTeacher" value="${transportationModel['substitute1StudentsPerTeacher']}" scope="page"/>
             <c:choose>
                 <c:when test="${not empty classSize}">
                     <c:set var="t9s1">
@@ -64,7 +65,14 @@
                         <div class="mam">
                             <p class="big bottom tac">${classSize}</p>
 
-                            <p class="small tac">students</p>
+                            <c:choose>
+                                <c:when test="${classSize gt 1}">
+                                    <p class="small tac">students</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p class="small tac">student</p>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </school:profileOverviewCell1>
                 </c:when>
@@ -74,9 +82,16 @@
                     </c:set>
                     <school:profileOverviewCell1 title="${t9s1}">
                         <div class="mam">
-                            <p class="big bottom tac">${transportationModel['substitute1StudentsPerTeacher']}</p>
+                            <p class="big bottom tac">${substitute1StudentsPerTeacher}</p>
 
-                            <p class="small tac">students</p>
+                            <c:choose>
+                                <c:when test="${studentsPerTeacher gt 1}">
+                                    <p class="small tac">students</p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p class="small tac">student</p>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </school:profileOverviewCell1>
                 </c:otherwise>

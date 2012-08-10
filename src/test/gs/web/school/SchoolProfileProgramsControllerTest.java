@@ -31,7 +31,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
     public void setUp() throws Exception {
         super.setUp();
 //        _espResponseDao = createStrictMock( IEspResponseDao.class );
-        _schoolProfileDataHelper = createStrictMock( SchoolProfileDataHelper.class );
+        _schoolProfileDataHelper = createMock( SchoolProfileDataHelper.class );
         _schoolProfileProgramsHighlightsController = new SchoolProfileProgramsController();
         _schoolProfileCultureController = new SchoolProfileCultureController();
         _schoolProfileCultureController.setSchoolProfileDataHelper(_schoolProfileDataHelper);
@@ -378,13 +378,12 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         ModelMap map = new ModelMap();
         //ESP data for school is fetched on the culture tab.
         expect(_schoolProfileDataHelper.getEspDataForSchool(getRequest())).andReturn(espData);
-        if (espData != null && espData.size() > 0) {
-            List<SchoolMedia> photoGalleryImages = new ArrayList<SchoolMedia>();
-            expect(_schoolProfileDataHelper.getSchoolMedia(getRequest())).andReturn(photoGalleryImages);
-        }
+        List<SchoolMedia> photoGalleryImages = new ArrayList<SchoolMedia>();
+        expect(_schoolProfileDataHelper.getSchoolMedia(getRequest())).andReturn(photoGalleryImages).anyTimes();
 
         //ESP data for school is fetched on the highlights/extracurriculars/programs&resources tab.
-        expect( _schoolProfileDataHelper.getEspDataForSchool( getRequest() ) ).andReturn( espData );
+        expect( _schoolProfileDataHelper.getGsRatings( getRequest() ) ).andReturn(null).anyTimes();
+        expect( _schoolProfileDataHelper.getEspDataForSchool( getRequest() ) ).andReturn( espData ).anyTimes();
         replay(_schoolProfileDataHelper);
         _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest());
         verify(_schoolProfileDataHelper);

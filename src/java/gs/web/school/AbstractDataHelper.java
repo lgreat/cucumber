@@ -1,5 +1,8 @@
 package gs.web.school;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +15,12 @@ import java.util.Map;
  */
 public abstract class AbstractDataHelper {
 
+    protected static final Log _log = LogFactory.getLog(AbstractDataHelper.class.getName());
+
     /** Used for access to a shared map stored in the request.  Contents of that map are pointers to shared data */
     public static final String SHARED_STATE_KEY = "SharedState";
 
-    protected static void initialize( HttpServletRequest request ) {
+    protected static Map<String, Map<String, Object>> initialize( HttpServletRequest request ) {
 
         // Set up the shared state map in the request if not present.  Entries in this shared state map are data that is to be reused during a request
         Map<String, Map<String, Object>> sharedState = (Map<String, Map<String, Object>>) request.getAttribute(SHARED_STATE_KEY);
@@ -23,7 +28,7 @@ public abstract class AbstractDataHelper {
             sharedState =  new HashMap<String, Map<String, Object>>();
             request.setAttribute( SHARED_STATE_KEY, sharedState );
         }
-
+        return  sharedState;
     }
 
     /**
@@ -37,10 +42,6 @@ public abstract class AbstractDataHelper {
         Object data = null;
         Map<String, Map<String, Object>> sharedDataMap = (Map<String, Map<String, Object>>) request.getAttribute( SHARED_STATE_KEY );
         if( sharedDataMap != null ) {
-//        if( sharedDataMap == null ) {
-//            throw new IllegalArgumentException( "The request must already contain the shared data map named " + SHARED_STATE_KEY  +
-//                    " Make sure AbstractDataHelper.initialize() was called early in the request cycle.");
-//        }
             // The shared state map consists of an entry for each data helper.  Get that map
             Map<String, Object> dataHelperMap = sharedDataMap.get(this.getClass().getName());
 
@@ -54,10 +55,8 @@ public abstract class AbstractDataHelper {
     protected void setSharedData( HttpServletRequest request, String key, Object data ) {
         Map<String, Map<String, Object>> sharedDataMap = (Map<String, Map<String, Object>>) request.getAttribute( SHARED_STATE_KEY );
         if( sharedDataMap == null ) {
-//            throw new IllegalArgumentException( "The request must already contain the shared data map named " + SHARED_STATE_KEY  +
-//                " Make sure AbstractDataHelper.initialize() was called early in the request cycle.");
-            sharedDataMap = new HashMap<String, Map<String, Object>>();
-            request.setAttribute( SHARED_STATE_KEY, sharedDataMap );
+            _log.warn("The request property: \"SharedState\" was no present as expected.  This should only happen if a module page is accessed instead of though the top level controller.  The url is: " + request.getRequestURL() );
+            sharedDataMap = initialize(request);
         }
         // The shared state map consists of an entry for each data helper.  Get that map
         Map<String, Object> dataHelperMap = sharedDataMap.get(this.getClass().getName());

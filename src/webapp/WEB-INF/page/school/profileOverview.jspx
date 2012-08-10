@@ -16,9 +16,11 @@
     <div id="profileProgramsTabs">
     <!-- The page has different layouts depending if there is esp data or not -->
     <c:choose>
-        <!--  ==================================== -->
+        <!--  
+==================================== -->
         <!--           ESP DATA AVAILABLE          -->
-        <!--  ==================================== -->
+        <!--  
+==================================== -->
         <c:when test="${not empty espData}">
 
             <div class="grid_16 alpha omega">   <!-- row 0 -->
@@ -139,16 +141,18 @@
                 </div>
 
                 <!-- row 6 - Default content: Facebook integration Substitiute content: hide row -->
-                <school:profileOverviewFacebookTile faceboolModel="${facebook}" />
+                <school:profileOverviewFacebookTile facebookModel="${facebook}" />
 
                 <!-- row 7 - Default content: Sports/Arts/Music Substitute content: hide row -->
                 <school:profileOverviewSportsArtsMusicTile sportsModel="${sports}"/>
             </div>
         </c:when>
         <c:otherwise>
-            <!--  ==================================== -->
+            <!--  
+==================================== -->
             <!--         NO ESP DATA AVAILABLE         -->
-            <!--  ==================================== -->
+            <!--  
+==================================== -->
             <div class="alpha grid_16 omega">
 
                 <div class="line">   <!-- row 1, tiles 1-3 -->
@@ -200,8 +204,8 @@
                 <!-- row 4 - Note to frontend - This is a full width vesion of slot 14-15 from the ESP version -->
                 <school:profileOverviewRelatedTile relatedModel="${related}"/>
 
-                <!-- row 5 - Default content: Facebook Substitute content: hide row -->
-                <school:profileOverviewFacebookTile faceboolModel="${facebook}"/>
+                <!-- 5th Row - Default content: Facebook Substitute content: hide row -->
+                <school:profileOverviewFacebookTile facebookModel="${facebook}" />
             </div>
 
         </c:otherwise>

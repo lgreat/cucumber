@@ -277,9 +277,10 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         }
 
         // Special handling for programs_resources/Programs/advanced_placement_exams
-        // TODO - Bob to ask Anthony where to get the data
-        List<String> l = Arrays.asList( new String[] {"Bob to ask Anthony where to get the data"} );
-        resultsModel.put( "programs_resources/Programs/advanced_placement_exams", l );
+        // rraker - 8/7/12 - This data comes from the census data.  At this time it has been decided not to
+        // include AP exams.  Therefore the following code is currently commented out
+        // List<String> l = Arrays.asList( new String[] {"Bob to ask Anthony where to get the data"} );
+        // resultsModel.put( "programs_resources/Programs/advanced_placement_exams", l );
 
         // Handle special rules related to displaying or suppressing the display of the "none" result
         // This has to be done by looking at each display element and seeing if special processing is required
@@ -539,7 +540,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     }
 
     // Little helper to get the last bean
-    private static SchoolProfileDisplayBean getLastDisplayBean() {
+    public static SchoolProfileDisplayBean getLastDisplayBean() {
         return DISPLAY_CONFIG.get( DISPLAY_CONFIG.size() - 1);
     }
 

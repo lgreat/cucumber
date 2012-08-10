@@ -49,7 +49,7 @@
                         </c:when>
                         <c:otherwise>
                             <p class="small tac">Apply by<br/>
-                                <span class="small_bold">${empty applicationDeadlineDate}</span>
+                                <span class="small_bold">${applicationDeadlineDate}</span>
                             </p>
                         </c:otherwise>
                     </c:choose>
