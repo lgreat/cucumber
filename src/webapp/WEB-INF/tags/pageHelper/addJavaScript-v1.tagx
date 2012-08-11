@@ -33,7 +33,8 @@
             <gsml:url var="jquerybgiframejs" value="/res/js/jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js" allowCdn="true"/>
             <gsml:url var="timepicker" value="/res/js/jquery/plugins/timepicker/jquery.ptTimeSelect.js" allowCdn="true"/>
             <gsml:url var="topnavpromojs" value="/res/js/topnavpromo.js?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="hoverjs" value="/res/js/hover.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="hoverjs" value="/res/js/hover-v1.js?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="modaljs" value="/res/js/modal/modalManager.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="topnavjs" value="/res/js/topnav.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="gs_jquery_extensionsjs" value="/res/js/gs_jquery_extensions.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="houseadsjs" value="/res/js/house_ads.js?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -50,7 +51,9 @@
             <![CDATA[<script type="text/javascript" src="${globaljs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${trackitjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${topnavpromojs}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${modaljs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${hoverjs}"></script>]]>
+
             <![CDATA[<script type="text/javascript" src="${topnavjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${gs_jquery_extensionsjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${houseadsjs}"></script>]]>

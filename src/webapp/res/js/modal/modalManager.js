@@ -28,21 +28,24 @@ var ModalManager = (function($) {
             'layerId' : 'not set',
             'containerId' : 'fullPageOverlay',
             'overlay' : 'true',
-            'content' : 'no content',
+            'content' : '',
             'templateId' : '0',
             'closeButton' : 'false'
         }, options);	
 	  var matchModal = 0;
 	  $.each(trackModal, function(key, value) {  	
 		if (value.getContainerId() == settings['containerId']) {
-			if(settings['content'] === 'no content'){ 
-				settings['content'] = $('#'+settings['layerId']).html();
-			}			
-			if (value.getContent() == settings['content']) {
-				matchModal = value;
-			}
+			if(settings['layerId'] == value.getLayerId()){
+                matchModal = value;
+            }
+            else{
+                if(settings['content'] != ""){
+                    if(settings['content'] ==  value.getContent()){
+                        matchModal = value;
+                    }
+                }
+            }
 		}
-		
   	  });
 	  return matchModal;
   }
@@ -101,7 +104,7 @@ function ModalLayer(options, id){
         var layerObj  = $('#'+getLayerId());
         var internalObj = layerObj.find('#js_modal_container');
         var he = (layerObj.height())/2;
-        console.log("h:"+he);
+       // console.log("h:"+he);
 
 
             var overlayState = "";
@@ -110,6 +113,11 @@ function ModalLayer(options, id){
 				+overlayState
 				+'<div class="horizon '+pagePosition+'"><div class="js-modal" style="top:-'+he+'px; ">'
 				+getContent()+'</div></div>'+'</div>');
+        if(getContent() == ""){
+            console.log($('#modallayer'+getId() + ' .js-modal'));// + ' .horizon .js_modal'));
+//            console.log($('#'+getLayerId() + ' .mod'));
+            $('#'+getLayerId() + ' .mod').clone('true').appendTo($('#modallayer'+getId() + ' .js-modal'));
+        }
 	}
 	var hideModal = function( ) {
 		$('#modallayer'+getId()).remove();
@@ -121,7 +129,7 @@ function ModalLayer(options, id){
             'layerId' : 'not set',
             'containerId' : 'fullPageOverlay',
             'overlay' : 'true',
-            'content' : 'no content',
+            'content' : '',
             'templateId' : '0',
             'closeButton' : 'false'
         }, options);
@@ -133,7 +141,8 @@ function ModalLayer(options, id){
 	setOverlayState(settings['overlay']);
 	setId(id);
 	setContent(settings['content']);
-	if(getContent() == 'no content') setContent($('#'+getLayerId()).html());			
+//    console.log(getLayerId());
+	//if(getContent() == 'no content') setContent($('#'+getLayerId()).html());
 
 	return{
 		getId : getId,

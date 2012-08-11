@@ -9,7 +9,7 @@
         xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-        xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
+        xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover/v1"
         xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
@@ -43,23 +43,7 @@
 
     <div class="container_24">
 
-        <communityHover:subscriptionEmailValidated/>
-        <communityHover:validateEmail/>
-        <communityHover:validateEmailSchoolReview/>
-        <communityHover:validateEditEmail/>
-        <communityHover:emailNotValidated/>
-        <communityHover:emailValidated/>
-        <communityHover:editEmailValidated/>
-        <communityHover:validationLinkExpired/>
-        <communityHover:join/>
-        <communityHover:signIn/>
-        <communityHover:forgotPassword/>
-        <communityHover:schoolReviewThankYou/>
-        <communityHover:emailValidatedSchoolReview/>
-        <school:principalConfirmHover/>
-        <school:principalReviewSubmitted/>
-        <compare:compareSchoolsLimitReachedHover/>
-        <communityHover:espAccountVerified/>
+
 
         <cobrand:header/>
         <mod:header/>
@@ -79,7 +63,26 @@
 
     ${requestScope.pageHelper.bottomJavaScript}
 
+
+    <div id="fullPageOverlay"><!-- do not collapse --></div>
+    <communityHover:subscriptionEmailValidated/>
+    <communityHover:validateEmail/>
+    <communityHover:validateEmailSchoolReview/>
+    <communityHover:validateEditEmail/>
+    <communityHover:emailNotValidated/>
+    <communityHover:emailValidated/>
+    <communityHover:editEmailValidated/>
+    <communityHover:validationLinkExpired/>
+    <communityHover:join/>
+    <communityHover:signIn/>
+    <communityHover:forgotPassword/>
+    <communityHover:schoolReviewThankYou/>
+    <communityHover:emailValidatedSchoolReview/>
+    <school:principalConfirmHover/>
+    <school:principalReviewSubmitted/>
+    <compare:compareSchoolsLimitReachedHover/>
+    <communityHover:espAccountVerified/>
     </body>
-</html>
+  </html>
 
 </jsp:root>
