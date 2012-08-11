@@ -26,26 +26,50 @@
                 <p class="small_bold textshadow-1 pvs plm bottom">GreatSchools ratings</p>
             </c:set>
             <school:profileOverviewCell1 title="${t1dc}">
-                <!-- =================== The following is left over from a prototype - Replace it =================== -->
-                <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
-                <c:set var="climateRating" value="${gsRatingsModel.climateRating}"/>
-                <c:set var="academicRating" value="${gsRatingsModel.academicRating}"/>
-                overall :- ${overallRating}
-                climateRating :- ${climateRating}
-                academicRating :- ${academicRating}
-                <c:if test="${empty gsRatingsModel.overall}">
-                    <c:set var="overallRating" value="0"/>
-                </c:if>
-                <c:if test="${not empty gs_rating}">
+                <div class="mam">
+                    <c:set var="academicRating" value="${gsRatingsModel.academicRating}"/>
+                    <c:set var="climateRating" value="${gsRatingsModel.climateRating}"/>
+                    <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
 
-                    <link:schoolProfileRating school="${school}">
-                        <span class="sprite badge_lg_${gs_rating}_b"><!-- do not collapse --></span>
-                    </link:schoolProfileRating>
-                    <!--
-        <link:schoolProfileRating styleClass="smallAlertText"
-                   school="${school}">GreatSchools<br/>evaluation criteria</link:schoolProfileRating>-->
-
-                </c:if>
+                    <p class="small bottom">Academic<span class="fr">${academicRating}</span></p>
+                    <hr class="keyline2"/>
+                    <p class="small bottom">Climate<span class="fr">${climateRating}</span></p>
+                    <hr class="keyline2"/>
+                    <p class="small_bold bottom">Overall<span class="fr">${overallRating}</span></p>
+                    <hr class="keyline2"/>
+                    <div class="line ptm mts">
+                        <div class="unit size33of100">
+                            <div class="media">
+                                <div class="img">
+                                    <div class="mvs mrm" style="width:6px;height:6px;border:1px solid #ae3333;background-color:#c84949;"><!-- do not collapse --></div>
+                                </div>
+                                <div class="bd">
+                                    <p class="smaller bottom">Low<br/>(1-3)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="unit size33of100">
+                            <div class="media">
+                                <div class="img">
+                                    <div class="mvs mrm" style="width:6px;height:6px;border:1px solid #c09d11;background-color:#e9be15;"><!-- do not collapse --></div>
+                                </div>
+                                <div class="bd">
+                                    <p class="smaller bottom">Avg<br/>(4-6)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="unit size34of100 last Unit">
+                            <div class="media">
+                                <div class="img">
+                                    <div class="mvs mrm" style="width:6px;height:6px;border:1px solid #59974a;background-color:#70b160;"><!-- do not collapse --></div>
+                                </div>
+                                <div class="bd">
+                                    <p class="smaller bottom">High<br/>(7-10)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </school:profileOverviewCell1>
         </c:when>
 
@@ -54,11 +78,13 @@
                 <p class="small_bold textshadow-1 pvs plm bottom"><span class="iconx16 i-16-awards vam"><!-- do not collapse --></span> Awards &amp; recognition</p>
             </c:set>
             <school:profileOverviewCell1 title="${t1s1}">
-                <ul class="small mvm mrm">
+                <div class="mam">
+                <ul class="small plm mls">
                     <c:forEach var="item" items="${gsRatingsModel['awards']}">
                         <li>${gsweb:abbreviateAtWhitespace(item, 50)}</li>
                     </c:forEach>
                 </ul>
+                </div>
             </school:profileOverviewCell1>
         </c:when>
 
@@ -67,7 +93,18 @@
                 <p class="small_bold textshadow-1 pvs plm bottom">About the school</p>
             </c:set>
             <school:profileOverviewCell1 title="${t1s2}">
-                <div class="">${gsRatingsModel['autotext']}</div>
+                <c:set var="actualCharMax" value="${fn:length(gsRatingsModel['autotext'])}"/>
+                <c:set var="SHOW_CHAR_MAX" value="${180}"/>
+                <div class="mam">
+                    <c:choose>
+                        <c:when test="${actualCharMax le SHOW_CHAR_MAX}">
+                            <p class="small bottom">${gsRatingsModel['autotext']}</p>
+                        </c:when>
+                        <c:otherwise>
+                            <p class="small bottom">${gsweb:abbreviateAtWhitespace(gsRatingsModel['autotext'],180)} More &amp;raquo;</p>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
             </school:profileOverviewCell1>
         </c:otherwise>
     </c:choose>
