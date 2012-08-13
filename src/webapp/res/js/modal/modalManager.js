@@ -117,8 +117,12 @@ function ModalLayer(options, id){
 	var hideModal = function( ) {
 		$('#modallayer'+getId()).remove();
 //        console.log(getLayerId());
-        $('#'+getContainerId()).trigger("dialogclose", [getContainerId(), getLayerId()]);
-		$('#'+getLayerId()).trigger("dialogclose", [getContainerId(), getLayerId()]);
+        if(getContainerId() != ""){
+            $('#'+getContainerId()).trigger("dialogclose", [getContainerId(), getLayerId()]);
+        }
+        if(getLayerId() != ""){
+		    $('#'+getLayerId()).trigger("dialogclose", [getContainerId(), getLayerId()]);
+        }
 	}
 	
 	var settings = $.extend( {
@@ -151,9 +155,9 @@ function ModalLayer(options, id){
 	};	
 }
 
-$(document).ready(function(e) {
- $('#fullPageOverlay').bind('dialogclose', function(event, param1, param2) {
- console.log("onModalClose"+" : "+param1+" : "+param2 );
- });
- });
+//$(document).ready(function(e) {
+// $('#fullPageOverlay').bind('dialogclose', function(event, param1, param2) {
+// console.log("onModalClose"+" : "+param1+" : "+param2 );
+// });
+// });
 

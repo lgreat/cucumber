@@ -29,6 +29,7 @@ GSType.hover.HoverDialog = function(id,width) {
     this.width = width;
     this.initialized = false;
     this.show = function() {
+        var self = this;
         if (!this.initialized) {
             this.dialogByWidth();
             this.initialized = true;
@@ -37,6 +38,9 @@ GSType.hover.HoverDialog = function(id,width) {
 //        jQuery('#' + this.hoverId).dialog('open');
         ModalManager.showModal({
             'layerId' :  this.hoverId
+        });
+        $("#"+this.hoverId + ' .js_closeHover').click(function() {
+            self.hide();
         });
         if (this.pageName != '') {
             pageTracking.clear();
@@ -1699,7 +1703,7 @@ jQuery(function() {
 //    jQuery('#joinHover .js_closeJoinHover').click(GSType.hover.joinHover.hide);
 
     jQuery('#joinHover').bind('dialogclose', function() {
-        console.log("TEST");
+
         jQuery('#joinGS .error').hide();
         GSType.hover.joinHover.clearMessages();
     });
@@ -1756,7 +1760,10 @@ jQuery(function() {
      return false;
      });
      */
-
+   /* jQuery('.js_subscriptionEmailValidated').click(function() {
+        GSType.hover.subscriptionEmailValidated.hide();
+        return false;
+    });
     jQuery('.js_closeForgotPassword').click(function() {
         GSType.hover.forgotPassword.hide();
         return false;
@@ -1771,7 +1778,7 @@ jQuery(function() {
         GSType.hover.joinHover.hide();
         return false;
     });
-
+     */
     jQuery('.js_chooseEnableDisable').click(function( ) {
         if(jQuery(this).is(':checked')){
             jQuery('#js_ShowHideGrades').removeClass('disabled_field');

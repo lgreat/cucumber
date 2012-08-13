@@ -5,14 +5,14 @@
 
     <div id="signInHover" class="dn">
     <div class="mod modal_1 width_17 " id="signInHover">
-        <div class="outer">
-            <div class="inner">
-                <div class="hoverTitle hd">
-        <h2 class="fl">Sign in to GreatSchools</h2>
-        <div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeSignInHover"><!-- do not collapse --></a></div>
-        <h2 class="fr prl mrl"><span>Not a member? <a href="#" id="signInHover_launchJoin" onclick="">Join GreatSchools</a>.</span></h2>
-        <div class="clearfloat"><!-- do not collapse --></div>
-    </div>
+                <div class="outer">
+                    <div class="inner">
+                        <div class="hoverTitle hd">
+                            <h2 class="fl">Sign in to GreatSchools</h2>
+                            <div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeHover"><!-- do not collapse --></a></div>
+                            <h2 class="fr prl mrl"><span>Not a member? <a href="#" id="signInHover_launchJoin" onclick="">Join GreatSchools</a>.</span></h2>
+                            <div class="clearfloat"><!-- do not collapse --></div>
+                        </div>
         <div class="messages">
             <p class="error"><!-- message --></p>
         </div>

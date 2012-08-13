@@ -12,7 +12,7 @@
 <div class="inner">
 <div class="hoverTitle hd">
     <div class="fl"><h2 class="bottom" >Speak your mind</h2></div>
-    <div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeJoinHover"><!-- do not collapse --></a></div>
+    <div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeHover"><!-- do not collapse --></a></div>
     <div class="fr small bottom" style="padding:5px 50px 0px 0px">Already a member? <a href="#" id="lnchSignin">Sign in</a></div>
 
 </div>
@@ -226,14 +226,11 @@
                                     <input type="checkbox" value="my1" id="g1" name="grades"/>
                                     <label for="g1" class="checkbox-smaller">1st Grade</label>
                                 </div>
-
                             </div>
                             <div class="unit size1of3">
                                 <div>
-                                    <input type="checkbox" value="my2" id="g2" name="grades" class="fl"/>
+                                    <input type="checkbox" value="my2" id="g2" name="grades"/>
                                     <label for="g2" class="checkbox-smaller">2nd Grade</label>
-                                    <div style="clear: both"><!-- --></div>
-
                                 </div>
                                 <div>
                                     <input type="checkbox" value="my3" id="g3" name="grades"/>
@@ -343,7 +340,7 @@
         <button class="button-1" type="submit" name="joinBtn" id="joinBtn">Join now</button>
     </div>
     <div class="unit size11of19 lastUnit small">
-        <a href="#" class="js_closeJoinHover">No thanks</a>
+        <a href="#" class="js_closeHover">No thanks</a>
     </div>
 </div>
 
