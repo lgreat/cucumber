@@ -113,7 +113,7 @@
                         byLocationForm.find('input[name="city"]').val(geocodeResult['city']);
                         byLocationForm.find('input[name="zipCode"]').val(geocodeResult['zipCode']);
 
-                        //window.setTimeout(loadResultsPage, 1);
+                        window.setTimeout(loadResultsPage, 1);
                     } else {
                         alert("Location not found. Please enter a valid address, city, or ZIP.");
                     }
@@ -303,7 +303,7 @@
                 <h3 class="title2-333">Search for schools <span class="introText">near an address</span></h3>
             </div>
             <div class="bd">
-                <gsweb:form action="/search/search.page" id="jq-findByLocationForm" method="get" onsubmit="return submitByLocationSearch();">
+                <form action="/search/search.page" id="jq-findByLocationForm" method="get" onsubmit="return submitByLocationSearch();">
                     <div class="line formExt1">
                         <label for="gradeLevels" class="introText unit">Show me:</label>
                         <select id="gradeLevels" class="unit size1of2 mhs" name="gradeLevels">
@@ -389,7 +389,7 @@
                             </c:choose>
                         </div>
                     </div>
-                </gsweb:form>
+                </form>
 
             </div>
         </div>
