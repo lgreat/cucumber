@@ -1750,6 +1750,11 @@ jQuery(function() {
      return false;
      });
      */
+    jQuery('.js_closeSignInHover').click(function() {
+//    console.log("MADE IT");
+        GSType.hover.signInHover.hide();
+        return false;
+    });
     jQuery('.js_closeJoinHover').click(function() {
 //    console.log("MADE IT");
         GSType.hover.joinHover.hide();

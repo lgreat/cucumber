@@ -11,14 +11,14 @@ hideModal();
 var ModalManager = (function($) {
   var trackModal = {};
   function removeModal(id){
-	  console.log("DELETE ID:"+id);
+//	  console.log("DELETE ID:"+id);
 	  delete trackModal[id];
   }
 
 	  
   function addModal (ml) {
      var keya = ml.getId();
-	 console.log("ADD ID:"+keya);
+//	 console.log("ADD ID:"+keya);
 	 trackModal[keya] = ml;
 	 ml.showModal(); 
   }
@@ -114,14 +114,14 @@ function ModalLayer(options, id){
 				+'<div class="horizon '+pagePosition+'"><div class="js-modal" style="top:-'+he+'px; ">'
 				+getContent()+'</div></div>'+'</div>');
         if(getContent() == ""){
-            console.log($('#modallayer'+getId() + ' .js-modal'));// + ' .horizon .js_modal'));
+//            console.log($('#modallayer'+getId() + ' .js-modal'));// + ' .horizon .js_modal'));
 //            console.log($('#'+getLayerId() + ' .mod'));
             $('#'+getLayerId() + ' .mod').clone('true').appendTo($('#modallayer'+getId() + ' .js-modal'));
         }
 	}
 	var hideModal = function( ) {
 		$('#modallayer'+getId()).remove();
-		console.log("REMOVE ID:"+getId());
+//		console.log("REMOVE ID:"+getId());
 		$('#'+getContainerId()).trigger("dialogclose", [getContainerId(), getLayerId()]);
 	}
 	

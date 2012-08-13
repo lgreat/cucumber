@@ -350,11 +350,7 @@
 <input type="hidden" name="mystatSchoolState" class="school_state" value="CA"/>
 <input type="hidden" name="mystatSchoolId" class="school_id" value="-1"/>
 </form>
-<!--<script>jQuery('.js_closeJoinHover').click(function() {-->
-<!--//    console.log("MADE IT");-->
-    <!--GSType.hover.joinHover.hide();-->
-    <!--return false;-->
-<!--});</script>-->
+
 </div></div></div></div>
 </div>
 
