@@ -11,6 +11,7 @@
     <jsp:directive.page contentType="text/html; charset=UTF-8"/>
     <body>
 
+    <!-- GS-13120 TBD -->
     <![CDATA[
     <div class="integratedTextAds mvm pam slStylesV1-0">
 	<span class="sponsoredText smallest bottom mrm">
@@ -22,6 +23,38 @@
 	</span>
         <div class="clear">&nbsp;</div>
     </div>
+    ]]>
+
+    <!-- GS-13120 TBD -->
+    <![CDATA[
+    <div class="integratedTextAds singleLine mvm slStylesV1-0">
+        <div class="sponsoredText smallest bottom mhm mtm fltlft">
+            SPONSORED BY
+        </div>
+        <div class="gsAdText fltlft">
+            <h6 class="mrs small_bold fltlft bottom">Testing Only</h6>
+            <span class="small">Offering full-time, tuition-free online education. <a href="http://www.greatschools.org">Learn more &#187;</a></span>
+        </div>
+        <div class="clear">&nbsp;</div>
+    </div>
+
+    ]]>
+
+    <!-- GS-13125 630x40 -->
+    <![CDATA[
+    <div class="integratedTextAds singleLine size630x40 slStylesV1-0">
+        <div class="pvm phm">
+        <div class="sponsoredText smallest bottom mrm fltlft">
+            SPONSORED BY
+        </div>
+        <div class="gsAdText fltlft">
+            <h6 class="mrs small_bold fltlft bottom">Testing Only</h6>
+            <span class="small">Offering full-time, tuition-free online education. <a href="http://www.greatschools.org">Learn more &#187;</a></span>
+        </div>
+        <div class="clear">&nbsp;</div>
+        </div>
+    </div>
+
     ]]>
 
     </body>
