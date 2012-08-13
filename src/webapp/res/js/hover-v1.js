@@ -23,7 +23,7 @@ Function.prototype.gs_bind = function(obj) {
 //HoverDialog requires the ID of the element to display as a hover dialog
 GSType.hover.HoverDialog = function(id,width) {
     this.hoverId = id;
-    console.log(this.hoverId);
+    //console.log(this.hoverId);
     this.pageName = '';
     this.hier1 = '';
     this.width = width;
@@ -33,7 +33,7 @@ GSType.hover.HoverDialog = function(id,width) {
             this.dialogByWidth();
             this.initialized = true;
         }
-        console.log(this.hoverId);
+        //console.log(this.hoverId);
 //        jQuery('#' + this.hoverId).dialog('open');
         ModalManager.showModal({
             'layerId' :  this.hoverId
@@ -170,9 +170,7 @@ GSType.hover.ForgotPasswordHover = function() {
     };
 };
 GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover_forgotPassword',590);
-jQuery('#joinHover').bind('dialogclose', function() {
-    console.log('yay!');
-});
+
 //Join hover
 GSType.hover.JoinHover = function() {
     this.schoolName = null;
