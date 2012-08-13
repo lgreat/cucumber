@@ -4,6 +4,7 @@
           xmlns:gsweb="gstaglib"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
     <jsp:directive.tag import="gs.data.school.LevelCode"/>
     <jsp:directive.attribute name="isHomePage" required="true"
@@ -54,6 +55,136 @@
             }
             return returnVal;
         }
+
+        function formatNormalizedAddress(address) {
+            var newAddress = address.replace(", USA", "");
+            var zipCodePattern = /(\d\d\d\d\d)-\d\d\d\d/;
+            var matches = zipCodePattern.exec(newAddress);
+            if (matches && matches.length > 1) {
+                newAddress = newAddress.replace(zipCodePattern, matches[1]);
+            }
+            return newAddress;
+        }
+
+        function buildQueryString(queryString) {
+            queryString = GS.uri.Uri.removeFromQueryString(queryString, "gradeLevels");
+            var gradeLevel = jQuery('#gradeLevels').val();
+            if(gradeLevel === '') {
+                queryString = GS.uri.Uri.removeFromQueryString(queryString, "gradeLevels");
+            }
+            else {
+                queryString = GS.uri.Uri.putIntoQueryString(queryString, "gradeLevels", gradeLevel, true);
+            }
+
+            queryString = GS.uri.Uri.removeFromQueryString(queryString, "st");
+            queryString = GS.uri.Uri.putIntoQueryString(queryString, "distance", $('#schoolRange').val(), true);
+
+            return queryString;
+        }
+
+        function loadResultsPage() {
+            var queryString = $('#jq-findByLocationForm').serialize();
+            queryString = buildQueryString(queryString);
+            window.location.href = '/search/search.page' + queryString;
+        }
+
+        function submitByLocationSearch() {
+            var byLocationForm = $('#jq-findByLocationForm');
+            var searchQuery = byLocationForm.find('input[name="searchString"]').val();
+            searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
+
+            if (searchQuery != '') {
+                byLocationForm.find('input[name="searchString"]').val(searchQuery);
+
+                //GS-12100 Since its a by location search, strip the words 'schools' from google geocode searches.
+                var searchQueryWithFilteredStopWords = searchQuery;
+                if (searchQueryWithFilteredStopWords != '') {
+                    searchQueryWithFilteredStopWords = searchQueryWithFilteredStopWords.replace(/schools/g, "");
+                }
+
+                gsGeocode(searchQueryWithFilteredStopWords, function(geocodeResult) {
+                    if (geocodeResult != null) {
+                        byLocationForm.find('input[name="lat"]').val(geocodeResult['lat']);
+                        byLocationForm.find('input[name="lon"]').val(geocodeResult['lon']);
+                        byLocationForm.find('input[name="state"]').val(geocodeResult['state']);
+                        byLocationForm.find('input[name="locationType"]').val(geocodeResult['type']);
+                        byLocationForm.find('input[name="normalizedAddress"]').val(geocodeResult['normalizedAddress']);
+                        byLocationForm.find('input[name="totalResults"]').val(geocodeResult['totalResults']);
+                        byLocationForm.find('input[name="city"]').val(geocodeResult['city']);
+                        byLocationForm.find('input[name="zipCode"]').val(geocodeResult['zipCode']);
+
+                        window.setTimeout(loadResultsPage, 1);
+                    } else {
+                        alert("Location not found. Please enter a valid address, city, or ZIP.");
+                    }
+                });
+            } else {
+                alert("Please enter an address, zip code or city and state");
+            }
+
+            return false;
+        }
+
+        function gsGeocode(searchInput, callbackFunction) {
+            var geocoder = new google.maps.Geocoder();
+            if (geocoder && searchInput) {
+                geocoder.geocode( { 'address': searchInput + ' US'}, function(results, status) {
+                var numResults = 0;
+                var GS_geocodeResults = new Array();
+                if (status == google.maps.GeocoderStatus.OK && results.length > 0) {
+                    numResults = results.length;
+                    for (var x = 0; x < numResults; x++) {
+                        var geocodeResult = new Array();
+                        geocodeResult['lat'] = results[x].geometry.location.lat();
+                        geocodeResult['lon'] = results[x].geometry.location.lng();
+                        geocodeResult['normalizedAddress'] = formatNormalizedAddress(results[x].formatted_address);
+                        geocodeResult['type'] = results[x].types.join();
+                        if (results[x].partial_match) {
+                            geocodeResult['partial_match'] = true;
+                        } else {
+                            geocodeResult['partial_match'] = false;
+                        }
+                        for (var i = 0; i < results[x].address_components.length; i++) {
+                            if ($.inArray('administrative_area_level_1', results[x].address_components[i].types) > -1) {
+                                geocodeResult['state'] = results[x].address_components[i].short_name;
+                            }
+                            if ($.inArray('country', results[x].address_components[i].types) > -1) {
+                                geocodeResult['country'] = results[x].address_components[i].short_name;
+                            }
+                            if ($.inArray('postal_code', results[x].address_components[i].types) > -1) {
+                                geocodeResult['zipCode'] = results[x].address_components[i].short_name;
+                            }
+                            if ($.inArray('locality', results[x].address_components[i].types) > -1) {
+                                geocodeResult['city'] = results[x].address_components[i].long_name;
+                            }
+                        }
+                        // http://stackoverflow.com/questions/1098040/checking-if-an-associative-array-key-exists-in-javascript
+                        if (!('lat' in geocodeResult && 'lon' in geocodeResult &&
+                                'state' in geocodeResult &&
+                                'normalizedAddress' in geocodeResult &&
+                                'country' in geocodeResult) ||
+                            geocodeResult['country'] != 'US') {
+                            geocodeResult = null;
+                        }
+                        if (geocodeResult != null) {
+                            GS_geocodeResults.push(geocodeResult);
+                        }
+                    }
+                }
+                if (GS_geocodeResults.length == 0) {
+                    callbackFunction(null);
+                } else if (GS_geocodeResults.length == 1) {
+                    GS_geocodeResults[0]['totalResults'] = 1;
+                    callbackFunction(GS_geocodeResults[0]);
+                } else {
+                    // ignore multiple results for now
+                    GS_geocodeResults[0]['totalResults'] = GS_geocodeResults.length;
+                    callbackFunction(GS_geocodeResults[0]);
+                }
+                });
+            }
+        }
+
         // -->
     </script>
     ]]>
@@ -170,7 +301,7 @@
                 <h3 class="title2-333">Search for schools <span class="introText">near an address</span></h3>
             </div>
             <div class="bd">
-                <gsweb:form action="/search/nearbySearch.page" method="get">
+                <gsweb:form action="/search/search.page" id="jq-findByLocationForm" method="get" onsubmit="return submitByLocationSearch();">
                     <div class="line formExt1">
                         <label for="gradeLevels" class="introText unit">Show me:</label>
                         <select id="gradeLevels" class="unit size1of2 mhs" name="gradeLevels">
@@ -224,10 +355,19 @@
                         </select>
                         <label for="zipCode" class="introText unit mhs"> miles of </label>
                         <input type="text" value="Zip code" id="zipCode" class="unit size5of18 mls mrl text2"
-                               name="zipCode"
+                               name="searchString"
                                onfocus="textSwitch(this, '', 'Zip code');"
                                onblur="textSwitch(this, 'Zip code', '');"/>
-                        <input type="hidden" name="redirectUrl" value="${nearbySearchRedirectUrl}"/>
+                        <!--<input type="hidden" name="redirectUrl" value="${nearbySearchRedirectUrl}"/>-->
+                        <input type="hidden" name="lat"/>
+                        <input type="hidden" name="lon"/>
+                        <input type="hidden" name="state"/>
+                        <input type="hidden" name="locationType" value=""/>
+                        <input type="hidden" name="sortBy" value="DISTANCE"/>
+                        <input type="hidden" name="normalizedAddress" value=""/>
+                        <input type="hidden" name="totalResults" value="0"/>
+                        <input type="hidden" name="city"/>
+                        <input type="hidden" name="zipCode"/>
                         <button class="button-1 unit" type="submit">GO</button>
                         <div class="unit size1of20 lastUnit"><!-- do not collapse --></div>
                         <div class="spacer_5"><!-- do not collapse --></div>
