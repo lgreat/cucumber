@@ -38,9 +38,12 @@
                 </div>
             </c:when>
             <c:otherwise>
-                <!-- Randall / Mitch - the following needs to be formatted as Substitute 1
-                     See: file://gsdata/Public/Design/Design_Review/school_profile/comps/visual/Tiles/slot_5+6.png -->
-                <div class=""><b>Is this your school?</b><br/><i>Be the first to review it and help out other families.</i></div>
+                <div class="mvl mhm">
+                    <p class="tac">
+                        <strong>Is this your school?</strong><br/>
+                        <em>Be the first to review it and help out other families.</em>
+                    </p>
+                </div>
             </c:otherwise>
         </c:choose>
     </school:profileOverviewCell1>
