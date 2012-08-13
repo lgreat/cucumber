@@ -20,7 +20,7 @@
 <hr class="keyline1" />
 <div class="pbm"><!-- do not collapse --></div>
 
-<div class="bd">
+<div class="bd tal">
         <!-- GS-11161 -->
         <p>
             <span class="small_bold">Join GreatSchools </span>
@@ -230,8 +230,10 @@
                             </div>
                             <div class="unit size1of3">
                                 <div>
-                                    <input type="checkbox" value="my2" id="g2" name="grades"/>
+                                    <input type="checkbox" value="my2" id="g2" name="grades" class="fl"/>
                                     <label for="g2" class="checkbox-smaller">2nd Grade</label>
+                                    <div style="clear: both"><!-- --></div>
+
                                 </div>
                                 <div>
                                     <input type="checkbox" value="my3" id="g3" name="grades"/>
