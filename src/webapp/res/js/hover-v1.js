@@ -47,7 +47,7 @@ GSType.hover.HoverDialog = function(id,width) {
         return false;
     };
     this.hide = function() {
-        console.log("HOVERID:"+this.hoverId);
+//        console.log("HOVERID:"+this.hoverId);
         ModalManager.hideModal({
             'layerId' : this.hoverId
         });
@@ -170,7 +170,9 @@ GSType.hover.ForgotPasswordHover = function() {
     };
 };
 GSType.hover.ForgotPasswordHover.prototype = new GSType.hover.HoverDialog('hover_forgotPassword',590);
-
+jQuery('#joinHover').bind('dialogclose', function() {
+    console.log('yay!');
+});
 //Join hover
 GSType.hover.JoinHover = function() {
     this.schoolName = null;
@@ -1699,6 +1701,7 @@ jQuery(function() {
 //    jQuery('#joinHover .js_closeJoinHover').click(GSType.hover.joinHover.hide);
 
     jQuery('#joinHover').bind('dialogclose', function() {
+        console.log("TEST");
         jQuery('#joinGS .error').hide();
         GSType.hover.joinHover.clearMessages();
     });
