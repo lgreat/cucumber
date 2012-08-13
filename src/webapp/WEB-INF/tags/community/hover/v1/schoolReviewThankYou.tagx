@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+
+
+    <div id="schoolReviewThankYou" class="dialog_white" style="display:none;">
+        <h2>Thank you for submitting a review</h2>
+
+        <p><strong>Your review has been posted to GreatSchools.</strong></p>
+
+        <button class="button-1 schoolReviewThankYou_hideHover" type="button">OK</button>
+    </div>
+</jsp:root>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+
+    <div id="espAccountVerified" class="dialog_white" style="display:none;">
+        <h2>Your account is now active</h2>
+
+        <p>Get started now! You have successfully registered and can now start updating your Official School Profile.
+            The information you provide is extremely valuable in helping parents and students learn more about your
+            school, so thanks for taking the time!</p>
+
+        <button class="button-1 espAccountVerified_hideHover" type="button">Update school profile</button>
+    </div>
+</jsp:root>

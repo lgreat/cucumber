@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+    <jsp:directive.attribute name="schoolName" type="java.lang.String"
+                             description="Name of the school to put in the bosy of the message."
+                             required="true"/>
+
+    <!-- would like to namespace this div but it gets rewritten by jquery-ui -->
+    <div id="schoolReviewPosted" class="dialog_white" style="display:none;">
+        <div class="pal">
+            <!-- 2012 03 29 -mitch
+            the styles below are pulled from slStylesV1-0 - this is outside of the namespace
+            we are looking to change the modal/hover and add default layout for consistency -->
+            <h2 style="color: #2b2b2b;font: normal 24px/30px Arial, Helvetica, sans-serif; margin-bottom: 20px;">Thank you. Your review has been posted.</h2>
+
+            <p style="font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px;"><strong>Share with friends! </strong>
+                Post your opinion of ${schoolName} on Facebook.</p>
+
+            <div>
+                <!-- this is a hack to resize the facebook button.  It is being set to the small style and I am overriding this -->
+                <style>
+
+                .FBConnectButton_Small,
+                .FBConnectButton_RTL_Small {background-position:left -138px;font-size: 13px;line-height:16px}
+                .FBConnectButton_Small .FBConnectButton_Text{margin-left:24px}
+                a.FBConnectButton_Small:active{background-position:left -163px}
+                .FBConnectButton_RTL_Small{background-position:right -346px}
+                .FBConnectButton_RTL_Small.FBConnectButton_Text{margin-right:25px}
+                a.FBConnectButton_RTL_Small:active{background-position:right -371px}
+            </style>
+                <div style="display:none;" class="prl fltlft" id="js_fbshare_div"><a name="fb_share" type="button" href="http://www.facebook.com/sharer.php" id="js_fbshare_schoolReviewPosted" style="font-size: 20px">Share on Facebook</a></div>
+
+                <div style="display: inline-block;"><button class="button-1 schoolReviewPosted_hideHover" type="button">No, thanks</button></div>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>

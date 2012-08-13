@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+        >
+
+    <c:if test="${requestScope.email ne null}">
+        <script type="text/javascript">
+            GSType.hover.espPreApprovalEmail.setEmail('${email}');
+        </script>
+    </c:if>
+
+    <c:if test="${param.email ne null}">
+        <script type="text/javascript">
+            GSType.hover.espPreApprovalEmail.setEmail('${param.email}');
+        </script>
+    </c:if>
+
+    <div id="js_espPreApprovalEmailHover" class="dialog_white" style="display:none;">
+        <h2>Your email needs to be verified</h2>
+
+        <p><strong>Oops! You haven't verified your email address yet.</strong>
+            To do so, please click on the link in the email we sent you.
+            Can't find the email? Click the button below to receive a new one.
+        </p>
+
+        <button class="button-1" type="button" id="js_sendEspPreApprovalEmail">Send a new email</button>
+    </div>
+</jsp:root>
