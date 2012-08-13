@@ -399,7 +399,7 @@
                                                             escapeXml="true"/></c:set>
                         ${gsweb:boldifyFirstXWords(escapedComments, 10)}
                         <c:if test="${not empty postedByDisplay}"><br/><span
-                                class="author smallText1-333">&amp;amp;mdash;Submitted by ${postedByDisplay}</span></c:if>
+                                class="author smallText1-333">&#8212;Submitted by ${postedByDisplay}</span></c:if>
                     </p>
 
 
