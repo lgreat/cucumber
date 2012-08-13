@@ -179,9 +179,9 @@
 
     <div class="grid_12 omega">
         <!-- School name and sub data -->
-        <h2 class="mbm">${school.name}</h2>
+        <h1 class="mbm">${school.name}</h1>
         <div class="small mbs" style="height:23px;">
-            <span class="dib" style="line-height: 24px;">
+            <span class="dib prm" style="line-height: 24px;">
             <!-- School Type -->
             <c:if test="${school.levelCode ne 'p'}">
                 ${gsweb:capitalize(school.type.schoolTypeName)}
@@ -195,12 +195,12 @@
                     <!-- Leave blank -->
                 </c:when>
                 <c:otherwise>
-                    | ${school.gradeLevels}
+                    <span class="make-dddddd phs">|</span> ${school.gradeLevels}
                 </c:otherwise>
             </c:choose>
             <!-- Enrollment -->
             <c:if test="${not empty schoolEnrollment and schoolEnrollment > 0}">
-                | ${schoolEnrollment} ${gsweb:pluralize(schoolEnrollment, 'student')}
+                <span class="make-dddddd phs">|</span> ${schoolEnrollment} ${gsweb:pluralize(schoolEnrollment, 'student')}
             </c:if>
             </span>
             <promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
@@ -216,13 +216,13 @@
                     <span class="img iconx16 i-16-save mrs"><!-- do not collapse --></span>
                     <link:mySchoolList styleClass="bd" school="${school}"
                                        onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
-                                       anchor="${headerLinkAnchor}"><strong>Save</strong></link:mySchoolList>
+                                       anchor="${headerLinkAnchor}">Save</link:mySchoolList>
                 </span>
                 </li>
                 <li class="mll">
                 <span class="media">
                     <span class="img iconx16 i-16-email mrs"><!-- do not collapse --></span>
-                    <a class="bd" href="javascript:void(0);"><strong>Send me updates</strong></a>
+                    <a class="bd" href="javascript:void(0);">Send me updates</a>
                 </span>
                 </li>
                 <li class="mll">
@@ -230,7 +230,7 @@
                     <span class="img iconx16 i-16-review mrs"><!-- do not collapse --></span>
                     <!--<a class="bd" onclick="return linkToTabs('reviews'); jumpToAnchor(''); return false;" href="javascript:void(0);"><strong>Write a review</strong></a>-->
                     <a class="bd" id="js_profileHeadWriteReviewLink"
-                       href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}#schoolReviewSubmitForm"><strong>Write a review</strong></a>
+                       href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}#schoolReviewSubmitForm">Write a review</a>
                 </span>
                 </li>
             </ul>
@@ -321,7 +321,7 @@
 
 
         <!-- Address, phone, fax, directions, homes for sale -->
-        <div class="bd loud">
+        <div class="bd">
             <p class="small bottom mbm">${school.physicalAddress.street}
 
                 <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">

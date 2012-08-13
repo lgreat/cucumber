@@ -44,10 +44,10 @@
                     <c:if test="${not empty districtNumSchools}">
                         <div class="line mvs">
                             <div class="unit size70of100">
-                                <p class="small_bold bottom">Number of schools:</p>
+                                <p class="small bottom">Number of schools:</p>
                             </div>
                             <div class="unit size30of100 lastUnit">
-                                <p class="small bottom fr">${districtNumSchools}</p>
+                                <p class="small_bold bottom fr">${districtNumSchools}</p>
                             </div>
                         </div>
                         <hr class="keyline2"/>
@@ -57,10 +57,10 @@
                     <c:if test="${not empty districtNumStudents}">
                         <div class="line mvs">
                             <div class="unit size70of100">
-                                <p class="small_bold bottom">Number of students:</p>
+                                <p class="small bottom">Number of students:</p>
                             </div>
                             <div class="unit size30of100 lastUnit">
-                                <p class="small bottom fr">${districtNumStudents}</p>
+                                <p class="small_bold bottom fr">${districtNumStudents}</p>
                             </div>
                         </div>
                         <hr class="keyline2"/>
@@ -69,10 +69,10 @@
                     <c:if test="${not empty districtGrades}">
                         <div class="line mvs">
                             <div class="unit size70of100">
-                                <p class="small_bold bottom">Grades:</p>
+                                <p class="small bottom">Grades:</p>
                             </div>
                             <div class="unit size30of100 lastUnit">
-                                <p class="small bottom fr">${districtGrades}</p>
+                                <p class="small_bold bottom fr">${districtGrades}</p>
                             </div>
                         </div>
                     </c:if>
