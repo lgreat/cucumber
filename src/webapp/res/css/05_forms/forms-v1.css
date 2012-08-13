@@ -45,7 +45,7 @@ label, .labelGroup {font: bold 12px/18px Arial, Helvetica, sans-serif;}
 .ral label { text-align:right; }
 
 label.checkbox, label.radio { font: normal 12px/18px Arial, Helvetica, sans-serif; color: #555555; display: inline; }
-label.checkbox-smaller, label.radio-smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; }
+label.checkbox-smaller, label.radio-smaller { font: normal 11px/16px Arial, Helvetica, sans-serif; #555555; display: inline; }
 
 /* Form element standard style */
 input[type=checkbox],
