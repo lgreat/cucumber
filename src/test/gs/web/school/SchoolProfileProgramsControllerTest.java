@@ -140,7 +140,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actual = resultsModel.get( "highlights/Health/facilities" );
 
-        String[] expected = new String[] {"Farm", "Sports fields", "Garden"};
+        String[] expected = new String[] {"Farm", "Garden", "Sports fields"};
         List<String> expectedList = Arrays.asList( expected );
 
         assertNotNull( "testAllowedListMultiple: result List is null", actual);
@@ -169,7 +169,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actualStudentClubData = resultsModel.get( "highlights/Arts/student_clubs" );
 
-        String[] expected = new String[] {"Student newspaper", "Yearbook", "Jazzercise"};
+        String[] expected = new String[] {"Jazzercise", "Student newspaper", "Yearbook"};
         List<String> expectedStudentClubData = Arrays.asList( expected );
 
         assertNotNull( "testAdditionalDataMerge: Arts student_clubs list is null", actualStudentClubData);
@@ -193,7 +193,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actualStudentClubData = resultsModel.get( "highlights/Language/foreign_language" );
 
-        String[] expected = new String[] {"After School  Spanish Tuition-based Programs", "American Sign Language" };
+        String[] expected = new String[] {"After school  spanish tuition-based programs", "American sign language" };
         List<String> expectedStudentClubData = Arrays.asList( expected );
 
         assertNotNull( "testAdditionalDataMergeWithNoResultData: result is null", actualStudentClubData);
@@ -224,36 +224,6 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the applyUniqueDataRules() for immersion / immersion_language
-    public void testSpecialRuleImmersion1() {
-
-        // This test runs the controller multiple times for the different test cases
-        // *** Test 1 - one entry - Yes, should get yes back
-        List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "immersion", "yes" ) );
-
-        ModelMap map = runController( convertToEspData( l ) );
-
-        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
-        List<String> results = resultsModel.get( "programs_resources/Programs/immersion" );
-        assertEquals( "testSpecialRuleImmersion1: Expected Yes", "Yes", results.get(0) );
-
-    }
-
-    public void testSpecialRuleImmersion2() {
-
-        // This test runs the controller multiple times for the different test cases
-        // *** Test 2 - one entry - No, should not get any data back
-        List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "immersion", "no" ) );
-
-        ModelMap map = runController( convertToEspData( l ) );
-
-        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
-        List<String> results = resultsModel.get( "programs_resources/Programs/immersion" );
-        assertNull( "testSpecialRuleImmersion2: Expected no data but got: " + results, results );
-
-    }
-
     public void testSpecialRuleImmersion3() {
 
         // This test runs the controller multiple times for the different test cases
@@ -342,7 +312,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         assertEquals( "testSchoolSubtype1: expected Continuation to be added", "Continuation", results.get(0) );
 
         results = resultsModel.get( "programs_resources/Basics/coed" );
-        assertEquals( "testSchoolSubtype1: expected EspResponse:coed to take precedence over school.subtype", "Coed", results.get(0) );
+        assertEquals( "testSchoolSubtype1: expected EspResponse:coed to take precedence over school.subtype", "All Girls", results.get(0) );
 
     }
 

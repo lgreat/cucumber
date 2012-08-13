@@ -1,5 +1,8 @@
 package gs.web.school;
 
+import gs.data.school.EspResponse;
+import org.apache.commons.lang.WordUtils;
+
 import java.util.*;
 
 /**
@@ -18,7 +21,7 @@ import java.util.*;
  *    format.  The data elements are put in the data model (name ProfileData) that is passed to the page.
  * 3. An optional list of DbResponse values valid for this row.
  * 4. How the data is to be formatted on the page (contained in enum DisplayFormat)
- * 5. How to update the row title using DB data (optional, contianed in _titleMatch and _titleModelKey)
+ * 5. How to update the row title using DB data (optional, contained in _titleMatch and _titleModelKey)
  * 6. A few rows need special handling to form the result for the page.  Support data for these rows is in
  *    _supportEspResponseKeys and _supportModelKeys.
  * 7. Some of the DB results for a row can have multiple values including "None".  In some cases "None" is to be
@@ -32,13 +35,21 @@ import java.util.*;
 public class SchoolProfileDisplayBean {
 
     public enum  DisplayFormat { BASIC, TWO_COL, URL }   // The possible display formats
-    public enum NoneHandling{ ALWAYS_SHOW, SHOW_IF_ONLY_VALUE, HIDE_IF_ONLY_NONE }
+    public enum NoneHandling{
+        /** If the only value is none show it otherwise remove it.  This is the default action */
+        REMOVE_NONE_IF_NOT_ONLY_VALUE,
+        /** This means no changes to the values returned from the backend */
+        NO_NONE_PROCESSING,
+        //* Remove none no mater how many values are in the list and if there is only one the list will become empty */
+        REMOVE_NONE_ALWAYS
+    }
+    public enum ValueFormatSelector{ PRETTY, SAFE, UNFORMATTED, SENTENCE_CAP }  // Controls which value is selected from the EspResponse
 
     private String _tabAbbreviation;            // abbreviation for a tab
     private String _sectionAbbreviation;        // abbreviation for a section
     private String _sectionTitle;               // this is the title displayed for this section
     private String _rowTitle;                   // this is the row description text
-    private Set<String> _espResponseKeys;       // these are the esp_response.response_key values to be used for this row
+    private Set<String> _espResponseKeys = new HashSet<String>();       // these are the esp_response.response_key values to be used for this row
     private String _espResponseKeyWithAllowed;  // This is the esp_response_key that has an "allowed" set of values
     private Set _allowedResponseValues;         // only this set of values is allowed on this row
     private String _modelKey;                   // the result data is stored under this key
@@ -47,9 +58,11 @@ public class SchoolProfileDisplayBean {
     private List<String> _urlValue;             // For row displayed as a URL this is the url
     private List<String> _titleMatch;           // string in row title to find for substitution
     private List<String> _titleModelKey;        // modelKey to value for this replacement
-    private boolean _requiresNoneHandling;      // indicator that special "None" value handling is needed
+    //private boolean _requiresNoneHandling;      // indicator that special "None" value handling is needed
     private NoneHandling _noneMode;             // How to treat None values
     private List<AdditionalData> _additionalData;    // A place to store additional data to retrieve from the ESP database and map to the model
+    private ValueFormatSelector _valueFormat;   // The format of the display value to use
+    private Map<String, ValueFormatSelector> _specialValueFormat = new HashMap<String, ValueFormatSelector>();   // Some of the EspResponse keys that are added as with addKey() need special formatting
 
     // Don't allow default construction
     private SchoolProfileDisplayBean(){}
@@ -69,7 +82,6 @@ public class SchoolProfileDisplayBean {
         _sectionAbbreviation = sectionAbbreviation;
         _sectionTitle = sectionTitle;
         _rowTitle = rowTitle;
-        _espResponseKeys = new HashSet<String>();
         if( espResponseKey != null && espResponseKey.length() > 0 ) {
             _espResponseKeys.add( espResponseKey );
             // Compute the model key
@@ -82,7 +94,9 @@ public class SchoolProfileDisplayBean {
         else {
             _allowedResponseValues = null;
         }
+        _valueFormat = ValueFormatSelector.PRETTY;  // This is default
         _displayFormat = DisplayFormat.BASIC;
+        _noneMode = NoneHandling.REMOVE_NONE_IF_NOT_ONLY_VALUE;
     }
 
     /**
@@ -155,13 +169,21 @@ public class SchoolProfileDisplayBean {
      * @param espResponseKey  the response key to add
      */
     public void addKey( String espResponseKey ) {
-        // _sepResponseKey should never be null, but if it is then create it
-        if( _espResponseKeys == null) {
-            _espResponseKeys = new HashSet<String>();
-        }
-
-        _espResponseKeys.add( espResponseKey );
+        _espResponseKeys.add(espResponseKey);
     }
+
+    /**
+     * This is like addKey() but also supports specifying how the value is to be formatted
+     * @param espResponseKey
+     * @param valueFormatSelector
+     */
+    public void addKeyWithValueFormatting( String espResponseKey, ValueFormatSelector valueFormatSelector ) {
+        _espResponseKeys.add( espResponseKey );
+
+        // add to the _specialValueFormat map
+        _specialValueFormat.put(espResponseKey, valueFormatSelector);
+    }
+
     /**
      * Specify a URL descriptionEspResponseKey and valueEspResponseKey for the display.
      * @param descriptionEspResponseKey  The epsResponseKey for this description
@@ -198,6 +220,7 @@ public class SchoolProfileDisplayBean {
             _urlValue.add( modelKey );
             _additionalData.add( new AdditionalData( urlEspResponseKey ) );
             _espResponseKeys.add(urlEspResponseKey);        // Need to retrieve data for this key
+            _specialValueFormat.put( urlEspResponseKey, ValueFormatSelector.SAFE ); // Url's always need SAFE formatting
         }
         else {
             _urlValue.add("");
@@ -235,7 +258,6 @@ public class SchoolProfileDisplayBean {
      * If the Result value is none is returned should we show any data for this row
       */
     public void setShowNone( NoneHandling none ) {
-        _requiresNoneHandling = true;
         _noneMode = none;
     }
 
@@ -243,8 +265,12 @@ public class SchoolProfileDisplayBean {
         return _noneMode;
     }
 
-    public boolean getRequiresNoneHandling() {
-        return _requiresNoneHandling;
+    public ValueFormatSelector getValueFormat() {
+        return _valueFormat;
+    }
+
+    public void setValueFormat(ValueFormatSelector valueFormat) {
+        _valueFormat = valueFormat;
     }
 
     /**
@@ -362,6 +388,36 @@ public class SchoolProfileDisplayBean {
         }
     }
 
+    /**
+     * Format the esp_response according to the specification in the bean
+     * @param e
+     * @return
+     */
+    public String formatEspResponseValue( EspResponse e ) {
+
+        ValueFormatSelector valueFormatSelector = _valueFormat;
+        // See if this EspResponse needs special formatting
+        if( _specialValueFormat.get(e.getKey()) != null ) {
+            valueFormatSelector = _specialValueFormat.get(e.getKey());
+        }
+
+        switch ( valueFormatSelector ) {
+            case PRETTY :
+                return e.getPrettyValue();
+            case SAFE:
+                return e.getSafeValue();
+            case UNFORMATTED:
+                return e.getValue();
+            case SENTENCE_CAP:
+                // Start with pretty and then change to sentence case
+                return WordUtils.capitalizeFully( e.getPrettyValue(), new char[] {'_'} );
+            default:
+                // Shouldn't ever get here
+                return e.getPrettyValue();
+        }
+
+    }
+
     // This is a simple inner class to keep track of additional ESP data to retrieve and how to map that to modelKeys
     public class AdditionalData {
         String _espResponseKey;
@@ -381,7 +437,6 @@ public class SchoolProfileDisplayBean {
         public String getModelKey() {
             return _modelKey;
         }
-
     }
 }
 

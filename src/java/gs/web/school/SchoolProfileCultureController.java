@@ -81,6 +81,8 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         // Space 6 - show OSP data or hide the row - This is NOT a tile but is a table like the other tabs on this page
         if (espResults != null && espResults.size() > 0) {
             Map<String, List<String>> resultsModel = SchoolProfileProgramsController.buildDisplayData(espResults, DISPLAY_CONFIG);
+            SchoolProfileProgramsController.sortResults(resultsModel, DISPLAY_CONFIG);
+            SchoolProfileProgramsController.applyNoneHandlingRule( resultsModel, DISPLAY_CONFIG );
             modelMap.put("cultureProfileData", resultsModel);
             SchoolProfileProgramsController.buildDisplayModel(MODEL_PREFIXES, resultsModel, DISPLAY_CONFIG, modelMap);
         }
@@ -262,20 +264,22 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
     private static void buildCultureDisplayStructure() {
         String tabAbbrev = "culture";
         String sectionAbbrev = "SchoolCulture";
-        String sectionTitle = "School Culture";
+        String sectionTitle = "School culture";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Dress Code",
                 "dress_code" ) );
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Bullying Policy",
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Bullying policy",
                 "bullying_policy" ) );
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Parent Involvement",
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Parent involvement",
                 "parent_involvement" ) );
-        SchoolProfileProgramsController.getLastDisplayBean().addSupportInfo("parent_involvement_other");
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "School Colors",
+        getLastDisplayBean().addKey("parent_involvement_other");
+        getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_IF_NOT_ONLY_VALUE);
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "School colors",
                 "school_colors" ) );
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "School Mascot",
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "School mascot",
                 "school_mascot" ) );
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Anything else",
+        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "More from this school",
                 "anything_else" ) );
+        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SAFE);
     }
 
     boolean isNotEmpty( Collection c ) {
@@ -285,6 +289,11 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
 
     boolean isEmpty( Collection c ) {
         return ((c==null) || (c.size()==0));
+    }
+
+    // Little helper to get the last bean
+    public static SchoolProfileDisplayBean getLastDisplayBean() {
+        return DISPLAY_CONFIG.get( DISPLAY_CONFIG.size() - 1);
     }
 
     // The following setter dependency injection is just for the tester
