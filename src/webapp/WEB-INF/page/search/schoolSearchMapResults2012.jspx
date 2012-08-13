@@ -316,10 +316,10 @@ that this is updated for ajax refresh -->
 </c:set>
 
 <!--${fn:length(pointsArray)}-->
-<c:choose>
+<!--<c:choose>-->
     <!--<c:when test="${requestScope.schoolSearchCommand.view eq 'map'}">-->
 
-    <c:when test="${latLonExists eq true}">
+    <!--<c:when test="${fn:length(pointsArray) > 0 || latLonExists eq true}">-->
         <script type="text/javascript">
             ${pointsArray}
             $.getScript('/res/js/googleMapsInfobox.min.js').done(function () {
@@ -340,8 +340,8 @@ that this is updated for ajax refresh -->
                 </div>
             </div>
         </div>
-    </c:when>
-</c:choose>
+    <!--</c:when>-->
+<!--</c:choose>-->
 
 <div class="prefix_4 alpha grid_9 omega suffix_3 mvm">
     <div id="js-showDistrictBoundaryLink"
