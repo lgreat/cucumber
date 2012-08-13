@@ -4,7 +4,7 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
 
     var init = function() {
         registerDataAttributeHandlers();
-        registerDataAttributeHandlersWithDelay();
+//        registerDataAttributeHandlersWithDelay();
     };
 
     var registerDataAttributeHandlers = function(containerSelector) {
@@ -34,7 +34,7 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
         });
     };
 
-    var registerDataAttributeHandlersWithDelay = function(containerSelector) {
+    /*var registerDataAttributeHandlersWithDelay = function(containerSelector) {
         containerSelector = containerSelector || 'body';
 
         var customLinkDataAttribute = 'gs-custom-link';
@@ -60,7 +60,7 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
                 }
             }
         });
-    };
+    };*/
 
     var registerCustomLink = function(containerSelector, elementSelector, linkNamePrefix) {
         containerSelector = containerSelector || 'body';
