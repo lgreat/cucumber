@@ -113,7 +113,7 @@
                         byLocationForm.find('input[name="city"]').val(geocodeResult['city']);
                         byLocationForm.find('input[name="zipCode"]').val(geocodeResult['zipCode']);
 
-                        window.setTimeout(loadResultsPage, 1);
+                        //window.setTimeout(loadResultsPage, 1);
                     } else {
                         alert("Location not found. Please enter a valid address, city, or ZIP.");
                     }
@@ -158,6 +158,8 @@
                                 geocodeResult['city'] = results[x].address_components[i].long_name;
                             }
                         }
+                        console.log(results[x].address_components);
+                        console.log($.inArray('administrative_area_level_1', results[x].address_components[i].types));
                         // http://stackoverflow.com/questions/1098040/checking-if-an-associative-array-key-exists-in-javascript
                         if (!('lat' in geocodeResult && 'lon' in geocodeResult &&
                                 'state' in geocodeResult &&
