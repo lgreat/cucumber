@@ -12,7 +12,7 @@
     <jsp:directive.attribute name="levelCode" required="false" description="To display the appropriate input select in compare module."/>
     <jsp:directive.attribute name="nearbySearchRedirectUrl" required="true" description="URL to redirect to if nearby search validation fails (request URI and query string only, no hostname)"/>
     <jsp:directive.attribute name="adSlotPrefix" required="false" description="To use the appropriate ad slot prefix in compare module."/>
-
+    <pageHelper:externalJavascript file="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=geometry"/>
     <!--
     REQUIREMENT:
     - Any page that includes this tag must call:
@@ -144,9 +144,7 @@
                         } else {
                             geocodeResult['partial_match'] = false;
                         }
-                        console.log(results[x].address_components);
                         for (var i = 0; i < results[x].address_components.length; i++) {
-                            console.log($.inArray('administrative_area_level_1', results[x].address_components[i].types));
                             if ($.inArray('administrative_area_level_1', results[x].address_components[i].types) > -1) {
                                 geocodeResult['state'] = results[x].address_components[i].short_name;
                             }
