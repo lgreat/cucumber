@@ -122,7 +122,7 @@ function ModalLayer(options, id){
 	var hideModal = function( ) {
 		$('#modallayer'+getId()).remove();
 		console.log("REMOVE ID:"+getId());
-		$('#'+getContainerId()).trigger("onModalClose", [getContainerId(), getLayerId()]);
+		$('#'+getContainerId()).trigger("dialogclose", [getContainerId(), getLayerId()]);
 	}
 	
 	var settings = $.extend( {
