@@ -5,10 +5,10 @@
 
 
     <div id="signInHover" class="dn">
-    <div class="mod modal_1 width_17 ">
-    <div class="outer">
-    <div class="inner">
-    <div class="hoverTitle hd">
+    <div class="mod modal_1 width_17 " id="signInHover">
+        <div class="outer">
+            <div class="inner">
+                <div class="hoverTitle hd">
         <h2 class="fl">Sign in to GreatSchools</h2>
         <div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeSignInHover"><!-- do not collapse --></a></div>
         <h2 class="fr prl mrl"><span>Not a member? <a href="#" id="signInHover_launchJoin" onclick="">Join GreatSchools</a>.</span></h2>
@@ -33,7 +33,7 @@
             <input type="hidden" name="redirect" class="redirect_field" value=""/>
             <fieldset class="btns">
 
-                <button class="button-1" type="submit" name="signinBtn" id="signinBtn">Sign in</button>
+                <button class="button-1 signinBtn" type="submit" name="signinBtn" id="signinBtn">Sign in</button>
                 <p><a href="javascript:void(0);" id="signInHover_launchForgotPassword" onclick="">Forgot your password?</a></p>
                 <input type="hidden" name="rememberMe" value="true"/>
             </fieldset>

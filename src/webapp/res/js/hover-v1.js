@@ -757,6 +757,7 @@ GSType.hover.SignInHover = function() {
         jQuery('#signInHover').unbind('dialogclose');
     };
     this.validateFields = function() {
+
         jQuery('#signInHover .errors .error').hide();
 
         var params = {
@@ -770,6 +771,7 @@ GSType.hover.SignInHover = function() {
         return false;
     };
     this.loginValidatorHandler = function(data) {
+        console.log(data.noSuchUser);
         jQuery('#signInHover .errors .error').hide();
         if (data.noSuchUser) {
             jQuery('#signInHover .errors .error').html(data.noSuchUser).show();
@@ -811,6 +813,7 @@ GSType.hover.SignInHover = function() {
             GSType.hover.signInHover.showJoinFunction = showJoinFunction;
         }
         jQuery('#signinBtn').click(GSType.hover.signInHover.validateFields);
+
         GSType.hover.signInHover.show();
         return false;
     };
