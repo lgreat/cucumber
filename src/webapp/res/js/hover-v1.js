@@ -1641,6 +1641,8 @@ jQuery(function() {
         return false;
     });
 
+
+
     jQuery('#hover_nlSubscriptionSubmit').click(function() {
         var validEmail = GSType.hover.nlSubscription.validateEmail();
         if(!validEmail || $j('#nlSubEmail').val() === ''){
@@ -1753,6 +1755,11 @@ jQuery(function() {
      return false;
      });
      */
+
+    jQuery('.js_closeForgotPassword').click(function() {
+        GSType.hover.forgotPassword.hide();
+        return false;
+    });
     jQuery('.js_closeSignInHover').click(function() {
 //    console.log("MADE IT");
         GSType.hover.signInHover.hide();
@@ -1763,18 +1770,34 @@ jQuery(function() {
         GSType.hover.joinHover.hide();
         return false;
     });
-    jQuery('#js_ShowHideGrades').click(function( event) {
-        event.preventDefault();
 
-        if(jQuery("#js_showGradeSelect").css("display") == "none"){
-//            alert(jQuery("#js_showGradeSelect").css("display"));
-
-            jQuery("#js_showGradeSelect").show('fast');
-            jQuery('#js_ShowHideGrades').html("Hide Grade Chooser");
+    jQuery('.js_chooseEnableDisable').click(function( ) {
+        console.log("checkbox clicked");
+        if(jQuery(this).is(':checked')){
+            console.log("checkbox clicked 2");
+            jQuery('#js_ShowHideGrades').removeClass('disabled_field');
         }
         else{
-            jQuery("#js_showGradeSelect").hide('fast');
-            jQuery('#js_ShowHideGrades').html("Choose Grades");
+            console.log("checkbox clicked 3");
+            jQuery("#js_showGradeSelect").hide();
+            jQuery('#js_ShowHideGrades').html("Choose Grades &#187;");
+            jQuery('#js_ShowHideGrades').addClass('disabled_field');
+        }
+    })
+
+    jQuery('#js_ShowHideGrades').click(function( event) {
+        event.preventDefault();
+        if(!jQuery('#js_ShowHideGrades').hasClass('disabled_field')){
+            if(jQuery("#js_showGradeSelect").css("display") == "none"){
+    //            alert(jQuery("#js_showGradeSelect").css("display"));
+
+                jQuery("#js_showGradeSelect").show('fast');
+                jQuery('#js_ShowHideGrades').html("&#171; Hide Grade Chooser");
+            }
+            else{
+                jQuery("#js_showGradeSelect").hide('fast');
+                jQuery('#js_ShowHideGrades').html("Choose Grades &#187;");
+            }
         }
     });
     jQuery('#grdShow').click(function() {

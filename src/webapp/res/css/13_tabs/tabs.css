@@ -152,10 +152,10 @@
 ----------------------------------------------------------------------------- */
 .gsTabs  ul.tabStyle-5 {height: 48px;padding: 0;margin: 0 0 0 0;}
 .gsTabs  ul.tabStyle-5 li {list-style: none; display: inline-block;*display: inline;font: normal 12px/20px Arial, Helvetica, sans-serif;outline: 0 none;*line-height: 21px;}
-.gsTabs ul.tabStyle-5 li a {color: #0066BB;text-decoration: none;*zoom: 1;outline: 0 none; padding-bottom: 3px; margin-right: 10px;}
-.gsTabs ul.tabStyle-5 li a:hover {border-bottom: 2px solid #79BEDC;}
+.gsTabs ul.tabStyle-5 li a {font-weight:bold; color: #787878;text-decoration: none;*zoom: 1;outline: 0 none; padding-bottom: 3px; margin-right: 10px;}
+.gsTabs ul.tabStyle-5 li a:hover {border-bottom: 1px solid #79BEDC;}
 .gsTabs ul.tabStyle-5 li a:focus {outline: 0 none;}
-.gsTabs ul.tabStyle-5 li a.selected {font-weight:bold; border-bottom: 2px solid #79BEDC;outline: 0 none;}
+.gsTabs ul.tabStyle-5 li a.selected {font-weight:bold; color: #0066BB; border-bottom: 1px solid #79BEDC;outline: 0 none;}
 .gsTabs ul.tabStyle-5 .graydivider{color: #CCCCCC; margin-right: 10px;}
 
 /*  TAB STYLE 6 (Shows up on left side for grade level in testscores -  style tabs)
@@ -180,7 +180,7 @@
 
 
 /*  TAB STYLE 8 */
-.gsTabs  ul.tabStyle-8 {height:39px;padding: 0;margin:0;border-bottom: 1px solid #DDDDDD; margin-bottom:20px;
+.gsTabs  ul.tabStyle-8 {height:39px;padding: 0;margin:0;border-bottom: 1px solid #BCDEED; margin-bottom:20px;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#F3FAFD), to(#E2F1F7)); /* Saf4+, Chrome */
     background-image: -webkit-linear-gradient(top, #F3FAFD, #E2F1F7); /* Chrome 10+, Saf5.1+, iOS 5+ */
     background-image:    -moz-linear-gradient(top, #F3FAFD, #E2F1F7); /* FF3.6 */

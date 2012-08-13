@@ -182,3 +182,5 @@ form.inline p {margin-bottom:0; vertical-align:baseline;}
 .mumbo { font: normal 11px/16px Arial, Helvetica, sans-serif; color: #777777; }
 .hint { font: italic 11px/16px Arial, Helvetica, sans-serif; color: #777777; margin: 0; padding: 2px 0 6px; }
 .ie7 .hint {margin-left: 5px;}
+.disabled_field{color:#787878}
+.disabled_field:hover{color:#787878; text-decoration: none;}

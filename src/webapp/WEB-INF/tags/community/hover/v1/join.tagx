@@ -29,7 +29,7 @@
 
 
 
-<form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post">
+<form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post" class="pbn mbn">
 <div class="line">
     <div id="js_ProcessError" class="unit size1of1 lastUnit error">
         Please correct the errors below to continue.
@@ -196,7 +196,7 @@
     <div class="unit size15of19 lastUnit btstips">
         <div class="media grades">
             <div class="img mrm">
-                <input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1"/>
+                <input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1" class="js_chooseEnableDisable"/>
             </div>
             <div class="bd">
                 <label for="opt1" class="checkbox-smaller">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
@@ -206,7 +206,7 @@
 
         <div class="grades2">
             <div class="clearfloat"><!-- do not collapse --></div>
-            <p class="smaller bottom">In 2011-2012 my children are in: <a href="#" id="js_ShowHideGrades">Choose grades</a></p>
+            <p class="smaller bottom "><a href="#" id="js_ShowHideGrades">Choose grades &amp;#187;</a></p>
             <!--<ul class="none">-->
                 <!--<li id="pickGrade">-->
 
@@ -341,7 +341,7 @@
         <button class="button-1" type="submit" name="joinBtn" id="joinBtn">Join now</button>
     </div>
     <div class="unit size11of19 lastUnit small">
-        <a href="#" class="js_closeJoinHover">No thanks <span class="alertDoubleArrow">&amp;#187;</span></a>
+        <a href="#" class="js_closeJoinHover">No thanks</a>
     </div>
 </div>
 
