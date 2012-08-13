@@ -1772,15 +1772,12 @@ jQuery(function() {
     });
 
     jQuery('.js_chooseEnableDisable').click(function( ) {
-        console.log("checkbox clicked");
         if(jQuery(this).is(':checked')){
-            console.log("checkbox clicked 2");
             jQuery('#js_ShowHideGrades').removeClass('disabled_field');
         }
         else{
-            console.log("checkbox clicked 3");
-            jQuery("#js_showGradeSelect").hide();
-            jQuery('#js_ShowHideGrades').html("Choose Grades &#187;");
+            jQuery("#js_showGradeSelect").hide('fast');
+            jQuery('#js_ShowHideGrades').html("Choose grades &#187;");
             jQuery('#js_ShowHideGrades').addClass('disabled_field');
         }
     })
@@ -1789,14 +1786,13 @@ jQuery(function() {
         event.preventDefault();
         if(!jQuery('#js_ShowHideGrades').hasClass('disabled_field')){
             if(jQuery("#js_showGradeSelect").css("display") == "none"){
-    //            alert(jQuery("#js_showGradeSelect").css("display"));
 
                 jQuery("#js_showGradeSelect").show('fast');
                 jQuery('#js_ShowHideGrades').html("&#171; Hide Grade Chooser");
             }
             else{
                 jQuery("#js_showGradeSelect").hide('fast');
-                jQuery('#js_ShowHideGrades').html("Choose Grades &#187;");
+                jQuery('#js_ShowHideGrades').html("Choose grades &#187;");
             }
         }
     });
