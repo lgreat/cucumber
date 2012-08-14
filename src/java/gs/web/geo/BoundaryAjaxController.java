@@ -3,6 +3,7 @@ package gs.web.geo;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.geom.TopologyException;
 import gs.data.geo.*;
 import gs.data.json.JSONArray;
 import gs.data.json.JSONException;
@@ -329,7 +330,11 @@ public class BoundaryAjaxController {
             @RequestParam("level") String levelParam,
             Model model, HttpServletRequest request, HttpServletResponse response ){
         response.setHeader("Cache-Control", "public, max-age=3600");
-        getSchoolsForLocation(lat, lon, levelParam,  model, request, response);
+        try {
+            getSchoolsForLocation(lat, lon, levelParam,  model, request, response);
+        } catch (TopologyException e) {
+            _log.warn("Topology Exception for lat " + lat + " and lon " + lon + " and level " + levelParam);
+        }
         List<Map> schools = (List<Map>) model.asMap().get("schools");
         List<Map> result = new ArrayList();
         Map school = new HashMap();
