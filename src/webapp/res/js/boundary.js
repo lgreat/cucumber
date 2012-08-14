@@ -38,7 +38,7 @@ var Boundary = (function (){
 
         var params = getUrlParams()
             , paramsSet = (params.lat && params.lon)
-            , level = params.level ? params.level : 'e'
+            , level = (params.level && (params.level == 'e' || params.level=='m' || params.level=='h')) ? params.level : 'e'
             , q = params.q ? params.q : '';
         if (q!='') {
             $search.find('#js_mapAddressQuery').val(q);

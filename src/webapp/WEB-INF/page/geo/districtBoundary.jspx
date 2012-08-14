@@ -117,7 +117,7 @@
                                 <gsml:radio name="level_code" styleClass="js_mapLevelCode"
                                             styleId="mapLevelCode_e"
                                             value="e"
-                                            checked="${empty param.level or param.level == 'e'}"/>
+                                            checked="${empty param.level or param.level == 'e' or (param.level != 'e' and param.level != 'm' and param.level != 'h')}"/>
                                 <label for="mapLevelCode_e" class="radio">Elementary </label>
                                 <gsml:radio name="level_code" styleClass="js_mapLevelCode"
                                             styleId="mapLevelCode_m"
@@ -328,7 +328,7 @@
 
 <div class="mtm smaller tal">
     <strong>Disclaimer:</strong>
-    Map data on this page for school attendance zones is compiled from multiple sources and is subject to change. We've done our best to get broad coverage (up to 70% of the country's schools). In some cases data for your address may not be available. We always recommend double-checking with the district or school about enrollment and attendance rules and to determine legal eligibility.
+    Map data on this page for school attendance zones is compiled from multiple sources and is subject to change. We've done our best to get broad coverage (up to 70% of the country's schools). In some cases data for your address may not be available. We always recommend double-checking with the district or school about enrollment and attendance rules and to determine legal eligibility.  Boundaries are not available for preschools.
     <div class="mtl">
         From more information about the School and District Boundary Map, see our <a href="/about/gsFaq.page">FAQs</a>.
     </div>
