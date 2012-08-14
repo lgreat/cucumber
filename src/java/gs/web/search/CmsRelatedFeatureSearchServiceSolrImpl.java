@@ -1,14 +1,15 @@
 package gs.web.search;
 
 import gs.data.content.cms.CmsCategory;
+import gs.data.content.cms.CmsCategoryDao;
 import gs.data.content.related.RelatedCmsCategoryComparator;
 import gs.data.content.related.SchoolCmsCategoryMapper;
 import gs.data.school.EspResponse;
 import gs.data.school.School;
-import gs.data.search.SearchException;
-import gs.data.search.SearchResultsPage;
-import org.apache.commons.lang.StringUtils;
-import org.apache.solr.client.solrj.SolrQuery;
+import gs.data.search.GsSolrQuery;
+import gs.data.search.GsSolrSearcher;
+import gs.data.search.fields.CmsFeatureFields;
+import gs.data.search.fields.CommonFields;
 
 import java.util.*;
 
@@ -22,6 +23,7 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
     private SchoolCmsCategoryMapper _schoolCmsCategoryMapper;
     private CmsFeatureSearchService _cmsFeatureSearchService;
     private CmsRelatedFeatureCacheManager _cmsRelatedFeatureCacheManager;
+    private GsSolrSearcher _gsSolrSearcher;
 
     /**
      * Get the related features from solr based on the school, esp responses and the
@@ -75,36 +77,63 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
         if (categories==null || categories.isEmpty()){
             return new ArrayList<ICmsFeatureSearchResult>();
         }
-        // store a list of all the results
-        List<ICmsFeatureSearchResult> features = new ArrayList<ICmsFeatureSearchResult>();
 
-        // store a queue of potential stories for each cms category
-        HashMap<CmsCategory, LinkedList<ICmsFeatureSearchResult>> content = new HashMap<CmsCategory, LinkedList<ICmsFeatureSearchResult>>();
+        List<Long> features = new ArrayList<Long>();
+        fill(categories, features, rows);
+        pad(features, (rows-features.size()));
 
-        // loop until features has the correct number
-        // of stories or all article queues are empty
-        boolean allEmpty = false;
+        return content(features);
+    }
 
-        while (features.size()<rows && !allEmpty){
-            allEmpty = true;
-            for (CmsCategory category : categories) {
-                // get the next article for this category if one exists
-                ICmsFeatureSearchResult result = next(category, content, rows);
-                if (result!=null) {
-                    allEmpty = false;
-                    features.add(result);
-                    if (features.size()>=rows){
-                        break;
+    /**
+     * populate the features id with the articles or videos
+     * that match based on the categories
+     * @param categories
+     * @param features
+     * @param rows
+     */
+    private void fill(List<CmsCategory> categories, List<Long> features, int rows){
+
+        if (categories!=null && features.size()<rows) {
+            // store a queue of potential stories for each cms category
+            HashMap<CmsCategory, LinkedList<Long>> content = new HashMap<CmsCategory, LinkedList<Long>>();
+
+
+            // loop until features has the correct number
+            // of stories or all article queues are empty
+            boolean allEmpty = false;
+
+            while (features.size()<rows && !allEmpty){
+                allEmpty = true;
+                for (CmsCategory category : categories) {
+                    // get the next article for this category if one exists
+                    Long nextContentId = next(category, content);
+
+                    // if this article is already in the list, don't include
+                    // it twice
+                    if (features.contains(nextContentId)) {
+                        boolean found = false;
+                        while (nextContentId!=null && !found) {
+                            nextContentId = next(category, content);
+                            if (nextContentId!=null && !features.contains(nextContentId)){
+                                found = true;
+                            }
+                        }
+                    }
+
+                    // if we found another article then we can
+                    // continue to add more articles
+                    if (nextContentId!=null) {
+                        allEmpty = false;
+                        features.add(nextContentId);
+                        if (features.size()>=rows){
+                            break;
+                        }
                     }
                 }
             }
-        }
 
-        // if the features are not the correct size, pad with general features
-        if (features.size()<rows){
-            pad(features, rows - features.size());
         }
-        return features;
     }
 
     /**
@@ -112,19 +141,14 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
      * there are no longer any articles left from this category.
      * @param category
      * @param content
-     * @param rows
      * @return ICmsFeatureSearchResult
      */
-    private ICmsFeatureSearchResult next(CmsCategory category, HashMap<CmsCategory, LinkedList<ICmsFeatureSearchResult>> content, int rows) {
+    private Long next(CmsCategory category, HashMap<CmsCategory, LinkedList<Long>> content) {
 
         // if content doesn't contain key yet, pull a few stories
         // to populate the queue
         if (!content.containsKey(category)){
-            try {
-                content.put(category, content(category, rows));
-            } catch (SearchException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
+            content.put(category, new LinkedList<Long>(_cmsRelatedFeatureCacheManager.findFeatureIds(category)));
         }
 
         // if the content is empty, then return null
@@ -138,21 +162,33 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
 
     /**
      * Get the content from Solr based on cms category id
-     * @param cmsCategory
-     * @param rows
+     * @param ids
      * @return
      */
-    private LinkedList<ICmsFeatureSearchResult> content(CmsCategory cmsCategory, int rows) throws SearchException {
-
-        // TODO: need to add caching layer to prevent too many calls to SOLR
-        List<Long> ids = _cmsRelatedFeatureCacheManager.findFeatureIds(cmsCategory);
+    private List<ICmsFeatureSearchResult> content(List<Long> ids) {
         if (!ids.isEmpty()){
-            SolrQuery query = new SolrQuery();
-            query.setQuery("+contentId:(" + StringUtils.join(ids, " OR ") + ") +contentType:(Article)");
-            SearchResultsPage resultsPage = _cmsFeatureSearchService.search(query);
-            if (resultsPage!=null && resultsPage.getSearchResults()!=null && !resultsPage.getSearchResults().isEmpty()){
-                return new LinkedList<ICmsFeatureSearchResult>(resultsPage.getSearchResults());
+            List<String> idList = new ArrayList<String>();
+            for (Long id : ids){
+                idList.add(String.valueOf(id));
             }
+            GsSolrQuery solrQuery = new GsSolrQuery()
+                .filter(CmsFeatureFields.FIELD_CONTENT_ID, idList)
+                .addQuery(CommonFields.DOCUMENT_TYPE, "cms_feature")
+                .build();
+            List<SolrCmsFeatureSearchResult> results = _gsSolrSearcher.simpleSearch(solrQuery, SolrCmsFeatureSearchResult.class);
+            List<ICmsFeatureSearchResult> ordered = new ArrayList<ICmsFeatureSearchResult>();
+
+            // reorder the content since solr will return it in
+            // no particular order
+            for (Long id : ids) {
+                for (SolrCmsFeatureSearchResult result : results) {
+                    if (id.equals(result.getContentId())){
+                        ordered.add(result);
+                    }
+                }
+            }
+            return ordered;
+
         }
         return new LinkedList<ICmsFeatureSearchResult>();
     }
@@ -163,8 +199,11 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
      * @param features
      * @param rows
      */
-    private void pad(List<ICmsFeatureSearchResult> features, int rows) {
-        // TODO: need to pad with generic content (cms category 405 according to specs)
+    private void pad(List<Long> features, int rows) {
+        if (rows>0){
+            List<CmsCategory> categories = _cmsRelatedFeatureCacheManager.findPaddingCategories();
+            fill(categories, features, rows);
+        }
     }
 
     public SchoolCmsCategoryMapper getSchoolCmsCategoryMapper() {
@@ -189,5 +228,9 @@ public class CmsRelatedFeatureSearchServiceSolrImpl implements CmsRelatedFeature
 
     public void setCmsRelatedFeatureCacheManager(CmsRelatedFeatureCacheManager cmsRelatedFeatureCacheManager) {
         _cmsRelatedFeatureCacheManager = cmsRelatedFeatureCacheManager;
+    }
+
+    public void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
+        _gsSolrSearcher = gsSolrSearcher;
     }
 }

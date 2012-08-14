@@ -12,6 +12,7 @@ import gs.data.util.StackTraceUtil;
 import gs.data.admin.IPropertyDao;
 import gs.web.community.UploadAvatarHoverController;
 import gs.web.request.RequestInfo;
+import gs.web.search.CmsRelatedFeatureCacheManager;
 import gs.web.util.ReadWriteController;
 import gs.web.util.VariantConfiguration;
 import gs.web.util.UrlUtil;
@@ -46,6 +47,7 @@ public class MonitorController implements ReadWriteController {
      */
     public static final String BEAN_ID = "/status/monitor.page";
     public static final String SECRET_NUMBER = "58742";
+    public static final String CMS_CACHE_REFRESH_PARAM = "cmscacherefresh";
 
     private static final Log _log = LogFactory.getLog(MonitorController.class);
 
@@ -75,6 +77,8 @@ public class MonitorController implements ReadWriteController {
      * Used to determine index version number
      */
     private Searcher _searcher;
+
+    private CmsRelatedFeatureCacheManager _cmsRelatedFeatureCacheManager;
     
     long[] _blackHole;
     long[] _blackHole2;
@@ -84,6 +88,10 @@ public class MonitorController implements ReadWriteController {
         
         if (request.getParameter("die_893u4odsjf982348") != null) {
             selfDestruct();
+        }
+
+        if (request.getParameter(CMS_CACHE_REFRESH_PARAM) != null) {
+            cmsCacheRefresh();
         }
         
         // This tests the logging system.  Doing it this way seems a lot simpler
@@ -207,6 +215,10 @@ public class MonitorController implements ReadWriteController {
 
 
         return new ModelAndView(_viewName, model);
+    }
+
+    private void cmsCacheRefresh(){
+        _cmsRelatedFeatureCacheManager.refresh();
     }
 
     protected String generateFisheyeUrl(String branch, String buildtime, String module) throws ParseException {
@@ -381,5 +393,9 @@ public class MonitorController implements ReadWriteController {
 
     public void setPropertyDao(IPropertyDao propertyDao) {
         _propertyDao = propertyDao;
+    }
+
+    public void setCmsRelatedFeatureCacheManager(CmsRelatedFeatureCacheManager cmsRelatedFeatureCacheManager) {
+        _cmsRelatedFeatureCacheManager = cmsRelatedFeatureCacheManager;
     }
 }
