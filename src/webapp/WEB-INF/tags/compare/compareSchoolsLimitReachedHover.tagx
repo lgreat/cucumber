@@ -3,7 +3,12 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
 
-    <div id="compareSchoolsLimitReachedHover" class="dialog_white" style="display:none;">
+    <div id="compareSchoolsLimitReachedHover" class="dn">
+    <div class="mod modal_1 width_13 " id="compareSchoolsLimitReachedHover">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
+    <!--<div id="compareSchoolsLimitReachedHover" class="dialog_white" style="display:none;">-->
         <div class="mod">
             <div class="inner">
                 <div class="hd">
@@ -27,5 +32,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div></div></div></div></div>
 </jsp:root>
