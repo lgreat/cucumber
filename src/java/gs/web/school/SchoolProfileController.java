@@ -22,6 +22,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
     private String _viewName;
     private ControllerFamily _controllerFamily;
     private SchoolProfileDataHelper _schoolProfileDataHelper;
+    private SchoolProfileHelper _schoolProfileHelper;
 
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -36,17 +37,23 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
         // TODO: Audit SchoolOverview2010Controller and refactor all shared logic such as number1expert cobrand.  The
         // new profile and old profile will coexist side by side for a while, so they need to share code.
+        // TODO-13114 number1expert (now Best Image) is canceled, per Weezie's email 8/14/2012
+
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         String fullCanonicalUrl = urlBuilder.asFullUrl(request);
         model.put("relCanonical", fullCanonicalUrl);
 
-        model.put("schoolEnrollment", _schoolProfileDataHelper.getEnrollment(request));
-
-
+        // TODO-13114 refactored so we could reuse already-fetched overallRating for gs_rating ad keyword
         Map<String, Object> ratingsMap =  _schoolProfileDataHelper.getGsRatings(request);
+        Integer overallRating = null;
         if (ratingsMap != null) {
-            model.put("overallRating",ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING));
+            overallRating = (Integer)ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING);
+            model.put(_schoolProfileDataHelper.DATA_OVERALL_RATING, overallRating);
         }
+
+        _schoolProfileHelper.updateModel(request, response, school, model, overallRating);
+
+        model.put("schoolEnrollment", _schoolProfileDataHelper.getEnrollment(request));
 
         return new ModelAndView(_viewName, model);
     }
@@ -74,5 +81,13 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
     public void setSchoolProfileDataHelper(SchoolProfileDataHelper schoolProfileDataHelper) {
         _schoolProfileDataHelper = schoolProfileDataHelper;
+    }
+
+    public SchoolProfileHelper getSchoolProfileHelper() {
+        return _schoolProfileHelper;
+    }
+
+    public void setSchoolProfileHelper(SchoolProfileHelper schoolProfileHelper) {
+        _schoolProfileHelper = schoolProfileHelper;
     }
 }

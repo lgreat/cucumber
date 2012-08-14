@@ -21,6 +21,8 @@ import gs.web.util.UrlBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +32,7 @@ import java.util.*;
 /**
  * @author Anthony Roy <mailto:aroy@greatschools.net>
  */
+@Component("schoolProfileHeaderHelper")
 public class SchoolProfileHeaderHelper {
     public static final String BEAN_ID = "schoolProfileHeaderHelper";
     private static final Log _log = LogFactory.getLog(SchoolProfileHeaderHelper.class);
@@ -43,6 +46,8 @@ public class SchoolProfileHeaderHelper {
     private TestManager _testManager;
     private ISchoolDao _schoolDao;
     private IEspResponseDao _espResponseDao;
+    @Autowired
+    private SchoolProfileHelper _schoolProfileHelper;
     public static final String PQ_START_TIME = "pq_startTime";
     public static final String PQ_END_TIME = "pq_endTime";
     public static final String PQ_HOURS = "pq_hours";
@@ -68,13 +73,16 @@ public class SchoolProfileHeaderHelper {
         try {
             if (school != null) {
                 startTime = System.currentTimeMillis();
+                // TODO-13114 - not needed for new profile
                 determinePQ(school, model); // Determine PQ
                 logDuration(System.currentTimeMillis() - startTime, "Determining PQ and hours per day");
 
                 startTime = System.currentTimeMillis();
+                // TODO-13114 - not needed for new profile
                 determineTestScores(school, model); // Determine private school test scores
                 logDuration(System.currentTimeMillis() - startTime, "Determining presence of test scores");
 
+                // TODO-13114 - not needed for new profile
                 // Determine school stats (for preschools)
                 if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
                     if (StringUtils.isNotBlank(school.getStateId())
@@ -85,55 +93,49 @@ public class SchoolProfileHeaderHelper {
                 }
 
                 startTime = System.currentTimeMillis();
+                // TODO-13114 - not needed for new profile
                 determineSurveyResults(school, model); // Determine survey results
                 logDuration(System.currentTimeMillis() - startTime, "Determining survey data");
 
                 startTime = System.currentTimeMillis();
+                // TODO-13114 - not needed for new profile
                 City city = handleCommunitySidebar(school, model); // Determine community module
                 logDuration(System.currentTimeMillis() - startTime, "Handling community sidebar");
 
                 startTime = System.currentTimeMillis();
+                // TODO-13114 - leaving this one as-is but added gs_rating ad keyword to schoolprofilehelper
                 handleGSRating(request, school);
                 logDuration(System.currentTimeMillis() - startTime, "Handling GS Rating");
 
                 startTime = System.currentTimeMillis();
-                handleAdKeywords(request, school);
+                // TODO-13114 - done - and with a variation on the method signature, also adds gs_rating ad keyword
+                _schoolProfileHelper.handleAdKeywords(request, school);
                 logDuration(System.currentTimeMillis() - startTime, "Handling ad keywords");
 
-                if (city != null && response != null) {
-                    startTime = System.currentTimeMillis();
-                    PageHelper.setCityIdCookie(request, response, city);
-                    logDuration(System.currentTimeMillis() - startTime, "Handling city id cookie");
-                }
+                startTime = System.currentTimeMillis();
+                // TODO-13114 - done, with slight change regarding logging - not within if block
+                _schoolProfileHelper.handleCityCookie(request, response, city);
+                logDuration(System.currentTimeMillis() - startTime, "Handling city id cookie");
 
                 startTime = System.currentTimeMillis();
-                handleStateSpecificFooter(request, school);
+                // TODO-13114 - done - fixed bug preventing any school profile (new/old) from getting state-specific footer
+                _schoolProfileHelper.handleStateSpecificFooter(request, school, model);
                 logDuration(System.currentTimeMillis() - startTime, "Handling state specific footer");
 
                 startTime = System.currentTimeMillis();
+                // TODO-13114 - not needed for new profile
                 handleCompareNearbyString(school, model);
                 logDuration(System.currentTimeMillis() - startTime, "Handling compare nearby string");
 
                 startTime = System.currentTimeMillis();
-                handlePinItButton(request, school, model);
+                // TODO-13114 - Chuck will check with Liana on if it's needed for new profile. let's put it in the model just in case, which means this is todo
+                _schoolProfileHelper.handlePinItButton(request, school, model);
                 logDuration(System.currentTimeMillis() - startTime, "Handling PinIt button");
             }
         } catch (Exception e) {
             _log.error("Error fetching data for new school profile wrapper: " + e, e);
         }
         logDuration(System.currentTimeMillis() - totalTime, "Entire SchoolProfileHeaderHelper");
-    }
-
-    protected void handlePinItButton(HttpServletRequest request, School school, Map<String, Object> model) {
-        String schoolSummary = school.getSchoolSummary();
-        if (schoolSummary != null) {
-            // remove links and other HTML tags to convert summary to plain text
-            model.put("plainTextSummary", schoolSummary.replaceAll("\\<.*?>",""));
-        }
-
-        // always provide school overview URL for Pin It button, even if on different school profile page
-        UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-        model.put("schoolOverviewUrl", urlBuilder.asFullUrl(request));
     }
 
     protected void handleCompareNearbyString(School school, Map<String, Object> model) {
@@ -179,52 +181,6 @@ public class SchoolProfileHeaderHelper {
                     pageHelper.addAdKeyword("gs_rating", String.valueOf(schoolTestValue.getValueInteger()));
                 }
             }
-        }
-    }
-
-    protected void handleStateSpecificFooter(HttpServletRequest request, School school) {
-        // GS-10018
-        Map dummyModel = new HashMap(2);
-        _stateSpecificFooterHelper.displayPopularCitiesForState(school.getDatabaseState(), dummyModel);
-        request.setAttribute(StateSpecificFooterHelper.MODEL_TOP_CITIES,
-                             dummyModel.get(StateSpecificFooterHelper.MODEL_TOP_CITIES));
-        request.setAttribute(StateSpecificFooterHelper.MODEL_ALPHA_GROUPS,
-                             dummyModel.get(StateSpecificFooterHelper.MODEL_ALPHA_GROUPS));
-    }
-
-    protected void handleAdKeywords(HttpServletRequest request, School school) {
-        try {
-            PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-            String levelAbbrev = school.getLevelCode().getLowestLevel().getName();
-            String schoolType = school.getType().getSchoolTypeName();
-            request.setAttribute("schoolType", schoolType);
-
-            String adPageName = "school/" + schoolType + '/' + levelAbbrev;
-            request.setAttribute("adPageName", adPageName);
-
-            // GS-5064
-            String county = school.getCounty();
-            String city = school.getCity();
-
-            if (null != pageHelper) {
-                pageHelper.addAdKeyword("type", schoolType);
-                for (LevelCode.Level level : school.getLevelCode().getIndividualLevelCodes()) {
-                    pageHelper.addAdKeywordMulti("level", level.getName());
-                }
-                pageHelper.addAdKeyword("county", county);
-                pageHelper.addAdKeyword("city", city);
-                pageHelper.addAdKeyword("school_id", school.getId().toString());
-                pageHelper.addAdKeyword("zipcode", school.getZipcode());
-
-                // set district name and id ad attributes only if there's a district and school is not preschool-only
-                if (school.getDistrictId() != 0 && school.getLevelCode() != null
-                        && !school.getLevelCode().toString().equals("p")) {
-                    pageHelper.addAdKeyword("district_name", school.getDistrict().getName());
-                    pageHelper.addAdKeyword("district_id", String.valueOf(school.getDistrictId()));
-                }
-            }
-        } catch (Exception e) {
-            _log.warn("Error constructing ad keywords in new profile header");
         }
     }
 
@@ -385,5 +341,13 @@ public class SchoolProfileHeaderHelper {
 
     public void setEspResponseDao(IEspResponseDao espResponseDao) {
         _espResponseDao = espResponseDao;
+    }
+
+    public SchoolProfileHelper getSchoolProfileHelper() {
+        return _schoolProfileHelper;
+    }
+
+    public void setSchoolProfileHelper(SchoolProfileHelper schoolProfileHelper) {
+        _schoolProfileHelper = schoolProfileHelper;
     }
 }

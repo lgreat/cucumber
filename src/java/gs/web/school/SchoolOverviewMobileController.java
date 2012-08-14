@@ -40,7 +40,7 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
     private RatingHelper _ratingHelper;
     private IReviewDao _reviewDao;
     private ITestDataSetDao _testDataSetDao;
-    private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
+    private SchoolProfileHelper _schoolProfileHelper;
     private ControllerFamily _controllerFamily;
 
     protected School getActiveSchoolFromDirectoryStructureUrlFields(HttpServletRequest request) {
@@ -98,12 +98,10 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
+        // TODO-13114 done - moved gs_rating ad keyword into handleAdKeywords()
         Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
         model.put("gs_rating", gsRating);
-        if (pageHelper != null && gsRating != null && gsRating > 0 && gsRating < 11) {
-            pageHelper.addAdKeyword("gs_rating", String.valueOf(gsRating));
-        }
-        _schoolProfileHeaderHelper.handleAdKeywords(request, school);
+        _schoolProfileHelper.handleAdKeywords(request, school, gsRating);
 
         List<Review> reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school, MAX_SCHOOL_REVIEWS);
         Long numberOfReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school);
@@ -175,12 +173,12 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
         _testDataSetDao = testDataSetDao;
     }
 
-    public SchoolProfileHeaderHelper getSchoolProfileHeaderHelper() {
-        return _schoolProfileHeaderHelper;
+    public SchoolProfileHelper getSchoolProfileHelper() {
+        return _schoolProfileHelper;
     }
 
-    public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
-        _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
+    public void setSchoolProfileHelper(SchoolProfileHelper schoolProfileHelper) {
+        _schoolProfileHelper = schoolProfileHelper;
     }
 
     public ControllerFamily getControllerFamily() {

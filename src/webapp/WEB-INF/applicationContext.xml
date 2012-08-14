@@ -18,10 +18,6 @@
 
     <bean id="authenticationManager" class="gs.web.community.registration.AuthenticationManager"/>
 
-    <bean id="schoolProfileHeaderHelper"
-          class="gs.web.school.SchoolProfileHeaderHelper">
-    </bean>
-
     <bean id="stateSpecificFooterHelper"
           class="gs.web.geo.StateSpecificFooterHelper">
         <property name="geoDao" ref="geoDao"/>
