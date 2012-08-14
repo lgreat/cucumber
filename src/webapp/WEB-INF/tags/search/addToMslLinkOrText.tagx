@@ -20,10 +20,15 @@
     <div class="js-add-msl-${school.databaseState}${school.id}">
         <c:choose>
             <c:when test="${mslHasSchool}">
-                <span class="sprite i-checkmark-sm"><!-- do not collapse --></span>
-                <span class="msl-text">
-                    Added to <a href="/mySchoolList.page">My School List</a>
-                </span>
+                <div class="media skin-1 attribution">
+                    <div class="img mrs">
+                        <span class="iconx16 i-16-success"><!-- do not collapse --></span>
+                    </div>
+
+                    <div class="msl-text small bottom">
+                        Added to <a href="/mySchoolList.page">My School List</a>
+                    </div>
+                </div>
             </c:when>
             <c:otherwise>
                 <div class="media skin-1 attribution">
