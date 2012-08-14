@@ -541,14 +541,31 @@ jQuery(document).ready(function() {
 (function($) {
     // extend the core jQuery with gsTabs
     $.fn.extend({
+        showTab : function() {
+            return this.each(function() {
+                var $a = $(this);
+                var changeHistory = function(title, url) {
+                    if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+                        window.History.pushState(null, title, url);
+                    }
+                };
+                var tabNav = $a.parent().parent();
+                var $layers = tabNav.siblings('div');
+
+                changeHistory($a.attr('title'), $a.attr('href') );
+                $layers.hide(); // hide all layers
+                var tabNum = tabNav.find('li').index($a.parent());// find reference to the content
+                $layers.eq(tabNum).show();// show the content
+                tabNav.find('li a').removeClass('selected');// turn all of them off
+                tabNav.find('li #arrowdiv').removeClass('selected');// turn all of them off
+                $a.addClass('selected');// turn selected on
+                $a.siblings().addClass('selected');// turn selected on
+            });
+        },
         gsTabs : function() {
-            var changeHistory = function(title, url) {
-                if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
-                    window.History.pushState(null, title, url);
-                }
-            }
             return this.each(function() {
                 var tab = $(this);
+                var allowInterceptHovers = tab.data('gs-allow-intercept-hovers');
                 var tabNav = tab.find('ul:first'); // get only the first ul not all of the descendents
                 var showHome = tabNav.find('.selected').length;
                 if(!showHome) {
@@ -557,15 +574,10 @@ jQuery(document).ready(function() {
                 }
                 tabNav.find('li').each(function(){
                     $(this).find('a').click(function(){ //When any link is clicked
-                        changeHistory($(this).attr('title'), $(this).attr('href') );
-                        tab.children('div').hide(); // hide all layers
-                        var tabNum = tabNav.find('li').index($(this).parent());// find reference to the content
-                        tab.children('div').eq(tabNum).show();// show the content
-                        tabNav.find('li a').removeClass('selected');// turn all of them off
-                        tabNav.find('li #arrowdiv').removeClass('selected');// turn all of them off
-                        $(this).addClass('selected');// turn selected on
-                        $(this).siblings().addClass('selected');// turn selected on
-                        return false;
+                        if (!allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
+                            $(this).showTab();
+                            return false;
+                        }
                     });
                 });
             });

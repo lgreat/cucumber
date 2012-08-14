@@ -53,7 +53,7 @@
         [admissions took ${requestScope['admissionstime']}ms] <br/>
     </c:if>
 
-    <div class="gsTabs">
+    <div class="gsTabs" data-gs-allow-intercept-hovers="true">
         <ul class="tabStyle-8">
             <c:if test="${(!empty overview)}">
                 <li data-gs-tab="overview"><a id="js_overview" href="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'tab')}" title="${schoolName} | Overview" class="${requestScope.schoolProfileTabMap['overview-master']}">Overview</a>

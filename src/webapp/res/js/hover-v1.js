@@ -418,10 +418,7 @@ GSType.hover.JoinHover = function() {
                         createCookieWithExpiresDate('seenHoverOnExitRecently','1',threeMinuteDuration);
                         window.destUrl = gRedirectAnchor.href;
                         // show hover
-                        //GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
-                        GSType.hover.joinHover.executeOnExit(function() {
-
-                        });
+                        GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
                         showHoverFunction();
                         return false;
                     }
@@ -430,27 +427,52 @@ GSType.hover.JoinHover = function() {
                 return true;
             };
         }
+    };
 
-        // TODO: move out of hover.js into profilePage.js?
-        var $gsTabs = $('.gsTabs li>a');
-        $gsTabs.on('click', function(event) {
-            $this = $(this);
-            var tabSelector = $this.attr('id');
+    this.defaultPostInterruptCallback = function($anchor) {
+        window.location = GSType.hover.joinHover.loadOnExitUrl;
+    };
+
+    // just a newer version of showMssAutoHoverOnExit, built for new Profile, and uses new showInterruptHoverOnPageExit()
+    this.showMssAutoHoverOnPageExit = function(schoolName, schoolId, schoolState, postInterruptCallback) {
+        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
+        this.showInterruptHoverOnPageExit(GSType.hover.joinHover.showJoinAuto, postInterruptCallback);
+    };
+    // just a newer version of showNthHoverOnExit, built for new Profile, and uses new showInterruptHoverOnPageExit()
+    this.showNthHoverOnPageExit = function(postInterruptCallback) {
+        this.showInterruptHoverOnPageExit(GSType.hover.joinHover.showJoinNth, postInterruptCallback);
+    };
+    // new version of showHoverOnExit
+    this.showInterruptHoverOnPageExit = function(showHoverFunction, postInterruptCallback) {
+        var self = this;
+        // automatically ignore any links with class no_interrupt
+        $('a:not(.no_interrupt)').on('click', function(event) {
+            var $this = $(this);
+            var href = $this.attr('href');
+
+            //the reason this is hardcoded to mssAutoHover is because a new hover was added that requires exactly
+            //the same functionality as existing "mss auto hover on exit", but displays depending on school type
+            //Therefore, use the same cookie and don't mess too much with existing code at this time.
             if (mssAutoHoverInterceptor.shouldIntercept('mssAutoHover')) {
                 var threeMinuteDuration = getCookieExpiresDate(0,0,3);
                 createCookieWithExpiresDate('seenHoverOnExitRecently','1',threeMinuteDuration);
-                // show hover
-                //GSType.hover.joinHover.loadOnExit(gRedirectAnchor.href);
+                window.destUrl = href;
+                GSType.hover.joinHover.loadOnExitUrl = href;
+
                 GSType.hover.joinHover.executeOnExit(function() {
-                    // TODO: how to show tab without actually triggering click event? Might need to rethink tab event handling
-                    GS.profile.linkToTabs('#' + tabSelector);
+                    if (postInterruptCallback !== undefined) {
+                        postInterruptCallback($this, self.defaultPostInterruptCallback);
+                    } else {
+                        self.defaultPostInterruptCallback();
+                    }
                 });
+
                 showHoverFunction();
-                event.stopImmediatePropagation();
+                return false;
             }
-            return false;
         });
     };
+
     this.configureForMss = function(schoolName, schoolId, schoolState) {
         if (schoolName) {
             GSType.hover.joinHover.schoolName = schoolName;

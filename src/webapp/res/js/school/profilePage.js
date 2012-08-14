@@ -111,7 +111,7 @@ GS.util.jumpToAnchor = function(hash) {
 };
 
 GS.profile.linkToTabs = function(selector){
-    $(selector).triggerHandler('click');
+    $(selector).showTab();
     return false;
 };
 

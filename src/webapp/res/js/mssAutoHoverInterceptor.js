@@ -31,6 +31,25 @@ var mssAutoHoverInterceptor = {
         // else no-op
         return false;
     },
+    onlyCheckIfShouldIntercept : function(hoverName) {
+        if (this.hoverName != hoverName){
+            return false;
+        }
+        if (this.hasSeenMssHover) {
+            return false;
+        }
+        if (this.userIsLoggedIn(this.userLoggedInCookieName)){
+            return false;
+        }
+
+        var dataObject = subCookie.getObject(this.cookieName);
+        // if no cookie, set value to 1 and show hover
+        if (dataObject == undefined || dataObject[this.cookieProperty] == undefined){
+            return true;
+        }
+        // else no-op
+        return false;
+    },
     setHasSeenMssHover: function(bool) {
         this.hasSeenMssHover = bool;
     },
