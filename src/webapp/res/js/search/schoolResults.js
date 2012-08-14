@@ -165,6 +165,7 @@ GS.search.results = GS.search.results || (function() {
                 pageTracking.clear();
                 pageTracking.pageName = $('#jq-omniturePageName').val();
                 pageTracking.send();
+                GS_notifyQuantcastComscore();
             };
 
             var onSearchError = function() {
@@ -311,6 +312,7 @@ GS.search.results = GS.search.results || (function() {
                 pageTracking.clear();
                 pageTracking.pageName = data.page[1].omniturePageName;
                 pageTracking.send();
+                GS_notifyQuantcastComscore();
             }
         ).fail(function() {
                 alert("error");
