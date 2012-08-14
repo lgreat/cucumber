@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 
     <script type="text/javascript">
@@ -14,8 +12,12 @@
             });
         });
     </script>
-
-    <div id="principalReviewSubmittedHover" style="display:none;">
+    <div id="principalReviewSubmittedHover" class="dn">
+    <div class="mod modal_1 width_13 " id="principalReviewSubmittedHover">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
+    <!--<div id="principalReviewSubmittedHover" style="display:none;">-->
         <h2>Thank you for submitting a comment</h2>
 
         <p><span style="font-weight:bold;">Please note that it can take up to 48 hours for your comment to be posted to our site.</span> While you're here, we'd like to invite you to fill out a
@@ -26,9 +28,9 @@
 
         <fieldset class="btns">
             <button class="button-1" type="submit" name="continueToSurvey" id="continueToSurvey">Continue to survey</button>
-                <a href="javascript:void(0);" id="principalReviewSubmittedHover_cancel" class="principalReviewSubmittedHover_hideHover">No thanks <span class="alertDoubleArrow">&amp;#187;</span></a>
+                <a href="javascript:void(0);" id="principalReviewSubmittedHover_cancel" class="js_closeHover">No thanks <span class="alertDoubleArrow">&amp;#187;</span></a>
             </fieldset>
 
-    </div>
+    </div></div></div></div></div>
 
 </jsp:root>

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 
     <script type="text/javascript">
@@ -26,7 +24,12 @@
         });
     </script>
 
-    <div id="principalConfirmationHover" style="display:none;">
+    <div id="principalConfirmationHover" class="dn">
+    <div class="mod modal_1 width_13 " id="principalConfirmationHover">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
+    <!--<div id="principalConfirmationHover" style="display:none;">-->
         <h2>Complete your school's profile</h2>
 
         <p>For principals and school officials, we offer a special Enhanced School Profile (ESP) which allows you to update and add information about your school, as well as respond to reviews. If you are a school official, click Continue to start. </p>
@@ -53,14 +56,14 @@
                     </button>
                 </div>
                 <div class="unit size5of6 lastUnit">
-                    <button class="button-1"
+                    <button class="button-1 js_closeHover"
                             type="button"
-                            onclick="GSType.hover.principalConfirmation.hide();">Cancel
+                            >Cancel
                     </button>
                 </div>
             </div>
 
         </form>
-    </div>
+    </div></div></div></div></div>
 
 </jsp:root>

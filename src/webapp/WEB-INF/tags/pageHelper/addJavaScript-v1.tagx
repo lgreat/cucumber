@@ -24,7 +24,7 @@
             <gsml:url var="trackitjs" value="/res/js/trackIt.js?v=$RELEASE_NUMBER" allowCdn="true"/>
 
             <gsml:url var="jqueryjs" value="/res/js/jquery/jquery-1.7.2.min.js" allowCdn="true"/>
-            <gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.8.18.custom.min.js" allowCdn="true"/>
+            <!--<gsml:url var="jqueryuijs" value="/res/js/jquery/jquery-ui-1.8.18.custom.min.js" allowCdn="true"/>-->
             <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
             <gsml:url var="jqueryautocomplete" value="/res/js/jquery/jquery.autocomplete.js" allowCdn="true"/> <!-- autocomplete is wrapped into jquery-ui in jquery-ui 1.8, so delete this afterwards -->
 
@@ -42,7 +42,7 @@
             <gsml:url var="externalTracking" value="/res/js/externalTracking.js" allowCdn="true"/>
 
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
-            <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
+            <!--<![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>-->
             <![CDATA[<script type="text/javascript" src="${jqueryautocomplete}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${urijs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${schoolautocomplete}"></script>]]>
