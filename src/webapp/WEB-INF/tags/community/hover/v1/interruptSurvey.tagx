@@ -9,8 +9,12 @@
         SessionContext context = (SessionContext) request.getAttribute(SessionContext.REQUEST_ATTRIBUTE_NAME);
         request.setAttribute("surveyDetails",context.getSurveyDetails(surveyType));
     </jsp:scriptlet>
-
-    <div id="interruptSurvey" class="dialog_white" style="display:none;">
+    <div id="interruptSurvey" class=" dn">
+    <div class="mod modal_1 width_13 " id="interruptSurvey">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
+    <!--<div id="interruptSurvey" class="dialog_white" style="display:none;">-->
         <h2>${surveyDetails["title"]}</h2>
 
         <p class="introText">${surveyDetails["body"]}</p>
@@ -24,4 +28,5 @@
             </div>
         </div>
     </div>
+    </div></div></div></div>
 </jsp:root>

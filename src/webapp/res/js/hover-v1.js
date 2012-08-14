@@ -1688,7 +1688,7 @@ jQuery(function() {
         GSType.hover.emailNotValidated.hide();
     });
 
-    jQuery('#clsExpVer').click(function() {
+    jQuery('#js_closeExpVer').click(function() {
         var params = {
             email: GSType.hover.validateLinkExpired.email
         };

@@ -2,13 +2,17 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
-
-    <div id="regDone" class="dialog_white" style="display:none;">
+    <div id="regDone" class=" dn">
+    <div class="mod modal_1 width_13 " id="regDone">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
+    <!--<div id="regDone" class="dialog_white" style="display:none;">-->
         <h2>Your registration is complete</h2>
 
         <p><strong>Thanks for registering</strong>. Welcome to GreatSchools, the largest online community committed to
             improving educational outcomes through parental involvement.</p>
 
         <button class="button-1 regDone_hideHover" type="button">Finish</button>
-    </div>
+    </div></div></div></div></div>
 </jsp:root>

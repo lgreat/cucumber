@@ -2,13 +2,17 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
-
-    <div id="emailValidatedSchoolReviewHover" class="dialog_white" style="display:none;">
+    <div id="emailValidatedSchoolReviewHover" class=" dn">
+    <div class="mod modal_1 width_13 " id="emailValidatedSchoolReviewHover">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
+    <!--<div id="emailValidatedSchoolReviewHover" class="dialog_white" style="display:none;">-->
         <h2>Thank you for submitting a review</h2>
 
         <p><strong>Welcome to GreatSchools! </strong>
             <span class="fillMeIn"><!--filled in by JS--></span></p>
 
         <button class="button-1 emailValidatedSchoolReviewHover_hideHover" type="button">OK</button>
-    </div>
+    </div></div></div></div></div>
 </jsp:root>

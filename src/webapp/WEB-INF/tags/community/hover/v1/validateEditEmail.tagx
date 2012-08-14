@@ -2,8 +2,11 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
-
-    <div id="valEditEmail" class="dialog_white" style="display:none;">
+    <div id="valEditEmail" class=" dn">
+    <div class="mod modal_1 width_13 " id="valEditEmail">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
         <h2>Your new email needs to be verified</h2>
 
         <p>Please click on the link in the verification email we just sent you to complete your change of email
@@ -11,6 +14,6 @@
 
         </p>
 
-        <button class="button-1 valEditEmail_hideHover" type="button">OK</button>
-    </div>
+        <button class="button-1 js_closeHover" type="button">OK</button>
+    </div></div></div></div></div>
 </jsp:root>

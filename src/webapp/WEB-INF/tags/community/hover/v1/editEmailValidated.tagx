@@ -2,12 +2,16 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
-
+    <div id="valNewEmailDone" class=" dn">
+    <div class="mod modal_1 width_13 " id="valNewEmailDone">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
     <div id="valNewEmailDone" class="dialog_white" style="display:none;">
         <h2>Your email change is complete</h2>
 
         <p>Thanks for verifying your updated email address.</p>
 
         <button class="button-1 valNewEmailDone_hideHover" type="button">Finish</button>
-    </div>
+    </div></div></div></div></div></div>
 </jsp:root>

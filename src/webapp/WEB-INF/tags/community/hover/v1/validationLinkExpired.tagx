@@ -16,12 +16,17 @@
         </script>
     </c:if>
 
-    <div id="expVer" class="dialog_white" style="display:none;">
+    <div id="expVer" class=" dn">
+    <div class="mod modal_1 width_13 " id="expVer">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
+    <!--<div id="expVer" class="dialog_white" style="display:none;">-->
         <h2>Verification link expired</h2>
 
         <p><strong>Oops! That email verification link has expired</strong>.
             Please click the button below to receive a new one.</p>
 
-        <button class="button-1" type="button" id="clsExpVer">Send a new email</button>
-    </div>
+        <button class="button-1" type="button" id="js_closeExpVer">Send a new email</button>
+    </div></div></div></div></div>
 </jsp:root>

@@ -16,7 +16,12 @@
         </script>
     </c:if>
 
-    <div id="js_espPreApprovalEmailHover" class="dialog_white" style="display:none;">
+    <div id="js_espPreApprovalEmailHover" class=" dn">
+    <div class="mod modal_1 width_13 " id="js_espPreApprovalEmailHover">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
+    <!--<div id="js_espPreApprovalEmailHover" class="dialog_white" style="display:none;">-->
         <h2>Your email needs to be verified</h2>
 
         <p><strong>Oops! You haven't verified your email address yet.</strong>
@@ -25,5 +30,5 @@
         </p>
 
         <button class="button-1" type="button" id="js_sendEspPreApprovalEmail">Send a new email</button>
-    </div>
+    </div></div></div></div></div>
 </jsp:root>

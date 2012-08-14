@@ -3,12 +3,16 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
 
-
-    <div id="schoolReviewThankYou" class="dialog_white" style="display:none;">
+    <div id="schoolReviewThankYou" class=" dn">
+    <div class="mod modal_1 width_13 " id="schoolReviewThankYou">
+    <div class="outer">
+    <div class="inner">
+    <div class="bd">
+    <!--<div id="schoolReviewThankYou" class="dialog_white" style="display:none;">-->
         <h2>Thank you for submitting a review</h2>
 
         <p><strong>Your review has been posted to GreatSchools.</strong></p>
 
         <button class="button-1 schoolReviewThankYou_hideHover" type="button">OK</button>
-    </div>
+    </div></div></div></div></div>
 </jsp:root>
