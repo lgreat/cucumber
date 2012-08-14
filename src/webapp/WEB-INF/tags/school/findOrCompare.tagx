@@ -93,7 +93,7 @@
             var searchQuery = byLocationForm.find('input[name="searchString"]').val();
             searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
 
-            if (searchQuery != '') {
+            if (searchQuery != '' && searchQuery.search("^[0-9].*$") !== -1) {
                 byLocationForm.find('input[name="searchString"]').val(searchQuery);
 
                 //GS-12100 Since its a by location search, strip the words 'schools' from google geocode searches.
@@ -103,7 +103,7 @@
                 }
 
                 gsGeocode(searchQueryWithFilteredStopWords, function(geocodeResult) {
-                    if (geocodeResult != null) {
+                    if (geocodeResult != null && geocodeResult['zipCode'] !== undefined) {
                         byLocationForm.find('input[name="lat"]').val(geocodeResult['lat']);
                         byLocationForm.find('input[name="lon"]').val(geocodeResult['lon']);
                         byLocationForm.find('input[name="state"]').val(geocodeResult['state']);
@@ -115,11 +115,11 @@
 
                         window.setTimeout(loadResultsPage, 1);
                     } else {
-                        alert("Location not found. Please enter a valid address, city, or ZIP.");
+                        $('#js-invalidZipCode').show();
                     }
                 });
             } else {
-                alert("Please enter an address, zip code or city and state");
+                $('#js-invalidZipCode').show();
             }
 
             return false;
@@ -373,18 +373,11 @@
                         <div class="spacer_5"><!-- do not collapse --></div>
                         <div class="spacer_15">
                             <!--<c:set var="invalidZipCode" value="${true}"/>-->
-                            <c:choose>
-                                <c:when test="${param.invalidZipCode eq 'true'}">
-                                    <div class="form-error formErrorText media">
-                                        <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
+                            <div class="form-error formErrorText media" id="js-invalidZipCode" style="display: none;">
+                                <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-                                        <div class="bd">Please enter a valid zip code.</div>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <!-- do not collapse -->
-                                </c:otherwise>
-                            </c:choose>
+                                <div class="bd">Please enter a valid zip code.</div>
+                            </div>
                         </div>
                     </div>
                 </form>
