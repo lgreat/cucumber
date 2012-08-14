@@ -138,12 +138,13 @@ GSType.hover.ForgotPasswordHover = function() {
     };
     this.addMessage = function(text) {
         var hoverForgotPassword = jQuery('#hover_forgotPassword');
-        hoverForgotPassword.find('.messages').html('<p>' + text + '</p>').show();
+        hoverForgotPassword.find('.messages .bd').html( text );
+        hoverForgotPassword.find('.messages').show();
     };
     this.clearMessages = function() {
         var hoverForgotPassword = jQuery('#hover_forgotPassword');
         var hoverForgotPasswordMessages = hoverForgotPassword.find('.messages');
-        hoverForgotPasswordMessages.empty();
+        hoverForgotPasswordMessages.find('.bd').empty();
         hoverForgotPasswordMessages.hide();
     };
     this.loadOnExit = function(url) {
@@ -1678,7 +1679,7 @@ jQuery(function() {
         }
     });
 
-    jQuery('#clsValNewEmail').click(function() {
+    jQuery('#js_closeValNewEmail').click(function() {
         var params = {
             email: GSType.hover.emailNotValidated.email
         };

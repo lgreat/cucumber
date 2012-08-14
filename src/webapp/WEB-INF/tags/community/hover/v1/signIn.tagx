@@ -10,32 +10,63 @@
                         <div class="hoverTitle hd">
                             <h2 class="fl">Sign in to GreatSchools</h2>
                             <div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeHover"><!-- do not collapse --></a></div>
-                            <h2 class="fr prl mrl"><span>Not a member? <a href="#" id="signInHover_launchJoin" onclick="">Join GreatSchools</a>.</span></h2>
+                            <div class="fr small bottom" style="padding:5px 50px 0px 0px">Not a member? <a href="#" id="signInHover_launchJoin" onclick="">Join GreatSchools</a>.</div>
                             <div class="clearfloat"><!-- do not collapse --></div>
                         </div>
         <div class="messages">
             <p class="error"><!-- message --></p>
         </div>
         <form id="signin" action="/community/loginOrRegister.page" method="post">
-            <fieldset class="signin">
-                <h3>Sign in with an existing GreatSchools account:</h3>
-                <ul>
-                    <li>
-                        <label for="semail">Email address</label><input type="text" id="semail" name="email"/>
+            <!--<fieldset class="signin">-->
+                <h4>Sign in with an existing GreatSchools account:</h4>
+            <div class="line">
+                    <div class="unit size4of19">
+                        <label for="semail" class="longLabel">Email address</label>
+
+                    </div>
+                    <div class="unit size5of14">
+                        <input type="text" id="semail" class="text input_5" name="email"/>
+                    </div>
+                    <div class="unit size3of7 lastUnit">
                         <div class="errors">
                             <p class="error"><!-- message --></p>
-                        </div>                        
-                    </li>
-                    <li><label for="spword">Password</label><input type="password" id="spword" name="password"/></li>
-                </ul>
-            </fieldset>
-            <input type="hidden" name="redirect" class="redirect_field" value=""/>
-            <fieldset class="btns">
+                        </div>
+                    </div>
+            </div>
+            <div class="line">
+                    <div class="unit size4of19">
+                        <label for="semail" class="longLabel">Password</label>
 
-                <button class="button-1 signinBtn" type="submit" name="signinBtn" id="signinBtn">Sign in</button>
-                <p><a href="javascript:void(0);" id="signInHover_launchForgotPassword" onclick="">Forgot your password?</a></p>
+                    </div>
+                    <div class="unit size5of14">
+                        <input type="password" id="spword" name="password" class="text input_5" />
+                    </div>
+                    <div class="unit size3of7 lastUnit">
+                        <div class="errors">
+                            <p class="error"><!-- message --></p>
+                        </div>
+                    </div>
+            </div>
+            <!--</fieldset>-->
+
+            <!--<fieldset class="btns">-->
+            <div class="line ptm">
+                <div class="unit size4of19"> &amp;nbsp;
+                   <!-- do not collapse -->
+
+                </div>
+                <div class="unit size5of14">
+                    <button class="button-1 signinBtn" type="submit" name="signinBtn" id="signinBtn">Sign in</button>
+                    <p><a href="javascript:void(0);" id="signInHover_launchForgotPassword" onclick="" class="smaller">Forgot your password?</a></p>
+                </div>
+                <div class="unit size3of7 lastUnit">
+                    <!-- do not collapse -->
+                </div>
+            </div>
+
                 <input type="hidden" name="rememberMe" value="true"/>
-            </fieldset>
+                <input type="hidden" name="redirect" class="redirect_field" value=""/>
+            <!--</fieldset>-->
         </form>
     </div>
     </div></div></div>

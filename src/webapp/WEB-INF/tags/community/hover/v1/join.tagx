@@ -31,7 +31,7 @@
 
 <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post" class="pbn mbn">
 <div class="line">
-    <div id="js_ProcessError" class="unit size1of1 lastUnit error">
+    <div id="js_ProcessError" class="unit size1of1 lastUnit error dn">
         Please correct the errors below to continue.
     </div>
     <div class="clearfloat"><!-- do not collapse --></div>
@@ -99,7 +99,7 @@
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
-                    <span class="error valid">Your username is available</span>
+                    <span class="error valid dn">Your username is available</span>
                     <span class="error invalid"><!--not empty--></span>
                 </div>
             </div>

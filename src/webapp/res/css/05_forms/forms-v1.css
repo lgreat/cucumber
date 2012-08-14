@@ -184,3 +184,10 @@ form.inline p {margin-bottom:0; vertical-align:baseline;}
 .ie7 .hint {margin-left: 5px;}
 .disabled_field{color:#787878}
 .disabled_field:hover{color:#787878; text-decoration: none;}
+.errorOld, .errorOld p{
+    font: 11px / 1.3 Arial, Helvetica, sans-serif;
+    color: #c03;
+    padding: 0 0 3px 15px;
+    background: url(/res/img/discussion_boards/cbi_errorIcon_gfx.gif) 0 1px no-repeat;
+    display: none;
+}
