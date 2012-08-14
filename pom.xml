@@ -584,18 +584,35 @@
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
                                 <param>14_ratings/ratings.css</param>
-                                <param>38_special/cms_content.css</param>
-                                <param>38_special/community_hover.css</param>
-                                <param>97_jQueryUI/themeRoller/jquery-ui-1.8.18.custom.css</param>
-                                <param>97_jQueryUI/timepicker/jquery.ptTimeSelect.css</param>
                                 <param>99_debugging/debug.css</param>
-                                <param>hovers-v0.css</param>
                                 <param>house_ads.css</param>
                                 <param>jquery.autocomplete.css</param>
                                 <param>school/photoGallery.css</param>
                             </cssSourceFiles>
                             <cssFinalFile>gs_styles-v1.combined.css</cssFinalFile>
                             <cssTargetDir>/res/css</cssTargetDir>
+                            <jsSourceDir>/res/js</jsSourceDir>
+                            <jsSourceFiles>
+                                <param>jquery/jquery-1.7.2.min.js</param>
+                                <!--<param>jquery/jquery-ui-1.8.18.custom.min.js</param>-->
+                                <!-- TODO-12116 remove jquery.autocomplete.js once we've ported existing code to use the built in autocomplete -->
+                                <param>jquery/jquery.autocomplete.js</param>
+                                <param>uri/uri.js</param>
+                                <param>search/schoolAutocomplete.js</param>
+                                <param>jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js</param>
+                                <param>jquery/plugins/timepicker/jquery.ptTimeSelect.js</param>
+                                <param>global.js</param>
+                                <param>topnavpromo.js</param>
+                                <param>topnav.js</param>
+                                <param>gs_jquery_extensions.js</param>
+                                <param>hover-v1.js</param>
+                                <param>house_ads.js</param>
+                                <param>deferredcontent.js</param>
+                                <param>externalTracking.js</param>
+                                <param>trackIt.js</param>
+                            </jsSourceFiles>
+                            <jsFinalFile>combined-v1.js</jsFinalFile>
+                            <jsTargetDir>/res/js</jsTargetDir>
                         </configuration>
                         <goals>
                             <goal>minify</goal>
