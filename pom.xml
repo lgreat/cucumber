@@ -383,6 +383,7 @@
                                 <param>house_ads.js</param>
                                 <param>deferredcontent.js</param>
                                 <param>externalTracking.js</param>
+                                <param>trackIt.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>combined.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>

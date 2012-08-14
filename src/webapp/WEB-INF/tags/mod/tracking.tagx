@@ -198,10 +198,6 @@
             /* this comment keeps the tag from collapsing */
         </script>
 
-        <gsml:url var="trackit_js" value="/res/js/trackIt.js" allowCdn="true"/>
-        <script type="text/javascript" src="${trackit_js}">
-            /* this comment keeps the tag from collapsing */
-        </script>
         <![CDATA[
         <script type="text/javascript" > <!--
 

@@ -36,22 +36,20 @@
         <pageHelper:externalJavascript file="/res/js/mssAutoHoverInterceptor.js"/>
         <c:if test="${showNLHover}">
             <script type="text/javascript">
-                var postInterruptCallback = function($anchor, defaultPostInterruptCallback) {
-                    console.log('anchor is ', $anchor, $anchor.parent().parent().parent());
-                    console.log('default callback', defaultPostInterruptCallback);
+                var GS = GS || {};
+                GS.postInterruptCallback = function($anchor, defaultPostInterruptCallback) {
                     if ($anchor.parent().parent().parent().hasClass('gsTabs')) {
                         $anchor.showTab();
                     } else {
-                        console.log('calling default callback');
                         defaultPostInterruptCallback($anchor);
                     }
                 };
 
                 $(function() {
                     if ('${school.levelCode}' === 'p' || '${school.type.schoolTypeName}' === 'private') {
-                        GSType.hover.joinHover.showInterruptHoverOnPageExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', postInterruptCallback);
+                        GSType.hover.joinHover.showInterruptHoverOnPageExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', GS.postInterruptCallback);
                     } else {
-                        GSType.hover.joinHover.showMssAutoHoverOnPageExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', postInterruptCallback);
+                        GSType.hover.joinHover.showMssAutoHoverOnPageExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', GS.postInterruptCallback);
                     }
                 });
             </script>
