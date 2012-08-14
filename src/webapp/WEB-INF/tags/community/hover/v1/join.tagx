@@ -31,7 +31,7 @@
 
 <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post" class="pbn mbn">
 <div class="line">
-    <div id="js_ProcessError" class="unit size1of1 lastUnit error dn">
+    <div id="js_ProcessError" class="unit size1of1 lastUnit errorOld dn pbm">
         Please correct the errors below to continue.
     </div>
     <div class="clearfloat"><!-- do not collapse --></div>
@@ -48,8 +48,8 @@
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
-                    <span class="error valid">&amp;nbsp;</span>
-                    <span class="error invalid"><!-- not empty --></span>
+                    <span class="error valid errorOld">&amp;nbsp;</span>
+                    <span class="error invalid errorOld"><!-- not empty --></span>
                 </div>
             </div>
             <div class="spacer_15"><!-- do not collapse --></div>
@@ -65,8 +65,8 @@
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
-                    <span class="error valid">&amp;nbsp;</span>
-                    <span class="error invalid"><!-- not empty --></span>
+                    <span class="error valid errorOld">&amp;nbsp;</span>
+                    <span class="error invalid errorOld"><!-- not empty --></span>
                 </div>
             </div>
             <div class="spacer_15"><!-- do not collapse --></div>
@@ -81,8 +81,8 @@
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
-                    <span class="error valid">&amp;nbsp;</span>
-                    <span class="error invalid"><!-- not empty --></span>
+                    <span class="error valid errorOld">&amp;nbsp;</span>
+                    <span class="error invalid errorOld"><!-- not empty --></span>
                 </div>
             </div>
             <div class="spacer_15"><!-- do not collapse --></div>
@@ -99,8 +99,8 @@
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
-                    <span class="error valid dn">Your username is available</span>
-                    <span class="error invalid"><!--not empty--></span>
+                    <span class="error valid dn errorOld">Your username is available</span>
+                    <span class="error invalid errorOld"><!--not empty--></span>
                 </div>
             </div>
             <div class="spacer_7"><!-- do not collapse --></div>
@@ -117,8 +117,8 @@
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
-                    <span class="error valid" id="pw">&amp;nbsp;</span>
-                    <span class="error invalid" id="pw_invalid"><!-- not empty --></span>
+                    <span class="error valid errorOld" id="pw">&amp;nbsp;</span>
+                    <span class="error invalid errorOld" id="pw_invalid"><!-- not empty --></span>
                 </div>
             </div>
             <div class="spacer_7"><!-- do not collapse --></div>
@@ -133,8 +133,8 @@
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
-                    <span class="error valid" id="pwmatch">&amp;nbsp;</span>
-                    <span class="error invalid" id="pwnomatch"><!-- not empty --></span>
+                    <span class="error valid errorOld" id="pwmatch">&amp;nbsp;</span>
+                    <span class="error invalid errorOld" id="pwnomatch"><!-- not empty --></span>
                 </div>
             </div>
             <div class="clearfloat"><!-- do not collapse --></div>
@@ -153,7 +153,7 @@
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
-                    <span class="error invalid" id="joinHover_chooseLocation"><!-- not empty --></span>
+                    <span class="error invalid errorOld" id="joinHover_chooseLocation"><!-- not empty --></span>
                 </div>
             </div>
         </div>

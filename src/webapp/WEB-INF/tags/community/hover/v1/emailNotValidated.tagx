@@ -15,8 +15,15 @@
             GSType.hover.emailNotValidated.setEmail('${param.email}');
         </script>
     </c:if>
-
-    <div id="valNewEmail" class="dialog_white" style="display:none;">
+    <div id="valNewEmail" class="dn">
+    <div class="mod modal_1 width_13" id="valNewEmail">
+    <div class="outer">
+    <div class="inner">
+    <div class="hoverTitle hd">
+        <div class="fl"><h2 class="bottom" >Your email needs to be verified</h2></div>
+        <div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeHover"><!-- do not collapse --></a></div>
+    </div>
+    <div class="bd">
         <h2>Your email needs to be verified</h2>
 
         <p><strong>Oops! You haven't verified your email address yet.</strong>
@@ -24,6 +31,7 @@
             Can't find the email? Click the button below to receive a new one.
         </p>
 
-        <button class="button-1" type="button" id="clsValNewEmail">Send a new email</button>
+        <button class="button-1" type="button" id="js_closeValNewEmail">Send a new email</button>
     </div>
+    </div></div></div></div>
 </jsp:root>
