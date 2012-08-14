@@ -65,6 +65,29 @@
 
                         <div class="clearfloat"><!-- do not collapse --></div>
 
+                        <c:if test="${school.levelCode ne 'p' and not (loopStatus.count eq 1 and loopStatus.last)}">
+                            <div class="compare_schools_row">
+                                <c:set var="statePlusId" value="${school.databaseState.abbreviation}${school.id}"/>
+                                <gsml:checkbox
+                                        name="sc"
+                                        value="${statePlusId}"
+                                        styleClass="compare_checkbox"
+                                        styleId="compare_schools_${statePlusId}"
+                                        onclick="return evaluateCheckboxes(this);"/>
+                                <!-- Can't use label for attr because IE7 doesn't apply it to images inside labels -->
+                                <label class="compare_label small bottom" id="compare_schools_label_${statePlusId}" onclick="document.getElementById('compare_schools_${statePlusId}').click();">
+                                    Check to compare
+                                </label>
+                                <label class="compare_error small bottom" id="compare_schools_error_${statePlusId}"
+                                       style="display: none;" onclick="document.getElementById('compare_schools_${statePlusId}').click();">
+                                    <dfn>Check 2 or more to compare</dfn>
+                                </label>
+                          		<span class="compare_submit vam pls pts" id="compare_schools_submit_${statePlusId}" style="display: none;">
+                          		    <input type="image" name="compare" src="/res/img/button/button_compare_now.gif" alt="Compare now" onclick="return GS_launchCompare();"/>
+                          		</span>
+                            </div>
+                        </c:if>
+
                 <c:if test="${not empty school.district}">
                     <p class="clearfloat small bottom fl">
                         <span class="loud"><strong>District:</strong></span> ${school.district.name}
