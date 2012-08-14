@@ -8,7 +8,7 @@
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod">
 
     <jsp:directive.attribute name="showAdvancedFilters" required="false" type="java.lang.Boolean"/>
-        <c:if test="${showAdditionalFilters}">
+        <c:if test="${showAdvancedFilters}"><!-- TODO: remove this when advanced filters are re-enabled -->
         <div class="js-schoolSearchFiltersPanel grid_16 alpha omega" style="${showAdvancedFilters eq true ? '' : 'display: none'}">
 
         <div id="js-moreFiltersLine" class="grid_16 alpha omega filtersControl" style="z-index:450;">
