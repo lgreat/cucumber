@@ -314,7 +314,8 @@ General comments:
     margin-left: -14px;
 }
 
-#map-canvas .infoBox img { float: right; } /* school and district boundaries map bubble close button */
+#map-canvas .infoBox img { float: right; }  /* school and district boundaries map bubble close button */
+#js-map-canvas .infoBox img { float: right; } /* search re-design map bubble close button */
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_6-1 ----------------- */
 /*--------------Search module-----------------*/
