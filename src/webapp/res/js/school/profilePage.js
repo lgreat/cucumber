@@ -50,59 +50,161 @@
 
 var GS = GS || {};
 GS.util = GS.util || {};
-GS.profile = GS.profile || {};
+GS.profile = GS.profile || (function() {
+    "use strict";
 
-GS.profile.getTabs = function() {
     var tabs = {};
     tabs.overview = {
+        name: "overview",
         selector: "#js_overview"
     };
     tabs.reviews = {
+        name: "reviews",
         selector: "#js_reviews"
     };
     tabs.testsAndRatings = {
+        name: "testsAndRatings",
         selector: "#js_test-scores"
     };
     tabs.testScores = {
+        name: "testScores",
         selector: "#js_tests",
         parent: tabs.testsAndRatings
     };
     tabs.ratings = {
+        name: "ratings",
         selector: "#js_ratings",
         parent: tabs.testsAndRatings
     };
     tabs.teachersAndStudents = {
+        name: "teachersAndStudents",
         selector: "#js_demographics"
     };
     tabs.students = {
+        name: "students",
         selector: "#js_students",
         parent: tabs.teachersAndStudents
     };
-    tabs.parents = {
-        selector: "#js_parents",
+    tabs.teachers = {
+        name: "teachers",
+        selector: "#js_teachers",
         parent: tabs.teachersAndStudents
     };
     tabs.programsAndCulture = {
+        name: "programsAndCulture",
         selector: "#js_programs-culture"
     };
     tabs.highlights = {
+        name: "highlights",
         selector: "#js_highlights",
         parent: tabs.programsAndCulture
     };
     tabs.programsAndResources = {
+        name: "programsAndResources",
         selector: "#js_programsresources",
         parent:tabs.programsAndCulture
     };
     tabs.extracurriculars = {
+        name: "extracurriculars",
         selector: "#js_extracurriculars",
         parent:tabs.programsAndCulture
     };
     tabs.culture = {
+        name: "culture",
         selector: "#js_culture",
         parent:tabs.programsAndCulture
     };
-    return tabs;
-};
+
+    // for each tab, create an array that contains all of its children
+    var tab;
+    for (tab in tabs) {
+        if (tabs.hasOwnProperty(tab)) {
+            var parent = tabs[tab].parent;
+            if (parent !== undefined) {
+                parent.children = parent.children || [];
+                parent.children.push(tabs[tab]);
+            }
+        }
+    }
+
+    var init = function() {
+        setupTabClickHandlers();
+        return this;
+    };
+
+    // given a tab, determines which child subtab is active
+    var getActiveChildTab = function(parentTab) {
+        if (typeof parentTab === 'string') {
+            parentTab = tabs[parentTab];
+        }
+        if (parentTab === undefined || parentTab.children === undefined) {
+            return undefined;
+        }
+        var i = parentTab.children.length;
+        while (i--) {
+            if ($(parentTab.children[i].selector).hasClass('selected')) { // check if the subtab is selected
+                return parentTab.children[i];
+            }
+        }
+    };
+
+    var linkToTabAndAnchor = function(destinationTab, hash) {
+        if (typeof destinationTab === 'string') {
+            destinationTab = tabs[destinationTab];
+        }
+
+        try {
+            if (destinationTab.parent !== undefined) {
+                linkToTabAndAnchor(destinationTab.parent); // recursion
+            }
+            var selector = destinationTab.selector;
+            linkToTabs(selector);
+
+            if(hash !== undefined) {
+                GS.util.jumpToAnchor(hash);
+            }
+        } catch (e) {
+            // on error, fall back on default click handling
+            return true;
+        }
+        return false;
+    };
+
+    var setupTabClickHandlers = function() {
+        // register some custom data attributes that will allow easily linking to a profile tab and anchor
+        $('body').on('click', 'a[data-gs-show-tab]', function() {
+            var $this = $(this);
+            var tabName = $this.data('gs-show-tab');
+            var tabOptions = $this.data('gs-tab-options');
+            linkToTabAndAnchor(tabName, tabOptions);
+        });
+
+        // send omniture data when tabs are clicked
+        $('[data-gs-tab] a').on('click', function() {
+            var $this = $(this);
+            var tabName = $this.parent().data('gs-tab');
+            var childTab = getActiveChildTab(tabName);
+            if (childTab !== undefined) {
+                GS.tracking.sendOmnitureData(childTab.name);
+            } else {
+                GS.tracking.sendOmnitureData(tabName);
+            }
+        });
+    };
+
+    var linkToTabs = function(selector){
+        $(selector).showTab();
+        return false;
+    };
+
+    return {
+        getActiveChildTab: getActiveChildTab,
+        linkToTabs : linkToTabs,
+        linkToTabAndAnchor : linkToTabAndAnchor,
+        setupTabClickHandlers : setupTabClickHandlers,
+        init:init
+    };
+}());
 
 
 GS.util.jumpToAnchor = function(hash) {
@@ -110,53 +212,8 @@ GS.util.jumpToAnchor = function(hash) {
     return false;
 };
 
-GS.profile.linkToTabs = function(selector){
-    $(selector).showTab();
-    return false;
-};
-
-GS.profile.linkToTabAndAnchor = function(destinationTab, hash) {
-    if (typeof destinationTab === 'string') {
-        destinationTab = GS.profile.tabs[destinationTab];
-    }
-
-    try {
-        if (destinationTab.parent !== undefined) {
-            GS.profile.linkToTabAndAnchor(destinationTab.parent); // recursion
-        }
-        var selector = destinationTab.selector;
-        GS.profile.linkToTabs(selector);
-
-        if(hash !== undefined) {
-            GS.util.jumpToAnchor(hash);
-        }
-    } catch (e) {
-        // on error, fall back on default click handling
-        return true;
-    }
-    return false;
-};
-
-GS.profile.setupTabClickHandlers = function() {
-    $('body').on('click', 'a[data-gs-show-tab]', function() {
-        var $this = $(this);
-        var tabName = $this.data('gs-show-tab');
-        var tabOptions = $this.data('gs-tab-options');
-        GS.profile.linkToTabAndAnchor(tabName, tabOptions);
-    });
-};
-
 jQuery(document).ready(function() {
-    GS.profile.tabs = GS.profile.getTabs();
-    GS.profile.setupTabClickHandlers();
-
-    /* Set up event handlers */
-    jQuery('#js_profileHeadWriteReviewLink').on('click', function() {
-        return GS.profile.linkToTabAndAnchor('reviews', 'schoolReviewSubmitForm');
-    });
-
-
-    /* End set up event handlers */
+    GS.profile.init();
 
     if ( jQuery.browser.msie ) {   if(jQuery.browser.version <= 7){ jQuery(".arrowdiv").remove() } }
 
@@ -196,11 +253,7 @@ jQuery(document).ready(function() {
     if ($teachers) $teachers.on('click', ratings);
 //
 
-    $('[data-gs-tab] a').on('click', function() {
-        var $this = $(this);
-        var $tabName = $this.parent().data('gs-tab');
-        GS.tracking.sendOmnitureData($tabName);
-    });
+
 });
 
 /********************************************************************************************************

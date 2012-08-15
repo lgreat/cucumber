@@ -108,7 +108,7 @@ where each entry is the first bean for that section, this allows access to the s
         <div class="gsTabs">
             <ul class="tabStyle-5">
                 <c:if test="${(!empty highlightstab)}">
-                    <li data-gs-tab="programs-culture"><a id="js_highlights" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}" title="${schoolName} | Highlights" class="${requestScope.schoolProfileTabMap['programs-culture']}">Highlights</a></li>
+                    <li data-gs-tab="highlights"><a id="js_highlights" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}" title="${schoolName} | Highlights" class="${requestScope.schoolProfileTabMap['programs-culture']}">Highlights</a></li>
                 </c:if>
                 <c:if test="${(!empty applicationtab)}">
                     <li data-gs-tab="admissions"><span class="graydivider">|</span><a id="js_application" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_application')}" title="${schoolName} | Application info" class="${requestScope.schoolProfileTabMap.application}">Application info</a></li>
@@ -164,7 +164,7 @@ where each entry is the first bean for that section, this allows access to the s
         <div id="fade" class="black_overlay"><!-- do not collapse --></div>
     </c:if>
 
-    <mod:deferredTracking key="programs-culture" pageName="Highlights" hier1="School,Programs"/>
+    <mod:deferredTracking key="highlights" pageName="Highlights" hier1="School,Programs"/>
     <mod:deferredTracking key="programs" pageName="Programs Resources" hier1="School,Programs"/>
     <mod:deferredTracking key="extracurriculars" pageName="Extracurriculars" hier1="School,Programs"/>
     <mod:deferredTracking key="admissions" pageName="Admissions" hier1="School"/> <!-- TODO: admissions/application-->
