@@ -37,11 +37,11 @@
 
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->
-                <c:if test="${fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0
+                <c:if test="${fn:contains(school.levelCode, 'h') and (fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0
                     or fn:length(espResults['post_graduation_2yr']) gt 0 or fn:length(espResults['post_graduation_4yr']) gt 0 or fn:length(espResults['post_graduation_military']) gt 0
                     or fn:length(espResults['post_graduation_vocational']) gt 0 or fn:length(espResults['post_graduation_workforce']) gt 0
                     or fn:length(espResults['college_destination_1']) gt 0 or fn:length(espResults['college_destination_2']) gt 0 or fn:length(espResults['college_destination_3']) gt 0
-                }">
+                )}">
 
                     <div class="mod standard_1-1">
                     <div class="inner">
@@ -55,7 +55,7 @@
                         <c:set var="rowColorCounter" value="1" />
 
 
-                            <c:if test="${fn:contains(school.levelCode, 'h') and (fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0)}">
+                            <c:if test="${(fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0)}">
                                 <c:choose>
                                     <c:when test='${(rowColorCounter)%2 eq 0}'>
                                         <c:set var="rowColor" value="even" scope="page"/>
@@ -86,7 +86,7 @@
                                 <tr class="${rowColor}" >
                                     <td>Percentage of students going to 2-year college</td>
                                     <td>
-                                        ${espResults['post_graduation_2yr'][0].prettyValue} (${espResults['post_graduation_year'][0].prettyValue})
+                                        ${espResults['post_graduation_2yr'][0].prettyValue}% (${espResults['post_graduation_year'][0].prettyValue})
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
@@ -103,7 +103,7 @@
                                 <tr class="${rowColor}" >
                                     <td>Percentage of students going to 4-year college</td>
                                     <td>
-                                        ${espResults['post_graduation_4yr'][0].prettyValue} (${espResults['post_graduation_year'][0].prettyValue})
+                                        ${espResults['post_graduation_4yr'][0].prettyValue}% (${espResults['post_graduation_year'][0].prettyValue})
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
@@ -120,7 +120,7 @@
                                 <tr class="${rowColor}" >
                                     <td>Percentage of students going to the military</td>
                                     <td>
-                                        ${espResults['post_graduation_military'][0].prettyValue} (${espResults['post_graduation_year'][0].prettyValue})
+                                        ${espResults['post_graduation_military'][0].prettyValue}% (${espResults['post_graduation_year'][0].prettyValue})
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
@@ -137,7 +137,7 @@
                                 <tr class="${rowColor}" >
                                     <td>Percentage of students going to vocational programs</td>
                                     <td>
-                                        ${espResults['post_graduation_vocational'][0].prettyValue} (${espResults['post_graduation_year'][0].prettyValue})
+                                        ${espResults['post_graduation_vocational'][0].prettyValue}% (${espResults['post_graduation_year'][0].prettyValue})
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
@@ -154,7 +154,7 @@
                                 <tr class="${rowColor}" >
                                     <td>Percentage of students going directly into the workforce</td>
                                     <td>
-                                        ${espResults['post_graduation_workforce'][0].prettyValue} (${espResults['post_graduation_year'][0].prettyValue})
+                                        ${espResults['post_graduation_workforce'][0].prettyValue}% (${espResults['post_graduation_year'][0].prettyValue})
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
