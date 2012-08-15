@@ -98,7 +98,6 @@ public class SchoolOverviewMobileController implements Controller, IDirectoryStr
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());
-        // TODO-13114 done - moved gs_rating ad keyword into handleAdKeywords()
         Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
         model.put("gs_rating", gsRating);
         _schoolProfileHelper.handleAdKeywords(request, school, gsRating);

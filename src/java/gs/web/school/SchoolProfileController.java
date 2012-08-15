@@ -35,15 +35,17 @@ public class SchoolProfileController extends AbstractSchoolController implements
         // This needs to be done early in the request cycle or the item attached to the request can be lost.
         AbstractDataHelper.initialize( request );
 
-        // TODO: Audit SchoolOverview2010Controller and refactor all shared logic such as number1expert cobrand.  The
+        // TODO-13114: Audit SchoolOverview2010Controller and refactor all shared logic.  The
         // new profile and old profile will coexist side by side for a while, so they need to share code.
-        // TODO-13114 number1expert (now Best Image) is canceled, per Weezie's email 8/14/2012
 
+        // TODO-13114: we'll need to eventually include the 301-redirect of preschool pages to pk.greatschools.org
+        //             but we're currently not serving preschool pages on the new profile pages, so we can ignore for now
+
+        // TODO-13114 refactor this to reuse same urlbuilder as the one in SchoolProfileHelper's handlePinItButton
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         String fullCanonicalUrl = urlBuilder.asFullUrl(request);
         model.put("relCanonical", fullCanonicalUrl);
 
-        // TODO-13114 refactored so we could reuse already-fetched overallRating for gs_rating ad keyword
         Map<String, Object> ratingsMap =  _schoolProfileDataHelper.getGsRatings(request);
         Integer overallRating = null;
         if (ratingsMap != null) {

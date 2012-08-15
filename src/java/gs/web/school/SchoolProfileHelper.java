@@ -38,7 +38,7 @@ public class SchoolProfileHelper {
                 handleCityCookie(request, response, school);
                 handleStateSpecificFooter(request, school, model);
 
-                // TODO-13114 Chuck will check with Liana on if it's needed for new profile. let's put it in the model just in case, which means this is todo
+                // TODO-13114 Chuck will check with Liana on if it's needed for new profile. let's put it in the model just in case
                 handlePinItButton(request, school, model);
             }
         } catch (Exception e) {

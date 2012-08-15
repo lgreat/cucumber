@@ -73,16 +73,13 @@ public class SchoolProfileHeaderHelper {
         try {
             if (school != null) {
                 startTime = System.currentTimeMillis();
-                // TODO-13114 - not needed for new profile
                 determinePQ(school, model); // Determine PQ
                 logDuration(System.currentTimeMillis() - startTime, "Determining PQ and hours per day");
 
                 startTime = System.currentTimeMillis();
-                // TODO-13114 - not needed for new profile
                 determineTestScores(school, model); // Determine private school test scores
                 logDuration(System.currentTimeMillis() - startTime, "Determining presence of test scores");
 
-                // TODO-13114 - not needed for new profile
                 // Determine school stats (for preschools)
                 if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
                     if (StringUtils.isNotBlank(school.getStateId())
@@ -93,42 +90,35 @@ public class SchoolProfileHeaderHelper {
                 }
 
                 startTime = System.currentTimeMillis();
-                // TODO-13114 - not needed for new profile
                 determineSurveyResults(school, model); // Determine survey results
                 logDuration(System.currentTimeMillis() - startTime, "Determining survey data");
 
                 startTime = System.currentTimeMillis();
-                // TODO-13114 - not needed for new profile
                 City city = handleCommunitySidebar(school, model); // Determine community module
                 logDuration(System.currentTimeMillis() - startTime, "Handling community sidebar");
 
                 startTime = System.currentTimeMillis();
-                // TODO-13114 - leaving this one as-is but added gs_rating ad keyword to schoolprofilehelper
                 handleGSRating(request, school);
                 logDuration(System.currentTimeMillis() - startTime, "Handling GS Rating");
 
                 startTime = System.currentTimeMillis();
-                // TODO-13114 - done - and with a variation on the method signature, also adds gs_rating ad keyword
                 _schoolProfileHelper.handleAdKeywords(request, school);
                 logDuration(System.currentTimeMillis() - startTime, "Handling ad keywords");
 
                 startTime = System.currentTimeMillis();
-                // TODO-13114 - done, with slight change regarding logging - not within if block
                 _schoolProfileHelper.handleCityCookie(request, response, city);
                 logDuration(System.currentTimeMillis() - startTime, "Handling city id cookie");
 
                 startTime = System.currentTimeMillis();
-                // TODO-13114 - done - fixed bug preventing any school profile (new/old) from getting state-specific footer
                 _schoolProfileHelper.handleStateSpecificFooter(request, school, model);
                 logDuration(System.currentTimeMillis() - startTime, "Handling state specific footer");
 
                 startTime = System.currentTimeMillis();
-                // TODO-13114 - not needed for new profile
                 handleCompareNearbyString(school, model);
                 logDuration(System.currentTimeMillis() - startTime, "Handling compare nearby string");
 
                 startTime = System.currentTimeMillis();
-                // TODO-13114 - Chuck will check with Liana on if it's needed for new profile. let's put it in the model just in case, which means this is todo
+                // TODO-13114 Chuck will check with Liana on if it's needed for new profile. let's put it in the model just in case. Could refactor to reuse urlbuilder used for relCanonical
                 _schoolProfileHelper.handlePinItButton(request, school, model);
                 logDuration(System.currentTimeMillis() - startTime, "Handling PinIt button");
             }

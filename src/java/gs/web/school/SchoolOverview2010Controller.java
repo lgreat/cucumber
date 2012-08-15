@@ -78,7 +78,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         }
 
 
-        // TODO-13114 - not needed for new school profile; number1expert (now named Best Image) has canceled with us, per Weezie's email on 8/14/2012
         // GS-3044 - number1expert cobrand specific code
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
         if (sessionContext.isCobranded() && "number1expert".equals(sessionContext.getCobrand())) {
@@ -99,7 +98,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
 
-            // TODO-13114 - already copied into SchoolProfileController by Anthony
+            // TODO-13114 - already copied into SchoolProfileController by Anthony but should refactor
             // GS-10484
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
             String fullCanonicalUrl = urlBuilder.asFullUrl(request);
@@ -124,7 +123,9 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             Ratings ratings = _reviewDao.findRatingsBySchool(school);
             model.put("ratings", ratings);
 
-            // TODO-13114 - this code is no longer needed and can be removed due to GS-12127 that rolled back GS-11676. shouldIndex is only false when the school is null. numberOfReviews isn't used
+            // this code is no longer needed and can be removed due to GS-12127 that rolled back GS-11676.
+            // shouldIndex is only false when the school is null. numberOfReviews isn't used. Also need to remove from
+            // overview2010.jspx
             model.put("noIndexFlag", !shouldIndex(school, numberOfReviews));
 
             // TODO-13114 - also tracked separately in TODO-13116
@@ -159,19 +160,16 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
 
             Integer gsRating = getRatingHelper().getGreatSchoolsOverallRating(school, useCache);
 
-            // TODO-13114 - school profile header helper seems to also do this? moved into handleAdKeywords in SchoolProfileHelper - need to be double-check
             if (gsRating != null && gsRating > 0 && gsRating < 11) {
                 pageHelper.addAdKeyword("gs_rating", String.valueOf(gsRating));
             }
 
             model.put("gs_rating", gsRating);
 
-            // TODO-13114 - schoolprofilecontroller will use a new version of this for the new profile
             _schoolProfileHeaderHelper.updateModel(request, response, school, model);
 
             populateModelWithSchoolHighlights(school, model);
 
-            // TODO-13114 - not needed; fromSurveyPage isn't used anywhere
             // TODO: is this necessary?
             String tempMsg = sessionContext.getTempMsg();
             if (StringUtils.isNotBlank(tempMsg) && tempMsg.matches("^fromSurvey[A-Z][A-Z]\\p{Digit}+")) {
