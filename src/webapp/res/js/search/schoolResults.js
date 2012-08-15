@@ -372,10 +372,12 @@ GS.search.results = GS.search.results || (function() {
             pageNav.find('#total-results-count').html('');
             pageNav.hide();
             $('#js-noSchoolsFound').show();
+            $('#js-searchResultsNav').hide();
             GS.map.getMap.refreshMarkers();
             return;
         }
         else {
+            $('#js-searchResultsNav').show();
             $('#js-noSchoolsFound').hide();
             $('.js-rightResultsGrid').show();
         }

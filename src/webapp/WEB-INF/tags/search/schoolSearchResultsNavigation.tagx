@@ -13,6 +13,7 @@
     <jsp:directive.attribute name="pageOffset" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="pageLastOffsetOnPage" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="pageTotalItems" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="searchResultsNav" required="false" type="java.lang.String"/>
 
     <c:set var="searchResultsPagingSummary">
         <div class="js-search-results-paging-summary small bottom">
@@ -21,7 +22,7 @@
         </div>
     </c:set>
 
-<div class="alpha grid_16 omega">
+<div class="alpha grid_16 omega" style="display: ${searchResultsNav}" id="js-searchResultsNav">
     <div class="alpha grid_16 omega pr">
         <div id="js-mapPageNav" class="pa" style="right: 0px; top:10px;width:443px;">
             <div class="fltlft plm">

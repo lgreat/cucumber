@@ -141,7 +141,9 @@
 <!-- Any change to the syle classes applied to navigation would require a change in the javascript code where this is updated for ajax refresh -->
 <div class="alpha grid_16 omega mts">
 
-<search:schoolSearchResultsNavigation pageOffset="${page.offset+1}" pageLastOffsetOnPage="${page.lastOffsetOnPage+1}" pageTotalItems="${page.pager.totalItems}" tabSelect="map" />
+<search:schoolSearchResultsNavigation pageOffset="${page.offset+1}" pageLastOffsetOnPage="${page.lastOffsetOnPage+1}"
+                                      pageTotalItems="${page.pager.totalItems}" tabSelect="map"
+                                      searchResultsNav="${page.pager.totalItems gt 0 ? 'block' : 'none'}"/>
 <div id="js-school-search-results-table-body" class="pbm alpha grid_16 omega" style="display: none;">
     <div class="media">
         <span class="sprite i-alert img"><!-- do not collapse --></span>
