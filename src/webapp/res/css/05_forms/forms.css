@@ -129,7 +129,8 @@ legend, #IE8#HACK {margin-top:0;margin-bottom:0;}*/
 .slFormsV1-0 input.text {padding:5px 5px;}
 .slFormsV1-0 input.searchText {padding:5px 5px;}
 .slFormsV1-0 input.text-smaller {padding:2px;}
-.slFormsV1-0 input.text-bigger {padding: 0px 5px;height: 34px;}
+.slFormsV1-0 input.text-bigger {padding: 5px;height: 25px;}
+.ie7 .slFormsV1-0 input.text-bigger, .ie8 .slFormsV1-0 input.text-bigger {padding: 7px 5px 5px 5px;height: 23px;}
 .slFormsV1-0 textarea {padding:5px;resize:none;overflow:auto;}
 .slFormsV1-0 textarea.height-1{height:69px;}
 .slFormsV1-0 textarea.height-2{height:123px;}
