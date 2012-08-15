@@ -250,6 +250,10 @@ GS.search.results = GS.search.results || (function() {
     var page = function(pageNumber, pageSize) {
         var start = (pageNumber-1) * pageSize;
         var queryString = window.location.search;
+        var queryStringWithFilters = filtersModule.getUpdatedQueryString();
+        if(queryString !== queryStringWithFilters) {
+            queryString = queryStringWithFilters;
+        }
         queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
 
         window.location.search = queryString;
@@ -274,14 +278,13 @@ GS.search.results = GS.search.results || (function() {
 
     var mapSearch = function(pageNumber, pageSize, queryStringData) {
         var start = (pageNumber-1) * pageSize;
+        var queryString = '';
         if(queryStringData !== undefined) {
-            var queryString = GS.uri.Uri.getQueryStringFromObject(queryStringData);
-            queryStringData = GS.uri.Uri.getQueryData(queryString);
             queryStringData.start = start;
             queryString = GS.uri.Uri.getQueryStringFromObject(queryStringData);
         }
         else {
-            var queryString = window.location.search;
+            queryString = window.location.search;
             queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
         }
 
@@ -339,6 +342,9 @@ GS.search.results = GS.search.results || (function() {
             }
             else {
                 var uri = window.location.search;
+                if (typeof(window.History) !== 'undefined' && window.History.enabled === false) {
+                    uri = filtersModule.getUpdatedQueryString();
+                }
                 uri = GS.uri.Uri.removeFromQueryString(uri, 'view');
                 window.location.search = uri;
             }
@@ -349,6 +355,9 @@ GS.search.results = GS.search.results || (function() {
             }
             else {
                 var uri = window.location.search;
+                if (typeof(window.History) !== 'undefined' && window.History.enabled === false) {
+                    uri = filtersModule.getUpdatedQueryString();
+                }
                 uri = GS.uri.Uri.putIntoQueryString(uri, 'view', 'map', true);
                 window.location.search = uri;
             }
