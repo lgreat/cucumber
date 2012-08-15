@@ -326,6 +326,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 }
                 queryStringData.start = 0;
                 queryStringData.rs = true;
+                queryStringData.sortBy = 'DISTANCE';
                 $.extend(queryStringData, newData);
 
                 window.location.search = GS.uri.Uri.getQueryStringFromObject(queryStringData);            }
