@@ -302,7 +302,7 @@
             <div class="mod standard_1-1 mbs">
                 <div class="inner">
                     <div class="bd">
-                        <link:districtBoundaryTool school="${school}">
+                        <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'header_largermap'); }">
                             <img height="98" width="148" alt="Map thumbnail"
                                  src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=148x98&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
                         </link:districtBoundaryTool>
