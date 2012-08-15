@@ -38,6 +38,7 @@
             <gsml:url var="houseadsjs" value="/res/js/house_ads.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="deferredcontent" value="/res/js/deferredcontent.js?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="externalTracking" value="/res/js/externalTracking.js" allowCdn="true"/>
+            <gsml:url var="trackit" value="/res/js/trackIt.js" allowCdn="true"/>
 
             <![CDATA[<script type="text/javascript" src="${jqueryjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${jqueryuijs}"></script>]]>
@@ -54,6 +55,7 @@
             <![CDATA[<script type="text/javascript" src="${houseadsjs}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${deferredcontent}"></script>]]>
             <![CDATA[<script type="text/javascript" src="${externalTracking}"></script>]]>
+            <![CDATA[<script type="text/javascript" src="${trackit}"></script>]]>
         </c:when>
         <c:otherwise>
             <gsml:url var="combinedjs" value="/res/js/combined.min.js?v=$RELEASE_NUMBER" allowCdn="true"/>
