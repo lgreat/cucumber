@@ -312,7 +312,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         assertEquals( "testSchoolSubtype1: expected Continuation to be added", "Continuation", results.get(0) );
 
         results = resultsModel.get( "programs_resources/Basics/coed" );
-        assertEquals( "testSchoolSubtype1: expected EspResponse:coed to take precedence over school.subtype", "All Girls", results.get(0) );
+        assertEquals( "testSchoolSubtype1: expected EspResponse:coed to take precedence over school.subtype", "Coed", results.get(0) );
 
     }
 
@@ -327,7 +327,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
 
         List<String> results = resultsModel.get( "programs_resources/Basics/coed" );
-        assertEquals( "All Girls", results.get(0) );
+        assertEquals( "All girls", results.get(0) );
 
     }
 

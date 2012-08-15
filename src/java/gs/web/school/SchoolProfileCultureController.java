@@ -166,7 +166,8 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         if( isNotEmpty(facebook) ) {
             facebookUrl = cleanUpUrl( facebook.get(0).getSafeValue(), "facebook.com" );
             if( facebookUrl != null ) {
-                validFacebookPage = true;//isValidFacebookPage(facebookUrl);
+                //validFacebookPage = true;
+                isValidFacebookPage(facebookUrl);
             }
         }
 
@@ -202,6 +203,9 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
             if(!StringUtils.isEmpty(path)) {
                 // It seems we always want the last part of the path
                 String [] urlParts = path.split("/");
+                if( urlParts.length == 0) {
+                    return false;
+                }
                 String id = urlParts[urlParts.length-1];
                 // Setup the facebook graph API, call and extract the result
                 String graph = "https://graph.facebook.com/" + id;

@@ -336,7 +336,6 @@ public class SchoolProfileDisplayBean {
             }
 
             _additionalData.add( new AdditionalData( espResponseKey ) );
-            _espResponseKeys.add( espResponseKey );     // need to retrieve data for this
         }
     }
 

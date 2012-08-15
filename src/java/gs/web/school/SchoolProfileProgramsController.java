@@ -1,8 +1,10 @@
 package gs.web.school;
 
 import gs.data.school.EspResponse;
+import gs.data.school.EspResponseHelper;
 import gs.data.school.School;
 import gs.data.school.SchoolSubtype;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +74,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Get Data
         if (school != null) {
             Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request );
+            //  There is some data in the school table that can be used to enhance EspResults
+            espResults = enhanceEspResultsFromSchool( school, espResults );
 
             if( espResults != null && !espResults.isEmpty() ) {
 
@@ -80,14 +84,12 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 Map<String, List<String>> resultsModel = buildDisplayData( espResults, DISPLAY_CONFIG);
 
                 Map<String, List<String>> supportResultsModel = buildSupplementalDisplayData(espResults, DISPLAY_CONFIG);
-
                 resultsModel.putAll( supportResultsModel );
 
+                // Sort the results
+                sortResults( resultsModel, DISPLAY_CONFIG );
                 // Perform unique data manipulation rules
                 applyUniqueDataRules( school, resultsModel, DISPLAY_CONFIG, espResults );
-
-                // Sort each results set
-                sortResults( resultsModel, DISPLAY_CONFIG );
 
                 // Put the data into the model so it will be passed to the jspx page
                 modelMap.put( "ProfileData", resultsModel );
@@ -103,6 +105,92 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         return VIEW;
     }
 
+    /**
+     * Enhance EspResponse from the school table but only for cases where espResponse does not already contain that data
+     * @param school
+     * @param espResults
+     */
+
+    private Map<String, List<EspResponse>> enhanceEspResultsFromSchool(School school, Map<String, List<EspResponse>> espResults) {
+
+        // if there is no espData create the structure
+        if( espResults == null ) {
+            espResults = new HashMap<String, List<EspResponse>>();
+        }
+
+        // This item isn't really about adding school data but about cleaning up one espResults item...
+        // key academic_focus can have values special_ed and _special_education that are the same.
+        // they should be merged into special_education
+        boolean specEd = espDataContains( espResults, "academic_focus", "special_ed");
+        boolean specEducation = espDataContains( espResults, "academic_focus", "special_eduction" );
+        if( !specEducation && specEd ) {
+            // need to add "special_education"
+            List<EspResponse> academicFocus = espResults.get( "academic_focus" );
+            EspResponse r = createEspResponse( "academic_focus", "special_eduction" );
+            academicFocus.add(r);
+        }
+
+
+        // affiliation which comes from the school table.
+        // there are 3 possible places that we can get affiliation.  Look in the following places and stop when the first is found
+        // 1. espData key='school_type_affiliation_other'
+        // 2. school affiliation
+        // 3. espData key='school_type_affiliation'
+        String schoolAffiliation = school.getAffiliation();
+        List<EspResponse> espAffiliation = espResults.get("school_type_affiliation");
+        List<EspResponse> espAffiliationOther = espResults.get("school_type_affiliation_other");
+        if( espAffiliationOther != null ) {
+            // 1st choice data is available but it needs to be moved to espData key='school_type_affiliation'
+            espResults.put( "school_type_affiliation", espAffiliationOther );
+        }
+        else if( schoolAffiliation != null && schoolAffiliation.length() > 0 ) {
+            // 2nd choice is available, need to convert to EspResponse
+            List<EspResponse> e = new ArrayList<EspResponse>(1);
+            e.add( createEspResponse( "school_type_affiliation",  schoolAffiliation ) );
+            espResults.put( "school_type_affiliation", e );
+        }
+        // This covers the alternatives.  No need to check #3 because there is nothing to whether it is present or not
+
+        // association which comes from the school table
+        String associationCommaSep = school.getAssociation();
+        if( associationCommaSep!=null && associationCommaSep.length()>0 ) {
+            String [] associations = associationCommaSep.split(", ");
+            List<EspResponse> associationList = new ArrayList<EspResponse>(associations.length);
+            for( String v : associations ) {
+                EspResponse r = new EspResponse();
+                r.setKey("school.association");
+                String trimmed = v.trim();
+                r.setValue(trimmed);
+                r.setPrettyValue(trimmed);
+                r.setActive(false); // This can be used as a flag that this is enhanced data
+                associationList.add( r );
+            }
+            espResults.put( "school.association", associationList );
+        }
+
+        // Sometimes there is data in the school table that can be used to enhance the display results.  Those cases are handled below
+        enhanceEspResultValue( espResults, "academic_focus", "special_education", school, "special_education_program" );
+        enhanceEspResultValue( espResults, "academic_focus", "special_education", school, "special_education" );
+        enhanceEspResultValue( espResults, "academic_focus", "vocational", school, "vocational_technical" );
+        enhanceEspResultValue( espResults, "academic_focus", "religious", school, "religious" );
+        enhanceEspResultValue( espResults, "instructional_model", "adult_ed", school, "adult_education");
+        enhanceEspResultValue( espResults, "instructional_model", "waldorf", school, "Waldorf");
+        enhanceEspResultValue( espResults, "instructional_model", "independent_study", school, "independent_study");
+        enhanceEspResultValue( espResults, "instructional_model", "virtual", school, "virtual_online");
+        enhanceEspResultValue( espResults, "instructional_model", "continuation", school, "continuation");
+        enhanceEspResultValue( espResults, "instructional_model", "core_knowledge", school, "Core_Knowledge");
+        enhanceEspResultValue( espResults, "instructional_model", "gifted", school, "gifted_talented");
+        enhanceEspResultValue( espResults, "instructional_model", "montessori", school, "Montessori");
+        enhanceEspResultValue( espResults, "boarding", "boarding", school, "boarding" );
+        enhanceEspResultValue( espResults, "boarding", "dayboarding", school, "boarding_and_day" );
+        enhanceEspResultKey( espResults, "coed", "all_girls", school, "all_female" );
+        enhanceEspResultKey( espResults, "coed", "all_boys", school, "all_male" );
+        enhanceEspResultKey( espResults, "coed", "coed", school, "coed" );
+        enhanceEspResultValue( espResults, "schedule", "yearround", school, "year_round" );
+
+        return espResults;
+    }
+
     // Build the display data by merging the display structure and DB results data
     public static Map<String, List<String>> buildDisplayData(Map<String, List<EspResponse>> resultsMap, List<SchoolProfileDisplayBean> displayConfig) {
 
@@ -112,8 +200,6 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Build by row by iterating over the display bean
         for( SchoolProfileDisplayBean display : displayConfig ) {
             List<String> rowData = buildDisplayDataForRow(resultsMap, display);
-            // Check this displayConfig instance to see if this is the special additional data case in which case there will be a
-            // linkedResultKey in which case it should be used.
             String key = display.getModelKey();
             resultsModel.put( key, rowData );
         }
@@ -193,6 +279,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
    // Some rows need special manipulation for the display.  Those rules are applied here
     private void applyUniqueDataRules(School school, Map<String, List<String>> resultsModel, List<SchoolProfileDisplayBean> displayConfig, Map<String, List<EspResponse>> espResults) {
+
         // In the Application Info tab the application process data possibly consists of two data results.
         // All results are to be displayed but with different text than in the database
         // If the results include Yes then reply with "Call the school"
@@ -352,6 +439,19 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             resultsModel.put("programs_resources/Basics/before_after_care", beforeAfterResults);
         }
 
+        // format times.  Some places a time is shown as AM or PM which should be turned into a.m. and p.m.
+        if( resultsModel.get("programs_resources/Basics/start_time") != null ) {
+            resultsModel.put("programs_resources/Basics/start_time", formatAmPm(resultsModel.get("programs_resources/Basics/start_time")) );
+        }
+        if( resultsModel.get("programs_resources/Basics/end_time") != null ) {
+            resultsModel.put("programs_resources/Basics/end_time", formatAmPm(resultsModel.get("programs_resources/Basics/end_time")));
+        }
+        if( resultsModel.get("programs_resources/Basics/before_after_care") != null ) {
+            resultsModel.put("programs_resources/Basics/before_after_care", formatAmPm(resultsModel.get("programs_resources/Basics/before_after_care")));
+        }
+
+
+
         // Special formatting for extracurriculars/Clubs/student_clubs
         List<String> languageClubResults = resultsModel.get( "extracurriculars/Clubs/student_clubs" );
         if( languageClubResults == null ) {
@@ -375,54 +475,6 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         if( languageClubResults.size() > 0 ) {
             resultsModel.put( "extracurriculars/Clubs/student_clubs", languageClubResults );
         }
-        // affiliation which comes from the school table
-        String affiliation = school.getAffiliation();
-        if( affiliation!=null && affiliation.length()>0 ) {
-            List<String> affiliationList = new ArrayList<String>(1);
-            affiliationList.add( affiliation );
-            resultsModel.put( "programs_resources/Basics/school_type_affiliation", affiliationList );
-        }
-
-        // association which comes from the school table
-        String associationCommaSep = school.getAssociation();
-        if( associationCommaSep!=null && associationCommaSep.length()>0 ) {
-            String [] associations = associationCommaSep.split(", ");
-            List<String> associationList = new ArrayList<String>(associations.length);
-            for( String v : associations ) {
-                associationList.add( v );
-            }
-            resultsModel.put( "programs_resources/Basics/school.association", associationList );
-        }
-
-
-        // Sometimes there is data in the school table that can be used to enhance the display results.  Those cases are handled below
-        // highlights tab
-        enhance_results( resultsModel, "highlights/SpecEd/academic_focus", "Special education", school, "special_education_program" );
-        enhance_results( resultsModel, "highlights/SpecEd/academic_focus", "Special education", school, "special_education" );
-        enhance_results( resultsModel, "highlights/Gifted/instructional_model", "Gifted / High performing", school, "gifted_talented");
-        // programs and resources tab
-        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Adult education", school, "adult_education");
-        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Waldorf", school, "Waldorf");
-        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Independent Study", school, "independent_study");
-        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Virtual school", school, "virtual_online");
-        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Continuation", school, "continuation");
-        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Core knowledge", school, "Core_Knowledge");
-        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Gifted / High performing", school, "gifted_talented");
-        enhance_results( resultsModel, "programs_resources/Programs/instructional_model", "Montessori", school, "Montessori");
-        // coed - This is an extra special case in that this information is stored inactive in esp_response and the active values are in school
-        enhance_results( resultsModel, "programs_resources/Basics/coed", "All Girls", school, "all_female" );
-        enhance_results( resultsModel, "programs_resources/Basics/coed", "All Boys", school, "all_male" );
-        enhance_results( resultsModel, "programs_resources/Basics/coed", "Coed", school, "coed" );
-        // schedule
-        enhance_results( resultsModel, "programs_resources/Basics/schedule", "Year-round", school, "year_round" );
-        // Boarding
-        enhance_results( resultsModel, "programs_resources/Basics/boarding", "Some boarding, some day", school, "boarding" );
-        enhance_results( resultsModel, "programs_resources/Basics/boarding", "Boarding school", school, "boarding_and_day" );
-        // academic focus
-        enhance_results( resultsModel, "programs_resources/Programs/academic_focus", "Special education", school, "special_education_program" );
-        enhance_results( resultsModel, "programs_resources/Programs/academic_focus", "Special education", school, "special_education" );
-        enhance_results( resultsModel, "programs_resources/Programs/academic_focus", "Vocational education", school, "vocational_technical" );
-        enhance_results( resultsModel, "programs_resources/Programs/academic_focus", "Religious", school, "religious" );
     }
 
     static void applyNoneHandlingRule(Map<String, List<String>> resultsModel, List<SchoolProfileDisplayBean> displayConfig) {
@@ -461,17 +513,16 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
     }
 
     /**
-     * Enhances a specific results model value with school.subtype data.  Specific rule is that if the school contains
-     * the specified school_subtype then if the resultsModel at resultsModelKey does not contain the value resultsModelValue
-     * then add that resultsModelValue
-     * @param resultsModel
-     * @param resultsModelKey Key in results model that my need to be enhanced
-     * @param resultsModelValue This MUST be the pretty value - see EspResponseDaoHibernate for the mapping from esp_response.response_value to pretty value
+     * Enhances a specific espData value with school.subtype data.
+     * Specific rule is that if the school contains the specified school_subtype and if the espResponseValue is not present espData then add the espResponseValue
+     * @param espData
+     * @param espResponseKey Key in results model that my need to be enhanced
+     * @param espResponseValue Database value to match
      * @param school
      * @param school_subtype
      */
-    private void enhance_results(Map<String,List<String>> resultsModel, String resultsModelKey, String resultsModelValue, School school, String school_subtype) {
-        if( resultsModel==null || resultsModelKey==null || school==null || school_subtype==null ) {
+    private void enhanceEspResultValue(Map<String,List<EspResponse>> espData, String espResponseKey, String espResponseValue, School school, String school_subtype) {
+        if( espData==null || espResponseKey==null || espResponseValue== null || school==null || school_subtype==null ) {
             return;
         }
 
@@ -479,18 +530,68 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         SchoolSubtype subtype = school.getSubtype();
         if( subtype.contains(school_subtype) ) {
             // Have matching subtype, see if it needs to be added to the results
-            List<String> existingValues = resultsModel.get(resultsModelKey);
-            // make sure there is a set of values, if not create vales
-            if( existingValues == null ) {
-                existingValues = new ArrayList<String>(1);
-                resultsModel.put( resultsModelKey, existingValues );
+            List<EspResponse> existingValues = espData.get(espResponseKey);
+            if( existingValues != null ) {
+                // Search the espData results for a match
+                for( EspResponse r : existingValues ) {
+                    if( r.getValue().equals(espResponseValue ) ) {
+                        // If we get here the espData already has the value so bail out
+                        return;
+                    }
+                }
             }
+            // Need to add the school subType value
+            // make sure there is a set of values, if not create values
+            if( existingValues == null ) {
+                existingValues = new ArrayList<EspResponse>(1);
+            }
+            existingValues.add( createEspResponse( espResponseKey, espResponseValue ) );
+            espData.put( espResponseKey, existingValues );
+        }
+    }
 
-            // Only add the value if it does not exist
-            if( ! existingValues.contains(resultsModelValue) ) {
-                existingValues.add( resultsModelValue );
+    /**
+     * Enhances a specific espData value with school.subtype data.
+     * Specific rule is that if the school contains the specified school_subtype and if the espData does not contain that key then then add the espResponseValue
+     * @param espData
+     * @param espResponseKey Key in results model that my need to be enhanced
+     * @param espResponseValue Database value to match
+     * @param school
+     * @param school_subtype
+     */
+    private void enhanceEspResultKey(Map<String,List<EspResponse>> espData, String espResponseKey, String espResponseValue, School school, String school_subtype) {
+        if( espData==null || espResponseKey==null || espResponseValue== null || school==null || school_subtype==null ) {
+            return;
+        }
+
+        // See if the school.subtype contains the specified subtype
+        SchoolSubtype subtype = school.getSubtype();
+        if( subtype.contains(school_subtype) ) {
+            // Have matching subtype, see if it needs to be added to the results
+            List<EspResponse> existingValues = espData.get(espResponseKey);
+            if( existingValues == null || existingValues.size() == 0 ) {
+                // Since there is no existing value add the specified espResponseValue
+                existingValues = new ArrayList<EspResponse>(1);
+                existingValues.add( createEspResponse( espResponseKey, espResponseValue ) );
+                espData.put( espResponseKey, existingValues );
             }
         }
+    }
+
+    /**
+     * Create an EspResponse from a key and value
+     * @param key
+     * @param value
+     * @return
+     */
+    private EspResponse createEspResponse( String key, String value ) {
+        EspResponse r = new EspResponse();
+        r.setKey(key);
+        r.setValue(value);
+        EspResponseHelper.fillInPrettyValue(r);
+        r.setActive(false); // This can be used as a flag that this is enhanced data
+
+        return r;
     }
 
     /**
@@ -512,6 +613,27 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             return sb.toString();
         }
         return null;
+    }
+
+    private List<String> formatAmPm( List<String> strings ) {
+        if( strings == null ) return null;
+
+        List<String> newStrings = new ArrayList<String>(strings.size());
+
+        for( String s : strings ) {
+            newStrings.add(formatAmPm(s));
+        }
+
+        return newStrings;
+    }
+
+    private String formatAmPm( String timeStr ) {
+        if( timeStr == null ) return null;
+
+        timeStr = StringUtils.replace( timeStr, "AM", "a.m." );
+        timeStr = StringUtils.replace( timeStr, "PM", "p.m." );
+
+        return timeStr;
     }
 
     /**
@@ -595,24 +717,48 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
     }
 
+    /* *****************************************************************************************************
+       *        Utility Functions
+       *****************************************************************************************************
+     */
     // Little helper to get the last bean
     public static SchoolProfileDisplayBean getLastDisplayBean() {
         return DISPLAY_CONFIG.get( DISPLAY_CONFIG.size() - 1);
     }
 
-//    // The following setter dependency injection is just for the tester
-//    public void setIEspResponseDao( IEspResponseDao espResponseDao ) {
-//        _espResponseDao = espResponseDao;
-//    }
-//
+    /**
+     * Checks the espData for a key containing the specified value
+     * @param espData
+     * @param key
+     * @param value the value to look for using EspResponse.getValue()
+     * @return
+     */
+    private boolean espDataContains( Map<String, List<EspResponse>> espData, String key, String value) {
+        if( espData == null || key == null || value == null ) {
+            return false;
+        }
+
+        List<EspResponse> espResponses = espData.get(key);
+        if( espResponses == null || espResponses.size() == 0 ) {
+            return false;
+        }
+
+        for( EspResponse e : espResponses ) {
+            if( e.getValue().equals(value) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /* *****************************************************************************************************
+       *        Unit test support functions
+       *****************************************************************************************************
+     */
+
     // The following setter dependency injection is just for the tester
     public void setSchoolProfileDataHelper( SchoolProfileDataHelper schoolProfileDataHelper ) {
         _schoolProfileDataHelper = schoolProfileDataHelper;
-    }
-
-    // This function is just to support the tester
-    public Set<String> getKeyValuesToExtract() {
-        return _keyValuesToExtract;
     }
 
     public void setSchoolProfileCultureController(SchoolProfileCultureController schoolProfileCultureController) {
@@ -707,7 +853,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
         getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
-        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, artsAbbrev, artsTitle, "Performing arts",
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, artsAbbrev, artsTitle, "Performing and written arts",
                 "arts_performing_written"));
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
@@ -868,8 +1014,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Programs section
         sectionAbbrev = "Programs";
         sectionTitle = "Programs";
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Instructional and/or curriculum models used",
-                "instructional_model" ) );
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Instructional and/or curriculum models used",
+                "instructional_model"));
         getLastDisplayBean().addKeyWithValueFormatting("instructional_model_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_IF_NOT_ONLY_VALUE);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Specific academic themes or areas of focus",
@@ -897,8 +1043,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Resources section
         sectionAbbrev = "Resources";
         sectionTitle = "Resources";
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Staff resources available to students",
-                "staff_resources" ) );
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Staff resources available to students",
+                "staff_resources"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Foreign languages spoken by staff",
                 "staff_languages"));
         getLastDisplayBean().addKeyWithValueFormatting("staff_languages_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
@@ -910,7 +1056,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "college_prep"));
         getLastDisplayBean().addKeyWithValueFormatting("college_prep_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School-run shuttle from nearby metro and bus stops",
-                "transportation_shuttle"));
+                "transportation_shuttle", new String[]{"yes"} ));
         getLastDisplayBean().addSupportInfo("transportation_shuttle_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Transportation provided for students by the school / district",
                 "transportation"));
@@ -932,8 +1078,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Sports section
         String sectionAbbrev = "Sports";
         String sectionTitle = "Sports";
-        DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Boys sports",
-                "boys_sports" ) );
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Boys sports",
+                "boys_sports"));
         getLastDisplayBean().addKeyWithValueFormatting("boys_sports_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Girls sports",
