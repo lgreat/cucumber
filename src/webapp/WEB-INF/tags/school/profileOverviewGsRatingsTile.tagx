@@ -31,42 +31,45 @@
                     <c:set var="climateRating" value="${gsRatingsModel.climateRating}"/>
                     <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
 
-                    <p class="small bottom">Academic<span class="fr">${academicRating}</span></p>
+                    <p class="small bottom mvs">Academic<span class="small_bold bottom fr">${academicRating}</span></p>
                     <hr class="keyline2"/>
-                    <p class="small bottom">Climate<span class="fr">${climateRating}</span></p>
+                    <p class="small bottom mvs">Climate<span class="small_bold bottom fr">${climateRating}</span></p>
                     <hr class="keyline2"/>
-                    <p class="small_bold bottom">Overall<span class="fr">${overallRating}</span></p>
+                    <p class="small bottom mvs">Overall<span class="iconx24-ratings-rb i-24-ratings${overallRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
                     <hr class="keyline2"/>
-                    <div class="line ptm mts">
+                    <div class="line mts">
                         <div class="unit size33of100">
                             <div class="media">
                                 <div class="img">
-                                    <div class="mvs mrm" style="width:6px;height:6px;border:1px solid #ae3333;background-color:#c84949;"><!-- do not collapse --></div>
+                                    <span class="iconx12 i-12-rating_key-red mrs"><!-- do not collapse --></span>
                                 </div>
-                                <div class="bd">
-                                    <p class="smaller bottom">Low<br/>(1-3)</p>
+                                <div class="bd fl">
+                                    <p class="smaller bottom">1-3</p>
                                 </div>
                             </div>
+                            <p class="smaller mbm">Below avg</p>
                         </div>
                         <div class="unit size33of100">
                             <div class="media">
                                 <div class="img">
-                                    <div class="mvs mrm" style="width:6px;height:6px;border:1px solid #c09d11;background-color:#e9be15;"><!-- do not collapse --></div>
+                                    <span class="iconx12 i-12-rating_key-yellow mrs"><!-- do not collapse --></span>
                                 </div>
-                                <div class="bd">
-                                    <p class="smaller bottom">Avg<br/>(4-6)</p>
+                                <div class="bd fl">
+                                    <p class="smaller bottom">4-7</p>
                                 </div>
                             </div>
+                            <p class="smaller mbm">Average</p>
                         </div>
                         <div class="unit size34of100 last Unit">
                             <div class="media">
                                 <div class="img">
-                                    <div class="mvs mrm" style="width:6px;height:6px;border:1px solid #59974a;background-color:#70b160;"><!-- do not collapse --></div>
+                                    <span class="iconx12 i-12-rating_key-green mrs"><!-- do not collapse --></span>
                                 </div>
-                                <div class="bd">
-                                    <p class="smaller bottom">High<br/>(7-10)</p>
+                                <div class="bd fl">
+                                    <p class="smaller bottom">8-10</p>
                                 </div>
                             </div>
+                            <p class="smaller mbm">Above avg</p>
                         </div>
                     </div>
                 </div>
