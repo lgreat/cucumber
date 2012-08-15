@@ -602,14 +602,16 @@
                                 <param>jquery/plugins/bgiframe/2.1.1/jquery.bgiframe.min.js</param>
                                 <param>jquery/plugins/timepicker/jquery.ptTimeSelect.js</param>
                                 <param>global.js</param>
+                                <param>trackIt.js</param>
                                 <param>topnavpromo.js</param>
                                 <param>topnav.js</param>
                                 <param>gs_jquery_extensions.js</param>
+                                <param>modal/modalManager.js</param>
                                 <param>hover-v1.js</param>
                                 <param>house_ads.js</param>
                                 <param>deferredcontent.js</param>
                                 <param>externalTracking.js</param>
-                                <param>trackIt.js</param>
+
                             </jsSourceFiles>
                             <jsFinalFile>combined-v1.js</jsFinalFile>
                             <jsTargetDir>/res/js</jsTargetDir>
