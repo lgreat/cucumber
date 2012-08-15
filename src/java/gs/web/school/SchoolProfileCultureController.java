@@ -166,7 +166,7 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         if( isNotEmpty(facebook) ) {
             facebookUrl = cleanUpUrl( facebook.get(0).getSafeValue(), "facebook.com" );
             if( facebookUrl != null ) {
-                validFacebookPage = isValidFacebookPage(facebookUrl);
+                validFacebookPage = true;//isValidFacebookPage(facebookUrl);
             }
         }
 
