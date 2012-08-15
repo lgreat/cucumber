@@ -317,7 +317,7 @@
 
 
         <!-- Address, phone, fax, directions, homes for sale -->
-        <div class="bd">
+        <div class="bd fl">
             <p class="small bottom mbm">${school.physicalAddress.street}
 
                 <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">

@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
@@ -35,33 +36,37 @@
             <c:choose>
                 <c:when test="${not empty cmsResults}">
                     <div class="media">
-                        <div class="img mrl">
                             <!-- show the image for the first video if that exists -->
                             <c:choose>
                                 <c:when test="${!empty videoResult}">
-                                    <span class="mrm"><img src="${videoResult.imageUrl}"/></span>
+                                    <gsml:img src="${videoResult.imageUrl}" width="100" height="70" alt="placeholder" styleClass="img mrm"/>
                                 </c:when>
                                 <c:otherwise>
-                                    <span class="iconx96 i-96-video_placeholder mrm"><!-- do not collapse --></span>
+                                    <gsml:img src="/res/img/module/placeholder/tile14_70x100.png" width="100" height="70" alt="placeholder" styleClass="img mrm"/>
                                 </c:otherwise>
                             </c:choose>
-                        </div>
-                        <div class="bd">
-                            <ul class="small bottom mvm">
+                        <div class="bd fl">
+                            <ul class="small bottom mvm none">
                                 <!-- show the video first in the list -->
                                 <c:if test="${!empty videoResult}">
                                     <li>
-                                        <link:cmsContent contentKey="${videoResult.contentKey}" fullUri="${videoResult.fullUri}" >
+                                        <div class="media">
+                                        <span class="iconx16 i-16-${fn:toLowerCase(videoResult.contentType)} img mrs"><!-- do not collapse --></span>
+                                        <link:cmsContent contentKey="${videoResult.contentKey}" fullUri="${videoResult.fullUri}" styleClass="bd">
                                             <c:out value="${videoResult.title}" escapeXml="false"/>
                                         </link:cmsContent>
+                                        </div>
                                     </li>
                                 </c:if>
                                 <c:forEach var="item" items="${cmsResults}">
                                     <c:if test="${empty videoResult or videoResult.contentKey ne item.contentKey}">
                                         <li>
-                                            <link:cmsContent contentKey="${item.contentKey}" fullUri="${item.fullUri}" >
+                                            <div class="media">
+                                            <span class="iconx16 i-16-${fn:toLowerCase(item.contentType)} img mrs"><!-- do not collapse --></span>
+                                            <link:cmsContent contentKey="${item.contentKey}" fullUri="${item.fullUri}" styleClass="bd">
                                                 <c:out value="${item.title}" escapeXml="false"/>
                                             </link:cmsContent>
+                                            </div>
                                         </li>
                                     </c:if>
                                     <!--<li>CMS Id: ${item.contentId}, Title: ${item.title}, Content Type: ${item.contentType}, Thumbnail url: ${item.previewImageUrl}</li>-->

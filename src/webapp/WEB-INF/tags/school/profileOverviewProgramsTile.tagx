@@ -26,7 +26,7 @@
             <school:profileOverviewCell1 title="${t10dc}">
                 <div class="mvm mrm">
                     <ul class="small bottom">
-                        <c:set var="showMax" value="${4}"/>
+                        <c:set var="showMax" value="${3}"/>
                         <c:forEach var="item" items="${programsModel['resultsList']}" varStatus="status">
                             <c:if test="${status.count le showMax}">
                                 <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
@@ -51,7 +51,7 @@
                     <c:otherwise>
                         <div class="mvm mrm">
                             <ul class="small bottom">
-                                <c:set var="showMax" value="${4}"/>
+                                <c:set var="showMax" value="${3}"/>
                                 <c:forEach var="item" items="${programsModel['substitute1List']}" varStatus="status">
                                     <c:if test="${status.count le showMax}">
                                         <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
@@ -71,7 +71,7 @@
             <school:profileOverviewCell1 title="${t10s2}">
                 <div class="mvm mrm">
                     <ul class="small bottom">
-                        <c:set var="showMax" value="${4}"/>
+                        <c:set var="showMax" value="${3}"/>
                         <c:forEach var="item" items="${programsModel['substitute2List']}" varStatus="status">
                             <c:if test="${status.count le showMax}">
                                 <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
