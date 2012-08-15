@@ -21,6 +21,13 @@
         <c:set var="totalResults" value="${page.pager.totalItems}"/>
         <input type="hidden" id="jq-omniturePageName" value="${omniturePageName}"/>
 
+        <c:set var="searchResultsPagingSummary">
+            <div class="js-search-results-paging-summary text3">
+                Showing ${page.offset+1}-${page.lastOffsetOnPage+1} of
+                <strong><span id="total-results-count">${totalResults} </span>schools</strong>
+            </div>
+        </c:set>
+
         <search:schoolSearchResultsNavigation pageOffset="${page.offset+1}" pageLastOffsetOnPage="${page.lastOffsetOnPage+1}" pageTotalItems="${totalResults}" tabSelect="list" />
 
         <div class="alpha grid_16 omega">
