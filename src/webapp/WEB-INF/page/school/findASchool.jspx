@@ -62,7 +62,7 @@
                 <input type="hidden" name="zipCode"/>
 
                 <div class="searchBarFas">
-                    <h6 class="fltlft bottom"><input type="text" name="searchString" class="searchInput small bottom"
+                    <h6 class="fltlft bottom"><input type="text" name="locationSearchString" class="searchInput small bottom"
                                                      id="js-findByLocationBox"
                                                      onfocus="GS_textSwitch(this, '', '   Search by city AND state or address ...');"
                                                      onblur="GS_textSwitch(this, '   Search by city AND state or address ...', '');"

@@ -90,11 +90,11 @@
 
         function submitByLocationSearch() {
             var byLocationForm = $('#jq-findByLocationForm');
-            var searchQuery = byLocationForm.find('input[name="searchString"]').val();
+            var searchQuery = byLocationForm.find('input[name="locationSearchString"]').val();
             searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
 
             if (searchQuery != '' && searchQuery.search("^[0-9].*$") !== -1) {
-                byLocationForm.find('input[name="searchString"]').val(searchQuery);
+                byLocationForm.find('input[name="locationSearchString"]').val(searchQuery);
 
                 //GS-12100 Since its a by location search, strip the words 'schools' from google geocode searches.
                 var searchQueryWithFilteredStopWords = searchQuery;
@@ -355,7 +355,7 @@
                         </select>
                         <label for="zipCode" class="introText unit mhs"> miles of </label>
                         <input type="text" value="Zip code" id="zipCode" class="unit size5of18 mls mrl text2"
-                               name="searchString"
+                               name="locationSearchString"
                                onfocus="textSwitch(this, '', 'Zip code');"
                                onblur="textSwitch(this, 'Zip code', '');"/>
                         <!--<input type="hidden" name="redirectUrl" value="${nearbySearchRedirectUrl}"/>-->

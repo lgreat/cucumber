@@ -21,12 +21,12 @@ GS.findASchool.loadResultsPage = function() {
 
 GS.findASchool.submitByLocationSearch = function() {
     var byLocationForm = $('#jq-findByLocationForm');
-    var searchQuery = byLocationForm.find('input[name="searchString"]').val();
+    var searchQuery = byLocationForm.find('input[name="locationSearchString"]').val();
     searchQuery = searchQuery.replace(/^\s*/, "").replace(/\s*$/, "");
 
     if (searchQuery != '' &&
         searchQuery != 'Search by city AND state or address ...' && !GS.findASchool.isTermState(searchQuery)) {
-        byLocationForm.find('input[name="searchString"]').val(searchQuery);
+        byLocationForm.find('input[name="locationSearchString"]').val(searchQuery);
 
         //GS-12100 Since its a by location search, strip the words 'schools' from google geocode searches.
         var searchQueryWithFilteredStopWords = searchQuery;
