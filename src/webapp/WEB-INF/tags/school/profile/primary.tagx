@@ -70,7 +70,7 @@
                 </li>
             </c:if>
             <c:if test="${(!empty testscores) or (!empty ratings)}">
-                <li><a id="js_test-scores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}" title="${schoolName} | Tests &amp;amp; ratings" class="${requestScope.schoolProfileTabMap['test-scores-master']}">Tests &amp;amp; ratings</a>
+                <li><a id="js_test-scores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}" title="${schoolName} | Tests &amp;amp; ratings" class="${requestScope.schoolProfileTabMap['test-scores-master']}">Test scores</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.testscores} arrowdiv" id="arrowdiv"></div>-->
 
