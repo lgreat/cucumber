@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <jsp:directive.attribute name="key" required="true" type="java.lang.String" description="ESP answer key"/>
+    <jsp:directive.attribute name="useBullets" required="false" type="java.lang.Boolean" description="whether or not to use list bullets"/>
+
+
+    <c:set var="numberOfItems" value="${fn:length(espResults[pageScope.key])}" scope="page"/>
+
+    <c:if test="${numberOfItems gt 0}">
+        <c:choose>
+            <c:when test="${pageScope.useBullets}">
+                <ul>
+                    <c:forEach items="${espResults[pageScope.key]}" var="item">
+                        <c:if test="${!(numberOfItems gt 1 and item.value eq 'none')}">
+                            <li>${item.prettyValue} </li>
+                        </c:if>
+                    </c:forEach>
+                </ul>
+            </c:when>
+            <c:otherwise>
+                <c:forEach items="${espResults[pageScope.key]}" var="item">
+                    <c:if test="${!(numberOfItems gt 1 and item.value eq 'none')}">
+                        ${item.prettyValue} <br/>
+                    </c:if>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+    </c:if>
+
+</jsp:root>

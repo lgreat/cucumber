@@ -40,13 +40,13 @@
                 <c:if test="${fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0
                     or fn:length(espResults['post_graduation_2yr']) gt 0 or fn:length(espResults['post_graduation_4yr']) gt 0 or fn:length(espResults['post_graduation_military']) gt 0
                     or fn:length(espResults['post_graduation_vocational']) gt 0 or fn:length(espResults['post_graduation_workforce']) gt 0
-                    or fn:length(espResults['destination_school_1']) gt 0 or fn:length(espResults['destination_school_2']) gt 0 or fn:length(espResults['destination_school_3']) gt 0
+                    or fn:length(espResults['college_destination_1']) gt 0 or fn:length(espResults['college_destination_2']) gt 0 or fn:length(espResults['college_destination_3']) gt 0
                 }">
 
                     <div class="mod standard_1-1">
                     <div class="inner">
                     <div class="hd">
-                        <h4 class="pvm plm bottom">Schools</h4>
+                        <h4 class="pvm plm bottom">College Readiness and Acceptance</h4>
                     </div>
                     <div class="bd pan">
                     <table class="tableType1">
@@ -55,7 +55,7 @@
                         <c:set var="rowColorCounter" value="1" />
 
 
-                            <c:if test="${fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0}">
+                            <c:if test="${fn:contains(school.levelCode, 'h') and (fn:length(espResults['feeder_school_1']) gt 0 or fn:length(espResults['feeder_school_2']) gt 0 or fn:length(espResults['feeder_school_3']) gt 0)}">
                                 <c:choose>
                                     <c:when test='${(rowColorCounter)%2 eq 0}'>
                                         <c:set var="rowColor" value="even" scope="page"/>
@@ -67,13 +67,9 @@
                                 <tr class="${rowColor}" >
                                     <td>Students typically attend these schools prior to attending this school</td>
                                     <td>
-                                        ${espResults['feeder_school_1'][0].prettyValue}
-                                        <c:if test="${fn:length(espResults['feeder_school_2']) gt 0}">
-                                            <br/>${espResults['feeder_school_2'][0].prettyValue}
-                                        </c:if>
-                                        <c:if test="${fn:length(espResults['feeder_school_3']) gt 0}">
-                                            <br/>${espResults['feeder_school_3'][0].prettyValue}
-                                        </c:if>
+                                        <school:espPrettyValueList key="feeder_school_1" useBullets="${false}"/>
+                                        <school:espPrettyValueList key="feeder_school_2" useBullets="${false}"/>
+                                        <school:espPrettyValueList key="feeder_school_3" useBullets="${false}"/>
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
@@ -90,7 +86,7 @@
                                 <tr class="${rowColor}" >
                                     <td>Percentage of students going to 2-year college</td>
                                     <td>
-                                        ${espResults['post_graduation_2yr'][0].prettyValue}} (${espResults['post_graduation_year'][0].prettyValue})
+                                        ${espResults['post_graduation_2yr'][0].prettyValue} (${espResults['post_graduation_year'][0].prettyValue})
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
@@ -107,7 +103,7 @@
                                 <tr class="${rowColor}" >
                                     <td>Percentage of students going to 4-year college</td>
                                     <td>
-                                        ${espResults['post_graduation_4yr'][0].prettyValue}} (${espResults['post_graduation_year'][0].prettyValue})
+                                        ${espResults['post_graduation_4yr'][0].prettyValue} (${espResults['post_graduation_year'][0].prettyValue})
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
@@ -124,7 +120,7 @@
                                 <tr class="${rowColor}" >
                                     <td>Percentage of students going to the military</td>
                                     <td>
-                                        ${espResults['post_graduation_military'][0].prettyValue}} (${espResults['post_graduation_year'][0].prettyValue})
+                                        ${espResults['post_graduation_military'][0].prettyValue} (${espResults['post_graduation_year'][0].prettyValue})
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
@@ -141,7 +137,7 @@
                                 <tr class="${rowColor}" >
                                     <td>Percentage of students going to vocational programs</td>
                                     <td>
-                                        ${espResults['post_graduation_vocational'][0].prettyValue}} (${espResults['post_graduation_year'][0].prettyValue})
+                                        ${espResults['post_graduation_vocational'][0].prettyValue} (${espResults['post_graduation_year'][0].prettyValue})
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
@@ -158,12 +154,12 @@
                                 <tr class="${rowColor}" >
                                     <td>Percentage of students going directly into the workforce</td>
                                     <td>
-                                        ${espResults['post_graduation_workforce'][0].prettyValue}} (${espResults['post_graduation_year'][0].prettyValue})
+                                        ${espResults['post_graduation_workforce'][0].prettyValue} (${espResults['post_graduation_year'][0].prettyValue})
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
                             </c:if>
-                            <c:if test="${fn:length(espResults['destination_school_1']) gt 0 or fn:length(espResults['destination_school_2']) gt 0 or fn:length(espResults['destination_school_3']) gt 0}">
+                            <c:if test="${fn:length(espResults['college_destination_1']) gt 0 or fn:length(espResults['college_destination_2']) gt 0 or fn:length(espResults['college_destination_3']) gt 0}">
                                 <c:choose>
                                     <c:when test='${(rowColorCounter)%2 eq 0}'>
                                         <c:set var="rowColor" value="even" scope="page"/>
@@ -175,13 +171,9 @@
                                 <tr class="${rowColor}" >
                                     <td>Colleges most students attend after graduation</td>
                                     <td>
-                                        ${espResults['destination_school_1'][0].prettyValue}
-                                        <c:if test="${fn:length(espResults['destination_school_2']) gt 0}">
-                                            <br/>${espResults['destination_school_2'][0].prettyValue}
-                                        </c:if>
-                                        <c:if test="${fn:length(espResults['destination_school_3']) gt 0}">
-                                            <br/>${espResults['destination_school_3'][0].prettyValue}
-                                        </c:if>
+                                        <school:espPrettyValueList key="college_destination_1" useBullets="${false}"/>
+                                        <school:espPrettyValueList key="college_destination_2" useBullets="${false}"/>
+                                        <school:espPrettyValueList key="college_destination_3" useBullets="${false}"/>
                                     </td>
                                 </tr>
                                 <c:set var="rowColorCounter" value="${rowColorCounter + 1}" />
@@ -223,7 +215,7 @@
                     <div class="mod standard_1-1">
                         <div class="inner">
                             <div class="hd">
-                                <h4 class="pvm plm bottom">Schools</h4>
+                                <h4 class="pvm plm bottom">Teacher Resources</h4>
                             </div>
                             <div class="bd pan">
                     <table class="tableType1">
@@ -249,7 +241,7 @@
                                 <tr class="${rowColor}" >
                                     <td>School leader&apos;s name</td>
                                     <td>
-                                        ${espResults['administrator_name'][0].prettyValue}}
+                                        <school:espPrettyValueList key="administrator_name" useBullets="${false}"/>
                                     </td>
                                 </tr>
                             </c:if>
@@ -266,9 +258,7 @@
                                 <tr class="${rowColor}" >
                                     <td>Special staff resources available to students</td>
                                     <td>
-                                        <c:forEach items="${espResults['staff_resources']}" var="resource">
-                                            ${resource.prettyValue} <br/>
-                                        </c:forEach>
+                                        <school:espPrettyValueList key="staff_resources" useBullets="${false}"/>
                                     </td>
                                 </tr>
                             </c:if>
@@ -285,12 +275,8 @@
                                 <tr class="${rowColor}" >
                                     <td>Foreign languages spoken by school staff</td>
                                     <td>
-                                        <c:forEach items="${espResults['staff_languages']}" var="language">
-                                            ${language.prettyValue} <br/>
-                                        </c:forEach>
-                                        <c:if test="${fn:length(espResults['staff_languages_other']) gt 0}">
-                                            ${espResults['staff_languages_other'][0].prettyValue}
-                                        </c:if>
+                                        <school:espPrettyValueList key="staff_languages" useBullets="${false}"/>
+                                        <school:espPrettyValueList key="staff_languages_other" useBullets="${false}"/>
                                     </td>
                                 </tr>
                             </c:if>

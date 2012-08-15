@@ -93,20 +93,26 @@
 
             <jsp:scriptlet>
                 <![CDATA[
-                    java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
-                    java.util.List descriptions = (java.util.ArrayList) footnotes.get(statsTab);
-                    if (descriptions == null) {
-                        descriptions = new java.util.ArrayList();
+                java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
+                //java.util.Map footnotes = new java.util.HashMap();
+                java.util.List descriptions = (java.util.ArrayList) footnotes.get(statsTab);
+                if (descriptions == null) {
+                    descriptions = new java.util.ArrayList();
+                }
+                for (CensusDescription description : (((SchoolProfileStatsDisplayRow)jspContext.getAttribute("row")).getCensusDescriptions())) {
+                    if (!descriptions.contains(description)) {
+                        descriptions.add(description);
                     }
-                    for (CensusDescription description : (((SchoolProfileStatsDisplayRow)jspContext.getAttribute("row")).getCensusDescriptions())) {
-                        if (!descriptions.contains(description)) {
-                            descriptions.add(description);
-                        }
-                    }
-                    footnotes.put(statsTab, descriptions);
-                    jspContext.setAttribute("footnotes", footnotes);
-                    footnotesForThisTable.add(descriptions.size());
+                }
+                footnotes.put(statsTab, descriptions);
+                jspContext.setAttribute("footnotes", footnotes);
+                footnotesForThisTable.add(descriptions.size());
+                if (((SchoolProfileStatsDisplayRow)jspContext.getAttribute("row")).isManualOverride()) {
+                    jspContext.setAttribute("thisFootnote", "*");
+                    jspContext.setAttribute("hasManualOverride", true);
+                } else {
                     jspContext.setAttribute("thisFootnote", descriptions.size());
+                }
                 ]]>
             </jsp:scriptlet>
 
@@ -154,7 +160,7 @@
                     </c:choose>
                 </c:if>
                 <td class="tac"><div class="grayBoxForPieChartLegend" style=" background-color: ${schoolColorToShow};"><!-- do not collapse --></div></td>
-                <td>${row.text}<!--<sup>[<a name="id${thisFootnote}" href="#ftn.id${thisFootnote}">${thisFootnote}</a>]</sup>--></td>
+                <td>${row.text} <sup>${thisFootnote}</sup></td>
                 ${schoolScoreToShow}
                 <!--<c:if test="${showDistrictData}">-->
                     <!--<c:choose>-->
@@ -187,18 +193,21 @@
     <div class="smaller pbm tar">
         <c:forEach items="${footnotesForThisTable}" var="footnoteIndex">
             <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->
-            Source: ${(footnotes[statsTab])[footnoteIndex-1].source}
+            Source <sup>${footnoteIndex}</sup> ${(footnotes[statsTab])[footnoteIndex-1].source}, ${rows[0].year-1}-${rows[0].year}<br/>
+            <c:if test="${hasManualOverride}">
+                * Manually entered by a school official
+            </c:if>
         </c:forEach>
     </div>
 </c:if>
 
 <jsp:scriptlet>
     <![CDATA[
-            java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
-            java.util.List descriptions = (java.util.List) footnotes.get(statsTab);
-            if (descriptions != null) {
-                request.setAttribute("footnotesCount", descriptions.size());
-            }
+    java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
+    java.util.List descriptions = (java.util.List) footnotes.get(statsTab);
+    if (descriptions != null) {
+        request.setAttribute("footnotesCount", descriptions.size());
+    }
         ]]>
 </jsp:scriptlet>
 </jsp:root>

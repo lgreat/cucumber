@@ -40,6 +40,7 @@
             <![CDATA[
                 java.util.Set footnotesForThisTable = new java.util.HashSet<Integer>();
                 jspContext.setAttribute("footnotesForThisTable", footnotesForThisTable);
+                jspContext.setAttribute("hasManualOverride", false);
             ]]>
         </jsp:scriptlet>
 
@@ -73,6 +74,7 @@
                 <jsp:scriptlet>
                 <![CDATA[
                     java.util.Map footnotes = (java.util.Map) request.getAttribute("footnotes");
+                    //java.util.Map footnotes = new java.util.HashMap();
                     java.util.List descriptions = (java.util.ArrayList) footnotes.get(statsTab);
                     if (descriptions == null) {
                         descriptions = new java.util.ArrayList();
@@ -85,7 +87,12 @@
                     footnotes.put(statsTab, descriptions);
                     jspContext.setAttribute("footnotes", footnotes);
                     footnotesForThisTable.add(descriptions.size());
-                    jspContext.setAttribute("thisFootnote", descriptions.size());
+                    if (((SchoolProfileStatsDisplayRow)jspContext.getAttribute("row")).isManualOverride()) {
+                        jspContext.setAttribute("thisFootnote", "*");
+                        jspContext.setAttribute("hasManualOverride", true);
+                    } else {
+                        jspContext.setAttribute("thisFootnote", descriptions.size());
+                    }
                 ]]>
                 </jsp:scriptlet>
 
@@ -98,7 +105,7 @@
                     </c:otherwise>
                 </c:choose>
                 <tr class="${rowColor}" >
-                    <td>${row.text}<!--<sup>[<a name="id${thisFootnote}" href="#ftn.id${thisFootnote}">${thisFootnote}</a>]</sup>--></td>
+                    <td>${row.text} <sup>${thisFootnote}</sup></td>
                     <c:if test="${showSchoolData}">
                         <c:choose>
                             <c:when test="${not empty row.schoolValue}">
@@ -143,7 +150,10 @@
         <div class="smaller pbm tar">
         <c:forEach items="${footnotesForThisTable}" var="footnoteIndex">
             <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->
-            Source: ${(footnotes[statsTab])[footnoteIndex-1].source}
+            Source <sup>${footnoteIndex}</sup> ${(footnotes[statsTab])[footnoteIndex-1].source}, ${rows[0].year-1}-${rows[0].year}<br/>
+            <c:if test="${hasManualOverride}">
+                * Manually entered by a school official
+            </c:if>
         </c:forEach>
         </div>
     </c:if>

@@ -14,8 +14,9 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
     private String _stateValue;
     private Set<CensusDescription> _censusDescriptions;
     private Integer _year;
+    private boolean _manualOverride;
 
-    public SchoolProfileStatsDisplayRow(Long groupId, Integer censusDataSetId, String text, String schoolValue, String districtValue, String stateValue, Set<CensusDescription> censusDescriptions, Integer year) {
+    public SchoolProfileStatsDisplayRow(Long groupId, Integer censusDataSetId, String text, String schoolValue, String districtValue, String stateValue, Set<CensusDescription> censusDescriptions, Integer year, boolean manualOverride) {
         _groupId = groupId;
         _censusDataSetId = censusDataSetId;
         _text = text;
@@ -24,6 +25,7 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
         _stateValue = stateValue;
         _censusDescriptions = censusDescriptions;
         _year = year;
+        _manualOverride = manualOverride;
     }
 
     public Long getGroupId() {
@@ -52,5 +54,21 @@ public class SchoolProfileStatsDisplayRow implements Serializable {
 
     public Integer getYear() {
         return _year;
+    }
+
+    public Integer getCensusDataSetId() {
+        return _censusDataSetId;
+    }
+
+    public void setCensusDataSetId(Integer censusDataSetId) {
+        _censusDataSetId = censusDataSetId;
+    }
+
+    public boolean isManualOverride() {
+        return _manualOverride;
+    }
+
+    public void setManualOverride(boolean manualOverride) {
+        _manualOverride = manualOverride;
     }
 }

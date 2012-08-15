@@ -235,7 +235,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 }
             }
 
-            Set<CensusDescription> source = entry.getValue().getCensusDescription();
+            Set<CensusDescription> source = censusDataSet.getCensusDescription();
 
             // filter out rows where school, district, and state values are all N/A
             if (censusValueNotEmpty(schoolValue) || censusValueNotEmpty(districtValue) || censusValueNotEmpty(stateValue) ) {
@@ -248,7 +248,8 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                     districtValue,
                     stateValue,
                     source,
-                    entry.getValue().getYear()
+                    entry.getValue().getYear(),
+                    censusDataSet.getSchoolOverrideValue() != null
                 );
 
                 List<SchoolProfileStatsDisplayRow> statsRows = statsRowMap.get(groupId);
