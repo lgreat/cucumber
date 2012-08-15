@@ -31,9 +31,9 @@
                     <c:set var="climateRating" value="${gsRatingsModel.climateRating}"/>
                     <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
 
-                    <p class="small bottom mvs">Academic<span class="small_bold bottom fr">${academicRating}</span></p>
+                    <p class="small bottom mvs">Academic<span class="small_bold bottom fr mrs">${academicRating}</span></p>
                     <hr class="keyline2"/>
-                    <p class="small bottom mvs">Climate<span class="small_bold bottom fr">${climateRating}</span></p>
+                    <p class="small bottom mvs">Climate<span class="small_bold bottom fr mrs">${climateRating}</span></p>
                     <hr class="keyline2"/>
                     <p class="small bottom mvs">Overall<span class="iconx24-ratings-rb i-24-ratings${overallRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
                     <hr class="keyline2"/>
