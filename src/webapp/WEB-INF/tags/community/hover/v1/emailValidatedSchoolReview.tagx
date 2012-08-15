@@ -3,7 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
     <div id="emailValidatedSchoolReviewHover" class=" dn">
-    <div class="mod modal_1 width_13 " id="emailValidatedSchoolReviewHover">
+    <div class="mod modal_1 width_12 " id="emailValidatedSchoolReviewHover">
     <div class="outer">
     <div class="inner">
     <div class="bd">
@@ -13,6 +13,6 @@
         <p><strong>Welcome to GreatSchools! </strong>
             <span class="fillMeIn"><!--filled in by JS--></span></p>
 
-        <button class="button-1 emailValidatedSchoolReviewHover_hideHover" type="button">OK</button>
+        <button class="button-1 js_closeHover" type="button">OK</button>
     </div></div></div></div></div>
 </jsp:root>

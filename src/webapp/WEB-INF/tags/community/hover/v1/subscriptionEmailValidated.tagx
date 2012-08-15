@@ -3,8 +3,8 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
 
-    <div id="subscriptionEmailValidated" class=" dn">
-    <div class="mod modal_1 width_17 " id="subscriptionEmailValidated">
+    <div id="subscriptionEmailValidated" class="dn">
+    <div class="mod modal_1 width_13" id="subscriptionEmailValidated">
     <div class="outer">
     <div class="inner">
     <div class="bd">

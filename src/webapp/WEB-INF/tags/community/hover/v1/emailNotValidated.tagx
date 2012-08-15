@@ -22,8 +22,9 @@
     <div class="hoverTitle hd">
         <div class="fl"><h2 class="bottom" >Your email needs to be verified</h2></div>
         <div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeHover"><!-- do not collapse --></a></div>
+        <div class="clearFloat" style="clear: both"><!-- do not collapse --></div>
     </div>
-    <div class="bd">
+    <div class="bd ptm">
         <p><strong>Oops! You haven't verified your email address yet.</strong>
             To do so, please click on the link in the email we sent you.
             Can't find the email? Click the button below to receive a new one.

@@ -38,24 +38,24 @@
             <input type="hidden" id="hdnSchoolId" name="id"/>
             <input type="hidden" id="hdnSchoolState" name="state"/>
 
-            <div id="agreeError" class="error"><!-- dont collapse-->You must agree to continue</div>
+            <div id="agreeError" class="errorOld">You must agree to continue</div>
 
             <div class="spacer_10"><!-- do not collapse --></div>
 
             <input name="agree" id="agree" type="checkbox" value="agree"/>
             <label for="agree">Yes, I am an official at this school. </label>
 
-            <div class="spacer_10"><!-- do not collapse --></div>
 
-            <div class="line">
 
-                <div class="unit size1of6">
-                    <button class="button-1"
+            <div class="line ptm">
+
+                <div class="unit size3of6">
+                    <button class="button-1 mrl"
                             type="button"
                             id="submitPrincipalConfirmation">Continue
                     </button>
                 </div>
-                <div class="unit size5of6 lastUnit">
+                <div class="mll unit size2of6 lastUnit">
                     <button class="button-1 js_closeHover"
                             type="button"
                             >Cancel

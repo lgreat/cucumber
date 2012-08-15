@@ -29,6 +29,9 @@ GSType.hover.HoverDialog = function(id,width) {
     this.width = width;
     this.initialized = false;
     this.show = function() {
+        this.showModal();
+    };
+    this.showModal = function(){
         var self = this;
         if (!this.initialized) {
             this.dialogByWidth();
@@ -1181,16 +1184,21 @@ GSType.hover.PrincipalConfirmation = function() {
     this.loadDialog = function() {
         //this.dialogByWidth();
     };
-
+//    console.log("hoverID:" + this.hoverId);
     this.show = function(id, state) {
-        if (!this.initialized) {
-            this.dialogByWidth();
-            this.initialized = true;
-        }
+//        if (!this.initialized) {
+//            this.dialogByWidth();
+//            this.initialized = true;
+//        }
         jQuery('#principalConfirmationForm #hdnSchoolId').val(id);
         jQuery('#principalConfirmationForm #hdnSchoolState').val(state);
         jQuery('#principalConfirmationForm').attr("action", "/school/principalComments.page");
-        jQuery('#' + this.hoverId).dialog('open');
+        console.log("hoverID:" + this);
+//        jQuery('#' + this.hoverId).showModal();
+//        jQuery('#' + this.hoverId).showModal();
+        // TODO: this is not working scope issue
+        GSType.hover.principalConfirmation.showModal();
+
         return false;
     };
 };
@@ -1245,7 +1253,9 @@ GSType.hover.CompareSchoolsLimitReached = function() {
         pageTracking.hierarchy = 'Compare,8Maximum_Hover';
         pageTracking.send();
 
-        jQuery('#' + this.hoverId).dialog('open');
+        // TODO: this doesn't work scope is off
+        GSType.hover.compareSchoolsLimitReached.showModal();
+//        jQuery('#' + this.hoverId).dialog('open');
         return false;
     };
 };

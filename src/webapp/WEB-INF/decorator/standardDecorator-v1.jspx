@@ -73,11 +73,14 @@
     <communityHover:emailNotValidated/>
     <communityHover:emailValidated/>
     <communityHover:editEmailValidated/>
+    <communityHover:espPreApprovalEmail/>
     <communityHover:validationLinkExpired/>
     <communityHover:join/>
     <communityHover:signIn/>
     <communityHover:forgotPassword/>
     <communityHover:schoolReviewThankYou/>
+    <communityHover:schoolReviewPosted schoolName="${schoolName}"/>
+    <communityHover:interruptSurvey surveyType="overview"/>
     <communityHover:emailValidatedSchoolReview/>
     <profile:principalConfirmHover/>
     <profile:principalReviewSubmitted/>
@@ -85,15 +88,37 @@
     <communityHover:espAccountVerified/>
 
     <!-- TODO Remove after testing complete -->
-    <link:registration
+    <c:if test="${param.showHovers eq 'true'}">
+    <ol>
+        <li><link:registration
             onclick="GSType.hover.joinHover.showJoinGlobalHeader(); return false;"
-            email="${requestScope.context.email}">Join Us</link:registration>
-    <br />
-    <link:loginOrRegister email="${requestScope.context.email}"
+            email="${requestScope.context.email}">Join Us</link:registration></li>
+        <li><link:loginOrRegister email="${requestScope.context.email}"
                           onclick="GSType.hover.signInHover.showHover('${requestScope.context.email}', document.location.href, GSType.hover.joinHover.showJoinGlobalHeader); return false;"
-                          redirect="${myUrl}">Sign In</link:loginOrRegister>
-    <br />
+                          redirect="${myUrl}">Sign In</link:loginOrRegister></li>
+        <li><a href="" onclick="GSType.hover.forgotPassword.show(); return false;">forgotPassword</a></li>
+        <li><a href="" onclick="GSType.hover.editEmailValidated.show(); return false;">editEmailValidated</a></li>
+        <li><a href="" onclick="GSType.hover.emailNotValidated.show(); return false;">emailNotValidated</a></li>
+        <li><a href="" onclick="GSType.hover.emailValidatedSchoolReview.show(); return false;">emailValidatedSchoolReview</a></li>
+        <li><a href="" onclick="GSType.hover.emailValidated.show(); return false;">emailValidated</a></li>
+        <li><a href="" onclick="GSType.hover.espAccountVerified.show(); return false;">espAccountVerified</a></li>
+        <!--<li><a href="" onclick="GSType.hover.espOtherEditors.show(); return false;">espOtherEditors</a></li>-->
+        <li><a href="" onclick="GSType.hover.validateLinkExpired.show(); return false;">validateLinkExpired</a></li>
+        <li><a href="" onclick="GSType.hover.validateEmailSchoolReview.show(); return false;">validateEmailSchoolReview</a></li>
+        <li><a href="" onclick="GSType.hover.validateEmail.show(); return false;">validateEmail</a></li>
+        <li><a href="" onclick="GSType.hover.validateEditEmail.show(); return false;">validateEditEmail</a></li>
+        <li><a href="" onclick="GSType.hover.espAccountVerified.show(); return false;">espAccountVerified</a></li>
+        <li><a href="" onclick="GSType.hover.espPreApprovalEmail.show(); return false;">espPreApprovalEmail</a></li>
+        <li><a href="" onclick="GSType.hover.interruptSurvey.show(); return false;">interruptSurvey</a></li>
+        <li><a href="" onclick="GSType.hover.schoolReviewPosted.show(); return false;">schoolReviewPosted</a></li>
+        <li><a href="" onclick="GSType.hover.subscriptionEmailValidated.show(); return false;">subscriptionEmailValidated</a></li>
+        <li><a href="" onclick="GSType.hover.principalConfirmation.showModal(); return false;">principalConfirmation</a></li>
+        <li><a href="" onclick="GSType.hover.principalReviewSubmitted.show(); return false;">principalReviewSubmitted</a></li>
+        <li><a href="" onclick="GSType.hover.compareSchoolsLimitReached.showModal(); return false;">compareSchoolsLimitReached</a></li>
+        <!--<li><a href="" onclick="GSType.hover.interruptSurvey.show(); return false;">interruptSurvey</a></li>-->
 
+    </ol>
+    </c:if>
     </body>
   </html>
 

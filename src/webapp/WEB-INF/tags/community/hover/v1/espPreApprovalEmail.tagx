@@ -20,15 +20,16 @@
     <div class="mod modal_1 width_13 " id="js_espPreApprovalEmailHover">
     <div class="outer">
     <div class="inner">
-    <div class="bd">
-    <!--<div id="js_espPreApprovalEmailHover" class="dialog_white" style="display:none;">-->
-        <h2>Your email needs to be verified</h2>
+        <div class="hd"><div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeHover"><!-- do not collapse --></a></div></div>
+        <div class="bd">
+        <!--<div id="js_espPreApprovalEmailHover" class="dialog_white" style="display:none;">-->
+            <h2>Your email needs to be verified</h2>
 
-        <p><strong>Oops! You haven't verified your email address yet.</strong>
-            To do so, please click on the link in the email we sent you.
-            Can't find the email? Click the button below to receive a new one.
-        </p>
+            <p><strong>Oops! You haven't verified your email address yet.</strong>
+                To do so, please click on the link in the email we sent you.
+                Can't find the email? Click the button below to receive a new one.
+            </p>
 
-        <button class="button-1" type="button" id="js_sendEspPreApprovalEmail">Send a new email</button>
+            <button class="button-1" type="button" id="js_sendEspPreApprovalEmail">Send a new email</button>
     </div></div></div></div></div>
 </jsp:root>

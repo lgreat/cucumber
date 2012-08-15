@@ -6,7 +6,8 @@
     <div class="mod modal_1 width_13 " id="espAccountVerified">
     <div class="outer">
     <div class="inner">
-    <div class="bd">
+        <div class="hd"><div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeHover"><!-- do not collapse --></a></div></div>
+        <div class="bd">
     <!--<div id="espAccountVerified" class="dialog_white" style="display:none;">-->
         <h2>Your account is now active</h2>
 

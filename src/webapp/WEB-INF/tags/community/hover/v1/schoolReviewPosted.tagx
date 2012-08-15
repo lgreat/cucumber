@@ -3,12 +3,12 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
         >
     <jsp:directive.attribute name="schoolName" type="java.lang.String"
-                             description="Name of the school to put in the bosy of the message."
+                             description="Name of the school to put in the body of the message."
                              required="true"/>
 
     <!-- would like to namespace this div but it gets rewritten by jquery-ui -->
-    <div id="schoolReviewPosted" class=" dn">
-    <div class="mod modal_1 width_13 " id="schoolReviewPosted">
+    <div id="schoolReviewPosted" class="dn">
+    <div class="mod modal_1 width_17" id="schoolReviewPosted">
     <div class="outer">
     <div class="inner">
     <div class="bd">
@@ -34,9 +34,9 @@
                 .FBConnectButton_RTL_Small.FBConnectButton_Text{margin-right:25px}
                 a.FBConnectButton_RTL_Small:active{background-position:right -371px}
             </style>
-                <div style="display:none;" class="prl fltlft" id="js_fbshare_div"><a name="fb_share" type="button" href="http://www.facebook.com/sharer.php" id="js_fbshare_schoolReviewPosted" style="font-size: 20px">Share on Facebook</a></div>
+                <div  class="prl fl" id="js_fbshare_div"><a class="button-1" name="fb_share" type="button" href="http://www.facebook.com/sharer.php" id="js_fbshare_schoolReviewPosted">Share on Facebook</a></div>
 
-                <div style="display: inline-block;"><button class="button-1 js_closeHover" type="button">No, thanks</button></div>
+                <div class="fl"><button class="button-1 js_closeHover" type="button">No, thanks</button></div>
             </div>
         </div>
     </div>
