@@ -151,10 +151,13 @@
         <c:forEach items="${footnotesForThisTable}" var="footnoteIndex">
             <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->
             Source <sup>${footnoteIndex}</sup> ${(footnotes[statsTab])[footnoteIndex-1].source}, ${rows[0].year-1}-${rows[0].year}<br/>
+        </c:forEach>
             <c:if test="${hasManualOverride}">
+                <c:if test="${fn:length(footnotesForThisTable) gt 0}">
+                    <br/>
+                </c:if>
                 * Manually entered by a school official
             </c:if>
-        </c:forEach>
         </div>
     </c:if>
 
