@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: LinkTagHandlerTest.java,v 1.94 2011/09/16 00:18:08 ssprouse Exp $
+ * $Id: LinkTagHandlerTest.java,v 1.95 2012/08/15 17:23:25 aroy Exp $
  */
 
 package gs.web.jsp.link;
@@ -8,6 +8,7 @@ package gs.web.jsp.link;
 import gs.data.content.cms.CmsContent;
 import gs.data.content.cms.ContentKey;
 import gs.data.school.Grade;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.data.school.district.District;
 import gs.data.state.State;
@@ -25,7 +26,6 @@ import gs.web.jsp.link.microsite.*;
 import gs.web.request.RequestInfo;
 import gs.web.util.UrlBuilder;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletContext;
 
 import javax.servlet.jsp.JspException;
@@ -817,5 +817,53 @@ public class LinkTagHandlerTest extends BaseTestCase {
         
         UrlBuilder builder = handler.createUrlBuilder();
         assertEquals("/find-schools/", builder.asSiteRelative(null));
+    }
+
+    public void testDistrictBoundaryTool() {
+        String baseUrl = "/school-district-boundaries-map/";
+        DistrictBoundaryTagHandler handler = new DistrictBoundaryTagHandler();
+        handler.setPageContext(new MockPageContext());
+
+        assertEquals(baseUrl, handler.createUrlBuilder().asSiteRelative(null));
+
+        School school = new School();
+        school.setId(1);
+        school.setDatabaseState(State.CA);
+        school.setLevelCode(LevelCode.ALL_LEVELS);
+
+        handler.setSchool(school);
+        assertEquals(baseUrl + "?level=e&schoolId=1&state=CA", handler.createUrlBuilder().asSiteRelative(null));
+
+        school.setLevelCode(LevelCode.ELEMENTARY);
+        assertEquals(baseUrl + "?level=e&schoolId=1&state=CA", handler.createUrlBuilder().asSiteRelative(null));
+
+        school.setLevelCode(LevelCode.MIDDLE);
+        assertEquals(baseUrl + "?level=m&schoolId=1&state=CA", handler.createUrlBuilder().asSiteRelative(null));
+
+        school.setLevelCode(LevelCode.HIGH);
+        assertEquals(baseUrl + "?level=h&schoolId=1&state=CA", handler.createUrlBuilder().asSiteRelative(null));
+
+        school.setLevelCode(LevelCode.PRESCHOOL);
+        assertEquals(baseUrl + "?level=p&schoolId=1&state=CA", handler.createUrlBuilder().asSiteRelative(null));
+
+        school.setLevelCode(LevelCode.ELEMENTARY_MIDDLE_HIGH);
+        assertEquals(baseUrl + "?level=e&schoolId=1&state=CA", handler.createUrlBuilder().asSiteRelative(null));
+
+        school.setLevelCode(LevelCode.MIDDLE_HIGH);
+        assertEquals(baseUrl + "?level=m&schoolId=1&state=CA", handler.createUrlBuilder().asSiteRelative(null));
+
+        school.setDistrictId(2);
+        assertEquals(baseUrl + "?districtId=2&level=m&schoolId=1&state=CA", handler.createUrlBuilder().asSiteRelative(null));
+
+        school.setDistrictId(0);
+        assertEquals(baseUrl + "?level=m&schoolId=1&state=CA", handler.createUrlBuilder().asSiteRelative(null));
+
+        handler.setLat(45.07469940185547);
+        handler.setLon(-93.2970962524414);
+        assertEquals("Expect lat/lon ignored when school provided",
+                baseUrl + "?level=m&schoolId=1&state=CA", handler.createUrlBuilder().asSiteRelative(null));
+
+        handler.setSchool(null);
+        assertEquals(baseUrl + "?lat=45.07469940185547&lon=-93.2970962524414", handler.createUrlBuilder().asSiteRelative(null));
     }
 }

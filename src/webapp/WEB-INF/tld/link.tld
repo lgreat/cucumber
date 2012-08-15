@@ -4687,5 +4687,49 @@
             <description>School</description>
         </attribute>
     </tag>
+    <tag>
+        <name>districtBoundaryTool</name>
+        <tag-class>gs.web.jsp.link.DistrictBoundaryTagHandler</tag-class>
+        <body-content>JSP</body-content>
+        <display-name>District Boundary Tool</display-name>
+        <description>
+            <![CDATA[District Boundary Tool]]>
+        </description>
+        <attribute>
+            <name>school</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>gs.data.school.School</type>
+            <description>School to auto highlight</description>
+        </attribute>
+        <attribute>
+            <name>lat</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Double</type>
+            <description>Latitude</description>
+        </attribute>
+        <attribute>
+            <name>lon</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Double</type>
+            <description>Longitude</description>
+        </attribute>
+        <attribute>
+            <name>onclick</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>JavaScript onclick attribute</description>
+        </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML class attribute</description>
+        </attribute>
+    </tag>
 
 </taglib>

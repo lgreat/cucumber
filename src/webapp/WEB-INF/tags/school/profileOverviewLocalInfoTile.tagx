@@ -77,7 +77,9 @@
                         </div>
                     </c:if>
 
-                    <p class="small bottom tac"><a href="javascript:void(0);">See district boundaries</a></p>
+                    <p class="small bottom tac">
+                        <link:districtBoundaryTool school="${school}">See district boundaries</link:districtBoundaryTool>
+                    </p>
                 </div>
             </school:profileOverviewCell1>
         </c:when>

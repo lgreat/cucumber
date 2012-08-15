@@ -298,26 +298,20 @@
     <c:set var="mapMarkerParam" value="icon:http://www.greatschools.org${mapMarkerUrl}|${schoolAddress}"/>
 
     <div class="media">
-        <c:set var="districtParam" value=""/>
-        <c:if test="${school.districtId ne 0}">
-            <c:set var="districtParam" value="&amp;amp;districtId=${school.districtId}"/>
-        </c:if>
-
         <div class="img mrm">
             <div class="mod standard_1-1 mbs">
                 <div class="inner">
                     <div class="bd">
-                        <a href="/school-district-boundaries-map/?schoolId=${school.id}&amp;amp;state=${school.databaseState}${districtParam}">
+                        <link:districtBoundaryTool school="${school}">
                             <img height="98" width="148" alt="Map thumbnail"
                                  src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=148x98&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
-                        </a>
+                        </link:districtBoundaryTool>
                     </div>
                 </div>
             </div>
 
             <p class="smaller">
-                <a onclick="if (s.tl) { s.tl(this, 'o', 'header_largermap'); }"
-                   href="/school-district-boundaries-map/?schoolId=${school.id}&amp;amp;state=${school.databaseState}${districtParam}">Larger map</a>
+                <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'header_largermap'); }">Larger map</link:districtBoundaryTool>
             </p>
         </div>
 

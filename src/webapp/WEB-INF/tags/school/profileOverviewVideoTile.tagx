@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
         >
 
     <jsp:directive.attribute name="videoModel" type="java.lang.Object" required="true"/>
@@ -26,7 +27,7 @@
             <c:if test="${school.districtId ne 0}">
                 <c:set var="districtParam" value="&amp;amp;districtId=${school.districtId}"/>
             </c:if>
-            <a class="tdn" href="/school-district-boundaries-map/?schoolId=${school.id}&amp;amp;state=${school.databaseState}${districtParam}">
+            <link:districtBoundaryTool styleClass="tdn" school="${school}">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner bg-districtMap">
@@ -42,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </link:districtBoundaryTool>
         </c:otherwise>
     </c:choose>
 
