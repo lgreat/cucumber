@@ -14,7 +14,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
     var writeCompareNowLink = function(schoolId, state) {
         //The 'compare' label should be switched to 'compare now' link.
         var compareLabel = $('#js_' + state + schoolId + '_compare_label');
-        compareLabel.html('<a href="#" class="js_compare_link noInterstitial">Compare Now</a>');
+        compareLabel.html('<a href="javascript:void(0);" class="js_compare_link noInterstitial">Compare Now</a>');
     };
 
     var removeCompareNowLinks = function(schoolId, state) {
@@ -114,7 +114,7 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
 
         // Bind the behavior when clicking on the compare now link that appears when at least two schools are checked
         $(body).on('click', '.js_compare_link', function() {
-            GS.school.compare.compareSchools();
+            return GS.school.compare.compareSchools();
         });
     };
 

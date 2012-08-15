@@ -321,9 +321,17 @@ GS.search.results = GS.search.results || (function() {
         );
     }
 
+    var onDistanceChanged = function() {
+        var $this=$(this);
+        if (s && $this.is(':checked')) {
+            s.prop47 = $this.val();
+        }
+    };
+
     var attachEventHandlers = function() {
         jQuery('#page-size').change(onDisplayResultsSizeChanged);
         jQuery('#map-sort').change(function(){onSortChangedForMap($(this).find(":selected").val());});
+        jQuery('#js-radius').on('change', 'input', onDistanceChanged);
         jQuery('#sort-by').change(onSortChanged);
         $(body).on('click', listResultsLinkSelector, function() {
             if(GS.uri.Uri.getFromQueryString('view') === undefined) {
