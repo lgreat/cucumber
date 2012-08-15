@@ -622,7 +622,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        assertEquals( "testExtdCareB: default content expected", "Before school", resultsModel.get("ExtdCareBefore") );
+        assertEquals( "testExtdCareB: default content expected", new Boolean(true), resultsModel.get("ExtdCareBefore") );
+        assertEquals( "testExtdCareB: default content expected", new Boolean(false), resultsModel.get("ExtdCareAfter") );
         System.out.println("testExtdCareB successful");
     }
 
@@ -637,7 +638,9 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        assertEquals( "testExtdCareC: default content expected", "Before school: Starts 7:00 AM", resultsModel.get( "ExtdCareBefore") );
+        assertEquals( "testExtdCareC: default content expected", new Boolean(true), resultsModel.get("ExtdCareBefore") );
+        assertEquals( "testExtdCareC: default content expected", new Boolean(false), resultsModel.get("ExtdCareAfter") );
+        assertEquals( "testExtdCareC: default content expected", "7:00 AM", resultsModel.get( "ExtdCareBeforeTime") );
         System.out.println( "testExtdCareC successful" );
     }
 
@@ -650,7 +653,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        assertEquals( "testExtdCareD: default content expected", "After school", resultsModel.get( "ExtdCareAfter") );
+        assertEquals( "testExtdCareD: default content expected", new Boolean(false), resultsModel.get("ExtdCareBefore") );
+        assertEquals( "testExtdCareD: default content expected", new Boolean(true), resultsModel.get("ExtdCareAfter") );
         System.out.println( "testExtdCareD successful" );
     }
 
@@ -664,7 +668,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        assertEquals( "testExtdCareE: default content expected", "After school: Ends 4:00 PM", resultsModel.get( "ExtdCareAfter") );
+        assertEquals( "testExtdCareE: default content expected", new Boolean(true), resultsModel.get("ExtdCareAfter") );
+        assertEquals( "testExtdCareE: default content expected", "4:00 PM", resultsModel.get( "ExtdCareAfterTime") );
         System.out.println( "testExtdCareE successful" );
     }
 
@@ -678,8 +683,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        assertEquals( "testExtdCareF: default content expected", "Before school", resultsModel.get( "ExtdCareBefore") );
-        assertEquals( "testExtdCareF: default content expected", "After school", resultsModel.get( "ExtdCareAfter") );
+        assertEquals( "testExtdCareF: default content expected", new Boolean(true), resultsModel.get("ExtdCareBefore") );
+        assertEquals( "testExtdCareF: default content expected", new Boolean(true), resultsModel.get("ExtdCareAfter") );
         System.out.println( "testExtdCareF successful" );
     }
 
@@ -695,8 +700,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map resultsModel = _schoolProfileOverviewController.getSpecialEdEspTile( _request, _school, espData );
 
-        assertEquals( "testExtdCareC: default content expected", "Before school: Starts 7:00 AM", resultsModel.get( "ExtdCareBefore") );
-        assertEquals( "testExtdCareE: default content expected", "After school: Ends 4:00 PM", resultsModel.get( "ExtdCareAfter") );
+        assertEquals( "testExtdCareF: default content expected", new Boolean(true), resultsModel.get("ExtdCareBefore") );
+        assertEquals( "testExtdCareF: default content expected", new Boolean(true), resultsModel.get("ExtdCareAfter") );
+        assertEquals( "testExtdCareC: default content expected", "7:00 AM", resultsModel.get( "ExtdCareBeforeTime") );
+        assertEquals( "testExtdCareE: default content expected", "4:00 PM", resultsModel.get( "ExtdCareAfterTime") );
         System.out.println( "testExtdCareF successful" );
     }
 

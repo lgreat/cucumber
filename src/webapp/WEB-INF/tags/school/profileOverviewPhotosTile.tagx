@@ -34,7 +34,7 @@
                             <ul class="unordered-carousel none">
                                 <c:forEach var="review" items="${images}">
                                     <li>
-                                        <img src="${basePath}${images[0].mediumSizeFile}" alt="Photos of this school" width="130" height="130"/>
+                                        <img src="${basePath}${review.mediumSizeFile}" alt="Photos of this school" width="130" height="130"/>
                                     </li>
                                 </c:forEach>
                             </ul>

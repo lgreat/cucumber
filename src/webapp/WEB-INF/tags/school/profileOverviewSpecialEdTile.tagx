@@ -37,9 +37,13 @@
 
                 <!-- The following variable will contain 'call' if the school is to be called.  Otherwise it will be empty and there is before/after data to display -->
                 <c:set var="extdCareProvided" value="${specialEdModel['ExtdCareProvided']}" scope="page" />
-                <!-- Before and after information to be displayed -->
+                <!-- Before and after information to be displayed.  These will have the boolean valuse of treu or false -->
                 <c:set var="extdCareBefore"   value="${specialEdModel['ExtdCareBefore']}" scope="page" />
                 <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
+                <!-- Before and after times.  These will have the time value or empty if none -->
+                <c:set var="extdCareBeforeTime"   value="${specialEdModel['ExtdCareBeforeTime']}" scope="page" />
+                <c:set var="extdCareAfterTime"    value="${specialEdModel['ExtdCareAfterTime']}"  scope="page" />
+
                 <div class="mam">
                 <c:choose>
                     <c:when test="${not empty specEdPgms}">

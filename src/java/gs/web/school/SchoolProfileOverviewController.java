@@ -54,6 +54,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String SPORTS_MODEL_KEY = "sports";
 
     private static final String SCHOOL_VISIT_CHECKLIST_MODEL_KEY = "schoolVisit";
+    private static final String VIDEO_TOUR_MODEL_KEY = "videoTour";
+    private static final String BOUNDARY_TOOL_MODEL_KEY = "boundaryTool";
 
     private static final int VIDEO_ELEMENTARY = 6857;
     private static final int VIDEO_MIDDLE = 6856;
@@ -118,13 +120,12 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         model.put(BEST_KNOWN_FOR_MODEL_KEY, getBestKnownForQuoteEspTile(school, espData));
 
         // Tile 1 - Default: Ratings, Substitute 1: Awards, Substitute 2: Autotext(About this school)
-        //  Waiting for research team to investigate Ratings
         model.put( RATINGS_BREAKDOWN_MODEL_KEY, getGsRatingsEspTile(request, school, espData) );
 
         // Title 2 - Default: Photos, Substitute 1: Principal CTA
         model.put(PHOTOS_MODEL_KEY, getPhotosEspTile(request, school));
 
-        // Title 3 - Default: Videos, Substitute 1: Information from CMS
+        // Title 3 - Default: Videos, Substitute 1: Boundary Tool Promo
         model.put( VIDEO_MODEL_KEY, getVideoEspTile(request, school, espData) );
 
         // Title 4 - Default: Community ratings, Substitute 1: Review CTA
@@ -137,7 +138,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         model.put( DIVERSITY_MODEL_KEY, getDiversityEspTile(request, school) );
 
         // Title 8 - Default: Special education/extended care, Substitute 1: Nearby schools teaser
-        // This is all ESP data and complicated rules.  DO SOON
         model.put( SPECIAL_EDUCATION_MODEL_KEY, getSpecialEdEspTile(request, school, espData) );
 
         // Title 9 - Default: Transportation, Substitute 1: Students per teacher / average class size, Substitute 2: School boundry tool promo
@@ -153,7 +153,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoEspTile(request, school) );
 
         // Titles 14&15 - Default: Related content, Substitute 1:
-        model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school) );
+        model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school, 5) );
 
         // 7th row is Facebook integration
         model.put(FACEBOOK_MODEL_KEY, getFacebookTile( request, school, espData) );
@@ -294,10 +294,13 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 enrollment = enrollmentSCV.getValueInteger();
         }
         if( school.getName()!=null && school.getName().length()>0 &&
-                school.getType()!=null && school.getType().getSchoolTypeName().length()>0 &&
-                enrollment!=null ) {
+                school.getType()!=null && school.getType().getSchoolTypeName().length()>0 ) {
+            String enrollmentStr = " ";  // if no enrollment use a space
+            if( enrollment!=null ) {
+                enrollmentStr = Integer.toString( enrollment.intValue() );
+            }
             sentence.append( school.getName() ).append( " is a " ).append( school.getType().getSchoolTypeName() ).
-                    append( " school serving " ).append( enrollment.intValue() ).append( " students" );
+                    append( " school serving " ).append( enrollmentStr ).append( " students" );
         }
         // From the spec create sentence 1.3 if the data is present
         if( school.getGradeLevels()!= null ) {
@@ -458,19 +461,27 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     Map getVideoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
-        Map<String, Object> model = new HashMap<String, Object>(2);
+        Map<String, Object> model = null;
 
         // Get all of the data needed to make the required decisions
         List<EspResponse> video = espData.get("school_video");
         if( isNotEmpty( video ) ) {
+            model = new HashMap<String, Object>(2);
             model.put( "content", "video" );
             model.put( "videoUrl", video.get(0).getSafeValue() );
         }
         else {
             // Substitute action, school boundary tool promo
-            model.put( "content", "schoolBoundaryToolPromo" );
+            model = getBoundaryToolModel();
         }
 
+        return model;
+    }
+
+    Map getBoundaryToolModel() {
+
+        Map<String, Object> model = new HashMap<String, Object>(2);
+        model.put( "content", "schoolBoundaryToolPromo" );
         return model;
     }
 
@@ -692,33 +703,41 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 // handle display based on contents of beforeAfterCare
                 boolean hasBeforeCare = checkEspResponseListForValue(beforeAfterCare, new String[]{"before"});
                 boolean hasAfterCare  = checkEspResponseListForValue(beforeAfterCare, new String[]{"after"});
-                if( isEmpty(beforeAfterCare) ) {
-                    // before or after not specified
-                    if( isNotEmpty(beforeAfterCareStart) ) {
-                        specialEdModel.put( "ExtdCareBefore", "Starts: " + beforeAfterCareStart.get(0).getSafeValue() );
-                    }
-                    if( isNotEmpty(beforeAfterCareEnd) ) {
-                        specialEdModel.put( "ExtdCareAfter", "Ends: " + beforeAfterCareEnd.get(0).getSafeValue() );
-                    }
+                specialEdModel.put( "ExtdCareBefore", new Boolean(hasBeforeCare) );
+                specialEdModel.put( "ExtdCareAfter", new Boolean(hasAfterCare) );
+                if( isNotEmpty(beforeAfterCareStart) ) {
+                    specialEdModel.put( "ExtdCareBeforeTime", beforeAfterCareStart.get(0).getSafeValue() );
                 }
-                if( hasBeforeCare ) {
-                    // before care is specified
-                    StringBuffer sb = new StringBuffer("Before school");
-                    if( isNotEmpty(beforeAfterCareStart) ) {
-                        // Add start time
-                        sb.append(": Starts ").append( beforeAfterCareStart.get(0).getSafeValue() );
-                    }
-                    specialEdModel.put( "ExtdCareBefore", sb.toString() );
+                if( isNotEmpty(beforeAfterCareEnd) ) {
+                    specialEdModel.put( "ExtdCareAfterTime", beforeAfterCareEnd.get(0).getSafeValue() );
                 }
-                if( hasAfterCare ) {
-                    // before care is specified
-                    StringBuffer sb = new StringBuffer("After school");
-                    if( isNotEmpty(beforeAfterCareEnd) ) {
-                        // Add end time
-                        sb.append(": Ends ").append(beforeAfterCareEnd.get(0).getSafeValue());
-                    }
-                    specialEdModel.put( "ExtdCareAfter", sb.toString() );
-                }
+//                if( isEmpty(beforeAfterCare) ) {
+//                    // before or after not specified
+//                    if( isNotEmpty(beforeAfterCareStart) ) {
+//                        specialEdModel.put( "ExtdCareBefore", "Starts: " + beforeAfterCareStart.get(0).getSafeValue() );
+//                    }
+//                    if( isNotEmpty(beforeAfterCareEnd) ) {
+//                        specialEdModel.put( "ExtdCareAfter", "Ends: " + beforeAfterCareEnd.get(0).getSafeValue() );
+//                    }
+//                }
+//                if( hasBeforeCare ) {
+//                    // before care is specified
+//                    StringBuffer sb = new StringBuffer("Before school");
+//                    if( isNotEmpty(beforeAfterCareStart) ) {
+//                        // Add start time
+//                        sb.append(": Starts ").append( beforeAfterCareStart.get(0).getSafeValue() );
+//                    }
+//                    specialEdModel.put( "ExtdCareBefore", sb.toString() );
+//                }
+//                if( hasAfterCare ) {
+//                    // before care is specified
+//                    StringBuffer sb = new StringBuffer("After school");
+//                    if( isNotEmpty(beforeAfterCareEnd) ) {
+//                        // Add end time
+//                        sb.append(": Ends ").append(beforeAfterCareEnd.get(0).getSafeValue());
+//                    }
+//                    specialEdModel.put( "ExtdCareAfter", sb.toString() );
+//                }
             }
             else {
                 // No specific content is available - show call school message
@@ -1331,13 +1350,13 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return null;
     }
 
-    private Map getRelatedEspTile(HttpServletRequest request, School school) {
+    private Map getRelatedEspTile(HttpServletRequest request, School school, int numArticles) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
         // Default action
         Map<String, List<EspResponse>> espData = _schoolProfileDataHelper.getEspDataForSchool(request);
-        List<ICmsFeatureSearchResult> cmsResults = _schoolProfileDataHelper.getCmsRelatedContent(request, espData, 5);
+        List<ICmsFeatureSearchResult> cmsResults = _schoolProfileDataHelper.getCmsRelatedContent(request, espData, numArticles);
 
         model.put( "content", "default" );
         model.put( "cmsResults", cmsResults );
@@ -1436,16 +1455,17 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private void handleNonEspPage(ModelMap model, HttpServletRequest request, School school) {
 
         // Tile 1 - Default: Ratings, Substitute: Autotext(About this school)
-        //  Waiting for research team to investigate Ratings
         model.put( RATINGS_BREAKDOWN_MODEL_KEY, getGsRatingsTileNoOsp(request, school) );
 
         // Title 2 - Default: Photos, Substitute 1: Principal CTA
         model.put(PHOTOS_MODEL_KEY, getPhotosEspTile(request, school));
 
-        // Title 3 - Default: Videos, Substitute 1: Information from CMS
-        model.put( VIDEO_MODEL_KEY, getTourVideoModel(request, school) );
+//        // Title 3 - Default: Videos, Substitute 1: Information from CMS
+//        model.put( VIDEO_MODEL_KEY, getTourVideoModel(request, school) );
+        // Title 3 - Default: Boundary tool promo (This is in the profileOverviewVideoTile.tagx because it is substitute on ESP page), Substitute: none
+        model.put( VIDEO_MODEL_KEY, getBoundaryToolModel());
 
-        // Title 4 - Default: Community ratings, Substitute 1: Review CTA
+                // Title 4 - Default: Community ratings, Substitute 1: Review CTA
         model.put( COMMUNITY_RATING_MODEL_KEY, getCommunityRatingEspTile(request, school) );
 
         // Titles 5&6 - Default: Reviews carousel, Substitute 1: Review CTA
@@ -1454,14 +1474,16 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Title 7 - Default: Student diversity, Substitute 1: Generic text about diversity
         model.put( DIVERSITY_MODEL_KEY, getDiversityEspTile(request, school) );
 
+//        // Title 8 - Default: School visit checklist
+//        model.put( SCHOOL_VISIT_CHECKLIST_MODEL_KEY, getSchoolVisitChecklistTile(request, school) );
         // Title 8 - Default: School visit checklist
-        model.put( SCHOOL_VISIT_CHECKLIST_MODEL_KEY, getSchoolVisitChecklistTile(request, school) );
+        model.put( VIDEO_TOUR_MODEL_KEY, getTourVideoModel(request, school) );
 
-        // Title 9 - Default: Transportation, Substitute 1: Students per teacher / average class size, Substitute 2: School boundry tool promo
+        // Title 9 - Default: Transportation, Substitute 1: Students per teacher / average class size, Substitute 2: School boundary tool promo
         model.put( LOCAL_INFO_MODEL_KEY, getLocalInfoEspTile(request, school) );
 
         // Row 4 - Default: Related content
-        model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school) );
+        model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school, 6) );
 
         return;
     }
