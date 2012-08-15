@@ -94,6 +94,11 @@ GS.profile = GS.profile || (function() {
         name: "programsAndCulture",
         selector: "#js_programs-culture"
     };
+    tabs.admissions = {
+        name: "admissions",
+        selector: "#js_application",
+        parent: tabs.programsAndCulture
+    };
     tabs.highlights = {
         name: "highlights",
         selector: "#js_highlights",
