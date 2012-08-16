@@ -109,6 +109,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public static final String MODEL_CITY_BROWSE = "isCityBrowse";
     public static final String MODEL_DISTRICT_BROWSE = "isDistrictBrowse";
     public static final String MODEL_IS_NEARBY_SEARCH = "isNearbySearch";
+    public static final String MODEL_IS_SEARCH = "isSearch";
     public static final String MODEL_IS_AJAX_REQUEST = "isAjaxRequest";
 
     public static final int MAX_PAGE_SIZE = 100;
@@ -208,6 +209,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         model.put(MODEL_STATE, commandAndFields.getState());
         model.put(MODEL_IS_NEARBY_SEARCH, schoolSearchCommand.isNearbySearch());
         model.put(MODEL_IS_AJAX_REQUEST, schoolSearchCommand.isAjaxRequest());
+        boolean isSearch = !commandAndFields.isCityBrowse() && !commandAndFields.isDistrictBrowse();
+        model.put(MODEL_IS_SEARCH, isSearch);
 
         ModelAndView modelAndView;
         if (commandAndFields.isCityBrowse()) {
@@ -768,7 +771,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
 
         // QueryString Search Specific:  Put rel canonical value into the model
-        String relCanonical = _queryStringSearchHelper.getRelCanonical(request, commandAndFields.getSearchString(), commandAndFields.getState(), citySearchResults);
+        String relCanonical = _queryStringSearchHelper.getRelCanonical(request, commandAndFields.getSearchString() == null ?
+                commandAndFields.getSchoolSearchCommand().getLocationSearchString() : commandAndFields.getSearchString(), commandAndFields.getState(), citySearchResults);
         if (relCanonical != null) {
             model.put(MODEL_REL_CANONICAL, relCanonical);
         }
