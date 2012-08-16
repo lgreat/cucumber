@@ -27,11 +27,11 @@
                             <div class="outer">
                                 <div class="inner tac">
                                     <div class="hd">
-                                        <img src="" height="87" />
+                                        <div class="iconx96 i-96-conversation-bubbles"><!-- do not collapse --></div>
                                         <h4 class="bottom">Go behind the scenes</h4>
                                     </div>
                                     <div class="bd">
-                                        <a href="" class="small bottom mtm">See the latest buzz at<br />at this school</a>
+                                        <a href="" class="small bottom">See the latest buzz at<br />at this school</a>
                                     </div>
                                 </div>
                             </div>
