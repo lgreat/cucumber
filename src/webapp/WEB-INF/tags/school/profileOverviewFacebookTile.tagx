@@ -19,17 +19,31 @@
 
     <!-- content is "hide" if row is hidden -->
     <c:if test="${content ne 'hide'}">
-        <div class="line">
+        <div class="line mbm">
             <div class="unit size100of100 lastUnit">
-                <c:set var="t16t17t18dc">
-                    <p class="small_bold textshadow-1 pvs plm bottom">Facebook integration</p>
-                </c:set>
-                <school:profileOverviewCell1 title="${t16t17t18dc}">
-                    <!-- Insert display code here -->
-                    <!-- See profileProgramsFacebookTile.tagx for details about how to setup -->
-                    <div class="">Facebook url is: ${facebookUrl}</div>
-
-                </school:profileOverviewCell1>
+                <div class="line">
+                    <div class="unit size32of100">
+                        <div class="mod standard_3-1">
+                            <div class="outer">
+                                <div class="inner tac">
+                                    <div class="hd">
+                                        <img src="" height="87" />
+                                        <h4 class="bottom">Go behind the scenes</h4>
+                                    </div>
+                                    <div class="bd">
+                                        <a href="" class="small bottom mtm">See the latest buzz at<br />at this school</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="unit size2of100">&amp;nbsp;</div>
+                    <div class="unit size66of100 lastUnit">
+                        <![CDATA[
+                        <fb:like-box href="${facebookUrl}" width="416" height="185" border_color="#CCCCCC" show_faces="true" stream="false" header="false"></fb:like-box>
+                        ]]>
+                    </div>
+                </div>
             </div>
         </div>
     </c:if>

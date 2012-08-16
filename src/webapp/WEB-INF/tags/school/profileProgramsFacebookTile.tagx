@@ -16,33 +16,32 @@
 
     <jsp:directive.attribute name="facebookModel" type="java.lang.Object" required="true"/>
     <jsp:directive.attribute name="currentSpace" type="java.lang.String" required="true"/>
+    <!--<jsp:directive.attribute name="testString" type="java.lang.String" required="false"/>-->
     <c:set var="content" value="${facebookModel['content']}" scope="page"/>
     <c:set var="facebookUrl" value="${facebookModel['facebookUrl']}" scope="page"/>
 
     <c:if test="${content eq currentSpace}">
+    <!--<c:if test="true">-->
         <div class="line">
             <div class="unit size100of100 lastUnit">
-                <!-- Randall/Mitch - build the facebook frame here -->
-                <!-- Here is the facebook information.
-                    1. the URL for info about the Like box is at:
-                    2. The following is for html5
-                    3. the following needs to be pasted right after the <body> tag
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-                    4. the code to show the facebook box follows
-<div class="fb-like-box" data-href="${facebookUrl}" data-width="650" data-height="300" data-show-faces="false" data-stream="true" data-header="false"></div>
-                -->
-                <div class="">Facebook url is: ${facebookUrl}</div>
 
-                <c:set var="t2dc">
-                    <p class="small_bold textshadow-1 pvs plm bottom">School photos</p>
-                </c:set>
+                <!--CULTURE PAGE VERSION-->
+                <![CDATA[
+                    <fb:like-box href="${facebookUrl}" width="630" border_color="#CCCCCC"  show_faces="false" stream="true" header="false"></fb:like-box>
+                    ]]>
+
+                <!-- OVERVIEW VERSION-->
+                <!--<![CDATA[-->
+                    <!--<fb:like-box href="http://www.facebook.com/greatschools" width="416" height="185" border_color="#CCCCCC" show_faces="true" stream="false" header="false"></fb:like-box>-->
+                    <!--]]>-->
+                <!-- width for full content area is 630px
+                        width for 2 thirds width is 416px
+                        height home is 185px
+                -->
+                <!--<div class="">Facebook url is: ${facebookUrl}</div>-->
+                <!--<c:set var="t2dc">-->
+                    <!--<p class="small_bold textshadow-1 pvs plm bottom">School photos</p>-->
+                <!--</c:set>-->
             </div>
         </div>
     </c:if>

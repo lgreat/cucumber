@@ -76,9 +76,10 @@
     <script type="text/javascript" src="/res/js/photoGallery.js"><!-- no collapse --></script>
 
     <script type="text/javascript" src="/res/js/mssAutoHoverInterceptor.js"><!-- no collapse --></script>
+    <profile:facebookConfig showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
-
+<div id="fb-root"><!-- do not collapse --></div>
 <!-- Breadcrumbs -->
 <div class="grid_24 clearfix">
     <ul class="none smaller bottom mbs">
@@ -203,7 +204,10 @@
                 <span class="make-dddddd phs">|</span> ${schoolEnrollment} ${gsweb:pluralize(schoolEnrollment, 'student')}
             </c:if>
             </span>
-            <promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
+            <![CDATA[
+    <fb:like href="${gsweb:getRequestHostAndPath(requestInfo.request)}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light" font="arial"></fb:like>
+    ]]>
+            <!--<promo:facebookLikeButton showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>-->
         </div>
 
         <hr class="keyline1"/>
