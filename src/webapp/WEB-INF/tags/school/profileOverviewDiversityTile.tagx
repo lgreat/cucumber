@@ -25,7 +25,7 @@
     <c:set var="largestLabel" value="${diversityModel['largestDiversityLabel']}" scope="page"/>
 
     <c:set var="t7dc">
-        <p class="small_bold textshadow-1 pvs plm bottom">Student diversity</p>
+        <p class="small_bold textshadow-1 pvs plm bottom make-555555">Student diversity</p>
     </c:set>
 
     <a data-gs-show-tab="students" onclick="if (s.tl) { s.tl(this, 'o', 'overview_diversity'); }" class="tdn" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}">
@@ -37,14 +37,14 @@
                 <div class="phl ptm"><profile:pieChart chartData="${diversityMap}" chartDrawDivId="overviewDiversityPieChart" chartSize="150"/>
                 </div>
 
-                <p class="tac small bottom phm pvs">
+                <p class="tac small bottom phm pvs make-555555">
                     <span class="small_bold">${largestValue} of students</span> at this school are ${largestLabel}.
                 </p>
             </c:when>
             <c:otherwise>
                 <!-- Static text is to be displayed when data not available -->
-                <div class="mal pam">
-                    <p class="tac small_bold">Looks like we have no information about the race or ethnicity of the student body.</p>
+                <div class="mal pvm phl">
+                    <p class="tac small make-555555">Looks like we have no information about the race or ethnicity of the student body.</p>
                 </div>
             </c:otherwise>
         </c:choose>

@@ -47,7 +47,7 @@
                 </c:choose>
                 </div>
                 <c:if test="${not empty shuttleStops}">
-                    <div class="">School shuttle from ${shuttleStops}</div>
+                    <p class="small tac mhm">School shuttle from ${shuttleStops}</p>
                 </c:if>
                 <p class="small tac mhm">${message}</p>
             </school:profileOverviewCell1>
@@ -82,7 +82,7 @@
                     </c:set>
                     <school:profileOverviewCell1 title="${t9s1}">
                         <div class="mam">
-                            <p class="big bottom tac">${substitute1StudentsPerTeacher}</p>
+                            <p class="big bottom tac">${studentsPerTeacher}</p>
 
                             <c:choose>
                                 <c:when test="${studentsPerTeacher gt 1}">

@@ -58,28 +58,28 @@
                             </ul>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'yes'}">
-                        <p class="small_bold bottom tac">The school provides a full program for particular needs.</p>
+                        <p class="small bottom tac">The school provides a full program for particular needs.</p>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'basic'}">
-                        <p class="small_bold bottom tac">The school provides services based on the needs of individual students.</p>
+                        <p class="small bottom tac">The school provides services based on the needs of individual students.</p>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'moderate'}">
-                        <p class="small_bold bottom tac">The school provides a full program for particular needs.</p>
+                        <p class="small bottom tac">The school provides a full program for particular needs.</p>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'intensive'}">
-                        <p class="small_bold bottom tac">The school provides a full program for many needs..</p>
+                        <p class="small bottom tac">The school provides a full program for many needs..</p>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'focuses'}">
-                        <p class="small_bold bottom tac">The school focuses on special education.</p>
+                        <p class="small bottom tac">The school focuses on special education.</p>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'coordinator'}">
-                        <p class="small_bold bottom tac">The school has a special education coordinator on staff.</p>
+                        <p class="small bottom tac">The school has a special education coordinator on staff.</p>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'no'}">
-                        <p class="small_bold bottom tac">The school does not provide services.</p>
+                        <p class="small bottom tac">The school does not provide services.</p>
                     </c:when>
                     <c:when test="${specEdPgmsProvided eq 'call'}">
-                        <p class="small_bold bottom tac">The school has not provided this information yet. Please call school to learn more.</p>
+                        <p class="small bottom tac">The school has not provided this information yet. Please call school to learn more.</p>
                     </c:when>
                 </c:choose>
                 </div>
@@ -92,7 +92,7 @@
                 <div class="mam">
                     <c:choose>
                         <c:when test="${extdCareProvided eq 'noInfo'}">
-                            <p class="small_bold bottom tac">The school has not provided this information yet.</p>
+                            <p class="small bottom tac">The school has not provided this information yet.</p>
                         </c:when>
                         <c:otherwise>
                             <c:if test="${extdCareBefore and empty extdCareBeforeTime}">
