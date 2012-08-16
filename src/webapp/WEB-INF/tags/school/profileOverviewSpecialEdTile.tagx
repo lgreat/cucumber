@@ -37,7 +37,7 @@
 
                 <!-- The following variable will contain 'call' if the school is to be called.  Otherwise it will be empty and there is before/after data to display -->
                 <c:set var="extdCareProvided" value="${specialEdModel['ExtdCareProvided']}" scope="page" />
-                <!-- Before and after information to be displayed.  These will have the boolean valuse of treu or false -->
+                <!-- Before and after information to be displayed.  These will have the boolean valuse of true or false -->
                 <c:set var="extdCareBefore"   value="${specialEdModel['ExtdCareBefore']}" scope="page" />
                 <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
                 <!-- Before and after times.  These will have the time value or empty if none -->
@@ -90,15 +90,47 @@
             </c:set>
             <school:profileOverviewCell1 title="${t8_2dc}">
                 <div class="mam">
-                <c:if test="${extdCareProvided eq 'noInfo'}">
-                    <p class="small_bold bottom tac">The school has not provided this information yet.</p>
-                </c:if>
-                <c:if test="${not empty extdCareBefore}">
-                    <div class="">${extdCareBefore}</div>
-                </c:if>
-                <c:if test="${not empty extdCareAfter}">
-                    <div class="">${extdCareAfter}</div>
-                </c:if>
+                    <c:choose>
+                        <c:when test="${extdCareProvided eq 'noInfo'}">
+                            <p class="small_bold bottom tac">The school has not provided this information yet.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <c:if test="${extdCareBefore and empty extdCareBeforeTime}">
+                                <div class="line">
+                                    <div class="unit size1of1 lastUnit">
+                                        <p class="small_bold bottom">Before school</p>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${extdCareBefore and not empty extdCareBeforeTime}">
+                                <div class="line">
+                                    <div class="unit size50of100">
+                                        <p class="small_bold bottom">Before school:</p>
+                                    </div>
+                                    <div class="unit size50of100 lastUnit">
+                                        <p class="small bottom">Starts ${fn:toLowerCase(extdCareBeforeTime)}</p>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${extdCareAfter and empty extdCareAfterTime}">
+                                <div class="line">
+                                    <div class="unit size1of1 lastUnit">
+                                        <p class="small_bold bottom">After school</p>
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${extdCareAfter and not empty extdCareAfterTime}">
+                                <div class="line">
+                                    <div class="unit size50of100">
+                                        <p class="small_bold bottom">After school:</p>
+                                    </div>
+                                    <div class="unit size50of100 lastUnit">
+                                        <p class="small bottom">Ends ${fn:toLowerCase(extdCareAfterTime)}</p>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </school:profileOverviewCell1>
         </c:when>
