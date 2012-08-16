@@ -60,13 +60,16 @@ Boundaries.prototype = {
         }
     }
 
-    , district: function (option, id) {
+    , district: function (option, districtId) {
         var deferred = new jQuery.Deferred()
+            , id=(districtId)? districtId:(option && option.id)?option.id:''
+            , state=(option && option.state)?option.state:(option && typeof option == 'string')?option:''
+            , autozoom=(option && option.autozoom)?option.autozoom:false
             , lat=this.getMap().getCenter().lat()
             , lng=this.getMap().getCenter().lng()
             , level=this.getOptions().level;
 
-        if (this.exists(option) && !id){
+        if (this.exists(option) && id==''){
             lat = option.lat();
             lng = option.lng();
         }
@@ -80,9 +83,21 @@ Boundaries.prototype = {
             deferred.resolve(districts);
         }
 
-        if (id)
-            BoundaryHelper.getDistrictById(option, id)
-                .done($.proxy(success, this)).fail(function(){deferred.reject();});
+        if (id!='')
+            BoundaryHelper.getDistrictById(state, id)
+                .done($.proxy(success, this))
+                .done($.proxy(function(districts){
+                        if (districts && districts.length && districts.length>0 && autozoom){
+                            this.autozoom(districts[0]);
+                        }
+                    }, this))
+                .done($.proxy(function(districts){
+                        if (districts && districts.length && districts.length>0){
+                            var coord = new google.maps.LatLng(districts[0].lat, districts[0].lon);
+                            this.districts(coord);
+                        }
+                    }, this))
+                .fail(function(){deferred.reject();});
         else
             BoundaryHelper.getDistrictsForLocation(lat, lng, level)
                 .done($.proxy(success, this)).fail(function(){deferred.reject();});
@@ -345,10 +360,32 @@ Boundaries.prototype = {
             this.trigger('load', schools);
         }
 
-        BoundaryHelper.getSchoolByLocation(lat, lng, level)
-            .done($.proxy(success, this)).fail(function(){
-                deferred.reject();
-            });
+        // load a specific school
+        if (this.exists(option) && option.id && option.state ){
+            BoundaryHelper.getSchoolById(option.id, option.state, this.getOptions().level)
+                .done($.proxy(success, this))
+                .done($.proxy(function(schools){
+                    if (schools && schools.length>0){
+                        var school = schools[0];
+                        this.districts(new google.maps.LatLng(school.lat, school.lon));
+                        $.when(this.district({state: option.state, id: schools[0].districtId, autozoom: false}))
+                            .always($.proxy(function(){
+                                this.focus(school);
+                                this.autozoom(school);
+                            },this));
+                    }
+                }, this))
+                .fail(function(){
+                    deferred.reject();
+                });
+        }
+        // otherwise load a school by id
+        else {
+            BoundaryHelper.getSchoolByLocation(lat, lng, level)
+                .done($.proxy(success, this)).fail(function(){
+                    deferred.reject();
+                });
+        }
 
         return deferred.promise();
     }
@@ -730,6 +767,21 @@ var BoundaryHelper = (function($){
         return deferred.promise();
     }
 
+    var getSchoolById = function ( id, state, level ) {
+        var deferred = new jQuery.Deferred();
+        $.ajax({
+            url: '/geo/boundary/ajax/getSchoolById.json',
+            data: {id: id, state: state, level: level},
+            cache: true,
+            type: 'GET',
+            dataType: 'json',
+            success: schoolSuccess,
+            timeout: 6000,
+            context: deferred
+        }).fail($.proxy(fail, deferred));
+        return deferred.promise();
+    }
+
     var schoolSuccess = function (data) {
         var schools = new Array();
         if (data.schools && data.schools.length) {
@@ -855,6 +907,7 @@ var BoundaryHelper = (function($){
         getDistrictsForLocation: getDistrictsForLocation,
         getDistrictById: getDistrictById,
         getSchoolsForDistrict: getSchoolsForDistrict,
+        getSchoolById: getSchoolById,
         getSchoolByLocation: getSchoolByLocation,
         getNonDistrictSchoolsNearLocation: getNonDistrictSchoolsNearLocation,
         geocode: geocode,

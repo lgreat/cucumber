@@ -39,14 +39,28 @@ var Boundary = (function (){
         var params = getUrlParams()
             , paramsSet = (params.lat && params.lon)
             , level = (params.level && (params.level == 'e' || params.level=='m' || params.level=='h')) ? params.level : 'e'
+            , schoolId = params.schoolId ? params.schoolId : ''
+            , districtId = params.districtId ? params.districtId : ''
+            , state = params.state ? params.state : ''
             , q = params.q ? params.q : '';
+
         if (q!='') {
             $search.find('#js_mapAddressQuery').val(q);
             $districtNameHeader.html('Districts near ' + q);
         }
 
+
         var options = {type:'districts', infoWindow: infoWindowMarkupCallback, autozoom: false, level: level};
         $map.boundaries(options);
+
+        if (schoolId && state) {
+            $map.boundaries('school', {id: schoolId, state: state});
+        }
+
+        if (!schoolId && districtId) {
+            $map.boundaries('district', {state: state, id: districtId, autozoom: true});
+        }
+
 
         $dropdown.html('');
         $dropdown.append($('<option></option>').html('Select a district'));
