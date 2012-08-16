@@ -677,7 +677,7 @@ span.i-48-gallery-next-default:hover{
 
 .iconx96 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x96/120803-96x96.png);
+    background-image: url(/res/img/sprites/icon/x96/120816-96x96.png);
     width: 94px;
     height: 94px;
 }
@@ -707,4 +707,12 @@ span.i-48-gallery-next-default:hover{
 
 .i-96-video_placeholder {
     background-position: -480px 0;
+}
+
+.i-96-conversation-bubbles {
+    background-position: -576px 0;
+}
+
+.i-96-video-add {
+    background-position: -672px 0;
 }
