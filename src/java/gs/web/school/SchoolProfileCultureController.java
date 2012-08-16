@@ -127,7 +127,7 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         boolean hasClimateRatings = false;
         if( gsRatings != null && !gsRatings.isEmpty() ) {
             hasClimateRatings = true;
-            climateRating = gsRatings.get(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING);
+            climateRating = gsRatings.get(_schoolProfileDataHelper. DATA_OVERALL_CLIMATE_RATING);
             if( climateRating != null ) {
                 model.put( "content", "default" );
                 model.put( "climateRating", "AVERAGE QUALITY" );   // This needs to be acquired from the data helper

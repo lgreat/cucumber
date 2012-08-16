@@ -74,6 +74,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Get Data
         if (school != null) {
             Map<String, List<EspResponse>> espResults = _schoolProfileDataHelper.getEspDataForSchool( request );
+            boolean hasEspData = (espResults != null && espResults.size() > 0) ? true : false;
             //  There is some data in the school table that can be used to enhance EspResults
             espResults = enhanceEspResultsFromSchool( school, espResults );
 
@@ -89,7 +90,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 // Sort the results
                 sortResults( resultsModel, DISPLAY_CONFIG );
                 // Perform unique data manipulation rules
-                applyUniqueDataRules( school, resultsModel, DISPLAY_CONFIG, espResults );
+                applyUniqueDataRules( school, resultsModel, DISPLAY_CONFIG, espResults, hasEspData );
 
                 // Put the data into the model so it will be passed to the jspx page
                 modelMap.put( "ProfileData", resultsModel );
@@ -278,7 +279,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
 
    // Some rows need special manipulation for the display.  Those rules are applied here
-    private void applyUniqueDataRules(School school, Map<String, List<String>> resultsModel, List<SchoolProfileDisplayBean> displayConfig, Map<String, List<EspResponse>> espResults) {
+    private void applyUniqueDataRules(School school, Map<String, List<String>> resultsModel, List<SchoolProfileDisplayBean> displayConfig, Map<String, List<EspResponse>> espResults, boolean hasEspData) {
 
         // In the Application Info tab the application process data possibly consists of two data results.
         // All results are to be displayed but with different text than in the database
@@ -450,8 +451,6 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             resultsModel.put("programs_resources/Basics/before_after_care", formatAmPm(resultsModel.get("programs_resources/Basics/before_after_care")));
         }
 
-
-
         // Special formatting for extracurriculars/Clubs/student_clubs
         List<String> languageClubResults = resultsModel.get( "extracurriculars/Clubs/student_clubs" );
         if( languageClubResults == null ) {
@@ -471,9 +470,22 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             languageClubResults.add( "Dance club: " + danceClub.get(0).getSafeValue() );
             languageClubResults.remove("Dance club");
         }
-
         if( languageClubResults.size() > 0 ) {
             resultsModel.put( "extracurriculars/Clubs/student_clubs", languageClubResults );
+        }
+
+        // If there is no ESP Data from the esp_response table then remove anything that would show on the Highlights tab.
+        // Note: there still might be data in the espResults that was added from the school object
+        if( !hasEspData ) {
+            List<String> keysToRemove = new ArrayList<String>();
+            for( String key : resultsModel.keySet() ) {
+                if( key.startsWith("highlights/") ) {
+                    keysToRemove.add( key );
+                }
+            }
+            for( String key : keysToRemove ) {
+                resultsModel.remove( key );
+            }
         }
     }
 
