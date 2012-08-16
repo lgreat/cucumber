@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="line">   <!-- row 2, tiles 4-6 -->
-                    <div data-gs-custom-link="overview_communityrating" class="unit size32of100">
+                    <div class="unit size32of100">
                         <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}" />
                     </div>
 
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="line">   <!-- row 3, tiles 7-9 -->
-                    <div data-gs-custom-link="overview_diversity" class="unit size32of100">
+                    <div class="unit size32of100">
                         <school:profileOverviewDiversityTile diversityModel="${diversity}" />
                     </div>
 

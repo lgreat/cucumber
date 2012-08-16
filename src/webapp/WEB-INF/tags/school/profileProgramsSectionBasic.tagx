@@ -21,7 +21,7 @@
     <div class="mod standard_1-1">
     <div class="inner">
     <div class="hd">
-        <h4 class="pvm plm bottom" id="${displayBean.sectionTitle}_table">${displayBean.sectionTitle}</h4>
+        <h4 class="pvm plm bottom" id="${fn:replace(displayBean.sectionTitle, ' ', '_')}_table">${displayBean.sectionTitle}</h4>
     </div>
     <div class="bd pan">
     <table class="tableType1" border="0"><col width="210"/><col width="auto"/>

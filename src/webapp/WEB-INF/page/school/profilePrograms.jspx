@@ -114,7 +114,7 @@ where each entry is the first bean for that section, this allows access to the s
                     <li data-gs-tab="admissions"><span class="graydivider">|</span><a id="js_application" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_application')}" title="${schoolName} | Application info" class="${requestScope.schoolProfileTabMap.application}">Application info</a></li>
                 </c:if>
                 <c:if test="${(!empty programsresourcestab)}">
-                    <li data-gs-tab="programs"><span class="graydivider">|</span><a id="js_programsresources" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-resources')}" title="${schoolName} | Programs and resources" class="${requestScope.schoolProfileTabMap['programs-resources']}">Programs &amp; resources</a></li>
+                    <li data-gs-tab="programsAndResources"><span class="graydivider">|</span><a id="js_programsresources" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-resources')}" title="${schoolName} | Programs and resources" class="${requestScope.schoolProfileTabMap['programs-resources']}">Programs &amp; resources</a></li>
                 </c:if>
                 <c:if test="${(!empty extracurricularstab)}">
                     <li data-gs-tab="extracurriculars"><span class="graydivider">|</span><a id="js_extracurriculars" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'extracurriculars')}" title="${schoolName} | Extracurriculars" class="${requestScope.schoolProfileTabMap.extracurriculars}">Extracurriculars</a></li>
