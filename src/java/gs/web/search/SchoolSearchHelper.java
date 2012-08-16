@@ -163,7 +163,7 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
     //-------------------------------------------------------------------------
     protected String getRelCanonical(HttpServletRequest request, String searchString, State state, List<ICitySearchResult> citySearchResults) {
         if (request == null || state == null) {
-            throw new IllegalArgumentException("Request and state must not be null");
+            return null;
         }
         String url = null;
 
