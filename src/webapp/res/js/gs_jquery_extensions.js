@@ -501,6 +501,7 @@ jQuery(document).ready(function () {
 });
 jQuery(document).ready(function () {
     jQuery('.infiniteCarousel10').infiniteCarousel();
+    jQuery('.infiniteCarousel11').infiniteCarousel();
 });
 
 /* =7 tabs (create tabs using the styles in tabs.css)
