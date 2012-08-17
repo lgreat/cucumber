@@ -16,7 +16,7 @@
         </c:choose>
     </c:set>
     <c:if test="${commandAndFields.search}">
-        <h1 class="js-schoolResultsHeader">
+        <h1 class="js-schoolResultsHeader bottom">
             <c:choose>
                 <c:when test="${param.rs}">
                     Schools near this location
@@ -62,7 +62,7 @@
     </c:if>
     <c:if test="${!commandAndFields.cityBrowse and !commandAndFields.districtBrowse and !commandAndFields.nearbySearch}">
         <c:if test="${fn:length(citySearchResults) gt 0}">
-            <div class="small">
+            <div class="small bottom">
                 <c:set var="end" value="${fn:length(citySearchResults) lt 3 ? fn:length(citySearchResults) : 3}"/>
                 Schools in city:
                 <c:forEach var="city" items="${citySearchResults}" begin="0"
@@ -74,7 +74,7 @@
             </div>
         </c:if>
         <c:if test="${fn:length(districtSearchResults) gt 0}">
-            <div class="small">
+            <div class="small bottom">
                 Schools in district:
                 <link:schools state="${districtSearchResults[0].state}"
                         districtId="${districtSearchResults[0].id}"
