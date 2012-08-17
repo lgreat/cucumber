@@ -30,7 +30,7 @@
                         <ul class="unordered-carousel none">
                             <c:forEach var="review" items="${reviews}">
                                 <li>
-                                    <p class="bottom"><em>${gsweb:abbreviateAtWhitespace(review.comments, 130)}</em></p>
+                                    <p class="bottom phs"><em>${gsweb:abbreviateAtWhitespace(review.comments, 130)}</em></p>
                                 </li>
                             </c:forEach>
                         </ul>
