@@ -111,15 +111,15 @@
 <gsml:body adPageName="searchMap" pageLayout="nocol">
 <div class="grid_16 slStylesV1-0 slFormsV1-0 mtl">
 
-<div class="alpha grid_11">
+<div class="fltlft">
     <search:schoolResultsFor_text/>
 </div>
-<div class="alpha grid_5 omega mtm">
+<div class="fltrt">
     <school:nearbyCitiesPopup/>&amp;nbsp;&amp;nbsp;
     <school:nearbyDistrictsPopup/>
 </div>
 
-<div class="alpha grid_16 omega">
+<div class="alpha grid_16 omega mtl">
     <school:findASchoolForm/>
 </div>
 
