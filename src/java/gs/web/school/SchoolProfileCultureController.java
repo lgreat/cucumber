@@ -127,11 +127,19 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         boolean hasClimateRatings = false;
         if( gsRatings != null && !gsRatings.isEmpty() ) {
             hasClimateRatings = true;
-            climateRating = gsRatings.get(_schoolProfileDataHelper. DATA_OVERALL_CLIMATE_RATING);
+            climateRating = gsRatings.get(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING);
             if( climateRating != null ) {
                 model.put( "content", "default" );
-                model.put( "climateRating", "AVERAGE QUALITY" );   // This needs to be acquired from the data helper
-                return model;
+                try {
+                    int climateRatingInt = ((Integer)climateRating).intValue();
+                    double climateRatingDouble = climateRatingInt;
+                    String climateRatingLabel = SchoolProfileRatingsController.getLabelForClimateRating(climateRatingDouble);
+                    model.put( "climateRating", climateRatingLabel );   // This needs to be acquired from the data helper
+                    return model;
+                }
+                catch (Exception e ) {
+                    _log.error("SchoolProfileCultureController: Could not convert numeric overall climate rating to a double");
+                }
             }
         }
         // No ratings, show tips
@@ -166,8 +174,7 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         if( isNotEmpty(facebook) ) {
             facebookUrl = cleanUpUrl( facebook.get(0).getSafeValue(), "facebook.com" );
             if( facebookUrl != null ) {
-                //validFacebookPage = true;
-                isValidFacebookPage(facebookUrl);
+                validFacebookPage = isValidFacebookPage(facebookUrl);
             }
         }
 
