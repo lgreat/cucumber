@@ -13,6 +13,9 @@
 <jsp:output doctype-root-element="html"
             doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
             doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+<c:set var="ospDataExists" value="${not empty espData ? 'true' : 'false'}"/>
+
     <div id="profileProgramsTabs">
     <!-- The page has different layouts depending if there is esp data or not -->
     <c:choose>
@@ -136,7 +139,7 @@
                     <div class="unit size2of100">&amp;nbsp;</div>
 
                     <div class="unit size66of100 lastUnit">
-                        <school:profileOverviewRelatedTile relatedModel="${related}" />
+                        <school:profileOverviewRelatedTile relatedModel="${related}" hasOSPData="${ospDataExists}" />
                     </div>
                 </div>
 
@@ -206,7 +209,7 @@
                 </div>
 
                 <!-- row 4 - Note to frontend - This is a full width vesion of slot 14-15 from the ESP version -->
-                <school:profileOverviewRelatedTile relatedModel="${related}"/>
+                <school:profileOverviewRelatedTile relatedModel="${related}"  hasOSPData="${ospDataExists}"/>
 
                 <!-- 5th Row - Default content: Facebook Substitute content: hide row -->
                 <school:profileOverviewFacebookTile facebookModel="${facebook}" />
