@@ -317,9 +317,9 @@ that this is updated for ajax refresh -->
                 GS.map.getMap.initMap(points, calculatedLat, calculatedLon);
             });
         </script>
-        <div data-role="content">
+        <div class="pr" data-role="content">
             <div id="js-map-canvas"><!-- no collapse --></div>
-            <div id="js_reloadMap" class="pa pam" style="display:none; bottom:513px; width:610px;background: rgb(0, 0, 6); background: rgba(0, 0, 0, 0.6);">
+            <div id="js_reloadMap" class="pa pam" style="display:none; bottom:0px; width:610px;background: rgb(0, 0, 6); background: rgba(0, 0, 0, 0.6);">
                 <div class="line">
                     <div class="unit size33of100">
                         <span class="fltrt prm"><button class="but but-lg but-2">Redo search</button></span>
