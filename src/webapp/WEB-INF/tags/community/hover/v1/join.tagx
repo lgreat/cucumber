@@ -7,12 +7,12 @@
         >
 
 <div id="joinHover" class="dn">
-<div class="mod modal_1 width_17" id="joinHover">
+<div class="mod modal_1 width_16" id="joinHover">
 <div class="outer">
+<div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
 <div class="inner">
 <div class="hoverTitle hd">
     <div class="fl"><h2 class="bottom" >Speak your mind</h2></div>
-    <div class="fr margin-top:0; padding:0"><a class="iconx24 i-24-close man pan js_closeHover"><!-- do not collapse --></a></div>
     <div class="fr small bottom" style="padding:5px 50px 0px 0px">Already a member? <a href="#" id="lnchSignin">Sign in</a></div>
 
 </div>
@@ -44,7 +44,7 @@
                 <label for="fName">First name *</label>
             </div>
             <div class="unit size5of14">
-                <input type="text" id="fName" class="text input_5" name="firstName"/>
+                <input type="text" id="fName" class="text-smaller input_5" name="firstName"/>
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
@@ -61,7 +61,7 @@
                 <label for="jemail" class="shortLabel">Email</label>
             </div>
             <div class="unit size5of14">
-                <input type="text" id="jemail" class="text input_5" name="email"/>
+                <input type="text" id="jemail" class="text-smaller input_5" name="email"/>
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
@@ -77,7 +77,7 @@
                 <label for="jcemail">Confirm email</label>
             </div>
             <div class="unit size5of14">
-                <input type="text" id="jcemail" class="text input_5" name="confirmEmail"/>
+                <input type="text" id="jcemail" class="text-smaller input_5" name="confirmEmail"/>
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
@@ -94,7 +94,7 @@
 
             </div>
             <div class="unit size5of14">
-                <input type="text" id="uName" class="text input_5" name="screenName"/><br />
+                <input type="text" id="uName" class="text-smaller input_5" name="screenName"/><br />
                 <div class="hint">6-14 characters</div>
             </div>
             <div class="unit size3of7 lastUnit">
@@ -112,7 +112,7 @@
                 <label for="jpword">Password * </label>
             </div>
             <div class="unit size5of14">
-                <input type="password" id="jpword" class="text input_5" name="password"/><br/>
+                <input type="password" id="jpword" class="text-smaller input_5" name="password"/><br/>
                 <div class="hint">6-14 characters</div>
             </div>
             <div class="unit size3of7 lastUnit">
@@ -129,7 +129,7 @@
                 <label for="cpword">Retype password *</label>
             </div>
             <div class="unit size5of14">
-                <input type="password" id="cpword" class="text input_5" name="confirmPassword"/>
+                <input type="password" id="cpword" class="text-smaller input_5" name="confirmPassword"/>
             </div>
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
@@ -204,8 +204,8 @@
             </div>
         </div>
 
-        <div class="grades2">
-            <div class="clearfloat"><!-- do not collapse --></div>
+        <div class="grades2" style="margin-left: 30px;">
+            <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             <p class="smaller bottom "><a href="#" id="js_ShowHideGrades">Choose grades &amp;#187;</a></p>
             <!--<ul class="none">-->
                 <!--<li id="pickGrade">-->
@@ -334,7 +334,7 @@
 
 </div>
 
-<div class="line joinSubmit ptm">
+<div class="line joinSubmit ptl">
     <div class="unit size4of19">&amp;nbsp;</div>
     <div class="unit size4of19">
         <button class="button-1" type="submit" name="joinBtn" id="joinBtn">Join now</button>
