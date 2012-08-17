@@ -18,11 +18,12 @@
     <c:set var="content" value="${facebookModel['content']}" scope="page"/>
     <c:set var="facebookUrl" value="${facebookModel['facebookUrl']}" scope="page"/>
 
+
     <c:if test="${content eq currentSpace}">
         <div class="line">
             <div class="unit size100of100 lastUnit">
                 <![CDATA[
-                    <fb:like-box href="${facebookUrl}" width="630" border_color="#CCCCCC"  show_faces="false" stream="true" header="false"></fb:like-box>
+                    <fb:like-box href="${facebookUrl}" width="630" border_color="#CCCCCC" show_faces="false" stream="true" header="false" force_wall="true"></fb:like-box>
                     ]]>
             </div>
         </div>
