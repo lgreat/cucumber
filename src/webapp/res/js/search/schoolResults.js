@@ -198,6 +198,20 @@ GS.search.results = GS.search.results || (function() {
         delete queryData.start;
         if(queryData.view == 'map') {
             mapSearch(1, pageSize, queryData);
+
+            var schoolList = $('#js-schoolList');
+            var firstItem = schoolList.find('div:first');
+            if(parseInt(numResultsPerPage) > parseInt(pageSize) && firstItem !== null) {
+                var listTop = schoolList.offset().top;
+                var listBottom = listTop + schoolList.height();
+
+                var itemTop = firstItem.offset().top;
+                var itemBottom = itemTop + firstItem.height();
+
+                if((itemBottom >= listBottom) || (itemTop <= listTop)) {
+                    schoolList.scrollTop(itemTop - listTop + schoolList.scrollTop());
+                }
+            }
         }
         else {
             update(queryData);
