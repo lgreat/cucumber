@@ -61,7 +61,14 @@ GS.search.results = GS.search.results || (function() {
             delete queryData.start;
 
             if (typeof(window.History) === 'undefined' || window.History.enabled !== true) {
-                window.location.search = GS.uri.Uri.getQueryStringFromObject(queryData);
+                var queryString = window.location.search;
+                var queryStringWithFilters = filtersModule.getUpdatedQueryString();
+                if(queryString !== queryStringWithFilters) {
+                    queryString = queryStringWithFilters;
+                }
+                queryString = GS.uri.Uri.putIntoQueryString(queryString,"sortBy", newSort, true);
+                queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
+                window.location.search = queryString;
                 return;
             }
 
@@ -193,6 +200,17 @@ GS.search.results = GS.search.results || (function() {
 
     var onDisplayResultsSizeChanged = function() {
         var pageSize = jQuery('#page-size').val();
+        if (typeof(window.History) === 'undefined' || window.History.enabled !== true) {
+            var queryString = window.location.search;
+            var queryStringWithFilters = filtersModule.getUpdatedQueryString();
+            if(queryString !== queryStringWithFilters) {
+                queryString = queryStringWithFilters;
+            }
+            queryString = GS.uri.Uri.putIntoQueryString(queryString,"pageSize",pageSize, true);
+            queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
+            window.location.search = queryString;
+            return;
+        }
         var queryData = GS.uri.Uri.getQueryData();
         queryData['pageSize'] = pageSize;
         delete queryData.start;
@@ -240,17 +258,25 @@ GS.search.results = GS.search.results || (function() {
 
     var onSortChangedForMap = function(selectValue) {
         var queryString = window.location.search;
+        if (typeof(window.History) === 'undefined' || window.History.enabled !== true) {
+            var queryStringWithFilters = filtersModule.getUpdatedQueryString();
+            if(queryString !== queryStringWithFilters) {
+                queryString = queryStringWithFilters;
+            }
+            if (selectValue !== '' && typeof(selectValue) !== 'undefined') {
+                queryString = GS.uri.Uri.putIntoQueryString(queryString,"sortBy",selectValue, true);
+            } else {
+                queryString = GS.uri.Uri.removeFromQueryString(queryString, "sortBy");
+            }
+            queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
+            window.location.search = queryString;
+            return;
+        }
 
         if (selectValue !== '' && typeof(selectValue) !== 'undefined') {
             queryString = GS.uri.Uri.putIntoQueryString(queryString,"sortBy",selectValue, true);
         } else {
             queryString = GS.uri.Uri.removeFromQueryString(queryString, "sortBy");
-        }
-
-        if (typeof(window.History) === 'undefined' || window.History.enabled !== true) {
-            queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
-            window.location.search = queryString;
-            return;
         }
 
         var queryStringData = GS.uri.Uri.getQueryData(queryString);
