@@ -35,7 +35,7 @@
                     <a data-gs-show-tab="${tabName}" data-gs-tab-options="${anchor}"
                        onclick="${onclick}"
                        class="${cssClass}"
-                       href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', '${tabName}')}#${fn:escapeXml(anchor)}">
+                       href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', tabName)}#${fn:escapeXml(anchor)}">
                         <jsp:doBody/>
                     </a>
                 </c:when>
@@ -43,7 +43,7 @@
                     <a data-gs-show-tab="${tabName}"
                        onclick="${onclick}"
                        class="${cssClass}"
-                       href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', '${tabName}')}">
+                       href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', tabName)}">
                         <jsp:doBody/>
                     </a>
                 </c:otherwise>

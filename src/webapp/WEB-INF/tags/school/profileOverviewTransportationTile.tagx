@@ -5,7 +5,7 @@
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:link="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -23,34 +23,36 @@
             <c:set var="t9dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Transportation</p>
             </c:set>
-            <school:profileOverviewCell1 title="${t9dc}">
-                <c:set var="icon" value="${transportationModel['icon']}" scope="page"/>
-                <c:set var="shuttleStops" value="${transportationModel['shuttleStops']}" scope="page"/>
-                <c:set var="message" value="${transportationModel['transMsg']}" scope="page"/>
-                <div class="mha" style="width: 96px;">
-                <c:choose>
-                    <c:when test="${icon eq 'metro'}">
-                        <span class="iconx96 i-96-metro"><!-- do not collapse --></span>
-                    </c:when>
-                    <c:when test="${icon eq 'walking'}">
-                        <span class="iconx96 i-96-walking"><!-- do not collapse --></span>
-                    </c:when>
-                    <c:when test="${icon eq 'passes'}">
-                        <span class="iconx96 i-96-passes"><!-- do not collapse --></span>
-                    </c:when>
-                    <c:when test="${icon eq 'bus'}">
-                        <span class="iconx96 i-96-bus"><!-- do not collapse --></span>
-                    </c:when>
-                    <c:when test="${icon eq 'handicapped'}">
-                        <span class="iconx96 i-96-handicapped"><!-- do not collapse --></span>
-                    </c:when>
-                </c:choose>
-                </div>
-                <c:if test="${not empty shuttleStops}">
-                    <p class="small tac mhm">School shuttle from ${shuttleStops}</p>
-                </c:if>
-                <p class="small tac mhm">${message}</p>
-            </school:profileOverviewCell1>
+            <link:linkToTab tabName="programs-resources" customLink="overview_transportation" cssClass="tdn">
+                <school:profileOverviewCell1 title="${t9dc}">
+                    <c:set var="icon" value="${transportationModel['icon']}" scope="page"/>
+                    <c:set var="shuttleStops" value="${transportationModel['shuttleStops']}" scope="page"/>
+                    <c:set var="message" value="${transportationModel['transMsg']}" scope="page"/>
+                    <div class="mha" style="width: 96px;">
+                    <c:choose>
+                        <c:when test="${icon eq 'metro'}">
+                            <span class="iconx96 i-96-metro"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:when test="${icon eq 'walking'}">
+                            <span class="iconx96 i-96-walking"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:when test="${icon eq 'passes'}">
+                            <span class="iconx96 i-96-passes"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:when test="${icon eq 'bus'}">
+                            <span class="iconx96 i-96-bus"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:when test="${icon eq 'handicapped'}">
+                            <span class="iconx96 i-96-handicapped"><!-- do not collapse --></span>
+                        </c:when>
+                    </c:choose>
+                    </div>
+                    <c:if test="${not empty shuttleStops}">
+                        <p class="small tac mhm">School shuttle from ${shuttleStops}</p>
+                    </c:if>
+                    <p class="small tac mhm">${message}</p>
+                </school:profileOverviewCell1>
+            </link:linkToTab>
         </c:when>
 
         <c:when test="${content eq 'substitute1'}">
@@ -61,44 +63,48 @@
                     <c:set var="t9s1">
                         <p class="small_bold textshadow-1 pvs plm bottom">Average class size</p>
                     </c:set>
-                    <school:profileOverviewCell1 title="${t9s1}">
-                        <div class="mam">
-                            <p class="big bottom tac">${classSize}</p>
+                    <link:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn"> <!-- TODO: should custom link be something else here? -->
+                        <school:profileOverviewCell1 title="${t9s1}">
+                            <div class="mam">
+                                <p class="big bottom tac">${classSize}</p>
 
-                            <c:choose>
-                                <c:when test="${classSize gt 1}">
-                                    <p class="small tac">students</p>
-                                </c:when>
-                                <c:otherwise>
-                                    <p class="small tac">student</p>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </school:profileOverviewCell1>
+                                <c:choose>
+                                    <c:when test="${classSize gt 1}">
+                                        <p class="small tac">students</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p class="small tac">student</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </school:profileOverviewCell1>
+                    </link:linkToTab>
                 </c:when>
                 <c:otherwise>
                     <c:set var="t9s1">
                         <p class="small_bold textshadow-1 pvs plm bottom">Students per teacher</p>
                     </c:set>
-                    <school:profileOverviewCell1 title="${t9s1}">
-                        <div class="mam">
-                            <p class="big bottom tac">${studentsPerTeacher}</p>
+                    <link:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn">
+                        <school:profileOverviewCell1 title="${t9s1}">
+                            <div class="mam">
+                                <p class="big bottom tac">${studentsPerTeacher}</p>
 
-                            <c:choose>
-                                <c:when test="${studentsPerTeacher gt 1}">
-                                    <p class="small tac">students</p>
-                                </c:when>
-                                <c:otherwise>
-                                    <p class="small tac">student</p>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </school:profileOverviewCell1>
+                                <c:choose>
+                                    <c:when test="${studentsPerTeacher gt 1}">
+                                        <p class="small tac">students</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p class="small tac">student</p>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </school:profileOverviewCell1>
+                    </link:linkToTab>
                 </c:otherwise>
             </c:choose>
         </c:when>
         <c:when test="${content eq 'substitute2'}">
-            <a class="tdn" href="javascript:void(0);">
+            <a class="tdn" href="/about/mobile.page" onclick="if (s.tl) { s.tl(this, 'o', 'overview_mobileapp'); }">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner bg-mobileApp">
