@@ -5,7 +5,7 @@
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:link="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -68,20 +68,20 @@
             <c:set var="t10s2">
                 <p class="small_bold textshadow-1 pvs plm bottom make-555555">Highlights</p>
             </c:set>
-            <a data-gs-show-tab="programsAndResources" data-gs-tab-options="School_basics_table" onclick="if (s.tl) { s.tl(this, 'o', 'overview_highlights'); }" class="tdn" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-resources')}#School_basics_table">
-            <school:profileOverviewCell1 title="${t10s2}">
-                <div class="mvm mrm">
-                    <ul class="small bottom make-555555">
-                        <c:set var="showMax" value="${3}"/>
-                        <c:forEach var="item" items="${programsModel['substitute2List']}" varStatus="status">
-                            <c:if test="${status.count le showMax}">
-                                <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
-                            </c:if>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </school:profileOverviewCell1>
-            </a>
+            <link:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_highlights" cssClass="tdn">
+                <school:profileOverviewCell1 title="${t10s2}">
+                    <div class="mvm mrm">
+                        <ul class="small bottom make-555555">
+                            <c:set var="showMax" value="${3}"/>
+                            <c:forEach var="item" items="${programsModel['substitute2List']}" varStatus="status">
+                                <c:if test="${status.count le showMax}">
+                                    <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </school:profileOverviewCell1>
+            </link:linkToTab>
         </c:otherwise>
     </c:choose>
 

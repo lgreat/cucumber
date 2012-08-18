@@ -5,7 +5,7 @@
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:link="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -25,114 +25,119 @@
             <c:set var="t8_1dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Special education</p>
             </c:set>
-            <school:profileOverviewCell1 title="${t8_1dc}">
-                <!-- Default Special Education display -->
-                <!-- specEdPgms contins a list of the special ed programs available.  If present they should be listed -->
-                <c:set var="specEdPgms" value="${specialEdModel['SpecEdPgms']}" scope="page"/>
-                <!-- specEdPgmsProvided describes the types of spec ed pgms provided.  It can contain:
-                         'yes' - display message "Services are provided at this school"
-                         'no' - display message "Services are not provided at this school"
-                         'call' - display the message "Call school for more information"  -->
-                <c:set var="specEdPgmsProvided" value="${specialEdModel['SpecEdPgmsProvided']}" scope="page"/>
 
-                <!-- The following variable will contain 'call' if the school is to be called.  Otherwise it will be empty and there is before/after data to display -->
-                <c:set var="extdCareProvided" value="${specialEdModel['ExtdCareProvided']}" scope="page" />
-                <!-- Before and after information to be displayed.  These will have the boolean valuse of true or false -->
-                <c:set var="extdCareBefore"   value="${specialEdModel['ExtdCareBefore']}" scope="page" />
-                <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
-                <!-- Before and after times.  These will have the time value or empty if none -->
-                <c:set var="extdCareBeforeTime"   value="${specialEdModel['ExtdCareBeforeTime']}" scope="page" />
-                <c:set var="extdCareAfterTime"    value="${specialEdModel['ExtdCareAfterTime']}"  scope="page" />
+            <link:linkToTab dontPrintLink="${specialEdModel['SpecEdPgmsProvided'] eq 'call'}" tabName="programs-culture" anchor="Special_education_/_special_needs_table" cssClass="tdn" customLink="overview_specialed">
+                <school:profileOverviewCell1 title="${t8_1dc}">
+                    <!-- Default Special Education display -->
+                    <!-- specEdPgms contins a list of the special ed programs available.  If present they should be listed -->
+                    <c:set var="specEdPgms" value="${specialEdModel['SpecEdPgms']}" scope="page"/>
+                    <!-- specEdPgmsProvided describes the types of spec ed pgms provided.  It can contain:
+                             'yes' - display message "Services are provided at this school"
+                             'no' - display message "Services are not provided at this school"
+                             'call' - display the message "Call school for more information"  -->
+                    <c:set var="specEdPgmsProvided" value="${specialEdModel['SpecEdPgmsProvided']}" scope="page"/>
 
-                <div class="mam">
-                <c:choose>
-                    <c:when test="${not empty specEdPgms}">
-                        <p class="small_bold bottom">The school offers support for:</p>
-                            <ul class="small bottom">
-                                <c:set var="showMax" value="${3}"/>
-                                <c:forEach var="item" items="${specEdPgms}" varStatus="status">
-                                    <c:if test="${status.count le showMax}">
-                                        <li>${gsweb:abbreviateAtWhitespace(item,30)}</li>
-                                    </c:if>
-                                </c:forEach>
-                            </ul>
-                    </c:when>
-                    <c:when test="${specEdPgmsProvided eq 'yes'}">
-                        <p class="small bottom tac">The school provides a full program for particular needs.</p>
-                    </c:when>
-                    <c:when test="${specEdPgmsProvided eq 'basic'}">
-                        <p class="small bottom tac">The school provides services based on the needs of individual students.</p>
-                    </c:when>
-                    <c:when test="${specEdPgmsProvided eq 'moderate'}">
-                        <p class="small bottom tac">The school provides a full program for particular needs.</p>
-                    </c:when>
-                    <c:when test="${specEdPgmsProvided eq 'intensive'}">
-                        <p class="small bottom tac">The school provides a full program for many needs..</p>
-                    </c:when>
-                    <c:when test="${specEdPgmsProvided eq 'focuses'}">
-                        <p class="small bottom tac">The school focuses on special education.</p>
-                    </c:when>
-                    <c:when test="${specEdPgmsProvided eq 'coordinator'}">
-                        <p class="small bottom tac">The school has a special education coordinator on staff.</p>
-                    </c:when>
-                    <c:when test="${specEdPgmsProvided eq 'no'}">
-                        <p class="small bottom tac">The school does not provide services.</p>
-                    </c:when>
-                    <c:when test="${specEdPgmsProvided eq 'call'}">
-                        <p class="small bottom tac">The school has not provided this information yet. Please call school to learn more.</p>
-                    </c:when>
-                </c:choose>
-                </div>
-            </school:profileOverviewCell1>
+                    <!-- The following variable will contain 'call' if the school is to be called.  Otherwise it will be empty and there is before/after data to display -->
+                    <c:set var="extdCareProvided" value="${specialEdModel['ExtdCareProvided']}" scope="page" />
+                    <!-- Before and after information to be displayed.  These will have the boolean valuse of true or false -->
+                    <c:set var="extdCareBefore"   value="${specialEdModel['ExtdCareBefore']}" scope="page" />
+                    <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
+                    <!-- Before and after times.  These will have the time value or empty if none -->
+                    <c:set var="extdCareBeforeTime"   value="${specialEdModel['ExtdCareBeforeTime']}" scope="page" />
+                    <c:set var="extdCareAfterTime"    value="${specialEdModel['ExtdCareAfterTime']}"  scope="page" />
+
+                    <div class="mam">
+                    <c:choose>
+                        <c:when test="${not empty specEdPgms}">
+                            <p class="small_bold bottom">The school offers support for:</p>
+                                <ul class="small bottom">
+                                    <c:set var="showMax" value="${3}"/>
+                                    <c:forEach var="item" items="${specEdPgms}" varStatus="status">
+                                        <c:if test="${status.count le showMax}">
+                                            <li>${gsweb:abbreviateAtWhitespace(item,30)}</li>
+                                        </c:if>
+                                    </c:forEach>
+                                </ul>
+                        </c:when>
+                        <c:when test="${specEdPgmsProvided eq 'yes'}">
+                            <p class="small bottom tac">The school provides a full program for particular needs.</p>
+                        </c:when>
+                        <c:when test="${specEdPgmsProvided eq 'basic'}">
+                            <p class="small bottom tac">The school provides services based on the needs of individual students.</p>
+                        </c:when>
+                        <c:when test="${specEdPgmsProvided eq 'moderate'}">
+                            <p class="small bottom tac">The school provides a full program for particular needs.</p>
+                        </c:when>
+                        <c:when test="${specEdPgmsProvided eq 'intensive'}">
+                            <p class="small bottom tac">The school provides a full program for many needs..</p>
+                        </c:when>
+                        <c:when test="${specEdPgmsProvided eq 'focuses'}">
+                            <p class="small bottom tac">The school focuses on special education.</p>
+                        </c:when>
+                        <c:when test="${specEdPgmsProvided eq 'coordinator'}">
+                            <p class="small bottom tac">The school has a special education coordinator on staff.</p>
+                        </c:when>
+                        <c:when test="${specEdPgmsProvided eq 'no'}">
+                            <p class="small bottom tac">The school does not provide services.</p>
+                        </c:when>
+                        <c:when test="${specEdPgmsProvided eq 'call'}">
+                            <p class="small bottom tac">The school has not provided this information yet. Please call school to learn more.</p>
+                        </c:when>
+                    </c:choose>
+                    </div>
+                </school:profileOverviewCell1>
+            </link:linkToTab>
             <!-- Extended Care -->
             <c:set var="t8_2dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">${specialEdModel['ExtdCareTitle']}</p>
             </c:set>
-            <school:profileOverviewCell1 title="${t8_2dc}">
-                <div class="mam">
-                    <c:choose>
-                        <c:when test="${extdCareProvided eq 'noInfo'}">
-                            <p class="small bottom tac">The school has not provided this information yet.</p>
-                        </c:when>
-                        <c:otherwise>
-                            <c:if test="${extdCareBefore and empty extdCareBeforeTime}">
-                                <div class="line">
-                                    <div class="unit size1of1 lastUnit">
-                                        <p class="small_bold bottom">Before school</p>
+            <link:linkToTab dontPrintLink="${extdCareProvided eq 'noInfo'}" tabName="programs-resources" anchor="School_basics_table" cssClass="tdn" customLink="overview_extendedcare">
+                <school:profileOverviewCell1 title="${t8_2dc}">
+                    <div class="mam">
+                        <c:choose>
+                            <c:when test="${extdCareProvided eq 'noInfo'}">
+                                <p class="small bottom tac">The school has not provided this information yet.</p>
+                            </c:when>
+                            <c:otherwise>
+                                <c:if test="${extdCareBefore and empty extdCareBeforeTime}">
+                                    <div class="line">
+                                        <div class="unit size1of1 lastUnit">
+                                            <p class="small_bold bottom">Before school</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </c:if>
-                            <c:if test="${extdCareBefore and not empty extdCareBeforeTime}">
-                                <div class="line">
-                                    <div class="unit size50of100">
-                                        <p class="small_bold bottom">Before school:</p>
+                                </c:if>
+                                <c:if test="${extdCareBefore and not empty extdCareBeforeTime}">
+                                    <div class="line">
+                                        <div class="unit size50of100">
+                                            <p class="small_bold bottom">Before school:</p>
+                                        </div>
+                                        <div class="unit size50of100 lastUnit">
+                                            <p class="small bottom">Starts ${fn:toLowerCase(extdCareBeforeTime)}</p>
+                                        </div>
                                     </div>
-                                    <div class="unit size50of100 lastUnit">
-                                        <p class="small bottom">Starts ${fn:toLowerCase(extdCareBeforeTime)}</p>
+                                </c:if>
+                                <c:if test="${extdCareAfter and empty extdCareAfterTime}">
+                                    <div class="line">
+                                        <div class="unit size1of1 lastUnit">
+                                            <p class="small_bold bottom">After school</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </c:if>
-                            <c:if test="${extdCareAfter and empty extdCareAfterTime}">
-                                <div class="line">
-                                    <div class="unit size1of1 lastUnit">
-                                        <p class="small_bold bottom">After school</p>
+                                </c:if>
+                                <c:if test="${extdCareAfter and not empty extdCareAfterTime}">
+                                    <div class="line">
+                                        <div class="unit size50of100">
+                                            <p class="small_bold bottom">After school:</p>
+                                        </div>
+                                        <div class="unit size50of100 lastUnit">
+                                            <p class="small bottom">Ends ${fn:toLowerCase(extdCareAfterTime)}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </c:if>
-                            <c:if test="${extdCareAfter and not empty extdCareAfterTime}">
-                                <div class="line">
-                                    <div class="unit size50of100">
-                                        <p class="small_bold bottom">After school:</p>
-                                    </div>
-                                    <div class="unit size50of100 lastUnit">
-                                        <p class="small bottom">Ends ${fn:toLowerCase(extdCareAfterTime)}</p>
-                                    </div>
-                                </div>
-                            </c:if>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </school:profileOverviewCell1>
+                                </c:if>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </school:profileOverviewCell1>
+            </link:linkToTab>
         </c:when>
         <c:when test="${content eq 'teachers/staff'}">
             <!-- ============ Substitute display - Teachers / staff ========== -->
