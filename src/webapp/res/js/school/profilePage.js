@@ -66,8 +66,8 @@ GS.profile = GS.profile || (function() {
         name: "testsAndRatings",
         selector: "#js_test-scores"
     };
-    tabs.testScores = {
-        name: "testScores",
+    tabs['test-scores'] = {
+        name: "test-scores",
         selector: "#js_tests",
         parent: tabs.testsAndRatings
     };
@@ -76,48 +76,48 @@ GS.profile = GS.profile || (function() {
         selector: "#js_ratings",
         parent: tabs.testsAndRatings
     };
-    tabs.teachersAndStudents = {
-        name: "teachersAndStudents",
+    tabs.demographics = {
+        name: "demographics",
         selector: "#js_demographics"
     };
     tabs.students = {
         name: "students",
         selector: "#js_students",
-        parent: tabs.teachersAndStudents
+        parent: tabs.demographics
     };
     tabs.teachers = {
         name: "teachers",
         selector: "#js_teachers",
-        parent: tabs.teachersAndStudents
+        parent: tabs.demographics
     };
-    tabs.programsAndCulture = {
-        name: "programsAndCulture",
+    tabs['programs-culture-master'] = {
+        name: "programs-culture-master",
         selector: "#js_programs-culture"
     };
     tabs.admissions = {
         name: "admissions",
         selector: "#js_application",
-        parent: tabs.programsAndCulture
+        parent: tabs['programs-culture-master']
     };
-    tabs.highlights = {
-        name: "highlights",
+    tabs['programs-culture'] = {
+        name: "programs-culture",
         selector: "#js_highlights",
-        parent: tabs.programsAndCulture
+        parent: tabs['programs-culture-master']
     };
-    tabs.programsAndResources = {
-        name: "programsAndResources",
+    tabs['programs-resources'] = {
+        name: "programs-resources",
         selector: "#js_programsresources",
-        parent:tabs.programsAndCulture
+        parent:tabs['programs-culture-master']
     };
     tabs.extracurriculars = {
         name: "extracurriculars",
         selector: "#js_extracurriculars",
-        parent:tabs.programsAndCulture
+        parent:tabs['programs-culture-master']
     };
     tabs.culture = {
         name: "culture",
         selector: "#js_culture",
-        parent:tabs.programsAndCulture
+        parent:tabs['programs-culture-master']
     };
 
     // for each tab, create an array that contains all of its children

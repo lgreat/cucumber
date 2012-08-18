@@ -13,7 +13,7 @@
 
     <ul class="tabStyle-5">
         <c:if test="${empty showTestScores or showTestScores eq true}">
-            <li data-gs-tab="testScores"><a id="js_tests"
+            <li data-gs-tab="test-scores"><a id="js_tests"
                    href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}"
                    title="${pageScope.schoolName} | Test scores"
                    class="${requestScope.schoolProfileTabMap['test-scores']}">Test scores</a></li>

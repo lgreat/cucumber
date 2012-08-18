@@ -199,7 +199,7 @@
         $('#js_testSelect').change();
     </script>
     </div>
-    <mod:deferredTracking key="testScores" pageName="Test Scores" hier1="School,TestScores,MainTestScorePage"/>
+    <mod:deferredTracking key="test-scores" pageName="Test Scores" hier1="School,TestScores,MainTestScorePage"/>
 </c:if>
 
 </jsp:root>
