@@ -5,7 +5,7 @@
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:link="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -25,90 +25,96 @@
             <c:set var="t1dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">GreatSchools ratings</p>
             </c:set>
-            <school:profileOverviewCell1 title="${t1dc}">
-                <div class="mam">
-                    <c:set var="academicRating" value="${gsRatingsModel.academicRating}"/>
-                    <c:set var="climateRating" value="${gsRatingsModel.climateRating}"/>
-                    <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
+            <link:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn">
+                <school:profileOverviewCell1 title="${t1dc}">
+                    <div class="mam">
+                        <c:set var="academicRating" value="${gsRatingsModel.academicRating}"/>
+                        <c:set var="climateRating" value="${gsRatingsModel.climateRating}"/>
+                        <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
 
-                    <p class="small bottom mvs">Academic<span class="small_bold bottom fr mrs">${academicRating}</span></p>
-                    <hr class="keyline2"/>
-                    <p class="small bottom mvs">Climate<span class="small_bold bottom fr mrs">${climateRating}</span></p>
-                    <hr class="keyline2"/>
-                    <p class="small bottom mvs">Overall<span class="iconx24-ratings-rb i-24-ratings${overallRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
-                    <hr class="keyline2"/>
-                    <div class="line mts">
-                        <div class="unit size33of100">
-                            <div class="media">
-                                <div class="img">
-                                    <span class="iconx12 i-12-rating_key-red mrs"><!-- do not collapse --></span>
+                        <p class="small bottom mvs">Academic<span class="small_bold bottom fr mrs">${academicRating}</span></p>
+                        <hr class="keyline2"/>
+                        <p class="small bottom mvs">Climate<span class="small_bold bottom fr mrs">${climateRating}</span></p>
+                        <hr class="keyline2"/>
+                        <p class="small bottom mvs">Overall<span class="iconx24-ratings-rb i-24-ratings${overallRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
+                        <hr class="keyline2"/>
+                        <div class="line mts">
+                            <div class="unit size33of100">
+                                <div class="media">
+                                    <div class="img">
+                                        <span class="iconx12 i-12-rating_key-red mrs"><!-- do not collapse --></span>
+                                    </div>
+                                    <div class="bd fl">
+                                        <p class="smaller bottom">1-3</p>
+                                    </div>
                                 </div>
-                                <div class="bd fl">
-                                    <p class="smaller bottom">1-3</p>
-                                </div>
+                                <p class="smaller mbm">Below avg</p>
                             </div>
-                            <p class="smaller mbm">Below avg</p>
-                        </div>
-                        <div class="unit size33of100">
-                            <div class="media">
-                                <div class="img">
-                                    <span class="iconx12 i-12-rating_key-yellow mrs"><!-- do not collapse --></span>
+                            <div class="unit size33of100">
+                                <div class="media">
+                                    <div class="img">
+                                        <span class="iconx12 i-12-rating_key-yellow mrs"><!-- do not collapse --></span>
+                                    </div>
+                                    <div class="bd fl">
+                                        <p class="smaller bottom">4-7</p>
+                                    </div>
                                 </div>
-                                <div class="bd fl">
-                                    <p class="smaller bottom">4-7</p>
-                                </div>
+                                <p class="smaller mbm">Average</p>
                             </div>
-                            <p class="smaller mbm">Average</p>
-                        </div>
-                        <div class="unit size34of100 last Unit">
-                            <div class="media">
-                                <div class="img">
-                                    <span class="iconx12 i-12-rating_key-green mrs"><!-- do not collapse --></span>
+                            <div class="unit size34of100 last Unit">
+                                <div class="media">
+                                    <div class="img">
+                                        <span class="iconx12 i-12-rating_key-green mrs"><!-- do not collapse --></span>
+                                    </div>
+                                    <div class="bd fl">
+                                        <p class="smaller bottom">8-10</p>
+                                    </div>
                                 </div>
-                                <div class="bd fl">
-                                    <p class="smaller bottom">8-10</p>
-                                </div>
+                                <p class="smaller mbm">Above avg</p>
                             </div>
-                            <p class="smaller mbm">Above avg</p>
                         </div>
                     </div>
-                </div>
-            </school:profileOverviewCell1>
+                </school:profileOverviewCell1>
+            </link:linkToTab>
         </c:when>
 
         <c:when test="${content eq 'awards'}">
             <c:set var="t1s1">
                 <p class="small_bold textshadow-1 pvs plm bottom"><span class="iconx16 i-16-awards vam"><!-- do not collapse --></span> Awards &amp; recognition</p>
             </c:set>
-            <school:profileOverviewCell1 title="${t1s1}">
-                <div class="mam">
-                <ul class="small plm mls">
-                    <c:forEach var="item" items="${gsRatingsModel['awards']}">
-                        <li>${gsweb:abbreviateAtWhitespace(item, 50)}</li>
-                    </c:forEach>
-                </ul>
-                </div>
-            </school:profileOverviewCell1>
+            <link:linkToTab tabName="programs-culture" anchor="Awards_table" customLink="overview_awards" cssClass="tdn"><!-- TODO: verify correct anchor value -->
+                <school:profileOverviewCell1 title="${t1s1}">
+                    <div class="mam">
+                    <ul class="small plm mls">
+                        <c:forEach var="item" items="${gsRatingsModel['awards']}">
+                            <li>${gsweb:abbreviateAtWhitespace(item, 50)}</li>
+                        </c:forEach>
+                    </ul>
+                    </div>
+                </school:profileOverviewCell1>
+            </link:linkToTab>
         </c:when>
 
         <c:otherwise>
             <c:set var="t1s2">
                 <p class="small_bold textshadow-1 pvs plm bottom">About the school</p>
             </c:set>
-            <school:profileOverviewCell1 title="${t1s2}">
-                <c:set var="actualCharMax" value="${fn:length(gsRatingsModel['autotext'])}"/>
-                <c:set var="SHOW_CHAR_MAX" value="${180}"/>
-                <div class="mam">
-                    <c:choose>
-                        <c:when test="${actualCharMax le SHOW_CHAR_MAX}">
-                            <p class="small bottom">${gsRatingsModel['autotext']}</p>
-                        </c:when>
-                        <c:otherwise>
-                            <p class="small bottom">${gsweb:abbreviateAtWhitespace(gsRatingsModel['autotext'],180)} More &amp;raquo;</p>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </school:profileOverviewCell1>
+            <link:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_about" cssClass="tdn">
+                <school:profileOverviewCell1 title="${t1s2}">
+                    <c:set var="actualCharMax" value="${fn:length(gsRatingsModel['autotext'])}"/>
+                    <c:set var="SHOW_CHAR_MAX" value="${180}"/>
+                    <div class="mam">
+                        <c:choose>
+                            <c:when test="${actualCharMax le SHOW_CHAR_MAX}">
+                                <p class="small bottom">${gsRatingsModel['autotext']}</p>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="small bottom">${gsweb:abbreviateAtWhitespace(gsRatingsModel['autotext'],180)} More &amp;raquo;</p>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </school:profileOverviewCell1>
+            </link:linkToTab>
         </c:otherwise>
     </c:choose>
 
