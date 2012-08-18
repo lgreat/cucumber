@@ -19,6 +19,7 @@
             </c:set>
 
             <!-- Clicking on it takes you to the video at videoUrl -->
+            <!-- TODO: figure out how to best link the tile's header (hd class)-->
             <a onclick="if (s.tl) { s.tl(this, 'o', 'overview_videos'); }" class="tdn" href="${videoUrl}">
                 <school:profileOverviewCell1 title="${t3dc}">
                     <div class="mhm mvl">
@@ -35,7 +36,7 @@
             <c:if test="${school.districtId ne 0}">
                 <c:set var="districtParam" value="&amp;amp;districtId=${school.districtId}"/>
             </c:if>
-            <link:districtBoundaryTool styleClass="tdn" school="${school}">
+            <link:districtBoundaryTool styleClass="tdn" school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'overview_schoolboundaries'); }">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner bg-districtMap">
