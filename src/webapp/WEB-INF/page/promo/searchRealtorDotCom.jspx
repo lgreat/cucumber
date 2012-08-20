@@ -19,7 +19,7 @@
     function rdcGetExistingHomeUrl(formElem) {
         var searchURL = 'http://www.realtor.com/realestateandhomes-search';
         var loc = trim(document.getElementById('rdcCity').value);
-        var cityRegex = /^.*, (AK|AL|AR|AZ|CA|CO|CT|DC|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY)$/i;
+        var cityRegex = /^.*,\s*(AK|AL|AR|AZ|CA|CO|CT|DC|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY)$/i;
         if (cityRegex.test(loc)) {
             var parts = loc.split(",");
             var cityPart = trim(parts[0]);
@@ -70,17 +70,16 @@
     function rdcGetNewHomeUrl(formElem) {
         var searchURL = 'http://newhomes.move.com/GS/locationhandler/searchtype-qscr';
         var loc = trim(document.getElementById('rdcCity').value);
-        var cityRegex = /^.*, ?(AK|AL|AR|AZ|CA|CO|CT|DC|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY)$/i;
+        var cityRegex = /^.*,\s*?(AK|AL|AR|AZ|CA|CO|CT|DC|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NE|NH|NJ|NM|NV|NY|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VA|VT|WA|WI|WV|WY)$/i;
         var searchText = "";
         if (cityRegex.test(loc)) {
             var parts = loc.split(",");
             var cityPart = trim(parts[0]);
             var statePart = trim(parts[1]);
-            //cityPart = cityPart.replace(/ /g, "+");
             searchURL += "/state-" + statePart;
             searchText = cityPart;
         } else {
-            //searchText = loc.replace(/ /g, "+");
+            searchText = loc;
         }
 
         var rdcBedsId = document.getElementById('rdcBeds');
@@ -193,7 +192,11 @@
             </p>
 
             <p><label for="rdcCity">Location:</label>
-                <input type="text" name="rdcCity" id="rdcCity" value="${requestScope.defaultCity}"/></p>
+                <c:set var="initialCityState" value="${requestScope.defaultCity}"/>
+                <c:if test="${not empty requestScope.defaultCity and not empty requestScope.defaultState}">
+                    <c:set var="initialCityState" value="${requestScope.defaultCity}, ${requestScope.defaultState}" scope="page"/>
+                </c:if>
+                <input type="text" name="rdcCity" id="rdcCity" value="${initialCityState}"/></p>
 
             <p>
                 <input type="radio" name="rdcType" class="rdType" id="rdcTypeExisting" value="existing"

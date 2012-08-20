@@ -165,8 +165,14 @@
 
         <jsp:include page="/promo/emailSignUp.module?style=2012"/>
 
+        <c:set var="defaultCity" value=""/>
+        <c:set var="defaultState" value=""/>
+        <c:if test="${city != null and not empty city.name and not empty city.state}">
+            <c:set var="defaultCity" value="${city.name}"/>
+            <c:set var="defaultState" value="${city.state}"/>
+        </c:if>
         <promo:searchRealtorDotCom omniturePageName="${omniturePageName}" pageAdRatioKey="RDC_PCT_SEARCH"
-                                   showAdPct="0" style="2012"/>
+                                   showAdPct="0" style="2012" defaultCity="${defaultCity}" defaultState="${defaultState}"/>
 
         <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
         <ad:BelowFold_Top_300x125/>
