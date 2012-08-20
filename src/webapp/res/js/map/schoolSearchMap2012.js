@@ -329,7 +329,8 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 queryStringData.sortBy = 'DISTANCE';
                 $.extend(queryStringData, newData);
 
-                window.location.search = GS.uri.Uri.getQueryStringFromObject(queryStringData);            }
+                window.location.href = '/search/search.page' + GS.uri.Uri.getQueryStringFromObject(queryStringData);
+            }
         });
     };
 
