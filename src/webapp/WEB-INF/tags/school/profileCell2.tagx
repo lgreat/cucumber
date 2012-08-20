@@ -15,6 +15,8 @@
 
     <jsp:directive.attribute name="title" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="cssClass" type="java.lang.String" required="false"/>
+    <jsp:directive.attribute name="boxShadow" type="java.lang.String" required="false"/>
+
 
     <!--    <div class="grid_5 ${cssClass} mbs pas" style="height:170px;border:1px solid grey;border-top:4px solid grey;text-align:center;">
         <h5 style="text-align:center">${title}</h5>
@@ -22,7 +24,7 @@
     </div>-->
 
     <div class="mod standard_1-1">
-        <div class="inner">
+        <div class="inner ${boxShadow}">
             <div class="hd">
                 ${title}
             </div>

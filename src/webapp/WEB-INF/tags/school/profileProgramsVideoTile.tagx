@@ -9,19 +9,45 @@
 
     <c:set var="content" value="${videoModel['content']}" scope="page"/>
     <c:set var="videoUrl" value="${videoModel['videoUrl']}" scope="page"/>
+    <c:set var="t2dc">
+        <p class="small_bold textshadow-1 pvs plm bottom make-555555">School videos</p>
+    </c:set>
+
 
     <c:choose>
         <c:when test="${content eq 'video'}">
             <!-- Randall - This is from the profileOverviewVideoTile.tagx -->
-            <school:profileCell2 title="Videos">
+            <a href="${videoUrl}" class="tdn">
+            <school:profileCell2 title="${t2dc}" boxShadow="box-shadow-animation-1">
                 <!-- Show generic video icon and clicking on it takes you to the video at videoUrl -->
-                <div class="">Url is: ${videoUrl}</div>
+                <div class="mam media">
+                    <div class="img mrl"><img src="/res/img/school/culture/culture-placeholder-video.png"/></div>
+                    <div class="bd make-555555"><strong class="bottom">Watch Now</strong>
+                        <p class="small bottom"><span class="make-06b">See video</span> about this school from around the web.</p></div>
+                </div>
+                <!--<div class="">Url is: ${videoUrl}</div>-->
             </school:profileCell2>
+            </a>
         </c:when>
         <c:otherwise>
+
             <!-- Substitute content of the Principal CTA -->
             <!-- Randall - see the mock: School Culture, alt tiles -->
-            <div class="">Show "Add videos" Prinicpal CTA</div>
+            <a href="" class="tdn">
+            <div class="mod standard_3-1">
+                <div class="outer">
+                    <div class="inner">
+                        <div class="bd media">
+                            <span class="imgReg fr"><span class="iconx96 i-96-video-add"><!-- do not collapse --></span></span>
+                            <h4 class="bottom">Add videos</h4><p class="bottom fl make-555555">
+                            Schools, <span class="make-06b">join today</span> to<br/>
+                            upload videos</p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </a>
         </c:otherwise>
     </c:choose>
 

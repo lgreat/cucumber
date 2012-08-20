@@ -19,7 +19,7 @@
     <!-- The display variable contains 'default' or 'substitute' for which content to display -->
     <c:set var="content" value="${climateModel['content']}" scope="page"/>
     <c:set var="climateRating" value="${climateModel['climateRating']}" scope="page"/>
-
+    <!--<c:set var="content" value="default"/>-->
 
     <c:choose>
         <c:when test="${content eq 'default'}">
@@ -28,15 +28,35 @@
             <c:set var="t8_1dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">What's this school like?</p>
             </c:set>
-            <school:profileCell2 title="${t8_1dc}">
+            <school:profileCell2 title="${t8_1dc}" boxShadow="box-shadow-animation-1">
                 <!-- Randall - Build default "What's this school like?" here -->
                 <!-- the climate rating is in climateRatings -->
-                <div class="">The climate rating is ${climateRating}</div>
+                <div class="mam media">
+                    <div class="img mrl"><img src="/res/img/school/culture/culture-placeholder-face.png"/></div>
+                    <div class="bd make-555555"><strong class="bottom">Teachers know best</strong>
+                        <p class="small bottom">Find out why we give this school
+                            an <strong><em>AVERAGE QUALITY</em></strong> <span class="make-06b"> climate rating</span> based on teachers' input.</p></div>
+                </div>
+                <!--<div class="">The climate rating is ${climateRating}</div>-->
             </school:profileCell2>
         </c:when>
         <c:otherwise>
+            <c:set var="t8_1dc">
+                <p class="small_bold textshadow-1 pvs plm bottom">Tips for understanding school culture goes here</p>
+            </c:set>
             <!-- Randall - Build substitute "Tips for understanding school culture" here -->
-            <div class="">Tips for understanding school culture goes here</div>
+            <school:profileCell2 title="${t8_1dc}">
+                <!-- Randall - Build default "What's this school like?" here -->
+                <!-- the climate rating is in climateRatings -->
+                <div class="small mas">
+                    <ul>
+                        <li>Visit the school: <a href="">What to look for, what to ask</a></li>
+                        <li>Read our <a href="">Community Reviews</a> about the school</li>
+                        <li><a href="">Ten steps to building a bully-free school</a></li>
+                        <li><a href="">How important is school size?</a></li>
+                    </ul>
+                </div>
+            </school:profileCell2>
         </c:otherwise>
     </c:choose>
 
