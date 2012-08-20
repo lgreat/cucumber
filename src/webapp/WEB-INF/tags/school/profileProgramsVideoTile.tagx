@@ -21,7 +21,7 @@
             <school:profileCell2 title="${t2dc}" boxShadow="box-shadow-animation-1">
                 <!-- Show generic video icon and clicking on it takes you to the video at videoUrl -->
                 <div class="mam media">
-                    <div class="img mrl"><img src="/res/img/school/culture/culture-placeholder-video.png"/></div>
+                    <div class="img mrl"><img src="/res/img/school/culture/sampleVideo_100x70.png"/></div>
                     <div class="bd make-555555"><strong class="bottom">Watch Now</strong>
                         <p class="small bottom"><span class="make-06b">See video</span> about this school from around the web.</p></div>
                 </div>
