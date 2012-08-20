@@ -261,11 +261,11 @@ a:hover .i-16-search-filter-arrow-up {
 
 /* row 32 */
 
-.i-16-search-filter-arrow-down-on {
+a:active .i-16-search-filter-arrow-down {
     background-position: -480px -32px;
 }
 
-.i-16-search-filter-arrow-up-on {
+a:active .i-16-search-filter-arrow-up {
     background-position: -496px -32px;
 }
 
