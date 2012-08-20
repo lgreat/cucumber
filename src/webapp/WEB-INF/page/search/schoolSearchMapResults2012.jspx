@@ -41,9 +41,7 @@
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
 
-    <c:if test="${isSearch}">
-        <meta name="robots" content="follow,noindex"/>
-    </c:if>
+    <meta name="robots" content="follow,noindex"/>
 
     <ad:enableGptAsynchronousMode/>
     <pageHelper:externalCss file="/res/css/07_navigation/pagination.css"/>
