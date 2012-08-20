@@ -22,35 +22,49 @@
 
 
     <c:set var="overview">
+        <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
         <school:profileModuleInclude tabName="overview" page="/school/profileOverview.page" />
+        <!--</gsweb:cache>-->
     </c:set>
     <c:set var="testscores">
+        <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
         <school:profileModuleInclude tabName="testscores" page="/school/profileTestScores.page" />
+        <!--</gsweb:cache>-->
     </c:set>
     <c:set var="ratings">
+        <!--<gsweb:cache key="profileRatings-${school.stateAbbreviation}-${school.id}">-->
         <school:profileModuleInclude tabName="ratings" page="/school/profileRatings.page" />
+        <!--</gsweb:cache>-->
     </c:set>
     <c:set var="schoolstats">
+        <!--<gsweb:cache key="profileDemographics-${school.stateAbbreviation}-${school.id}">-->
         <school:profileModuleInclude tabName="demographics" page="/school/profileStats.page" />
+        <!--</gsweb:cache>-->
     </c:set>
     <c:set var="reviews">
+        <!--<gsweb:cache key="profileReviews-${school.stateAbbreviation}-${school.id}">-->
         <school:profileModuleInclude tabName="reviews" page="/school/profileReviews.page" />
+        <!--</gsweb:cache>-->
     </c:set>
     <c:set var="programs">
+        <!--<gsweb:cache key="profilePrograms-${school.stateAbbreviation}-${school.id}">-->
         <school:profileModuleInclude tabName="programs" page="/school/profilePrograms.page" />
+        <!--</gsweb:cache>-->
     </c:set>
     <c:set var="admissions">
+        <!--<gsweb:cache key="profileAdmissions-${school.stateAbbreviation}-${school.id}">-->
         <!--<school:profileModuleInclude tabName="admissions" page="/school/profileAdmissions.page" />-->
+        <!--</gsweb:cache>-->
     </c:set>
 
     <c:if test="${param.debug}">
-        [overview took ${requestScope['overviewtime']}ms] <br/>
-        [test scores took ${requestScope['testscorestime']}ms] <br/>
-        [ratings took ${requestScope['ratingstime']}ms] <br/>
-        [stats took ${requestScope['demographicstime']}ms] <br/>
-        [reviews took ${requestScope['reviewstime']}ms] <br/>
-        [programs took ${requestScope['programstime']}ms] <br/>
-        [admissions took ${requestScope['admissionstime']}ms] <br/>
+        [overview took ${requestScope['overviewtime']}ms for ${fn:length(overview)} chars] <br/>
+        [test scores took ${requestScope['testscorestime']}ms for ${fn:length(testscores)} chars] <br/>
+        [ratings took ${requestScope['ratingstime']}ms for ${fn:length(ratings)} chars] <br/>
+        [stats took ${requestScope['demographicstime']}ms for ${fn:length(schoolstats)} chars] <br/>
+        [reviews took ${requestScope['reviewstime']}ms for ${fn:length(reviews)} chars] <br/>
+        [programs took ${requestScope['programstime']}ms for ${fn:length(programs)} chars] <br/>
+        [admissions took ${requestScope['enrollmenttime']}ms for ${fn:length(enrollment)} chars] <br/>
     </c:if>
 
     <div class="gsTabs" data-gs-allow-intercept-hovers="true">
@@ -101,29 +115,23 @@
 
         <c:if test="${(!empty overview)}">
             <div style="display:${(!empty requestScope.schoolProfileTabMap['overview-master'] and requestScope.schoolProfileTabMap['overview-master'] eq 'selected'?'block;':'none')}">
-                <!--<gsweb:cache key="profileOverview-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${overview}' escapeXml="false" />
-                <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty reviews)}">
             <div style=" display:${(!empty requestScope.schoolProfileTabMap['reviews-master'] and requestScope.schoolProfileTabMap['reviews-master'] eq 'selected'?'block;':'none')}">
-                <!--<gsweb:cache key="profileReviews-${school.stateAbbreviation}-${school.id}">-->
                 <c:out value='${reviews}' escapeXml="false" />
-                <!--</gsweb:cache>-->
             </div>
         </c:if>
         <c:if test="${(!empty testscores || !empty ratings)}">
             <div style="display:${(!empty requestScope.schoolProfileTabMap['test-scores-master'] and requestScope.schoolProfileTabMap['test-scores-master'] eq 'selected'?'block;':'none')}">
                 <div class="gsTabs">
                     <profile:testsRatingsNav schoolName="${schoolName}" showTestScores="${not empty testscores}"/>
-                    <!--<gsweb:cache key="profileTest-${school.stateAbbreviation}-${school.id}">-->
                     <c:if test="${(!empty testscores)}">
                         <div class="${(!empty requestScope.schoolProfileTabMap['test-scores'] and requestScope.schoolProfileTabMap['test-scores'] eq 'selected'?'':'dn')}">
                             <c:out value='${testscores}' escapeXml="false"/>
                         </div>
                     </c:if>
-                    <!--</gsweb:cache>-->
                     <c:if test="${(!empty ratings)}">
                         <c:out value='${ratings}' escapeXml="false"/>
                     </c:if>

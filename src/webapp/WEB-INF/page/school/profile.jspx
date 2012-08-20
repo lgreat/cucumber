@@ -71,7 +71,6 @@
     <script type="text/javascript" src="/res/js/tracking/customLinks.js"><!-- no collapse --></script>
 
     <!--Needed for photogallery-->
-    <script type="text/javascript" src="/res/js/gs_jquery_extensions.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/omnitureEventNotifier.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/photoGallery.js"><!-- no collapse --></script>
 
