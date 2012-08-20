@@ -378,6 +378,7 @@
                     style="2012"
                     />
         </c:if>
+        <school:profileChooser city="${school.physicalAddress.city}" state="${school.physicalAddress.state}"/>
 
     </div>
 </div>

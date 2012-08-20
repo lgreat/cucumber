@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsweb="gstaglib"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+
+    <jsp:directive.attribute name="city" type="java.lang.String" required="true"/>
+    <jsp:directive.attribute name="state" type="java.lang.String" required="true"/>
+
+    <!-- set hotline# & Outsmarting CMS ID-->
+    <c:choose>
+        <c:when test="${state eq 'DC'}">
+            <c:set var="hotlinePhoneNbr" value="202-431-5538" scope="page"/>
+            <c:set var="outsmartArticleCmsId" value="3775" scope="page"/>
+            <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailWashingtonDc.jpg" scope="page"/>
+            <c:set var="pdf" value="http://DcPdf" scope="page"/>
+            <c:set var="titleCity" value="Washington DC"/>
+        </c:when>
+        <c:when test="${state eq 'WI'}">
+            <c:set var="hotlinePhoneNbr" value="414-748-1211" scope="page"/>
+            <c:set var="outsmartArticleCmsId" value="3428" scope="page"/>
+            <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailMilwaukee.jpg" scope="page"/>
+            <c:set var="pdf" value="http://WiPdf" scope="page"/>
+            <c:set var="titleCity" value="Milwaukee"/>
+        </c:when>
+        <c:when test="${state eq 'IN'}">
+            <c:set var="outsmartArticleCmsId" value="tbd" scope="page"/>
+            <c:set var="thumbnail" value="" scope="page"/>
+            <c:set var="pdf" value="http://InPdf" scope="page"/>
+            <c:set var="titleCity" value="Indianopolis"/>
+        </c:when>
+    </c:choose>
+
+    <!-- Frontend - remove this comment and the following line -->
+    <h3>School Chooser for ${titleCity}</h3>
+    <!-- Title row -->
+    <div class="">Title: Choosing a school in ${titleCity}</div>
+    <!-- Section 1 - Download links -->
+        <!-- Currently the download pdf's are not available so this section should be hidden -->
+
+    <!-- Section 2 - Planning a visit -->
+        <!-- The download button contains the following entries.  Clicking one opens the specified pdf -->
+            <!-- Preschool - http://www.greatschools.org/catalog/pdf/schq_visit_preschool.pdf -->
+            <!-- Elementry school - http://www.greatschools.org/catalog/pdf/schq_visit_elem.pdf -->
+            <!-- Middle school - http://www.greatschools.org/catalog/pdf/schq_visit_middle.pdf -->
+            <!-- High school - http://www.greatschools.org/catalog/pdf/schq_visit_high.pdf -->
+
+    <!-- Section 3 - Outsmarting the system -->
+        <!-- Use the following links for this item -->
+        <!-- Link: http://www.greatschools.org/content/cms/translate.page?Article=${outsmartArticleCmsId} -->
+        <!-- Img:  The images are stored at ${thumbnail} -->
+    <c:if test="${not empty outsmartArticleCmsId}">
+        <!-- show the "outsmart the system" block and include ${hotlinePhoneNbr} if present -->
+        <!-- School hotline -->
+        <c:if test="${not empty hotlinePhoneNbr}">
+            <!-- show the "Need more information?" block and include ${hotlinePhoneNbr} -->
+        </c:if>
+    </c:if>
+
+</jsp:root>
