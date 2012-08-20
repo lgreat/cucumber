@@ -21,11 +21,11 @@
                         <div class="hd">
                             <div class="line">
                                 <div class="unit size85of100">
-                                    <div class="small bottom">${title}</div>
+                                    <div class="small bottom">Results will show schools with at least <strong>one</strong> of these:</div>
                                 </div>
                                 <div class="unit size15of100 lastUnit">
                                     <span class="fltrt" data-gs-dropdown-hider="${id}" data-gs-undo-filters="${id}">
-                                        <span class="iconx16 i-16-close"><!-- do not collapse --></span>
+                                        <span class="iconx16 i-16-close-grey"><!-- do not collapse --></span>
                                     </span>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                     </div>
 
                     <c:if test="${not hideApplyReset}">
-                        <div class="ft">
+                        <div class="ft" style="border-top: 1px solid #DDDDDD">
                             <div class="line">
                                 <div class="unit size83of100">
                                     <button class="button-1 js-applyFilters" data-gs-dropdown-hider="${id}">Save
