@@ -198,7 +198,7 @@
                     <!-- <div class="unit size32of100">School vist checklist goes here - the single wide version</div> -->
                     <div class="unit size32of100">
                         <!-- Single wide school video tour -->
-                        <school:profileOverviewTourVideoTile tourModel="${videoTour}" />
+                        <school:profileOverviewTourVideoTile tourModel="${videoTour}"/>
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>

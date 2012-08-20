@@ -23,7 +23,7 @@
             <c:set var="t9dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Transportation</p>
             </c:set>
-            <link:linkToTab tabName="programs-resources" customLink="overview_transportation" cssClass="tdn">
+            <link:linkToTab tabName="programs-resources" customLink="overview_transportation" cssClass="tdn make-555555">
                 <school:profileOverviewCell1 title="${t9dc}">
                     <c:set var="icon" value="${transportationModel['icon']}" scope="page"/>
                     <c:set var="shuttleStops" value="${transportationModel['shuttleStops']}" scope="page"/>

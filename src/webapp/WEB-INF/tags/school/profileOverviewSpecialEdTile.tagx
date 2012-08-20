@@ -26,7 +26,7 @@
                 <p class="small_bold textshadow-1 pvs plm bottom">Special education</p>
             </c:set>
 
-            <link:linkToTab dontPrintLink="${specialEdModel['SpecEdPgmsProvided'] eq 'call'}" tabName="programs-culture" anchor="Special_education_/_special_needs_table" cssClass="tdn" customLink="overview_specialed">
+            <link:linkToTab dontPrintLink="${specialEdModel['SpecEdPgmsProvided'] eq 'call'}" tabName="programs-culture" anchor="Special_education_/_special_needs_table" cssClass="tdn make-555555" customLink="overview_specialed">
                 <school:profileOverviewCell1 title="${t8_1dc}">
                     <!-- Default Special Education display -->
                     <!-- specEdPgms contins a list of the special ed programs available.  If present they should be listed -->
@@ -91,7 +91,7 @@
             <c:set var="t8_2dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">${specialEdModel['ExtdCareTitle']}</p>
             </c:set>
-            <link:linkToTab dontPrintLink="${extdCareProvided eq 'noInfo'}" tabName="programs-resources" anchor="School_basics_table" cssClass="tdn" customLink="overview_extendedcare">
+            <link:linkToTab dontPrintLink="${extdCareProvided eq 'noInfo'}" tabName="programs-resources" anchor="School_basics_table" cssClass="tdn make-555555" customLink="overview_extendedcare">
                 <school:profileOverviewCell1 title="${t8_2dc}">
                     <div class="mam">
                         <c:choose>
