@@ -82,7 +82,7 @@
                                              state="${requestScope.context.state}"
                                              styleClass="stateSelect"
                                              styleId="js-findByNameStateSelect"/>
-                        <span class="pa" style="left:80px;">&#9662;</span>
+                        <span class="pa" style="left:76px;"><span class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span></span>
                     </div>
                     <div class="unit size20of100 lastUnit">
                         <button class="button-4 searchSubmit" type="submit">Search</button>
