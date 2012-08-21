@@ -217,7 +217,7 @@ Created by Mitchell Seltzer
     gray box for ratings page
 
 *********************************************************************************************************************/
-.grayBox{
+.ratingsGraphicMakesUp .grayBox{
     float: left;
     width:110px;
     border:1px #DDDDDD solid;
