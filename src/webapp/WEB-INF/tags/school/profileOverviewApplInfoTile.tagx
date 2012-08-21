@@ -5,7 +5,6 @@
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -21,91 +20,93 @@
     <c:set var="t11dc">
         <p class="small_bold textshadow-1 pvs plm bottom">Getting in</p>
     </c:set>
-    <school:profileOverviewCell1 title="${t11dc}">
-        <div class="mam">
-        <c:set var="applicationDeadlineDate" value="${applInfoModel['applicationDeadlineDate']}" scope="page"/>
-        <c:set var="vouchers" value="${applInfoModel['vouchers']}" scope="page"/>
-        <!-- vouchers can contain the following values:
-               "yes" Vouchers are accepted
-               "no" Vouchers are not accepted
-               "blank" The ESP does not caontain a value
-        -->
-        <c:set var="applicationDeadlineMsg" value="${applInfoModel['applicationDeadlineMsg']}" scope="page"/>
-        <!-- applicationDeadlineMsg can contain the following values:
-               "apply" in which case applicationDeadlineDate has a value
-               "call"  No date provied, call the school
-               "yearround" Yearround addmission
-        -->
+    <gslink:linkToTab tabName="admissions" cssClass="tdn" customLink="${content eq 'applInfoV1'? 'overview_application2x':'overview_application1x'}">
+        <school:profileOverviewCell1 title="${t11dc}">
+            <div class="mam">
+            <c:set var="applicationDeadlineDate" value="${applInfoModel['applicationDeadlineDate']}" scope="page"/>
+            <c:set var="vouchers" value="${applInfoModel['vouchers']}" scope="page"/>
+            <!-- vouchers can contain the following values:
+                   "yes" Vouchers are accepted
+                   "no" Vouchers are not accepted
+                   "blank" The ESP does not caontain a value
+            -->
+            <c:set var="applicationDeadlineMsg" value="${applInfoModel['applicationDeadlineMsg']}" scope="page"/>
+            <!-- applicationDeadlineMsg can contain the following values:
+                   "apply" in which case applicationDeadlineDate has a value
+                   "call"  No date provied, call the school
+                   "yearround" Yearround addmission
+            -->
 
-            <c:set var="admissionsAndVouchers">
-            <!-- The following is on the right -->
-            <!-- applicationDeadlineMsg = ${applicationDeadlineMsg}, [values are apply, call or yearround] -->
-            <!-- vouchers = ${vouchers}, [values are no, yes or blank] -->
+                <c:set var="admissionsAndVouchers">
+                <!-- The following is on the right -->
+                <!-- applicationDeadlineMsg = ${applicationDeadlineMsg}, [values are apply, call or yearround] -->
+                <!-- vouchers = ${vouchers}, [values are no, yes or blank] -->
+                <c:choose>
+                    <c:when test="${applicationDeadlineMsg eq 'apply'}">
+                        <c:choose>
+                            <c:when test="${empty applicationDeadlineDate}">
+                                <p><em>The application deadline date is not defined</em></p>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="small tac">Apply by<br/>
+                                    <span class="small_bold">${applicationDeadlineDate}</span>
+                                </p>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                    <c:when test="${applicationDeadlineMsg eq 'call'}">
+                        <p class="small tac"><em>Call the school for<br/>more information</em></p>
+                    </c:when>
+                    <c:when test="${applicationDeadlineMsg eq 'yearround'}">
+                        <p class="small tac">Year-round/rolling admissions</p>
+                    </c:when>
+                </c:choose>
+                <hr class="keyline2"/>
+                <c:choose>
+                    <c:when test="${empty vouchers}">
+                        <!-- do not collapse -->
+                    </c:when>
+                    <c:when test="${vouchers eq 'yes'}">
+                        <p class="small_bold tac">Accept vouchers</p>
+                    </c:when>
+                    <c:when test="${vouchers eq 'no'}">
+                        <p class="small_bold tac">Does not accept vouchers</p>
+                    </c:when>
+                </c:choose>
+                </c:set>
+
             <c:choose>
-                <c:when test="${applicationDeadlineMsg eq 'apply'}">
-                    <c:choose>
-                        <c:when test="${empty applicationDeadlineDate}">
-                            <p><em>The application deadline date is not defined</em></p>
-                        </c:when>
-                        <c:otherwise>
-                            <p class="small tac">Apply by<br/>
-                                <span class="small_bold">${applicationDeadlineDate}</span>
+                <c:when test="${content eq 'applInfoV1'}">
+                    <!-- double wide tile -->
+                    <c:set var="acceptanceRate" value="${applInfoModel['acceptanceRate']}" scope="page"/>
+                    <c:set var="acceptanceRateYear" value="${applInfoModel['acceptanceRateYear']}" scope="page"/>
+
+                    <div class="line">
+                        <div class="unit size50of100">
+                            <!-- The following is on the left -->
+                            <p class="small_bold tac">What are your chances?</p>
+
+                            <p class="small tac">
+                                <span class="small_bold">${acceptanceRate}</span> out of <span
+                                    class="small_bold">10</span><br/>
+                                students were accepted for<br/>
+                                the ${acceptanceRateYear} school year.
                             </p>
-                        </c:otherwise>
-                    </c:choose>
-                </c:when>
-                <c:when test="${applicationDeadlineMsg eq 'call'}">
-                    <p class="small tac"><em>Call the school for<br/>more information</em></p>
-                </c:when>
-                <c:when test="${applicationDeadlineMsg eq 'yearround'}">
-                    <p class="small tac">Year-round/rolling admissions</p>
-                </c:when>
-            </c:choose>
-            <hr class="keyline2"/>
-            <c:choose>
-                <c:when test="${empty vouchers}">
-                    <!-- do not collapse -->
-                </c:when>
-                <c:when test="${vouchers eq 'yes'}">
-                    <p class="small_bold tac">Accept vouchers</p>
-                </c:when>
-                <c:when test="${vouchers eq 'no'}">
-                    <p class="small_bold tac">Does not accept vouchers</p>
-                </c:when>
-            </c:choose>
-            </c:set>
-
-        <c:choose>
-            <c:when test="${content eq 'applInfoV1'}">
-                <!-- double wide tile -->
-                <c:set var="acceptanceRate" value="${applInfoModel['acceptanceRate']}" scope="page"/>
-                <c:set var="acceptanceRateYear" value="${applInfoModel['acceptanceRateYear']}" scope="page"/>
-
-                <div class="line">
-                    <div class="unit size50of100">
-                        <!-- The following is on the left -->
-                        <p class="small_bold tac">What are your chances?</p>
-
-                        <p class="small tac">
-                            <span class="small_bold">${acceptanceRate}</span> out of <span
-                                class="small_bold">10</span><br/>
-                            students were accepted for<br/>
-                            the ${acceptanceRateYear} school year.
-                        </p>
+                        </div>
+                        <div class="unit size50of100 lastUnit">
+                            ${admissionsAndVouchers}
+                        </div>
                     </div>
-                    <div class="unit size50of100 lastUnit">
-                        ${admissionsAndVouchers}
-                    </div>
-                </div>
-            </c:when>
-            <c:otherwise>
-                <!-- single wide image -->
-                ${admissionsAndVouchers}
-            </c:otherwise>
+                </c:when>
+                <c:otherwise>
+                    <!-- single wide image -->
+                    ${admissionsAndVouchers}
+                </c:otherwise>
 
-        </c:choose>
-        </div>
-    </school:profileOverviewCell1>
+            </c:choose>
+            </div>
+        </school:profileOverviewCell1>
+    </gslink:linkToTab>
 
 
 </jsp:root>

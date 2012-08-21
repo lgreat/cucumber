@@ -5,7 +5,6 @@
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -30,7 +29,7 @@
         <p class="small_bold textshadow-1 pvs plm bottom make-555555">Community ratings</p>
     </c:set>
 
-    <a data-gs-show-tab="reviews" onclick="if (s.tl) { s.tl(this, 'o', 'overview_communityrating'); }" class="tdn" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}">
+    <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdn">
         <school:profileOverviewCell1 title="${t4dc}">
 
             <div class="mtl mha mbs clearfix" style="width:80px;">
@@ -47,6 +46,6 @@
             </c:choose>
 
         </school:profileOverviewCell1>
-    </a>
+    </gslink:linkToTab>
 
 </jsp:root>

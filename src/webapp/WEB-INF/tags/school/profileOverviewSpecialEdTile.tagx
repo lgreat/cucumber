@@ -5,7 +5,6 @@
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -26,7 +25,7 @@
                 <p class="small_bold textshadow-1 pvs plm bottom">Special education</p>
             </c:set>
 
-            <link:linkToTab dontPrintLink="${specialEdModel['SpecEdPgmsProvided'] eq 'call'}" tabName="programs-culture" anchor="Special_education_/_special_needs_table" cssClass="tdn make-555555" customLink="overview_specialed">
+            <gslink:linkToTab dontPrintLink="${specialEdModel['SpecEdPgmsProvided'] eq 'call'}" tabName="programs-culture" anchor="Special_education_/_special_needs_table" cssClass="tdn make-555555" customLink="overview_specialed">
                 <school:profileOverviewCell1 title="${t8_1dc}">
                     <!-- Default Special Education display -->
                     <!-- specEdPgms contins a list of the special ed programs available.  If present they should be listed -->
@@ -86,12 +85,12 @@
                     </c:choose>
                     </div>
                 </school:profileOverviewCell1>
-            </link:linkToTab>
+            </gslink:linkToTab>
             <!-- Extended Care -->
             <c:set var="t8_2dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">${specialEdModel['ExtdCareTitle']}</p>
             </c:set>
-            <link:linkToTab dontPrintLink="${extdCareProvided eq 'noInfo'}" tabName="programs-resources" anchor="School_basics_table" cssClass="tdn make-555555" customLink="overview_extendedcare">
+            <gslink:linkToTab dontPrintLink="${extdCareProvided eq 'noInfo'}" tabName="programs-resources" anchor="School_basics_table" cssClass="tdn make-555555" customLink="overview_extendedcare">
                 <school:profileOverviewCell1 title="${t8_2dc}">
                     <div class="mam">
                         <c:choose>
@@ -137,22 +136,24 @@
                         </c:choose>
                     </div>
                 </school:profileOverviewCell1>
-            </link:linkToTab>
+            </gslink:linkToTab>
         </c:when>
         <c:when test="${content eq 'teachers/staff'}">
             <!-- ============ Substitute display - Teachers / staff ========== -->
             <c:set var="t8s1">
                 <p class="small_bold textshadow-1 pvs plm bottom">Staff</p>
             </c:set>
-            <school:profileOverviewCell1 title="${t8s1}">
-                <c:set var="sentence"    value="${specialEdModel['teachersStaff']}"  scope="page" />
-                <div class="mam">
-                    <p class="small bottom">${gsweb:abbreviateAtWhitespace(sentence,150)}</p>
-                </div>
-            </school:profileOverviewCell1>
+            <gslink:linkToTab tabName="programs-resources" cssClass="tdn" customLink="overview_staff">
+                <school:profileOverviewCell1 title="${t8s1}">
+                    <c:set var="sentence"    value="${specialEdModel['teachersStaff']}"  scope="page" />
+                    <div class="mam">
+                        <p class="small bottom">${gsweb:abbreviateAtWhitespace(sentence,150)}</p>
+                    </div>
+                </school:profileOverviewCell1>
+            </gslink:linkToTab>
         </c:when>
         <c:otherwise>
-            <a class="tdn" href="javascript:void(0);">
+            <gslink:linkToTab tabName="reviews" cssClass="tdn" customLink="overview_writereview">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner bg-writeReviews">
@@ -168,7 +169,7 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </gslink:linkToTab>
         </c:otherwise>
         </c:choose>
 

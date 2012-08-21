@@ -6,8 +6,9 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:gsweb="gstaglib">
+          xmlns:gsweb="gstaglib" >
 
 <jsp:directive.page contentType="text/html"/>
 <jsp:output doctype-root-element="html"
@@ -40,13 +41,13 @@
             <div class="alpha grid_16 omega">
 
                 <div class="line">   <!-- row 1, tiles 1-3 -->
-                    <div data-gs-custom-link="overview_ratings" class="unit size32of100">
+                    <div class="unit size32of100">
                         <school:profileOverviewGsRatingsTile gsRatingsModel="${ratings}"/>
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
-                    <div data-gs-custom-link="overview_photos" class="unit size32of100">
+                    <div class="unit size32of100">
                         <school:profileOverviewPhotosTile photosModel="${photos}"/>
                     </div>
 
@@ -64,7 +65,7 @@
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
-                    <div data-gs-custom-link="overview_reviews" class="unit size66of100 lastUnit">
+                    <div class="unit size66of100 lastUnit">
                         <school:profileOverviewReviewsTile reviewsModel="${reviews}" />
                     </div>
                 </div>
@@ -76,19 +77,19 @@
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
-                    <div data-gs-custom-link="overview_specialed" class="unit size32of100">
+                    <div class="unit size32of100">
                         <school:profileOverviewSpecialEdTile specialEdModel="${specialEd}" />
                     </div>
 
                     <div class="unit size2of100">&amp;nbsp;</div>
 
-                    <div data-gs-custom-link="overview_transportation" class="unit size32of100 lastUnit">
+                    <div class="unit size32of100 lastUnit">
                         <school:profileOverviewTransportationTile transportationModel="${transportation}" />
                     </div>
                 </div>
 
                 <div class="line">   <!-- row 4, tiles 10-12 -->
-                    <div data-gs-custom-link="overview_programs" class="unit size32of100">
+                    <div class="unit size32of100">
                         <school:profileOverviewProgramsTile programsModel="${programs}" />
                     </div>
 
@@ -100,7 +101,7 @@
                     <c:choose>
                         <c:when test="${applInfoContent eq 'applInfoV1'}">
                             <!-- Double wide tile, application info -->
-                            <div data-gs-custom-link="overview_application2x" class="unit size66of100 lastUnit">
+                            <div class="unit size66of100 lastUnit">
                                 <school:profileOverviewApplInfoTile applInfoModel="${applInfo}" />
                             </div>
                         </c:when>

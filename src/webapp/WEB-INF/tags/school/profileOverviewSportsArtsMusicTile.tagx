@@ -36,92 +36,97 @@
             </div>
         </c:set>
 
-        <school:profileOverviewCell1 title="${t19t20t21dc}">
-            <div class="line mam">
+            <!--<div data-gs-show-tab="extracurriculars"  onclick="if (s.tl) { s.tl(this, 'o', 'overview_extracurriculars'); }" style="cursor:pointer" class="tdn">-->
+            <gslink:linkToTab tabName="extracurriculars" customLink="overview_extracurriculars" cssClass="tdn">
 
-                <c:choose>
-                    <c:when test="${empty boysSports and empty girlsSports}">
-                        <!-- No girls or boys sports -->
-                        <div class="unit size50of100">
-                            <p><em>Call the school for more information</em></p>
-                        </div>
-                    </c:when>
-                    <c:when test="${not empty boysSports and empty girlsSports}">
-                        <!-- Boys sports only -->
-                        <div class="unit size50of100">
-                            <school:profileOverviewBoysSports sportsModel="${sports}"/>
-                        </div>
-                    </c:when>
-                    <c:when test="${empty boysSports and not empty girlsSports}">
-                        <!-- Girls sports only -->
-                        <div class="unit size50of100">
-                            <school:profileOverviewGirlsSports sportsModel="${sports}"/>
-                        </div>
-                    </c:when>
-                    <c:otherwise>
-                        <!-- Boys sports -->
-                        <div class="unit size25of100">
-                            <school:profileOverviewBoysSports sportsModel="${sports}"/>
-                        </div>
-                        <!-- Girls sports -->
-                        <div class="unit size25of100">
-                            <school:profileOverviewGirlsSports sportsModel="${sports}"/>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
+            <school:profileOverviewCell1 title="${t19t20t21dc}">
+                <div class="line mam">
 
-                <!-- Arts -->
-                <div class="unit size25of100">
-                    <div style="height: 100px;border-left: 1px solid #e6e6e6;">
-                        <c:choose>
-                            <c:when test="${empty arts}">
-                                <p class="mhm"><em>Call the school for more information</em></p>
-                            </c:when>
-                            <c:otherwise>
-                                <ul class="small bottom">
-                                    <c:set var="showArtMax" value="${5}"/>
-                                    <c:set var="loopArtMax" value="${fn:length(arts) le showArtMax ? fn:length(arts) : 4}"/>
-                                    <c:set var="showMoreArt" value="${fn:length(arts) gt showArtMax ? 'true' : 'false'}"/>
-                                    <c:forEach var="item" items="${arts}" varStatus="status">
-                                        <c:if test="${status.count le loopArtMax}">
-                                            <li>${gsweb:abbreviateAtWhitespace(item,25)}</li>
-                                        </c:if>
-                                        <c:if test="${status.count eq loopArtMax and showMoreArt}">
-                                            <li><a href="javascript:void(0);">More &amp;raquo;</a></li>
-                                        </c:if>
-                                    </c:forEach>
-                                </ul>
-                            </c:otherwise>
-                        </c:choose>
+                    <c:choose>
+                        <c:when test="${empty boysSports and empty girlsSports}">
+                            <!-- No girls or boys sports -->
+                            <div class="unit size50of100">
+                                <p><em>Call the school for more information</em></p>
+                            </div>
+                        </c:when>
+                        <c:when test="${not empty boysSports and empty girlsSports}">
+                            <!-- Boys sports only -->
+                            <div class="unit size50of100">
+                                <school:profileOverviewBoysSports sportsModel="${sports}"/>
+                            </div>
+                        </c:when>
+                        <c:when test="${empty boysSports and not empty girlsSports}">
+                            <!-- Girls sports only -->
+                            <div class="unit size50of100">
+                                <school:profileOverviewGirlsSports sportsModel="${sports}"/>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- Boys sports -->
+                            <div class="unit size25of100">
+                                <school:profileOverviewBoysSports sportsModel="${sports}"/>
+                            </div>
+                            <!-- Girls sports -->
+                            <div class="unit size25of100">
+                                <school:profileOverviewGirlsSports sportsModel="${sports}"/>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+
+                    <!-- Arts -->
+                    <div class="unit size25of100">
+                        <div style="height: 100px;border-left: 1px solid #e6e6e6;">
+                            <c:choose>
+                                <c:when test="${empty arts}">
+                                    <p class="mhm"><em>Call the school for more information</em></p>
+                                </c:when>
+                                <c:otherwise>
+                                    <ul class="small bottom">
+                                        <c:set var="showArtMax" value="${5}"/>
+                                        <c:set var="loopArtMax" value="${fn:length(arts) le showArtMax ? fn:length(arts) : 4}"/>
+                                        <c:set var="showMoreArt" value="${fn:length(arts) gt showArtMax ? 'true' : 'false'}"/>
+                                        <c:forEach var="item" items="${arts}" varStatus="status">
+                                            <c:if test="${status.count le loopArtMax}">
+                                                <li>${gsweb:abbreviateAtWhitespace(item,25)}</li>
+                                            </c:if>
+                                            <c:if test="${status.count eq loopArtMax and showMoreArt}">
+                                                <li data-gs-show-tab="programs-culture" data-gs-tab-options="Arts_&amp;_music_table">More &amp;raquo;</li>
+                                            </c:if>
+                                        </c:forEach>
+                                    </ul>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                    <!-- Music -->
+                    <div class="unit size25of100 lastUnit">
+                        <div style="height: 100px;border-left: 1px solid #e6e6e6;">
+                            <c:choose>
+                                <c:when test="${empty music}">
+                                    <p class="mhm"><em>Call the school for more information</em></p>
+                                </c:when>
+                                <c:otherwise>
+                                    <ul class="small bottom">
+                                        <c:set var="showMusicMax" value="${5}"/>
+                                        <c:set var="loopMusicMax" value="${fn:length(music) le showMusicMax ? fn:length(music) : 4}"/>
+                                        <c:set var="showMoreMusic" value="${fn:length(music) gt showMusicMax ? 'true' : 'false'}"/>
+                                        <c:forEach var="item" items="${music}" varStatus="status">
+                                            <c:if test="${status.count le loopMusicMax}">
+                                                <li>${gsweb:abbreviateAtWhitespace(item,25)}</li>
+                                            </c:if>
+                                            <c:if test="${status.count eq loopArtMax and showMoreMusic}">
+                                                <li data-gs-show-tab="programs-culture" data-gs-tab-options="Arts_&amp;_music_table">More &amp;raquo;</li>
+                                            </c:if>
+                                        </c:forEach>
+                                    </ul>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                     </div>
                 </div>
-                <!-- Music -->
-                <div class="unit size25of100 lastUnit">
-                    <div style="height: 100px;border-left: 1px solid #e6e6e6;">
-                        <c:choose>
-                            <c:when test="${empty music}">
-                                <p class="mhm"><em>Call the school for more information</em></p>
-                            </c:when>
-                            <c:otherwise>
-                                <ul class="small bottom">
-                                    <c:set var="showMusicMax" value="${5}"/>
-                                    <c:set var="loopMusicMax" value="${fn:length(music) le showMusicMax ? fn:length(music) : 4}"/>
-                                    <c:set var="showMoreMusic" value="${fn:length(music) gt showMusicMax ? 'true' : 'false'}"/>
-                                    <c:forEach var="item" items="${music}" varStatus="status">
-                                        <c:if test="${status.count le loopMusicMax}">
-                                            <li>${gsweb:abbreviateAtWhitespace(item,25)}</li>
-                                        </c:if>
-                                        <c:if test="${status.count eq loopArtMax and showMoreMusic}">
-                                            <li><a href="javascript:void(0);">More &amp;raquo;</a></li>
-                                        </c:if>
-                                    </c:forEach>
-                                </ul>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                </div>
-            </div>
-        </school:profileOverviewCell1>
+            </school:profileOverviewCell1>
+            </gslink:linkToTab>
+        <!--</div>-->
     </c:if>
 
 </jsp:root>

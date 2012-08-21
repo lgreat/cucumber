@@ -5,7 +5,6 @@
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
@@ -23,7 +22,7 @@
             <c:set var="t9dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Transportation</p>
             </c:set>
-            <link:linkToTab tabName="programs-resources" customLink="overview_transportation" cssClass="tdn make-555555">
+            <gslink:linkToTab tabName="programs-resources" customLink="overview_transportation" cssClass="tdn make-555555">
                 <school:profileOverviewCell1 title="${t9dc}">
                     <c:set var="icon" value="${transportationModel['icon']}" scope="page"/>
                     <c:set var="shuttleStops" value="${transportationModel['shuttleStops']}" scope="page"/>
@@ -52,7 +51,7 @@
                     </c:if>
                     <p class="small tac mhm">${message}</p>
                 </school:profileOverviewCell1>
-            </link:linkToTab>
+            </gslink:linkToTab>
         </c:when>
 
         <c:when test="${content eq 'substitute1'}">
@@ -63,7 +62,7 @@
                     <c:set var="t9s1">
                         <p class="small_bold textshadow-1 pvs plm bottom">Average class size</p>
                     </c:set>
-                    <link:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn"> <!-- TODO: should custom link be something else here? -->
+                    <gslink:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn"> <!-- TODO: should custom link be something else here? -->
                         <school:profileOverviewCell1 title="${t9s1}">
                             <div class="mam">
                                 <p class="big bottom tac">${classSize}</p>
@@ -78,13 +77,13 @@
                                 </c:choose>
                             </div>
                         </school:profileOverviewCell1>
-                    </link:linkToTab>
+                    </gslink:linkToTab>
                 </c:when>
                 <c:otherwise>
                     <c:set var="t9s1">
                         <p class="small_bold textshadow-1 pvs plm bottom">Students per teacher</p>
                     </c:set>
-                    <link:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn">
+                    <gslink:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn">
                         <school:profileOverviewCell1 title="${t9s1}">
                             <div class="mam">
                                 <p class="big bottom tac">${studentsPerTeacher}</p>
@@ -99,7 +98,7 @@
                                 </c:choose>
                             </div>
                         </school:profileOverviewCell1>
-                    </link:linkToTab>
+                    </gslink:linkToTab>
                 </c:otherwise>
             </c:choose>
         </c:when>

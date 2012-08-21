@@ -35,6 +35,8 @@
             <c:set var="t13s1">
                 <p class="small_bold textshadow-1 pvs plm bottom">District information</p>
             </c:set>
+            <!-- TODO: add link and omniture tracking around local info tile -->
+            <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'overview_district'); }" styleClass="tdn">
             <school:profileOverviewCell1 title="${t13s1}">
                 <div class="mam">
                     <c:set var="districtNumSchools" value="${localInfoModel['districtNumSchools']}" scope="page"/>
@@ -43,14 +45,14 @@
                     <h4 class="tac">${localInfoModel['districtName']}</h4>
                     <c:if test="${not empty districtNumSchools}">
                         <div class="line mvs">
-                            <div class="unit size70of100">
-                                <p class="small bottom">Number of schools:</p>
+                                <div class="unit size70of100">
+                                    <p class="small bottom">Number of schools:</p>
+                                </div>
+                                <div class="unit size30of100 lastUnit">
+                                    <p class="small_bold bottom fr">${districtNumSchools}</p>
+                                </div>
                             </div>
-                            <div class="unit size30of100 lastUnit">
-                                <p class="small_bold bottom fr">${districtNumSchools}</p>
-                            </div>
-                        </div>
-                        <hr class="keyline2"/>
+                            <hr class="keyline2"/>
                     </c:if>
                     <!--This was removed from the spec because it will be time comsuming to obtain.  rraker 8/2/12-->
                     <!--
@@ -78,10 +80,11 @@
                     </c:if>
 
                     <p class="small bottom tac">
-                        <link:districtBoundaryTool school="${school}">See district boundaries</link:districtBoundaryTool>
+                        See district boundaries
                     </p>
                 </div>
             </school:profileOverviewCell1>
+            </link:districtBoundaryTool>
         </c:when>
 
         <c:when test="${content eq 'neighborhoodInfo'}">

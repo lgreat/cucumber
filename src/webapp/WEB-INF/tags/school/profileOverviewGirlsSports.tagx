@@ -25,7 +25,7 @@
                 <li>${gsweb:abbreviateAtWhitespace(item,24)}</li>
                 </c:if>
                 <c:if test="${status.count eq loopMax and showMore}">
-                    <li><a href="javascript:void(0);">More &amp;raquo;</a></li>
+                    <li data-gs-show-tab="extracurriculars" data-gs-tab-options="Sports_table">More &amp;raquo;</li>
                 </c:if>
             </c:forEach>
         </ul>

@@ -177,12 +177,13 @@ GS.profile = GS.profile || (function() {
 
     var setupTabClickHandlers = function() {
         // register some custom data attributes that will allow easily linking to a profile tab and anchor
-        $('body').on('click', 'a[data-gs-show-tab]', function(event) {
+        $('body').on('click', '[data-gs-show-tab]', function(event) {
             var $this = $(this);
             var tabName = $this.data('gs-show-tab');
             var tabOptions = $this.data('gs-tab-options');
             linkToTabAndAnchor(tabName, tabOptions);
             event.preventDefault();
+            event.stopPropagation();
         });
 
         // send omniture data when tabs are clicked
