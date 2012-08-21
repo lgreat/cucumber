@@ -267,8 +267,8 @@
     <c:if test="${param.tab eq 'programs-culture' or param.tab eq 'culture' or param.tab eq 'programs-resources' or param.tab eq 'extracurriculars'}">
         <c:set target="${requestScope.schoolProfileTabMap}" property="programs-master" value="selected"/>
     </c:if>
-    <c:if test="${param.tab eq 'admissions'}">
-        <c:set target="${requestScope.schoolProfileTabMap}" property="admissions-master" value="selected"/>
+    <c:if test="${param.tab eq 'enrollment'}">
+        <c:set target="${requestScope.schoolProfileTabMap}" property="enrollment-master" value="selected"/>
     </c:if>
 
     <!-- - - - - - - - - - - - -->

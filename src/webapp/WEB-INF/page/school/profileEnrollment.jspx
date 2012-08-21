@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:gsweb="gstaglib"
+        >
+    <jsp:directive.page contentType="text/html"/>
+    <jsp:output doctype-root-element="html"
+                doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
+
+    <c:set var="ospDataExists" value="${not empty espData ? 'true' : 'false'}"/>
+
+    <div id="profileProgramsTabs"> ${not empty espData}
+        <!-- The page has different layouts depending if there is esp data or not -->
+        <c:choose>
+            <!--
+           ==================================== -->
+            <!--           ESP DATA AVAILABLE          -->
+            <!--
+           ==================================== -->
+            <c:when test="${not empty espData}">
+                <div class="alpha grid_16 omega">
+                    <!--<school:profileEnrollmentApplyTile/>-->
+                </div>
+            </c:when>
+            <c:otherwise>
+                <!--
+               ==================================== -->
+                <!--         NO ESP DATA AVAILABLE         -->
+                <!--
+               ==================================== -->
+
+
+            </c:otherwise>
+        </c:choose>
+    </div>
+</jsp:root>

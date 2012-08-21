@@ -51,10 +51,10 @@
         <school:profileModuleInclude tabName="programs" page="/school/profilePrograms.page" />
         <!--</gsweb:cache>-->
     </c:set>
-    <c:set var="admissions">
+    <c:set var="enrollment">
         <!--<gsweb:cache key="profileAdmissions-${school.stateAbbreviation}-${school.id}">-->
-        <!--<school:profileModuleInclude tabName="admissions" page="/school/profileAdmissions.page" />-->
-        <!--</gsweb:cache>-->
+        <school:profileModuleInclude tabName="enrollment" page="/school/profileEnrollment.page" />
+        <!--</gsweb:cache>-->        
     </c:set>
 
     <c:if test="${param.debug}">
@@ -104,8 +104,8 @@
 
                 </li>
             </c:if>
-            <c:if test="${(!empty admissions)}">
-                <li data-gs-tab="admissions"><a id="js_admissions" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'admissions')}" title="${schoolName} | Admissions" class="${requestScope.schoolProfileTabMap['admissions-master']}">Admissions</a>
+            <c:if test="${(!empty enrollment)}">
+                <li data-gs-tab="enrollment"><a id="js_enrollment" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'enrollment')}" title="${schoolName} | Enrollment" class="${requestScope.schoolProfileTabMap['enrollment-master']}">Enrollment</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.whatsitlike} arrowdiv" id="arrowdiv"></div>-->
 
@@ -148,9 +148,9 @@
                 <c:out value='${programs}' escapeXml="false" />
             </div>
         </c:if>
-        <c:if test="${(!empty admissions)}">
-            <div data-gs-tab-body="admissions" style=" display:${(!empty requestScope.schoolProfileTabMap['admissions-master'] and requestScope.schoolProfileTabMap['admissions-master'] eq 'selected'?'block;':'none')}">
-                <c:out value='${admissions}' escapeXml="false" />
+        <c:if test="${(!empty enrollment)}">
+            <div data-gs-tab-body="enrollment" style=" display:${(!empty requestScope.schoolProfileTabMap['enrollment-master'] and requestScope.schoolProfileTabMap['enrollment-master'] eq 'selected'?'block;':'none')}">
+                <c:out value='${enrollment}' escapeXml="false" />
             </div>
         </c:if>
     </div>
