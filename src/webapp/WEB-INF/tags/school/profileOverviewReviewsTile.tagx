@@ -22,34 +22,42 @@
     <c:set var="t5t6dc">
         <p class="small_bold textshadow-1 pvs plm bottom">Community reviews</p>
     </c:set>
-    <!-- TODO: figure out how to link just the hd element -->
-    <!-- If reviews, Clicking in the title box (header) will take the user to the Reviews tab. -->
-    <!-- If No reviews, a CTA says “Is this your school? Be the first to review it and help out other families.”
-On rollover, “Review the school>” link appears to the right of the header. Clicking anywhere in the tile will take the user to the Reviews tab. -->
-    <school:profileOverviewCell1 title="${t5t6dc}">
-        <c:choose>
-            <c:when test="${content eq 'reviews'}">
-                <div class="infiniteCarousel9">
-                    <div class="wrapper">
-                        <ul class="unordered-carousel none">
-                            <c:forEach var="review" items="${reviews}">
-                                <li>
-                                    <p class="bottom phs"><em>${gsweb:abbreviateAtWhitespace(review.comments, 130)}</em></p>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </div>
+    <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content eq 'reviews'}" cssClass="tdn">
+    <div class="mod standard_1-1">
+        <div class="inner box-shadow-animation-1">
+            <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content ne 'reviews'}" cssClass="tdn">
+                <div class="hd">
+                    ${t5t6dc}
                 </div>
-            </c:when>
-            <c:otherwise>
-                <div class="mvl mhm" style="height: 48px;">
-                    <p class="tac">
-                        <strong>Is this your school?</strong><br/>
-                        <em>Be the first to review it and help out other families.</em>
-                    </p>
-                </div>
-            </c:otherwise>
-        </c:choose>
-    </school:profileOverviewCell1>
+            </gslink:linkToTab>
+            <div class="bd">
+                <c:choose>
+                    <c:when test="${content eq 'reviews'}">
+                        <div class="infiniteCarousel9">
+                            <div class="wrapper">
+                                <ul class="unordered-carousel none">
+                                    <c:forEach var="review" items="${reviews}">
+                                        <li>
+                                            <p class="bottom phs"><em>${gsweb:abbreviateAtWhitespace(review.comments, 130)}</em></p>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </div>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="mvl mhm" style="height: 48px;">
+                            <p class="tac">
+                                <strong>Is this your school?</strong><br/>
+                                <em>Be the first to review it and help out other families.</em>
+                            </p>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
+    </div>
+    </gslink:linkToTab>
+
 
 </jsp:root>

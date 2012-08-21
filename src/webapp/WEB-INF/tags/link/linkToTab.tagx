@@ -14,6 +14,9 @@
     <jsp:directive.attribute name="dontPrintLink" required="false" type="java.lang.Boolean"
                              description="If true, this tagx does nothing besides passing through content. It's a way to make conditionally displaying the link easier on the caller (avoid tedious cchooses and csets)" />
 
+    <c:if test="${empty anchor}">
+        <c:set var="anchor" value="header" scope="page"/>
+    </c:if>
 
     <c:choose>
         <c:when test="${dontPrintLink eq true}">
@@ -29,25 +32,13 @@
                 </c:otherwise>
             </c:choose>
 
+            <a data-gs-show-tab="${tabName}" data-gs-tab-options="${anchor}"
+               onclick="${onclick}"
+               class="${cssClass}"
+               href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', tabName)}#${fn:escapeXml(anchor)}">
+                <jsp:doBody/>
+            </a>
 
-            <c:choose>
-                <c:when test="${not empty anchor}">
-                    <a data-gs-show-tab="${tabName}" data-gs-tab-options="${anchor}"
-                       onclick="${onclick}"
-                       class="${cssClass}"
-                       href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', tabName)}#${fn:escapeXml(anchor)}">
-                        <jsp:doBody/>
-                    </a>
-                </c:when>
-                <c:otherwise>
-                    <a data-gs-show-tab="${tabName}"
-                       onclick="${onclick}"
-                       class="${cssClass}"
-                       href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', tabName)}">
-                        <jsp:doBody/>
-                    </a>
-                </c:otherwise>
-            </c:choose>
         </c:otherwise>
     </c:choose>
 

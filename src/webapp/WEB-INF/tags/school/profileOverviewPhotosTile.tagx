@@ -27,42 +27,53 @@
             <c:set var="t2dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Photos</p>
             </c:set>
-            <school:profileOverviewCell1 title="${t2dc}">
-                <div class="mam" style="height:139px;">
-                    <div class="infiniteCarousel10">
-                        <div class="wrapper">
-                            <ul class="unordered-carousel none">
-                                <c:forEach var="review" items="${images}">
-                                    <li>
-                                        <img src="${basePath}${review.mediumSizeFile}" alt="Photos of this school" width="130" height="130"/>
-                                    </li>
-                                </c:forEach>
-                            </ul>
+
+            <div class="mod standard_1-1">
+                <div class="inner box-shadow-animation-1">
+                    <gslink:linkToTab tabName="culture" customLink="overview_photos" cssClass="tdn">
+                        <div class="hd">
+                            ${t2dc}
+                        </div>
+                    </gslink:linkToTab>
+                    <div class="bd">
+                        <div class="mam" style="height:139px;">
+                            <div class="infiniteCarousel10">
+                                <div class="wrapper">
+                                    <ul class="unordered-carousel none">
+                                        <c:forEach var="review" items="${images}">
+                                            <li>
+                                                <img src="${basePath}${review.mediumSizeFile}" alt="Photos of this school" width="130" height="130"/>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--<div class="mediumThumbnail bgtint-eb" id="school-photo-medium">
+                                <p class="text3">Photos of this school</p>
+                                <a href="javascript:void(0)" onclick="scroll(0,0)" class="js-photo-gallery-trigger">
+                                    <img src="${basePath}${images[0].mediumSizeFile}"
+                                         alt="Photos of this school"
+                                         width="130" height="130"/>
+                                </a>
+                                <c:choose>
+                                    <c:when test="${fn:length(images) > 1}">
+                                        <p class="smallText1-06b"><a href="javascript:void(0)" onclick="scroll(0,0)"
+                                                                     class="js-photo-gallery-trigger">View all photos (${fn:length(images)})</a>
+                                        </p>
+                                    </c:when>
+                                    <c:when test="${fn:length(images) eq 1}">
+                                        <p class="smallText1-06b"><a href="javascript:void(0)" onclick="scroll(0,0)"
+                                                                     class="js-photo-gallery-trigger">View photo</a></p>
+                                    </c:when>
+                                </c:choose>
+                            </div>-->
                         </div>
                     </div>
-                    <!--<div class="mediumThumbnail bgtint-eb" id="school-photo-medium">
-                        <p class="text3">Photos of this school</p>
-                        <a href="javascript:void(0)" onclick="scroll(0,0)" class="js-photo-gallery-trigger">
-                            <img src="${basePath}${images[0].mediumSizeFile}"
-                                 alt="Photos of this school"
-                                 width="130" height="130"/>
-                        </a>
-                        <c:choose>
-                            <c:when test="${fn:length(images) > 1}">
-                                <p class="smallText1-06b"><a href="javascript:void(0)" onclick="scroll(0,0)"
-                                                             class="js-photo-gallery-trigger">View all photos (${fn:length(images)})</a>
-                                </p>
-                            </c:when>
-                            <c:when test="${fn:length(images) eq 1}">
-                                <p class="smallText1-06b"><a href="javascript:void(0)" onclick="scroll(0,0)"
-                                                             class="js-photo-gallery-trigger">View photo</a></p>
-                            </c:when>
-                        </c:choose>
-                    </div>-->
                 </div>
-            </school:profileOverviewCell1>
+            </div>
         </c:when>
         <c:otherwise>
+            <!-- TODO: add custom link overview_osp_cta -->
             <link:schoolEspRegister styleClass="no_interrupt tdn">
             <div class="mod standard_3-1">
                 <div class="outer">

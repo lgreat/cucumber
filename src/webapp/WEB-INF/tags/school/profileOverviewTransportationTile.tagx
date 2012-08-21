@@ -85,7 +85,7 @@
                     <c:set var="t9s1">
                         <p class="small_bold textshadow-1 pvs plm bottom">Students per teacher</p>
                     </c:set>
-                    <gslink:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn">
+                    <gslink:linkToTab tabName="teachers" customLink="overview_stratio" cssClass="tdn">
                         <school:profileOverviewCell1 title="${t9s1}">
                             <div class="mam">
                                 <p class="big bottom tac">${studentsPerTeacher}</p>

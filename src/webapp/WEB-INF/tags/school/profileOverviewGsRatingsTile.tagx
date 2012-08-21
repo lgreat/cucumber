@@ -84,11 +84,11 @@
             <gslink:linkToTab tabName="programs-culture" anchor="Awards_table" customLink="overview_awards" cssClass="tdn make-555555"><!-- TODO: verify correct anchor value -->
                 <school:profileOverviewCell1 title="${t1s1}">
                     <div class="mam" style="height:139px;">
-                    <ul class="small plm mls">
-                        <c:forEach var="item" items="${gsRatingsModel['awards']}">
-                            <li>${gsweb:abbreviateAtWhitespace(item, 50)}</li>
-                        </c:forEach>
-                    </ul>
+                        <ul class="small plm mls">
+                            <c:forEach var="item" items="${gsRatingsModel['awards']}">
+                                <li>${gsweb:abbreviateAtWhitespace(item, 50)}</li>
+                            </c:forEach>
+                        </ul>
                     </div>
                 </school:profileOverviewCell1>
             </gslink:linkToTab>
