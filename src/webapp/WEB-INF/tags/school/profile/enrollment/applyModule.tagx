@@ -9,28 +9,28 @@
 
             <div class="inner">
                 <div class="hd">
-                    <h3 class="bottom pas">Apply</h3>
+                    <h4 class="pvm plm bottom">Apply</h4>
                 </div>
                 <div class="bd pam">
-                    <div class="line">
-                        <div class="unit size30of100">
+                    <div class="line enrollmentApply">
+                        <div class="unit size25of100 small bottom">
                             <a href="">Learn more about enrolling at this school</a>
                         </div>
-                        <div class="unit size2of100">&amp;nbsp;</div>
+                        <div class="unit size7of100">&amp;nbsp;</div>
                         <div class="unit size30of100">
-                            Submit your application by<br/>
+                            <p class="small bottom make-999999">Submit your application by</p>
                             <h2 class="bottom">March 1, 2012</h2>
                         </div>
                         <div class="unit size2of100">&amp;nbsp;</div>
-                        <div class="unit size16of100 tac">
-                            <div class="grayBox mrl small" style="width:70px">
-                                <h2 class="bottom pbn">4</h2>
+                        <div class="unit size11of100">
+                            <div class="grayBox small bottom">
+                                <span class="numberFormat">4</span><br />
                                 days left!
                             </div>
                         </div>
-                        <div class="unit size2of100">&amp;nbsp;</div>
-                        <div class="unit size18of100 lastUnit">
-                            <button class="button-1 mtm" value="Apply now">Apply now</button>
+                        <div class="unit size5of100">&amp;nbsp;</div>
+                        <div class="unit size20of100 lastUnit">
+                            <button class="button-1-big mtm" value="Apply now">Apply now</button>
                         </div>
                     </div>
                 </div>
