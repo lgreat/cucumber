@@ -4,7 +4,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <!--<jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>-->
-    <a href="">
+    <a href="" class="tdn">
     <div class="mod standard_3-1">
         <div class="outer">
             <div class="inner bg-principal">
