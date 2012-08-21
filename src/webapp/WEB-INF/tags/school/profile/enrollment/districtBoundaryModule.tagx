@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gsweb="gstaglib"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+        >
+    <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
+
+<link:districtBoundaryTool styleClass="tdn" school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'enrollment_schoolboundaries'); }">
+    <div class="mod standard_3-1">
+        <div class="outer">
+            <div class="inner bg-districtMap">
+                <div class="hd">
+                    <h3 class="bottom">What schools are available to you?</h3>
+                </div>
+                <div class="bd" style="height:100px;">
+                    <p class="small mtm">Find attendance<br />
+                        zones for your<br />
+                        address &amp;raquo;
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</link:districtBoundaryTool>
+
+</jsp:root>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+    <!--<jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>-->
+
+        <div class="mod standard_1-1">
+
+            <div class="inner">
+                <div class="hd">
+                    <h3 class="bottom pas">Apply</h3>
+                </div>
+                <div class="bd pam">
+                    <div class="line">
+                        <div class="unit size30of100">
+                            <a href="">Learn more about enrolling at this school</a>
+                        </div>
+                        <div class="unit size2of100">&amp;nbsp;</div>
+                        <div class="unit size30of100">
+                            Submit your application by<br/>
+                            <h2 class="bottom">March 1, 2012</h2>
+                        </div>
+                        <div class="unit size2of100">&amp;nbsp;</div>
+                        <div class="unit size16of100 tac">
+                            <div class="grayBox mrl small" style="width:70px">
+                                <h2 class="bottom pbn">4</h2>
+                                days left!
+                            </div>
+                        </div>
+                        <div class="unit size2of100">&amp;nbsp;</div>
+                        <div class="unit size18of100 lastUnit">
+                            <button class="button-1 mtm" value="Apply now">Apply now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</jsp:root>

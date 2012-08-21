@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:enrollment="urn:jsptagdir:/WEB-INF/tags/school/profile/enrollment"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
@@ -17,6 +18,7 @@
 
     <div id="profileProgramsTabs"> ${not empty espData}
         <!-- The page has different layouts depending if there is esp data or not -->
+    <div class="alpha grid_16 omega">
         <c:choose>
             <!--
            ==================================== -->
@@ -24,9 +26,20 @@
             <!--
            ==================================== -->
             <c:when test="${not empty espData}">
-                <div class="alpha grid_16 omega">
-                    <!--<school:profileEnrollmentApplyTile/>-->
-                </div>
+                    <enrollment:applyModule />
+                    <div class="line">
+                        <div class="unit size32of100">
+                            <enrollment:districtBoundaryModule school="${school}" />
+                        </div>
+                        <div class="unit size2of100">&amp;nbsp;</div>
+                        <div class="unit size32of100">
+                            <enrollment:principalAddContent />
+                        </div>
+                        <div class="unit size2of100">&amp;nbsp;</div>
+                        <div class="unit size32of100 lastUnit">
+                            <!--<enrollment:principalAddContent />-->
+                        </div>
+                    </div>
             </c:when>
             <c:otherwise>
                 <!--
@@ -38,5 +51,6 @@
 
             </c:otherwise>
         </c:choose>
+    </div>
     </div>
 </jsp:root>
