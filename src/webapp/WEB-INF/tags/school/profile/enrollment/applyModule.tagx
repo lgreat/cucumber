@@ -1,150 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
-    <!--<jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>-->
-
+    <jsp:directive.attribute name="viewType" type="java.lang.String" required="true"/>
+    <jsp:directive.attribute name="linkFindOutMore" type="java.lang.String" required="false"/>
+    <jsp:directive.attribute name="linkApplyNow" type="java.lang.String" required="false"/>
+    <jsp:directive.attribute name="deadlineDate" type="java.lang.String" required="false"/>
+    <jsp:directive.attribute name="deadlineDaysLeft" type="java.lang.String" required="false"/>
 
 
     <!--This is the version with the countdown and due date-->
-    <div class="mod standard_1-1">
-        <div class="inner">
-            <div class="hd">
-                <h4 class="pvm plm bottom">Apply</h4>
-            </div>
-            <div class="bd pam">
-                <div class="line enrollmentApply">
-                    <div class="unit size25of100 small bottom">
-                        <a href="">Learn more about enrolling at this school</a>
+
+        <c:if test="${viewType eq '1'}">
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h4 class="pvm plm bottom">Apply</h4>
                     </div>
-                    <div class="unit size7of100">&amp;nbsp;</div>
-                    <div class="unit size30of100">
-                        <p class="small bottom make-999999">Submit your application by</p>
-                        <h2 class="bottom">March 1, 2012</h2>
-                    </div>
-                    <div class="unit size2of100">&amp;nbsp;</div>
-                    <div class="unit size11of100">
-                        <div class="grayBox small bottom">
-                            <span class="numberFormat">4</span><br />
-                            days left!
+                    <div class="bd pam">
+                        <div class="line enrollmentApply">
+                            <div class="unit size25of100 small bottom">
+                                <a href="${linkFindOutMore}">Learn more about enrolling at this school</a>
+                            </div>
+                            <div class="unit size7of100">&amp;nbsp;</div>
+                            <div class="unit size30of100">
+                                <p class="small bottom make-999999">Submit your application by</p>
+                                <h2 class="bottom">${deadlineDate}</h2>
+                            </div>
+                            <div class="unit size2of100">&amp;nbsp;</div>
+                            <div class="unit size11of100">
+                                <div class="grayBox small bottom">
+                                    <span class="numberFormat">${deadlineDaysLeft}</span><br />
+                                    days left!
+                                </div>
+                            </div>
+                            <div class="unit size5of100">&amp;nbsp;</div>
+                            <div class="unit size20of100 lastUnit">
+                                <a href="${linkApplyNow}"><button class="button-1-big mtm" value="Apply now">Apply now</button></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="unit size5of100">&amp;nbsp;</div>
-                    <div class="unit size20of100 lastUnit">
-                        <button class="button-1-big mtm" value="Apply now">Apply now</button>
+                </div>
+            </div>
+        </c:if>
+
+        <c:if test="${viewType eq '2'}">
+            <!--This is version 2 has the deadline passed-->
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h4 class="pvm plm bottom">Apply</h4>
+                    </div>
+                    <div class="bd pam">
+                        <div class="line enrollmentApply">
+                            <div class="unit size25of100 small bottom">
+                                <a href="${linkFindOutMore}">Learn more about enrolling at this school</a>
+                            </div>
+                            <div class="unit size7of100">&amp;nbsp;</div>
+                            <div class="unit size43of100">
+                                <p class="small bottom loud">Our records show that the deadline was
+                                    <strong>${deadlineDate}</strong>,
+                                    but you should contact the school in case the date has changed.</p>
+                            </div>
+                            <div class="unit size5of100">&amp;nbsp;</div>
+                            <div class="unit size20of100 lastUnit">
+                                <a href="${linkApplyNow}"><button class="button-1-big mtm" value="Apply now">Apply now</button></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </c:if>
 
-    <!--This is version 2 has the deadline passed-->
-    <div class="mod standard_1-1">
-        <div class="inner">
-            <div class="hd">
-                <h4 class="pvm plm bottom">Apply</h4>
-            </div>
-            <div class="bd pam">
-                <div class="line enrollmentApply">
-                    <div class="unit size25of100 small bottom">
-                        <a href="">Learn more about enrolling at this school</a>
+        <c:if test="${viewType eq '3'}">
+            <!--This is version 3 has the TIP-->
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h4 class="pvm plm bottom">Apply</h4>
                     </div>
-                    <div class="unit size7of100">&amp;nbsp;</div>
-                    <div class="unit size43of100">
-                        <p class="small bottom loud">Our records show that the deadline was
-                            <strong>March 1, 2012</strong>,
-                            but you should contact the school in case the date has changed.</p>
-                    </div>
-                    <div class="unit size5of100">&amp;nbsp;</div>
-                    <div class="unit size20of100 lastUnit">
-                        <button class="button-1-big mtm" value="Apply now">Apply now</button>
+                    <div class="bd pam">
+                        <div class="line enrollmentApply">
+                            <div class="unit size25of100 small bottom">
+                                <a href="${linkFindOutMore}">Learn more about enrolling at this school</a>
+                            </div>
+                            <div class="unit size7of100">&amp;nbsp;</div>
+                            <div class="unit size43of100">
+                                <p class="small bottom loud">
+                                <strong>TIP: </strong>Don't forget to ask about documents required for enrollment,
+                                    such as your child's birth certificate, proof of address, or a record  of immunizations.</p>
+                            </div>
+                            <div class="unit size5of100">&amp;nbsp;</div>
+                            <div class="unit size20of100 lastUnit">
+                                <a href="${linkApplyNow}"><button class="button-1-big mtm" value="Apply now">Apply now</button></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </c:if>
 
-    <!--This is version 3 has the TIP-->
-    <div class="mod standard_1-1">
-        <div class="inner">
-            <div class="hd">
-                <h4 class="pvm plm bottom">Apply</h4>
-            </div>
-            <div class="bd pam">
-                <div class="line enrollmentApply">
-                    <div class="unit size25of100 small bottom">
-                        <a href="">Learn more about enrolling at this school</a>
+        <c:if test="${viewType eq '4'}">
+            <!--This is version 4 has the rolling basis-->
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h4 class="pvm plm bottom">Apply</h4>
                     </div>
-                    <div class="unit size7of100">&amp;nbsp;</div>
-                    <div class="unit size43of100">
-                        <p class="small bottom loud">
-                        <strong>TIP: </strong>Don't forget to ask about documents required for enrollment,
-                            such as your child's birth certificate, proof of address, or a record  of immunizations.</p>
-                    </div>
-                    <div class="unit size5of100">&amp;nbsp;</div>
-                    <div class="unit size20of100 lastUnit">
-                        <button class="button-1-big mtm" value="Apply now">Apply now</button>
+                    <div class="bd pam">
+                        <div class="line enrollmentApply">
+                            <div class="unit size25of100 small bottom">
+                                <a href="${linkFindOutMore}">Learn more about enrolling at this school</a>
+                            </div>
+                            <div class="unit size7of100">&amp;nbsp;</div>
+                            <div class="unit size43of100">
+                                <p class="small bottom loud">This school accepts applications on a</p>
+                                    <h2>rolling basis</h2>
+                            </div>
+                            <div class="unit size5of100">&amp;nbsp;</div>
+                            <div class="unit size20of100 lastUnit">
+                                <a href="${linkApplyNow}"><button class="button-1-big mtm" value="Apply now">Apply now</button></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </c:if>
 
-    <!--This is version 4 has the rolling basis-->
-    <div class="mod standard_1-1">
-        <div class="inner">
-            <div class="hd">
-                <h4 class="pvm plm bottom">Apply</h4>
-            </div>
-            <div class="bd pam">
-                <div class="line enrollmentApply">
-                    <div class="unit size25of100 small bottom">
-                        <a href="">Learn more about enrolling at this school</a>
+        <c:if test="${viewType eq '5'}">
+           <!--This is the single button version-->
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="hd">
+                        <strong class="psm plm">Apply</strong>
                     </div>
-                    <div class="unit size7of100">&amp;nbsp;</div>
-                    <div class="unit size43of100">
-                        <p class="small bottom loud">This school accepts applications on a</p>
-                            <h2>rolling basis</h2>
-                    </div>
-                    <div class="unit size5of100">&amp;nbsp;</div>
-                    <div class="unit size20of100 lastUnit">
-                        <button class="button-1-big mtm" value="Apply now">Apply now</button>
+                    <div class="bd pam tac">
+                        <a href="${linkApplyNow}"><button class="button-1-big" value="Apply now">Apply now</button></a>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </c:if>
 
-   <!--This is the single button version-->
-    <div class="mod standard_1-1">
-        <div class="inner">
-            <div class="hd">
-                <h4 class="pvm plm bottom">Apply</h4>
-            </div>
-            <div class="bd pam tac">
-                <button class="button-1-big" value="Apply now">Apply now</button>
-            </div>
-        </div>
-    </div>
-
-    <!--This is the double column with no button -->
-    <div class="mod standard_1-1">
-        <div class="inner">
-            <div class="hd">
-                <h4 class="pvm plm bottom">How to apply</h4>
-            </div>
-            <div class="bd pam">
-                <div class="line enrollmentApply">
-                    <div class="unit size45of100 small bottom">
-                        Does this school have an application or enrollment process?
+        <c:if test="${viewType eq '6'}">
+            <!--This is the double column with no button -->
+            <div class="mod standard_1-1">
+                <div class="inner">
+                    <div class="hd">
+                        <h4 class="pvm plm bottom">How to apply</h4>
                     </div>
-                    <div class="unit size10of100">&amp;nbsp;</div>
-                    <div class="unit size45of100">
-                        <p class="small bottom loud">No</p>
+                    <div class="bd pam">
+                        <div class="line enrollmentApply">
+                            <div class="unit size45of100 small bottom">
+                                Does this school have an application or enrollment process?
+                            </div>
+                            <div class="unit size10of100">&amp;nbsp;</div>
+                            <div class="unit size45of100">
+                                <p class="small bottom loud">No</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </c:if>
 </jsp:root>

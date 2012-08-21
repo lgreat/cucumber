@@ -3,22 +3,23 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:link="urn:www.greatschools.org/taglib/link"
         >
-    <!--<jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>-->
+    <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
+
     <a href="" class="tdn">
-    <div class="mod standard_3-1">
-        <div class="outer">
-            <div class="inner bg-principal">
-                <div class="hd">
-                    <h3 class="bottom">Are you responsible for enrollment at your school?</h3>
-                </div>
-                <div class="bd" style="height:78px;">
-                    <p class="small mtm bottom">Tell parents<br />
-                        more aboutr<br />
-                        your school
-                    </p>
+        <div class="mod standard_3-1">
+            <div class="outer">
+                <div class="inner bg-principal">
+                    <div class="hd">
+                        <h3 class="bottom">Are you responsible for enrollment at your school?</h3>
+                    </div>
+                    <div class="bd" style="height:78px;">
+                        <p class="small mtm bottom">Tell parents<br />
+                            more aboutr<br />
+                            your school
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
     </a>
 </jsp:root>

@@ -26,20 +26,80 @@
             <!--
            ==================================== -->
             <c:when test="${not empty espData}">
-                    <enrollment:applyModule />
+                <!-- layout 1 -->
+                <div class="line">
+                    <div class="unit size32of100">
+                        <enrollment:applyModule viewType="5" />
+                        <enrollment:principalAddContent school="${school}" />
+
+                    </div>
+                    <div class="unit size2of100">&amp;nbsp;</div>
+                    <div class="unit size32of100">
+                        <!-- waiting on visit module -->
+                        waiting on visit module
+                    </div>
+                    <div class="unit size2of100">&amp;nbsp;</div>
+                    <div class="unit size32of100 lastUnit">
+                        <enrollment:districtBoundaryModule school="${school}" />
+                    </div>
+                </div>
+                <hr />
+                   <!-- layout 2 -->
                     <div class="line">
                         <div class="unit size32of100">
-                            <enrollment:districtBoundaryModule school="${school}" />
+                            waiting on visit module
+                            <!--<enrollment:applyModule viewType="5" />-->
+
+
                         </div>
                         <div class="unit size2of100">&amp;nbsp;</div>
-                        <div class="unit size32of100">
-                            <enrollment:principalAddContent />
-                        </div>
-                        <div class="unit size2of100">&amp;nbsp;</div>
-                        <div class="unit size32of100 lastUnit">
+                        <div class="unit size66of100 lastUnit">
+                            <enrollment:applyModule viewType="6" />
                             <!--<enrollment:principalAddContent />-->
+                            <div class="line">
+                                <div class="unit size49of100">
+                                    <enrollment:districtBoundaryModule school="${school}" />
+                                </div>
+                                <div class="unit size2of100">&amp;nbsp;</div>
+                                <div class="unit size49of100 lastUnit">
+                                    <enrollment:principalAddContent school="${school}" />
+                                </div>
+                            </div>
                         </div>
                     </div>
+                <hr />
+                <!-- layout 3 -->
+                <div class="line">
+                    <div class="unit size100of100 lastUnit">
+                        <enrollment:applyModule viewType="1" deadlineDate="March 1, 2012" deadlineDaysLeft="4" />
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="unit size100of100 lastUnit">
+                        <enrollment:applyModule viewType="2" deadlineDate="March 1, 2012" deadlineDaysLeft="4" />
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="unit size100of100 lastUnit">
+                        <enrollment:applyModule viewType="3" deadlineDate="March 1, 2012" deadlineDaysLeft="4" />
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="unit size100of100 lastUnit">
+                        <enrollment:applyModule viewType="4" deadlineDate="March 1, 2012" deadlineDaysLeft="4" />
+                    </div>
+                </div>
+                <div class="line">
+                    <div class="unit size32of100">
+                        waiting on visit module
+                        <enrollment:districtBoundaryModule school="${school}" />
+                        <enrollment:principalAddContent school="${school}" />
+                    </div>
+                    <div class="unit size2of100">&amp;nbsp;</div>
+                    <div class="unit size66of100 lastUnit">
+                        &amp;nbsp;
+                    </div>
+                </div>
             </c:when>
             <c:otherwise>
                 <!--
@@ -47,7 +107,23 @@
                 <!--         NO ESP DATA AVAILABLE         -->
                 <!--
                ==================================== -->
+                <!-- layout 1 -->
+                <div class="line">
+                    <div class="unit size32of100">
+                        <enrollment:applyModule viewType="5" />
+                        <enrollment:principalAddContent school="${school}" />
 
+                    </div>
+                    <div class="unit size2of100">&amp;nbsp;</div>
+                    <div class="unit size32of100">
+                        <!-- waiting on visit module -->
+                        waiting on visit module
+                    </div>
+                    <div class="unit size2of100">&amp;nbsp;</div>
+                    <div class="unit size32of100 lastUnit">
+                        <enrollment:districtBoundaryModule school="${school}" />
+                    </div>
+                </div>
 
             </c:otherwise>
         </c:choose>
