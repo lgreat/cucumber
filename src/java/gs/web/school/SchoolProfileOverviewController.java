@@ -869,7 +869,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
         else {
             // Substitute action.  Need to decide if 1 or 2
-            /* Wait until Samson enhances the data helper */
             boolean substitute1Ok = false;
             Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
             if( censusValues!=null ) {
@@ -1443,16 +1442,12 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, Object> facebookModel = new HashMap<String, Object>(4);
 
         List<EspResponse> facebook = espData.get("facebook_url");
-        boolean validFacebookPage = false;
         String facebookUrl = null;
         if( isNotEmpty(facebook) ) {
             facebookUrl = SchoolProfileCultureController.cleanUpUrl(facebook.get(0).getSafeValue(), "facebook.com");
-            if( facebookUrl != null ) {
-                validFacebookPage = SchoolProfileCultureController.isValidFacebookPage(facebookUrl);
-            }
         }
 
-        if( validFacebookPage ) {
+        if( facebookUrl != null ) {
             facebookModel.put( "content", "show" );
             facebookModel.put( "facebookUrl", facebookUrl );
         }
@@ -1472,12 +1467,10 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Title 2 - Default: Photos, Substitute 1: Principal CTA
         model.put(PHOTOS_MODEL_KEY, getPhotosEspTile(request, school));
 
-//        // Title 3 - Default: Videos, Substitute 1: Information from CMS
-//        model.put( VIDEO_MODEL_KEY, getTourVideoModel(request, school) );
         // Title 3 - Default: Boundary tool promo (This is in the profileOverviewVideoTile.tagx because it is substitute on ESP page), Substitute: none
         model.put( VIDEO_MODEL_KEY, getBoundaryToolModel());
 
-                // Title 4 - Default: Community ratings, Substitute 1: Review CTA
+        // Title 4 - Default: Community ratings, Substitute 1: Review CTA
         model.put( COMMUNITY_RATING_MODEL_KEY, getCommunityRatingEspTile(request, school) );
 
         // Titles 5&6 - Default: Reviews carousel, Substitute 1: Review CTA
@@ -1486,8 +1479,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Title 7 - Default: Student diversity, Substitute 1: Generic text about diversity
         model.put( DIVERSITY_MODEL_KEY, getDiversityEspTile(request, school) );
 
-//        // Title 8 - Default: School visit checklist
-//        model.put( SCHOOL_VISIT_CHECKLIST_MODEL_KEY, getSchoolVisitChecklistTile(request, school) );
         // Title 8 - Default: School visit checklist
         model.put( VIDEO_TOUR_MODEL_KEY, getTourVideoModel(request, school) );
 

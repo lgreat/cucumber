@@ -70,7 +70,11 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         modelMap.put(PHOTOS_MODEL_KEY, getSchoolPhotos( request));
 
         // Spaces 2 & 5 - Facebook can appear in in space 2 or 5 depending on other data availability
-        modelMap.put( FACEBOOK_MODEL_KEY, getFacebook( espResults, hasClimateRating ) );
+        Map<String, Object> facebookModel = getFacebook( espResults, hasClimateRating );
+        modelMap.put( FACEBOOK_MODEL_KEY, facebookModel );
+        // The facebook ID needs to be put directly into the model so the frontend code can go to facebook to verify it is a valid facebook user
+        modelMap.put( "schoolFacebookId", ((Map<String, Object>)facebookModel).get("facebookId") );
+
 
         // Space 3 - Videos or Principal CTA
         modelMap.put( VIDEO_MODEL_KEY, getSchoolVideos(espResults) );
@@ -86,6 +90,10 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
             modelMap.put("cultureProfileData", resultsModel);
             SchoolProfileProgramsController.buildDisplayModel(MODEL_PREFIXES, resultsModel, DISPLAY_CONFIG, modelMap);
         }
+
+        // The facebook ID needs to be put directly into the model
+        modelMap.put( "schoolFacebookId", ((Map<String, Object>)facebookModel).get("facebookId") );
+
     }
 
     protected Map<String, Object> getSchoolPhotos(HttpServletRequest request) {
@@ -169,17 +177,13 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
 
         // Gather the required data
         List<EspResponse> facebook = espData.get("facebook_url");
-        boolean validFacebookPage = false;
         String facebookUrl = null;
         if( isNotEmpty(facebook) ) {
             facebookUrl = cleanUpUrl( facebook.get(0).getSafeValue(), "facebook.com" );
-            if( facebookUrl != null ) {
-                validFacebookPage = isValidFacebookPage(facebookUrl);
-            }
         }
 
         // Now decide if facebook data can be shown and where
-        if( validFacebookPage ) {
+        if( facebookUrl != null ) {
             if( hasClimateRating ) {
                 // This is the criteria to show facebook in space 5
                 model.put( "content", "space5" );
@@ -190,6 +194,11 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
                 model.put( "content", "space2" );
                 model.put( "facebookUrl", facebookUrl );
             }
+            String facebookId = getFacebookId(facebookUrl);
+            if( facebookId != null ) {
+                model.put( "facebookId", facebookId );
+            }
+
         }
         else {
             model.put( "content", "hide" );
@@ -197,13 +206,9 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         return model;
     }
 
-    public static boolean isValidFacebookPage(String facebookUrl) {
+    public static String getFacebookId( String facebookUrl ) {
 
-        if( facebookUrl == null ) {
-            return false;
-        }
-
-        // Extract the facebook UID and use the graph api to see if it is a valid facebook page
+        // It seems we always want the last part of the path
         try {
             URL url = new URL( facebookUrl );
             String path = url.getPath();
@@ -211,38 +216,16 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
                 // It seems we always want the last part of the path
                 String [] urlParts = path.split("/");
                 if( urlParts.length == 0) {
-                    return false;
+                    return null;
                 }
                 String id = urlParts[urlParts.length-1];
-                // Setup the facebook graph API, call and extract the result
-                String graph = "https://graph.facebook.com/" + id;
-                URL graphUrl = new URL( graph );
-                Object contentObj = graphUrl.getContent();
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(graphUrl.openStream()));
-                StringBuilder content = new StringBuilder();
-                String inputLine;
-                while ((inputLine = in.readLine()) != null)
-                    content.append(inputLine);
-                in.close();
-                String contentStr = content.toString();
-                // Sometimes the api will just return "false".  This is a facebook bug. We can't show the page
-                if( contentStr.startsWith("false") ) {
-                    return false;
-                }
-                // If "error": is returned anywhere in the message this is not a usable url
-                if( contentStr.indexOf("\"error\":") > -1) {
-                    return false;
-                }
-                return true;
+                return id;
             }
-        } catch (MalformedURLException e) {
-            // fall through
-        } catch (IOException e) {
-           // fall through
         }
-
-        return false;  //To change body of created methods use File | Settings | File Templates.
+        catch( MalformedURLException e ) {
+            return null;
+        }
+        return null;
     }
 
     /**
