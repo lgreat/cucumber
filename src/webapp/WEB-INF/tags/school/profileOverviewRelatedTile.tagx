@@ -20,13 +20,7 @@
 
     <c:set var="contents" value="${relatedModel['content']}" scope="page"/>
     <c:set var="cmsResults" value="${relatedModel['cmsResults']}" scope="page"/>
-
-    <!-- set the video result if there is one -->
-    <c:forEach items="${cmsResults}" var="result">
-        <c:if test="${result.contentType eq 'Video'}">
-            <c:set var="videoResult" value="${result}"/>
-        </c:if>
-    </c:forEach>
+    <c:set var="videoResult" value="${relatedModel['videoResult']}" scope="page"/>
 
     <!-- set the title of the module -->
     <c:set var="t14t15dc">

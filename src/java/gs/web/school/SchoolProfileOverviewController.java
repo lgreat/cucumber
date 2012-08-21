@@ -1359,6 +1359,18 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         List<ICmsFeatureSearchResult> cmsResults = _schoolProfileDataHelper.getCmsRelatedContent(request, espData, numArticles);
 
         model.put( "content", "default" );
+
+        // if there is a video, then move to top of list
+        for (int i = 0; i<cmsResults.size(); i++) {
+            if (cmsResults.get(i).getContentType().equals("Video")){
+                ICmsFeatureSearchResult videoResult = cmsResults.remove(i);
+                cmsResults = new LinkedList<ICmsFeatureSearchResult>(cmsResults);
+                ((LinkedList<ICmsFeatureSearchResult>)cmsResults).addFirst(videoResult);
+                model.put("videoResult", videoResult);
+                break;
+            }
+        }
+
         model.put( "cmsResults", cmsResults );
 
         return model;
