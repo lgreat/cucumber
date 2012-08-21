@@ -67,6 +67,16 @@ General comments:
 /* that should fully contain a float */
 .clearfloat { clear: both; height: 0; font-size: 1px; line-height: 0; }
 
+/* height shims */
+.shim-1 { clear: both; height: 1px; font-size: 1px; line-height: 1px; }
+.shim-2 { clear: both; height: 2px; font-size: 1px; line-height: 2px; }
+.shim-5 { clear: both; height: 5px; font-size: 1px; line-height: 5px; }
+.shim-10 { clear: both; height: 10px; font-size: 1px; line-height: 10px; }
+.shim-20 { clear: both; height: 20px; font-size: 1px; line-height: 20px; }
+.shim-25 { clear: both; height: 25px; font-size: 1px; line-height: 25px; }
+.shim-50 { clear: both; height: 50px; font-size: 1px; line-height: 50px; }
+.shim-100 { clear: both; height: 100px; font-size: 1px; line-height: 100px; }
+
 .db { display: block; }
 .di { display: inline; }
 .dib { display: inline-block; }

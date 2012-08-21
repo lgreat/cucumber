@@ -29,22 +29,24 @@
         <p class="small_bold textshadow-1 pvs plm bottom make-555555">Community ratings</p>
     </c:set>
 
-    <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdn">
+    <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdnmake-555555">
         <school:profileOverviewCell1 title="${t4dc}">
+            <div class="mal" style="height:48px;">
 
-            <div class="mtl mha mbs clearfix" style="width:80px;">
+            <div class="mha mbs clearfix" style="width:80px;">
                 <ratings:stars curSR="${overallRating}"/>
             </div>
 
             <c:choose>
                 <c:when test="${overallRating eq 0}">
-                    <p class="tac make-555555"><em>Rate this school</em></p>
+                    <p class="tac bottom"><em>Rate this school</em></p>
                 </c:when>
                 <c:otherwise>
-                    <p class="tac make-555555">${overallRating} stars</p>
+                    <p class="tac bottom">${overallRating} stars</p>
                 </c:otherwise>
             </c:choose>
 
+            </div>
         </school:profileOverviewCell1>
     </gslink:linkToTab>
 

@@ -24,6 +24,7 @@
             </c:set>
             <gslink:linkToTab tabName="programs-resources" customLink="overview_transportation" cssClass="tdn make-555555">
                 <school:profileOverviewCell1 title="${t9dc}">
+                    <div class="mam" style="height:190px;">
                     <c:set var="icon" value="${transportationModel['icon']}" scope="page"/>
                     <c:set var="shuttleStops" value="${transportationModel['shuttleStops']}" scope="page"/>
                     <c:set var="message" value="${transportationModel['transMsg']}" scope="page"/>
@@ -47,9 +48,10 @@
                     </c:choose>
                     </div>
                     <c:if test="${not empty shuttleStops}">
-                        <p class="small tac mhm">School shuttle from ${shuttleStops}</p>
+                        <p class="small tac bottom">School shuttle from ${shuttleStops}</p>
                     </c:if>
-                    <p class="small tac mhm">${message}</p>
+                    <p class="small tac bottom">${message}</p>
+                    </div>
                 </school:profileOverviewCell1>
             </gslink:linkToTab>
         </c:when>

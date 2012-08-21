@@ -42,8 +42,7 @@ On rollover, “Review the school>” link appears to the right of the header. C
                 </div>
             </c:when>
             <c:otherwise>
-
-                <div class="mvl mhm">
+                <div class="mvl mhm" style="height: 48px;">
                     <p class="tac">
                         <strong>Is this your school?</strong><br/>
                         <em>Be the first to review it and help out other families.</em>

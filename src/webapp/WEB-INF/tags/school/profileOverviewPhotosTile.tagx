@@ -28,7 +28,7 @@
                 <p class="small_bold textshadow-1 pvs plm bottom">Photos</p>
             </c:set>
             <school:profileOverviewCell1 title="${t2dc}">
-                <div class="mam">
+                <div class="mam" style="height:139px;">
                     <div class="infiniteCarousel10">
                         <div class="wrapper">
                             <ul class="unordered-carousel none">
@@ -70,11 +70,11 @@
                         <div class="hd">
                             <h3 class="bottom">Add photos</h3>
                         </div>
-                        <div class="bd">
+                        <div class="bd" style="height:125px;">
                             <p class="small mtm">
                                 <span class="make-555555">Schools,</span><br />
                                 join today<br />
-                                <span class="make-555555">and update<br />photos.</span>
+                                <span class="make-555555">to update<br />photos.</span>
                             </p>
                         </div>
                     </div>

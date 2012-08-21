@@ -24,7 +24,7 @@
             </c:set>
             <gslink:linkToTab tabName="programs-resources" anchor="Programs_table" customLink="overview_programs" cssClass="tdn make-555555">
                 <school:profileOverviewCell1 title="${t10dc}">
-                    <div class="mvm mrm">
+                    <div class="mvm mrm" style="height:141px">
                         <ul class="small bottom">
                             <c:set var="showMax" value="${3}"/>
                             <c:forEach var="item" items="${programsModel['resultsList']}" varStatus="status">

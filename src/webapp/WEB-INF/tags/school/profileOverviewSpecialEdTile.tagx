@@ -45,7 +45,7 @@
                     <c:set var="extdCareBeforeTime"   value="${specialEdModel['ExtdCareBeforeTime']}" scope="page" />
                     <c:set var="extdCareAfterTime"    value="${specialEdModel['ExtdCareAfterTime']}"  scope="page" />
 
-                    <div class="mam">
+                    <div class="mam" style="height:87px;">
                     <c:choose>
                         <c:when test="${not empty specEdPgms}">
                             <p class="small_bold bottom">The school offers support for:</p>
@@ -92,7 +92,7 @@
             </c:set>
             <gslink:linkToTab dontPrintLink="${extdCareProvided eq 'noInfo'}" tabName="programs-resources" anchor="School_basics_table" cssClass="tdn make-555555" customLink="overview_extendedcare">
                 <school:profileOverviewCell1 title="${t8_2dc}">
-                    <div class="mam">
+                    <div class="mam" style="height:40px;">
                         <c:choose>
                             <c:when test="${extdCareProvided eq 'noInfo'}">
                                 <p class="small bottom tac">The school has not provided this information yet.</p>
