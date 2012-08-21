@@ -249,7 +249,7 @@ Created by Mitchell Seltzer
 
 .ratingsClimateHeader .grayBox{
     float: right;
-    /*width:110px;*/
+    width:110px;
     border:1px #DDDDDD solid;
     background-color: #f5f5f5;
     text-align: center;
