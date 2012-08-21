@@ -539,21 +539,20 @@ jQuery(document).ready(function() {
 /* =7 tabs (create tabs using the styles in tabs.css)
  -------------------------------------------------------------------------------------------*/
 
+var GS_changeHistory = function(title, url) {
+    if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+        window.History.pushState(null, title, url);
+    }
+};
+
 (function($) {
     // extend the core jQuery with gsTabs
     $.fn.extend({
-        showTab : function() {
+        showTab : function(skipHistory) {
             return this.each(function() {
                 var $a = $(this);
-                var changeHistory = function(title, url) {
-                    if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
-                        window.History.pushState(null, title, url);
-                    }
-                };
                 var tabNav = $a.parent().parent();
                 var $layers = tabNav.siblings('div');
-
-                changeHistory($a.attr('title'), $a.attr('href') );
                 $layers.hide(); // hide all layers
                 var tabNum = tabNav.find('li').index($a.parent());// find reference to the content
                 $layers.eq(tabNum).show();// show the content
@@ -561,6 +560,9 @@ jQuery(document).ready(function() {
                 tabNav.find('li #arrowdiv').removeClass('selected');// turn all of them off
                 $a.addClass('selected');// turn selected on
                 $a.siblings().addClass('selected');// turn selected on
+                if (!skipHistory) {
+                    GS_changeHistory($a.attr('title'), $a.attr('href') );
+                }
             });
         },
         gsTabs : function() {

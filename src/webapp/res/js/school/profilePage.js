@@ -76,28 +76,23 @@ GS.profile = GS.profile || (function() {
         selector: "#js_ratings",
         parent: tabs.testsAndRatings
     };
-    tabs.demographics = {
-        name: "demographics",
+    tabs.studentsAndTeachersMaster = {
+        name: "students-teachers-master",
         selector: "#js_demographics"
     };
-    tabs.students = {
-        name: "students",
+    tabs.demographics = {
+        name: "demographics",
         selector: "#js_students",
-        parent: tabs.demographics
+        parent: tabs.studentsAndTeachersMaster
     };
     tabs.teachers = {
         name: "teachers",
         selector: "#js_teachers",
-        parent: tabs.demographics
+        parent: tabs.studentsAndTeachersMaster
     };
     tabs['programs-culture-master'] = {
         name: "programs-culture-master",
         selector: "#js_programs-culture"
-    };
-    tabs.enrollment = {
-        name: "enrollment",
-        selector: "#js_enrollment",
-        parent: tabs['programs-culture-master']
     };
     tabs['programs-culture'] = {
         name: "programs-culture",
@@ -119,6 +114,10 @@ GS.profile = GS.profile || (function() {
         selector: "#js_culture",
         parent:tabs['programs-culture-master']
     };
+    tabs.enrollment = {
+        name: "enrollment",
+        selector: "#js_enrollment"
+    };
 
     // for each tab, create an array that contains all of its children
     var tab;
@@ -134,7 +133,49 @@ GS.profile = GS.profile || (function() {
 
     var init = function() {
         setupTabClickHandlers();
+        if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+            window.History.Adapter.bind(window, 'statechange', function() {
+                var state = History.getState();
+                if (state && state.url) {
+                    var tab = 'overview';
+                    if (state.url.indexOf('?') > -1) {
+                        var queryString = state.url.substr(state.url.indexOf('?')+1);
+                        if (queryString.indexOf('#') > -1) {
+                            queryString = queryString.substr(0, queryString.indexOf('#'));
+                        }
+                        tab = GS.uri.Uri.getFromQueryString('tab', queryString);
+                    }
+                    var destinationTab = tabs[tab];
+                    if (destinationTab) {
+                        showTabWithOptions({tab:destinationTab, skipHistory:true});
+                    }
+                }
+            });
+        }
         return this;
+    };
+
+    var showTabWithOptions = function(options) {
+        var tabObject = options.tab;
+        if (typeof tabObject === 'string') {
+            tabObject = tabs[tabObject];
+        }
+
+        try {
+            if (tabObject.parent !== undefined) {
+                showTabWithOptions({tab:tabObject.parent, skipHistory:true}); // recursion
+            }
+            var selector = tabObject.selector;
+            linkToTabs(selector, options.skipHistory);
+
+            if(options.hash !== undefined) {
+                GS.util.jumpToAnchor(options.hash);
+            }
+        } catch (e) {
+            // on error, fall back on default click handling
+            return true;
+        }
+        return false;
     };
 
     // given a tab, determines which child subtab is active
@@ -154,25 +195,7 @@ GS.profile = GS.profile || (function() {
     };
 
     var linkToTabAndAnchor = function(destinationTab, hash) {
-        if (typeof destinationTab === 'string') {
-            destinationTab = tabs[destinationTab];
-        }
-
-        try {
-            if (destinationTab.parent !== undefined) {
-                linkToTabAndAnchor(destinationTab.parent); // recursion
-            }
-            var selector = destinationTab.selector;
-            linkToTabs(selector);
-
-            if(hash !== undefined) {
-                GS.util.jumpToAnchor(hash);
-            }
-        } catch (e) {
-            // on error, fall back on default click handling
-            return true;
-        }
-        return false;
+        return showTabWithOptions({tab:destinationTab, hash:hash});
     };
 
     var setupTabClickHandlers = function() {
@@ -199,8 +222,8 @@ GS.profile = GS.profile || (function() {
         });
     };
 
-    var linkToTabs = function(selector){
-        $(selector).showTab();
+    var linkToTabs = function(selector, skipHistory){
+        $(selector).showTab(skipHistory);
         return false;
     };
 

@@ -22,7 +22,7 @@
         <div class="gsTabs">
             <ul class="tabStyle-5">
                 <!--<c:if test="${(!empty studentstab)}">-->
-                    <li data-gs-tab="students"><a id="js_students" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="${schoolName} | Students" class="${requestScope.schoolProfileTabMap.demographics}">Students</a></li>
+                    <li data-gs-tab="demographics"><a id="js_students" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="${schoolName} | Students" class="${requestScope.schoolProfileTabMap.demographics}">Students</a></li>
                 <!--</c:if>-->
 
                 <!--<c:if test="${(!empty teacherstab)}">-->
@@ -308,6 +308,6 @@
     </div>
 
     <mod:deferredTracking key="teachers" pageName="Teachers" hier1="School,Teachers|Students"/>
-    <mod:deferredTracking key="students" pageName="Students" hier1="School,Teachers|Students"/>
+    <mod:deferredTracking key="demographics" pageName="Students" hier1="School,Teachers|Students"/>
 
 </jsp:root>

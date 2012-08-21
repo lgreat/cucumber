@@ -27,7 +27,7 @@
         <p class="small_bold textshadow-1 pvs plm bottom make-555555">Student diversity</p>
     </c:set>
 
-    <gslink:linkToTab tabName="students" customLink="overview_diversity" cssClass="tdn" dontPrintLink="${content ne 'default'}">
+    <gslink:linkToTab tabName="demographics" customLink="overview_diversity" cssClass="tdn" dontPrintLink="${content ne 'default'}">
         <school:profileOverviewCell1 title="${t7dc}">
             <c:choose>
                 <c:when test="${content eq 'default'}">

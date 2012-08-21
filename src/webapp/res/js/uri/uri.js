@@ -70,8 +70,8 @@ GS.uri.Uri.putIntoQueryString = function(queryString, key, value, overwrite) {
  * Static method that returns the value associated with a key in the current url's query string
  * @param key
  */
-GS.uri.Uri.getFromQueryString = function(key) {
-    queryString = decodeURIComponent(window.location.search.substring(1));
+GS.uri.Uri.getFromQueryString = function(key, queryString) {
+    queryString = queryString || decodeURIComponent(window.location.search.substring(1));
     var vars = [];
     var result;
 
