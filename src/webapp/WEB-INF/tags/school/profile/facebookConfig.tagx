@@ -27,6 +27,22 @@
     <!--<div id="fb-root" class="hidden di">&lt;!&ndash; empt tag = broken page &ndash;&gt;</div>-->
     <script type="text/javascript">
         var GS_schoolProfileFbId = "";
+        $(document).ready(function() {
+            if(GS_schoolProfileFbId != ""){
+                var pathToFB = "https://graph.facebook.com/"+GS_schoolProfileFbId;
+                $.ajax({
+                    url: pathToFB,
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.id){
+                            jQuery('#js_facebookModuleCulturePage').show();
+                            jQuery('#js_facebookModuleOverviewPage').show();
+                        }
+                    }
+                });
+            }
+        });
+
         GS = GS || {};
         GS.FB = GS.FB || {};
         GS.FB.subscribes = function() {

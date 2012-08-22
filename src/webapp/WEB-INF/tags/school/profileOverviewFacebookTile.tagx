@@ -19,7 +19,7 @@
 
     <!-- content is "hide" if row is hidden -->
     <c:if test="${content ne 'hide'}">
-        <div class="line mbm" id="js_facebookModuleOverviewPage">
+        <div class="line mbm dn" id="js_facebookModuleOverviewPage">
             <div class="unit size100of100 lastUnit">
                 <div class="line">
                     <div class="unit size32of100">

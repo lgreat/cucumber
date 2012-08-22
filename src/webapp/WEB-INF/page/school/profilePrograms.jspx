@@ -163,7 +163,9 @@ where each entry is the first bean for that section, this allows access to the s
         </div>
         <div id="fade" class="black_overlay"><!-- do not collapse --></div>
     </c:if>
-
+    <script type="text/javascript">
+        GS_schoolProfileFbId = '${schoolFacebookId}';
+    </script>
     <mod:deferredTracking key="programs-culture" pageName="Highlights" hier1="School,Programs"/>
     <mod:deferredTracking key="programs-resources" pageName="Programs Resources" hier1="School,Programs"/>
     <mod:deferredTracking key="extracurriculars" pageName="Extracurriculars" hier1="School,Programs"/>
