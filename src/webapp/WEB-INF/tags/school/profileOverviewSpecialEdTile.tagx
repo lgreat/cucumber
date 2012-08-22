@@ -143,17 +143,17 @@
             <c:set var="t8s1">
                 <p class="small_bold textshadow-1 pvs plm bottom">Staff</p>
             </c:set>
-            <gslink:linkToTab tabName="programs-resources" cssClass="tdn" customLink="overview_staff">
+            <gslink:linkToTab tabName="programs-resources" cssClass="tdn make-555555" customLink="overview_staff">
                 <school:profileOverviewCell1 title="${t8s1}">
                     <c:set var="sentence"    value="${specialEdModel['teachersStaff']}"  scope="page" />
-                    <div class="mam">
+                    <div class="mam" style="height:190px;">
                         <p class="small bottom">${gsweb:abbreviateAtWhitespace(sentence,150)}</p>
                     </div>
                 </school:profileOverviewCell1>
             </gslink:linkToTab>
         </c:when>
         <c:otherwise>
-            <gslink:linkToTab tabName="reviews" cssClass="tdn" customLink="overview_writereview">
+            <gslink:linkToTab tabName="reviews" cssClass="tdn make-555555" customLink="overview_writereview">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner bg-writeReviews">
@@ -162,8 +162,8 @@
                             </div>
                             <div class="bd">
                                 <p class="small mtm">
-                                    <span class="make-555555">Families rely on one another to get the inside scoop about a school.</span> Write a review
-                                    <span class="make-555555">today!</span>
+                                    Families rely on one another to get the inside scoop about a school. <span class="make-06b">Write a review</span>
+                                    today!
                                 </p>
                             </div>
                         </div>

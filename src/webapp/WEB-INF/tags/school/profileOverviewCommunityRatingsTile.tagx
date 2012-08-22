@@ -29,7 +29,7 @@
         <p class="small_bold textshadow-1 pvs plm bottom make-555555">Community ratings</p>
     </c:set>
 
-    <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdnmake-555555">
+    <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdn make-555555">
         <school:profileOverviewCell1 title="${t4dc}">
             <div class="mal" style="height:48px;">
 

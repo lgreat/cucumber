@@ -37,6 +37,7 @@
             <a class="tdn" href="${contentUrl}">
                 <school:profileOverviewCell1 title="${t12s1}">
                     <div class="mam" style="height:141px">
+                        <div class="shim-20"><!-- do not collapse --></div>
                         <!-- Show video icon in variable videoIconUrl and clicking on it takes you to the video at videoUrl -->
                         <span class="iconx96 i-96-video_placeholder mha db"><!-- do not collapse --></span>
                         <!--<p class="small bottom">Display video at ${contentUrl}</p>-->

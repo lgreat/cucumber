@@ -42,7 +42,8 @@
                 </c:when>
                 <c:otherwise>
                     <!-- Static text is to be displayed when data not available -->
-                    <div class="mal pvm phl">
+                    <div class="mam" style="height:190px;">
+                        <div class="shim-50"><!-- do not collapse --></div>
                         <p class="tac small make-555555">Looks like we have no information about the race or ethnicity of the student body.</p>
                     </div>
                 </c:otherwise>

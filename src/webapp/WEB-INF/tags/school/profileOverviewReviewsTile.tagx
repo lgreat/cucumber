@@ -22,10 +22,10 @@
     <c:set var="t5t6dc">
         <p class="small_bold textshadow-1 pvs plm bottom">Community reviews</p>
     </c:set>
-    <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content eq 'reviews'}" cssClass="tdn">
+    <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content eq 'reviews'}" cssClass="tdn make-555555">
     <div class="mod standard_1-1">
         <div class="inner box-shadow-animation-1">
-            <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content ne 'reviews'}" cssClass="tdn">
+            <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content ne 'reviews'}" cssClass="tdn make-555555">
                 <div class="hd">
                     ${t5t6dc}
                 </div>

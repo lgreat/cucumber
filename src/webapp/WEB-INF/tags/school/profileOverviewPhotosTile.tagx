@@ -30,7 +30,7 @@
 
             <div class="mod standard_1-1">
                 <div class="inner box-shadow-animation-1">
-                    <gslink:linkToTab tabName="culture" customLink="overview_photos" cssClass="tdn">
+                    <gslink:linkToTab tabName="culture" customLink="overview_photos" cssClass="tdn make-555555">
                         <div class="hd">
                             ${t2dc}
                         </div>
