@@ -91,7 +91,7 @@
                 </li>
             </c:if>
             <c:if test="${(!empty schoolstats)}">
-                <li data-gs-tab="demographics"><a id="js_demographics" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="${schoolName} | Students &amp;amp; teachers" class="${requestScope.schoolProfileTabMap['students-teachers-master']}">Students &amp;amp; teachers</a>
+                <li data-gs-tab="studentsAndTeachersMaster"><a id="js_demographics" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="${schoolName} | Students &amp;amp; teachers" class="${requestScope.schoolProfileTabMap['students-teachers-master']}">Students &amp;amp; teachers</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.schoolstats} arrowdiv" id="arrowdiv"></div>-->
 

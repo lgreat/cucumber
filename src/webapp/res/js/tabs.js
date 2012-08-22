@@ -31,13 +31,15 @@ GS.tabManager = (function() {
         return tabNamesToTabModules;
     };
 
-    var registerTabs = function(tabSuiteName, tabs) {
+    // allows each suite of tabs to place themselves into manager's map
+    var registerTabs = function(tabSuiteName, tabModule) {
         var t;
         var tab;
         var parentTab;
+        var tabs = tabModule.getTabs();
 
         if (tabNamesToTabModules.hasOwnProperty(tabSuiteName)) {
-            parentTab = GS.tabModules[tabSuiteName].getTabByName(tabSuiteName);
+            parentTab = tabNamesToTabModules[tabSuiteName].getTabByName(tabSuiteName);
             if (parentTab !== undefined) {
                 parentTab.children = tabs;
             }
@@ -46,7 +48,7 @@ GS.tabManager = (function() {
         for (t in tabs) {
             if (tabs.hasOwnProperty(t)) {
                 tab = tabs[t];
-                tabNamesToTabModules[tab.name] = GS.tabModules[tabSuiteName];
+                tabNamesToTabModules[tab.name] = tabModule;
                 if (parentTab !== undefined) {
                     tab.parent = parentTab;
                 }
@@ -60,9 +62,16 @@ GS.tabManager = (function() {
         if (typeof tabObject === 'string') {
             var tabName = tabObject;
             tabModule = tabNamesToTabModules[tabName];
+            if (tabModule === undefined) {
+                return false;
+            }
             tabObject = tabModule.getTabByName(tabName);
         } else {
             tabModule = tabNamesToTabModules[tabObject.name];
+        }
+
+        if (tabObject === undefined) {
+            return false;
         }
 
         try {
@@ -80,6 +89,7 @@ GS.tabManager = (function() {
         }
         return false;
     };
+
 
     var showTab = function(selector) {
         var name = selector.substring(4);
@@ -138,9 +148,9 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             $tabNav = $container.find('ul:first'); // get only the first ul not all of the descendents
             $tabs = $tabNav.find('li>a'); // TODO: update this selector; it matches too many items
             buildTabStructure();
-            GS.tabManager.registerTabs(tabSuiteName, tabs);
-            console.log(this);
-            return this;
+            GS.tabManager.registerTabs(tabSuiteName, self);
+            console.log(tabs);
+            return self;
         };
 
         var showTabs = function() {
@@ -182,7 +192,6 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
 
             currentTab = tab;
 
-            if (tab.children)
 
             if (!skipHistory) {
                 GS_changeHistory($a.attr('title'), $a.attr('href') );

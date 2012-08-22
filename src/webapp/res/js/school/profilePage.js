@@ -53,83 +53,7 @@ GS.util = GS.util || {};
 GS.profile = GS.profile || (function() {
     "use strict";
 
-    var tabs = {};
-    tabs.overview = {
-        name: "overview",
-        selector: "#js_overview"
-    };
-    tabs.reviews = {
-        name: "reviews",
-        selector: "#js_reviews"
-    };
-    tabs.testsAndRatings = {
-        name: "testsAndRatings",
-        selector: "#js_test-scores"
-    };
-    tabs['test-scores'] = {
-        name: "test-scores",
-        selector: "#js_tests",
-        parent: tabs.testsAndRatings
-    };
-    tabs.ratings = {
-        name: "ratings",
-        selector: "#js_ratings",
-        parent: tabs.testsAndRatings
-    };
-    tabs.studentsAndTeachersMaster = {
-        name: "students-teachers-master",
-        selector: "#js_demographics"
-    };
-    tabs.demographics = {
-        name: "demographics",
-        selector: "#js_students",
-        parent: tabs.studentsAndTeachersMaster
-    };
-    tabs.teachers = {
-        name: "teachers",
-        selector: "#js_teachers",
-        parent: tabs.studentsAndTeachersMaster
-    };
-    tabs['programs-culture-master'] = {
-        name: "programs-culture-master",
-        selector: "#js_programs-culture"
-    };
-    tabs['programs-culture'] = {
-        name: "programs-culture",
-        selector: "#js_highlights",
-        parent: tabs['programs-culture-master']
-    };
-    tabs['programs-resources'] = {
-        name: "programs-resources",
-        selector: "#js_programsresources",
-        parent:tabs['programs-culture-master']
-    };
-    tabs.extracurriculars = {
-        name: "extracurriculars",
-        selector: "#js_extracurriculars",
-        parent:tabs['programs-culture-master']
-    };
-    tabs.culture = {
-        name: "culture",
-        selector: "#js_culture",
-        parent:tabs['programs-culture-master']
-    };
-    tabs.enrollment = {
-        name: "enrollment",
-        selector: "#js_enrollment"
-    };
 
-    // for each tab, create an array that contains all of its children
-    var tab;
-    for (tab in tabs) {
-        if (tabs.hasOwnProperty(tab)) {
-            var parent = tabs[tab].parent;
-            if (parent !== undefined) {
-                parent.children = parent.children || [];
-                parent.children.push(tabs[tab]);
-            }
-        }
-    }
 
     var init = function() {
         jQuery('[data-gs-tabs]').gsTabs();
@@ -147,9 +71,8 @@ GS.profile = GS.profile || (function() {
                         }
                         tab = GS.uri.Uri.getFromQueryString('tab', queryString);
                     }
-                    var destinationTab = tabs[tab];
-                    if (destinationTab) {
-                        GS.tabManager.showTabWithOptions({tab:destinationTab, skipHistory:true});
+                    if (tab) {
+                        GS.tabManager.showTabWithOptions({tab:tab, skipHistory:true});
                     }
                 }
             });
@@ -182,6 +105,8 @@ GS.profile = GS.profile || (function() {
 
     // given a tab, determines which child subtab is active
     var getActiveChildTab = function(parentTab) {
+        return undefined;
+        //TODO: re-hook up
         if (typeof parentTab === 'string') {
             parentTab = tabs[parentTab];
         }
