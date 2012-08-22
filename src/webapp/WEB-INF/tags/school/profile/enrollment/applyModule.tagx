@@ -10,7 +10,6 @@
     <jsp:directive.attribute name="deadlineDate" type="java.lang.String" required="false"/>
     <jsp:directive.attribute name="deadlineDaysLeft" type="java.lang.String" required="false"/>
 
-
     <!--This is the version with the countdown and due date-->
 
         <c:if test="${viewType eq '1'}">
@@ -22,7 +21,7 @@
                     <div class="bd pam">
                         <div class="line enrollmentApply">
                             <div class="unit size25of100 small bottom">
-                                <a href="${linkFindOutMore}">Learn more about enrolling at this school</a>
+                                ${linkFindOutMore}
                             </div>
                             <div class="unit size7of100">&amp;nbsp;</div>
                             <div class="unit size30of100">
@@ -38,7 +37,7 @@
                             </div>
                             <div class="unit size5of100">&amp;nbsp;</div>
                             <div class="unit size20of100 lastUnit">
-                                <a href="${linkApplyNow}"><button class="button-1-big mtm" value="Apply now">Apply now</button></a>
+                                ${linkApplyNow}
                             </div>
                         </div>
                     </div>
@@ -56,7 +55,7 @@
                     <div class="bd pam">
                         <div class="line enrollmentApply">
                             <div class="unit size25of100 small bottom">
-                                <a href="${linkFindOutMore}">Learn more about enrolling at this school</a>
+                                ${linkFindOutMore}
                             </div>
                             <div class="unit size7of100">&amp;nbsp;</div>
                             <div class="unit size43of100">
@@ -66,7 +65,7 @@
                             </div>
                             <div class="unit size5of100">&amp;nbsp;</div>
                             <div class="unit size20of100 lastUnit">
-                                <a href="${linkApplyNow}"><button class="button-1-big mtm" value="Apply now">Apply now</button></a>
+                                ${linkApplyNow}
                             </div>
                         </div>
                     </div>
@@ -84,7 +83,7 @@
                     <div class="bd pam">
                         <div class="line enrollmentApply">
                             <div class="unit size25of100 small bottom">
-                                <a href="${linkFindOutMore}">Learn more about enrolling at this school</a>
+                                ${linkFindOutMore}
                             </div>
                             <div class="unit size7of100">&amp;nbsp;</div>
                             <div class="unit size43of100">
@@ -94,7 +93,7 @@
                             </div>
                             <div class="unit size5of100">&amp;nbsp;</div>
                             <div class="unit size20of100 lastUnit">
-                                <a href="${linkApplyNow}"><button class="button-1-big mtm" value="Apply now">Apply now</button></a>
+                                ${linkApplyNow}
                             </div>
                         </div>
                     </div>
@@ -112,7 +111,7 @@
                     <div class="bd pam">
                         <div class="line enrollmentApply">
                             <div class="unit size25of100 small bottom">
-                                <a href="${linkFindOutMore}">Learn more about enrolling at this school</a>
+                                ${linkFindOutMore}
                             </div>
                             <div class="unit size7of100">&amp;nbsp;</div>
                             <div class="unit size43of100">
@@ -121,7 +120,7 @@
                             </div>
                             <div class="unit size5of100">&amp;nbsp;</div>
                             <div class="unit size20of100 lastUnit">
-                                <a href="${linkApplyNow}"><button class="button-1-big mtm" value="Apply now">Apply now</button></a>
+                                ${linkApplyNow}
                             </div>
                         </div>
                     </div>
@@ -137,7 +136,7 @@
                         <strong class="psm plm">Apply</strong>
                     </div>
                     <div class="bd pam tac">
-                        <a href="${linkApplyNow}"><button class="button-1-big" value="Apply now">Apply now</button></a>
+                        ${linkApplyNow}
                     </div>
                 </div>
             </div>

@@ -16,7 +16,18 @@
 
     <c:set var="ospDataExists" value="${not empty espData ? 'true' : 'false'}"/>
 
-    <div id="profileProgramsTabs"> ${not empty espData}
+    <c:choose>
+        <c:when test="${apply.learnMoreUrl != null and apply.learnMoreUrl != ''}">
+            <c:set var="linkFindOutMore" value="&lt;a href='${apply.learnMoreUrl}' target='_blank'&gt;Learn more about enrolling at this school&lt;/a&gt;"/>
+            <c:set var="linkApplyNow" value="&lt;a href='${apply.learnMoreUrl}' target='_blank'&gt;&lt;button class='button-1-big mtm' value='Apply now'&gt;Apply now&lt;/button&gt;&lt;/a&gt;"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="linkFindOutMore" value="To learn more about enrolling, please call the school."/>
+            <c:set var="linkApplyNow" value="&lt;!-- do not delete --&gt;"/>
+        </c:otherwise>
+    </c:choose>
+
+    <div id="profileProgramsTabs">
         <!-- The page has different layouts depending if there is esp data or not -->
     <div class="alpha grid_16 omega">
         <c:choose>
@@ -26,69 +37,72 @@
             <!--
            ==================================== -->
             <c:when test="${not empty espData}">
-                <!-- layout 1 -->
-                <div class="line">
-                    <div class="unit size32of100">
-                        <enrollment:applyModule viewType="5" />
-                        <enrollment:principalAddContent school="${school}" />
-
-                    </div>
-                    <div class="unit size2of100">&amp;nbsp;</div>
-                    <div class="unit size32of100">
-                        <!-- waiting on visit module -->
-                        waiting on visit module
-                    </div>
-                    <div class="unit size2of100">&amp;nbsp;</div>
-                    <div class="unit size32of100 lastUnit">
-                        <enrollment:districtBoundaryModule school="${school}" />
-                    </div>
-                </div>
-                <hr />
-                   <!-- layout 2 -->
-                    <div class="line">
-                        <div class="unit size32of100">
-                            waiting on visit module
-                            <!--<enrollment:applyModule viewType="5" />-->
-
-
-                        </div>
-                        <div class="unit size2of100">&amp;nbsp;</div>
-                        <div class="unit size66of100 lastUnit">
-                            <enrollment:applyModule viewType="6" />
-                            <!--<enrollment:principalAddContent />-->
-                            <div class="line">
-                                <div class="unit size49of100">
-                                    <enrollment:districtBoundaryModule school="${school}" />
+                <c:choose>
+                    <c:when test="${apply.hasApplicationProcess}">
+                        <c:choose>
+                            <c:when test="${apply.enrollmentState eq 1}">
+                                <div class="line">
+                                    <div class="unit size100of100 lastUnit">
+                                        <enrollment:applyModule viewType="1" deadlineDate="${apply.deadlineDate}"
+                                                                deadlineDaysLeft="${apply.daysLeft}"
+                                                                linkFindOutMore="${linkFindOutMore}"
+                                                                linkApplyNow="${linkApplyNow}"/>
+                                    </div>
                                 </div>
-                                <div class="unit size2of100">&amp;nbsp;</div>
-                                <div class="unit size49of100 lastUnit">
-                                    <enrollment:principalAddContent school="${school}" />
+                            </c:when>
+                            <c:when test="${apply.enrollmentState eq 2}">
+                                <div class="line">
+                                    <div class="unit size100of100 lastUnit">
+                                        <enrollment:applyModule viewType="2" deadlineDate="${apply.deadlineDate}"
+                                                                linkFindOutMore="${linkFindOutMore}"
+                                                                linkApplyNow="${linkApplyNow}"/>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:when test="${apply.enrollmentState eq 3}">
+                                <div class="line">
+                                    <div class="unit size100of100 lastUnit">
+                                        <enrollment:applyModule viewType="3" linkFindOutMore="${linkFindOutMore}"
+                                                                linkApplyNow="${linkApplyNow}" />
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:when test="${apply.enrollmentState eq 4}">
+                                <div class="line">
+                                    <div class="unit size100of100 lastUnit">
+                                        <enrollment:applyModule viewType="4" linkFindOutMore="${linkFindOutMore}"
+                                                                linkApplyNow="${linkApplyNow}" />
+                                    </div>
+                                </div>
+                            </c:when>
+                        </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="line">
+                            <div class="unit size32of100">
+                                waiting on visit module
+                                <!--<enrollment:applyModule viewType="5" />-->
+
+
+                            </div>
+                            <div class="unit size2of100">&amp;nbsp;</div>
+                            <div class="unit size66of100 lastUnit">
+                                <enrollment:applyModule viewType="6" />
+                                <!--<enrollment:principalAddContent />-->
+                                <div class="line">
+                                    <div class="unit size49of100">
+                                        <enrollment:districtBoundaryModule school="${school}" />
+                                    </div>
+                                    <div class="unit size2of100">&amp;nbsp;</div>
+                                    <div class="unit size49of100 lastUnit">
+                                        <enrollment:principalAddContent school="${school}" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                <hr />
-                <!-- layout 3 -->
-                <div class="line">
-                    <div class="unit size100of100 lastUnit">
-                        <enrollment:applyModule viewType="1" deadlineDate="March 1, 2012" deadlineDaysLeft="4" />
-                    </div>
-                </div>
-                <div class="line">
-                    <div class="unit size100of100 lastUnit">
-                        <enrollment:applyModule viewType="2" deadlineDate="March 1, 2012" deadlineDaysLeft="4" />
-                    </div>
-                </div>
-                <div class="line">
-                    <div class="unit size100of100 lastUnit">
-                        <enrollment:applyModule viewType="3" deadlineDate="March 1, 2012" deadlineDaysLeft="4" />
-                    </div>
-                </div>
-                <div class="line">
-                    <div class="unit size100of100 lastUnit">
-                        <enrollment:applyModule viewType="4" deadlineDate="March 1, 2012" deadlineDaysLeft="4" />
-                    </div>
-                </div>
+                    </c:otherwise>
+                </c:choose>
+
                 <div class="line">
                     <div class="unit size32of100">
                         waiting on visit module
@@ -110,7 +124,7 @@
                 <!-- layout 1 -->
                 <div class="line">
                     <div class="unit size32of100">
-                        <enrollment:applyModule viewType="5" />
+                        <enrollment:applyModule viewType="5" linkApplyNow="${linkApplyNow}"/>
                         <enrollment:principalAddContent school="${school}" />
 
                     </div>
