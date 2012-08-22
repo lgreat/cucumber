@@ -298,7 +298,6 @@ function drawPieChart(dataIn, divNameId, dimensions, catchClick) {
     }
     function selectHandler() {
         GS.tracking.sendOmnitureData('demographics');
-//        GS.profile.showTabWithOptions({tab:'demographics'});
         GS.tabManager.showTabWithOptions({tab:'demographics'});
     }
 }
