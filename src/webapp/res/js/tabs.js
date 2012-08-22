@@ -104,6 +104,7 @@ GS.tabManager = (function() {
 
         if (tabChanged && typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             GS.tracking.sendOmnitureData((getActiveChildTab(tabObject)).name);
+            GS_notifyQuantcastComscore();
         }
     };
 
