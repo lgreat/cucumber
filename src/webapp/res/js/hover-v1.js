@@ -23,7 +23,6 @@ Function.prototype.gs_bind = function(obj) {
 //HoverDialog requires the ID of the element to display as a hover dialog
 GSType.hover.HoverDialog = function(id,width) {
     this.hoverId = id;
-    //console.log(this.hoverId);
     this.pageName = '';
     this.hier1 = '';
     this.width = width;
@@ -37,7 +36,6 @@ GSType.hover.HoverDialog = function(id,width) {
             this.dialogByWidth();
             this.initialized = true;
         }
-        //console.log(this.hoverId);
 //        jQuery('#' + this.hoverId).dialog('open');
         ModalManager.showModal({
             'layerId' :  this.hoverId
@@ -54,7 +52,6 @@ GSType.hover.HoverDialog = function(id,width) {
         return false;
     };
     this.hide = function() {
-//        console.log("HOVERID:"+this.hoverId);
         ModalManager.hideModal({
             'layerId' : this.hoverId
         });
@@ -716,7 +713,6 @@ GSType.hover.JoinHover = function() {
         }
     };
 //    jQuery('.js_closeJoinHover').click(function() {
-//        console.log("MADE IT");
 //        GSType.hover.joinHover.hide();
 //        return false;
 //    });
@@ -801,7 +797,6 @@ GSType.hover.SignInHover = function() {
         return false;
     };
     this.loginValidatorHandler = function(data) {
-        console.log(data.noSuchUser);
         jQuery('#signInHover .errors .error').hide();
         if (data.noSuchUser) {
             jQuery('#signInHover .errors .error').html(data.noSuchUser).show();
@@ -1184,7 +1179,6 @@ GSType.hover.PrincipalConfirmation = function() {
     this.loadDialog = function() {
         //this.dialogByWidth();
     };
-//    console.log("hoverID:" + this.hoverId);
     this.show = function(id, state) {
 //        if (!this.initialized) {
 //            this.dialogByWidth();
@@ -1193,7 +1187,6 @@ GSType.hover.PrincipalConfirmation = function() {
         jQuery('#principalConfirmationForm #hdnSchoolId').val(id);
         jQuery('#principalConfirmationForm #hdnSchoolState').val(state);
         jQuery('#principalConfirmationForm').attr("action", "/school/principalComments.page");
-        console.log("hoverID:" + this);
 //        jQuery('#' + this.hoverId).showModal();
 //        jQuery('#' + this.hoverId).showModal();
         // TODO: this is not working scope issue
@@ -1722,7 +1715,6 @@ jQuery(function() {
     jQuery('#joinState').change(GSType.hover.joinHover.loadCities);
 
 //    jQuery('.js_closeJoinHover').click(function() {
-//        console.log("MADE IT");
 //        GSType.hover.joinHover.hide();
 //        return false;
 //    });
@@ -1802,12 +1794,10 @@ jQuery(function() {
         return false;
     });
     jQuery('.js_closeSignInHover').click(function() {
-//    console.log("MADE IT");
         GSType.hover.signInHover.hide();
         return false;
     });
     jQuery('.js_closeJoinHover').click(function() {
-//    console.log("MADE IT");
         GSType.hover.joinHover.hide();
         return false;
     });
