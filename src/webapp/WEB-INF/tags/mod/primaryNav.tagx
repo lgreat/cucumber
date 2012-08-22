@@ -45,9 +45,13 @@
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
                         <li><link:findASchool id="PN_F_1-SearchForSchools"
                                               styleClass="GS_CI9_">Search for Schools</link:findASchool></li>
-                        <li><a href="/defining-your-ideal-school.topic?content=4996" id="PN_F_1-DefiningYourIdealSchool" class="GS_CI9_">Defining Your Ideal School</a></li>
-                        <li class="lastone"><link:cmsCategoryBrowse topicIDs="197" styleId="PN_F_1-HowToAssessASchool"
-                                                                    styleClass="GS_CI9_">How to Assess a School</link:cmsCategoryBrowse><!--<a href="/articles/?topics=197" id="PN_F_1-PreparingForASchoolVisit" class="GS_CI9_">Preparing for a School Visit</a>-->
+                        <li><a href="/school-choice-AtoZ.topic?content=6989"
+                               id="PN_F_2-SchoolChoiceAToZ" class="GS_CI9_">School Choice A to Z</a></li>
+                        <li class="lastone"><a href="/how-to-assess-a-school.topic?content=5068"
+                                               id="PN_F_1-HowToAssessASchool"
+                                               class="GS_CI9_">How to Assess a School</a>
+                            <!--<a href="/articles/?topics=197"
+                            id="PN_F_1-PreparingForASchoolVisit" class="GS_CI9_">Preparing for a School Visit</a>-->
                         </li>
                     </ul>
                 </div>
@@ -55,23 +59,22 @@
             <div class="col_1">
                 <div class="col_content">
                     <ul class="none"> <!-- bullet type: disc/square/circle-->
-                        <li><link:cmsCategoryBrowse topicIDs="195" styleId="PN_F_2-MakingTheRightChoice"
-                                                    styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse><!--<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>-->
-                        </li>
+                        <!--<li><link:cmsCategoryBrowse topicIDs="195" styleId="PN_F_2-MakingTheRightChoice"-->
+                                                    <!--styleClass="GS_CI9_">Making the Right Choice</link:cmsCategoryBrowse>&lt;!&ndash;<a href="/articles/?topics=195" id="PN_F_2-MakingTheRightChoice" class="GS_CI9_">Making the Right Choice</a>&ndash;&gt;-->
+                        <!--</li>-->
+                        <li><a href="/defining-your-ideal-school.topic?content=4996" id="PN_F_1-DefiningYourIdealSchool"
+                               class="GS_CI9_">Defining Your Ideal School</a></li>
                         <li><a href="/moving.topic?content=2220" id="PN_F_2-MovingWIthKids"
                                class="GS_CI9_">Moving with Kids</a></li>
                         <li class="lastone"><a href="/tips-moving-school-district.topic?content=4248"
                                                id="PN_F_2-LocalSchoolChoiceGuides"
-                                               class="GS_CI9_">Guides to Local School Systems</a></li>
+                                               class="GS_CI9_">Outsmarting Tricky School Systems</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col_2">
                 <div class="ft_content clearfix">
-                    <!-- for perl pages -->
-                    <!--<img class="fltlft" src="/res/img/primaryNav/mm-findaschool-1.jpg" width="130" height="66" alt="find a school hot topic" />-->
-                    <!-- for java pages -->
-                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-findaschool-19.3.jpg" width="130" height="66"
+                    <gsml:img styleClass="fltlft" src="/res/img/primaryNav/mm-findaschool-20.9.jpg" width="130" height="66"
                               alt="find a school hot topic"/>
 
                     <!-- GS-12882 -->
