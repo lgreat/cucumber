@@ -562,6 +562,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 //                String fullUri = pub.getFullUri();
 //                UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), fullUri);
 
+
                 GsSolrQuery query = new GsSolrQuery();
                 query.filter(DocumentType.CMS_FEATURE);
                 query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.VIDEO_CONTENT_TYPE);
