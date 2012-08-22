@@ -67,7 +67,7 @@
         [admissions took ${requestScope['enrollmenttime']}ms for ${fn:length(enrollment)} chars] <br/>
     </c:if>
 
-    <div class="gsTabs" data-gs-allow-intercept-hovers="true">
+    <div data-gs-tabs="profileTabs" class="gsTabs" data-gs-allow-intercept-hovers="true">
         <ul class="tabStyle-8">
             <c:if test="${(!empty overview)}">
                 <li data-gs-tab="overview"><a id="js_overview" href="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'tab')}" title="${schoolName} | Overview" class="${requestScope.schoolProfileTabMap['overview-master']}">Overview</a>
@@ -125,7 +125,7 @@
         </c:if>
         <c:if test="${(!empty testscores || !empty ratings)}">
             <div style="display:${(!empty requestScope.schoolProfileTabMap['test-scores-master'] and requestScope.schoolProfileTabMap['test-scores-master'] eq 'selected'?'block;':'none')}">
-                <div class="gsTabs">
+                <div data-gs-tabs="testsAndRatings" class="gsTabs">
                     <profile:testsRatingsNav schoolName="${schoolName}" showTestScores="${not empty testscores}"/>
                     <c:if test="${(!empty testscores)}">
                         <div class="${(!empty requestScope.schoolProfileTabMap['test-scores'] and requestScope.schoolProfileTabMap['test-scores'] eq 'selected'?'':'dn')}">

@@ -132,6 +132,8 @@ GS.profile = GS.profile || (function() {
     }
 
     var init = function() {
+        jQuery('[data-gs-tabs]').gsTabs();
+
         setupTabClickHandlers();
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             window.History.Adapter.bind(window, 'statechange', function() {
@@ -147,14 +149,14 @@ GS.profile = GS.profile || (function() {
                     }
                     var destinationTab = tabs[tab];
                     if (destinationTab) {
-                        showTabWithOptions({tab:destinationTab, skipHistory:true});
+                        GS.tabManager.showTabWithOptions({tab:destinationTab, skipHistory:true});
                     }
                 }
             });
         }
         return this;
     };
-
+/*
     var showTabWithOptions = function(options) {
         var tabObject = options.tab;
         if (typeof tabObject === 'string') {
@@ -176,7 +178,7 @@ GS.profile = GS.profile || (function() {
             return true;
         }
         return false;
-    };
+    };*/
 
     // given a tab, determines which child subtab is active
     var getActiveChildTab = function(parentTab) {
@@ -195,7 +197,7 @@ GS.profile = GS.profile || (function() {
     };
 
     var linkToTabAndAnchor = function(destinationTab, hash) {
-        return showTabWithOptions({tab:destinationTab, hash:hash});
+        return GS.tabManager.showTabWithOptions({tab:destinationTab, hash:hash});
     };
 
     var setupTabClickHandlers = function() {

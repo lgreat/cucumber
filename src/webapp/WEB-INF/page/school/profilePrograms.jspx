@@ -105,7 +105,7 @@ where each entry is the first bean for that section, this allows access to the s
     <!-- Build tabs -->
 
     <c:if test="${(!empty highlightstab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab || !empty culturetab)}">
-        <div class="gsTabs">
+        <div data-gs-tabs="programs-culture-master" class="gsTabs">
             <ul class="tabStyle-5">
                 <c:if test="${(!empty highlightstab)}">
                     <li data-gs-tab="programs-culture"><a id="js_highlights" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}" title="${schoolName} | Highlights" class="${requestScope.schoolProfileTabMap['programs-culture']}">Highlights</a></li>

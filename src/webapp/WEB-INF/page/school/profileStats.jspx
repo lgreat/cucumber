@@ -19,7 +19,7 @@
             ]]>
     </jsp:scriptlet>
     <div class="grid_16 alpha omega ptn mtn">
-        <div class="gsTabs">
+        <div data-gs-tabs="studentsAndTeachersMaster" class="gsTabs">
             <ul class="tabStyle-5">
                 <!--<c:if test="${(!empty studentstab)}">-->
                     <li data-gs-tab="demographics"><a id="js_students" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="${schoolName} | Students" class="${requestScope.schoolProfileTabMap.demographics}">Students</a></li>
