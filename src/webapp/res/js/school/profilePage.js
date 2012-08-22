@@ -294,7 +294,7 @@ function drawPieChart(dataIn, divNameId, dimensions, catchClick) {
         pieChart.draw(data, options);
 
     if(catchClick){
-//        google.visualization.events.addListener(pieChart, 'select', selectHandler);
+        google.visualization.events.addListener(pieChart, 'select', selectHandler);
     }
     function selectHandler() {
         GS.tracking.sendOmnitureData('students');
