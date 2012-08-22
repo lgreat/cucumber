@@ -5,6 +5,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
@@ -218,6 +219,13 @@
 
         </c:otherwise>
     </c:choose>
+    <c:if test="${not empty schoolLastModifiedDate}">
+        <c:set var="lastModifiedDateMarkupFormat"><fmt:formatDate type="date" value="${schoolLastModifiedDate}" pattern="yyyy-MM-dd"/></c:set>
+        <![CDATA[<div class="smallText1" itemscope itemtype="http://www.schema.org/ProfilePage">]]>
+        Last modified <![CDATA[<time itemprop="dateModified" datetime="${lastModifiedDateMarkupFormat}">]]><fmt:formatDate type="date" value="${schoolLastModifiedDate}" pattern="MMMM d, yyyy"/><![CDATA[</time>]]>
+        <![CDATA[</div>]]>
+    </c:if>
+
     </div>
 
 <!--<mod:tracking pageName="${pageName}"

@@ -5,7 +5,6 @@ import gs.data.community.User;
 import gs.data.content.cms.*;
 import gs.data.geo.bestplaces.BpZip;
 import gs.data.school.*;
-import gs.data.school.census.Breakdown;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
@@ -52,6 +51,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String RELATED_CONTENT_MODEL_KEY = "related";
     private static final String FACEBOOK_MODEL_KEY = "facebook";
     private static final String SPORTS_MODEL_KEY = "sports";
+    public static final String LAST_MODIFIED_DATE_MODEL_KEY = "schoolLastModifiedDate";
 
     private static final String SCHOOL_VISIT_CHECKLIST_MODEL_KEY = "schoolVisit";
     private static final String VIDEO_TOUR_MODEL_KEY = "videoTour";
@@ -111,10 +111,29 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             handleNonEspPage( modelMap, request, school );
         }
 
+        // GS-13116 Handle last modified
+        modelMap.put(LAST_MODIFIED_DATE_MODEL_KEY, getLastModifiedDateForSchool(request, school));
+
         return VIEW;
     }
 
-    private void handleEspPage(Map model, HttpServletRequest request, School school, Map<String,List<EspResponse>> espData ) {
+    protected Date getLastModifiedDateForSchool(HttpServletRequest request, School school) {
+        // get the most recent of these two dates: school.getModified(), and the most recent published non-principal review
+        // see similar logic in ParentReviewController.java, SchoolOverview2010Controller.java
+        List<Review> reviews = _schoolProfileDataHelper.getNonPrincipalReviews(request, 1);
+        Date lastModifiedDate = school.getModified();
+        if (reviews.size() > 0) {
+            Date mostRecentPublishedNonPrincipalReview = reviews.get(0).getPosted();
+            if (lastModifiedDate == null ||
+                    (mostRecentPublishedNonPrincipalReview != null &&
+                            lastModifiedDate.compareTo(mostRecentPublishedNonPrincipalReview) < 0)) {
+                lastModifiedDate = mostRecentPublishedNonPrincipalReview;
+            }
+        }
+        return lastModifiedDate;
+    }
+
+    private void handleEspPage(Map<String, Object> model, HttpServletRequest request, School school, Map<String,List<EspResponse>> espData ) {
 
         // First row is "Best know for quote", get it and add to model
         model.put(BEST_KNOWN_FOR_MODEL_KEY, getBestKnownForQuoteEspTile(school, espData));
@@ -268,7 +287,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    private Map getSchoolAutotext(HttpServletRequest request, School school) {
+    private Map<String, Object> getSchoolAutotext(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -394,7 +413,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    private Map getGsRatingsModel(HttpServletRequest request, School school) {
+    private Map<String, Object> getGsRatingsModel(HttpServletRequest request, School school) {
 
         // Default action
         Map<String, Object> model = null;
@@ -423,7 +442,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
 
-    private Map getAwardsModel(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map<String, Object> getAwardsModel(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = null;
 
@@ -459,7 +478,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
 
-    Map getVideoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map<String, Object> getVideoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = null;
 
@@ -478,14 +497,14 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    Map getBoundaryToolModel() {
+    Map<String, Object> getBoundaryToolModel() {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
         model.put( "content", "schoolBoundaryToolPromo" );
         return model;
     }
 
-    Map getTourVideoModel(HttpServletRequest request, School school) {
+    Map<String, Object> getTourVideoModel(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -559,7 +578,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
 
-    private Map getDiversityEspTile(HttpServletRequest request, School school) {
+    private Map<String, Object> getDiversityEspTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -595,7 +614,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    Map getSpecialEdEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map<String, Object> getSpecialEdEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> specialEdModel = new HashMap<String, Object>(2);
 
@@ -795,7 +814,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return specialEdModel;
     }
 
-    Map getTransportationEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map<String, Object> getTransportationEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -967,7 +986,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return null;  // No value in results
     }
 
-    Map getProgramsEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map<String, Object> getProgramsEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -1087,7 +1106,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    Map getApplInfoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map<String, Object> getApplInfoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -1223,7 +1242,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     }
 
-    Map getLocalInfoEspTile(HttpServletRequest request, School school) {
+    Map<String, Object> getLocalInfoEspTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -1248,7 +1267,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
      * @param school
      * @return
      */
-    private Map getDistrictInfoModel(HttpServletRequest request, School school) {
+    private Map<String, Object> getDistrictInfoModel(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -1349,7 +1368,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return null;
     }
 
-    private Map getRelatedEspTile(HttpServletRequest request, School school, int numArticles) {
+    private Map<String, Object> getRelatedEspTile(HttpServletRequest request, School school, int numArticles) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
 
@@ -1437,7 +1456,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return sportsModel;
     }
 
-    private Object getFacebookTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map<String, Object> getFacebookTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
 
         Map<String, Object> facebookModel = new HashMap<String, Object>(4);
 
@@ -1488,10 +1507,9 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Row 4 - Default: Related content
         model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school, 6) );
 
-        return;
     }
 
-    Map getSchoolVisitChecklistTile(HttpServletRequest request, School school) {
+    Map<String, Object> getSchoolVisitChecklistTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(1);
 

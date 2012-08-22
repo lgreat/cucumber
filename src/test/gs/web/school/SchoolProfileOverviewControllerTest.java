@@ -11,22 +11,18 @@ import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.school.review.Review;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
 import gs.web.BaseControllerTestCase;
 import gs.web.request.RequestAttributeHelper;
-import gs.web.util.FixedNameController;
-import gs.web.util.SpringUtil;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-//import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.classextension.EasyMock.*;
-//import static org.easymock.classextension.EasyMock.replay;
-//import static org.easymock.classextension.EasyMock.reset;
 
 /**
  * Tester for SchoolProfileOverviewController
@@ -374,11 +370,11 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
         int cmsVideoContentId = 6857;  // This is contentId for elementary school video
 
-        Map<String, String> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
+        Map<String, Object> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
         assertEquals( "testSchoolTourVideoA: content wrong", "schoolTourVideo", resultsModel.get("content") );
         assertEquals( "testSchoolTourVideoA: school level wrong", "e", resultsModel.get("schoolLevel") );
-        assertTrue( "testSchoolTourVideoA: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        assertTrue( "testSchoolTourVideoA: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(Integer.toString(_cmsVideoContentId)))>0);
         System.out.println("testSchoolTourVideoA successful");
     }
 
@@ -389,11 +385,11 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setLevelCode( LevelCode.HIGH);
         int cmsVideoContentId = 6855;  // This is contentId for high school video
 
-        Map<String, String> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
+        Map<String, Object> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
         assertEquals( "testSchoolTourVideoB: content wrong", "schoolTourVideo", resultsModel.get("content") );
         assertEquals( "testSchoolTourVideoB: school level wrong", "h", resultsModel.get("schoolLevel") );
-        assertTrue( "testSchoolTourVideoB: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        assertTrue( "testSchoolTourVideoB: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(Integer.toString(_cmsVideoContentId)))>0);
         System.out.println("testSchoolTourVideoB successful");
     }
 
@@ -407,11 +403,11 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setLevelCode( LevelCode.PRESCHOOL);
         int cmsVideoContentId = 6857;  // This is contentId for elementary school video
 
-        Map<String, String> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
+        Map<String, Object> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
         assertEquals( "testSchoolTourVideoC: content wrong", "schoolTourVideo", resultsModel.get("content") );
         assertEquals( "testSchoolTourVideoC: school level wrong", "e", resultsModel.get("schoolLevel") );
-        assertTrue( "testSchoolTourVideoC: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        assertTrue( "testSchoolTourVideoC: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(Integer.toString(_cmsVideoContentId)))>0);
         System.out.println("testSchoolTourVideoC successful");
     }
 
@@ -422,11 +418,11 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         _school.setLevelCode( LevelCode.MIDDLE_HIGH);
         int cmsVideoContentId = 6856;  // This is contentId for middle school video
 
-        Map<String, String> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
+        Map<String, Object> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
         assertEquals( "testSchoolTourVideoD: content wrong", "schoolTourVideo", resultsModel.get("content") );
         assertEquals( "testSchoolTourVideoD: school level wrong", "m", resultsModel.get("schoolLevel") );
-        assertTrue( "testSchoolTourVideoD: videoId wrong", (resultsModel.get("contentUrl").indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        assertTrue( "testSchoolTourVideoD: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(Integer.toString(_cmsVideoContentId)))>0);
         System.out.println("testSchoolTourVideoD successful");
     }
 
@@ -1504,6 +1500,44 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         System.out.println("testLocalInfoSubstitute1A successful");
     }
 
+    public void testGetLastModifiedDateForSchool() {
+        // Only school
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -7);
+        _school.setModified(cal.getTime());
+        expect(_schoolProfileDataHelper.getNonPrincipalReviews(_request, 1)).andReturn(new ArrayList<Review>());
+        replay(_schoolProfileDataHelper);
+        Date rval = _schoolProfileOverviewController.getLastModifiedDateForSchool(_request, _school);
+        verify(_schoolProfileDataHelper);
+        assertNotNull("Expect school's last modified to be returned", rval);
+        assertSame("Expect school's last modified to be returned", _school.getModified(), rval);
+
+        // Review more recent
+        reset(_schoolProfileDataHelper);
+        Review review = new Review();
+        review.setPosted(new Date());
+        List<Review> reviews = new ArrayList<Review>(1);
+        reviews.add(review);
+        expect(_schoolProfileDataHelper.getNonPrincipalReviews(_request, 1)).andReturn(reviews);
+        replay(_schoolProfileDataHelper);
+        rval = _schoolProfileOverviewController.getLastModifiedDateForSchool(_request, _school);
+        verify(_schoolProfileDataHelper);
+        assertNotNull("Expect review's last modified to be returned", rval);
+        assertSame("Expect review's last modified to be returned", review.getPosted(), rval);
+
+        // School more recent
+        reset(_schoolProfileDataHelper);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.add(Calendar.DAY_OF_YEAR, -14);
+        review.setPosted(cal2.getTime());
+        expect(_schoolProfileDataHelper.getNonPrincipalReviews(_request, 1)).andReturn(reviews);
+        replay(_schoolProfileDataHelper);
+        rval = _schoolProfileOverviewController.getLastModifiedDateForSchool(_request, _school);
+        verify(_schoolProfileDataHelper);
+        assertNotNull("Expect school's last modified to be returned", rval);
+        assertSame("Expect school's last modified to be returned", _school.getModified(), rval);
+    }
+
     /*
        ************ End of Tests - support functions follow ************
     */
@@ -1554,7 +1588,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         return map;
     }
 
-    private Map<String, String> runCmsVideoTourModel(int cmsVideoContentId) {
+    private Map<String, Object> runCmsVideoTourModel(int cmsVideoContentId) {
 
         Long contentId = new Long(cmsVideoContentId );
         ContentKey contentKey = new ContentKey( "video", new Long(_cmsVideoContentId) );
@@ -1573,7 +1607,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         replay(_schoolProfileDataHelper);
         replay(_publicationDaoMock);
 
-        Map<String, String> resultsModel = _schoolProfileOverviewController.getTourVideoModel(_request, _school);
+        Map<String, Object> resultsModel = _schoolProfileOverviewController.getTourVideoModel(_request, _school);
 
         verify(_publicationDaoMock);
         verify(_schoolProfileDataHelper);
