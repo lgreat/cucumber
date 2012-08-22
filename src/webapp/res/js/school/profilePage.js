@@ -297,8 +297,9 @@ function drawPieChart(dataIn, divNameId, dimensions, catchClick) {
         google.visualization.events.addListener(pieChart, 'select', selectHandler);
     }
     function selectHandler() {
-        GS.tracking.sendOmnitureData('students');
-        GS.profile.showTabWithOptions({tab:'students'});
+        GS.tracking.sendOmnitureData('demographics');
+//        GS.profile.showTabWithOptions({tab:'demographics'});
+        GS.tabManager.showTabWithOptions({tab:'demographics'});
     }
 }
 
