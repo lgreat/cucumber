@@ -10,8 +10,15 @@ import gs.data.school.census.CensusDataType;
 import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.district.District;
 import gs.data.school.review.Review;
+import gs.data.search.GsSolrQuery;
+import gs.data.search.SearchException;
+import gs.data.search.SearchResultsPage;
+import gs.data.search.fields.CmsFeatureFields;
+import gs.data.search.fields.DocumentType;
 import gs.data.util.CommunityUtil;
 import gs.web.content.cms.CmsContentLinkResolver;
+import gs.web.i18n.LanguageToggleHelper;
+import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -57,9 +64,9 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String VIDEO_TOUR_MODEL_KEY = "videoTour";
     private static final String BOUNDARY_TOOL_MODEL_KEY = "boundaryTool";
 
-    private static final int VIDEO_ELEMENTARY = 6857;
-    private static final int VIDEO_MIDDLE = 6856;
-    private static final int VIDEO_HIGH = 6855;
+    private static final String VIDEO_ELEMENTARY = "6857";
+    private static final String VIDEO_MIDDLE = "6856";
+    private static final String VIDEO_HIGH = "6855";
 
 
     public enum NoneHandling{ ALWAYS_SHOW, SHOW_IF_ONLY_VALUE, HIDE_IF_ONLY_NONE }
@@ -80,14 +87,16 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     @Autowired
     private SchoolProfileCensusHelper _schoolProfileCensusHelper;
 
-    @Autowired
-    private CmsFeatureDao _cmsFeatureDao;
+//    @Autowired
+//    private CmsFeatureDao _cmsFeatureDao;
+//    @Autowired
+//    private IPublicationDao _publicationDao;
 
     @Autowired
     private CmsContentLinkResolver _cmsFeatureEmbeddedLinkResolver;
 
     @Autowired
-    private IPublicationDao _publicationDao;
+    private CmsFeatureSearchService _cmsFeatureSearchService;
 
     @RequestMapping(method= RequestMethod.GET)
     public String handle(ModelMap modelMap, HttpServletRequest request
@@ -509,65 +518,69 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, Object> model = new HashMap<String, Object>(2);
 
         // Which video to display will depend on the lowest level taught at the school.  For instance if level_code is e,m,h then just show for e
-        if( school.getLevelCode() != null ) {
-            String levelCodeList = school.getLevelCode().getCommaSeparatedString();
-            String [] levelCodes = levelCodeList.split(",");
-            // Pick smallest level code that is not p (preschool).  If p is the only level code use e
-            String levelCode = levelCodes[0];
-            if( "p".equals( levelCode ) ) {
-                if( levelCodes.length > 1 ) {
-                    levelCode = levelCodes[1];
-                }
-                else {
-                    levelCode = "e";
-                }
-            }
-            model.put( "schoolLevel", levelCode );
+        LevelCode levelCode = school.getLevelCode();
+        if( levelCode != null ) {
+            LevelCode.Level level = levelCode.getLowestNonPreSchoolLevel();
             // determine which video to show
-            int videoId = 0;
-            if( "e".equals(levelCode) ) {
+            String videoId = "0";
+            if( level.equals( LevelCode.Level.ELEMENTARY_LEVEL) || level.equals( LevelCode.Level.PRESCHOOL_LEVEL) ) {
                 videoId = VIDEO_ELEMENTARY;
             }
-            else if( "m".equals(levelCode) ) {
+            else if( level.equals( LevelCode.Level.MIDDLE_LEVEL) ) {
                 videoId = VIDEO_MIDDLE;
             }
-            else if( "h".equals(levelCode) ) {
+            else if( level.equals( LevelCode.Level.HIGH_LEVEL) ) {
                 videoId = VIDEO_HIGH;
             }
-            // videoId = 4910; // Debug, this is an existing Id in dev-cms
+            // videoId = "5073"; // Debug, this is an existing Id in dev-cms
+
+            model.put( "schoolLevel", level.getName() );
 
             try {
-                // Implementation based on code in CmsVideoController
-                /* TODO this implementation is based on using CmsFeature which causes a database access the
-                   alternative would be to add a method to CmsFeatureSearchService.java (and
-                   CmsFeatureSearchServiceSolrImpl.java) and use Solr to fetch a search result for the video you're
-                   interested in, and call getImageUrl() from that search result instead of from the object fetched
-                   from the database.   */
+//                This was the original implementation which was slow.  Delete after new code has been performance tested
+//                // Implementation based on code in CmsVideoController
+//                /* TODO this implementation is based on using CmsFeature which causes a database access the
+//                   alternative would be to add a method to CmsFeatureSearchService.java (and
+//                   CmsFeatureSearchServiceSolrImpl.java) and use Solr to fetch a search result for the video you're
+//                   interested in, and call getImageUrl() from that search result instead of from the object fetched
+//                   from the database.   */
+//
+//                CmsFeature feature = _cmsFeatureDao.get(new Long(videoId));
+//                if( feature == null ) {
+//                    // This should not happen unless the article is not present in CMS
+//                    model.put( "content", "none" );
+//                    return  model;
+//                }
+//
+//                // it would be simpler to call UrlBuilder(feature.getContentKey()) but that calls publicationDao
+//                // which can not be overridden in UrlBuilder and thus can not be unit tested
+//                Publication pub = _publicationDao.findByContentKey(feature.getContentKey());
+//                if( pub == null ) {
+//                    model.put( "content", "none" );
+//                    return  model;
+//                }
+//                String fullUri = pub.getFullUri();
+//                UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), fullUri);
 
-                CmsFeature feature = _cmsFeatureDao.get(new Long(videoId));
-                if( feature == null ) {
-                    // This should not happen unless the article is not present in CMS
-                    model.put( "content", "none" );
-                    return  model;
-                }
+                GsSolrQuery query = new GsSolrQuery();
+                query.filter(DocumentType.CMS_FEATURE);
+                query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.VIDEO_CONTENT_TYPE);
+                query.filter(CmsFeatureFields.FIELD_LANGUAGE, LanguageToggleHelper.Language.EN.name());
+                query.filter(CmsFeatureFields.FIELD_CONTENT_ID, videoId );
 
-                // it would be simpler to call UrlBuilder(feature.getContentKey()) but that calls publicationDao
-                // which can not overridden in UrlBuilder and thus can not be unit tested
-                Publication pub = _publicationDao.findByContentKey(feature.getContentKey());
-                if( pub == null ) {
-                    model.put( "content", "none" );
-                    return  model;
-                }
-                String fullUri = pub.getFullUri();
-                UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), fullUri);
+                SearchResultsPage<ICmsFeatureSearchResult> searchResults = _cmsFeatureSearchService.search(query.getSolrQuery());
+                List<ICmsFeatureSearchResult> searchResultList = searchResults.getSearchResults();
+                ICmsFeatureSearchResult result1 = searchResultList.get(0);
+                String uri = result1.getFullUri();
+                UrlBuilder urlBuilder = new UrlBuilder(result1.getContentKey(), uri);
 
                 model.put( "content", "schoolTourVideo" );
                 model.put( "contentUrl", urlBuilder.asSiteRelativeXml(request));
-                model.put( "videoIconUrl", feature.getImageUrl() );
-                model.put( "videoIconAltText", feature.getImageAltText() );
+                model.put( "videoIconUrl", result1.getImageUrl() );
+                model.put( "videoIconAltText", result1.getImageAltText() );
             }
-            catch (UnsupportedOperationException e ) {
-                // This happens when CMS is down which shouldn't happen now.  But if it does happen don't try to display a video
+            catch (Exception e ) {
+                // This happens when the search fails to return anything. If this does happen don't try to display a video
                 model.put( "content", "none" );
                 return  model;
             }
@@ -1775,17 +1788,16 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
     // ============== The following setters are just for unit testing ===================
-    public void setCmsFeatureDao( CmsFeatureDao cmsFeatureDao ) {
-        _cmsFeatureDao = cmsFeatureDao;
+    public void setCmsFeatureSearchService( CmsFeatureSearchService cmsFeatureSearchService ) {
+        _cmsFeatureSearchService = cmsFeatureSearchService;
     }
 
     public void setCmsFeatureEmbeddedLinkResolver(CmsContentLinkResolver cmsFeatureEmbeddedLinkResolver) {
         _cmsFeatureEmbeddedLinkResolver = cmsFeatureEmbeddedLinkResolver;
     }
 
-    public  void setPublicationDao( IPublicationDao publicationDao ) {
-        _publicationDao = publicationDao;
-    }
-
+//    public  void setPublicationDao( IPublicationDao publicationDao ) {
+//        _publicationDao = publicationDao;
+//    }
 
 }
