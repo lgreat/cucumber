@@ -192,17 +192,11 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
     }
 
     private static void setLastModifiedDateInModel(Map<String, Object> model, School school, List<Review> reviews, Long numberOfReviews) {
-        // get the most recent of these two dates: school.getModified(), and the most recent published non-principal review
-        // see similar logic in ParentReviewController.java
-        Date lastModifiedDate = school.getModified();
-        if (numberOfReviews > 0) {
-            Date mostRecentPublishedNonPrincipalReview = reviews.get(0).getPosted();
-            if (lastModifiedDate == null ||
-                (mostRecentPublishedNonPrincipalReview != null &&
-                lastModifiedDate.compareTo(mostRecentPublishedNonPrincipalReview) < 0)) {
-                lastModifiedDate = mostRecentPublishedNonPrincipalReview;
-            }
+        Review latestNonPrincipalReview = null;
+        if (numberOfReviews > 0 && reviews != null && reviews.size() > 0) {
+            latestNonPrincipalReview = reviews.get(0);
         }
+        Date lastModifiedDate = SchoolProfileHelper.getSchoolLastModified(school, latestNonPrincipalReview);
         if (lastModifiedDate != null) {
             model.put("lastModifiedDate", lastModifiedDate);
         }

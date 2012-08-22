@@ -4,6 +4,7 @@ import gs.data.geo.City;
 import gs.data.geo.IGeoDao;
 import gs.data.school.LevelCode;
 import gs.data.school.School;
+import gs.data.school.review.Review;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.Map;
 
 @Component("schoolProfileHelper")
@@ -123,6 +124,20 @@ public class SchoolProfileHelper {
         model.put("schoolOverviewUrl", urlBuilder.asFullUrl(request));
     }
 
+    protected static Date getSchoolLastModified(School school, Review latestNonPrincipalReview) {
+        // get the most recent of these two dates: school.getModified(), and the most recent published non-principal review
+        // see similar logic in ParentReviewController.java, SchoolOverview2010Controller.java
+        Date lastModifiedDate = school.getModified();
+        if (latestNonPrincipalReview != null) {
+            Date mostRecentPublishedNonPrincipalReview = latestNonPrincipalReview.getPosted();
+            if (lastModifiedDate == null ||
+                    (mostRecentPublishedNonPrincipalReview != null &&
+                            lastModifiedDate.compareTo(mostRecentPublishedNonPrincipalReview) < 0)) {
+                lastModifiedDate = mostRecentPublishedNonPrincipalReview;
+            }
+        }
+        return lastModifiedDate;
+    }
 
 
     // ===================== setters for unit tests ===================================

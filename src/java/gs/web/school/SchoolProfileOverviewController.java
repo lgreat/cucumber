@@ -127,19 +127,12 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
     protected Date getLastModifiedDateForSchool(HttpServletRequest request, School school) {
-        // get the most recent of these two dates: school.getModified(), and the most recent published non-principal review
-        // see similar logic in ParentReviewController.java, SchoolOverview2010Controller.java
         List<Review> reviews = _schoolProfileDataHelper.getNonPrincipalReviews(request, 1);
-        Date lastModifiedDate = school.getModified();
+        Review latestNonPrincipalReview = null;
         if (reviews.size() > 0) {
-            Date mostRecentPublishedNonPrincipalReview = reviews.get(0).getPosted();
-            if (lastModifiedDate == null ||
-                    (mostRecentPublishedNonPrincipalReview != null &&
-                            lastModifiedDate.compareTo(mostRecentPublishedNonPrincipalReview) < 0)) {
-                lastModifiedDate = mostRecentPublishedNonPrincipalReview;
-            }
+            latestNonPrincipalReview = reviews.get(0);
         }
-        return lastModifiedDate;
+        return SchoolProfileHelper.getSchoolLastModified(school, latestNonPrincipalReview);
     }
 
     private void handleEspPage(Map<String, Object> model, HttpServletRequest request, School school, Map<String,List<EspResponse>> espData ) {
