@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+    <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
+
+
+    <div class="containerGrayBox">
+        <div class="media">
+            <div class="img mrl"><img src="/res/img/school/enrollment/placeholder_recommendedReading.png"/></div>
+            <p class="tal pts "><strong>Recommended reading</strong><br />
+            <a href="" class="small bottom">Outsmarting the system in Indianapolis</a></p>
+        </div>
+    </div>
+
+</jsp:root>

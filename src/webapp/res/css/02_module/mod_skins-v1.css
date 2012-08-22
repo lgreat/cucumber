@@ -338,7 +338,15 @@ background-position:right bottom;
     width: 100%;
     height: 1px;
 }
-
+.containerGrayBox{
+    border:1px #DDDDDD solid;
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 10px;
+    -webkit-border-radius: 3px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+    -moz-border-radius: 3px; /* FF1-3.6 */
+    border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+}
 
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */

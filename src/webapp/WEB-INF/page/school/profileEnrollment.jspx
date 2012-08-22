@@ -85,7 +85,7 @@
                             <div class="unit size2of100">&amp;nbsp;</div>
                             <div class="unit size66of100 lastUnit">
                                 <enrollment:applyModule viewType="6" />
-                                <!--<enrollment:principalAddContent />-->
+                                <enrollment:recommendedReading school="${school}" />
                                 <div class="line">
                                     <div class="unit size49of100">
                                         <enrollment:districtBoundaryModule school="${school}" />
@@ -108,7 +108,7 @@
                     </div>
                     <div class="unit size2of100">&amp;nbsp;</div>
                     <div class="unit size66of100 lastUnit">
-                        &amp;nbsp;
+                        <enrollment:recommendedReading school="${school}" />
                     </div>
                 </div>
             </c:when>
