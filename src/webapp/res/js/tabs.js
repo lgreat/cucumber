@@ -102,7 +102,7 @@ GS.tabManager = (function() {
             GS_changeHistory($a.attr('title'), $a.attr('href') );
         }
 
-        if (tabChanged) {
+        if (tabChanged && typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             GS.tracking.sendOmnitureData((getActiveChildTab(tabObject)).name);
         }
     };
@@ -133,7 +133,6 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
         var $tabs; // collection of actual jquery tab objects (in this case 'a' tags)
         var tabs = {}; // tab structure
         var currentTab;
-        var abc = 123;
         var parentGsTabs; // this tab suite's parent tab suite, if one exists
         var parentTab; // the parent tab of this entire suite, if one exists
         var allowInterceptHovers = true; // TODO: need this?
@@ -256,5 +255,4 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
 
 GS.Tabs.prototype.blah = function() {
   alert('yay');
-    console.log(abc);
 };
