@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+        >
+    <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
+
+
+        <div class="mod standard_1-1">
+
+                <div class="inner">
+                    <div class="hd plm">
+                        <strong>Visit</strong>
+                    </div>
+                    <div class="bd">
+                        <div class="bg-checklist">
+                            <div class="small bottom pal"><h4 class="bottom">Be sure to visit</h4>
+                                Take along one of<br />our checklists:<br/>
+                                <a href="">High School</a><br /><br />
+                            </div>
+                        </div>
+                        <hr class="keyline2"/>
+                        <div class="mam">
+                        <h4>Touring a school</h4>
+                            <p>
+                        <a href=""><div class="tac smaller">
+                            <img src="/res/img/school/culture/sampleVideo_100x70.png"  /><br />
+                            Touring a High School
+                        </div>
+                        </a>
+                        </p>
+
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+
+</jsp:root>

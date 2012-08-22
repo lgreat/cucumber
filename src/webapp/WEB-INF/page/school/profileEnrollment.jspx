@@ -80,10 +80,7 @@
                     <c:otherwise>
                         <div class="line">
                             <div class="unit size32of100">
-                                waiting on visit module
-                                <!--<enrollment:applyModule viewType="5" />-->
-
-
+                                <enrollment:visitSchoolModule school="${school}" />
                             </div>
                             <div class="unit size2of100">&amp;nbsp;</div>
                             <div class="unit size66of100 lastUnit">
@@ -105,7 +102,7 @@
 
                 <div class="line">
                     <div class="unit size32of100">
-                        waiting on visit module
+                        <enrollment:visitSchoolModule school="${school}" />
                         <enrollment:districtBoundaryModule school="${school}" />
                         <enrollment:principalAddContent school="${school}" />
                     </div>
@@ -130,8 +127,7 @@
                     </div>
                     <div class="unit size2of100">&amp;nbsp;</div>
                     <div class="unit size32of100">
-                        <!-- waiting on visit module -->
-                        waiting on visit module
+                        <enrollment:visitSchoolModule school="${school}" />
                     </div>
                     <div class="unit size2of100">&amp;nbsp;</div>
                     <div class="unit size32of100 lastUnit">

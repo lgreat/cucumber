@@ -25,7 +25,7 @@
                             </div>
                             <div class="unit size7of100">&amp;nbsp;</div>
                             <div class="unit size30of100">
-                                <p class="small bottom make-999999">Submit your application by</p>
+                                <p class="small bottom">Submit your application by</p>
                                 <h2 class="bottom">${deadlineDate}</h2>
                             </div>
                             <div class="unit size2of100">&amp;nbsp;</div>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="unit size7of100">&amp;nbsp;</div>
                             <div class="unit size43of100">
-                                <p class="small bottom loud">Our records show that the deadline was
+                                <p class="small bottom">Our records show that the deadline was
                                     <strong>${deadlineDate}</strong>,
                                     but you should contact the school in case the date has changed.</p>
                             </div>
@@ -87,7 +87,7 @@
                             </div>
                             <div class="unit size7of100">&amp;nbsp;</div>
                             <div class="unit size43of100">
-                                <p class="small bottom loud">
+                                <p class="small bottom">
                                 <strong>TIP: </strong>Don't forget to ask about documents required for enrollment,
                                     such as your child's birth certificate, proof of address, or a record  of immunizations.</p>
                             </div>
@@ -115,7 +115,7 @@
                             </div>
                             <div class="unit size7of100">&amp;nbsp;</div>
                             <div class="unit size43of100">
-                                <p class="small bottom loud">This school accepts applications on a</p>
+                                <p class="small bottom">This school accepts applications on a</p>
                                     <h2>rolling basis</h2>
                             </div>
                             <div class="unit size5of100">&amp;nbsp;</div>
@@ -156,7 +156,7 @@
                             </div>
                             <div class="unit size10of100">&amp;nbsp;</div>
                             <div class="unit size45of100">
-                                <p class="small bottom loud">No</p>
+                                <p class="small bottom">No</p>
                             </div>
                         </div>
                     </div>

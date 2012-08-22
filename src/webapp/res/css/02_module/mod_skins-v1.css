@@ -279,8 +279,13 @@ General comments:
 .bg-districtMap { background-image: url("/res/img/module/background/districtMap.png"); }
 .bg-writeReviews { background-image: url("/res/img/module/background/reviews.png"); }
 .bg-mobileApp { background-image: url("/res/img/module/background/mobile.png"); }
-.bg-checklist { background-image: url("/res/img/module/background/checklist.png"); }
-.bg-principal { background-image: url("/res/img/school/enrollment/principal.png"); }
+.bg-checklist { background-image: url("/res/img/module/background/checklist.png");
+background-repeat:no-repeat;
+background-position:right bottom;
+}
+.bg-principal { background-image: url("/res/img/school/enrollment/principal.png");
+    background-repeat:no-repeat;
+    background-position:right bottom;}
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------------ badge-x96 ------------------ */
