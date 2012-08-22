@@ -32,10 +32,10 @@
             <c:choose>
                 <c:when test="${content eq 'default'}">
                     <!-- The ethnicity labels are in the diversityMap.key and the values are in the diversityMap.value variable.  Here is how to access them -->
-
-                    <div class="phl ptm"><profile:pieChart chartData="${diversityMap}" chartDrawDivId="overviewDiversityPieChart" chartSize="150"/>
+                    <div class="pls">
+                    <div class="phl ptm"><profile:pieChart chartData="${diversityMap}" chartDrawDivId="overviewDiversityPieChart" chartSize="150" catchClick="1"/>
                     </div>
-
+                    </div>
                     <p class="tac small bottom phm pvs make-555555">
                         <span class="small_bold">${largestValue} of students</span> at this school are ${largestLabel}.
                     </p>

@@ -7,10 +7,15 @@
     <jsp:directive.attribute name="chartData" type="java.util.Map" required="true" description="Data to populate the chart"/>
     <jsp:directive.attribute name="chartDrawDivId" type="java.lang.String" required="true" description="Where to draw the piechart"/>
     <jsp:directive.attribute name="chartSize" type="java.lang.Integer" required="false" description="Size of the display in pixels"/>
+    <jsp:directive.attribute name="catchClick" type="java.lang.Integer" required="false" description="Size of the display in pixels"/>
 
     <c:set var="cSize" value="${chartSize}"/>
     <c:if test="${empty chartSize || chartSize == 0}">
         <c:set var="cSize" value="200"/>
+    </c:if>
+
+    <c:if test="${empty catchClick}">
+        <c:set var="catchClick" value="0"/>
     </c:if>
 
     <c:set var="pieData">[
@@ -19,7 +24,7 @@
              ['${row.key}',${fn:replace(row.value, "%", "")}]
         </c:forEach>
     ]</c:set>
-    <c:set var="chartParameters">${pieData},'${chartDrawDivId}',${cSize}</c:set>
+    <c:set var="chartParameters">${pieData},'${chartDrawDivId}',${cSize},${catchClick}</c:set>
     <div id="${chartDrawDivId}" style="width: ${cSize}px; height: ${cSize}px;"><!-- do not collapse --></div>
 
     <script type="text/javascript">

@@ -55,16 +55,16 @@
         <table class="tableType1">
             <thead>
             <tr>
-                <th>
+                <th>&amp;nbsp;
                 </th>
-                <th class="tac">
+                <th class="tac" style="text-align: center;">
                     This school
                 </th>
                 <c:if test="${showDistrictData}">
-                    <th class="tac">District average</th>
+                    <th class="tac" style="text-align: center;">District average</th>
                 </c:if>
                 <c:if test="${showStateAverages}">
-                    <th class="tac">State Average</th>
+                    <th class="tac" style="text-align: center;">State Average</th>
                 </c:if>
             </tr>
             </thead>
