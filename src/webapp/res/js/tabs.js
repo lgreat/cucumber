@@ -1,5 +1,4 @@
 var GS = GS || {};
-GS.tabModules = GS.tabModules || {};
 
 var GS_changeHistory = function(title, url) {
     if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
@@ -13,18 +12,31 @@ GS.util.jumpToAnchor = function(hash) {
 };
 
 
-GS.tabModules = GS.tabModules || {};
 GS.tabManager = (function() {
     "use strict";
 
     var tabNamesToTabModules = {};
 
     var init = function() {
-        $(function() {
-            $('[data-gs-tabs]').gsTabs();
-        });
-
         return this;
+    };
+
+    var tabClickHandler = function($a, tabModule) {
+        var allowInterceptHovers = tabModule.allowInterceptHovers;
+        if (!allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
+            var tabName = $a.parent().data('gs-tab');
+            GS.tabManager.showTabWithOptions({
+                tab:tabName
+            });
+            return false;
+        }
+    };
+
+    var getActiveChildTab = function(tab) {
+        if (tab.childGsTabs) {
+            return tab.childGsTabs.getCurrentTab();
+        }
+        return tab;
     };
 
     var getTabNamesToTabModules = function() {
@@ -36,12 +48,19 @@ GS.tabManager = (function() {
         var t;
         var tab;
         var parentTab;
+        var parentGsTabs;
         var tabs = tabModule.getTabs();
 
         if (tabNamesToTabModules.hasOwnProperty(tabSuiteName)) {
-            parentTab = tabNamesToTabModules[tabSuiteName].getTabByName(tabSuiteName);
+            parentGsTabs = tabNamesToTabModules[tabSuiteName];
+            if (parentGsTabs !== undefined) {
+                tabModule.setParentGsTabs(parentGsTabs);
+            }
+            parentTab = parentGsTabs.getTabByName(tabSuiteName);
             if (parentTab !== undefined) {
                 parentTab.children = tabs;
+                parentTab.childGsTabs = tabModule;
+                tabModule.setParentTab(parentTab);
             }
         }
 
@@ -56,58 +75,44 @@ GS.tabManager = (function() {
         }
     };
 
+    var getTabByName = function(name) {
+        var tabModule = tabNamesToTabModules[name];
+        return tabModule.getTabByName(name);
+    };
+
     var showTabWithOptions = function(options) {
         var tabObject = options.tab;
-        var tabModule;
         if (typeof tabObject === 'string') {
-            var tabName = tabObject;
-            tabModule = tabNamesToTabModules[tabName];
-            if (tabModule === undefined) {
-                return false;
-            }
-            tabObject = tabModule.getTabByName(tabName);
-        } else {
-            tabModule = tabNamesToTabModules[tabObject.name];
+            tabObject = getTabByName(tabObject);
         }
 
         if (tabObject === undefined) {
             return false;
         }
 
-        try {
-            if (tabObject.parent !== undefined) {
-                showTabWithOptions({tab:tabObject.parent, skipHistory:true}); // recursion
-            }
-            tabModule.showTab(tabObject, options.skipHistory);
+        var $a = $(tabObject.selector);
 
-            if(options.hash !== undefined) {
-                GS.util.jumpToAnchor(options.hash);
-            }
-        } catch (e) {
-            // on error, fall back on default click handling
-            return true;
+        var tabChanged = tabObject.owner.showTab(tabObject);
+
+        if(options && options.hash !== undefined) {
+            GS.util.jumpToAnchor(options.hash);
         }
-        return false;
-    };
 
+        if (!options.skipHistory) {
+            GS_changeHistory($a.attr('title'), $a.attr('href') );
+        }
 
-    var showTab = function(selector) {
-        var name = selector.substring(4);
-        showTabByName(name);
-    };
-
-    var showTabByName = function(tabName) {
-        var tabModule = tabNamesToTabModules[tabName];
-        tabModule.showTab(tabModule.getTabByName(tabName));
+        if (tabChanged) {
+            GS.tracking.sendOmnitureData((getActiveChildTab(tabObject)).name);
+        }
     };
 
     return {
         init:init,
         getTabNamesToTabModules:getTabNamesToTabModules,
-        showTabByName:showTabByName,
-        showTab:showTab,
         registerTabs:registerTabs,
-        showTabWithOptions:showTabWithOptions
+        showTabWithOptions:showTabWithOptions,
+        tabClickHandler:tabClickHandler
     };
 }()).init();
 
@@ -120,6 +125,7 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
     } else {
         $container = $(selectorOrContainer);
     }
+    var gsTabsSelf = this;
 
     return (function() {
         var self;
@@ -127,6 +133,10 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
         var $tabs; // collection of actual jquery tab objects (in this case 'a' tags)
         var tabs = {}; // tab structure
         var currentTab;
+        var abc = 123;
+        var parentGsTabs; // this tab suite's parent tab suite, if one exists
+        var parentTab; // the parent tab of this entire suite, if one exists
+        var allowInterceptHovers = true; // TODO: need this?
 
         var buildTabStructure = function() {
             $tabs.each(function() {
@@ -136,7 +146,8 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
                 tabs[tabName] = {
                     name:tabName,
                     selector:'#' +id,
-                    children:undefined
+                    children:undefined,
+                    owner:self
                 };
             });
         };
@@ -144,69 +155,56 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
         // automatically executed
         var init = function() {
             self = this;
-            GS.tabModules[tabSuiteName] = this;
             $tabNav = $container.find('ul:first'); // get only the first ul not all of the descendents
             $tabs = $tabNav.find('li>a'); // TODO: update this selector; it matches too many items
             buildTabStructure();
             GS.tabManager.registerTabs(tabSuiteName, self);
-            console.log(tabs);
             return self;
         };
 
         var showTabs = function() {
-
             // TODO: move this
             var allowInterceptHovers = $container.data('gs-allow-intercept-hovers');
 
             var showHome = $tabNav.find('.selected').length;
             if(!showHome) {
-                $tabNav.find('li:first a').addClass('selected').siblings().addClass('selected');
-                $container.children('div:first').show();
+                showFirstTab();
             }
-            $tabNav.find('li').each(function(){
-                $(this).find('a').click(function(){ //When any link is clicked
-                    if (!allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
-                        showTab('#' + $(this).attr('id'));
-                        return false;
-                    }
-                });
+
+            $tabs.click(function() {
+                GS.tabManager.tabClickHandler($(this), self);
+                return false;
             });
         };
 
+        var showFirstTab = function() {
+            var tabName = $tabs.first().parent().data('gs-tab');
+            showTab(getTabByName(tabName));
+        };
 
-        var showTab = function(selectorOrTab, skipHistory, options) {
-            var tab;
-            if (selectorOrTab.hasOwnProperty('selector')) {
-                tab = selectorOrTab;
-            } else {
-                tab = getTabBySelector(selectorOrTab);
+        var showTab = function(tab) {
+            var tabChanged = false;
+
+            if (parentTab) {
+                tabChanged = tabChanged || parentTab.owner.showTab(parentTab);
             }
 
-            var $a = $(tab.selector);
-
-            styleTabAsShown($a);
-
-            if(options && options.hash !== undefined) {
-                GS.util.jumpToAnchor(options.hash);
+            if (tab !== currentTab) {
+                var $a = $(tab.selector);
+                var $layers = $tabNav.siblings('div');
+                $layers.hide(); // hide all layers
+                var tabNum = $tabNav.find('li').index($a.parent());// find reference to the content
+                $layers.eq(tabNum).show();// show the content
+                $tabNav.find('li a').removeClass('selected');// turn all of them off
+                $tabNav.find('li #arrowdiv').removeClass('selected');// turn all of them off
+                $a.addClass('selected');// turn selected on
+                $a.siblings().addClass('selected');// turn selected on
+                tabChanged = true;
             }
 
             currentTab = tab;
 
-
-            if (!skipHistory) {
-                GS_changeHistory($a.attr('title'), $a.attr('href') );
-            }
-        };
-
-        var styleTabAsShown = function($a) {
-            var $layers = $tabNav.siblings('div');
-            $layers.hide(); // hide all layers
-            var tabNum = $tabNav.find('li').index($a.parent());// find reference to the content
-            $layers.eq(tabNum).show();// show the content
-            $tabNav.find('li a').removeClass('selected');// turn all of them off
-            $tabNav.find('li #arrowdiv').removeClass('selected');// turn all of them off
-            $a.addClass('selected');// turn selected on
-            $a.siblings().addClass('selected');// turn selected on
+            return tabChanged;
         };
 
         var getCurrentTab = function() {
@@ -232,14 +230,31 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             }
         };
 
+        var setParentGsTabs = function(gsTabs) {
+            parentGsTabs = gsTabs;
+        };
+        var setParentTab = function(tab) {
+            parentTab = tab;
+        };
+
         return {
             init:init,
+            tabSuiteName:tabSuiteName,
             showTabs:showTabs,
             showTab:showTab,
             getTabs:getTabs,
             getCurrentTab:getCurrentTab,
             getTabByName:getTabByName,
-            getTabBySelector:getTabBySelector
+            getTabBySelector:getTabBySelector,
+            setParentGsTabs:setParentGsTabs,
+            setParentTab:setParentTab,
+            allowInterceptHovers:allowInterceptHovers,
+            blah:gsTabsSelf.blah
         };
     }()).init();
+};
+
+GS.Tabs.prototype.blah = function() {
+  alert('yay');
+    console.log(abc);
 };

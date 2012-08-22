@@ -54,7 +54,6 @@ GS.profile = GS.profile || (function() {
     "use strict";
 
 
-
     var init = function() {
         jQuery('[data-gs-tabs]').gsTabs();
 
@@ -69,8 +68,9 @@ GS.profile = GS.profile || (function() {
                         if (queryString.indexOf('#') > -1) {
                             queryString = queryString.substr(0, queryString.indexOf('#'));
                         }
-                        tab = GS.uri.Uri.getFromQueryString('tab', queryString);
+                        tab = GS.uri.Uri.getFromQueryString('tab', queryString) || tab;
                     }
+                    console.log('tab found', tab);
                     if (tab) {
                         GS.tabManager.showTabWithOptions({tab:tab, skipHistory:true});
                     }
@@ -79,29 +79,6 @@ GS.profile = GS.profile || (function() {
         }
         return this;
     };
-/*
-    var showTabWithOptions = function(options) {
-        var tabObject = options.tab;
-        if (typeof tabObject === 'string') {
-            tabObject = tabs[tabObject];
-        }
-
-        try {
-            if (tabObject.parent !== undefined) {
-                showTabWithOptions({tab:tabObject.parent, skipHistory:true}); // recursion
-            }
-            var selector = tabObject.selector;
-            linkToTabs(selector, options.skipHistory);
-
-            if(options.hash !== undefined) {
-                GS.util.jumpToAnchor(options.hash);
-            }
-        } catch (e) {
-            // on error, fall back on default click handling
-            return true;
-        }
-        return false;
-    };*/
 
     // given a tab, determines which child subtab is active
     var getActiveChildTab = function(parentTab) {
@@ -121,43 +98,21 @@ GS.profile = GS.profile || (function() {
         }
     };
 
-    var linkToTabAndAnchor = function(destinationTab, hash) {
-        return GS.tabManager.showTabWithOptions({tab:destinationTab, hash:hash});
-    };
-
     var setupTabClickHandlers = function() {
         // register some custom data attributes that will allow easily linking to a profile tab and anchor
         $('body').on('click', '[data-gs-show-tab]', function(event) {
             var $this = $(this);
             var tabName = $this.data('gs-show-tab');
             var tabOptions = $this.data('gs-tab-options');
-            linkToTabAndAnchor(tabName, tabOptions);
+
+            GS.tabManager.showTabWithOptions({tab:tabName, hash:tabOptions});
             event.preventDefault();
             event.stopPropagation();
         });
-
-        // send omniture data when tabs are clicked
-        $('[data-gs-tab] a').on('click', function() {
-            var $this = $(this);
-            var tabName = $this.parent().data('gs-tab');
-            var childTab = getActiveChildTab(tabName);
-            if (childTab !== undefined) {
-                GS.tracking.sendOmnitureData(childTab.name);
-            } else {
-                GS.tracking.sendOmnitureData(tabName);
-            }
-        });
-    };
-
-    var linkToTabs = function(selector, skipHistory){
-        $(selector).showTab(skipHistory);
-        return false;
     };
 
     return {
         getActiveChildTab: getActiveChildTab,
-        linkToTabs : linkToTabs,
-        linkToTabAndAnchor : linkToTabAndAnchor,
         setupTabClickHandlers : setupTabClickHandlers,
         init:init
     };

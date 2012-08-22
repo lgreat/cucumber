@@ -551,10 +551,12 @@ var GS_changeHistory = function(title, url) {
         showTab : function(skipHistory) {
             return this.each(function() {
                 var $this = $(this);
-                var $gsTabs = $this.closest('.gsTabs');
-                var key = $gsTabs.data('gs-tabs') || $this;
-                var tabModule = GS.tabModules[key];
-                tabModule.showTab('#' + $this.attr('id'), skipHistory);
+                var tabName = $this.parent().data('gs-tab');
+                console.log('jquery showTab');
+                GS.tabManager.showTabWithOptions({
+                    tab:tabName,
+                    skipHistory:skipHistory
+                });
             });
         },
         gsTabs : function() {
