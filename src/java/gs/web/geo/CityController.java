@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityController.java,v 1.77 2012/06/29 22:26:19 cauer Exp $
+ * $Id: CityController.java,v 1.78 2012/08/23 16:28:16 npatury Exp $
  */
 
 package gs.web.geo;
@@ -202,8 +202,7 @@ public class CityController extends AbstractController  implements IDirectoryStr
         AnchorListModel districtAnchorList = _anchorListModelFactory.createDistrictList(state, cityNameParam, cityDisplayName,request);
         model.put(MODEL_DISTRICTS, districtAnchorList);
 
-        List topRatedSchools;
-        topRatedSchools = _schoolDao.findTopRatedSchoolsInCity(city, 1, null, 5);
+        List topRatedSchools = _schoolDao.findTopRatedSchoolsInCityNewGSRating(city, 1, null, 5);
         if (topRatedSchools.size() > 0) {
             model.put(MODEL_TOP_RATED_SCHOOLS, topRatedSchools);
 
@@ -250,21 +249,21 @@ public class CityController extends AbstractController  implements IDirectoryStr
 
     protected void findTopRatedSchoolsForCompare(ICity city, Map<String, Object> model) {
         List<ISchoolDao.ITopRatedSchool> topRatedElem =
-                _schoolDao.findTopRatedSchoolsInCity(city, 1,
+                _schoolDao.findTopRatedSchoolsInCityNewGSRating(city, 1,
                                                      LevelCode.Level.ELEMENTARY_LEVEL,
                                                      8);
         if (topRatedElem != null && topRatedElem.size() > 1) {
             model.put(MODEL_TOP_RATED_E_SCHOOLS, buildTopRatedSchoolCompareString(city.getState(), topRatedElem));
         }
         List<ISchoolDao.ITopRatedSchool> topRatedMiddle =
-                _schoolDao.findTopRatedSchoolsInCity(city, 1,
+                _schoolDao.findTopRatedSchoolsInCityNewGSRating(city, 1,
                                                      LevelCode.Level.MIDDLE_LEVEL,
                                                      8);
         if (topRatedMiddle != null && topRatedMiddle.size() > 1) {
             model.put(MODEL_TOP_RATED_M_SCHOOLS, buildTopRatedSchoolCompareString(city.getState(), topRatedMiddle));
         }
         List<ISchoolDao.ITopRatedSchool> topRatedHigh =
-                _schoolDao.findTopRatedSchoolsInCity(city, 1,
+                _schoolDao.findTopRatedSchoolsInCityNewGSRating(city, 1,
                                                      LevelCode.Level.HIGH_LEVEL,
                                                      8);
         if (topRatedHigh != null && topRatedHigh.size() > 1) {

@@ -68,7 +68,7 @@ Schools without lat/lon are skipped.
             validLatLon = false;
         }
     }
-    
+
     if (!validLatLon){
         // Calculate the optimal center point
         if (schools != null) {
@@ -145,17 +145,25 @@ function initSchoolInfo() {
     mySchool.levelCode = "${curSchool.levelCode}";
     mySchool.type = "${curSchool.type.name}";
     mySchool.gradeLevel = "${curSchool.gradeLevels}";
+    mySchool.isSchoolForNewProfile = "${curSchool.newProfileSchool}";
 
     mySchool.rating = 0;
     mySchool.ratingHtml = '';
-    <c:if test="${schoolWithRatings.rating ne null and schoolWithRatings.rating gt 0 and schoolWithRatings.rating lt 11}">
-        schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+<c:if test="${schoolWithRatings.rating ne null and schoolWithRatings.rating gt 0 and schoolWithRatings.rating lt 11}">
+        if (mySchool.type == 'private') {
+            schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+        } else {
+            var oldSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+            var newSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
 
-        mySchool.ratingHtml = '<div class="schoolRating"><div>GreatSchools Rating</div>' +
-                           schoolRatingImg +
-                           '</div>';
-        mySchool.rating = ${schoolWithRatings.rating};
-    </c:if>
+            schoolRatingImg = mySchool.isSchoolForNewProfile == 1 ? newSchoolProfileRatingImg:oldSchoolProfileRatingImg ;
+        }
+
+    mySchool.ratingHtml = '<div class="schoolRating"><div>GreatSchools Rating</div>' +
+            schoolRatingImg +
+            '</div>';
+    mySchool.rating = ${schoolWithRatings.rating};
+</c:if>
     mySchool.parentRatingHtml = '<div class="parentRating">';
     <c:set var="parent_rating" value="0"/>
     <c:if test="${(schoolWithRatings.parentRatings ne null) and (schoolWithRatings.parentRatings.displayOverallRating eq true)}">
@@ -198,13 +206,13 @@ function initMap() {
 
     GS_map_zoomControl = new GSmallZoomControl();
     GS_map.addControl(GS_map_zoomControl);
-    
+
     GS_map.setCenter(centerPoint, 17);
     var bounds = new GLatLngBounds();
     bounds.extend(centerPoint);
 
     renderSchools(bounds, 'emh');
-    
+
     if (showLocationMarker) {
         addLocationMarker(GS_map, locationPoint);
         extendBoundsToCenterOnPoint(locationPoint, bounds);
@@ -259,7 +267,13 @@ function renderSchools(bounds, filterLevelCode) {
                         } else if (curSchool.type == 'private') {
                             imageValue = 'private';
                         } else {
-                            imageValue = 'na';
+                            imageValue = curSchool.isSchoolForNewProfile == 1 ? 'na': 'na';
+                        }
+                    }else{
+                        if (curSchool.type == 'private') {
+                            imageValue = curSchool.rating;
+                        }else{
+                            imageValue = curSchool.isSchoolForNewProfile == 1 ? curSchool.rating : curSchool.rating;
                         }
                     }
                     icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
