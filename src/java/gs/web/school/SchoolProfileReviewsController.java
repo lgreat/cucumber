@@ -29,6 +29,8 @@ import java.util.*;
 @RequestMapping("/school/profileReviews.page")
 public class SchoolProfileReviewsController extends AbstractSchoolProfileController {
 
+    private static final int MAX_NUMBER_OF_REVIEWS_PER_PAGE = 20;
+
     private ParentReviewHelper _parentReviewHelper;
     private RatingHelper _ratingHelper;
     private ISchoolDao _schoolDao;
@@ -94,14 +96,14 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
                     ((serverPort != 80) ? ":" + serverPort : "") + request.getRequestURI();
 
             model.put(ParentReviewHelper.MODEL_URI, url);
-            model.put("reviewsTotalPages", _parentReviewHelper.getReviewsTotalPages(numberOfNonPrincipalReviews.intValue()));
+            model.put("reviewsTotalPages", _parentReviewHelper.getReviewsTotalPages(numberOfNonPrincipalReviews.intValue(), MAX_NUMBER_OF_REVIEWS_PER_PAGE));
             model.put("param_reviewsby", ParentReviewHelper.PARAM_REVIEWS_BY);
 
             _parentReviewHelper.handleCombinedSubcategoryRatings(model, school, ratings);
 
             page = _parentReviewHelper.findCurrentPage(request);
-            int fromIndex = _parentReviewHelper.findFromIndex(page, reviews);
-            int toIndex = _parentReviewHelper.findToIndex(page, fromIndex, reviews);
+            int fromIndex = _parentReviewHelper.findFromIndex(page, MAX_NUMBER_OF_REVIEWS_PER_PAGE, reviews);
+            int toIndex = _parentReviewHelper.findToIndex(page, fromIndex, MAX_NUMBER_OF_REVIEWS_PER_PAGE, reviews);
 
             // page param is invalid number -- too high or too low, so redirect to first page and preserve any request params
             List<Review> reviewsToShow = new ArrayList<Review>();

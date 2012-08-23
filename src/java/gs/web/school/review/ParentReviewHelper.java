@@ -107,10 +107,14 @@ public class ParentReviewHelper {
     }
 
     public int getReviewsTotalPages(int numReviews) {
+        return getReviewsTotalPages(numReviews, MAX_REVIEWS_PER_PAGE);
+    }
+
+    public int getReviewsTotalPages(int numReviews, int max) {
         int totalPages;
         if (numReviews > 0) {
-            totalPages = numReviews / MAX_REVIEWS_PER_PAGE;
-            if (numReviews % MAX_REVIEWS_PER_PAGE > 0) {
+            totalPages = numReviews / max;
+            if (numReviews % max > 0) {
                 totalPages++;
             }
         } else {
@@ -444,7 +448,11 @@ public class ParentReviewHelper {
     }
 
     public int findFromIndex(int page, List<Review> reviews){
-        int fromIndex = (page - 1) * MAX_REVIEWS_PER_PAGE;
+        return findFromIndex(page, MAX_REVIEWS_PER_PAGE, reviews);
+    }
+
+    public int findFromIndex(int page, int max, List<Review> reviews){
+        int fromIndex = (page - 1) * max;
         if ( reviews!=null && reviews.size()>0 ) {
             if ("principal".equals(reviews.get(0).getWho())) {
                 fromIndex++;
@@ -454,7 +462,12 @@ public class ParentReviewHelper {
     }
 
     public int findToIndex(int page, int fromIndex, List<Review> reviews){
-        int toIndex = fromIndex + MAX_REVIEWS_PER_PAGE;
+        return findToIndex(page,  fromIndex, MAX_REVIEWS_PER_PAGE, reviews);
+    }
+
+
+    public int findToIndex(int page, int fromIndex, int max, List<Review> reviews) {
+        int toIndex = fromIndex + max;
         toIndex = Math.min(toIndex, reviews.size());
         return toIndex;
     }
