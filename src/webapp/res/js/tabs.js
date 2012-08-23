@@ -24,7 +24,7 @@ GS.tabManager = (function() {
     var tabClickHandler = function($a, tabModule) {
         var allowInterceptHovers = tabModule.allowInterceptHovers;
         if (!allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
-            var tabName = $a.parent().data('gs-tab');
+            var tabName = getTabName($a);
             GS.tabManager.showTabWithOptions({
                 tab:tabName
             });
@@ -108,12 +108,18 @@ GS.tabManager = (function() {
         }
     };
 
+    // util method - returns tab name given a jquery object of a link
+    var getTabName = function($a) {
+        return $a.parent().data('gs-tab');
+    };
+
     return {
         init:init,
         getTabNamesToTabModules:getTabNamesToTabModules,
         registerTabs:registerTabs,
         showTabWithOptions:showTabWithOptions,
-        tabClickHandler:tabClickHandler
+        tabClickHandler:tabClickHandler,
+        getTabName:getTabName
     };
 }()).init();
 
@@ -142,7 +148,7 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             $tabs.each(function() {
                 var $this = $(this);
                 var id = $this.attr('id');
-                var tabName = $this.parent().data('gs-tab');
+                var tabName = GS.tabManager.getTabName($this);
                 tabs[tabName] = {
                     name:tabName,
                     selector:'#' +id,
@@ -180,7 +186,7 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
         };
 
         var showFirstTab = function() {
-            var tabName = $tabs.first().parent().data('gs-tab');
+            var tabName = GS.tabManager.getTabName($tabs.first());
             showTab(getTabByName(tabName), {
                 propagate:false
             });

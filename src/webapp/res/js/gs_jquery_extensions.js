@@ -551,8 +551,7 @@ var GS_changeHistory = function(title, url) {
         showTab : function(skipHistory) {
             return this.each(function() {
                 var $this = $(this);
-                var tabName = $this.parent().data('gs-tab');
-                console.log('jquery showTab');
+                var tabName = GS.tabManager.getTabName($this);
                 GS.tabManager.showTabWithOptions({
                     tab:tabName,
                     skipHistory:skipHistory
