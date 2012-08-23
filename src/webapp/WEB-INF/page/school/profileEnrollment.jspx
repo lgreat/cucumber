@@ -76,6 +76,19 @@
                                 </div>
                             </c:when>
                         </c:choose>
+
+                        <div class="line">
+                            <div class="unit size32of100">
+                                <enrollment:visitSchoolModule school="${school}" />
+                                <enrollment:districtBoundaryModule school="${school}" />
+                                <enrollment:principalAddContent school="${school}" />
+                            </div>
+                            <div class="unit size2of100">&amp;nbsp;</div>
+                            <div class="unit size66of100">
+                                <enrollment:recommendedReading school="${school}" />
+                                <enrollment:planningAheadModule/>
+                            </div>
+                        </div>
                     </c:when>
                     <c:otherwise>
                         <div class="line">
@@ -86,6 +99,7 @@
                             <div class="unit size66of100 lastUnit">
                                 <enrollment:applyModule viewType="6" />
                                 <enrollment:recommendedReading school="${school}" />
+                                <enrollment:planningAheadModule/>
                                 <div class="line">
                                     <div class="unit size49of100">
                                         <enrollment:districtBoundaryModule school="${school}" />
@@ -99,18 +113,6 @@
                         </div>
                     </c:otherwise>
                 </c:choose>
-
-                <div class="line">
-                    <div class="unit size32of100">
-                        <enrollment:visitSchoolModule school="${school}" />
-                        <enrollment:districtBoundaryModule school="${school}" />
-                        <enrollment:principalAddContent school="${school}" />
-                    </div>
-                    <div class="unit size2of100">&amp;nbsp;</div>
-                    <div class="unit size66of100 lastUnit">
-                        <enrollment:recommendedReading school="${school}" />
-                    </div>
-                </div>
             </c:when>
             <c:otherwise>
                 <!--

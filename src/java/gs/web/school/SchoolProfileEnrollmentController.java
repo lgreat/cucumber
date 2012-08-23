@@ -37,8 +37,12 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
     private static final String MODEL_NUM_MONTHS_PAST_DEADLINE = "monthsPastDeadline";
 
     private static final String MODEL_PLANNING_AHEAD = "planningAhead";
-    private static String MODEL_COLLEGE_DESTINATION = "collegeDestination";
+    private static String MODEL_PLANNING_AHEAD_RESPONSE = "planningAheadResponse";
+    private static final String MODEL_PLANNING_AHEAD_QUESTION = "planningAheadQuestion";
+    private static final String MODEL_NUM_RESPONSE = "numResponse";
 
+    private static final String[] PLANNING_AHEAD_PG_KEYS = {"_2yr", "_4yr", "_military", "_vocational", "_workforce",
+            "_year"};
 
     @Autowired
     private SchoolProfileDataHelper _schoolProfileDataHelper;
@@ -156,19 +160,89 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
         return model;
     }
 
-    Map getPlanningAheadEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
-        Map<String, Object> model = new HashMap<String, Object>(2);
+    List getPlanningAheadEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+        List<Map> rows = new ArrayList<Map>();
 
+        Map<String, Object> destinationSchoolRow = new HashMap<String, Object>();
+        //if there are destination schools response values, display them. if not get the destination colleges.
+        int numDest = 0;
+        List<String> destinationResponseValues = new ArrayList<String>();
         for(int i = 1; i < 4; i++) {
-            String destination = "college_destination_" + i;
-            List<EspResponse> collegeDestination = espData.get(destination);
-            if(collegeDestination != null && collegeDestination.size() > 0) {
-                model.put(MODEL_COLLEGE_DESTINATION + i, collegeDestination.get(0).getValue());
+            String schoolDestination = "destination_school" + i;
+            List<EspResponse> destinationSchool = espData.get(schoolDestination);
+            if(destinationSchool != null && destinationSchool.size() > 0) {
+                destinationResponseValues.add(destinationSchool.get(0).getValue());
+                numDest++;
             }
         }
 
+        if(numDest == 0) {
+            for(int i = 1; i < 4; i++) {
+                String collegeDestination = "college_destination_" + i;
+                List<EspResponse> destinationCollege = espData.get(collegeDestination);
+                if(destinationCollege != null && destinationCollege.size() > 0) {
+                    destinationResponseValues.add(destinationCollege.get(0).getValue());
+                    numDest++;
+                }
+            }
+        }
+        if(numDest > 0) {
+            destinationSchoolRow.put(MODEL_PLANNING_AHEAD_RESPONSE, destinationResponseValues);
+            destinationSchoolRow.put(MODEL_NUM_RESPONSE, numDest);
+            destinationSchoolRow.put(MODEL_PLANNING_AHEAD_QUESTION, "Students typically attend these schools after graduating");
+            rows.add(destinationSchoolRow);
+        }
+
+        Map<String, Object> collegePrepRow = new HashMap<String, Object>();
         List<EspResponse> collegePreparation = espData.get("college_prep");
-        return model;
+        List<String> collegePrepResponseValues = new ArrayList<String>();
+        int numCollegePrepResponse = 0;
+        if(collegePreparation != null && collegePreparation.size() > 0) {
+            if(espData.get("college_prep_other") != null) {
+                collegePreparation.addAll(espData.get("college_prep_other"));
+            }
+            for(int i = 1; i <= collegePreparation.size(); i++) {
+                collegePrepResponseValues.add(collegePreparation.get(i-1).getPrettyValue());
+            }
+            numCollegePrepResponse = collegePreparation.size();
+        }
+        if(numCollegePrepResponse > 0) {
+            collegePrepRow.put(MODEL_PLANNING_AHEAD_RESPONSE, collegePrepResponseValues);
+            collegePrepRow.put(MODEL_NUM_RESPONSE, numCollegePrepResponse);
+            collegePrepRow.put(MODEL_PLANNING_AHEAD_QUESTION, "College preparation / awareness  offered");
+            rows.add(collegePrepRow);
+        }
+
+        Map<String, Object> pgPlansRow = new HashMap<String, Object>();
+        String pgResponse = "post_graduation";
+        int numPgPlans = 0;
+        List<String> pgPlansResponseValues = new ArrayList<String>();
+        List<EspResponse> pgPlansYear = espData.get(pgResponse + "_year");
+        if(pgPlansYear != null && pgPlansYear.size() > 0) {
+            for(int i = 1; i <= PLANNING_AHEAD_PG_KEYS.length; i++) {
+                String responseKey = pgResponse + PLANNING_AHEAD_PG_KEYS[i-1];
+                List<EspResponse> postGraduationPlans = espData.get(responseKey);
+                if(postGraduationPlans != null && postGraduationPlans.size() > 0) {
+                    String percent = postGraduationPlans.get(0).getValue() + "%";
+                    switch (i) {
+                        case 1: pgPlansResponseValues.add("2 year college - " + percent); break;
+                        case 2: pgPlansResponseValues.add("4 year college - " + percent); break;
+                        case 3: pgPlansResponseValues.add("Military - " + percent); break;
+                        case 4: pgPlansResponseValues.add("Vocational - " + percent); break;
+                        case 5: pgPlansResponseValues.add("Workforce - " + percent); break;
+                    }
+                    numPgPlans++;
+                }
+            }
+        }
+        if(numPgPlans > 0) {
+            pgPlansRow.put(MODEL_PLANNING_AHEAD_RESPONSE, pgPlansResponseValues);
+            pgPlansRow.put(MODEL_PLANNING_AHEAD_QUESTION, "Students' post-graduation plans in " + pgPlansYear.get(0).getValue());
+            pgPlansRow.put(MODEL_NUM_RESPONSE, numPgPlans);
+            rows.add(pgPlansRow);
+        }
+
+        return rows;
     }
 
     /**

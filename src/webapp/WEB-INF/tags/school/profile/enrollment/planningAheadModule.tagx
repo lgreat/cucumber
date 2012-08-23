@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        >
+
+    <c:if test="${fn:length(planningAhead) gt 0}">
+        <div class="mod standard_1-1 ptm">
+            <div class="inner">
+                <div class="hd">
+                    <h4 class="pvm plm bottom" id="">Planning Ahead</h4>
+                </div>
+                <div class="bd pan">
+                    <table class="tableType1" border="0"><col width="210"/><col width="auto"/>
+                        <tbody class="striped">
+                        <c:forEach var="row" items="${planningAhead}" varStatus="status">
+                            <c:choose>
+                                <c:when test='${(status.index+1)%2 eq 0}'>
+                                    <c:set var="rowColor" value="even" scope="page"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="rowColor" value="odd" scope="page"/>
+                                </c:otherwise>
+                            </c:choose>
+                            <tr class="${rowColor}">
+                                <td>${row.planningAheadQuestion}</td>
+                                <!-- Now display the data by looping over each data element -->
+                                <td>
+                                    <c:forEach var="value" items="${row.planningAheadResponse}">
+                                        <div class="">${value}</div>
+                                    </c:forEach>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </c:if>
+
+</jsp:root>
