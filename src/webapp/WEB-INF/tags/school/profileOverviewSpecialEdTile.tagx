@@ -25,7 +25,10 @@
                 <p class="small_bold textshadow-1 pvs plm bottom">Special education</p>
             </c:set>
 
-            <gslink:linkToTab dontPrintLink="${specialEdModel['SpecEdPgmsProvided'] eq 'call'}" tabName="programs-culture" anchor="Special_education_/_special_needs_table" cssClass="tdn make-555555" customLink="overview_specialed">
+            <gslink:linkToTab dontPrintLink="${specialEdModel['SpecEdPgmsProvided'] eq 'call'}"
+                              tabName="${specialEdModel['SpecEdPgmsProvided'] eq 'no'? 'programs-resources':'programs-culture'}"
+                              anchor="${specialEdModel['SpecEdPgmsProvided'] eq 'no'? 'Programs_table':'Special_education_/_special_needs_table'}"
+                              cssClass="tdn make-555555" customLink="${specialEdModel['SpecEdPgmsProvided'] eq 'no'? '':'overview_specialed'}">
                 <school:profileOverviewCell1 title="${t8_1dc}">
                     <!-- Default Special Education display -->
                     <!-- specEdPgms contins a list of the special ed programs available.  If present they should be listed -->
