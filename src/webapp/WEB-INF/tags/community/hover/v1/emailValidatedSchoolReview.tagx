@@ -10,7 +10,7 @@
     <!--<div id="emailValidatedSchoolReviewHover" class="dialog_white" style="display:none;">-->
         <h2>Thank you for submitting a review</h2>
 
-        <p><strong>Welcome to GreatSchools! </strong>
+        <p>Welcome to GreatSchools!<br />
             <span class="fillMeIn"><!--filled in by JS--></span></p>
 
         <button class="button-1 js_closeHover" type="button">OK</button>
