@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: NearbySchoolsInDistrictController.java,v 1.13 2012/08/23 16:28:16 npatury Exp $
+ * $Id: NearbySchoolsInDistrictController.java,v 1.14 2012/08/23 21:02:40 npatury Exp $
  */
 
 package gs.web.district;
@@ -20,7 +20,9 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Renders a map with schools in the  district.
@@ -72,8 +74,8 @@ public class NearbySchoolsInDistrictController extends AbstractController {
         District district = _districtDao.findDistrictById(state, districtId);
 
         String acronymOrName = request.getParameter(PARAM_ACRONYM_OR_NAME);
-                
-        List<SchoolWithRatings> schoolsWithRatings = _schoolDao.findTopRatedSchoolsInDistrictNewGSRating(district, 0, LevelCode.ELEMENTARY_MIDDLE_HIGH, MAX_SCHOOLS_IN_MAP);
+
+        List<SchoolWithRatings> schoolsWithRatings = _schoolDao.findTopRatedSchoolsInDistrict(district, 0, LevelCode.ELEMENTARY_MIDDLE_HIGH, MAX_SCHOOLS_IN_MAP);
         _reviewDao.loadRatingsIntoSchoolList(schoolsWithRatings, state);
         ModelAndView modelAndView = new ModelAndView("/district/nearbySchoolsInDistrict");
         modelAndView.addObject(MODEL_SCHOOL_LIST, schoolsWithRatings);

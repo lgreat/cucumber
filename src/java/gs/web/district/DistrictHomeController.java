@@ -114,7 +114,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
                 }
             }
         }
-        
+
         if (district == null) {
             String stateStr    = (state == null)    ? "null" : state.toString();
             String cityStr     = (city == null)     ? "null" : city.getName();
@@ -286,11 +286,12 @@ public class DistrictHomeController extends AbstractController  implements IDire
     }
 
     protected void loadTopRatedSchools(City userCity,Map<String, Object> model) {
-        model.put("cityObject", userCity);
-        List<ISchoolDao.ITopRatedSchool> topRatedSchools = getSchoolDao().findTopRatedSchoolsInCityNewGSRating(userCity, 1, null, 5) ;
-        if (topRatedSchools.size() > 0) {
-            model.put("topRatedSchools", topRatedSchools);
-            List<School> schools = new ArrayList<School>(topRatedSchools.size());
+           model.put("cityObject", userCity);
+           List<ISchoolDao.ITopRatedSchool> topRatedSchools =
+                   getSchoolDao().findTopRatedSchoolsInCity(userCity, 1, null, 5);
+           if (topRatedSchools.size() > 0) {
+               model.put("topRatedSchools", topRatedSchools);
+               List<School> schools = new ArrayList<School>(topRatedSchools.size());
                for (ISchoolDao.ITopRatedSchool s: topRatedSchools) {
                    schools.add(s.getSchool());
                }
@@ -327,10 +328,10 @@ public class DistrictHomeController extends AbstractController  implements IDire
             if (school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
                 model.put("school_level_code_h", 1);
                 if (needsCompareCheck) {
-                    model.put(MODEL_COMPARE_H_CHECKED, "true");                    
+                    model.put(MODEL_COMPARE_H_CHECKED, "true");
                 }
             }
-        }        
+        }
     }
 
     // required to implement IDirectoryStructureUrlController
