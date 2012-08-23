@@ -7,6 +7,7 @@
         >
 
 <c:if test="${! empty testScores}">
+    <c:set var="dataNAText" value="Data not available"/>
     <div class="grid_16">
         <div class="fl pbn">
             <h3 class="pbn mbs" id="js_testLabelHeader"><!-- not empty --></h3>
@@ -53,7 +54,7 @@
                 <c:forEach var="subjectToYears" items="${gradeToSubjects.subjects}">
 
                     <c:choose>
-                        <c:when test="${fn:indexOf(testToGrades.testLabel,'_subgroup') >=0}">
+                        <c:when test="${testToGrades.isSubgroup}">
                             <c:set var="scalesUsed" value="" />
                             <div class="mod standard_1-1">
                             <div class="inner">
@@ -65,7 +66,7 @@
                             <!--<tr><th colspan="2">${subjectToYears.subjectLabel}</th></tr>-->
                             <c:forEach var="testValue" items="${subjectToYears.testValues}" varStatus="status">
                                 <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
-                                <c:if test="${testValue.testScoreLabel == 'Data not available'}"><c:set var="thePercentage" value="n/a" /></c:if>
+                                <c:if test="${testValue.testScoreLabel == dataNAText}"><c:set var="thePercentage" value="n/a" /></c:if>
                                 <c:choose>
                                     <c:when test='${(status.index+1)%2 eq 0}'>
                                         <c:set var="rowColor" value="even" scope="page"/>
@@ -105,7 +106,7 @@
                                             </div>
                                             <div class="unit size5of100">&amp;nbsp;</div>
                                             <c:set var="thePercentage" value="${testValue.testScoreLabel}%" />
-                                            <c:if test="${testValue.testScoreLabel == 'Data not available'}">
+                                            <c:if test="${testValue.testScoreLabel == dataNAText}">
                                                 <c:set var="thePercentage" value="n/a" />
                                             </c:if>
                                             <div class="unit size12of100 small lastUnit bottom"><strong>${thePercentage}</strong></div>
@@ -118,11 +119,13 @@
                                 <div class="inner">
                                     <div class="bd">
                                         <div class="line">
-                                            <div class="unit size38of100 pam">
-                                                <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
+                                            <c:if test="${stateAvg != dataNAText}">
+                                                <div class="unit size38of100 pam">
+                                                    <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
 
-                                                <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
-                                            </div>
+                                                    <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
+                                                </div>
+                                            </c:if>
                                             <div class="unit size62of100 lastUnit pam">
                                                 <c:out value="${scoresContent}" escapeXml="false"/>
                                             </div>

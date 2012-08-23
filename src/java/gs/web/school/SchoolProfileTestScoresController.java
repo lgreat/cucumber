@@ -30,6 +30,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
     public static final String ERROR_VIEW = "/school/error";
 
     public static final String LABEL_DATA_NOT_AVAILABLE = "Data not available";
+    public static final String LABEL_SUBGROUP_TEST_SUFFIX = " by subgroup";
 
     @Autowired private ITestDataSetDao _testDataSetDao;
     @Autowired private ITestDataTypeDao _testDataTypeDao;
@@ -203,7 +204,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 CustomTestDataType customTestDataType = new CustomTestDataType();
                 customTestDataType.setId(testDataTypeId);
                 //Group the subgroup data for a test into a new map of custom test data type.
-                customTestDataType.setLabel(testDataType.getName() + (isSubgroup ? "_subgroup" : ""));
+                customTestDataType.setLabel(testDataType.getName() + (isSubgroup ? LABEL_SUBGROUP_TEST_SUFFIX : ""));
                 //Fill the map with the test data type, grade, level code, subjects, test data set and value.
                 buildTestScoresMap(testScoresMap, customTestDataType, grade, levelCode, subject, testDataSet, testScoreValue);
             }else{
@@ -318,7 +319,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
             TestToGrades testToGrades = new TestToGrades();
             testToGrades.setTestLabel(testDataType.getLabel());
             testToGrades.setTestDataTypeId(testDataType.getId());
-            testToGrades.setIsSubgroup((testDataType.getLabel().indexOf("_subgroup") > 0));
+            testToGrades.setIsSubgroup((testDataType.getLabel().indexOf(LABEL_SUBGROUP_TEST_SUFFIX) > 0));
 
             //Get the test information, like the source, scale and description.
             String description = "";
