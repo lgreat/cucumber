@@ -45,28 +45,9 @@
                                                         title="${s.name}">${s.name}</link:schoolProfileOverview>
                         </div>
                         <div class="unit size25of100 lastUnit tar">
-
-                            <c:choose>
-                                <c:when test="${s.school.newProfileSchool eq 1}">
-                                    <c:choose>
-                                        <c:when test="${s.school.type eq 'private'}">
-                                            <gsml:img
-                                                    src="/res/img/school/ratings/${ratingValue}.gif"
-                                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <gsml:img
-                                                    src="/res/img/school/ratings/${ratingValue}.gif"
-                                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </c:when>
-                                <c:otherwise>
-                                    <gsml:img
-                                            src="/res/img/school/ratings/${ratingValue}.gif"
-                                            alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
-                                </c:otherwise>
-                            </c:choose>
+                            <gsml:img
+                                    src="/res/img/school/ratings/${ratingValue}.gif"
+                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
                         </div>
                     </div>
 

@@ -320,7 +320,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             lc = LevelCode.createLevelCode(command.getLevelCodeString());
         }
 
-        List<SchoolWithRatings> schools = _schoolDao.findNearbySchoolsWithRatings(state, lat, lon, distanceInMiles, maxNumResults, lc,true);
+        List<SchoolWithRatings> schools = _schoolDao.findNearbySchoolsWithRatings(state, lat, lon, distanceInMiles, maxNumResults, lc);
 
         if (schools != null && schools.size() > 0) {
             hasResults = true;
@@ -355,7 +355,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
      */
     protected boolean loadResultsForCity(City city, State state, SchoolSearchWidgetCommand command) {
         boolean hasResults = false;
-        List<SchoolWithRatings> schools = _schoolDao.findSchoolsWithRatingsInCity(state, city.getName(),true);
+        List<SchoolWithRatings> schools = _schoolDao.findSchoolsWithRatingsInCity(state, city.getName());
         applyLevelCodeFilters(schools, command); // edits list in place
         if (schools != null && schools.size() > 0) {
             hasResults = true;
@@ -449,7 +449,7 @@ public class SchoolSearchWidgetController extends SimpleFormController {
             }
         }
         schools.removeAll(itemsToRemove);
-    }    
+    }
 
     // ==============================================================================
     // UTILITY METHODS
