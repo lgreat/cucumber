@@ -40,30 +40,93 @@
         </c:when>
     </c:choose>
 
-    <!-- Frontend - remove this comment and the following line -->
-    <h3>School Chooser for ${titleCity}</h3>
-    <!-- Title row -->
-    <div class="">Title: Choosing a school in ${titleCity}</div>
-    <!-- Section 1 - Download links -->
-        <!-- Currently the download pdf's are not available so this section should be hidden -->
+    <div class="mod standard_1-1">
+        <div class="inner">
+            <div class="hd">
+                <!-- Title row -->
+                <h4 class="pam bottom">Choosing a school in ${titleCity}?</h4>
+            </div>
+            <div class="bd">
+                <!-- Section 1 - Download links -->
+                <div class="mam bg-chooserBook">
+                    <!-- Currently the download pdf's are not available so this section should be hidden -->
+                    <p class="small bottom">Download our ${titleCity} school
+                        <br/>chooser to help guide you
+                        <br/>through your search.
+                    </p>
+                    <ul class="small bottom">
+                        <li><a href="">Guide to choosing</a></li>
+                        <li><a href="">K-8 school profiles</a></li>
+                        <li><a href="">High scshool profiles</a></li>
+                    </ul>
+                </div>
 
-    <!-- Section 2 - Planning a visit -->
-        <!-- The download button contains the following entries.  Clicking one opens the specified pdf -->
-            <!-- Preschool - http://www.greatschools.org/catalog/pdf/schq_visit_preschool.pdf -->
-            <!-- Elementry school - http://www.greatschools.org/catalog/pdf/schq_visit_elem.pdf -->
-            <!-- Middle school - http://www.greatschools.org/catalog/pdf/schq_visit_middle.pdf -->
-            <!-- High school - http://www.greatschools.org/catalog/pdf/schq_visit_high.pdf -->
+                <!-- Section 2 - Planning a visit -->
+                <div class="pam bg-F5F5F5">
+                    <h4 class="bottom">Planning a visit?</h4>
+                    <p class="small bottom">Download the school visit checklist</p>
+                    <select id="schoolType" name="schoolLevel" class="mvm">
+                        <option value="" selected="selected">Select a school level</option>
+                        <option value="preschool">Preschool</option>
+                        <option value="elementary">Elementary school</option>
+                        <option value="middle">Middle school</option>
+                        <option value="high">High school</option>
+                    </select>
 
-    <!-- Section 3 - Outsmarting the system -->
-        <!-- Use the following links for this item -->
-        <!-- Link: http://www.greatschools.org/content/cms/translate.page?Article=${outsmartArticleCmsId} -->
-        <!-- Img:  The images are stored at ${thumbnail} -->
-    <c:if test="${not empty outsmartArticleCmsId}">
-        <!-- show the "outsmart the system" block and include ${hotlinePhoneNbr} if present -->
-        <!-- School hotline -->
-        <c:if test="${not empty hotlinePhoneNbr}">
-            <!-- show the "Need more information?" block and include ${hotlinePhoneNbr} -->
-        </c:if>
-    </c:if>
+                    <a class="downloadGuide" href="">
+                        <button class="button-1 mlm">Download</button>
+                    </a>
+                    <!-- The download button contains the following entries.  Clicking one opens the specified pdf -->
+                    <!-- Preschool - http://www.greatschools.org/catalog/pdf/schq_visit_preschool.pdf -->
+                    <!-- Elementry school - http://www.greatschools.org/catalog/pdf/schq_visit_elem.pdf -->
+                    <!-- Middle school - http://www.greatschools.org/catalog/pdf/schq_visit_middle.pdf -->
+                    <!-- High school - http://www.greatschools.org/catalog/pdf/schq_visit_high.pdf -->
+                </div>
+                <!-- Section 3 - Outsmarting the system -->
+                <!-- Use the following links for this item -->
+                <!-- Link: http://www.greatschools.org/content/cms/translate.page?Article=${outsmartArticleCmsId} -->
+                <!-- Img:  The images are stored at ${thumbnail} -->
+                <c:if test="${not empty outsmartArticleCmsId}">
+                    <!-- show the "outsmart the system" block and include ${hotlinePhoneNbr} if present -->
+                    <div class="pam bg-outsmart">
+                        <div class="fl">
+                            <p class="small_bold bottom">Outsmart the system in
+                                <br/>${titleCity}</p>
+                            <a href="http://www.greatschools.org/content/cms/translate.page?Article=${outsmartArticleCmsId}"
+                               class="small bottom">Read how to navigate the
+                                <br/>local process &amp;raquo;</a>
+                        </div>
+                        <div class="fr">
+                            <img src="${thumbnail}"/></div>
+                        <div class="clear"><!--Do not collapse--></div>
+                    </div>
+                    <!-- School hotline -->
+                    <c:if test="${not empty hotlinePhoneNbr}">
+                        <div class="pam mam bg-F5F5F5 border-DDDDDD">
+                            <p class="small_bold bottom tac">Need more information?</p>
+
+                            <p class="small bottom tac">Call the GreatSchools hotline at ${hotlinePhoneNbr}</p>
+                        </div>
+                    </c:if>
+                </c:if>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#schoolType").change(function () {
+            if ($("#schoolType").val() == "preschool") {
+                $('.downloadGuide').attr('href', 'http://www.greatschools.org/catalog/pdf/schq_visit_preschool.pdf');
+            }
+            else if ($("#schoolType").val() == "elementary") {
+                $('.downloadGuide').attr('href', 'http://www.greatschools.org/catalog/pdf/schq_visit_elem.pdf');
+            }
+            else if ($("#schoolType").val() == "middle") {
+                $('.downloadGuide').attr('href', 'http://www.greatschools.org/catalog/pdf/schq_visit_middle.pdf');
+            }
+            else if ($("#schoolType").val() == "high") {
+                $('.downloadGuide').attr('href', 'http://www.greatschools.org/catalog/pdf/schq_visit_high.pdf');
+            }
+        });
+    </script>
 
 </jsp:root>
