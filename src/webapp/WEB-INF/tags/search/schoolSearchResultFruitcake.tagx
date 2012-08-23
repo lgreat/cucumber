@@ -6,7 +6,8 @@
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:gsweb="gstaglib"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search">
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings">
 
     <jsp:directive.attribute name="school" required="true" type="gs.data.search.beans.ISchoolSearchResult"/>
     <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
@@ -92,27 +93,13 @@
                                                                      name="${school.name}"
                                                                      physicalAddress="${school.address}"
                                                                      levelCode="${school.levelCode}">
-                                <c:choose>
-                                    <c:when test="${school.levelCode eq 'p'}">
-                                        <span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
-                                    </c:when>
-                                    <c:when test="${school.schoolType eq 'private'}">
-                                        <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
-                                    </c:when>
-                                </c:choose>
+                                <ratings:newGSRating school="${school}"/>
                             </link:schoolProfileOverviewForPrimitives>
                         </c:when>
                         <c:otherwise>
                             <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}"
                                                           levelCode="${school.levelCode}" styleClass="noUnderline">
-                                <c:choose>
-                                    <c:when test="${not empty school.greatSchoolsRating}">
-                                        <div class="iconx24-ratings i-24-ratings${school.greatSchoolsRating}"><!-- do not collapse --></div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="iconx24-ratings i-24-ratingsNA"><!-- do not collapse --></div>
-                                    </c:otherwise>
-                                </c:choose>
+                                <ratings:newGSRating school="${school}"/>
                             </link:schoolProfileRating2010>
                         </c:otherwise>
                     </c:choose>

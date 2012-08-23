@@ -465,21 +465,33 @@ GS.search.results = GS.search.results || (function() {
             var gsRating = school.greatSchoolsRating;
             var gsRatingUrl = school.gsRatingUrl;
             var showNonPrivate = 'block';
+            var showNewRatingNonPrivate ='hidden';
             var showPrivate = 'hidden';
+            var showNewRatingPrivate = 'hidden';
             var showPreschool = 'hidden';
+
             if (school.levelCode == 'p') {
                 showNonPrivate = 'hidden';
+                showNewRatingNonPrivate = 'hidden';
                 showPrivate = 'hidden';
+                showNewRatingPrivate = 'hidden';
                 showPreschool = 'block';
                 gsRatingUrl = school.schoolUrl;
-            } else if(school.schoolType == 'private') {
+            } else if (school.schoolType == 'private') {
                 showNonPrivate = 'hidden';
-                showPrivate = 'block';
+                showNewRatingNonPrivate = 'hidden';
+                showNewRatingPrivate = school.isSchoolForNewProfile === true ? 'block' : 'hidden';
+                showPrivate = school.isSchoolForNewProfile === true ? 'hidden' : 'block';
                 showPreschool = 'hidden';
                 gsRatingUrl = school.schoolUrl;
-            }
-            else if(gsRating === null) {
-                gsRating = 'NA';
+            } else if (school.schoolType == 'public' || school.schoolType == 'charter') {
+                showPrivate = 'hidden';
+                showNewRatingPrivate = 'hidden';
+                showNewRatingNonPrivate = school.isSchoolForNewProfile === true ? 'block' : 'hidden';
+                showNonPrivate = school.isSchoolForNewProfile === true ? 'hidden' : 'block';
+                showPreschool = 'hidden';
+            } else if (gsRating === null) {
+                gsRating = school.isSchoolForNewProfile === true ? 'NR' : 'NA';
             }
 
             var isPkCompare = "none", showCompare = "inline";
@@ -538,7 +550,9 @@ GS.search.results = GS.search.results || (function() {
                 showDistance: showDistance,
                 showParentRating: showParentRating,
                 showNonPrivate: showNonPrivate,
+                showNewRatingNonPrivate:showNewRatingNonPrivate,
                 showPrivate: showPrivate,
+                showNewRatingPrivate:showNewRatingPrivate,
                 showPreschool: showPreschool,
                 showRateSchool: showRateSchool,
                 starsOff: starsOff,
@@ -547,7 +561,7 @@ GS.search.results = GS.search.results || (function() {
 
             points.push({name: school.jsEscapeName, lat: school.latitude, lng: school.longitude,
                 gsRating: school.greatSchoolsRating, schoolType: school.schoolType, infoWindowMarkup: infoBoxHtml,
-                state: school.state, id: school.id, levelCode: school.levelCode});
+                state: school.state, id: school.id, levelCode: school.levelCode,isSchoolForNewProfile: school.isSchoolForNewProfile});
 
             schoolList.append(sidebarListHtml);
             schoolList.find('a').each(function() {

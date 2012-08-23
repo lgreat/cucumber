@@ -223,6 +223,11 @@ GS.map.getMap = GS.map.getMap ||(function(){
             };
 
             var imageUrl = '/res/img/sprites/icon/mapPins/x32/120808-mapPinsx32.png';
+
+            if(point.isSchoolForNewProfile != undefined && point.isSchoolForNewProfile === true){
+                imageUrl = '/res/img/sprites/icon/mapPins/x32/120808-mapPinsx32.png';
+            }
+
             var pixelOffset = 320; // default to n/a
 
             if (point.gsRating != "" && parseInt(point.gsRating) > 0) {

@@ -276,7 +276,7 @@ that this is updated for ajax refresh -->
         points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude},
         lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}',
         infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}', state: '${gsweb:escapeJavaScript(school.databaseState)}',
-        id: '${school.id}', levelCode: '${school.levelCode}'});
+        id: '${school.id}', levelCode: '${school.levelCode}', isSchoolForNewProfile: ${school.isSchoolForNewProfile}});
         <c:set var="points" value="${points + 1}"/>
     </c:forEach>
 
@@ -643,14 +643,7 @@ that this is updated for ajax refresh -->
                                                                                      name="${school.name}"
                                                                                      physicalAddress="${school.address}"
                                                                                      levelCode="${school.levelCode}">
-                                                <c:choose>
-                                                    <c:when test="${school.levelCode eq 'p'}">
-                                                        <span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
-                                                    </c:when>
-                                                    <c:when test="${school.schoolType eq 'private'}">
-                                                        <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
-                                                    </c:when>
-                                                </c:choose>
+                                                <ratings:newGSRating school="${school}"/>
                                             </link:schoolProfileOverviewForPrimitives>
                                         </c:when>
                                         <c:otherwise>
@@ -658,15 +651,7 @@ that this is updated for ajax refresh -->
                                                                           schoolId="${school.id}"
                                                                           levelCode="${school.levelCode}"
                                                                           styleClass="noUnderline">
-                                                <c:choose>
-                                                    <c:when test="${empty school.greatSchoolsRating}">
-                                                        <div class="iconx24-ratings i-24-ratingsNA"><!-- do not collapse --></div>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <!--<span class="fltlft sprite badge_sm_${school.greatSchoolsRating}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                                                        <div class="iconx24-ratings i-24-ratings${school.greatSchoolsRating}"><!-- do not collapse --></div>
-                                                    </c:otherwise>
-                                                </c:choose>
+                                                <ratings:newGSRating school="${school}"/>
                                             </link:schoolProfileRating2010>
                                         </c:otherwise>
                                     </c:choose>
@@ -725,6 +710,8 @@ that this is updated for ajax refresh -->
                             <span class="iconx24-ratings i-24-ratings{{gsRating}} {{showNonPrivate}}"><!-- do not collapse --></span>
                             <span class="iconx24 i-24-private-school-badge {{showPrivate}}"><!-- do not collapse --></span>
                             <span class="iconx24 i-24-preschool-badge {{showPreschool}}"><!-- do not collapse --></span>
+                            <span class="iconx24-ratings-rb i-24-ratings{{gsRating}} {{showNewRatingNonPrivate}}"><!-- do not collapse --></span>
+                            <span class="iconx24-rb i-24-private-school-badge {{showNewRatingPrivate}}"><!-- do not collapse --></span>
                         </a>
                     </div>
                 </div>

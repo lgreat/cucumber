@@ -282,6 +282,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             searchResults.put("greatSchoolsRating", schoolSearchResult.getGreatSchoolsRating());
             searchResults.put("mslHasSchool", false);
             searchResults.put("distance", (schoolSearchResult.getDistance() != null) ? Util.roundTwoDecimal(schoolSearchResult.getDistance()) : null );
+            searchResults.put("isSchoolForNewProfile", schoolSearchResult.getIsSchoolForNewProfile());
 
             UrlBuilder schoolUrl = new UrlBuilder(UrlBuilder.SCHOOL_PROFILE, schoolSearchResult.getId(),
                     schoolSearchResult.getDatabaseState(), schoolSearchResult.getName(), schoolSearchResult.getAddress(),
