@@ -159,6 +159,13 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             $tabs = $tabNav.find('li>a'); // TODO: update this selector; it matches too many items
             buildTabStructure();
             GS.tabManager.registerTabs(tabSuiteName, self);
+
+            // set up click handler for tabs
+            $tabs.click(function() {
+                GS.tabManager.tabClickHandler($(this), self);
+                return false;
+            });
+
             return self;
         };
 
@@ -170,22 +177,20 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             if(!showHome) {
                 showFirstTab();
             }
-
-            $tabs.click(function() {
-                GS.tabManager.tabClickHandler($(this), self);
-                return false;
-            });
         };
 
         var showFirstTab = function() {
             var tabName = $tabs.first().parent().data('gs-tab');
-            showTab(getTabByName(tabName));
+            showTab(getTabByName(tabName), {
+                propagate:false
+            });
         };
 
-        var showTab = function(tab) {
+        var showTab = function(tab, options) {
             var tabChanged = false;
+            options = options || {};
 
-            if (parentTab) {
+            if (parentTab && options.propagate !== false) {
                 tabChanged = tabChanged || parentTab.owner.showTab(parentTab);
             }
 
