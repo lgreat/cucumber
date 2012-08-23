@@ -70,7 +70,6 @@ GS.profile = GS.profile || (function() {
                         }
                         tab = GS.uri.Uri.getFromQueryString('tab', queryString) || tab;
                     }
-                    console.log('tab found', tab);
                     if (tab) {
                         GS.tabManager.showTabWithOptions({tab:tab, skipHistory:true});
                     }
@@ -80,26 +79,9 @@ GS.profile = GS.profile || (function() {
         return this;
     };
 
-    // given a tab, determines which child subtab is active
-    var getActiveChildTab = function(parentTab) {
-        return undefined;
-        //TODO: re-hook up
-        if (typeof parentTab === 'string') {
-            parentTab = tabs[parentTab];
-        }
-        if (parentTab === undefined || parentTab.children === undefined) {
-            return undefined;
-        }
-        var i = parentTab.children.length;
-        while (i--) {
-            if ($(parentTab.children[i].selector).hasClass('selected')) { // check if the subtab is selected
-                return parentTab.children[i];
-            }
-        }
-    };
-
     var setupTabClickHandlers = function() {
         // register some custom data attributes that will allow easily linking to a profile tab and anchor
+        // used in linkToTab.tagx
         $('body').on('click', '[data-gs-show-tab]', function(event) {
             var $this = $(this);
             var tabName = $this.data('gs-show-tab');
@@ -112,7 +94,6 @@ GS.profile = GS.profile || (function() {
     };
 
     return {
-        getActiveChildTab: getActiveChildTab,
         setupTabClickHandlers : setupTabClickHandlers,
         init:init
     };
