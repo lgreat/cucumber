@@ -94,12 +94,12 @@ GS.tabManager = (function() {
 
         var tabChanged = tabObject.owner.showTab(tabObject);
 
-        if(options && options.hash !== undefined) {
-            GS.util.jumpToAnchor(options.hash);
-        }
-
         if (!options.skipHistory) {
             GS_changeHistory($a.attr('title'), $a.attr('href') );
+        }
+
+        if(options && options.hash !== undefined) {
+            GS.util.jumpToAnchor(options.hash);
         }
 
         if (tabChanged && typeof(window.History) !== 'undefined' && window.History.enabled === true) {
