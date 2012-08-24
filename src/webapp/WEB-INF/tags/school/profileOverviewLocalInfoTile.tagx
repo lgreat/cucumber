@@ -78,6 +78,9 @@
                         </div>
                     </c:if>
 
+                    <p class="small bottom tac make-06b">
+                        See district boundaries
+                    </p>
                 </div>
             </school:profileOverviewCell1>
             </link:districtBoundaryTool>
