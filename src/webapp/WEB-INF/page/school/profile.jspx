@@ -58,7 +58,8 @@
             <meta name="robots" content="noindex, nofollow, noarchive"/>
         </c:when>
     </c:choose>
-    <title>School Profile</title>
+    <c:set var="schoolPageTitle" value="${gsweb:schoolPageTitle(school)}"/>
+    <title>${schoolPageTitle}</title>
     <c:if test="${not empty relCanonical}">
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
@@ -224,16 +225,17 @@
                 </li>
                 <li class="mll">
                 <span class="media">
-                    <span class="img iconx16 i-16-email mrs"><!-- do not collapse --></span>
-                    <a class="bd" href="javascript:void(0);">Send me updates</a>
+                    <link:newsletterManagement schoolId="${school.id}" schoolState="${school.databaseState}" styleClass="bd"
+                                               onclick="return GS.showMssJoinHover(this.href, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');">
+                        <span class="img iconx16 i-16-email mrs"><!-- do not collapse --></span>
+                        Send me updates
+                    </link:newsletterManagement>
                 </span>
                 </li>
                 <li class="mll">
                 <span class="media">
                     <span class="img iconx16 i-16-review mrs"><!-- do not collapse --></span>
-                    <!--<a class="bd" onclick="return linkToTabs('reviews'); jumpToAnchor(''); return false;" href="javascript:void(0);"><strong>Write a review</strong></a>-->
-                    <a class="bd" id="js_profileHeadWriteReviewLink"
-                       href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}#schoolReviewSubmitForm">Write a review</a>
+                    <gslink:linkToTab tabName="reviews" anchor="schoolReviewSubmitForm" cssClass="bd">Write a review</gslink:linkToTab>
                 </span>
                 </li>
             </ul>
