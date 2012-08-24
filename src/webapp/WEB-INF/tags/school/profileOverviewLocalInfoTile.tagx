@@ -41,7 +41,7 @@
                     <c:set var="districtNumSchools" value="${localInfoModel['districtNumSchools']}" scope="page"/>
                     <c:set var="districtGrades" value="${localInfoModel['districtGrades']}" scope="page"/>
                     <c:set var="districtNumStudents" value="${localInfoModel['districtNumStudents']}" scope="page"/>
-                    <h4 class="tac">${localInfoModel['districtName']}</h4>
+                    <h4 class="tac">${gsweb:abbreviateAtWhitespace(localInfoModel['districtName'],45)}</h4>
                     <c:if test="${not empty districtNumSchools}">
                         <div class="line mvs">
                                 <div class="unit size60of100">
