@@ -48,30 +48,34 @@
                     <c:set var="extdCareBeforeTime"   value="${specialEdModel['ExtdCareBeforeTime']}" scope="page" />
                     <c:set var="extdCareAfterTime"    value="${specialEdModel['ExtdCareAfterTime']}"  scope="page" />
 
-                    <div class="mhm" style="height:66px;">
+                    <div class="mam" style="height:46px;">
                     <c:choose>
                         <c:when test="${not empty specEdPgms}">
-                            <p class="small_bold bottom">The school offers support for:</p>
-                                <ul class="small bottom">
-                                    <c:set var="showMax" value="${2}"/>
-                                    <c:forEach var="item" items="${specEdPgms}" varStatus="status">
-                                        <c:if test="${status.count le showMax}">
-                                            <li>${gsweb:abbreviateAtWhitespace(item,30)}</li>
-                                        </c:if>
-                                    </c:forEach>
-                                </ul>
+                            <c:set var="showSpecEdMax" value="${2}"/>
+                            <c:set var="loopSpecEdMax" value="${fn:length(specEdPgms) le showSpecEdMax ? fn:length(specEdPgms) : 1}"/>
+                            <c:set var="showMoreSpecEd" value="${fn:length(specEdPgms) gt showSpecEdMax ? 'true' : 'false'}"/>
+                            <ul class="small bottom">
+                                <c:forEach var="item" items="${specEdPgms}" varStatus="status">
+                                    <c:if test="${status.count le loopSpecEdMax}">
+                                        <li>${gsweb:abbreviateAtWhitespace(item,30)}</li>
+                                    </c:if>
+                                    <c:if test="${status.count eq loopSpecEdMax and showSpecEdMax}">
+                                        <li><span class="make-06b">More &amp;raquo;</span></li>
+                                    </c:if>
+                                </c:forEach>
+                            </ul>
                         </c:when>
                         <c:when test="${specEdPgmsProvided eq 'yes'}">
                             <p class="small bottom tac">The school provides a full program for particular needs.</p>
                         </c:when>
                         <c:when test="${specEdPgmsProvided eq 'basic'}">
-                            <p class="small bottom tac">The school provides services based on the needs of individual students.</p>
+                            <p class="small bottom tac">The school provides services for individual students' needs.</p>
                         </c:when>
                         <c:when test="${specEdPgmsProvided eq 'moderate'}">
                             <p class="small bottom tac">The school provides a full program for particular needs.</p>
                         </c:when>
                         <c:when test="${specEdPgmsProvided eq 'intensive'}">
-                            <p class="small bottom tac">The school provides a full program for many needs..</p>
+                            <p class="small bottom tac">The school provides a full program for many needs.</p>
                         </c:when>
                         <c:when test="${specEdPgmsProvided eq 'focuses'}">
                             <p class="small bottom tac">The school focuses on special education.</p>
@@ -83,7 +87,7 @@
                             <p class="small bottom tac">The school does not provide services.</p>
                         </c:when>
                         <c:when test="${specEdPgmsProvided eq 'call'}">
-                            <p class="small bottom tac">The school has not provided this information yet. Please call school to learn more.</p>
+                            <p class="small bottom tac">The school has not provided this information yet.</p>
                         </c:when>
                     </c:choose>
                     </div>

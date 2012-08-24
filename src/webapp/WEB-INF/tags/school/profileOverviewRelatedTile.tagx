@@ -157,7 +157,7 @@
                 <c:when test="${not empty cmsResults}">
                     <c:choose>
                         <c:when test="${hasOSPData eq 'true'}">
-                            <div class="mam" style="height:139px;">
+                            <div class="mam" style="height:149px;">
                             <div class="line">
                                 <div class="unit size26of100">
                                     <!-- show the default image or the image for the first video -->

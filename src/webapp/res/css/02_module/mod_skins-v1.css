@@ -275,20 +275,14 @@ General comments:
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------- module backgrounds -------------- */
 
-.bg-addPhotos { background-image: url("/res/img/module/background/addPhotos.png"); }
-.bg-districtMap { background-image: url("/res/img/module/background/districtMap.png"); }
+.bg-addPhotos { background: url("/res/img/module/background/addPhotos.png") no-repeat right bottom; }
+.bg-districtMap { background: url("/res/img/module/background/districtMap.png") no-repeat right bottom; }
 .bg-writeReviews { background-image: url("/res/img/module/background/reviews.png"); }
-.bg-mobileApp { background-image: url("/res/img/module/background/mobile.png"); }
-.bg-checklist { background-image: url("/res/img/module/background/checklist.png");
-background-repeat:no-repeat;
-background-position:right bottom;
-}
-.bg-principal { background-image: url("/res/img/school/enrollment/principal.png");
-    background-repeat:no-repeat;
-    background-position:right bottom;}
-
-.bg-nearbySchool { background-image: url("/res/img/module/background/nearbySchools.png");background-position: right; background-repeat:no-repeat;}
-.bg-chooserBook { background-image: url("/res/img/module/background/chooserBook.png");background-position: right; background-repeat:no-repeat;}
+.bg-mobileApp { background: url("/res/img/module/background/mobile.png") no-repeat right bottom; }
+.bg-checklist { background: url("/res/img/module/background/checklist.png") no-repeat right bottom;}
+.bg-principal { background: url("/res/img/school/enrollment/principal.png") no-repeat right bottom;}
+.bg-nearbySchool { background: url("/res/img/module/background/nearbySchools.png") no-repeat right bottom;}
+.bg-chooserBook { background: url("/res/img/module/background/chooserBook.png") no-repeat right bottom;}
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ------------- module backgrounds colors-------------- */

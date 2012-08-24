@@ -22,7 +22,7 @@
     </c:set>
     <gslink:linkToTab tabName="admissions" cssClass="tdn make-555555" customLink="${content eq 'applInfoV1'? 'overview_application2x':'overview_application1x'}">
         <school:profileOverviewCell1 title="${t11dc}">
-            <div class="mam" style="height:141px">
+            <div class="mam" style="height:149px">
             <c:set var="applicationDeadlineDate" value="${applInfoModel['applicationDeadlineDate']}" scope="page"/>
             <c:set var="vouchers" value="${applInfoModel['vouchers']}" scope="page"/>
             <!-- vouchers can contain the following values:

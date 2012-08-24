@@ -24,7 +24,7 @@
                 <div class="hd">
                     <h3 class="bottom">Be sure to visit</h3>
                 </div>
-                <div class="bd" style="height:125px;">
+                <div class="bd" style="height:135px;">
                     <p class="small bottom mtm">Take along one of<br/>our checklists:</p>
                     <c:if test="${not empty checklist}">
                         <ul class="small bottom plm mls">
