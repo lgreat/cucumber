@@ -269,6 +269,13 @@ jQuery(document).ready(function() {
 //pass jQuery to the function for closure,
 })(jQuery);
 
+/* =2a popup (informational popup bubbles)
+ --------------------------------------------------------------------------*/
+
+jQuery(document).ready(function() {
+    jQuery('#js-tile-1').popup({distance:0,time:250,hideDelay:500,appear:'right',leftPosition:150,topPosition:5});
+});
+
 /* =3 alternateRowColors (table stripping plugin)
 ---------------------------------------------------------------------------*/
 

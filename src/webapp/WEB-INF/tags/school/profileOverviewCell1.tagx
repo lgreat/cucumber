@@ -23,7 +23,7 @@
 
     <div class="mod standard_1-1">
         <div class="inner box-shadow-animation-1">
-            <div class="hd">
+            <div class="hd pr">
                 ${title}
             </div>
             <div class="bd">
