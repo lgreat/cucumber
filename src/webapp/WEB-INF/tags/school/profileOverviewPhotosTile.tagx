@@ -26,15 +26,19 @@
         <c:when test="${not empty images}">
             <c:set var="t2dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Photos</p>
+                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
+                <div class="clearfloat"><!-- do not collapse --></div>
             </c:set>
 
             <div class="mod standard_1-1">
                 <div class="inner box-shadow-animation-1">
-                    <gslink:linkToTab tabName="culture" customLink="overview_photos" cssClass="tdn make-555555">
-                        <div class="hd">
-                            ${t2dc}
-                        </div>
-                    </gslink:linkToTab>
+                    <div id="js-tile-2-0">
+                        <gslink:linkToTab tabName="culture" customLink="overview_photos" cssClass="tdn make-555555 js-trigger">
+                            <div class="hd pr">
+                                ${t2dc}
+                            </div>
+                        </gslink:linkToTab>
+                    </div>
                     <div class="bd">
                         <div class="mam" style="height:139px;">
                             <div class="infiniteCarousel10">

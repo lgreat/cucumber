@@ -276,6 +276,7 @@ jQuery(document).ready(function() {
     jQuery('#js-tile-1-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
     jQuery('#js-tile-1-1').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
     jQuery('#js-tile-1-2').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-2-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
 });
 
 /* =3 alternateRowColors (table stripping plugin)
