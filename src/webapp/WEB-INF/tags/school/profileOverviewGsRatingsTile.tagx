@@ -22,11 +22,11 @@
     <c:choose>
         <c:when test="${content eq 'GsRatings'}">
             <c:set var="t1dc">
-                <p class="small_bold textshadow-1 pvs plm bottom fl">GreatSchools ratings</p>
-                <p class="small_bold make-06b js-popup" style="width:42px;">More &amp;raquo;</p>
+                <p class="small_bold textshadow-1 pvs plm bottom">GreatSchools ratings</p>
+                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
                 <div class="clearfloat"><!-- do not collapse --></div>
             </c:set>
-            <div id="js-tile-1">
+            <div id="js-tile-1-0">
             <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t1dc}">
                     <div class="mam">
@@ -83,9 +83,13 @@
 
         <c:when test="${content eq 'awards'}">
             <c:set var="t1s1">
-                <p class="small_bold textshadow-1 pvs plm bottom"><span class="iconx16 i-16-awards vam"><!-- do not collapse --></span> Awards &amp; recognition</p>
+                <!--<span class="iconx16 i-16-awards vam">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                <p class="small_bold textshadow-1 pvs plm bottom">Awards &amp; recognition</p>
+                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
+                <div class="clearfloat"><!-- do not collapse --></div>
             </c:set>
-            <gslink:linkToTab tabName="programs-culture" anchor="Awards_table" customLink="overview_awards" cssClass="tdn make-555555">
+            <div id="js-tile-1-1">
+            <gslink:linkToTab tabName="programs-culture" anchor="Awards_table" customLink="overview_awards" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t1s1}">
                     <div class="mam" style="height:139px;">
                         <ul class="small plm mls">
@@ -96,13 +100,17 @@
                     </div>
                 </school:profileOverviewCell1>
             </gslink:linkToTab>
+            </div>
         </c:when>
 
         <c:otherwise>
             <c:set var="t1s2">
                 <p class="small_bold textshadow-1 pvs plm bottom">About the school</p>
+                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
+                <div class="clearfloat"><!-- do not collapse --></div>
             </c:set>
-            <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_about" cssClass="tdn make-555555">
+            <div id="js-tile-1-2">
+            <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_about" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t1s2}">
                     <c:set var="actualCharMax" value="${fn:length(gsRatingsModel['autotext'])}"/>
                     <c:set var="SHOW_CHAR_MAX" value="${180}"/>
@@ -118,6 +126,7 @@
                     </div>
                 </school:profileOverviewCell1>
             </gslink:linkToTab>
+            </div>
         </c:otherwise>
     </c:choose>
 
