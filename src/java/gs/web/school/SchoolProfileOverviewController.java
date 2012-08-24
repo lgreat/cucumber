@@ -64,9 +64,9 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String VIDEO_TOUR_MODEL_KEY = "videoTour";
     private static final String BOUNDARY_TOOL_MODEL_KEY = "boundaryTool";
 
-    private static final String VIDEO_ELEMENTARY = "6857";
-    private static final String VIDEO_MIDDLE = "6856";
-    private static final String VIDEO_HIGH = "6855";
+    public static final String VIDEO_ELEMENTARY = "6857";
+    public static final String VIDEO_MIDDLE = "6856";
+    public static final String VIDEO_HIGH = "6855";
 
 
     public enum NoneHandling{ ALWAYS_SHOW, SHOW_IF_ONLY_VALUE, HIDE_IF_ONLY_NONE }
@@ -530,32 +530,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             model.put( "schoolLevel", level.getName() );
 
             try {
-//                This was the original implementation which was slow.  Delete after new code has been performance tested
-//                // Implementation based on code in CmsVideoController
-//                /* TODO this implementation is based on using CmsFeature which causes a database access the
-//                   alternative would be to add a method to CmsFeatureSearchService.java (and
-//                   CmsFeatureSearchServiceSolrImpl.java) and use Solr to fetch a search result for the video you're
-//                   interested in, and call getImageUrl() from that search result instead of from the object fetched
-//                   from the database.   */
-//
-//                CmsFeature feature = _cmsFeatureDao.get(new Long(videoId));
-//                if( feature == null ) {
-//                    // This should not happen unless the article is not present in CMS
-//                    model.put( "content", "none" );
-//                    return  model;
-//                }
-//
-//                // it would be simpler to call UrlBuilder(feature.getContentKey()) but that calls publicationDao
-//                // which can not be overridden in UrlBuilder and thus can not be unit tested
-//                Publication pub = _publicationDao.findByContentKey(feature.getContentKey());
-//                if( pub == null ) {
-//                    model.put( "content", "none" );
-//                    return  model;
-//                }
-//                String fullUri = pub.getFullUri();
-//                UrlBuilder urlBuilder = new UrlBuilder(feature.getContentKey(), fullUri);
-
-
+                // There was an earlier implementation that used CmsFeatureDao and PublicationDao and this approach caused a performance issue.
                 GsSolrQuery query = new GsSolrQuery();
                 query.filter(DocumentType.CMS_FEATURE);
                 query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.VIDEO_CONTENT_TYPE);

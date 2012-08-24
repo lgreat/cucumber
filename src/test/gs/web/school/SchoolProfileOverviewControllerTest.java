@@ -23,6 +23,7 @@ import gs.web.request.RequestAttributeHelper;
 import gs.web.search.CmsFeatureSearchService;
 import gs.web.search.ICmsFeatureSearchResult;
 import gs.web.search.SolrCmsFeatureSearchResult;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.springframework.ui.ModelMap;
 import sun.management.StringFlag;
 
@@ -43,10 +44,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     State _state;
     School _school;
     District _district;
-//    CmsFeatureDao _cmsFeatureDao;
     CmsFeature _cmsFeature;
-//    IPublicationDao _publicationDaoMock;
-    int _cmsVideoContentId = 0;
     boolean _cmsEnabled;
 
     CmsFeatureSearchService _cmsFeatureSearchService;
@@ -376,65 +374,66 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void XtestSchoolTourVideoA() {
+    public void testSchoolTourVideoA() {
 
         // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
-        String cmsVideoContentId = "6857";  // This is contentId for elementary school video
+        String cmsVideoContentId = SchoolProfileOverviewController.VIDEO_ELEMENTARY;
 
         Map<String, Object> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
         assertEquals( "testSchoolTourVideoA: content wrong", "schoolTourVideo", resultsModel.get("content") );
         assertEquals( "testSchoolTourVideoA: school level wrong", "e", resultsModel.get("schoolLevel") );
-        assertTrue( "testSchoolTourVideoA: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        String contentUrl = (((String)resultsModel.get("contentUrl")));
+        assertTrue( "testSchoolTourVideoA: videoId wrong", contentUrl.indexOf(cmsVideoContentId)>=0);
         System.out.println("testSchoolTourVideoA successful");
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void XtestSchoolTourVideoB() {
+    public void testSchoolTourVideoB() {
 
         // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.HIGH);
-        String cmsVideoContentId = "6855";  // This is contentId for high school video
+        String cmsVideoContentId = SchoolProfileOverviewController.VIDEO_HIGH;
 
         Map<String, Object> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
         assertEquals( "testSchoolTourVideoB: content wrong", "schoolTourVideo", resultsModel.get("content") );
         assertEquals( "testSchoolTourVideoB: school level wrong", "h", resultsModel.get("schoolLevel") );
-        assertTrue( "testSchoolTourVideoB: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        assertTrue( "testSchoolTourVideoB: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(cmsVideoContentId))>0);
         System.out.println("testSchoolTourVideoB successful");
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void XtestSchoolTourVideoC() {
+    public void testSchoolTourVideoC() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "something", "doesnt matter what" ) );
 
         // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.PRESCHOOL);
-        String cmsVideoContentId = "6857";  // This is contentId for elementary school video
+        String cmsVideoContentId = SchoolProfileOverviewController.VIDEO_ELEMENTARY;
 
         Map<String, Object> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
         assertEquals( "testSchoolTourVideoC: content wrong", "schoolTourVideo", resultsModel.get("content") );
-        assertEquals( "testSchoolTourVideoC: school level wrong", "e", resultsModel.get("schoolLevel") );
-        assertTrue( "testSchoolTourVideoC: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        assertEquals( "testSchoolTourVideoC: school level wrong", "p", resultsModel.get("schoolLevel") );
+        assertTrue( "testSchoolTourVideoC: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(cmsVideoContentId))>0);
         System.out.println("testSchoolTourVideoC successful");
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void XtestSchoolTourVideoD() {
+    public void testSchoolTourVideoD() {
 
         // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.MIDDLE_HIGH);
-        String cmsVideoContentId = "6856";  // This is contentId for middle school video
+        String cmsVideoContentId = SchoolProfileOverviewController.VIDEO_MIDDLE;
 
         Map<String, Object> resultsModel = runCmsVideoTourModel(cmsVideoContentId);
 
         assertEquals( "testSchoolTourVideoD: content wrong", "schoolTourVideo", resultsModel.get("content") );
         assertEquals( "testSchoolTourVideoD: school level wrong", "m", resultsModel.get("schoolLevel") );
-        assertTrue( "testSchoolTourVideoD: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(Integer.toString(_cmsVideoContentId)))>0);
+        assertTrue( "testSchoolTourVideoD: videoId wrong", (((String)resultsModel.get("contentUrl")).indexOf(cmsVideoContentId))>0);
         System.out.println("testSchoolTourVideoD successful");
     }
 
@@ -1572,83 +1571,37 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         expect(_schoolProfileDataHelper.getNonPrincipalReviews(getRequest(), 5)).andReturn(null);
         expect( _schoolProfileDataHelper.getSchoolCensusValues(getRequest()) ).andReturn(null).times(1, 2);
         expect( _schoolProfileDataHelper.getSperlingsInfo(getRequest())).andReturn(null).anyTimes();
-//        expect( _schoolProfileDataHelper.getNearbySchools( getRequest(), 20 ) ).andReturn(null);
-//        expectLastCall().anyTimes();
-
-        Long contentId = new Long(_cmsVideoContentId );
-        ContentKey contentKey = new ContentKey( "video", new Long(_cmsVideoContentId) );
-        expect( _cmsFeature.getContentKey() ).andReturn(contentKey).anyTimes();
-        expect( _cmsFeature.getImageUrl() ).andReturn( "/imageUrl.gs" ).anyTimes();
-        expect( _cmsFeature.getImageAltText() ).andReturn( "alt text" ).anyTimes();
-
-//        expect( _cmsFeatureDao.get( contentId) ).andReturn(_cmsFeature).anyTimes();
-
-        Publication pub = new Publication();
-        pub.setFullUri("http://somehost/fullUri");
-//        expect( _publicationDaoMock.findByContentKey(contentKey) ).andReturn(pub).anyTimes();
-//
-//        replay( _cmsFeature );
-//        replay( _cmsFeatureDao );
-//        replay(_schoolProfileDataHelper);
-//        replay(_publicationDaoMock);
-//        _schoolProfileOverviewController.handle(map, getRequest());
-//        verify(_publicationDaoMock);
-//        verify(_schoolProfileDataHelper);
-//        verify( _cmsFeatureDao );
-//        verify( _cmsFeature );
 
         return map;
     }
 
     private Map<String, Object> runCmsVideoTourModel(String cmsVideoContentId) {
 
-        GsSolrQuery query = new GsSolrQuery();
-        query.filter(DocumentType.CMS_FEATURE);
-        query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.VIDEO_CONTENT_TYPE);
-        query.filter(CmsFeatureFields.FIELD_LANGUAGE, LanguageToggleHelper.Language.EN.name());
-        query.filter(CmsFeatureFields.FIELD_CONTENT_ID, cmsVideoContentId );
-
-        ICmsFeatureSearchResult iResult = new SolrCmsFeatureSearchResult();  // TODO Mock this
-        iResult.setFullUri("/test");
+        ICmsFeatureSearchResult iResult = createStrictMock(ICmsFeatureSearchResult.class);
+        expect(iResult.getFullUri()).andReturn("/fullUri");
+        ContentKey ck = new ContentKey();
+        ck.setType("Video");
+        ck.setIdentifier(Long.parseLong(cmsVideoContentId));
+        expect(iResult.getContentKey()).andReturn(ck);
+        expect(iResult.getImageUrl()).andReturn("imageUrl");
+        expect(iResult.getImageAltText()).andReturn("alt text");
 
         List<ICmsFeatureSearchResult> resultList = new ArrayList<ICmsFeatureSearchResult>();
         resultList.add(iResult);
         SearchResultsPage<ICmsFeatureSearchResult> searchResults = new SearchResultsPage<ICmsFeatureSearchResult>(1,resultList);
 
-//        List<ICmsFeatureSearchResult> searchResultList = searchResults.getSearchResults();
-//        ICmsFeatureSearchResult result1 = searchResultList.get(0);
-
         try {
-            expect( _cmsFeatureSearchService.search(query.getSolrQuery())).andReturn(searchResults);
+            expect( _cmsFeatureSearchService.search(isA(SolrQuery.class))).andReturn(searchResults);
         } catch (SearchException e) {
             fail("Exception creating mock for CmsFeatureSearchService: " + e.toString() );
         }
-        // ---
-//        ContentKey contentKey = new ContentKey( "video", new Long(_cmsVideoContentId) );
-//        expect( _cmsFeature.getContentKey() ).andReturn(contentKey).times(2);
-//        expect( _cmsFeature.getImageUrl() ).andReturn( "/imageUrl.gs" );
-//        expect( _cmsFeature.getImageAltText() ).andReturn( "alt text" );
-//
-//        expect( _cmsFeatureDao.get( contentId) ).andReturn(_cmsFeature);
-//
-//        Publication pub = new Publication();
-//        pub.setFullUri("http://somehost/fullUri");
-//        expect( _publicationDaoMock.findByContentKey(contentKey) ).andReturn(pub);
-//
-//        replay( _cmsFeature );
-//        replay( _cmsFeatureDao );
-//        replay(_schoolProfileDataHelper);
-//        replay(_publicationDaoMock);
 
         replay(_cmsFeatureSearchService);
+        replay(iResult);
 
         Map<String, Object> resultsModel = _schoolProfileOverviewController.getTourVideoModel(_request, _school);
 
-//        verify(_publicationDaoMock);
-//        verify(_schoolProfileDataHelper);
-//        verify( _cmsFeatureDao );
-//        verify( _cmsFeature );
-
+        verify(iResult);
         verify(_cmsFeatureSearchService);
         return resultsModel;
     }

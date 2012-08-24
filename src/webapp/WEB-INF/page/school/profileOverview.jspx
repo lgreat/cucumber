@@ -227,6 +227,7 @@
     </c:if>
 
     </div>
+<div class="">Facebook school ${schoolFacebookId}</div>
 
 <!--<mod:tracking pageName="${pageName}"
               hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"

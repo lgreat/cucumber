@@ -30,8 +30,15 @@
                 <!--</c:if>-->
             </ul>
             <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.demographics and requestScope.schoolProfileTabMap.demographics eq 'selected'?'':'dn')}">
+                <!-- Determine if there is any dat put on the display and if not show the "no data" message -->
+                <c:if test="${! empty statsRows[6]}">
+                    <c:set var="hasStudentData" value="yes"/>
+                </c:if>
                 <school:schoolProfilePieChartTable groupId="6" title="Student Ethnicity" statsTab="students" pieDivId="ethnicityPieChart" pieDataSet="${ethnicityMap}"/>
 
+                <c:if test="${! empty statsRows[13]}">
+                    <c:set var="hasStudentData" value="yes"/>
+                </c:if>
                 <school:schoolProfileStatsTable groupId="13" title="Student Subgroups" statsTab="students"/>
 
 
@@ -42,7 +49,7 @@
                     or fn:length(espResults['post_graduation_vocational']) gt 0 or fn:length(espResults['post_graduation_workforce']) gt 0
                     or fn:length(espResults['college_destination_1']) gt 0 or fn:length(espResults['college_destination_2']) gt 0 or fn:length(espResults['college_destination_3']) gt 0
                 )}">
-
+                    <c:set var="hasStudentData" value="yes"/>
                     <div class="mod standard_1-1">
                     <div class="inner">
                     <div class="hd">
@@ -200,11 +207,26 @@
                     <div class="smaller pbm tar">Source: Manually entered by a school official.</div>
                 </c:if>
 
+                <c:if test="${hasTeacherData ne 'yes'}">
+                    <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
+                    <div class="">
+                        Oops! We currently do not have any student information for this school.
+                        We rely on the state Department of Education, the National Center for Education Statistics (NCES),
+                        and in some cases school administrators such as registrars and principals for this data.
+                    </div>
+                </c:if>
             </div>
             <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.teachers and requestScope.schoolProfileTabMap.teachers eq 'selected'?'':'dn')}">
-
+                <!-- Determine if there is any dat put on the display and if not show the "no data" message -->
+                <c:if test="${! empty statsRows[5]}">
+                    <c:set var="hasTeacherData" value="yes"/>
+                </c:if>
                 <school:schoolProfileStatsTable groupId="5" title="Teacher Credentials" statsTab="teachers"/>
 
+
+                <c:if test="${! empty statsRows[14]}">
+                    <c:set var="hasTeacherData" value="yes"/>
+                </c:if>
                 <school:schoolProfileStatsTable groupId="14" title="Teacher Experience" statsTab="teachers"/>
 
 
@@ -212,6 +234,7 @@
                 <c:if test="${fn:length(espResults['administrator_name']) gt 0 or fn:length(espResults['staff_resources']) gt 0
                 or fn:length(espResults['staff_languages']) gt 0 or fn:length(espResults['staff_languages_other']) gt 0
                 }">
+                    <c:set var="hasTeacherData" value="yes"/>
                     <div class="mod standard_1-1">
                         <div class="inner">
                             <div class="hd">
@@ -301,6 +324,14 @@
     </div>
     <div class="smaller pbm tar">Source: Manually entered by a school official.</div>
 
+                </c:if>
+                <c:if test="${hasTeacherData ne 'yes'}">
+                    <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > Teachers, no data for styling guidelines -->
+                    <div class="">
+                        Oops! We currently do not have any teacher information for this school. We rely on the state Department of Education, the National Center for Education Statistics (NCES), and in some cases school administrators such as registrars and principals for this data.
+                        Content: What makes a great teacher? Study after study shows the single most important factor determining the quality of the education a child receives is the quality of his teacher. Here are some characteristics to look for »
+                        Text "Here are some characteristics to look for »"
+                    </div>
                 </c:if>
             </div>
 

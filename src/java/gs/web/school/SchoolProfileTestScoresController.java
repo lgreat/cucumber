@@ -50,6 +50,7 @@ public class SchoolProfileTestScoresController extends AbstractSchoolProfileCont
                 _log.error("School id: " + school.getId() + " in state: " + school.getDatabaseState() + " is inactive.");
                 return new ModelAndView(ERROR_VIEW, model);
             }
+            model.put("schoolType", school.getType().getSchoolTypeName());  // This is used when there is no test data
         } else {
             return new ModelAndView(ERROR_VIEW, model);
         }
