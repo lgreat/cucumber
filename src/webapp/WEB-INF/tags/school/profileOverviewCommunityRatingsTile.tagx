@@ -31,7 +31,7 @@
 
     <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdn make-555555">
         <school:profileOverviewCell1 title="${t4dc}">
-            <div class="mal" style="height:48px;">
+            <div class="mal" style="height:47px;">
 
             <div class="mha mbs clearfix" style="width:80px;">
                 <ratings:stars curSR="${overallRating}"/>

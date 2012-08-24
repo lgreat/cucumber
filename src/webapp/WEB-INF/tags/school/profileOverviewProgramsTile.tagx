@@ -24,7 +24,7 @@
             </c:set>
             <gslink:linkToTab tabName="programs-resources" anchor="Programs_table" customLink="overview_programs" cssClass="tdn make-555555">
                 <school:profileOverviewCell1 title="${t10dc}">
-                    <div class="mvm mrm" style="height:141px">
+                    <div class="mvm mrm" style="height:139px">
                         <ul class="small bottom">
                             <c:set var="showMax" value="${3}"/>
                             <c:forEach var="item" items="${programsModel['resultsList']}" varStatus="status">
@@ -46,12 +46,12 @@
                 <school:profileOverviewCell1 title="${t10s1}">
                     <c:choose>
                         <c:when test="${not empty programsModel['substitute1None']}">
-                            <div class="mam" style="height:141px">
+                            <div class="mam" style="height:139px">
                                 <p class="small_bold bottom tac">There are no parent involvement opportunities</p>
                             </div>
                         </c:when>
                         <c:otherwise>
-                            <div class="mvm mrm" style="height:141px">
+                            <div class="mvm mrm" style="height:139px">
                                 <ul class="small bottom">
                                     <c:set var="showMax" value="${3}"/>
                                     <c:forEach var="item" items="${programsModel['substitute1List']}" varStatus="status">
@@ -73,7 +73,7 @@
             </c:set>
             <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_highlights" cssClass="tdn">
                 <school:profileOverviewCell1 title="${t10s2}">
-                    <div class="mvm mrm" style="height:141px">
+                    <div class="mvm mrm" style="height:139px">
                         <ul class="small bottom make-555555">
                             <c:set var="showMax" value="${3}"/>
                             <c:forEach var="item" items="${programsModel['substitute2List']}" varStatus="status">

@@ -24,12 +24,11 @@
             </c:set>
             <gslink:linkToTab tabName="programs-resources" anchor="Resources_table" customLink="overview_transportation" cssClass="tdn make-555555">
                 <school:profileOverviewCell1 title="${t9dc}">
-                    <div class="mam" style="height:190px;">
+                    <div class="mam" style="height:150px;">
                     <c:set var="icon" value="${transportationModel['icon']}" scope="page"/>
                     <c:set var="shuttleStops" value="${transportationModel['shuttleStops']}" scope="page"/>
                     <c:set var="message" value="${transportationModel['transMsg']}" scope="page"/>
                     <div class="mha" style="width: 96px;">
-                        <div class="shim-20"><!-- do not collapse --></div>
                     <c:choose>
                         <c:when test="${icon eq 'metro'}">
                             <span class="iconx96 i-96-metro"><!-- do not collapse --></span>
@@ -67,7 +66,7 @@
                     </c:set>
                     <gslink:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn make-555555"> <!-- TODO: should custom link be something else here? -->
                         <school:profileOverviewCell1 title="${t9s1}">
-                            <div class="mam" style="height:190px;">
+                            <div class="mam" style="height:139px;">
                                 <div class="shim-50"><!-- do not collapse --></div>
                                 <p class="big bottom tac">${classSize}</p>
 
@@ -89,8 +88,9 @@
                     </c:set>
                     <gslink:linkToTab tabName="teachers" customLink="overview_stratio" cssClass="tdn make-555555">
                         <school:profileOverviewCell1 title="${t9s1}">
-                            <div class="mam" style="height:190px;">
-                                <div class="shim-50"><!-- do not collapse --></div>
+                            <div class="mam" style="height:149px;">
+                                <div class="shim-20"><!-- do not collapse --></div>
+                                <div class="shim-20"><!-- do not collapse --></div>
                                 <p class="big bottom tac">${studentsPerTeacher}</p>
 
                                 <c:choose>

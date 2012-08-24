@@ -37,17 +37,17 @@
             </c:set>
             <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'overview_district'); }" styleClass="tdn make-555555">
             <school:profileOverviewCell1 title="${t13s1}">
-                <div class="mam" style="height:156px;">
+                <div class="mam" style="height:139px;">
                     <c:set var="districtNumSchools" value="${localInfoModel['districtNumSchools']}" scope="page"/>
                     <c:set var="districtGrades" value="${localInfoModel['districtGrades']}" scope="page"/>
                     <c:set var="districtNumStudents" value="${localInfoModel['districtNumStudents']}" scope="page"/>
                     <h4 class="tac">${localInfoModel['districtName']}</h4>
                     <c:if test="${not empty districtNumSchools}">
                         <div class="line mvs">
-                                <div class="unit size70of100">
+                                <div class="unit size60of100">
                                     <p class="small bottom">Number of schools:</p>
                                 </div>
-                                <div class="unit size30of100 lastUnit">
+                                <div class="unit size40of100 lastUnit">
                                     <p class="small_bold bottom fr">${districtNumSchools}</p>
                                 </div>
                             </div>
@@ -57,10 +57,10 @@
                     <!--
                     <c:if test="${not empty districtNumStudents}">
                         <div class="line mvs">
-                            <div class="unit size70of100">
+                            <div class="unit size60of100">
                                 <p class="small bottom">Number of students:</p>
                             </div>
-                            <div class="unit size30of100 lastUnit">
+                            <div class="unit size40of100 lastUnit">
                                 <p class="small_bold bottom fr">${districtNumStudents}</p>
                             </div>
                         </div>
@@ -69,18 +69,15 @@
                     -->
                     <c:if test="${not empty districtGrades}">
                         <div class="line mvs">
-                            <div class="unit size70of100">
+                            <div class="unit size60of100">
                                 <p class="small bottom">Grades:</p>
                             </div>
-                            <div class="unit size30of100 lastUnit">
-                                <p class="small_bold bottom fr">${districtGrades}</p>
+                            <div class="unit size40of100 lastUnit">
+                                <p class="small_bold bottom fr">${gsweb:abbreviateAtWhitespace(districtGrades,10)}</p>
                             </div>
                         </div>
                     </c:if>
 
-                    <p class="small bottom tac">
-                        See district boundaries
-                    </p>
                 </div>
             </school:profileOverviewCell1>
             </link:districtBoundaryTool>
@@ -91,7 +88,7 @@
                 <p class="small_bold textshadow-1 pvs plm bottom">${gsweb:abbreviateAtWhitespace(localInfoModel['title'],26)}</p>
             </c:set>
             <school:profileOverviewCell1 title="${t13s2}">
-                <div class="mam" style="height:156px;">
+                <div class="mam" style="height:139px;">
                     <p class="small">${localInfoModel['neighborhoodInfo']}</p>
                 </div>
             </school:profileOverviewCell1>

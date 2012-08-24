@@ -372,7 +372,7 @@ background-position:right bottom;
 
 .infiniteCarousel9{
     width: 414px;
-    height: 88px;
+    height: 87px;
     position: relative;
     margin:0;
     outline:0;
@@ -385,9 +385,9 @@ background-position:right bottom;
     clear:both;
     width: 320px; /* .infiniteCarousel9 width - (.wrapper margin-left + .wrapper margin-right) */
     overflow: hidden;
-    height: 60px;
+    height: 40px;
     position: absolute;
-    top: 10px;
+    top: 20px;
     left: 47px;
 }
 
@@ -407,7 +407,7 @@ background-position:right bottom;
     float: left;
     padding: 0 5px;
     width: 320px;
-    height: 60px;
+    height: 40px;
 }
 
 .infiniteCarousel9 .arrow {

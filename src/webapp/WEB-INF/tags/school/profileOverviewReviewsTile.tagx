@@ -38,7 +38,7 @@
                                 <ul class="unordered-carousel none">
                                     <c:forEach var="review" items="${reviews}">
                                         <li>
-                                            <p class="bottom phs"><em>${gsweb:abbreviateAtWhitespace(review.comments, 130)}</em></p>
+                                            <p class="bottom phs"><em>${gsweb:abbreviateAtWhitespace(review.comments, 80)}</em></p>
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -46,7 +46,7 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="mvl mhm" style="height: 48px;">
+                        <div class="mvl mhm" style="height: 47px;">
                             <p class="tac">
                                 <strong>Is this your school?</strong><br/>
                                 <em>Be the first to review it and help out other families.</em>

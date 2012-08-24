@@ -48,12 +48,12 @@
                     <c:set var="extdCareBeforeTime"   value="${specialEdModel['ExtdCareBeforeTime']}" scope="page" />
                     <c:set var="extdCareAfterTime"    value="${specialEdModel['ExtdCareAfterTime']}"  scope="page" />
 
-                    <div class="mam" style="height:87px;">
+                    <div class="mhm" style="height:66px;">
                     <c:choose>
                         <c:when test="${not empty specEdPgms}">
                             <p class="small_bold bottom">The school offers support for:</p>
                                 <ul class="small bottom">
-                                    <c:set var="showMax" value="${3}"/>
+                                    <c:set var="showMax" value="${2}"/>
                                     <c:forEach var="item" items="${specEdPgms}" varStatus="status">
                                         <c:if test="${status.count le showMax}">
                                             <li>${gsweb:abbreviateAtWhitespace(item,30)}</li>
@@ -149,7 +149,7 @@
             <gslink:linkToTab tabName="programs-resources" cssClass="tdn make-555555" customLink="overview_staff">
                 <school:profileOverviewCell1 title="${t8s1}">
                     <c:set var="sentence"    value="${specialEdModel['teachersStaff']}"  scope="page" />
-                    <div class="mam" style="height:190px;">
+                    <div class="mam" style="height:149px;">
                         <p class="small bottom">${gsweb:abbreviateAtWhitespace(sentence,150)}</p>
                     </div>
                 </school:profileOverviewCell1>

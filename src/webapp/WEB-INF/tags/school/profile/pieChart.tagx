@@ -25,7 +25,7 @@
         </c:forEach>
     ]</c:set>
     <c:set var="chartParameters">${pieData},'${chartDrawDivId}',${cSize},${catchClick}</c:set>
-    <div id="${chartDrawDivId}" style="width: ${cSize}px; height: ${cSize}px;"><!-- do not collapse --></div>
+    <div id="${chartDrawDivId}" class="mha" style="width: ${cSize+6}px; height: ${cSize}px;"><!-- do not collapse --></div>
 
     <script type="text/javascript">
         google.setOnLoadCallback(function(){ drawPieChart(${chartParameters}) });
