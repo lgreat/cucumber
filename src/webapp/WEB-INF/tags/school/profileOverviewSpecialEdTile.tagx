@@ -59,7 +59,7 @@
                                     <c:if test="${status.count le loopSpecEdMax}">
                                         <li>${gsweb:abbreviateAtWhitespace(item,30)}</li>
                                     </c:if>
-                                    <c:if test="${status.count eq loopSpecEdMax and showSpecEdMax}">
+                                    <c:if test="${status.count eq loopSpecEdMax and showMoreSpecEd}">
                                         <li><span class="make-06b">More &amp;raquo;</span></li>
                                     </c:if>
                                 </c:forEach>
