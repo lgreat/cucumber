@@ -55,7 +55,13 @@ GS.profile = GS.profile || (function() {
 
 
     var init = function() {
-        jQuery('[data-gs-tabs]').gsTabs();
+        //jQuery('[data-gs-tabs]').gsTabs();
+        $('.gsTabs').each(function() {
+            var $this = $(this);
+            var key = $this.data('gs-tabs') || $this;
+            var tabsModule = new GS.Tabs($this, key);
+            tabsModule.showTabs();
+        });
 
         setupTabClickHandlers();
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {

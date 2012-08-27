@@ -23,7 +23,7 @@ GS.tabManager = (function() {
 
     var tabClickHandler = function($a, tabModule) {
         var allowInterceptHovers = tabModule.allowInterceptHovers;
-        if (!allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
+        if (typeof mssAutoHoverInterceptor === 'undefined' || !allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
             var tabName = getTabName($a);
             GS.tabManager.showTabWithOptions({
                 tab:tabName

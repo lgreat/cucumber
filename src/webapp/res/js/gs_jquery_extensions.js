@@ -567,23 +567,42 @@ var GS_changeHistory = function(title, url) {
 
 (function($) {
     // extend the core jQuery with gsTabs
+    // this jQuery extension should only be needed for school search form on results pages, facebook comments, and index-mobile
+    // for new pages consider using tabs.js module
     $.fn.extend({
         showTab : function(skipHistory) {
             return this.each(function() {
-                var $this = $(this);
-                var tabName = GS.tabManager.getTabName($this);
-                GS.tabManager.showTabWithOptions({
-                    tab:tabName,
-                    skipHistory:skipHistory
-                });
+                var $a = $(this);
+                var tabNav = $a.parent().parent();
+                            var $layers = tabNav.siblings('div');
+                $layers.hide(); // hide all layers
+                var tabNum = tabNav.find('li').index($a.parent());// find reference to the content
+                $layers.eq(tabNum).show();// show the content
+                tabNav.find('li a').removeClass('selected');// turn all of them off
+                tabNav.find('li #arrowdiv').removeClass('selected');// turn all of them off
+                $a.addClass('selected');// turn selected on
+                $a.siblings().addClass('selected');// turn selected on
+                if (!skipHistory) {
+                    GS_changeHistory($a.attr('title'), $a.attr('href') );
+                }
             });
         },
         gsTabs : function() {
             return this.each(function() {
-                var $this = $(this);
-                var key = $this.data('gs-tabs') || $this;
-                var tabsModule = new GS.Tabs($this, key);
-                tabsModule.showTabs();
+                var tab = $(this);
+                var allowInterceptHovers = tab.data('gs-allow-intercept-hovers');
+                var tabNav = tab.find('ul:first'); // get only the first ul not all of the descendents
+                var showHome = tabNav.find('.selected').length;
+                if(!showHome) {
+                   tabNav.find('li:first a').addClass('selected').siblings().addClass('selected');
+                   tab.children('div:first').show();
+                }
+                tabNav.find('li').each(function(){
+                    $(this).find('a').click(function(){ //When any link is clicked
+                        $(this).showTab();
+                        return false;
+                    });
+                });
             });
         }
     });
