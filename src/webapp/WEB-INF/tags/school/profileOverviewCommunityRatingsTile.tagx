@@ -27,9 +27,19 @@
 
     <c:set var="t4dc">
         <p class="small_bold textshadow-1 pvs plm bottom make-555555">Community ratings</p>
+        <c:choose>
+            <c:when test="${overallRating eq 0}">
+                <p class="small js-popup" style="width:52px;"><span class="fr">Rate it &amp;raquo;</span></p>
+            </c:when>
+            <c:otherwise>
+                <p class="small js-popup" style="width:52px;"><span class="fr">More &amp;raquo;</span></p>
+            </c:otherwise>
+        </c:choose>
+        <div class="clearfloat"><!-- do not collapse --></div>
     </c:set>
 
-    <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdn make-555555">
+    <div id="js-tile-4-0">
+    <gslink:linkToTab tabName="reviews" customLink="overview_communityrating" cssClass="tdn make-555555 js-trigger">
         <school:profileOverviewCell1 title="${t4dc}">
             <div class="mal" style="height:47px;">
 
@@ -49,5 +59,6 @@
             </div>
         </school:profileOverviewCell1>
     </gslink:linkToTab>
+    </div>
 
 </jsp:root>

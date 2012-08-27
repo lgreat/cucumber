@@ -21,15 +21,29 @@
 
     <c:set var="t5t6dc">
         <p class="small_bold textshadow-1 pvs plm bottom">Community reviews</p>
+        <c:choose>
+            <c:when test="${content eq 'reviews'}">
+                <p class="small js-popup" style="width:120px;"><span class="fr">See all ${fn:length(reviews)} reviews &amp;raquo;</span></p>
+            </c:when>
+            <c:otherwise>
+                <p class="small js-popup" style="width:120px;"><span class="fr">Review this school &amp;raquo;</span></p>
+            </c:otherwise>
+        </c:choose>
+        <div class="clearfloat"><!-- do not collapse --></div>
     </c:set>
-    <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content eq 'reviews'}" cssClass="tdn make-555555">
+
+    <c:choose>
+    <c:when test="${content eq 'reviews'}">
+
     <div class="mod standard_1-1">
         <div class="inner box-shadow-animation-1">
-            <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content ne 'reviews'}" cssClass="tdn make-555555">
-                <div class="hd">
+            <div id="js-tile-5-0">
+            <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content ne 'reviews'}" cssClass="tdn make-555555 js-trigger">
+                <div class="hd pr">
                     ${t5t6dc}
                 </div>
             </gslink:linkToTab>
+                </div>
             <div class="bd">
                 <c:choose>
                     <c:when test="${content eq 'reviews'}">
@@ -57,7 +71,48 @@
             </div>
         </div>
     </div>
-    </gslink:linkToTab>
 
+    </c:when>
+    <c:otherwise>
+
+        <div id="js-tile-5-0">
+        <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content eq 'reviews'}" cssClass="tdn make-555555 js-trigger">
+            <div class="mod standard_1-1">
+                <div class="inner box-shadow-animation-1">
+                        <div class="hd pr">
+                            ${t5t6dc}
+                        </div>
+                    <div class="bd">
+                        <c:choose>
+                            <c:when test="${content eq 'reviews'}">
+                                <div class="infiniteCarousel9">
+                                    <div class="wrapper">
+                                        <ul class="unordered-carousel none">
+                                            <c:forEach var="review" items="${reviews}">
+                                                <li>
+                                                    <p class="bottom phs"><em>${gsweb:abbreviateAtWhitespace(review.comments, 80)}</em></p>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="mvl mhm" style="height: 47px;">
+                                    <p class="tac">
+                                        <strong>Is this your school?</strong><br/>
+                                        <em>Be the first to review it and help out other families.</em>
+                                    </p>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+                </div>
+            </div>
+        </gslink:linkToTab>
+        </div>
+
+    </c:otherwise>
+    </c:choose>
 
 </jsp:root>

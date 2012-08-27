@@ -17,15 +17,19 @@
         <c:when test="${content eq 'video'}">
             <c:set var="t3dc">
                 <p class="small_bold textshadow-1 pvs plm bottom make-555555">Videos</p>
+                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
+                <div class="clearfloat"><!-- do not collapse --></div>
             </c:set>
 
                 <div class="mod standard_1-1">
                     <div class="inner box-shadow-animation-1">
-                        <gslink:linkToTab tabName="culture" cssClass="tdn">
-                            <div class="hd">
-                                ${t3dc}
-                            </div>
-                        </gslink:linkToTab>
+                        <div id="js-tile-3-0">
+                            <gslink:linkToTab tabName="culture" cssClass="tdn make-555555 js-trigger">
+                                <div class="hd pr">
+                                    ${t3dc}
+                                </div>
+                            </gslink:linkToTab>
+                        </div>
                         <a onclick="if (s.tl) { s.tl(this, 'o', 'overview_videos'); }" class="tdn" href="${videoUrl}" target="_blank">
                             <div class="bd">
                                 <div class="mam" style="height:139px;">
