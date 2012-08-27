@@ -207,7 +207,7 @@
                     <div class="smaller pbm tar">Source: Manually entered by a school official.</div>
                 </c:if>
 
-                <c:if test="${hasTeacherData ne 'yes'}">
+                <c:if test="${hasStudentData ne 'yes'}">
                     <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
                     <div class="">
                         Oops! We currently do not have any student information for this school.
