@@ -219,9 +219,16 @@
                 <li>
                 <span class="media">
                     <span class="img iconx16 i-16-save mrs"><!-- do not collapse --></span>
-                    <link:mySchoolList styleClass="bd" school="${school}"
-                                       onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
-                                       anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
+                    <c:choose>
+                        <c:when test="${not empty schoolInMSL and schoolInMSL eq true}">
+                            Added to <link:mySchoolList>My School List</link:mySchoolList>
+                        </c:when>
+                        <c:otherwise>
+                            <link:mySchoolList styleClass="bd" school="${school}"
+                                               onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
+                                               anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
+                        </c:otherwise>
+                    </c:choose>
                 </span>
                 </li>
                 <li class="mll">

@@ -1,10 +1,14 @@
 package gs.web.school;
 
+import gs.data.community.FavoriteSchool;
+import gs.data.community.User;
 import gs.data.school.School;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.UrlBuilder;
+import gs.web.util.context.SessionContext;
+import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +35,19 @@ public class SchoolProfileController extends AbstractSchoolController implements
         School school = _requestAttributeHelper.getSchool(request);
         model.put("school", school);
 
+        SessionContext sc = SessionContextUtil.getSessionContext(request);
+        User user = sc.getUser();
+        if (user != null) {
+            Set<FavoriteSchool> favoriteSchools = user.getFavoriteSchools();
+            if (favoriteSchools != null && favoriteSchools.size() > 0) {
+                for (FavoriteSchool fave: favoriteSchools) {
+                    if (fave.getState().equals(school.getDatabaseState())
+                            && fave.getSchoolId().equals(school.getId())) {
+                        model.put("schoolInMSL", true);
+                    }
+                }
+            }
+        }
         // Create a map on the request used to save references to data that is to be reused.
         // This needs to be done early in the request cycle or the item attached to the request can be lost.
         AbstractDataHelper.initialize( request );
