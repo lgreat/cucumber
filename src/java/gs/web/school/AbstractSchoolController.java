@@ -14,12 +14,15 @@ import gs.web.util.UrlBuilder.VPage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 import org.springframework.web.servlet.mvc.LastModified;
 import org.springframework.web.servlet.support.WebContentGenerator;
+
+import java.util.Map;
 
 /**
  * This class is intended to be the base class for School Profile pages and other pages that need
@@ -104,6 +107,20 @@ public abstract class AbstractSchoolController extends WebContentGenerator imple
                     // 301-redirect if discrepancy between expected url and actual url, e.g. due to uppercase/lowercase in school name or change in school name
                     String ruri = request.getRequestURI(), urlb = urlBuilder.asSiteRelative(request);
                     if (!ruri.equals(urlb)) {
+                        if (s.isSchoolForNewProfile()) {
+                            try {
+                                urlBuilder.addParametersFromRequest(request);
+                                // filter out certain parameters we don't want passed through
+                                urlBuilder.removeParameter("state");
+                                urlBuilder.removeParameter("id");
+                                String tabParam = request.getParameter("tab");
+                                if (tabParam != null && StringUtils.equals(tabParam, NewProfileTabs.overview.getParameterValue())) {
+                                    urlBuilder.removeParameter("tab");
+                                }
+                            } catch (Exception e) {
+                                _log.error("Error preserving URL parameters", e);
+                            }
+                        }
                         return new ModelAndView(new RedirectView301(urlBuilder.asFullUrl(request)));
                     }
                 }
