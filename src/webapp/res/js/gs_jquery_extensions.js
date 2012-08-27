@@ -280,6 +280,13 @@ jQuery(document).ready(function() {
     jQuery('#js-tile-3-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
     jQuery('#js-tile-4-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:140,topPosition:5});
     jQuery('#js-tile-5-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:285,topPosition:5});
+    jQuery('#js-tile-7-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-8-0-1').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-8-0-2').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-8-1').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-9-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-9-1-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-9-1-1').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
 });
 
 /* =3 alternateRowColors (table stripping plugin)

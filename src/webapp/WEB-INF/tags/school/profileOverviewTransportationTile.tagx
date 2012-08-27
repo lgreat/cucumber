@@ -21,8 +21,12 @@
         <c:when test="${content eq 'default'}">
             <c:set var="t9dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Transportation</p>
+                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
+                <div class="clearfloat"><!-- do not collapse --></div>
             </c:set>
-            <gslink:linkToTab tabName="programs-resources" anchor="Resources_table" customLink="overview_transportation" cssClass="tdn make-555555">
+
+            <div id="js-tile-9-0">
+            <gslink:linkToTab tabName="programs-resources" anchor="Resources_table" customLink="overview_transportation" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t9dc}">
                     <div class="mam" style="height:150px;">
                     <c:set var="icon" value="${transportationModel['icon']}" scope="page"/>
@@ -54,6 +58,7 @@
                     </div>
                 </school:profileOverviewCell1>
             </gslink:linkToTab>
+            </div>
         </c:when>
 
         <c:when test="${content eq 'substitute1'}">
@@ -63,8 +68,12 @@
                 <c:when test="${not empty classSize}">
                     <c:set var="t9s1">
                         <p class="small_bold textshadow-1 pvs plm bottom">Average class size</p>
+                        <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
+                        <div class="clearfloat"><!-- do not collapse --></div>
                     </c:set>
-                    <gslink:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn make-555555"> <!-- TODO: should custom link be something else here? -->
+
+                    <div id="js-tile-9-1-0">
+                    <gslink:linkToTab tabName="programs-resources" customLink="overview_stratio" cssClass="tdn make-555555 js-trigger"> <!-- TODO: should custom link be something else here? -->
                         <school:profileOverviewCell1 title="${t9s1}">
                             <div class="mam" style="height:139px;">
                                 <div class="shim-50"><!-- do not collapse --></div>
@@ -81,12 +90,18 @@
                             </div>
                         </school:profileOverviewCell1>
                     </gslink:linkToTab>
+                    </div>
+
                 </c:when>
                 <c:otherwise>
                     <c:set var="t9s1">
                         <p class="small_bold textshadow-1 pvs plm bottom">Students per teacher</p>
+                        <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
+                        <div class="clearfloat"><!-- do not collapse --></div>
                     </c:set>
-                    <gslink:linkToTab tabName="teachers" customLink="overview_stratio" cssClass="tdn make-555555">
+
+                    <div id="js-tile-9-1-1">
+                    <gslink:linkToTab tabName="teachers" customLink="overview_stratio" cssClass="tdn make-555555 js-trigger">
                         <school:profileOverviewCell1 title="${t9s1}">
                             <div class="mam" style="height:149px;">
                                 <div class="shim-20"><!-- do not collapse --></div>
@@ -104,6 +119,8 @@
                             </div>
                         </school:profileOverviewCell1>
                     </gslink:linkToTab>
+                    </div>
+
                 </c:otherwise>
             </c:choose>
         </c:when>
