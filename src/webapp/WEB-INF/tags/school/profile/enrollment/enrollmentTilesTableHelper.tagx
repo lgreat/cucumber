@@ -5,16 +5,29 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
 
-    <c:if test="${fn:length(planningAhead) gt 0}">
+    <jsp:directive.attribute name="rowList" type="java.util.List" required="true"/>
+    <jsp:directive.attribute name="tableTitle" type="java.lang.String" required="true"/>
+    <jsp:directive.attribute name="acceptanceHeader" type="java.lang.Boolean" required="false"/>
+    <c:if test="${fn:length(rowList) gt 0}">
         <div class="mod standard_1-1 ptm">
             <div class="inner">
                 <div class="hd">
-                    <h4 class="pvm plm bottom" id="">Planning Ahead</h4>
+                    <h4 class="pvm plm bottom" id="">${tableTitle}</h4>
                 </div>
-                <div class="bd pan">
+                <div class="bd">
                     <table class="tableType1" border="0"><col width="210"/><col width="auto"/>
+                        <c:if test="${acceptanceHeader}">
+                            <div class="spacer_5">
+                                <hr class="keyline2"/>
+                                <p>
+                                    <span class = "medium_bold">${acceptanceRate} out of 10</span>
+                                    <span class="small"> Students were accepted for the ${acceptanceRateYear} school year.</span>
+                                </p>
+                                <hr class="keyline2"/>
+                            </div>
+                        </c:if>
                         <tbody class="striped">
-                        <c:forEach var="row" items="${planningAhead}" varStatus="status">
+                        <c:forEach var="row" items="${rowList}" varStatus="status">
                             <c:choose>
                                 <c:when test='${(status.index+1)%2 eq 0}'>
                                     <c:set var="rowColor" value="even" scope="page"/>
@@ -24,10 +37,10 @@
                                 </c:otherwise>
                             </c:choose>
                             <tr class="${rowColor}">
-                                <td>${row.planningAheadQuestion}</td>
+                                <td>${row.question}</td>
                                 <!-- Now display the data by looping over each data element -->
                                 <td>
-                                    <c:forEach var="value" items="${row.planningAheadResponse}">
+                                    <c:forEach var="value" items="${row.response}">
                                         <div class="">${value}</div>
                                     </c:forEach>
                                 </td>

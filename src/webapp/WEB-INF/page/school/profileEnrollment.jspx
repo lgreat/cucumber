@@ -18,12 +18,20 @@
 
     <c:choose>
         <c:when test="${apply.learnMoreUrl != null and apply.learnMoreUrl != ''}">
-            <c:set var="linkFindOutMore" value="&lt;a href='${apply.learnMoreUrl}' target='_blank'&gt;Learn more about enrolling at this school&lt;/a&gt;"/>
-            <c:set var="linkApplyNow" value="&lt;a href='${apply.learnMoreUrl}' target='_blank'&gt;&lt;button class='button-1-big mtm' value='Apply now'&gt;Apply now&lt;/button&gt;&lt;/a&gt;"/>
+            <c:set var="linkFindOutMore">
+                <a href="${apply.learnMoreUrl}" target="_blank">Learn more about enrolling at this school</a>
+            </c:set>
+            <c:set var="linkApplyNow">
+                <a href="${apply.learnMoreUrl}" target="_blank">
+                    <button class="button-1-big mtm" value="Apply now">Apply now</button>
+                </a>
+            </c:set>
         </c:when>
         <c:otherwise>
             <c:set var="linkFindOutMore" value="To learn more about enrolling, please call the school."/>
-            <c:set var="linkApplyNow" value="&lt;!-- do not delete --&gt;"/>
+            <c:set var="linkApplyNow">
+                <!-- do not delete -->
+            </c:set>
         </c:otherwise>
     </c:choose>
 
@@ -86,7 +94,12 @@
                             <div class="unit size2of100">&amp;nbsp;</div>
                             <div class="unit size66of100">
                                 <enrollment:recommendedReading school="${school}" />
-                                <enrollment:planningAheadModule/>
+                                <enrollment:enrollmentTilesTableHelper tableTitle="What are your chances?"
+                                                              rowList="${chances}" acceptanceHeader="${not empty acceptanceRate}"/>
+                                <enrollment:enrollmentTilesTableHelper tableTitle="What does it cost?"
+                                                              rowList="${cost}"/>
+                                <enrollment:enrollmentTilesTableHelper tableTitle="Planning Ahead"
+                                                                rowList="${planningAhead}"/>
                             </div>
                         </div>
                     </c:when>
@@ -99,7 +112,8 @@
                             <div class="unit size66of100 lastUnit">
                                 <enrollment:applyModule viewType="6" />
                                 <enrollment:recommendedReading school="${school}" />
-                                <enrollment:planningAheadModule/>
+                                <enrollment:enrollmentTilesTableHelper tableTitle="Planning Ahead"
+                                                                rowList="${planningAhead}"/>
                                 <div class="line">
                                     <div class="unit size49of100">
                                         <enrollment:districtBoundaryModule school="${school}" />

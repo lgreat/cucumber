@@ -37,9 +37,13 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
     private static final String MODEL_NUM_MONTHS_PAST_DEADLINE = "monthsPastDeadline";
 
     private static final String MODEL_PLANNING_AHEAD = "planningAhead";
-    private static String MODEL_PLANNING_AHEAD_RESPONSE = "planningAheadResponse";
-    private static final String MODEL_PLANNING_AHEAD_QUESTION = "planningAheadQuestion";
+    private static final String MODEL_CHANCES = "chances";
+    private static final String MODEL_COST = "cost";
     private static final String MODEL_NUM_RESPONSE = "numResponse";
+    private static final String MODEL_QUESTION = "question";
+    private static final String MODEL_RESPONSE = "response";
+    private static final String MODEL_CHANCES_ACCEPTANCE_RATE = "acceptanceRate";
+    private static final String MODEL_CHANCES_ACCEPTANCE_RATE_YEAR = "acceptanceRateYear";
 
     private static final String[] PLANNING_AHEAD_PG_KEYS = {"_2yr", "_4yr", "_military", "_vocational", "_workforce",
             "_year"};
@@ -70,9 +74,16 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
     }
 
     private void handleEspPage(Map model, HttpServletRequest request, School school, Map<String,List<EspResponse>> espData) {
-        model.put( MODEL_APPLY, getApplInfoEspTile(request, school, espData) );
+        Map applyTileMap = getApplInfoEspTile(request, school, espData);
+        model.put( MODEL_APPLY, applyTileMap );
 
         model.put( MODEL_PLANNING_AHEAD, getPlanningAheadEspTile(request, school, espData) );
+
+        if((Boolean) applyTileMap.get("hasApplicationProcess")) {
+            model.put(MODEL_CHANCES, getChancesEspTile(model, request, school, espData));
+        }
+
+        model.put(MODEL_COST, getCostEspTile(request, school, espData));
     }
 
     Map getApplInfoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
@@ -106,8 +117,8 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
             if(appDeadlineResponse != null && appDeadlineResponse.size() > 0) {
                 applicationDeadline = appDeadlineResponse.get(0).getValue();
             }
-            if(appDeadlineDateResponse != null && appDeadlineDateResponse.size() > 0) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("mm/dd/yyyy");
+            if("date".equalsIgnoreCase(applicationDeadline) && appDeadlineDateResponse != null && appDeadlineDateResponse.size() > 0) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                 try {
                     applicationDeadlineDate = dateFormat.parse(appDeadlineDateResponse.get(0).getValue());
                 }
@@ -187,9 +198,9 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
             }
         }
         if(numDest > 0) {
-            destinationSchoolRow.put(MODEL_PLANNING_AHEAD_RESPONSE, destinationResponseValues);
+            destinationSchoolRow.put(MODEL_RESPONSE, destinationResponseValues);
             destinationSchoolRow.put(MODEL_NUM_RESPONSE, numDest);
-            destinationSchoolRow.put(MODEL_PLANNING_AHEAD_QUESTION, "Students typically attend these schools after graduating");
+            destinationSchoolRow.put(MODEL_QUESTION, "Students typically attend these schools after graduating");
             rows.add(destinationSchoolRow);
         }
 
@@ -202,14 +213,18 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
                 collegePreparation.addAll(espData.get("college_prep_other"));
             }
             for(int i = 1; i <= collegePreparation.size(); i++) {
-                collegePrepResponseValues.add(collegePreparation.get(i-1).getPrettyValue());
+                String response = collegePreparation.get(i-1).getPrettyValue();
+                if(collegePreparation.size() > 1 && "none".equalsIgnoreCase(response)) {
+                    continue;
+                }
+                collegePrepResponseValues.add(response);
             }
             numCollegePrepResponse = collegePreparation.size();
         }
         if(numCollegePrepResponse > 0) {
-            collegePrepRow.put(MODEL_PLANNING_AHEAD_RESPONSE, collegePrepResponseValues);
+            collegePrepRow.put(MODEL_RESPONSE, collegePrepResponseValues);
             collegePrepRow.put(MODEL_NUM_RESPONSE, numCollegePrepResponse);
-            collegePrepRow.put(MODEL_PLANNING_AHEAD_QUESTION, "College preparation / awareness  offered");
+            collegePrepRow.put(MODEL_QUESTION, "College preparation / awareness  offered");
             rows.add(collegePrepRow);
         }
 
@@ -236,10 +251,144 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
             }
         }
         if(numPgPlans > 0) {
-            pgPlansRow.put(MODEL_PLANNING_AHEAD_RESPONSE, pgPlansResponseValues);
-            pgPlansRow.put(MODEL_PLANNING_AHEAD_QUESTION, "Students' post-graduation plans in " + pgPlansYear.get(0).getValue());
+            pgPlansRow.put(MODEL_RESPONSE, pgPlansResponseValues);
+            pgPlansRow.put(MODEL_QUESTION, "Students' post-graduation plans in " + pgPlansYear.get(0).getValue());
             pgPlansRow.put(MODEL_NUM_RESPONSE, numPgPlans);
             rows.add(pgPlansRow);
+        }
+
+        return rows;
+    }
+
+    List getChancesEspTile(Map model, HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+        List<Map> rows = new ArrayList<Map>();
+
+        List<EspResponse> studentsAcceptedYear = espData.get("students_accepted_year");
+        List<EspResponse> applicationsReceivedYear = espData.get("applications_received_year");
+        String studentsAcceptedYrResponse = null;
+        String studentsAcceptedForYear = null;
+        String applRecvdYearResponse = null;
+        String applRecvdForYear = null;
+
+        if(studentsAcceptedYear != null && studentsAcceptedYear.size() > 0) {
+            Map<String, Object> studentsAcceptedRow = new HashMap<String, Object>();
+            studentsAcceptedYrResponse = studentsAcceptedYear.get(0).getValue();
+            List<EspResponse> studentsAccepted = espData.get("students_accepted");
+            if(studentsAccepted != null && studentsAccepted.size() > 0) {
+                studentsAcceptedRow.put(MODEL_QUESTION, "Students accepted for the " +
+                        studentsAcceptedYrResponse + " school year");
+                studentsAcceptedForYear = studentsAccepted.get(0).getValue();
+                studentsAcceptedRow.put(MODEL_RESPONSE, studentsAcceptedForYear);
+                rows.add(studentsAcceptedRow);
+            }
+        }
+
+        if(applicationsReceivedYear != null && applicationsReceivedYear.size() > 0) {
+            Map<String, Object> applicationsReceivedRow = new HashMap<String, Object>();
+            applRecvdYearResponse = applicationsReceivedYear.get(0).getValue();
+            List<EspResponse> applicationsReceived = espData.get("applications_received");
+            if(applicationsReceived != null && applicationsReceived.size() > 0) {
+                applicationsReceivedRow.put(MODEL_QUESTION, "Applications received for the " +
+                        applRecvdYearResponse + " school year");
+                applRecvdForYear = applicationsReceived.get(0).getValue();
+                applicationsReceivedRow.put(MODEL_RESPONSE, applRecvdForYear);
+                rows.add(applicationsReceivedRow);
+            }
+        }
+
+        if(studentsAcceptedYrResponse != null && studentsAcceptedForYear != null && applRecvdYearResponse != null &&
+                applRecvdForYear !=null && studentsAcceptedYrResponse.equals(applRecvdYearResponse)) {
+            double percentage = (Double.parseDouble(studentsAcceptedForYear)/Double.parseDouble(applRecvdForYear))*10;
+            Double acceptance = Math.ceil(percentage);
+            if(percentage <= 1) {
+                acceptance = 1.0;
+            }
+            else if (percentage > 10) {
+                acceptance = 10.0;
+            }
+            model.put(MODEL_CHANCES_ACCEPTANCE_RATE, acceptance.intValue());
+            model.put(MODEL_CHANCES_ACCEPTANCE_RATE_YEAR, applRecvdYearResponse);
+        }
+
+        Map<String, Object> studentsComeFromRow = new HashMap<String, Object>();
+        List<String> schools = new ArrayList<String>();
+        for(int i = 1; i < 4; i++) {
+            List<EspResponse> schoolResponse = espData.get("feeder_school_" + i);
+            if(schoolResponse != null && schoolResponse.size() > 0) {
+                schools.add(schoolResponse.get(0).getValue());
+            }
+        }
+        if(schools.size() > 0) {
+            studentsComeFromRow.put(MODEL_QUESTION, "Students typically come from these schools");
+            studentsComeFromRow.put(MODEL_RESPONSE, schools);
+            rows.add(studentsComeFromRow);
+        }
+
+        return rows;
+    }
+
+    List getCostEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+        List<Map> rows = new ArrayList<Map>();
+
+        Map<String, Object> tuitionFeeRow = new HashMap<String, java.lang.Object>();
+        List<EspResponse> tuitionYear = espData.get("tuition_year");
+        List<EspResponse> tuitionLow = espData.get("tuition_low");
+        List<EspResponse> tuitionHigh = espData.get("tuition_high");
+        if(tuitionYear != null && tuitionYear.size() > 0 && tuitionLow != null && tuitionLow.size() > 0 &&
+                tuitionHigh != null && tuitionHigh.size() > 0) {
+            tuitionFeeRow.put(MODEL_QUESTION, "Tuition range for the " + tuitionYear.get(0).getValue() + " school year");
+            tuitionFeeRow.put(MODEL_RESPONSE, tuitionLow.get(0).getValue() + " - " + tuitionHigh.get(0).getValue());
+            rows.add(tuitionFeeRow);
+        }
+
+        Map<String, Object> vouchersAcceptedRow = new HashMap<String, Object>();
+        List<EspResponse> vouchers = espData.get("students_vouchers");
+        if(vouchers != null && vouchers.size() > 0) {
+            vouchersAcceptedRow.put(MODEL_QUESTION, "Vouchers accepted");
+            vouchersAcceptedRow.put(MODEL_RESPONSE, vouchers.get(0).getPrettyValue());
+            rows.add(vouchersAcceptedRow);
+        }
+
+        Map<String, Object> financialAidRow = new HashMap<String, Object>();
+        List<EspResponse> financialAid = espData.get("financial_aid");
+        if(financialAid != null && financialAid.size() > 0) {
+            String financialAidResponse = financialAid.get(0).getPrettyValue();
+            financialAidRow.put(MODEL_QUESTION, "Financial aid offered");
+
+            List<String> financialAidTypeResponses = new ArrayList<String>();
+            financialAidTypeResponses.add(financialAidResponse + ".");
+            List<EspResponse> financialAidTypes = espData.get("financial_aid_type");
+            if("Yes".equalsIgnoreCase(financialAidResponse) && financialAidTypes != null && financialAidTypes.size() > 0) {
+                for(int i = 0; i < financialAidTypes.size(); i++) {
+                    financialAidTypeResponses.add(financialAidTypes.get(i).getPrettyValue());
+                }
+            }
+            financialAidRow.put(MODEL_RESPONSE, financialAidTypeResponses);
+            rows.add(financialAidRow);
+        }
+
+        Map<String, Object> applicationFeeRow = new HashMap<String, Object>();
+        List<EspResponse> applicationFee = espData.get("application_fee");
+        if(applicationFee != null && applicationFee.size() > 0) {
+            applicationFeeRow.put(MODEL_QUESTION, "Application fee");
+            List<String> applicationFeeResponse = new ArrayList<String>();
+            StringBuilder applicationFeeAmountResponse = new StringBuilder(applicationFee.get(0).getPrettyValue());
+
+            List<EspResponse> applicationFeeAmount = espData.get("application_fee_amount");
+            if("Yes".equalsIgnoreCase(applicationFeeAmountResponse.toString()) && applicationFeeAmount != null &&
+                    applicationFeeAmount.size() > 0) {
+                applicationFeeAmountResponse.append(". $" + applicationFeeAmount.get(0).getValue() + ".");
+                applicationFeeResponse.add(applicationFeeAmountResponse.toString());
+                List<EspResponse> feeWaivers = espData.get("fee_waivers");
+                if(feeWaivers != null && feeWaivers.size() > 0) {
+                    applicationFeeResponse.add(feeWaivers.get(0).getPrettyValue());
+                }
+            }
+            else {
+                applicationFeeResponse.add(applicationFeeAmountResponse.toString());
+            }
+            applicationFeeRow.put(MODEL_RESPONSE, applicationFeeResponse);
+            rows.add(applicationFeeRow);
         }
 
         return rows;

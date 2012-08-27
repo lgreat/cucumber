@@ -29,12 +29,14 @@
                                 <h2 class="bottom">${deadlineDate}</h2>
                             </div>
                             <div class="unit size2of100">&amp;nbsp;</div>
-                            <div class="unit size11of100">
-                                <div class="grayBox small bottom">
-                                    <span class="numberFormat">${deadlineDaysLeft}</span><br />
-                                    days left!
+                            <c:if test="${not empty deadlineDaysLeft}">
+                                <div class="unit size11of100">
+                                    <div class="grayBox small bottom">
+                                        <span class="numberFormat">${deadlineDaysLeft}</span><br />
+                                        days left!
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
                             <div class="unit size5of100">&amp;nbsp;</div>
                             <div class="unit size20of100 lastUnit">
                                 ${linkApplyNow}
