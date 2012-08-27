@@ -181,7 +181,7 @@
 
     <div class="grid_12 omega">
         <!-- School name and sub data -->
-        <h1 class="mbm">${school.name}</h1>
+        <h1 class="mbm"><gslink:linkToTab tabName="overview">${school.name}</gslink:linkToTab></h1>
         <div class="small mbs" style="height:23px;">
             <span class="dib prm" style="line-height: 24px;">
             <!-- School Type -->
@@ -221,7 +221,7 @@
                     <span class="img iconx16 i-16-save mrs"><!-- do not collapse --></span>
                     <link:mySchoolList styleClass="bd" school="${school}"
                                        onclick="return GS.showAddMslJoinHover(null, '${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}', this);"
-                                       anchor="${headerLinkAnchor}">Save</link:mySchoolList>
+                                       anchor="${headerLinkAnchor}">Add to My School List</link:mySchoolList>
                 </span>
                 </li>
                 <li class="mll">

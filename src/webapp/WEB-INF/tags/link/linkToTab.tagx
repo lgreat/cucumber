@@ -32,10 +32,21 @@
                 </c:otherwise>
             </c:choose>
 
+            <c:choose>
+                <c:when test="${tabName eq 'overview'}">
+                    <c:set var="linkHref" scope="page"
+                           value="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'tab')}#${fn:escapeXml(anchor)}"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="linkHref" scope="page"
+                           value="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', tabName)}#${fn:escapeXml(anchor)}"/>
+                </c:otherwise>
+            </c:choose>
+
             <a data-gs-show-tab="${tabName}" data-gs-tab-options="${anchor}"
                onclick="${onclick}"
                class="${cssClass}"
-               href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', tabName)}#${fn:escapeXml(anchor)}">
+               href="${linkHref}">
                 <jsp:doBody/>
             </a>
 
