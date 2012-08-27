@@ -119,13 +119,13 @@
                                     <div class="inner">
                                         <div class="bd">
                                             <div class="line">
-                                                <c:if test="${stateAvg != dataNAText}">
+
                                                     <div class="unit size38of100 pam">
                                                         <h5 class="mbn">${subjectToYears.subjectLabel}</h5>
-
+                                                        <c:if test="${stateAvg != dataNAText}">
                                                         <p class="small bottom">The state average for ${subjectToYears.subjectLabel} was ${stateAvg}% in ${testYearAvg}</p>
+                                                        </c:if>
                                                     </div>
-                                                </c:if>
                                                 <div class="unit size62of100 lastUnit pam">
                                                     <c:out value="${scoresContent}" escapeXml="false"/>
                                                 </div>
