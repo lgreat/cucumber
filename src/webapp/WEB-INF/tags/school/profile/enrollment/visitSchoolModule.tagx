@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
     <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
 
@@ -16,18 +17,50 @@
                         <div class="bg-checklist">
                             <div class="small bottom pal"><h4 class="bottom">Be sure to visit</h4>
                                 Take along one of<br />our checklists:<br/>
-                                <a href="">High School</a><br /><br />
+                                <c:if test="${fn:contains(school.levelCode, 'p')}">
+                                    <a target="_blank" href="/catalog/pdf/schq_visit_preschool.pdf">Preschool</a><br />
+                                </c:if>
+                                <c:if test="${fn:contains(school.levelCode, 'e')}">
+                                    <a target="_blank" href="/catalog/pdf/schq_visit_elem.pdf">Elementary school</a><br />
+                                </c:if>
+                                <c:if test="${fn:contains(school.levelCode, 'm')}">
+                                    <a target="_blank" href="/catalog/pdf/schq_visit_middle.pdf">Middle school</a><br />
+                                </c:if>
+                                <c:if test="${fn:contains(school.levelCode, 'h')}">
+                                    <a target="_blank" href="/catalog/pdf/schq_visit_high.pdf">High school</a><br />
+                                </c:if>
+                                <br />
                             </div>
                         </div>
                         <hr class="keyline2"/>
                         <div class="mam">
                         <h4>Touring a school</h4>
                             <p>
-                        <a href=""><div class="tac smaller">
-                            <img src="/res/img/school/culture/sampleVideo_100x70.png"  /><br />
-                            Touring a High School
-                        </div>
-                        </a>
+                                <c:if test="${fn:contains(school.levelCode, 'e')}">
+                                    <a href="">
+                                        <div class="tac smaller">
+                                            <img src="/res/img/school/culture/sampleVideo_100x70.png"  /><br /> Touring an Elementary School
+                                        </div>
+                                    </a>
+                                </c:if>
+                            </p>
+                            <p>
+                                <c:if test="${fn:contains(school.levelCode, 'm')}">
+                                    <a href="">
+                                        <div class="tac smaller">
+                                            <img src="/res/img/school/culture/sampleVideo_100x70.png"  /><br /> Touring a Middle School
+                                        </div>
+                                    </a>
+                                </c:if>
+                            </p>
+                        <p>
+                            <c:if test="${fn:contains(school.levelCode, 'h')}">
+                                <a href="">
+                                    <div class="tac smaller">
+                                        <img src="/res/img/school/culture/sampleVideo_100x70.png"  /><br /> Touring a High School
+                                    </div>
+                                </a>
+                            </c:if>
                         </p>
 
                         </div>

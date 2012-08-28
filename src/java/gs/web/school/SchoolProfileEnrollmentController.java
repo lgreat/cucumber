@@ -147,15 +147,18 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
                 else if(applicationDeadlineDate.before(today.getTime())) {//find num of months past deadline
                     Calendar appDeadlineDateCal = Calendar.getInstance();
                     appDeadlineDateCal.setTime(applicationDeadlineDate);
-                    int months = (appDeadlineDateCal.get(Calendar.YEAR) - today.get(Calendar.YEAR)) * 12 +
-                            (appDeadlineDateCal.get(Calendar.MONTH)- today.get(Calendar.MONTH)) +
-                            (appDeadlineDateCal.get(Calendar.DAY_OF_MONTH) >= today.get(Calendar.DAY_OF_MONTH)? 0: -1);
+                    int months = (today.get(Calendar.YEAR) - appDeadlineDateCal.get(Calendar.YEAR)) * 12 +
+                            (today.get(Calendar.MONTH) - appDeadlineDateCal.get(Calendar.MONTH)) +
+                            (today.get(Calendar.DAY_OF_MONTH) >= appDeadlineDateCal.get(Calendar.DAY_OF_MONTH)? 0: -1);
                     if(months > 12) {
                         model.put(MODEL_ENROLLMENT_STATE, 3);
                     }
-                    else {
+                    else if(months < 3) {
                         model.put(MODEL_NUM_MONTHS_PAST_DEADLINE, months);
                         model.put(MODEL_ENROLLMENT_STATE, 2);
+                    }
+                    else {
+                        model.put(MODEL_ENROLLMENT_STATE, 1);
                     }
                 }
             }
