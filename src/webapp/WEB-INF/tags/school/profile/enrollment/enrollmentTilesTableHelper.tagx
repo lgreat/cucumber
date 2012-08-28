@@ -16,17 +16,19 @@
                 </div>
                 <div class="bd">
                     <table class="tableType1" border="0"><col width="210"/><col width="auto"/>
-                        <c:if test="${acceptanceHeader}">
-                            <div class="spacer_5">
-                                <hr class="keyline2"/>
-                                <p>
-                                    <span class = "medium_bold">${acceptanceRate} out of 10</span>
-                                    <span class="small"> Students were accepted for the ${acceptanceRateYear} school year.</span>
-                                </p>
-                                <hr class="keyline2"/>
-                            </div>
-                        </c:if>
                         <tbody class="striped">
+                        <c:if test="${acceptanceHeader}">
+                            <tr>
+                                <td>
+                                    <hr class="keyline2"/>
+                                    <p>
+                                        <span class = "medium_bold">${acceptanceRate} out of 10</span>
+                                        <span class="small"> Students were accepted for the ${acceptanceRateYear} school year.</span>
+                                    </p>
+                                    <hr class="keyline2"/>
+                                </td>
+                            </tr>
+                        </c:if>
                         <c:forEach var="row" items="${rowList}" varStatus="status">
                             <c:choose>
                                 <c:when test='${(status.index+1)%2 eq 0}'>

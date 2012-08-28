@@ -298,15 +298,15 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
 
         if(studentsAcceptedYrResponse != null && studentsAcceptedForYear != null && applRecvdYearResponse != null &&
                 applRecvdForYear !=null && studentsAcceptedYrResponse.equals(applRecvdYearResponse)) {
-            double percentage = (Double.parseDouble(studentsAcceptedForYear)/Double.parseDouble(applRecvdForYear))*10;
-            Double acceptance = Math.ceil(percentage);
-            if(percentage <= 1) {
-                acceptance = 1.0;
+            Float percentage = (Float.parseFloat(studentsAcceptedForYear)/Float.parseFloat(applRecvdForYear))*10;
+            int acceptance = Math.round(percentage);
+            if(percentage < 1) {
+                acceptance = 1;
             }
             else if (percentage > 10) {
-                acceptance = 10.0;
+                acceptance = 10;
             }
-            model.put(MODEL_CHANCES_ACCEPTANCE_RATE, acceptance.intValue());
+            model.put(MODEL_CHANCES_ACCEPTANCE_RATE, acceptance);
             model.put(MODEL_CHANCES_ACCEPTANCE_RATE_YEAR, applRecvdYearResponse);
         }
 
@@ -337,7 +337,14 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
         if(tuitionYear != null && tuitionYear.size() > 0 && tuitionLow != null && tuitionLow.size() > 0 &&
                 tuitionHigh != null && tuitionHigh.size() > 0) {
             tuitionFeeRow.put(MODEL_QUESTION, "Tuition range for the " + tuitionYear.get(0).getValue() + " school year");
-            tuitionFeeRow.put(MODEL_RESPONSE, tuitionLow.get(0).getValue() + " - " + tuitionHigh.get(0).getValue());
+            Integer low = Integer.parseInt(tuitionLow.get(0).getValue().substring(1));
+            Integer high = Integer.parseInt(tuitionHigh.get(0).getValue().substring(1));
+            if(low < high) {
+                tuitionFeeRow.put(MODEL_RESPONSE, "$" + low + " - " + "$" + high);
+            }
+            else {
+                tuitionFeeRow.put(MODEL_RESPONSE, "$" + high + " - " + "$" + low);
+            }
             rows.add(tuitionFeeRow);
         }
 
