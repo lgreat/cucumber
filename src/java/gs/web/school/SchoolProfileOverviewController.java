@@ -836,22 +836,22 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             else if( checkEspResponseListForValue(transp, new String[]{"passes"}) ) {
                 // Option d from spec - Display static message
                 model.put( "icon", "passes" );
-                model.put( "transMsg", "Passes/tokens for public transportation" );
+                model.put( "transMsg", "Passes/tokens provided for public transportation" );
             }
             else if( checkEspResponseListForValue(transp, new String[]{"special_ed_only"}) ){
                 // Option e from spec - Display handicapped icon & static message
                 model.put( "icon", "handicapped" );
-                model.put( "transMsg", "Transportation provided for special education students only" );
+                model.put( "transMsg", "Transportation provided for special education students" );
             }
             else if( checkEspResponseListForValue(transp, new String[]{"busses"}) ) {
                 // Option f from spec - Display bus icon static & message
                 model.put( "icon", "bus" );
-                model.put( "transMsg", "Busses/vans for our students only" );
+                model.put( "transMsg", "Busses/vans provide for students only" );
             }
             else if( checkEspResponseListForValue(transp, new String[]{"shared_bus"}) ) {
                 // Option g from spec - Display handicapped icon & static message
                 model.put( "icon", "bus" );
-                model.put( "transMsg", "School shares bus/van with other schools" );
+                model.put( "transMsg", "Busses/vans shared with other schools" );
             }
             else if( transpNoneOrBlank && isNotEmpty(transpOther) ) {
                 // Option h from spec - Display walking person icon & static message

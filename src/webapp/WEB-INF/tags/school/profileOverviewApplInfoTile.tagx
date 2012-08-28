@@ -52,7 +52,7 @@
                     </c:choose>
                 </c:when>
                 <c:when test="${applicationDeadlineMsg eq 'call'}">
-                    <p class="small bottom tac"><em>Call the school for<br/>more information</em></p>
+                    <p class="small bottom tac"><em>Learn more about<br/>enrolling at this school</em></p>
                 </c:when>
                 <c:when test="${applicationDeadlineMsg eq 'yearround'}">
                     <p class="small bottom tac">Year-round/rolling admissions</p>
