@@ -77,7 +77,7 @@
                 </li>
             </c:if>
             <c:if test="${(!empty reviews)}">
-                <li data-gs-tab="reviews"><a id="js_reviews" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}" title="${schoolName} | Reviews" class="${requestScope.schoolProfileTabMap['reviews-master']}">Reviews</a>
+                <li data-gs-tab="reviews"><a id="js_reviews" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}" title="Reviews" class="${requestScope.schoolProfileTabMap['reviews-master']}">Reviews</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.reviews} arrowdiv" id="arrowdiv"></div>-->
 
