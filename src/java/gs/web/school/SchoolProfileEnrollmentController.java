@@ -337,13 +337,19 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
         if(tuitionYear != null && tuitionYear.size() > 0 && tuitionLow != null && tuitionLow.size() > 0 &&
                 tuitionHigh != null && tuitionHigh.size() > 0) {
             tuitionFeeRow.put(MODEL_QUESTION, "Tuition range for the " + tuitionYear.get(0).getValue() + " school year");
-            Integer low = Integer.parseInt(tuitionLow.get(0).getValue().substring(1));
-            Integer high = Integer.parseInt(tuitionHigh.get(0).getValue().substring(1));
-            if(low < high) {
-                tuitionFeeRow.put(MODEL_RESPONSE, "$" + low + " - " + "$" + high);
+            try {
+                Integer low = Integer.parseInt(tuitionLow.get(0).getValue().substring(1));
+                Integer high = Integer.parseInt(tuitionHigh.get(0).getValue().substring(1));
+                if(low < high) {
+                    tuitionFeeRow.put(MODEL_RESPONSE, "$" + low + " - " + "$" + high);
+                }
+                else {
+                    tuitionFeeRow.put(MODEL_RESPONSE, "$" + high + " - " + "$" + low);
+                }
             }
-            else {
-                tuitionFeeRow.put(MODEL_RESPONSE, "$" + high + " - " + "$" + low);
+            catch (NumberFormatException ex) {
+                _log.warn("SchoolProfileEnrollmentController: Tuition range for school year.\n" + ex.getMessage());
+                tuitionFeeRow.put(MODEL_RESPONSE, tuitionLow.get(0).getValue() + " - " + tuitionHigh.get(0).getValue());
             }
             rows.add(tuitionFeeRow);
         }
