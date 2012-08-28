@@ -53,6 +53,7 @@ GS.util = GS.util || {};
 GS.profile = GS.profile || (function() {
     "use strict";
 
+    var adSlotKeys = []; //TODO: find out ad slot names for profile
 
     var init = function() {
         //jQuery('[data-gs-tabs]').gsTabs();
@@ -62,6 +63,8 @@ GS.profile = GS.profile || (function() {
             var tabsModule = new GS.Tabs($this, key);
             tabsModule.showTabs();
         });
+
+        GS.tabManager.updateHistoryEntryWithCurrentTab();
 
         setupTabClickHandlers();
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {

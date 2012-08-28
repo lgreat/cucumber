@@ -17,8 +17,12 @@ GS.tabManager = (function() {
 
     var tabNamesToTabModules = {};
     var originalPageTitle;
+    var historyAPIAvailable;
+    var allTabs;
 
     var init = function() {
+        historyAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
+
         $(function() {
             originalPageTitle = document.title;
         });
@@ -34,6 +38,24 @@ GS.tabManager = (function() {
             });
             return false;
         }
+    };
+
+    /**
+     * Get active leaf tab
+     *
+     * TODO: currently only works for tabs on profile page. Make this more generic. What if there are >1
+     * root gsTab suites on the page?
+     */
+    var getCurrentTab = function(rootGsTabs) {
+        var leafTab;
+        rootGsTabs = rootGsTabs || tabNamesToTabModules.overview; // assume root tab suite is owner of overview tab
+
+        leafTab = rootGsTabs.getCurrentTab();
+
+        if (leafTab.childGsTabs) {
+            return getCurrentTab(leafTab.childGsTabs); // recursion
+        }
+        return leafTab;
     };
 
     var getActiveChildTab = function(tab) {
@@ -77,6 +99,8 @@ GS.tabManager = (function() {
                 }
             }
         }
+
+        $.extend(allTabs, tabs);
     };
 
     var getTabByName = function(name) {
@@ -119,14 +143,14 @@ GS.tabManager = (function() {
         var tabChanged = tabObject.owner.showTab(tabObject);
 
         if (!options.skipHistory) {
-            GS_changeHistory(getUpdatedTitle($(activeChildTab.selector).attr('title')), $a.attr('href') );
+            GS_changeHistory(getUpdatedTitle(activeChildTab.title), $a.attr('href') );
         }
 
         if(options && options.hash !== undefined) {
             GS.util.jumpToAnchor(options.hash);
         }
 
-        if (tabChanged && typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+        if (tabChanged && historyAPIAvailable) {
             GS.tracking.sendOmnitureData(activeChildTab.name);
             GS_notifyQuantcastComscore();
         }
@@ -137,13 +161,26 @@ GS.tabManager = (function() {
         return $a.parent().data('gs-tab');
     };
 
+    var updateHistoryEntryWithCurrentTab = function() {
+        if (historyAPIAvailable) {
+            var currentTab = getCurrentTab();
+            if (currentTab !== getTabByName('overview')) {
+                window.History.replaceState(null, getUpdatedTitle(currentTab.title), null);
+            }
+        }
+    };
+
     return {
         init:init,
         getTabNamesToTabModules:getTabNamesToTabModules,
         registerTabs:registerTabs,
         showTabWithOptions:showTabWithOptions,
         tabClickHandler:tabClickHandler,
-        getTabName:getTabName
+        getTabName:getTabName,
+        getCurrentTab:getCurrentTab,
+        getTabByName:getTabByName,
+        getUpdatedTitle:getUpdatedTitle,
+        updateHistoryEntryWithCurrentTab:updateHistoryEntryWithCurrentTab
     };
 }()).init();
 
@@ -173,10 +210,12 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
                 var $this = $(this);
                 var id = $this.attr('id');
                 var tabName = GS.tabManager.getTabName($this);
+                var title = $this.attr('title');
                 tabs[tabName] = {
                     name:tabName,
                     selector:'#' +id,
                     children:undefined,
+                    title:title,
                     owner:self
                 };
             });
