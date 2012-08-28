@@ -21,8 +21,12 @@
         <c:when test="${content eq 'default'}">
             <c:set var="t10dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Programs</p>
+                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
+                <div class="clearfloat"><!-- do not collapse --></div>
             </c:set>
-            <gslink:linkToTab tabName="programs-resources" anchor="Programs_table" customLink="overview_programs" cssClass="tdn make-555555">
+
+            <div id="js-tile-10-0">
+            <gslink:linkToTab tabName="programs-resources" anchor="Programs_table" customLink="overview_programs" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t10dc}">
                     <div class="mvm mrm" style="height:149px">
                         <ul class="small bottom">
@@ -36,13 +40,19 @@
                     </div>
                 </school:profileOverviewCell1>
             </gslink:linkToTab>
+            </div>
+
         </c:when>
 
         <c:when test="${content eq 'substitute1'}">
             <c:set var="t10s1">
-                <p class="small_bold textshadow-1 pvs plm bottom">How parents get involved</p>
+                <p class="small_bold textshadow-1 pvs plm bottom">Parent involvement</p>
+                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
+                <div class="clearfloat"><!-- do not collapse --></div>
             </c:set>
-            <gslink:linkToTab tabName="culture" customLink="overview_parentinvolvement" cssClass="tdn make-555555">
+
+            <div id="js-tile-10-1">
+            <gslink:linkToTab tabName="culture" customLink="overview_parentinvolvement" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t10s1}">
                     <c:choose>
                         <c:when test="${not empty programsModel['substitute1None']}">
@@ -65,13 +75,19 @@
                     </c:choose>
                 </school:profileOverviewCell1>
             </gslink:linkToTab>
+            </div>
+
         </c:when>
 
         <c:otherwise>
             <c:set var="t10s2">
                 <p class="small_bold textshadow-1 pvs plm bottom make-555555">Highlights</p>
+                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
+                <div class="clearfloat"><!-- do not collapse --></div>
             </c:set>
-            <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_highlights" cssClass="tdn">
+
+            <div id="js-tile-10-2">
+            <gslink:linkToTab tabName="programs-resources" anchor="School_basics_table" customLink="overview_highlights" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t10s2}">
                     <div class="mvm mrm" style="height:149px">
                         <ul class="small bottom make-555555">
@@ -85,6 +101,8 @@
                     </div>
                 </school:profileOverviewCell1>
             </gslink:linkToTab>
+            </div>
+
         </c:otherwise>
     </c:choose>
 

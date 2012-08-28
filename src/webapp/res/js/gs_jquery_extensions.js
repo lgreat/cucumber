@@ -287,6 +287,12 @@ jQuery(document).ready(function() {
     jQuery('#js-tile-9-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
     jQuery('#js-tile-9-1-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
     jQuery('#js-tile-9-1-1').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-10-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-10-1').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-10-2').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-11-0').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:285,topPosition:5});
+    jQuery('#js-tile-11-1').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
+    jQuery('#js-tile-13-1').popup({distance:0,time:200,hideDelay:50,appear:'right',leftPosition:150,topPosition:5});
 });
 
 /* =3 alternateRowColors (table stripping plugin)

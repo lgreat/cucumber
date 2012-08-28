@@ -30,12 +30,17 @@
                                 </div>
                             </gslink:linkToTab>
                         </div>
-                        <a onclick="if (s.tl) { s.tl(this, 'o', 'overview_videos'); }" class="tdn" href="${videoUrl}" target="_blank">
+                        <a onclick="if (s.tl) { s.tl(this, 'o', 'overview_videos'); }" class="tdn make-555555" href="${videoUrl}" target="_blank">
                             <div class="bd">
                                 <div class="mam" style="height:139px;">
-                                    <div class="shim-20"><!-- do not collapse --></div>
-                                    <div class="mha pbm" style="width: 96px;">
-                                        <span class="iconx96 i-96-video_placeholder"><!-- do not collapse --></span>
+                                    <div class="media mls ptm">
+                                        <span class="iconx48 i-48-video_placeholder img mrs"><!-- do not collapse --></span>
+                                        <div class="bd fl">
+                                            <p class="small"><span class="small_bold">Watch now</span><br/>
+                                                <span class="make-06b">See video</span> about this<br/>
+                                                school from around<br/>
+                                                the web.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

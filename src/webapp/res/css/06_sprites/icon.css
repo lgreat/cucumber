@@ -483,7 +483,7 @@ span:hover.i-24-close {
 
 .iconx48 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x48/120326-48x48.png);
+    background-image: url(/res/img/sprites/icon/x48/120828-48x48.png);
     width: 48px;
     height: 48px;
 }
@@ -540,6 +540,13 @@ span.i-48-gallery-next-default:hover{
     background-position: -528px 0;
 }
 
+.i-48-play{
+    background-position: -576px 0;
+}
+
+.i-48-video_placeholder{
+    background-position: -624px 0;
+}
 
 /* row 48 */
 .selected .i-48-sb {
