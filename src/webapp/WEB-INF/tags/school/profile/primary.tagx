@@ -70,7 +70,7 @@
     <div data-gs-tabs="profileTabs" class="gsTabs" data-gs-allow-intercept-hovers="true">
         <ul class="tabStyle-8">
             <c:if test="${(!empty overview)}">
-                <li data-gs-tab="overview"><a id="js_overview" href="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'tab')}" title="${schoolName} | Overview" class="${requestScope.schoolProfileTabMap['overview-master']}">Overview</a>
+                <li data-gs-tab="overview"><a id="js_overview" href="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'tab')}" title="${gsweb:schoolPageTitle(school)}" class="${requestScope.schoolProfileTabMap['overview-master']}">Overview</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.overview} arrowdiv" id="arrowdiv"></div>-->
 
@@ -84,28 +84,28 @@
                 </li>
             </c:if>
             <c:if test="${(!empty testscores) or (!empty ratings)}">
-                <li data-gs-tab="testsAndRatings"><a id="js_test-scores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}" title="${schoolName} | Tests &amp;amp; ratings" class="${requestScope.schoolProfileTabMap['test-scores-master']}">Test scores</a>
+                <li data-gs-tab="testsAndRatings"><a id="js_test-scores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}" title="Test Scores" class="${requestScope.schoolProfileTabMap['test-scores-master']}">Test scores</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.testscores} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty schoolstats)}">
-                <li data-gs-tab="studentsAndTeachersMaster"><a id="js_demographics" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="${schoolName} | Students &amp;amp; teachers" class="${requestScope.schoolProfileTabMap['students-teachers-master']}">Students &amp;amp; teachers</a>
+                <li data-gs-tab="studentsAndTeachersMaster"><a id="js_demographics" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="Students &amp;amp; teachers" class="${requestScope.schoolProfileTabMap['students-teachers-master']}">Students &amp;amp; teachers</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.schoolstats} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty programs)}">
-                <li data-gs-tab="programs-culture-master"><a id="js_programs-culture" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}" title="${schoolName} | Programs &amp;amp; culture" class="${requestScope.schoolProfileTabMap['programs-master']}">Programs &amp;amp; culture</a>
+                <li data-gs-tab="programs-culture-master"><a id="js_programs-culture" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}" title="Programs &amp;amp; culture" class="${requestScope.schoolProfileTabMap['programs-master']}">Programs &amp;amp; culture</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.programs} arrowdiv" id="arrowdiv"></div>-->
 
                 </li>
             </c:if>
             <c:if test="${(!empty enrollment)}">
-                <li data-gs-tab="enrollment"><a id="js_enrollment" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'enrollment')}" title="${schoolName} | Enrollment" class="${requestScope.schoolProfileTabMap['enrollment-master']}">Enrollment</a>
+                <li data-gs-tab="enrollment"><a id="js_enrollment" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'enrollment')}" title="Enrollment" class="${requestScope.schoolProfileTabMap['enrollment-master']}">Enrollment</a>
 
                         <!--<div class="${requestScope.schoolProfileTabMap.whatsitlike} arrowdiv" id="arrowdiv"></div>-->
 

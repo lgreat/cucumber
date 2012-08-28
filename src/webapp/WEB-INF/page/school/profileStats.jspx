@@ -22,11 +22,11 @@
         <div data-gs-tabs="studentsAndTeachersMaster" class="gsTabs">
             <ul class="tabStyle-5">
                 <!--<c:if test="${(!empty studentstab)}">-->
-                    <li data-gs-tab="demographics"><a id="js_students" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="${schoolName} | Students" class="${requestScope.schoolProfileTabMap.demographics}">Students</a></li>
+                    <li data-gs-tab="demographics"><a id="js_students" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="Student information" class="${requestScope.schoolProfileTabMap.demographics}">Students</a></li>
                 <!--</c:if>-->
 
                 <!--<c:if test="${(!empty teacherstab)}">-->
-                    <li  data-gs-tab="teachers"><span class="graydivider">|</span><a id="js_teachers" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'teachers')}" title="${schoolName} | Teachers" class="${requestScope.schoolProfileTabMap.teachers}">Teachers</a></li>
+                    <li  data-gs-tab="teachers"><span class="graydivider">|</span><a id="js_teachers" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'teachers')}" title="Teacher information" class="${requestScope.schoolProfileTabMap.teachers}">Teachers</a></li>
                 <!--</c:if>-->
             </ul>
             <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.demographics and requestScope.schoolProfileTabMap.demographics eq 'selected'?'':'dn')}">

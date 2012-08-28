@@ -15,12 +15,12 @@
         <c:if test="${empty showTestScores or showTestScores eq true}">
             <li data-gs-tab="test-scores"><a id="js_tests"
                    href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}"
-                   title="${pageScope.schoolName} | Test scores"
+                   title="Test Scores"
                    class="${requestScope.schoolProfileTabMap['test-scores']}">Test scores</a></li>
         </c:if>
         <li data-gs-tab="ratings"><c:if test="${empty showTestScores or showTestScores eq true}"><span class="graydivider">|</span></c:if><a id="js_ratings"
                                                  href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'ratings')}"
-                                                 title="${pageScope.schoolName} | Ratings details"
+                                                 title="School Ratings"
                                                  class="${requestScope.schoolProfileTabMap.ratings}">Ratings details</a>
         </li>
     </ul>

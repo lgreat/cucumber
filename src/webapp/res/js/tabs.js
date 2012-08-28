@@ -16,8 +16,12 @@ GS.tabManager = (function() {
     "use strict";
 
     var tabNamesToTabModules = {};
+    var originalPageTitle;
 
     var init = function() {
+        $(function() {
+            originalPageTitle = document.title;
+        });
         return this;
     };
 
@@ -80,6 +84,25 @@ GS.tabManager = (function() {
         return tabModule.getTabByName(name);
     };
 
+    var getUpdatedTitle = function(tabTitle) {
+        var oldPageTitle = originalPageTitle;
+        // check whether to augment or replace title
+        var replaceTheTitle = tabTitle.indexOf('-') !== -1;
+
+        if (replaceTheTitle) {
+            return tabTitle;
+        }
+
+        // might need to preserve titles of overview pages. Special-case overview title TODO: need special case?
+        var overviewSuffix = " - School overview";
+        if (oldPageTitle.indexOf(overviewSuffix, oldPageTitle.length - overviewSuffix.length) !== -1) {
+            oldPageTitle = "for " + oldPageTitle.replace(overviewSuffix, "");
+        }
+
+        // do regex replace of original title with tab link's title attribute
+        return oldPageTitle.replace(/((?!for).)*/, tabTitle + " ");
+    };
+
     var showTabWithOptions = function(options) {
         var tabObject = options.tab;
         if (typeof tabObject === 'string') {
@@ -90,12 +113,13 @@ GS.tabManager = (function() {
             return false;
         }
 
+        var activeChildTab = getActiveChildTab(tabObject);
         var $a = $(tabObject.selector);
 
         var tabChanged = tabObject.owner.showTab(tabObject);
 
         if (!options.skipHistory) {
-            GS_changeHistory($a.attr('title'), $a.attr('href') );
+            GS_changeHistory(getUpdatedTitle($(activeChildTab.selector).attr('title')), $a.attr('href') );
         }
 
         if(options && options.hash !== undefined) {
@@ -103,7 +127,7 @@ GS.tabManager = (function() {
         }
 
         if (tabChanged && typeof(window.History) !== 'undefined' && window.History.enabled === true) {
-            GS.tracking.sendOmnitureData((getActiveChildTab(tabObject)).name);
+            GS.tracking.sendOmnitureData(activeChildTab.name);
             GS_notifyQuantcastComscore();
         }
     };
@@ -179,9 +203,12 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             // TODO: move this
             var allowInterceptHovers = $container.data('gs-allow-intercept-hovers');
 
-            var showHome = $tabNav.find('.selected').length;
+            var showHome = $tabs.filter('.selected').length;
             if(!showHome) {
                 showFirstTab();
+            } else {
+                var tabName = GS.tabManager.getTabName($tabs.filter('.selected').first());
+                currentTab = getTabByName(tabName);
             }
         };
 
@@ -197,7 +224,7 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             options = options || {};
 
             if (parentTab && options.propagate !== false) {
-                tabChanged = tabChanged || parentTab.owner.showTab(parentTab);
+                tabChanged = parentTab.owner.showTab(parentTab) || tabChanged;
             }
 
             if (tab !== currentTab) {
