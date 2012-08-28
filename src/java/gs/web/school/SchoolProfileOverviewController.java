@@ -515,7 +515,9 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             LevelCode.Level level = levelCode.getLowestNonPreSchoolLevel();
             // determine which video to show
             String videoId = "0";
-            if( level.equals( LevelCode.Level.ELEMENTARY_LEVEL) || level.equals( LevelCode.Level.PRESCHOOL_LEVEL) ) {
+            if (request.getParameter("_tourVideoId") != null) {
+                videoId = request.getParameter("_tourVideoId");
+            } else if( level.equals( LevelCode.Level.ELEMENTARY_LEVEL) || level.equals( LevelCode.Level.PRESCHOOL_LEVEL) ) {
                 videoId = VIDEO_ELEMENTARY;
             }
             else if( level.equals( LevelCode.Level.MIDDLE_LEVEL) ) {
