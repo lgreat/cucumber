@@ -12,6 +12,7 @@ import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.test.*;
 import gs.web.request.RequestAttributeHelper;
+import gs.web.school.review.ParentReviewHelper;
 import gs.web.search.CmsRelatedFeatureSearchService;
 import gs.web.search.CmsRelatedFeatureSearchServiceSolrImpl;
 import gs.web.search.ICmsFeatureSearchResult;
@@ -43,6 +44,8 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     private final static String PUBLISHED_REVIEW_COUNT = "publishedReviewCount";
     private final static String REVIEWS = "reviews";
     private final static String REVIEWS_COUNT = "reviewsCount";
+    private final static String REVIEWS_PAGE_PARAM = "page";
+    private final static Integer REVIEWS_PER_PAGE = 20;
     private final static String SCHOOL_MEDIA_REPORTS_BY_USER = "reportsByUser";
     private final static String ENROLLMENT = "enrollment";
     private final static String SPERLINGS = "sperlings";
@@ -98,6 +101,8 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     @Autowired
     private ITestDataStateValueDao _testDataStateValueDao;
 
+    @Autowired
+    private ParentReviewHelper _parentReviewHelper;
 
     protected Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
@@ -344,26 +349,34 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         return numberOfReviews;
     }
 
-    protected List<Review> getNonPrincipalReviews (HttpServletRequest request, int countRequested ) {
-
+    protected List<Review> getNonPrincipalReviews(HttpServletRequest request) {
         String key = REVIEWS;
         String countKey = REVIEWS_COUNT;
+
+        School school = _requestAttributeHelper.getSchool( request );
+        if ( school == null ) {
+            throw new IllegalArgumentException("The request must already contain a school object");
+        }
+
+        List<Review> reviews = (List<Review>) getSharedData( request, key );
+        if ( reviews == null ) {
+            reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school);
+            setSharedData(request, key, reviews);
+            setSharedData(request, countKey, reviews.size());
+        }
+        return reviews;
+    }
+
+    protected List<Review> getNonPrincipalReviews (HttpServletRequest request, int countRequested ) {
+
+        // always return the full principal
+        List<Review> reviews = getNonPrincipalReviews(request);
 
         // Make sure we have a school
         School school = _requestAttributeHelper.getSchool( request );
         if( school == null ) {
             throw new IllegalArgumentException( "The request must already contain a school object" );
         }
-
-        // Get Data
-        List<Review> reviews = (List<Review>)getSharedData( request, key );
-        if( reviews == null ) {
-            reviews = new ArrayList<Review>(0);
-        }
-
-        // Keep a count of the number of reviews available in the DB if more than that number have been requested.
-        // This is to prevent asking for more than are available.
-//        Integer reviewsCount = (Integer)getSharedData( request, REVIEWS_COUNT );
 
         // If the number stored request the number requested just return them
         if( reviews.size() == countRequested ) {
@@ -374,35 +387,25 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
             List<Review> subset = reviews.subList(0, countRequested);
             return subset;
         }
-        else {
-            // Fewer reviews are available than requested.
-            // First see if we know how many are in the DB
-            Integer reviewsCount = (Integer)getSharedData( request, countKey );
-            if( reviewsCount != null ) {
-                // See if we got fewer than we wanted and if so ???
-                // We have a count and this is the max we can return, so return them
-                return reviews;
-            }
-            else {
-                // Go to the DB for the request number
-                reviews = _reviewDao.findPublishedNonPrincipalReviewsBySchool(school, countRequested);
-                if( reviews == null ) {
-                    setSharedData( request, countKey, new Integer(0) );  // Save the count (of 0) so we don't hit the DB again
-                    return null;    // No data is available, return null
-                }
-                else {
-                    // Store for future use
-                    setSharedData( request, key, reviews );
-                    // If we got fewer than requested save that count so we don't again ask for more than are present
-                    if( reviews.size() < countRequested ) {
-                        setSharedData( request, countKey, new Integer(reviews.size()) );  // Save the count since we know the max now
-                    }
-                }
-            }
-
-        }
 
         return  reviews;    // Return what we have
+    }
+
+    protected Integer getReviewsTotalPages( HttpServletRequest request ) {
+        List<Review> reviews = getNonPrincipalReviews( request );
+        return _parentReviewHelper.getReviewsTotalPages(reviews.size(), REVIEWS_PER_PAGE);
+    }
+
+    protected Integer getReviewsCurrentPage( HttpServletRequest request ) {
+        Integer page = new Integer(1);
+        if (request.getParameter(REVIEWS_PAGE_PARAM)!=null) {
+            try {
+                page = Integer.valueOf(request.getParameter(REVIEWS_PAGE_PARAM));
+            } catch (Exception e) {
+                page = new Integer(1);
+            }
+        }
+        return page;
     }
 
     protected Set<Integer> getCensusDataTypeIdsForOverview() {

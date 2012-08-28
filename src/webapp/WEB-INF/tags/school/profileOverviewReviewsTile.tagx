@@ -18,12 +18,13 @@
 
     <c:set var="content" value="${reviewsModel['content']}" scope="page"/>
     <c:set var="reviews" value="${reviewsModel['reviews']}" scope="page"/>
+    <c:set var="total" value="${reviewsModel['reviewsTotal']}" scope="page"/>
 
     <c:set var="t5t6dc">
         <p class="small_bold textshadow-1 pvs plm bottom">Community reviews</p>
         <c:choose>
             <c:when test="${content eq 'reviews'}">
-                <p class="small js-popup" style="width:120px;"><span class="fr">See all ${fn:length(reviews)} reviews &amp;raquo;</span></p>
+                <p class="small js-popup" style="width:120px;"><span class="fr">See all ${total} reviews &amp;raquo;</span></p>
             </c:when>
             <c:otherwise>
                 <p class="small js-popup" style="width:120px;"><span class="fr">Review this school &amp;raquo;</span></p>

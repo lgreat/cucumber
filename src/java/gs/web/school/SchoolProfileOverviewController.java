@@ -49,6 +49,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String VIDEO_MODEL_KEY = "video";
     private static final String COMMUNITY_RATING_MODEL_KEY = "communityRating";
     private static final String REVIEWS_MODEL_KEY = "reviews";
+    private static final String REVIEWS_TOTAL_KEY = "reviewsTotal";
     private static final String DIVERSITY_MODEL_KEY = "diversity";
     private static final String SPECIAL_EDUCATION_MODEL_KEY = "specialEd";
     private static final String TRANSPORTATION_MODEL_KEY = "transportation";
@@ -203,6 +204,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         if( reviews!=null && reviews.size() > 0 ) {
             reviewsModel.put( "reviews", reviews );
             reviewsModel.put( "content", "reviews" );
+            reviewsModel.put( REVIEWS_TOTAL_KEY, _schoolProfileDataHelper.getNonPrincipalReviews(request).size());
         }
         else {
             reviewsModel.put( "content", "reviewsCTA" );

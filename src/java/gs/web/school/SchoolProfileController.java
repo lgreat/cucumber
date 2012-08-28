@@ -6,6 +6,7 @@ import gs.data.school.School;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
@@ -68,6 +69,25 @@ public class SchoolProfileController extends AbstractSchoolController implements
         if (ratingsMap != null) {
             overallRating = (Integer)ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING);
             model.put(_schoolProfileDataHelper.DATA_OVERALL_RATING, overallRating);
+        }
+
+        // if reviews tab of profile and wrong page, redirect to first page
+        if (request.getParameter("tab")!=null &&
+                NewProfileTabs.valueOf(request.getParameter("tab")).equals(NewProfileTabs.reviews)){
+
+            Integer currentPage = _schoolProfileDataHelper.getReviewsCurrentPage( request );
+            Integer totalPages = _schoolProfileDataHelper.getReviewsTotalPages( request );
+
+            if (currentPage<1 || currentPage>totalPages) {
+                urlBuilder.addParametersFromRequest(request);
+                // filter out certain parameters we don't want passed through
+                urlBuilder.removeParameter("tab");
+                urlBuilder.removeParameter("state");
+                urlBuilder.removeParameter("id");
+                urlBuilder.removeParameter("page");
+                urlBuilder.addParameter("tab", NewProfileTabs.reviews.getParameterValue());
+                return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
+            }
         }
 
         _schoolProfileHelper.updateModel(request, response, school, model, overallRating);
