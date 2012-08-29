@@ -28,7 +28,14 @@
     <div id="${chartDrawDivId}" class="mha" style="width: ${cSize+6}px; height: ${cSize}px;"><!-- do not collapse --></div>
 
     <script type="text/javascript">
-        google.setOnLoadCallback(function(){ drawPieChart(${chartParameters}) });
+        (function(){
+            var drawChartFunc = function(){ drawPieChart(${chartParameters}) };
+            if (GS_PieLoader) {
+                GS_PieLoader.push(drawChartFunc);
+            } else {
+                google.setOnLoadCallback(drawChartFunc);
+            }
+        })();
     </script>
 
 </jsp:root>

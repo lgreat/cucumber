@@ -77,6 +77,18 @@
     <script type="text/javascript" src="/res/js/photoGallery.js"><!-- no collapse --></script>
 
     <script type="text/javascript" src="/res/js/mssAutoHoverInterceptor.js"><!-- no collapse --></script>
+    <script type="text/javascript">
+        var GS_PieLoader = [];
+        $.getScript("https://www.google.com/jsapi", function() {
+            google.load("visualization", "1", {packages:["corechart"], callback:function(){
+                for (var x=0; x &lt; GS_PieLoader.length; x++) {
+                    GS_PieLoader[x]();
+                }
+                GS_PieLoader = undefined;
+            }});
+        });
+    </script>
+
     <profile:facebookConfig showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
     <ad:setSlotPrefix slotPrefix="School_Profile_Page"/>
     <ad:enableGptAsynchronousMode/>

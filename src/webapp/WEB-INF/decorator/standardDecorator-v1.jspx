@@ -28,8 +28,6 @@
         <title><decorator:title default="GreatSchools - Public and Private School Ratings, Reviews and Parent Community"/></title>
         <pageHelper:addCss-v1/>
         <script src="/res/js/modernizr.js" type="text/javascript"><!-- do not collapse --></script>
-        <script type="text/javascript" src="https://www.google.com/jsapi"><!-- do not collapse --></script>
-        <script type="text/javascript">google.load("visualization", "1", {packages:["corechart"]});</script>
 
         <pageHelper:addJavaScript-v1
                 uncompressedScripts="${param.uncompressedScripts}"
