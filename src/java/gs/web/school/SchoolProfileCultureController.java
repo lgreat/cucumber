@@ -73,8 +73,7 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         Map<String, Object> facebookModel = getFacebook( espResults, hasClimateRating );
         modelMap.put( FACEBOOK_MODEL_KEY, facebookModel );
         // The facebook ID needs to be put directly into the model so the frontend code can go to facebook to verify it is a valid facebook user
-        modelMap.put( "schoolFacebookId", ((Map<String, Object>)facebookModel).get("facebookId") );
-
+        modelMap.put( "schoolFacebookId", facebookModel.get("facebookId") );
 
         // Space 3 - Videos or Principal CTA
         modelMap.put( VIDEO_MODEL_KEY, getSchoolVideos(espResults) );
@@ -90,10 +89,6 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
             modelMap.put("cultureProfileData", resultsModel);
             SchoolProfileProgramsController.buildDisplayModel(MODEL_PREFIXES, resultsModel, DISPLAY_CONFIG, modelMap);
         }
-
-        // The facebook ID needs to be put directly into the model
-        modelMap.put( "schoolFacebookId", ((Map<String, Object>)facebookModel).get("facebookId") );
-
     }
 
     protected Map<String, Object> getSchoolPhotos(HttpServletRequest request) {
