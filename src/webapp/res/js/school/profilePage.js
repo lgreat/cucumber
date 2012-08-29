@@ -110,7 +110,7 @@ GS.profile = GS.profile || (function() {
     };
 
     var beforeTabChange = function(newTab) {
-        if (newTab.name === 'reviews' && originalQueryData.hasOwnProperty('page') && originalQueryData.page !== 1) {
+        if (newTab.name === 'reviews' && originalQueryData.hasOwnProperty('page') && originalQueryData.page !== '1') {
             return false; // do not allow JS tab change
         }
         return true;

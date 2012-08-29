@@ -8,12 +8,29 @@ GS.tabManager = (function() {
     var isHistoryAPIAvailable;
     var allTabs;
     var onTabChanged;
+    var beforeTabChange;
 
     var init = function() {
         isHistoryAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
 
         $(function() {
             originalPageTitle = document.title;
+
+            // set up click handler for data-gs-tab custom data attribute
+            $('body').on('click', '[data-gs-show-tab]', function(event) {
+                var $this = $(this);
+                var tabName = $this.data('gs-show-tab');
+                var tabOptions = $this.data('gs-tab-options');
+
+                var success = showTabWithOptions({tab:tabName, hash:tabOptions});
+
+                if (success === true) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    return true; // assume gs-show-tab was on A tag. Allow browser to navigate to href
+                }
+            });
         });
 
         return this;
@@ -23,10 +40,15 @@ GS.tabManager = (function() {
         var allowInterceptHovers = tabModule.allowInterceptHovers;
         //if (typeof mssAutoHoverInterceptor === 'undefined' || !allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
             var tabName = getTabName($a);
-            GS.tabManager.showTabWithOptions({
+            var success = GS.tabManager.showTabWithOptions({
                 tab:tabName
             });
-            return false;
+
+            if (success === true) {
+                return false; // tab shown, abort href
+            } else {
+                return true; // tab not shown, allow browser to navigate to href
+            }
         //}
     };
 
@@ -109,6 +131,11 @@ GS.tabManager = (function() {
             return false;
         }
 
+        // if beforeTabChange callback returns false, abort showing tab
+        if (beforeTabChange && !beforeTabChange(tabObject)) {
+            return false;
+        }
+
         var activeChildTab = getActiveChildTab(tabObject);
 
         // show the tab
@@ -117,6 +144,7 @@ GS.tabManager = (function() {
         if (tabChanged && onTabChanged) {
             onTabChanged(activeChildTab, options);
         }
+        return true;
     };
 
     // util method - returns tab name given a jquery object of a link
@@ -126,6 +154,9 @@ GS.tabManager = (function() {
 
     var setOnTabChanged = function(callback) {
         onTabChanged = callback;
+    };
+    var setBeforeTabChange = function(callback) {
+        beforeTabChange = callback;
     };
 
     return {
@@ -137,7 +168,8 @@ GS.tabManager = (function() {
         getTabName:getTabName,
         getCurrentTab:getCurrentTab,
         getTabByName:getTabByName,
-        setOnTabChanged:setOnTabChanged
+        setOnTabChanged:setOnTabChanged,
+        setBeforeTabChange:setBeforeTabChange
     };
 }()).init();
 
