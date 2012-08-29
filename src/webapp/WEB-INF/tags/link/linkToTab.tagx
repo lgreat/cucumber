@@ -35,11 +35,11 @@
             <c:choose>
                 <c:when test="${tabName eq 'overview'}">
                     <c:set var="linkHref" scope="page"
-                           value="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'tab')}#${fn:escapeXml(anchor)}"/>
+                           value="${gsweb:removeQueryParamsFromUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab')}#${fn:escapeXml(anchor)}"/>
                 </c:when>
                 <c:otherwise>
                     <c:set var="linkHref" scope="page"
-                           value="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', tabName)}#${fn:escapeXml(anchor)}"/>
+                           value="${gsweb:putQueryParamIntoUrl(gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page'), 'tab', tabName)}#${fn:escapeXml(anchor)}"/>
                 </c:otherwise>
             </c:choose>
 

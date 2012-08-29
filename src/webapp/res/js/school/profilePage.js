@@ -55,6 +55,7 @@ GS.profile = GS.profile || (function() {
 
     var isHistoryAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
     var originalPageTitle;
+    var originalQueryData;
 
     //TODO: find out ad slot names for profile
     var adSlotPrefix = "School_Profile_Page";
@@ -63,8 +64,8 @@ GS.profile = GS.profile || (function() {
 
 
     var init = function() {
-        //jQuery('[data-gs-tabs]').gsTabs();
         originalPageTitle = document.title;
+        originalQueryData = GS.uri.Uri.getQueryData();
 
         $('.gsTabs').each(function() {
             var $this = $(this);
@@ -74,6 +75,7 @@ GS.profile = GS.profile || (function() {
         });
 
         GS.tabManager.setOnTabChanged(onTabChanged);
+        GS.tabManager.setBeforeTabChange(beforeTabChange);
 
         updateHistoryEntryWithCurrentTab();
         handleHashBang();
@@ -83,7 +85,6 @@ GS.profile = GS.profile || (function() {
             adSlotKeys[i] = adSlotPrefix + '_' + adSlotKeys[i];
         }
 
-        setupTabClickHandlers();
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
             window.History.Adapter.bind(window, 'statechange', function() {
                 var state = History.getState();
@@ -106,6 +107,13 @@ GS.profile = GS.profile || (function() {
             });
         }
         return this;
+    };
+
+    var beforeTabChange = function(newTab) {
+        if (newTab.name === 'reviews' && originalQueryData.hasOwnProperty('page') && originalQueryData.page !== 1) {
+            return false; // do not allow JS tab change
+        }
+        return true;
     };
 
     var onTabChanged = function(currentTab, options) {
@@ -181,22 +189,7 @@ GS.profile = GS.profile || (function() {
         GS.ad.refreshAds(adSlotKeys);
     };
 
-    var setupTabClickHandlers = function() {
-        // register some custom data attributes that will allow easily linking to a profile tab and anchor
-        // used in linkToTab.tagx
-        $('body').on('click', '[data-gs-show-tab]', function(event) {
-            var $this = $(this);
-            var tabName = $this.data('gs-show-tab');
-            var tabOptions = $this.data('gs-tab-options');
-
-            GS.tabManager.showTabWithOptions({tab:tabName, hash:tabOptions});
-            event.preventDefault();
-            event.stopPropagation();
-        });
-    };
-
     return {
-        setupTabClickHandlers : setupTabClickHandlers,
         init:init,
         refreshAds:refreshAds
     };
