@@ -401,7 +401,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         if (request.getParameter(REVIEWS_PAGE_PARAM)!=null) {
             try {
                 page = Integer.valueOf(request.getParameter(REVIEWS_PAGE_PARAM));
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 page = new Integer(1);
             }
         }

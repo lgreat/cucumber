@@ -72,23 +72,18 @@ public class SchoolProfileController extends AbstractSchoolController implements
             model.put(_schoolProfileDataHelper.DATA_OVERALL_RATING, overallRating);
         }
 
-        // if reviews tab of profile and wrong page, redirect to first page
-        if (request.getParameter("tab")!=null &&
-                StringUtils.equals(NewProfileTabs.reviews.getParameterValue(), request.getParameter("tab"))){
 
-            Integer currentPage = _schoolProfileDataHelper.getReviewsCurrentPage( request );
-            Integer totalPages = _schoolProfileDataHelper.getReviewsTotalPages( request );
 
-            if (currentPage<1 || currentPage>totalPages) {
-                urlBuilder.addParametersFromRequest(request);
-                // filter out certain parameters we don't want passed through
-                urlBuilder.removeParameter("tab");
-                urlBuilder.removeParameter("state");
-                urlBuilder.removeParameter("id");
-                urlBuilder.removeParameter("page");
-                urlBuilder.addParameter("tab", NewProfileTabs.reviews.getParameterValue());
-                return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
-            }
+        Integer currentPage = _schoolProfileDataHelper.getReviewsCurrentPage( request );
+        Integer totalPages = _schoolProfileDataHelper.getReviewsTotalPages( request );
+
+        if (currentPage<1 || currentPage>totalPages) {
+            urlBuilder.addParametersFromRequest(request);
+            // filter out certain parameters we don't want passed through
+            urlBuilder.removeParameter("state");
+            urlBuilder.removeParameter("id");
+            urlBuilder.removeParameter("page");
+            return new ModelAndView(new RedirectView301(urlBuilder.asSiteRelative(request)));
         }
 
         _schoolProfileHelper.updateModel(request, response, school, model, overallRating);
