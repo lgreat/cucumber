@@ -10,6 +10,7 @@ import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -73,7 +74,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
 
         // if reviews tab of profile and wrong page, redirect to first page
         if (request.getParameter("tab")!=null &&
-                NewProfileTabs.valueOf(request.getParameter("tab")).equals(NewProfileTabs.reviews)){
+                StringUtils.equals(NewProfileTabs.reviews.getParameterValue(), request.getParameter("tab"))){
 
             Integer currentPage = _schoolProfileDataHelper.getReviewsCurrentPage( request );
             Integer totalPages = _schoolProfileDataHelper.getReviewsTotalPages( request );
