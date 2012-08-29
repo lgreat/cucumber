@@ -103,7 +103,7 @@
     <!-- double wide tile -->
 
         <div id="js-tile-11-0">
-        <gslink:linkToTab tabName="admissions" cssClass="tdn make-555555 js-trigger" customLink="overview_application2x">
+        <gslink:linkToTab tabName="enrollment" cssClass="tdn make-555555 js-trigger" customLink="overview_application2x">
         <school:profileOverviewCell1 title="${t11dc}">
 
                     <div class="line">
@@ -135,7 +135,7 @@
             <!-- single wide image -->
 
             <div id="js-tile-11-1">
-            <gslink:linkToTab tabName="admissions" cssClass="tdn make-555555 js-trigger" customLink="overview_application1x">
+            <gslink:linkToTab tabName="enrollment" cssClass="tdn make-555555 js-trigger" customLink="overview_application1x">
             <school:profileOverviewCell1 title="${t11dc}">
             ${admissionsAndVouchers}
             </school:profileOverviewCell1>
