@@ -22,111 +22,111 @@
             <c:set var="hotlinePhoneNbr" value="202-431-5538" scope="page"/>
             <c:set var="outsmartArticleCmsId" value="3775" scope="page"/>
             <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailWashingtonDc.jpg" scope="page"/>
-            <c:set var="pdf" value="http://DcPdf" scope="page"/>
-            <c:set var="titleCity" value="Washington DC"/>
+            <c:set var="titleCity" value="Washington DC" scope="page"/>
         </c:when>
         <c:when test="${state eq 'WI'}">
             <c:set var="hotlinePhoneNbr" value="414-748-1211" scope="page"/>
             <c:set var="outsmartArticleCmsId" value="3428" scope="page"/>
             <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailMilwaukee.jpg" scope="page"/>
-            <c:set var="pdf" value="http://WiPdf" scope="page"/>
-            <c:set var="titleCity" value="Milwaukee"/>
+            <c:set var="titleCity" value="Milwaukee" scope="page"/>
         </c:when>
         <c:when test="${state eq 'IN'}">
-            <c:set var="outsmartArticleCmsId" value="tbd" scope="page"/>
-            <c:set var="thumbnail" value="" scope="page"/>
-            <c:set var="pdf" value="http://InPdf" scope="page"/>
-            <c:set var="titleCity" value="Indianopolis"/>
+            <c:set var="titleCity" value="Indianapolis" scope="page"/>
         </c:when>
     </c:choose>
 
-    <div class="mod standard_1-1">
-        <div class="inner">
-            <div class="hd">
-                <!-- Title row -->
-                <h4 class="pam bottom">Choosing a school in ${titleCity}?</h4>
-            </div>
-            <div class="bd">
-                <!-- Section 1 - Download links -->
-                <div class="mam bg-chooserBook">
+    <c:if test="${not empty titleCity}">
+        <div class="mod standard_1-1">
+            <div class="inner">
+                <div class="hd">
+                    <!-- Title row -->
+                    <h4 class="pam bottom">Choosing a school in ${titleCity}?</h4>
+                </div>
+                <div class="bd">
+                    <!-- Section 1 - Download links -->
                     <!-- Currently the download pdf's are not available so this section should be hidden -->
-                    <p class="small bottom">Download our ${titleCity} school
-                        <br/>chooser to help guide you
-                        <br/>through your search.
-                    </p>
-                    <ul class="small bottom">
-                        <li><a href="">Guide to choosing</a></li>
-                        <li><a href="">K-8 school profiles</a></li>
-                        <li><a href="">High scshool profiles</a></li>
-                    </ul>
-                </div>
+                    <!--div class="mam bg-chooserBook">
+                        <p class="small bottom">Download our ${titleCity} school
+                            <br/>chooser to help guide you
+                            <br/>through your search.
+                        </p>
+                        <ul class="small bottom">
+                            <li><a href="">Guide to choosing</a></li>
+                            <li><a href="">K-8 school profiles</a></li>
+                            <li><a href="">High scshool profiles</a></li>
+                        </ul>
+                    </div-->
 
-                <!-- Section 2 - Planning a visit -->
-                <div class="pam bg-F5F5F5">
-                    <h4 class="bottom">Planning a visit?</h4>
-                    <p class="small bottom">Download the school visit checklist</p>
-                    <select id="schoolType" name="schoolLevel" class="mvm">
-                        <option value="" selected="selected">Select a school level</option>
-                        <option value="preschool">Preschool</option>
-                        <option value="elementary">Elementary school</option>
-                        <option value="middle">Middle school</option>
-                        <option value="high">High school</option>
-                    </select>
+                    <!-- Section 2 - Planning a visit -->
+                    <div class="pam bg-F5F5F5">
+                        <h4 class="bottom">Planning a visit?</h4>
+                        <p class="small bottom">Download the school visit checklist</p>
+                        <select id="js_chooserSchoolType" name="schoolLevel" class="mvm">
+                            <option value="" selected="selected">Select a school level</option>
+                            <option value="preschool">Preschool</option>
+                            <option value="elementary">Elementary school</option>
+                            <option value="middle">Middle school</option>
+                            <option value="high">High school</option>
+                        </select>
 
-                    <a class="downloadGuide" href="">
-                        <button class="button-1 mlm">Download</button>
-                    </a>
-                    <!-- The download button contains the following entries.  Clicking one opens the specified pdf -->
-                    <!-- Preschool - http://www.greatschools.org/catalog/pdf/schq_visit_preschool.pdf -->
-                    <!-- Elementry school - http://www.greatschools.org/catalog/pdf/schq_visit_elem.pdf -->
-                    <!-- Middle school - http://www.greatschools.org/catalog/pdf/schq_visit_middle.pdf -->
-                    <!-- High school - http://www.greatschools.org/catalog/pdf/schq_visit_high.pdf -->
-                </div>
-                <!-- Section 3 - Outsmarting the system -->
-                <!-- Use the following links for this item -->
-                <!-- Link: http://www.greatschools.org/content/cms/translate.page?Article=${outsmartArticleCmsId} -->
-                <!-- Img:  The images are stored at ${thumbnail} -->
-                <c:if test="${not empty outsmartArticleCmsId}">
-                    <!-- show the "outsmart the system" block and include ${hotlinePhoneNbr} if present -->
-                    <div class="pam bg-outsmart">
-                        <div class="fl">
-                            <p class="small_bold bottom">Outsmart the system in
-                                <br/>${titleCity}</p>
-                            <a href="http://www.greatschools.org/content/cms/translate.page?Article=${outsmartArticleCmsId}"
-                               class="small bottom">Read how to navigate the
-                                <br/>local process &amp;raquo;</a>
-                        </div>
-                        <div class="fr">
-                            <img src="${thumbnail}"/></div>
-                        <div class="clear"><!--Do not collapse--></div>
+                        <a class="downloadGuide" href="javascript:void(0);">
+                            <button class="button-1 mlm">Download</button>
+                        </a>
                     </div>
-                    <!-- School hotline -->
-                    <c:if test="${not empty hotlinePhoneNbr}">
-                        <div class="pam mam bg-F5F5F5 border-DDDDDD">
-                            <p class="small_bold bottom tac">Need more information?</p>
-
-                            <p class="small bottom tac">Call the GreatSchools hotline at ${hotlinePhoneNbr}</p>
+                    <!-- Section 3 - Outsmarting the system -->
+                    <!-- Use the following links for this item -->
+                    <!-- Link: http://www.greatschools.org/content/cms/translate.page?Article=${outsmartArticleCmsId} -->
+                    <!-- Img:  The images are stored at ${thumbnail} -->
+                    <c:if test="${not empty outsmartArticleCmsId}">
+                        <!-- show the "outsmart the system" block and include ${hotlinePhoneNbr} if present -->
+                        <div class="pam bg-outsmart">
+                            <div class="fl">
+                                <p class="small_bold bottom">Outsmart the system in
+                                    <br/>${titleCity}</p>
+                                <a href="http://www.greatschools.org/content/cms/translate.page?Article=${outsmartArticleCmsId}"
+                                   class="small bottom">Read how to navigate the
+                                    <br/>local process &amp;raquo;</a>
+                            </div>
+                            <div class="fr">
+                                <img src="${thumbnail}"/></div>
+                            <div class="clear"><!--Do not collapse--></div>
                         </div>
+                        <!-- School hotline -->
+                        <c:if test="${not empty hotlinePhoneNbr}">
+                            <div class="pam mam bg-F5F5F5 border-DDDDDD">
+                                <p class="small_bold bottom tac">Need more information?</p>
+
+                                <p class="small bottom tac">Call the GreatSchools hotline at ${hotlinePhoneNbr}</p>
+                            </div>
+                        </c:if>
                     </c:if>
-                </c:if>
+                </div>
             </div>
         </div>
-    </div>
-    <script>
-        $("#schoolType").change(function () {
-            if ($("#schoolType").val() == "preschool") {
-                $('.downloadGuide').attr('href', 'http://www.greatschools.org/catalog/pdf/schq_visit_preschool.pdf');
-            }
-            else if ($("#schoolType").val() == "elementary") {
-                $('.downloadGuide').attr('href', 'http://www.greatschools.org/catalog/pdf/schq_visit_elem.pdf');
-            }
-            else if ($("#schoolType").val() == "middle") {
-                $('.downloadGuide').attr('href', 'http://www.greatschools.org/catalog/pdf/schq_visit_middle.pdf');
-            }
-            else if ($("#schoolType").val() == "high") {
-                $('.downloadGuide').attr('href', 'http://www.greatschools.org/catalog/pdf/schq_visit_high.pdf');
-            }
-        });
-    </script>
+        <!-- The download button contains the following entries.  Clicking one opens the specified pdf -->
+        <!-- Preschool - http://www.greatschools.org/catalog/pdf/schq_visit_preschool.pdf -->
+        <!-- Elementry school - http://www.greatschools.org/catalog/pdf/schq_visit_elem.pdf -->
+        <!-- Middle school - http://www.greatschools.org/catalog/pdf/schq_visit_middle.pdf -->
+        <!-- High school - http://www.greatschools.org/catalog/pdf/schq_visit_high.pdf -->
+        <script>
+            $("#js_chooserSchoolType").change(function () {
+                var myVal = $(this).val();
+                var visitPdfHref = 'javascript:void(0);';
+                if (myVal == "preschool") {
+                    visitPdfHref = 'http://www.greatschools.org/catalog/pdf/schq_visit_preschool.pdf';
+                }
+                else if (myVal == "elementary") {
+                    visitPdfHref = 'http://www.greatschools.org/catalog/pdf/schq_visit_elem.pdf';
+                }
+                else if (myVal == "middle") {
+                    visitPdfHref = 'http://www.greatschools.org/catalog/pdf/schq_visit_middle.pdf';
+                }
+                else if (myVal == "high") {
+                    visitPdfHref = 'http://www.greatschools.org/catalog/pdf/schq_visit_high.pdf';
+                }
+                $('.downloadGuide').attr('href', visitPdfHref);
+            });
+        </script>
+    </c:if>
 
 </jsp:root>
