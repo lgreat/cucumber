@@ -106,16 +106,16 @@
                 var myVal = $(this).val();
                 var visitPdfHref = 'javascript:void(0);';
                 if (myVal == "preschool") {
-                    visitPdfHref = 'http://www.greatschools.org/catalog/pdf/schq_visit_preschool.pdf';
+                    visitPdfHref = '/catalog/pdf/schq_visit_preschool.pdf';
                 }
                 else if (myVal == "elementary") {
-                    visitPdfHref = 'http://www.greatschools.org/catalog/pdf/schq_visit_elem.pdf';
+                    visitPdfHref = '/catalog/pdf/schq_visit_elem.pdf';
                 }
                 else if (myVal == "middle") {
-                    visitPdfHref = 'http://www.greatschools.org/catalog/pdf/schq_visit_middle.pdf';
+                    visitPdfHref = '/catalog/pdf/schq_visit_middle.pdf';
                 }
                 else if (myVal == "high") {
-                    visitPdfHref = 'http://www.greatschools.org/catalog/pdf/schq_visit_high.pdf';
+                    visitPdfHref = '/catalog/pdf/schq_visit_high.pdf';
                 }
                 $('.downloadGuide').attr('href', visitPdfHref);
             });
