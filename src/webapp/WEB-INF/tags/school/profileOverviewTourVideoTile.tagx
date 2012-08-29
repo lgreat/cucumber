@@ -3,6 +3,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
         >
 
     <jsp:directive.attribute name="tourModel" type="java.lang.Object" required="true"/>
@@ -18,11 +19,7 @@
 
     <c:choose>
         <c:when test="${empty contentUrl}">
-            <school:profileOverviewCell1 title="${t12s1}">
-                <div class="mam" style="height:149px">
-                    <!-- TODO: We may need a backup if the tour videos are not ready on time -->
-                </div>
-            </school:profileOverviewCell1>
+            <school:profileOverviewReviewsCTA/>
         </c:when>
         <c:otherwise>
             <a class="tdn" href="${contentUrl}">
