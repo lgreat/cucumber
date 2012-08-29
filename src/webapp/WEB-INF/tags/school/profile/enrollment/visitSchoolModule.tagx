@@ -10,12 +10,13 @@
         <div class="mod standard_1-1">
 
                 <div class="inner">
-                    <div class="hd plm">
-                        <strong>Visit</strong>
+                    <div class="hd">
+                        <p class="small_bold textshadow-1 pvs plm bottom">Visit</p>
                     </div>
                     <div class="bd">
                         <div class="bg-checklist">
-                            <div class="small bottom pal"><h4 class="bottom">Be sure to visit</h4>
+                            <div class="small bottom pam">
+                                <h4 class="bottom">Be sure to visit</h4>
                                 Take along one of<br />our checklists:<br/>
                                 <c:if test="${fn:contains(school.levelCode, 'p')}">
                                     <a target="_blank" href="/catalog/pdf/schq_visit_preschool.pdf">Preschool</a><br />
