@@ -94,6 +94,8 @@
     <ad:enableGptAsynchronousMode/>
     <ad:disableGptGhostTextHiding position="Header_728x90"/>
     <ad:disableGptGhostTextHiding position="Footer_728x90"/>
+    <ad:disableGptGhostTextHiding position="AboveFold_300x600"/>
+    <ad:omitCompanionSizes position="AboveFold_300x600"/>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 <div id="fb-root"><!-- do not collapse --></div>
@@ -182,18 +184,20 @@
 <!-- Begin profile header -->
 <div class="grid_16 ptm">
 
-    <div class="alpha grid_4 tac">
-        <!-- New GS Rating -->
-        <c:choose>
-            <c:when test="${overallRating != null}">
-                <div class="iconx96-ratings-rb i-96-ratings${overallRating}"><!-- do not collapse --></div>
-            </c:when>
-            <c:otherwise>
-                <div class="iconx96-ratings-rb i-96-ratingsNR"><!-- do not collapse --></div>
-            </c:otherwise>
-        </c:choose>
-        <p data-gs-custom-link="header_rating" class="tac small bottom pbs mbm">GreatSchools Rating</p>
-    </div>
+    <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger">
+        <div class="alpha grid_4 tac">
+            <!-- New GS Rating -->
+            <c:choose>
+                <c:when test="${overallRating != null}">
+                    <div class="iconx96-ratings-rb i-96-ratings${overallRating}"><!-- do not collapse --></div>
+                </c:when>
+                <c:otherwise>
+                    <div class="iconx96-ratings-rb i-96-ratingsNR"><!-- do not collapse --></div>
+                </c:otherwise>
+            </c:choose>
+            <p data-gs-custom-link="header_rating" class="tac small bottom pbs mbm">GreatSchools Rating</p>
+        </div>
+    </gslink:linkToTab>
 
     <div class="grid_12 omega">
         <!-- School name and sub data -->
@@ -391,9 +395,7 @@
     </div>
 
     <div class="">
-        <!--<ad:disableGptGhostTextHiding position="AboveFold_300x600"/>
-        <ad:omitCompanionSizes position="AboveFold_300x600"/>
-        <ad:AboveFold_300x600/>-->
+        <ad:AboveFold_300x600/>
 
         <div class="mod standard_3-1">
             <div class="outer">

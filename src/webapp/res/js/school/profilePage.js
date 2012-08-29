@@ -60,7 +60,7 @@ GS.profile = GS.profile || (function() {
     //TODO: find out ad slot names for profile
     var adSlotPrefix = "School_Profile_Page";
     var adSlotKeys = ['Footer_728x90', 'Header_728x90', 'Community_Ad_300x50',
-        'BelowFold_300x250', 'BelowFold_Top_300x125'];
+        'BelowFold_300x250', 'BelowFold_Top_300x125', 'AboveFold_300x600', 'Sponsor_630x40'];
 
 
     var init = function() {

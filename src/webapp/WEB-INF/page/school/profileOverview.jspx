@@ -9,7 +9,8 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:gsweb="gstaglib" >
+          xmlns:gsweb="gstaglib"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad">
 
 <jsp:directive.page contentType="text/html"/>
 <jsp:output doctype-root-element="html"
@@ -58,6 +59,8 @@
                         <school:profileOverviewVideoTile videoModel="${video}" school="${school}"/>
                     </div>
                 </div>
+
+                <ad:adTag position="Sponsor_630x40"/>
 
                 <div class="line">   <!-- row 2, tiles 4-6 -->
                     <div class="unit size32of100">
