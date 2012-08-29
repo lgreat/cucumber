@@ -22,7 +22,7 @@
             <c:set var="hotlinePhoneNbr" value="202-431-5538" scope="page"/>
             <c:set var="outsmartArticleCmsId" value="3775" scope="page"/>
             <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailWashingtonDc.jpg" scope="page"/>
-            <c:set var="titleCity" value="Washington DC" scope="page"/>
+            <c:set var="titleCity" value="Washington, D.C." scope="page"/>
         </c:when>
         <c:when test="${state eq 'WI'}">
             <c:set var="hotlinePhoneNbr" value="414-748-1211" scope="page"/>
