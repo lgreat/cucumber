@@ -23,6 +23,8 @@
         </c:when>
         <c:when test="${state eq 'IN'}">
             <c:set var="titleCity" value="Indianapolis" scope="page"/>
+            <c:set var="outsmartArticleCmsId" value="6996" scope="page"/>
+            <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailIndianapolis.jpg" scope="page"/>
         </c:when>
     </c:choose>
 
