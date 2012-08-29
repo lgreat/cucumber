@@ -19,7 +19,7 @@
     <c:choose>
         <c:when test="${apply.learnMoreUrl != null and apply.learnMoreUrl != ''}">
             <c:set var="linkFindOutMore">
-                <a href="${apply.learnMoreUrl}" target="_blank">Learn more about enrolling at this school</a>
+                <a href="${apply.learnMoreUrl}" target="_blank">Learn more about<br/>enrolling at this school &amp;raquo;</a>
             </c:set>
             <c:set var="linkApplyNow">
                 <a href="${apply.learnMoreUrl}" target="_blank">
