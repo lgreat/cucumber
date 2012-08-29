@@ -289,7 +289,7 @@ General comments:
 .bg-writeReviews { background-image: url("/res/img/module/background/reviews.png"); }
 .bg-mobileApp { background: url("/res/img/module/background/mobile.png") no-repeat right bottom; }
 .bg-checklist { background: url("/res/img/module/background/checklist.png") no-repeat right bottom;}
-.bg-principal { background: url("/res/img/school/enrollment/principal.png") no-repeat right bottom;}
+.bg-principal { background: url("/res/img/school/enrollment/principal.png") no-repeat;}
 .bg-nearbySchool { background: url("/res/img/module/background/nearbySchools.png") no-repeat right bottom;}
 .bg-chooserBook { background: url("/res/img/module/background/chooserBook.png") no-repeat right bottom;}
 
