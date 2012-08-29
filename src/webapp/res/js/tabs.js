@@ -1,43 +1,33 @@
 var GS = GS || {};
 
-var GS_changeHistory = function(title, url) {
-    if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
-        window.History.pushState(null, title, url);
-    }
-};
-GS.util = GS.util || {};
-GS.util.jumpToAnchor = function(hash) {
-    window.location.hash=hash;
-    return false;
-};
-
-
 GS.tabManager = (function() {
     "use strict";
 
     var tabNamesToTabModules = {};
     var originalPageTitle;
-    var historyAPIAvailable;
+    var isHistoryAPIAvailable;
     var allTabs;
+    var onTabChanged;
 
     var init = function() {
-        historyAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
+        isHistoryAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
 
         $(function() {
             originalPageTitle = document.title;
         });
+
         return this;
     };
 
     var tabClickHandler = function($a, tabModule) {
         var allowInterceptHovers = tabModule.allowInterceptHovers;
-        if (typeof mssAutoHoverInterceptor === 'undefined' || !allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
+        //if (typeof mssAutoHoverInterceptor === 'undefined' || !allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
             var tabName = getTabName($a);
             GS.tabManager.showTabWithOptions({
                 tab:tabName
             });
             return false;
-        }
+        //}
     };
 
     /**
@@ -108,26 +98,8 @@ GS.tabManager = (function() {
         return tabModule.getTabByName(name);
     };
 
-    var getUpdatedTitle = function(tabTitle) {
-        var oldPageTitle = originalPageTitle;
-        // check whether to augment or replace title
-        var replaceTheTitle = tabTitle.indexOf('-') !== -1;
-
-        if (replaceTheTitle) {
-            return tabTitle;
-        }
-
-        // might need to preserve titles of overview pages. Special-case overview title TODO: need special case?
-        var overviewSuffix = " - School overview";
-        if (oldPageTitle.indexOf(overviewSuffix, oldPageTitle.length - overviewSuffix.length) !== -1) {
-            oldPageTitle = "for " + oldPageTitle.replace(overviewSuffix, "");
-        }
-
-        // do regex replace of original title with tab link's title attribute
-        return oldPageTitle.replace(/((?!for).)*/, tabTitle + " ");
-    };
-
     var showTabWithOptions = function(options) {
+        options = options || {};
         var tabObject = options.tab;
         if (typeof tabObject === 'string') {
             tabObject = getTabByName(tabObject);
@@ -138,21 +110,12 @@ GS.tabManager = (function() {
         }
 
         var activeChildTab = getActiveChildTab(tabObject);
-        var $a = $(tabObject.selector);
 
+        // show the tab
         var tabChanged = tabObject.owner.showTab(tabObject);
 
-        if (!options.skipHistory) {
-            GS_changeHistory(getUpdatedTitle(activeChildTab.title), $a.attr('href') );
-        }
-
-        if(options && options.hash !== undefined) {
-            GS.util.jumpToAnchor(options.hash);
-        }
-
-        if (tabChanged && historyAPIAvailable) {
-            GS.tracking.sendOmnitureData(activeChildTab.name);
-            GS_notifyQuantcastComscore();
+        if (tabChanged && onTabChanged) {
+            onTabChanged(activeChildTab, options);
         }
     };
 
@@ -161,13 +124,8 @@ GS.tabManager = (function() {
         return $a.parent().data('gs-tab');
     };
 
-    var updateHistoryEntryWithCurrentTab = function() {
-        if (historyAPIAvailable) {
-            var currentTab = getCurrentTab();
-            if (currentTab !== getTabByName('overview')) {
-                window.History.replaceState(null, getUpdatedTitle(currentTab.title), null);
-            }
-        }
+    var setOnTabChanged = function(callback) {
+        onTabChanged = callback;
     };
 
     return {
@@ -179,8 +137,7 @@ GS.tabManager = (function() {
         getTabName:getTabName,
         getCurrentTab:getCurrentTab,
         getTabByName:getTabByName,
-        getUpdatedTitle:getUpdatedTitle,
-        updateHistoryEntryWithCurrentTab:updateHistoryEntryWithCurrentTab
+        setOnTabChanged:setOnTabChanged
     };
 }()).init();
 
@@ -231,8 +188,7 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
 
             // set up click handler for tabs
             $tabs.click(function() {
-                GS.tabManager.tabClickHandler($(this), self);
-                return false;
+                return GS.tabManager.tabClickHandler($(this), self);
             });
 
             return self;

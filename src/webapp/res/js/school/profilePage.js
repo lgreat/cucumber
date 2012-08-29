@@ -53,10 +53,19 @@ GS.util = GS.util || {};
 GS.profile = GS.profile || (function() {
     "use strict";
 
-    var adSlotKeys = []; //TODO: find out ad slot names for profile
+    var isHistoryAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
+    var originalPageTitle;
+
+    //TODO: find out ad slot names for profile
+    var adSlotPrefix = "school_profile_page";
+    var adSlotKeys = ['Footer_728x90', 'Header_728x90', 'AboveFold_300x250',
+        'BelowFold_Top_300x125', 'Custom_Welcome_Ad', 'Custom_Peelback_Ad', 'Global_NavPromo_970x30'];
+
 
     var init = function() {
         //jQuery('[data-gs-tabs]').gsTabs();
+        originalPageTitle = document.title;
+
         $('.gsTabs').each(function() {
             var $this = $(this);
             var key = $this.data('gs-tabs') || $this;
@@ -64,7 +73,15 @@ GS.profile = GS.profile || (function() {
             tabsModule.showTabs();
         });
 
-        GS.tabManager.updateHistoryEntryWithCurrentTab();
+        GS.tabManager.setOnTabChanged(onTabChanged);
+
+        updateHistoryEntryWithCurrentTab();
+        handleHashBang();
+
+        var i = adSlotKeys.length;
+        while(i--) {
+            adSlotKeys[i] = adSlotPrefix + adSlotKeys[i];
+        }
 
         setupTabClickHandlers();
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
@@ -80,12 +97,88 @@ GS.profile = GS.profile || (function() {
                         tab = GS.uri.Uri.getFromQueryString('tab', queryString) || tab;
                     }
                     if (tab) {
-                        GS.tabManager.showTabWithOptions({tab:tab, skipHistory:true});
+                        GS.tabManager.showTabWithOptions({
+                            tab:tab,
+                            skipHistory:true
+                        });
                     }
                 }
             });
         }
         return this;
+    };
+
+    var onTabChanged = function(currentTab, options) {
+        options = options || {};
+        var $a = $(currentTab.selector);
+        if (!options.skipHistory) {
+            if (isHistoryAPIAvailable) {
+                GS_changeHistory(getUpdatedTitle(currentTab.title), $a.attr('href'));
+            } else {
+                var anchorVal = "/" + currentTab.name;
+                if(options && options.hash !== undefined) {
+                    GS.util.jumpToAnchor(options.hash);
+                    anchorVal += "/" + options.hash;
+                }
+                GS.util.jumpToAnchor("!" + anchorVal);
+            }
+        }
+
+        if(isHistoryAPIAvailable && options && options.hash !== undefined) {
+            GS.util.jumpToAnchor(options.hash);
+        }
+
+        if (isHistoryAPIAvailable) {
+            GS.tracking.sendOmnitureData(currentTab.name);
+            GS_notifyQuantcastComscore();
+        }
+    };
+
+    var getUpdatedTitle = function(tabTitle) {
+        var oldPageTitle = originalPageTitle;
+        // check whether to augment or replace title
+        var replaceTheTitle = tabTitle.indexOf('-') !== -1;
+
+        if (replaceTheTitle) {
+            return tabTitle;
+        }
+
+        // might need to preserve titles of overview pages. Special-case overview title TODO: need special case?
+        var overviewSuffix = " - School overview";
+        if (oldPageTitle.indexOf(overviewSuffix, oldPageTitle.length - overviewSuffix.length) !== -1) {
+            oldPageTitle = "for " + oldPageTitle.replace(overviewSuffix, "");
+        }
+
+        // do regex replace of original title with tab link's title attribute
+        return oldPageTitle.replace(/((?!for).)*/, tabTitle + " ");
+    };
+
+    var updateHistoryEntryWithCurrentTab = function() {
+        if (isHistoryAPIAvailable) {
+            var currentTab = GS.tabManager.getCurrentTab();
+            if (currentTab !== GS.tabManager.getTabByName('overview')) {
+                window.History.replaceState(null, getUpdatedTitle(currentTab.title), null);
+            }
+        }
+    };
+
+    var handleHashBang = function() {
+        var hash = window.location.hash;
+        var options = {};
+        if (hash.substring(1,2) === '!') {
+            var tokens = hash.substring(2).split('/');
+            if (tokens.length > 1 && GS.tabManager.getTabByName(tokens[1]) !== undefined) {
+                options.tab = tokens[1];
+                if (tokens.length > 2) {
+                    options.hash = tokens[2];
+                }
+                GS.tabManager.showTabWithOptions(options);
+            }
+        }
+    };
+
+    var refreshAds = function() {
+        GS.ad.refreshAds(adSlotKeys);
     };
 
     var setupTabClickHandlers = function() {
@@ -109,9 +202,16 @@ GS.profile = GS.profile || (function() {
 }());
 
 
+GS.util = GS.util || {};
 GS.util.jumpToAnchor = function(hash) {
     window.location.hash=hash;
     return false;
+};
+
+var GS_changeHistory = function(title, url) {
+    if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+        window.History.pushState(null, title, url);
+    }
 };
 
 jQuery(document).ready(function() {
