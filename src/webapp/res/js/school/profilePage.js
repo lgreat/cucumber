@@ -57,9 +57,9 @@ GS.profile = GS.profile || (function() {
     var originalPageTitle;
 
     //TODO: find out ad slot names for profile
-    var adSlotPrefix = "school_profile_page";
-    var adSlotKeys = ['Footer_728x90', 'Header_728x90', 'AboveFold_300x250',
-        'BelowFold_Top_300x125', 'Custom_Welcome_Ad', 'Custom_Peelback_Ad', 'Global_NavPromo_970x30'];
+    var adSlotPrefix = "School_Profile_Page";
+    var adSlotKeys = ['Footer_728x90', 'Header_728x90', 'Community_Ad_300x50',
+        'BelowFold_300x250', 'BelowFold_Top_300x125'];
 
 
     var init = function() {
@@ -80,7 +80,7 @@ GS.profile = GS.profile || (function() {
 
         var i = adSlotKeys.length;
         while(i--) {
-            adSlotKeys[i] = adSlotPrefix + adSlotKeys[i];
+            adSlotKeys[i] = adSlotPrefix + '_' + adSlotKeys[i];
         }
 
         setupTabClickHandlers();
@@ -128,10 +128,9 @@ GS.profile = GS.profile || (function() {
             GS.util.jumpToAnchor(options.hash);
         }
 
-        if (isHistoryAPIAvailable) {
-            GS.tracking.sendOmnitureData(currentTab.name);
-            GS_notifyQuantcastComscore();
-        }
+        GS.tracking.sendOmnitureData(currentTab.name);
+        GS_notifyQuantcastComscore();
+        refreshAds();
     };
 
     var getUpdatedTitle = function(tabTitle) {
@@ -178,6 +177,7 @@ GS.profile = GS.profile || (function() {
     };
 
     var refreshAds = function() {
+        console.log("refreshing ads ", adSlotKeys);
         GS.ad.refreshAds(adSlotKeys);
     };
 
@@ -197,7 +197,8 @@ GS.profile = GS.profile || (function() {
 
     return {
         setupTabClickHandlers : setupTabClickHandlers,
-        init:init
+        init:init,
+        refreshAds:refreshAds
     };
 }());
 

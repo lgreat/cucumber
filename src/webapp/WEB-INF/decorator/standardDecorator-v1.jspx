@@ -38,7 +38,8 @@
 
         <decorator:head/>
 
-    <ad:xGAMSetup/>
+        <ad:enableGptAsynchronousMode/>
+        <ad:xGAMSetup/>
     </head>
 
     <body class="site-gradient">
@@ -46,13 +47,16 @@
     <div class="container_24">
 
 
-
+        <c:if test="${requestScope.pageHelper.showingLeaderboard}">
+            <ad:x22 position="Header_728x90"/>
+        </c:if>
         <cobrand:header/>
         <mod:header/>
 
         <div class="page-shadow clearfix">
             <mod:primaryNav/>
             <mod:secondaryNav/>
+            <mod:belowNavAds/>
             <div class="phs clearfix">
             <decorator:body/>
             </div>
