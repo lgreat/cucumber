@@ -509,54 +509,32 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     Map<String, Object> getTourVideoModel(HttpServletRequest request, School school) {
 
-        Map<String, Object> model = new HashMap<String, Object>(2);
+        Map<String, Object> model = new HashMap<String, Object>(3);
 
         // Which video to display will depend on the lowest level taught at the school.  For instance if level_code is e,m,h then just show for e
         LevelCode levelCode = school.getLevelCode();
         if( levelCode != null ) {
             LevelCode.Level level = levelCode.getLowestNonPreSchoolLevel();
             // determine which video to show
-            String videoId = "0";
+            String videoId;
             if (request.getParameter("_tourVideoId") != null) {
                 videoId = request.getParameter("_tourVideoId");
-            } else if( level.equals( LevelCode.Level.ELEMENTARY_LEVEL) || level.equals( LevelCode.Level.PRESCHOOL_LEVEL) ) {
-                videoId = VIDEO_ELEMENTARY;
-            }
-            else if( level.equals( LevelCode.Level.MIDDLE_LEVEL) ) {
+            } else if( level.equals( LevelCode.Level.MIDDLE_LEVEL) ) {
                 videoId = VIDEO_MIDDLE;
-            }
-            else if( level.equals( LevelCode.Level.HIGH_LEVEL) ) {
+            } else if( level.equals( LevelCode.Level.HIGH_LEVEL) ) {
                 videoId = VIDEO_HIGH;
+            } else { // fallback on elementary
+                videoId = VIDEO_ELEMENTARY;
             }
             // videoId = "5073"; // Debug, this is an existing Id in dev-cms
 
             model.put( "schoolLevel", level.getName() );
-
-            try {
-                // There was an earlier implementation that used CmsFeatureDao and PublicationDao and this approach caused a performance issue.
-                GsSolrQuery query = new GsSolrQuery();
-                query.filter(DocumentType.CMS_FEATURE);
-                query.filter(CmsFeatureFields.FIELD_CONTENT_TYPE, CmsConstants.VIDEO_CONTENT_TYPE);
-                query.filter(CmsFeatureFields.FIELD_LANGUAGE, LanguageToggleHelper.Language.EN.name());
-                query.filter(CmsFeatureFields.FIELD_CONTENT_ID, videoId );
-
-                SearchResultsPage<ICmsFeatureSearchResult> searchResults = _cmsFeatureSearchService.search(query.getSolrQuery());
-                List<ICmsFeatureSearchResult> searchResultList = searchResults.getSearchResults();
-                ICmsFeatureSearchResult result1 = searchResultList.get(0);
-                String uri = result1.getFullUri();
-                UrlBuilder urlBuilder = new UrlBuilder(result1.getContentKey(), uri);
-
-                model.put( "content", "schoolTourVideo" );
-                model.put( "contentUrl", urlBuilder.asSiteRelativeXml(request));
-                model.put( "videoIconUrl", result1.getImageUrl() );
-                model.put( "videoIconAltText", result1.getImageAltText() );
-            }
-            catch (Exception e ) {
-                // This happens when the search fails to return anything. If this does happen don't try to display a video
-                model.put( "content", "none" );
-                return  model;
-            }
-
+            model.put( "content", "schoolTourVideo" );
+            model.put( "contentUrl", "/content/cms/translate.page?Video=" + videoId);
+//            model.put( "videoIconUrl", result1.getImageUrl() );
+//            model.put( "videoIconAltText", result1.getImageAltText() );
+        } else {
+            model.put( "content", "none" );
         }
 
         return model;

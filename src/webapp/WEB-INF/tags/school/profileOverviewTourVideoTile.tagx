@@ -2,16 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:content="urn:www.greatschools.org/taglib/content"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
-          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:gsweb="gstaglib"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
 
     <jsp:directive.attribute name="tourModel" type="java.lang.Object" required="true"/>
@@ -29,7 +20,7 @@
         <c:when test="${empty contentUrl}">
             <school:profileOverviewCell1 title="${t12s1}">
                 <div class="mam" style="height:149px">
-                    <p><em>Video content was not found on the CMS</em></p>
+                    <!-- TODO: We may need a backup if the tour videos are not ready on time -->
                 </div>
             </school:profileOverviewCell1>
         </c:when>
@@ -38,10 +29,8 @@
                 <school:profileOverviewCell1 title="${t12s1}">
                     <div class="mam" style="height:149px">
                         <div class="shim-20"><!-- do not collapse --></div>
-                        <!-- Show video icon in variable videoIconUrl and clicking on it takes you to the video at videoUrl -->
+                        <!-- TODO: Hook up provided thumbnail if present instead of the default placeholder -->
                         <span class="iconx96 i-96-video_placeholder mha db"><!-- do not collapse --></span>
-                        <!--<p class="small bottom">Display video at ${contentUrl}</p>-->
-                        <!--<p class="small bottom">Video icon is: ${videoIconUrl}</p>-->
                     </div>
                 </school:profileOverviewCell1>
             </a>

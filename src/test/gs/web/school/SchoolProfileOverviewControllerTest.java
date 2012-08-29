@@ -1571,31 +1571,31 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
     private Map<String, Object> runCmsVideoTourModel(String cmsVideoContentId) {
 
-        ICmsFeatureSearchResult iResult = createStrictMock(ICmsFeatureSearchResult.class);
-        expect(iResult.getFullUri()).andReturn("/fullUri");
-        ContentKey ck = new ContentKey();
-        ck.setType("Video");
-        ck.setIdentifier(Long.parseLong(cmsVideoContentId));
-        expect(iResult.getContentKey()).andReturn(ck);
-        expect(iResult.getImageUrl()).andReturn("imageUrl");
-        expect(iResult.getImageAltText()).andReturn("alt text");
-
-        List<ICmsFeatureSearchResult> resultList = new ArrayList<ICmsFeatureSearchResult>();
-        resultList.add(iResult);
-        SearchResultsPage<ICmsFeatureSearchResult> searchResults = new SearchResultsPage<ICmsFeatureSearchResult>(1,resultList);
-
-        try {
-            expect( _cmsFeatureSearchService.search(isA(SolrQuery.class))).andReturn(searchResults);
-        } catch (SearchException e) {
-            fail("Exception creating mock for CmsFeatureSearchService: " + e.toString() );
-        }
+//        ICmsFeatureSearchResult iResult = createStrictMock(ICmsFeatureSearchResult.class);
+//        expect(iResult.getFullUri()).andReturn("/fullUri");
+//        ContentKey ck = new ContentKey();
+//        ck.setType("Video");
+//        ck.setIdentifier(Long.parseLong(cmsVideoContentId));
+//        expect(iResult.getContentKey()).andReturn(ck);
+//        expect(iResult.getImageUrl()).andReturn("imageUrl");
+//        expect(iResult.getImageAltText()).andReturn("alt text");
+//
+//        List<ICmsFeatureSearchResult> resultList = new ArrayList<ICmsFeatureSearchResult>();
+//        resultList.add(iResult);
+//        SearchResultsPage<ICmsFeatureSearchResult> searchResults = new SearchResultsPage<ICmsFeatureSearchResult>(1,resultList);
+//
+//        try {
+//            expect( _cmsFeatureSearchService.search(isA(SolrQuery.class))).andReturn(searchResults);
+//        } catch (SearchException e) {
+//            fail("Exception creating mock for CmsFeatureSearchService: " + e.toString() );
+//        }
 
         replay(_cmsFeatureSearchService);
-        replay(iResult);
+//        replay(iResult);
 
         Map<String, Object> resultsModel = _schoolProfileOverviewController.getTourVideoModel(_request, _school);
 
-        verify(iResult);
+//        verify(iResult);
         verify(_cmsFeatureSearchService);
         return resultsModel;
     }
