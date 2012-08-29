@@ -5,6 +5,7 @@
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
@@ -119,19 +120,16 @@ where each entry is the first bean for that section, this allows access to the s
         <div data-gs-tabs="programs-culture-master" class="gsTabs">
             <ul class="tabStyle-5">
                 <c:if test="${(!empty highlightstab)}">
-                    <li data-gs-tab="programs-culture"><a id="js_highlights" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}" title="Programs and extras" class="${requestScope.schoolProfileTabMap['programs-culture']}">Highlights</a></li>
-                </c:if>
-                <c:if test="${(!empty applicationtab)}">
-                    <li data-gs-tab="admissions"><span class="graydivider">|</span><a id="js_application" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs_application')}" title="Application info" class="${requestScope.schoolProfileTabMap.application}">Application info</a></li>
+                    <profile:gsTab tabName="programs-culture" title="Programs and extras" tabText="Highlights" cssClass="${requestScope.schoolProfileTabMap['programs-culture']}"/>
                 </c:if>
                 <c:if test="${(!empty programsresourcestab)}">
-                    <li data-gs-tab="programs-resources"><span class="graydivider">|</span><a id="js_programsresources" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-resources')}" title="Programs and resources" class="${requestScope.schoolProfileTabMap['programs-resources']}">Programs &amp; resources</a></li>
+                    <profile:gsTab tabName="programs-resources" title="Programs and resources" tabText="Programs &amp; resources" cssClass="${requestScope.schoolProfileTabMap['programs-resources']}" addDivider="true"/>
                 </c:if>
                 <c:if test="${(!empty extracurricularstab)}">
-                    <li data-gs-tab="extracurriculars"><span class="graydivider">|</span><a id="js_extracurriculars" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'extracurriculars')}" title="Extracurriculars" class="${requestScope.schoolProfileTabMap.extracurriculars}">Extracurriculars</a></li>
+                    <profile:gsTab tabName="extracurriculars" tabText="Extracurriculars" cssClass="${requestScope.schoolProfileTabMap.extracurriculars}" addDivider="true"/>
                 </c:if>
                 <c:if test="${(!empty culturetab)}">
-                    <li data-gs-tab="culture"><span class="graydivider">|</span><a id="js_culture" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'culture')}" title="Culture" class="${requestScope.schoolProfileTabMap.culture}">Culture</a></li>
+                    <profile:gsTab tabName="culture" tabText="Culture" cssClass="${requestScope.schoolProfileTabMap.culture}" addDivider="true"/>
                 </c:if>
             </ul>
 

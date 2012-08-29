@@ -70,46 +70,22 @@
     <div data-gs-tabs="profileTabs" class="gsTabs" data-gs-allow-intercept-hovers="true">
         <ul class="tabStyle-8">
             <c:if test="${(!empty overview)}">
-                <li data-gs-tab="overview"><a id="js_overview" href="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'tab')}" title="${gsweb:schoolPageTitle(school)}" class="${requestScope.schoolProfileTabMap['overview-master']}">Overview</a>
-
-                        <!--<div class="${requestScope.schoolProfileTabMap.overview} arrowdiv" id="arrowdiv"></div>-->
-
-                </li>
+                <profile:gsTab tabName="overview" title="${gsweb:schoolPageTitle(school)}" tabText="Overview" cssClass="${requestScope.schoolProfileTabMap['overview-master']}"/>
             </c:if>
             <c:if test="${(!empty reviews)}">
-                <li data-gs-tab="reviews"><a id="js_reviews" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}" title="Reviews" class="${requestScope.schoolProfileTabMap['reviews-master']}">Reviews</a>
-
-                        <!--<div class="${requestScope.schoolProfileTabMap.reviews} arrowdiv" id="arrowdiv"></div>-->
-
-                </li>
+                <profile:gsTab tabName="reviews" tabText="Reviews" cssClass="${requestScope.schoolProfileTabMap['reviews-master']}"/>
             </c:if>
             <c:if test="${(!empty testscores) or (!empty ratings)}">
-                <li data-gs-tab="testsAndRatings"><a id="js_test-scores" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'test-scores')}" title="Test Scores" class="${requestScope.schoolProfileTabMap['test-scores-master']}">Test scores</a>
-
-                        <!--<div class="${requestScope.schoolProfileTabMap.testscores} arrowdiv" id="arrowdiv"></div>-->
-
-                </li>
+                <profile:gsTab tabName="testsAndRatings" tabToLinkTo="test-scores" title="Test Scores" tabText="Test scores" cssClass="${requestScope.schoolProfileTabMap['test-scores-master']}"/>
             </c:if>
             <c:if test="${(!empty schoolstats)}">
-                <li data-gs-tab="studentsAndTeachersMaster"><a id="js_demographics" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'demographics')}" title="Students &amp;amp; teachers" class="${requestScope.schoolProfileTabMap['students-teachers-master']}">Students &amp;amp; teachers</a>
-
-                        <!--<div class="${requestScope.schoolProfileTabMap.schoolstats} arrowdiv" id="arrowdiv"></div>-->
-
-                </li>
+                <profile:gsTab tabName="studentsAndTeachersMaster" tabToLinkTo="demographics" tabText="Students &amp;amp; teachers" cssClass="${requestScope.schoolProfileTabMap['students-teachers-master']}"/>
             </c:if>
             <c:if test="${(!empty programs)}">
-                <li data-gs-tab="programs-culture-master"><a id="js_programs-culture" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'programs-culture')}" title="Programs &amp;amp; culture" class="${requestScope.schoolProfileTabMap['programs-master']}">Programs &amp;amp; culture</a>
-
-                        <!--<div class="${requestScope.schoolProfileTabMap.programs} arrowdiv" id="arrowdiv"></div>-->
-
-                </li>
+                <profile:gsTab tabName="programs-culture-master" tabToLinkTo="programs-culture" tabText="Programs &amp;amp; culture" cssClass="${requestScope.schoolProfileTabMap['programs-master']}"/>
             </c:if>
             <c:if test="${(!empty enrollment)}">
-                <li data-gs-tab="enrollment"><a id="js_enrollment" href="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'enrollment')}" title="Enrollment" class="${requestScope.schoolProfileTabMap['enrollment-master']}">Enrollment</a>
-
-                        <!--<div class="${requestScope.schoolProfileTabMap.whatsitlike} arrowdiv" id="arrowdiv"></div>-->
-
-                </li>
+                <profile:gsTab tabName="enrollment" tabText="Enrollment" cssClass="${requestScope.schoolProfileTabMap['enrollment-master']}"/>
             </c:if>
         </ul>
 
