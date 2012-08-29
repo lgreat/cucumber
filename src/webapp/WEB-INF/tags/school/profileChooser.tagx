@@ -2,15 +2,6 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
-          xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
-          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
-          xmlns:link="urn:www.greatschools.org/taglib/link"
-          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-          xmlns:gsweb="gstaglib"
-          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         >
 
     <jsp:directive.attribute name="city" type="java.lang.String" required="true"/>
@@ -53,7 +44,7 @@
                         <ul class="small bottom">
                             <li><a href="">Guide to choosing</a></li>
                             <li><a href="">K-8 school profiles</a></li>
-                            <li><a href="">High scshool profiles</a></li>
+                            <li><a href="">High school profiles</a></li>
                         </ul>
                     </div-->
 
