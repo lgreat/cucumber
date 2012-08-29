@@ -79,6 +79,9 @@
     <script type="text/javascript" src="/res/js/mssAutoHoverInterceptor.js"><!-- no collapse --></script>
     <profile:facebookConfig showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
     <ad:setSlotPrefix slotPrefix="School_Profile_Page"/>
+    <ad:enableGptAsynchronousMode/>
+    <ad:disableGptGhostTextHiding position="Header_728x90"/>
+    <ad:disableGptGhostTextHiding position="Footer_728x90"/>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 <div id="fb-root"><!-- do not collapse --></div>
@@ -376,8 +379,6 @@
     </div>
 
     <div class="">
-        <ad:disableGptGhostTextHiding position="Header_728x90"/>
-        <ad:disableGptGhostTextHiding position="Footer_728x90"/>
         <!--<ad:disableGptGhostTextHiding position="AboveFold_300x600"/>
         <ad:omitCompanionSizes position="AboveFold_300x600"/>
         <ad:AboveFold_300x600/>-->
