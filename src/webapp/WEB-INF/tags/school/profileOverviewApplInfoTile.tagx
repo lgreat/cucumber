@@ -10,7 +10,7 @@
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
+          xmlns:map="urn:jsptagdir:/WEB-INF/tags/map" xmlns:fmt="http://java.sun.com/jstl/fmt_rt"
         >
 
     <jsp:directive.attribute name="applInfoModel" type="java.lang.Object" required="true"/>
@@ -45,8 +45,9 @@
                             <p class="bottom"><em>The application deadline date is not defined</em></p>
                         </c:when>
                         <c:otherwise>
+                            <fmt:parseDate var="parsedApplicationDeadlineDate" value="${applicationDeadlineDate}" pattern="MM/dd/yy"/>
                             <p class="small bottom tac">Apply by<br/>
-                                <span class="small_bold">${applicationDeadlineDate}</span>
+                                <span class="small_bold"><fmt:formatDate value="${parsedApplicationDeadlineDate}" dateStyle="long"/></span>
                             </p>
                         </c:otherwise>
                     </c:choose>
@@ -68,9 +69,9 @@
                     <!-- do not collapse -->
                 </c:when>
                 <c:when test="${vouchers eq 'yes'}">
-                    <div class="media mha" style="width:118px;">
+                    <div class="media mha" style="width:130px;">
                     <span class="iconx16 i-16-accepts-vouchers img mrs"><!-- do not collapse --></span>
-                    <p class="small_bold bottom fl">Accept vouchers</p>
+                    <p class="small_bold bottom fl">Accepts vouchers</p>
                     </div>
                 </c:when>
                 <c:when test="${vouchers eq 'no'}">

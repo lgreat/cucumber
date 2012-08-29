@@ -52,7 +52,8 @@
                     <p class="tac bottom"><em>Rate this school</em></p>
                 </c:when>
                 <c:otherwise>
-                    <p class="tac bottom">${overallRating} stars</p>
+                    <c:set var="plural" value="${overallRating gt 1 ? 's' : ''}"/>
+                    <p class="tac bottom">${overallRating} star${plural}</p>
                 </c:otherwise>
             </c:choose>
 

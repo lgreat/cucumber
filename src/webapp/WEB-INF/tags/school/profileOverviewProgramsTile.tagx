@@ -31,11 +31,15 @@
                     <div class="mvm mrm" style="height:149px">
                         <ul class="small bottom">
                             <c:set var="showMax" value="${3}"/>
+                            <c:set var="showMore" value="${fn:length(programsModel['resultsList']) gt showMax ? true : false}"/>
                             <c:forEach var="item" items="${programsModel['resultsList']}" varStatus="status">
                                 <c:if test="${status.count le showMax}">
-                                    <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
+                                    <li>${gsweb:abbreviateAtWhitespace(item,55)}</li>
                                 </c:if>
                             </c:forEach>
+                            <c:if test="${showMore}">
+                                <li><span class="make-06b">More &amp;raquo;</span></li>
+                            </c:if>
                         </ul>
                     </div>
                 </school:profileOverviewCell1>
@@ -64,11 +68,15 @@
                             <div class="mvm mrm" style="height:149px">
                                 <ul class="small bottom">
                                     <c:set var="showMax" value="${3}"/>
+                                    <c:set var="showMore" value="${fn:length(programsModel['substitute1List']) gt showMax ? true : false}"/>
                                     <c:forEach var="item" items="${programsModel['substitute1List']}" varStatus="status">
                                         <c:if test="${status.count le showMax}">
-                                            <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
+                                            <li>${gsweb:abbreviateAtWhitespace(item,55)}</li>
                                         </c:if>
                                     </c:forEach>
+                                    <c:if test="${showMore}">
+                                        <li><span class="make-06b">More &amp;raquo;</span></li>
+                                    </c:if>
                                 </ul>
                             </div>
                         </c:otherwise>
@@ -92,11 +100,15 @@
                     <div class="mvm mrm" style="height:149px">
                         <ul class="small bottom make-555555">
                             <c:set var="showMax" value="${3}"/>
+                            <c:set var="showMore" value="${fn:length(programsModel['substitute2List']) gt showMax ? true : false}"/>
                             <c:forEach var="item" items="${programsModel['substitute2List']}" varStatus="status">
                                 <c:if test="${status.count le showMax}">
-                                    <li>${gsweb:abbreviateAtWhitespace(item,60)}</li>
+                                    <li>${gsweb:abbreviateAtWhitespace(item,55)}</li>
                                 </c:if>
                             </c:forEach>
+                            <c:if test="${showMore}">
+                                <li><span class="make-06b">More &amp;raquo;</span></li>
+                            </c:if>
                         </ul>
                     </div>
                 </school:profileOverviewCell1>
