@@ -185,14 +185,34 @@
                                 <link:schoolProfileOverview school="${s.school}" title="${s.name}">${s.name}</link:schoolProfileOverview>
                             </td>
                             <td style="text-align: right" class="dottedLineBottomBox">
-                                <c:set var="ratingValue" value="na"/>
-                                <!-- top rated school interface return int, not Integer so we don't check for empty-->
-                                <c:if test="${s.rating > 0}">
-                                    <c:set var="ratingValue" value="${s.rating}"/>
-                                </c:if>
-                                <gsml:img
-                                    src="/res/img/school/ratings/${ratingValue}.gif"
-                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                <c:choose>
+                                    <c:when test="${s.school.isNewGSRating}">
+                                        <c:set var="ratingValue" value="nr"/>
+                                        <!-- top rated school interface return int, not Integer so we don't check for empty-->
+                                        <c:if test="${s.rating > 0}">
+                                            <c:set var="ratingValue" value="${s.rating}"/>
+                                        </c:if>
+
+                                        <c:choose>
+                                            <c:when test="${s.school.type eq 'private'}">
+                                                <span class="iconx24-ratings-rb i-24-ratings${ratingValue}"><!-- do not collapse --></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="iconx24-ratings-rb i-24-ratings${ratingValue}"><!-- do not collapse --></span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="ratingValue" value="na"/>
+                                        <!-- top rated school interface return int, not Integer so we don't check for empty-->
+                                        <c:if test="${s.rating > 0}">
+                                            <c:set var="ratingValue" value="${s.rating}"/>
+                                        </c:if>
+                                        <gsml:img
+                                                src="/res/img/school/ratings/${ratingValue}.gif"
+                                                alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                    </c:otherwise>
+                                </c:choose>
                             </td>
                         </tr>
                     </c:forEach>

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: CityControllerTest.java,v 1.32 2011/01/27 18:08:37 aroy Exp $
+ * $Id: CityControllerTest.java,v 1.33 2012/08/30 16:29:03 npatury Exp $
  */
 
 package gs.web.geo;
@@ -309,18 +309,18 @@ public class CityControllerTest extends BaseControllerTestCase {
         assertEquals("CA2,CA1,CA3", rval);
     }
     
-    public void testFindTopRatedSchoolsForCompare() {
-        Map<String, Object> model = new HashMap<String, Object>();
-
-        _controller.findTopRatedSchoolsForCompare(_controller.getGeoDao().findCity(State.CA, "Alameda"), model);
-
-        assertNotNull(model.get(CityController.MODEL_TOP_RATED_E_SCHOOLS));
-        assertEquals("CA2,CA4,CA5,CA7,CA8", model.get(CityController.MODEL_TOP_RATED_E_SCHOOLS));
-        assertNotNull(model.get(CityController.MODEL_TOP_RATED_M_SCHOOLS));
-        assertEquals("CA10,CA1,CA3", model.get(CityController.MODEL_TOP_RATED_M_SCHOOLS));
-        assertNotNull(model.get(CityController.MODEL_TOP_RATED_H_SCHOOLS));
-        assertEquals("CA1,CA6,CA9", model.get(CityController.MODEL_TOP_RATED_H_SCHOOLS));
-    }
+//    public void testFindTopRatedSchoolsForCompare() {
+//        Map<String, Object> model = new HashMap<String, Object>();
+//
+//        _controller.findTopRatedSchoolsForCompare(_controller.getGeoDao().findCity(State.CA, "Alameda"), model);
+//
+//        assertNotNull(model.get(CityController.MODEL_TOP_RATED_E_SCHOOLS));
+//        assertEquals("CA2,CA4,CA5,CA7,CA8", model.get(CityController.MODEL_TOP_RATED_E_SCHOOLS));
+//        assertNotNull(model.get(CityController.MODEL_TOP_RATED_M_SCHOOLS));
+//        assertEquals("CA10,CA1,CA3", model.get(CityController.MODEL_TOP_RATED_M_SCHOOLS));
+//        assertNotNull(model.get(CityController.MODEL_TOP_RATED_H_SCHOOLS));
+//        assertEquals("CA1,CA6,CA9", model.get(CityController.MODEL_TOP_RATED_H_SCHOOLS));
+//    }
 
     private ISchoolDao.ITopRatedSchool createTopRatedSchool(final int id) {
         return new ISchoolDao.ITopRatedSchool() {
