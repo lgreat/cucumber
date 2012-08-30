@@ -350,7 +350,7 @@
 
 
         <!-- Address, phone, fax, directions, homes for sale -->
-        <div class="bd fl">
+        <div class="bd fl" style="width:150px;">
             <p class="small bottom mbm">${school.physicalAddress.street}
 
                 <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">

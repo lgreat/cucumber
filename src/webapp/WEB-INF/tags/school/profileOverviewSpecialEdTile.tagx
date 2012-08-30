@@ -195,7 +195,8 @@
             </c:choose>
         </c:when>
         <c:when test="${content eq 'teachers/staff'}">
-            <!-- ============ Substitute display - Teachers / staff ========== -->
+            <!-- 
+============ Substitute display - Teachers / staff ========== -->
             <c:set var="t8s1">
                 <p class="small_bold textshadow-1 pvs plm bottom">Staff</p>
                 <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
