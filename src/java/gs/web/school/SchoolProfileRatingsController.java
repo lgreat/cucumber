@@ -249,13 +249,13 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                 switch (rating.getDataTypeId()) {
                     // overall ratings
                     case TestDataType.RATING_ACADEMIC_ACHIEVEMENT :
-                        dataMap.put(DATA_CITY_TEST_SCORE_RATING, new Float(rating.getRating()).intValue());
+                        dataMap.put(DATA_CITY_TEST_SCORE_RATING, rating.getRating());
                         break;
                     case TestDataType.RATING_ACADEMIC_VALUE_ADDED :
-                        dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, new Float(rating.getRating()).intValue());
+                        dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, rating.getRating());
                         break;
                     case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS :
-                        dataMap.put(DATA_CITY_POST_SECONDARY_READINESS_RATING, new Float(rating.getRating()).intValue());
+                        dataMap.put(DATA_CITY_POST_SECONDARY_READINESS_RATING, rating.getRating());
                         break;
                 }
             }

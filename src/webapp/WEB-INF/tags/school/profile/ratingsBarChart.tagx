@@ -12,9 +12,9 @@
 
     <jsp:directive.attribute name="ratingDivId" type="java.lang.String" required="true" description="Where to draw the bar chart"/>
     <jsp:directive.attribute name="schoolRating" type="java.lang.String" required="true" description="School rating value"/>
-    <jsp:directive.attribute name="cityRating" type="java.lang.String" required="true" description="City rating value"/>
+    <jsp:directive.attribute name="cityRating" type="java.lang.Float" required="true" description="City rating value"/>
     <jsp:directive.attribute name="stateRatingShow" type="java.lang.String" required="true" description="Do we show the state rating"/>
-    <jsp:directive.attribute name="stateRating" type="java.lang.String" required="true" description="State rating value"/>
+    <jsp:directive.attribute name="stateRating" type="java.lang.Float" required="true" description="State rating value"/>
     <!--ratings div = ${ratingDivId}<br />-->
     <!--${schoolRating}             <br />-->
     <!--${cityRating}                     <br />-->
@@ -59,7 +59,7 @@
             <div class="graphContainer" style="height:${barChartHeight}px;">
                 <div class="barDrawing">
                     <div class="barContainer" style="width:${schoolWidth}px"><div class="${schoolRatingColor}"><!-- do not collapse --></div></div>
-                    <c:if test="${cityRating ne 'false'}">
+                    <c:if test="${cityRating ne ''}">
                         <div class="barContainer" style="width:${cityWidth}px"><div class="${cityRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
                     <c:if test="${stateRatingShow}">

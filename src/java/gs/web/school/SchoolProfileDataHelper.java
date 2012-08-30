@@ -703,13 +703,13 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                 for (StateTestValue value : stateTestValues) {
                     switch (value.getDataSet().getDataTypeId()) {
                         case TestDataType.RATING_ACADEMIC_ACHIEVEMENT:
-                            dataMap.put(DATA_STATE_TEST_SCORE_RATING, value.getValueFloat().intValue());
+                            dataMap.put(DATA_STATE_TEST_SCORE_RATING, value.getValueFloat());
                             break;
                         case TestDataType.RATING_ACADEMIC_VALUE_ADDED:
-                            dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
+                            dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, value.getValueFloat());
                             break;
                         case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS:
-                            dataMap.put(DATA_STATE_POST_SECONDARY_READINESS_RATING, value.getValueFloat().intValue());
+                            dataMap.put(DATA_STATE_POST_SECONDARY_READINESS_RATING, value.getValueFloat());
                             break;
                     }
                 }
