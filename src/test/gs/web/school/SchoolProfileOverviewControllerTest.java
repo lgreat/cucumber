@@ -1403,6 +1403,26 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         System.out.println( "testApplInfoDefaultB successful" );
     }
 
+    // application deadline = date but the date is missing and vouchers
+    public void testApplicationRateRounding() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "application_process", "yes" ) );
+        l.add( createEspResponse( "students_accepted", "16" ) );
+        l.add( createEspResponse( "applications_received", "100" ) );
+        l.add( createEspResponse( "applications_received_year", "2011-2012" ) );
+        l.add( createEspResponse( "students_accepted_year", "2011-2012" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
+
+        Map resultsModel = _schoolProfileOverviewController.getApplInfoEspTile( _request, _school, espData );
+
+        String contentType = (String) resultsModel.get( "content" );
+        assertEquals( "content wrong", "applInfoV1", contentType );
+        String rate = (String) resultsModel.get( "acceptanceRate" );
+        assertNotNull("acceptanceRate should not be null", rate);
+        assertEquals("acceptanceRate wrong, expect it to be rounded", "2", rate);
+    }
+
     // application deadline = yearround and no vouchers
     public void testApplInfoDefaultC() {
 

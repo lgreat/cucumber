@@ -1094,7 +1094,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 float studentsAccepted = Float.parseFloat(studentsAcceptedList.get(0).getValue());
                 float applicationsReceived = Float.parseFloat(applicationsReceivedList.get(0).getValue());
                 if( studentsAccepted > 0.0 && applicationsReceived > 0.0 ) {
-                    int acceptanceRate = (int) ((studentsAccepted/applicationsReceived)*10);
+                    int acceptanceRate = Math.round((studentsAccepted/applicationsReceived)*10);
                     // if acceptanceRate is 0 but there were some applications then show 1
                     if( acceptanceRate == 0 && studentsAccepted > 0 ) {
                         acceptanceRate = 1;
