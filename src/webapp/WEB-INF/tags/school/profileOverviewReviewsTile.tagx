@@ -39,7 +39,7 @@
     <div class="mod standard_1-1">
         <div class="inner box-shadow-animation-1">
             <div id="js-tile-5-0">
-            <gslink:linkToTab tabName="reviews" customLink="overview_writereview" dontPrintLink="${content ne 'reviews'}" cssClass="tdn make-555555 js-trigger">
+            <gslink:linkToTab tabName="reviews" customLink="overview_writereview" anchor="revPagination" dontPrintLink="${content ne 'reviews'}" cssClass="tdn make-555555 js-trigger">
                 <div class="hd pr">
                     ${t5t6dc}
                 </div>
@@ -48,17 +48,19 @@
             <div class="bd">
                 <c:choose>
                     <c:when test="${content eq 'reviews'}">
-                        <div class="infiniteCarousel9">
-                            <div class="wrapper">
-                                <ul class="unordered-carousel none">
-                                    <c:forEach var="review" items="${reviews}">
-                                        <li>
-                                            <p class="bottom phs"><em>${gsweb:abbreviateAtWhitespace(review.comments, 80)}</em></p>
-                                        </li>
-                                    </c:forEach>
-                                </ul>
+                        <gslink:linkToTab tabName="reviews" customLink="overview_writereview" anchor="revPagination" dontPrintLink="${content ne 'reviews'}" cssClass="tdn make-555555 js-trigger">
+                            <div class="infiniteCarousel9">
+                                <div class="wrapper">
+                                    <ul class="unordered-carousel none">
+                                        <c:forEach var="review" items="${reviews}">
+                                            <li>
+                                                <p class="bottom phs"><em>${gsweb:abbreviateAtWhitespace(review.comments, 80)}</em></p>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        </gslink:linkToTab>
                     </c:when>
                     <c:otherwise>
                         <div class="mvl mhm" style="height: 47px;">

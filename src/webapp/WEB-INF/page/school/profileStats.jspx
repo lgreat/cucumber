@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
@@ -192,7 +193,9 @@
                         </c:choose>
                         <tr class="${rowColor}" >
                                 <td colspan="2">
-                                    <a data-gs-show-tab="programsAndResources" data-gs-tab-options="Resources_table"  href="javascript:void(0);">Read more about resources at this school</a>
+                                    <gslink:linkToTab tabName="programs-resources" anchor="Resources_table">
+                                        Read more about resources at this school
+                                    </gslink:linkToTab>
                                 </td>
                             </tr>
                         </tbody>
@@ -311,7 +314,9 @@
                             <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
                             <tr class="${rowColor}" >
                                 <td colspan="2">
-                                    <a data-gs-show-tab="programsAndResources" data-gs-tab-options="Programs_table"  href="javascript:void(0);">Read more about programs at this school</a>
+                                    <gslink:linkToTab tabName="programs-resources" anchor="Programs_table">
+                                        Read more about programs at this school
+                                    </gslink:linkToTab>
                                 </td>
                             </tr>
                         </tbody>

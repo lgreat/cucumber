@@ -185,7 +185,6 @@ GS.profile = GS.profile || (function() {
     };
 
     var refreshAds = function() {
-        console.log("refreshing ads ", adSlotKeys);
         GS.ad.refreshAds(adSlotKeys);
     };
 
