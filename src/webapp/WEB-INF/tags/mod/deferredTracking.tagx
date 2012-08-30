@@ -31,8 +31,8 @@
                 var props =  {
                     prop31 : clickCapture.getProp(31,'${schoolGSRating}'),
                     prop34 : clickCapture.getProp(34,'${schoolPhotosTracking}'),
-                    prop63 : clickCapture.getProp(63,'${pageScope.hasOsp}'), // TODO: get correct prop value
-                    prop64 : clickCapture.getProp(64,"${pageScope.numberOfReviews}")
+                    prop63 : clickCapture.getProp(48,'${pageScope.hasOsp}'),
+                    prop64 : clickCapture.getProp(49,"${pageScope.numberOfReviews}")
                 };
 
                 // if page name was not passed in, setting these props (that use page name) here will overwrite these props with potentially incorrect values
