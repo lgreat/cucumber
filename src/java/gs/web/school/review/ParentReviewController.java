@@ -176,7 +176,7 @@ public class ParentReviewController extends AbstractController implements IContr
             model.put("cmd", cmd);
             model.put("param_sortby", ParentReviewHelper.PARAM_SORT_BY);
 
-            List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchools(school, 20);
+            List<NearbySchool> nearbySchools = getSchoolDao().findNearbySchoolsNewGSRating(school, 20);
             request.setAttribute("mapSchools", getNearbySchoolsHelper().getRatingsForNearbySchools(nearbySchools));
 
             boolean useCache = (null != pageHelper && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer());

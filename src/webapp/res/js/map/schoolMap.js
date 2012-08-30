@@ -96,8 +96,8 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
         markers[databaseState + id] = marker;
     };
 
-    this.createAndAddMarker = function(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback, type) {
-        var marker = this.createMarker(id, databaseState, name, lat, lon, rating, type);
+    this.createAndAddMarker = function(id, databaseState, name, lat, lon, rating, infoWindowMarkup, markerClickedCallback, type, isNewGSRating) {
+        var marker = this.createMarker(id, databaseState, name, lat, lon, rating, type, isNewGSRating);
 
         marker.infoWindowMarkup = infoWindowMarkup;
 
@@ -112,18 +112,18 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
         this.addMarker(marker, databaseState, id, markerClickedCallback);
     };
 
-    this.createMarker = function(id, databaseState, name, lat, lon, rating, type) {
+    this.createMarker = function(id, databaseState, name, lat, lon, rating, type,isNewGSRating) {
         if (id == undefined || databaseState == undefined || lat == undefined || lon == undefined) {
             return;
         }
 
         var marker = null;
         if (type == "private") {
-            marker = this.createPrivateSchoolMarker(lat, lon, name);
+            marker = this.createPrivateSchoolMarker(lat, lon, name,rating, isNewGSRating);
         } else if (type == "preschool") {
-            marker = this.createPreschoolMarker(lat, lon, name);
+            marker = this.createPreschoolMarker(lat, lon, name,isNewGSRating);
         } else {
-            marker = this.createSchoolMarker(lat, lon, name, rating);
+            marker = this.createSchoolMarker(lat, lon, name, rating, isNewGSRating);
         }
 
         return marker;
@@ -212,9 +212,14 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
         markers = {};
     }
 
-    this.createPrivateSchoolMarker = function(lat, lon, tooltip) {
+    this.createPrivateSchoolMarker = function(lat, lon, tooltip, rating, isNewGSRating) {
         var position = new google.maps.LatLng(lat, lon);
-        var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_private_forground.png',
+        var iconImg = '/res/img/map/GS_gsr_private_forground.png';
+
+        if (isNewGSRating === 'true') {
+            iconImg = (rating != '' && rating != undefined) ? '/res/img/map/GS_gsr_private_forground.png' : '/res/img/map/GS_gsr_private_forground.png';
+        }
+        var icon = new google.maps.MarkerImage(iconImg,
             new google.maps.Size(40, 40),
             new google.maps.Point(0, 0),
             new google.maps.Point(11, 34));
@@ -246,20 +251,20 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
         return marker;
     };
 
-    this.createSchoolMarker = function(lat, lon, tooltip, rating) {
+    this.createSchoolMarker = function(lat, lon, tooltip, rating, isNewGSRating) {
         var position = new google.maps.LatLng(lat, lon);
+        var iconImg = '';
         if (rating != '' && rating != undefined) {
-            var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_' + rating + '_forground.png',
-                new google.maps.Size(40,40),
-                new google.maps.Point(0,0),
-                new google.maps.Point(11,34));
+            iconImg = isNewGSRating === 'true' ? '/res/img/map/GS_gsr_' + rating + '_forground.png' :
+                '/res/img/map/GS_gsr_' + rating + '_forground.png';
         } else {
-            var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_na_forground.png',
-                new google.maps.Size(40,40),
-                new google.maps.Point(0,0),
-                new google.maps.Point(11,34));
+            iconImg = isNewGSRating === 'true' ? '/res/img/map/GS_gsr_na_forground.png' :
+                '/res/img/map/GS_gsr_na_forground.png';
         }
-
+        var icon = new google.maps.MarkerImage(iconImg,
+            new google.maps.Size(40,40),
+            new google.maps.Point(0,0),
+            new google.maps.Point(11,34));
         var marker = new google.maps.Marker({
             position: position,
             title: tooltip,
@@ -275,13 +280,15 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
     };
 
     this.addSchool = function(school, markerClickedCallback) {
-      this.createAndAddMarker(school.id, school.databaseState, school.name, school.latitude, school.longitude, school.gsRating, school.infoWindowMarkup, markerClickedCallback, school.type);
+      this.createAndAddMarker(school.id, school.databaseState, school.name, school.latitude, school.longitude, school.gsRating, school.infoWindowMarkup, markerClickedCallback, school.type, school.isNewGSRating);
     };
 
     this.addSchools = function(schools, markerClickedCallback) {
         var len = schools.length;
         for (var i = 0; i < len; i++) {
-            this.addSchool(schools[i], markerClickedCallback);
+            var school = schools[i];
+            school.isNewGSRating = school.isNewGSRating || false;
+            this.addSchool(school, markerClickedCallback);
         }
     };
 

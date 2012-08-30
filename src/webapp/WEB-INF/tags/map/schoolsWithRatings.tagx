@@ -150,15 +150,14 @@ function initSchoolInfo() {
     mySchool.rating = 0;
     mySchool.ratingHtml = '';
     <c:if test="${schoolWithRatings.rating ne null and schoolWithRatings.rating gt 0 and schoolWithRatings.rating lt 11}">
-        if (mySchool.type == 'private') {
-            var oldSchoolProfileRatingImg ='<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
-            var newSchoolProfileRatingImg ='<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
-        } else {
-            var oldSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
-            var newSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
-        }
 
-        schoolRatingImg = mySchool.isNewGSRating ? newSchoolProfileRatingImg:oldSchoolProfileRatingImg ;
+        var oldSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+        var newSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+
+        schoolRatingImg = mySchool.isNewGSRating ? newSchoolProfileRatingImg : oldSchoolProfileRatingImg;
+        if (mySchool.type == 'private' && mySchool.isNewGSRating) {
+            schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+        }
         mySchool.ratingHtml = '<div class="schoolRating"><div>GreatSchools Rating</div>' +
                            schoolRatingImg +
                            '</div>';

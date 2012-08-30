@@ -137,13 +137,45 @@
             <td class="bg-color-f9eccd brdbtm_dotted tal" align="left">
                 <c:choose>
                     <c:when test="${school.type.schoolTypeName == 'private'}">
-                        <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
-                    </c:when>
-                    <c:when test="${not empty gs_rating and gs_rating gt 0}">
-                        <span class="sprite badge_sm_${gs_rating}_y"><!-- do not collapse --></span>
+                        <c:choose>
+                            <c:when test="${not empty gs_rating and gs_rating gt 0}">
+                                <span class="sprite badge_sm_${gs_rating}_y"><!-- do not collapse --></span>
+                            </c:when>
+                            <c:otherwise>
+                                <c:choose>
+                                    <c:when test="${school.isNewGSRating}">
+                                        <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:otherwise>
+                        </c:choose>
                     </c:when>
                     <c:otherwise>
-                        <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
+                        <c:choose>
+                            <c:when test="${not empty gs_rating and gs_rating gt 0}">
+                                <c:choose>
+                                    <c:when test="${school.isNewGSRating}">
+                                        <span class="sprite badge_sm_${gs_rating}_y"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="sprite badge_sm_${gs_rating}_y"><!-- do not collapse --></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:when>
+                            <c:otherwise>
+                                <c:choose>
+                                    <c:when test="${school.isNewGSRating}">
+                                        <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:otherwise>
+                        </c:choose>
                     </c:otherwise>
                 </c:choose>
             </td>
@@ -215,13 +247,45 @@
                             <span class="sprite badge_sm_ps"><!-- do not collapse --></span>
                         </c:when>
                         <c:when test="${s.neighbor.type.schoolTypeName eq 'private'}">
-                            <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
-                        </c:when>
-                        <c:when test="${not empty s.rating and s.rating gt 0}">
-                            <span class="sprite badge_sm_${s.rating}"><!-- do not collapse --></span>
+                            <c:choose>
+                                <c:when test="${not empty s.rating and s.rating gt 0}">
+                                    <span class="sprite badge_sm_${s.rating}_y"><!-- do not collapse --></span>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:choose>
+                                        <c:when test="${s.neighbor.isNewGSRating}">
+                                            <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:otherwise>
+                            </c:choose>
                         </c:when>
                         <c:otherwise>
-                            <span class="sprite badge_sm_na"><!-- do not collapse --></span>
+                            <c:choose>
+                                <c:when test="${not empty s.rating and s.rating gt 0}">
+                                    <c:choose>
+                                        <c:when test="${s.neighbor.isNewGSRating}">
+                                            <span class="sprite badge_sm_${s.rating}_y"><!-- do not collapse --></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="sprite badge_sm_${s.rating}_y"><!-- do not collapse --></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:choose>
+                                        <c:when test="${s.neighbor.isNewGSRating}">
+                                            <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:otherwise>
+                            </c:choose>
                         </c:otherwise>
                     </c:choose>
                 </td>

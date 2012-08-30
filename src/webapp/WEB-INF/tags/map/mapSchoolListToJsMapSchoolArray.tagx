@@ -54,6 +54,7 @@
             var jsMapSchool = new GS.map.MapSchool(${curSchool.id}, '${curSchool.databaseState}', '${schoolName}', '${curSchool.lat}','${curSchool.lon}');
             jsMapSchool.gsRating = '${nearbySchool.rating}';
             jsMapSchool.type = '${schoolType}';
+            jsMapSchool.isNewGSRating = '${curSchool.isNewGSRating}';
             if (${useBubbles}) {
                 jsMapSchool.infoWindowMarkup = '${infoWindowMarkup}';
             }
