@@ -710,8 +710,8 @@ that this is updated for ajax refresh -->
                             <span class="iconx24-ratings i-24-ratings{{gsRating}} {{showNonPrivate}}"><!-- do not collapse --></span>
                             <span class="iconx24 i-24-private-school-badge {{showPrivate}}"><!-- do not collapse --></span>
                             <span class="iconx24 i-24-preschool-badge {{showPreschool}}"><!-- do not collapse --></span>
-                            <span class="iconx24-ratings-rb i-24-ratings{{gsRating}} {{showNewRatingNonPrivate}}"><!-- do not collapse --></span>
-                            <span class="iconx24-rb i-24-private-school-badge {{showNewRatingPrivate}}"><!-- do not collapse --></span>
+                            <!--<span class="iconx24-ratings-rb i-24-ratings{{gsRating}} {{showNewRatingNonPrivate}}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                            <!--<span class="iconx24-rb i-24-private-school-badge {{showNewRatingPrivate}}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                         </a>
                     </div>
                 </div>
