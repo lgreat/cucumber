@@ -136,7 +136,7 @@ GS.form.SchoolReviewForm = function(id) {
             if (message !== undefined) {
                 error = message;
             }
-            errorElement.find('.bk').html(error);
+            errorElement.find('.js-msg').html(error);
             errorElement.show();
         };
         this.hideError = function() {
@@ -152,7 +152,7 @@ GS.form.SchoolReviewForm = function(id) {
             if (message !== undefined) {
                 alertText = message;
             }
-            alertElement.find('.bk').html(alertText);
+            alertElement.find('.js-msg').html(alertText);
             alertElement.show();
         };
         this.hideAlert = function() {
@@ -345,7 +345,7 @@ GS.form.SchoolReviewForm = function(id) {
             if (message !== undefined) {
                 error = message;
             }
-            errorElement.find('.bk').html(error);
+            errorElement.find('.js-msg').html(error);
             errorElement.show();
         };
         this.hideError = function() {

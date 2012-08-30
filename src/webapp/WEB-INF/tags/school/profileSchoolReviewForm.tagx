@@ -143,12 +143,12 @@
                         <div class="formErrorText media form-error">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="smaller error_msg">Please enter your email.</div>
+                            <div class="js-msg smaller mbn error_msg">Please enter your email.</div>
                         </div>
                         <div class="formErrorText media form-alert">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="fl smaller">You must verify your email address on submit.</div>
+                            <div class="js-msg smaller mbn">You must verify your email address on submit.</div>
                         </div>
                     </div>
                 </div>

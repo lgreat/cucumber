@@ -162,12 +162,12 @@
         <div class="formErrorText media form-error">
             <span class="sprite i-alert img mrs"><!-- do not collapse --></span>
 
-            <div class="bd">Please enter your email.</div>
+            <div class="js-msg bd">Please enter your email.</div>
         </div>
         <div class="smallText1-333 media form-alert">
             <span class="sprite i-confirm-sm img mrs"><!-- do not collapse --></span>
 
-            <div class="bd">You must verify your email address on submit.</div>
+            <div class="js-msg bd">You must verify your email address on submit.</div>
         </div>
     </div>
 </div>
