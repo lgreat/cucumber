@@ -13,6 +13,6 @@
 
         <p><strong>Your review has been posted to GreatSchools.</strong></p>
 
-        <button class="button-1 schoolReviewThankYou_hideHover" type="button">OK</button>
+        <button class="button-1 schoolReviewThankYou_hideHover js_closeHover" type="button">OK</button>
     </div></div></div></div></div>
 </jsp:root>
