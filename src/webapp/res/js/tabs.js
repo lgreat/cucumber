@@ -38,7 +38,7 @@ GS.tabManager = (function() {
 
     var tabClickHandler = function($a, tabModule) {
         var allowInterceptHovers = tabModule.allowInterceptHovers;
-        //if (typeof mssAutoHoverInterceptor === 'undefined' || !allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
+        if (typeof mssAutoHoverInterceptor === 'undefined' || !allowInterceptHovers || !mssAutoHoverInterceptor.onlyCheckIfShouldIntercept('mssAutoHover')) {
             var tabName = getTabName($a);
             var success = GS.tabManager.showTabWithOptions({
                 tab:tabName
@@ -49,7 +49,9 @@ GS.tabManager = (function() {
             } else {
                 return true; // tab not shown, allow browser to navigate to href
             }
-        //}
+        } else {
+            return false; // tab not shown, but don't abort href
+        }
     };
 
     /**

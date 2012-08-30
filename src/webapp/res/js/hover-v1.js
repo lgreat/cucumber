@@ -1091,7 +1091,7 @@ GSType.hover.NlSubscription = function() {
     this.loadDialog = function() {
     };
     this.showHover = function () {
-        subCookie.createAllHoverCookie('showNLHoverOnArticles',1,30);
+        subCookie.createAllHoverCookie('showNLHoverOnArticles',1,1);
         $j('#nlSubEmail_error').hide();
         $j('#nlSubEmail_error_alreadySub').hide();
         GSType.hover.nlSubscription.show();
