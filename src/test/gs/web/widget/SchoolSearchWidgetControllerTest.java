@@ -167,44 +167,44 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         verifyAll();
     }
 
-    public void testLoadResultsForCityNull() {
-        City city = new City();
-        city.setName("Alameda");
-        expect(_schoolDao.findSchoolsWithRatingsInCity(State.CA, city.getName())).andReturn(null);
-        replayAll();
-        assertFalse("Expect no results", _controller.loadResultsForCity(city, State.CA, _command));
-        verifyAll();
-        assertEquals(0, _command.getSchools().size());
-    }
-
-    public void testLoadResultsForCityEmpty() {
-        City city = new City();
-        city.setName("Alameda");
-        expect(_schoolDao.findSchoolsWithRatingsInCity(State.CA, city.getName())).andReturn(new ArrayList<SchoolWithRatings>());
-        replayAll();
-        assertFalse("Expect no results", _controller.loadResultsForCity(city, State.CA, _command));
-        verifyAll();
-        assertEquals(0, _command.getSchools().size());
-    }
-
-    public void testLoadResultsForCity() {
-        City city = new City();
-        city.setName("Alameda");
-        List<SchoolWithRatings> schools = new ArrayList<SchoolWithRatings>();
-        SchoolWithRatings struct1 = new SchoolWithRatings();
-        School school1 = new School();
-        school1.setId(1);
-        school1.setLevelCode(LevelCode.ELEMENTARY);
-        struct1.setSchool(school1);
-        schools.add(struct1);
-        expect(_schoolDao.findSchoolsWithRatingsInCity(State.CA, city.getName())).andReturn(schools);
-        _reviewDao.loadRatingsIntoSchoolList(isA(List.class), isA(State.class));
-        replayAll();
-        assertTrue("Expect results", _controller.loadResultsForCity(city, State.CA, _command));
-        verifyAll();
-        assertEquals(1, _command.getSchools().size());
-        assertSame(struct1, _command.getSchools().get(0));
-    }
+//    public void testLoadResultsForCityNull() {
+//        City city = new City();
+//        city.setName("Alameda");
+//        expect(_schoolDao.findSchoolsWithRatingsInCity(State.CA, city.getName())).andReturn(null);
+//        replayAll();
+//        assertFalse("Expect no results", _controller.loadResultsForCity(city, State.CA, _command));
+//        verifyAll();
+//        assertEquals(0, _command.getSchools().size());
+//    }
+//
+//    public void testLoadResultsForCityEmpty() {
+//        City city = new City();
+//        city.setName("Alameda");
+//        expect(_schoolDao.findSchoolsWithRatingsInCity(State.CA, city.getName())).andReturn(new ArrayList<SchoolWithRatings>());
+//        replayAll();
+//        assertFalse("Expect no results", _controller.loadResultsForCity(city, State.CA, _command));
+//        verifyAll();
+//        assertEquals(0, _command.getSchools().size());
+//    }
+//
+//    public void testLoadResultsForCity() {
+//        City city = new City();
+//        city.setName("Alameda");
+//        List<SchoolWithRatings> schools = new ArrayList<SchoolWithRatings>();
+//        SchoolWithRatings struct1 = new SchoolWithRatings();
+//        School school1 = new School();
+//        school1.setId(1);
+//        school1.setLevelCode(LevelCode.ELEMENTARY);
+//        struct1.setSchool(school1);
+//        schools.add(struct1);
+//        expect(_schoolDao.findSchoolsWithRatingsInCity(State.CA, city.getName())).andReturn(schools);
+//        _reviewDao.loadRatingsIntoSchoolList(isA(List.class), isA(State.class));
+//        replayAll();
+//        assertTrue("Expect results", _controller.loadResultsForCity(city, State.CA, _command));
+//        verifyAll();
+//        assertEquals(1, _command.getSchools().size());
+//        assertSame(struct1, _command.getSchools().get(0));
+//    }
 
     public void testOnSubmitThrowsError() throws Exception {
         try {
@@ -234,33 +234,33 @@ public class SchoolSearchWidgetControllerTest extends BaseControllerTestCase {
         assertTrue("Always expect errors", _errors.hasErrors());
     }
 
-    public void testParseSearchQueryCityState() {
-        expect(_stateManager.getState("CA")).andReturn(State.CA);
-        City city = new City();
-        city.setName("Alameda");
-        expect(_geoDao.findCity(State.CA, "Alameda")).andReturn(city);
-
-        List<SchoolWithRatings> schools = new ArrayList<SchoolWithRatings>();
-        SchoolWithRatings struct1 = new SchoolWithRatings();
-        School school1 = new School();
-        school1.setId(1);
-        school1.setLevelCode(LevelCode.ELEMENTARY);
-        struct1.setSchool(school1);
-        schools.add(struct1);
-        // look up school and GS rating
-        expect(_schoolDao.findSchoolsWithRatingsInCity(State.CA, city.getName())).andReturn(schools);
-        // look up parent ratings
-        _reviewDao.loadRatingsIntoSchoolList(isA(List.class), isA(State.class));
-
-        replayAll();
-        _controller.parseSearchQuery("Alameda, CA", _command, getRequest(), _errors);
-        verifyAll();
-
-        assertSame(schools, _command.getSchools());
-        assertTrue("Always expect errors", _errors.hasErrors());
-        assertEquals("Expect map tab to display when results", "map", _command.getDisplayTab());
-
-    }
+//    public void testParseSearchQueryCityState() {
+//        expect(_stateManager.getState("CA")).andReturn(State.CA);
+//        City city = new City();
+//        city.setName("Alameda");
+//        expect(_geoDao.findCity(State.CA, "Alameda")).andReturn(city);
+//
+//        List<SchoolWithRatings> schools = new ArrayList<SchoolWithRatings>();
+//        SchoolWithRatings struct1 = new SchoolWithRatings();
+//        School school1 = new School();
+//        school1.setId(1);
+//        school1.setLevelCode(LevelCode.ELEMENTARY);
+//        struct1.setSchool(school1);
+//        schools.add(struct1);
+//        // look up school and GS rating
+//        expect(_schoolDao.findSchoolsWithRatingsInCity(State.CA, city.getName())).andReturn(schools);
+//        // look up parent ratings
+//        _reviewDao.loadRatingsIntoSchoolList(isA(List.class), isA(State.class));
+//
+//        replayAll();
+//        _controller.parseSearchQuery("Alameda, CA", _command, getRequest(), _errors);
+//        verifyAll();
+//
+//        assertSame(schools, _command.getSchools());
+//        assertTrue("Always expect errors", _errors.hasErrors());
+//        assertEquals("Expect map tab to display when results", "map", _command.getDisplayTab());
+//
+//    }
 
     public void testHardExceptionIsCaught() {
         getRequest().setParameter("searchQuery", "Somewhere");
