@@ -288,7 +288,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
     protected void loadTopRatedSchools(City userCity,Map<String, Object> model) {
            model.put("cityObject", userCity);
            List<ISchoolDao.ITopRatedSchool> topRatedSchools =
-                   getSchoolDao().findTopRatedSchoolsInCity(userCity, 1, null, 5);
+                   getSchoolDao().findTopRatedSchoolsInCityNewGSRating(userCity, 1, null, 5);
            if (topRatedSchools.size() > 0) {
                model.put("topRatedSchools", topRatedSchools);
                List<School> schools = new ArrayList<School>(topRatedSchools.size());

@@ -411,7 +411,7 @@ public class CmsTopicCenterController2010 extends AbstractController {
             schools = getRandomSchoolsInCity(userCity, levelCode);
         } else {
             schools =
-                    getSchoolDao().findTopRatedSchoolsWithRatingsInCity(userCity, 1, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, false);
+                    getSchoolDao().findTopRatedSchoolsWithRatingsInCityNewGSRating(userCity, 1, levelCode.getLowestLevel(), MAX_TOP_SCHOOLS, false);
             if (schools.size() == 0) {
                 schools = getRandomSchoolsInCity(userCity, levelCode);
             } else {

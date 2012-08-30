@@ -33,11 +33,6 @@
             <div class="bd">
 
                 <c:forEach items="${topRatedSchools}" var="s" varStatus="loopStatus">
-                    <c:set var="ratingValue" value="na"/>
-                    <!-- top rated school interface return int, not Integer so we don't check for empty-->
-                    <c:if test="${s.rating > 0}">
-                        <c:set var="ratingValue" value="${s.rating}"/>
-                    </c:if>
 
                     <div class="line mvs pbs text2bold ${(loopStatus.last)?'':'brdbtm_dotted'}">
                         <div class="unit size75of100">
@@ -45,9 +40,38 @@
                                                         title="${s.name}">${s.name}</link:schoolProfileOverview>
                         </div>
                         <div class="unit size25of100 lastUnit tar">
-                            <gsml:img
-                                    src="/res/img/school/ratings/${ratingValue}.gif"
-                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+
+                            <c:choose>
+                                <c:when test="${s.school.isNewGSRating}">
+                                    <c:set var="ratingValue" value="nr"/>
+                                    <!-- top rated school interface return int, not Integer so we don't check for empty-->
+                                    <c:if test="${s.rating > 0}">
+                                        <c:set var="ratingValue" value="${s.rating}"/>
+                                    </c:if>
+                                    <c:choose>
+                                        <c:when test="${s.school.type eq 'private'}">
+                                            <gsml:img
+                                                    src="/res/img/school/ratings/${ratingValue}.gif"
+                                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <gsml:img
+                                                    src="/res/img/school/ratings/${ratingValue}.gif"
+                                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="ratingValue" value="na"/>
+                                    <!-- top rated school interface return int, not Integer so we don't check for empty-->
+                                    <c:if test="${s.rating > 0}">
+                                        <c:set var="ratingValue" value="${s.rating}"/>
+                                    </c:if>
+                                    <gsml:img
+                                            src="/res/img/school/ratings/${ratingValue}.gif"
+                                            alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
 

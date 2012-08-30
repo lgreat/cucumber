@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: NearbySchoolsInDistrictController.java,v 1.14 2012/08/23 21:02:40 npatury Exp $
+ * $Id: NearbySchoolsInDistrictController.java,v 1.15 2012/08/30 16:36:18 npatury Exp $
  */
 
 package gs.web.district;
@@ -75,7 +75,7 @@ public class NearbySchoolsInDistrictController extends AbstractController {
 
         String acronymOrName = request.getParameter(PARAM_ACRONYM_OR_NAME);
 
-        List<SchoolWithRatings> schoolsWithRatings = _schoolDao.findTopRatedSchoolsInDistrict(district, 0, LevelCode.ELEMENTARY_MIDDLE_HIGH, MAX_SCHOOLS_IN_MAP);
+        List<SchoolWithRatings> schoolsWithRatings = _schoolDao.findTopRatedSchoolsInDistrictNewGSRating(district, 0, LevelCode.ELEMENTARY_MIDDLE_HIGH, MAX_SCHOOLS_IN_MAP);
         _reviewDao.loadRatingsIntoSchoolList(schoolsWithRatings, state);
         ModelAndView modelAndView = new ModelAndView("/district/nearbySchoolsInDistrict");
         modelAndView.addObject(MODEL_SCHOOL_LIST, schoolsWithRatings);
