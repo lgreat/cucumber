@@ -48,7 +48,7 @@
                 <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
                 <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
                 <input type="hidden" id="parentAsString" value="0" name="parentAsString"/>
-                <div class="">
+                <div class="rating">
                     <div class="unit size2of5 ">
                         <h3>Rate this school <em
                                 class="sprite i-required requiredIndicator1"><!-- do not collapse --></em>
@@ -65,6 +65,13 @@
 
                         <div class="clear pan man"><!-- do not collapse --></div>
                         <!-- end star ratings -->
+                    </div>
+                    <div class="spacer_15">
+                        <div class="form-error formErrorText media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                            <div class="smaller error_msg">Please select a star rating for this school.</div>
+                        </div>
                     </div>
                 </div>
 

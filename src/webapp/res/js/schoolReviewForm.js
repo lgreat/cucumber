@@ -327,7 +327,7 @@ GS.form.SchoolReviewForm = function(id) {
         var formComponent = form.find('.' + componentName);
         //var element = formComponent.find('input');
         var errorElement = formComponent.find('.form-error');
-        var element = jQuery('#overallStarRating');
+        var element = jQuery('[name=overallAsString]');
         var defaultValue = '0';
         var error = null;
 
