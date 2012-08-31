@@ -96,7 +96,7 @@
             <tr>
                 <td style="width:356px; vertical-align: top">
                     <div id="nearbyCities">
-                        <ul>
+                        <ul class="none">
                             <c:forEach var="anchor" items="${requestScope.anchorListModel.results}" varStatus="count">
                                 <c:set var="listItemClass" value="${anchor.styleClass}"/>
                                 <c:if test="${anchor eq requestScope.anchorListModel.results[0]}">

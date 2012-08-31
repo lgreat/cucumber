@@ -33,7 +33,7 @@
         <h4 class="subhead3">Browse by topic</h4>
 
         <div>
-            <ul class="size1of3 col topics text2_180">
+            <ul class="size1of3 col topics text2_180 none">
                 <li class="topicItem"><link:raiseYourHandFeaturedQuestions>Featured Questions</link:raiseYourHandFeaturedQuestions></li>
                 <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1636"
                                                        fullUri="/preschool" raiseYourHand="true">Preschool</link:cmsContent></li>
@@ -41,7 +41,7 @@
                                                        fullUri="/elementary-school" raiseYourHand="true">Elementary School</link:cmsContent>
                 </li>
             </ul>
-            <ul class="size1of3 col topics text2_180">
+            <ul class="size1of3 col topics text2_180 none">
                 <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1638"
                                                        fullUri="/middle-school" raiseYourHand="true">Middle School</link:cmsContent></li>
                 <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1639"
@@ -50,7 +50,7 @@
                                                        fullUri="/parenting" raiseYourHand="true">Health &amp;amp; Development</link:cmsContent>
                 </li>
             </ul>
-            <ul class="size1of3 col topics text2_180">
+            <ul class="size1of3 col topics text2_180 none">
                 <li class="topicItem"><link:cmsContent contentKey="DiscussionBoard#1641"
                                                        fullUri="/students" raiseYourHand="true">Academics &amp;amp; Activities</link:cmsContent>
                 </li>

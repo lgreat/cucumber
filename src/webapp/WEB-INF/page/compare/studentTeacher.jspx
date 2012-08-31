@@ -107,7 +107,7 @@
                                                             <p class="center">${censusCell.value}</p>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <ul class="censusBreakdown">
+                                                            <ul class="censusBreakdown none">
                                                                 <c:forEach items="${censusCell.breakdownList}"
                                                                            var="censusBreakdown">
                                                                     <li class="text3">
