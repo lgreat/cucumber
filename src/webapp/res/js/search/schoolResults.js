@@ -484,7 +484,7 @@ GS.search.results = GS.search.results || (function() {
                 showPrivate = school.isSchoolForNewProfile === true ? 'hidden' : 'block';
                 showPreschool = 'hidden';
                 gsRatingUrl = school.schoolUrl;
-            } else if (school.schoolType == 'public' || school.schoolType == 'charter') {
+            } else if ((school.schoolType == 'public' || school.schoolType == 'charter') && gsRating !== null) {
                 showPrivate = 'hidden';
                 showNewRatingPrivate = 'hidden';
                 showNewRatingNonPrivate = school.isSchoolForNewProfile === true ? 'block' : 'hidden';
