@@ -340,6 +340,7 @@
                                 <param>04_text/typography.css</param>
                                 <param>05_forms/forms.css</param>
                                 <param>06_sprites/icon.css</param>
+                                <param>06_sprites/ratings.css</param>
                                 <param>06_sprites/icons.css</param>
                                 <param>06_sprites/ui.css</param>
                                 <param>07_navigation/primary.css</param>
@@ -352,7 +353,6 @@
                                 <param>10_css3/opacity_shadow.css</param>
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
-                                <param>14_ratings/ratings.css</param>
                                 <param>38_special/cms_content.css</param>
                                 <param>38_special/community_hover.css</param>
                                 <param>38_special/district_boundary.css</param>
@@ -410,6 +410,7 @@
                                 <param>04_text/typography.css</param>
                                 <param>05_forms/forms.css</param>
                                 <param>06_sprites/icon.css</param>
+                                <param>06_sprites/ratings.css</param>
                                 <param>06_sprites/icons.css</param>
                                 <param>06_sprites/ui.css</param>
                                 <param>07_navigation/primary.css</param>
@@ -438,7 +439,6 @@
                                 <param>10_css3/opacity_shadow.css</param>
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
-                                <param>14_ratings/ratings.css</param>
                                 <param>38_special/cms_content.css</param>
                                 <param>38_special/community_hover.css</param>
                                 <param>38_special/district_boundary.css</param>
@@ -568,6 +568,7 @@
                                 <param>04_text/typography-v1.css</param>
                                 <param>05_forms/forms-v1.css</param>
                                 <param>06_sprites/icon.css</param>
+                                <param>06_sprites/ratings.css</param>
                                 <param>06_sprites/ui.css</param>
                                 <param>07_navigation/pagination.css</param>
                                 <param>07_navigation/utilityLinks-v1.css</param>
@@ -584,7 +585,6 @@
                                 <param>11_modal/modal.css</param>
                                 <param>12_advertising/ad.css</param>
                                 <param>13_tabs/tabs.css</param>
-                                <param>14_ratings/ratings.css</param>
                                 <param>99_debugging/debug.css</param>
                                 <param>house_ads.css</param>
                                 <param>jquery.autocomplete.css</param>

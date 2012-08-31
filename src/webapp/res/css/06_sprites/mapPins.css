@@ -43,7 +43,7 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 
 .mapPinsx32 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/mapPins/x32/120808-mapPinsx32.png);
+    background-image: url(/res/img/sprites/mapPins/x32/120808-mapPinsx32.png);
     width: 32px;
     height: 32px;
 }
@@ -112,7 +112,7 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 
 .mapPinsx48 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/mapPins/x48/120524-mapPinsx48.png);
+    background-image: url(/res/img/sprites/mapPins/x48/120524-mapPinsx48.png);
     width: 48px;
     height: 48px;
 }

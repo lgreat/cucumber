@@ -31,6 +31,7 @@
             <gsml:url var="text" value="/res/css/04_text/typography.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="forms" value="/res/css/05_forms/forms.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="icon" value="/res/css/06_sprites/icon.css?v=$RELEASE_NUMBER" allowCdn="true"/>
+            <gsml:url var="ratings" value="/res/css/06_sprites/ratings.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="iconspritecss" value="/res/css/06_sprites/icons.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="uispritecss" value="/res/css/06_sprites/ui.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="primarynavigation" value="/res/css/07_navigation/primary.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -45,7 +46,6 @@
             <gsml:url var="adIE7" value="/res/css/12_advertising/ad-IE7.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="adIE8" value="/res/css/12_advertising/ad-IE8.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="tabs" value="/res/css/13_tabs/tabs.css?v=$RELEASE_NUMBER" allowCdn="true"/>
-            <gsml:url var="ratings" value="/res/css/14_ratings/ratings.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="cmscontent" value="/res/css/38_special/cms_content.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="communityhover" value="/res/css/38_special/community_hover.css?v=$RELEASE_NUMBER" allowCdn="true"/>
             <gsml:url var="districtboundary" value="/res/css/38_special/district_boundary.css?v=$RELEASE_NUMBER" allowCdn="true"/>
@@ -73,7 +73,8 @@
             <!-- 07 --> <![CDATA[<link rel="stylesheet" href="${text}" type="text/css" />]]>
             <!-- 08 --> <![CDATA[<link rel="stylesheet" href="${forms}" type="text/css" />]]>
             <!-- 09 --> <![CDATA[<link rel="stylesheet" href="${icon}" type="text/css" />]]>
-            <!-- 10 --> <![CDATA[<link rel="stylesheet" href="${iconspritecss}" type="text/css" />]]>
+            <!-- 10 --> <![CDATA[<link rel="stylesheet" href="${ratings}" type="text/css" />]]>
+            <!-- 11 --> <![CDATA[<link rel="stylesheet" href="${iconspritecss}" type="text/css" />]]>
             <!-- 12 --> <![CDATA[<link rel="stylesheet" href="${uispritecss}" type="text/css" />]]>
             <!-- 13 --> <![CDATA[<link rel="stylesheet" href="${primarynavigation}" type="text/css" />]]>
             <!-- 14 --> <![CDATA[<link rel="stylesheet" href="${secondarynavigation}" type="text/css" />]]>
@@ -87,17 +88,16 @@
             <!-- 22 --> <![CDATA[<link rel="stylesheet" href="${ad}" type="text/css" />]]>
             <!-- 23 --> <![CDATA[<!--[if IE 7]><link rel="stylesheet" href="${adIE7}" type="text/css" /><![endif]-->]]>
             <!-- 24 --> <![CDATA[<!--[if IE 8]><link rel="stylesheet" href="${adIE8}" type="text/css" /><![endif]-->]]>
-            <!-- 25 --> <![CDATA[<link rel="stylesheet" href="${ratings}" type="text/css" />]]>
-            <!-- 26 --> <![CDATA[<link rel="stylesheet" href="${cmscontent}" type="text/css" />]]>
-            <!-- 27 --> <![CDATA[<link rel="stylesheet" href="${communityhover}" type="text/css" />]]>
-            <!-- 28 --> <![CDATA[<link rel="stylesheet" href="${districtboundary}" type="text/css" />]]>
+            <!-- 25 --> <![CDATA[<link rel="stylesheet" href="${cmscontent}" type="text/css" />]]>
+            <!-- 26 --> <![CDATA[<link rel="stylesheet" href="${communityhover}" type="text/css" />]]>
+            <!-- 27 --> <![CDATA[<link rel="stylesheet" href="${districtboundary}" type="text/css" />]]>
             <!--<![CDATA[<link rel="stylesheet" href="${themeroller}" type="text/css" />]]>-->
-            <!-- 29 --> <![CDATA[<link rel="stylesheet" href="${themeroller}" type="text/css" />]]>
-            <!-- 30 --> <![CDATA[<link rel="stylesheet" href="${timepicker}" type="text/css" />]]>
-            <!-- 31 --> <![CDATA[<link rel="stylesheet" href="${debug}" type="text/css" />]]>
-            <!-- 32 --> <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
-            <!-- 33 --> <![CDATA[<link rel="stylesheet" href="${houseadscss}" type="text/css" />]]>
-            <!-- 34 --> <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
+            <!-- 28 --> <![CDATA[<link rel="stylesheet" href="${themeroller}" type="text/css" />]]>
+            <!-- 29 --> <![CDATA[<link rel="stylesheet" href="${timepicker}" type="text/css" />]]>
+            <!-- 30 --> <![CDATA[<link rel="stylesheet" href="${debug}" type="text/css" />]]>
+            <!-- 31 --> <![CDATA[<link rel="stylesheet" href="${gs2010_stylescss}" type="text/css" />]]>
+            <!-- 32 --> <![CDATA[<link rel="stylesheet" href="${houseadscss}" type="text/css" />]]>
+            <!-- 33 --> <![CDATA[<link rel="stylesheet" href="${jquery_autocomplete_css}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
             <gsml:url var="gs2010_stylescss" value="/res/css/gs2010_styles.combined.min.css?v=$RELEASE_NUMBER" allowCdn="true"/>

@@ -305,7 +305,7 @@ Created by Mitchell Seltzer
 /* **************** 24 px  uses rating 24 pixel sprite spacing from icon.css ***************** */
 .iconx24-ratings-rb {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/ratings/ratings_24x24.png);
+    background-image: url(/res/img/sprites/ratings/ratings_24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -363,7 +363,7 @@ Created by Mitchell Seltzer
 
 .iconx72-ratings-rb {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/ratings/ratings_72x72.png);
+    background-image: url(/res/img/sprites/ratings/ratings_72x72.png);
     width: 72px;
     height: 72px;
 }
@@ -418,7 +418,7 @@ Created by Mitchell Seltzer
 
 .iconx96-ratings-rb {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/ratings/ratings_96x96.png);
+    background-image: url(/res/img/sprites/ratings/ratings_96x96.png);
     width: 96px;
     height: 96px;
 }
