@@ -38,7 +38,7 @@
                         <hr class="keyline2"/>
                         <p class="small bottom mvs">Climate<span class="small_bold bottom fr mrs">${climateRating}</span></p>
                         <hr class="keyline2"/>
-                        <p class="small bottom mvs">Overall<span class="iconx24-ratings-rb i-24-ratings${overallRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
+                        <p class="small bottom mvs">Overall<span class="ratingx24-RYG r-24-RYG-${overallRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
                         <hr class="keyline2"/>
                         <div class="line mts">
                             <div class="unit size33of100">
