@@ -1254,6 +1254,63 @@ GSType.hover.CompareSchoolsLimitReached = function() {
 };
 GSType.hover.CompareSchoolsLimitReached.prototype = new GSType.hover.HoverDialog("compareSchoolsLimitReachedHover", 640);
 
+
+GSType.hover.ReportContentHover = function() {
+    this.loadDialog = function() {};
+    this.show = function(linkId) {
+        GSType.hover.reportContentHover.showModal();
+
+        var textarea = jQuery('textarea[name=reason]:visible');
+        textarea.val('');
+        textarea.focus();
+
+        jQuery('.reportCancelButton:visible').on('click', function() {
+            GSType.hover.reportContentHover.hide();
+            return false;
+        });
+
+        jQuery('.reportSendButton:visible').on('click', function() {
+            var reason = jQuery('textarea[name=reason]:visible').val();
+            var type = jQuery('input[name=reportContentType]').val();
+            if (reason == null || reason.length == 0) {
+                alert("Please enter a description for your report.");
+                return false;
+            }
+            GSType.hover.reportContentHover.hide();
+
+            var params = {type: type,
+                contentId: jQuery('input[name=reportContentId]').val(),
+                reporterId: jQuery('input[name=reportReporterId]').val(),
+                reason: reason
+            };
+
+            jQuery.post(GS.uri.Uri.getBaseHostname() + '/community/reportContent.page', params);
+
+            $('#' + linkId).parent().addClass('reported');
+            var contentTypeNormalized = params.type;
+            if (contentTypeNormalized == 'discussion') {
+                contentTypeNormalized = 'conversation';
+            } else if (contentTypeNormalized == 'schoolReview') {
+                contentTypeNormalized = 'review';
+            } else if (contentTypeNormalized == 'schoolMedia') {
+                contentTypeNormalized = 'photo';
+                $('#' + linkId).parent().addClass('small_bold tar bottom make-d61');
+            }
+            $('#' + linkId).replaceWith("You've reported this " + contentTypeNormalized + ".");
+
+            return false;
+        });
+
+        pageTracking.clear();
+        pageTracking.pageName = "Report Item Hover";
+        pageTracking.hierarchy = "Community,Actions,Report Item Hover";
+        pageTracking.send();
+
+        return false;
+    };
+};
+GSType.hover.ReportContentHover.prototype = new GSType.hover.HoverDialog("reportContentHover", 624);
+
 //Mini state launcher hover
 GSType.hover.MiniStateLauncher = function() {
     this.loadDialog = function () {
@@ -1302,6 +1359,8 @@ GSType.hover.principalConfirmation = new GSType.hover.PrincipalConfirmation();
 GSType.hover.principalReviewSubmitted = new GSType.hover.PrincipalReviewSubmitted();
 
 GSType.hover.compareSchoolsLimitReached = new GSType.hover.CompareSchoolsLimitReached();
+
+GSType.hover.reportContentHover = new GSType.hover.ReportContentHover();
 
 GSType.hover.miniStateLauncher = new GSType.hover.MiniStateLauncher();
 GSType.hover.schoolReviewPosted = new GSType.hover.SchoolReviewPosted();
@@ -1659,7 +1718,7 @@ jQuery(function() {
     GSType.hover.principalReviewSubmitted.loadDialog();
 
     GSType.hover.compareSchoolsLimitReached.loadDialog();
-
+    GSType.hover.reportContentHover.loadDialog();
     GSType.hover.miniStateLauncher.loadDialog();
     GSType.hover.schoolReviewPosted.loadDialog();
 
@@ -1671,7 +1730,49 @@ jQuery(function() {
         return false;
     });
 
+    var initForContentType = function(idStr, contentType) {
+        jQuery('input[name=reportContentType]').val(contentType);
+        var reportContentId = idStr.substring(("report_" + contentType + "_").length);
+        jQuery('input[name=reportContentId]').val(reportContentId);
+        var contentTypeNormalized = contentType;
+        if (contentTypeNormalized == 'discussion') {
+            contentTypeNormalized = 'conversation';
+        } else if (contentTypeNormalized == 'schoolReview') {
+            contentTypeNormalized = 'review';
+        } else if (contentTypeNormalized == 'schoolMedia') {
+            contentTypeNormalized = 'photo';
+        }
+        jQuery('span.reportHoverIntroContentType').html(contentTypeNormalized);
+        jQuery('span.reportHoverHeader').html(contentTypeNormalized);
+    };
 
+    jQuery('.reportContent').on('click', function(){
+        if (GS.showJoinHover(jQuery('#frmPRModule-email').val(),window.location.href,GSType.hover.joinHover.showJoinPostComment)) {
+            var linkId = jQuery(this).attr('id');
+            if (linkId.indexOf('reply') > -1) {
+                initForContentType(linkId, 'reply');
+            } else if (linkId.indexOf('discussion') > -1) {
+                initForContentType(linkId, 'discussion');
+            } else if (linkId.indexOf('member') > -1) {
+                initForContentType(linkId, 'member');
+            } else if (linkId.indexOf('schoolReview') > -1) {
+                initForContentType(linkId, 'schoolReview');
+            } else if (linkId.indexOf('schoolMedia') > -1) {
+                initForContentType(linkId, 'schoolMedia');
+            }
+
+            if (linkId.indexOf('schoolReview') > -1) {
+                jQuery('.communityGuidelines').hide();
+                jQuery('.schoolReviewGuidelines').show();
+            } else {
+                jQuery('.communityGuidelines').show();
+                jQuery('.schoolReviewGuidelines').hide();
+            }
+
+            GSType.hover.reportContentHover.show(linkId);
+        };
+        return false;
+    });
 
     jQuery('#hover_nlSubscriptionSubmit').click(function() {
         var validEmail = GSType.hover.nlSubscription.validateEmail();

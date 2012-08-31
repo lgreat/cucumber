@@ -88,6 +88,7 @@
     <profile:principalReviewSubmitted/>
     <compare:compareSchoolsLimitReachedHover/>
     <communityHover:espAccountVerified/>
+    <!--<communityHover:reportContentHover reporterId=""/>-->
 
     <!-- TODO Remove after testing complete -->
     <c:if test="${param.showHovers eq 'true'}">
@@ -117,6 +118,7 @@
         <li><a href="" onclick="GSType.hover.principalConfirmation.showModal(); return false;">principalConfirmation</a></li>
         <li><a href="" onclick="GSType.hover.principalReviewSubmitted.show(); return false;">principalReviewSubmitted</a></li>
         <li><a href="" onclick="GSType.hover.compareSchoolsLimitReached.showModal(); return false;">compareSchoolsLimitReached</a></li>
+        <li><a href="" onclick="GSType.hover.reportContentHover.showModal(); return false;">reportitdialog</a></li>
         <!--<li><a href="" onclick="GSType.hover.interruptSurvey.show(); return false;">interruptSurvey</a></li>-->
 
     </ol>
