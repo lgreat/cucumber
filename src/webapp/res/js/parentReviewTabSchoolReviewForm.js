@@ -60,9 +60,9 @@ jQuery(function() {
                 reloading = false;
             }
             if (callerFormId) {
+                jQuery('#' + callerFormId).submit();
                 GSType.hover.signInHover.hide();
                 GSType.hover.joinHover.hide();
-                jQuery('#' + callerFormId).submit();
             } else {
                 window.location.href=redirectUrl;
                 if (reloading) {

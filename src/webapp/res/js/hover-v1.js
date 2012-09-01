@@ -150,7 +150,10 @@ GSType.hover.ForgotPasswordHover = function() {
     this.loadOnExit = function(url) {
         GSType.hover.forgotPassword.loadOnExitUrl = url;
         jQuery('#hover_forgotPassword').bind('dialogclose', function() {
-            window.location = GSType.hover.forgotPassword.loadOnExitUrl;
+            //alert('dialogclose #hover_forgotPassword);
+            if (GSType.hover.forgotPassword) {
+                window.location = GSType.hover.forgotPassword.loadOnExitUrl;
+            }
         });
     };
     this.cancelLoadOnExit = function() {
@@ -357,12 +360,16 @@ GSType.hover.JoinHover = function() {
         var joinHover = jQuery('#joinHover');
         joinHover.find('.redirect_field').val(url);
         joinHover.bind('dialogclose', function() {
-            window.location = GSType.hover.joinHover.loadOnExitUrl;
+            //alert('dialogclose #joinHover');
+            if (GSType.hover.joinHover.loadOnExitUrl) {
+                window.location = GSType.hover.joinHover.loadOnExitUrl;
+            }
         });
     };
     this.executeOnExit = function(f) {
         var joinHover = jQuery('#joinHover');
         joinHover.bind('dialogclose', function() {
+            //alert('dialogclose executeOnExit #joinHover');
             f();
         });
     };
@@ -431,7 +438,10 @@ GSType.hover.JoinHover = function() {
     };
 
     this.defaultPostInterruptCallback = function($anchor) {
-        window.location = GSType.hover.joinHover.loadOnExitUrl;
+        //alert('default callback');
+        if (GSType.hover.joinHover.loadOnExitUrl) {
+            window.location = GSType.hover.joinHover.loadOnExitUrl;
+        }
     };
 
     // just a newer version of showMssAutoHoverOnExit, built for new Profile, and uses new showInterruptHoverOnPageExit()
@@ -447,9 +457,17 @@ GSType.hover.JoinHover = function() {
     this.showInterruptHoverOnPageExit = function(showHoverFunction, postInterruptCallback) {
         var self = this;
         // automatically ignore any links with class no_interrupt
-        $('a:not(.no_interrupt)').on('click', function(event) {
+        // assumes this is the first event executed when 'click' is triggered
+
+        $('a:not(.no_interrupt)').bindFirst('click', function(event) {
             var $this = $(this);
             var href = $this.attr('href');
+
+            if (!(href && href !== '' && href !== '#' && href !== (window.location.href+'#'))) {
+                return false;
+            } else if ($this.attr('target') || $this.attr('onclick')){
+                return false;
+            }
 
             //the reason this is hardcoded to mssAutoHover is because a new hover was added that requires exactly
             //the same functionality as existing "mss auto hover on exit", but displays depending on school type
@@ -459,16 +477,16 @@ GSType.hover.JoinHover = function() {
                 createCookieWithExpiresDate('seenHoverOnExitRecently','1',threeMinuteDuration);
                 window.destUrl = href;
                 GSType.hover.joinHover.loadOnExitUrl = href;
+                $('#joinHover .redirect_field').val(href);
+                //alert(href);
 
                 GSType.hover.joinHover.executeOnExit(function() {
-                    if (postInterruptCallback !== undefined) {
-                        postInterruptCallback($this, self.defaultPostInterruptCallback);
-                    } else {
-                        self.defaultPostInterruptCallback();
-                    }
+                    $this.trigger('click');
                 });
 
                 showHoverFunction();
+
+                event.stopImmediatePropagation();
                 return false;
             }
         });
@@ -775,13 +793,17 @@ GSType.hover.SignInHover = function() {
         GSType.hover.signInHover.loadOnExitUrl = url;
         GSType.hover.signInHover.setRedirect(url);
         jQuery('#signInHover').bind('dialogclose', function() {
-            window.location = GSType.hover.signInHover.loadOnExitUrl;
+            //alert('dialogclose for #signInHover executed');
+            if (GSType.hover.signInHover.loadOnExitUrl) {
+                window.location = GSType.hover.signInHover.loadOnExitUrl;
+            }
         });
     };
     this.cancelLoadOnExit = function() {
+        //alert('unbinding... #signInHover and #fullPageOverlay');
         GSType.hover.signInHover.loadOnExitUrl = null;
         jQuery('#signInHover').unbind('dialogclose');
-    };
+         };
     this.validateFields = function() {
 
         jQuery('#signInHover .errors .error').hide();
