@@ -196,7 +196,7 @@ GS.module.SchoolSelect = function() {
         //TODO: move this code out to make this JS file more reusable
         //write the id and state into hidden fields in form
         jQuery('#schoolId').val(id);
-        jQuery('#schoolState').val(id);
+        jQuery('#schoolState').val(state);
         jQuery('#hdnSchoolName').val(name);
 
         schoolNameElement.html(name);
