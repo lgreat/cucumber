@@ -201,7 +201,7 @@
 
     <div class="grid_12 omega">
         <!-- School name and sub data -->
-        <h1 class="mbm"><gslink:linkToTab tabName="overview">${school.name}</gslink:linkToTab></h1>
+        <h1 class="mbm"><gslink:linkToTab tabName="overview" cssClass="noUnderline">${school.name}</gslink:linkToTab></h1>
         <div class="small mbs" style="height:23px;">
             <span class="dib prm" style="line-height: 24px;">
             <!-- School Type -->
