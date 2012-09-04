@@ -22,21 +22,23 @@
         <div class="line mbm dn" id="js_facebookModuleOverviewPage">
             <div class="unit size100of100 lastUnit">
                 <div class="line">
-                    <div class="unit size32of100">
-                        <div class="mod standard_3-1">
-                            <div class="outer">
-                                <div class="inner tac">
-                                    <div class="hd">
-                                        <div class="iconx96 i-96-conversation-bubbles"><!-- do not collapse --></div>
-                                        <h4 class="bottom">Go behind the scenes</h4>
-                                    </div>
-                                    <div class="bd">
-                                        <a href="" class="small bottom">See the latest buzz at<br />this school</a>
+                    <gslink:linkToTab tabName="culture" customLink="overview_facebook" cssClass="tdn make-555555 js-trigger">
+                        <div class="unit size32of100">
+                            <div class="mod standard_3-1">
+                                <div class="outer">
+                                    <div class="inner tac">
+                                        <div class="hd">
+                                            <div class="iconx96 i-96-conversation-bubbles"><!-- do not collapse --></div>
+                                            <h4 class="bottom">Go behind the scenes</h4>
+                                        </div>
+                                        <div class="bd">
+                                            <a href="" class="small bottom">See the latest buzz at<br />this school</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </gslink:linkToTab>
                     <div class="unit size2of100">&amp;nbsp;</div>
                     <div class="unit size66of100 lastUnit">
                         <![CDATA[
