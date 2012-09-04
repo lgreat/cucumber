@@ -430,17 +430,13 @@
     </div>
 </div>
 
-<!-- TODO: Finalize omniture -->
 <div style="display: none;">
     <mod:tracking pageName="If you see this being sent to omniture, something is wrong"
                   hier1="If you see this being sent to omniture, something is wrong"
                   school="${school}" augmentInitialRequestWithDataForTab="${not empty param.tab? param.tab : 'overview'}"/>
 </div>
 
-<!--<pageHelper:addOnLoadHandler handler="GSType.hover.joinHover.showMssAutoHoverOnExit('${gsweb:escapeJavaScript(school.name)}', ${school.id}, '${school.databaseState}');"/>-->
-<!--<school:hovers school="${school}" tab="still needed?"/> Why doesnt this tag work? -->
-
-<school:hovers2012 school="${school}" tab="still needed?"/>
+<school:hovers2012 school="${school}" tab="${not empty param.tab? param.tab : 'overview'}"/>
 
 </gsml:body>
 </html>
