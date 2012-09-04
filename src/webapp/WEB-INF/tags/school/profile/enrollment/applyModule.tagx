@@ -135,9 +135,9 @@
             <div class="mod standard_1-1">
                 <div class="inner">
                     <div class="hd">
-                        <strong class="psm plm">Apply</strong>
+                        <p class="small_bold textshadow-1 pvs plm bottom">Apply</p>
                     </div>
-                    <div class="bd pam tac">
+                    <div class="bd pam mbm tac">
                         ${linkApplyNow}
                     </div>
                 </div>
