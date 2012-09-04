@@ -181,6 +181,8 @@
                     </div>
                 </div>
 
+                <ad:adTag position="Sponsor_630x40"/>
+
                 <div class="line">   <!-- row 2, tiles 4-6 -->
                     <div class="unit size32of100">
                         <school:profileOverviewCommunityRatingsTile communityRatingsModel="${communityRating}"/>
