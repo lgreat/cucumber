@@ -155,7 +155,7 @@ function initSchoolInfo() {
         var newSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
 
         schoolRatingImg = mySchool.isNewGSRating ? newSchoolProfileRatingImg : oldSchoolProfileRatingImg;
-        if (mySchool.type == 'private' && mySchool.isNewGSRating) {
+        if (mySchool.type == 'private' &amp;&amp; mySchool.isNewGSRating) {
             schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
         }
         mySchool.ratingHtml = '<div class="schoolRating"><div>GreatSchools Rating</div>' +
