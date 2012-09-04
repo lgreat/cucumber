@@ -464,9 +464,9 @@ GSType.hover.JoinHover = function() {
             var href = $this.attr('href');
 
             if (!(href && href !== '' && href !== '#' && href !== (window.location.href+'#'))) {
-                return false;
+                return true;
             } else if ($this.attr('target') || $this.attr('onclick')){
-                return false;
+                return true;
             }
 
             //the reason this is hardcoded to mssAutoHover is because a new hover was added that requires exactly
@@ -488,6 +488,8 @@ GSType.hover.JoinHover = function() {
 
                 event.stopImmediatePropagation();
                 return false;
+            } else {
+                return true;
             }
         });
     };
