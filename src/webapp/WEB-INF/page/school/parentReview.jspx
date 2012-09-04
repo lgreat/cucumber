@@ -135,7 +135,7 @@
     </div>
 </div>
 
-<div id="addParentReviewForm" class="mod">
+<div id="addParentReviewForm" class="mod" style="display:none;">
 <div class="mod_hdExt1">
     <h3>Complete your review &amp;amp; rating</h3>
 </div>
