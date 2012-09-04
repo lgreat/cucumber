@@ -115,8 +115,11 @@
 
 <c:if test="${stateAbbrevLowerCase ne 'dc'}">
     <div id="cityrating">
-        <div id="ratingimage"><gsml:img src="/res/img/citydist_ratings/GS_CD_c_${strCityRating}.gif"
-                       alt="GreatSchools Rating: ${strCityRating} ${cityratingAlt}. GreatSchools Ratings are based on test results. 10 is best."/>
+        <div id="ratingimage">
+            <gsml:img src="/res/img/ratings/city/GS_CD_c_${strCityRating}.gif"
+                      alt="GreatSchools Rating: ${strCityRating} ${cityratingAlt}. GreatSchools Ratings are based on test results. 10 is best."
+                      width="201"
+                      height="71"/>
         </div>
         <div id="textwrapper">
             <div id="ratingtext">
