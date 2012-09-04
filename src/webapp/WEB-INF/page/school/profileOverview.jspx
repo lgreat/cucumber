@@ -225,10 +225,14 @@
         </c:otherwise>
     </c:choose>
     <c:if test="${not empty schoolLastModifiedDate}">
-        <c:set var="lastModifiedDateMarkupFormat"><fmt:formatDate type="date" value="${schoolLastModifiedDate}" pattern="yyyy-MM-dd"/></c:set>
-        <![CDATA[<div class="smallText1" itemscope itemtype="http://www.schema.org/ProfilePage">]]>
-        Last modified <![CDATA[<time itemprop="dateModified" datetime="${lastModifiedDateMarkupFormat}">]]><fmt:formatDate type="date" value="${schoolLastModifiedDate}" pattern="MMMM d, yyyy"/><![CDATA[</time>]]>
-        <![CDATA[</div>]]>
+        <div class="alpha grid_6 omega">
+            <c:set var="lastModifiedDateMarkupFormat"><fmt:formatDate type="date" value="${schoolLastModifiedDate}"
+                                                                      pattern="yyyy-MM-dd"/></c:set>
+            <![CDATA[<div class="small bottom" itemscope itemtype="http://www.schema.org/ProfilePage">]]>
+            Last modified <![CDATA[<time itemprop="dateModified" datetime="${lastModifiedDateMarkupFormat}">]]><fmt:formatDate
+                type="date" value="${schoolLastModifiedDate}" pattern="MMMM d, yyyy"/><![CDATA[</time>]]>
+            <![CDATA[</div>]]>
+        </div>
     </c:if>
 
     </div>

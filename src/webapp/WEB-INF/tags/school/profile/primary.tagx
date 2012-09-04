@@ -131,5 +131,5 @@
         </c:if>
     </div>
     <!-- FRONTEND - This needs to be styled - it should appear to the right of the Last modified -->
-    <div id="schoolInaccuracy" class="smallAlertText fr">Notice an inaccuracy? <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}">Let us know</link:schoolFeedback>!</div>
+    <div id="schoolInaccuracy" class="small bottom fr">Notice an inaccuracy? <link:schoolFeedback schoolId="${school.id}" cityName="${school.city}">Let us know</link:schoolFeedback>!</div>
 </jsp:root>
