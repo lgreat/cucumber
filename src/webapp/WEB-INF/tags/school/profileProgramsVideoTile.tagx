@@ -39,8 +39,10 @@
                     <div class="inner">
                         <div class="bd media">
                             <span class="imgReg fr"><span class="iconx96 i-96-video-add"><!-- do not collapse --></span></span>
-                            <h4 class="bottom">Add videos</h4><p class="bottom fl make-555555">
-                            Schools, <span class="make-06b">join today</span> to<br/>
+                            <h4 class="bottom">Add videos</h4><p class="bottom fl">
+                            <span class="make-555555">Schools, </span>
+                            <a href="http://www.greatschools.org/official-school-profile/register.page">join today</a>
+                            to<br/>
                             upload videos</p>
 
                         </div>

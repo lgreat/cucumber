@@ -50,10 +50,10 @@
                 <!-- the climate rating is in climateRatings -->
                 <div class="small mas">
                     <ul>
-                        <li>Visit the school: <a href="">What to look for, what to ask</a></li>
-                        <li>Read our <a href="">Community Reviews</a> about the school</li>
-                        <li><a href="">Ten steps to building a bully-free school</a></li>
-                        <li><a href="">How important is school size?</a></li>
+                        <li>Visit the school: <a href="http://www.greatschools.org/find-a-school/school-visit/24-the-school-visit-what-to-look-for-what-to-ask.gs">What to look for, what to ask</a></li>
+                        <li>Read our <gslink:linkToTab tabName="reviews">Community Reviews</gslink:linkToTab> about the school</li>
+                        <li><a href="http://www.greatschools.org/improvement/volunteering/604-building-schools.gs">Ten steps to building a bully-free school</a></li>
+                        <li><a href="http://www.greatschools.org/find-a-school/defining-your-ideal/528-school-size.gs">How important is school size?</a></li>
                     </ul>
                 </div>
             </school:profileCell2>
