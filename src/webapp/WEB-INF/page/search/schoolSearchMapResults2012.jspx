@@ -436,11 +436,13 @@ that this is updated for ajax refresh -->
                         <!--<label class="checkbox"-->
                         <!--for="disabled-{{state}}{{id}}"-->
                         <!--style="display: {{isPkCompare}}">Compare</label>-->
-                        <input id="{{state}}{{id}}" class="js-compare-school-checkbox {{showCompare}}" type="checkbox"/>
-                        <label class="js-compareLabel checkbox {{showCompare}}" id="js-{{state}}{{id}}-compare-label"
-                               for="{{state}}{{id}}">Compare</label>
-                        <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW
-                        </button>
+                        <div class="js-compareLine bottom {{showCompare}}">
+                            <input id="{{state}}{{id}}" class="js-compare-school-checkbox {{showCompare}}" type="checkbox"/>
+                            <label class="js-compareLabel checkbox {{showCompare}}" id="js-{{state}}{{id}}-compare-label"
+                                   for="{{state}}{{id}}">Compare</label>
+                            <button class="js-compareButton button-1Ext-2" style="display: none;">COMPARE<br/>NOW
+                            </button>
+                        </div>
                     </div>
 
                     <div class="unit size65of100">
@@ -463,7 +465,7 @@ that this is updated for ajax refresh -->
                                                 GS.map.getMap.addSavedSchool('js-add-msl-link-{{state}}{{id}}');
                                             }
                                             return false;">
-                                        My School List
+                                        Add to My School List
                                     </a>
                                 </div>
                             </div>
