@@ -72,14 +72,14 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     " The graphs below compare this school's results in each area to other schools in the city and state.";
 
     public static final String TEST_SCORE_RATING_SOURCE_DC =
-            "Test scores are based on 2012 DC-CAS results [<a href=\"http://www.greatschools.org/students/local-facts-resources/453-testing-in-DC.gs\">http://www.greatschools.org/students/local-facts-resources/453-testing-in-DC.gs</a>]" +
+            "Test scores are based on <a href=\"http://www.greatschools.org/students/local-facts-resources/453-testing-in-DC.gs\">2012 DC-CAS</a> results" +
                     " from the District of Columbia.";
     public static final String TEST_SCORE_RATING_SOURCE_IN =
-            "Test scores are based on 2012 ISTEP and ECA results [<a href=\"http://www.greatschools.org/students/local-facts-resources/442-testing-in-IN.gs\">http://www.greatschools.org/students/local-facts-resources/442-testing-in-IN.gs</a>] " +
-                    "from the state of Indiana.";
+            "Test scores are based on <a href=\"http://www.greatschools.org/students/local-facts-resources/442-testing-in-IN.gs\">2012 ISTEP and ECA</a> results" +
+                    " from the state of Indiana.";
     public static final String TEST_SCORE_RATING_SOURCE_WI =
-            "Test scores are based on the 2011-2012 WSAS results [<a href=\"http://www.greatschools.org/students/local-facts-resources/445-testing-in-WI.gs\">http://www.greatschools.org/students/local-facts-resources/445-testing-in-WI.gs</a>] " +
-                    "from the state of Wisconsin.";
+            "Test scores are based on the <a href=\"http://www.greatschools.org/students/local-facts-resources/445-testing-in-WI.gs\">2011-2012 WSAS</a> results" +
+                    " from the state of Wisconsin.";
 
     public static final String STUDENT_GROWTH_RATING_SOURCE_DC =
             "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
