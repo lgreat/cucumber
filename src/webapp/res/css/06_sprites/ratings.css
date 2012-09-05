@@ -304,7 +304,7 @@ Created by Mitchell Seltzer
 /* =5 x24
 -------------------------------------------------------------------------------------------*/
 
-.ratingx24-district {  /* (orange ratings) */
+.ratingx24-district {
     display: inline-block;
     background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-district.png);
     width: 24px;
@@ -318,7 +318,7 @@ Created by Mitchell Seltzer
     height: 24px;
 }
 
-.ratingx24-private-O {
+.ratingx24-private-O {  /* (orange ratings) */
     display: inline-block;
     background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-private-O.png);
     width: 24px;
