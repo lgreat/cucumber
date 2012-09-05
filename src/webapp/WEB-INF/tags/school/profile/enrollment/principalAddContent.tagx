@@ -5,7 +5,7 @@
         >
     <jsp:directive.attribute name="school" type="gs.data.school.School" required="true"/>
 
-    <a href="/official-school-profile/register.page" class="tdn">
+    <link:schoolEspRegister styleClass="no_interrupt tdn">
         <div class="mod standard_3-1">
             <div class="outer">
                 <div class="inner bg-principal">
@@ -20,6 +20,6 @@
                     </div>
                 </div>
             </div>
-    </div>
-    </a>
+        </div>
+    </link:schoolEspRegister>
 </jsp:root>
