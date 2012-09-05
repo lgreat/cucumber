@@ -119,9 +119,20 @@ GS.profile = GS.profile || (function() {
     var onTabChanged = function(currentTab, options) {
         options = options || {};
         var $a = $(currentTab.selector);
+        var jumpedToAnchor = false;
+
+        if(isHistoryAPIAvailable && options && options.hash !== undefined) {
+            GS.util.jumpToAnchor(options.hash);
+            jumpedToAnchor = true;
+        }
+
         if (!options.skipHistory) {
             if (isHistoryAPIAvailable) {
-                GS_changeHistory(getUpdatedTitle(currentTab.title), $a.attr('href'));
+                if (jumpedToAnchor) {
+                    GS_updateHistory(getUpdatedTitle(currentTab.title), $a.attr('href'));
+                } else {
+                    GS_changeHistory(getUpdatedTitle(currentTab.title), $a.attr('href'));
+                }
             } else {
                 var anchorVal = "/" + currentTab.name;
                 if(options && options.hash !== undefined) {
@@ -132,9 +143,6 @@ GS.profile = GS.profile || (function() {
             }
         }
 
-        if(isHistoryAPIAvailable && options && options.hash !== undefined) {
-            GS.util.jumpToAnchor(options.hash);
-        }
 
         GS.tracking.sendOmnitureData(currentTab.name);
         GS_notifyQuantcastComscore();
@@ -204,6 +212,12 @@ GS.util.jumpToAnchor = function(hash) {
 var GS_changeHistory = function(title, url) {
     if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
         window.History.pushState(null, title, url);
+    }
+};
+
+var GS_updateHistory = function(title, url) {
+    if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
+        window.History.replaceState(null, title, url);
     }
 };
 
