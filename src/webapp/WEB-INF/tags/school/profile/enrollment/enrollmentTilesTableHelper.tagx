@@ -20,7 +20,7 @@
                             <hr class="keyline2"/>
                             <p class="bottom pam">
                                 <span class="medium_bold bottom mrs">${acceptanceRate} out of 10</span>
-                                <span class="small bottom"> Students were accepted for the ${acceptanceRateYear} school year.</span>
+                                <span class="small bottom">students were accepted for the ${acceptanceRateYear} school year.</span>
                             </p>
                             <hr class="keyline2"/>
                         </div>
