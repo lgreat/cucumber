@@ -389,7 +389,7 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
             }
             List<EspResponse> financialAidTypeOther = espData.get("financial_aid_type_other");
             if("Yes".equalsIgnoreCase(financialAidResponse) && financialAidTypeOther != null && financialAidTypeOther.size() > 0){
-                financialAidTypeResponses.add(financialAidTypeOther.get(0).getPrettyValue());
+                financialAidTypeResponses.add(financialAidTypeOther.get(0).getValue());
             }
             financialAidRow.put(MODEL_RESPONSE, financialAidTypeResponses);
             rows.add(financialAidRow);
