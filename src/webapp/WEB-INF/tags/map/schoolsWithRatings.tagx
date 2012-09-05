@@ -154,8 +154,8 @@ function initSchoolInfo() {
         var oldSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
         var newSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
 
-        schoolRatingImg = mySchool.isNewGSRating ? newSchoolProfileRatingImg : oldSchoolProfileRatingImg;
-        if (mySchool.type == 'private' &amp;&amp; mySchool.isNewGSRating) {
+        schoolRatingImg = (mySchool.isNewGSRating==='true') ? newSchoolProfileRatingImg : oldSchoolProfileRatingImg;
+        if (mySchool.type == 'private' &amp;&amp; mySchool.isNewGSRating==='true') {
             schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
         }
         mySchool.ratingHtml = '<div class="schoolRating"><div>GreatSchools Rating</div>' +
@@ -264,15 +264,15 @@ function renderSchools(bounds, filterLevelCode) {
                         } else if (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1) {
                             imageValue = 'preschool';
                         } else if (curSchool.type == 'private') {
-                            imageValue = curSchool.isNewGSRating ? 'private' : 'private';
+                            imageValue = (curSchool.isNewGSRating ==='true') ? 'private' : 'private';
                         }  else {
-                            imageValue = curSchool.isNewGSRating ? 'na': 'na';
+                            imageValue = (curSchool.isNewGSRating ==='true') ? 'na': 'na';
                         }
                     }else{
                         if (curSchool.type == 'private') {
-                            imageValue = curSchool.isNewGSRating ? curSchool.rating : curSchool.rating;
+                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
                         }else{
-                            imageValue = curSchool.isNewGSRating ? curSchool.rating : curSchool.rating;
+                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
                         }
                     }
                     icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
