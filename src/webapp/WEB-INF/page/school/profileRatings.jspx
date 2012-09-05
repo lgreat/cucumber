@@ -62,8 +62,7 @@
                             </div>
 
                         <p class="small bottom tal">
-                            ${section1Copy}
-                            <a href="#">Learn more about our methodology &amp;raquo;</a></p>
+                            ${section1Copy}</p>
                     </div>
                 </div>
             </div>
@@ -96,8 +95,13 @@
                         <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
 
                         <p class="small bottom">
-
-                            <a href="#">Learn more about our old rating &amp;raquo;</a></p>
+                                Our rating (from 1 to 10) reflects a school's overall performance.
+                                The higher the rating, the more likely the school will prepare your child for the future,
+                                so choose an above-average school (8-10) if possible. For average schools (4-7),
+                                do careful research and look for evidence that the school has high-quality programs.
+                                For below-average schools (1-3), take caution; a low-performing school may not provide
+                                the instruction or environment your child needs to learn, and you may need to supplement
+                                classroom lessons at home.</p>
                     </div>
                 </div>
             </div>
@@ -226,15 +230,15 @@
                         <!--<c:set var="overallClimateRatingColor"><c:if test="${overallClimateRatingLabel  eq 'Poor'}">ratingsRedText</c:if><c:if test="${overallClimateRatingLabel eq 'Average'}">ratingsYellowText</c:if><c:if test="${overallClimateRatingLabel eq 'High'}">ratingsGreenText</c:if></c:set>-->
                         <h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10 <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em></h5>
 
-                        <profile:ratingsClimateComponent climateVarName="School environment" climateVarRating="${schoolEnvironmentRating}" climateVarContent="school environment copy" />
+                        <profile:ratingsClimateComponent climateVarName="Keeping things safe, clean, and orderly." climateVarRating="${schoolEnvironmentRating}" climateVarContent="${SchoolEnvironmentCopy}" />
 
-                        <profile:ratingsClimateComponent climateVarName="Social &amp;amp; emotional learning" climateVarRating="${socialEmotionalLearningRating}" climateVarContent="social and emotional learning copy" />
+                        <profile:ratingsClimateComponent climateVarName="Creating healthy, respectful relationships." climateVarRating="${socialEmotionalLearningRating}" climateVarContent="${socialEmotionalLearningCopy}" />
 
-                        <profile:ratingsClimateComponent climateVarName="Culture of high expectations" climateVarRating="${highExpectationsRating}" climateVarContent="culture of high expectations copy" />
+                        <profile:ratingsClimateComponent climateVarName="Promoting high academic expectations for all students." climateVarRating="${highExpectationsRating}" climateVarContent="${highExpectationsCopy}" />
 
-                        <profile:ratingsClimateComponent climateVarName="Teacher support" climateVarRating="${teacherSupportRating}" climateVarContent="teacher support copy" />
+                        <profile:ratingsClimateComponent climateVarName="Supporting its teachers." climateVarRating="${teacherSupportRating}" climateVarContent="${teacherSupportCopy}" />
 
-                        <profile:ratingsClimateComponent climateVarName="Family engagement" climateVarRating="${familyEngagementRating}" climateVarContent="family engagement copy" />
+                        <profile:ratingsClimateComponent climateVarName="Informing and including families." climateVarRating="${familyEngagementRating}" climateVarContent="${familyEngagementCopy}" />
 
                     </c:if>
 

@@ -43,80 +43,102 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String CLIMATE_RATING_AVAILABILITY_TEXT_WI =
             "Not available";
 
-    // TODO-13012 placeholder
     public static final String SECTION_1_COPY_DC =
-            "DC - section 1 copy";
-    // TODO-13012 placeholder
+            "This GreatSchools Rating is based on academics, including students' test scores, " +
+                    "academic growth and college readiness. Soon, the rating will also measure school climate," +
+                    " which includes safety, cleanliness, parent involvement and more.";
     public static final String SECTION_1_COPY_IN =
-            "IN - section 1 copy";
-    // TODO-13012 placeholder
+            "This school's GreatSchools Rating is based on academics (90%) and climate (10%). " +
+                    "The academic rating measures students' test scores, academic growth and college readiness." +
+                    " The climate rating measures safety, cleanliness, parent involvement and more.";
     public static final String SECTION_1_COPY_WI =
-            "WI - section 1 copy";
+            "This school's GreatSchools Rating is based on academics (90%) and climate (10%). " +
+                    "The academic rating measures students' test scores, academic growth and college readiness." +
+                    " The climate rating measures safety, cleanliness, parent involvement and more.";
 
-    // TODO-13012 placeholder
     public static final String SECTION_3_COPY_DATA_UNAVAILABLE =
-            "Data unavailable - section 3 copy";
-    // TODO-13012 placeholder
+            "Unfortunately, this school doesn't have sufficient data to generate an academic rating.";
     public static final String SECTION_3_COPY_DC =
-            "DC - section 3 copy";
-    // TODO-13012 placeholder
+            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
+                    "(for elementary and middle schools) and their readiness for college (for high schools)." +
+                    " The graphs below compare this school's results in each area to other schools in the city and state.";
     public static final String SECTION_3_COPY_IN =
-            "IN - section 3 copy";
-    // TODO-13012 placeholder
+            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
+                    "(for elementary and middle schools) and their readiness for college (for high schools)." +
+                    " The graphs below compare this school's results in each area to other schools in the city and state.";
     public static final String SECTION_3_COPY_WI =
-            "WI - section 3 copy";
-    // TODO-13012 placeholder
-    public static final String SECTION_3_COPY_POST_SECONDARY_READINESS_DC =
-            "DC - section 3 copy about post-secondary readiness";
-    // TODO-13012 placeholder
-    public static final String SECTION_3_COPY_POST_SECONDARY_READINESS_IN =
-            "IN - section 3 copy about post-secondary readiness";
-    // TODO-13012 placeholder
-    public static final String SECTION_3_COPY_POST_SECONDARY_READINESS_WI =
-            "WI - section 3 copy about post-secondary readiness";
+            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
+                    "(for elementary and middle schools) and their readiness for college (for high schools)." +
+                    " The graphs below compare this school's results in each area to other schools in the city and state.";
 
-    // TODO-13012 placeholder
     public static final String TEST_SCORE_RATING_SOURCE_DC =
-            "DC - copy about test score rating source";
-    // TODO-13012 placeholder
+            "Test scores are based on 2012 DC-CAS results [<a href=\"http://www.greatschools.org/students/local-facts-resources/453-testing-in-DC.gs\">http://www.greatschools.org/students/local-facts-resources/453-testing-in-DC.gs</a>]" +
+                    " from the District of Columbia.";
     public static final String TEST_SCORE_RATING_SOURCE_IN =
-            "IN - copy about test score rating source";
-    // TODO-13012 placeholder
+            "Test scores are based on 2012 ISTEP and ECA results [<a href=\"http://www.greatschools.org/students/local-facts-resources/442-testing-in-IN.gs\">http://www.greatschools.org/students/local-facts-resources/442-testing-in-IN.gs</a>] " +
+                    "from the state of Indiana.";
     public static final String TEST_SCORE_RATING_SOURCE_WI =
-            "WI - copy about test score rating source";
+            "Test scores are based on the 2011-2012 WSAS results [<a href=\"http://www.greatschools.org/students/local-facts-resources/445-testing-in-WI.gs\">http://www.greatschools.org/students/local-facts-resources/445-testing-in-WI.gs</a>] " +
+                    "from the state of Wisconsin.";
 
-    // TODO-13012 placeholder
     public static final String STUDENT_GROWTH_RATING_SOURCE_DC =
-            "DC - copy about student growth rating source";
-    // TODO-13012 placeholder
+            "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
+                    "  The data is for the 2011-12 school year and is provided by the Office of the State Superintendent of Education.";
     public static final String STUDENT_GROWTH_RATING_SOURCE_IN =
-            "IN - copy about student growth rating source";
-    // TODO-13012 placeholder
+            "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
+                    " Data is from the 2011-12 school year and is provided by the Indiana Department of Education.";
     public static final String STUDENT_GROWTH_RATING_SOURCE_WI =
-            "WI - copy about student growth rating source";
+            "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
+                    " This data is from 2011 and is provided by the Value-Added Research Center and Milwaukee Public Schools.";
 
-    // TODO-13012 placeholder
     public static final String POST_SECONDARY_READINESS_RATING_SOURCE_DC =
-            "DC - copy about post-secondary readiness rating source";
-    // TODO-13012 placeholder
+            "This rating is based on the average SAT score for 12th graders from the 2011-12 school year." +
+                    "  Data is provided by the Office of the State Superintendent of Education";
     public static final String POST_SECONDARY_READINESS_RATING_SOURCE_IN =
-            "IN - copy about post-secondary readiness rating source";
-    // TODO-13012 placeholder
+            "This rating is based on the average SAT scores of students that graduated in 2012. " +
+                    "ACT scores were used if more students took that test. Data is provided by the Indiana Department of Education.";
     public static final String POST_SECONDARY_READINESS_RATING_SOURCE_WI =
-            "WI - copy about post-secondary readiness rating source";
+            "This rating is based on composite ACT scores for all 12th graders in 2011-12. This rating takes into account" +
+                    " how many students took the ACT, giving more credit to schools with a higher percentage of graduates" +
+                    " taking the ACT exam. The ACT data is provided by Milwaukee Public Schools";
 
-    // TODO-13012 placeholder
-    public static final String SECTION_4_COPY_DATA_UNAVAILABLE =
-            "Data unavailable - section 4 copy";
-    // TODO-13012 placeholder
     public static final String SECTION_4_COPY_DC =
-            "DC - section 4 copy - no data this year";
-    // TODO-13012 placeholder
+            "Starting in fall 2013, we plan to release a climate rating as part of this school's overall GreatSchools Rating." +
+                    " The climate rating will be based on survey data about various aspects of this school's climate, such as safety, " +
+                    "cleanliness, expectations for students, parent involvement, and more.";
     public static final String SECTION_4_COPY_IN =
-            "IN - section 4 copy - no data yet";
-    // TODO-13012 placeholder
+            "Starting in fall 2012, we plan to include a climate rating as part of this school's overall GreatSchools Rating." +
+                    " The climate rating will be based on feedback from teachers about various aspects of their school's climate," +
+                    " such as safety, cleanliness, expectations for students, parent involvement, and more.";
     public static final String SECTION_4_COPY_WI =
-            "WI - section 4 copy - data is present in the section below";
+            "Starting in fall 2012, we plan to include a climate rating as part of this school's overall GreatSchools Rating." +
+                    " The climate rating will be based on feedback from teachers about various aspects of their school's climate," +
+                    " such as safety, cleanliness, expectations for students, parent involvement, and more.";
+
+    public static final String SECTION_4_SCHOOL_ENVIRONMENT_COPY="This rating evaluates a school's " +
+            "environment, based on its safety, order, cleanliness and more.  More highly rated schools have well-kept facilities " +
+            "and a safe environment conducive to learning. Schools rated poorly may have a chaotic environment, conflicts among " +
+            "students or even theft or violence.";
+    public static final String SECTION_4_SOCIAL_EMOTIONAL_LEARNING_COPY="This rating measures whether the school has a positive " +
+            "learning environment and cultivates an atmosphere of respect. " +
+            "At a school with a higher rating, it's more likely that the school's culture celebrates hard work and learning," +
+            " students treat their peers and teachers with respect and class lessons reinforce character strengths such " +
+            "as kindness and tolerance. A school with a lower rating may have a weaker learning environment or " +
+            "allow disrespectful behavior.";
+    public static final String SECTION_4_HIGH_EXPECTATIONS_COPY="This rating sheds light on the academic expectations that" +
+            " teachers have for students. At a school with a higher rating, educators are more likely to stress academic success," +
+            " ask kids to work hard and expect kids to be college-bound. At schools with lower ratings, it may be more acceptable" +
+            " for students to put in average or minimal effort, perform poorly on tests and lack strong academic goals.";
+    public static final String SECTION_4_TEACHER_SUPPORT_COPY="This rating indicates how teachers feel about their school's professional environment." +
+            " At a highly rated school, teachers are more likely to work well together, learn from one another," +
+            " have opportunities for professional development and feel supported by the administration." +
+            " At a school with lower ratings, teachers may not interact much, feel appreciated or have much" +
+            " input in school decisions and policies.";
+    public static final String SECTION_4_FAMILY_ENGAGEMENT_COPY="This rating reflects how much communication parents can" +
+            " expect from this school. A highly rated school is more likely to have regular communication " +
+            "(e.g. newsletters, emails, and meetings) between administrators, teachers and parents. " +
+            "This may include information about student progress, homework help and volunteer opportunities. " +
+            "At lower-rated schools, parents may not get regular updates and may feel less welcome at school.";
 
     // ===================== MODEL ==================================
 
@@ -167,6 +189,13 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_HIGH_EXPECTATIONS_RATING = "highExpectationsRating";
     public static final String MODEL_TEACHER_SUPPORT_RATING = "teacherSupportRating";
     public static final String MODEL_FAMILY_ENGAGEMENT_RATING = "familyEngagementRating";
+
+    public static final String MODEL_SECTION_4_FAMILY_ENGAGEMENT_COPY = "familyEngagementCopy";
+    public static final String MODEL_SECTION_4_HIGH_EXPECTATIONS_COPY = "highExpectationsCopy";
+    public static final String MODEL_SECTION_4_SCHOOL_ENVIRONMENT_COPY = "SchoolEnvironmentCopy";
+    public static final String MODEL_SECTION_4_SOCIAL_EMOTIONAL_LEARNING_COPY = "socialEmotionalLearningCopy";
+    public static final String MODEL_SECTION_4_TEACHER_SUPPORT_COPY = "teacherSupportCopy";
+
 
     // ===================== DATA ===================================
 
@@ -221,7 +250,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     // ===================== Data ===================================
 
-    // TODO-13012 not optimized, may need to be rewritten
     public Map<String,Object> getData(School school,HttpServletRequest request) {
 
         //Get school and state ratings data
@@ -341,10 +369,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         // SECTION 3 COPY
         model.put(MODEL_SECTION_3_COPY, getSection3Copy(school, dataMap));
 
-        // SECTION 3 POST-SECONDARY READINESS COPY
-
-        model.put(MODEL_SECTION_3_COPY_POST_SECONDARY_READINESS, getSection3CopyPostSecondaryReadiness(school));
-
         // SECTION 3 CHARTS
 
         // test score ratings
@@ -383,7 +407,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return !State.DC.equals(state);
     }
 
-    //TODO is this needed?
     public static boolean isShowStatePostSecondaryReadinessRating(State state) {
         return !State.DC.equals(state);
     }
@@ -488,24 +511,6 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    // this ignores whether or not the school actually has data; we'll leave it to the view
-    public static String getSection3CopyPostSecondaryReadiness(School school) {
-        LevelCode levelCode = school.getLevelCode();
-        if (levelCode != null && levelCode.containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
-            if (State.DC.equals(school.getDatabaseState())) {
-                return SECTION_3_COPY_POST_SECONDARY_READINESS_DC;
-            } else if (State.IN.equals(school.getDatabaseState())) {
-                return SECTION_3_COPY_POST_SECONDARY_READINESS_IN;
-            } else if (State.WI.equals(school.getDatabaseState())) {
-                return SECTION_3_COPY_POST_SECONDARY_READINESS_WI;
-            } else {
-                throw new IllegalArgumentException("School is from unsupported state");
-            }
-        } else {
-            return null;
-        }
-    }
-
     // ===================== Section 4 ==============================
 
     public static void populateSection4Model(School school, Map<String, Object> dataMap, ModelMap model) {
@@ -513,6 +518,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         // SECTION 4 COPY
 
         model.put(MODEL_SECTION_4_COPY, getSection4Copy(school, dataMap));
+        model.put(MODEL_SECTION_4_FAMILY_ENGAGEMENT_COPY,SECTION_4_FAMILY_ENGAGEMENT_COPY);
+        model.put(MODEL_SECTION_4_HIGH_EXPECTATIONS_COPY,SECTION_4_HIGH_EXPECTATIONS_COPY);
+        model.put(MODEL_SECTION_4_SCHOOL_ENVIRONMENT_COPY,SECTION_4_SCHOOL_ENVIRONMENT_COPY);
+        model.put(MODEL_SECTION_4_SOCIAL_EMOTIONAL_LEARNING_COPY,SECTION_4_SOCIAL_EMOTIONAL_LEARNING_COPY);
+        model.put(MODEL_SECTION_4_TEACHER_SUPPORT_COPY,SECTION_4_TEACHER_SUPPORT_COPY);
 
         // SECTION 4 CLIMATE DETAILS
 
@@ -527,22 +537,17 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     }
 
-    public static String getSection4Copy(School school, Map<String,Object> dataMap) {
+    public static String getSection4Copy(School school, Map<String, Object> dataMap) {
         if (State.DC.equals(school.getDatabaseState())) {
             return SECTION_4_COPY_DC;
         } else if (State.IN.equals(school.getDatabaseState())) {
             return SECTION_4_COPY_IN;
         } else if (State.WI.equals(school.getDatabaseState())) {
-            if (dataMap.containsKey(DATA_OVERALL_CLIMATE_RATING)) {
-                return SECTION_4_COPY_WI;
-            } else {
-                return SECTION_4_COPY_DATA_UNAVAILABLE;
-            }
+            return SECTION_4_COPY_WI;
         } else {
             throw new IllegalArgumentException("School is from unsupported state");
         }
     }
-
 
     public static Map<String,Object> getClimateRatingDetailsModel(School school, Map<String,Object> dataMap) {
         Map<String,Object> model = new HashMap<String,Object>();
