@@ -96,6 +96,8 @@
     <ad:disableGptGhostTextHiding position="Footer_728x90"/>
     <ad:disableGptGhostTextHiding position="AboveFold_300x600"/>
     <ad:omitCompanionSizes position="AboveFold_300x600"/>
+    <!-- enableAdPosition tag must be used in profile.jspx for any ad imcluded within a profile module -->
+    <ad:enableAdPosition position="Sponsor_630x40"/>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 <div id="fb-root"><!-- do not collapse --></div>
