@@ -38,20 +38,20 @@
             <c:when test="${not empty school.greatSchoolsRating}">
                 <c:choose>
                     <c:when test="${school.isSchoolForNewProfile}">
-                        <div class="ratingx24-RYG r-24-RYG-${school.greatSchoolsRating}"><!-- do not collapse --></div>
+                        <div class="ratingx24-RYGr-24-${school.greatSchoolsRating}"><!-- do not collapse --></div>
                     </c:when>
                     <c:otherwise>
-                        <div class="ratingx24-O r-24-O-${school.greatSchoolsRating}"><!-- do not collapse --></div>
+                        <div class="ratingx24-O r-24-${school.greatSchoolsRating}"><!-- do not collapse --></div>
                     </c:otherwise>
                 </c:choose>
             </c:when>
             <c:otherwise>
                 <c:choose>
                     <c:when test="${school.isSchoolForNewProfile}">
-                        <div class="ratingx24-RYG r-24-RYG-NA"><!-- do not collapse --></div>
+                        <div class="ratingx24-RYGr-24-NA"><!-- do not collapse --></div>
                     </c:when>
                     <c:otherwise>
-                        <div class="ratingx24-O r-24-O-NA"><!-- do not collapse --></div>
+                        <div class="ratingx24-O r-24-NA"><!-- do not collapse --></div>
                     </c:otherwise>
                 </c:choose>
             </c:otherwise>

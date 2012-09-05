@@ -301,155 +301,79 @@ Created by Mitchell Seltzer
 .ratingsYellow {color:#F1AF31;  background-color: #F1AF31;}
 .ratingsGreen { color:#5E9D4C; background-color: #5E9D4C;}
 
-/* =5 x24 (orange ratings)
+/* =5 x24
 -------------------------------------------------------------------------------------------*/
 
-/* **************** SPRITE ***************** */
-
-.iconx24-ratings,
-.ratingx24-O {
+.ratingx24-O {  /* (orange ratings) */
     display: inline-block;
     background-image: url(/res/img/sprites/ratings/120808-ratings_Ox24.png);
     width: 24px;
     height: 24px;
 }
 
-/* **************** VIEWPORT ***************** */
-
-/* row 0 */
-.i-24-ratings1,
-.r-24-O-1 {
-    background-position: 0 0;
-}
-
-.i-24-ratings2,
-.r-24-O-2 {
-    background-position: -24px 0;
-}
-
-.i-24-ratings3,
-.r-24-O-3 {
-    background-position: -48px 0;
-}
-
-.i-24-ratings4,
-.r-24-O-4 {
-    background-position: -72px 0;
-}
-
-.i-24-ratings5,
-.r-24-O-5 {
-    background-position: -96px 0;
-}
-
-.i-24-ratings6,
-.r-24-O-6 {
-    background-position: -120px 0;
-}
-
-.i-24-ratings7,
-.r-24-O-7 {
-    background-position: -144px 0;
-}
-
-.i-24-ratings8,
-.r-24-O-8 {
-    background-position: -168px 0;
-}
-
-.i-24-ratings9,
-.r-24-O-9 {
-    background-position: -192px 0;
-}
-
-.i-24-ratings10,
-.r-24-O-10 {
-    background-position: -216px 0;
-}
-.i-24-ratingsNA,
-.r-24-O-NA {
-    background-position: -240px 0;
-}
-.i-24-ratingsNR,
-.r-24-O-NR {
-    background-position: -240px 0;
-}
-
-/* **************** SPRITE Ratings Rainbow ***************** */
-
-/* **************** 24 px  uses rating 24 pixel sprite spacing from icon.css ***************** */
-.iconx24-ratings-rb,
-.ratingx24-RYG {
+.ratingx24-RYG {  /* walton (red-yellow-green ratings) */
     display: inline-block;
     background-image: url(/res/img/sprites/ratings/120807-ratings_RYGx24.png);
     width: 24px;
     height: 24px;
 }
 
-.i-24-ratingsLegend,
-.r-24-legend{
+.ratingx24-RYG.r-24-legend{
     width:240px;
 }
 
+
+
+/* **************** VIEWPORT ***************** */
+
 /* row 0 */
-.i-24-ratings1,
-.r-24-RYG-1 {
+.r-24-1 {
     background-position: 0 0;
 }
 
-.i-24-ratings2,
-.r-24-RYG-2 {
+.r-24-2 {
     background-position: -24px 0;
 }
 
-.i-24-ratings3,
-.r-24-RYG-3 {
+.r-24-3 {
     background-position: -48px 0;
 }
 
-.i-24-ratings4,
-.r-24-RYG-4 {
+.r-24-4 {
     background-position: -72px 0;
 }
 
-.i-24-ratings5,
-.r-24-RYG-5 {
+.r-24-5 {
     background-position: -96px 0;
 }
 
-.i-24-ratings6,
-.r-24-RYG-6 {
+.r-24-6 {
     background-position: -120px 0;
 }
 
-.i-24-ratings7,
-.r-24-RYG-7 {
+.r-24-7 {
     background-position: -144px 0;
 }
 
-.i-24-ratings8,
-.r-24-RYG-8 {
+.r-24-8 {
     background-position: -168px 0;
 }
 
-.i-24-ratings9,
-.r-24-RYG-9 {
+.r-24-9 {
     background-position: -192px 0;
 }
 
-.i-24-ratings10,
-.r-24-RYG-10 {
+.r-24-10 {
     background-position: -216px 0;
 }
 
-.i-24-ratingsNR,
-.r-24-RYG-NR {
+.r-24-NA,
+.r-24-NR {
     background-position: -240px 0;
 }
 
 /* **************** 72 px ***************** */
 
-.iconx72-ratings-rb,
 .ratingx72-RYG {
     display: inline-block;
     background-image: url(/res/img/sprites/ratings/120803-ratings_RYGx72.png);
@@ -458,65 +382,53 @@ Created by Mitchell Seltzer
 }
 
 /* row 0 */
-.i-72-ratings1,
-.r-72-RYG-1 {
+.r-72-1 {
     background-position: 0 0;
 }
 
-.i-72-ratings2,
-.r-72-RYG-2 {
+.r-72-2 {
     background-position: -72px 0;
 }
 
-.i-72-ratings3,
-.r-72-RYG-3 {
+.r-72-3 {
     background-position: -144px 0;
 }
 
-.i-72-ratings4,
-.r-72-RYG-4 {
+.r-72-4 {
     background-position: -216px 0;
 }
 
-.i-72-ratings5,
-.r-72-RYG-5 {
+.r-72-5 {
     background-position: -288px 0;
 }
 
-.i-72-ratings6,
-.r-72-RYG-6 {
+.r-72-6 {
     background-position: -360px 0;
 }
 
-.i-72-ratings7,
-.r-72-RYG-7 {
+.r-72-7 {
     background-position: -432px 0;
 }
 
-.i-72-ratings8,
-.r-72-RYG-8 {
+.r-72-8 {
     background-position: -504px 0;
 }
 
-.i-72-ratings9,
-.r-72-RYG-9 {
+.r-72-9 {
     background-position: -576px 0;
 }
 
-.i-72-ratings10,
-.r-72-RYG-10 {
+.r-72-10 {
     background-position: -648px 0;
 }
 
-.i-72-ratingsNR,
-.r-72-RYG-NR {
+.r-72-NR {
     background-position: -720px 0;
 }
 
 
 /* **************** 72 px ***************** */
 
-.iconx96-ratings-rb,
 .ratingx96-RYG {
     display: inline-block;
     background-image: url(/res/img/sprites/ratings/120803-ratings_RYGx96.png);
@@ -525,57 +437,46 @@ Created by Mitchell Seltzer
 }
 
 /* row 0 */
-.i-96-ratings1,
-.r-96-RYG-1 {
+.r-96-1 {
     background-position: 0 0;
 }
 
-.i-96-ratings2,
-.r-96-RYG-2 {
+.r-96-2 {
     background-position: -96px 0;
 }
 
-.i-96-ratings3,
-.r-96-RYG-3 {
+.r-96-3 {
     background-position: -192px 0;
 }
 
-.i-96-ratings4,
-.r-96-RYG-4 {
+.r-96-4 {
     background-position: -288px 0;
 }
 
-.i-96-ratings5,
-.r-96-RYG-5 {
+.r-96-5 {
     background-position: -384px 0;
 }
 
-.i-96-ratings6,
-.r-96-RYG-6 {
+.r-96-6 {
     background-position: -480px 0;
 }
 
-.i-96-ratings7,
-.r-96-RYG-7 {
+.r-96-7 {
     background-position: -576px 0;
 }
 
-.i-96-ratings8,
-.r-96-RYG-8 {
+.r-96-8 {
     background-position: -672px 0;
 }
 
-.i-96-ratings9,
-.r-96-RYG-9 {
+.r-96-9 {
     background-position: -768px 0;
 }
 
-.i-96-ratings10,
-.r-96-RYG-10 {
+.r-96-10 {
     background-position: -864px 0;
 }
 
-.i-96-ratingsNR,
-.r-96-RYG-NR {
+.r-96-NR {
     background-position: -960px 0;
 }

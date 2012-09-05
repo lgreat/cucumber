@@ -22,10 +22,10 @@
                             <div class="iconTop">
                                     <c:choose>
                                         <c:when test="${overallRating != null}">
-                                            <div class="ratingx72-RYG r-72-RYG-${overallRating} bottom"><!-- do not collapse --></div>
+                                            <div class="ratingx72-RYG r-72-${overallRating} bottom"><!-- do not collapse --></div>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="ratingx72-RYG r-72-RYG-NR"><!-- do not collapse --></div>
+                                            <div class="ratingx72-RYG r-72-NR"><!-- do not collapse --></div>
                                         </c:otherwise>
                                     </c:choose>
                             </div>

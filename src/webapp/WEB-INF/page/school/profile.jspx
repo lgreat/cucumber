@@ -189,10 +189,10 @@
             <!-- New GS Rating -->
             <c:choose>
                 <c:when test="${overallRating != null}">
-                    <div class="ratingx96-RYG r-96-RYG-${overallRating}"><!-- do not collapse --></div>
+                    <div class="ratingx96-RYG r-96-${overallRating}"><!-- do not collapse --></div>
                 </c:when>
                 <c:otherwise>
-                    <div class="ratingx96-RYG r-96-RYG-NR"><!-- do not collapse --></div>
+                    <div class="ratingx96-RYG r-96-NR"><!-- do not collapse --></div>
                 </c:otherwise>
             </c:choose>
             <p data-gs-custom-link="header_rating" class="tac small bottom pbs mbm">GreatSchools Rating</p>

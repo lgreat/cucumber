@@ -709,10 +709,10 @@ that this is updated for ajax refresh -->
                 <div class="unit size20of100">
                     <div class="js-gsRating img mrm">
                         <a href="" data-href="{{gsRatingUrl}}" class="noUnderline">
-                            <span class="ratingx24-O r-24-O-{{gsRating}} {{showNonPrivate}}"><!-- do not collapse --></span>
+                            <span class="ratingx24-O r-24-{{gsRating}} {{showNonPrivate}}"><!-- do not collapse --></span>
                             <span class="iconx24 i-24-private-school-badge {{showPrivate}}"><!-- do not collapse --></span>
                             <span class="iconx24 i-24-preschool-badge {{showPreschool}}"><!-- do not collapse --></span>
-                            <!--<span class="ratingx24-RYG r-24-RYG-{{gsRating}} {{showNewRatingNonPrivate}}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                            <!--<span class="ratingx24-RYG r-24-{{gsRating}} {{showNewRatingNonPrivate}}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                             <!--<span class="iconx24-rb i-24-private-school-badge {{showNewRatingPrivate}}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                         </a>
                     </div>

@@ -198,10 +198,10 @@
 
                                         <c:choose>
                                             <c:when test="${s.school.type eq 'private'}">
-                                                <span class="ratingx24-RYG r-24-RYG-${ratingValue}"><!-- do not collapse --></span>
+                                                <span class="ratingx24-RYG r-24-${ratingValue}"><!-- do not collapse --></span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="ratingx24-RYG r-24-RYG-${ratingValue}"><!-- do not collapse --></span>
+                                                <span class="ratingx24-RYG r-24-${ratingValue}"><!-- do not collapse --></span>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:when>
@@ -211,7 +211,7 @@
                                         <c:if test="${s.rating > 0}">
                                             <c:set var="ratingValue" value="${s.rating}"/>
                                         </c:if>
-                                        <span class="ratingx24-O r-24-O-${ratingValue}"><!-- do not collapse --></span>
+                                        <span class="ratingx24-O r-24-${ratingValue}"><!-- do not collapse --></span>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
