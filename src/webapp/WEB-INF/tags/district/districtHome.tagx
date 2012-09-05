@@ -116,11 +116,11 @@
                                 <c:choose>
                                 <c:when test="${empty model.rating}">
                                      <img alt="GreatSchools Rating: no rating available.GreatSchools Ratings are based on test results. 10 is best."
-                                          src="/res/img/citydist_ratings/GS_CD_d_no.gif"/>
+                                          src="/res/img/ratings/district/GS_CD_d_no.gif"/>
                                 </c:when>
                                 <c:otherwise>
                                 <img alt="GreatSchools Rating: ${model.rating} out of 10. GreatSchools Ratings are based on test results. 10 is best."
-                                     src="/res/img/citydist_ratings/GS_CD_d_${model.rating}.gif"/>
+                                     src="/res/img/ratings/district/GS_CD_d_${model.rating}.gif"/>
                                 </c:otherwise>
                                 </c:choose>
                             </td>

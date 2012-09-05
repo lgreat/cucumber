@@ -37,8 +37,7 @@
                                 </link:districtHome>
                             </div>
                             <div class="unit size25of100 lastUnit tar">
-                                <gsml:img src="/res/img/geo/ratings/cities_sm_${ratingValue}.gif"
-                                          alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                <span class="ratingx24-district r-24-${ratingValue}"><!-- do not collapse --></span>
                             </div>
                         </div>
                         <c:set var="roundedDistance">

@@ -50,14 +50,10 @@
                                     </c:if>
                                     <c:choose>
                                         <c:when test="${s.school.type eq 'private'}">
-                                            <gsml:img
-                                                    src="/res/img/school/ratings/${ratingValue}.gif"
-                                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                            <span class="ratingx24-private-RYG r-24-${ratingValue}"><!-- do not collapse --></span>
                                         </c:when>
                                         <c:otherwise>
-                                            <gsml:img
-                                                    src="/res/img/school/ratings/${ratingValue}.gif"
-                                                    alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                            <span class="ratingx24-public-RYG r-24-${ratingValue}"><!-- do not collapse --></span>
                                         </c:otherwise>
                                     </c:choose>
                                 </c:when>
@@ -67,9 +63,7 @@
                                     <c:if test="${s.rating > 0}">
                                         <c:set var="ratingValue" value="${s.rating}"/>
                                     </c:if>
-                                    <gsml:img
-                                            src="/res/img/school/ratings/${ratingValue}.gif"
-                                            alt="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
+                                    <span class="ratingx24-public-O r-24-${ratingValue}"><!-- do not collapse --></span>
                                 </c:otherwise>
                             </c:choose>
                         </div>
