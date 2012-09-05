@@ -11,6 +11,7 @@ import gs.data.school.review.IReviewDao;
 import gs.data.school.review.Ratings;
 import gs.data.school.review.Review;
 import gs.data.state.State;
+import gs.data.test.ITestDataSetDao;
 import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
@@ -67,6 +68,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     private TestManager _testManager;
     private String _errorView = "/compare/error";
     private int _pageSize = DEFAULT_PAGE_SIZE;
+    private ITestDataSetDao _testDataSetDao;
 
     @Override
     /**
@@ -489,30 +491,12 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         if (schools.size() == 0) {
             return; // early exit
         }
-        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
-        boolean isFromCache = true;
-        if (pageHelper != null && pageHelper.isDevEnvironment() && !pageHelper.isStagingServer()) {
-            isFromCache = false;
-        }
 
-        State state = schools.get(0).getSchool().getDatabaseState();
-        IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(state, isFromCache);
-
-        if (null != ratingsConfig) {
-            for (ComparedSchoolBaseStruct baseStruct: schools) {
-                handleGSRating(baseStruct, ratingsConfig);
+        for (ComparedSchoolBaseStruct baseStruct : schools) {
+            Integer rating = baseStruct.getSchool().getGSRating();
+            if( rating != null ) {
+                baseStruct.setGsRating(rating);
             }
-        }
-    }
-
-    /**
-     * Sets the gsRating field for the provided school.
-     */
-    protected void handleGSRating(ComparedSchoolBaseStruct struct, IRatingsConfig ratingsConfig) {
-        SchoolTestValue schoolTestValue =
-                _testManager.getOverallRating(struct.getSchool(), ratingsConfig.getYear());
-        if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
-            struct.setGsRating(schoolTestValue.getValueInteger());
         }
     }
 
@@ -609,4 +593,11 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         _pageSize = pageSize;
     }
 
+    public ITestDataSetDao getTestDataSetDao() {
+        return _testDataSetDao;
+    }
+
+    public void setTestDataSetDao(ITestDataSetDao testDataSetDao) {
+        _testDataSetDao = testDataSetDao;
+    }
 }

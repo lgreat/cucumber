@@ -1,7 +1,6 @@
 package gs.web.school;
 
 import gs.data.content.cms.CmsFeature;
-import gs.data.content.cms.ContentKey;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.school.census.CensusDataType;
@@ -9,16 +8,12 @@ import gs.data.school.census.SchoolCensusValue;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
 import gs.data.school.review.Review;
-import gs.data.search.SearchException;
-import gs.data.search.SearchResultsPage;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.data.util.CmsUtil;
 import gs.web.BaseControllerTestCase;
 import gs.web.request.RequestAttributeHelper;
 import gs.web.search.CmsFeatureSearchService;
-import gs.web.search.ICmsFeatureSearchResult;
-import org.apache.solr.client.solrj.SolrQuery;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;

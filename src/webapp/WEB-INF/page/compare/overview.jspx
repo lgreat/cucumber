@@ -6,6 +6,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
     <html lang="en">
@@ -72,17 +73,10 @@
                     <td class="cs_gsRating center">
                         <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                         <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}" levelCode="${school.levelCode}">
-                            <c:choose>
-                                <c:when test="${school.private}">
-                                        <span class="sprite badge_sm_pr" title="GreatSchools Ratings not available for private schools."><!-- do not collapse --></span>
-                                </c:when>
-                                <c:when test="${empty school.gsRating}">
-                                    <span class="ratingNotApplicable rateDesc sprite badge_sm_na"><!-- don't collapse --></span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="sprite badge_sm_${school.gsRating}" title="GreatSchools Rating out of 10"><!-- do not collapse --></span>
-                                </c:otherwise>
-                            </c:choose>
+                            <!-- For release 21.1 remove the compare:GSRating tag and active the ratings:ratingsSprite tag as it has the new images -->
+                            <compare:GSRatings school="${school.school}" />
+                            <!-- <ratings:ratingsSprite isNewGsRating="${school.school.isNewGSRating}" gsRating="${school.gsRating}"
+                         schoolType="${school.school.type.name}" isPreschoolOnly="${school.school.preschoolOnly}" spriteSize="small"/> -->
                         </link:schoolProfileRating2010>
                         </div>
                     </td>

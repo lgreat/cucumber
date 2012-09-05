@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <!-- Common tagx to display a ratings sprite -->
+    <!-- <jsp:directive.attribute name="school" required="true" description="school"
+                             type="gs.data.search.beans.SolrSchoolSearchResult"/>  -->
+    <jsp:directive.attribute name="isNewGsRating" required="true" description="is the rating a new GS rating"
+                             type="java.lang.Boolean" />
+    <jsp:directive.attribute name="gsRating" required="true" description="the GS rating"
+                             type="java.lang.Integer" />
+    <jsp:directive.attribute name="schoolType" required="true" description="type of school"
+                             type="java.lang.String" />
+    <jsp:directive.attribute name="isPreschoolOnly" required="true" description="if this is only a preschool"
+                             type="java.lang.Boolean" />
+    <jsp:directive.attribute name="spriteSize" required="true" description="The size of the sprite to display.  small=24, med=72, large96"
+                             type="java.lang.String" />
+
+    <!-- Calc class prefix based on spriteType provided -->
+    <!-- Note - for rel 20.0 the old (pink/rose) sprites should be used.  Therefore the classPrefix_O are temporarly commented out and replaced with old -->
+    <c:choose>
+        <c:when test="${spriteSize eq 'small'}">
+            <!-- <c:set var="classPrefix_O" value="ratingx24-O r-24-O-" scope="page"/> -->
+            <c:set var="classPrefix_O" value="ratingx24-O r-24-O-" scope="page"/>
+            <c:set var="classPrefix_RYG" value="ratingx24-RYG r-24-RYG-" scope="page"/>
+        </c:when>
+        <c:when test="${spriteSize eq 'med'}">
+            <!-- <c:set var="classPrefix_O" value="ratingx72-O r-72-O-" scope="page"/> -->
+            <c:set var="classPrefix_O" value="ratingx72-O r-72-O-" scope="page"/>
+            <c:set var="classPrefix_RYG" value="ratingx72-RYG r-72-RYG-" scope="page"/>
+        </c:when>
+        <c:when test="${spriteSize eq 'large'}">
+            <!-- <c:set var="classPrefix_O" value="ratingx96-O r-96-O-" scope="page"/> -->
+            <c:set var="classPrefix_O" value="ratingx96-O r-96-O-" scope="page"/>
+            <c:set var="classPrefix_RYG" value="ratingx96-RYG r-96-RYG-" scope="page"/>
+        </c:when>
+        <c:otherwise>
+            <!-- <c:set var="classPrefix_O" value="ratingx24-O r-24-O-" scope="page"/> -->
+            <c:set var="classPrefix_O" value="ratingx24-O r-24-" scope="page"/>
+            <c:set var="classPrefix_RYG" value="ratingx24-RYG r-24-" scope="page"/>
+        </c:otherwise>
+    </c:choose>
+
+    <c:choose>
+        <c:when test="${isPreschoolOnly}">
+            <c:choose>
+                <c:when test="${isNewGsRating}">
+                    <span class="${classPrefix_RYG}NR"><!-- do not collapse --></span>
+                </c:when>
+                <c:otherwise>
+                    <span class="${classPrefix_O}NR"><!-- do not collapse --></span>
+                </c:otherwise>
+            </c:choose>
+        </c:when>
+        <c:when test="${schoolType eq 'private'}">
+            <c:choose>
+                <c:when test="${not empty gsRating and gsRating gt 0}">
+                    <c:choose>
+                        <c:when test="${isNewGsRating}">
+                            <span class="${classPrefix_RYG}${gsRating}"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="${classPrefix_O}${gsRating}"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="${isNewGsRating}">
+                            <span class="${classPrefix_RYG}NR"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="${classPrefix_O}NR"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
+        </c:when>
+        <c:otherwise>
+            <c:choose>
+                <c:when test="${not empty gsRating}">
+                    <c:choose>
+                        <c:when test="${isNewGsRating}">
+                            <span class="${classPrefix_RYG}${gsRating}"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="${classPrefix_O}${gsRating}"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="${isNewGsRating}">
+                            <span class="${classPrefix_RYG}NR"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="${classPrefix_O}NR"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
+        </c:otherwise>
+    </c:choose>
+
+</jsp:root>

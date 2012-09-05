@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <jsp:directive.tag body-content="scriptless"/>
+
+    <jsp:directive.attribute name="school" required="true" description="school"
+                             type="gs.data.school.School"/>
+
+    <c:choose>
+        <c:when test="${school.type.schoolTypeName == 'private'}">
+            <c:choose>
+                <c:when test="${not empty school.GSRating and school.GSRating gt 0}">
+                    <span class="sprite badge_sm_${school.GSRating}_y"><!-- do not collapse --></span>
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="${school.isNewGSRating}">
+                            <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="sprite badge_sm_pr_y"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
+        </c:when>
+        <c:otherwise>
+            <c:choose>
+                <c:when test="${not empty school.GSRating and school.GSRating gt 0}">
+                    <c:choose>
+                        <c:when test="${school.isNewGSRating}">
+                            <span class="sprite badge_sm_${school.GSRating}_y"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="sprite badge_sm_${school.GSRating}_y"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="${school.isNewGSRating}">
+                            <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
+                        </c:when>
+                        <c:otherwise>
+                            <span class="sprite badge_sm_na_y"><!-- do not collapse --></span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:otherwise>
+            </c:choose>
+        </c:otherwise>
+    </c:choose>
+
+</jsp:root>

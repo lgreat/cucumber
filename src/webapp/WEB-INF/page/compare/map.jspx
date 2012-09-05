@@ -6,6 +6,7 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html"
@@ -48,17 +49,10 @@
                         <div class="media">
                             <div class="img gsRating mrs">
                                 <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}" levelCode="${school.levelCode}">
-                                    <c:choose>
-                                        <c:when test="${school.private}">
-                                            <span class="sprite badge_sm_pr"><!-- do not collapse --></span>
-                                        </c:when>
-                                        <c:when test="${empty school.gsRating}">
-                                            <span class="sprite badge_sm_na"><!-- do not collapse --></span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span class="sprite badge_sm_${school.gsRating}"><!-- do not collapse --></span>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <!-- For release 21.1 remove the compare:GSRating tag and active the ratings:ratingsSprite tag as it has the new images -->
+                                    <compare:GSRatings school="${school.school}" />
+                                    <!-- <ratings:ratingsSprite isNewGsRating="${school.school.isNewGSRating}" gsRating="${school.gsRating}"
+                                                           schoolType="${school.school.type.name}" isPreschoolOnly="${school.school.preschoolOnly}" spriteSize="small"/> -->
                                 </link:schoolProfileRating2010>
                             </div>
                             <div class="bd brdlft-solid communityRating pts">
