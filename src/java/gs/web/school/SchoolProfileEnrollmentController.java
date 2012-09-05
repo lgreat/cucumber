@@ -45,8 +45,14 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
     private static final String MODEL_CHANCES_ACCEPTANCE_RATE = "acceptanceRate";
     private static final String MODEL_CHANCES_ACCEPTANCE_RATE_YEAR = "acceptanceRateYear";
 
+    private static final String MODEL_OUTSMARTING_ARTICLE = "outsmartingArticle";
+    private static final String MODEL_OUTSMARTING_ARTICLE_ID = "outsmartingArticleId";
+
     private static final String[] PLANNING_AHEAD_PG_KEYS = {"_2yr", "_4yr", "_military", "_vocational", "_workforce",
             "_year"};
+
+    private enum States {AL, AK, AZ, AR, CA, CO, CT, DE, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO,
+    MT, NE, NV, NH, NJ, NM, NY, NC, ND, OH, OK, OR, PA, RI, SC, SD, TN, TX, UT, VT, VA, WA, DC, WV, WI, WY};
 
     @Autowired
     private SchoolProfileDataHelper _schoolProfileDataHelper;
@@ -84,6 +90,8 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
         }
 
         model.put(MODEL_COST, getCostEspTile(request, school, espData));
+
+        model.put(MODEL_OUTSMARTING_ARTICLE, getOutsmartingArticle(school));
     }
 
     Map getApplInfoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
@@ -139,8 +147,8 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
                 if(applicationDeadlineDate.after(today.getTime())) {
                     //some time in future
                     if(applicationDeadlineDate.before(nextYear.getTime())) {
-                        int numDaysLeft = (int)((applicationDeadlineDate.getTime() - today.getTime().getTime())/(1000*60*60*24));
-                        model.put(MODEL_DAYS_LEFT, numDaysLeft);
+                        double numDaysLeft =  Math.ceil((double)(applicationDeadlineDate.getTime() - today.getTime().getTime())/(1000*60*60*24));
+                        model.put(MODEL_DAYS_LEFT, (int) numDaysLeft);
                     }
                     model.put(MODEL_ENROLLMENT_STATE, 1);
                 }
@@ -150,10 +158,10 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
                     int months = (today.get(Calendar.YEAR) - appDeadlineDateCal.get(Calendar.YEAR)) * 12 +
                             (today.get(Calendar.MONTH) - appDeadlineDateCal.get(Calendar.MONTH)) +
                             (today.get(Calendar.DAY_OF_MONTH) >= appDeadlineDateCal.get(Calendar.DAY_OF_MONTH)? 0: -1);
-                    if(months > 12) {
+                    if(months > 11) {
                         model.put(MODEL_ENROLLMENT_STATE, 3);
                     }
-                    else if(months < 3) {
+                    else if(months < 2) {
                         model.put(MODEL_NUM_MONTHS_PAST_DEADLINE, months);
                         model.put(MODEL_ENROLLMENT_STATE, 2);
                     }
@@ -182,7 +190,7 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
         int numDest = 0;
         List<String> destinationResponseValues = new ArrayList<String>();
         for(int i = 1; i < 4; i++) {
-            String schoolDestination = "destination_school" + i;
+            String schoolDestination = "destination_school_" + i;
             List<EspResponse> destinationSchool = espData.get(schoolDestination);
             if(destinationSchool != null && destinationSchool.size() > 0) {
                 destinationResponseValues.add(destinationSchool.get(0).getValue());
@@ -379,6 +387,10 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
                     financialAidTypeResponses.add(financialAidTypes.get(i).getPrettyValue());
                 }
             }
+            List<EspResponse> financialAidTypeOther = espData.get("financial_aid_type_other");
+            if("Yes".equalsIgnoreCase(financialAidResponse) && financialAidTypeOther != null && financialAidTypeOther.size() > 0){
+                financialAidTypeResponses.add(financialAidTypeOther.get(0).getPrettyValue());
+            }
             financialAidRow.put(MODEL_RESPONSE, financialAidTypeResponses);
             rows.add(financialAidRow);
         }
@@ -408,6 +420,81 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
         }
 
         return rows;
+    }
+
+    Map getOutsmartingArticle(School school) {
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        States state = States.valueOf(school.getStateAbbreviation().getAbbreviation());
+        String city = school.getCity();
+        String county = school.getCounty();
+        switch (state) {
+            case CA:
+                if("Los Angeles".equalsIgnoreCase(city)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3539);
+                }
+                else if ("Oakland".equalsIgnoreCase(city)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3771);
+                }
+                else if ("Pasadena".equalsIgnoreCase(city)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3773);
+                }
+                else if ("San Francisco".equalsIgnoreCase(city)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3431);
+                }
+            break;
+
+            case DC:
+                if("Washington".equalsIgnoreCase(city)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3775);
+                }
+            break;
+
+            case IL:
+                if("Chicago".equalsIgnoreCase(city)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3774);
+                }
+            break;
+
+            case IN:
+                if("Marion".equalsIgnoreCase(county)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 6996);
+                }
+            break;
+
+            case LA:
+                if("New Orleans".equalsIgnoreCase(city)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3770);
+                }
+            break;
+
+            case MI:
+                if("Detroit".equalsIgnoreCase(city)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3772);
+                }
+            break;
+
+            case MO:
+                if("St. Louis".equalsIgnoreCase(city) || "Saint Louis".equalsIgnoreCase(city)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3742);
+                }
+            break;
+
+            case NY:
+                if("Bronx".equalsIgnoreCase(county) || "Queens".equalsIgnoreCase(county) || "New York".equalsIgnoreCase(county) ||
+                        "Kings".equalsIgnoreCase(county) || "Richmond".equalsIgnoreCase(county)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3445);
+                }
+            break;
+
+            case WI:
+                if("Milwaukee".equalsIgnoreCase(city)) {
+                    model.put(MODEL_OUTSMARTING_ARTICLE_ID, 3428);
+                }
+            break;
+        }
+
+        return model;
     }
 
     /**

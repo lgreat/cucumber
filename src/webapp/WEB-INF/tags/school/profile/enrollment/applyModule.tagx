@@ -32,8 +32,15 @@
                             <c:if test="${not empty deadlineDaysLeft}">
                                 <div class="unit size11of100">
                                     <div class="grayBox small bottom">
-                                        <span class="numberFormat">${deadlineDaysLeft}</span><br />
-                                        days left!
+                                        <span class="numberFormat">${deadlineDaysLeft}</span><br/>
+                                        <c:choose>
+                                            <c:when test="${deadlineDaysLeft gt 1}">
+                                                days left!
+                                            </c:when>
+                                            <c:otherwise>
+                                                day left!
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </c:if>

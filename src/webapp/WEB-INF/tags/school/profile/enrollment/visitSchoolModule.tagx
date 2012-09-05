@@ -33,12 +33,12 @@
                                 <br />
                             </div>
                         </div>
-                        <hr class="keyline2"/>
-                        <div class="mam">
+                        <hr class="keyline2 dn"/>
+                        <div class="mam dn">
                         <h4>Touring a school</h4>
                             <p>
                                 <c:if test="${fn:contains(school.levelCode, 'e')}">
-                                    <a href="">
+                                    <a href="/content/cms/translate.page?Video=5064">
                                         <div class="tac smaller">
                                             <img src="/res/img/school/culture/sampleVideo_100x70.png"  /><br /> Touring an Elementary School
                                         </div>
