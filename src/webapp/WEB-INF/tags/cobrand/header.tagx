@@ -5,7 +5,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
         >
     <!--
-    We check for ad free sites because number1expert, mcguire, and framed don't have cobrand headers
+    We check for ad free sites because mcguire and framed don't have cobrand headers
 
     This tag pulls in the static cobrand header as follows. If we're on yahoo.greatschools.org it
     pulls http://yahoo.greatschools.org/templates/local/nav/topnav.insrt

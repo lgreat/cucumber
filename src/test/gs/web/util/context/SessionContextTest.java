@@ -105,11 +105,6 @@ public class SessionContextTest extends BaseTestCase {
         assertFalse(_sessionContext.isYahooCobrand());
 
         // Add the cobrand parameter
-        _request.setParameter("cobrand", "number1expert");
-        _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
-        assertEquals("number1expert.dev.greatschools.org", _sessionContext.getHostName());
-        assertTrue(_sessionContext.isCobranded());
-
         _request.setParameter("cobrand", "yahoo");
         _sessionContextUtil.updateFromParams(_request, _response, _sessionContext);
         assertTrue(_sessionContext.isYahooCobrand());

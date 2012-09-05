@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelperSaTest.java,v 1.58 2012/07/06 21:51:16 mseltzer Exp $
+ * $Id: PageHelperSaTest.java,v 1.59 2012/09/05 22:02:45 yfan Exp $
  */
 
 package gs.web.util;
@@ -52,12 +52,6 @@ public class PageHelperSaTest extends TestCase {
     public void testFramed() {
         MockSessionContext sessionFacade = new MockSessionContext();
         sessionFacade.setCobrand("framed");
-        assertFramedOptions(sessionFacade);
-    }
-
-    public void testNumber1expert() {
-        MockSessionContext sessionFacade = new MockSessionContext();
-        sessionFacade.setCobrand("number1expert");
         assertFramedOptions(sessionFacade);
     }
 

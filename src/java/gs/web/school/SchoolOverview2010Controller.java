@@ -78,13 +78,7 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         }
 
 
-        // GS-3044 - number1expert cobrand specific code
         SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
-        if (sessionContext.isCobranded() && "number1expert".equals(sessionContext.getCobrand())) {
-            if (handleNumber1ExpertLeadGen(request, response, schoolIdStr, sessionContext)) {
-                return null;
-            }
-        }
 
         //used to support the "Report It" links in recent reviews list
         if(PageHelper.isMemberAuthorized(request)){
@@ -319,40 +313,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
         }
 
         return item;
-    }
-
-    protected boolean handleNumber1ExpertLeadGen(HttpServletRequest request, HttpServletResponse response, String schoolIdStr, SessionContext sessionContext) throws IOException {
-        Cookie[] cookies = request.getCookies();
-        String agentId = null;
-        if (cookies != null) {
-            // Collect all the cookies
-            for (int i = 0; cookies.length > i; i++) {
-                // find the agent id cookie
-                if ("AGENTID".equals(cookies[i].getName())) {
-                    // store its value
-                    agentId = cookies[i].getValue();
-                }
-            }
-            // if there's no agent id, no lead gen necessary
-            if (agentId != null) {
-                boolean foundCookie = false;
-                String biregCookieName = "BIREG" + agentId;
-                for (int i = 0; cookies.length > i; i++) {
-                    if (biregCookieName.equals(cookies[i].getName()) &&
-
-                            StringUtils.isNotEmpty(cookies[i].getValue()) && !cookies[i].getValue().equals("0")) {
-                        foundCookie = true;
-                    }
-                }
-                if (!foundCookie) {
-                    // send to bireg
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.GET_BIREG, sessionContext.getStateOrDefault(), new Integer(schoolIdStr), new Integer(agentId));
-                    response.sendRedirect(urlBuilder.asFullUrl(request));
-                    return true;
-                }
-            } // end if agentId != null
-        } // end if cookies != null
-        return false;
     }
 
     public String getViewName() {

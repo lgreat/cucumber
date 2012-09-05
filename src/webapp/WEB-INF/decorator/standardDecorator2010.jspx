@@ -121,7 +121,6 @@
         </div>
 
         <div class="clearfloat"><!-- do not collapse --></div>
-        <cobrand:numberoneexpertFooter/>
         <mod:footer showAd="true" showSeoFooter="true"/>
         <div style="text-align:center"><cobrand:footer/></div>
 
