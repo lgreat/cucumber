@@ -380,7 +380,10 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public void showAdvancedFilters(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandWithFields,
                                     Map<String, Object> model) {
         final String MODEL_SHOW_ADDITIONAL_FILTERS = "showAdditionalFilters";
-        if(commandWithFields.isCityBrowse() || commandWithFields.isDistrictBrowse()) {
+        // special-case check for DC
+        if (schoolSearchCommand.getState() != null && schoolSearchCommand.getState().equalsIgnoreCase(State.DC.getAbbreviation())) {
+                model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+        } else if(commandWithFields.isCityBrowse() || commandWithFields.isDistrictBrowse()) {
             City city = commandWithFields.getCity();
             if(city != null && SchoolHelper.isLocal(city.getName(), city.getState().getAbbreviation())) {
                 model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
