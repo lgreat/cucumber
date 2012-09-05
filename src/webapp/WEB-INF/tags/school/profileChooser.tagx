@@ -62,7 +62,7 @@
                             <option value="high">High school</option>
                         </select>
 
-                        <a class="downloadGuide" href="javascript:void(0);">
+                        <a target="_self" class="downloadGuide" href="javascript:void(0);">
                             <button class="button-1 mlm">Download</button>
                         </a>
                     </div>
@@ -105,19 +105,25 @@
             $("#js_chooserSchoolType").change(function () {
                 var myVal = $(this).val();
                 var visitPdfHref = 'javascript:void(0);';
+                var visitPdfTarget = "_self";
                 if (myVal == "preschool") {
                     visitPdfHref = '/catalog/pdf/schq_visit_preschool.pdf';
+                    visitPdfTarget = "_blank";
                 }
                 else if (myVal == "elementary") {
                     visitPdfHref = '/catalog/pdf/schq_visit_elem.pdf';
+                    visitPdfTarget = "_blank";
                 }
                 else if (myVal == "middle") {
                     visitPdfHref = '/catalog/pdf/schq_visit_middle.pdf';
+                    visitPdfTarget = "_blank";
                 }
                 else if (myVal == "high") {
                     visitPdfHref = '/catalog/pdf/schq_visit_high.pdf';
+                    visitPdfTarget = "_blank";
                 }
                 $('.downloadGuide').attr('href', visitPdfHref);
+                $('.downloadGuide').attr('target', visitPdfTarget);
             });
         </script>
     </c:if>
