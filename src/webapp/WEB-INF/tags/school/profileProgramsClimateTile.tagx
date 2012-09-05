@@ -25,20 +25,25 @@
         <c:when test="${content eq 'default'}">
             <c:set var="climate" value="${climateModel['climateRatings']}" scope="page"/>
             <!-- Climate data is in the climate var -->
-            <c:set var="t8_1dc">
-                <p class="small_bold textshadow-1 pvs plm bottom">What's this school like?</p>
-            </c:set>
-            <school:profileCell2 title="${t8_1dc}" boxShadow="box-shadow-animation-1">
-                <!-- Randall - Build default "What's this school like?" here -->
-                <!-- the climate rating is in climateRatings -->
-                <div class="mam media">
-                    <div class="img mrl"><img src="/res/img/school/culture/culture-placeholder-face.png"/></div>
-                    <div class="bd make-555555"><strong class="bottom">Teachers know best</strong>
-                        <p class="small bottom">Find out why we give this school
-                            an <strong><em>AVERAGE QUALITY</em></strong> <span class="make-06b"> climate rating</span> based on teachers' input.</p></div>
-                </div>
-                <!--<div class="">The climate rating is ${climateRating}</div>-->
-            </school:profileCell2>
+            <gslink:linkToTab tabName="ratings" cssClass="tdn make-555555">
+                <c:set var="t8_1dc">
+                    <p class="small_bold textshadow-1 pvs plm bottom">What's this school like?</p>
+                </c:set>
+                <school:profileCell2 title="${t8_1dc}" boxShadow="box-shadow-animation-1">
+                    <!-- Randall - Build default "What's this school like?" here -->
+                    <!-- the climate rating is in climateRatings -->
+
+                    <div class="mam media">
+                        <div class="img mrl"><img src="/res/img/school/culture/culture-placeholder-face.png"/></div>
+                        <div class="bd make-555555"><strong class="bottom">Teachers know best</strong>
+
+                            <p class="small bottom">Find out why we give this school
+                                an <strong><em>AVERAGE QUALITY</em></strong> <span
+                                        class="make-06b"> climate rating</span> based on teachers' input.</p></div>
+                    </div>
+                    <!--<div class="">The climate rating is ${climateRating}</div>-->
+                </school:profileCell2>
+            </gslink:linkToTab>
         </c:when>
         <c:otherwise>
             <c:set var="t8_1dc">
