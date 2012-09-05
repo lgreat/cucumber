@@ -204,7 +204,7 @@
                     </div>
                     </div>
                     </div>
-                    <div class="smaller pbm tar">Source: Manually entered by a school official.</div>
+                    <div class="smaller bottom tar">Source: Manually entered by a school official.</div>
                 </c:if>
 
                 <c:if test="${hasStudentData ne 'yes'}">
@@ -324,7 +324,7 @@
             </div>
         </div>
     </div>
-    <div class="smaller pbm tar">Source: Manually entered by a school official.</div>
+    <div class="smaller bottom tar">Source: Manually entered by a school official.</div>
 
                 </c:if>
                 <c:if test="${hasTeacherData ne 'yes'}">
