@@ -103,7 +103,7 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
     public void cacheStatsModel(Map<String,Object> statsModel, School school) {
         try {
-            _censusCacheDao.save(school, statsModel);
+            _censusCacheDao.insert(school, statsModel);
         } catch (IOException e) {
             _log.debug("Error while attempting to cache stats model. ", e);
             // all is lost. don't cache
