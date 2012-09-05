@@ -605,7 +605,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
         // TODO-13012 don't hard-code year to fetch
         Set<Integer> years = new HashSet<Integer>();
-        years.add(2012);
+        years.add(2011);
 
         // Make sure we have a school
         School school = _requestAttributeHelper.getSchool(request);
