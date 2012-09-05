@@ -26,7 +26,7 @@
         <tr class="${rowColor}">
             <td>${row.rowTitle}</td>
             <!-- Now display the data by looping over each data element -->
-            <td><ul>
+            <td><ul class="none">
                 <c:forEach var="value" items="${values}">
                     <li><div class="">${value}</div></li>
                 </c:forEach>
