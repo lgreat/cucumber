@@ -8,27 +8,27 @@
 
     <c:choose>
         <c:when test="${school.levelCode eq 'p'}">
-            <span class="iconx24 i-24-preschool-badge"><!-- do not collapse --></span>
+            <span class="ratingx24-public-O r-24-NA"><!-- do not collapse --></span>
         </c:when>
         <c:when test="${school.schoolType eq 'private'}">
             <c:choose>
                 <c:when test="${not empty school.greatSchoolsRating}">
                     <c:choose>
                         <c:when test="${school.isSchoolForNewProfile}">
-                            <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+                            <span class="ratingx24-private-RYG r-24-NA"><!-- do not collapse --></span>
                         </c:when>
                         <c:otherwise>
-                            <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+                            <span class="ratingx24-private-O r-24-NA"><!-- do not collapse --></span>
                         </c:otherwise>
                     </c:choose>
                 </c:when>
                 <c:otherwise>
                     <c:choose>
                         <c:when test="${school.isSchoolForNewProfile}">
-                            <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+                            <span class="ratingx24-private-RYG r-24-NA"><!-- do not collapse --></span>
                         </c:when>
                         <c:otherwise>
-                            <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
+                            <span class="ratingx24-private-O r-24-NA"><!-- do not collapse --></span>
                         </c:otherwise>
                     </c:choose>
                 </c:otherwise>
@@ -38,20 +38,20 @@
             <c:when test="${not empty school.greatSchoolsRating}">
                 <c:choose>
                     <c:when test="${school.isSchoolForNewProfile}">
-                        <div class="ratingx24-RYGr-24-${school.greatSchoolsRating}"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-${school.greatSchoolsRating}"><!-- do not collapse --></div>
                     </c:when>
                     <c:otherwise>
-                        <div class="ratingx24-O r-24-${school.greatSchoolsRating}"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-O r-24-${school.greatSchoolsRating}"><!-- do not collapse --></div>
                     </c:otherwise>
                 </c:choose>
             </c:when>
             <c:otherwise>
                 <c:choose>
                     <c:when test="${school.isSchoolForNewProfile}">
-                        <div class="ratingx24-RYGr-24-NA"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-RYG r-24-NA"><!-- do not collapse --></div>
                     </c:when>
                     <c:otherwise>
-                        <div class="ratingx24-O r-24-NA"><!-- do not collapse --></div>
+                        <div class="ratingx24-public-O r-24-NA"><!-- do not collapse --></div>
                     </c:otherwise>
                 </c:choose>
             </c:otherwise>

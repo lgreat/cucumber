@@ -304,21 +304,49 @@ Created by Mitchell Seltzer
 /* =5 x24
 -------------------------------------------------------------------------------------------*/
 
-.ratingx24-O {  /* (orange ratings) */
+.ratingx24-district {  /* (orange ratings) */
     display: inline-block;
-    background-image: url(/res/img/sprites/ratings/120808-ratings_Ox24.png);
+    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-district.png);
     width: 24px;
     height: 24px;
 }
 
-.ratingx24-RYG {  /* walton (red-yellow-green ratings) */
+.ratingx24-preschool {
     display: inline-block;
-    background-image: url(/res/img/sprites/ratings/120807-ratings_RYGx24.png);
+    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-preschool.png);
     width: 24px;
     height: 24px;
 }
 
-.ratingx24-RYG.r-24-legend{
+.ratingx24-private-O {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-private-O.png);
+    width: 24px;
+    height: 24px;
+}
+
+.ratingx24-private-RYG {  /* walton (red-yellow-green ratings) */
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-private-RYG.png);
+    width: 24px;
+    height: 24px;
+}
+
+.ratingx24-public-O {  /* (orange ratings) */
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-public-O.png);
+    width: 24px;
+    height: 24px;
+}
+
+.ratingx24-public-RYG {  /* walton (red-yellow-green ratings) */
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-public-RYG.png);
+    width: 24px;
+    height: 24px;
+}
+
+.ratingx24-public-RYG.r-24-legend{
     width:240px;
 }
 
@@ -374,9 +402,30 @@ Created by Mitchell Seltzer
 
 /* **************** 72 px ***************** */
 
-.ratingx72-RYG {
+.ratingx72-preschool {
     display: inline-block;
-    background-image: url(/res/img/sprites/ratings/120803-ratings_RYGx72.png);
+    background-image: url(/res/img/sprites/ratings/x72/120905-ratingsx72-preschool.png);
+    width: 72px;
+    height: 72px;
+}
+
+.ratingx72-private-O {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x72/120905-ratingsx72-private-O.png);
+    width: 72px;
+    height: 72px;
+}
+
+.ratingx72-public-O {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x72/120905-ratingsx72-public-O.png);
+    width: 72px;
+    height: 72px;
+}
+
+.ratingx72-public-RYG {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x72/120905-ratingsx72-public-RYG.png);
     width: 72px;
     height: 72px;
 }
@@ -427,11 +476,32 @@ Created by Mitchell Seltzer
 }
 
 
-/* **************** 72 px ***************** */
+/* **************** 96 px ***************** */
 
-.ratingx96-RYG {
+.ratingx96-preschool {
     display: inline-block;
-    background-image: url(/res/img/sprites/ratings/120803-ratings_RYGx96.png);
+    background-image: url(/res/img/sprites/ratings/x96/120905-ratingsx96-preschool.png);
+    width: 96px;
+    height: 96px;
+}
+
+.ratingx96-private-O {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x96/120905-ratingsx96-private-O.png);
+    width: 96px;
+    height: 96px;
+}
+
+.ratingx96-public-O {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x96/120905-ratingsx96-public-O.png);
+    width: 96px;
+    height: 96px;
+}
+
+.ratingx96-public-RYG {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x96/120905-ratingsx96-public-RYG.png);
     width: 96px;
     height: 96px;
 }

@@ -22,10 +22,10 @@
                             <div class="iconTop">
                                     <c:choose>
                                         <c:when test="${overallRating != null}">
-                                            <div class="ratingx72-RYG r-72-${overallRating} bottom"><!-- do not collapse --></div>
+                                            <div class="ratingx72-public-RYG r-72-${overallRating} bottom"><!-- do not collapse --></div>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="ratingx72-RYG r-72-NR"><!-- do not collapse --></div>
+                                            <div class="ratingx72-public-RYG r-72-NR"><!-- do not collapse --></div>
                                         </c:otherwise>
                                     </c:choose>
                             </div>
@@ -77,7 +77,7 @@
                         <h5>Rating legend</h5>
                         <div class="small ratingsLegend">
 
-                                <div class="ratingx24-RYG r-24-legend"><!-- do not collapse --></div>
+                                <div class="ratingx24-public-RYG r-24-legend"><!-- do not collapse --></div>
                                 <div class="spacerFirst">
                                     <div class="bracketUp3"><!-- do not collapse --></div>
                                     <span>Poor</span>
