@@ -208,7 +208,7 @@
                             <c:set var="widthForClimateHeaderContent" value="size73of100" />
                         </c:if>
                     </c:if>
-                    <div class="fl ${widthForClimateHeaderContent}">
+                    <div class="${widthForClimateHeaderContent}">
                         <p class="small bottom">
                             ${section4Copy}
                         </p>
