@@ -263,12 +263,6 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         Object section3Copy = model.get(SchoolProfileRatingsController.MODEL_SECTION_3_COPY);
         assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_WI, section3Copy);
 
-        // SECTION 3 POST-SECONDARY READINESS COPY
-
-        Object section3CopyPostSecondaryReadiness =
-                model.get(SchoolProfileRatingsController.MODEL_SECTION_3_COPY_POST_SECONDARY_READINESS);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_WI,
-                section3CopyPostSecondaryReadiness);
 
         // SECTION 3 TEST SCORE RATING CHART
 
@@ -478,66 +472,66 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertTrue(threwException);
     }
 
-    public void testGetSection3CopyPostSecondaryReadiness() {
-        School s = new School();
-        String copy;
-
-        s.setLevelCode(LevelCode.HIGH);
-
-        // Milwaukee
-        s.setDatabaseState(State.WI);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_WI, copy);
-
-        // DC
-        s.setDatabaseState(State.DC);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_DC, copy);
-
-        // Indy
-        s.setDatabaseState(State.IN);
-        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_IN, copy);
-
-        // any school with level code containing 'high' should have post-secondary readiness copy
-
-        for (LevelCode levelCode : CONTAINS_HIGH_LEVEL_CODES) {
-            s.setLevelCode(levelCode);
-            copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-            assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_IN, copy);
-        }
-
-        for (LevelCode levelCode : NON_HIGH_LEVEL_CODES) {
-            s.setLevelCode(levelCode);
-            copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-            assertNull(copy);
-        }
-
-        // unsupported state - contains High level code
-        s.setDatabaseState(State.AK);
-        boolean threwException = false;
-        for (LevelCode levelCode : CONTAINS_HIGH_LEVEL_CODES) {
-            s.setLevelCode(levelCode);
-            try {
-
-                copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-            } catch (Exception e) {
-                threwException = true;
-                assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
-                assertEquals("School is from unsupported state", e.getMessage());
-            }
-            assertTrue(threwException);
-        }
-
-        // unsupported state - does not contain High level code
-        s.setDatabaseState(State.AK);
-        for (LevelCode levelCode : NON_HIGH_LEVEL_CODES) {
-            s.setLevelCode(levelCode);
-            copy = _controller.getSection3CopyPostSecondaryReadiness(s);
-            assertNull(copy);
-        }
-
-    }
+//    public void testGetSection3CopyPostSecondaryReadiness() {
+//        School s = new School();
+//        String copy;
+//
+//        s.setLevelCode(LevelCode.HIGH);
+//
+//        // Milwaukee
+//        s.setDatabaseState(State.WI);
+//        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+//        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_WI, copy);
+//
+//        // DC
+//        s.setDatabaseState(State.DC);
+//        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+//        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_DC, copy);
+//
+//        // Indy
+//        s.setDatabaseState(State.IN);
+//        copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+//        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_IN, copy);
+//
+//        // any school with level code containing 'high' should have post-secondary readiness copy
+//
+//        for (LevelCode levelCode : CONTAINS_HIGH_LEVEL_CODES) {
+//            s.setLevelCode(levelCode);
+//            copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+//            assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_POST_SECONDARY_READINESS_IN, copy);
+//        }
+//
+//        for (LevelCode levelCode : NON_HIGH_LEVEL_CODES) {
+//            s.setLevelCode(levelCode);
+//            copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+//            assertNull(copy);
+//        }
+//
+//        // unsupported state - contains High level code
+//        s.setDatabaseState(State.AK);
+//        boolean threwException = false;
+//        for (LevelCode levelCode : CONTAINS_HIGH_LEVEL_CODES) {
+//            s.setLevelCode(levelCode);
+//            try {
+//
+//                copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+//            } catch (Exception e) {
+//                threwException = true;
+//                assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
+//                assertEquals("School is from unsupported state", e.getMessage());
+//            }
+//            assertTrue(threwException);
+//        }
+//
+//        // unsupported state - does not contain High level code
+//        s.setDatabaseState(State.AK);
+//        for (LevelCode levelCode : NON_HIGH_LEVEL_CODES) {
+//            s.setLevelCode(levelCode);
+//            copy = _controller.getSection3CopyPostSecondaryReadiness(s);
+//            assertNull(copy);
+//        }
+//
+//    }
 
     public void testGetTestScoreRatingSource() {
         School s = new School();
@@ -720,7 +714,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         s.setDatabaseState(State.WI);
         copy = _controller.getSection4Copy(s, _dataMap);
-        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_DATA_UNAVAILABLE, copy);
+        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_WI, copy);
 
         // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING, overallClimateRatingOrigValue);
