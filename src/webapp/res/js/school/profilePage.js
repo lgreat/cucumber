@@ -350,7 +350,7 @@ function drawPieChart(dataIn, divNameId, dimensions, catchClick) {
     }
     function selectHandler() {
         GS.tracking.sendOmnitureData('demographics');
-        GS.tabManager.showTabWithOptions({tab:'demographics'});
+        GS.tabManager.showTabWithOptions({tab:'demographics', hash:'header'});
     }
 }
 
