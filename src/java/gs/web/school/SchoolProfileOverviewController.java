@@ -511,33 +511,37 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> model = new HashMap<String, Object>(3);
 
-        // Which video to display will depend on the lowest level taught at the school.  For instance if level_code is e,m,h then just show for e
-        LevelCode levelCode = school.getLevelCode();
-        if( levelCode != null ) {
-            LevelCode.Level level = levelCode.getLowestNonPreSchoolLevel();
-            // determine which video to show
-            String videoId;
-            if (request.getParameter("_tourVideoId") != null) {
-                videoId = request.getParameter("_tourVideoId");
-            } else if( level.equals( LevelCode.Level.MIDDLE_LEVEL) ) {
-                videoId = VIDEO_MIDDLE;
-            } else if( level.equals( LevelCode.Level.HIGH_LEVEL) ) {
-                videoId = VIDEO_HIGH;
-            } else { // fallback on elementary
-                videoId = VIDEO_ELEMENTARY;
-            }
-            // videoId = "5073"; // Debug, this is an existing Id in dev-cms
-
-            model.put( "schoolLevel", level.getName() );
-            model.put( "content", "schoolTourVideo" );
-            model.put( "contentUrl", "/content/cms/translate.page?Video=" + videoId);
-//            model.put( "videoIconUrl", result1.getImageUrl() );
-//            model.put( "videoIconAltText", result1.getImageAltText() );
-        } else {
-            model.put( "content", "none" );
-        }
+        model.put("content", "none");
 
         return model;
+
+//        // Which video to display will depend on the lowest level taught at the school.  For instance if level_code is e,m,h then just show for e
+//        LevelCode levelCode = school.getLevelCode();
+//        if( levelCode != null ) {
+//            LevelCode.Level level = levelCode.getLowestNonPreSchoolLevel();
+//            // determine which video to show
+//            String videoId;
+//            if (request.getParameter("_tourVideoId") != null) {
+//                videoId = request.getParameter("_tourVideoId");
+//            } else if( level.equals( LevelCode.Level.MIDDLE_LEVEL) ) {
+//                videoId = VIDEO_MIDDLE;
+//            } else if( level.equals( LevelCode.Level.HIGH_LEVEL) ) {
+//                videoId = VIDEO_HIGH;
+//            } else { // fallback on elementary
+//                videoId = VIDEO_ELEMENTARY;
+//            }
+//            // videoId = "5073"; // Debug, this is an existing Id in dev-cms
+//
+//            model.put( "schoolLevel", level.getName() );
+//            model.put( "content", "schoolTourVideo" );
+//            model.put( "contentUrl", "/content/cms/translate.page?Video=" + videoId);
+////            model.put( "videoIconUrl", result1.getImageUrl() );
+////            model.put( "videoIconAltText", result1.getImageAltText() );
+//        } else {
+//            model.put( "content", "none" );
+//        }
+//
+//        return model;
     }
 
 
