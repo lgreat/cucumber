@@ -13,6 +13,12 @@
           version="2.0" xmlns:gsweb="gstaglib" xmlns:x_rt="http://java.sun.com/jstl/xml_rt">
     <jsp:directive.page import="gs.web.request.RequestInfo"/>
 
+    <c:set var="updateThisInfoBlurb" scope="page">
+        <div class="pa small bottom">
+            School leaders can update this information <link:schoolEspRegister styleClass="no_interrupt">here</link:schoolEspRegister>.
+        </div>
+    </c:set>
+
     <c:set var="highlightstab"><c:if test="${fn:length(highlights) gt 0}">
         <div class="ptn">
             <!--<b>Highlights Data</b>-->
@@ -22,6 +28,7 @@ where each entry is the first bean for that section, this allows access to the s
                 <school:profileProgramsSectionBasic displayBean="${section}" rowList="${highlightsMap[section.sectionAbbreviation]}" dataMap="${ProfileData}"/>
             </c:forEach>
         </div>
+        ${updateThisInfoBlurb}
     </c:if></c:set>
     <c:set var="applicationtab"><c:if test="${fn:length(application_info) gt 0}">
         <div class="ptl">
@@ -33,6 +40,7 @@ where each entry is the first bean for that section, this allows access to the s
             </c:forEach>
 
         </div>
+        ${updateThisInfoBlurb}
     </c:if></c:set>
     <c:set var="programsresourcestab">
         <c:choose>
@@ -46,6 +54,7 @@ where each entry is the first bean for that section, this allows access to the s
                     </c:forEach>
 
                 </div>
+                ${updateThisInfoBlurb}
             </c:when>
             <c:otherwise>
                 <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
@@ -76,6 +85,7 @@ where each entry is the first bean for that section, this allows access to the s
                     -->
                 </c:forEach>
             </div>
+            ${updateThisInfoBlurb}
         </c:if>
     </c:set>
     <c:set var="culturetab">
@@ -110,7 +120,7 @@ where each entry is the first bean for that section, this allows access to the s
                     <school:profileProgramsSectionBasic displayBean="${section}" rowList="${cultureMap[section.sectionAbbreviation]}" dataMap="${cultureProfileData}"/>
                 </c:forEach>
             </div>
-
+            ${updateThisInfoBlurb}
         </c:if>
     </c:set>
 
