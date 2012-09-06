@@ -350,8 +350,6 @@ Created by Mitchell Seltzer
     width:240px;
 }
 
-
-
 /* **************** VIEWPORT ***************** */
 
 /* row 0 */
@@ -413,6 +411,13 @@ Created by Mitchell Seltzer
 .ratingx72-private-O {
     display: inline-block;
     background-image: url(/res/img/sprites/ratings/x72/120905-ratingsx72-private-O.png);
+    width: 72px;
+    height: 72px;
+}
+
+.ratingx72-private-RYG {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x72/120906-ratingsx72-private-RYG.png);
     width: 72px;
     height: 72px;
 }
@@ -489,6 +494,13 @@ Created by Mitchell Seltzer
 .ratingx96-private-O {
     display: inline-block;
     background-image: url(/res/img/sprites/ratings/x96/120905-ratingsx96-private-O.png);
+    width: 96px;
+    height: 96px;
+}
+
+.ratingx96-private-RYG {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x96/120906-ratingsx96-private-RYG.png);
     width: 96px;
     height: 96px;
 }
