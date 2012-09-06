@@ -151,12 +151,12 @@ function initSchoolInfo() {
     mySchool.ratingHtml = '';
     <c:if test="${schoolWithRatings.rating ne null and schoolWithRatings.rating gt 0 and schoolWithRatings.rating lt 11}">
 
-        var oldSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
-        var newSchoolProfileRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+        var oldSchoolProfileRatingImg = '<span class="ratingx24-public-O r-24-${schoolWithRatings.rating}"><!-- do not collapse --></span>';
+        var newSchoolProfileRatingImg = '<span class="ratingx24-public-RYG r-24-${schoolWithRatings.rating}"><!-- do not collapse --></span>';
 
         schoolRatingImg = (mySchool.isNewGSRating==='true') ? newSchoolProfileRatingImg : oldSchoolProfileRatingImg;
         if (mySchool.type == 'private' &amp;&amp; mySchool.isNewGSRating==='true') {
-            schoolRatingImg = '<gsml:img src="/res/img/map/ratings_gs_map_${schoolWithRatings.rating}.gif" alt="GreatSchools Rating: ${schoolWithRatings.rating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>';
+            schoolRatingImg = '<span class="ratingx24-private-O r-24-${schoolWithRatings.rating}"><!-- do not collapse --></span>';
         }
         mySchool.ratingHtml = '<div class="schoolRating"><div>GreatSchools Rating</div>' +
                            schoolRatingImg +
