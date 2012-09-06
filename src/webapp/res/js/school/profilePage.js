@@ -144,6 +144,13 @@ GS.profile = GS.profile || (function() {
         }
 
 
+        // special-case for JS that needs to execute when culture tab is shown:
+        // TODO: more elegant solution. Maybe tab-changing code should fire event that's namespaced using the tab name
+        if (currentTab.name === 'culture') {
+            $('.infiniteCarousel11:visible').trigger('shown');
+        }
+
+
         GS.tracking.sendOmnitureData(currentTab.name);
         GS_notifyQuantcastComscore();
         refreshAds();
