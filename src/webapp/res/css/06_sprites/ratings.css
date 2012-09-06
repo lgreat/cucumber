@@ -304,6 +304,13 @@ Created by Mitchell Seltzer
 /* =5 x24
 -------------------------------------------------------------------------------------------*/
 
+.ratingx24-city {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x24/120906-ratingsx24-city.png);
+    width: 24px;
+    height: 24px;
+}
+
 .ratingx24-district {
     display: inline-block;
     background-image: url(/res/img/sprites/ratings/x24/120905-ratingsx24-district.png);
