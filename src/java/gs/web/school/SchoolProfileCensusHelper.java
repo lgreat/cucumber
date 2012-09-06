@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.*;
 
 @Component("schoolProfileCensusHelper")
@@ -176,19 +177,10 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
 
     protected Map<String, String> getEthnicityLabelValueMap(Map<Integer, CensusDataSet> censusDataSetMap) {
 
-        Comparator<String> comparator = new Comparator<String>() {
-            public int compare(String value1, String value2) {
-                Float row1Value = formatValueAsFloat(value1);
-                Float row2Value = formatValueAsFloat(value2);
-                // reverse sort
-                return row2Value.compareTo(row1Value);
-            }
-        };
-
         LinkedHashMap<String,String> ethnicityLabelMap = new LinkedHashMap<String,String>();
 
         // stackoverflow.com/questions/109383/É
-        Comparator<String> valueComparator = Ordering.from(comparator).onResultOf(Functions.forMap(ethnicityLabelMap)).compound(Ordering.natural());
+        Comparator<String> valueComparator = Ordering.from(new EthnicityComparator()).onResultOf(Functions.forMap(ethnicityLabelMap)).compound(Ordering.natural());
 
         Integer ethnicityDataTypeId = CensusDataType.STUDENTS_ETHNICITY.getId();
 
@@ -259,9 +251,33 @@ public class SchoolProfileCensusHelper extends AbstractDataHelper implements Bea
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         _beanFactory = beanFactory;
     }
-
-
 }
 
+class EthnicityComparator implements Comparator<String>, Serializable {
+    private final static Logger _log = Logger.getLogger(EthnicityComparator.class);
+    public int compare(String value1, String value2) {
+        Float row1Value = formatValueAsFloat(value1);
+        Float row2Value = formatValueAsFloat(value2);
+        // reverse sort
+        return row2Value.compareTo(row1Value);
+    }
+    private Float formatValueAsFloat(String value) {
+        Float result = 0f;
+
+        if (StringUtils.isBlank(value)) {
+            return result;
+        }
+
+        value = value.replaceAll("[^0-9.]", "");
+
+        try {
+            result = new Float(value);
+        } catch (NumberFormatException e) {
+            _log.debug("Could not format " + value + " to float.", e);
+        }
+
+        return result;
+    }
+}
 
 

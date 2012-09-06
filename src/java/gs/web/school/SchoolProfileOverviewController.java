@@ -551,15 +551,16 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         // Default action
         boolean defaultDisplay = false;
-        Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);        if( censusValues!=null ) {
+        Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
+        if( censusValues!=null ) {
             List<CensusDataSet> ethnicities = censusValues.get( CensusDataType.STUDENTS_ETHNICITY );
             if( isNotEmpty( ethnicities) ) {
                 try {
                     Map<String, String> ethnicityMap = _schoolProfileCensusHelper.getEthnicityLabelValueMap(request);
-                    Map.Entry<String,String> largestEntry = ethnicityMap.entrySet().iterator().next();
-                    String largestLabel = largestEntry.getKey();
-                    String largestValue = largestEntry.getValue();
                     if( ethnicityMap.size() > 0 ) {
+                        Map.Entry<String,String> largestEntry = ethnicityMap.entrySet().iterator().next();
+                        String largestLabel = largestEntry.getKey();
+                        String largestValue = largestEntry.getValue();
                         model.put("diversityMap", ethnicityMap);
                         model.put("largestDiversityValue", largestValue);
                         model.put("largestDiversityLabel", largestLabel);
