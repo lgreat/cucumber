@@ -63,8 +63,6 @@ public class BoundaryAjaxController {
     @Autowired
     private ISchoolDao _schoolDao;
     @Autowired
-    private IRatingsConfigDao _ratingsConfigDao;
-    @Autowired
     private TestManager _testManager;
     @Autowired
     private IDistrictDao _districtDao;
@@ -257,7 +255,7 @@ public class BoundaryAjaxController {
         if (district != null) {
             List<School> results = _schoolDao.getSchoolsInDistrict(state, id, true, level);
 
-            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings
+            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatingsNewGSRating
                     (district.getDatabaseState(), results);
 
             if (schoolsWithRatings != null && schoolsWithRatings.size() > 0) {
@@ -392,7 +390,7 @@ public class BoundaryAjaxController {
             }
         }
         if (schools.size() > 0) {
-            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings(state, schools);
+            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatingsNewGSRating(state, schools);
             for (SchoolWithRatings s: schoolsWithRatings) {
                 Map mapping = map(s.getSchool(), null, s.getRating(), request);
                 mapping.put("coordinates", map(schoolIdToBoundaryMap.get(s.getSchool().getId()).getGeometry()));
@@ -626,39 +624,12 @@ public class BoundaryAjaxController {
         return map;
     }
 
-    protected int getGSRating(School school) {
-        try {
-            IRatingsConfig ratingsConfig = _ratingsConfigDao.restoreRatingsConfig(school.getDatabaseState(), true);
-
-            if (null != ratingsConfig) {
-                SchoolTestValue schoolTestValue =
-                        _testManager.getOverallRating(school, ratingsConfig.getYear());
-
-                if (null != schoolTestValue && null != schoolTestValue.getValueInteger()) {
-                    return schoolTestValue.getValueInteger();
-                }
-            }
-        } catch (IOException ioe) {
-            _log.error("Error determining GS rating for " + school + ": " + ioe, ioe);
-            // fall through
-        }
-        return 0;
-    }
-
     public ISchoolDao getSchoolDao() {
         return _schoolDao;
     }
 
     public void setSchoolDao(ISchoolDao schoolDao) {
         _schoolDao = schoolDao;
-    }
-
-    public IRatingsConfigDao getRatingsConfigDao() {
-        return _ratingsConfigDao;
-    }
-
-    public void setRatingsConfigDao(IRatingsConfigDao ratingsConfigDao) {
-        _ratingsConfigDao = ratingsConfigDao;
     }
 
     public TestManager getTestManager() {
