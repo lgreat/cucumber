@@ -222,10 +222,10 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 title: point.name
             };
 
-            var imageUrl = '/res/img/sprites/icon/mapPins/x32/120808-mapPinsx32.png';
+            var imageUrl = '/res/img/sprites/mapPins/x32/120906-mapPins-public-O.png';
 
             if(point.isSchoolForNewProfile != undefined && point.isSchoolForNewProfile === true){
-                imageUrl = '/res/img/sprites/icon/mapPins/x32/120808-mapPinsx32.png';
+                imageUrl = '/res/img/sprites/mapPins/x32/120906-mapPins-public-O.png';
             }
 
             var pixelOffset = 320; // default to n/a

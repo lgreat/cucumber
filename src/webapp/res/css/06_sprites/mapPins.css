@@ -14,7 +14,8 @@ General comments:
 
 =0 implementation pattern eg
 =1 x32
-=2 x48
+=2 x35
+=3 x48
 
 */
 
@@ -22,7 +23,7 @@ General comments:
 -------------------------------------------------------------------------------------------*/
 
 /*
-<span class="mapPinsx32 i-32-example"><!-- do not collapse --></span>
+<span class="mapPinx32-public-O mp-32-2"><!-- do not collapse --></span>
 */
 
 /*
@@ -41,9 +42,23 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 
 /* **************** SPRITE ***************** */
 
-.mapPinsx32 {
+.mapPinx32-preschool {
     display: inline-block;
-    background-image: url(/res/img/sprites/mapPins/x32/120808-mapPinsx32.png);
+    background-image: url(/res/img/sprites/mapPins/x32/120906-mapPins-preschool.png);
+    width: 32px;
+    height: 32px;
+}
+
+.mapPinx32-public-O {
+    display: inline-block;
+    background-image: url(/res/img/sprites/mapPins/x32/120906-mapPins-public-O.png);
+    width: 32px;
+    height: 32px;
+}
+
+.mapPinx32-public-RYG {
+    display: inline-block;
+    background-image: url(/res/img/sprites/mapPins/x32/120906-mapPins-public-RYG.png);
     width: 32px;
     height: 32px;
 }
@@ -51,68 +66,127 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 /* **************** VIEWPORT ***************** */
 
 /* row 0 */
-.i-32-rating-10 {
+.mp-32-1 {
     background-position: 0 0;
 }
 
-.i-32-rating-9 {
+.mp-32-2 {
     background-position: -32px 0;
 }
 
-.i-32-rating-8 {
+.mp-32-3 {
     background-position: -64px 0;
 }
 
-.i-32-rating-7 {
+.mp-32-4 {
     background-position: -96px 0;
 }
 
-.i-32-rating-6 {
+.mp-32-5 {
     background-position: -128px 0;
 }
 
-.i-32-rating-5 {
+.mp-32-6 {
     background-position: -160px 0;
 }
 
-.i-32-rating-4 {
+.mp-32-7 {
     background-position: -192px 0;
 }
 
-.i-32-rating-3 {
+.mp-32-8 {
     background-position: -224px 0;
 }
 
-.i-32-rating-2 {
+.mp-32-9 {
     background-position: -256px 0;
 }
 
-.i-32-rating-1 {
+.mp-32-10 {
     background-position: -288px 0;
 }
 
-.i-32-rating-na {
+.mp-32-na {
     background-position: -320px 0;
 }
 
-.i-32-rating-pr {
-    background-position: -352px 0;
-}
-
-.i-32-rating-pre-school {
-    background-position: -384px 0;
-}
-
-/* row 32 */
-
-/* =2 x48
+/* =2 x35
 -------------------------------------------------------------------------------------------*/
 
 /* **************** SPRITE ***************** */
 
-.mapPinsx48 {
+.mapPinx35-private-O {
     display: inline-block;
-    background-image: url(/res/img/sprites/mapPins/x48/120524-mapPinsx48.png);
+    background-image: url(/res/img/sprites/mapPins/x35/120906-mapPins-private-O.png);
+    width: 35px;
+    height: 35px;
+}
+
+.mapPinx35-private-RYG {
+    display: inline-block;
+    background-image: url(/res/img/sprites/mapPins/x35/120906-mapPins-private-RYG.png);
+    width: 35px;
+    height: 35px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.mp-35-1 {
+    background-position: 0 0;
+}
+
+.mp-35-2 {
+    background-position: -35px 0;
+}
+
+.mp-35-3 {
+    background-position: -70px 0;
+}
+
+.mp-35-4 {
+    background-position: -105px 0;
+}
+
+.mp-35-5 {
+    background-position: -140px 0;
+}
+
+.mp-35-6 {
+    background-position: -175px 0;
+}
+
+.mp-35-7 {
+    background-position: -210px 0;
+}
+
+.mp-35-8 {
+    background-position: -245px 0;
+}
+
+.mp-35-9 {
+    background-position: -280px 0;
+}
+
+.mp-35-10 {
+    background-position: -315px 0;
+}
+
+.mp-35-na,
+.mp-35-NA,
+.mp-35-NR {
+    background-position: -350px 0;
+}
+
+/* =3 x48
+-------------------------------------------------------------------------------------------*/
+
+/* **************** SPRITE ***************** */
+
+.mapPinsx48,
+.mapPinx48-district {
+    display: inline-block;
+    background-image: url(/res/img/sprites/mapPins/x48/120906-mapPins-district.png);
     width: 48px;
     height: 48px;
 }

@@ -655,7 +655,7 @@ Mappable.prototype = {
 var District = function(){
     if (arguments.length) $.extend(this, arguments[0]);
     this.iconSize = 48;
-    this.iconUrl = '/res/img/sprites/icon/mapPins/x48/120524-mapPinsx48.png';
+    this.iconUrl = '/res/img/sprites/mapPins/x48/120906-mapPins-district.png';
     this.strokeColor = '#2092C4';
     this.zIndex = 1;
     this.fillColor = 'rgba(0,0,0,0.2)';
@@ -667,7 +667,7 @@ District.prototype.constructor = District;
 var School = function(){
     if (arguments.length) $.extend(this, arguments[0]);
     this.iconSize = 32;
-    this.iconUrl = '/res/img/sprites/icon/mapPins/x32/120523-mapPinsx32.png';
+    this.iconUrl = '/res/img/sprites/mapPins/x32/120906-mapPins-public-O.png';
     Mappable.apply(this, arguments);
 };
 School.prototype = $.extend(Mappable.prototype, {});
