@@ -375,6 +375,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             searchResults.put("homesForSale", false);
         }
         responseJson.accumulate("salePromo", searchResults);
+
+        responseJson.accumulate("pageview_candidate", "pageview_candidate");
     }
 
     public void showAdvancedFilters(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandWithFields,

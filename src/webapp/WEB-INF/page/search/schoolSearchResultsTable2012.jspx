@@ -11,7 +11,7 @@
 
 <jsp:directive.page contentType="text/html"/>
 
-<search:schoolSearchResultsTableFruitcake omniturePageName="${omniturePageName}"/>
+<search:schoolSearchResultsTableFruitcake omniturePageName="${omniturePageName}" comscorePageView="${true}"/>
 
 
 

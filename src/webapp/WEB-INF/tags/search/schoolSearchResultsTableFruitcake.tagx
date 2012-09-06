@@ -11,8 +11,12 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad">
 
 <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
+    <jsp:directive.attribute name="comscorePageView" required="false" type="java.lang.Boolean"/>
 <pageHelper:externalCss file="/res/css/07_navigation/pagination.css"/>
     <div id="js-school-search-results-table" class="mts">
+        <c:if test="${comscorePageView}">
+            <![CDATA[<div id="comscore"> <!-- pageview_candidate --> </div>]]>
+        </c:if>
         <!--<jsp:directive.attribute name="schoolSearchResults" required="true" type="java.util.Collection"/>-->
 
         <!-- DONE: Hi Randall! Can you relocate this and move styles to css, thx -->
