@@ -276,7 +276,7 @@ that this is updated for ajax refresh -->
         points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude},
         lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}',
         infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}', state: '${gsweb:escapeJavaScript(school.databaseState)}',
-        id: '${school.id}', levelCode: '${school.levelCode}', isSchoolForNewProfile: ${school.isSchoolForNewProfile}});
+        id: '${school.id}', levelCode: '${school.levelCode}', isNewGSRating: ${school.isNewGSRating}});
         <c:set var="points" value="${points + 1}"/>
     </c:forEach>
 

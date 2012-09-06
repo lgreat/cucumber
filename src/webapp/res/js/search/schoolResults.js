@@ -480,18 +480,18 @@ GS.search.results = GS.search.results || (function() {
             } else if (school.schoolType == 'private') {
                 showNonPrivate = 'hidden';
                 showNewRatingNonPrivate = 'hidden';
-                showNewRatingPrivate = school.isSchoolForNewProfile === true ? 'block' : 'hidden';
-                showPrivate = school.isSchoolForNewProfile === true ? 'hidden' : 'block';
+                showNewRatingPrivate = school.isNewGSRating === true ? 'block' : 'hidden';
+                showPrivate = school.isNewGSRating === true ? 'hidden' : 'block';
                 showPreschool = 'hidden';
                 gsRatingUrl = school.schoolUrl;
             } else if ((school.schoolType == 'public' || school.schoolType == 'charter') && gsRating !== null) {
                 showPrivate = 'hidden';
                 showNewRatingPrivate = 'hidden';
-                showNewRatingNonPrivate = school.isSchoolForNewProfile === true ? 'block' : 'hidden';
-                showNonPrivate = school.isSchoolForNewProfile === true ? 'hidden' : 'block';
+                showNewRatingNonPrivate = school.isNewGSRating === true ? 'block' : 'hidden';
+                showNonPrivate = school.isNewGSRating === true ? 'hidden' : 'block';
                 showPreschool = 'hidden';
             } else if (gsRating === null) {
-                gsRating = school.isSchoolForNewProfile === true ? 'NR' : 'NA';
+                gsRating = school.isNewGSRating === true ? 'NR' : 'NA';
             }
 
             var isPkCompare = "none", showCompare = "inline";
@@ -561,7 +561,7 @@ GS.search.results = GS.search.results || (function() {
 
             points.push({name: school.jsEscapeName, lat: school.latitude, lng: school.longitude,
                 gsRating: school.greatSchoolsRating, schoolType: school.schoolType, infoWindowMarkup: infoBoxHtml,
-                state: school.state, id: school.id, levelCode: school.levelCode,isSchoolForNewProfile: school.isSchoolForNewProfile});
+                state: school.state, id: school.id, levelCode: school.levelCode,isNewGSRating: school.isNewGSRating});
 
             schoolList.append(sidebarListHtml);
             schoolList.find('a').each(function() {

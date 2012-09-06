@@ -14,7 +14,7 @@
             <c:choose>
                 <c:when test="${not empty school.greatSchoolsRating}">
                     <c:choose>
-                        <c:when test="${school.isSchoolForNewProfile}">
+                        <c:when test="${school.isNewGSRating}">
                             <span class="ratingx24-private-RYG r-24-NA"><!-- do not collapse --></span>
                         </c:when>
                         <c:otherwise>
@@ -24,7 +24,7 @@
                 </c:when>
                 <c:otherwise>
                     <c:choose>
-                        <c:when test="${school.isSchoolForNewProfile}">
+                        <c:when test="${school.isNewGSRating}">
                             <span class="ratingx24-private-RYG r-24-NA"><!-- do not collapse --></span>
                         </c:when>
                         <c:otherwise>
@@ -37,7 +37,7 @@
         <c:otherwise> <c:choose>
             <c:when test="${not empty school.greatSchoolsRating}">
                 <c:choose>
-                    <c:when test="${school.isSchoolForNewProfile}">
+                    <c:when test="${school.isNewGSRating}">
                         <div class="ratingx24-public-RYG r-24-${school.greatSchoolsRating}"><!-- do not collapse --></div>
                     </c:when>
                     <c:otherwise>
@@ -47,7 +47,7 @@
             </c:when>
             <c:otherwise>
                 <c:choose>
-                    <c:when test="${school.isSchoolForNewProfile}">
+                    <c:when test="${school.isNewGSRating}">
                         <div class="ratingx24-public-RYG r-24-NA"><!-- do not collapse --></div>
                     </c:when>
                     <c:otherwise>

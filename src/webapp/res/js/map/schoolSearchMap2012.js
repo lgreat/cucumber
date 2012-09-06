@@ -224,7 +224,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
 
             var imageUrl = '/res/img/sprites/mapPins/x32/120906-mapPins-public-O.png';
 
-            if(point.isSchoolForNewProfile != undefined && point.isSchoolForNewProfile === true){
+            if(point.isNewGSRating != undefined && point.isNewGSRating === true){
                 imageUrl = '/res/img/sprites/mapPins/x32/120906-mapPins-public-O.png';
             }
 
