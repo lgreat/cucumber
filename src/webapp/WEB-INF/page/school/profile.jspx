@@ -116,13 +116,13 @@
                 <c:choose>
                     <c:when test="${school.levelCode eq 'p'}">
                         <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p"
-                                      title="Washington, D.C. preschools" markUpWithItemScopeUrl="true"><span
-                                itemprop="title">Washington, D.C. Preschools</span></link:schools>&amp;#160;
+                                      title="Washington, D.C." markUpWithItemScopeUrl="true"><span
+                                itemprop="title">Washington, D.C.</span></link:schools>&amp;#160;
                     </c:when>
                     <c:otherwise>
                         <link:city city="${city}" state="${school.physicalAddress.state}"
-                                   title="${city} schools" markUpWithItemScopeUrl="true"><span
-                                itemprop="title">Washington, D.C. Schools</span></link:city>&amp;#160;
+                                   title="${city}" markUpWithItemScopeUrl="true"><span
+                                itemprop="title">Washington, D.C.</span></link:city>&amp;#160;
                     </c:otherwise>
                 </c:choose>
                 <![CDATA[</li>]]>
@@ -142,8 +142,8 @@
                     </c:when>
                     <c:otherwise>
                         <link:research state="${state}"
-                                       title="${state.longName} schools" markUpWithItemScopeUrl="true"><span
-                                itemprop="title">${state.longName} Schools</span></link:research> &amp;gt;
+                                       title="${state.longName}" markUpWithItemScopeUrl="true"><span
+                                itemprop="title">${state.longName}</span></link:research> &amp;gt;
                     </c:otherwise>
                 </c:choose>
                 <![CDATA[</li>]]>
@@ -151,23 +151,23 @@
                 <c:choose>
                     <c:when test="${school.levelCode eq 'p' and state eq 'NY' and city eq 'New York'}">
                         <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p"
-                                      title="${city} preschools" markUpWithItemScopeUrl="true"><span
-                                itemprop="title">NYC Preschools</span></link:schools>&amp;#160;
+                                      title="${city}" markUpWithItemScopeUrl="true"><span
+                                itemprop="title">NYC</span></link:schools>&amp;#160;
                     </c:when>
                     <c:when test="${school.levelCode eq 'p'}">
                         <link:schools cityName="${city}" state="${school.physicalAddress.state}" levelCode="p"
-                                      title="${city} preschools" markUpWithItemScopeUrl="true"><span
-                                itemprop="title">${city} Preschools</span></link:schools>&amp;#160;
+                                      title="${city}" markUpWithItemScopeUrl="true"><span
+                                itemprop="title">${city}</span></link:schools>&amp;#160;
                     </c:when>
                     <c:when test="${state eq 'NY' and city eq 'New York'}">
                         <link:city city="${city}" state="${school.physicalAddress.state}"
-                                   title="NYC schools" markUpWithItemScopeUrl="true"><span
-                                itemprop="title">NYC Schools</span></link:city>&amp;#160;
+                                   title="NYC" markUpWithItemScopeUrl="true"><span
+                                itemprop="title">NYC</span></link:city>&amp;#160;
                     </c:when>
                     <c:otherwise>
                         <link:city city="${city}" state="${school.physicalAddress.state}"
-                                   title="${city} schools" markUpWithItemScopeUrl="true"><span
-                                itemprop="title">${city} Schools</span></link:city>&amp;#160;
+                                   title="${city}" markUpWithItemScopeUrl="true"><span
+                                itemprop="title">${city}</span></link:city>&amp;#160;
                     </c:otherwise>
                 </c:choose>
                 <![CDATA[</li>]]>
@@ -397,7 +397,7 @@
     </div>
 
     <div class="">
-        <ad:AboveFold_300x600/>
+        <ad:adTag position="AboveFold_300x600"/>
 
         <div class="mod standard_3-1">
             <div class="outer">
