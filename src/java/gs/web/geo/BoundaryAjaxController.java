@@ -285,7 +285,7 @@ public class BoundaryAjaxController {
 
         try {
             schools.add(_schoolDao.getSchoolById(state, id));
-            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatings(state, schools);
+            List<SchoolWithRatings> schoolsWithRatings = _schoolDao.populateSchoolsWithRatingsNewGSRating(state, schools);
             for (SchoolWithRatings s : schoolsWithRatings){
                 Map schoolMap = map(s.getSchool(), null, s.getRating(), request);
                 SchoolBoundary schoolBoundary = _schoolBoundaryDao.getSchoolBoundaryByGSId(state, id, level);
