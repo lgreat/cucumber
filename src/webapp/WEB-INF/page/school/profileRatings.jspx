@@ -83,11 +83,11 @@
                                     <span>Poor</span>
                                 </div>
                                 <div class="spacerBetween">
-                                    <div class="bracketUp3"><!-- do not collapse --></div>
+                                    <div class="bracketUp4"><!-- do not collapse --></div>
                                     <span>Average</span>
                                 </div>
                                 <div class="spacerBetween">
-                                    <div class="bracketUp4"><!-- do not collapse --></div>
+                                    <div class="bracketUp3"><!-- do not collapse --></div>
                                     <span>Good</span>
                                 </div>
 
