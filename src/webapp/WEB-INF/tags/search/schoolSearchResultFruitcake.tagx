@@ -93,13 +93,15 @@
                                                                      name="${school.name}"
                                                                      physicalAddress="${school.address}"
                                                                      levelCode="${school.levelCode}">
-                                <ratings:newGSRating school="${school}"/>
+                                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${school.greatSchoolsRating}"
+                                                       schoolType="${school.schoolType}" isPreschoolOnly="${school.levelCode eq 'p'}" spriteSize="small"/>
                             </link:schoolProfileOverviewForPrimitives>
                         </c:when>
                         <c:otherwise>
                             <link:schoolProfileRating2010 state="${school.databaseState}" schoolId="${school.id}"
                                                           levelCode="${school.levelCode}" styleClass="noUnderline">
-                                <ratings:newGSRating school="${school}"/>
+                                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${school.greatSchoolsRating}"
+                                                       schoolType="${school.schoolType}" isPreschoolOnly="${school.levelCode eq 'p'}" spriteSize="small"/>
                             </link:schoolProfileRating2010>
                         </c:otherwise>
                     </c:choose>

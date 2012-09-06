@@ -645,7 +645,8 @@ that this is updated for ajax refresh -->
                                                                                      name="${school.name}"
                                                                                      physicalAddress="${school.address}"
                                                                                      levelCode="${school.levelCode}">
-                                                <ratings:newGSRating school="${school}"/>
+                                                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${school.greatSchoolsRating}"
+                                                                       schoolType="${school.schoolType}" isPreschoolOnly="${school.levelCode eq 'p'}" spriteSize="small"/>
                                             </link:schoolProfileOverviewForPrimitives>
                                         </c:when>
                                         <c:otherwise>
@@ -653,7 +654,8 @@ that this is updated for ajax refresh -->
                                                                           schoolId="${school.id}"
                                                                           levelCode="${school.levelCode}"
                                                                           styleClass="noUnderline">
-                                                <ratings:newGSRating school="${school}"/>
+                                                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${school.greatSchoolsRating}"
+                                                                       schoolType="${school.schoolType}" isPreschoolOnly="${school.levelCode eq 'p'}" spriteSize="small"/>
                                             </link:schoolProfileRating2010>
                                         </c:otherwise>
                                     </c:choose>
@@ -712,8 +714,8 @@ that this is updated for ajax refresh -->
                             <span class="ratingx24-public-O r-24-{{gsRating}} {{showNonPrivate}}"><!-- do not collapse --></span>
                             <span class="ratingx24-private-O r-24-{{showPrivate}}"><!-- do not collapse --></span>
                             <span class="ratingx24-public-O r-24-{{showPreschool}}"><!-- do not collapse --></span>
-                            <!--<span class="ratingx24-RYG r-24-{{gsRating}} {{showNewRatingNonPrivate}}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
-                            <!--<span class="iconx24-rb i-24-private-school-badge {{showNewRatingPrivate}}">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                            <span class="ratingx24-RYG r-24-{{gsRating}} {{showNewRatingNonPrivate}}"><!-- do not collapse --></span>
+                            <span class="iconx24-rb i-24-private-school-badge {{showNewRatingPrivate}}"><!-- do not collapse --></span>
                         </a>
                     </div>
                 </div>

@@ -480,18 +480,22 @@ GS.search.results = GS.search.results || (function() {
             } else if (school.schoolType == 'private') {
                 showNonPrivate = 'hidden';
                 showNewRatingNonPrivate = 'hidden';
+                showPreschool = 'hidden';
                 showNewRatingPrivate = school.isNewGSRating === true ? 'block' : 'hidden';
                 showPrivate = school.isNewGSRating === true ? 'hidden' : 'block';
-                showPreschool = 'hidden';
                 gsRatingUrl = school.schoolUrl;
-            } else if ((school.schoolType == 'public' || school.schoolType == 'charter') && gsRating !== null) {
+                if (gsRating === null) {
+                    gsRating = school.isNewGSRating === true ? 'NR' : '';
+                }
+            } else if ((school.schoolType == 'public' || school.schoolType == 'charter')) {
                 showPrivate = 'hidden';
                 showNewRatingPrivate = 'hidden';
+                showPreschool = 'hidden';
                 showNewRatingNonPrivate = school.isNewGSRating === true ? 'block' : 'hidden';
                 showNonPrivate = school.isNewGSRating === true ? 'hidden' : 'block';
-                showPreschool = 'hidden';
-            } else if (gsRating === null) {
-                gsRating = school.isNewGSRating === true ? 'NR' : 'NA';
+                if (gsRating === null) {
+                    gsRating = school.isNewGSRating === true ? 'NR' : 'NA';
+                }
             }
 
             var isPkCompare = "none", showCompare = "inline";
