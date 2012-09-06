@@ -1,6 +1,7 @@
 package gs.web.content.cms;
 
 import gs.data.content.cms.CmsConstants;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.mvc.AbstractController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,6 +38,11 @@ public class CmsUrlTranslationController extends AbstractController {
             }
 
             UrlBuilder builder = new UrlBuilder(new ContentKey(contentType, contentId));
+            // if content can't be found, the url becomes "null"
+            if (StringUtils.equals("null", builder.asSiteRelative(request))) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return new ModelAndView("/status/error404.page");
+            }
 
             return new ModelAndView("redirect:" + builder.asSiteRelative(request));
         }

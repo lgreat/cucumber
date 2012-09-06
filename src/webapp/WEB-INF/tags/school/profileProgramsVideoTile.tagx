@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
         >
 
@@ -17,7 +18,7 @@
     <c:choose>
         <c:when test="${content eq 'video'}">
             <!-- Randall - This is from the profileOverviewVideoTile.tagx -->
-            <a href="${videoUrl}" class="tdn">
+            <a href="${videoUrl}" class="tdn" target="_blank">
                 <school:profileCell2 title="${t2dc}" boxShadow="box-shadow-animation-1">
                     <!-- Show generic video icon and clicking on it takes you to the video at videoUrl -->
                     <div class="mam media">
@@ -27,7 +28,6 @@
                             <p class="small bottom"><span
                                     class="make-06b">See video</span> about this school from around the web.</p></div>
                     </div>
-                    <!--<div class="">Url is: ${videoUrl}</div>-->
                 </school:profileCell2>
             </a>
         </c:when>
@@ -35,7 +35,7 @@
 
             <!-- Substitute content of the Principal CTA -->
             <!-- Randall - see the mock: School Culture, alt tiles -->
-            <a href="http://www.greatschools.org/official-school-profile/register.page" class="tdn make-555555">
+            <link:schoolEspRegister styleClass="tdn make-555555 no_interrupt">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner">
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </link:schoolEspRegister>
         </c:otherwise>
     </c:choose>
 
