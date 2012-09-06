@@ -29,50 +29,115 @@
     <c:set var="showSchoolLink" value="${pageScope.showAllSchoolLinks or gsweb:contains(pageScope.schoolCodesToShow, pageScope.schoolCode)}"/>
 
     <!-- DONE-9899 -->
-    <div id="dcNCLB_school" class="mod">
-        <div class="mod_hd gradient-1">
-            <h3>${requestScope.context.dcNclbYearRange} NCLB Report Cards</h3>
-        </div>
-        <div class="mod_bd">
-            <ul class="text3">
-                <c:if test="${pageScope.showSchoolLink}">
-                    <li class="media">
-                        <span class="sprite pdf_sm img mrs"><!-- do not collapse --></span>
-
-                        <div class="bd">
-                            <gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-school-${pageScope.schoolCode}.pdf"
-                                    target="_blank"> School Report Card
-                            </gsml:a>
-                        </div>
-                    </li>
-                </c:if>
-                <!-- GS-10804 Unlike last year we will not be including an LEA level PDF for schools with a district_id='0'. These schools will only display a school and state PDF. -->
-                <c:if test="${pageScope.school.districtId ne 0 and pageScope.showDistrictLink}">
-                    <li class="media">
-                        <span class="sprite pdf_sm img mrs"><!-- do not collapse --></span>
-
-                        <div class="bd">
-                            <gsml:a
-                                    href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
-                                    target="_blank"> ${pageScope.districtLinkTextTerm} Report Card
-                            </gsml:a>
-                        </div>
-                    </li>
-                </c:if>
-                <li class="media">
-                    <span class="sprite pdf_sm img mrs"><!-- do not collapse --></span>
-
-                    <div class="bd">
-                        <gsml:a
-                                href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
-                                target="_blank"> Washington, DC Report Card
-                        </gsml:a>
+    <div id="dcNCLB_school" class="mod ${pageScope.style eq '2011' ? 'standard' : 'standard_1-1'}">
+        <div class="inner">
+            <c:choose>
+                <c:when test="${pageScope.style eq '2012'}">
+                    <div class="hd">
+                        <h4 class="pam bottom">${requestScope.context.dcNclbYearRange} NCLB Report Cards</h4>
                     </div>
-                </li>
-            </ul>
+                </c:when>
+                <c:otherwise>
+                    <div class="mod_hd gradient-1">
+                        <h3>${requestScope.context.dcNclbYearRange} NCLB Report Cards</h3>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${pageScope.style eq '2012'}">
+                    <div class="bd pam">
+                        <ul class="none mbl">
+                            <c:if test="${pageScope.showSchoolLink}">
+                                <li class="media">
+                                    <div class="img mrm">
+                                        <span class="iconx16 i-16-pdf"><!-- do not collapse --></span>
+                                    </div>
 
-            <img src="/res/img/school/overview/OSSE-2-2011.png" class="logo" width="138" height="45"
-                 alt="Provided by OSSE: DC Office of the State Superintendent of Education"/>
+                                    <div class="bd">
+                                        <gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-school-${pageScope.schoolCode}.pdf"
+                                                target="_blank" styleClass="make-555555"> School Report Card
+                                        </gsml:a>
+                                    </div>
+                                </li>
+                            </c:if>
+                            <!-- GS-10804 Unlike last year we will not be including an LEA level PDF for schools with a district_id='0'. These schools will only display a school and state PDF. -->
+                            <c:if test="${pageScope.school.districtId ne 0 and pageScope.showDistrictLink}">
+                                <li class="media">
+                                    <div class="img mrm">
+                                        <span class="iconx16 i-16-pdf"><!-- do not collapse --></span>
+                                    </div>
+
+                                    <div class="bd">
+                                        <gsml:a
+                                                href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
+                                                target="_blank"
+                                                styleClass="make-555555"> ${pageScope.districtLinkTextTerm} Report Card
+                                        </gsml:a>
+                                    </div>
+                                </li>
+                            </c:if>
+                            <li class="media">
+                                <div class="img mrm">
+                                    <span class="iconx16 i-16-pdf"><!-- do not collapse --></span>
+                                </div>
+
+                                <div class="bd">
+                                    <gsml:a
+                                            href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
+                                            target="_blank" styleClass="make-555555"> Washington, DC Report Card
+                                    </gsml:a>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <img src="/res/img/school/overview/OSSE-2-2011.png" class="logo" width="138" height="45"
+                             alt="Provided by OSSE: DC Office of the State Superintendent of Education"/>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="mod_bd">
+                        <ul class="text3">
+                            <c:if test="${pageScope.showSchoolLink}">
+                                <li class="media">
+                                    <span class="sprite pdf_sm img mrs"><!-- do not collapse --></span>
+
+                                    <div class="bd">
+                                        <gsml:a href="/catalog/pdf/dc-nclb/dc-nclb-school-${pageScope.schoolCode}.pdf"
+                                                target="_blank"> School Report Card
+                                        </gsml:a>
+                                    </div>
+                                </li>
+                            </c:if>
+                            <!-- GS-10804 Unlike last year we will not be including an LEA level PDF for schools with a district_id='0'. These schools will only display a school and state PDF. -->
+                            <c:if test="${pageScope.school.districtId ne 0 and pageScope.showDistrictLink}">
+                                <li class="media">
+                                    <span class="sprite pdf_sm img mrs"><!-- do not collapse --></span>
+
+                                    <div class="bd">
+                                        <gsml:a
+                                                href="/catalog/pdf/dc-nclb/dc-nclb-lea-${pageScope.districtCode}.pdf"
+                                                target="_blank"> ${pageScope.districtLinkTextTerm} Report Card
+                                        </gsml:a>
+                                    </div>
+                                </li>
+                            </c:if>
+                            <li class="media">
+                                <span class="sprite pdf_sm img mrs"><!-- do not collapse --></span>
+
+                                <div class="bd">
+                                    <gsml:a
+                                            href="/catalog/pdf/dc-nclb/dc-nclb-state.pdf"
+                                            target="_blank"> Washington, DC Report Card
+                                    </gsml:a>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <img src="/res/img/school/overview/OSSE-2-2011.png" class="logo" width="138" height="45"
+                             alt="Provided by OSSE: DC Office of the State Superintendent of Education"/>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 
