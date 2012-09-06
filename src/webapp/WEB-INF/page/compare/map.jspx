@@ -49,10 +49,9 @@
                         <div class="media">
                             <div class="img gsRating mrs">
                                 <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}" levelCode="${school.levelCode}">
-                                    <!-- For release 21.1 remove the compare:GSRating tag and active the ratings:ratingsSprite tag as it has the new images -->
-                                    <compare:GSRatings school="${school.school}" />
-                                    <!-- <ratings:ratingsSprite isNewGsRating="${school.school.isNewGSRating}" gsRating="${school.gsRating}"
-                                                           schoolType="${school.school.type.name}" isPreschoolOnly="${school.school.preschoolOnly}" spriteSize="small"/> -->
+                                    <!-- <compare:GSRatings school="${school.school}" /> -->
+                                    <ratings:ratingsSprite isNewGsRating="${school.school.isNewGSRating}" gsRating="${school.school.GSRating}"
+                                                           schoolType="${school.school.type.name}" isPreschoolOnly="${school.school.preschoolOnly}" spriteSize="small"/>
                                 </link:schoolProfileRating2010>
                             </div>
                             <div class="bd brdlft-solid communityRating pts">

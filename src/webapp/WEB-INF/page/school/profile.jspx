@@ -10,6 +10,7 @@
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
           xmlns:gsweb="gstaglib"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
@@ -189,14 +190,8 @@
     <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger">
         <div class="alpha grid_4 tac">
             <!-- New GS Rating -->
-            <c:choose>
-                <c:when test="${overallRating != null}">
-                    <div class="ratingx96-public-RYG r-96-${overallRating}"><!-- do not collapse --></div>
-                </c:when>
-                <c:otherwise>
-                    <div class="ratingx96-public-RYG r-96-NR"><!-- do not collapse --></div>
-                </c:otherwise>
-            </c:choose>
+            <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${school.GSRating}"
+                                   schoolType="${school.type.name}" isPreschoolOnly="${school.preschoolOnly}" spriteSize="large"/>
             <p data-gs-custom-link="header_rating" class="tac small bottom pbs mbm">GreatSchools Rating</p>
         </div>
     </gslink:linkToTab>

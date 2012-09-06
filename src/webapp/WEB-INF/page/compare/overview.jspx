@@ -73,10 +73,10 @@
                     <td class="cs_gsRating center">
                         <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                         <link:schoolProfileRating2010 state="${school.state}" schoolId="${school.id}" levelCode="${school.levelCode}">
-                            <!-- For release 21.1 remove the compare:GSRating tag and active the ratings:ratingsSprite tag as it has the new images -->
-                            <compare:GSRatings school="${school.school}" />
-                            <!-- <ratings:ratingsSprite isNewGsRating="${school.school.isNewGSRating}" gsRating="${school.gsRating}"
-                         schoolType="${school.school.type.name}" isPreschoolOnly="${school.school.preschoolOnly}" spriteSize="small"/> -->
+                            <!-- compare:GSRatings displays the old (pre-Walton) ratings colors.  It should be safe to remove this comment and the following line after release 21.1 goes live -->
+                            <!-- <compare:GSRatings school="${school.school}" /> -->
+                            <ratings:ratingsSprite isNewGsRating="${school.school.isNewGSRating}" gsRating="${school.school.GSRating}"
+                                    schoolType="${school.school.type.name}" isPreschoolOnly="${school.school.preschoolOnly}" spriteSize="small"/>
                         </link:schoolProfileRating2010>
                         </div>
                     </td>
