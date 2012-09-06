@@ -19,7 +19,7 @@ GS.tracking.customLinks = GS.tracking.customLinks || (function() {
             var $this = $(this);
 
             if (s.tl) {
-                if($this.hasClass('jq-school-type') || $this.hasClass('jq-grade-level')) {
+                if($this.hasClass('jq-school-type') || $this.hasClass('jq-grade-level') || $this.hasClass('js-advFilters')) {
                     if($this.is(':checked')) {
                         s.tl(true,'o', $this.data(customLinkDataAttribute) + '_check');
                     }

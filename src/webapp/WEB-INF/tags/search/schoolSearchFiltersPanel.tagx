@@ -14,7 +14,7 @@
         <div id="js-moreFiltersLine" class="grid_16 alpha omega filtersControl" style="z-index:450;">
             <div class="alpha prefix_6 grid_5 suffix_5 omega js-moreFiltersLink pas">
                 <h4 class="bottom">
-                    <a href="javascript:void(0);">
+                    <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Open">
                         <div class="media skin-2 attribution">
                             <div class="img mrm">
                                 Narrow your search
@@ -60,7 +60,7 @@
                     <h4 class="bottom">Narrow your search</h4>
                 </div>
                 <div class="unit size13of100 lastUnit js-resetFiltersLink">
-                    <a href="javascript:void(0);">
+                    <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Reset">
                         Reset filters
                     </a>
                 </div>
@@ -71,30 +71,31 @@
             <div class="line">
                 <div class="unit size24of100 prm">
                     <div class="small bottom"><strong>Services</strong></div>
-                    <search:searchFilterWithCount styleClass="js-applyFilters" name="beforeAfterCare" value="after"
-                                                  label="After care"/>
-                    <search:searchFilterWithCount styleClass="js-applyFilters" name="beforeAfterCare" value="before"
-                                                  label="Before care"/>
-                    <search:searchFilterWithCount styleClass="js-applyFilters" name="transportation" value="transportation"
-                                                  label="Transportation"/>
-                    <search:searchFilterWithCount styleClass="js-applyFilters" name="ell" value="ell"
-                                                  label="English Language Learners (ELL) support"/>
+                    <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="beforeAfterCare" value="after"
+                                                  label="After care" omnitureCustomLink = "AfterCare"/>
+                    <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="beforeAfterCare" value="before"
+                                                  label="Before care" omnitureCustomLink = "BeforeCare"/>
+                    <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="transportation" value="transportation"
+                                                  label="Transportation" omnitureCustomLink = "Transportation"/>
+                    <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="ell" value="ell"
+                                                  label="English Language Learners (ELL) support" omnitureCustomLink="ELL"/>
                 </div>
                 <div class="unit size24of100 phm" style="border-left: 1px solid #DDD">
                     <div class="small bottom"><strong>GreatSchools Rating</strong></div>
                     <search:dropdownFilters id="ratingCategories" cssClass="mbl" label="All" hideApplyReset="${true}" noclear="${true}">
-                            <search:searchFilterWithCount name="ratingCategories"
-                                                          value="low" label="Low 1-3"/>
-                            <search:searchFilterWithCount name="ratingCategories"
-                                                          value="average" label="Average 4-6"/>
-                            <search:searchFilterWithCount name="ratingCategories"
-                                                          value="high" label="High 7-10"/>
+                            <search:searchFilterWithCount name="ratingCategories" styleClass="js-advFilters"
+                                                          value="low" label="Low 1-3" omnitureCustomLink="GSRatings_Poor"/>
+                            <search:searchFilterWithCount name="ratingCategories" styleClass="js-advFilters"
+                                                          value="average" label="Average 4-6" omnitureCustomLink="GSRatings_Average"/>
+                            <search:searchFilterWithCount name="ratingCategories" styleClass="js-advFilters"
+                                                          value="high" label="High 7-10" omnitureCustomLink="GSRatings_Good"/>
                     </search:dropdownFilters>
                     <hr class="keyline1"/>
                     <div class="mtm">
-                        <search:searchFilterWithCount styleClass="js-applyFilters" name="studentsVouchers"
+                        <search:searchFilterWithCount styleClass="js-applyFilters js-advFilters" name="studentsVouchers"
                                                       value="students_vouchers"
-                                                      label="Accepts students on voucher (private schools only)"/>
+                                                      label="Accepts students on voucher (private schools only)"
+                                                      omnitureCustomLink = "Vouchers"/>
                     </div>
                     <!--&lt;!&ndash;-->
                     <!--<p style="${fn:contains(param.studentsVouchers,'true')?selectedStyle:buttonStyle}"><a id="studentsVouchersYes" href="javascript:void(0);">Yes</a></p>-->
@@ -105,170 +106,202 @@
                     <!--Add grid to lable and drop down-->
                     <search:dropdownFiltersWithLabel id="schoolFocus" cssClass="mbs" label="School Focus" selectedValueLabel="All">
                         <!--<div class="mod standard_6-3">-->
-                        <search:searchFilterWithCount name="schoolFocus" value="ap_courses"
+                        <search:searchFilterWithCount name="schoolFocus" value="ap_courses" styleClass="js-advFilters"
                                                       facetCountsMap="${instructionalModelCounts}"
-                                                      label="AP courses offered"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="core_knowledge"
+                                                      label="AP courses offered" omnitureCustomLink="Focus_APCourses"/>
+                        <search:searchFilterWithCount name="schoolFocus" value="core_knowledge" styleClass="js-advFilters"
                                                       facetCountsMap="${instructionalModelCounts}"
-                                                      label="Core Knowledge"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="engineering"
+                                                      label="Core Knowledge" omnitureCustomLink="Focus_CoreKnowledge"/>
+                        <search:searchFilterWithCount name="schoolFocus" value="engineering" styleClass="js-advFilters"
                                                       facetCountsMap="${academicFocusCounts}"
-                                                      label="Engineering focus"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="gifted"
+                                                      label="Engineering focus" omnitureCustomLink = "Focus_Engineering"/>
+                        <search:searchFilterWithCount name="schoolFocus" value="gifted" styleClass="js-advFilters"
                                                       facetCountsMap="${instructionalModelCounts}"
-                                                      label="Gifted"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="ib"
+                                                      label="Gifted" omnitureCustomLink="Focus_Gifted"/>
+                        <search:searchFilterWithCount name="schoolFocus" value="ib" styleClass="js-advFilters"
                                                       facetCountsMap="${instructionalModelCounts}"
-                                                      label="International Baccalaureate (IB)"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="montessori"
+                                                      label="International Baccalaureate (IB)" omnitureCustomLink="Focus_IB"/>
+                        <search:searchFilterWithCount name="schoolFocus" value="montessori" styleClass="js-advFilters"
                                                       facetCountsMap="${instructionalModelCounts}"
-                                                      label="Montessori"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="performing_arts"
+                                                      label="Montessori" omnitureCustomLink="Focus_Montessori"/>
+                        <search:searchFilterWithCount name="schoolFocus" value="performing_arts" styleClass="js-advFilters"
                                                       facetCountsMap="${academicFocusCounts}"
-                                                      label="Performing arts focus"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="projected_based"
+                                                      label="Performing arts focus" omnitureCustomLink="Focus_PerformingArts"/>
+                        <search:searchFilterWithCount name="schoolFocus" value="projected_based" styleClass="js-advFilters"
                                                       facetCountsMap="${instructionalModelCounts}"
-                                                      label="Project-based learning"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="special_education"
+                                                      label="Project-based learning" omnitureCustomLink="Focus_ProjectBased"/>
+                        <search:searchFilterWithCount name="schoolFocus" value="special_education" styleClass="js-advFilters"
                                                           facetCountsMap="${academicFocusCounts}"
-                                                          label="Special education focus"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="virtual"
+                                                          label="Special education focus" omnitureCustomLink="Focus_SpecialEdFocus"/>
+                        <search:searchFilterWithCount name="schoolFocus" value="virtual" styleClass="js-advFilters"
                                                       facetCountsMap="${instructionalModelCounts}"
-                                                      label="Virtual"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="waldorf"
+                                                      label="Virtual" omnitureCustomLink="Focus_Virtual"/>
+                        <search:searchFilterWithCount name="schoolFocus" value="waldorf" styleClass="js-advFilters"
                                                       facetCountsMap="${instructionalModelCounts}"
-                                                      label="Waldorf"/>
+                                                      label="Waldorf" omnitureCustomLink="Focus_Waldorf"/>
                         <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
                     <search:dropdownFiltersWithLabel id="specialEdPrograms" cssClass="mbs" label="Special Education"
                                                      selectedValueLabel="All">
                         <!--<div class="mod standard_6-3">-->
-                            <search:searchFilterWithCount name="specialEdPrograms" value="autism"
+                            <search:searchFilterWithCount name="specialEdPrograms" value="autism" styleClass="js-advFilters"
                                                           facetCountsMap="${specialEdCounts}"
-                                                          label="Autism"/>
-                        <search:searchFilterWithCount name="specialEdPrograms" value="cognitive"
+                                                          label="Autism" omnitureCustomLink="SpecialEd_Autism"/>
+                        <search:searchFilterWithCount name="specialEdPrograms" value="cognitive" styleClass="js-advFilters"
                                                       facetCountsMap="${specialEdCounts}"
-                                                      label="Cognitive disability"/>
-                        <search:searchFilterWithCount name="specialEdPrograms" value="emotional"
+                                                      label="Cognitive disability"
+                                                      omnitureCustomLink="SpecialEd_CognitiveDisability"/>
+                        <search:searchFilterWithCount name="specialEdPrograms" value="emotional" styleClass="js-advFilters"
                                                       facetCountsMap="${specialEdCounts}"
-                                                      label="Emotional behavioral disabilities"/>
-                        <search:searchFilterWithCount name="specialEdPrograms" value="deafness"
+                                                      label="Emotional behavioral disabilities"
+                                                      omnitureCustomLink="SpecialEd_EmotionalDisability"/>
+                        <search:searchFilterWithCount name="specialEdPrograms" value="deafness" styleClass="js-advFilters"
                                                           facetCountsMap="${specialEdCounts}"
-                                                          label="Hearing impairments"/>
-                        <search:searchFilterWithCount name="specialEdPrograms" value="multiple"
+                                                          label="Hearing impairments"
+                                                          omnitureCustomLink="SpecialEd_HearingImpairments"/>
+                        <search:searchFilterWithCount name="specialEdPrograms" value="multiple" styleClass="js-advFilters"
                                                       facetCountsMap="${specialEdCounts}"
-                                                      label="Multiple disabilities"/>
-                        <search:searchFilterWithCount name="specialEdPrograms" value="orthopedic"
+                                                      label="Multiple disabilities"
+                                                      omnitureCustomLink="SpecialEd_MultipleDisabilities"/>
+                        <search:searchFilterWithCount name="specialEdPrograms" value="orthopedic" styleClass="js-advFilters"
                                                       facetCountsMap="${specialEdCounts}"
-                                                      label="Orthopedic impairments"/>
-                        <search:searchFilterWithCount name="specialEdPrograms" value="developmental_delay"
+                                                      label="Orthopedic impairments"
+                                                      omnitureCustomLink="SpecialEd_OrthopedicImpairments"/>
+                        <search:searchFilterWithCount name="specialEdPrograms" value="developmental_delay" styleClass="js-advFilters"
                                                       facetCountsMap="${specialEdCounts}"
-                                                      label="Significant developmental delay"/>
-                        <search:searchFilterWithCount name="specialEdPrograms" value="ld"
+                                                      label="Significant developmental delay"
+                                                      omnitureCustomLink="SpecialEd_DevelopmentalDelay"/>
+                        <search:searchFilterWithCount name="specialEdPrograms" value="ld" styleClass="js-advFilters"
                                                       facetCountsMap="${specialEdCounts}"
-                                                      label="Specific learning disabilities"/>
-                        <search:searchFilterWithCount name="specialEdPrograms" value="speech"
+                                                      label="Specific learning disabilities"
+                                                      omnitureCustomLink="SpecialEd_LearningDisabilities"/>
+                        <search:searchFilterWithCount name="specialEdPrograms" value="speech" styleClass="js-advFilters"
                                                           facetCountsMap="${specialEdCounts}"
-                                                          label="Speech and language impairments"/>
-                        <search:searchFilterWithCount name="specialEdPrograms" value="blindness"
+                                                          label="Speech and language impairments"
+                                                          omnitureCustomLink="SpecialEd_SpeechImpairments"/>
+                        <search:searchFilterWithCount name="specialEdPrograms" value="blindness" styleClass="js-advFilters"
                                                       facetCountsMap="${specialEdCounts}"
-                                                      label="Visual impairments"/>
+                                                      label="Visual impairments"
+                                                      omnitureCustomLink="SpecialEd_VisualImpairments"/>
                         <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
                     <search:dropdownFiltersWithLabel id="sports" cssClass="mbs" label="Sports" selectedValueLabel="All">
                         <!--<div class="mod standard_6-3">-->
-                            <search:searchFilterWithCount name="sports" value="baseball"
-                                                          facetCountsMap="${sportsCounts}" label="Baseball"/>
-                            <search:searchFilterWithCount name="sports" value="basketball"
-                                                          facetCountsMap="${sportsCounts}" label="Basketball"/>
-                            <search:searchFilterWithCount name="sports" value="cheerleading"
-                                                          facetCountsMap="${sportsCounts}" label="Cheerleading"/>
-                        <search:searchFilterWithCount name="sports" value="crew" facetCountsMap="${sportsCounts}"
-                                                      label="Crew / Rowing"/>
-                            <search:searchFilterWithCount name="sports" value="cross_country"
-                                                          facetCountsMap="${sportsCounts}" label="Cross country"/>
-                            <search:searchFilterWithCount name="sports" value="field_hockey"
-                                                          facetCountsMap="${sportsCounts}" label="Field hockey"/>
-                            <search:searchFilterWithCount name="sports" value="football"
-                                                          facetCountsMap="${sportsCounts}" label="Football"/>
+                            <search:searchFilterWithCount name="sports" value="baseball" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Baseball"
+                                                          omnitureCustomLink="Sports_Baseball"/>
+                            <search:searchFilterWithCount name="sports" value="basketball" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Basketball"
+                                                          omnitureCustomLink="Sports_Basketball"/>
+                            <search:searchFilterWithCount name="sports" value="cheerleading" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Cheerleading"
+                                                          omnitureCustomLink="Sports_Cheerleading"/>
+                            <search:searchFilterWithCount name="sports" value="crew" facetCountsMap="${sportsCounts}"
+                                                          styleClass="js-advFilters"
+                                                          label="Crew / Rowing" omnitureCustomLink="Sports_Rowing"/>
+                            <search:searchFilterWithCount name="sports" value="cross_country" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Cross country"
+                                                          omnitureCustomLink="Sports_CrossCountry"/>
+                            <search:searchFilterWithCount name="sports" value="field_hockey" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Field hockey"
+                                                          omnitureCustomLink="Sports_FieldHockey"/>
+                            <search:searchFilterWithCount name="sports" value="football" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Football"
+                                                          omnitureCustomLink="Sports_Football"/>
                             <search:searchFilterWithCount name="sports" value="golf" facetCountsMap="${sportsCounts}"
-                                                          label="Golf"/>
-                            <search:searchFilterWithCount name="sports" value="ice_hockey"
-                                                          facetCountsMap="${sportsCounts}" label="Ice hockey"/>
-                        <search:searchFilterWithCount name="sports" value="martial_arts"
-                                                      facetCountsMap="${sportsCounts}"
-                                                      label="Judo / Other martial arts"/>
-                            <search:searchFilterWithCount name="sports" value="lacrosse"
-                                                          facetCountsMap="${sportsCounts}" label="Lacrosse"/>
+                                                          styleClass="js-advFilters"
+                                                          label="Golf" omnitureCustomLink="Sports_Golf"/>
+                            <search:searchFilterWithCount name="sports" value="ice_hockey" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Ice hockey"
+                                                          omnitureCustomLink="Sports_IceHockey"/>
+                            <search:searchFilterWithCount name="sports" value="martial_arts" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}"
+                                                          label="Judo / Other martial arts"
+                                                          omnitureCustomLink="Sports_Judo"/>
+                            <search:searchFilterWithCount name="sports" value="lacrosse" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Lacrosse"
+                                                          omnitureCustomLink="Sports_Lacrosse"/>
                             <search:searchFilterWithCount name="sports" value="rugby" facetCountsMap="${sportsCounts}"
-                                                          label="Rugby"/>
+                                                          styleClass="js-advFilters"
+                                                          label="Rugby" omnitureCustomLink="Sports_Rugby"/>
                             <search:searchFilterWithCount name="sports" value="ski" facetCountsMap="${sportsCounts}"
-                                                          label="Skiing"/>
+                                                          styleClass="js-advFilters"
+                                                          label="Skiing" omnitureCustomLink="Sports_Skiing"/>
                             <search:searchFilterWithCount name="sports" value="soccer" facetCountsMap="${sportsCounts}"
-                                                          label="Soccer"/>
-                            <search:searchFilterWithCount name="sports" value="softball"
-                                                          facetCountsMap="${sportsCounts}" label="Softball"/>
+                                                          styleClass="js-advFilters"
+                                                          label="Soccer" omnitureCustomLink="Sports_Soccer"/>
+                            <search:searchFilterWithCount name="sports" value="softball" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Softball"
+                                                          omnitureCustomLink="Sports_Softball"/>
                             <search:searchFilterWithCount name="sports" value="squash" facetCountsMap="${sportsCounts}"
-                                                          label="Squash"/>
+                                                          styleClass="js-advFilters"
+                                                          label="Squash" omnitureCustomLink="Sports_Squash"/>
                             <search:searchFilterWithCount name="sports" value="swimming"
-                                                          facetCountsMap="${sportsCounts}" label="Swimming"/>
+                                                          styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Swimming"
+                                                          omnitureCustomLink="Sports_Swimming"/>
                             <search:searchFilterWithCount name="sports" value="tennis" facetCountsMap="${sportsCounts}"
-                                                          label="Tennis"/>
+                                                          styleClass="js-advFilters"
+                                                          label="Tennis" omnitureCustomLink="Sports_Tennis"/>
                             <search:searchFilterWithCount name="sports" value="track" facetCountsMap="${sportsCounts}"
-                                                          label="Track"/>
+                                                          styleClass="js-advFilters"
+                                                          label="Track" omnitureCustomLink="Sports_Track"/>
                             <search:searchFilterWithCount name="sports" value="volleyball"
-                                                          facetCountsMap="${sportsCounts}" label="Volleyball"/>
-                            <search:searchFilterWithCount name="sports" value="wrestling"
-                                                          facetCountsMap="${sportsCounts}" label="Wrestling"/>
+                                                          styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Volleyball"
+                                                          omnitureCustomLink="Sports_Volleyball"/>
+                            <search:searchFilterWithCount name="sports" value="wrestling" styleClass="js-advFilters"
+                                                          facetCountsMap="${sportsCounts}" label="Wrestling"
+                                                          omnitureCustomLink="Sports_Wrestling"/>
                         <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
                     <search:dropdownFiltersWithLabel id="artsAndMusic" cssClass="mbs" label="Arts and Music" selectedValueLabel="All">
                         <!--<div class="mod standard_6-3">-->
-                        <search:searchFilterWithCount name="artsAndMusic" value="band"
+                        <search:searchFilterWithCount name="artsAndMusic" value="band" styleClass="js-advFilters"
                                                       facetCountsMap="${artsMusicCounts}"
-                                                      label="Band"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="ceramics"
+                                                      label="Band" omnitureCustomLink="Arts_Band"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="ceramics" styleClass="js-advFilters"
                                                       facetCountsMap="${artsVisualCounts}"
-                                                      label="Ceramics"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="chorus"
+                                                      label="Ceramics" omnitureCustomLink="Arts_Ceramics"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="chorus" styleClass="js-advFilters"
                                                       facetCountsMap="${artsMusicCounts}"
-                                                      label="Choir / chorus"/>
-                            <search:searchFilterWithCount name="artsAndMusic" value="graphics"
+                                                      label="Choir / chorus" omnitureCustomLink="Arts_Choir"/>
+                            <search:searchFilterWithCount name="artsAndMusic" value="graphics" styleClass="js-advFilters"
                                                           facetCountsMap="${artsMediaCounts}"
-                                                          label="Computer graphics"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="creative_writing"
+                                                          label="Computer graphics" omnitureCustomLink="Arts_ComputerGraphics"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="creative_writing" styleClass="js-advFilters"
                                                       facetCountsMap="${artsPerforming}"
-                                                      label="Creative writing"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="dance"
+                                                      label="Creative writing" omnitureCustomLink="Arts_CreativeWriting"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="dance" styleClass="js-advFilters"
                                                       facetCountsMap="${artsPerforming}"
-                                                      label="Dance"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="drama"
+                                                      label="Dance" omnitureCustomLink="Arts_Dance"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="drama" styleClass="js-advFilters"
                                                       facetCountsMap="${artsPerforming}"
-                                                      label="Drama"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="drawing"
+                                                      label="Drama" omnitureCustomLink="Arts_Drama"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="drawing" styleClass="js-advFilters"
                                                       facetCountsMap="${artsVisualCounts}"
-                                                      label="Drawing"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="music_lessons"
+                                                      label="Drawing" omnitureCustomLink="Arts_Drawing"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="music_lessons" styleClass="js-advFilters"
                                                       facetCountsMap="${artsMusicCounts}"
-                                                      label="Instrumental music lessons"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="jazz_band"
+                                                      label="Instrumental music lessons" omnitureCustomLink="Arts_MusicLessons"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="jazz_band" styleClass="js-advFilters"
                                                       facetCountsMap="${artsMusicCounts}"
-                                                      label="Jazz band"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="orchestra"
+                                                      label="Jazz band" omnitureCustomLink="Arts_JazzBand"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="orchestra" styleClass="js-advFilters"
                                                       facetCountsMap="${artsMusicCounts}"
-                                                      label="Orchestra"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="painting"
+                                                      label="Orchestra" omnitureCustomLink="Arts_Orchestra"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="painting" styleClass="js-advFilters"
                                                       facetCountsMap="${artsVisualCounts}"
-                                                      label="Painting"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="photography"
+                                                      label="Painting" omnitureCustomLink="Arts_Painting"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="photography" styleClass="js-advFilters"
                                                       facetCountsMap="${artsVisualCounts}"
-                                                      label="Photography"/>
-                        <search:searchFilterWithCount name="artsAndMusic" value="video"
+                                                      label="Photography" omnitureCustomLink="Arts_Photography"/>
+                        <search:searchFilterWithCount name="artsAndMusic" value="video" styleClass="js-advFilters"
                                                           facetCountsMap="${artsMediaCounts}"
-                                                          label="Video / Film production"/>
+                                                          label="Video / Film production" omnitureCustomLink="Arts_VideoFilm"/>
 
                         <!--</div>-->
                     </search:dropdownFiltersWithLabel>
@@ -278,41 +311,46 @@
                         <!--<div class="mod standard_6-3">-->
 
                         Staff Resources
-                        <search:searchFilterWithCount name="staffResources" value="gifted_specialist"
-                                                      label="Gifted specialist"/>
-                        <search:searchFilterWithCount name="staffResources" value="poetry_teacher"
-                                                      label="Poetry / Creative writing teacher"/>
-
-                        <search:searchFilterWithCount name="staffResources" value="priest"
-                                                      label="Priest / Pastor / Religious personnel"/>
-
-                        <search:searchFilterWithCount name="staffResources" value="robotics_teacher"
-                                                      label="Robotics / Technology specialist"/>
-                        <search:searchFilterWithCount name="staffResources" value="school_counselor"
-                                                      label="School social worker / counselor"/>
-
-                        <search:searchFilterWithCount name="staffResources" value="security"
-                                                      label="Security personnel"/>
-                        <search:searchFilterWithCount name="staffResources" value="tutor"
-                                                      label="Tutors"/>
+                        <search:searchFilterWithCount name="staffResources" value="gifted_specialist" styleClass="js-advFilters"
+                                                      label="Gifted specialist"
+                                                      omnitureCustomLink="Resources_GiftedSpecialist"/>
+                        <search:searchFilterWithCount name="staffResources" value="poetry_teacher" styleClass="js-advFilters"
+                                                      label="Poetry / Creative writing teacher"
+                                                      omnitureCustomLink="Resources_PoetryWritingTeacher"/>
+                        <search:searchFilterWithCount name="staffResources" value="priest" styleClass="js-advFilters"
+                                                      label="Priest / Pastor / Religious personnel"
+                                                      omnitureCustomLink="Resources_PriestPastor"/>
+                        <search:searchFilterWithCount name="staffResources" value="robotics_teacher" styleClass="js-advFilters"
+                                                      label="Robotics / Technology specialist"
+                                                      omnitureCustomLink="Resources_RoboticsTechnology"/>
+                        <search:searchFilterWithCount name="staffResources" value="school_counselor" styleClass="js-advFilters"
+                                                      label="School social worker / counselor"
+                                                      omnitureCustomLink="Resources_SocialWorkerCounselor"/>
+                        <search:searchFilterWithCount name="staffResources" value="security" styleClass="js-advFilters"
+                                                      label="Security personnel"
+                                                      omnitureCustomLink="Resources_SecurityPersonnel"/>
+                        <search:searchFilterWithCount name="staffResources" value="tutor" styleClass="js-advFilters"
+                                                      label="Tutors" omnitureCustomLink="Resources_Tutors"/>
 
                         Facilities
-                        <search:searchFilterWithCount name="staffResources" value="college_career"
-                                                      label="College / Career center"/>
-                        <search:searchFilterWithCount name="staffResources" value="computers"
-                                                      label="Computer lab"/>
-                        <search:searchFilterWithCount name="staffResources" value="garden"
-                                                      label="Garden / Greenhouse"/>
-                        <search:searchFilterWithCount name="staffResources" value="gym"
-                                                      label="Gym"/>
-                        <search:searchFilterWithCount name="staffResources" value="industrial"
-                                                      label="Industrial shop"/>
-                        <search:searchFilterWithCount name="staffResources" value="kitchen"
-                                                      label="Kitchen"/>
-                        <search:searchFilterWithCount name="staffResources" value="parent"
-                                                      label="Parent center"/>
-                        <search:searchFilterWithCount name="staffResources" value="science"
-                                                      label="Science lab"/>
+                        <search:searchFilterWithCount name="staffResources" value="college_career" styleClass="js-advFilters"
+                                                      label="College / Career center"
+                                                      omnitureCustomLink="Facilities_CollegeCareerCenter"/>
+                        <search:searchFilterWithCount name="staffResources" value="computers" styleClass="js-advFilters"
+                                                      label="Computer lab" omnitureCustomLink="Facilities_ComputerLab"/>
+                        <search:searchFilterWithCount name="staffResources" value="garden" styleClass="js-advFilters"
+                                                      label="Garden / Greenhouse"
+                                                      omnitureCustomLink="Facilities_GardenGreenhouse"/>
+                        <search:searchFilterWithCount name="staffResources" value="gym" styleClass="js-advFilters"
+                                                      label="Gym" omnitureCustomLink="Facilities_Gym"/>
+                        <search:searchFilterWithCount name="staffResources" value="industrial" styleClass="js-advFilters"
+                                                      label="Industrial shop" omnitureCustomLink="Facilities_IndustrialShop"/>
+                        <search:searchFilterWithCount name="staffResources" value="kitchen" styleClass="js-advFilters"
+                                                      label="Kitchen" omnitureCustomLink="Facilities_Kitchen"/>
+                        <search:searchFilterWithCount name="staffResources" value="parent" styleClass="js-advFilters"
+                                                      label="Parent center" omnitureCustomLink="Facilities_ParentCenter"/>
+                        <search:searchFilterWithCount name="staffResources" value="science" styleClass="js-advFilters"
+                                                      label="Science lab" omnitureCustomLink="Facilities_ScienceLab"/>
                         <!--</div>-->
                     </search:dropdownFiltersWithLabel>
 
@@ -324,7 +362,7 @@
             <div id="js-closeMoreFiltersLink" class="alpha prefix_7 grid_4 suffix_5 omega filtersControl pas"
                  style="display: none;">
                 <h4 class="bottom">
-                    <a href="javascript:void(0);">
+                    <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Close">
                         <div class="media skin-2 attribution">
                             <div class="img mrm">
                                 Close filters
