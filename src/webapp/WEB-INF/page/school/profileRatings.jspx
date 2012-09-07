@@ -77,19 +77,29 @@
                         <h5>Rating legend</h5>
                         <div class="small ratingsLegend">
 
-                                <div class="ratingx24-public-RYG r-24-legend"><!-- do not collapse --></div>
-                                <div class="spacerFirst">
-                                    <div class="bracketUp3"><!-- do not collapse --></div>
-                                    <span>Poor</span>
-                                </div>
-                                <div class="spacerBetween">
-                                    <div class="bracketUp4"><!-- do not collapse --></div>
-                                    <span>Average</span>
-                                </div>
-                                <div class="spacerBetween">
-                                    <div class="bracketUp3"><!-- do not collapse --></div>
-                                    <span>Good</span>
-                                </div>
+                            <div class="ratingx24-public-RYG r-24-1 fl"><!-- do not collapse --></div>
+                            <div class="ratingx24-public-RYG r-24-2 fl marLeft"><!-- do not collapse --></div>
+                            <div class="ratingx24-public-RYG r-24-3 fl marLeft"><!-- do not collapse --></div>
+                            <div class="ratingx24-public-RYG r-24-4 fl marLeft"><!-- do not collapse --></div>
+                            <div class="ratingx24-public-RYG r-24-5 fl marLeft"><!-- do not collapse --></div>
+                            <div class="ratingx24-public-RYG r-24-6 fl marLeft"><!-- do not collapse --></div>
+                            <div class="ratingx24-public-RYG r-24-7 fl marLeft"><!-- do not collapse --></div>
+                            <div class="ratingx24-public-RYG r-24-8 fl marLeft"><!-- do not collapse --></div>
+                            <div class="ratingx24-public-RYG r-24-9 fl marLeft"><!-- do not collapse --></div>
+                            <div class="ratingx24-public-RYG r-24-10 fl marLeft"><!-- do not collapse --></div>
+
+                            <div class="spacerFirst">
+                                <div class="bracketUp3"><!-- do not collapse --></div>
+                                <span>Below<br />average</span>
+                            </div>
+                            <div class="spacerBetween">
+                                <div class="bracketUp4"><!-- do not collapse --></div>
+                                <span>Average</span>
+                            </div>
+                            <div class="spacerBetween">
+                                <div class="bracketUp3"><!-- do not collapse --></div>
+                                <span>Above<br />average</span>
+                            </div>
 
                         </div>
                         <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
@@ -115,38 +125,53 @@
                     <h4 class="pvm plm bottom">Academic rating</h4>
                 </div>
                 <div class="bd pam">
-                    <p class="small mbl">
-                        ${section3Copy}
-                        <!--TODO Is this needed-->
-                        <c:if test="${schoolPostSecondaryReadinessRating != null and not empty section3CopyPostSecondaryReadiness}">
-                            ${section3CopyPostSecondaryReadiness}
-                        </c:if>
-                    </p>
 
-                    <c:if test="${overallAcademicRating != null}">
-                        <div class="pbm">
+                    <c:choose>
+                        <c:when test="${overallAcademicRating != null}">
+                            <div class="line">
+                                <div class="small mbl size70of100 unit">
+                                    ${section3Copy}
+                                    <!--TODO Is this needed-->
+                                    <c:if test="${schoolPostSecondaryReadinessRating != null and not empty section3CopyPostSecondaryReadiness}">
+                                        ${section3CopyPostSecondaryReadiness}
+                                    </c:if>
+                                </div>
+                                <c:set var="overallAcademicRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>
+                                <c:set var="overallAcademicRatingColor"><c:if test="${overallAcademicRating le 3}">ratingsRedText</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">ratingsYellowText</c:if><c:if test="${overallAcademicRating ge 8}">ratingsGreenText</c:if></c:set>
+
+                                <div class="ratingsRightSide size30of100 lastUnit">
+                                    <div class="grayBox smallest">Overall academic rating<h1 class="bottom">${overallAcademicRating}</h1>
+                                        <h5 class="bottom"><em class="${overallAcademicRatingColor}">${overallAcademicRatingContent}</em></h5></div>
+                                </div>
+                            </div>
                             <hr class="keyline2"/>
-                            <c:set var="overallAcademicRatingColor"><c:if test="${fn:containsIgnoreCase(overallAcademicRatingLabel,'Poor')}">ratingsRedText</c:if><c:if test="${fn:containsIgnoreCase(overallAcademicRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:containsIgnoreCase(overallAcademicRatingLabel,'High')}">ratingsGreenText</c:if></c:set>
-
-                            <h5 class="mvm medium_bold tac">Overall academic performance is ${overallAcademicRating} / 10
-                                <em class="${overallAcademicRatingColor}">${overallAcademicRatingLabel}</em></h5>
-
-                            <hr class="keyline2"/>
-                        </div>
-                    </c:if>
+                        </c:when>
+                        <c:otherwise>
+                            <p class="small mbl">
+                                ${section3Copy}
+                                <!--TODO Is this needed-->
+                                <c:if test="${schoolPostSecondaryReadinessRating != null and not empty section3CopyPostSecondaryReadiness}">
+                                    ${section3CopyPostSecondaryReadiness}
+                                </c:if>
+                            </p>
+                        </c:otherwise>
+                    </c:choose>
 
                     <c:set var="footnoteStarAssoc" value="0" />
 
                     <c:if test="${schoolTestScoreRating != null and testScoreRatingYear != null}">
-                        <div class="pbm">
+                        <div class="pvm fl">
                             <h6 class="mtm medium_bold bottom pbm">Test score rating ${testScoreRatingYear}*</h6>
                             <profile:ratingsBarChart ratingDivId="ratingTestResults1"
                                                      schoolRating="${schoolTestScoreRating}"
                                                      cityRating="${cityTestScoreRating}"
                                                      stateRatingShow="${showStateTestScoreRating}"
                                                      stateRating="${stateTestScoreRating}" />
-                        </div>
 
+                        </div>
+                        <div class="ratingsRightSide ptm">
+                            <div class="grayBox small"><a href="">Learn more about this school's test scores</a></div>
+                        </div>
                         <hr class="keyline2"/>
                     </c:if>
 
@@ -174,6 +199,7 @@
                                                           stateRatingShow="${showStatePostSecondaryReadinessRating}"
                                                           stateRating="${statePostSecondaryReadinessRating}" />
                         </div>
+
 
                         <hr class="keyline2"/>
                     </c:if>

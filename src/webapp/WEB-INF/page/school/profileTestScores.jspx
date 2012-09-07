@@ -8,7 +8,7 @@
 <c:choose>
     <c:when test="${! empty testScores}">
         <c:set var="dataNAText" value="Data not available"/>
-        <div class="grid_16">
+        <div class="grid_16 alpha omega">
             <div class="fl pbn">
                 <h3 class="pbn mbs" id="js_testLabelHeader"><!-- not empty --></h3>
             </div>

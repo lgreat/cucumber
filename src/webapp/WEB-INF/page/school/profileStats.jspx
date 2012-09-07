@@ -27,7 +27,7 @@
 
                 <profile:gsTab tabName="teachers" title="Teacher information" tabText="Teachers" cssClass="${requestScope.schoolProfileTabMap.teachers}" addDivider="true"/>
             </ul>
-            <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.demographics and requestScope.schoolProfileTabMap.demographics eq 'selected'?'':'dn')}">
+            <div class="alpha omega grid_16 ${(!empty requestScope.schoolProfileTabMap.demographics and requestScope.schoolProfileTabMap.demographics eq 'selected'?'':'dn')}">
                 <!-- Determine if there is any dat put on the display and if not show the "no data" message -->
                 <c:if test="${! empty statsRows[6]}">
                     <c:set var="hasStudentData" value="yes"/>
@@ -209,7 +209,7 @@
 
                 <c:if test="${hasStudentData ne 'yes'}">
                     <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
-                <div class="rnd4 tac mbm noDataBox">
+                <div class="rnd4 tac mbm noDataBox ">
                     <div  class="padAmount">
                         <h3><strong>Oops! We currently do not have any student information for this school.</strong> We rely on the state Department of Education, the National Center for Education Statistics (NCES),
                             and in some cases school administrators such as registrars and principals for this data.
