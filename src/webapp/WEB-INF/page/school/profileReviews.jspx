@@ -246,6 +246,7 @@
     </div>
 </c:if>
 
+<c:set var="reviewsByCsv" value="${param.reviewsBy}"/>
 <c:set var="reviewsPagination">
     <c:set var="paginationUrl" value="${gsweb:removeQueryParamsFromUrl(requestInfo.requestURL, 'page')}"/>
     <c:set var="paginationUrl" value="${gsweb:putQueryParamIntoUrl(paginationUrl, 'tab', 'reviews')}"/>
@@ -308,7 +309,7 @@
                     <c:if test="${numStudentReviews gt 0}">
                         <c:choose>
                             <c:when test="${fn:contains(reviewsByCsv,'s')}">
-                                <input type="checkbox" id="showStudents" class="mlm" />
+                                <input type="checkbox" id="showStudents" checked="checked" class="mlm" />
                             </c:when>
                             <c:otherwise>
                                 <input type="checkbox" id="showStudents" class="mlm" />
