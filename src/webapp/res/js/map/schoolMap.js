@@ -214,10 +214,13 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     this.createPrivateSchoolMarker = function(lat, lon, tooltip, rating, isNewGSRating) {
         var position = new google.maps.LatLng(lat, lon);
-        var iconImg = '/res/img/map/GS_gsr_private_forground.png';
+        var iconImg = '/res/img/mapPins/private/O/private_orange_NR.png';
+
 
         if (isNewGSRating === 'true') {
-            iconImg = (rating != '' && rating != undefined) ? '/res/img/map/GS_gsr_private_forground.png' : '/res/img/map/GS_gsr_private_forground.png';
+            iconImg = (rating != '' && rating != undefined) ? '/res/img/mapPins/private/RYG/private_RGY_'+rating+'.png' : '/res/img/mapPins/private/RYG/private_RGY_NR.png';
+        } else if(rating != '' && rating != undefined){
+            iconImg = '/res/img/mapPins/private/O/private_orange_'+rating+'.png';
         }
         var icon = new google.maps.MarkerImage(iconImg,
             new google.maps.Size(40, 40),
@@ -236,7 +239,7 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
 
     this.createPreschoolMarker = function(lat, lon, tooltip) {
         var position = new google.maps.LatLng(lat, lon);
-        var icon = new google.maps.MarkerImage('/res/img/map/GS_gsr_preschool_forground.png',
+        var icon = new google.maps.MarkerImage('/res/img/mapPins/preschool/preschool.png',
             new google.maps.Size(40,40),
             new google.maps.Point(0,0),
             new google.maps.Point(11,34));
@@ -255,11 +258,11 @@ GS.map.SchoolMap = function(id, centerLatitude, centerLongitude, useBubbles) {
         var position = new google.maps.LatLng(lat, lon);
         var iconImg = '';
         if (rating != '' && rating != undefined) {
-            iconImg = isNewGSRating === 'true' ? '/res/img/map/GS_gsr_' + rating + '_forground.png' :
-                '/res/img/map/GS_gsr_' + rating + '_forground.png';
+            iconImg = isNewGSRating === 'true' ? '/res/img/mapPins/public/RYG/RGY_'+rating+'.png ' :
+                '/res/img/mapPins/public/O/orange_'+rating+'.png';
         } else {
-            iconImg = isNewGSRating === 'true' ? '/res/img/map/GS_gsr_na_forground.png' :
-                '/res/img/map/GS_gsr_na_forground.png';
+            iconImg = isNewGSRating === 'true' ? '/res/img/mapPins/public/RYG/RGY_NR.png' :
+                '/res/img/mapPins/public/O/orange_NR.png';
         }
         var icon = new google.maps.MarkerImage(iconImg,
             new google.maps.Size(40,40),
