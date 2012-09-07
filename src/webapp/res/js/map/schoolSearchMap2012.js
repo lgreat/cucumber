@@ -235,8 +235,10 @@ GS.map.getMap = GS.map.getMap ||(function(){
             } else if (point.schoolType === 'private') {
                 pixelOffset = 350; //default to private NR
 
-                if (point.gsRating != "" && parseInt(point.gsRating) > 0 && point.isNewGSRating != undefined && point.isNewGSRating === true) {
+                if (point.gsRating != "" && parseInt(point.gsRating) > 0) {
                     pixelOffset = (point.gsRating - 1) * 35;
+                }
+                if (point.isNewGSRating != undefined && point.isNewGSRating === true) {
                     imageUrl = imageUrlPrivateNew;
                 } else {
                     imageUrl = imageUrlPrivateOld;
