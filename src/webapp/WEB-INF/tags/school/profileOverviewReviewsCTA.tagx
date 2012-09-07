@@ -9,9 +9,9 @@
             <div class="outer">
                 <div class="inner bg-writeReviews">
                     <div class="hd">
-                        <h3 class="bottom">Share your experience</h3>
+                        <h4 class="bottom">Share your experience</h4>
                     </div>
-                    <div class="bd" style="height:110px;">
+                    <div class="bd" style="height:140px;">
                         <p class="small mtm">
                             Families rely on one another to get the inside scoop about a school. <span
                                 class="make-06b">Write a review</span>

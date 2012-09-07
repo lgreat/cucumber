@@ -297,7 +297,7 @@ General comments:
 
 .bg-addPhotos { background: url("/res/img/module/background/addPhotos.png") no-repeat right bottom; }
 .bg-districtMap { background: url("/res/img/module/background/districtMap.png") no-repeat right bottom; }
-.bg-writeReviews { background: url("/res/img/module/background/reviews.png") no-repeat right 30px; }
+.bg-writeReviews { background: url("/res/img/module/background/reviews.png") no-repeat right 0; }
 .bg-mobileApp { background: url("/res/img/module/background/mobile.png") no-repeat right bottom; }
 .bg-checklist { background: url("/res/img/module/background/checklist.png") no-repeat right bottom;}
 .bg-principal { background: url("/res/img/school/enrollment/principal.png") no-repeat;}
