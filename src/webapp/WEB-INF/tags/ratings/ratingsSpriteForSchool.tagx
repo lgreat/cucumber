@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <!-- Common tagx to display a ratings sprite -->
+    <jsp:directive.attribute name="school" required="true" description="school"
+                             type="gs.data.school.School"/>
+    <jsp:directive.attribute name="spriteSize" required="false" description="The size of the sprite to display.  small=24, med=72, large96"
+                             type="java.lang.String" />
+
+    <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${school.GSRating}"
+                           schoolType="${school.type.name}" isPreschoolOnly="${school.preschoolOnly}" spriteSize="${spriteSize}"/>
+
+</jsp:root>
