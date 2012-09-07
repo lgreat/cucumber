@@ -209,14 +209,19 @@
 
                 <c:if test="${hasStudentData ne 'yes'}">
                     <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
-                    <div class="">
-                        Oops! We currently do not have any student information for this school.
-                        We rely on the state Department of Education, the National Center for Education Statistics (NCES),
-                        and in some cases school administrators such as registrars and principals for this data.
+                <div class="rnd4 tac mbm noDataBox">
+                    <div  class="padAmount">
+                        <h3><strong>Oops! We currently do not have any student information for this school.</strong> We rely on the state Department of Education, the National Center for Education Statistics (NCES),
+                            and in some cases school administrators such as registrars and principals for this data.
+                        </h3>
+
                     </div>
+                </div>
+
+
                 </c:if>
             </div>
-            <div class="grid_16 ${(!empty requestScope.schoolProfileTabMap.teachers and requestScope.schoolProfileTabMap.teachers eq 'selected'?'':'dn')}">
+            <div class="grid_16 alpha omega ${(!empty requestScope.schoolProfileTabMap.teachers and requestScope.schoolProfileTabMap.teachers eq 'selected'?'':'dn')}">
                 <!-- Determine if there is any dat put on the display and if not show the "no data" message -->
                 <c:if test="${! empty statsRows[5]}">
                     <c:set var="hasTeacherData" value="yes"/>
@@ -329,11 +334,24 @@
                 </c:if>
                 <c:if test="${hasTeacherData ne 'yes'}">
                     <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > Teachers, no data for styling guidelines -->
-                    <div class="">
-                        Oops! We currently do not have any teacher information for this school. We rely on the state Department of Education, the National Center for Education Statistics (NCES), and in some cases school administrators such as registrars and principals for this data.
-                        Content: What makes a great teacher? Study after study shows the single most important factor determining the quality of the education a child receives is the quality of his teacher. Here are some characteristics to look for »
-                        Text "Here are some characteristics to look for »"
+
+                    <div class="rnd4 tac mbm noDataBox">
+                        <div  class="padAmount">
+                            <h3><strong>Oops! We currently do not have any teacher information for this school.</strong> We rely on the state Department of Education, the National Center for Education Statistics (NCES), and in some cases school administrators such as registrars and principals for this data.
+                            </h3>
+                            <a class="tdn make-555555 no_interrupt" href="/improvement/quality-teaching/79-what-makes-a-great-teacher.gs">
+                            <div class="mod standard_3-1">
+                                <div class="outer">
+                                    <div class="inner pam">
+                                        <strong>What makes a great teacher?</strong> Study after study shows the single most important factor determining the quality of the education a child receives is the quality of his teacher.
+                                        <span class="make-06b">Here are some characteristics to look for »</span>
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </div>
                     </div>
+
                 </c:if>
             </div>
 

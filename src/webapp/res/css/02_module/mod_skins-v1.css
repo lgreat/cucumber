@@ -266,6 +266,17 @@ General comments:
 }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
+/* ---------------- No data container ----------------- */
+.noDataBox{
+    border: solid #DDDDDD 1px;
+}
+.noDataBox .padAmount{
+    padding: 44px 40px;
+}
+
+
+
+/* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- bestKnownFor ----------------- */
 .bestKnownFor{
     margin-bottom:10px;

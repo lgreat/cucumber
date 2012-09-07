@@ -58,9 +58,19 @@ where each entry is the first bean for that section, this allows access to the s
             </c:when>
             <c:otherwise>
                 <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
-                <div class="">
-                    This school has not yet provided programming information.
-                    CTA: Schools, join today to tell families more about what you offer. ("join today" text looks like a link, but the whole module links to OSP registration page)
+                <div class="rnd4 tac mbm noDataBox">
+                    <div  class="padAmount">
+                        <h3><strong>This school has not yet provided programming information.</strong></h3>
+                        <a class="tdn make-555555 no_interrupt" href="/official-school-profile/register.page">
+                            <div class="mod standard_3-1">
+                                <div class="outer">
+                                    <div class="inner pam">
+                                        Schools, <span class="make-06b">join today</span> to tell families more about what you offer.
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </c:otherwise>
         </c:choose>
