@@ -212,9 +212,9 @@
             <c:when test="${schoolSubtype eq 'private'}">
                 <div class="rnd4 tac mbm noDataBox">
                     <div  class="padAmount">
-                        <h3><strong>Opps! We currently do not have any test score information for this school.</strong> Unlike public schools, private schools are not always required to report data about their schools or not required to take the same tests as public schools.
-                            Many private schools take standardized tests; however, that information is often made available only to families of enrolled students.
-                            We strive to acquire additional private school data whenever available.
+                        <h3><strong>We currently do not have any test score information for this school.</strong>
+                            Unlike public schools, private schools are not always required to report data about their schools or not required to take the same tests as public schools. Many private schools take different standardized tests; however, that information is often made available only to families of enrolled students. We strive to acquire additional private school data whenever available.
+
                         </h3>
 
                     </div>
@@ -225,9 +225,9 @@
                 <!-- must be public or charter -->
                 <div class="rnd4 tac mbm noDataBox">
                     <div  class="padAmount">
-                        <h3><strong>We currently do not have any test score information for this school.</strong> Public and charter schoole test scores for most states come from the state Department or Education.
-                            The most common reason we might not have this data are either that not enough students took the test
-                            or that the school was recently opened, and its scores have not yet been reported.
+                        <h3><strong>Oops! We currently do not have any test score information for this school.</strong> Public and charter school test scores for most states come from the state Department of Education.
+                        The most common reasons we might not have this data are either that not enough students took the test or that the school was recently opened, and its scores have not yet been reported.
+
                         </h3>
 
                     </div>
