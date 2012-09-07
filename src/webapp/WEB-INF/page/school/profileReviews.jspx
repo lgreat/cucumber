@@ -37,12 +37,16 @@
             </div>
             <div class="bd">
                 <div  class="tac">
+                    <c:set var="addSToStar" value="stars"/>
+                    <c:if test="${cmd.ratings.overall eq 1}">
+                        <c:set var="addSToStar" value="star"/>
+                    </c:if>
 
 
                     <div class="ptm pbs" style="width:80px; height:16px; margin: auto;">
                         <ratings:stars curSR="${cmd.ratings.overall}"/>
                     </div>
-                    <div class=""><h3 class="bottom">${cmd.ratings.overall} stars</h3>
+                    <div class=""><h3 class="bottom">${cmd.ratings.overall} ${addSToStar}</h3>
                     </div>
                     <!--<span class="sprite stars_xl_${cmd.ratings.overall}_b"-->
                     <!--title="${cmd.ratings.overall} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
@@ -174,7 +178,7 @@
 </div>
 <!-- end reviewColumn2 -->
 <div class="spacer_15"><!-- do not collapse --></div>
-<div class="grid_16 alpha omega" >
+<div class="grid_16 alpha omega">
 
 <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
 <c:if test="${not empty principalReview}">
