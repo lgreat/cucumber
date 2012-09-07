@@ -37,17 +37,26 @@
             </div>
             <div class="bd">
                 <div  class="tac">
-                    <c:set var="addSToStar" value="stars"/>
-                    <c:if test="${cmd.ratings.overall eq 1}">
-                        <c:set var="addSToStar" value="star"/>
-                    </c:if>
+                    <c:choose>
+                        <c:when test="${cmd.ratings.count gt 0}">
+                            <c:set var="addSToStar" value="stars"/>
+                            <c:if test="${cmd.ratings.overall eq 1}">
+                                <c:set var="addSToStar" value="star"/>
+                            </c:if>
 
 
-                    <div class="ptm pbs" style="width:80px; height:16px; margin: auto;">
-                        <ratings:stars curSR="${cmd.ratings.overall}"/>
-                    </div>
-                    <div class=""><h3 class="bottom">${cmd.ratings.overall} ${addSToStar}</h3>
-                    </div>
+                            <div class="ptm pbs" style="width:80px; height:16px; margin: auto;">
+                                <ratings:stars curSR="${cmd.ratings.overall}"/>
+                            </div>
+                            <div class=""><h3 class="bottom">${cmd.ratings.overall} ${addSToStar}</h3>
+                            </div>
+
+                        </c:when>
+                        <c:otherwise>
+                            <div class="ptl"><!-- do not collapse --></div>
+                            <p class="small">There are no reviews yet<br/>for this school. Be the first!</p>
+                        </c:otherwise>
+                    </c:choose>
                     <!--<span class="sprite stars_xl_${cmd.ratings.overall}_b"-->
                     <!--title="${cmd.ratings.overall} star rating">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
 
@@ -102,10 +111,11 @@
                             </div>
                         </div>
                     </c:if>
+                    <c:if test="${cmd.ratings.count gt 0}">
                     <div class="pvm"><hr class="keyline2" /></div>
                     <!--<div class="spacer_10 brdbtm_dotted">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                     <!--<div class="spacer_10">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
-
+                    </c:if>
                     <!-- DONE-10495 - Randall - START subcategory ratings -->
                     <c:set var="aboutTheseRatings">
 
@@ -138,15 +148,15 @@
                                 <!--${aboutTheseRatings}-->
                             </div>
                         </c:when>
-                        <c:when test="${cmd.ratings.count gt 0}">
-                            <div>
-                                <!--${aboutTheseRatings}-->
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="spacer_5"><!-- do not collapse --></div>
-                            <p class="small">There are no reviews yet<br/>for this school. Be the first!</p>
-                        </c:otherwise>
+                        <!--<c:when test="${cmd.ratings.count gt 0}">-->
+                            <!--<div>-->
+                                <!--&lt;!&ndash;${aboutTheseRatings}&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</c:when>-->
+                        <!--<c:otherwise>-->
+                            <!--<div class="spacer_5">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                            <!--<p class="small">There are no reviews yet<br/>for this school. Be the first!</p>-->
+                        <!--</c:otherwise>-->
                     </c:choose>
                     <!-- DONE-10495 - Randall - END subcategory ratings -->
 
