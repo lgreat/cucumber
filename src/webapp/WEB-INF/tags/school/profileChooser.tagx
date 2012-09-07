@@ -54,15 +54,16 @@
                     <div class="pam bg-F5F5F5">
                         <h4 class="bottom">Planning a visit?</h4>
                         <p class="small bottom">Download the school visit checklist</p>
-                        <select id="js_chooserSchoolType" name="schoolLevel" class="mvm">
-                            <option value="" selected="selected">Select a school level</option>
+                        <select id="js_chooserSchoolType" name="schoolLevel" class="mvm" autocomplete="off">
+                            <option value="selectALevel" selected="selected">Select a school level</option>
                             <option value="preschool">Preschool</option>
                             <option value="elementary">Elementary school</option>
                             <option value="middle">Middle school</option>
                             <option value="high">High school</option>
                         </select>
 
-                        <a target="_self" class="downloadGuide" href="javascript:void(0);">
+                        <a target="_self" class="downloadGuide" href="javascript:void(0);"
+                                onclick="if($('#js_chooserSchoolType').val() !== 'selectALevel'){s.tl(this,'d', '');}">
                             <button class="button-1 mlm">Download</button>
                         </a>
                     </div>
