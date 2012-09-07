@@ -1,9 +1,6 @@
 package gs.web.school;
 
-import gs.data.school.EspResponse;
-import gs.data.school.School;
-import gs.data.school.SchoolMedia;
-import gs.data.school.SchoolSubtype;
+import gs.data.school.*;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
@@ -258,6 +255,38 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         assertEquals( "testSupportData: retrieval of transportation_shuttle_other failed", routeInfo, shuttleOtherInfo.get(0) );
     }
 
+    // Tests academic award and year are correctly formatted
+    public void testAcademicAward() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "academic_award_1", "Award one" ) );
+        l.add( createEspResponse( "academic_award_1_year", "2012" ) );
+        l.add( createEspResponse( "academic_award_2", "Award two" ) );
+
+        ModelMap map = runController( convertToEspData( l ) );
+
+        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
+        List<String> awards = resultsModel.get( "highlights/Awards/academic_award" );
+        assertEquals( "testAcademicAward: first award did not match", "Award one (2012)", awards.get(0) );
+        assertEquals( "testAcademicAward: second award did not match", "Award two", awards.get(1) );
+    }
+
+    // Tests reformatting of start_time and end_time
+    public void testTimeFormatting() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "start_time", "9:00 AM" ) );
+        l.add( createEspResponse( "end_time", "3:00 PM" ) );
+
+        ModelMap map = runController( convertToEspData( l ) );
+
+        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
+        List<String> startTime = resultsModel.get( "programs_resources/Basics/start_time" );
+        assertEquals( "testTimeFormatting: start time did not match", "9:00 a.m.", startTime.get(0) );
+        List<String> endTime = resultsModel.get( "programs_resources/Basics/end_time" );
+        assertEquals( "testTimeFormatting: end time did not match", "3:00 p.m.", endTime.get(0) );
+    }
+
     // Tests the None handling part of the display bean
     public void testNoneHandlingOneValue() {
 
@@ -370,7 +399,6 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
     }
 
     private Map<String,List<EspResponse>> convertToEspData(List<EspResponse> l) {
-//        return SchoolProfileDataHelper.espResultsToMap( l );
         return EspResponse.rollup(l);
     }
 
