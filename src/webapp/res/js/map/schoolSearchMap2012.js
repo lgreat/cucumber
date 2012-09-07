@@ -228,35 +228,30 @@ GS.map.getMap = GS.map.getMap ||(function(){
             var imageUrlPrivateOld = '/res/img/sprites/mapPins/x35/120906-mapPins-private-O.png';
             var imageUrlPrivateNew = '/res/img/sprites/mapPins/x35/120906-mapPins-private-RYG.png';
 
-            var pixelOffset = 320; // default to nr
+            var pixelOffset = 320; // default to public NR
 
             if (point.levelCode === 'p') {
                 imageUrl = imageUrlPreschool;
-            } else if (point.schoolType === 'private' &&
-                point.isNewGSRating != undefined && point.isNewGSRating === true) {
+            } else if (point.schoolType === 'private') {
+                pixelOffset = 350; //default to private NR
 
-                pixelOffset = 350; //default to nr
-                if (point.gsRating != "" && parseInt(point.gsRating) > 0) {
-                    pixelOffset = (point.gsRating -1) * 35;
+                if (point.gsRating != "" && parseInt(point.gsRating) > 0 && point.isNewGSRating != undefined && point.isNewGSRating === true) {
+                    pixelOffset = (point.gsRating - 1) * 35;
+                    imageUrl = imageUrlPrivateNew;
+                } else {
+                    imageUrl = imageUrlPrivateOld;
                 }
-                imageUrl = imageUrlPrivateNew;
 
-            } else if (point.schoolType === 'private' &&
-                point.isNewGSRating != undefined && point.isNewGSRating === false) {
-                imageUrl = imageUrlPrivateOld;
-                pixelOffset = 350; //default to nr
-            } else if ((point.schoolType === 'public' || point.schoolType === 'charter') &&
-                point.isNewGSRating != undefined && point.isNewGSRating === true) {
+            } else if ((point.schoolType === 'public' || point.schoolType === 'charter')) {
+
                 if (point.gsRating != "" && parseInt(point.gsRating) > 0) {
-                    pixelOffset = (point.gsRating -1) * 32;
+                    pixelOffset = (point.gsRating - 1) * 32;
                 }
-                imageUrl = imageUrlPublicNew;
-            } else if ((point.schoolType === 'public' || point.schoolType === 'charter') &&
-                point.isNewGSRating != undefined && point.isNewGSRating === false) {
-                if (point.gsRating != "" && parseInt(point.gsRating) > 0) {
-                    pixelOffset = (point.gsRating -1) * 32;
+                if (point.isNewGSRating != undefined && point.isNewGSRating === true) {
+                    imageUrl = imageUrlPublicNew;
+                } else {
+                    imageUrl = imageUrlPublicOld;
                 }
-                imageUrl = imageUrlPublicOld;
             }
 
             markerOptions.icon = new google.maps.MarkerImage(
