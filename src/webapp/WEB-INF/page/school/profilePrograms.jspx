@@ -139,17 +139,21 @@ where each entry is the first bean for that section, this allows access to the s
     <c:if test="${(!empty highlightstab || !empty applicationtab || !empty programsresourcestab || !empty extracurricularstab || !empty culturetab)}">
         <div data-gs-tabs="programs-culture-master" class="gsTabs">
             <ul class="tabStyle-5">
+                <c:set var="addDivider" value="false"/>
                 <c:if test="${(!empty highlightstab)}">
                     <profile:gsTab tabName="programs-culture" title="Programs and extras" tabText="Highlights" cssClass="${requestScope.schoolProfileTabMap['programs-culture']}"/>
+                    <c:set var="addDivider" value="true"/>
                 </c:if>
                 <c:if test="${(!empty programsresourcestab)}">
-                    <profile:gsTab tabName="programs-resources" title="Programs and resources" tabText="Programs &amp; resources" cssClass="${requestScope.schoolProfileTabMap['programs-resources']}" addDivider="true"/>
+                    <profile:gsTab tabName="programs-resources" title="Programs and resources" tabText="Programs &amp; resources" cssClass="${requestScope.schoolProfileTabMap['programs-resources']}" addDivider="${addDivider}"/>
+                    <c:set var="addDivider" value="true"/>
                 </c:if>
                 <c:if test="${(!empty extracurricularstab)}">
-                    <profile:gsTab tabName="extracurriculars" tabText="Extracurriculars" cssClass="${requestScope.schoolProfileTabMap.extracurriculars}" addDivider="true"/>
+                    <profile:gsTab tabName="extracurriculars" tabText="Extracurriculars" cssClass="${requestScope.schoolProfileTabMap.extracurriculars}" addDivider="${addDivider}"/>
+                    <c:set var="addDivider" value="true"/>
                 </c:if>
                 <c:if test="${(!empty culturetab)}">
-                    <profile:gsTab tabName="culture" tabText="Culture" cssClass="${requestScope.schoolProfileTabMap.culture}" addDivider="true"/>
+                    <profile:gsTab tabName="culture" tabText="Culture" cssClass="${requestScope.schoolProfileTabMap.culture}" addDivider="${addDivider}"/>
                 </c:if>
             </ul>
 
