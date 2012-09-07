@@ -183,7 +183,6 @@ Viewport: the width and height of each icon is 32px x 32px, the background posit
 
 /* **************** SPRITE ***************** */
 
-.mapPinsx48,
 .mapPinx48-district {
     display: inline-block;
     background-image: url(/res/img/sprites/mapPins/x48/120906-mapPins-district.png);
