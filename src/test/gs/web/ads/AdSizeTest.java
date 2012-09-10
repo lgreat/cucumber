@@ -85,5 +85,17 @@ public class AdSizeTest extends TestCase {
         size = new AdSize("AboveFold_Left_160x600");
         companionSize = size.getCompanionSize();
         assertNull(companionSize);
+
+        size = new AdSize("Sponsor_630x40");
+        companionSize = size.getCompanionSize();
+        assertNotNull(companionSize);
+        assertEquals(630, companionSize.getWidth());
+        assertEquals(145, companionSize.getHeight());
+
+        size = new AdSize("Sponsor_630x145");
+        companionSize = size.getCompanionSize();
+        assertNotNull(companionSize);
+        assertEquals(630, companionSize.getWidth());
+        assertEquals(40, companionSize.getHeight());
     }
 }

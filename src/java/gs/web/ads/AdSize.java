@@ -5,12 +5,18 @@ import org.apache.commons.lang.StringUtils;
 public class AdSize {
     final public static AdSize Size_300x250 = new AdSize(300,250);
     final public static AdSize Size_300x600 = new AdSize(300,600);
+    final public static AdSize Size_630x40 = new AdSize(630,40);
+    final public static AdSize Size_630x145 = new AdSize(630,145);
 
     public AdSize getCompanionSize() {
         if (this.equals(Size_300x250)) {
             return Size_300x600;
         } else if (this.equals(Size_300x600)) {
             return Size_300x250;
+        } else if (this.equals(Size_630x40)) {
+            return Size_630x145;
+        } else if (this.equals(Size_630x145)) {
+            return Size_630x40;
         }
         return null;
     }
