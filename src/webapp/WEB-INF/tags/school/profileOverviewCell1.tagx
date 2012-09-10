@@ -30,9 +30,10 @@
             </div>
             <div class="bd">
                 <jsp:doBody/>
-                <c:if test="${logoClass eq true}"><div class="pls small bottom">Source:
+                <c:if test="${logoClass eq true}"><div class="pls smallest bottom fr prm">Source:
                     <a href="http://www.bestplaces.net" target="_blank" class="noInterstitial"><gsml:img
-                            src="/res/img/geo/bestPlaces135x34.gif" alt="Sperling's Best Places"/></a></div>
+                            src="/res/img/school/overview/logo_sperlings_75x19.png" alt="Sperling's Best Places"/></a></div>
+                    <div style="clear:both;"><!-- do not collapse --></div>
                 </c:if>
             </div>
         </div>

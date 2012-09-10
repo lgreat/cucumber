@@ -97,7 +97,7 @@
                 <p class="small_bold textshadow-1 pvs plm bottom">${gsweb:abbreviateAtWhitespace(localInfoModel['title'],26)}</p>
             </c:set>
             <school:profileOverviewCell1 title="${t13s2}" logoClass="true">
-                <div class="mam" style="height:109px;">
+                <div class="mam" style="height:125px;">
                     <p class="small bottom">${localInfoModel['neighborhoodInfo']}</p>
                 </div>
             </school:profileOverviewCell1>
