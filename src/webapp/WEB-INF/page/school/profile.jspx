@@ -92,11 +92,9 @@
 
     <profile:facebookConfig showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
     <ad:setSlotPrefix slotPrefix="School_Profile_Page"/>
-    <ad:enableGptAsynchronousMode/>
+    <ad:enableGptAsynchronousMode />
     <ad:disableGptGhostTextHiding position="Header_728x90"/>
     <ad:disableGptGhostTextHiding position="Footer_728x90"/>
-    <ad:disableGptGhostTextHiding position="AboveFold_300x600"/>
-    <ad:omitCompanionSizes position="AboveFold_300x600"/>
     <!-- enableAdPosition tag must be used in profile.jspx for any ad imcluded within a profile module -->
     <ad:enableAdPosition position="Sponsor_630x40"/>
 </head>

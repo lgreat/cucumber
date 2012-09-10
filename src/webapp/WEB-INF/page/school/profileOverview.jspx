@@ -21,7 +21,7 @@
 
     <!-- Even though profileOverview.jspx is curently a module included in school profile,
         SessionContext is not shared among the modules, and so asyncronous mode must be enabled here -->
-    <ad:enableGptAsynchronousMode/>
+    <ad:enableGptAsynchronousMode />
 
     <div id="profileProgramsTabs">
     <!-- The page has different layouts depending if there is esp data or not -->
@@ -64,7 +64,9 @@
                     </div>
                 </div>
 
-                <ad:adTag position="Sponsor_630x40"/>
+                <c:if test="${empty param.tab or param.tab eq 'overview'}">
+                    <ad:adTag position="Sponsor_630x40"/>
+                </c:if>
 
                 <div class="line">   <!-- row 2, tiles 4-6 -->
                     <div class="unit size32of100">
@@ -185,7 +187,9 @@
                     </div>
                 </div>
 
-                <ad:adTag position="Sponsor_630x40"/>
+                <c:if test="${empty param.tab or param.tab eq 'overview'}">
+                    <ad:adTag position="Sponsor_630x40"/>
+                </c:if>
 
                 <div class="line">   <!-- row 2, tiles 4-6 -->
                     <div class="unit size32of100">

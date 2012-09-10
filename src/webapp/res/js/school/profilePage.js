@@ -56,12 +56,23 @@ GS.profile = GS.profile || (function() {
     var isHistoryAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
     var originalPageTitle;
     var originalQueryData;
+    var initialTab;
 
-    //TODO: find out ad slot names for profile
-    var adSlotPrefix = "School_Profile_Page";
-    var adSlotKeys = ['Footer_728x90', 'Header_728x90', 'Community_Ad_300x50',
-        'BelowFold_300x250', 'BelowFold_Top_300x125', 'AboveFold_300x600', 'Sponsor_630x40'];
+    var refreshbleNonOverviewAdSlotKeys = [
+        'School_Profile_Page_Footer_728x90',
+        'School_Profile_Page_Header_728x90',
+        'School_Profile_Page_Community_Ad_300x50',
+        'School_Profile_Page_BelowFold_300x250',
+        'School_Profile_Page_BelowFold_Top_300x125',
+        'School_Profile_Page_AboveFold_300x600'
+    ];
+    var refreshbleOverviewAdSlotKeys = refreshbleNonOverviewAdSlotKeys.slice(0);
 
+    var otherAdSlotKeys = [
+        'School_Profile_Page_Global_NavPromo_970x30',
+        'School_Profile_Page_Custom_Welcome_Ad',
+        'School_Profile_Page_Custom_Peelback_Ad'
+    ];
 
     var init = function() {
         originalPageTitle = document.title;
@@ -80,9 +91,11 @@ GS.profile = GS.profile || (function() {
         updateHistoryEntryWithCurrentTab();
         handleHashBang();
 
-        var i = adSlotKeys.length;
-        while(i--) {
-            adSlotKeys[i] = adSlotPrefix + '_' + adSlotKeys[i];
+        var currentTab = GS.tabManager.getCurrentTab();
+        //refreshAdsForTab(currentTab.name);
+        initialTab = currentTab;
+        if (initialTab.name === 'overview') {
+            refreshbleOverviewAdSlotKeys.push('School_Profile_Page_Sponsor_630x40');
         }
 
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
@@ -107,6 +120,14 @@ GS.profile = GS.profile || (function() {
             });
         }
         return this;
+    };
+
+    var refreshAdsForTab = function(tabName) {
+        if (tabName === "overview") {
+            refreshOverviewAds();
+        } else {
+            refreshNonOverviewAds();
+        }
     };
 
     var beforeTabChange = function(newTab) {
@@ -150,10 +171,9 @@ GS.profile = GS.profile || (function() {
             $('.infiniteCarousel11:visible').trigger('shown');
         }
 
-
         GS.tracking.sendOmnitureData(currentTab.name);
         GS_notifyQuantcastComscore();
-        refreshAds();
+        refreshAdsForTab(currentTab.name);
     };
 
     var getUpdatedTitle = function(tabTitle) {
@@ -199,13 +219,29 @@ GS.profile = GS.profile || (function() {
         }
     };
 
-    var refreshAds = function() {
-        GS.ad.refreshAds(adSlotKeys);
+    var refreshOverviewAds = function() {
+        //console.log('refreshing overview ads', refreshbleOverviewAdSlotKeys);
+        GS.ad.refreshAds(refreshbleOverviewAdSlotKeys);
+    };
+    var refreshNonOverviewAds = function() {
+        //console.log('refresh non overview ads', refreshbleNonOverviewAdSlotKeys);
+        GS.ad.refreshAds(refreshbleNonOverviewAdSlotKeys);
+    };
+    var initializeOverviewAds = function() {
+        //console.log('init overview ads', refreshbleOverviewAdSlotKeys.concat(otherAdSlotKeys));
+        //GS.ad.refreshAds(refreshbleOverviewAdSlotKeys.concat(otherAdSlotKeys));
+        GS.ad.refreshAds(['School_Profile_Page_Header_728x90']);
+    };
+    var initializeNonOverviewAds = function() {
+        //console.log('init non overview ads');
+        GS.ad.refreshAds(refreshbleNonOverviewAdSlotKeys.concat(otherAdSlotKeys));
     };
 
     return {
         init:init,
-        refreshAds:refreshAds
+        refreshAdsForTab:refreshAdsForTab,
+        initializeOverviewAds:initializeOverviewAds,
+        initializeNonOverviewAds:initializeNonOverviewAds
     };
 }());
 
