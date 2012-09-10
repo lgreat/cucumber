@@ -49,18 +49,18 @@
     <pageHelper:externalJavascript file="/res/js/googleMapsInfobox.min.js"/>
 
     <!-- uncomment to get un-minified -->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchForm.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/util/htmlMirrors.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/filters.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/ui/contentDropdowns.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/tracking/customLinks.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolResults.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/map/schoolSearchMap2012.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/history.min.js"/>-->
-    <!--<pageHelper:externalJavascript file="/res/js/compare/persistentCompare.js"/>-->
-    <pageHelper:externalJavascript file="/res/js/combined.search.min.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchForm.js"/>
+    <pageHelper:externalJavascript file="/res/js/util/htmlMirrors.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/filters.js"/>
+    <pageHelper:externalJavascript file="/res/js/ui/contentDropdowns.js"/>
+    <pageHelper:externalJavascript file="/res/js/tracking/customLinks.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/schoolResults.js"/>
+    <pageHelper:externalJavascript file="/res/js/map/schoolSearchMap2012.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsTable2012.js"/>
+    <pageHelper:externalJavascript file="/res/js/search/schoolSearchResultsPage2012.js"/>
+    <pageHelper:externalJavascript file="/res/js/history.min.js"/>
+    <pageHelper:externalJavascript file="/res/js/compare/persistentCompare.js"/>
+    <!--<pageHelper:externalJavascript file="/res/js/combined.search.min.js"/>-->
 
     <pageHelper:externalJavascript file="/res/js/bootstrap/bootstrap-tooltip.js"/>
     <pageHelper:externalJavascript file="/res/js/bootstrap/bootstrap-popover.js"/>
