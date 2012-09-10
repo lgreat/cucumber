@@ -31,7 +31,7 @@
 <c:set var="hasError" value="false"/>
 <c:set var="hasRating" value="false"/>
 <c:set var="overallRating" value="0"/>
-<c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_unavailable.gif"/>
+<c:set var="ratingImagePath" value="/res/img/ratings/profile/ratings_NR.gif"/>
 <c:set var="imageDesc" value="This school has not been rated because sufficient test score data is not available."/>
 <c:set var="pageName" value="Ratings" scope="request"/>
 
@@ -59,7 +59,7 @@
 <c:if test="${not empty ratingsCmd.overallRating.rating}">
     <c:set var="overallRating" value="${ratingsCmd.overallRating.rating}"/>
     <c:set var="hasRating" value="true"/>
-    <c:set var="ratingImagePath" value="/res/img/school/ratings/ratings_${overallRating}.gif"/>
+    <c:set var="ratingImagePath" value="/res/img/ratings/profile/ratings_${overallRating}.gif"/>
     <c:set var="imageDesc" value="GreatSchools Rating: ${overallRating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>
 </c:if>
 
