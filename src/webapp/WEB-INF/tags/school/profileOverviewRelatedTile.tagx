@@ -100,7 +100,7 @@
                     <div class="media">
                         <span class="iconx16 i-16-${fn:toLowerCase(videoResult.contentType)} img mrs"><!-- do not collapse --></span>
 
-                        <p class="bd fl small bottom">
+                        <p class="bd fl small bottom rConstrainContent">
                             <link:cmsContent contentKey="${videoResult.contentKey}"
                                              fullUri="${videoResult.fullUri}">
                                 <c:out value="${gsweb:abbreviateAtWhitespace(videoResult.title,charLimit)}" escapeXml="false"/>
@@ -115,7 +115,7 @@
                         <div class="media">
                             <span class="iconx16 i-16-${fn:toLowerCase(item.contentType)} img mrs"><!-- do not collapse --></span>
 
-                            <p class="bd fl small bottom">
+                            <p class="bd fl small bottom rConstrainContent">
                                 <link:cmsContent contentKey="${item.contentKey}"
                                                  fullUri="${item.fullUri}">
                                     <c:out value="${gsweb:abbreviateAtWhitespace(item.title,charLimit)}" escapeXml="false"/>
@@ -134,7 +134,7 @@
                         <div class="media">
                             <span class="iconx16 i-16-${fn:toLowerCase(item.contentType)} img mrs"><!-- do not collapse --></span>
 
-                            <p class="bd fl small bottom">
+                            <p class="bd fl small bottom rConstrainContent">
                                 <link:cmsContent contentKey="${item.contentKey}"
                                                  fullUri="${item.fullUri}">
                                     <c:out value="${gsweb:abbreviateAtWhitespace(item.title,charLimit)}" escapeXml="false"/>
