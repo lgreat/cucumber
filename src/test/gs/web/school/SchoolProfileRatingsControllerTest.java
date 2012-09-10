@@ -261,7 +261,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         // SECTION 3 COPY
 
         Object section3Copy = model.get(SchoolProfileRatingsController.MODEL_SECTION_3_COPY);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_WI, section3Copy);
+        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY, section3Copy);
 
 
         // SECTION 3 TEST SCORE RATING CHART
@@ -428,7 +428,6 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
     }
 
     public void testGetSection3Copy() {
-        School s = new School();
         String copy;
 
         // Milwaukee, no climate rating - data unavailable copy
@@ -436,40 +435,14 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         // temporarily remove rating for this test
         Object overallAcademicRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING);
 
-        s.setDatabaseState(State.WI);
-        copy = _controller.getSection3Copy(s, _dataMap);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_DATA_UNAVAILABLE, copy);
+        copy = _controller.getSection3Copy( _dataMap);
+        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY + " " + SchoolProfileRatingsController.SECTION_3_COPY_DATA_UNAVAILABLE, copy);
 
         // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING, overallAcademicRatingOrigValue);
 
-
-        // Milwaukee
-        s.setDatabaseState(State.WI);
-        copy = _controller.getSection3Copy(s, _dataMap);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_WI, copy);
-
-        // DC
-        s.setDatabaseState(State.DC);
-        copy = _controller.getSection3Copy(s, _dataMap);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_DC, copy);
-
-        // Indy
-        s.setDatabaseState(State.IN);
-        copy = _controller.getSection3Copy(s, _dataMap);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_IN, copy);
-
-        // unsupported state
-        boolean threwException = false;
-        s.setDatabaseState(State.AK);
-        try {
-            copy = _controller.getSection3Copy(s, _dataMap);
-        } catch (Exception e) {
-            threwException = true;
-            assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
-            assertEquals("School is from unsupported state", e.getMessage());
-        }
-        assertTrue(threwException);
+        copy = _controller.getSection3Copy(_dataMap);
+        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY, copy);
     }
 
 //    public void testGetSection3CopyPostSecondaryReadiness() {
@@ -714,7 +687,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         s.setDatabaseState(State.WI);
         copy = _controller.getSection4Copy(s, _dataMap);
-        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_WI, copy);
+        assertEquals(SchoolProfileRatingsController.SECTION_4_COPY_WI + " " + SchoolProfileRatingsController.SECTION_4_COPY_DATA_UNAVAILABLE, copy);
 
         // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_CLIMATE_RATING, overallClimateRatingOrigValue);

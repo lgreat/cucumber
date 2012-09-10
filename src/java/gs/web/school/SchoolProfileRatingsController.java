@@ -56,29 +56,21 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     "The academic rating measures students' test scores, academic growth and college readiness." +
                     " The climate rating measures safety, cleanliness, parent involvement and more.";
 
+    public static final String SECTION_3_COPY =
+            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
+                    "(for elementary and middle schools) and their readiness for college (for high schools)." +
+                    " The graphs below compare this school's results in each area to other schools in the city and state.";
     public static final String SECTION_3_COPY_DATA_UNAVAILABLE =
             "Unfortunately, this school doesn't have sufficient data to generate an academic rating.";
-    public static final String SECTION_3_COPY_DC =
-            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
-                    "(for elementary and middle schools) and their readiness for college (for high schools)." +
-                    " The graphs below compare this school's results in each area to other schools in the city and state.";
-    public static final String SECTION_3_COPY_IN =
-            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
-                    "(for elementary and middle schools) and their readiness for college (for high schools)." +
-                    " The graphs below compare this school's results in each area to other schools in the city and state.";
-    public static final String SECTION_3_COPY_WI =
-            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
-                    "(for elementary and middle schools) and their readiness for college (for high schools)." +
-                    " The graphs below compare this school's results in each area to other schools in the city and state.";
 
     public static final String TEST_SCORE_RATING_SOURCE_DC =
-            "Test scores are based on <a href=\"http://www.greatschools.org/students/local-facts-resources/453-testing-in-DC.gs\">2012 DC-CAS</a> results" +
+            "Test scores are based on <a href=\"/students/local-facts-resources/453-testing-in-DC.gs\">2012 DC-CAS</a> results" +
                     " from the District of Columbia.";
     public static final String TEST_SCORE_RATING_SOURCE_IN =
-            "Test scores are based on <a href=\"http://www.greatschools.org/students/local-facts-resources/442-testing-in-IN.gs\">2012 ISTEP and ECA</a> results" +
+            "Test scores are based on <a href=\"/students/local-facts-resources/442-testing-in-IN.gs\">2012 ISTEP and ECA</a> results" +
                     " from the state of Indiana.";
     public static final String TEST_SCORE_RATING_SOURCE_WI =
-            "Test scores are based on the <a href=\"http://www.greatschools.org/students/local-facts-resources/445-testing-in-WI.gs\">2011-2012 WSAS</a> results" +
+            "Test scores are based on the <a href=\"/students/local-facts-resources/445-testing-in-WI.gs\">2011-2012 WSAS</a> results" +
                     " from the state of Wisconsin.";
 
     public static final String STUDENT_GROWTH_RATING_SOURCE_DC =
@@ -111,9 +103,12 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     " The climate rating will be based on feedback from teachers about various aspects of their school's climate," +
                     " such as safety, cleanliness, expectations for students, parent involvement, and more.";
     public static final String SECTION_4_COPY_WI =
-            "Starting in fall 2012, we plan to include a climate rating as part of this school's overall GreatSchools Rating." +
-                    " The climate rating will be based on feedback from teachers about various aspects of their school's climate," +
-                    " such as safety, cleanliness, expectations for students, parent involvement, and more.";
+            "This rating encompasses five elements of school climate: safety and cleanliness, respect and " +
+                    "relationships, expectations for students, teacher collaboration and support, and parent " +
+                    "involvement. This school's climate ratings are the result of GreatSchools' analysis of teacher " +
+                    "survey data from the Spring 2011 School Climate Survey developed by Milwaukee Public Schools.";
+    public static final String SECTION_4_COPY_DATA_UNAVAILABLE =
+            "Unfortunately, this school didn't provide enough survey responses to generate a climate rating.";
 
     public static final String SECTION_4_SCHOOL_ENVIRONMENT_COPY="This rating evaluates a school's " +
             "environment, based on its safety, order, cleanliness and more.  More highly rated schools have well-kept facilities " +
@@ -367,7 +362,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static void populateSection3Model(School school, Map<String,Object> dataMap,ModelMap model) {
 
         // SECTION 3 COPY
-        model.put(MODEL_SECTION_3_COPY, getSection3Copy(school, dataMap));
+        model.put(MODEL_SECTION_3_COPY, getSection3Copy(dataMap));
 
         // SECTION 3 CHARTS
 
@@ -495,20 +490,13 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    public static String getSection3Copy(School school, Map<String,Object> dataMap) {
-        if (State.DC.equals(school.getDatabaseState())) {
-            return SECTION_3_COPY_DC;
-        } else if (State.IN.equals(school.getDatabaseState())) {
-            return SECTION_3_COPY_IN;
-        } else if (State.WI.equals(school.getDatabaseState())) {
-            if (dataMap.containsKey(DATA_OVERALL_ACADEMIC_RATING)) {
-                return SECTION_3_COPY_WI;
-            } else {
-                return SECTION_3_COPY_DATA_UNAVAILABLE;
-            }
-        } else {
-            throw new IllegalArgumentException("School is from unsupported state");
+    public static String getSection3Copy(Map<String,Object> dataMap) {
+        StringBuilder s = new StringBuilder(SECTION_3_COPY);
+        if (!dataMap.containsKey(DATA_OVERALL_ACADEMIC_RATING)) {
+            s.append(" ");
+            s.append(SECTION_3_COPY_DATA_UNAVAILABLE);
         }
+        return s.toString();
     }
 
     // ===================== Section 4 ==============================
@@ -543,7 +531,12 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (State.IN.equals(school.getDatabaseState())) {
             return SECTION_4_COPY_IN;
         } else if (State.WI.equals(school.getDatabaseState())) {
-            return SECTION_4_COPY_WI;
+            StringBuilder s = new StringBuilder(SECTION_4_COPY_WI);
+            if (!dataMap.containsKey(DATA_OVERALL_CLIMATE_RATING)) {
+                s.append(" ");
+                s.append(SECTION_4_COPY_DATA_UNAVAILABLE);
+            }
+            return s.toString();
         } else {
             throw new IllegalArgumentException("School is from unsupported state");
         }
