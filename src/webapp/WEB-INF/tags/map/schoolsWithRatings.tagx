@@ -151,12 +151,15 @@ function initSchoolInfo() {
     mySchool.ratingHtml = '';
     <c:if test="${schoolWithRatings.rating ne null and schoolWithRatings.rating gt 0 and schoolWithRatings.rating lt 11}">
 
-        var oldSchoolProfileRatingImg = '<span class="ratingx24-public-O r-24-${schoolWithRatings.rating}"><!-- do not collapse --></span>';
-        var newSchoolProfileRatingImg = '<span class="ratingx24-public-RYG r-24-${schoolWithRatings.rating}"><!-- do not collapse --></span>';
+        var oldSchoolProfilePublicRatingImg = '<span class="ratingx24-public-O r-24-${schoolWithRatings.rating}"><!-- do not collapse --></span>';
+        var newSchoolProfilePublicRatingImg = '<span class="ratingx24-public-RYG r-24-${schoolWithRatings.rating}"><!-- do not collapse --></span>';
+        var oldSchoolProfilePrivateRatingImg = '<span class="ratingx24-private-O r-24-${schoolWithRatings.rating}"><!-- do not collapse --></span>';
+        var newSchoolProfilePrivateRatingImg = '<span class="ratingx24-private-RYG r-24-${schoolWithRatings.rating}"><!-- do not collapse --></span>';
 
-        schoolRatingImg = (mySchool.isNewGSRating==='true') ? newSchoolProfileRatingImg : oldSchoolProfileRatingImg;
-        if (mySchool.type == 'private' &amp;&amp; mySchool.isNewGSRating==='true') {
-            schoolRatingImg = '<span class="ratingx24-private-O r-24-${schoolWithRatings.rating}"><!-- do not collapse --></span>';
+        if (mySchool.type == 'private') {
+           schoolRatingImg = (mySchool.isNewGSRating === 'true') ? newSchoolProfilePrivateRatingImg : oldSchoolProfilePrivateRatingImg;
+        } else {
+           schoolRatingImg = (mySchool.isNewGSRating === 'true') ? newSchoolProfilePublicRatingImg : oldSchoolProfilePublicRatingImg;
         }
         mySchool.ratingHtml = '<div class="schoolRating"><div>GreatSchools Rating</div>' +
                            schoolRatingImg +
@@ -260,29 +263,39 @@ function renderSchools(bounds, filterLevelCode) {
                     var imageValue = curSchool.rating;
                     if (imageValue == 0 || (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1)) {
                         if (curSchool.levelCode == 'p') {
-                            imageValue = 'preschool';
+//                            imageValue = 'preschool';
+                            icon.image = '/res/img/mapPins/preschool/preschool.png';
                         } else if (alwaysUsePreIconsForPreschools && curSchool.levelCode.indexOf('p') != -1) {
-                            imageValue = 'preschool';
+//                            imageValue = 'preschool';
+                            icon.image = '/res/img/mapPins/preschool/preschool.png';
                         } else if (curSchool.type == 'private') {
-                            imageValue = (curSchool.isNewGSRating ==='true') ? 'private' : 'private';
-                        }  else {
-                            imageValue = (curSchool.isNewGSRating ==='true') ? 'na': 'na';
+//                            imageValue = (curSchool.isNewGSRating ==='true') ? 'private' : 'private';
+                            icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/private/RYG/private_RGY_NR.png'
+                                    : '/res/img/mapPins/private/O/private_orange_NR.png';
+                        } else {
+//                            imageValue = (curSchool.isNewGSRating ==='true') ? 'na': 'na';
+                            icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/public/RYG/RGY_NR.png'
+                                    : '/res/img/mapPins/public/O/orange_NR.png';
                         }
-                    }else{
+                    } else {
                         if (curSchool.type == 'private') {
-                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
-                        }else{
-                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
+//                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
+                            icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/private/RYG/private_RGY_' + imageValue + '.png' :
+                                    '/res/img/mapPins/private/O/private_orange_' + imageValue + '.png';
+                        } else {
+//                            imageValue = (curSchool.isNewGSRating ==='true') ? curSchool.rating : curSchool.rating;
+                            icon.image = (curSchool.isNewGSRating === 'true') ? '/res/img/mapPins/public/RYG/RGY_' + imageValue + '.png' :
+                                    '/res/img/mapPins/public/O/orange_' + imageValue + '.png';
                         }
                     }
-                    icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
-                    icon.shadow = "/res/img/map/GS_gsr_1_backgroundshadow.png";
-                    icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_forground_trans.png";
-                    icon.iconSize = new GSize(42, 41);
+//                    icon.image = "/res/img/map/GS_gsr_" + imageValue + "_forground.png";
+//                    icon.shadow = "/res/img/map/GS_gsr_1_backgroundshadow.png";
+//                    icon.transparent = "/res/img/map/GS_gsr_" + imageValue + "_forground_trans.png";
+//                    icon.iconSize = new GSize(42, 41);
                     icon.iconAnchor = new GPoint(14, 39);
                     icon.infoWindowAnchor = new GPoint(21, 2);
                     icon.infoShadowAnchor = new GPoint(21, 2);
-                    icon.shadowSize = new GSize(42, 41);
+//                    icon.shadowSize = new GSize(42, 41);
                     marker = new GMarker(curSchool.location, {icon: icon, title: tooltip});
                     if (useBubbles) {
                         addBubbleListener(marker, curSchool);
