@@ -391,7 +391,8 @@ var Boundary = (function (){
                 , $sprite = $(spriteTemplate)
                 , badge = (school.rating > 0 && school.rating < 11) ? school.rating : 'NA';
             if (school.schoolType!='private' && !(school.schoolType=='charter' && !school.districtId)){
-                $sprite.addClass('ratingx24-public-O r-24-' + badge);
+                var spriteClass = school.isNewGSRating===true ? 'ratingx24-public-RYG r-24-' : 'ratingx24-public-O r-24-';
+                $sprite.addClass(spriteClass + badge);
                 $name.append(school.name);
                 var $listItem = $(itemTemplate).attr('id',school.getKey()).append($sprite).append($name).attr('id', school.getKey());
                 $listItem.data('school', school);

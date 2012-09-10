@@ -578,9 +578,9 @@ Mappable.prototype = {
     }
     , getMarkerOrigin: function() {
         var xoffset = this.iconSize * 10;
-        if (this.schoolType && this.schoolType=='private') xoffset = this.iconSize * 11;
-        if (this.rating > 0 && this.rating < 11) xoffset = this.iconSize * (this.rating-1);
-
+        if (this.rating > 0 && this.rating < 11) {
+            xoffset = this.iconSize * (this.rating - 1);
+        }
         return new google.maps.Point(xoffset, 0);
     }
     , getMarkerAnchor: function() {
@@ -666,10 +666,16 @@ District.prototype.constructor = District;
 
 var School = function(){
     if (arguments.length) $.extend(this, arguments[0]);
-    this.iconSize = 32;
 
-    if (this.schoolType=='private') this.iconUrl = '/res/img/sprites/mapPins/x35/120906-mapPins-private-O.png';
-    else this.iconUrl = '/res/img/sprites/mapPins/x32/120906-mapPins-public-O.png';
+    this.iconSize = this.schoolType == 'private' ? 35 : 32;
+
+    if (this.schoolType == 'private') {
+        this.iconUrl = this.isNewGSRating === true ? '/res/img/sprites/mapPins/x35/120906-mapPins-private-RYG.png' :
+            '/res/img/sprites/mapPins/x35/120906-mapPins-private-O.png';
+    } else {
+        this.iconUrl = this.isNewGSRating === true ? '/res/img/sprites/mapPins/x32/120906-mapPins-public-RYG.png' :
+            '/res/img/sprites/mapPins/x32/120906-mapPins-public-O.png';
+    }
     Mappable.apply(this, arguments);
 };
 School.prototype = $.extend(Mappable.prototype, {});

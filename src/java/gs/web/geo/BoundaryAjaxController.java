@@ -11,6 +11,7 @@ import gs.data.json.JSONObject;
 import gs.data.school.*;
 import gs.data.school.district.District;
 import gs.data.school.district.IDistrictDao;
+import gs.data.search.beans.SolrSchoolSearchResult;
 import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
 import gs.data.search.beans.IDistrictSearchResult;
@@ -509,6 +510,7 @@ public class BoundaryAjaxController {
         map.put("lon", school.getLon());
         map.put("type", "school");
         map.put("schoolType", school.getType().getSchoolTypeName());
+        map.put("isNewGSRating",school.getIsNewGSRating());
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         map.put("url", urlBuilder.asSiteRelative(request));
         Map address = new HashMap();
@@ -526,7 +528,7 @@ public class BoundaryAjaxController {
         return map;
     }
 
-    private Map map ( ISchoolSearchResult school, District district, int rating, HttpServletRequest request) {
+    private Map map ( SolrSchoolSearchResult school, District district, int rating, HttpServletRequest request) {
         Map data = new HashMap();
         data.put("state", school.getDatabaseState().toString());
         data.put("id", school.getId());
@@ -536,6 +538,7 @@ public class BoundaryAjaxController {
         data.put("rating", rating);
         data.put("type", "school");
         data.put("schoolType", school.getSchoolType());
+        data.put("isNewGSRating",school.getIsNewGSRating());
         School schoolFacade = new School();
         schoolFacade.setId(school.getId());
         schoolFacade.setDatabaseState(school.getDatabaseState());
