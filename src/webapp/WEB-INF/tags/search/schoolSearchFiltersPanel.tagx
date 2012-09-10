@@ -84,11 +84,11 @@
                     <div class="small bottom"><strong>GreatSchools Rating</strong></div>
                     <search:dropdownFilters id="ratingCategories" cssClass="mbl" label="All" hideApplyReset="${true}" noclear="${true}">
                             <search:searchFilterWithCount name="ratingCategories" styleClass="js-advFilters"
-                                                          value="low" label="Low 1-3" omnitureCustomLink="GSRatings_Poor"/>
+                                                          value="low" label="Below average 1-3" omnitureCustomLink="GSRatings_Poor"/>
                             <search:searchFilterWithCount name="ratingCategories" styleClass="js-advFilters"
                                                           value="average" label="Average 4-6" omnitureCustomLink="GSRatings_Average"/>
                             <search:searchFilterWithCount name="ratingCategories" styleClass="js-advFilters"
-                                                          value="high" label="High 7-10" omnitureCustomLink="GSRatings_Good"/>
+                                                          value="high" label="Above average 7-10" omnitureCustomLink="GSRatings_Good"/>
                     </search:dropdownFilters>
                     <hr class="keyline1"/>
                     <div class="mtm">
