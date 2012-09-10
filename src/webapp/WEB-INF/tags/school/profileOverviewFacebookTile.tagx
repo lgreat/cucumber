@@ -32,7 +32,8 @@
                                             <h4 class="bottom">Go behind the scenes</h4>
                                         </div>
                                         <div class="bd">
-                                            <a href="" class="small bottom">See the latest buzz at<br />this school</a>
+                                            <gslink:linkToTab tabName="culture" customLink="overview_facebook" cssClass="small bottom js-trigger rlh">
+                                            See the latest buzz at<br />this school</gslink:linkToTab>
                                         </div>
                                     </div>
                                 </div>
