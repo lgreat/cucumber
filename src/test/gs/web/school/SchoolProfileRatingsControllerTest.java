@@ -436,7 +436,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         Object overallAcademicRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING);
 
         copy = _controller.getSection3Copy( _dataMap);
-        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY + " " + SchoolProfileRatingsController.SECTION_3_COPY_DATA_UNAVAILABLE, copy);
+        assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_DATA_UNAVAILABLE, copy);
 
         // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING, overallAcademicRatingOrigValue);

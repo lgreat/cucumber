@@ -58,10 +58,12 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     public static final String SECTION_3_COPY =
             "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
-                    "(for elementary and middle schools) and their readiness for college (for high schools)." +
-                    " The graphs below compare this school's results in each area to other schools in the city and state.";
+                    "(for elementary and middle schools) and their readiness for college (for high schools). " +
+                    "The graphs below compare this school's results in each area to other schools in the city and state.";
     public static final String SECTION_3_COPY_DATA_UNAVAILABLE =
-            "Unfortunately, this school doesn't have sufficient data to generate an academic rating.";
+            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
+                    "(for elementary and middle schools) and their readiness for college (for high schools). " +
+                    "Unfortunately, this school doesn't have sufficient data to generate an academic rating.";
 
     public static final String TEST_SCORE_RATING_SOURCE_DC =
             "Test scores are based on <a href=\"/students/local-facts-resources/453-testing-in-DC.gs\">2012 DC-CAS</a> results" +
@@ -491,12 +493,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     }
 
     public static String getSection3Copy(Map<String,Object> dataMap) {
-        StringBuilder s = new StringBuilder(SECTION_3_COPY);
-        if (!dataMap.containsKey(DATA_OVERALL_ACADEMIC_RATING)) {
-            s.append(" ");
-            s.append(SECTION_3_COPY_DATA_UNAVAILABLE);
+        if (dataMap.containsKey(DATA_OVERALL_ACADEMIC_RATING)) {
+            return SECTION_3_COPY;
+        } else {
+            return SECTION_3_COPY_DATA_UNAVAILABLE;
         }
-        return s.toString();
     }
 
     // ===================== Section 4 ==============================
