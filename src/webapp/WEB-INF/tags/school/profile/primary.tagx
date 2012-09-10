@@ -73,7 +73,7 @@
                 <profile:gsTab tabName="overview" title="${gsweb:schoolPageTitle(school)}" tabText="Overview" cssClass="${requestScope.schoolProfileTabMap['overview-master']}"/>
             </c:if>
             <c:if test="${(!empty reviews)}">
-                <profile:gsTab tabName="reviews" tabText="Reviews" cssClass="${requestScope.schoolProfileTabMap['reviews-master']}"/>
+                <profile:gsTab tabName="reviews" title="Parent Reviews" tabText="Reviews" cssClass="${requestScope.schoolProfileTabMap['reviews-master']}"/>
             </c:if>
             <c:if test="${(!empty testscores) or (!empty ratings)}">
                 <profile:gsTab tabName="testsAndRatings" tabToLinkTo="test-scores" title="Test Scores" tabText="Test scores" cssClass="${requestScope.schoolProfileTabMap['test-scores-master']}"/>
