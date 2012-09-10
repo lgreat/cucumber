@@ -12,6 +12,7 @@
         xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
         xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         xmlns:link="urn:www.greatschools.org/taglib/link"
+        xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
         xmlns:gsweb="gstaglib"
         >
 <jsp:directive.page import="gs.data.geo.City"/>
@@ -188,32 +189,9 @@
                                 <link:schoolProfileOverview school="${s.school}" title="${s.name}">${s.name}</link:schoolProfileOverview>
                             </td>
                             <td style="text-align: right" class="dottedLineBottomBox">
-                                <c:choose>
-                                    <c:when test="${s.school.isNewGSRating}">
-                                        <c:set var="ratingValue" value="nr"/>
-                                        <!-- top rated school interface return int, not Integer so we don't check for empty-->
-                                        <c:if test="${s.rating > 0}">
-                                            <c:set var="ratingValue" value="${s.rating}"/>
-                                        </c:if>
+                                <ratings:ratingsSprite isNewGsRating="${s.school.isNewGSRating}" gsRating="${s.rating}"
+                                                       schoolType="${s.school.type}" isPreschoolOnly="${s.school.levelCode eq 'p'}" spriteSize="small"/>
 
-                                        <c:choose>
-                                            <c:when test="${s.school.type eq 'private'}">
-                                                <span class="ratingx24-private-RYG r-24-${ratingValue}"><!-- do not collapse --></span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="ratingx24-public-RYG r-24-${ratingValue}"><!-- do not collapse --></span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="ratingValue" value="na"/>
-                                        <!-- top rated school interface return int, not Integer so we don't check for empty-->
-                                        <c:if test="${s.rating > 0}">
-                                            <c:set var="ratingValue" value="${s.rating}"/>
-                                        </c:if>
-                                        <span class="ratingx24-public-O r-24-${ratingValue}"><!-- do not collapse --></span>
-                                    </c:otherwise>
-                                </c:choose>
                             </td>
                         </tr>
                     </c:forEach>
