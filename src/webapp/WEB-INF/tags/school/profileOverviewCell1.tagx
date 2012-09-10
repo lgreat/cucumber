@@ -31,7 +31,7 @@
             <div class="bd">
                 <jsp:doBody/>
                 <c:if test="${logoClass eq true}"><div class="pls smallest bottom fr prm">Source:
-                    <a href="http://www.bestplaces.net" target="_blank" class="noInterstitial"><gsml:img
+                    <a  onclick="if (s.tl) { s.tl(this, 'o', 'sperlings_overview'); }" href="http://www.bestplaces.net" target="_blank" class="noInterstitial"><gsml:img
                             src="/res/img/school/overview/logo_sperlings_75x19.png" alt="Sperling's Best Places"/></a></div>
                     <div style="clear:both;"><!-- do not collapse --></div>
                 </c:if>

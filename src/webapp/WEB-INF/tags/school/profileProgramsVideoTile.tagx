@@ -18,7 +18,7 @@
     <c:choose>
         <c:when test="${content eq 'video'}">
             <!-- Randall - This is from the profileOverviewVideoTile.tagx -->
-            <a href="${videoUrl}" class="tdn" target="_blank">
+            <a onclick="if (s.tl) { s.tl(this, 'o', 'culture_videos'); }"  href="${videoUrl}" class="tdn" target="_blank">
                 <school:profileCell2 title="${t2dc}" boxShadow="box-shadow-animation-1">
                     <!-- Show generic video icon and clicking on it takes you to the video at videoUrl -->
                     <div class="mam media">
