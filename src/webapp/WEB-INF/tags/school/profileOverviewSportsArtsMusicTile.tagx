@@ -46,7 +46,7 @@
                         <c:when test="${empty boysSports and empty girlsSports}">
                             <!-- No girls or boys sports -->
                             <div class="unit size50of100">
-                                <p><em>Call the school for more information</em></p>
+                                <p><em>Information not yet provided</em></p>
                             </div>
                         </c:when>
                         <c:when test="${not empty boysSports and empty girlsSports}">
@@ -78,7 +78,7 @@
                         <div style="height: 100px;border-left: 1px solid #e6e6e6;">
                             <c:choose>
                                 <c:when test="${empty arts}">
-                                    <p class="mhm"><em>Call the school for more information</em></p>
+                                    <p class="mhm"><em>Information not yet provided</em></p>
                                 </c:when>
                                 <c:otherwise>
                                     <ul class="small bottom">
@@ -103,7 +103,7 @@
                         <div style="height: 100px;border-left: 1px solid #e6e6e6;">
                             <c:choose>
                                 <c:when test="${empty music}">
-                                    <p class="mhm"><em>Call the school for more information</em></p>
+                                    <p class="mhm"><em>Information not yet provided</em></p>
                                 </c:when>
                                 <c:otherwise>
                                     <ul class="small bottom">

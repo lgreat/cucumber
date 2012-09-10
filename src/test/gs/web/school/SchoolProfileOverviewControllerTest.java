@@ -882,7 +882,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
         assertEquals( "testTransportationDefaultB: icon wrong", "metro", resultsModel.get( "icon") );
-        assertEquals( "testTransportationDefaultB: shuttleStops wrong", "Shuttles are provide to local Metro stops", resultsModel.get( "transMsg") );
+        assertEquals( "testTransportationDefaultB: shuttleStops wrong", "Shuttles provided to local Metro stops", resultsModel.get( "transMsg") );
         System.out.println( "testTransportationDefaultB successful" );
     }
 
@@ -939,7 +939,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         Map resultsModel = _schoolProfileOverviewController.getTransportationEspTile( _request, _school, espData );
 
         assertEquals( "testTransportationDefaultF: icon wrong", "bus", resultsModel.get( "icon") );
-        assertEquals( "testTransportationDefaultF: message wrong", "Busses/vans provide for students only", resultsModel.get( "transMsg") );
+        assertEquals( "testTransportationDefaultF: message wrong", "Busses/vans provided for students", resultsModel.get( "transMsg") );
         System.out.println( "testTransportationDefaultF successful" );
     }
 

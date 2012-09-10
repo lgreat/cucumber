@@ -811,7 +811,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             else if( isTranspShuttleYes && isEmpty(transpShuttleOther)  ) {
                 // Option b from spec - Display Metro icon and static message
                 model.put( "icon", "metro" );
-                model.put( "transMsg", "Shuttles are provide to local Metro stops" );
+                model.put( "transMsg", "Shuttles provided to local Metro stops" );
             }
             else if( isTranspShuttleNo && isEmpty(transp) && isEmpty(transpOther) ) {
                 // Option c from spec - Display Walking person icon and static message
@@ -831,7 +831,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             else if( checkEspResponseListForValue(transp, new String[]{"busses"}) ) {
                 // Option f from spec - Display bus icon static & message
                 model.put( "icon", "bus" );
-                model.put( "transMsg", "Busses/vans provide for students only" );
+                model.put( "transMsg", "Busses/vans provided for students" );
             }
             else if( checkEspResponseListForValue(transp, new String[]{"shared_bus"}) ) {
                 // Option g from spec - Display handicapped icon & static message
