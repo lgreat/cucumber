@@ -95,7 +95,7 @@
                                                               rowList="${chances}" acceptanceHeader="${not empty acceptanceRate}"/>
                                 <enrollment:enrollmentTilesTableHelper tableTitle="What does it cost?"
                                                               rowList="${cost}"/>
-                                <enrollment:enrollmentTilesTableHelper tableTitle="Planning Ahead"
+                                <enrollment:enrollmentTilesTableHelper tableTitle="Planning ahead"
                                                                 rowList="${planningAhead}"/>
                             </div>
                         </div>
