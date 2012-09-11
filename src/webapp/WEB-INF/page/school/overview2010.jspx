@@ -129,7 +129,8 @@ href="/res/css/school/parentReviewForm_ie7.css" />
 
             <div class="spacer_5"><!-- do not collapse --></div>
             <link:schoolProfileRating school="${school}">
-                <span class="sprite badge_lg_${gs_rating}_b"><!-- do not collapse --></span>
+                <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${gs_rating}" schoolType="${school.type.schoolTypeName}" isPreschoolOnly="${school.levelCode eq 'p'}" spriteSize="large"/>
+                <!--<span class="sprite badge_lg_${gs_rating}_b">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
             </link:schoolProfileRating>
 
             <div class="spacer_5"><!-- do not collapse --></div>
