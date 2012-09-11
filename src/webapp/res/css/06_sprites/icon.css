@@ -77,7 +77,7 @@ Viewport: the width and height of each icon is 16px x 16px, the background posit
 
 .iconx16 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x16/120815-16x16.png);
+    background-image: url(/res/img/sprites/icon/x16/120911-16x16.png);
     width: 16px;
     height: 16px;
 }
@@ -315,7 +315,7 @@ a:active .i-16-search-filter-arrow-up {
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/120724-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/120911-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -373,6 +373,38 @@ a:active .i-16-search-filter-arrow-up {
 
 .i-24-public-school-badge {
     background-position: -288px 0;
+}
+
+.i-24-not-rated-badge {
+    background-position: -312px 0;
+}
+
+.i-24-public-high-badge {
+    background-position: -336px 0;
+}
+
+.i-24-private-high-badge {
+    background-position: 360px 0;
+}
+
+.i-24-public-medium-badge {
+    background-position: -384px 0;
+}
+
+.i-24-private-medium-badge {
+    background-position: -408px 0;
+}
+
+.i-24-public-low-badge {
+    background-position: -432px 0;
+}
+
+.i-24-private-low-badge {
+    background-position: -456px 0;
+}
+
+.i-24-district-badge {
+    background-position: -480px 0;
 }
 
 /* row 24 */
