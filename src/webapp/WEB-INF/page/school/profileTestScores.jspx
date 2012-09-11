@@ -209,7 +209,7 @@
         <!-- The message varies by school type which has been placed in the model -->
         <!-- FRONTEND: see file://greatfile/Public/Design/Design_Review/school_profile/index.html sub tab mocks > All versions, no data for styling guidelines -->
         <c:choose>
-            <c:when test="${schoolSubtype eq 'private'}">
+            <c:when test="${schoolType eq 'private'}">
                 <div class="rnd4 tac mbm noDataBox">
                     <div  class="padAmount">
                         <h3><strong>We currently do not have any test score information for this school.</strong>
