@@ -160,7 +160,7 @@
                     </c:choose>
                 </c:if>
                 <td class="tac"><div class="grayBoxForPieChartLegend" style=" background-color: ${schoolColorToShow};"><!-- do not collapse --></div></td>
-                <td>${row.text} <sup>${thisFootnote}</sup></td>
+                <td>${row.text}<sup>${thisFootnote}</sup></td>
                 ${schoolScoreToShow}
                 <!--<c:if test="${showDistrictData}">-->
                     <!--<c:choose>-->
