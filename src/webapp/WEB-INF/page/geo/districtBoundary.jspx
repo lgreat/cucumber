@@ -276,38 +276,47 @@
     <!-- TODO: update legend -->
     <div class="mtm tal grid_16">
 
-            <div class="media attribution fl mrm">
+            <div class="media attribution fl mrs">
                 <div class="img prs di">
-                    <span class="iconx24 i-24-district"><!-- do not collapse --></span>
+                    <span class="iconx24 i-24-district-badge"><!-- do not collapse --></span>
                 </div>
-                <div class="bd di vam">
+                <div class="bd di mts">
                     <span class="smaller">District</span>
                 </div>
             </div>
 
-            <div class="media attribution fl mrm">
+            <div class="media attribution fl mrs">
                 <div class="img prs di">
-                    <span class="iconx24 i-24-private-school"><!-- do not collapse --></span>
+                    <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
                 </div>
-                <div class="bd di vam">
-                    <span class="smaller">Private&amp;nbsp;School</span>
+                <div class="bd di mts">
+                    <span class="smaller">Private</span>
                 </div>
             </div>
 
-            <div class="media attribution fl mrm">
+            <div class="media attribution fl mrs">
                 <div class="img prs di">
-                    <span class="iconx24 i-24-public-charter-school"><!-- do not collapse --></span>
+                    <span class="iconx24 i-24-public-school-badge"><!-- do not collapse --></span>
                 </div>
-                <div class="bd di vam">
-                    <span class="smaller">Public/Charter&amp;nbsp;School</span>
+                <div class="bd di mts">
+                    <span class="smaller">Public/Charter</span>
                 </div>
             </div>
 
-            <div class="media attribution fl mrm">
+            <div class="media attribution fl mrs">
+                <div class="img prs di">
+                    <span class="iconx24 i-24-not-rated-badge"><!-- do not collapse --></span>
+                </div>
+                <div class="bd di mts">
+                    <span class="smaller">No Greatschools rating</span>
+                </div>
+            </div>
+
+            <div class="media attribution fl mrs">
                 <div class="img prs di">
                     <span class="iconx24 i-24-school-enrollment"><!-- do not collapse --></span>
                 </div>
-                <div class="bd di vam">
+                <div class="bd di mts">
                     <span class="smaller">School&amp;nbsp;Enrollment</span>
                 </div>
             </div>
@@ -316,7 +325,7 @@
                 <div class="img prs di">
                     <span class="iconx24 i-24-district-boundary"><!-- do not collapse --></span>
                 </div>
-                <div class="bd di vam">
+                <div class="bd di mts">
                     <span class="smaller">District&amp;nbsp;Boundary</span>
                 </div>
             </div>
