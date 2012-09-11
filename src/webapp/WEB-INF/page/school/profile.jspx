@@ -316,15 +316,17 @@
     <c:set var="schoolAddressWithName"
            value="${schoolAddress}+(${gsweb:escapeHtml(school.name)})"/>
     <!-- TODO: references mobile, needs accurate rating -->
+    <c:set var="overallRatingForMap" value="NR"/>
+    <c:if test="${not empty overallRating}">
+        <c:set var="overallRatingForMap" value="${overallRating}"/>
+    </c:if>
+
     <c:choose>
-        <c:when test="${not empty overallRating}">
-            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_${overallRating}.png"/>
-        </c:when>
         <c:when test="${school.type.schoolTypeName eq 'private'}">
-            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_private.png"/>
+            <c:set var="mapMarkerUrl" value="/res/img/mapPins/private/RYG/private_RGY_${overallRatingForMap}.png"/>
         </c:when>
         <c:otherwise>
-            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_na.png"/>
+            <c:set var="mapMarkerUrl" value="/res/img/mapPins/public/RYG/RGY_${overallRatingForMap}.png"/>
         </c:otherwise>
     </c:choose>
     <c:set var="mapMarkerParam" value="icon:http://www.greatschools.org${mapMarkerUrl}|${schoolAddress}"/>
