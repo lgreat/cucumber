@@ -270,7 +270,6 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
             }
         }
 
-        System.out.println("returning schools " + schools);
         return schools;
     }
 
