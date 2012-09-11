@@ -436,37 +436,44 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         if (schoolSize != null) {
             String minSchoolSize;
             String maxSchoolSize;
-            SchoolFilters.SchoolSize size = SchoolFilters.SchoolSize.valueOf(schoolSize);
-            switch (size) {
-                case UNDER_20:
-                    minSchoolSize = "1";
-                    maxSchoolSize = "19";
-                    break;
-                case UNDER_50:
-                    minSchoolSize = "1";
-                    maxSchoolSize = "49";
-                    break;
-                case UNDER_200:
-                    minSchoolSize = "1";
-                    maxSchoolSize = "199";
-                    break;
-                case UNDER_500:
-                    minSchoolSize = "1";
-                    maxSchoolSize = "499";
-                    break;
-                case UNDER_1000:
-                    minSchoolSize = "1";
-                    maxSchoolSize = "999";
-                    break;
-                case OVER_1000:
-                    minSchoolSize = "1000";
-                    maxSchoolSize = "*";
-                    break;
-                default:
-                    minSchoolSize = "1";
-                    maxSchoolSize = "9999";
+            SchoolFilters.SchoolSize size;
+            try {
+                size = SchoolFilters.SchoolSize.valueOf(schoolSize);
+            } catch (IllegalArgumentException _iae) {
+                size = null;
             }
-            q.filter(SchoolFields.SCHOOL_ENROLLMENT, minSchoolSize, maxSchoolSize);
+            if (size != null) {
+                switch (size) {
+                    case UNDER_20:
+                        minSchoolSize = "1";
+                        maxSchoolSize = "19";
+                        break;
+                    case UNDER_50:
+                        minSchoolSize = "1";
+                        maxSchoolSize = "49";
+                        break;
+                    case UNDER_200:
+                        minSchoolSize = "1";
+                        maxSchoolSize = "199";
+                        break;
+                    case UNDER_500:
+                        minSchoolSize = "1";
+                        maxSchoolSize = "499";
+                        break;
+                    case UNDER_1000:
+                        minSchoolSize = "1";
+                        maxSchoolSize = "999";
+                        break;
+                    case OVER_1000:
+                        minSchoolSize = "1000";
+                        maxSchoolSize = "*";
+                        break;
+                    default:
+                        minSchoolSize = "1";
+                        maxSchoolSize = "9999";
+                }
+                q.filter(SchoolFields.SCHOOL_ENROLLMENT, minSchoolSize, maxSchoolSize);
+            }
         }
 
         // handle logic that used to be taken care of with old "FieldConstraints"
@@ -1066,6 +1073,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         _mobileViewName = mobileViewName;
     }
 
-
-
+    /** For unit tests */
+    void setGsSolrSearcher(GsSolrSearcher gsSolrSearcher) {
+        _gsSolrSearcher = gsSolrSearcher;
+    }
 }
