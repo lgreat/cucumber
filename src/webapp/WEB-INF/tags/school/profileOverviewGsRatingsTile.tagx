@@ -37,14 +37,22 @@
                             <c:set var="climateRating">Not available</c:set>
                         </c:if>
 
-                        <c:if test="${!((climateRating gt '0')  and (climateRating lt '11'))}">
-                            <c:set var="climateRating"><em>${climateRating}</em></c:set>
-                        </c:if>
-                        <p class="small bottom mvs">Academic<span class="small_bold bottom fr mrs">${academicRating}</span></p>
+                        <!--<c:if test="${!((climateRating gt '0')  and (climateRating lt '11'))}">-->
+                            <!--<c:set var="climateRating"><em>${climateRating}</em></c:set>-->
+                        <!--</c:if>-->
+                        <p class="small bottom mvs">Academic<span class="ratingx24-public-RYG r-24-${academicRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
                         <hr class="keyline2"/>
-                        <p class="small bottom mvs">Climate<span class="small_bold bottom fr mrs">${climateRating}</span></p>
+                        <c:choose>
+                            <c:when test="${!((climateRating gt '0')  and (climateRating lt '11'))}">
+                                <p class="small bottom mvs">Climate<span class="small_bold bottom fr mrs"><em>${climateRating}</em></span></p>
+                            </c:when>
+                            <c:otherwise>
+                                <p class="small bottom mvs">Climate<span class="ratingx24-public-RYG r-24-${climateRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
+                            </c:otherwise>
+                        </c:choose>
+                        <!--<p class="small bottom mvs">Climate<span class="small_bold bottom fr mrs">${climateRating}</span></p>-->
                         <hr class="keyline2"/>
-                        <p class="small bottom mvs">Overall<span class="ratingx24-RYG r-24-${overallRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
+                        <p class="small bottom mvs">Overall<span class="ratingx24-public-RYG r-24-${overallRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
                         <hr class="keyline2"/>
                         <div class="line mts">
                             <div class="unit size33of100">
