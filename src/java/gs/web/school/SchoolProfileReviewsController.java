@@ -35,6 +35,7 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
     private RatingHelper _ratingHelper;
     private ISchoolDao _schoolDao;
     private IReviewDao _reviewDao;
+    private SchoolProfileDataHelper _schoolProfileDataHelper;
 
     @RequestMapping(method= RequestMethod.GET)
     /**
@@ -61,24 +62,26 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
             Set<Poster> reviewsBy = _parentReviewHelper.handleGetReviewsBy(reviewsByParam);
             Map<Poster,Integer> numReviewsBy;
 
+            ParentReviewHelper.ParentReviewCommand cmd = new ParentReviewHelper.ParentReviewCommand();
+
+            Ratings ratings = _schoolProfileDataHelper.getCommunityRatings(request);
+            cmd.setRatings(ratings);
+
             List<Review> reviews;
+            Long numberOfNonPrincipalReviews;
             if (!includeInactive) {
                 reviews = _reviewDao.getPublishedReviewsBySchool(school, reviewsBy);
                 numReviewsBy = _reviewDao.getNumPublishedReviewsBySchool(school, reviewsBy);
+                numberOfNonPrincipalReviews = ratings.getNumberOfReviews();
             } else {
                 reviews = _reviewDao.getPublishedDisabledReviewsBySchool(school, reviewsBy);
                 numReviewsBy = _reviewDao.getNumPublishedDisabledReviewsBySchool(school, reviewsBy);
+                numberOfNonPrincipalReviews = _reviewDao.countPublishedDisabledNonPrincipalReviewsBySchool(school, reviewsBy);
             }
 
-            ParentReviewHelper.ParentReviewCommand cmd = new ParentReviewHelper.ParentReviewCommand();
-
-            Ratings ratings = _reviewDao.findRatingsBySchool(school);
-            cmd.setRatings(ratings);
 
             _parentReviewHelper.handleLastModifiedDateInModel(model, school, reviewsBy, reviews);
             _parentReviewHelper.handleSortReviews(sortBy, reviews);
-
-            Long numberOfNonPrincipalReviews = _parentReviewHelper.handleNumberOfNonPrincipalReviews(school, reviewsBy, includeInactive);
 
             cmd.setSortBy(sortBy);
             cmd.setSchool(school);
@@ -177,4 +180,12 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
     public void setReviewDao(IReviewDao reviewDao) {
         _reviewDao = reviewDao;
     }
+    public SchoolProfileDataHelper getSchoolProfileDataHelper() {
+        return _schoolProfileDataHelper;
+    }
+
+    public void setSchoolProfileDataHelper(SchoolProfileDataHelper schoolProfileDataHelper) {
+        _schoolProfileDataHelper = schoolProfileDataHelper;
+    }
+
 }
