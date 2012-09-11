@@ -98,8 +98,8 @@
     </div>
     <div class="ft">
         <search:globalFilterBar includeDistance="${true}"/>
-         <search:schoolSearchFiltersPanel showAdvancedFilters="${byLocation}"/> <!--replace this to re-enable advanced filters -->
-        <!--<search:schoolSearchFiltersPanel showAdvancedFilters="${false}"/>-->
+        <!-- <search:schoolSearchFiltersPanel showAdvancedFilters="${byLocation}"/> replace this to re-enable advanced filters -->
+        <search:schoolSearchFiltersPanel showAdvancedFilters="${false}"/>
     </div>
 
 </div>
