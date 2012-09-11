@@ -101,7 +101,7 @@
                         <ul class="small bottom make-555555">
                             <c:choose>
                                 <c:when test="${empty programsModel['substitute2List']}">
-                                    <li>coed</li>
+                                    <li>Coed</li>
                                 </c:when>
                                 <c:otherwise>
                                     <c:set var="showMax" value="${3}"/>
