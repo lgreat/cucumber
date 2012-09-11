@@ -33,7 +33,13 @@
                         <c:set var="academicRating" value="${gsRatingsModel.academicRating}"/>
                         <c:set var="climateRating" value="${gsRatingsModel.climateRating}"/>
                         <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
+                        <c:if test="${climateRating eq 'Data not available'}">
+                            <c:set var="climateRating">Not available</c:set>
+                        </c:if>
 
+                        <c:if test="${!((climateRating gt '0')  and (climateRating lt '11'))}">
+                            <c:set var="climateRating"><em>${climateRating}</em></c:set>
+                        </c:if>
                         <p class="small bottom mvs">Academic<span class="small_bold bottom fr mrs">${academicRating}</span></p>
                         <hr class="keyline2"/>
                         <p class="small bottom mvs">Climate<span class="small_bold bottom fr mrs">${climateRating}</span></p>

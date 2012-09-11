@@ -42,7 +42,7 @@
                                                 ${overallAcademicRating} / 10
                                             </c:when>
                                             <c:otherwise>
-                                                <em>Not available</em>
+                                                Not available
                                             </c:otherwise>
                                         </c:choose>
                                     </strong>
@@ -52,7 +52,7 @@
                                     <br /><strong>
                                         <c:choose>
                                             <c:when test="${not empty climateRatingAvailabilityText}">
-                                                <em>${climateRatingAvailabilityText}</em>
+                                                ${climateRatingAvailabilityText}
                                             </c:when>
                                             <c:otherwise>
                                                 ${overallClimateRating} / 10
