@@ -137,7 +137,8 @@
             </div>
         </c:if>
 
-        <c:if test="${viewType eq '5'}">
+    <!--<c:if test="${viewType eq '5' && (!empty linkApplyNow)}">    -->
+    <c:if test="${(viewType eq '5') and (not empty linkApplyNow)}">
            <!--This is the single button version-->
             <div class="mod standard_1-1">
                 <div class="inner">
