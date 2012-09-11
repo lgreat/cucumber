@@ -164,17 +164,23 @@ GS.school.compare = (function() {
             contextSchoolId = $(this).data('id').toString();
             contextSchoolState = $(this).data('state');
             var found = false;
+            var sameState = true;
             if (schoolsInCompare!=null && schoolsInCompare != undefined && schoolsInCompare.length > 0){
                 for (var i=0;i<schoolsInCompare.length; i++){
+                    if (schoolsInCompare[i].state != contextSchoolState) {
+                        sameState = false;
+                        break;
+                    }
                     if (schoolsInCompare[i].schoolId == contextSchoolId && schoolsInCompare[i].state == contextSchoolState){
                         found = true;
+                        break;
                     }
                 }
                 compareModule.removeClass('dn');
             } else {
                 $('.js_compareNoSchools').removeClass('dn');
             }
-            if (!found) $(this).removeClass('dn');
+            if (!found && sameState) $(this).removeClass('dn');
         });
 
         //If there are schools in local storage/cookies then get the details of the schools by making an ajax call.
