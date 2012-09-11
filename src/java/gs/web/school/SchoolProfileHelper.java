@@ -39,8 +39,10 @@ public class SchoolProfileHelper {
                 handleCityCookie(request, response, school);
                 handleStateSpecificFooter(request, school, model);
 
-                // TODO-13114 Chuck will check with Liana on if it's needed for new profile. let's put it in the model just in case
-                handlePinItButton(request, school, model);
+                // GS-13114 commenting out pin-it button code for now because getting school summary hits the database,
+                //          the URL builder call needs refactoring because it's the same as the relCanonical URL builder,
+                //          and the pin-it button is not needed for the initial roll-out of the new school profile
+                //handlePinItButton(request, school, model);
             }
         } catch (Exception e) {
             _log.error("Error fetching data for school profile: " + e, e);
