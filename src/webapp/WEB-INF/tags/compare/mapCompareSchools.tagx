@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
         >
     <jsp:directive.tag body-content="scriptless"/>
@@ -36,7 +37,6 @@
             };
             GS_compareMapObject = new google.maps.Map(document.getElementById("compareMap"), myOptions);
 
-            var imageUrl;
             var preSelect;
             var centerPoint = null;
             var markerShadow = new google.maps.MarkerImage(
@@ -65,22 +65,15 @@
             });
             bounds.extend(latlng);
             <c:forEach var="school" items="${schools}">
-            <c:choose><c:when test="${school.gsRating ne null and school.gsRating gt 0}">
-            imageUrl = '/res/img/map/GS_gsr_${school.gsRating}_forground.png';
-            </c:when><c:when test="${school.private}">
-            imageUrl = '/res/img/map/GS_gsr_private_forground.png';
-            </c:when><c:otherwise>
-            imageUrl = '/res/img/map/GS_gsr_na_forground.png';
-            </c:otherwise></c:choose>
-
-            preSelect = ${(school.selected)?'true':'false'};
-            markerOptions.position = new google.maps.LatLng(${school.latLon.lat}, ${school.latLon.lon});
-            markerOptions.title = "${school.name}";
-            if (preSelect) {
-                centerPoint = markerOptions.position;
-            }
-            GS_addMarker(GS_compareMapObject, bounds, markerOptions, imageUrl, '${school.uniqueIdentifier}', preSelect);
-            numSchools++;
+                <ratings:ratingsMapPinUrl school="${school.school}"/>
+                preSelect = ${(school.selected)?'true':'false'};
+                markerOptions.position = new google.maps.LatLng(${school.latLon.lat}, ${school.latLon.lon});
+                markerOptions.title = "${school.name}";
+                if (preSelect) {
+                    centerPoint = markerOptions.position;
+                }
+                GS_addMarker(GS_compareMapObject, bounds, markerOptions, "${mapPinUrl}", '${school.uniqueIdentifier}', preSelect);
+                numSchools++;
             </c:forEach>
             if (numSchools > 1) {
                 GS_compareMapObject.fitBounds(bounds);
