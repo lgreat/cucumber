@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
-          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"
         >
 
     <jsp:directive.tag body-content="empty"
                        description="Contains the schools that the user has added to compare.This is a sticky module and follows the user araound."/>
-
-
-    <div id="js_compareModule" class="mod standard_1-1">
+    <jsp:directive.attribute name="school" type="gs.data.school.School" required="false" description="add this school to the list of schools to compare" />
+    <div id="js_compareModule" class="mod standard_1-1 ${!empty school ? 'dn':''}">
         <div class="inner">
-            <div class="hd">
+            <div class="hd" style="${!empty school ? 'overflow:hidden':''}">
                 <div class="fl"><h4 class="pvm plm bottom">Compare <span id="js_compareCount"><!-- do not collapse --></span></h4></div>
-                <div class="fr prm pvm "><button id="js_compareBtn" class="but but-smt but-2 dn">Compare now</button></div>
+                <div class="fr prm pvm "><button id="js_compareBtn" class="but but-smt but-2">Compare now</button></div>
             </div>
             <div class="bd compareScroll">
+                <c:if test="${!empty school}">
+                    <div class="plm pvm "><button id="js_compareAddBtn" class="but but-smt but-2 dn" data-state="${school.databaseState}" data-id="${school.id}">Add this school to compare</button></div>
+                </c:if>
                 <div id="js_compareSchoolsDiv">
                     <!-- Do not collapse -->
                 </div>

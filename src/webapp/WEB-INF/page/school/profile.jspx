@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:compare="urn:jsptagdir:/WEB-INF/tags/compare"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -72,6 +73,7 @@
     <script type="text/javascript" src="/res/js/bootstrap/bootstrap-tooltip.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/bootstrap/bootstrap-popover.js"><!-- no collapse --></script>
     <script type="text/javascript" src="/res/js/tracking/customLinks.js"><!-- no collapse --></script>
+    <script type="text/javascript" src="/res/js/compare/persistentCompare.js"><!-- no collapse --></script>
 
     <!--Needed for photogallery-->
     <script type="text/javascript" src="/res/js/omnitureEventNotifier.js"><!-- no collapse --></script>
@@ -87,6 +89,11 @@
                 }
                 GS_PieLoader = undefined;
             }});
+        });
+        $(document).ready(function(){
+            GS.school.compare.initializeSchoolsInCompare(function() {
+                return window.location.pathname;
+            });
         });
     </script>
 
@@ -391,17 +398,9 @@
     <div class="">
         <ad:adTag position="AboveFold_300x600"/>
 
-        <div class="mod standard_3-1">
-            <div class="outer">
-                <div class="inner">
-                    <div class="bd bg-nearbySchool">
-                        <h4 class="bottom">Compare this school
-                            <br/>to nearby schools</h4>
-                        <a href="javascript:void(0)" class="small bottom">Compare schools &amp;raquo;</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <school:profileCompareNearby nearbySchools="${nearbySchools}" school="${school}" />
+        <compare:persistentCompare school="${school}"/>
+        <school:profileNearby />
 
         <ad:adTag position="Community_Ad_300x50"/>
 

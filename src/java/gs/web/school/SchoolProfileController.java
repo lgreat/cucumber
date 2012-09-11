@@ -87,6 +87,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
         }
 
         _schoolProfileHelper.updateModel(request, response, school, model, overallRating);
+        model.put("nearbySchools", _schoolProfileDataHelper.getNearbySchools(request));
 
         model.put("schoolEnrollment", _schoolProfileDataHelper.getEnrollment(request));
 

@@ -151,12 +151,31 @@ GS.school.compare = (function() {
     var compareBtn;
     var compareModule;
     var getSourceUrlFunc;
+    var contextSchoolId;
+    var contextSchoolState;
 
     var initializeSchoolsInCompare = function(fromUrl) {
         schoolsInCompare = GS.util.storeSchools.getSchools(compareKey);
         compareBtn = $('#js_compareBtn');
         compareModule = $('#' + MODULE_ID);
         getSourceUrlFunc = fromUrl;
+
+        compareModule.find('#js_compareAddBtn').each(function(){
+            contextSchoolId = $(this).data('id').toString();
+            contextSchoolState = $(this).data('state');
+            var found = false;
+            if (schoolsInCompare!=null && schoolsInCompare != undefined && schoolsInCompare.length > 0){
+                for (var i=0;i<schoolsInCompare.length; i++){
+                    if (schoolsInCompare[i].schoolId == contextSchoolId && schoolsInCompare[i].state == contextSchoolState){
+                        found = true;
+                    }
+                }
+                compareModule.removeClass('dn');
+            } else {
+                $('.js_compareNoSchools').removeClass('dn');
+            }
+            if (!found) $(this).removeClass('dn');
+        });
 
         //If there are schools in local storage/cookies then get the details of the schools by making an ajax call.
         if (schoolsInCompare != null && schoolsInCompare != undefined && schoolsInCompare.length > 0) {
@@ -292,6 +311,13 @@ GS.school.compare = (function() {
         for (var i = 0; i < schoolsInCompare.length; i++) {
             if (schoolsInCompare[i].schoolId == schoolId && schoolsInCompare[i].state == state) {
                 schoolsInCompare.splice(i, 1);
+
+                // add back the "Add this school to compare" button if removing the context school
+                if (contextSchoolId!=null && contextSchoolId!=undefined && contextSchoolState!=null && contextSchoolState!=undefined){
+                    if (schoolId==contextSchoolId && state == contextSchoolState){
+                        $('#js_compareAddBtn').removeClass('dn').show();
+                    }
+                }
                 break;
             }
         }
@@ -494,6 +520,20 @@ GS.school.compare = (function() {
             removeSchoolFromCompare(schoolId, state);
             triggerSchoolRemovedEvent(schoolId, state);
             return false;
+        });
+
+        //Bind the click handler when this is for specific school
+        $('#js_compareAddBtn').on('click', function(){
+            if (contextSchoolId != null && contextSchoolId != undefined ){
+                if (contextSchoolState!=null && contextSchoolState!=undefined){
+                    var compareAddBtn = $(this);
+                    addSchoolToCompare(contextSchoolId, contextSchoolState).done(
+                        function() {
+                            compareAddBtn.addClass('dn').hide();
+                        }
+                    );
+                }
+            }
         });
 
         //Bind the click handler to compare schools.

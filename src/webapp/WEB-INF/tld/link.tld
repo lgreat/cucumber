@@ -4509,6 +4509,13 @@
             <type>java.lang.String</type>
             <description>School identifier to remove from list, as "ca1"</description>
         </attribute>
+        <attribute>
+            <name>styleClass</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Style class for link</description>
+        </attribute>
     </tag>
     <tag>
         <name>findASchool</name>

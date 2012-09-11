@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:link="urn:www.greatschools.org/taglib/link">
+
+    <div class="mod standard_1-1">
+        <div class="inner">
+            <div class="hd"><h4 class="pam bottom">Nearby Schools</h4></div>
+            <div class="bd">
+                <div style="height:180px; overflow:scroll;">
+                    <c:set var="counter" value="0"/>
+                    <c:forEach items="${nearbySchools}" var="nearby">
+                        <c:if test="${counter lt 6 and nearby.school.levelCode ne 'p' and nearby.neighbor.databaseState eq school.databaseState }">
+                            <c:set var="counter" value="${counter+1}"/>
+                            <div class="pam">
+                                <p class="small bottom"><link:schoolProfileOverview school="${nearby.neighbor}" title="${nearby.neighbor.name}">${nearby.neighbor.name}</link:schoolProfileOverview><br/>
+                                ${nearby.neighbor.city}, ${nearby.neighbor.databaseState}</p>
+                            </div>
+                            <hr class="keyline2"/>
+                        </c:if>
+                    </c:forEach>
+                </div>
+                <div class="clear"><!-- --></div>
+            </div>
+        </div>
+    </div>
+
+</jsp:root>

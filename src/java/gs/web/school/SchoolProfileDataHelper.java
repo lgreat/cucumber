@@ -47,6 +47,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     private final static String REVIEWS_PAGE_PARAM = "page";
     private final static Integer REVIEWS_PER_PAGE = 20;
     private final static String SCHOOL_MEDIA_REPORTS_BY_USER = "reportsByUser";
+    private final static String NEARBY_SCHOOLS = "nearbySchools";
     private final static String ENROLLMENT = "enrollment";
     private final static String SPERLINGS = "sperlings";
     private final static String RELATED_CONTENT = "relatedContent";
@@ -221,6 +222,56 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
             }
         }
         return schoolMedia;
+    }
+
+    /**
+     * Get a list of the 25 nearest schools
+     * @param request
+     * @return
+     */
+    protected List<NearbySchool> getNearbySchools(HttpServletRequest request) {
+
+        String key = NEARBY_SCHOOLS;
+        String noKey = "NO_" + key;
+
+        // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool( request );
+        if( school == null ) {
+            throw new IllegalArgumentException( "The request must already contain a school object" );
+        }
+
+        // Get Data
+        // First see if it is already in the request
+        List<NearbySchool> schools = (List<NearbySchool>) getSharedData( request, key );
+
+        // If it isn't in the request try to retrieve it
+        if( schools == null ) {
+            // Before going to DB se if we have ready done that and determined there is no data
+            if( getSharedData( request, noKey ) != null ) {
+                return  null;
+            }
+
+            schools =_schoolDao.findNearbySchoolsNoRating(school, 12);
+            List<NearbySchool> filtered = new ArrayList();
+            for (NearbySchool nearby : schools) {
+                if (LevelCode.PRESCHOOL.equals(nearby.getNeighbor().getLevelCode())
+                        || nearby.getNeighbor().getDatabaseState() != school.getDatabaseState()) {
+                    continue;
+                }
+                filtered.add(nearby);
+            }
+
+            if( !filtered.isEmpty() ) {
+                setSharedData( request, key, filtered); // Save in request for future use
+            }
+            else {
+                // Set flag to prevent this DB request again
+                setSharedData( request, noKey, "yes" );
+            }
+        }
+
+        System.out.println("returning schools " + schools);
+        return schools;
     }
 
     /**
