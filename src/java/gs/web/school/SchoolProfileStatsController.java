@@ -132,7 +132,10 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 breakdownId = breakdown.getId();
             }
 
-            if (censusDataSet.getYear() == 0) {
+            // if this dataset has year zero, it's an override dataset, and it's school value should have been assigned
+            // to the companion dataset that doesn't have year zero. If a non-year-zero dataset didn't exist, this
+            // data set will have it's schoolOverrideValue set
+            if (censusDataSet.getYear() == 0 && censusDataSet.getSchoolOverrideValue() == null) {
                 continue;
             }
 
