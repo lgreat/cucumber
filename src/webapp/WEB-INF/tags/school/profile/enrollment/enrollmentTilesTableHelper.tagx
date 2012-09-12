@@ -9,7 +9,7 @@
     <jsp:directive.attribute name="tableTitle" type="java.lang.String" required="true"/>
     <jsp:directive.attribute name="acceptanceHeader" type="java.lang.Boolean" required="false"/>
     <c:if test="${fn:length(rowList) gt 0}">
-        <div class="mod standard_1-1 ptm">
+        <div class="mod standard_1-1 ">
             <div class="inner">
                 <div class="hd">
                     <h4 class="pvm plm bottom" id="">${tableTitle}</h4>
