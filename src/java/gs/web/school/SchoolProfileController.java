@@ -2,10 +2,12 @@ package gs.web.school;
 
 import gs.data.community.FavoriteSchool;
 import gs.data.community.User;
+import gs.data.school.LevelCode;
 import gs.data.school.School;
 import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.IDirectoryStructureUrlController;
+import gs.web.request.RequestInfo;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -64,6 +66,14 @@ public class SchoolProfileController extends AbstractSchoolController implements
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         String fullCanonicalUrl = urlBuilder.asFullUrl(request);
         model.put("relCanonical", fullCanonicalUrl);
+
+        // Preschool pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
+        if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
+            RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
+            if (!hostnameInfo.isOnPkSubdomain() && hostnameInfo.isPkSubdomainSupported()) {
+                return new ModelAndView(new RedirectView301(fullCanonicalUrl));
+            }
+        }
 
         Map<String, Object> ratingsMap =  _schoolProfileDataHelper.getGsRatings(request);
         Integer overallRating = null;

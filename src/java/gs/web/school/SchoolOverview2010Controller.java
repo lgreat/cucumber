@@ -122,7 +122,6 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             // overview2010.jspx
             model.put("noIndexFlag", !shouldIndex(school, numberOfReviews));
 
-            // TODO-13114 - also tracked separately in TODO-13116
             setLastModifiedDateInModel(model, school, reviews, numberOfReviews);
 
             /*
