@@ -56,13 +56,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
         // This needs to be done early in the request cycle or the item attached to the request can be lost.
         AbstractDataHelper.initialize( request );
 
-        // TODO-13114: Audit SchoolOverview2010Controller and refactor all shared logic.  The
-        // new profile and old profile will coexist side by side for a while, so they need to share code.
-
-        // TODO-13114: we'll need to eventually include the 301-redirect of preschool pages to pk.greatschools.org
-        //             but we're currently not serving preschool pages on the new profile pages, so we can ignore for now
-
-        // TODO-13114 refactor this to reuse same urlbuilder as the one in SchoolProfileHelper's handlePinItButton
+        // TODO-13114 could refactor this to reuse same urlbuilder as the one in SchoolProfileHelper's handlePinItButton
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         String fullCanonicalUrl = urlBuilder.asFullUrl(request);
         model.put("relCanonical", fullCanonicalUrl);
@@ -81,8 +75,6 @@ public class SchoolProfileController extends AbstractSchoolController implements
             overallRating = (Integer)ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_RATING);
             model.put(_schoolProfileDataHelper.DATA_OVERALL_RATING, overallRating);
         }
-
-
 
         Integer currentPage = _schoolProfileDataHelper.getReviewsCurrentPage( request );
         Integer totalPages = _schoolProfileDataHelper.getReviewsTotalPages( request );

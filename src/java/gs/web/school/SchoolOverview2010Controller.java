@@ -92,13 +92,11 @@ public class SchoolOverview2010Controller extends AbstractSchoolController imple
             School school = (School) request.getAttribute(SCHOOL_ATTRIBUTE);
             model.put("school", school);
 
-            // TODO-13114 - already copied into SchoolProfileController by Anthony but should refactor
             // GS-10484
             UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
             String fullCanonicalUrl = urlBuilder.asFullUrl(request);
             model.put("relCanonical", fullCanonicalUrl);
 
-            // TODO-13114 - not rolling out to new profile yet but todo is to put a note in SchoolProfileController that it'll eventually be needed
             // Preschool pages should be hosted from pk.greatschools.org (GS-12127). Redirect if needed
             if (LevelCode.PRESCHOOL.equals(school.getLevelCode())) {
                 RequestInfo hostnameInfo = (RequestInfo) request.getAttribute(RequestInfo.REQUEST_ATTRIBUTE_NAME);
