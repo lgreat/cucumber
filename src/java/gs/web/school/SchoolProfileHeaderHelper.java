@@ -118,7 +118,7 @@ public class SchoolProfileHeaderHelper {
                 logDuration(System.currentTimeMillis() - startTime, "Handling compare nearby string");
 
                 startTime = System.currentTimeMillis();
-                // TODO-13114 Chuck will check with Liana on if it's needed for new profile. let's put it in the model just in case. Could refactor to reuse urlbuilder used for relCanonical
+                // TODO: we could refactor handlePinItButton to reuse urlbuilder used for relCanonical
                 _schoolProfileHelper.handlePinItButton(request, school, model);
                 logDuration(System.currentTimeMillis() - startTime, "Handling PinIt button");
             }

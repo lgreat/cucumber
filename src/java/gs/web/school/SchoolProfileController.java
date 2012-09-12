@@ -56,7 +56,9 @@ public class SchoolProfileController extends AbstractSchoolController implements
         // This needs to be done early in the request cycle or the item attached to the request can be lost.
         AbstractDataHelper.initialize( request );
 
-        // TODO-13114 could refactor this to reuse same urlbuilder as the one in SchoolProfileHelper's handlePinItButton
+        // TODO: we could refactor this to reuse same urlbuilder as the one in SchoolProfileHelper's handlePinItButton,
+        //       but this has not been done because the new profile currently does not call handlePinItButton
+        //       since it's not yet in use
         UrlBuilder urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
         String fullCanonicalUrl = urlBuilder.asFullUrl(request);
         model.put("relCanonical", fullCanonicalUrl);
