@@ -5,9 +5,9 @@
 
     <div class="mod standard_1-1">
         <div class="inner">
-            <div class="hd"><h4 class="pam bottom">Nearby Schools</h4></div>
+            <div class="hd"><h4 class="pam bottom">Nearby schools</h4></div>
             <div class="bd">
-                <div style="height:180px; overflow:scroll;">
+                <div style="height:180px; overflow-y:scroll; overflow-x:hidden;">
                     <c:set var="counter" value="0"/>
                     <c:forEach items="${nearbySchools}" var="nearby">
                         <c:if test="${counter lt 6 and nearby.school.levelCode ne 'p' and nearby.neighbor.databaseState eq school.databaseState }">
