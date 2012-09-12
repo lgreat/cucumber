@@ -87,7 +87,7 @@
                                         <c:set var="showMoreArt" value="${fn:length(arts) gt showArtMax ? 'true' : 'false'}"/>
                                         <c:forEach var="item" items="${arts}" varStatus="status">
                                             <c:if test="${status.count le loopArtMax}">
-                                                <li>${gsweb:abbreviateAtWhitespace(item,25)}</li>
+                                                <li>${gsweb:abbreviateAtWhitespace(item,23)}</li>
                                             </c:if>
                                             <c:if test="${status.count eq loopArtMax and showMoreArt}">
                                                 <li data-gs-show-tab="programs-culture" data-gs-tab-options="Arts_&amp;_music_table"><span class="make-06b">More &amp;raquo;</span></li>
@@ -112,7 +112,7 @@
                                         <c:set var="showMoreMusic" value="${fn:length(music) gt showMusicMax ? 'true' : 'false'}"/>
                                         <c:forEach var="item" items="${music}" varStatus="status">
                                             <c:if test="${status.count le loopMusicMax}">
-                                                <li>${gsweb:abbreviateAtWhitespace(item,25)}</li>
+                                                <li>${gsweb:abbreviateAtWhitespace(item,23)}</li>
                                             </c:if>
                                             <c:if test="${status.count eq loopArtMax and showMoreMusic}">
                                                 <li data-gs-show-tab="programs-culture" data-gs-tab-options="Arts_&amp;_music_table"><span class="make-06b">More &amp;raquo;</span></li>
