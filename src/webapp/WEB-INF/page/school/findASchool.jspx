@@ -126,17 +126,17 @@
                                 <div>
                                     <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-e" value="e"/>
-                                    <label for="js-grade-level-e">Elementary School (K-5)</label>
+                                    <label for="js-grade-level-e">Elementary School</label>
                                 </div>
                                 <div>
                                     <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-m" value="m"/>
-                                    <label for="js-grade-level-m">Middle School (6-8)</label>
+                                    <label for="js-grade-level-m">Middle School</label>
                                 </div>
                                 <div class="mbm">
                                     <input type="checkbox" class="jq-grade-level" name="gradeLevels"
                                            id="js-grade-level-h" value="h"/>
-                                    <label for="js-grade-level-h">High School (9-12)</label>
+                                    <label for="js-grade-level-h">High School</label>
                                 </div>
                             </div>
                         </div>
