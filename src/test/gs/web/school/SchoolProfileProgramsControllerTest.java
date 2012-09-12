@@ -1,6 +1,9 @@
 package gs.web.school;
 
 import gs.data.school.*;
+import gs.data.school.census.CensusDataSet;
+import gs.data.school.census.CensusDataType;
+import gs.data.school.census.SchoolCensusValue;
 import gs.data.state.State;
 import gs.data.state.StateManager;
 import gs.web.BaseControllerTestCase;
@@ -161,12 +164,12 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         // This is additional data
         l.add( createEspResponse( "student_clubs_dance", "jazzercise" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        ModelMap map = runController(convertToEspData(l));
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
-        List<String> actualStudentClubData = resultsModel.get( "highlights/Arts/student_clubs" );
+        List<String> actualStudentClubData = resultsModel.get("highlights/Arts/student_clubs");
 
-        String[] expected = new String[] {"Jazzercise", "Student newspaper", "Yearbook"};
+        String[] expected = new String[] {"Dance club: jazzercise", "Student newspaper", "Yearbook"};
         List<String> expectedStudentClubData = Arrays.asList( expected );
 
         assertNotNull( "testAdditionalDataMerge: Arts student_clubs list is null", actualStudentClubData);
@@ -185,10 +188,10 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         l.add( createEspResponse( "foreign_language_other", "After School  Spanish Tuition-based Programs" ) );
         l.add( createEspResponse( "foreign_language_other", "American Sign Language" ) );
 
-        ModelMap map = runController( convertToEspData( l ) );
+        ModelMap map = runController(convertToEspData(l));
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
-        List<String> actualStudentClubData = resultsModel.get( "highlights/Language/foreign_language" );
+        List<String> actualStudentClubData = resultsModel.get("highlights/Language/foreign_language");
 
         String[] expected = new String[] {"After school  spanish tuition-based programs", "American sign language" };
         List<String> expectedStudentClubData = Arrays.asList( expected );
@@ -207,7 +210,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "admissions_contact_school", "yes" ) );
         String admissions_url = "http:/www.someSchool.edu";
-        l.add( createEspResponse( "admissions_url", admissions_url ) );
+        l.add(createEspResponse("admissions_url", admissions_url));
 
         ModelMap map = runController( convertToEspData( l ) );
 
@@ -215,7 +218,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         List<String> admissionInfo = resultsModel.get( "application_info/AppEnroll/admissions_contact_school" );
         assertNotNull( "testSpecialRuleAdmissionsContactSchool: Expected a URL but got null", admissionInfo );
         assertEquals( "testSpecialRuleAdmissionsContactSchool: Expected 2 admission_contact_school values", 2, admissionInfo.size());
-        assertTrue( "testSpecialRuleAdmissionsContactSchool: Expected \"Call the school\"", admissionInfo.contains("Call the school"));
+        assertTrue("testSpecialRuleAdmissionsContactSchool: Expected \"Call the school\"", admissionInfo.contains("Call the school"));
         assertTrue( "testSpecialRuleAdmissionsContactSchool: Expected a URL message", admissionInfo.contains("Visit the school's website: http:/www.someSchool.edu") );
 
     }
@@ -233,8 +236,8 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> results = resultsModel.get( "programs_resources/Programs/immersion" );
-        assertEquals( "testSpecialRuleImmersion3: Expected Cantonese", "Cantonese", results.get(0) );
-        assertEquals( "testSpecialRuleImmersion3: Expected 1 result", 1, results.size() );
+        assertEquals("testSpecialRuleImmersion3: Expected Cantonese", "Cantonese", results.get(0));
+        assertEquals("testSpecialRuleImmersion3: Expected 1 result", 1, results.size());
 
     }
 
@@ -252,7 +255,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> shuttleOtherInfo = resultsModel.get( "programs_resources/Resources/transportation_shuttle_other" );
-        assertEquals( "testSupportData: retrieval of transportation_shuttle_other failed", routeInfo, shuttleOtherInfo.get(0) );
+        assertEquals("testSupportData: retrieval of transportation_shuttle_other failed", routeInfo, shuttleOtherInfo.get(0));
     }
 
     // Tests academic award and year are correctly formatted
@@ -266,7 +269,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         ModelMap map = runController( convertToEspData( l ) );
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
-        List<String> awards = resultsModel.get( "highlights/Awards/academic_award" );
+        List<String> awards = resultsModel.get("highlights/Awards/academic_award");
         assertEquals( "testAcademicAward: first award did not match", "Award one (2012)", awards.get(0) );
         assertEquals( "testAcademicAward: second award did not match", "Award two", awards.get(1) );
     }
@@ -383,6 +386,12 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         //ESP data for school is fetched on the highlights/extracurriculars/programs&resources tab.
         expect( _schoolProfileDataHelper.getGsRatings( getRequest() ) ).andReturn(null).anyTimes();
         expect( _schoolProfileDataHelper.getEspDataForSchool( getRequest() ) ).andReturn( espData ).anyTimes();
+        // Administrator name comes from _schoolProfileDataHelper.getSchoolCensusValue
+        SchoolCensusValue scv = new SchoolCensusValue(_school, null);
+        String adminName = (espData.get("administrator_name") == null) ? null : espData.get("administrator_name").get(0).getSafeValue();
+        scv.setValueText(adminName);
+        expect( _schoolProfileDataHelper.getSchoolCensusValue(getRequest(), CensusDataType.HEAD_OFFICIAL_NAME) ).andReturn( scv ).anyTimes();
+
         replay(_schoolProfileDataHelper);
         _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest());
         verify(_schoolProfileDataHelper);

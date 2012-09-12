@@ -310,7 +310,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Integer enrollment = school.getEnrollment();
          */
         // Enrollment is from the census data
-        SchoolCensusValue enrollmentSCV = getSchoolCensusValue( request, CensusDataType.STUDENTS_ENROLLMENT );
+        SchoolCensusValue enrollmentSCV = _schoolProfileDataHelper.getSchoolCensusValue( request, CensusDataType.STUDENTS_ENROLLMENT );
         Integer enrollment = null;
         if( enrollmentSCV != null ) {
                 enrollment = enrollmentSCV.getValueInteger();
@@ -748,7 +748,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             // 
             // Substitute 1 - Teachers and staff Autotext
 //            List<EspResponse> administrator = espData.get("administrator_name");
-            SchoolCensusValue administratorSCV = getSchoolCensusValue( request, CensusDataType.HEAD_OFFICIAL_NAME );
+            SchoolCensusValue administratorSCV = _schoolProfileDataHelper.getSchoolCensusValue( request, CensusDataType.HEAD_OFFICIAL_NAME );
             String administrator = null;
             if( administratorSCV != null ) {
                 administrator = administratorSCV.getValueText();
@@ -1303,37 +1303,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
 
         return model;
-    }
-
-    /**
-     * Helper to get the right SchoolCensusValue from all of the census data available
-     * @param censusDataType
-     * @return
-     */
-    private SchoolCensusValue getSchoolCensusValue(HttpServletRequest request, CensusDataType censusDataType) {
-        Map<CensusDataType, List<CensusDataSet>> censusValues = _schoolProfileDataHelper.getSchoolCensusValues(request);
-        if( censusValues!=null ) {
-            List<CensusDataSet> censusDataSets = censusValues.get( censusDataType );
-            if( censusDataSets != null && censusDataSets.size() > 0 ) {
-                //  Go through the list and only examine those with year not 0
-                for( CensusDataSet cds : censusDataSets ) {
-                    if( cds.getYear() > 0 ) {
-                        SchoolCensusValue csv = cds.getSchoolOverrideValue();
-                        if( csv != null ) {
-                            return csv;
-                        }
-                        else {
-                            return cds.getTheOnlySchoolValue();
-                        }
-                    }
-                }
-                // if we get here we need to go back and use the first CDS
-                SchoolCensusValue [] csv = (SchoolCensusValue[])(censusDataSets.get(0).getSchoolData().toArray(new SchoolCensusValue[1]));
-                return csv[0];
-            }
-        }
-
-        return null;
     }
 
     private Map<String, Object> getRelatedEspTile(HttpServletRequest request, School school, int numArticles) {

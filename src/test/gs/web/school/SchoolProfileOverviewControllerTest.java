@@ -279,24 +279,15 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         Map<CensusDataType, List<CensusDataSet>> censusValues = new HashMap<CensusDataType, List<CensusDataSet>>(2);
 
-        // setup avg class size census data
-        if( numStudents > 0 ) {
-            List<CensusDataSet> enrollment = new ArrayList<CensusDataSet>();
-            censusValues.put( CensusDataType.STUDENTS_ENROLLMENT, enrollment );
-            CensusDataSet enrollmentCDS = new CensusDataSet( CensusDataType.STUDENTS_ENROLLMENT, 2011 );
-            enrollment.add(enrollmentCDS);
-            Set<SchoolCensusValue> enrollmentSet = new HashSet<SchoolCensusValue>(1);
-            enrollmentCDS.setSchoolData(enrollmentSet);
-            SchoolCensusValue enrollmentCSV = new SchoolCensusValue();
-            enrollmentSet.add(enrollmentCSV);
-            enrollmentCSV.setSchool(_school);
-            enrollmentCSV.setValueInteger(numStudents);
-        }
+        CensusDataSet cdsStudents = new CensusDataSet( CensusDataType.STUDENTS_ENROLLMENT, 2011 );
+        SchoolCensusValue csvStudents = new SchoolCensusValue(_school, cdsStudents );
+        csvStudents.setSchool(_school);
+        csvStudents.setValueInteger(numStudents);
 
         //school has no ratings.
         Map<String, Object> ratingsMap = new HashMap();
         expect( _schoolProfileDataHelper.getGsRatings(getRequest())).andReturn(ratingsMap);
-        expect( _schoolProfileDataHelper.getSchoolCensusValues(getRequest()) ).andReturn( censusValues );
+        expect( _schoolProfileDataHelper.getSchoolCensusValue(getRequest(), CensusDataType.STUDENTS_ENROLLMENT) ).andReturn(csvStudents);
 
         replay(_schoolProfileDataHelper);
 
@@ -829,23 +820,11 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
     private Map<String, Object> runSpecialEdEspTileWithCensusMockController( HttpServletRequest request, School school, Map<String, List<EspResponse>> espData, String administrator ) {
 
-        Map<CensusDataType, List<CensusDataSet>> censusValues = new HashMap<CensusDataType, List<CensusDataSet>>(2);
-
-        // setup avg class size census data
-        if( administrator != null ) {
-            List<CensusDataSet> adminCDSs = new ArrayList<CensusDataSet>();
-            censusValues.put( CensusDataType.HEAD_OFFICIAL_NAME, adminCDSs );
-            CensusDataSet adminCDS = new CensusDataSet( CensusDataType.HEAD_OFFICIAL_NAME, 2011 );
-            adminCDSs.add(adminCDS);
-            Set<SchoolCensusValue> adminSet = new HashSet<SchoolCensusValue>(1);
-            adminCDS.setSchoolData(adminSet);
-            SchoolCensusValue enrollmentCSV = new SchoolCensusValue();
-            adminSet.add(enrollmentCSV);
-            enrollmentCSV.setSchool(_school);
-            enrollmentCSV.setValueText(administrator);
-        }
-
-        expect( _schoolProfileDataHelper.getSchoolCensusValues(getRequest()) ).andReturn( censusValues );
+        CensusDataSet cdsHeadOfficial = new CensusDataSet( CensusDataType.HEAD_OFFICIAL_NAME, 2011);
+        SchoolCensusValue csvHeadOfficial = new SchoolCensusValue(_school, cdsHeadOfficial );
+        csvHeadOfficial.setSchool(_school);
+        csvHeadOfficial.setValueText(administrator);
+        expect( _schoolProfileDataHelper.getSchoolCensusValue(getRequest(), CensusDataType.HEAD_OFFICIAL_NAME) ).andReturn(csvHeadOfficial);
 
         replay(_schoolProfileDataHelper);
 

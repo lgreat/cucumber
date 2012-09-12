@@ -4,6 +4,8 @@ import gs.data.school.EspResponse;
 import gs.data.school.EspResponseHelper;
 import gs.data.school.School;
 import gs.data.school.SchoolSubtype;
+import gs.data.school.census.CensusDataType;
+import gs.data.school.census.SchoolCensusValue;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,7 +92,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 // Sort the results
                 sortResults( resultsModel, DISPLAY_CONFIG );
                 // Perform unique data manipulation rules
-                applyUniqueDataRules( school, resultsModel, DISPLAY_CONFIG, espResults, hasEspData );
+                applyUniqueDataRules( request, school, resultsModel, DISPLAY_CONFIG, espResults, hasEspData );
 
                 // Put the data into the model so it will be passed to the jspx page
                 modelMap.put( "ProfileData", resultsModel );
@@ -183,7 +185,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         enhanceEspResultValue( espResults, "instructional_model", "gifted", school, "gifted_talented");
         enhanceEspResultValue( espResults, "instructional_model", "montessori", school, "Montessori");
         enhanceEspResultValue( espResults, "boarding", "boarding", school, "boarding" );
-        enhanceEspResultValue( espResults, "boarding", "dayboarding", school, "boarding_and_day" );
+        enhanceEspResultValue( espResults, "boarding", "day/boarding", school, "boarding_and_day" );
         enhanceEspResultKey( espResults, "coed", "all_girls", school, "all_female" );
         enhanceEspResultKey( espResults, "coed", "all_boys", school, "all_male" );
         enhanceEspResultKey( espResults, "coed", "coed", school, "coed" );
@@ -279,7 +281,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
 
    // Some rows need special manipulation for the display.  Those rules are applied here
-    private void applyUniqueDataRules(School school, Map<String, List<String>> resultsModel, List<SchoolProfileDisplayBean> displayConfig, Map<String, List<EspResponse>> espResults, boolean hasEspData) {
+    private void applyUniqueDataRules(HttpServletRequest request, School school, Map<String, List<String>> resultsModel, List<SchoolProfileDisplayBean> displayConfig, Map<String, List<EspResponse>> espResults, boolean hasEspData) {
 
         // In the Application Info tab the application process data possibly consists of two data results.
         // All results are to be displayed but with different text than in the database
@@ -361,6 +363,13 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // Apply the none handling (which is in a separate method)
         applyNoneHandlingRule(resultsModel, displayConfig);
 
+        // School administrator comes from the Census Data, not the ESP data.
+        SchoolCensusValue administratorSCV = _schoolProfileDataHelper.getSchoolCensusValue( request, CensusDataType.HEAD_OFFICIAL_NAME );
+        if( administratorSCV != null ) {
+            List<String> administratorList = new ArrayList<String>(1);
+            administratorList.add(administratorSCV.getValueText());
+            resultsModel.put( "programs_resources/Basics/administrator_name", administratorList );
+        }
 
         // Blue ribbon school data has been removed from the project scope for now.
         // GSData classes (BlueRibbonSchoolDaoHibernate) have been started to get this data but they need some cleaning up.
@@ -452,26 +461,60 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         }
 
         // Special formatting for extracurriculars/Clubs/student_clubs
-        List<String> languageClubResults = resultsModel.get( "extracurriculars/Clubs/student_clubs" );
-        if( languageClubResults == null ) {
-            languageClubResults = new ArrayList<String>();
+        String extrasClubsKey = "extracurriculars/Clubs/student_clubs";
+        List<String> extrasLanguageClubResults = resultsModel.get( extrasClubsKey );
+        if( extrasLanguageClubResults == null ) {
+            extrasLanguageClubResults = new ArrayList<String>();
         }
-
         // If student_clubs_language is present add it to the results and remove Foreign language and culture club
         List<EspResponse> languageClub = espResults.get("student_clubs_language");
         if( languageClub != null && languageClub.size() > 0 ) {
-            languageClubResults.add( "Foreign language club: " + languageClub.get(0).getSafeValue() );
-            languageClubResults.remove("Foreign language and culture club");
+            extrasLanguageClubResults.add( "Foreign language club: " + languageClub.get(0).getSafeValue() );
+            extrasLanguageClubResults.remove("Foreign language and culture club");
         }
-
         // If student_clubs_dance is present add it and remove Dance club
         List<EspResponse> danceClub = espResults.get("student_clubs_dance");
         if( danceClub != null && danceClub.size() > 0 ) {
-            languageClubResults.add( "Dance club: " + danceClub.get(0).getSafeValue() );
-            languageClubResults.remove("Dance club");
+            extrasLanguageClubResults.add( "Dance club: " + danceClub.get(0).getSafeValue() );
+            extrasLanguageClubResults.remove("Dance club");
         }
-        if( languageClubResults.size() > 0 ) {
-            resultsModel.put( "extracurriculars/Clubs/student_clubs", languageClubResults );
+        if( extrasLanguageClubResults.size() > 0 ) {
+            Collections.sort(extrasLanguageClubResults);
+            resultsModel.put( "extracurriculars/Clubs/student_clubs", extrasLanguageClubResults );
+        }
+
+        // Special formatting for highlights/Language/student_clubs
+        String highlightsLangKey = "highlights/Language/student_clubs";
+        List<String> highlightsLanguageClubResults = resultsModel.get( highlightsLangKey );
+        if( highlightsLanguageClubResults == null ) {
+            highlightsLanguageClubResults = new ArrayList<String>();
+        }
+        // If student_clubs_language is present add it to the results and remove Foreign language and culture club
+        // languageClub = espResults.get("student_clubs_language");
+        if( languageClub != null && languageClub.size() > 0 ) {
+            highlightsLanguageClubResults.add( "Foreign language club: " + languageClub.get(0).getSafeValue() );
+            highlightsLanguageClubResults.remove("Foreign language and culture club");
+        }
+        if( highlightsLanguageClubResults.size() > 0 ) {
+            Collections.sort(highlightsLanguageClubResults);
+            resultsModel.put( highlightsLangKey, highlightsLanguageClubResults );
+        }
+
+        // Special formatting for highlights/Clubs/student_clubs
+        String highlightsArtsKey = "highlights/Arts/student_clubs";
+        List<String> highlightsArtsClubResults = resultsModel.get( highlightsArtsKey );
+        if( highlightsArtsClubResults == null ) {
+            highlightsArtsClubResults = new ArrayList<String>();
+        }
+        // If student_clubs_dance is present add it and remove Dance club
+        //List<EspResponse> danceClub = espResults.get("student_clubs_dance");
+        if( danceClub != null && danceClub.size() > 0 ) {
+            highlightsArtsClubResults.add( "Dance club: " + danceClub.get(0).getSafeValue() );
+            highlightsArtsClubResults.remove("Dance club");
+        }
+        if( highlightsArtsClubResults.size() > 0 ) {
+            Collections.sort(highlightsArtsClubResults);
+            resultsModel.put( highlightsArtsKey, highlightsArtsClubResults );
         }
 
         // If there is no ESP Data from the esp_response table then remove anything that would show on the Highlights tab.
@@ -821,7 +864,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
 
         // STEM (Science, Technology, Engineering, & Math)
         String stemAbbrev = "STEM";
-        String stemTitle = "Science, Technology, Engineering, & Math";
+        String stemTitle = "Science, Technology, Engineering, & Math (STEM)";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, stemAbbrev, stemTitle, "Specific academic themes or areas of focus",
                 "academic_focus", new String[]{"mathematics", "science", "technology", "medical", "engineering"} ) );
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
@@ -829,7 +872,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "staff_resources", new String[]{"computer_specialist", "robotics_teacher", "math_specialist", "garden_teacher"} ) );
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, stemAbbrev, stemTitle, "School facilities",
-                "facilities", new String[]{"computer ", "garden", "outdoor", "science", "farm", "industrial"} ) );
+                "facilities", new String[]{"computer", "garden", "outdoor", "science", "farm", "industrial"} ) );
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, stemAbbrev, stemTitle, "Vocational or skills-based training offered",
                 "skills_training", new String[]{"programming", "it_support", "mechanics", "electrical", "hvac", "engineering"} ) );
@@ -851,7 +894,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "staff_resources", new String[]{"art_teacher", "dance_teacher", "music_teacher", "poetry_teacher"}));
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, artsAbbrev, artsTitle, "School facilities",
-                "facilities", new String[]{"art ", "music", "performance"}));
+                "facilities", new String[]{"art", "music", "performance"}));
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, artsAbbrev, artsTitle, "Vocational or skills-based training offered",
                 "skills_training", new String[]{"design"}));
@@ -878,8 +921,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, artsAbbrev, artsTitle, "Clubs",
                 "student_clubs", new String[]{"student_newspaper", "yearbook", "anime", "art_club", "arts_crafts", "dance", "drama_club", "drill_team", "drum_line", "flag_girls", "literary_mag", "marching_band", "mime", "origami", "sewing_knitting", "step_team", "tv_radio_news", "woodshop"} ) );
         // need to combine student_clubs and student_clubs_dance data
-        getLastDisplayBean().addKey("student_clubs_dance");
-        getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
+        //getLastDisplayBean().addKey("student_clubs_dance");  - This is now handled in applyUniqueDataRules
+        //getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
 
         // Language learning
@@ -914,8 +957,9 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Clubs",
                 "student_clubs", new String[]{"language_club"}));
-        getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
-        getLastDisplayBean().addKey("student_clubs_language");
+        // "student_clubs_language" is handled in applyUniqueDataRules()
+        // getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
+        // getLastDisplayBean().addKey("student_clubs_language");
 
         // Health & Athletics
         String healthAbbrev = "Health";
@@ -933,7 +977,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "facilities", new String[]{"farm", "sports_fields", "garden", "gym", "kitchen", "multi_purpose", "swimming"} ) );
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, healthAbbrev, healthTitle, "Clubs",
-                "student_clubs", new String[]{"farm", "sports_fields", "garden", "gym", "kitchen", "multi_purpose", "swimming", "sadd"} ) );
+                "student_clubs", new String[]{"cooking", "gardening", "girls_on_the_run", "martial_arts", "sadd", "special_olympics", "step_team", "yoga"} ) );
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
 
         // Gifted & Talented
@@ -1076,7 +1120,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School facilities",
                 "facilities"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Partnerships with local resources and organizations",
-                "partnerships"));     // This key is just a placeholder
+                "partnershipsPlaceholder"));     // This key is just a placeholder
         getLastDisplayBean().addUrl("partnerships_name_1", "partnerships_url_1");
         getLastDisplayBean().addUrl("partnerships_name_2", "partnerships_url_2");
         getLastDisplayBean().addUrl("partnerships_name_3", "partnerships_url_3");
