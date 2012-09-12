@@ -151,6 +151,7 @@ GS.school.compare = (function() {
     var compareBtn;
     var compareModule;
     var getSourceUrlFunc;
+    var compareAddBtn;
     var contextSchoolId;
     var contextSchoolState;
 
@@ -158,30 +159,15 @@ GS.school.compare = (function() {
         schoolsInCompare = GS.util.storeSchools.getSchools(compareKey);
         compareBtn = $('#js_compareBtn');
         compareModule = $('#' + MODULE_ID);
+        compareAddBtn = $(compareModule.has('#js_compareAddBtn').length? $(compareModule.find('#js_compareAddBtn')[0]) : undefined);
         getSourceUrlFunc = fromUrl;
 
-        compareModule.find('#js_compareAddBtn').each(function(){
-            contextSchoolId = $(this).data('id').toString();
-            contextSchoolState = $(this).data('state');
-            var found = false;
-            var sameState = true;
-            if (schoolsInCompare!=null && schoolsInCompare != undefined && schoolsInCompare.length > 0){
-                for (var i=0;i<schoolsInCompare.length; i++){
-                    if (schoolsInCompare[i].state != contextSchoolState) {
-                        sameState = false;
-                        break;
-                    }
-                    if (schoolsInCompare[i].schoolId == contextSchoolId && schoolsInCompare[i].state == contextSchoolState){
-                        found = true;
-                        break;
-                    }
-                }
-                compareModule.removeClass('dn');
-            } else {
-                $('.js_compareNoSchools').removeClass('dn');
-            }
-            if (!found && sameState) $(this).removeClass('dn');
-        });
+        // if the js_compareaddbtn is available, then get the context information
+        // about the school from that button
+        if (compareAddBtn!=undefined){
+            contextSchoolId = compareAddBtn.data('id').toString();
+            contextSchoolState = compareAddBtn.data('state');
+        }
 
         //If there are schools in local storage/cookies then get the details of the schools by making an ajax call.
         if (schoolsInCompare != null && schoolsInCompare != undefined && schoolsInCompare.length > 0) {
@@ -369,8 +355,7 @@ GS.school.compare = (function() {
         return false;
     };
 
-    var isSchoolInCompare = function(schoolId, state) {
-        var dfd = jQuery.Deferred();
+    var validateSchoolInCompare = function (schoolId, state) {
         var isSchoolAlreadyPresent = false;
         for (var i = 0; i < schoolsInCompare.length; i++) {
             if (schoolsInCompare[i].schoolId == schoolId && schoolsInCompare[i].state == state) {
@@ -378,7 +363,13 @@ GS.school.compare = (function() {
                 break;
             }
         }
-        if (isSchoolAlreadyPresent) {
+        return isSchoolAlreadyPresent;
+    };
+
+    var isSchoolInCompare = function(schoolId, state) {
+        var dfd = jQuery.Deferred();
+
+        if (validateSchoolInCompare(schoolId, state)) {
             dfd.reject();
         } else {
             dfd.resolve();
@@ -386,9 +377,13 @@ GS.school.compare = (function() {
         return dfd.promise();
     };
 
+    var validateMaxSchoolLimitReached = function () {
+        return (schoolsInCompare.length == maxSchoolsInCompare);
+    }
+
     var isMaxSchoolLimitReached = function() {
         var dfd = jQuery.Deferred();
-        if (schoolsInCompare.length == maxSchoolsInCompare) {
+        if (validateMaxSchoolLimitReached()) {
             var encodedCurrentUrl = encodeURIComponent(getSourceUrlFunc());
 
             var schoolsArr = [];
@@ -405,9 +400,13 @@ GS.school.compare = (function() {
         return dfd.promise();
     };
 
+    var validateSchoolStatesSame = function(state) {
+        return (schoolsInCompare.length >= 1 && state == schoolsInCompare[0].state);
+    };
+
     var areSchoolStatesSame = function(state) {
         var dfd = jQuery.Deferred();
-        if (schoolsInCompare.length >= 1 && state != schoolsInCompare[0].state) {
+        if (!validateSchoolStatesSame(state)) {
             compareDifferentStatesWarningHover.showHover().done(
                 function() {
                     clearSchoolsInCompare();
@@ -486,6 +485,7 @@ GS.school.compare = (function() {
         }
         //Decide whether to show or hide the compare button.
         showHideCompareButton();
+        showHideCompareWithContextSchool();
     };
 
     var showHideCompareButton = function() {
@@ -494,6 +494,31 @@ GS.school.compare = (function() {
             compareBtn.show();
         } else {
             compareBtn.hide();
+        }
+    };
+
+    var showHideCompareWithContextSchool = function () {
+        if (contextSchoolId && contextSchoolState) {
+            if (schoolsInCompare.length > 0){
+                compareModule.removeClass('dn');
+                $('.js_compareNoSchools').addClass('dn');
+            } else {
+                compareModule.addClass('dn');
+                $('.js_compareNoSchools').removeClass('dn');
+            }
+            showHideAddButton();
+        }
+    }
+
+    var showHideAddButton = function () {
+        if (contextSchoolId && contextSchoolState){
+            if (validateSchoolStatesSame(contextSchoolState) &&
+                !validateMaxSchoolLimitReached() &&
+                !validateSchoolInCompare(contextSchoolId, contextSchoolState)){
+                compareAddBtn.removeClass('dn');
+            } else {
+                compareAddBtn.addClass('dn');
+            }
         }
     };
 

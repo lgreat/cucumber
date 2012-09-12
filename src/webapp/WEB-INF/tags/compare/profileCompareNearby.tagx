@@ -11,7 +11,7 @@
     <c:if test="${!empty nearbySchools and fn:length(nearbySchools)>0}">
         <c:set var="compareNearbyString" value="${school.databaseState}${school.id}"/>
         <c:forEach items="${nearbySchools}" var="nearby" varStatus="status">
-            <c:if test="${status.index lt 6}">
+            <c:if test="${status.index lt 7}">
                 <c:set var="compareNearbyString" value="${compareNearbyString},${nearby.neighbor.databaseState}${nearby.neighbor.id}"/>
             </c:if>
         </c:forEach>
@@ -22,7 +22,7 @@
                     <div class="bd bg-nearbySchool">
                         <h4 class="bottom">Compare this school
                             <br/>to nearby schools</h4>
-                        <link:compareSchools schools="${compareNearbyString}" source="sphead_${compareSource}_${school.databaseState}${school.id}"
+                        <link:compareSchools schools="${compareNearbyString}" source="sphead_overview_${school.databaseState}${school.id}"
                                              onclick="if (s.tl) {s.tl(this,'o','SchoolProfile_Compare_Inline_Link');} return true;"
                                              styleClass="small bottom"
                                              tab="overview">Compare schools &amp;raquo;</link:compareSchools>

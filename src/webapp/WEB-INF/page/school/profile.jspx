@@ -92,7 +92,7 @@
         });
         $(document).ready(function(){
             GS.school.compare.initializeSchoolsInCompare(function() {
-                return window.location.pathname;
+                return "sphead_overview_${school.databaseState}${school.id}";
             });
         });
     </script>
@@ -399,7 +399,6 @@
     <div class="">
         <ad:adTag position="AboveFold_300x600"/>
 
-        <school:profileCompareNearby nearbySchools="${nearbySchools}" school="${school}" />
         <compare:persistentCompare school="${school}"/>
         <school:profileNearby />
 
