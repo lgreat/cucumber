@@ -13,7 +13,7 @@
      <tr class="${rowColor}">
         <td>${row.rowTitle}</td>
         <!-- Now display the data by looping over each data element -->
-        <td><ul>
+        <td><ul  class="none">
             <c:set var="urlArrayModelKeys" value="${row.urlValueModelKeys}"/>    <!-- This is an array of EspResponse keys to the urls -->
             <c:forEach var="descModelKey" items="${row.urlDescModelKeys}" varStatus="status">   <!-- each descModelKey points to a list of descriptions, we want the first one -->
                 <c:set var="urlModelKey" value="${urlArrayModelKeys[status.index]}"/>
