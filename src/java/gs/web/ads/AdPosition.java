@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.113 2012/07/26 21:40:06 ssprouse Exp $
+ * $Id: AdPosition.java,v 1.114 2012/09/12 01:40:35 ssprouse Exp $
  */
 package gs.web.ads;
 
@@ -163,6 +163,9 @@ public class AdPosition extends Enum {
     public static final AdPosition House_Ad_300x210 = new AdPosition("House_Ad_300x210", true); // GS-12049
     public static final AdPosition Sponsor_320x50 = new AdPosition("Sponsor_320x50", true); //GS-12366
     public static final AdPosition Sponsor_630x40 = new AdPosition("Sponsor_630x40", true); //GS-13058
+
+    // no way to change the ad slot prefix for only one slot, on only the reviews module of new profile
+    public static final AdPosition Reviews_CustomSponsor_630x40 = new AdPosition("Reviews_CustomSponsor_630x40", true); //GS-13085
 
     // mobile specific ad positions
     public static final AdPosition AboveMap_320x50 = new AdPosition("AboveMap_320x50", true, new AdSize(320, 50), true);

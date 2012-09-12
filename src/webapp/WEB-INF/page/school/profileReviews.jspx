@@ -12,7 +12,9 @@
           xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
           xmlns:communityHover="urn:jsptagdir:/WEB-INF/tags/community/hover"
           xmlns:communityHoverV1="urn:jsptagdir:/WEB-INF/tags/community/hover/v1"
-          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper" xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
+          xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
 
 <c:set var="stateAbbrev" value="${school.databaseState.abbreviationLowerCase}"/>
@@ -188,6 +190,9 @@
 </div>
 <!-- end reviewColumn2 -->
 <div class="spacer_15"><!-- do not collapse --></div>
+<c:if test="${param.tab eq 'reviews'}">
+    <ad:adTag position="Reviews_CustomSponsor_630x40"/>
+</c:if>
 <div class="grid_16 alpha omega">
 
 <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>

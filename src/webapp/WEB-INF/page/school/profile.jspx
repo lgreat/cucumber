@@ -104,6 +104,7 @@
     <ad:disableGptGhostTextHiding position="Footer_728x90"/>
     <!-- enableAdPosition tag must be used in profile.jspx for any ad imcluded within a profile module -->
     <ad:enableAdPosition position="Sponsor_630x40"/>
+    <ad:enableAdPosition position="Reviews_CustomSponsor_630x40"/>
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 <div id="fb-root"><!-- do not collapse --></div>

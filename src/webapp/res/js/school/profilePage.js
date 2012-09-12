@@ -58,7 +58,7 @@ GS.profile = GS.profile || (function() {
     var originalQueryData;
     var initialTab;
 
-    var refreshbleNonOverviewAdSlotKeys = [
+    var refreshableNonOverviewAdSlotKeys = [
         'School_Profile_Page_Footer_728x90',
         'School_Profile_Page_Header_728x90',
         'School_Profile_Page_Community_Ad_300x50',
@@ -66,7 +66,8 @@ GS.profile = GS.profile || (function() {
         'School_Profile_Page_BelowFold_Top_300x125',
         'School_Profile_Page_AboveFold_300x600'
     ];
-    var refreshbleOverviewAdSlotKeys = refreshbleNonOverviewAdSlotKeys.slice(0);
+    var refreshableOverviewAdSlotKeys = refreshableNonOverviewAdSlotKeys.slice(0);
+    var refreshableReviewsAdSlotKeys = refreshableNonOverviewAdSlotKeys.slice(0);
 
     var otherAdSlotKeys = [
         'School_Profile_Page_Global_NavPromo_970x30',
@@ -95,7 +96,9 @@ GS.profile = GS.profile || (function() {
         //refreshAdsForTab(currentTab.name);
         initialTab = currentTab;
         if (initialTab.name === 'overview') {
-            refreshbleOverviewAdSlotKeys.push('School_Profile_Page_Sponsor_630x40');
+            refreshableOverviewAdSlotKeys.push('School_Profile_Page_Sponsor_630x40');
+        } else if (initialTab.name === 'reviews') {
+            refreshableReviewsAdSlotKeys.push('School_Profile_Page_Reviews_CustomSponsor_630x40');
         }
 
         if (typeof(window.History) !== 'undefined' && window.History.enabled === true) {
@@ -125,6 +128,8 @@ GS.profile = GS.profile || (function() {
     var refreshAdsForTab = function(tabName) {
         if (tabName === "overview") {
             refreshOverviewAds();
+        } else if (tabName === 'reviews') {
+            refreshReviewsAds();
         } else {
             refreshNonOverviewAds();
         }
@@ -220,21 +225,25 @@ GS.profile = GS.profile || (function() {
     };
 
     var refreshOverviewAds = function() {
-        //console.log('refreshing overview ads', refreshbleOverviewAdSlotKeys);
-        GS.ad.refreshAds(refreshbleOverviewAdSlotKeys);
+        //console.log('refreshing overview ads', refreshableOverviewAdSlotKeys);
+        GS.ad.refreshAds(refreshableOverviewAdSlotKeys);
+    };
+    var refreshReviewsAds = function() {
+        //console.log('refreshing reviews ads', refreshableReviewsAdSlotKeys);
+        GS.ad.refreshAds(refreshableReviewsAdSlotKeys);
     };
     var refreshNonOverviewAds = function() {
-        //console.log('refresh non overview ads', refreshbleNonOverviewAdSlotKeys);
-        GS.ad.refreshAds(refreshbleNonOverviewAdSlotKeys);
+        //console.log('refresh non overview ads', refreshableNonOverviewAdSlotKeys);
+        GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys);
     };
     var initializeOverviewAds = function() {
-        //console.log('init overview ads', refreshbleOverviewAdSlotKeys.concat(otherAdSlotKeys));
-        //GS.ad.refreshAds(refreshbleOverviewAdSlotKeys.concat(otherAdSlotKeys));
+        //console.log('init overview ads', refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));
+        //GS.ad.refreshAds(refreshableOverviewAdSlotKeys.concat(otherAdSlotKeys));
         GS.ad.refreshAds(['School_Profile_Page_Header_728x90']);
     };
     var initializeNonOverviewAds = function() {
         //console.log('init non overview ads');
-        GS.ad.refreshAds(refreshbleNonOverviewAdSlotKeys.concat(otherAdSlotKeys));
+        GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys.concat(otherAdSlotKeys));
     };
 
     return {
