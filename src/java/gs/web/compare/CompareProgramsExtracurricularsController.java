@@ -92,7 +92,7 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
 //                _log.warn("  Found PQ");
                 struct.setProgramSource(Principal);
                 processESPResults(struct, keyToResponseListMap);
-            } else {
+            } else if (!school.isSchoolForNewProfile()) { // GS-13226
 //                _log.warn("  Did not find PQ, checking for survey results");
                 Set<LevelCode.Level> levels = school.getLevelCode().getIndividualLevelCodes();
                 List<SurveyResults> allResultsForSchool = new ArrayList<SurveyResults>();

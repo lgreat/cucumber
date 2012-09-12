@@ -76,23 +76,42 @@
                         <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                             <div class="cs_rReview">
                                 <c:choose>
-                                    <c:when test="${school.programSource eq 'Principal'}">
-                                        <p>
-                                            This information is based on a survey by the <strong>principal</strong>.
-                                        </p>
-                                    </c:when>
-                                    <c:when test="${school.numResponses gt 0}">
-                                        <p>
-                                            This information is based on surveys from
-                                            <strong>${school.numResponses} ${gsweb:pluralize(school.numResponses, 'parent')}</strong>.
-                                        </p>
+                                    <c:when test="${school.school.schoolForNewProfile}">
+                                        <c:choose>
+                                            <c:when test="${school.programSource eq 'Principal'}">
+                                                <p>
+                                                    This information is based on a survey by the <strong>principal</strong>.
+                                                </p>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p class="smallText1-italic">
+                                                    No program information available. School officials,
+                                                    update this <link:schoolEspRegister>school's information</link:schoolEspRegister>.
+                                                </p>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:when>
                                     <c:otherwise>
-                                        <p class="smallText1-italic">
-                                            No program information available. Parents, update this
-                                            <link:schoolStartSurvey
-                                                    school="${school.school}">school's information</link:schoolStartSurvey>.
-                                        </p>
+                                        <c:choose>
+                                            <c:when test="${school.programSource eq 'Principal'}">
+                                                <p>
+                                                    This information is based on a survey by the <strong>principal</strong>.
+                                                </p>
+                                            </c:when>
+                                            <c:when test="${school.numResponses gt 0}">
+                                                <p>
+                                                    This information is based on surveys from
+                                                    <strong>${school.numResponses} ${gsweb:pluralize(school.numResponses, 'parent')}</strong>.
+                                                </p>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <p class="smallText1-italic">
+                                                    No program information available. Parents, update this
+                                                    <link:schoolStartSurvey
+                                                            school="${school.school}">school's information</link:schoolStartSurvey>.
+                                                </p>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
@@ -110,24 +129,51 @@
                             <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                                 <div class="cs_rReview">
                                     <c:choose>
-                                        <c:when test="${fn:length(school.categoryResponses[category]) gt 0}">
-                                            <ul>
-                                                <c:forEach var="answerValue"
-                                                           items="${school.categoryResponses[category]}">
-                                                    <c:choose>
-                                                        <c:when test="${school.programSource eq 'Principal' and category eq 'Other special programs'}">
-                                                            <div class="smallText1">${answerValue}</div>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <li class="disc-list-d61"><span
-                                                                    class="text3">${answerValue}</span></li>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </c:forEach>
-                                            </ul>
+                                        <c:when test="${school.school.schoolForNewProfile}">
+                                            <c:choose>
+                                                <c:when test="${school.programSource eq 'Principal' and fn:length(school.categoryResponses[category]) gt 0}">
+                                                    <ul>
+                                                        <c:forEach var="answerValue"
+                                                                   items="${school.categoryResponses[category]}">
+                                                            <c:choose>
+                                                                <c:when test="${category eq 'Other special programs'}">
+                                                                    <div class="smallText1">${answerValue}</div>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <li class="disc-list-d61"><span
+                                                                            class="text3">${answerValue}</span></li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:forEach>
+                                                    </ul>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <p class="center">-</p>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:when>
                                         <c:otherwise>
-                                            <p class="center">-</p>
+                                            <c:choose>
+                                                <c:when test="${fn:length(school.categoryResponses[category]) gt 0}">
+                                                    <ul>
+                                                        <c:forEach var="answerValue"
+                                                                   items="${school.categoryResponses[category]}">
+                                                            <c:choose>
+                                                                <c:when test="${school.programSource eq 'Principal' and category eq 'Other special programs'}">
+                                                                    <div class="smallText1">${answerValue}</div>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <li class="disc-list-d61"><span
+                                                                            class="text3">${answerValue}</span></li>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </c:forEach>
+                                                    </ul>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <p class="center">-</p>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:otherwise>
                                     </c:choose>
                                 </div>
@@ -147,18 +193,34 @@
                                 <div class="td-compareContainer td-compareContainerWidthCol_${fn:length(schools)}">
                                     <div class="cs_rReview">
                                         <c:choose>
-                                            <c:when test="${school.programSource eq 'Principal'}">
-                                                <link:schoolProfilePrincipalView school="${school.school}">
-                                                    View more programs &amp;amp; extracurriculars
-                                                </link:schoolProfilePrincipalView>
-                                            </c:when>
-                                            <c:when test="${school.numResponses gt 0}">
-                                                <link:startSurveyResults school="${school.school}">
-                                                    View more programs &amp;amp; extracurriculars
-                                                </link:startSurveyResults>
+                                            <c:when test="${school.school.schoolForNewProfile}">
+                                                <c:choose>
+                                                    <c:when test="${school.programSource eq 'Principal'}">
+                                                        <link:schoolProfilePrincipalView school="${school.school}">
+                                                            View more programs &amp;amp; extracurriculars
+                                                        </link:schoolProfilePrincipalView>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        &amp;nbsp;
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:when>
                                             <c:otherwise>
-                                                &amp;nbsp;
+                                                <c:choose>
+                                                    <c:when test="${school.programSource eq 'Principal'}">
+                                                        <link:schoolProfilePrincipalView school="${school.school}">
+                                                            View more programs &amp;amp; extracurriculars
+                                                        </link:schoolProfilePrincipalView>
+                                                    </c:when>
+                                                    <c:when test="${school.numResponses gt 0}">
+                                                        <link:startSurveyResults school="${school.school}">
+                                                            View more programs &amp;amp; extracurriculars
+                                                        </link:startSurveyResults>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        &amp;nbsp;
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>

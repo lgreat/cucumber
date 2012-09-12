@@ -191,6 +191,40 @@ public class CompareProgramsExtracurricularsControllerTest extends BaseControlle
         assertEquals(0, ((List)model.get("categories")).size());
     }
 
+    public void testHandleCompareRequestNoEspDataNewProfile() {
+        List<ComparedSchoolBaseStruct> structs =
+                new ArrayList<ComparedSchoolBaseStruct>();
+        ComparedSchoolProgramsExtracurricularsStruct struct1 = new ComparedSchoolProgramsExtracurricularsStruct();
+        School school1 = new School();
+        school1.setDatabaseState(State.CA);
+        school1.setId(1);
+        school1.setName("Test School 1");
+        school1.setLevelCode(LevelCode.ELEMENTARY);
+        school1.setNewProfileSchool(1);
+        struct1.setSchool(school1);
+        ComparedSchoolProgramsExtracurricularsStruct struct2 = new ComparedSchoolProgramsExtracurricularsStruct();
+        School school2 = new School();
+        school2.setDatabaseState(State.CA);
+        school2.setId(2);
+        school2.setName("Test School 2");
+        school2.setLevelCode(LevelCode.ELEMENTARY_MIDDLE);
+        school2.setNewProfileSchool(0);
+        struct2.setSchool(school2);
+        structs.add(struct1);
+        structs.add(struct2);
+
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        expect(_espResponseDao.getResponses(school1)).andReturn(null);
+        // surveyDao is never checked for school1 since it is a new profile school
+        expect(_espResponseDao.getResponses(school2)).andReturn(null);
+        expect(_surveyDao.getSurveyResultsForSchool("e", school2)).andReturn(null);
+        expect(_surveyDao.getSurveyResultsForSchool("m", school2)).andReturn(null);
+        replayAllMocks();
+        _controller.handleCompareRequest(getRequest(), getResponse(), structs, model);
+        verifyAllMocks();
+    }
+
     public void testHandleCompareRequestESPOverride() {
         // test that ESP overrides parent survey
         List<ComparedSchoolBaseStruct> structs =
