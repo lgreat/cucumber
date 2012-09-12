@@ -17,8 +17,6 @@
 
     <c:set var="content" value="${gsRatingsModel['content']}" scope="page"/>
 
-
-
     <c:choose>
         <c:when test="${content eq 'GsRatings'}">
             <c:set var="t1dc">
@@ -44,7 +42,7 @@
                         <hr class="keyline2"/>
                         <p class="small bottom mvs">Climate<span class="small_bold bottom fr mrs">${climateRating}</span></p>
                         <hr class="keyline2"/>
-                        <p class="small bottom mvs">Overall<span class="ratingx24-public-RYG r-24-${overallRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
+                        <p class="small bottom mvs">Overall<span class="ratingx24-${schoolType}-RYG r-24-${overallRating} fr" style="margin-top: -2px;"><!-- do not collapse --></span></p>
                         <hr class="keyline2"/>
                         <div class="line mts">
                             <div class="unit size33of100">
