@@ -32,12 +32,12 @@
                 <c:if test="${! empty statsRows[6]}">
                     <c:set var="hasStudentData" value="yes"/>
                 </c:if>
-                <school:schoolProfilePieChartTable groupId="6" title="Student Ethnicity" statsTab="students" pieDivId="ethnicityPieChart" pieDataSet="${ethnicityMap}"/>
+                <school:schoolProfilePieChartTable groupId="6" title="Student ethnicity" statsTab="students" pieDivId="ethnicityPieChart" pieDataSet="${ethnicityMap}"/>
 
                 <c:if test="${! empty statsRows[13]}">
                     <c:set var="hasStudentData" value="yes"/>
                 </c:if>
-                <school:schoolProfileStatsTable groupId="13" title="Student Subgroups" statsTab="students"/>
+                <school:schoolProfileStatsTable groupId="13" title="Student subgroups" statsTab="students"/>
 
 
 
@@ -51,7 +51,7 @@
                     <div class="mod standard_1-1">
                     <div class="inner">
                     <div class="hd">
-                        <h4 class="pvm plm bottom">College Readiness and Acceptance</h4>
+                        <h4 class="pvm plm bottom">College readiness and acceptance</h4>
                     </div>
                     <div class="bd pan">
                     <table class="tableType1">
@@ -226,13 +226,13 @@
                 <c:if test="${! empty statsRows[5]}">
                     <c:set var="hasTeacherData" value="yes"/>
                 </c:if>
-                <school:schoolProfileStatsTable groupId="5" title="Student-Teacher Ratio" statsTab="teachers"/>
+                <school:schoolProfileStatsTable groupId="5" title="Student-Teacher ratio" statsTab="teachers"/>
 
 
                 <c:if test="${! empty statsRows[14]}">
                     <c:set var="hasTeacherData" value="yes"/>
                 </c:if>
-                <school:schoolProfileStatsTable groupId="14" title="Teacher Experience" statsTab="teachers"/>
+                <school:schoolProfileStatsTable groupId="14" title="Teacher experience" statsTab="teachers"/>
 
 
                 <!-- print out table with OSP data if any OSP data for below keys exists -->
