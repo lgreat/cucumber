@@ -5,7 +5,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
         >
     <c:set var="city" value="${school.city}"/>
-    <div class="containerGrayBox">
+    <div class="containerGrayBox mbm">
         <div class="media">
             <div class="img mrl">
                 <c:if test="${fn:toLowerCase(city) eq 'washington'}">
