@@ -189,11 +189,6 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         List<EspResponse> espResponses = espData.get( "best_known_for" );
         if (espResponses != null && espResponses.size() > 0) {
             bestKnownFor = espResponses.get(0).getSafeValue();
-            if (StringUtils.isNotBlank(bestKnownFor)) {
-                if (!StringUtils.endsWith(bestKnownFor, ".")) {
-                    bestKnownFor += ".";
-                }
-            }
         }
         return bestKnownFor;
     }
