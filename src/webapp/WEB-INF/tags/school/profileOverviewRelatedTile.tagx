@@ -51,7 +51,7 @@
 
     <c:choose>
         <c:when test="${hasOSPData eq 'true'}">
-            <c:set var="charLimit" value="${50}"/>
+            <c:set var="charLimit" value="${55}"/>
 
             <c:set var="contentResult0">
                 <!-- show the video first in the list -->
@@ -91,7 +91,7 @@
         </c:when>
         <c:otherwise>
             <c:set var="loopLimit" value="${3}"/>
-            <c:set var="charLimit" value="${40}"/>
+            <c:set var="charLimit" value="${37}"/>
 
             <c:set var="contentResult1">
                 <!-- show the video first in the list -->
