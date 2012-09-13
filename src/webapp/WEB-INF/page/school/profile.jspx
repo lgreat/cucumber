@@ -66,6 +66,8 @@
     <c:if test="${not empty relCanonical}">
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
+
+    <script type="text/javascript" src="/res/js/json2.js"><!-- do not collapse --> </script>
     <script type="text/javascript" src="/res/js/history.min.js"><!-- do not collapse --> </script>
     <script type="text/javascript" src="/res/js/school/profilePage.js"><!-- do not collapse --> </script>
     <script type="text/javascript" src="/res/js/schoolReviewForm.js"><!-- no collapse --></script>

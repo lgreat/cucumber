@@ -159,7 +159,7 @@ GS.school.compare = (function() {
         schoolsInCompare = GS.util.storeSchools.getSchools(compareKey);
         compareBtn = $('#js_compareBtn');
         compareModule = $('#' + MODULE_ID);
-        compareAddBtn = $(compareModule.has('#js_compareAddBtn').length? $(compareModule.find('#js_compareAddBtn')[0]) : undefined);
+        compareAddBtn = compareModule.has('#js_compareAddBtn').length != 0 ? $(compareModule.find('#js_compareAddBtn')[0]) : undefined;
         getSourceUrlFunc = fromUrl;
 
         // if the js_compareaddbtn is available, then get the context information
