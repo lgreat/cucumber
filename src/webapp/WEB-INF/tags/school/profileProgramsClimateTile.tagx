@@ -53,7 +53,7 @@
             <school:profileCell2 title="${t8_1dc}">
                 <!-- Randall - Build default "What's this school like?" here -->
                 <!-- the climate rating is in climateRatings -->
-                <div class="small mas" style="height:90px;">
+                <div class="small mas">
                     <ul>
                         <li>Visit the school: <a href="/find-a-school/school-visit/24-the-school-visit-what-to-look-for-what-to-ask.gs">What to look for, what to ask</a></li>
                         <li>Read our <gslink:linkToTab tabName="reviews">Community Reviews</gslink:linkToTab> about the school</li>

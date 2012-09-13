@@ -41,7 +41,7 @@
                         <div class="inner">
                             <div class="bd media">
                                 <span class="imgReg fr"><span
-                                        class="iconx96 i-96-video-add"><!-- do not collapse --></span></span>
+                                        class="iconx96 i-96-video-add" style="height:86px;"><!-- do not collapse --></span></span>
                                 <h4 class="bottom">Add videos</h4>
 
                                 <p class="bottom fl">
