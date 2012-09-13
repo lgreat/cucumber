@@ -408,7 +408,7 @@
         <ad:adTag position="AboveFold_300x600"/>
 
         <compare:persistentCompare school="${school}"/>
-        <school:profileNearby />
+        <school:profileNearby nearbySchools="${nearbySchools}" />
 
         <ad:adTag position="Community_Ad_300x50"/>
 
