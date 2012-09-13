@@ -499,8 +499,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertEquals("testSportsArtsMusicSports: wrong number of boys_sport", 2, boysSports.size());
         assertEquals("testSportsArtsMusicSports: wrong boys_sports(0)", "Baseball", boysSports.get(0));
         assertEquals("testSportsArtsMusicSports: wrong boys_sports(1)", "Football", boysSports.get(1));
-        assertTrue("testSportsArtsMusicSports: expected girls_sports size = 1", (girlsSports.size() == 1) );
-        assertEquals("testSportsArtsMusicSports: wrong girls_sports(0)", "None", girlsSports.get(0) );
+        assertTrue("testSportsArtsMusicSports: expected girls_sports size = 0", (girlsSports.size() == 0) );
     }
 
     // =========== Tests for Tile 3 - school video ====================
