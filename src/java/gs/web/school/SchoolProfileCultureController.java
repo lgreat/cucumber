@@ -268,7 +268,6 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
                 "school_mascot" ) );
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "More from this school",
                 "anything_else" ) );
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SAFE);
     }
 
     boolean isNotEmpty( Collection c ) {

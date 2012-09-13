@@ -43,7 +43,6 @@ public class SchoolProfileDisplayBean {
         //* Remove none no mater how many values are in the list and if there is only one the list will become empty */
         REMOVE_NONE_ALWAYS
     }
-    public enum ValueFormatSelector{ PRETTY, SAFE, UNFORMATTED, SENTENCE_CAP }  // Controls which value is selected from the EspResponse
 
     private String _tabAbbreviation;            // abbreviation for a tab
     private String _sectionAbbreviation;        // abbreviation for a section
@@ -61,8 +60,6 @@ public class SchoolProfileDisplayBean {
     //private boolean _requiresNoneHandling;      // indicator that special "None" value handling is needed
     private NoneHandling _noneMode;             // How to treat None values
     private List<AdditionalData> _additionalData;    // A place to store additional data to retrieve from the ESP database and map to the model
-    private ValueFormatSelector _valueFormat;   // The format of the display value to use
-    private Map<String, ValueFormatSelector> _specialValueFormat = new HashMap<String, ValueFormatSelector>();   // Some of the EspResponse keys that are added as with addKey() need special formatting
 
     // Don't allow default construction
     private SchoolProfileDisplayBean(){}
@@ -94,7 +91,6 @@ public class SchoolProfileDisplayBean {
         else {
             _allowedResponseValues = null;
         }
-        _valueFormat = ValueFormatSelector.PRETTY;  // This is default
         _displayFormat = DisplayFormat.BASIC;
         _noneMode = NoneHandling.REMOVE_NONE_IF_NOT_ONLY_VALUE;
     }
@@ -173,18 +169,6 @@ public class SchoolProfileDisplayBean {
     }
 
     /**
-     * This is like addKey() but also supports specifying how the value is to be formatted
-     * @param espResponseKey
-     * @param valueFormatSelector
-     */
-    public void addKeyWithValueFormatting( String espResponseKey, ValueFormatSelector valueFormatSelector ) {
-        _espResponseKeys.add( espResponseKey );
-
-        // add to the _specialValueFormat map
-        _specialValueFormat.put(espResponseKey, valueFormatSelector);
-    }
-
-    /**
      * Specify a URL descriptionEspResponseKey and valueEspResponseKey for the display.
      * @param descriptionEspResponseKey  The epsResponseKey for this description
      * @param urlEspResponseKey  The espResponseKey for this url
@@ -220,7 +204,6 @@ public class SchoolProfileDisplayBean {
             _urlValue.add( modelKey );
             _additionalData.add( new AdditionalData( urlEspResponseKey ) );
             _espResponseKeys.add(urlEspResponseKey);        // Need to retrieve data for this key
-            _specialValueFormat.put( urlEspResponseKey, ValueFormatSelector.SAFE ); // Url's always need SAFE formatting
         }
         else {
             _urlValue.add("");
@@ -263,14 +246,6 @@ public class SchoolProfileDisplayBean {
 
     public NoneHandling getShowNone() {
         return _noneMode;
-    }
-
-    public ValueFormatSelector getValueFormat() {
-        return _valueFormat;
-    }
-
-    public void setValueFormat(ValueFormatSelector valueFormat) {
-        _valueFormat = valueFormat;
     }
 
     /**
@@ -385,36 +360,6 @@ public class SchoolProfileDisplayBean {
         else {
             return "";
         }
-    }
-
-    /**
-     * Format the esp_response according to the specification in the bean
-     * @param e
-     * @return
-     */
-    public String formatEspResponseValue( EspResponse e ) {
-
-        ValueFormatSelector valueFormatSelector = _valueFormat;
-        // See if this EspResponse needs special formatting
-        if( _specialValueFormat.get(e.getKey()) != null ) {
-            valueFormatSelector = _specialValueFormat.get(e.getKey());
-        }
-
-        switch ( valueFormatSelector ) {
-            case PRETTY :
-                return e.getPrettyValue();
-            case SAFE:
-                return e.getSafeValue();
-            case UNFORMATTED:
-                return e.getValue();
-            case SENTENCE_CAP:
-                // Start with pretty and then change to sentence case
-                return WordUtils.capitalizeFully( e.getPrettyValue(), new char[] {'_'} );
-            default:
-                // Shouldn't ever get here
-                return e.getPrettyValue();
-        }
-
     }
 
     // This is a simple inner class to keep track of additional ESP data to retrieve and how to map that to modelKeys

@@ -140,13 +140,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actual = resultsModel.get( "highlights/Health/facilities" );
 
-        String[] expected = new String[] {"Farm", "Garden", "Sports fields"};
-        List<String> expectedList = Arrays.asList( expected );
-
-        assertNotNull( "testAllowedListMultiple: result List is null", actual);
-        boolean equals = actual.equals( expectedList );
-        assertTrue( "testAllowedListMultiple: Filtering of results where there are multiple allowed values fails", equals );
-
+        assertEquals("Should have gotten 3 results because one 3 or the 4 provided is in the allowed list", 3, actual.size());
     }
 
     // Verifies that the ADDITIONAL_PAGE_DATA data is getting populated and merged correctly
@@ -198,7 +192,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
         assertNotNull( "testAdditionalDataMergeWithNoResultData: result is null", actualStudentClubData);
         boolean clubsEqual = actualStudentClubData.equals( expectedStudentClubData );
-        assertTrue( "testAdditionalDataMergeWithNoResultData: results are different", clubsEqual );
+        assertTrue( "testAdditionalDataMergeWithNoResultData: results are different, \nexpected = " + expectedStudentClubData + ", actual = " + actualStudentClubData, clubsEqual );
     }
 
     // Tests the applyUniqueDataRules() for admissions_contact_school
@@ -236,7 +230,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> results = resultsModel.get( "programs_resources/Programs/immersion" );
-        assertEquals("testSpecialRuleImmersion3: Expected Cantonese", "Cantonese", results.get(0));
+        assertEquals("testSpecialRuleImmersion3: Expected Cantonese", "Chinese (Cantonese)", results.get(0));
         assertEquals("testSpecialRuleImmersion3: Expected 1 result", 1, results.size());
 
     }
@@ -285,9 +279,9 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> startTime = resultsModel.get( "programs_resources/Basics/start_time" );
-        assertEquals( "testTimeFormatting: start time did not match", "9:00 a.m.", startTime.get(0) );
+        assertEquals( "testTimeFormatting: start time did not match", "9:00 am", startTime.get(0) );
         List<String> endTime = resultsModel.get( "programs_resources/Basics/end_time" );
-        assertEquals( "testTimeFormatting: end time did not match", "3:00 p.m.", endTime.get(0) );
+        assertEquals( "testTimeFormatting: end time did not match", "3:00 pm", endTime.get(0) );
     }
 
     // Tests the None handling part of the display bean
@@ -314,7 +308,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         // *** Test 2 - None and other entries
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "instructional_model", "none" ) );
-        l.add( createEspResponse( "instructional_model_other", "gifted" ) );
+        l.add( createEspResponse( "instructional_model_other", "Gifted" ) );
 
         ModelMap map = runController( convertToEspData( l ) );
 
@@ -403,7 +397,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         response.setActive( true );
         response.setKey( key );
         response.setValue( value );
-        response.setPrettyValue( createPrettyValue(value) );
+        EspResponseHelper.fillInPrettyValue(response);
         return response;
     }
 

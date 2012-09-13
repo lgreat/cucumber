@@ -152,7 +152,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             e.add( createEspResponse( "school_type_affiliation",  schoolAffiliation ) );
             espResults.put( "school_type_affiliation", e );
         }
-        // This covers the alternatives.  No need to check #3 because there is nothing to whether it is present or not
+        // This covers the alternatives.  No need to check #3 because it is already stored with the correct key
 
         // association which comes from the school table
         String associationCommaSep = school.getAssociation();
@@ -229,12 +229,12 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                         // If there is a set of permitted values then check to see if this value is allowed
                         // the allowed values only applies to the first key added as indicated by getEspResponseKeyWithAllowed()
                         if( bean.getAllowedResponseValues().contains(espResponse.getValue())) {
-                            value = bean.formatEspResponseValue(espResponse);
+                            value = espResponse.getPrettyValue();
                         }
                     }
                     else {
                         // There is no list of allowed values so just use what we have
-                        value = bean.formatEspResponseValue(espResponse);
+                        value = espResponse.getPrettyValue();
                     }
                     if( value != null ) {
                         results.add( value );
@@ -268,7 +268,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                     if( espResponseData != null && espResponseData.size() > 0 ) {
                         List<String> data = new ArrayList<String>( espResponseData.size() );
                         for( EspResponse e : espResponseData ) {
-                            data.add( display.formatEspResponseValue( e ) );
+                            data.add( e.getPrettyValue() );
                         }
                         resultsModel.put( ad.getModelKey(), data );
                     }
@@ -878,7 +878,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "skills_training", new String[]{"programming", "it_support", "mechanics", "electrical", "hvac", "engineering"} ) );
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, stemAbbrev, stemTitle, "Visual arts",
-                "arts_visual", new String[]{"ceramics", "drawing", "painting", "photography", "none", "architecture", "design", "printmaking", "sculpture", "textiles"} ) );
+                "arts_visual", new String[]{"architecture"} ) );
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, stemAbbrev, stemTitle, "Clubs",
                 "student_clubs", new String[]{"gardening", "math_club", "recycling", "robotics", "science_club", "tech_club"} ) );
@@ -907,17 +907,14 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "arts_music"));
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, artsAbbrev, artsTitle, "Performing and written arts",
                 "arts_performing_written"));
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, artsAbbrev, artsTitle, "Media arts",
                 "arts_media"));
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, artsAbbrev, artsTitle, "Clubs",
                 "student_clubs", new String[]{"student_newspaper", "yearbook", "anime", "art_club", "arts_crafts", "dance", "drama_club", "drill_team", "drum_line", "flag_girls", "literary_mag", "marching_band", "mime", "origami", "sewing_knitting", "step_team", "tv_radio_news", "woodshop"} ) );
         // need to combine student_clubs and student_clubs_dance data
@@ -941,7 +938,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Foreign languages taught",
                 "foreign_language"));
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
-        getLastDisplayBean().addKeyWithValueFormatting("foreign_language_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("foreign_language_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Level of ESL/ELL programming offered",
                 "ell_level"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Languages supported by ESL/ELL programs",
@@ -952,7 +949,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Foreign languages spoken by staff",
                 "staff_languages"));
-        getLastDisplayBean().addKeyWithValueFormatting("staff_languages_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("staff_languages_other");
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Clubs",
@@ -994,7 +991,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, giftedAbbrev, giftedTitle, "College preparation / awareness resources offered",
                 "college_prep"));
-        getLastDisplayBean().addKeyWithValueFormatting("college_prep_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("college_prep_other");
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, giftedAbbrev, giftedTitle, "Clubs",
                 "student_clubs", new String[]{"debate", "", "forensics", "its_academic", "nhs"} ) );
@@ -1036,10 +1033,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         String sectionTitle = "School basics";
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "School start time",
                 "start_time" ) );
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SAFE);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School end time",
                 "end_time"));
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SAFE);
         // Data for the following Before school... item is retrieved in applyUniqueDataRules()
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Before school or after school care / program onsite",
                 "before_after_care", new String[]{"after", "before"}));
@@ -1051,48 +1046,43 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "age_pk_start"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Gender",
                 "coed"));
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Special schedule",
                 "schedule"));
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Boarding options",
                 "boarding"));
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Is there an application process?",
                 "application_process"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Affiliation",
                 "school_type_affiliation"));
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SAFE);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Associations",
                 "school.association"));
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SAFE);
 
         // Programs section
         sectionAbbrev = "Programs";
         sectionTitle = "Programs";
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Instructional and/or curriculum models used",
                 "instructional_model"));
-        getLastDisplayBean().addKeyWithValueFormatting("instructional_model_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("instructional_model_other");
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_IF_NOT_ONLY_VALUE);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Specific academic themes or areas of focus",
                 "academic_focus"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Bi-lingual or language immersion programs offered",
                 "immersion_language"));
-        getLastDisplayBean().addKeyWithValueFormatting("immersion_language_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("immersion_language_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Level of special education programming offered",
                 "spec_ed_level"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Specialized programs for specific types of special education students",
                 "special_ed_programs"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Foreign languages taught",
                 "foreign_language"));
-        getLastDisplayBean().addKeyWithValueFormatting("foreign_language_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("foreign_language_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Level of ESL/ELL programming offered",
                 "ell_level"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Languages supported by ESL/ELL programs",
                 "ell_languages"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Vocational or skills-based training offered",
                 "skills_training"));
-        getLastDisplayBean().addKeyWithValueFormatting("skills_training_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("skills_training_other");
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Advanced Placement (AP) exams offered",
                 "advanced_placement_exams" ) ); // This key is a placeholder because the data does not come from the ESP table.  The data is provided in applyUniqueDataRules
 
@@ -1103,20 +1093,20 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "staff_resources"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Foreign languages spoken by staff",
                 "staff_languages"));
-        getLastDisplayBean().addKeyWithValueFormatting("staff_languages_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("staff_languages_other");
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Extra learning resources offered",
                 "extra_learning_resources"));
-        getLastDisplayBean().addKeyWithValueFormatting("extra_learning_resources_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("extra_learning_resources_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "College preparation / awareness resources offered",
                 "college_prep"));
-        getLastDisplayBean().addKeyWithValueFormatting("college_prep_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("college_prep_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School-run shuttle from nearby metro and bus stops",
                 "transportation_shuttle", new String[]{"yes"} ));
         getLastDisplayBean().addSupportInfo("transportation_shuttle_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Transportation provided for students by the school / district",
                 "transportation"));
-        getLastDisplayBean().addKeyWithValueFormatting("transportation_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("transportation_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School facilities",
                 "facilities"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Partnerships with local resources and organizations",
@@ -1136,12 +1126,10 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         String sectionTitle = "Sports";
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Boys sports",
                 "boys_sports"));
-        getLastDisplayBean().addKeyWithValueFormatting("boys_sports_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("boys_sports_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Girls sports",
                 "girls_sports"));
-        getLastDisplayBean().addKeyWithValueFormatting("girls_sports_other", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("girls_sports_other");
 
         // Arts and Music section
         sectionAbbrev = "Arts";
@@ -1149,19 +1137,15 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, sectionAbbrev, sectionTitle, "Visual arts",
                 "arts_visual" ) );
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Music",
                 "arts_music"));
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Performing arts",
                 "arts_performing_written"));
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Media arts",
                 "arts_media"));
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
-        getLastDisplayBean().setValueFormat(SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
 
         // Clubs section
         sectionAbbrev = "Clubs";
@@ -1171,9 +1155,9 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         // student_clubs_dance and student_clubs_language are formatted in applyUniqueDataRules so they can have a prefix
         //getLastDisplayBean().addKey("student_clubs_dance");
         //getLastDisplayBean().addKey("student_clubs_language");
-        getLastDisplayBean().addKeyWithValueFormatting("student_clubs_other_1", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
-        getLastDisplayBean().addKeyWithValueFormatting("student_clubs_other_2", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
-        getLastDisplayBean().addKeyWithValueFormatting("student_clubs_other_3", SchoolProfileDisplayBean.ValueFormatSelector.SENTENCE_CAP);
+        getLastDisplayBean().addKey("student_clubs_other_1");
+        getLastDisplayBean().addKey("student_clubs_other_2");
+        getLastDisplayBean().addKey("student_clubs_other_3");
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_IF_NOT_ONLY_VALUE);
         getLastDisplayBean().setDisplayFormat(SchoolProfileDisplayBean.DisplayFormat.TWO_COL);
     }
