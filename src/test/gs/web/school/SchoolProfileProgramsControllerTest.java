@@ -187,7 +187,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actualStudentClubData = resultsModel.get("highlights/Language/foreign_language");
 
-        String[] expected = new String[] {"After school  spanish tuition-based programs", "American sign language" };
+        String[] expected = new String[] {"After School  Spanish Tuition-based Programs", "American Sign Language" };
         List<String> expectedStudentClubData = Arrays.asList( expected );
 
         assertNotNull( "testAdditionalDataMergeWithNoResultData: result is null", actualStudentClubData);
