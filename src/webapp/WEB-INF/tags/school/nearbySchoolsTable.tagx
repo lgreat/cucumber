@@ -702,14 +702,6 @@
                 var stars = jQuery(this).parent().parent().find('> td > a > span');
                 var starsClass = stars.attr('class');
                 (starsClass.match(pattern2) === null) ? isWhite = true : isWhite = false;
-                var badge = jQuery(this).parent().parent().find('> td > span');
-                if (badge.length != 0) {
-                    var badgeClass = badge.attr('class');
-                    if (isWhite) {
-                        var blueBadgeClass = badgeClass + '_b';
-                        badge.removeClass(badgeClass).addClass(blueBadgeClass);
-                    }
-                }
                 if (isWhite) {
                     var blueStarsClass = starsClass + '_b';
                     stars.removeClass(starsClass).addClass(blueStarsClass);
@@ -730,14 +722,6 @@
 //                console.log(starsClass);
                 var whiteStarsClass = starsClass.match(pattern4)[0];
 //                console.log(whiteStarsClass);
-                var badge = jQuery(this).parent().parent().find('> td > span');
-                if (badge.length != 0) {
-                    var badgeClass = badge.attr('class');
-                    var whiteBadgeClass = badgeClass.match(pattern3)[0];
-                    if (isBlue) {
-                        badge.removeClass(badgeClass).addClass(whiteBadgeClass);
-                    }
-                }
                 if (isBlue) {
                     stars.removeClass(starsClass).addClass(whiteStarsClass);
                 }
