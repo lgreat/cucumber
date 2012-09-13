@@ -76,9 +76,18 @@
 
                 <div class="clearfloat"><!-- empty not delete --></div>
                 <div class="pas">
-                    <div class="fl{{displayGSRating}}">
-                        <div class="ratings-round ratings-small round-small fl vam"><div class="ratings-number number-small">{{gsRating}}</div></div>
-                        <div class="small-lt fl pls pt4"> of 10</div>
+                    <div class="fl">
+                        <!--<div class="ratings-round ratings-small round-small fl vam"><div class="ratings-number number-small">{{gsRating}}</div></div>-->
+                        <span class="fl ratingx24-preschool r-24-NR" style="display: {{displayPKOnlyGSRating}}"><!-- do not collapse --></span>
+                        <span class="fl {{displayNewGSRating}}">
+                            <span class="ratingx24-private-RYG r-24-{{gsRating}}" style="display: {{displayPrivateGSRating}}"><!-- do not collapse --></span>
+                            <span class="ratingx24-public-RYG r-24-{{gsRating}}" style="display: {{displayPublicGSRating}}"><!-- do not collapse --></span>
+                        </span>
+                        <span class="fl {{displayOldGSRating}}">
+                            <span class="ratingx24-private-O r-24-{{gsRating}}" style="display: {{displayPrivateGSRating}}"><!-- do not collapse --></span>
+                            <span class="ratingx24-public-O r-24-{{gsRating}}" style="display: {{displayPublicGSRating}}"><!-- do not collapse --></span>
+                        </span>
+                        <div class="small-lt fl pls pt4{{noRating}}"> of 10</div>
                     </div>
                     <div class="fr prm{{displayCommRating}}"><span class="small-lt">Community rating: </span>
 

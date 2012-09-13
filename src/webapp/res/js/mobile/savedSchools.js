@@ -29,11 +29,33 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
         var savedSchoolsDiv = $('#js-savedSchools');
 
         for(var i = 1; i <= numOfSavedSchools; i++) {
-            var type_school = schools[i].type;
-            var display_gs_rating = "";
-            if(type_school == "private" || schools[i].gsRating == ""){
-                display_gs_rating = " dn";
+            var display_New_GSRating = " dn";
+            var display_Old_GSRating = "";
+            if(schools[i].isNewGSRating === 'true') {
+                display_New_GSRating = "";
+                display_Old_GSRating = " dn";
             }
+
+            var noRating = "";
+            if(schools[i].gsRating === '') {
+                noRating = " dn";
+            }
+
+            var gsRating = schools[i].gsRating;
+            var display_PK_only_GS_rating = "none";
+            var display_private_GS_rating = "none";
+            var display_public_GS_rating = "none";
+            if(schools[i].isPreschoolOnly === 'true') {
+                display_PK_only_GS_rating = "block";
+            }
+            else if(schools[i].type === 'private') {
+                display_private_GS_rating = "block";
+                gsRating = 'NR';
+            }
+            else {
+                display_public_GS_rating = "block";
+            }
+
             var community_rating = schools[i].commRating;
             var display_comm_rating = "";
             if(community_rating == ""){
@@ -46,9 +68,15 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
                 schoolGradeLevels: schools[i].gradeLevels,
                 schoolCity: schools[i].city,
                 schoolState: schools[i].state,
-                displayGSRating: display_gs_rating,
                 displayCommRating: display_comm_rating,
-                gsRating: schools[i].gsRating,
+                gsRating: gsRating,
+                isNewGSRating: schools[i].isNewGSRating,
+                displayNewGSRating: display_New_GSRating,
+                displayOldGSRating: display_Old_GSRating,
+                displayPKOnlyGSRating: display_PK_only_GS_rating,
+                displayPrivateGSRating: display_private_GS_rating,
+                displayPublicGSRating: display_public_GS_rating,
+                noRating: noRating,
                 commRating: schools[i].commRating,
                 starOff: 5 - parseInt(schools[i].commRating),
                 state_schoolId: schools[i].state + '_' + schools[i].id,

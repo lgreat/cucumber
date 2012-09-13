@@ -9,6 +9,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:search="urn:jsptagdir:/WEB-INF/tags/search" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
         >
 <html lang="en">
 <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -59,27 +60,25 @@
     <mobile:schoolProfileIntro school="${school}" linkSchool="${false}"/>
 
     <div class="clearfloat mtm"><!-- empty not delete --></div>
-    <c:if test="${not empty gs_rating or not empty ratings.overall}">
-
-        <div class="fl mrm ">
-            <c:if test="${not empty gs_rating}">
-                <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
-                    <div class="ratings-round ratings-medium round-medium vam fl">
-                        <div class="ratings-number number-medium">${gs_rating}</div>
-                    </div>
-                    <div class="tal pls fl">GreatSchools<br/>Rating</div>
-                </link:schoolProfileTestscore>
-            </c:if>
-        </div>
-        <div class="fl">
-            <c:if test="${not empty ratings.overall}">
-                <link:schoolProfileParentReview school="${school}" styleClass="but but-sm but-2 but-overview">
-                    Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>
-                    <mobile:stars curSR="${ratings.overall}" smStars="1"/>
-                </link:schoolProfileParentReview>
-            </c:if>
-        </div>
-    </c:if>
+    <div class="fl mrm ">
+        <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
+            <div class="vam fl">
+                <!--<div class="ratings-number number-medium">${gs_rating}</div>-->
+                <ratings:ratingsSprite-mobile isNewGsRating="${school.isNewGSRating}" gsRating="${gs_rating}"
+                                              schoolType="${school.type.schoolTypeName}" isPreschoolOnly="${school.preschoolOnly}"
+                                              spriteSize="medium"/>
+            </div>
+            <div class="tal pls fl">GreatSchools<br/>Rating</div>
+        </link:schoolProfileTestscore>
+    </div>
+    <div class="fl">
+        <c:if test="${not empty ratings.overall}">
+            <link:schoolProfileParentReview school="${school}" styleClass="but but-sm but-2 but-overview">
+                Community Rating<c:if test="${numberOfRatings gt 0}"> (${numberOfRatings})</c:if><br/>
+                <mobile:stars curSR="${ratings.overall}" smStars="1"/>
+            </link:schoolProfileParentReview>
+        </c:if>
+    </div>
 
 </div>
 <div class="clearfloat pvm">
@@ -129,20 +128,37 @@ Android seems to require the address to be blank for the same behavior -->
 </div>
 
 <div id="js_schoolMap">
+    <c:set var="gsRatingValue" value="NR"/>
+    <c:if test="${not empty gsRating and gsRating gt 0}">
+        <c:set var="gsRatingValue" value="${gs_rating}"/>
+    </c:if>
     <c:choose>
-        <c:when test="${not empty gs_rating}">
-            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_${gs_rating}.png"/>
+        <c:when test="${school.preschoolOnly}">
+            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/preschool/preschool.png"/>
         </c:when>
         <c:when test="${school.type.schoolTypeName eq 'private'}">
-            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_private.png"/>
+            <c:choose>
+                <c:when test="${school.isNewGSRating}">
+                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/private/RYG/private_RGY_${ratingValue}.png"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/private/O/private_orange_${ratingValue}.png"/>
+                </c:otherwise>
+            </c:choose>
         </c:when>
         <c:otherwise>
-            <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/schoolRating_na.png"/>
+            <c:choose>
+                <c:when test="${school.isNewGSRating}">
+                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/public/RYG/RGY_${ratingValue}.png"/>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/public/O/orange_${ratingValue}}.png"/>
+                </c:otherwise>
+            </c:choose>
         </c:otherwise>
     </c:choose>
-    <c:set var="mapMarkerUrl" value="http://www.greatschools.org${mapMarkerUrl}"/>
+    <c:set var="mapMarkerUrl" value="http://qa.greatschools.org${mapMarkerUrl}"/>
     <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
-
     <a href="http://maps.google.com/?q=${schoolAddressWithName}">
         <img height="160" width="320" alt="Loading Map..." id="schoolStaticMap"
              data-src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=320x160&amp;maptype=roadmap&amp;scale=2&amp;sensor=false"/>

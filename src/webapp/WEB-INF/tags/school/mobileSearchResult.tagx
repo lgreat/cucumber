@@ -5,6 +5,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
         >
 
     <jsp:directive.attribute name="schoolId" required="true" type="java.lang.String"/>
@@ -20,11 +21,10 @@
     <jsp:directive.attribute name="parentRating" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="distance" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="schoolAddress" required="false" type="gs.data.util.Address"/>
+    <jsp:directive.attribute name="isNewGSRating" required="false" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="isPreschoolOnly" required="false" type="java.lang.Boolean"/>
 
 
-    <c:if test="${empty greatSchoolsRating}">
-        <c:set var="greatSchoolsRating" value="na"/>
-    </c:if>
     <link:schoolProfileOverviewForPrimitives schoolId="${schoolId}" databaseState="${databaseState}"
                                              name="${schoolName}" physicalAddress="${schoolAddress}"
                                              levelCode="${levelCode}">
@@ -41,24 +41,28 @@
         </div>
     </div>
 
-    <c:if test="${greatSchoolsRating ne 'na' or not empty parentRating}">
         <div class="mbs">
             <div class="fl">
-                <c:if test="${greatSchoolsRating ne 'na'}">
-                    <div class="vam">
-                        <div class="fl">
-                            <div class="ratings-round ratings-small round-small">
-                                <div class="ratings-number number-small">
-                                    ${greatSchoolsRating}
-                                </div>
-                            </div>
-                        </div>
+                <div class="vam">
+                    <!--<div class="fl">-->
+                    <!--<div class="ratings-round ratings-small round-small">-->
+                    <!--<div class="ratings-number number-small">-->
+                    <!--${greatSchoolsRating}-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="fl">
+                        <ratings:ratingsSprite-mobile isNewGsRating="${isNewGSRating}" gsRating="${greatSchoolsRating}"
+                                                      schoolType="${schoolType}" isPreschoolOnly="${isPreschoolOnly}"
+                                                      spriteSize="small"/>
+                    </div>
+                    <c:if test="${not empty greatSchoolsRating}">
                         <div class="fl plm pt2">
                             <span class="small-lt"> of 10</span>
                         </div>
-                        <br class="cleafloat"/>
-                    </div>
-                </c:if>
+                    </c:if>
+                    <br class="cleafloat"/>
+                </div>
             </div>
             <div class="fr mrm">
                 <c:if test="${not empty parentRating}">
@@ -68,6 +72,5 @@
             </div>
             <br class="clearfloat"/>
         </div>
-    </c:if>
     </link:schoolProfileOverviewForPrimitives>
 </jsp:root>

@@ -110,6 +110,11 @@ public class SchoolSaveMobileController implements ReadWriteAnnotationController
             Integer gsRating = _ratingHelper.getGreatSchoolsOverallRating(school, useCache);
             schoolMap.put("gsRating", gsRating == null ? "" : Integer.toString(gsRating));
 
+            schoolMap.put("isNewGSRating", new Boolean(school.getIsNewGSRating()).toString());
+
+            Boolean isPreschoolOnly = new Boolean("p".equals(school.getLevelCode().getCommaSeparatedString()));
+            schoolMap.put("isPreschoolOnly", isPreschoolOnly.toString());
+
             Ratings communityRatings = _reviewDao.findRatingsBySchool(school);
             Integer commRating = communityRatings.getOverall();
             schoolMap.put("commRating", commRating == null ? "" : Integer.toString(commRating));

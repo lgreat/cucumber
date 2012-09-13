@@ -7,6 +7,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
         >
     <html lang="en">
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
@@ -51,19 +52,24 @@
 
         <mobile:schoolProfileIntro school="${school}" linkSchool="${true}"/>
 
-        <c:if test="${not empty gs_rating}">
-            <div class="ptm">
-                <hr class="keyline1"/>
-                <div class="pts">
-                    <div class="ratings-round ratings-medium round-medium fl">
-                        <div class="ratings-number number-medium">${gs_rating}</div>
-                    </div>
+        <div class="ptm">
+            <hr class="keyline1"/>
+            <div class="pts">
+                <!--<div class="ratings-round ratings-medium round-medium fl">-->
+                <!--<div class="ratings-number number-medium">${gs_rating}</div>-->
+                <!--</div>-->
+                <div class="fl">
+                    <ratings:ratingsSprite-mobile isNewGsRating="${school.isNewGSRating}" gsRating="${gs_rating}"
+                                                  schoolType="${school.type.schoolTypeName}" isPreschoolOnly="${school.preschoolOnly}"
+                                                  spriteSize="medium"/>
+                </div>
+                <c:if test="${not empty gs_rating}">
                     <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong
                             class="small"> GreatSchools Rating</strong></div>
-                </div>
-                <div class="clearfloat"><!--  --></div>
+                </c:if>
             </div>
-        </c:if>
+            <div class="clearfloat"><!--  --></div>
+        </div>
 
     </div>
 
