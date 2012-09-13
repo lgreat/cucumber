@@ -49,6 +49,7 @@
     <pageHelper:externalJavascript file="/res/js/googleMapsInfobox.min.js"/>
 
     <!-- uncomment to get un-minified -->
+    <!--<pageHelper:externalJavascript file="/res/js/json2.js"/>-->
     <!--<pageHelper:externalJavascript file="/res/js/search/schoolSearchForm.js"/>-->
     <!--<pageHelper:externalJavascript file="/res/js/util/htmlMirrors.js"/>-->
     <!--<pageHelper:externalJavascript file="/res/js/search/filters.js"/>-->
