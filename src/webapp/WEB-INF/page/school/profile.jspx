@@ -104,6 +104,7 @@
     <ad:enableGptAsynchronousMode />
     <ad:disableGptGhostTextHiding position="Header_728x90"/>
     <ad:disableGptGhostTextHiding position="Footer_728x90"/>
+    <ad:disableGptGhostTextHiding position="AboveFold_300x600"/>
     <!-- enableAdPosition tag must be used in profile.jspx for any ad imcluded within a profile module -->
     <c:choose>
         <c:when test="${empty param.tab or param.tab eq 'overview'}">
@@ -405,7 +406,7 @@
     </div>
 
     <div class="">
-        <ad:adTag position="AboveFold_300x600"/>
+        <ad:AboveFold_300x600 />
 
         <compare:persistentCompare school="${school}"/>
         <school:profileNearby nearbySchools="${nearbySchools}" />
