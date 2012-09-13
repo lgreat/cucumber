@@ -26,17 +26,16 @@
         var GS_schoolProfileFbId = "";
         $(document).ready(function() {
             if(GS_schoolProfileFbId != ""){
-                var pathToFB = "https://graph.facebook.com/"+GS_schoolProfileFbId;
-                $.ajax({
-                    url: pathToFB,
-                    dataType: "json",
-                    success: function(data) {
+                var pathToFB = "https://graph.facebook.com/"+GS_schoolProfileFbId+"?callback=?";
+
+                $.getJSON(pathToFB,
+                    function(data) {
                         if(data.id){
                             jQuery('#js_facebookModuleCulturePage').show();
                             jQuery('#js_facebookModuleOverviewPage').show();
                         }
                     }
-                });
+                );
             }
         });
 

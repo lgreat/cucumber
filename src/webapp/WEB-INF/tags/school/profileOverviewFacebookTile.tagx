@@ -27,13 +27,10 @@
                             <div class="mod standard_3-1">
                                 <div class="outer">
                                     <div class="inner tac">
-                                        <div class="hd">
-                                            <div class="iconx96 i-96-conversation-bubbles"><!-- do not collapse --></div>
-                                            <h4 class="bottom">Go behind the scenes</h4>
-                                        </div>
                                         <div class="bd">
-                                            <gslink:linkToTab tabName="culture" customLink="overview_facebook" cssClass="small bottom js-trigger rlh">
-                                            See the latest buzz at<br />this school</gslink:linkToTab>
+                                            <div class="iconx96 i-96-conversation-bubbles" style="height:90px;"><!-- do not collapse --></div>
+                                            <h4 class="bottom">Go behind the scenes</h4>
+                                            <span class="small bottom make-06b rlh">See the latest buzz at<br />this school</span>
                                         </div>
                                     </div>
                                 </div>
