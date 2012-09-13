@@ -17,6 +17,9 @@
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
         >
 
+<!-- Even though profileReviews.jspx is curently a module included in school profile,
+        SessionContext is not shared among the modules, and so asyncronous mode must be enabled here -->
+<ad:enableGptAsynchronousMode />
 <c:set var="stateAbbrev" value="${school.databaseState.abbreviationLowerCase}"/>
 
 <communityHover:schoolReviewPosted schoolName="${school.name}"/>
