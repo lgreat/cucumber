@@ -76,6 +76,27 @@ GS.profile = GS.profile || (function() {
     ];
 
     var init = function() {
+        //window.History.debug.enable = true;
+        // Bind to StateChange Event
+        /*window.History.Adapter.bind(window,'statechange',function(){ // Note: We are using statechange instead of popstate
+            var State = window.History.getState(); // Note: We are using History.getState() instead of event.state
+            console.log('statechange', State.data, State.title, State.url);
+            window.History.log(State.data, State.title, State.url);
+        });
+
+        window.History.Adapter.bind(window,'hashchange',function(){ // Note: We are using statechange instead of popstate
+            var State = window.History.getState(); // Note: We are using History.getState() instead of event.state
+            console.log('hashchange', State.data, State.title, State.url);
+            window.History.log('hash change', State.data, State.title, State.url);
+        });
+
+        window.History.Adapter.bind(window,'anchorchange',function(){ // Note: We are using statechange instead of popstate
+            var State = window.History.getState(); // Note: We are using History.getState() instead of event.state
+            console.log('anchorchange', State.data, State.title, State.url);
+            window.History.log('anchor change', State.data, State.title, State.url);
+        });*/
+
+
         originalPageTitle = document.title;
         originalQueryData = GS.uri.Uri.getQueryData();
 
@@ -143,6 +164,7 @@ GS.profile = GS.profile || (function() {
     };
 
     var onTabChanged = function(currentTab, options) {
+        //console.log('on tab changed', currentTab);
         options = options || {};
         var $a = $(currentTab.selector);
         var jumpedToAnchor = false;
@@ -204,7 +226,14 @@ GS.profile = GS.profile || (function() {
         if (isHistoryAPIAvailable) {
             var currentTab = GS.tabManager.getCurrentTab();
             if (currentTab !== GS.tabManager.getTabByName('overview')) {
-                window.History.replaceState(null, getUpdatedTitle(currentTab.title), null);
+
+                // if href contains a hash, History.js replaceState will not function properly
+                var href = window.location.href;
+                    if (window.location.hash) {
+                    href = href.replace(window.location.hash, '');
+                }
+                window.History.replaceState(null, getUpdatedTitle(currentTab.title), href);
+                //window.History.replaceState(null, getUpdatedTitle(currentTab.title), null);
             }
         }
     };
