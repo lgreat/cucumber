@@ -349,6 +349,137 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertEquals("testSportsArtsMusicNoNonNoneData: expected no results", "Hide", result);
     }
 
+    // Tests for Sports data
+    public void testSports() {
+
+        // Boys: [None, or listing of non-none responses] (if None or no responses to Girls sports)
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "boys_sports", "baseball" ) );
+        l.add( createEspResponse( "girls_sports", "none" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
+
+        Map resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
+
+        List<String> boysSports = (List<String>) resultsModel.get("boys_sports");
+        List<String> girlsSports = (List<String>) resultsModel.get("girls_sports");
+
+        assertEquals("testSports: expected 1 result for boys_sports", 1, boysSports.size());
+        assertEquals("testSports: expected no results for girls_sports", 0, girlsSports.size());
+
+        // Girls: [None, or listing of non-none responses] (if None or no responses to Boys sports)
+
+        l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "boys_sports", "none" ) );
+        l.add( createEspResponse( "girls_sports", "baseball" ) );
+        espData = convertToEspData(l);
+
+        resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
+
+        boysSports = (List<String>) resultsModel.get("boys_sports");
+        girlsSports = (List<String>) resultsModel.get("girls_sports");
+
+        assertEquals("testSports: expected no results for boys_sports", 0, boysSports.size());
+        assertEquals("testSports: expected 1 result for girls_sports", 1, girlsSports.size());
+
+        // Boys: None, Girls: None
+
+        l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "boys_sports", "none" ) );
+        l.add( createEspResponse( "girls_sports", "none" ) );
+        espData = convertToEspData(l);
+
+        resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
+
+        boysSports = (List<String>) resultsModel.get("boys_sports");
+        girlsSports = (List<String>) resultsModel.get("girls_sports");
+
+        assertEquals("testSports: expected the boys_sports result to be 'none'", "none", boysSports.get(0).toLowerCase());
+        assertEquals("testSports: expected the girls_sports result to be 'none'", "none", girlsSports.get(0).toLowerCase());
+
+        // Boys: [listing of non-none responses], Girls: [listing of non-none responses]
+
+        l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "boys_sports", "football" ) );
+        l.add( createEspResponse( "girls_sports", "baseball" ) );
+        espData = convertToEspData(l);
+
+        resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
+
+        boysSports = (List<String>) resultsModel.get("boys_sports");
+        girlsSports = (List<String>) resultsModel.get("girls_sports");
+
+        assertEquals("testSports: expected 1 result for boys_sports", 1, boysSports.size());
+        assertEquals("testSports: expected the boys_sports result to be 'football'", "football", boysSports.get(0).toLowerCase());
+        assertEquals("testSports: expected 1 result for girls_sports", 1, girlsSports.size());
+        assertEquals("testSports: expected the girls_sports result to be 'baseball'", "baseball", girlsSports.get(0).toLowerCase());
+
+        // Boys: [None, or listing of non-none responses] (if None or no responses to Girls sports)
+
+        l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "boys_sports", "none" ) );
+        espData = convertToEspData(l);
+
+        resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
+
+        boysSports = (List<String>) resultsModel.get("boys_sports");
+        girlsSports = (List<String>) resultsModel.get("girls_sports");
+
+        assertEquals("testSports: expected the boys_sports result to be 'none'", "none", boysSports.get(0).toLowerCase());
+        assertEquals("testSports: expected no results for girls_sports", 0, girlsSports.size());
+
+        // Girls: [None, or listing of non-none responses] (if None or no responses to Boys sports)
+
+        l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "girls_sports", "none" ) );
+        espData = convertToEspData(l);
+
+        resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
+
+        boysSports = (List<String>) resultsModel.get("boys_sports");
+        girlsSports = (List<String>) resultsModel.get("girls_sports");
+
+        assertEquals("testSports: expected no results for boys_sports", 0, boysSports.size());
+        assertEquals("testSports: expected the girls_sports result to be 'none'", "none", girlsSports.get(0).toLowerCase());
+
+        // Information not yet provided (if no responses for either Boys or Girls sports)
+
+        l = new ArrayList<EspResponse>();
+        espData = convertToEspData(l);
+
+        resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
+
+        boysSports = (List<String>) resultsModel.get("boys_sports");
+        girlsSports = (List<String>) resultsModel.get("girls_sports");
+
+        assertEquals("testSports: expected no results for boys_sports", 0, boysSports.size());
+        assertEquals("testSports: expected no results for girls_sports", 0, girlsSports.size());
+
+        // Boys: [listing of non-none responses], Girls: [listing of non-none responses] (with extra None values that should be dropped)
+
+        l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "boys_sports", "football" ) );
+        l.add( createEspResponse( "boys_sports", "baseball" ) );
+        l.add( createEspResponse( "boys_sports", "none" ) );
+        l.add( createEspResponse( "girls_sports", "football" ) );
+        l.add( createEspResponse( "girls_sports", "baseball" ) );
+        l.add( createEspResponse( "girls_sports", "none" ) );
+        espData = convertToEspData(l);
+
+        resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
+
+        boysSports = (List<String>) resultsModel.get("boys_sports");
+        girlsSports = (List<String>) resultsModel.get("girls_sports");
+
+        assertEquals("testSports: expected 2 results for boys_sports", 2, boysSports.size());
+        assertEquals("testSports: expected the 1st boys_sports result to be 'baseball'", "baseball", boysSports.get(0).toLowerCase());
+        assertEquals("testSports: expected the 2nd boys_sports result to be 'football'", "football", boysSports.get(1).toLowerCase());
+
+        assertEquals("testSports: expected 2 results for girls_sports", 2, girlsSports.size());
+        assertEquals("testSports: expected the 1st girls_sports result to be 'baseball'", "baseball", girlsSports.get(0).toLowerCase());
+        assertEquals("testSports: expected the 2nd girls_sports result to be 'football'", "football", girlsSports.get(1).toLowerCase());
+    }
+
     // Tests for Sports/Arts/Music data
     public void testSportsArtsMusicSports() {
 

@@ -1339,11 +1339,21 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Collections.sort(girlsSports);
         sportsModel.put("girls_sports", girlsSports);
 
+        boolean hasBoysSportsNonNoneResponse = false;
         if (boysSports.size() != 0 && !(boysSports.size() == 1 && boysSports.get(0).equalsIgnoreCase("none"))) {
+            hasBoysSportsNonNoneResponse = true;
             hasNonNoneResponses = true;
         }
+        boolean hasGirlsSportsNonNoneResponse = false;
         if (girlsSports.size() != 0 && !(girlsSports.size() == 1 && girlsSports.get(0).equalsIgnoreCase("none"))) {
+            hasGirlsSportsNonNoneResponse = true;
             hasNonNoneResponses = true;
+        }
+
+        if (hasBoysSportsNonNoneResponse && !hasGirlsSportsNonNoneResponse) {
+            girlsSports.clear();
+        } else if (!hasBoysSportsNonNoneResponse && hasGirlsSportsNonNoneResponse) {
+            boysSports.clear();
         }
 
         // Arts
