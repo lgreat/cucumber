@@ -30,14 +30,19 @@
                 <div class="unit size25of100">
                     <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-arts vam"><!-- do not collapse --></span> Arts</p>
                 </div>
-                <div class="unit size25of100 lastUnit">
-                    <p class="small_bold textshadow-1 bottom"><span class="iconx16 i-16-music vam"><!-- do not collapse --></span> Music</p>
+                <div class="unit size25of100 ">
+                    <p class="small_bold textshadow-1 bottom fl"><span class="iconx16 i-16-music vam"><!-- do not collapse --></span> Music</p>
+                    <div class="small bottom js-popup">More &amp;raquo;</div>
                 </div>
-            </div>
-        </c:set>
 
+            </div>
+            <!--<p class="small_bold textshadow-1 pvs plm bottom">GreatSchools ratings</p>-->
+            <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
+            <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+        </c:set>
+        <div id="js-tile-14-0">
             <!--<div data-gs-show-tab="extracurriculars"  onclick="if (s.tl) { s.tl(this, 'o', 'overview_extracurriculars'); }" style="cursor:pointer" class="tdn">-->
-            <gslink:linkToTab tabName="extracurriculars" customLink="overview_extracurriculars" cssClass="tdn make-555555">
+            <gslink:linkToTab tabName="extracurriculars" customLink="overview_extracurriculars" cssClass="tdn make-555555 js-trigger">
 
             <school:profileOverviewCell1 title="${t19t20t21dc}">
                 <div class="line mam">
@@ -126,7 +131,7 @@
                 </div>
             </school:profileOverviewCell1>
             </gslink:linkToTab>
-        <!--</div>-->
+        </div>
     </c:if>
 
 </jsp:root>

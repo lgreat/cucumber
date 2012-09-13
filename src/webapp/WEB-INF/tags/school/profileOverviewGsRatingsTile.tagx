@@ -27,7 +27,7 @@
             <div id="js-tile-1-0">
             <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger">
                 <school:profileOverviewCell1 title="${t1dc}">
-                    <div class="mam">
+                    <div class="mhm">
                         <c:set var="academicRating" value="${gsRatingsModel.academicRating}"/>
                         <c:set var="climateRating" value="${gsRatingsModel.climateRating}"/>
                         <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
@@ -38,16 +38,16 @@
                         <c:if test="${!((climateRating gt '0')  and (climateRating lt '11'))}">
                             <c:set var="climateRating"><em>${climateRating}</em></c:set>
                         </c:if>
-                        <p class="mvs "><span class="small bottom fl">Academic</span><span class="small_bold bottom fr mrs">${academicRating}</span></p>
+                        <div class="pbs ptm"><span class="small bottom fl">Academic</span><span class="small_bold bottom fr mrs">${academicRating}</span></div>
                         <div class="clear"><!-- do not collapse --></div>
                         <hr class="keyline2"/>
-                        <p class="mvs"><span class="small bottom fl">Climate</span><span class="small_bold bottom fr mrs">${climateRating}</span></p>
+                        <div class="pvs"><span class="small bottom fl">Climate</span><span class="small_bold bottom fr mrs">${climateRating}</span></div>
                         <div class="clear"><!-- do not collapse --></div>
                         <hr class="keyline2"/>
-                        <div class="mvs"><span class="small bottom fl">Overall</span><span class="ratingx24-${schoolType}-RYG r-24-${overallRating} fr" style="margin-top: -2px; margin-bottom: 3px;"><!-- do not collapse --></span></div>
+                        <div class="pvs"><span class="small bottom fl">Overall</span><span class="ratingx24-${schoolType}-RYG r-24-${overallRating} fr" style="margin-top: 2px; margin-bottom: 3px;"><!-- do not collapse --></span></div>
                         <div class="clear"><!-- do not collapse --></div>
                         <hr class="keyline2"/>
-                        <div class="line mtm pts">
+                        <div class="line mtm ptm">
                             <div class="unit size33of100">
                                 <div class="media">
                                     <div class="img">
