@@ -69,7 +69,7 @@
 
         window.fbAsyncInit = function() {
             var fbSchoolId = "";
-            FB.init({appId: "${gsweb:getFacebookAppId()}", status: true, cookie: true, xfbml: true, channelUrl: '${requestInfo.baseHostname}res/channel.html'});
+            FB.init({appId: "${gsweb:getFacebookAppId()}", status: true, cookie: true, xfbml: true, channelUrl: '${requestInfo.baseHostname}/res/channel.html'});
             GS.FB.subscribes();
         };
     </script>
