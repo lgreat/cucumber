@@ -501,10 +501,10 @@ GS.search.results = GS.search.results || (function() {
                 showCompare = "hidden";
             }
 
-            var showExistsInMsl = "hidden", showNotInMsl = "block";
+            var showExistsInMsl = "hidden", showNotInMsl = "inline";
             if(school.mslHasSchool) {
-                showExistsInMsl = 'block';
-                showNotInMsl = 'none';
+                showExistsInMsl = 'inline';
+                showNotInMsl = 'hidden';
             }
 
             var showDistance = "inline";
