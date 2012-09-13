@@ -164,7 +164,7 @@ GS.school.compare = (function() {
 
         // if the js_compareaddbtn is available, then get the context information
         // about the school from that button
-        if (compareAddBtn!=undefined){
+        if (compareAddBtn!=undefined && compareAddBtn.data('id') !== undefined && compareAddBtn.data('state') !== undefined){
             contextSchoolId = compareAddBtn.data('id').toString();
             contextSchoolState = compareAddBtn.data('state');
         }
