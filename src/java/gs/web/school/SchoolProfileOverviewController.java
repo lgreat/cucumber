@@ -1328,14 +1328,23 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     Map<String, Object> getSportsArtsMusicEspTile(Map<String, List<EspResponse>> espData) {
 
+        boolean hasNonNoneResponses = false;
+
         Map<String, Object> sportsModel = new HashMap<String, Object>(4);
         // Sports
-        List<String> boysSports = getEspDataByKey( "boys_sports", NoneHandling.HIDE_IF_ONLY_NONE, espData );
+        List<String> boysSports = getEspDataByKey( "boys_sports", NoneHandling.SHOW_IF_ONLY_VALUE, espData );
         Collections.sort(boysSports);
         sportsModel.put("boys_sports", boysSports);
-        List<String> girlsSports = getEspDataByKey("girls_sports", NoneHandling.HIDE_IF_ONLY_NONE, espData);
+        List<String> girlsSports = getEspDataByKey("girls_sports", NoneHandling.SHOW_IF_ONLY_VALUE, espData);
         Collections.sort(girlsSports);
         sportsModel.put("girls_sports", girlsSports);
+
+        if (boysSports.size() != 0 && !(boysSports.size() == 1 && boysSports.get(0).equalsIgnoreCase("none"))) {
+            hasNonNoneResponses = true;
+        }
+        if (girlsSports.size() != 0 && !(girlsSports.size() == 1 && girlsSports.get(0).equalsIgnoreCase("none"))) {
+            hasNonNoneResponses = true;
+        }
 
         // Arts
         List<String> artsMedia = getEspDataByKey("arts_media", NoneHandling.SHOW_IF_ONLY_VALUE, espData);
@@ -1351,37 +1360,48 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         else {
             // Combine all into one list and return it
             List<String> arts = new ArrayList<String>();
+            String noneResponse = null;
             if( artsMedia.size() == 1 && artsMedia.get(0).equalsIgnoreCase("none") ) {
-                // nothing to add to results
+                // nothing to add to results, but record the none response
+                noneResponse = artsMedia.get(0);
             }
             else {
                 arts.addAll( artsMedia );
             }
             if( artsPerformingWritten.size() == 1 && artsPerformingWritten.get(0).equalsIgnoreCase("none") ) {
-                // nothing to add to results
+                // nothing to add to results, but record the none response
+                noneResponse = artsPerformingWritten.get(0);
             }
             else {
                 arts.addAll( artsPerformingWritten );
             }
             if( artsVisual.size() == 1 && artsVisual.get(0).equalsIgnoreCase("none") ) {
-                // nothing to add to results
+                // nothing to add to results, but record the none response
+                noneResponse = artsVisual.get(0);
             }
             else {
                 arts.addAll( artsVisual );
             }
             Collections.sort(arts);
+            if (arts.size() > 0) {
+                hasNonNoneResponses = true;
+            } else if (noneResponse != null) {
+                // if is at least one None response and no non-none responses, show None
+                arts.add(noneResponse);
+            }
             sportsModel.put("arts", arts);
         }
 
         // Music
         List<String> music = getEspDataByKey("arts_music", NoneHandling.SHOW_IF_ONLY_VALUE, espData);
         Collections.sort( music );
+        if (music.size() != 0 && !(music.size() == 1 && music.get(0).equalsIgnoreCase("none"))) {
+            hasNonNoneResponses = true;
+        }
         sportsModel.put("music", music);
 
-        // Check if no data and flag that Substitute content is to be displayed
-        int total = boysSports.size() + girlsSports.size() + artsMedia.size() + artsPerformingWritten.size() +
-                artsVisual.size() + music.size();
-        if( total == 0 ) {
+        // Flag that tile should be hidden if there are no non-none responses
+        if(!hasNonNoneResponses) {
             sportsModel.put("content", "Hide");
         }
 

@@ -313,6 +313,42 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertEquals("testSportsArtsMusicNoData: expected no results", "Hide", result);
     }
 
+    // Tests for some none Arts data, some blank Arts data
+    public void testArtsNoneAndNoData() {
+
+        // Data the controller needs to load for this test
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        // Create a mix of None and empty/no responses for arts
+        l.add( createEspResponse( "arts_media", "none" ) );
+        l.add( createEspResponse( "arts_performing_written", "none" ) );
+        // at least one arts item has no responses, e.g. arts_visual
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
+
+        Map resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
+
+        List<String> arts = (List<String>) resultsModel.get("arts");
+        assertEquals("testArtsNoneAndNoData: expected 1 result for arts", 1, arts.size());
+        assertEquals("testArtsNoneAndNoData: expected the arts result to be 'none'", "none", arts.get(0).toLowerCase());
+    }
+
+    // Tests for no non-none Sports/Arts/Music data
+    public void testSportsArtsMusicNoNonNoneData() {
+
+        // Data the controller needs to load for this test
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        // Only include no data, or None data for sports, arts, music
+        l.add( createEspResponse( "girls_sports", "none" ) );
+        l.add( createEspResponse( "arts_media", "none" ) );
+        l.add( createEspResponse( "arts_performing_written", "none" ) );
+        l.add( createEspResponse( "music", "none" ) );
+        Map<String, List<EspResponse>> espData = convertToEspData(l);
+
+        Map resultsModel = _schoolProfileOverviewController.getSportsArtsMusicEspTile( espData );
+
+        String result = (String) resultsModel.get("content");
+        assertEquals("testSportsArtsMusicNoNonNoneData: expected no results", "Hide", result);
+    }
+
     // Tests for Sports/Arts/Music data
     public void testSportsArtsMusicSports() {
 
@@ -332,7 +368,8 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         assertEquals("testSportsArtsMusicSports: wrong number of boys_sport", 2, boysSports.size());
         assertEquals("testSportsArtsMusicSports: wrong boys_sports(0)", "Baseball", boysSports.get(0));
         assertEquals("testSportsArtsMusicSports: wrong boys_sports(1)", "Football", boysSports.get(1));
-        assertTrue("testSportsArtsMusicSports: expected girls_sports size = 0", (girlsSports.size() == 0) );
+        assertTrue("testSportsArtsMusicSports: expected girls_sports size = 1", (girlsSports.size() == 1) );
+        assertEquals("testSportsArtsMusicSports: wrong girls_sports(0)", "None", girlsSports.get(0) );
     }
 
     // =========== Tests for Tile 3 - school video ====================
