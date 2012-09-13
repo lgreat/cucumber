@@ -7,7 +7,7 @@
     <jsp:directive.attribute name="chartData" type="java.util.Map" required="true" description="Data to populate the chart"/>
     <jsp:directive.attribute name="chartDrawDivId" type="java.lang.String" required="true" description="Where to draw the piechart"/>
     <jsp:directive.attribute name="chartSize" type="java.lang.Integer" required="false" description="Size of the display in pixels"/>
-    <jsp:directive.attribute name="catchClick" type="java.lang.Integer" required="false" description="Size of the display in pixels"/>
+    <jsp:directive.attribute name="catchClick" type="java.lang.Integer" required="false" description="Catch the click of the piechart"/>
 
     <c:set var="cSize" value="${chartSize}"/>
     <c:if test="${empty chartSize || chartSize == 0}">
