@@ -456,7 +456,7 @@
 
 </div>
 </div>
-${aboutTheseRatings}
+<!--${aboutTheseRatings}-->
 
 <script type="text/javascript">
     jQuery(document).ready(function() {
