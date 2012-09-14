@@ -1497,15 +1497,13 @@
     <bean name="/content/schoolChoiceCenter.page"
           class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
-        <property name="redirectPath" value="/school-choice/"/>
+        <property name="redirectPath" value="/how-to-assess-a-school.topic?content=5068"/>
     </bean>
 
     <bean name="/content/schoolChoice.page"
-          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          class="gs.web.util.Redirect301Controller"
           autowire="byName" lazy-init="true">
-        <property name="viewName">
-            <value>/content/schoolChoice</value>
-        </property>
+        <property name="redirectPath" value="/how-to-assess-a-school.topic?content=5068"/>
     </bean>
 
     <bean name="/content/tutoring.page"
