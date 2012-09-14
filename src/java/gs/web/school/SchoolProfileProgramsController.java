@@ -332,26 +332,18 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             }
         }
 
-        // Special handling for immersion and immersion_language
+        // Special handling for immersion, immersion_language and immersion_language_other
         // immersion is a Yes/No field.
         // If there are no immersion_language's then:
         //   if yes, show Yes.
         //   if no, don't show the line
-        // Otherwise don't show immersion and only show immersion_language
-        List<String> immersion = resultsModel.get( "programs_resources/Programs/immersion" );
-        List<String> immersionLanguage = resultsModel.get( "programs_resources/Programs/immersion_language" );
-        if( immersionLanguage == null || immersionLanguage.size() == 0 ) {
-            // No immersion languages were supplied.  Use rules for immersion
-            if( immersion != null && immersion.size() > 0 && immersion.get(0).equalsIgnoreCase("yes") ) {
-                // Then show Yes which is already what should be there so no additional processing is needed
-            }
-            else {
-                // immersion has to be no, remove it
-                resultsModel.remove( "programs_resources/Programs/immersion" );
-            }
-        } else {
-            // Need to show the immersion languages which can be done by replacing the contents of immersion with those of immersion_language
-            resultsModel.put( "programs_resources/Programs/immersion", immersionLanguage );
+        // Otherwise don't show Yes and only show immersion_language
+        List<String> immersion = resultsModel.get( "highlights/Language/immersion" );
+        if( immersion != null && immersion.contains("Yes") && immersion.size() >= 2 ) {
+            // Need to remove Yes
+            immersion.remove("Yes");
+            // Also, model key "programs_resources/Programs/immersion" should have the same data
+            resultsModel.put( "programs_resources/Programs/immersion", immersion );
         }
 
         // Special handling for programs_resources/Programs/advanced_placement_exams
@@ -928,12 +920,11 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Specific academic themes or areas of focus",
                 "academic_focus", new String[]{"foreign_lang"}));
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
-        /* The following is not needed, but show all immersion_language
+        // Note - This is repeated for "programs_resources/Programs/immersion", make sure the DisplayBeans stay in sync
         DISPLAY_CONFIG.add( new SchoolProfileDisplayBean( tabAbbrev, langAbbrev, langTitle, "Bi-lingual or language immersion programs offered",
                 "immersion", new String[]{"yes"} ) );
-                */
-        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Bi-lingual or language immersion programs offered",
-                "immersion_language"));
+        getLastDisplayBean().addKey("immersion_language");
+        getLastDisplayBean().addKey("immersion_language_other");
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Foreign languages taught",
                 "foreign_language"));
@@ -1066,8 +1057,10 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_IF_NOT_ONLY_VALUE);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Specific academic themes or areas of focus",
                 "academic_focus"));
+        // Note - This is repeated for "highlights/Language/immersion", make sure the DisplayBeans stay in sync
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Bi-lingual or language immersion programs offered",
-                "immersion_language"));
+                "immersion"));
+        getLastDisplayBean().addKey("immersion_language");
         getLastDisplayBean().addKey("immersion_language_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Level of special education programming offered",
                 "spec_ed_level"));

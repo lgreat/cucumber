@@ -82,7 +82,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
         Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
         List<String> actualStaffLanguages = resultsModel.get( "highlights/Language/staff_languages" );
-        List<String> immersionLanguages = resultsModel.get( "highlights/Language/immersion_language" );
+        List<String> immersionLanguages = resultsModel.get( "highlights/Language/immersion" );
 
         int expected_count = l.size();
         int actual_count = actualStaffLanguages.size() + immersionLanguages.size();
@@ -192,7 +192,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
 
         assertNotNull( "testAdditionalDataMergeWithNoResultData: result is null", actualStudentClubData);
         boolean clubsEqual = actualStudentClubData.equals( expectedStudentClubData );
-        assertTrue( "testAdditionalDataMergeWithNoResultData: results are different, \nexpected = " + expectedStudentClubData + ", actual = " + actualStudentClubData, clubsEqual );
+        assertTrue( "testAdditionalDataMergeWithNoResultData: results are different, \nexpected = " + expectedStudentClubData + ", \nactual = " + actualStudentClubData, clubsEqual );
     }
 
     // Tests the applyUniqueDataRules() for admissions_contact_school
@@ -214,24 +214,6 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         assertEquals( "testSpecialRuleAdmissionsContactSchool: Expected 2 admission_contact_school values", 2, admissionInfo.size());
         assertTrue("testSpecialRuleAdmissionsContactSchool: Expected \"Call the school\"", admissionInfo.contains("Call the school"));
         assertTrue( "testSpecialRuleAdmissionsContactSchool: Expected a URL message", admissionInfo.contains("Visit the school's website: http:/www.someSchool.edu") );
-
-    }
-
-    // Tests the applyUniqueDataRules() for immersion / immersion_language
-    public void testSpecialRuleImmersion3() {
-
-        // This test runs the controller multiple times for the different test cases
-        // *** Test 3 - two entries: yes and cantonese, should get Cantonese back
-        List<EspResponse> l = new ArrayList<EspResponse>();
-        l.add( createEspResponse( "immersion", "yes" ) );
-        l.add( createEspResponse( "immersion_language", "cantonese" ) );
-
-        ModelMap map = runController( convertToEspData( l ) );
-
-        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
-        List<String> results = resultsModel.get( "programs_resources/Programs/immersion" );
-        assertEquals("testSpecialRuleImmersion3: Expected Cantonese", "Chinese (Cantonese)", results.get(0));
-        assertEquals("testSpecialRuleImmersion3: Expected 1 result", 1, results.size());
 
     }
 
@@ -318,10 +300,65 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         assertEquals( "testNoneHandling: expected None to be suppressed", "Gifted", results.get(0) );
     }
 
+
+    // Tests the applyUniqueDataRules() for immersion / immersion_language
+    public void testImmersion1() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "immersion", "yes" ) );
+        ModelMap map = runController( convertToEspData( l ) );
+        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
+        List<String> results = resultsModel.get( "highlights/Language/immersion" );
+        assertEquals("testImmersion1 - count wrong", 1, results.size());
+        assertEquals("testImmersion1 - value wrong", "Yes", results.get(0));
+    }
+
+    public void testImmersion2() {
+
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "immersion", "no" ) );
+        ModelMap map = runController( convertToEspData( l ) );
+        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
+        List<String> results = resultsModel.get( "highlights/Language/immersion" );
+        assertEquals("testImmersion2 - count wrong", 0, results.size());
+    }
+
+    public void testImmersion3() {
+
+        // This test runs the controller multiple times for the different test cases
+        // *** Test 3 - two entries: yes and cantonese, should get Cantonese back
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "immersion", "yes" ) );
+        l.add( createEspResponse( "immersion_language", "cantonese" ) );
+
+        ModelMap map = runController( convertToEspData( l ) );
+
+        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
+        List<String> results = resultsModel.get( "highlights/Language/immersion" );
+        assertEquals("testImmersion3: Expected 1 result", 1, results.size());
+        assertEquals("testImmersion3: Expected Cantonese", "Chinese (Cantonese)", results.get(0));
+    }
+
+    public void testImmersion4() {
+
+        // This test runs the controller multiple times for the different test cases
+        // *** Test 4 - 3 entries anf none are Yes or No.  Should get 3 back
+        List<EspResponse> l = new ArrayList<EspResponse>();
+        l.add( createEspResponse( "immersion_language", "cantonese" ) );
+        l.add( createEspResponse( "immersion_language", "french" ) );
+        l.add( createEspResponse( "immersion_language", "german" ) );
+
+        ModelMap map = runController( convertToEspData( l ) );
+
+        Map<String, List<String>> resultsModel = (Map<String, List<String>>) map.get("ProfileData");
+        List<String> results = resultsModel.get( "highlights/Language/immersion" );
+        assertEquals("testImmersion4: Expected 3 result", 3, results.size());
+    }
+
     /**
-     * School subtype values will be used in certain cases if there is no corresponding ESP data.
-     * These are defined in the applyUniqueDataRules() method by calling the enhance_results() method
-     */
+        * School subtype values will be used in certain cases if there is no corresponding ESP data.
+        * These are defined in the applyUniqueDataRules() method by calling the enhance_results() method
+        */
     public void testSchoolSubtype1() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
