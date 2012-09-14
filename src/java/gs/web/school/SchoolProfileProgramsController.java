@@ -1032,7 +1032,8 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "School Leader's name",
                 "administrator_name"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Best ways for parents to contact the school",
-                "contact_method", new String[]{"email", "phone", "other_contact"}));
+                "contact_method", new String[]{"email", "phone"}));
+        getLastDisplayBean().addKey("contact_method_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Age at which early childhood or Pre-K program begins",
                 "age_pk_start"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Gender",
