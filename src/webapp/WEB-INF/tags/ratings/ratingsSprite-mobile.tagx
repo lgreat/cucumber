@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core">
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
     <!-- Common tagx to display a ratings sprite -->
     <!-- <jsp:directive.attribute name="school" required="true" description="school"
@@ -44,21 +45,25 @@
         <c:when test="${isPreschoolOnly}">
             <span class="ratingx${size}-preschool r-${size}-NR"><!-- do not collapse --></span>
         </c:when>
-        <c:when test="${schoolType eq 'private'}">
-            <c:when test="${isNewGsRating}">
-                <span class="ratingx${size}-private-RYG r-${size}-${gsRatingValue}"><!-- do not collapse --></span>
-            </c:when>
-            <c:otherwise>
-                <span class="ratingx${size}-private-O r-${size}-${gsRatingValue}"><!-- do not collapse --></span>
-            </c:otherwise>
+        <c:when test="${fn:toLowerCase(schoolType) eq 'private'}">
+            <c:choose>
+                <c:when test="${isNewGsRating}">
+                    <span class="ratingx${size}-private-RYG r-${size}-${gsRatingValue}"><!-- do not collapse --></span>
+                </c:when>
+                <c:otherwise>
+                    <span class="ratingx${size}-private-O r-${size}-${gsRatingValue}"><!-- do not collapse --></span>
+                </c:otherwise>
+            </c:choose>
         </c:when>
         <c:otherwise>
-            <c:when test="${isNewGsRating}">
-                <span class="ratingx${size}-public-RYG r-${size}-${gsRatingValue}"><!-- do not collapse --></span>
-            </c:when>
-            <c:otherwise>
-                <span class="ratingx${size}-public-O r-${size}-${gsRatingValue}"><!-- do not collapse --></span>
-            </c:otherwise>
+            <c:choose>
+                <c:when test="${isNewGsRating}">
+                    <span class="ratingx${size}-public-RYG r-${size}-${gsRatingValue}"><!-- do not collapse --></span>
+                </c:when>
+                <c:otherwise>
+                    <span class="ratingx${size}-public-O r-${size}-${gsRatingValue}"><!-- do not collapse --></span>
+                </c:otherwise>
+            </c:choose>
         </c:otherwise>
     </c:choose>
 

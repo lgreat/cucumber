@@ -157,7 +157,7 @@ Android seems to require the address to be blank for the same behavior -->
             </c:choose>
         </c:otherwise>
     </c:choose>
-    <c:set var="mapMarkerUrl" value="http://qa.greatschools.org${mapMarkerUrl}"/>
+    <c:set var="mapMarkerUrl" value="http://www.greatschools.org${mapMarkerUrl}"/>
     <c:set var="mapMarkerParam" value="icon:${mapMarkerUrl}|${schoolAddress}"/>
     <a href="http://maps.google.com/?q=${schoolAddressWithName}">
         <img height="160" width="320" alt="Loading Map..." id="schoolStaticMap"

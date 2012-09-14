@@ -7,7 +7,9 @@
           xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
           xmlns:gsweb="gstaglib"
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
-          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search">
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+          xmlns:ratings="urn:jsptagdir:/WEB-INF/tags/ratings"
+        >
 
     <jsp:output doctype-root-element="html" doctype-system="about:legacy-compat"/>
     <jsp:output omit-xml-declaration="true" />
@@ -72,11 +74,12 @@
                                     <div class="iconx24 i-24-map-arrow arrow-map fr"><!-- --></div>
                                 </div>
                                     <div class="clearfloat"><!-- --></div>
-                                    <c:if test="${not empty school.greatSchoolsRating}">
-                                        <div class="fl">
-                                            <div class="ratings-round ratings-small round-small vab fl"><div class="ratings-number number-small">${school.greatSchoolsRating}</div></div> <div class="smaller ac1 fl pls pt3"> of 10</div>
-                                        </div>
-                                    </c:if>
+                                    <div class="fl">
+                                        <!--<div class="ratings-round ratings-small round-small vab fl"><div class="ratings-number number-small">${school.greatSchoolsRating}</div></div> <div class="smaller ac1 fl pls pt3"> of 10</div>-->
+                                        <ratings:ratingsSprite-mobile isNewGsRating="${school.isNewGSRating}" gsRating="${school.greatSchoolsRating}"
+                                                                      schoolType="${schoolType}" isPreschoolOnly="${school.levelCode eq 'p'}"
+                                                                      spriteSize="small"/>
+                                    </div>
                                     <c:if test="${not empty school.parentRating}">
                                         <div class="fr">
                                             <div class="smaller ac1 fl pt3 prs">Community Rating:</div><div class="fl"><mobile:stars curSR="${school.parentRating}" smStars="1"/></div>
