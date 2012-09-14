@@ -112,7 +112,7 @@
                                                 <c:set var="imageValue" value="na"/>
                                                 <c:set var="imageAlt" value="GreatSchools Rating: no rating available. GreatSchools Ratings are based on test results. 10 is best."/>
                                             </c:if>
-                                            <gsml:img src="/res/img/geo/ratings/cities_sm_${imageValue}.gif" alt="${imageAlt}"/>
+                                            <span class="ratingx24-city r-24-${imageValue}"><!-- do not collapse --></span>
                                         </c:if>
                                     </a>
                                 </li>

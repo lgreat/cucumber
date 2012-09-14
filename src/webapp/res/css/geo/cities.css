@@ -62,11 +62,17 @@ div#nearbyCities li {
     font-size: small;
     display: list-item;
     border-bottom: 1px dotted #999;
-    padding: 4px 0 4px 15px;
+    padding: 6px 0 6px 15px;
     position: relative;
 }
 
 div#nearbyCities li img {
+    position: absolute;
+    right:4px;
+    top: 3px;
+}
+
+div#nearbyCities li span {
     position: absolute;
     right:4px;
     top: 3px;

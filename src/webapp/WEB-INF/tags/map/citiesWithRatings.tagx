@@ -32,9 +32,9 @@
              imageValue = 'na';
          }
          if (!center) {
-             icon.image = "/res/img/map/pushpin_" + imageValue + ".png";
-             icon.shadow =  "/res/img/map/pushpin_shadow.png";
-             icon.transparent = "/res/img/map/pushpin_" + imageValue + "_trans.png";
+             icon.image = "/res/img/mapPins/city/city_" + imageValue + ".png";
+//             icon.shadow =  "/res/img/map/pushpin_shadow.png";
+//             icon.transparent = "/res/img/map/pushpin_" + imageValue + "_trans.png";
              icon.iconSize = new GSize(39,36);
              icon.iconAnchor = new GPoint(19,34);
              icon.infoWindowAnchor = new GPoint(19,2);
@@ -106,7 +106,7 @@
         bubbleText += '  </div>\n';
         bubbleText += '  <div class="cityRating" ' + ieWidth + '>';
         bubbleText += '  <a href="' + cityUrl + '">';
-        bubbleText += '<img src="/res/img/geo/ratings/cities_lgbox_' + imageValue + '.gif"';
+        bubbleText += '<img src="/res/img/ratings/nearbyCity/cities_lgbox_' + imageValue + '.gif"';
         if (imageValue != 'na') {
            bubbleText += ' alt="GreatSchools Rating: ' + imageValue + ' out of 10. GreatSchools Ratings are based on test results. 10 is best."';
         } else {
