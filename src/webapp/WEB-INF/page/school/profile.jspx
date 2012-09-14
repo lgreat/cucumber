@@ -67,21 +67,25 @@
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
 
-    <script type="text/javascript" src="/res/js/json2.js"><!-- do not collapse --> </script>
-    <script type="text/javascript" src="/res/js/history.min.js"><!-- do not collapse --> </script>
-    <script type="text/javascript" src="/res/js/school/profilePage.js"><!-- do not collapse --> </script>
-    <script type="text/javascript" src="/res/js/schoolReviewForm.js"><!-- no collapse --></script>
-    <script type="text/javascript" src="/res/js/parentReviewTabSchoolReviewForm.js"><!-- no collapse --></script>
-    <script type="text/javascript" src="/res/js/bootstrap/bootstrap-tooltip.js"><!-- no collapse --></script>
-    <script type="text/javascript" src="/res/js/bootstrap/bootstrap-popover.js"><!-- no collapse --></script>
-    <script type="text/javascript" src="/res/js/tracking/customLinks.js"><!-- no collapse --></script>
-    <script type="text/javascript" src="/res/js/compare/persistentCompare.js"><!-- no collapse --></script>
+    <gsml:combinedJavascript src="/res/js/school-profile.min.js">
+        <!-- files to includes on dev workstations... must also exist in gsweb's pom.xml -->
+        <gsml:javascript src="/res/js/json2.js"/>
+        <gsml:javascript src="/res/js/history.min.js"/>
+        <gsml:javascript src="/res/js/school/profilePage.js"/>
+        <gsml:javascript src="/res/js/schoolReviewForm.js"/>
+        <gsml:javascript src="/res/js/parentReviewTabSchoolReviewForm.js"/>
+        <gsml:javascript src="/res/js/bootstrap/bootstrap-tooltip.js"/>
+        <gsml:javascript src="/res/js/bootstrap/bootstrap-popover.js"/>
+        <gsml:javascript src="/res/js/tracking/customLinks.js"/>
+        <gsml:javascript src="/res/js/compare/persistentCompare.js"/>
 
-    <!--Needed for photogallery-->
-    <script type="text/javascript" src="/res/js/omnitureEventNotifier.js"><!-- no collapse --></script>
-    <script type="text/javascript" src="/res/js/photoGallery.js"><!-- no collapse --></script>
+        <!--Needed for photogallery-->
+        <gsml:javascript src="/res/js/omnitureEventNotifier.js"/>
+        <gsml:javascript src="/res/js/photoGallery.js"/>
 
-    <script type="text/javascript" src="/res/js/mssAutoHoverInterceptor.js"><!-- no collapse --></script>
+        <gsml:javascript src="/res/js/mssAutoHoverInterceptor.js"/>
+    </gsml:combinedJavascript>
+
     <script type="text/javascript">
         var GS_PieLoader = [];
         $.getScript("https://www.google.com/jsapi", function() {

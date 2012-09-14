@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+        >
+    <jsp:directive.tag body-content="scriptless"/>
+    <jsp:directive.attribute name="src" required="true" description="script tag src attribute"/>
+    <jsp:directive.attribute name="allowCdn" required="false" description="whether to use the CDN. Defaults to true" />
+    <!--<jsp:directive.attribute name="omitVersionParam" required="false" description="omit ?v= param, which is included by default" />-->
+    <!--<jsp:directive.attribute name="onlyOnWorkstations" required="false" description="Only write out script tab if machine is detected as developer machine" />-->
+
+
+    <c:if test="${empty allowCdn}">
+        <c:set scope="page" var="allowCdn" value="true"/>
+    </c:if>
+
+    <gsml:url var="js" value="${src}?v=$RELEASE_NUMBER" allowCdn="${allowCdn}"/>
+    <![CDATA[<script type="text/javascript" src="${js}"></script>]]>
+
+</jsp:root>
