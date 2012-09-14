@@ -684,9 +684,8 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         String key = GS_RATINGS_ATTRIBUTE;
         String noKey = "NO_" + key;
 
-        // TODO-13012 don't hard-code year to fetch
-        Set<Integer> years = new HashSet<Integer>();
-        years.add(2011);
+        Set<String> displayTarget = new HashSet<String>();
+        displayTarget.add(TestDataSetDisplayTarget.ratings.name());
 
         // Make sure we have a school
         School school = _requestAttributeHelper.getSchool(request);
@@ -703,8 +702,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
             //Get the test data sets for all the data type ids(school and state data type ids).
             List<TestDataSet> testDataSets = _testDataSetDao.findDataSets(
-                    school.getDatabaseState(), years, RATING_TEST_DATA_TYPE_IDS,
-                    null, null, null, null, true, null);
+                    school.getDatabaseState(), null, RATING_TEST_DATA_TYPE_IDS,
+                    null, null, null, null, true, null, displayTarget);
+
+            System.out.println("---testDataSets------------------"+testDataSets.size());
             //Get the school test values.
             List<SchoolTestValue> schoolTestValues = new ArrayList<SchoolTestValue>();
             if (!testDataSets.isEmpty()) {
