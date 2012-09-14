@@ -45,7 +45,6 @@ request.setAttribute("communityHost", sessionContext.getSessionContextUtil().get
 				<li><a href="#faq-rightschool">Find the Right School Using GreatSchools Data</a></li>
 				<li><a href="#faq-mobile">GreatSchools Mobile Website</a></li>
 				<li><a href="#faq-advice">Expert Advice and Newsletters</a></li>
-				<li><a href="#faq-schwabtransition">SchwabLearning.org Transition</a></li>
 			</ul>
 
 			<h2 id="faq-101">GreatSchools 101</h2>
@@ -110,6 +109,7 @@ education.</p>
 				<li><a href="#faq-datacity">City and District Data</a></li>
                 <li><a href="#faq-boundarymap">School and District Boundary Map</a></li>
                 <li><a href="#faq-officialprofiles">Official School Profiles</a></li>
+                <li><a href="#faq-newAndImprovedGS">The new and improved GreatSchools</a></li>
 				<li><a href="#faq-ratings">GreatSchools Ratings</a></li>
 				<li><a href="#faq-surveyinfo">Parent Survey Information</a></li>
 				<li><a href="#faq-comparingschools">Comparing Schools</a></li>
@@ -407,7 +407,44 @@ already have a school Web site.</p>
 
 			<p class="emphasis-right">Didn't find the answer you're looking for? <link:contactUs feedbackType="esp">Contact us about Official School Profiles</link:contactUs>.</p>
 
-			<h3 id="faq-ratings">GreatSchools Ratings</h3>
+            <h3 id="faq-newAndImprovedGS">The new and improved GreatSchools</h3>
+
+            <ol class="questions none">
+                <li>
+                    <p class="question">What is the "new and improved" GreatSchools?</p>
+                    <p>Starting in fall 2012, we are rolling out major improvements to our school pages for selected
+                        cities: Washington, DC, Milwaukee, and Indianapolis. These enhancements are designed to give you a fuller picture of the schools you may be considering. Features include:</p>
+                    <ul>
+                        <li><strong>The new &amp; improved GreatSchools Rating:</strong> For an increasing number of schools, our new
+                            rating now reflects both academics and climate. The academic portion includes students'
+                            test scores, academic growth, and college readiness. The climate portion includes safety,
+                            cleanliness, parent involvement and more. Note: Varying levels of data are available for
+                            each school. The overall GreatSchools Rating now appears as green, yellow or red, indicating
+                            whether a school is above average, average, or below average respectively.</li>
+                        <li><strong>Greater depth:</strong> You asked for more information about schools, here it is!  For the majority
+                            of schools in our three pilot cities, we now provide information about the programs,
+                            extracurricular activities, before and after child care, and more.</li>
+                        <li><strong>Photos and videos:</strong> For many schools, we now have photos and videos that let you
+                            "peek inside" to get a sense of what a school feels like. We're adding more every day.</li>
+                        <li><strong>Enrollment information:</strong> Now, when you've found the right school for your family, we can
+                            often show you enrollment deadlines and offer practical information on the admission
+                            process for schools in your area.</li>
+                    </ul>
+                </li>
+
+                <li>
+                    <p class="question">When will these features be available in my city? </p>
+                    <p>We are currently testing these new features in three pilot communities:  Washington, DC,
+                        Milwaukee, and Indianapolis. Why these cities? GreatSchools operates field offices in these
+                        locations, where we work closely with community organizations and school officials.</p>
+
+                    <p>Stay tuned. In the coming months, we will roll out these new features in other cities.
+                        To make sure your school is ready for its close-up, encourage your principal to complete a
+                        free <a href="/official-school-profile/register.page">Official School Profile</a> today.</p>
+                </li>
+            </ol>
+
+            <h3 id="faq-ratings">GreatSchools Ratings</h3>
 
 			<ol class="questions none">
 				<li>
@@ -577,97 +614,6 @@ problem? Our monthly guide offers support, strategies and resources.</li>
 				</li>
 			</ol>
 
-			<h2 id="faq-schwabtransition">SchwabLearning.org Transition</h2>
-
-			<p>We're
-pleased to announce that GreatSchools is the new host for the valuable
-articles and resources developed by SchwabLearning.org to provide
-information and inspiration to parents of children with learning and
-attention difficulties.</p>
-
-			<p>GreatSchools acquired and began
-hosting SchwabLearning.org in January, 2008, and we recently
-transferred most of the Schwab Learning content to the GreatSchools Web
-site. Below are answers to questions you may have about the transition
-of the Web site and how it affects you.</p>
-
-			<ol class="questions none">
-				<li>
-					<p class="question">Can I still access SchwabLearning.org?</p>
-					<p>No.
-Now that the core content has been transitioned to GreatSchools.org the
-SchwabLearning.org site is not available. From now on, anyone who
-visits SchwabLearning.org will be automatically redirected to the new
-                        <link:specialNeeds>Learning Difficulties section</link:specialNeeds> on GreatSchools.org.</p>
-				</li>
-
-				<li>
-					<p class="question">Will GreatSchools develop the same kind of articles that SchwabLearning.org provided?</p>
-					<p>Yes.
-We understand the value of the type of articles and other content
-created by SchwabLearning.org. GreatSchools will continue to develop
-new content that is relevant to parents whose children have learning
-and attention difficulties — and we'll keep the existing content
-up-to-date.</p>
-					<p>To ensure the accuracy and timeliness of our
-content, we've recruited several experts in the field of learning
-difficulties to serve as consultants to our editorial team.</p>
-				</li>
-
-				<li>
-					<p class="question">Can I access the articles that were on SchwabLearning.org?</p>
-					<p>Most
-of the articles that existed on SchwabLearning.org are now available on
-GreatSchools.org. This includes articles in English and Spanish, and
-the Assistive Technology Tools database.</p>
-				</li>
-
-				<li>
-					<p class="question">What about my SchwabLearning.org newsletter?</p>
-					<p>If
-you previously subscribed to the SchwabLearning.org weekly email
-newsletter, your subscription should have automatically transferred to
-GreatSchools, as we now send our Helping Kids with Learning
-Difficulties newsletter once a month. Each issue of our newsletter
-features new or updated articles. If for some reason you have not
-received this newsletter in 2008, please <link:newsletterManagement>subscribe here</link:newsletterManagement>.</p>
-				</li>
-
-				<li>
-					<p class="question">Does GreatSchools host a message board for parents of kids with learning difficulties?</p>
-
-                    <p>Yes. We invite former Schwab Learning message board members to continue the discussion
-                        on the <link:cmsContent contentKey="DiscussionBoard#1642" fullUri="/LD">
-                        Learning Disabilities discussion board</link:cmsContent> on our parent community.</p>
-				</li>
-
-				<li>
-					<p class="question">Can I still access the SchwabLearning.org message board archive?</p>
-					<p>Yes. The SchwabLearning.org <a href="http://www.schwablearning.org/message%5Fboards/" target="_blank">message board archive</a>
-(a read-only board) is still available and searchable to allow you to
-refer back to previous discussions. Any links you have bookmarked to discussions on the SchwabLearning.org Message
-Board should redirect you to the new archive page.</p>
-				</li>
-
-				<li>
-					<p class="question">I've
-saved bookmarks to several articles on SchwabLearning.org. Now that
-SchwabLearning.org is shut down, will those bookmarks link to the
-corresponding articles on greatschools.org?</p>
-					<p>Yes, your saved
-bookmarks will still work, and you will be automatically redirected to
-the corresponding article on GreatSchools.org.</p>
-				</li>
-
-				<li>
-					<p class="question">My child loves SparkTop.org – how can I access it?</p>
-					<p>The <a href="http://www.sparktop.org/" target="_blank">SparkTop.org</a> site
-                       is now owned by the <a href="http://www.professorgarfield.com/" target="_blank">Professor Garfield Foundation</a>
-but your child will still be able to access www.SparkTop.org to enjoy
-its features and activities. Please visit the Professor Garfield
-Foundation site for more information about this feature.</p>
-				</li>
-			</ol>
 		</div>
 
         <div style="display: none;">
