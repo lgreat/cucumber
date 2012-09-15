@@ -267,6 +267,12 @@
     </function>
 
     <function>
+        <name>get</name>
+        <function-class>gs.web.jsp.Util</function-class>
+        <function-signature>Object get(java.util.Map, java.lang.Object)</function-signature>
+    </function>
+
+    <function>
         <name>getDcNclbLeaCode</name>
         <function-class>gs.web.school.DcNclbReportCardHelper</function-class>
         <function-signature>int getDcNclbLeaCode(int)</function-signature>
@@ -360,6 +366,12 @@
         <name>roundTwoDecimal</name>
         <function-class>gs.web.jsp.Util</function-class>
         <function-signature>double roundTwoDecimal(double)</function-signature>
+    </function>
+
+    <function>
+        <name>onSchoolProfileTab</name>
+        <function-class>gs.web.util.UrlUtil</function-class>
+        <function-signature>boolean onSchoolProfileTab(java.lang.String, java.lang.String, java.lang.String)</function-signature>
     </function>
 
     <tag>

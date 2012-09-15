@@ -193,9 +193,11 @@
 </div>
 <!-- end reviewColumn2 -->
 <div class="spacer_15"><!-- do not collapse --></div>
-<c:if test="${param.tab eq 'reviews'}">
-    <ad:adTag position="Reviews_CustomSponsor_630x40"/>
-</c:if>
+
+<!-- enableIfConditionOnAdCalls must be used to wrap the display call to prevent unintended ad call -->
+<ad:enableIfConditionOnAdCalls position="Reviews_CustomSponsor_630x40" associatedTab="reviews"/>
+<ad:adTag position="Reviews_CustomSponsor_630x40"/>
+
 <div class="grid_16 alpha omega">
 
 <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>

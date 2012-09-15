@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+    <jsp:directive.tag import="gs.web.util.PageHelper"/>
+    <jsp:directive.tag import="gs.web.ads.AdPosition"/>
+    <jsp:directive.tag body-content="empty"
+                       description="Enables adding an if condition to check whether or not to make the defineSlot() and display() ad calls" />
+
+    <!--
+    This tag must be called before the AdTagHandler call gets made, or else it will have no effect.
+    -->
+
+    <jsp:directive.attribute name="position" required="true" description="Ad slot position" type="java.lang.String" />
+    <jsp:directive.attribute name="associatedTab" required="true" description="Tab associated with the ad position" type="java.lang.String" />
+    <jsp:scriptlet>
+    <![CDATA[
+        AdPosition adPosition = AdPosition.getAdPosition(position);
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null && adPosition != null && associatedTab != null) {
+            pageHelper.addAdPositionWithIfConditionOnAdCalls(adPosition, associatedTab);
+        }
+    ]]>
+    </jsp:scriptlet>
+</jsp:root>

@@ -18,11 +18,9 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.text.BreakIterator;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 import java.io.StringReader;
 import java.io.IOException;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -512,6 +510,13 @@ public class Util {
             throw new IllegalArgumentException("Set cannot be null");
         }
         return set.contains(o);
+    }
+
+    public static Object get(Map map, Object o) {
+        if (map == null) {
+            throw new IllegalArgumentException("Map cannot be null");
+        }
+        return map.get(o);
     }
 
     public static boolean separatedListContains(String stringToSearch, String stringToFind, String separaterChars) {

@@ -151,6 +151,25 @@
             GS.ad.slotTimers = GS.ad.slotTimers || {};
         ]]>
 
+        <c:if test="${not empty requestScope.pageHelper.adPositionsWithIfConditionOnAdCalls}">
+            <![CDATA[
+                GS.ad.onSchoolProfileTab = function(hash, tabParamValue, tabName) {
+                    var containsHashTag = (hash !== '');
+
+                    if (hash === '#!/' + tabName) {
+                        return true;
+                    } else if (!containsHashTag && tabName === tabParamValue) {
+                        return true;
+                    } else if (!containsHashTag && tabName === "overview" && tabParamValue === '') {
+                        return true;
+                    }
+                    return false;
+                };
+
+                GS.ad.tabParamValue = '${param.tab}';
+            ]]>
+        </c:if>
+
         <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
             <![CDATA[
                 googletag.cmd.push(function() {
@@ -163,6 +182,13 @@
             <c:forEach var="slotName" items="${GAMadNames}">
                 <c:set var="adPosition" value="${GPTadNameAdPositionMap[slotName]}"/>
                 <c:set var="adSizes" value="${gsweb:contains(requestScope.pageHelper.adPositionsWithOmittedCompanionSizes,adPosition) ? adPosition.sizes : adPosition.allSizes}"/>
+
+                <c:set var="associatedTab" value="${gsweb:get(requestScope.pageHelper.adPositionsWithIfConditionOnAdCalls,adPosition)}"/>
+
+                <c:if test="${associatedTab != null}">
+                if (GS.ad.onSchoolProfileTab(window.location.hash, GS.ad.tabParamValue, '${associatedTab}')) {
+                </c:if>
+
                 GS.ad.slots['${slotName}'] = googletag.defineSlot('/1002894/${slotName}', <c:choose>
                     <c:when test="${fn:length(adSizes) > 1}">[<c:forEach var="size" items="${adSizes}" varStatus="status">[${size.width},${size.height}]<c:if test="${!status.last}">, </c:if></c:forEach>]</c:when>
                     <c:otherwise>[${adPosition.size.width},${adPosition.size.height}]</c:otherwise>
@@ -171,6 +197,10 @@
                     <c:otherwise>'ad${adPosition.name}'</c:otherwise>
                 </c:choose>);
                 GS.ad.slots['${slotName}'].addService(googletag.pubads());
+
+                <c:if test="${associatedTab != null}">
+                }
+                </c:if>
             </c:forEach>
 
             <c:forEach var="keywordEntry" items="${GAMadKeywords}">

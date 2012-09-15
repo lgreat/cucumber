@@ -187,9 +187,9 @@
                     </div>
                 </div>
 
-                <c:if test="${empty param.tab or param.tab eq 'overview'}">
-                    <ad:adTag position="Sponsor_630x40"/>
-                </c:if>
+                <!-- enableIfConditionOnAdCalls must be used to wrap the display call to prevent unintended ad call -->
+                <ad:enableIfConditionOnAdCalls position="Sponsor_630x40" associatedTab="overview"/>
+                <ad:adTag position="Sponsor_630x40"/>
 
                 <div class="line">   <!-- row 2, tiles 4-6 -->
                     <div class="unit size32of100">

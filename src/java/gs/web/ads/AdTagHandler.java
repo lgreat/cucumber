@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.53 2012/07/12 16:31:53 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.54 2012/09/15 03:37:51 yfan Exp $
  */
 package gs.web.ads;
 
@@ -156,10 +156,13 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
             // GPT, unlike GAM tags, allows the same ad slot to be used multiple times on the same page,
             // but let's keep the same logic for backwards compatibility
             Set <AdPosition> adPositions = pageHelper.getAdPositions();
-            if (adPositions.contains(_adPosition)) {
-                throw new IllegalArgumentException("Ad Position already defined: " + _adPosition);
-            } else {
-                pageHelper.addAdPosition(_adPosition);
+            Set <AdPosition> adPositionsDefinedEarly = pageHelper.getAdPositionsDefinedEarly();
+            if (!adPositionsDefinedEarly.contains(_adPosition)) {
+                if (adPositions.contains(_adPosition)) {
+                    throw new IllegalArgumentException("Ad Position already defined: " + _adPosition);
+                } else {
+                    pageHelper.addAdPosition(_adPosition);
+                }
             }
 
             String slotName = _adPosition.getName();
@@ -182,16 +185,26 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
             }
             adCodeBuffer.append("<script type=\"text/javascript\">");
 
+            String associatedTab = pageHelper.getAdPositionsWithIfConditionOnAdCalls().get(_adPosition);
+            if (associatedTab != null) {
+                adCodeBuffer.append("if (GS.ad.onSchoolProfileTab(window.location.hash, GS.ad.tabParamValue, '" + associatedTab + "')) {");
+            }
+
             if (isAsyncMode(sc)) {
                 adCodeBuffer.append("googletag.cmd.push(function() {");
             }
 
             String divContainingAd = (disabledGptGhostTextHiding ? "gpt" + getId() : getAdId());
-
             adCodeBuffer.append("googletag.display(\"").append(divContainingAd).append("\");");
+
             if (isAsyncMode(sc)) {
                 adCodeBuffer.append("});");
             }
+
+            if (associatedTab != null) {
+                adCodeBuffer.append("}");
+            }
+
             adCodeBuffer.append("</script>");
             if (disabledGptGhostTextHiding) {
                 adCodeBuffer.append("</div>");

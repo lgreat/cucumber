@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.110 2012/09/05 22:02:45 yfan Exp $
+ * $Id: PageHelper.java,v 1.111 2012/09/15 03:37:51 yfan Exp $
  */
 
 package gs.web.util;
@@ -280,6 +280,10 @@ public class PageHelper {
     private Set<AdPosition> _adPositionsWithDisabledGptGhostTextHiding = new HashSet<AdPosition>();
     // ad positions on the current page which should have their companion sizes omitted in the defineSlot call
     private Set<AdPosition> _adPositionsWithOmittedCompanionSizes = new HashSet<AdPosition>();
+    // ad positions and associated tabs for which if condition should wrap around defineSlot() and display() ad calls
+    private Map<AdPosition,String> _adPositionsWithIfConditionOnAdCalls = new HashMap<AdPosition,String>();
+    // ad positions on the current page which had to be defined early using ad:enableAdPosition
+    private Set<AdPosition> _adPositionsDefinedEarly = new HashSet<AdPosition>();
     /** ad keywords for current page.  Stored in a MultiMap so that multiple values can be associated with a given
      * key.  This functionality is allowed by the Google API and is required for at least one of our use cases.  This
      * MultiMap has Strings for keys and Collections of Strings for values.
@@ -450,6 +454,40 @@ public class PageHelper {
      */
     public Set<AdPosition> getAdPositionsWithOmittedCompanionSizes() {
         return _adPositionsWithOmittedCompanionSizes;
+    }
+
+    /**
+     * @param ad Ad position that should have an if condition on the defineSlot() and display() ad calls
+     */
+    public void addAdPositionWithIfConditionOnAdCalls(AdPosition ad, String associatedTab) {
+        if (ad == null || associatedTab == null) {
+            throw new IllegalArgumentException("Ad cannot be null");
+        }
+        _adPositionsWithIfConditionOnAdCalls.put(ad, associatedTab);
+    }
+
+    /**
+     * @return Returns a non-null list of ad positions for which there should be an if condition on the defineSlot() and display() ad calls
+     */
+    public Map<AdPosition,String> getAdPositionsWithIfConditionOnAdCalls() {
+        return _adPositionsWithIfConditionOnAdCalls;
+    }
+
+    /**
+     * @param ad Ad position that had to be defined early, using ad:enableAdPosition
+     */
+    public void addAdPositionDefinedEarly(AdPosition ad) {
+        if (null == ad) {
+            throw new IllegalArgumentException("Ad cannot be null");
+        }
+        _adPositionsDefinedEarly.add(ad);
+    }
+
+    /**
+     * @return Returns a non-null list of ad positions for which had to be defined early, using ad:enableAdPosition
+     */
+    public Set<AdPosition> getAdPositionsDefinedEarly() {
+        return _adPositionsDefinedEarly;
     }
 
     private static UrlUtil _urlUtil = new UrlUtil();
