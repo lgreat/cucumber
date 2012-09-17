@@ -22,17 +22,17 @@
     <!-- Note - for rel 20.0 the old (pink/rose) sprites should be used.  Therefore the classPrefix_O are temporarly commented out and replaced with old -->
     <c:choose>
         <c:when test="${spriteSize eq 'small'}">
-            <c:set var="size" value="24" scope="page"/>
+            <c:set var="size" value="small" scope="page"/>
         </c:when>
-        <c:when test="${spriteSize eq 'med'}">
-            <c:set var="size" value="72" scope="page"/>
+        <c:when test="${spriteSize eq 'medium'}">
+            <c:set var="size" value="medium" scope="page"/>
         </c:when>
         <c:when test="${spriteSize eq 'large'}">
-            <c:set var="size" value="96" scope="page"/>
+            <c:set var="size" value="large" scope="page"/>
         </c:when>
         <c:otherwise>
             <!-- default or incorrectly specified value -->
-            <c:set var="size" value="24" scope="page"/>
+            <c:set var="size" value="small" scope="page"/>
         </c:otherwise>
     </c:choose>
 
@@ -58,10 +58,10 @@
         <c:otherwise>
             <c:choose>
                 <c:when test="${isNewGsRating}">
-                    <span class="ratingx${size}-public-RYG r-${size}-${gsRatingValue}"><!-- do not collapse --></span>
+                    <div class="public-${gsRatingValue} r-${size}">${gsRatingValue}</div>
                 </c:when>
                 <c:otherwise>
-                    <span class="ratingx${size}-public-O r-${size}-${gsRatingValue}"><!-- do not collapse --></span>
+                    <div class="public-O r-${size}">${gsRatingValue}</div>
                 </c:otherwise>
             </c:choose>
         </c:otherwise>
