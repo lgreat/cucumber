@@ -62,7 +62,7 @@
                             <option value="high">High school</option>
                         </select>
 
-                        <a target="_self" class="downloadGuide" href="javascript:void(0);"
+                        <a target="_self" class="js-downloadGuide" href="javascript:void(0);"
                                 onclick="if($('#js_chooserSchoolType').val() !== 'selectALevel'){s.tl(this,'d', '');}">
                             <button class="button-1 mlm">Download</button>
                         </a>
@@ -123,8 +123,8 @@
                     visitPdfHref = '/catalog/pdf/schq_visit_high.pdf';
                     visitPdfTarget = "_blank";
                 }
-                $('.downloadGuide').attr('href', visitPdfHref);
-                $('.downloadGuide').attr('target', visitPdfTarget);
+                $('.js-downloadGuide').attr('href', visitPdfHref);
+                $('.js-downloadGuide').attr('target', visitPdfTarget);
             });
         </script>
     </c:if>
