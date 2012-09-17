@@ -260,6 +260,7 @@
             s.prop45 = clickCapture.getProp(45,"${boundariesSearchQuery}");
             s.prop46 = clickCapture.getProp(46,"${gradeLevelFilter}");
             s.prop47 = clickCapture.getProp(47,"${distanceRadius}");
+            s.prop50 = clickCapture.getProp(50,"${school.schoolForNewProfile ? 'Chooser School' : ''}");
 
             s.events = clickCapture.getEvents("${events}");
             s.hier1 = "${hier1}";
