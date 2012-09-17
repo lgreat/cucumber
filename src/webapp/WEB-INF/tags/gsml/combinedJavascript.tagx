@@ -18,16 +18,13 @@
     <c:set scope="page" var="compressedScripts" value="${param.compressedScripts}"/>
     <c:set scope="page" var="uncompressedScripts" value="${param.uncompressedScripts}"/>
 
-    <gsml:url var="js" value="${src}?v=$RELEASE_NUMBER" allowCdn="${allowCdn}"/>
-    <![CDATA[<script type="text/javascript" src="${js}"></script>]]>
-
     <c:choose>
         <c:when test="${(not empty uncompressedScripts or serverName eq 'localhost' or fn:startsWith(serverName, '172.18.1.') or serverName eq '127.0.0.1' or fn:contains(serverName,'samson') or fn:contains(serverName,'rcox.office') or fn:contains(serverName,'mitchtest')) and empty compressedScripts}">
             <jsp:doBody/>
         </c:when>
         <c:otherwise>
-            <gsml:url var="combinedjs" value="/res/js/combined-v1.min.js?v=$RELEASE_NUMBER" allowCdn="${allowCdn}"/>
-            <![CDATA[<script type="text/javascript" src="${combinedjs}"></script>]]>
+            <gsml:url var="js" value="${src}?v=$RELEASE_NUMBER" allowCdn="${allowCdn}"/>
+            <![CDATA[<script type="text/javascript" src="${js}"></script>]]>
         </c:otherwise>
     </c:choose>
 
