@@ -71,7 +71,7 @@
                                     <c:set var="showMore" value="${fn:length(programsModel['substitute1List']) gt showMax ? true : false}"/>
                                     <c:forEach var="item" items="${programsModel['substitute1List']}" varStatus="status">
                                         <c:if test="${status.count le showMax}">
-                                            <li>${gsweb:abbreviateAtWhitespace(item,55)}</li>
+                                            <li>${gsweb:abbreviateAtWhitespace(item,52)}</li>
                                         </c:if>
                                     </c:forEach>
                                     <c:if test="${showMore}">
