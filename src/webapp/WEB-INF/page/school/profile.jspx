@@ -417,6 +417,10 @@
 
         <ad:adTag position="Community_Ad_300x50"/>
 
+        <school:profileChooser city="${school.physicalAddress.city}" state="${school.physicalAddress.state}"/>
+
+        <ad:BelowFold_300x250/>
+
         <c:set var="isDcNclbSchool" value="${school.physicalAddress.state eq 'DC' and (school.type.schoolTypeName eq 'public' or school.type.schoolTypeName eq 'charter') and school.levelCode ne 'p'}"/>
         <c:if test="${isDcNclbSchool and requestScope.context.showDcNclbModules}">
             <!-- WARNING: dcNclbReportCard.tagx IS SHARED WITH OTHER PAGES, Bracket all changes under style eq '2012' -->
@@ -428,9 +432,7 @@
                     style="2012"
                     />
         </c:if>
-        <school:profileChooser city="${school.physicalAddress.city}" state="${school.physicalAddress.state}"/>
 
-        <ad:BelowFold_300x250/>
         <ad:BelowFold_Top_300x125/>
 
     </div>
