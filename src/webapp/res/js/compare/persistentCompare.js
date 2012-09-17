@@ -401,7 +401,7 @@ GS.school.compare = (function() {
     };
 
     var validateSchoolStatesSame = function(state) {
-        return (schoolsInCompare.length >= 1 && state == schoolsInCompare[0].state);
+        return (schoolsInCompare.length == 0 || (schoolsInCompare.length >= 1 && state == schoolsInCompare[0].state));
     };
 
     var areSchoolStatesSame = function(state) {
