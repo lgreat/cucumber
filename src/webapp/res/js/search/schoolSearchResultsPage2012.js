@@ -86,6 +86,9 @@ GS.schoolSearchResultsPage = GS.schoolSearchResultsPage || (function() {
         //Bind the custom event that gets triggered after the schools are initialized in the compare module.
         //This is used to check the check boxes for the schools that are in the compare module.
         $(body).on('schoolsInitialized', function(event, schoolsInCompare) {
+            if (schoolsInCompare.length==0){
+                $('.compare-school-checkbox').prop('checked',false);
+            }
             for (var i = 0; i < schoolsInCompare.length; i++) {
                 var schoolId = schoolsInCompare[i].schoolId;
                 var state = schoolsInCompare[i].state;

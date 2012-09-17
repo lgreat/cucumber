@@ -191,7 +191,9 @@ GS.school.compare = (function() {
                 }
             )
         } else {
+            // triggering event so we can clear the checkboxes if there is no schools in compare
             schoolsInCompare = [];
+            triggerUpdatePageWithSchoolsEvent();
         }
 
         //Decide whether to show or hide the compare module.
@@ -533,9 +535,8 @@ GS.school.compare = (function() {
 
     //Trigger a custom event so that the caller can decide what to do once the schools have been initialized.
     var triggerUpdatePageWithSchoolsEvent = function() {
-        if (schoolsInCompare.length > 0) {
-            compareModule.trigger('schoolsInitialized', [schoolsInCompare]);
-        }
+        compareModule.trigger('schoolsInitialized', [schoolsInCompare]);
+
     };
 
     $(function() {
