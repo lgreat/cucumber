@@ -240,95 +240,103 @@
                 or fn:length(espResults['staff_languages']) gt 0 or fn:length(espResults['staff_languages_other']) gt 0
                 }">
                     <c:set var="hasTeacherData" value="yes"/>
-                    <div class="mod standard_1-1">
-                        <div class="inner">
-                            <div class="hd">
-                                <h4 class="pvm plm bottom">Teacher resources</h4>
+
+                    <c:set var="staffResources" value="${espResults['staff_resources']}" property="java.util.List"/>
+                    <c:set var="numStaffResources" value="${fn:length(staffResources)}"/>
+                    <c:set var="staffLanguages" value="${espResults['staff_languages']}" property="java.util.List"/>
+                    <c:set var="numStaffLanguages" value="${fn:length(staffLanguages)}"/>
+                    <c:if test="${!(numStaffResources == 1 and staffResources[0].value == 'none' and numStaffLanguages == 1 and staffLanguages[0].value == 'none')}">
+                        <div class="mod standard_1-1">
+                            <div class="inner">
+                                <div class="hd">
+                                    <h4 class="pvm plm bottom">Teacher resources</h4>
+                                </div>
+                                <div class="bd pan">
+                                    <table class="tableType1">
+                                        <!--<thead>-->
+                                        <!--<tr>-->
+                                        <!--<th colspan="2">-->
+                                        <!--Schools-->
+                                        <!--</th>-->
+                                        <!--</tr>-->
+                                        <!--</thead>-->
+                                        <c:set var="rowCounterTable" value="1" scope="page"/>
+                                        <tbody>
+                                        <c:if test="${fn:length(espResults['administrator_name']) gt 0}">
+                                            <c:choose>
+                                                <c:when test='${(rowCounterTable)%2 eq 0}'>
+                                                    <c:set var="rowColor" value="even" scope="page"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="rowColor" value="odd" scope="page"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
+                                            <tr class="${rowColor}" >
+                                                <td>School leader&apos;s name</td>
+                                                <td>
+                                                    <school:espPrettyValueList key="administrator_name" useBullets="${false}"/>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                        <c:if test="${numStaffResources gt 0}">
+                                            <c:choose>
+                                                <c:when test='${(rowCounterTable)%2 eq 0}'>
+                                                    <c:set var="rowColor" value="even" scope="page"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="rowColor" value="odd" scope="page"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
+                                            <tr class="${rowColor}" >
+                                                <td>Special staff resources available to students</td>
+                                                <td>
+                                                    <school:espPrettyValueList key="staff_resources" useBullets="${false}"/>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                        <c:if test="${numStaffLanguages gt 0}">
+                                            <c:choose>
+                                                <c:when test='${(rowCounterTable)%2 eq 0}'>
+                                                    <c:set var="rowColor" value="even" scope="page"/>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="rowColor" value="odd" scope="page"/>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
+                                            <tr class="${rowColor}" >
+                                                <td>Foreign languages spoken by school staff</td>
+                                                <td>
+                                                    <school:espPrettyValueList key="staff_languages" useBullets="${false}"/>
+                                                    <school:espPrettyValueList key="staff_languages_other" useBullets="${false}"/>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                        <c:choose>
+                                            <c:when test='${(rowCounterTable)%2 eq 0}'>
+                                                <c:set var="rowColor" value="even" scope="page"/>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:set var="rowColor" value="odd" scope="page"/>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
+                                        <tr class="${rowColor}" >
+                                            <td colspan="2">
+                                                <gslink:linkToTab tabName="programs-resources" anchor="Programs_table">
+                                                    Read more about programs at this school
+                                                </gslink:linkToTab>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="bd pan">
-                    <table class="tableType1">
-                        <!--<thead>-->
-                            <!--<tr>-->
-                                <!--<th colspan="2">-->
-                                    <!--Schools-->
-                                <!--</th>-->
-                            <!--</tr>-->
-                        <!--</thead>-->
-                        <c:set var="rowCounterTable" value="1" scope="page"/>
-                        <tbody>
-                            <c:if test="${fn:length(espResults['administrator_name']) gt 0}">
-                                <c:choose>
-                                    <c:when test='${(rowCounterTable)%2 eq 0}'>
-                                        <c:set var="rowColor" value="even" scope="page"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="rowColor" value="odd" scope="page"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
-                                <tr class="${rowColor}" >
-                                    <td>School leader&apos;s name</td>
-                                    <td>
-                                        <school:espPrettyValueList key="administrator_name" useBullets="${false}"/>
-                                    </td>
-                                </tr>
-                            </c:if>
-                            <c:if test="${fn:length(espResults['staff_resources']) gt 0}">
-                                <c:choose>
-                                    <c:when test='${(rowCounterTable)%2 eq 0}'>
-                                        <c:set var="rowColor" value="even" scope="page"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="rowColor" value="odd" scope="page"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
-                                <tr class="${rowColor}" >
-                                    <td>Special staff resources available to students</td>
-                                    <td>
-                                        <school:espPrettyValueList key="staff_resources" useBullets="${false}"/>
-                                    </td>
-                                </tr>
-                            </c:if>
-                            <c:if test="${fn:length(espResults['staff_languages']) gt 0}">
-                                <c:choose>
-                                    <c:when test='${(rowCounterTable)%2 eq 0}'>
-                                        <c:set var="rowColor" value="even" scope="page"/>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:set var="rowColor" value="odd" scope="page"/>
-                                    </c:otherwise>
-                                </c:choose>
-                                <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
-                                <tr class="${rowColor}" >
-                                    <td>Foreign languages spoken by school staff</td>
-                                    <td>
-                                        <school:espPrettyValueList key="staff_languages" useBullets="${false}"/>
-                                        <school:espPrettyValueList key="staff_languages_other" useBullets="${false}"/>
-                                    </td>
-                                </tr>
-                            </c:if>
-                            <c:choose>
-                                <c:when test='${(rowCounterTable)%2 eq 0}'>
-                                    <c:set var="rowColor" value="even" scope="page"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:set var="rowColor" value="odd" scope="page"/>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:set var="rowCounterTable" value="${rowCounterTable +1}"/>
-                            <tr class="${rowColor}" >
-                                <td colspan="2">
-                                    <gslink:linkToTab tabName="programs-resources" anchor="Programs_table">
-                                        Read more about programs at this school
-                                    </gslink:linkToTab>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </div>
-        </div>
-    </div>
+                        </div>
+                    </c:if>
+
     <div class="smaller bottom tar">Source: Manually entered by a school official.</div>
 
                 </c:if>
