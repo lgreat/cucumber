@@ -42,6 +42,9 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
             }
 
             var gsRating = schools[i].gsRating;
+            if(gsRating === '') {
+                gsRating = 'NR';
+            }
             var display_PK_only_GS_rating = "none";
             var display_private_GS_rating = "none";
             var display_public_GS_rating = "none";
@@ -50,7 +53,6 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
             }
             else if(schools[i].type === 'private') {
                 display_private_GS_rating = "block";
-                gsRating = 'NR';
             }
             else {
                 display_public_GS_rating = "block";
