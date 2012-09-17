@@ -182,7 +182,7 @@ that this is updated for ajax refresh -->
                                         </div>
                                         <div class="bd">
                                             <a href="http://maps.google.com/maps?saddr=&amp;daddr=${school.street}%20${school.city}%20${school.databaseState}%20${school.zip}"
-                                               target="_blank">Get directions</a>
+                                               target="_blank" onclick="if (s.tl) { s.tl(this, 'o', 'Search Bubble - Get Directions'); }">Get directions</a>
                                         </div>
                                     </div>
                                     <c:if test="${requestScope.context.showRealtorDotComPromos}">
@@ -403,7 +403,7 @@ that this is updated for ajax refresh -->
                             <div class="bd">
                                 <a href=""
                                    data-href="http://maps.google.com/maps?saddr=&amp;daddr={{street}}%20{{city}}%20{{state}}%20{{zip}}"
-                                   target="_blank">Get directions</a>
+                                   onclick="if (s.tl) { s.tl(this, 'o', 'Search Bubble - Get Directions'); }" target="_blank">Get directions</a>
                             </div>
                         </div>
                         <div class="small bottom {{showHomesForSale}}">
