@@ -87,7 +87,7 @@
                                 <enrollment:principalAddContent school="${school}" />
                             </div>
                             <div class="unit size2of100">&amp;nbsp;</div>
-                            <div class="unit size66of100">
+                            <div class="unit size66of100 lastUnit">
                                 <c:if test="${not empty outsmartingArticle.outsmartingArticleId}">
                                     <enrollment:recommendedReading/>
                                 </c:if>
@@ -105,7 +105,7 @@
                             <div class="unit size32of100">
                                 <enrollment:visitSchoolModule school="${school}" />
                             </div>
-                            <div class="unit size2of100">&amp;nbsp;</div>
+                            <div class="unit size2of100">&amp;nbsp;<!-- do not collapse --></div>
                             <div class="unit size66of100 lastUnit">
                                 <enrollment:applyModule viewType="6" />
                                 <c:if test="${not empty outsmartingArticle.outsmartingArticleId}">
