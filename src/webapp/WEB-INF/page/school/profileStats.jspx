@@ -335,9 +335,8 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="smaller bottom tar">Source: Manually entered by a school official.</div>
                     </c:if>
-
-    <div class="smaller bottom tar">Source: Manually entered by a school official.</div>
 
                 </c:if>
                 <c:if test="${hasTeacherData ne 'yes'}">
