@@ -150,8 +150,7 @@
         <div class="smaller pbm tar">
         <c:forEach items="${footnotesForThisTable}" var="footnoteIndex">
             <!--<sup>[<a name="ftn.id${footnoteIndex}" href="#id${footnoteIndex}">*</a>]</sup>-->
-            Source <sup>${footnoteIndex}</sup> ${(footnotes[statsTab])[footnoteIndex-1].source}
-            <c:if test="${rows[0].year != 0}">, ${rows[0].year-1}-${rows[0].year}</c:if><br/>
+            Source <sup>${footnoteIndex}</sup> ${(footnotes[statsTab])[footnoteIndex-1].source}<c:if test="${rows[0].year != 0}">, ${rows[0].year-1}-${rows[0].year}</c:if><br/>
         </c:forEach>
             <c:if test="${hasManualOverride}">
                 <c:if test="${fn:length(footnotesForThisTable) gt 0}">
