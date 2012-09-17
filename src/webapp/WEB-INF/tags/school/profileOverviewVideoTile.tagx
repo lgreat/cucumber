@@ -2,6 +2,7 @@
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:link="urn:www.greatschools.org/taglib/link"
@@ -12,6 +13,10 @@
 
     <c:set var="content" value="${videoModel['content']}" scope="page"/>
     <c:set var="videoUrl" value="${videoModel['videoUrl']}" scope="page"/>
+
+    <c:if test="${!(fn:containsIgnoreCase(videoUrl, 'http://'))}">
+        <c:set var="videoUrl" value="http://${videoUrl}" />
+    </c:if>
 
     <c:choose>
         <c:when test="${content eq 'video'}">
