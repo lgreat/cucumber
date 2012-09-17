@@ -50,6 +50,8 @@ public class EspFormExternalDataHelper {
     private ICensusDataSetDao _dataSetDao;
     @Autowired
     private IJSONDao _jsonDao;
+    @Autowired
+    private CensusCacheManager _censusCacheManager;
 
     /**
      * Fetch the keys whose values live outside of esp_response and put them in responseMap
@@ -351,6 +353,7 @@ public class EspFormExternalDataHelper {
             SchoolCensusValue manualValue = school.getCensusInfo().getManualValue(school, censusDataType);
             if (manualValue != null) {
                 _dataSetDao.deactivateDataValue(manualValue, getCensusModifiedBy(user));
+                _censusCacheManager.deleteBySchool(school);
             }
         } else {
             try {
@@ -373,10 +376,12 @@ public class EspFormExternalDataHelper {
 
     void saveCensusString(School school, String data, CensusDataType censusDataType, User user) {
         _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, StringEscapeUtils.escapeHtml(data), getCensusModifiedBy(user));
+        _censusCacheManager.deleteBySchool(school);
     }
 
     void saveCensusInteger(School school, int data, CensusDataType censusDataType, User user) {
         _dataSetDao.addValue(findOrCreateManualDataSet(school, censusDataType), school, data, getCensusModifiedBy(user));
+        _censusCacheManager.deleteBySchool(school);
     }
 
     CensusDataSet findOrCreateManualDataSet(School school, CensusDataType censusDataType) {
@@ -414,11 +419,13 @@ public class EspFormExternalDataHelper {
                 Breakdown breakdown = new Breakdown(breakdownId);
                 CensusDataSet dataSet = findOrCreateManualDataSet(school, CensusDataType.STUDENTS_ETHNICITY, breakdown);
                 _dataSetDao.addValue(dataSet, school, value, getCensusModifiedBy(user));
+                _censusCacheManager.deleteBySchool(school);
             }
         } else if (sum == 0) {
             List<SchoolCensusValue> censusValues = school.getCensusInfo().getManualValues(school, CensusDataType.STUDENTS_ETHNICITY);
             for (SchoolCensusValue val: censusValues) {
                 _dataSetDao.deactivateDataValue(val, getCensusModifiedBy(user));
+                _censusCacheManager.deleteBySchool(school);
             }
         } else {
             return "Your ethnicity percents must add up to 100%.";
