@@ -318,8 +318,7 @@
     <!-- END TAB CONFIGURATION -->
     <!-- - - - - - - - - - - - -->
 
-    <profile:primary schoolName="${school.name}" schoolId="${school.id}" schoolState="${school.databaseState}"
-                 tabName="${param.tab}"/>
+    <profile:primary schoolName="${school.name}" schoolId="${school.id}" schoolState="${school.databaseState}" tabName="${param.tab}"/>
 </div>
 
 <div class="grid_8">
@@ -397,7 +396,7 @@
             <div>
                 <div class="media">
                     <span class="img iconx16 i-16-getDirections mrs"><!-- do not collapse --></span>
-                    <a class="bd small" onclick="if (s.tl) { s.tl(this, 'o', 'School Profile - Get Directions'); }" href="http://maps.google.com/?daddr=${schoolAddressWithName}"
+                    <a class="bd small bottom" onclick="if (s.tl) { s.tl(this, 'o', 'School Profile - Get Directions'); }" href="http://maps.google.com/?daddr=${schoolAddressWithName}"
                        target="_blank">Get directions</a>
                 </div>
 

@@ -29,7 +29,7 @@
         </c:if>
         <div class="media skin-1">
         <span class="${styleClass} img mrs"><!-- icon --></span>
-        <a class="bd small" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
+        <a class="bd small bottom" href="http://www.realtor.com/realestateandhomes-search/${address.zip}?gate=gs&amp;amp;cid=PRT300014" onclick="${onclick}" target="_blank" rel="nofollow">
             <jsp:doBody/>
         </a>
         </div>
