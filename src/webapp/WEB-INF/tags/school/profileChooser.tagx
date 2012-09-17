@@ -54,18 +54,20 @@
                     <div class="pam bg-F5F5F5">
                         <h4 class="bottom">Planning a visit?</h4>
                         <p class="small bottom">Download the school visit checklist</p>
-                        <select id="js_chooserSchoolType" name="schoolLevel" class="mvm" autocomplete="off">
-                            <option value="selectALevel" selected="selected">Select a school level</option>
-                            <option value="preschool">Preschool</option>
-                            <option value="elementary">Elementary school</option>
-                            <option value="middle">Middle school</option>
-                            <option value="high">High school</option>
-                        </select>
+                        <div class="mvm">
+                            <select id="js_chooserSchoolType" name="schoolLevel" autocomplete="off">
+                                <option value="selectALevel" selected="selected">Select a school level</option>
+                                <option value="preschool">Preschool</option>
+                                <option value="elementary">Elementary school</option>
+                                <option value="middle">Middle school</option>
+                                <option value="high">High school</option>
+                            </select>
 
-                        <a target="_self" class="js-downloadGuide" href="javascript:void(0);"
-                                onclick="if($('#js_chooserSchoolType').val() !== 'selectALevel'){s.tl(this,'d', '');}">
-                            <button class="button-1 mlm">Download</button>
-                        </a>
+                            <a target="_self" class="js-downloadGuide vam" href="javascript:void(0);"
+                                    onclick="if($('#js_chooserSchoolType').val() !== 'selectALevel'){s.tl(this,'d', '');}">
+                                <span class="button-1 mlm">Download</span>
+                            </a>
+                        </div>
                     </div>
                     <!-- Section 3 - Outsmarting the system -->
                     <!-- Use the following links for this item -->

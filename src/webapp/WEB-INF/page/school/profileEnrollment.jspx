@@ -18,7 +18,7 @@
             </c:set>
             <c:set var="linkApplyNow">
                 <a href="${apply.learnMoreUrl}" target="_blank">
-                    <button class="button-1-big mtm" value="Apply now">Apply now</button>
+                    <span class="button-1-big mtm">Apply now</span>
                 </a>
             </c:set>
         </c:when>
