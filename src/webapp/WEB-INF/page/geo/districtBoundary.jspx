@@ -274,62 +274,102 @@
     </div>
     <hr class="keyline2"/>
     <!-- TODO: update legend -->
-    <div class="mtm tal grid_16">
-
-            <div class="media attribution fl mrs">
-                <div class="img prs di">
-                    <span class="iconx24 i-24-district-badge"><!-- do not collapse --></span>
-                </div>
-                <div class="bd di mts">
-                    <span class="smaller">District</span>
-                </div>
+    <div class="mtm tal grid_17">
+        <div class="media attribution fl mrm">
+            <div class="img prs di">
+                <span class="iconx24 i-24-district-badge"><!-- do not collapse --></span>
             </div>
-
-            <div class="media attribution fl mrs">
-                <div class="img prs di">
-                    <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
-                </div>
-                <div class="bd di mts">
-                    <span class="smaller">Private</span>
-                </div>
+            <div class="bd di mts">
+                <span class="smaller">District</span>
             </div>
+        </div>
 
-            <div class="media attribution fl mrs">
-                <div class="img prs di">
-                    <span class="iconx24 i-24-public-school-badge"><!-- do not collapse --></span>
-                </div>
-                <div class="bd di mts">
-                    <span class="smaller">Public/Charter</span>
-                </div>
+        <div class="media attribution fl mrm">
+            <div class="img prs di">
+                <span class="iconx24 i-24-private-school-badge"><!-- do not collapse --></span>
             </div>
-
-            <div class="media attribution fl mrs">
-                <div class="img prs di">
-                    <span class="iconx24 i-24-not-rated-badge"><!-- do not collapse --></span>
-                </div>
-                <div class="bd di mts">
-                    <span class="smaller">No Greatschools rating</span>
-                </div>
+            <div class="bd di mts">
+                <span class="smaller">Private</span>
             </div>
+        </div>
 
-            <div class="media attribution fl mrs">
-                <div class="img prs di">
-                    <span class="iconx24 i-24-school-enrollment"><!-- do not collapse --></span>
-                </div>
-                <div class="bd di mts">
-                    <span class="smaller">School&amp;nbsp;Enrollment</span>
-                </div>
+        <div class="media attribution fl mrm">
+            <div class="img prs di">
+                <span class="iconx24 i-24-public-school-badge"><!-- do not collapse --></span>
             </div>
-
-            <div class="media attribution fl">
-                <div class="img prs di">
-                    <span class="iconx24 i-24-district-boundary"><!-- do not collapse --></span>
-                </div>
-                <div class="bd di mts">
-                    <span class="smaller">District&amp;nbsp;Boundary</span>
-                </div>
+            <div class="bd di mts">
+                <span class="smaller">Public/Charter</span>
             </div>
+        </div>
 
+        <div class="media attribution fl mrm">
+            <div class="img prs di">
+                <span class="iconx24 i-24-not-rated-badge"><!-- do not collapse --></span>
+            </div>
+            <div class="bd di mts">
+                <span class="smaller">No Greatschools rating</span>
+            </div>
+        </div>
+
+        <div class="media attribution fl mrm">
+            <div class="img prs di">
+                <span class="iconx24 i-24-school-enrollment"><!-- do not collapse --></span>
+            </div>
+            <div class="bd di mts">
+                <span class="smaller">School&amp;nbsp;Enrollment</span>
+            </div>
+        </div>
+
+        <div class="media attribution fl">
+            <div class="img prs di">
+                <span class="iconx24 i-24-district-boundary"><!-- do not collapse --></span>
+            </div>
+            <div class="bd di mts">
+                <span class="smaller">District&amp;nbsp;Boundary</span>
+            </div>
+        </div>
+    </div>
+    <div class="mtm tal grid_17">
+        <div class="standard_2-1">
+            <div class="inner">
+                <div class="small_bold bottom">Introducing the new &amp; Improved GreatSchools Rating</div>
+                <div class="alpha grid_16 omega mts">
+                    <div class="media attribution fl mrm">
+                        <div class="img prs di">
+                            <span class="iconx24 i-24-public-high-badge"><!-- do not collapse --></span>
+                        </div>
+                        <div class="bd di mts">
+                            <span class="smaller">Above average (8-10)</span>
+                        </div>
+                    </div>
+
+                    <div class="media attribution fl mrm">
+                        <div class="img prs di">
+                            <span class="iconx24 i-24-public-medium-badge"><!-- do not collapse --></span>
+                        </div>
+                        <div class="bd di mts">
+                            <span class="smaller">Average (4-7)</span>
+                        </div>
+                    </div>
+
+                    <div class="media attribution fl">
+                        <div class="img prs di">
+                            <span class="iconx24 i-24-public-low-badge"><!-- do not collapse --></span>
+                        </div>
+                        <div class="bd di mts">
+                            <span class="smaller">Below average (1-3)</span>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+                <div class="alpha grid_16 omega">
+                    <span class="small quiet">In some cities, the GreatSchools Rating is now based on a combination of academic performance and school climate factors, such as safety, cleanliness, and parent involvement. <a
+                            href="/about/gsFaq.page#faq-newAndImprovedGS">Learn more about our new ratings &amp;raquo;</a></span>
+                </div>
+                <div class="clear"><!--do not collapse--></div>
+
+            </div>
+        </div>
     </div>
 </div>
 
