@@ -8,6 +8,7 @@ import gs.web.ControllerFamily;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.request.RequestInfo;
+import gs.web.util.PageHelper;
 import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.context.SessionContext;
@@ -94,6 +95,12 @@ public class SchoolProfileController extends AbstractSchoolController implements
         model.put("nearbySchools", _schoolProfileDataHelper.getNearbySchools(request));
 
         model.put("schoolEnrollment", _schoolProfileDataHelper.getEnrollment(request));
+
+        // Google Ad Manager ad keywords
+        PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
+        if (pageHelper != null) {
+            pageHelper.addAdKeyword("template", "SchoolProf");
+        }
 
         return new ModelAndView(_viewName, model);
     }
