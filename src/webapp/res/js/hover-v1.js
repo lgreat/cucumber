@@ -715,12 +715,13 @@ GSType.hover.JoinHover = function() {
             });
     };
     this.validateFieldResponse = function(fieldSelector, fieldName, data) {
+        var errorIcon ='<span class="iconx16 i-16-alert "><!-- do not collapse --></span> ';
         var fieldError = jQuery(fieldSelector + ' .invalid');
         var fieldValid = jQuery(fieldSelector + ' .valid');
         fieldError.hide();
         fieldValid.hide();
         if (data && data[fieldName]) {
-            fieldError.html(data[fieldName]);
+            fieldError.html(errorIcon+data[fieldName]);
             fieldError.show();
             if (fieldName == 'email') {
                 jQuery('#joinGS .joinHover_email .invalid a.launchSignInHover').click(function() {
@@ -1596,6 +1597,7 @@ GS.joinHover_checkValidationResponse = function(data) {
 };
 
 GS.joinHover_passesValidationResponse = function(data) {
+    var errorIcon = '<span class="iconx16 i-16-alert"><!--not empty--></span> ';
     var firstNameError = jQuery('#joinGS .joinHover_firstName .invalid');
     var emailError = jQuery('#joinGS .joinHover_email .invalid');
     var usernameError = jQuery('#joinGS .joinHover_username .invalid');
@@ -1630,18 +1632,18 @@ GS.joinHover_passesValidationResponse = function(data) {
          */
 
         if (data.state) {
-            locationError.html(data.state).show();
+            locationError.html(errorIcon+data.state).show();
         }
         if (data.city) {
-            locationError.html(data.city).show();
+            locationError.html(errorIcon+data.city).show();
         }
 
         if (data.firstName) {
-            firstNameError.html(data.firstName).show();
+            firstNameError.html(errorIcon+data.firstName).show();
         }
 
         if (data.email) {
-            emailError.html(data.email).show();
+            emailError.html(errorIcon+data.email).show();
             jQuery('#joinGS .joinHover_email .invalid a.launchSignInHover').click(function() {
                 GSType.hover.joinHover.showSignin();
                 return false;
@@ -1649,15 +1651,15 @@ GS.joinHover_passesValidationResponse = function(data) {
         }
 
         if (data.password) {
-            passwordError.html(data.password).show();
+            passwordError.html(errorIcon+data.password).show();
         }
 
         if (data.confirmPassword) {
-            confirmPasswordError.html(data.confirmPassword).show();
+            confirmPasswordError.html(errorIcon+data.confirmPassword).show();
         }
 
         if (data.screenName) {
-            usernameError.html(data.screenName).show();
+            usernameError.html(errorIcon+data.screenName).show();
         } else {
             usernameValid.show();
         }
