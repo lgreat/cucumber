@@ -95,7 +95,8 @@
                         </div>
                     </div>
                 </c:set>
-                points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude}, lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}', schoolType: '${school.schoolType}', infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}'});
+                points.push({name:'${gsweb:escapeJavaScript(school.name)}', lat: ${school.latitude}, lng: ${school.longitude}, gsRating: '${school.greatSchoolsRating}',
+                schoolType: '${school.schoolType}', infoWindowMarkup: '${gsweb:escapeJavaScript(infoWindowMarkup)}', levelCode: '${school.levelCode}', isNewGSRating: ${school.isNewGSRating}});
             </c:forEach>
             <!-- Determine a location to center map on if there are no schools -->
             <c:choose>
