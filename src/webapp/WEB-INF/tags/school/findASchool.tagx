@@ -171,24 +171,28 @@
                                                             <c:when test="${s.school.type.schoolTypeName eq 'private'}">
                                                                 <c:choose>
                                                                     <c:when test="${s.school.isNewGSRating eq true}">
-                                                                        <c:set var="ratingImg"
-                                                                               value="/res/img/mapPins/private/RYG/private_RGY_${ratingValue}.png"/>
+                                                                        <c:set var="ratingSpan">
+                                                                            <span class="ratingx24-private-RYG r-24-${ratingValue}"><!-- do not collapse --></span>
+                                                                        </c:set>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        <c:set var="ratingImg"
-                                                                               value="/res/img/mapPins/private/O/private_orange_${ratingValue}.png"/>
+                                                                        <c:set var="ratingSpan">
+                                                                            <span class="ratingx24-private-O r-24-${ratingValue}"><!-- do not collapse --></span>
+                                                                        </c:set>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </c:when>
                                                             <c:otherwise>
                                                                 <c:choose>
                                                                     <c:when test="${s.school.isNewGSRating eq true}">
-                                                                        <c:set var="ratingImg"
-                                                                               value="/res/img/mapPins/public/RYG/RGY_${ratingValue}.png"/>
+                                                                        <c:set var="ratingSpan">
+                                                                            <span class="ratingx24-public-RYG r-24-${ratingValue}"><!-- do not collapse --></span>
+                                                                        </c:set>
                                                                     </c:when>
                                                                     <c:otherwise>
-                                                                        <c:set var="ratingImg"
-                                                                               value="/res/img/mapPins/public/O/orange_${ratingValue}.png"/>
+                                                                        <c:set var="ratingSpan">
+                                                                            <span class="ratingx24-public-O r-24-${ratingValue}"><!-- do not collapse --></span>
+                                                                        </c:set>
                                                                     </c:otherwise>
                                                                 </c:choose>
                                                             </c:otherwise>
@@ -196,10 +200,9 @@
 
                                                         <link:schoolProfileOverview school="${s.school}"
                                                                                     title="${s.school.name}"
-                                                                                    styleClass="text3"><gsml:img
-                                                                src="${ratingImg}"
-                                                                alt="${ratingValueAltText}"
-                                                                styleClass="ratingImage fltrt"/></link:schoolProfileOverview>
+                                                                                    styleClass="text3">
+                                                            ${ratingSpan}
+                                                        </link:schoolProfileOverview>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </td>
