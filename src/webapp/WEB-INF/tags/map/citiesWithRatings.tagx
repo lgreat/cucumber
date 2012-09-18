@@ -29,7 +29,7 @@
          var icon = new GIcon();
          var imageValue = rating;
          if (rating == 0) {
-             imageValue = 'na';
+             imageValue = 'NR';
          }
          if (!center) {
              icon.image = "/res/img/mapPins/city/city_" + imageValue + ".png";
@@ -107,7 +107,7 @@
         bubbleText += '  <div class="cityRating" ' + ieWidth + '>';
         bubbleText += '  <a href="' + cityUrl + '">';
         bubbleText += '<img src="/res/img/ratings/nearbyCity/cities_lgbox_' + imageValue + '.gif"';
-        if (imageValue != 'na') {
+        if (imageValue != 'NR') {
            bubbleText += ' alt="GreatSchools Rating: ' + imageValue + ' out of 10. GreatSchools Ratings are based on test results. 10 is best."';
         } else {
             bubbleText += ' alt="GreatSchools Rating: no rating available. GreatSchools Ratings are based on test results. 10 is best."';
