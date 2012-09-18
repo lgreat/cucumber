@@ -705,7 +705,6 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                     school.getDatabaseState(), null, RATING_TEST_DATA_TYPE_IDS,
                     null, null, null, null, true, null, displayTarget);
 
-            System.out.println("---testDataSets------------------"+testDataSets.size());
             //Get the school test values.
             List<SchoolTestValue> schoolTestValues = new ArrayList<SchoolTestValue>();
             if (!testDataSets.isEmpty()) {
@@ -797,8 +796,13 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                 }
             }
 
-            // Store map in request
-            setSharedData(request, key, dataMap); // Save in request for future use
+            if (dataMap == null || dataMap.isEmpty()) {
+                // Set flag to prevent this DB request again
+                setSharedData(request, noKey, "yes");
+            } else {
+                // Store map in request
+                setSharedData(request, key, dataMap); // Save in request for future use
+            }
         }
         return dataMap;
     }
