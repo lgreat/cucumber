@@ -25,7 +25,7 @@
             </div>
             <div class="bd compareScroll">
                 <c:if test="${hasSchoolContext}">
-                    <div class="plm pvm "><button id="js_compareAddBtn" class="but but-smt but-2 dn" data-state="${school.databaseState}" data-id="${school.id}">Add this school to compare</button></div>
+                    <div class="plm pvm dn" id="js_compareAddBtn" data-state="${school.databaseState}" data-id="${school.id}"><span class="but but-smt but-2">Add this school to compare</span></div>
                 </c:if>
                 <div id="js_compareSchoolsDiv">
                     <!-- Do not collapse -->
