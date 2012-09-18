@@ -160,24 +160,22 @@
                                                     </c:when>
                                                     <c:otherwise>
                                                         <c:set var="ratingValue" value="NR"/>
-                                                        <c:set var="ratingValueAltText" value=""/>
                                                         <!-- top rated school interface return int, not Integer so we don't check for empty-->
                                                         <c:if test="${s.rating > 0}">
                                                             <c:set var="ratingValue" value="${s.rating}"/>
-                                                            <c:set var="ratingValueAltText"
-                                                                   value="GreatSchools Rating: ${ratingValue} out of 10. GreatSchools Ratings are based on test results. 10 is best."/>
                                                         </c:if>
+
                                                         <c:choose>
                                                             <c:when test="${s.school.type.schoolTypeName eq 'private'}">
                                                                 <c:choose>
                                                                     <c:when test="${s.school.isNewGSRating eq true}">
                                                                         <c:set var="ratingSpan">
-                                                                            <span class="ratingx24-private-RYG r-24-${ratingValue}"><!-- do not collapse --></span>
+                                                                            <span class="ratingx24-private-RYG r-24-${ratingValue} fr"><!-- do not collapse --></span>
                                                                         </c:set>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         <c:set var="ratingSpan">
-                                                                            <span class="ratingx24-private-O r-24-${ratingValue}"><!-- do not collapse --></span>
+                                                                            <span class="ratingx24-private-O r-24-${ratingValue} fr"><!-- do not collapse --></span>
                                                                         </c:set>
                                                                     </c:otherwise>
                                                                 </c:choose>
@@ -186,12 +184,12 @@
                                                                 <c:choose>
                                                                     <c:when test="${s.school.isNewGSRating eq true}">
                                                                         <c:set var="ratingSpan">
-                                                                            <span class="ratingx24-public-RYG r-24-${ratingValue}"><!-- do not collapse --></span>
+                                                                            <span class="ratingx24-public-RYG r-24-${ratingValue} fr"><!-- do not collapse --></span>
                                                                         </c:set>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         <c:set var="ratingSpan">
-                                                                            <span class="ratingx24-public-O r-24-${ratingValue}"><!-- do not collapse --></span>
+                                                                            <span class="ratingx24-public-O r-24-${ratingValue} fr"><!-- do not collapse --></span>
                                                                         </c:set>
                                                                     </c:otherwise>
                                                                 </c:choose>
