@@ -11,19 +11,19 @@
     <c:choose>
         <c:when test="${state eq 'DC'}">
             <c:set var="hotlinePhoneNbr" value="202-431-5538" scope="page"/>
-            <c:set var="outsmartArticleCmsId" value="3775" scope="page"/>
+            <c:set var="outsmartArticleRelativeUrl" value="/find-a-school/3775-outsmarting-the-system-dc.gs" scope="page"/>
             <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailWashingtonDc.jpg" scope="page"/>
             <c:set var="titleCity" value="Washington, D.C." scope="page"/>
         </c:when>
         <c:when test="${state eq 'WI'}">
             <c:set var="hotlinePhoneNbr" value="414-748-1211" scope="page"/>
-            <c:set var="outsmartArticleCmsId" value="3428" scope="page"/>
+            <c:set var="outsmartArticleRelativeUrl" value="/find-a-school/3428-outsmarting-milwaukee.gs" scope="page"/>
             <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailMilwaukee.jpg" scope="page"/>
             <c:set var="titleCity" value="Milwaukee" scope="page"/>
         </c:when>
         <c:when test="${state eq 'IN'}">
             <c:set var="titleCity" value="Indianapolis" scope="page"/>
-            <c:set var="outsmartArticleCmsId" value="6996" scope="page"/>
+            <c:set var="outsmartArticleRelativeUrl" value="/find-a-school/6996-outsmarting-indianapolis.gs" scope="page"/>
             <c:set var="thumbnail" value="/res/img/content/chooserRightRail/thumbnailIndianapolis.jpg" scope="page"/>
         </c:when>
     </c:choose>
@@ -70,16 +70,14 @@
                         </div>
                     </div>
                     <!-- Section 3 - Outsmarting the system -->
-                    <!-- Use the following links for this item -->
-                    <!-- Link: http://www.greatschools.org/content/cms/translate.page?Article=${outsmartArticleCmsId} -->
                     <!-- Img:  The images are stored at ${thumbnail} -->
-                    <c:if test="${not empty outsmartArticleCmsId}">
+                    <c:if test="${not empty outsmartArticleRelativeUrl}">
                         <!-- show the "outsmart the system" block and include ${hotlinePhoneNbr} if present -->
                         <div class="pam bg-outsmart">
                             <div class="fl">
                                 <p class="small_bold bottom">Outsmart the system in
                                     <br/>${titleCity}</p>
-                                <a href="http://www.greatschools.org/content/cms/translate.page?Article=${outsmartArticleCmsId}"
+                                <a href="${outsmartArticleRelativeUrl}"
                                    class="small bottom">Read how to navigate the
                                     <br/>local process &amp;raquo;</a>
                             </div>
