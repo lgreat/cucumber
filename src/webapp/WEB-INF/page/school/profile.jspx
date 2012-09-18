@@ -209,7 +209,8 @@
     <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger">
         <div class="alpha grid_4 tac">
             <!-- New GS Rating -->
-            <ratings:ratingsSpriteForSchool school="${school}" spriteSize="large"/>
+            <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${overallRating}"
+                                   schoolType="${school.type.name}" isPreschoolOnly="${school.preschoolOnly}" spriteSize="large"/>
             <p data-gs-custom-link="header_rating" class="tac small bottom pbs mbm">GreatSchools Rating</p>
         </div>
     </gslink:linkToTab>
