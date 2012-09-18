@@ -822,25 +822,26 @@ GSType.hover.SignInHover = function() {
         return false;
     };
     this.loginValidatorHandler = function(data) {
+        var errorIcon = '<span class="iconx16 i-16-alert "><!-- do not collapse --></span> ';
         jQuery('#signInHover .errors .error').hide();
         if (data.noSuchUser) {
-            jQuery('#signInHover .errors .error').html(data.noSuchUser).show();
+            jQuery('#signInHover .errors .error').html(errorIcon + data.noSuchUser).show();
         } else if (data.userNoPassword) {
             GSType.hover.signInHover.clearMessages();
             GSType.hover.signInHover.hide();
             GSType.hover.joinHover.showJoinGlobalHeader();
-            GSType.hover.joinHover.addMessage(data.userNoPassword);
+            GSType.hover.joinHover.addMessage(errorIcon + data.userNoPassword);
         } else if (data.userNotValidated) {
             GSType.hover.signInHover.clearMessages();
             GSType.hover.signInHover.hide();
             GSType.hover.emailNotValidated.setEmail(jQuery('#semail').val());
             GSType.hover.emailNotValidated.show();
         } else if (data.email) {
-            jQuery('#signInHover .errors .error').html(data.email).show();
+            jQuery('#signInHover .errors .error').html(errorIcon + data.email).show();
         } else if (data.userDeactivated) {
-            jQuery('#signInHover .errors .error').html(data.userDeactivated).show();
+            jQuery('#signInHover .errors .error').html(errorIcon + data.userDeactivated).show();
         } else if (data.passwordMismatch) {
-            jQuery('#signInHover .errors .error').html(data.passwordMismatch).show();
+            jQuery('#signInHover .errors .error2').html(errorIcon + data.passwordMismatch).show();
         } else {
             GSType.hover.signInHover.cancelLoadOnExit();
             if (GSType.hover.signInHover.onSubmitCallback) {

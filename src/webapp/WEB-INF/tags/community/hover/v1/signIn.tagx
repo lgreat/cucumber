@@ -39,7 +39,7 @@
             </div>
             <div class="line">
                     <div class="unit size4of19">
-                        <label for="semail" class="longLabel">Password</label>
+                        <label for="spword" class="longLabel">Password</label>
 
                     </div>
                     <div class="unit size5of14">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="unit size3of7 lastUnit">
                         <div class="errors">
-                            <p class="error"><!-- message --></p>
+                            <p class="error2"><!-- message --></p>
                         </div>
                     </div>
             </div>
