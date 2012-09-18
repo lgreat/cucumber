@@ -154,9 +154,11 @@
         <c:if test="${not empty requestScope.pageHelper.adPositionsWithIfConditionOnAdCalls}">
             <![CDATA[
                 GS.ad.onSchoolProfileTab = function(hash, tabParamValue, tabName) {
-                    var containsHashTag = (hash !== '');
+                    var historySupported = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
+                    // hash tag is removed by js if history is supported, so ignore hash tag if history is supported
+                    var containsHashTag = (hash !== '') && !historySupported;
 
-                    if (hash === '#!/' + tabName) {
+                    if (containsHashTag && hash === '#!/' + tabName) {
                         return true;
                     } else if (!containsHashTag && tabName === tabParamValue) {
                         return true;
