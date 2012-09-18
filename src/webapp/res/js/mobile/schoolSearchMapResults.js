@@ -130,21 +130,21 @@ define(['searchResultFilters', 'uri', 'tracking'], function(searchResultFilters,
                 title: point.name
             };
 
-            var imageUrlPreschool = '/res/mobile/img/map_pins/32x32/120917-mapPins-preschool-2x.png';
-            var imageUrlPublicOld = '/res/mobile/img/map_pins/32x32/120917-mapPins-public-O-2x.png';
-            var imageUrlPublicNew = '/res/mobile/img/map_pins/32x32/120917-mapPins-public-RYG-2x.png';
-            var imageUrlPrivateOld = '/res/mobile/img/map_pins/35x35/120917-mapPins-private-O-2x.png';
-            var imageUrlPrivateNew = '/res/mobile/img/map_pins/35x35/120917-mapPins-private-RYG-2x.png';
-            var pixelOffset = 640; // default to n/a
+            var imageUrlPreschool = '/res/mobile/img/map_pins/32x32/120918-mapPins-preschool.png';
+            var imageUrlPublicOld = '/res/mobile/img/map_pins/32x32/120918-mapPins-public-O.png';
+            var imageUrlPublicNew = '/res/mobile/img/map_pins/32x32/120918-mapPins-public-RYG.png';
+            var imageUrlPrivateOld = '/res/mobile/img/map_pins/35x35/120918-mapPins-private-O.png';
+            var imageUrlPrivateNew = '/res/mobile/img/map_pins/35x35/120918-mapPins-private-RYG.png';
+            var pixelOffset = 320; // default to n/a
             var size = 32;
 
             if (point.levelCode === 'p') {
                 imageUrl = imageUrlPreschool;
             } else if (point.schoolType === 'private') {
-                pixelOffset = 700; //default to private NR
+                pixelOffset = 350; //default to private NR
                 size = 35;
                 if (point.gsRating != "" && parseInt(point.gsRating) > 0) {
-                    pixelOffset = (point.gsRating - 1) * size * 2;
+                    pixelOffset = (point.gsRating - 1) * size;
                 }
                 if (point.isNewGSRating != undefined && point.isNewGSRating === true) {
                     imageUrl = imageUrlPrivateNew;
@@ -154,7 +154,7 @@ define(['searchResultFilters', 'uri', 'tracking'], function(searchResultFilters,
 
             } else if ((point.schoolType === 'public' || point.schoolType === 'charter')) {
                 if (point.gsRating != "" && parseInt(point.gsRating) > 0) {
-                    pixelOffset = (point.gsRating - 1) * size * 2;
+                    pixelOffset = (point.gsRating - 1) * size;
                 }
                 if (point.isNewGSRating != undefined && point.isNewGSRating === true) {
                     imageUrl = imageUrlPublicNew;
@@ -165,9 +165,9 @@ define(['searchResultFilters', 'uri', 'tracking'], function(searchResultFilters,
 
             markerOptions.icon = new google.maps.MarkerImage(
                 imageUrl, // url
-                new google.maps.Size(size * 2, size * 2), // size
+                new google.maps.Size(size, size), // size
                 new google.maps.Point(pixelOffset, 0), // origin
-                new google.maps.Point(size, size) // anchor
+                new google.maps.Point(size / 2, size) // anchor
             );
             var marker = new google.maps.Marker(markerOptions);
 
