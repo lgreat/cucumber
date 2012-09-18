@@ -3,6 +3,7 @@
           xmlns="http://www.w3.org/1999/xhtml" version="2.0"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:enrollment="urn:jsptagdir:/WEB-INF/tags/school/profile/enrollment"
+          xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
         >
     <jsp:directive.page contentType="text/html"/>
     <jsp:output doctype-root-element="html"
@@ -154,4 +155,7 @@
         </c:choose>
     </div>
     </div>
+
+    <mod:deferredTracking key="enrollment" pageName="admissions"/>
+
 </jsp:root>

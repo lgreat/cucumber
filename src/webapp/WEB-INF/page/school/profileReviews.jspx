@@ -469,7 +469,7 @@
 </script>
 
 
-<mod:deferredTracking key="reviews" pageName="Parent Reviews" hier1="School,Parent Reviews,Read Reviews"/>
+<mod:deferredTracking key="reviews" pageName="Parent Reviews"/>
 <mod:deferredTracking numberOfReviews="${cmd.totalReviews}"/>
 
 </jsp:root>

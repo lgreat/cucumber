@@ -245,8 +245,8 @@
 
     </div>
 
-    <mod:deferredTracking key="overview" pageName="${pageName}" hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"/>
+    <mod:deferredTracking key="overview" pageName="${pageName}"/>
 
-    <mod:deferredTracking hasOsp="${not empty espData}" school="${school}" schoolGSRating="${ratings.overallRating}" schoolPhotosTracking="${fn:length(photosModel.photoGalleryImages)}"/>
+    <mod:deferredTracking hier1="School,SchoolProfileSuite" hasOsp="${not empty espData}" school="${school}" schoolGSRating="${ratings.overallRating}" schoolPhotosTracking="${fn:length(photosModel.photoGalleryImages)}"/>
 
 </jsp:root>
