@@ -38,7 +38,7 @@
             <input type="hidden" id="hdnSchoolId" name="id"/>
             <input type="hidden" id="hdnSchoolState" name="state"/>
 
-            <div id="agreeError" class="errorOld">You must agree to continue</div>
+            <div id="agreeError"><span class="iconx16 i-16-alert "><!-- do not collapse --></span> You must agree to continue</div>
 
             <div class="spacer_10"><!-- do not collapse --></div>
 
