@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.54 2012/09/15 03:37:51 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.55 2012/09/19 02:42:17 yfan Exp $
  */
 package gs.web.ads;
 
@@ -156,13 +156,10 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
             // GPT, unlike GAM tags, allows the same ad slot to be used multiple times on the same page,
             // but let's keep the same logic for backwards compatibility
             Set <AdPosition> adPositions = pageHelper.getAdPositions();
-            Set <AdPosition> adPositionsDefinedEarly = pageHelper.getAdPositionsDefinedEarly();
-            if (!adPositionsDefinedEarly.contains(_adPosition)) {
-                if (adPositions.contains(_adPosition)) {
-                    throw new IllegalArgumentException("Ad Position already defined: " + _adPosition);
-                } else {
-                    pageHelper.addAdPosition(_adPosition);
-                }
+            if (adPositions.contains(_adPosition)) {
+                throw new IllegalArgumentException("Ad Position already defined: " + _adPosition);
+            } else {
+                pageHelper.addAdPosition(_adPosition);
             }
 
             String slotName = _adPosition.getName();
