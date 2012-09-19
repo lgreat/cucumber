@@ -143,7 +143,7 @@
 
                                                 <c:choose>
                                                     <c:when test="${levelCode eq 'p'}">
-                                                        <c:set var="ratingValue" value="rateit"/>
+                                                        <c:set var="ratingValue" value="rate_it"/>
                                                         <c:set var="ratingValueAltText" value="Rate this school!"/>
                                                         <!-- top rated school interface return int, not Integer so we don't check for empty-->
                                                         <c:if test="${s.parentRatings.displayOverallRating}">
@@ -152,11 +152,11 @@
                                                                 Community Rating:
                                                                 ${ratingValue} out of 5 stars</c:set>
                                                         </c:if>
-                                                        <link:schoolProfileOverview school="${s.school}"
-                                                                                    title="${s.school.name}"><gsml:img
-                                                                src="/res/img/map/ratings_parent_city_${ratingValue}.gif"
-                                                                alt="${ratingValueAltText}"
-                                                                styleClass="ratingImage"/></link:schoolProfileOverview>
+
+                                                        <link:schoolProfileOverview school="${s.school}"title="${s.school.name}">
+                                                            <span class="sprite stars_sm_${ratingValue} fr"><!-- do not collapse --></span>
+                                                            <!--<gsml:img src="/res/img/map/ratings_parent_city_${ratingValue}.gif" alt="${ratingValueAltText}" styleClass="ratingImage"/>-->
+                                                        </link:schoolProfileOverview>
                                                     </c:when>
                                                     <c:otherwise>
                                                         <c:set var="ratingValue" value="NR"/>
