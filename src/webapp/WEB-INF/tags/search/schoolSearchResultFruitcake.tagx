@@ -146,11 +146,11 @@
                                 </c:choose>
                             </div>
                         </div>
-                        <div class="unit size40of100">
+                        <div class="unit size40of100 mrgtop_3">
                             <search:addToMslLinkOrText school="${school}" omniturePageName="${omniturePageName}"/>
                         </div>
                         <c:if test="${requestScope.context.showRealtorDotComPromos}">
-                            <div class="unit size30of100 lastUnit">
+                            <div class="unit size30of100 lastUnit mrgtop_3">
                                 <div class="alpha grid_8">
                                     <gslink:realtorDotComLink address="${school.address}"
                                                               customLinkSuffix="inlinelinkheader"
