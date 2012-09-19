@@ -28,6 +28,7 @@
                                              styleClass="small bottom fl"
                                              tab="overview">Compare schools &amp;raquo;</link:compareSchools>
 
+                    <div class="clear"><!-- do not collapse --></div>
                     </div>
                 </div>
             </div>
