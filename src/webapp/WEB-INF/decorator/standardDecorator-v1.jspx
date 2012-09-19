@@ -22,12 +22,11 @@
 <jsp:output omit-xml-declaration="true" />
 <jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
 
-<html lang="en" class="no-js">
+<html lang="en">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title><decorator:title default="GreatSchools - Public and Private School Ratings, Reviews and Parent Community"/></title>
         <pageHelper:addCss-v1/>
-        <script src="/res/js/modernizr.js" type="text/javascript"><!-- do not collapse --></script>
 
         <pageHelper:addJavaScript-v1
                 uncompressedScripts="${param.uncompressedScripts}"
