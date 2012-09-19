@@ -22,9 +22,16 @@
                     <div class="bd bg-nearbySchool">
                         <h4 class="bottom">Compare this school
                             <br/>to nearby schools</h4>
+                        &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                        &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
                         <link:compareSchools schools="${compareNearbyString}" source="sphead_overview_${school.databaseState}${school.id}"
                                              onclick="if (s.tl) {s.tl(this,'o','SchoolProfile_Compare_Inline_Link');} return true;"
-                                             styleClass="small bottom"
+                                             styleClass="small bottom fl"
                                              tab="overview">Compare schools &amp;raquo;</link:compareSchools>
 
                     </div>
