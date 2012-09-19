@@ -278,6 +278,6 @@
     </div>
 </div>
 
-<mod:deferredTracking key="ratings" pageName="Ratings"/>
+<mod:deferredTracking key="ratings" pageName="Ratings" hier1="School,SchoolProfileSuite,Ratings"/>
 
 </jsp:root>

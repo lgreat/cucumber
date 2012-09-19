@@ -156,6 +156,6 @@
     </div>
     </div>
 
-    <mod:deferredTracking key="enrollment" pageName="enrollment"/>
+    <mod:deferredTracking key="enrollment" pageName="enrollment" hier1="School,SchoolProfileSuite,Enrollment"/>
 
 </jsp:root>

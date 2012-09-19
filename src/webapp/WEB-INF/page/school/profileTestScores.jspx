@@ -202,7 +202,7 @@
             $('#js_testSelect').change();
         </script>
         </div>
-        <mod:deferredTracking key="test-scores" pageName="Test Scores" hier1="School,TestScores,MainTestScorePage"/>
+        <mod:deferredTracking key="test-scores" pageName="Test Scores" hier1="School,SchoolProfileSuite,TestScores"/>
     </c:when>
     <c:otherwise>
         <!-- No data is available -->

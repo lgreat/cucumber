@@ -365,7 +365,7 @@
         </div>
     </div>
 
-    <mod:deferredTracking key="teachers" pageName="Teachers" />
-    <mod:deferredTracking key="demographics" pageName="Students" />
+    <mod:deferredTracking key="teachers" pageName="Teachers" hier1="School,SchoolProfileSuite,Teachers" />
+    <mod:deferredTracking key="demographics" pageName="Students" hier1="School,SchoolProfileSuite,Students" />
 
 </jsp:root>

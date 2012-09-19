@@ -199,8 +199,8 @@ where each entry is the first bean for that section, this allows access to the s
     <script type="text/javascript">
         GS_schoolProfileFbId = '${schoolFacebookId}';
     </script>
-    <mod:deferredTracking key="programs-culture" pageName="Highlights" />
-    <mod:deferredTracking key="programs-resources" pageName="Programs Resources" />
-    <mod:deferredTracking key="extracurriculars" pageName="Extracurriculars" />
-    <mod:deferredTracking key="culture" pageName="Culture"/>
+    <mod:deferredTracking key="programs-culture" pageName="Highlights" hier1="School,SchoolProfileSuite,Highlights"/>
+    <mod:deferredTracking key="programs-resources" pageName="Programs Resources" hier1="School,SchoolProfileSuite,ProgramsResources" />
+    <mod:deferredTracking key="extracurriculars" pageName="Extracurriculars" hier1="School,SchoolProfileSuite,Extracurriculars" />
+    <mod:deferredTracking key="culture" pageName="Culture" hier1="School,SchoolProfileSuite,Culture"/>
 </jsp:root>
