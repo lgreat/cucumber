@@ -139,7 +139,11 @@ General comments:
 .standard_3-1{
   margin-bottom:10px;
 }
+.standard_3-1 .outerie{
+display: inline-block;
+}
 .standard_3-1 .outer{
+    display: inline-block;
   -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
      -moz-border-radius: 4px; /* FF1-3.6 */
           border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
@@ -147,6 +151,7 @@ General comments:
   padding:5px;
 }
 .standard_3-1 .inner{
+    display: inline-block;
   border:1px solid #d2e9f3; 
   -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
      -moz-border-radius: 4px; /* FF1-3.6 */

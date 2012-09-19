@@ -8,7 +8,7 @@
           xmlns:link="urn:www.greatschools.org/taglib/link"
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
-          xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
           xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
@@ -46,7 +46,9 @@
                                     <ul class="unordered-carousel none">
                                         <c:forEach var="review" items="${images}">
                                             <li>
-                                                <img src="${basePath}${review.mediumSizeFile}" alt="Photos of this school" width="130" height="130"/>
+                                                <div class="js-photo-gallery-trigger">
+                                                    <img src="${basePath}${review.mediumSizeFile}" alt="Photos of this school" width="130" height="130"/>
+                                                </div>
                                             </li>
                                         </c:forEach>
                                     </ul>
@@ -89,6 +91,15 @@
                                 <span class="make-555555">Schools,</span><br />
                                 join today<br />
                                 <span class="make-555555">to update<br />photos.</span>
+                                <!-- push the width to the right edge.  This helps me avoid setting a fixed width
+                                    Needed to make this adjustment after setting modules outer style to display inline block for ie7-->
+                                &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                                &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                                &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                                &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                                &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                                &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+                                &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
                             </p>
                         </div>
                     </div>
@@ -97,5 +108,8 @@
             </link:schoolEspRegister>
         </c:otherwise>
     </c:choose>
-
+    <!--<profile:photoGallery cssClass="js-photo-gallery-trigger" smallImages="${images}"-->
+                          <!--largeImages="${images}"-->
+                          <!--prefix="overview"-->
+                          <!--basePath="${basePath}"/>-->
 </jsp:root>
