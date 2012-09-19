@@ -5,5 +5,6 @@
           xmlns:gsweb="gstaglib">
     <jsp:directive.tag body-content="empty"/>
     <jsp:directive.attribute name="position" required="true" description="Ad slot position" />
-    <gsweb:adTagGenerator position="${position}"/>
+    <jsp:directive.attribute name="styleClass" required="false" description="CSS styles to apply to outer div" />
+    <gsweb:adTagGenerator position="${position}" styleClass="${pageScope.styleClass}"/>
 </jsp:root>

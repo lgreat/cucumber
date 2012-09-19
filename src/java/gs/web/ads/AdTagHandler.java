@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdTagHandler.java,v 1.55 2012/09/19 02:42:17 yfan Exp $
+ * $Id: AdTagHandler.java,v 1.56 2012/09/19 21:07:19 yfan Exp $
  */
 package gs.web.ads;
 
@@ -30,6 +30,8 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
     private AdPosition _adPosition;
     private boolean _alwaysShow = false;
     private boolean _showOnPrintView = false;
+    // CSS class to apply to outer div
+    private String _styleClass;
 
     private static final Log _log = LogFactory.getLog(AdTagManager.class);
     private static final String JS_METHOD_NAME_24_7 = "OAS_AD";
@@ -59,6 +61,10 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 .append("\" class=\"")
                 .append(getAdId()).append(" ")
                 .append("ad");
+        if (StringUtils.isNotBlank(_styleClass)) {
+            buffer.append(" ");
+            buffer.append(_styleClass);
+        }
         if (!isShowOnPrintView()) {
             buffer.append(" noprint");
         }
@@ -137,6 +143,10 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
                 .append("\" class=\"")
                 .append(getAdId()).append(" ")
                 .append("ad");
+        if (StringUtils.isNotBlank(_styleClass)) {
+            buffer.append(" ");
+            buffer.append(_styleClass);
+        }
         if (!isShowOnPrintView()) {
             buffer.append(" noprint");
         }
@@ -301,5 +311,13 @@ public class AdTagHandler extends AbstractDeferredContentTagHandler {
 
     public void setShowOnPrintView(boolean showOnPrintView) {
         _showOnPrintView = showOnPrintView;
+    }
+
+    public String getStyleClass() {
+        return _styleClass;
+    }
+
+    public void setStyleClass(String styleClass) {
+        _styleClass = styleClass;
     }
 }

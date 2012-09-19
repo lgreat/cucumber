@@ -66,7 +66,7 @@
 
                 <!-- enableIfConditionOnAdCalls must be used to wrap the display call to prevent unintended ad call -->
                 <ad:enableIfConditionOnAdCalls position="Sponsor_630x40" associatedTab="overview"/>
-                <ad:adTag position="Sponsor_630x40"/>
+                <ad:adTag position="Sponsor_630x40" styleClass="pbs"/>
 
                 <div class="line">   <!-- row 2, tiles 4-6 -->
                     <div class="unit size32of100">
@@ -189,7 +189,7 @@
 
                 <!-- enableIfConditionOnAdCalls must be used to wrap the display call to prevent unintended ad call -->
                 <ad:enableIfConditionOnAdCalls position="Sponsor_630x40" associatedTab="overview"/>
-                <ad:adTag position="Sponsor_630x40"/>
+                <ad:adTag position="Sponsor_630x40" styleClass="pbs"/>
 
                 <div class="line">   <!-- row 2, tiles 4-6 -->
                     <div class="unit size32of100">
