@@ -917,3 +917,11 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
     background-image: none;
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
+
+/****************************************************************************************************************
+
+height adjustments for modules --- you can find these overwritten for ie7 in advertising/ad-IE7
+
+***************************************************************************************************************/
+
+.add-photos-height{ height:160px;}

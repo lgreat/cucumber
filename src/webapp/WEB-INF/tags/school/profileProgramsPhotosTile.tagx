@@ -9,6 +9,7 @@
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link"
           xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
           xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:profile="urn:jsptagdir:/WEB-INF/tags/school/profile"
           xmlns:gsweb="gstaglib"
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:map="urn:jsptagdir:/WEB-INF/tags/map"
@@ -31,9 +32,9 @@
                                 <ul class="unordered-carousel none">
                                     <c:forEach var="review" items="${images}">
                                         <li>
-                                            <!--<div class="captioned_photo js-photo-gallery-trigger">-->
+                                            <div class="js-photo-gallery-trigger">
                                             <img src="${basePath}${review.smallSizeFile}" alt="Photos of this school" width="90" height="90"/>
-                                            <!--</div>-->
+                                            </div>
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -71,6 +72,10 @@
                     -->
                     <!--Photos lightbox here-->
                 </school:profileCell2>
+                <!--<profile:photoGallery cssClass="js-photo-gallery-trigger" smallImages="${images}"-->
+                                      <!--largeImages="${images}"-->
+                                      <!--prefix="culture"-->
+                                      <!--basePath="${basePath}"/>-->
             </div>
         </div>
     </c:if>

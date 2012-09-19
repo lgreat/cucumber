@@ -7,7 +7,7 @@
     <gslink:linkToTab tabName="reviews" cssClass="tdn make-555555" customLink="overview_writereview">
         <div class="mod standard_3-1">
             <div class="outer">
-                <div class="inner bg-writeReviews">
+                <div class="inner bg-writeReviews moduleHeight-share-your-experience">
                     <div class="hd">
                         <h4 class="bottom">Share your experience</h4>
                     </div>
