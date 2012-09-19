@@ -4516,6 +4516,13 @@
             <type>java.lang.String</type>
             <description>Style class for link</description>
         </attribute>
+        <attribute>
+            <name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>Id of the element.</description>
+        </attribute>
     </tag>
     <tag>
         <name>findASchool</name>

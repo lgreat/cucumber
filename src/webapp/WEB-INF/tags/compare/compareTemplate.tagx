@@ -10,7 +10,7 @@
           xmlns:fn="http://java.sun.com/jsp/jstl/functions"
           xmlns:gsweb="gstaglib"
         >
-
+    <pageHelper:externalJavascript file="/res/js/compare/persistentCompare.js"/>
     <pageHelper:externalJavascript file="/res/js/compare/compare.js"/>
     <jsp:directive.tag body-content="scriptless"/>
     

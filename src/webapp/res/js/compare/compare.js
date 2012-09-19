@@ -1,6 +1,18 @@
 jQuery(document).ready(function() {
     // disable selection of button-1 class
     jQuery('#compareTable tbody.striped').alternateRowColors();
+
+    GS.school.compare.initializeSchoolsInCompare();
+    //Remove school from the persistent module if the school is being removed from compare tool.
+    jQuery('.js_compare_tool_remove_school').on('click', function () {
+        var schoolSelected = $(this).attr('id');
+        if(schoolSelected != undefined && schoolSelected !== '' && schoolSelected.indexOf('js_compare_tool_school_') === 0 ){
+            var stateAndSchoolId = schoolSelected.substr('js_compare_tool_school_'.length, schoolSelected.length);
+            var schoolId = stateAndSchoolId.substr(2, stateAndSchoolId.length);
+            var state = stateAndSchoolId.substr(0, 2).toUpperCase();
+            GS.school.compare.removeSchoolFromCompare(schoolId, state);
+        }
+    });
 });
 
 compare_onClickAddMslLink = function(elem,omniturePageName) {
