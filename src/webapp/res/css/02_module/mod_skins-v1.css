@@ -86,6 +86,9 @@ General comments:
     -moz-border-radius: 0 0 4px 4px; /* FF1-3.6 */
     border-radius: 0 0 4px 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
+.standard_1-1 .compareScroll{
+    max-height: 200px; overflow-y: auto; position: relative;
+}
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
 /* ---------------- standard_1-2 ----------------- */
@@ -755,3 +758,160 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
     margin-bottom: 0;
 }
 .prw { width:250px; list-style: inside;}
+
+
+
+/* ----------- photoGalleryWrapper ----------- */
+.photoGalleryWrapper{}
+.photoGalleryWrapper .inner{background-color: #fff;}
+.photoGalleryWrapper .article-photo-gallery-close{cursor: pointer;}
+.photoGalleryWrapper .photoGalleryViewer{text-align: center;}
+.photoGalleryWrapper .galleryPhotoFullsize{width:390px;margin:0 auto;}
+.photoGalleryWrapper .galleryPhotoFullsize img{display:block;padding: 0;margin:0 0 5px;}
+.photoGalleryWrapper .galleryPhotoFullsize span{clear:both;display:block;width:100%;height:25px;margin:0;padding: 0;overflow: hidden;}
+.photoGalleryWrapper .photoGalleryControls{margin:0;padding:0;text-align:center;}
+.photoGalleryWrapper .article-photo-gallery-back{position: absolute; top: 176.5px;left: 11px;cursor: pointer;}
+.photoGalleryWrapper .article-photo-gallery-next{position: absolute; top: 176.5px; left: 471px;cursor: pointer;}
+
+
+/* =12c-3.2.1 infinite carousel 8 (Article Photo gallery GS-12625)
+-------------------------------------------------------------------------------------------*/
+.infiniteCarousel8{
+    width: 500px;
+    height: 79px;
+    position: relative;
+    margin:10px auto 10px;
+    outline:0;
+
+    /* backkground */
+    background-color: #ffffff; /* Old browsers */
+}
+
+.infiniteCarousel8 .wrapper {
+    clear:both;
+    width: 420px; /* .infiniteCarousel8 width - (.wrapper margin-left + .wrapper margin-right) */
+    overflow: auto;
+    height: 74px;
+    margin: 0;
+    position: absolute;
+    top: 5px;
+    left:35px;
+}
+
+.infiniteCarousel8 .wrapper ul {
+    width: 9999px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0 0 0 0;
+    padding: 0;
+    position: relative;
+    top: 0;
+}
+
+.infiniteCarousel8 ul li {
+    display: block;
+    float: left;
+    padding: 0 5px;
+    width: 74px;
+    height: 74px;
+}
+
+.infiniteCarousel8 ul li a img {
+    display: block;
+    background-color: green;
+}
+
+.infiniteCarousel8 .arrow {
+    display: block;
+    top: 30px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    font: bold 24px/19px Arial, Helvetica, sans-serif;
+    text-align: center;
+    /*rounded corners*/
+    -moz-border-radius: 12px; /* FF1+ */
+    -webkit-border-radius: 12px; /* Saf3+, Chrome */
+    border-radius: 12px; /* Opera 10.5, IE 9 */
+    /*background*/
+    background-color: #ffffff; /* Old browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e6e6e6)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #ffffff 0%,#e6e6e6 100%); /* Chrome10+,Safari5.1+ */
+    background-image:    -moz-linear-gradient(top, #ffffff 0%,#e6e6e6 100%); /* FF3.6+ */
+    background-image:     -ms-linear-gradient(top, #ffffff 0%,#e6e6e6 100%); /* IE10+ */
+    background-image:      -o-linear-gradient(top, #ffffff 0%,#e6e6e6 100%); /* Opera11.10+ */
+    background-image:         linear-gradient(top, #ffffff 0%,#e6e6e6 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 ); /* IE6-9 */
+}
+
+.infiniteCarousel8 .forward {right: 5px;}
+.infiniteCarousel8 .back {left: 5px;}
+
+.infiniteCarousel8 .forward:hover {text-decoration: none;
+    background-color: #ffffff;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.infiniteCarousel8 .back:hover {text-decoration: none;
+    background-color: #ffffff;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.infiniteCarousel8 .forward:active {text-decoration: none;
+    /*background*/
+    background-color: #ffffff; /* Old browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cccccc), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #cccccc 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+    background-image:    -moz-linear-gradient(top, #cccccc 0%,#ffffff 100%); /* FF3.6+ */
+    background-image:     -ms-linear-gradient(top, #cccccc 0%,#ffffff 100%); /* IE10+ */
+    background-image:      -o-linear-gradient(top, #cccccc 0%,#ffffff 100%); /* Opera11.10+ */
+    background-image:         linear-gradient(top, #cccccc 0%,#ffffff 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+.infiniteCarousel8 .back:active {text-decoration: none;
+    /*background*/
+    background-color: #ffffff; /* Old browsers */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cccccc), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #cccccc 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+    background-image:    -moz-linear-gradient(top, #cccccc 0%,#ffffff 100%); /* FF3.6+ */
+    background-image:     -ms-linear-gradient(top, #cccccc 0%,#ffffff 100%); /* IE10+ */
+    background-image:      -o-linear-gradient(top, #cccccc 0%,#ffffff 100%); /* Opera11.10+ */
+    background-image:         linear-gradient(top, #cccccc 0%,#ffffff 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+.ie9 .infiniteCarousel8 .arrow{
+    background-color: #ffffff;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.ie9 .infiniteCarousel8 .forward:hover {text-decoration: none;
+    background-color: #f2f2f2;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.ie9 .infiniteCarousel8 .back:hover {text-decoration: none;
+    background-color: #f2f2f2;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.ie9 .infiniteCarousel8 .forward:active{
+    background-color: #e6e6e6;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.ie9 .infiniteCarousel8 .back:active{
+    background-color: #e6e6e6;
+    background-image: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}

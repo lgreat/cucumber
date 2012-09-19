@@ -19,9 +19,11 @@
 
     <div id="js_compareModule" class="mod standard_1-1 ${!empty school ? 'dn':''}">
         <div class="inner">
-            <div class="hd" style="${hasSchoolContext ? 'overflow:hidden':''}">
+            <div class="hd">
+                <!--style="${hasSchoolContext ? 'overflow:hidden':''}">-->
                 <div class="fl"><h4 class="pvm plm bottom">Compare <span id="js_compareCount"><!-- do not collapse --></span></h4></div>
                 <div class="fr prm pvm "><button id="js_compareBtn" class="but but-smt but-2">Compare now</button></div>
+                <div class="clear"><!-- do not collapse --></div>
             </div>
             <div class="bd compareScroll">
                 <c:if test="${hasSchoolContext}">
