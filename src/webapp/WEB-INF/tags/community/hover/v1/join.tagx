@@ -100,7 +100,7 @@
             <div class="unit size3of7 lastUnit">
                 <div class="errors">
                     <span class="valid dn success"><span class="iconx16 i-16-success "><!-- do not collapse --></span> Your username is available</span>
-                    <span class="invalid dn alert"></span>
+                    <span class="invalid dn alert"><!-- do not collapse --></span>
                 </div>
             </div>
             <div class="spacer_7"><!-- do not collapse --></div>
