@@ -127,7 +127,7 @@
 <!--<div class="alpha grid_16 omega">-->
 
 <!-- Any change to the syle classes applied to navigation would require a change in the javascript code where this is updated for ajax refresh -->
-<div class="alpha grid_16 omega mts">
+<div class="alpha grid_16 omega mtm">
 
 <search:schoolSearchResultsNavigation pageOffset="${page.offset+1}" pageLastOffsetOnPage="${page.lastOffsetOnPage+1}"
                                       pageTotalItems="${page.pager.totalItems}" tabSelect="map"

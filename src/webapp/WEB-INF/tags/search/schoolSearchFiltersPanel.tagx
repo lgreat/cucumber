@@ -13,19 +13,26 @@
         <div class="js-schoolSearchFiltersPanel grid_16 alpha omega" style="${showAdvancedFilters eq true ? '' : 'display: none'}">
 
         <div id="js-moreFiltersLine" class="grid_16 alpha omega filtersControl" style="z-index:450;">
-            <div class="alpha prefix_6 grid_5 suffix_5 omega js-moreFiltersLink pas">
-                <h4 class="bottom">
-                    <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Open">
-                        <div class="media skin-2 attribution">
-                            <div class="img mrm">
-                                Narrow your search
-                            </div>
-                            <div class="bd">
-                                <span class="iconx16 i-16-search-filter-arrow-down"><!-- do not collapse --></span>
-                            </div>
-                        </div>
-                    </a>
-                </h4>
+            <div class="alpha prefix_3 grid_9 suffix_4  omega js-moreFiltersLink phs pts">
+                <div class="media skin-2 attribution">
+                    <div class="img mrm">
+                        <img src="/res/img/search/120918-sharpieCallout.png" alt="Sharpie Callout"/>
+                    </div>
+                    <div class="bd">
+                        <h4 class="bottom">
+                            <a href="javascript:void(0);" data-gs-custom-link="Search_Filter_Adv_Open">
+                                <div class="media skin-2 attribution">
+                                    <div class="img mrm">
+                                        Narrow your search
+                                    </div>
+                                    <div class="bd">
+                                        <span class="iconx16 i-16-search-filter-arrow-down"><!-- do not collapse --></span>
+                                    </div>
+                                </div>
+                            </a>
+                        </h4>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -55,7 +62,7 @@
         <c:set var="artsVisualCounts" value="${facetCounts.arts_visual}"/>
         <c:set var="artsMusicCounts" value="${facetCounts.arts_music}"/>
 
-        <div class="pam">
+        <div class="phm ptm">
             <div class="line">
                 <div class="unit size87of100">
                     <h4 class="bottom">Narrow your search</h4>

@@ -344,24 +344,24 @@ General comments:
 .slStylesV1-0 .standard_6-1 .ft .filtersControl{
     cursor: pointer;
     border-top: 1px solid #FFF;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#DDDDDD 20%), to(#F1F1F1 100%)); /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(bottom, #DDDDDD 20%, #F1F1F1 100%); /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image: -moz-linear-gradient(bottom, #DDDDDD 20%, #F1F1F1 100%); /* FF3.6 */
-    background-image: -ms-linear-gradient(bottom, #DDDDDD 20%, #F1F1F1 100%); /* IE10 */
-    background-image: -o-linear-gradient(bottom, #DDDDDD 20%, #F1F1F1 100%); /* Opera 11.10+ */
-    background-image: linear-gradient(bottom, #DDDDDD 20%, #F1F1F1 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFDDDDDD', EndColorStr='#FFF1F1F1'); /* IE6?IE9 */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#E5E5E5 20%), to(whiteSmoke 100%)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(bottom, #E5E5E5 20%, whiteSmoke 100%); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image: -moz-linear-gradient(bottom, #E5E5E5 20%, whiteSmoke 100%); /* FF3.6 */
+    background-image: -ms-linear-gradient(bottom, #E5E5E5 20%, whiteSmoke 100%); /* IE10 */
+    background-image: -o-linear-gradient(bottom, #E5E5E5 20%, whiteSmoke 100%); /* Opera 11.10+ */
+    background-image: linear-gradient(bottom, #E5E5E5 20%, whiteSmoke 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFE5E5E5', EndColorStr='whiteSmoke'); /* IE6?IE9 */
 }
 
 .slStylesV1-0 .standard_6-1 .ft .filtersControl:hover{
     text-decoration: none;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#DDDDDD 20%), to(#F9F9F9, 100%));  /* Saf4+, Chrome */
-    background-image: -webkit-linear-gradient(bottom, #DDDDDD 20%, #F9F9F9 100%);  /* Chrome 10+, Saf5.1+, iOS 5+ */
-    background-image: -moz-linear-gradient(bottom, #DDDDDD 20%, #F9F9F9 100%);  /* FF3.6 */
-    background-image: -ms-linear-gradient(bottom, #DDDDDD 20%, #F9F9F9 100%);  /* IE10 */
-    background-image: -o-linear-gradient(bottom, #DDDDDD 20%, #F9F9F9 100%);  /* Opera 11.10+ */
-    background-image: linear-gradient(bottom, #DDDDDD 20%, #F9F9F9 100%);  /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FFDDDDDD', EndColorStr = '#FFF9F9F9');  /* IE6?IE9 */
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#E5E5E5 20%), to(whiteSmoke, 100%));  /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(bottom, #E5E5E5 20%, whiteSmoke 100%);  /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image: -moz-linear-gradient(bottom, #E5E5E5 20%, whiteSmoke 100%);  /* FF3.6 */
+    background-image: -ms-linear-gradient(bottom, #E5E5E5 20%, whiteSmoke 100%);  /* IE10 */
+    background-image: -o-linear-gradient(bottom, #E5E5E5 20%, whiteSmoke 100%);  /* Opera 11.10+ */
+    background-image: linear-gradient(bottom, #E5E5E5 20%, whiteSmoke 100%);  /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#FFE5E5E5', EndColorStr = 'whiteSmoke');  /* IE6?IE9 */
 }
 
 .slStylesV1-0 .standard_6-1 .ft .filtersPanel{

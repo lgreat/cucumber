@@ -50,7 +50,7 @@
                         <button class="button-4 searchSubmit" type="submit">Search</button>
                     </div>
                 </div>
-                <div class="smallest bottom">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
+                <div class="smallest quiet bottom">e.g. "2113 Jones St, San Francisco, CA" or "San Francisco, CA" or "95133"</div>
             </form>
 
         </div>
@@ -88,7 +88,7 @@
                         <button class="button-4 searchSubmit" type="submit">Search</button>
                     </div>
                 </div>
-                <div class="smallest bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
+                <div class="smallest quiet bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
 
             </form>
         </div>

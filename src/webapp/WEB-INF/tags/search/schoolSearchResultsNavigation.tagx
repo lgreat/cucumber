@@ -25,7 +25,7 @@
 <div class="alpha grid_16 omega" style="display: ${searchResultsNav}" id="js-searchResultsNav">
     <div class="alpha grid_16 omega pr">
         <div id="js-mapPageNav" class="pa" style="right: 0px; top:10px;width:443px;">
-            <div class="fltlft plm">
+            <div class="fltlft pll">
                 ${searchResultsPagingSummary}
             </div>
             <div class="fltrt plm">

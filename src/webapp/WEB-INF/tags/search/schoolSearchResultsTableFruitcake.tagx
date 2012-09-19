@@ -13,7 +13,7 @@
 <jsp:directive.attribute name="omniturePageName" required="true" type="java.lang.String"/>
     <jsp:directive.attribute name="comscorePageView" required="false" type="java.lang.Boolean"/>
 <pageHelper:externalCss file="/res/css/07_navigation/pagination.css"/>
-    <div id="js-school-search-results-table" class="mts">
+    <div id="js-school-search-results-table" class="mtm">
         <c:if test="${comscorePageView}">
             <![CDATA[<div id="comscore"> <!-- pageview_candidate --> </div>]]>
         </c:if>
@@ -51,7 +51,7 @@
                     <c:set var="photoSearchWidth" value="size11of100"/>
                 </c:otherwise>
             </c:choose>
-            <div class="line pam">
+            <div class="line pas">
                 <div class="unit ${nameSearchWidth}">
                     <mod:sortArrow columnName="Name"
                             sortList="SCHOOL_NAME_ASCENDING,SCHOOL_NAME_DESCENDING"
