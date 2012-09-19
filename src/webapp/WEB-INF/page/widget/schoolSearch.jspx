@@ -216,7 +216,7 @@
                     </div>
                     <c:choose>
                         <c:when test="${requestScope.command.hidePreschools}">
-                            <img src="/res/img/widget/map_key_no_preschools.gif" alt="Map Key" class="mapKey"/>
+                            <img src="/res/img/widget/120919-map_key_no_preschools.gif" alt="Map Key" class="mapKey"/>
                         </c:when>
                         <c:otherwise>
                             <img src="/res/img/widget/map_key.gif" alt="Map Key" class="mapKey"/>
