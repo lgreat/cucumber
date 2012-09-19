@@ -70,10 +70,12 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
 
         if( espResults != null && !espResults.isEmpty() ) {
             // OSP case
+            modelMap.put("hasEsp", true);
             handleEspPage( modelMap, request, school, espResults );
         }
         else {
             // Non-OSP case
+            modelMap.put("hasEsp", false);
             handleNonEspPage( modelMap, request, school );
         }
         return VIEW;
@@ -140,7 +142,7 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
             Calendar nextYear = Calendar.getInstance();
             nextYear.add(Calendar.YEAR, 1);
 
-            if("date".equals(applicationDeadline) && applicationDeadlineDate != null) {
+            if("date".equalsIgnoreCase(applicationDeadline) && applicationDeadlineDate != null) {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM dd, yyyy");
                 deadlineInfoDate = dateFormat.format(applicationDeadlineDate);
                 model.put(MODEL_DEADLINE_DATE, deadlineInfoDate);
@@ -170,11 +172,11 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
                     }
                 }
             }
-            else if("yearround".equals(applicationDeadline)) {
+            else if("yearround".equalsIgnoreCase(applicationDeadline)) {
                 model.put(MODEL_ENROLLMENT_STATE, 4);
             }
-            else if(("date".equals(applicationDeadline) && applicationDeadlineDate == null) ||
-                    "parents_contacts".equals(applicationDeadline) || applicationDeadlineDate == null) {
+            else if(("date".equalsIgnoreCase(applicationDeadline) && applicationDeadlineDate == null) ||
+                    "parents_contacts".equalsIgnoreCase(applicationDeadline) || applicationDeadlineDate == null) {
                 model.put(MODEL_ENROLLMENT_STATE, 3);
             }
         }
@@ -510,7 +512,7 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
 
         for( String val : valuesToLookFor ) {
             for( EspResponse r : espResponses ) {
-                if( r.getValue().equals( val ) ) {
+                if( r.getValue().equalsIgnoreCase( val ) ) {
                     return true;    // Found, we are done
                 }
             }
@@ -530,5 +532,9 @@ public class SchoolProfileEnrollmentController extends AbstractSchoolProfileCont
         }
         model.put(MODEL_LEARN_MORE_URL, applyUrl);
         return model;
+    }
+
+    public void setSchoolProfileDataHelper( SchoolProfileDataHelper schoolProfileDataHelper ) {
+        _schoolProfileDataHelper = schoolProfileDataHelper;
     }
 }
