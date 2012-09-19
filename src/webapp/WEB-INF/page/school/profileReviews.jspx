@@ -101,7 +101,7 @@
                                                     </div>
                                                     <div class="unit size10of20 lastUnit">
                                                         <!-- numRatings = -->
-                                                        <span class="numRatings small">Based on ${ratingByYear.numRatings} ratings</span>
+                                                        <span class="numRatings small">Based on ${ratingByYear.numRatings} ${ratingByYear.numRatings eq 1 ? 'rating' : 'ratings'}</span>
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise>
