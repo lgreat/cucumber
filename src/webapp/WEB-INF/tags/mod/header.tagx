@@ -65,7 +65,7 @@
             <div class="unit size40of100">
                 <div id="logoBox">
                     <gsml:a href="/">
-                        <gsml:img id="logo" src="/res/img/logo/logo_GS2010_330x110.png"
+                        <gsml:img id="logo" src="/res/img/logo/logo_GS2010_330x110.png" width="369" height="83"
                                   alt="GreatSchools: Involved Parents. Successful Kids"/>
                     </gsml:a>
                 </div>
