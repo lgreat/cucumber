@@ -630,15 +630,9 @@ GS.search.results = GS.search.results || (function() {
         if(queryStringData.sortBy !== undefined) {
             $('#map-sort').val(queryStringData.sortBy);
         }
-        else {
-            $('#map-sort').val('');
-        }
 
         if(queryStringData.pageSize !== undefined) {
             $('#page-size').val(queryStringData.pageSize);
-        }
-        else {
-            $('#page-size').val('25');
         }
     }
 
