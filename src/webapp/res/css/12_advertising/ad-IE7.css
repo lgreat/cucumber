@@ -28,6 +28,13 @@ General comments:
     /* vendor specific properties */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
+
+/* --------------------------------------------------------------
+
+   * IE7 special cases for formatting
+
+-------------------------------------------------------------- */
+
 .standard_3-1 .outer{
     display: inline-block;
     -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
