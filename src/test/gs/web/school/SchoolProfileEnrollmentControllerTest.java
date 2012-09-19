@@ -13,8 +13,6 @@ import java.util.*;
 
 import static org.easymock.EasyMock.expect;
 import static org.easymock.classextension.EasyMock.createMock;
-import static org.easymock.classextension.EasyMock.replay;
-import static org.easymock.classextension.EasyMock.verify;
 
 /**
  * Created with IntelliJ IDEA.
