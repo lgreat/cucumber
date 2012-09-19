@@ -43,7 +43,7 @@
     <div class="mod standard_1-1">
         <div class="inner box-shadow-animation-1">
             <div id="js-tile-5-0">
-            <gslink:linkToTab tabName="reviews" customLink="overview_writereview" anchor="revPagination" dontPrintLink="${content ne 'reviews'}" cssClass="tdn make-555555 js-trigger">
+            <gslink:linkToTab tabName="reviews" customLink="overview_reviews" anchor="revPagination" dontPrintLink="${content ne 'reviews'}" cssClass="tdn make-555555 js-trigger">
                 <div class="hd pr">
                     ${t5t6dc}
                 </div>
@@ -52,7 +52,7 @@
             <div class="bd">
                 <c:choose>
                     <c:when test="${content eq 'reviews'}">
-                        <gslink:linkToTab tabName="reviews" customLink="overview_writereview" anchor="revPagination" dontPrintLink="${content ne 'reviews'}" cssClass="tdn make-555555 js-trigger">
+                        <gslink:linkToTab tabName="reviews" customLink="overview_reviews" anchor="revPagination" dontPrintLink="${content ne 'reviews'}" cssClass="tdn make-555555 js-trigger">
                             <div class="infiniteCarousel9">
                                 <div class="wrapper">
                                     <ul class="unordered-carousel none">

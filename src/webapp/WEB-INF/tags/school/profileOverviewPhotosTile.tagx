@@ -77,9 +77,8 @@
             </div>
         </c:when>
         <c:otherwise>
-            <!-- TODO: add custom link overview_osp_cta -->
             <link:schoolEspRegister styleClass="no_interrupt tdn">
-            <div class="mod standard_3-1">
+            <div class="mod standard_3-1" onclick="if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
                 <div class="outer">
                     <div class="inner bg-addPhotos">
                         <div class="hd">

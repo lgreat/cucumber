@@ -35,7 +35,7 @@
                                 </div>
                             </gslink:linkToTab>
                         </div>
-                        <a onclick="if (s.tl) { s.tl(this, 'o', 'overview_videos'); }" class="tdn make-555555" href="${videoUrl}" target="_blank">
+                        <a class="tdn make-555555" href="${videoUrl}" target="_blank">
                             <div class="bd">
                                 <div class="mam" style="height:139px;">
                                     <div class="media mls ptm">

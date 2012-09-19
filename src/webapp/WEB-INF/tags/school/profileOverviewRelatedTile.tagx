@@ -78,7 +78,7 @@
                             <p class="bd fl small bottom">
                                 <link:cmsContent contentKey="${item.contentKey}"
                                                  fullUri="${item.fullUri}">
-                                    <c:out value="${gsweb:abbreviateAtWhitespace(item.title,charLimit)}" escapeXml="false"/>
+                                    <span onclick="if (s.tl) { s.tl(this, 'o', 'overview_relatedcontent'); }"><c:out value="${gsweb:abbreviateAtWhitespace(item.title,charLimit)}" escapeXml="false"/></span>
                                 </link:cmsContent>
                             </p>
                         </div>

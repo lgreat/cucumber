@@ -18,7 +18,7 @@
                 <a href="${apply.learnMoreUrl}" target="_blank">Learn more about<br/>enrolling at this school &amp;raquo;</a>
             </c:set>
             <c:set var="linkApplyNow">
-                <a href="${apply.learnMoreUrl}" target="_blank">
+                <a href="${apply.learnMoreUrl}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'apply_now_button');} return true;">
                     <span class="button-1-big mtm">Apply now</span>
                 </a>
             </c:set>
@@ -156,6 +156,6 @@
     </div>
     </div>
 
-    <mod:deferredTracking key="enrollment" pageName="admissions"/>
+    <mod:deferredTracking key="enrollment" pageName="enrollment"/>
 
 </jsp:root>
