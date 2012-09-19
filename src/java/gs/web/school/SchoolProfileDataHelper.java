@@ -260,6 +260,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                 }
                 filtered.add(nearby);
             }
+            schools = filtered;
 
             if( !filtered.isEmpty() ) {
                 setSharedData( request, key, filtered); // Save in request for future use
