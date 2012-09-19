@@ -131,12 +131,7 @@ General comments:
     min-width: 100%;
 }
 
-.ie7 #gs-secondary .dropdown_1{min-width:0;width:245px;}
-.ie7 #gs-secondary .dropdown_2{min-width:0;width:174px;}
-.ie7 #gs-secondary .dropdown_3{min-width:0;width:131px;}
-.ie7 #gs-secondary .dropdown_4{min-width:0;width:157px;}
-.ie7 #gs-secondary .dropdown_5{min-width:0;width:145px;}
-.ie7 #gs-secondary .dropdown_6{min-width:0;width:188px;}
+
 
 #gs-secondary .menuItem:hover .dropdown_2,
 #gs-secondary .menuItem:hover .dropdown_3,
