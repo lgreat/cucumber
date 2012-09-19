@@ -54,7 +54,7 @@
                         <c:choose>
                             <c:when test="${requestScope.command.hideSchoolFinderWidgetPreschools}">
                                 <c:set var="schoolFinderImgUrl"
-                                       value="/res/img/about/schoolfinder_70percent_no_preschools.png"/>
+                                       value="/res/img/about/120919-schoolfinder_70percent_no_preschools.png"/>
                             </c:when>
                             <c:otherwise>
                                 <c:set var="schoolFinderImgUrl" value="/res/img/about/schoolfinder_70percent.jpg"/>
