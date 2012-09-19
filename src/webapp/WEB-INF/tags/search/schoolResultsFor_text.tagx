@@ -43,7 +43,7 @@
 
     <c:if test="${commandAndFields.cityBrowse}">
         <h1 class="bottom">${schoolResultsFor} Schools</h1>
-        <div class="small">
+        <div class="small bottom">
             View city information for
             <link:city city="${city.name}" state="${city.state}">
             ${schoolResultsFor} <span>&amp;raquo;</span>
@@ -53,7 +53,7 @@
     </c:if>
     <c:if test="${commandAndFields.districtBrowse}">
         <h1 class="bottom">${fn:escapeXml(district.name)} Schools</h1>
-        <div class="small">
+        <div class="small bottom">
             <link:districtHome district="${district}">
                 View district information
                 <span>&amp;raquo;</span>
