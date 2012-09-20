@@ -129,7 +129,7 @@ Android seems to require the address to be blank for the same behavior -->
 
 <div id="js_schoolMap">
     <c:set var="gsRatingValue" value="NR"/>
-    <c:if test="${not empty gsRating and gsRating gt 0}">
+    <c:if test="${not empty gs_rating and gs_rating gt 0}">
         <c:set var="gsRatingValue" value="${gs_rating}"/>
     </c:if>
     <c:choose>
@@ -139,20 +139,20 @@ Android seems to require the address to be blank for the same behavior -->
         <c:when test="${school.type.schoolTypeName eq 'private'}">
             <c:choose>
                 <c:when test="${school.isNewGSRating}">
-                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/private/RYG/private_RGY_${ratingValue}.png"/>
+                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/private/RYG/private_RGY_${gsRatingValue}.png"/>
                 </c:when>
                 <c:otherwise>
-                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/private/O/private_orange_${ratingValue}.png"/>
+                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/private/O/private_orange_${gsRatingValue}.png"/>
                 </c:otherwise>
             </c:choose>
         </c:when>
         <c:otherwise>
             <c:choose>
                 <c:when test="${school.isNewGSRating}">
-                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/public/RYG/RGY_${ratingValue}.png"/>
+                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/public/RYG/RGY_${gsRatingValue}.png"/>
                 </c:when>
                 <c:otherwise>
-                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/public/O/orange_${ratingValue}}.png"/>
+                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/public/O/orange_${gsRatingValue}}.png"/>
                 </c:otherwise>
             </c:choose>
         </c:otherwise>
