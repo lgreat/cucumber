@@ -174,7 +174,7 @@
 
         <c:if test="${requestScope.context.gptAsynchronousModeEnabled}">
             <![CDATA[
-                googletag.cmd.push(function() {
+            googletag.cmd.push(function() {
             ]]>
         </c:if>
 
@@ -202,7 +202,9 @@
 
                 <c:if test="${associatedTab != null}">
                 } else {
-                    document.getElementById('ad${adPosition.name}').style.display = 'none';
+                    $(function() {
+                        document.getElementById('ad${adPosition.name}').style.display = 'none';
+                    });
                 }
                 </c:if>
             </c:forEach>
