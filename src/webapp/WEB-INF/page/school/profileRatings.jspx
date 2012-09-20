@@ -22,14 +22,15 @@
                     </div>
                     <div class="bd pam ratingsGraphicMakesUp ptl">
                             <div class="iconTop">
-                                    <c:choose>
-                                        <c:when test="${overallRating != null}">
-                                            <div class="ratingx72-public-RYG r-72-${overallRating} bottom"><!-- do not collapse --></div>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <div class="ratingx72-public-RYG r-72-NR"><!-- do not collapse --></div>
-                                        </c:otherwise>
-                                    </c:choose>
+                                <c:set var="overallRatingBadge" value="NR"/>
+                                <c:if test="${not empty overallRating}">
+                                    <c:set var="overallRatingBadge" value="${overallRating}"/>
+                                </c:if>
+                                <c:set var="schoolType" value="public"/>
+                                <c:if test="${school.type.schoolTypeName eq 'private'}">
+                                    <c:set var="schoolType" value="private"/>
+                                </c:if>
+                                <div class="ratingx72-${schoolType}-RYG r-72-${overallRatingBadge} bottom"><!-- do not collapse --></div>
                             </div>
                             <div class="lineDown"><!-- do not collapse --></div>
                             <div class="splitConnect"><!-- do not collapse --></div>
