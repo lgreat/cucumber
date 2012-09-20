@@ -121,7 +121,14 @@
         <!--<li><a href="" onclick="GSType.hover.interruptSurvey.show(); return false;">interruptSurvey</a></li>-->
 
     </ol>
-    </c:if>
+    </c:if> <![CDATA[
+    <!--[if IE 7]>
+    <script type="text/javascript">
+       $(document).ready(function() {
+                $('.fb_iframe_widget').css("z-index", 1);
+         });
+    </script>
+    <![endif]-->   ]]>
     </body>
   </html>
 
