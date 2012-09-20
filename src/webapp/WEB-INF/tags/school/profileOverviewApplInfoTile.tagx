@@ -35,8 +35,8 @@
         <!-- The following is on the right -->
         <!-- applicationDeadlineMsg = ${applicationDeadlineMsg}, [values are apply, call or yearround] -->
         <!-- vouchers = ${vouchers}, [values are no, yes or blank] -->
-        <div class="mam">
-        <div style="height:79px;">
+        <div class="mam mp0">
+        <div class="moduleHeight-79 ie-moduleHeight-69">
             <div class="shim-10"><!-- do not collapse --></div>
             <c:choose>
                 <c:when test="${applicationDeadlineMsg eq 'apply'}">
@@ -61,7 +61,7 @@
             </c:choose>
         </div>
         <hr class="keyline2"/>
-        <div style="height:69px;">
+        <div class="moduleHeight-69 ie-moduleHeight-66">
             <div class="shim-5"><!-- do not collapse --></div>
             <div class="shim-10"><!-- do not collapse --></div>
             <c:choose>

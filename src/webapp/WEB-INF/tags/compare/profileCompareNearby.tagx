@@ -16,10 +16,10 @@
             </c:if>
         </c:forEach>
 
-        <div class="mod standard_3-1 js_compareNoSchools clearfix dn">
+        <div class="mod standard_3-1 js_compareNoSchools dn">
             <div class="outer">
                 <div class="inner">
-                    <div class="bd bg-nearbySchool">
+                    <div class="bd bg-nearbySchool clearfix">
                         <h4 class="bottom">Compare this school
                             <br/>to nearby schools</h4>
 

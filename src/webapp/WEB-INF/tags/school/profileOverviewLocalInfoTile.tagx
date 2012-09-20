@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
           xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:content="urn:www.greatschools.org/taglib/content"
           xmlns:promo="urn:jsptagdir:/WEB-INF/tags/promo"
@@ -47,7 +48,7 @@
                     <c:set var="districtNumStudents" value="${localInfoModel['districtNumStudents']}" scope="page"/>
                     <h4 class="tac">${gsweb:abbreviateAtWhitespace(localInfoModel['districtName'],42)}</h4>
                     <c:if test="${not empty districtNumSchools}">
-                        <div class="line mvs clearfix mp0">
+                        <div class="line mvs clearfix ie-mp0">
                                 <div class="unit size60of100">
                                     <p class="small bottom">Number of schools:</p>
                                 </div>
@@ -72,7 +73,7 @@
                     </c:if>
                     -->
                     <c:if test="${not empty districtGrades}">
-                        <div class="line mvs mp0">
+                        <div class="line mvs ie-mp0">
                             <div class="unit size60of100">
                                 <p class="small bottom">Grades:</p>
                             </div>
@@ -82,7 +83,7 @@
                         </div>
                     </c:if>
 
-                    <p class="small bottom tac make-06b mp0 clearfix">
+                    <p class="small bottom tac make-06b ie-mp0 clearfix">
                         See district boundaries
                     </p>
                 </div>
@@ -97,9 +98,13 @@
                 <p class="small_bold textshadow-1 pvs plm bottom">${gsweb:abbreviateAtWhitespace(localInfoModel['title'],26)}</p>
             </c:set>
             <school:profileOverviewCell1 title="${t13s2}" logoClass="true">
-                <div class="mam" style="height:125px;">
+                <div class="mam moduleHeight-125 ie-moduleHeight-117">
                     <p class="small bottom">${localInfoModel['neighborhoodInfo']}</p>
                 </div>
+                <div class="smallest bottom fr prm">Source:
+                    <a  onclick="if (s.tl) { s.tl(this, 'o', 'sperlings_overview'); }" href="http://www.bestplaces.net" target="_blank" class="noInterstitial"><gsml:img
+                            src="/res/img/school/overview/logo_sperlings_75x19.png" alt="Sperling's Best Places"/></a></div>
+
             </school:profileOverviewCell1>
         </c:when>
     </c:choose>

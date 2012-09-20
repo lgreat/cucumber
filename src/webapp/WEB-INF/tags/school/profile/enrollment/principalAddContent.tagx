@@ -8,7 +8,7 @@
     <link:schoolEspRegister styleClass="no_interrupt tdn">
         <div class="mod standard_3-1">
             <div class="outer">
-                <div class="inner bg-principal">
+                <div class="inner bg-principal ie-moduleHeight-162">
                     <div class="hd">
                         <h3 class="bottom">Are you responsible for enrollment at your school?</h3>
                     </div>

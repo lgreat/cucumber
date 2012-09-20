@@ -62,7 +62,7 @@
             <link:districtBoundaryTool styleClass="tdn" school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'overview_schoolboundaries'); }">
                 <div class="mod standard_3-1">
                     <div class="outer">
-                        <div class="inner bg-districtMap">
+                        <div class="inner bg-districtMap ie-moduleHeight-162">
                             <div class="hd">
                                 <h3 class="bottom">What schools are available to you?</h3>
                             </div>

@@ -38,16 +38,16 @@
                         <c:if test="${!((climateRating gt '0')  and (climateRating lt '11'))}">
                             <c:set var="climateRating"><em>${climateRating}</em></c:set>
                         </c:if>
-                        <div class="pbs ptm"><span class="small bottom fl">Academic</span><span class="small_bold bottom fr mrs">${academicRating}</span></div>
-                        <div class="clear"><!-- do not collapse --></div>
+                        <div class="pbs ptm clearfix ie-p0"><span class="small bottom fl">Academic</span><span class="small_bold bottom fr mrs">${academicRating}</span></div>
+
                         <hr class="keyline2"/>
-                        <div class="pvs"><span class="small bottom fl">Climate</span><span class="small_bold bottom fr mrs">${climateRating}</span></div>
-                        <div class="clear"><!-- do not collapse --></div>
+                        <div class="pvs clearfix ie-mp0"><span class="small bottom fl">Climate</span><span class="small_bold bottom fr mrs">${climateRating}</span></div>
+
                         <hr class="keyline2"/>
-                        <div class="pvs"><span class="small bottom fl">Overall</span><span class="ratingx24-${schoolType}-RYG r-24-${overallRating} fr" style="margin-top: 2px; margin-bottom: 3px;"><!-- do not collapse --></span></div>
-                        <div class="clear"><!-- do not collapse --></div>
-                        <hr class="keyline2"/>
-                        <div class="line mtm ptm">
+                        <div class="pts clearfix ie-mp0"><span class="small bottom fl">Overall</span><span class="ratingx24-${schoolType}-RYG r-24-${overallRating} fr" style="margin-top: 2px; margin-bottom: 3px;"><!-- do not collapse --></span></div>
+
+                        <hr class="keyline2 "/>
+                        <div class="line ptm ie-mp0" style="margin-top: 1px;">
                             <div class="unit size33of100">
                                 <div class="media">
                                     <div class="img">

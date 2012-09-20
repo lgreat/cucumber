@@ -82,7 +82,7 @@
             <link:schoolEspRegister styleClass="no_interrupt tdn">
             <div class="mod standard_3-1" onclick="if (s.tl) { s.tl(this, 'o', 'overview_osp_cta'); }">
                 <div class="outer">
-                    <div class="inner bg-addPhotos moduleHeight-add-photos-height">
+                    <div class="inner bg-addPhotos ie-moduleHeight-162">
                         <div class="hd">
                             <h3 class="bottom">Add photos</h3>
                         </div>
