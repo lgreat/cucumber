@@ -58,8 +58,10 @@
                 <c:if test="${!empty videoResult}">
 
                     <div class="media">
+                        <link:cmsContent contentKey="${videoResult.contentKey}"
+                                         fullUri="${videoResult.fullUri}">
                         <span class="iconx16 i-16-${fn:toLowerCase(videoResult.contentType)} img mrs"><!-- do not collapse --></span>
-
+                        </link:cmsContent>
                         <p class="bd fl small bottom">
                             <link:cmsContent contentKey="${videoResult.contentKey}"
                                              fullUri="${videoResult.fullUri}">
@@ -73,8 +75,10 @@
                     <c:if test="${empty videoResult or videoResult.contentKey ne item.contentKey}">
 
                         <div class="media">
+                            <link:cmsContent contentKey="${item.contentKey}"
+                                             fullUri="${item.fullUri}">
                             <span class="iconx16 i-16-${fn:toLowerCase(item.contentType)} img mrs"><!-- do not collapse --></span>
-
+                            </link:cmsContent>
                             <p class="bd fl small bottom">
                                 <link:cmsContent contentKey="${item.contentKey}"
                                                  fullUri="${item.fullUri}">
@@ -98,8 +102,10 @@
                 <c:if test="${!empty videoResult}">
 
                     <div class="media">
+                        <link:cmsContent contentKey="${videoResult.contentKey}"
+                                         fullUri="${videoResult.fullUri}">
                         <span class="iconx16 i-16-${fn:toLowerCase(videoResult.contentType)} img mrs"><!-- do not collapse --></span>
-
+                        </link:cmsContent>
                         <p class="bd fl small bottom rConstrainContent">
                             <link:cmsContent contentKey="${videoResult.contentKey}"
                                              fullUri="${videoResult.fullUri}">
@@ -113,8 +119,10 @@
                     <c:if test="${(empty videoResult or videoResult.contentKey ne item.contentKey) and column1.count le loopLimit}">
 
                         <div class="media">
+                            <link:cmsContent contentKey="${item.contentKey}"
+                                             fullUri="${item.fullUri}">
                             <span class="iconx16 i-16-${fn:toLowerCase(item.contentType)} img mrs"><!-- do not collapse --></span>
-
+                            </link:cmsContent>
                             <p class="bd fl small bottom rConstrainContent">
                                 <link:cmsContent contentKey="${item.contentKey}"
                                                  fullUri="${item.fullUri}">
@@ -132,8 +140,10 @@
                     <c:if test="${(empty videoResult or videoResult.contentKey ne item.contentKey) and column2.count gt loopLimit}">
 
                         <div class="media">
+                            <link:cmsContent contentKey="${item.contentKey}"
+                                             fullUri="${item.fullUri}">
                             <span class="iconx16 i-16-${fn:toLowerCase(item.contentType)} img mrs"><!-- do not collapse --></span>
-
+                        </link:cmsContent>
                             <p class="bd fl small bottom rConstrainContent">
                                 <link:cmsContent contentKey="${item.contentKey}"
                                                  fullUri="${item.fullUri}">
