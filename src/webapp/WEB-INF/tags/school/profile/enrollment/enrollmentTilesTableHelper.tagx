@@ -16,9 +16,9 @@
                 </div>
                 <div class="bd">
                     <c:if test="${acceptanceHeader}">
-                        <div class="mvl mhm">
+                        <div class="mvl mhm ie-enroll-chances-mvm">
                             <hr class="keyline2"/>
-                            <p class="bottom pam">
+                            <p class="pam bottom ie-enroll-chances-pvs">
                                 <span class="medium_bold bottom mrs">${acceptanceRate} out of 10</span>
                                 <span class="small bottom">students were accepted for the ${acceptanceRateYear} school year.</span>
                             </p>
