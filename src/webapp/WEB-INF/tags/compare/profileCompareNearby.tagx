@@ -16,7 +16,7 @@
             </c:if>
         </c:forEach>
 
-        <div class="mod standard_3-1 js_compareNoSchools dn">
+        <div class="mod standard_3-1 js_compareNoSchools clearfix dn">
             <div class="outer">
                 <div class="inner">
                     <div class="bd bg-nearbySchool">
@@ -27,8 +27,6 @@
                                              onclick="if (s.tl) {s.tl(this,'o','SchoolProfile_Compare_Inline_Link');} return true;"
                                              styleClass="small bottom fl"
                                              tab="overview">Compare schools &amp;raquo;</link:compareSchools>
-
-                    <div class="clear"><!-- do not collapse --></div>
                     </div>
                 </div>
             </div>
