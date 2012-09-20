@@ -43,15 +43,10 @@ General comments:
     background-color:#f3fafd;
     padding:5px;
 }
-.moduleHeight-add-photos-height{
-    height:162px;
-}
-.moduleHeight-share-your-experience{
-    height:171px;
-}
-.moduleHeight-be-sure-to-visit{
-    height:162px;
-}
+.moduleHeight-add-photos-height{height:162px;}
+.moduleHeight-share-your-experience{height:171px;}
+.moduleHeight-be-sure-to-visit{height:162px;}
+.mp0{ margin-top: 0px; margin-bottom: 0px; padding-top: 0px; padding-bottom: 0px;}
 
 /*************************************************************************************************************
 
