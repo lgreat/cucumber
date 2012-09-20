@@ -38,7 +38,7 @@
                         <c:if test="${!((climateRating gt '0')  and (climateRating lt '11'))}">
                             <c:set var="climateRating"><em>${climateRating}</em></c:set>
                         </c:if>
-                        <div class="pbs ptm clearfix ie-p0"><span class="small bottom fl">Academic</span><span class="small_bold bottom fr mrs">${academicRating}</span></div>
+                        <div class="pbs ptm clearfix ie-over-ratings0"><span class="small bottom fl">Academic</span><span class="small_bold bottom fr mrs">${academicRating}</span></div>
 
                         <hr class="keyline2"/>
                         <div class="pvs clearfix ie-mp0"><span class="small bottom fl">Climate</span><span class="small_bold bottom fr mrs">${climateRating}</span></div>
