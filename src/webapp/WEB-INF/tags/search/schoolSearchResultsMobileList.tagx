@@ -33,18 +33,18 @@
                                 <c:set var="gradeLevels">Preschool</c:set>
                             </c:when>
                             <c:when test="${empty school.grades.rangeString or school.grades.rangeString eq 'n/a' or school.grades.rangeString eq 'N/A'}">
-                                <c:set var="schoolType">${gsweb:capitalize(school.schoolType)}</c:set>
+                                <c:set var="schoolType">${school.schoolType}</c:set>
                                 <c:set var="gradeLevels"></c:set>
                             </c:when>
                             <c:otherwise>
-                                <c:set var="schoolType">${gsweb:capitalize(school.schoolType)}</c:set>
+                                <c:set var="schoolType">${school.schoolType}</c:set>
                                 <c:set var="gradeLevels">, ${school.grades.rangeString}</c:set>
                             </c:otherwise>
                         </c:choose>
                         <school:mobileSearchResult schoolId="${school.id}" databaseState="${school.databaseState}"
                                                    schoolName="${school.name}" address="${school.address}"
                                                    schoolAddress="${school.address}" city="${school.city}"
-                                                   zipCode="${school.address.zip}" schoolType="${school.schoolType}"
+                                                   zipCode="${school.address.zip}" schoolType="${schoolType}"
                                                    levelCode="${school.levelCode}" isNewGSRating="${school.isNewGSRating}"
                                                    gradeRangeString="${gradeLevels}" isPreschoolOnly="${school.levelCode eq 'p'}"
                                                    greatSchoolsRating="${school.greatSchoolsRating}"
