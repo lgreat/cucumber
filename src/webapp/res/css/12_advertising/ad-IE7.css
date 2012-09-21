@@ -64,3 +64,11 @@ Secondary nav fix
 #gs-secondary .dropdown_4{min-width:0;width:157px;}
 #gs-secondary .dropdown_5{min-width:0;width:145px;}
 #gs-secondary .dropdown_6{min-width:0;width:188px;}
+
+/*************************************************************************************************************
+
+tab fix
+
+**************************************************************************************************************/
+
+.gsTabs ul.tabStyle-8 li a.selected { filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"; }
