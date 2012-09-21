@@ -47,7 +47,7 @@
         </c:when>
         <c:otherwise>
             <c:set var="t8_1dc">
-                <p class="small_bold textshadow-1 pvs plm bottom">Tips for understanding school culture</p>
+                <p class="small_bold textshadow-1 pvs plm bottom">Photos, Videos and Tips for understanding school culture</p>
             </c:set>
             <!-- Randall - Build substitute "Tips for understanding school culture" here -->
             <school:profileCell2 title="${t8_1dc}">
