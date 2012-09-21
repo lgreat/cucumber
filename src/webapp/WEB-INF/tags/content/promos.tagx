@@ -27,7 +27,4 @@
     <c:if test="${fn:contains(pageContext.request.requestURI,'tutoring') }">
         <ad:multiTextAd blurb="Advertiser links"/>
     </c:if>
-    <div style="border-top: 1px dashed #ccc;padding-top:20px;margin-top:10px;">
-        <promo:nthGraderMedallions referredBy="${referredBy}"/>
-    </div>
 </jsp:root>
