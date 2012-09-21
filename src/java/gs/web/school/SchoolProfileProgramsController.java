@@ -932,6 +932,7 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
         getLastDisplayBean().addKey("foreign_language_other");
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Level of ESL/ELL programming offered",
                 "ell_level"));
+        getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, langAbbrev, langTitle, "Languages supported by ESL/ELL programs",
                 "ell_languages"));
         getLastDisplayBean().setShowNone(SchoolProfileDisplayBean.NoneHandling.REMOVE_NONE_ALWAYS);
