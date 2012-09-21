@@ -46,7 +46,7 @@
 
                 <input type="hidden" id="overallAsString" value="0" name="overallAsString"/>
                 <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
-                <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
+                <input type="hidden" id="prifrmPRModulencipalAsString" value="0" name="principalAsString"/>
                 <input type="hidden" id="parentAsString" value="0" name="parentAsString"/>
                 <div class="rating">
                     <div class="unit size2of5 ">
@@ -140,10 +140,13 @@
                     </div>
 
                     <div class="unit size3of7 lastUnit pts bottom"><!-- do not collapse -->
-                        <div class="formErrorText media form-error">
-                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="formErrorText media form-error clearfix">
+                            <!--<span class="iconx16 i-16-alert img mrs">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
 
-                            <div class="js-msg smaller mbn error_msg">Please enter your email.</div>
+                            <!--<div class="js-msg smaller mbn error_msg">Please enter your email.</div>-->
+                            <div class="fl size7of100"><span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span></div>
+
+                            <div class="js-msg plm fl smaller error_msg size85of100 bottom">Please enter your email.</div>
                         </div>
                         <div class="formErrorText media form-alert">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -173,11 +176,11 @@
                         <div class="spacer_8"><!-- do not collapse --></div>
                     </div>
                     <div class="unit size3of7 lastUnit pts bottom"><!-- do not collapse -->
-                        <div class="formErrorText form-error">
+                        <div class="formErrorText form-error clearfix">
                             <div class="fl size7of100"><span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span></div>
 
-                            <div class="plm fl smaller error_msg size85of100">Please indicate your relationship to the school.</div>
-                            <div class="clearFloat"><!-- do not collapse --></div>
+                            <div class="js-msg plm fl smaller error_msg size85of100 bottom">Please indicate your relationship to the school.</div>
+
                         </div>
                     </div>
 
