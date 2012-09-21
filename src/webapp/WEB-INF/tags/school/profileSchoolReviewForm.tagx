@@ -46,7 +46,7 @@
 
                 <input type="hidden" id="overallAsString" value="0" name="overallAsString"/>
                 <input type="hidden" id="teacherAsString" value="0" name="teacherAsString"/>
-                <input type="hidden" id="prifrmPRModulencipalAsString" value="0" name="principalAsString"/>
+                <input type="hidden" id="principalAsString" value="0" name="principalAsString"/>
                 <input type="hidden" id="parentAsString" value="0" name="parentAsString"/>
                 <div class="rating">
                     <div class="unit size2of5 ">
