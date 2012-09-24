@@ -80,6 +80,11 @@
                                                                       schoolType="${schoolType}" isPreschoolOnly="${school.levelCode eq 'p'}"
                                                                       spriteSize="small"/>
                                     </div>
+                                    <c:if test="${not empty school.greatSchoolsRating and school.greatSchoolsRating gt 0}">
+                                        <div class="fl">
+                                            <span class="smaller ac1 fl pls pt3"> of 10</span>
+                                        </div>
+                                    </c:if>
                                     <c:if test="${not empty school.parentRating}">
                                         <div class="fr">
                                             <div class="smaller ac1 fl pt3 prs">Community Rating:</div><div class="fl"><mobile:stars curSR="${school.parentRating}" smStars="1"/></div>

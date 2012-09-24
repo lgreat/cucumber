@@ -61,7 +61,7 @@
                             <span class="small-lt"> of 10</span>
                         </div>
                     </c:if>
-                    <br class="cleafloat"/>
+                    <br class="clearfloat"/>
                 </div>
             </div>
             <div class="fr mrm">

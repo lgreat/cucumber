@@ -46,7 +46,7 @@
                 </c:otherwise>
             </c:choose>
         </c:when>
-        <c:when test="${schoolType eq 'private'}">
+        <c:when test="${fn:toLowerCase(schoolType) eq 'private'}">
             <c:choose>
                 <c:when test="${not empty gsRating and gsRating gt 0}">
                     <c:choose>
