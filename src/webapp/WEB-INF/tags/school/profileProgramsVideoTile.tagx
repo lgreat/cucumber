@@ -46,9 +46,9 @@
                             <div class="bd media">
                                 <span class="imgReg fr"><span
                                         class="iconx96 i-96-video-add" style="height:86px;"><!-- do not collapse --></span></span>
-                                <h4 class="bottom">Add videos</h4>
+                                <h3 class="bottom">Add videos</h3>
 
-                                <p class="bottom fl">
+                                <p class="small bottom mtm">
                                     Schools, <span class="make-06b">join today</span> to<br/>
                                     upload videos
                                 </p>
