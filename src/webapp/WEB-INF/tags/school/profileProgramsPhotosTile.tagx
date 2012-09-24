@@ -23,7 +23,7 @@
         <div class="line">
             <div class="unit size100of100 lastUnit">
                 <c:set var="t2dc">
-                    <p class="small_bold textshadow-1 pvs plm bottom">School photos</p>
+                    <p class="small_bold textshadow-1 pvs plm bottom">Photos</p>
                 </c:set>
                 <school:profileCell2 title="${t2dc}">
                     <div class="mam">

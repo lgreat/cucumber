@@ -13,7 +13,7 @@
     <c:set var="videoUrl" value="${videoModel['videoUrl']}" scope="page"/>
 
     <c:set var="t2dc">
-        <p class="small_bold textshadow-1 pvs plm bottom make-555555">School videos</p>
+        <p class="small_bold textshadow-1 pvs plm bottom make-555555">Videos</p>
     </c:set>
     <c:if test="${!(fn:containsIgnoreCase(videoUrl, 'http://'))}">
         <c:set var="videoUrl" value="http://${videoUrl}" />
