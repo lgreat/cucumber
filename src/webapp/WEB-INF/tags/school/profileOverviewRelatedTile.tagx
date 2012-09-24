@@ -38,7 +38,10 @@
     <c:set var="imageResult">
         <c:choose>
             <c:when test="${!empty videoResult}">
+                <link:cmsContent contentKey="${videoResult.contentKey}"
+                                 fullUri="${videoResult.fullUri}">
                 <gsml:img src="${videoResult.imageUrl}" width="100" height="70" alt="placeholder"/>
+                </link:cmsContent>
             </c:when>
             <c:otherwise>
                 <gsml:img src="/res/img/module/placeholder/tile14_70x100.png" width="100" height="70"
