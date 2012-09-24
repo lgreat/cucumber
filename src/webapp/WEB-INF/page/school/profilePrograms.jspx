@@ -31,7 +31,7 @@ where each entry is the first bean for that section, this allows access to the s
         ${updateThisInfoBlurb}
     </c:if></c:set>
     <c:set var="applicationtab"><c:if test="${fn:length(application_info) gt 0}">
-        <div class="ptl">
+        <div class="ptn">
             <!--<b>Application Information</b>-->
             <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
@@ -45,7 +45,7 @@ where each entry is the first bean for that section, this allows access to the s
     <c:set var="programsresourcestab">
         <c:choose>
             <c:when test="${fn:length(programs_resources) gt 0}">
-                <div class="ptl">
+                <div class="ptn">
                     <!--<b>Programs and Resources</b>-->
                     <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
         where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
@@ -77,7 +77,7 @@ where each entry is the first bean for that section, this allows access to the s
     </c:set>
     <c:set var="extracurricularstab">
         <c:if test="${fn:length(extracurriculars) gt 0}">
-            <div class="ptl">
+            <div class="ptn">
                 <!--<b>Extracurriculars</b>-->
                 <!-- Loop over each section.  The highlights bean contains a list of SchoolProfileDisplayBean beans
 where each entry is the first bean for that section, this allows access to the sectionAbbreviation and sectionTitle -->
@@ -100,13 +100,18 @@ where each entry is the first bean for that section, this allows access to the s
     </c:set>
     <c:set var="culturetab">
         <!-- Space 1 - Photos if available otherwise hide -->
+        <c:set var="addSpacer" value="ptn"/>
+        <c:if test="${not empty photos}" >
+            <c:set var="addSpacer" value="ptm"/>
+        </c:if>
+
         <school:profileProgramsPhotosTile photosModel="${photos}"/>
 
         <!-- Space 2 - Facebook if no culture ratings are available and videos are available -->
         <school:profileProgramsFacebookTile facebookModel="${facebook}" currentSpace="space2"/>
 
         <!-- Spaces 3 & 4 are together on one line -->
-        <div class="line ptm">
+        <div class="line ${addSpacer}">
             <!-- Space 3 - Videos otherwise principal CTA -->
             <div class="unit size49of100">
                 <school:profileProgramsVideoTile videoModel="${video}" />
