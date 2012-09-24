@@ -105,7 +105,7 @@ NOTE: Any nearby elements using absolute positioning should avoid the "right" at
 .large-star,
 .large-star a:hover,
 .large-star .current-rating{
-	background-image: url(/res/img/starRating/star_large.gif);
+	background-image: url(/res/img/starRating/120924-star_large.gif);
 	line-height: 23px;
 	height: 23px;
 }
