@@ -60,17 +60,23 @@
     <mobile:schoolProfileIntro school="${school}" linkSchool="${false}"/>
 
     <div class="clearfloat mtm"><!-- empty not delete --></div>
-    <div class="fl mrm ">
-        <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
-            <div class="vam fl">
-                <!--<div class="ratings-number number-medium">${gs_rating}</div>-->
-                <ratings:ratingsSprite-mobile isNewGsRating="${school.isNewGSRating}" gsRating="${gs_rating}"
-                                              schoolType="${school.type.schoolTypeName}" isPreschoolOnly="${school.preschoolOnly}"
-                                              spriteSize="medium"/>
-            </div>
-            <div class="tal pls fl">GreatSchools<br/>Rating</div>
-        </link:schoolProfileTestscore>
-    </div>
+    <!-- NOTE for GS-13265: For GS-13197 I have to explicitly exclude private schools from
+         getting a ratings badge here. This is because in 21.1 we lack assets to
+         properly display this button for private schools. For 21.2, removing the "private" portion from
+         the following if and adding in the missing styles to ratings.css should
+         get you where you need. May also need the private sprite actually. -->
+    <c:if test="${not empty gs_rating and school.type.schoolTypeName ne 'private'}">
+        <div class="fl mrm ">
+            <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
+                <div class="vam fl">
+                    <ratings:ratingsSprite-mobile isNewGsRating="${school.isNewGSRating}" gsRating="${gs_rating}"
+                                                  schoolType="${school.type.schoolTypeName}" isPreschoolOnly="${school.preschoolOnly}"
+                                                  spriteSize="medium"/>
+                </div>
+                <div class="tal pls fl">GreatSchools<br/>Rating</div>
+            </link:schoolProfileTestscore>
+        </div>
+    </c:if>
     <div class="fl">
         <c:if test="${not empty ratings.overall}">
             <link:schoolProfileParentReview school="${school}" styleClass="but but-sm but-2 but-overview">
@@ -152,7 +158,7 @@ Android seems to require the address to be blank for the same behavior -->
                     <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/public/RYG/RGY_${gsRatingValue}.png"/>
                 </c:when>
                 <c:otherwise>
-                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/public/O/orange_${gsRatingValue}}.png"/>
+                    <c:set var="mapMarkerUrl" value="/res/mobile/img/map_pins/32x32/public/O/orange_${gsRatingValue}.png"/>
                 </c:otherwise>
             </c:choose>
         </c:otherwise>
