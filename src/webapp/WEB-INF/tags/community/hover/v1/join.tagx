@@ -21,12 +21,13 @@
 <div class="pbm"><!-- do not collapse --></div>
 
 <div class="bd tal">
+    <div class="introTxt col">
         <!-- GS-11161 -->
         <p>
             <span class="small_bold">Join GreatSchools </span>
             <span class="small">to participate in the parent community and other discussions on our site.</span>
         </p>
-
+    </div>
 
 
 <form id="joinGS" action="/community/registration/popup/registrationHover.page" method="post" class="pbn mbn">
