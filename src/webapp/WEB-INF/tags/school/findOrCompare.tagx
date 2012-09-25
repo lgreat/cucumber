@@ -103,7 +103,7 @@
                 }
 
                 gsGeocode(searchQueryWithFilteredStopWords, function(geocodeResult) {
-                    if (geocodeResult != null && geocodeResult['zipCode'] !== undefined) {
+                    if (geocodeResult != null && geocodeResult['zipCode'] == searchQuery) {
                         byLocationForm.find('input[name="lat"]').val(geocodeResult['lat']);
                         byLocationForm.find('input[name="lon"]').val(geocodeResult['lon']);
                         byLocationForm.find('input[name="state"]').val(geocodeResult['state']);
