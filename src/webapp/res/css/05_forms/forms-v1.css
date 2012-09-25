@@ -132,8 +132,8 @@ form.inline p {margin-bottom:0; vertical-align:baseline;}
 .error-block, .alert-block { background: #FAE5EA; border-color: #EDA6B8; color: #cc0033; }
 
 /* Notifications */
-.error, .alert, .notice, .success, .info {font: normal 11px/16px Arial, Helvetica, sans-serif;padding:7px 0;margin:0;border:0;}
-.error, .alert {background:transparent;color:#cc0033;border-color:transparent;}
+.error, .error2, .alert, .notice, .success, .info {font: normal 11px/16px Arial, Helvetica, sans-serif;padding:7px 0;margin:0;border:0;}
+.error, .error2, .alert {background:transparent;color:#cc0033;border-color:transparent;}
 .notice {background:transparent;color:#514721;border-color:transparent;}
 .success {background:transparent;color:#118800;border-color:transparent;}
 .info {background:transparent;color:#205791;border-color:transparent;}
