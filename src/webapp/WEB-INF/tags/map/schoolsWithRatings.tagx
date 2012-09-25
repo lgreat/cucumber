@@ -178,11 +178,11 @@ function initSchoolInfo() {
                  <c:set var="parentRatingSCid" value="&amp;s_cid=${s_cid}"/>
             </c:if>
             mySchool.parentRatingHtml += '<link:schoolProfileParentReview anchor="schoolReviewSubmitForm"
-                    school="${curSchool}"><img src="/res/img/school/ratings/rateit_01.gif" alt="Rate this school!" onmouseover="this.src=\\'/res/img/school/ratings/rateit_03.gif\\'" onmouseout="this.src=\\'/res/img/school/ratings/rateit_01.gif\\'"/></link:schoolProfileParentReview>';
+                    school="${curSchool}"><span class="sprite stars_sm_rate_it"><!-- do not collapse --></span></link:schoolProfileParentReview>';
        </c:when>
        <c:otherwise>
             mySchool.parentRatingHtml += '<div>Community Rating</div>'
-            mySchool.parentRatingHtml += '<gsml:img src="/res/img/map/ratings_parent_city_${parent_rating}.gif" alt="Community rating ${parent_rating}"/>';
+            mySchool.parentRatingHtml += '<span class="sprite stars_sm_${parent_rating}"><!-- do not collapse --></span>';
        </c:otherwise>
 
     </c:choose>
