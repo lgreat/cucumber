@@ -85,9 +85,9 @@
                     <!--class="GS_CI9_">Choosing a school from a distance</a></p>-->
                     <div class="fl"><p class="text3 allCaps">NEW!</p>
 
-                    <p><a href="/school-district-boundaries-map/"
-                          id="PN_F_HT-SchoolAndDistrictBoundariesMap"
-                          class="GS_CI9_">School and District Boundaries Map</a></p></div>
+                    <p><link:districtBoundaryTool styleId="PN_F_HT-SchoolAndDistrictBoundariesMap" styleClass="GS_CI9_"
+                        school="${school}">School and District Boundaries Map</link:districtBoundaryTool>
+                        </p></div>
                 </div>
             </div>
         </div>

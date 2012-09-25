@@ -4744,6 +4744,13 @@
             <type>java.lang.String</type>
             <description>HTML class attribute</description>
         </attribute>
+        <attribute>
+            <name>styleId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+            <description>HTML id attribute</description>
+        </attribute>
     </tag>
 
 </taglib>

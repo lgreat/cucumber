@@ -406,7 +406,7 @@ href="/res/css/school/parentReviewForm_ie7.css" />
     <!-- If New York City data is not ready, we need to not show this link for any school in NYC -->
     <!--<c:if test="${!empty school.databaseState and school.databaseState ne 'NY'}">-->
         <div class="smallAlertText fltlt unit size2of3">
-            <link:boundaryMap>School and District Boundaries Map</link:boundaryMap>
+            <link:districtBoundaryTool school="${school}">School and District Boundaries Map</link:districtBoundaryTool>
         </div>
     <!--</c:if>-->
 </div>
