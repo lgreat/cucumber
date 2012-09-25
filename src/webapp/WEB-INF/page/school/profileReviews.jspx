@@ -453,6 +453,13 @@
             <c:set var="addSpacingBelow" value="mbl" />
         </c:if>
         <div class="${addSpacingBelow}" style="clear: both;"><!-- do not collapse --></div>
+
+        <p class="mtl small quiet">
+        Community ratings and reviews do not represent the views of GreatSchools
+        nor does GreatSchools check their accuracy or verify the reviewers' identities.
+        Use your discretion when evaluating these reviews.
+        </p>
+
     </div>
 </c:if>
 
