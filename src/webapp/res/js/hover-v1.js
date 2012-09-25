@@ -269,8 +269,9 @@ GSType.hover.JoinHover = function() {
     };
     //method is plural to remain consistent with other hovers. Should always get called when hover closes
     this.clearMessages = function() {
-        jQuery('#joinHover .message').empty();
-        jQuery('#joinHover .message').hide();
+        jQuery('#joinHover .valid').hide();
+        jQuery('#joinHover .invalid').hide();
+        jQuery('#joinHover .alert').hide();
     };
     this.setJoinHoverType = function(type) {
         jQuery('#joinHover form#joinGS input#joinHoverType').val(type);
