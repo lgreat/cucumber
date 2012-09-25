@@ -9,7 +9,12 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages"
                          type="java.lang.Integer"/>
 <school:espFormTemplate page="4" maxPage="${maxPage}" headerText="Programs &amp; resources">
-
+<div class="js_pageErrors error" style="display: none">
+    <div class="media">
+        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+        <div class="bd">Please correct the errors below to continue.</div>
+    </div>
+</div>
 <fieldset>
 
     <div class="lal clearfix">
@@ -57,7 +62,7 @@
             <div id="js_form_esl_ell_programming_error" class="error" style="display: none">
                 <div class="media">
                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                    <div class="bd">Please specify the ESL/ELL programming at your school.</div>
+                    <div class="bd">Please specify the level of ESL/ELL programming at your school.</div>
                 </div>
             </div>
         </div>
@@ -105,6 +110,12 @@
     <div class="lal clearfix">
         <div class="alpha grid_7">
             <p class="labelGroup">Select one of these options to best describe the special education programming at your school</p>
+            <div id="js_form_spec_ed_programming_level_error" class="error" style="display: none">
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                    <div class="bd">Please specify the level of special education programming at your school.</div>
+                </div>
+            </div>
         </div>
         <div class="grid_16 omega">
             <c:if test="${not empty school.type and not empty school.type.schoolTypeName and school.type.schoolTypeName eq 'private' }">
@@ -122,6 +133,12 @@
     <div class="lal clearfix">
         <div class="alpha grid_7">
             <p class="labelGroup">Does your school have a specialized program for specific types of special education students? If so, please indicate here.</p>
+            <div id="js_form_special_ed_programs_exists_error" class="error" style="display: none">
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                    <div class="bd">Please specify if your school has specialized program for specific types of special education students.</div>
+                </div>
+            </div>
             <div id="js_form_special_ed_programs_error" class="error" style="display: none">
                 <div class="media">
                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
@@ -240,6 +257,12 @@
     <div class="lal clearfix">
         <div class="alpha grid_7">
             <p class="labelGroup">What staff resources are available to students?</p>
+            <div id="js_form_staff_resources_error" class="error" style="display: none">
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                    <div class="bd">Please specify the staff resources available to the students.</div>
+                </div>
+            </div>
         </div>
         <div class="grid_8">
             <school:espCheckboxWithLabel key="staff_resources" value="none" label="None listed here"/>
@@ -699,6 +722,12 @@
 </c:if>
 
 </fieldset>
+<div class="js_pageErrors error" style="display: none">
+    <div class="media">
+        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+        <div class="bd">Please correct the errors above to continue.</div>
+    </div>
+</div>
 
 </school:espFormTemplate>
 </jsp:root>

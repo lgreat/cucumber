@@ -8,11 +8,25 @@
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
 <school:espFormTemplate page="3" maxPage="${maxPage}" headerText="Applying &amp;amp; enrolling">
 
+<div class="js_pageErrors error" style="display: none">
+    <div class="media">
+        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+        <div class="bd">Please correct the errors below to continue.</div>
+    </div>
+</div>
+
 <fieldset>
 
 <div class="lal clearfix">
     <div class="alpha grid_7">
         <label>Is there an application or enrollment process for your school?</label>
+        <div id="js_form_application_process_error"  class="error fltlt" style="display: none">
+            <div class="media">
+                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                <div class="bd">Please specify if there is an application process for your school or not.</div>
+            </div>
+        </div>
     </div>
     <div class="grid_16 omega">
         <school:espRadioWithLabel key="application_process" value="no" label="No"/>
@@ -60,6 +74,20 @@
 <div id="sctn_application_deadline" class="lal clearfix">
     <div class="alpha grid_7">
         <p class="labelGroup">When is the application deadline?</p>
+        <div id="js_form_application_deadline_error"  class="error fltlt" style="display: none">
+            <div class="media">
+                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                <div class="bd">Please specify the application deadline.</div>
+            </div>
+        </div>
+        <div id="js_form_application_deadline_date_error"  class="error fltlt" style="display: none">
+            <div class="media">
+                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                <div class="bd">Please specify the application deadline date.</div>
+            </div>
+        </div>
     </div>
     <div class="grid_16 omega">
         <school:espRadioWithLabel key="application_deadline" value="yearround"
@@ -77,6 +105,13 @@
 <div id="sctn_applications_received" class="lal clearfix">
     <div class="alpha grid_7">
         <label for="form_applications_received">How many applications did you receive this year?</label>
+        <div id="js_form_applications_received_missing_error"  class="error fltlt" style="display: none">
+            <div class="media">
+                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                <div class="bd">Please specify the number of applications received.</div>
+            </div>
+        </div>
     </div>
     <div class="grid_4">
         <input id="form_applications_received" name="applications_received" type="text"
@@ -94,12 +129,21 @@
                               styleClass="grid_6 omega"/>
         <school:espFieldError text="Please specify the year" styleId="form_applications_received_year_error"
                               styleClass="grid_6 omega"/>
+        <school:espFieldError text="Applications received year does not match students accepted year" styleId="js_form_years_not_matching_error"
+                              styleClass="grid_6 omega"/>
     </div>
 </div>
 
 <div id="sctn_students_accepted" class="lal clearfix">
     <div class="alpha grid_7">
         <label for="form_students_accepted">How many students did you accept this year?</label>
+        <div id="js_form_students_accepted_missing_error"  class="error fltlt" style="display: none">
+            <div class="media">
+                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                <div class="bd">Please specify the number of students accepted.</div>
+            </div>
+        </div>
     </div>
     <div class="grid_4">
         <input id="form_students_accepted" name="students_accepted" type="text"
@@ -115,6 +159,8 @@
         <school:espFieldError text="Please enter a number" styleId="form_students_accepted_error"
                               styleClass="grid_6 omega"/>
         <school:espFieldError text="Please specify the year" styleId="form_students_accepted_year_error"
+                              styleClass="grid_6 omega"/>
+        <school:espFieldError text="Applications received year does not match students accepted year" styleId="js_form_years_not_matching_error"
                               styleClass="grid_6 omega"/>
     </div>
 </div>
@@ -180,6 +226,13 @@
     <div id="sctn_students_vouchers" class="lal clearfix">
         <div class="alpha grid_7">
             <label for="form_students_vouchers">Do you accept students on vouchers?</label>
+            <div id="js_form_students_vouchers_error"  class="error fltlt" style="display: none">
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                    <div class="bd">Please specify if students are accepted on vouchers or not.</div>
+                </div>
+            </div>
         </div>
         <div class="grid_16 omega">
             <school:espRadioWithLabel key="students_vouchers" value="no" label="No"/>
@@ -280,6 +333,12 @@
 </c:if>
 
 </fieldset>
+<div class="js_pageErrors error" style="display: none">
+    <div class="media">
+        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+        <div class="bd">Please correct the errors above to continue.</div>
+    </div>
+</div>
 <script type="text/javascript">
     jQuery(document).ready(function() {
         jQuery('#js_form_application_deadline_date').datepicker();

@@ -5,12 +5,23 @@
 >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="5" maxPage="${maxPage}" headerText="Enrichment &amp;amp; extracurriculars">
-
+    <div class="js_pageErrors error" style="display: none">
+        <div class="media">
+            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+            <div class="bd">Please correct the errors below to continue.</div>
+        </div>
+    </div>
         <fieldset>
         
           <div id="sctn_arts_media" class="lal clearfix">
             <div class="alpha grid_5">
               <p class="labelGroup">Arts - Media</p>
+                <div id="js_form_arts_media_error" class="error" style="display: none">
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd">Please specify the media programs available.</div>
+                    </div>
+                </div>
             </div>
             <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_media" value="none" label="None"/>
@@ -26,6 +37,12 @@
           <div id="sctn_arts_music" class="lal clearfix">
             <div class="alpha grid_5">
               <p class="labelGroup">Arts - Music</p>
+                <div id="js_form_arts_music_error" class="error" style="display: none">
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd">Please specify the music programs available.</div>
+                    </div>
+                </div>
             </div>
             <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_music" value="none" label="None"/>
@@ -48,6 +65,12 @@
           <div id="sctn_arts_performing_written" class="lal clearfix">
             <div class="alpha grid_5">
               <p class="labelGroup">Arts - Performing and Written</p>
+                <div id="js_form_arts_performing_written_error" class="error" style="display: none">
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd">Please specify the performing and written programs available.</div>
+                    </div>
+                </div>
             </div>
             <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_performing_written" value="none" label="None"/>
@@ -64,6 +87,12 @@
           <div id="sctn_arts_visual" class="lal clearfix">
             <div class="alpha grid_5">
               <p class="labelGroup">Arts - Visual</p>
+                <div id="js_form_arts_visual_error" class="error" style="display: none">
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd">Please specify the visual programs available.</div>
+                    </div>
+                </div>
             </div>
             <div class="grid_6">
               <school:espCheckboxWithLabel key="arts_visual" value="none" label="None"/>
@@ -84,6 +113,18 @@
           <div id="sctn_sports" class="lal clearfix">
             <div class="alpha grid_5">
               <p class="labelGroup">Sports</p>
+                <div id="js_form_boys_sports_error" class="error" style="display: none">
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd">Please specify the boys sports available.</div>
+                    </div>
+                </div>
+                <div id="js_form_girls_sports_error" class="error" style="display: none">
+                    <div class="media">
+                        <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                        <div class="bd">Please specify the girls sports available.</div>
+                    </div>
+                </div>
             </div>
             <div class="grid_6">
               <p class="labelGroup">Boys Sports</p>
@@ -327,5 +368,11 @@
               </div>
           </div>
         </fieldset>
+    <div class="js_pageErrors error" style="display: none">
+        <div class="media">
+            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+            <div class="bd">Please correct the errors above to continue.</div>
+        </div>
+    </div>
     </school:espFormTemplate>
 </jsp:root>

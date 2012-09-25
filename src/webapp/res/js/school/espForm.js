@@ -410,7 +410,7 @@ GS.validation.validateRequired = function(fieldSelector, errorSelector) {
     if (formFields !== undefined && formFields.size() > 0) {
         var fieldType = formFields.attr('type');
 
-        if (fieldType === 'checkbox') {
+        if (fieldType === 'checkbox' || fieldType === 'radio') {
             // require at least one to be checked
             var numChecked = formFields.filter(':checked').size();
             if (numChecked == 0) {
@@ -754,6 +754,27 @@ GS.validation.validateSelectIfTextboxValueEntered = function(selectBoxSelector, 
     return valid;
 };
 
+GS.validation.validateSelectValuesAreEqual = function(firstSelectBoxSelector, otherSelectBoxSelector, errorSelector) {
+    var firstSelectBox = $(firstSelectBoxSelector).filter(':visible');
+    var otherSelectBox = $(otherSelectBoxSelector).filter(':visible');
+    var error = $(errorSelector);
+    var valid = true;
+    error.hide();
+    firstSelectBox.removeClass('warning');
+    otherSelectBox.removeClass('warning');
+
+    if(firstSelectBox.length == 1 && otherSelectBox.length == 1) {
+        valid = firstSelectBox.val() === otherSelectBox.val();
+    }
+
+    if (!valid) {
+        error.show();
+        firstSelectBox.addClass('warning');
+        otherSelectBox.addClass('warning');
+    }
+
+    return valid;
+};
 
 GS.util = GS.util || {};
 GS.util.getUrlVars = function(url) {
@@ -938,33 +959,63 @@ new (function() {
         validations.push(GS.validation.validateRequired('#form_student_enrollment', '#form_student_enrollment_error')
             && GS.validation.validateInteger('#form_student_enrollment', '#form_student_enrollment_number_error'));
         validations.push(validateGradeLevels());
+        validations.push(GS.validation.validateRequired('input[name=before_after_care]', '#js_form_before_after_care_error'));
+        validations.push(GS.validation.validateRequired('input:checkbox[name=transportation]', '#js_form_transportation_error'));
+        validations.push(GS.validation.validateRequiredIfChecked('input:text#form_transportation_other', 'input:checkbox#form_transportation__other', '#js_form_other_transportation_error'));
         // END PAGE 1
 
+        // PAGE 2
+        validations.push(GS.validation.validateRequired('#form_best_known_for', '#js_form_best_known_for_error'));
+        validations.push(GS.validation.validateRequired('input:checkbox[name=instructional_model]', '#js_form_instructional_model_error'));
+        validations.push(GS.validation.validateRequiredIfChecked('input:text#form_instructional_model_other', 'input:checkbox#form_instructional_model__other', '#js_form_other_instructional_model_error'));
+        validations.push(GS.validation.validateRequired('input:checkbox[name=academic_focus]', '#js_form_academic_theme_error'));
+        validations.push(GS.validation.validateRequiredIfChecked('input:text#form_academic_focus_other', 'input:checkbox#form_academic_focus__other', '#js_form_other_academic_theme_error'));
+        if($('#js_form_immersion_language_group').is(':visible')) {
+            validations.push(GS.validation.validateRequired('input:checkbox[name=immersion_language]', '#js_form_immersion_language_error'));
+            validations.push(GS.validation.validateRequiredIfChecked('input:text#form_immersion_language_other', 'input:checkbox#form_immersion_language__other', '#js_form_other_immersion_language_error'));
+        }
+        else {
+            $('#js_form_immersion_language_error').hide();
+            $('#js_form_other_immersion_language_error').hide();
+        }
 
         // PAGE 3
+        validations.push(GS.validation.validateRequired('input[name=application_process]', '#js_form_application_process_error'));
+        if($('input[name=application_process]:checked').val() === 'yes') {
+            validations.push(GS.validation.validateRequired('input[name=application_deadline]', '#js_form_application_deadline_error'));
+            validations.push(GS.validation.validateRequiredIfChecked('#js_form_application_deadline_date', 'input:radio.js_otherField_js_form_application_deadline_date', '#js_form_application_deadline_date_error'));
+        }
         var isValidApplicationsReceived = GS.validation.validateInteger('#form_applications_received', '#form_applications_received_error');
         validations.push(isValidApplicationsReceived);
         validations.push(GS.validation.validateSelectIfTextboxValueEntered('#form_applications_received_year', '#form_applications_received', '#form_applications_received_year_error', isValidApplicationsReceived));
+        validations.push(GS.validation.validateRequiredIfNotEmpty('#form_students_accepted', '#form_applications_received', '#js_form_students_accepted_missing_error'));
         var isValidStudentsAccepted = GS.validation.validateInteger('#form_students_accepted', '#form_students_accepted_error');
         validations.push(isValidStudentsAccepted);
         validations.push(GS.validation.validateSelectIfTextboxValueEntered('#form_students_accepted_year', '#form_students_accepted', '#form_students_accepted_year_error', isValidStudentsAccepted));
+        validations.push(GS.validation.validateRequiredIfNotEmpty('#form_applications_received', '#form_students_accepted', '#js_form_applications_received_missing_error'));
+        validations.push(GS.validation.validateSelectValuesAreEqual('#form_applications_received_year', '#form_students_accepted_year', '#js_form_years_not_matching_error'));
         validations.push(GS.validation.validateAllOrNone('#form_tuition_low, #form_tuition_high, #form_tuition_year', '#form_tuition_error'));
         validations.push(GS.validation.validateInteger('#form_application_fee_amount', '#form_application_fee_amount_numeric_error'));
+        validations.push(GS.validation.validateRequired('input[name=students_vouchers]', '#js_form_students_vouchers_error'));
         // END PAGE 3
 
         // PAGE 4
 //        var isValidForeignLanguageOther = GS.validation.validateRequiredIfChecked
 //            ('#js_form_foreign_language_other', '.js_otherField_js_form_foreign_language_other', '#js_form_foreign_language_error');
-        if(onSubmit) {
-            validations.push(GS.validation.validateRequiredIfChecked('[name=ell_languages]', '[name=ell_level]',
-                '#js_form_esl_ell_programming_error'));
-        }
-        else if(jQuery('#js_form_esl_ell_programming_error').css('display')=='block') {
-            validations.push(GS.validation.validateRequiredIfChecked('[name=ell_languages]', '[name=ell_level]',
-                '#js_form_esl_ell_programming_error'));
-        }
+//        if(onSubmit) {
+//            validations.push(GS.validation.validateRequiredIfChecked('[name=ell_languages]', '[name=ell_level]',
+//                '#js_form_esl_ell_programming_error'));
+//        }
+//        else if(jQuery('#js_form_esl_ell_programming_error').css('display')=='block') {
+//            validations.push(GS.validation.validateRequiredIfChecked('[name=ell_languages]', '[name=ell_level]',
+//                '#js_form_esl_ell_programming_error'));
+//        }
+        validations.push(GS.validation.validateRequired('input[name=ell_level]', '#js_form_esl_ell_programming_error'));
+        validations.push(GS.validation.validateRequired('input[name=spec_ed_level]', '#js_form_spec_ed_programming_level_error'));
+        validations.push(GS.validation.validateRequired('input[name=special_ed_programs_exists]', '#js_form_special_ed_programs_exists_error'));
         validations.push(GS.validation.validateRequiredIfChecked
             ('[name=special_ed_programs]', '[name=special_ed_programs_exists]', '#js_form_special_ed_programs_error'));
+        validations.push(GS.validation.validateRequired('input[name=staff_resources]', '#js_form_staff_resources_error'));
 //        validations.push(GS.validation.validateRequiredIfChecked
 //            ('[name=schedule]', '[name=schedule_exists]', '#js_form_schedule_error'));
 //        var isValidExtraLearningResources = GS.validation.validateRequiredIfChecked
@@ -997,6 +1048,19 @@ new (function() {
 
 
         // END PAGE 4
+
+        // PAGE 5
+        validations.push(GS.validation.validateRequired('input[name=arts_media]', '#js_form_arts_media_error'));
+        validations.push(GS.validation.validateRequired('input[name=arts_music]', '#js_form_arts_music_error'));
+        validations.push(GS.validation.validateRequired('input[name=arts_performing_written]', '#js_form_arts_performing_written_error'));
+        validations.push(GS.validation.validateRequired('input[name=arts_visual]', '#js_form_arts_visual_error'));
+        validations.push(GS.validation.validateRequired('input[name=boys_sports]', '#js_form_boys_sports_error'));
+        validations.push(GS.validation.validateRequired('input[name=girls_sports]', '#js_form_girls_sports_error'));
+        // END PAGE 5
+
+        // PAGE 6
+        validations.push(GS.validation.validateRequired('input[name=parent_involvement]', '#js_form_parent_involvement_error'));
+        // END PAGE 6
 
         // PAGE 7
         validations.push(GS.validation.validateEmail('#form_administrator_email', '#form_administrator_email_error', false));

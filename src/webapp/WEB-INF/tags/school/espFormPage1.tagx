@@ -8,6 +8,12 @@
         >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="1" maxPage="${maxPage}" headerText="School basics">
+    <div class="js_pageErrors error" style="display: none">
+        <div class="media">
+            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+            <div class="bd">Please correct the errors below to continue.</div>
+        </div>
+    </div>
     <fieldset>
 
     <div class="lal clearfix">
@@ -187,6 +193,13 @@
     <div class="lal clearfix">
         <div class="grid_7 alpha">
             <p class="labelGroup">Does your school have before or after care on site?</p>
+            <div id="js_form_before_after_care_error"  class="error fltlt" style="display: none">
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                    <div class="bd">Please specify whether your school has before or after care programming on site.</div>
+                </div>
+            </div>
         </div>
         <div class="grid_16 omega">
             <div class="line">
@@ -248,12 +261,38 @@
                     </div>
                 </div>
             </div>
+
+            <div class="line">
+                <div class="media">
+                    <gsml:checkbox styleId="form_before_after_care_neither" name="before_after_care" value="neither"
+                                   checked="${not empty responseMap['before_after_care'].valueMap['neither']}"
+                                   styleClass="img"/>
+
+                    <div class="bd pts">
+                        <label for="form_before_after_care_neither" class="checkbox">Neither </label>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="lal clearfix">
         <div class="grid_7 alpha">
             <p class="labelGroup">What kind of transportation is provided for students by the school/district?</p>
+            <div id="js_form_transportation_error"  class="error fltlt" style="display: none">
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                    <div class="bd">Please specify the transportation provided.</div>
+                </div>
+            </div>
+            <div id="js_form_other_transportation_error"  class="error fltlt" style="display: none">
+                <div class="media">
+                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                    <div class="bd">Please specify the other kind of transportation provided.</div>
+                </div>
+            </div>
         </div>
         <div class="grid_16 omega">
             <school:espCheckboxWithLabel key="transportation" value="none" label="None"/>
@@ -268,13 +307,6 @@
                        value="${responseMap['transportation_other'].value}" maxlength="30"
                        placeholder="[Please indicate]"/>
             </school:espCheckboxWithLabel>
-            <div id="form_transportation_error"  class="error fltrt" style="display: none">
-                <div class="media">
-                    <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-
-                    <div class="bd">Please specify the transportation provided.</div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -316,6 +348,12 @@
     </c:if>
 
     </fieldset>
+    <div class="js_pageErrors error" style="display: none">
+        <div class="media">
+            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+            <div class="bd">Please correct the errors above to continue.</div>
+        </div>
+    </div>
     <script type="text/javascript">
         jQuery(document).ready(function() {
             jQuery('#js-time1').ptTimeSelect();

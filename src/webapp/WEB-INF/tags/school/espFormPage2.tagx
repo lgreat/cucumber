@@ -6,11 +6,23 @@
 >
 <jsp:directive.attribute name="maxPage" required="true" description="Total number of pages" type="java.lang.Integer"/>
     <school:espFormTemplate page="2" maxPage="${maxPage}" headerText="Instructional model">
-
+        <div class="js_pageErrors error" style="display: none">
+            <div class="media">
+                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                <div class="bd">Please correct the errors below to continue.</div>
+            </div>
+        </div>
         <fieldset>
             <div class="lal clearfix">
                 <div class="alpha grid_7">
                     <label for="form_best_known_for">What is your school best known for?</label>
+                    <div id="js_form_best_known_for_error"  class="error fltlt" style="display: none">
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                            <div class="bd">Please specify for what your school is best known for.</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="grid_11">
@@ -25,6 +37,20 @@
             <div class="lal clearfix">
                 <div class="alpha grid_7">
                     <p class="labelGroup">What instructional and/or curriculum models does your school use, if any?</p>
+                    <div id="js_form_instructional_model_error"  class="error fltlt" style="display: none">
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                            <div class="bd">Please specify the instructional and/or curriculum models (if any) your school uses.</div>
+                        </div>
+                    </div>
+                    <div id="js_form_other_instructional_model_error"  class="error fltlt" style="display: none">
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                            <div class="bd">Please specify the other instructional and/or curriculum models used.</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="grid_5">
                     <school:espCheckboxWithLabel key="instructional_model" value="none" label="None"/>
@@ -92,6 +118,20 @@
                             <div class="bd">Please select at least one academic area.</div>
                         </div>
                     </div>
+                    <div id="js_form_academic_theme_error"  class="error fltlt" style="display: none">
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                            <div class="bd">Please specify the academic theme or area of focus of your school(if any).</div>
+                        </div>
+                    </div>
+                    <div id="js_form_other_academic_theme_error"  class="error fltlt" style="display: none">
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                            <div class="bd">Please specify the other academic theme or area of focus.</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="grid_5">
                     <school:espCheckboxWithLabel key="academic_focus" value="none" label="None"/>
@@ -135,6 +175,20 @@
             <div class="lal clearfix">
                 <div class="alpha grid_7">
                     <p class="labelGroup">Does your school offer any bilingual/language immersion programs?</p>
+                    <div id="js_form_immersion_language_error"  class="error fltlt" style="display: none">
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                            <div class="bd">Please specify the bilingual/language immersion programs offered.</div>
+                        </div>
+                    </div>
+                    <div id="js_form_other_immersion_language_error"  class="error fltlt" style="display: none">
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+
+                            <div class="bd">Please specify the other bilingual/language immersion programs offered.</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="grid_5">
                     <school:espRadioWithLabel key="immersion" value="no" label="No"/>
@@ -175,6 +229,12 @@
                 </div>
             </div>
         </fieldset>
+        <div class="js_pageErrors error" style="display: none">
+            <div class="media">
+                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                <div class="bd">Please correct the errors above to continue.</div>
+            </div>
+        </div>
 
     </school:espFormTemplate>
 </jsp:root>

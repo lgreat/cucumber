@@ -14,7 +14,12 @@
     <pageHelper:externalJavascript file="/res/js/photoUploader/PhotoUploader.js" />
 
     <school:espFormTemplate page="6" maxPage="${maxPage}" headerText="School culture">
-
+        <div class="js_pageErrors error" style="display: none">
+            <div class="media">
+                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                <div class="bd">Please correct the errors below to continue.</div>
+            </div>
+        </div>
         <fieldset>
             <div class="lal clearfix">
                 <div class="alpha grid_7">
@@ -47,6 +52,12 @@
             <div class="lal clearfix">
                 <div class="alpha grid_7">
                     <p class="labelGroup">How do parents get involved at your school?</p>
+                    <div id="js_form_parent_involvement_error" class="error" style="display: none">
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please specify the involvement of parents.</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="grid_8">
                     <school:espCheckboxWithLabel key="parent_involvement" value="none" label="None"/>
@@ -156,6 +167,11 @@
                 </div>
             </div>
         </fieldset>
-
+        <div class="js_pageErrors error" style="display: none">
+            <div class="media">
+                <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                <div class="bd">Please correct the errors above to continue.</div>
+            </div>
+        </div>
     </school:espFormTemplate>
 </jsp:root>
