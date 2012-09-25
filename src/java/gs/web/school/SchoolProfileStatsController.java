@@ -275,8 +275,12 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 public int compare(SchoolProfileStatsDisplayRow statsRow1, SchoolProfileStatsDisplayRow statsRow2) {
                     Float row1Value = formatValueAsFloat(statsRow1.getSchoolValue());
                     Float row2Value = formatValueAsFloat(statsRow2.getSchoolValue());
+                    int compare = row2Value.compareTo(row1Value);
                     // reverse sort
-                    return row2Value.compareTo(row1Value);
+                    if(compare == 0 && statsRow1.getText() != null && statsRow2.getText() != null) {
+                        return statsRow1.getText().compareTo(statsRow2.getText());
+                    }
+                    return compare;
                 }
             });
         }
