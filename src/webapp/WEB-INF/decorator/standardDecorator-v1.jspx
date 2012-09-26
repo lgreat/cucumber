@@ -53,7 +53,7 @@
             <mod:primaryNav/>
             <mod:secondaryNav/>
             <mod:belowNavAds/>
-            <div class="phs clearfix">
+            <div class="phs mtm clearfix">
             <decorator:body/>
             </div>
             <mod:footer showAd="true" showSeoFooter="true"/>
