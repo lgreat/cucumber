@@ -292,9 +292,9 @@
         <div class="spacer_15"><!-- do not collapse --></div>
         <!--<div class="line">-->
         <div id="rankSort" class="alpha grid_6">
-            <span class="small">Sort by: </span>
+            <span class="small bottom">Sort by: </span>
             <c:set var="sortUrl" value="${gsweb:putQueryParamIntoUrl(requestInfo.requestURL, 'tab', 'reviews')}"/>
-            <form:select path="cmd.sortBy" cssClass="sortReviews small" id="sltRatingSort" action="${sortUrl}">
+            <form:select path="cmd.sortBy" cssClass="sortReviews small bottom" id="sltRatingSort" action="${sortUrl}">
                 <form:option value="dd">Date: newest to oldest</form:option>
                 <form:option value="da">Date: oldest to newest</form:option>
                 <form:option value="rd">Rating: highest to lowest</form:option>
@@ -303,8 +303,8 @@
         </div>
         <c:if test="${numParentReviews + numStudentReviews + numTeacherStaffReviews gt 0}">
             <div id="typeSort"  class="omega grid_10 tar">
-                <form id="showReviews" class="small" action="">
-                    <span>Show reviews by: </span>
+                <form id="showReviews" class="small bottom" action="">
+                    <span class="small bottom">Show reviews by: </span>
                     <c:if test="${numParentReviews gt 0}">
                         <c:choose>
                             <c:when test="${fn:contains(reviewsByCsv,'p')}">
@@ -314,7 +314,7 @@
                                 <input type="checkbox" id="showParents" class="mlm" />
                             </c:otherwise>
                         </c:choose>
-                        <label for="showParents" class="small">Parents</label>
+                        <label for="showParents" class="small bottom">Parents</label>
                     </c:if>
                     <c:if test="${numStudentReviews gt 0}">
                         <c:choose>
@@ -325,7 +325,7 @@
                                 <input type="checkbox" id="showStudents" class="mlm" />
                             </c:otherwise>
                         </c:choose>
-                        <label for="showStudents" class="small">Students</label>
+                        <label for="showStudents" class="small bottom">Students</label>
                     </c:if>
                     <c:if test="${numTeacherStaffReviews gt 0}">
                         <c:choose>
@@ -336,7 +336,7 @@
                                 <input type="checkbox" id="showTeachers" class="mlm" />
                             </c:otherwise>
                         </c:choose>
-                        <label for="showTeachers" class="small">Teachers/Staff</label>
+                        <label for="showTeachers" class="small bottom">Teachers/Staff</label>
                     </c:if>
                 </form>
             </div>
