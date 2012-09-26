@@ -211,8 +211,8 @@
     <div class="grid_12 omega">
         <!-- School name and sub data -->
         <h1 class="mbm"><gslink:linkToTab tabName="overview" cssClass="noUnderline">${school.name}</gslink:linkToTab></h1>
-        <div class="small mbs" style="height:23px;">
-            <span class="dib prm" style="line-height: 24px;">
+        <div class="mbs" style="height:23px;">
+            <span class="dib small bottom prm" style="line-height: 24px;">
             <!-- School Type -->
             <c:if test="${school.levelCode ne 'p'}">
                 ${gsweb:capitalize(school.type.schoolTypeName)}
