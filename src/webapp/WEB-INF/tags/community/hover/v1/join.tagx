@@ -88,6 +88,15 @@
             </div>
             <div class="spacer_15"><!-- do not collapse --></div>
         </div>
+        <div class="line joinSubmitconfirm ptl dn">
+            <div class="unit size4of19">&amp;nbsp;</div>
+            <div class="unit size4of19">
+                <button class="button-1" type="submit" name="joinBtn" id="joinBtn">Join now</button>
+            </div>
+            <div class="unit size11of19 lastUnit small">
+                <a href="#" class="js_closeHover">No thanks</a>
+            </div>
+        </div>
 
         <div class="line joinHover_username">
             <div class="unit size4of19">
@@ -335,7 +344,7 @@
 
 </div>
 
-<div class="line joinSubmit ptl">
+<div class="line joinSubmit ptl dn">
     <div class="unit size4of19">&amp;nbsp;</div>
     <div class="unit size4of19">
         <button class="button-1" type="submit" name="joinBtn" id="joinBtn">Join now</button>

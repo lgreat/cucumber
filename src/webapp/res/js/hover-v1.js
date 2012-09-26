@@ -208,8 +208,9 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover div.formHelperWrapper').show();
         jQuery('#joinHover div.formHelperSpacer').show();
         jQuery('#joinHover div.btstips').removeClass('size1of1').addClass('size15of19');
-        // move join button to bottom
-        jQuery('#joinHover div.joinSubmit').insertAfter('#joinHover div.bottomHalf');
+
+        jQuery('#joinHover div.joinSubmitconfirm').hide();
+        jQuery('#joinHover div.joinSubmit').show();
         jQuery('#joinHover div.joinSubmit button').text('Join now'); // instead of Join now
         jQuery('#joinHover div.joinSubmit .lastUnit').show(); // instead of Join now
         // update partners text
@@ -240,10 +241,12 @@ GSType.hover.JoinHover = function() {
         jQuery('#joinHover div.formHelperWrapper').hide();
         jQuery('#joinHover div.formHelperSpacer').hide();
         jQuery('#joinHover div.btstips').removeClass('size15of19').addClass('size1of1');
-        // move join button to below confirm email
-        jQuery('#joinHover div.joinSubmit').insertAfter('#joinHover div.joinHover_confirmEmail');
-        jQuery('#joinHover div.joinSubmit button').text('Sign up'); // instead of Join now
-        jQuery('#joinHover div.joinSubmit .lastUnit').hide(); // instead of Join now
+
+        jQuery('#joinHover div.joinSubmitconfirm').show();
+        jQuery('#joinHover div.joinSubmit').hide();
+
+        jQuery('#joinHover div.joinSubmitconfirm button').text('Sign up'); // instead of Join now
+        jQuery('#joinHover div.joinSubmitconfirm .lastUnit').hide(); // instead of Join now
         // update partners text
         jQuery('#joinHover div.joinHover_partners label[for="opt3"]').html(
             'Send me offers to save on family activities and special ' +
