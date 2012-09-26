@@ -8,7 +8,7 @@
         <script language="javascript" type="text/javascript">
             <![CDATA[
             <!--
-            if(top != self) {top.location.replace(location);}
+            if(top != self && document.referrer.indexOf("greatschools.org") != 13) {top.location.replace(location);}
             -->
             ]]>
         </script>
