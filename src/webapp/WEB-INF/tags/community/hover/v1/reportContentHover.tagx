@@ -15,14 +15,14 @@
 
     <!-- Report content hover -->
     <div id="reportContentHover" class="dn">
-        <div class="mod modal_1 width_15" id="reportContentHover">
+        <div class="mod modal_1 width_17" id="reportContentHover">
             <div class="outer">
                 <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
                 <div class="inner">
-                    <div class="hd">
-                        <div class="fl"><h2 class="bottom" >Report this <span class="reportHoverHeader">content</span> as inappropriate</h2></div>
+                    <div class="hd clearfix">
+                        <div class="fl"><h2 class="bottom">Report this <span class="reportHoverHeader">content</span> as inappropriate</h2></div>
                     </div>
-                    <div style="clear: both"><!-- do not collapse --></div>
+
                     <div class="bd ptl">
                         Please explain how this <span class="reportHoverIntroContentType">content</span> may have violated our
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
@@ -34,15 +34,16 @@
                         <gsml:popupWindow width="800" height="600" left="50" top="50"
                                           title="GreatSchools Community Guidelines" styleClass="schoolReviewGuidelines"
                                           href="/about/guidelines.page">school review guidelines</gsml:popupWindow>:
+                        <div class="ptm"><!-- do not collapse --></div>
                         <form action="/community/reportContent.page" method="post">
                             <textarea name="reason" id="reportReason" rows="10" cols="60"><!-- don't collapse --></textarea>
                             <!--rows="10" cols="60" -->
 
-                            <div class="buttons">
+                            <div class="buttons pvm">
 
-                                <button class="button-1 fltlft sd-btn-layout reportSendButton" type="submit">Send</button>
+                                <button class="button-1 fl sd-btn-layout reportSendButton mrm" type="submit">Send</button>
 
-                                <button class="button-1 fltlft reportCancelButton" type="submit">Cancel</button>
+                                <button class="button-1 fl reportCancelButton" type="submit">Cancel</button>
                             </div>
                             <input type="hidden" id="reportContentType" name="reportContentType" value="reply"/>
                             <input type="hidden" id="reportContentId" name="reportContentId" value="-1"/>

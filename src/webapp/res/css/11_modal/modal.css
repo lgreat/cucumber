@@ -182,3 +182,7 @@ box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
 .modal_1 .inner .hd span{
     margin: 10px;
 }
+.modal_1 .inner .hd span.reportHoverHeader {
+    margin: 0px;
+}
+
