@@ -74,7 +74,7 @@
 
 
     <div id="fullPageOverlay"><!-- do not collapse --></div>
-    <cobrand:framebuster/>
+    <cobrand:framebuster-v1/>
 
     <communityHover:subscriptionEmailValidated/>
     <communityHover:validateEmail/>
