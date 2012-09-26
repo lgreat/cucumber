@@ -62,7 +62,7 @@
 
 
                 <c:set var="footerCopyright">
-                <p id="footerCopyright" class="copyright">
+                <p id="footerCopyright" class="copyright smaller bottom">
                           &amp;#169;1998-2012 GreatSchools Inc. All Rights Reserved.
                           GreatSchools is a 501(c)(3) not-for-profit organization
                           <link:termsOfUse>Terms of Use</link:termsOfUse>
@@ -83,12 +83,12 @@
                 <li><link:pressRoom>Media Room</link:pressRoom></li>
                 <li><gsml:a href="http://blogs.greatschools.org" target="_blank">Blog</gsml:a></li>
             </ul>
-            <p class="copyright">GreatSchools, Inc. 160 Spear Street, Suite 1020, San Francisco, CA 94105</p>
-            <p class="copyright">
+            <p class="copyright smaller bottom">GreatSchools, Inc. 160 Spear Street, Suite 1020, San Francisco, CA 94105</p>
+            <p class="copyright smaller bottom">
                 GreatSchools is a national nonprofit whose mission is to inspire and guide parents to become<br />
                 effective champions of their children's education at home and in their communities.
             </p>
-            ${footerCopyright}
+            <p class="copyright smaller bottom">${footerCopyright}</p>
 
             <c:set var="hidePopularCitiesModule" value="${(showOnlyCopyrightFooter or requestScope.context.customCobrandedFooter)}"/>
             <div id="navFooter" class="cities ${not empty stateForPopularCities? 'popularCities':''} ${hidePopularCitiesModule? 'hidden':'' }">
