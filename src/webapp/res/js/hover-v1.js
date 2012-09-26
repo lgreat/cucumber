@@ -514,7 +514,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.hier1=hier1;
     };
     this.showJoinAuto = function(schoolName, schoolId, schoolState) {
-        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Send me updates");
@@ -536,7 +536,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
     };
     this.showSchoolReviewJoin = function(onSubmitCallback) {
-        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.baseFields();
         if (onSubmitCallback) {
             GSType.hover.joinHover.onSubmitCallback = onSubmitCallback;
@@ -561,7 +561,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
     };
     this.showLearningDifficultiesNewsletter = function() {
-        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Special Education newsletter");
@@ -583,7 +583,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
     };
     this.showBackToSchoolTipOfTheDay = function() {
-        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Back-to-School Tip of the Day");
@@ -607,7 +607,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
     };
     this.showJoinPostComment = function() {
-        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Speak your mind");
@@ -639,7 +639,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.showJoinNth();
     };
     this.showJoinNth = function() {
-        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
         GSType.hover.joinHover.onSubmitCallback = null;
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Is your child on track?");
@@ -653,7 +653,7 @@ GSType.hover.JoinHover = function() {
         GSType.hover.joinHover.show();
     };
     this.showJoinMsl = function() {
-        jQuery('#joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
+        jQuery('.joinBtn').click(GSType.hover.joinHover.clickSubmitHandler);
 //        GSType.hover.joinHover.configureForMss(schoolName, schoolId, schoolState);
         GSType.hover.joinHover.baseFields();
         GSType.hover.joinHover.setTitle("Welcome to My School List");
@@ -743,7 +743,7 @@ GSType.hover.JoinHover = function() {
 //    });
     this.clickSubmitHandler = function() {
         var params = jQuery('#joinGS').serialize();
-        jQuery('#joinBtn').prop('disabled', true);
+        jQuery('.joinBtn').prop('disabled', true);
 
 
         //if - Choose city - is selected, just remove this from the form, as if no city was given
@@ -1580,7 +1580,7 @@ GS.joinHover_checkValidationResponse2 = function(data) {
     });
     GSType.hover.joinHover.hide();
 
-    jQuery('#joinBtn').prop('disabled', false);
+    jQuery('.joinBtn').prop('disabled', false);
 };
 
 GS.joinHover_checkValidationResponse = function(data) {
@@ -1598,7 +1598,7 @@ GS.joinHover_checkValidationResponse = function(data) {
             GSType.hover.joinHover.hide();
         }
     }
-    jQuery('#joinBtn').prop('disabled', false);
+    jQuery('.joinBtn').prop('disabled', false);
 };
 
 GS.joinHover_passesValidationResponse = function(data) {
