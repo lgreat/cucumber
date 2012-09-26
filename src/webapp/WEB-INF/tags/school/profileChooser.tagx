@@ -64,10 +64,10 @@
                                 <option value="high">High school</option>
                             </select>
 
-                            <a target="_self" class="js-downloadGuide vam" href="javascript:void(0);"
-                                    onclick="if($('#js_chooserSchoolType').val() !== 'selectALevel'){s.tl(this,'d', '');}">
+                            <span class="js-downloadGuide vam"
+                               onclick="if($('#js_chooserSchoolType').val() !== 'selectALevel'){s.tl(this,'d', '');};window.open($(this).prop('href'),'','');return false;">
                                 <span class="button-1 mlm">Download</span>
-                            </a>
+                            </span>
                         </div>
                     </div>
                     <!-- Section 3 - Outsmarting the system -->
@@ -125,8 +125,8 @@
                     visitPdfHref = '/catalog/pdf/schq_visit_high.pdf';
                     visitPdfTarget = "_blank";
                 }
-                $('.js-downloadGuide').attr('href', visitPdfHref);
-                $('.js-downloadGuide').attr('target', visitPdfTarget);
+                $('.js-downloadGuide').data('gs-href', visitPdfHref);
+                $('.js-downloadGuide').prop('href', visitPdfHref);
             });
         </script>
     </c:if>
