@@ -987,13 +987,17 @@ new (function() {
         }
         var isValidApplicationsReceived = GS.validation.validateInteger('#form_applications_received', '#form_applications_received_error');
         validations.push(isValidApplicationsReceived);
-        validations.push(GS.validation.validateSelectIfTextboxValueEntered('#form_applications_received_year', '#form_applications_received', '#form_applications_received_year_error', isValidApplicationsReceived));
+        var isValidApplRecvdYear = GS.validation.validateSelectIfTextboxValueEntered('#form_applications_received_year', '#form_applications_received', '#form_applications_received_year_error', isValidApplicationsReceived);
+        validations.push(isValidApplRecvdYear);
         validations.push(GS.validation.validateRequiredIfNotEmpty('#form_students_accepted', '#form_applications_received', '#js_form_students_accepted_missing_error'));
         var isValidStudentsAccepted = GS.validation.validateInteger('#form_students_accepted', '#form_students_accepted_error');
         validations.push(isValidStudentsAccepted);
-        validations.push(GS.validation.validateSelectIfTextboxValueEntered('#form_students_accepted_year', '#form_students_accepted', '#form_students_accepted_year_error', isValidStudentsAccepted));
+        var isValidStudentsAcceptedYear = GS.validation.validateSelectIfTextboxValueEntered('#form_students_accepted_year', '#form_students_accepted', '#form_students_accepted_year_error', isValidStudentsAccepted);
+        validations.push(isValidStudentsAcceptedYear);
         validations.push(GS.validation.validateRequiredIfNotEmpty('#form_applications_received', '#form_students_accepted', '#js_form_applications_received_missing_error'));
-        validations.push(GS.validation.validateSelectValuesAreEqual('#form_applications_received_year', '#form_students_accepted_year', '#js_form_years_not_matching_error'));
+        if(isValidApplRecvdYear && isValidStudentsAcceptedYear) {
+            validations.push(GS.validation.validateSelectValuesAreEqual('#form_applications_received_year', '#form_students_accepted_year', '.js_form_years_not_matching_error'));
+        }
         validations.push(GS.validation.validateAllOrNone('#form_tuition_low, #form_tuition_high, #form_tuition_year', '#form_tuition_error'));
         validations.push(GS.validation.validateInteger('#form_application_fee_amount', '#form_application_fee_amount_numeric_error'));
         validations.push(GS.validation.validateRequired('input[name=students_vouchers]', '#js_form_students_vouchers_error'));
@@ -1060,6 +1064,8 @@ new (function() {
 
         // PAGE 6
         validations.push(GS.validation.validateRequired('input[name=parent_involvement]', '#js_form_parent_involvement_error'));
+        validations.push(GS.validation.validateRequiredIfChecked('#form_parent_involvement_other',
+            'input[name=parent_involvement].js_otherField_form_parent_involvement_other', '#js_form_other_parent_involvement_error'));
         // END PAGE 6
 
         // PAGE 7

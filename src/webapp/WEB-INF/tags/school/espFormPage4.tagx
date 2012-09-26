@@ -62,7 +62,7 @@
             <div id="js_form_esl_ell_programming_error" class="error" style="display: none">
                 <div class="media">
                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                    <div class="bd">Please specify the level of ESL/ELL programming at your school.</div>
+                    <div class="bd">Please specify.</div>
                 </div>
             </div>
         </div>
@@ -113,7 +113,7 @@
             <div id="js_form_spec_ed_programming_level_error" class="error" style="display: none">
                 <div class="media">
                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                    <div class="bd">Please specify the level of special education programming at your school.</div>
+                    <div class="bd">Please specify.</div>
                 </div>
             </div>
         </div>
@@ -136,7 +136,7 @@
             <div id="js_form_special_ed_programs_exists_error" class="error" style="display: none">
                 <div class="media">
                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                    <div class="bd">Please specify if your school has specialized program for specific types of special education students.</div>
+                    <div class="bd">Please specify.</div>
                 </div>
             </div>
             <div id="js_form_special_ed_programs_error" class="error" style="display: none">
@@ -260,7 +260,7 @@
             <div id="js_form_staff_resources_error" class="error" style="display: none">
                 <div class="media">
                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                    <div class="bd">Please specify the staff resources available to the students.</div>
+                    <div class="bd">Please specify.</div>
                 </div>
             </div>
         </div>

@@ -197,7 +197,7 @@
                 <div class="media">
                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                    <div class="bd">Please specify whether your school has before or after care programming on site.</div>
+                    <div class="bd">Please specify.</div>
                 </div>
             </div>
         </div>
@@ -283,7 +283,7 @@
                 <div class="media">
                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                    <div class="bd">Please specify the transportation provided.</div>
+                    <div class="bd">Please specify.</div>
                 </div>
             </div>
             <div id="js_form_other_transportation_error"  class="error fltlt" style="display: none">

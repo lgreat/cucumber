@@ -24,7 +24,7 @@
             <div class="media">
                 <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                <div class="bd">Please specify if there is an application process for your school or not.</div>
+                <div class="bd">Please specify.</div>
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
             <div class="media">
                 <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                <div class="bd">Please specify the application deadline.</div>
+                <div class="bd">Please specify.</div>
             </div>
         </div>
         <div id="js_form_application_deadline_date_error"  class="error fltlt" style="display: none">
@@ -109,7 +109,7 @@
             <div class="media">
                 <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                <div class="bd">Please specify the number of applications received.</div>
+                <div class="bd">Please specify.</div>
             </div>
         </div>
     </div>
@@ -129,8 +129,7 @@
                               styleClass="grid_6 omega"/>
         <school:espFieldError text="Please specify the year" styleId="form_applications_received_year_error"
                               styleClass="grid_6 omega"/>
-        <school:espFieldError text="Applications received year does not match students accepted year" styleId="js_form_years_not_matching_error"
-                              styleClass="grid_6 omega"/>
+        <school:espFieldError text="Years do not match" styleClass="grid_6 omega js_form_years_not_matching_error"/>
     </div>
 </div>
 
@@ -141,7 +140,7 @@
             <div class="media">
                 <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                <div class="bd">Please specify the number of students accepted.</div>
+                <div class="bd">Please specify.</div>
             </div>
         </div>
     </div>
@@ -160,8 +159,7 @@
                               styleClass="grid_6 omega"/>
         <school:espFieldError text="Please specify the year" styleId="form_students_accepted_year_error"
                               styleClass="grid_6 omega"/>
-        <school:espFieldError text="Applications received year does not match students accepted year" styleId="js_form_years_not_matching_error"
-                              styleClass="grid_6 omega"/>
+        <school:espFieldError text="Years do not match" styleClass="grid_6 omega js_form_years_not_matching_error"/>
     </div>
 </div>
 
@@ -230,7 +228,7 @@
                 <div class="media">
                     <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                    <div class="bd">Please specify if students are accepted on vouchers or not.</div>
+                    <div class="bd">Please specify.</div>
                 </div>
             </div>
         </div>

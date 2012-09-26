@@ -19,7 +19,7 @@
                 <div id="js_form_arts_media_error" class="error" style="display: none">
                     <div class="media">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                        <div class="bd">Please specify the media programs available.</div>
+                        <div class="bd">Please specify.</div>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                 <div id="js_form_arts_music_error" class="error" style="display: none">
                     <div class="media">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                        <div class="bd">Please specify the music programs available.</div>
+                        <div class="bd">Please specify.</div>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                 <div id="js_form_arts_performing_written_error" class="error" style="display: none">
                     <div class="media">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                        <div class="bd">Please specify the performing and written programs available.</div>
+                        <div class="bd">Please specify.</div>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                 <div id="js_form_arts_visual_error" class="error" style="display: none">
                     <div class="media">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                        <div class="bd">Please specify the visual programs available.</div>
+                        <div class="bd">Please specify.</div>
                     </div>
                 </div>
             </div>
@@ -116,13 +116,13 @@
                 <div id="js_form_boys_sports_error" class="error" style="display: none">
                     <div class="media">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                        <div class="bd">Please specify the boys sports available.</div>
+                        <div class="bd">Please specify.</div>
                     </div>
                 </div>
                 <div id="js_form_girls_sports_error" class="error" style="display: none">
                     <div class="media">
                         <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                        <div class="bd">Please specify the girls sports available.</div>
+                        <div class="bd">Please specify.</div>
                     </div>
                 </div>
             </div>

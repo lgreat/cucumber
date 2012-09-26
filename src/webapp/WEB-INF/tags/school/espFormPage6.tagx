@@ -55,7 +55,13 @@
                     <div id="js_form_parent_involvement_error" class="error" style="display: none">
                         <div class="media">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
-                            <div class="bd">Please specify the involvement of parents.</div>
+                            <div class="bd">Please specify.</div>
+                        </div>
+                    </div>
+                    <div id="js_form_other_parent_involvement_error" class="error" style="display: none">
+                        <div class="media">
+                            <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
+                            <div class="bd">Please specify other type of parent involvement.</div>
                         </div>
                     </div>
                 </div>

@@ -41,7 +41,7 @@
                         <div class="media">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd">Please specify the instructional and/or curriculum models (if any) your school uses.</div>
+                            <div class="bd">Please specify.</div>
                         </div>
                     </div>
                     <div id="js_form_other_instructional_model_error"  class="error fltlt" style="display: none">
@@ -122,7 +122,7 @@
                         <div class="media">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd">Please specify the academic theme or area of focus of your school(if any).</div>
+                            <div class="bd">Please specify.</div>
                         </div>
                     </div>
                     <div id="js_form_other_academic_theme_error"  class="error fltlt" style="display: none">
@@ -179,7 +179,7 @@
                         <div class="media">
                             <span class="iconx16 i-16-alert img mrs"><!-- do not collapse --></span>
 
-                            <div class="bd">Please specify the bilingual/language immersion programs offered.</div>
+                            <div class="bd">Please specify.</div>
                         </div>
                     </div>
                     <div id="js_form_other_immersion_language_error"  class="error fltlt" style="display: none">
