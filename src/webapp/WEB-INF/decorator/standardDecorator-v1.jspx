@@ -23,8 +23,17 @@
 <jsp:output omit-xml-declaration="true" />
 <jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
 
-<html lang="en">
-    <head>
+    <c:choose>
+        <c:when test="${requestScope.pageHelper.pageName eq 'spp_overview'}">
+            <c:set var="profile" value="http://purl.org/NET/erdf/profile"/>
+        </c:when>
+        <c:otherwise>
+            <c:set var="profile" value=""/>
+        </c:otherwise>
+    </c:choose>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
+    <head profile="${profile}">
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title><decorator:title default="GreatSchools - Public and Private School Ratings, Reviews and Parent Community"/></title>
         <pageHelper:addCss-v1/>
