@@ -16,6 +16,7 @@
         xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
         xmlns:cobrand="urn:jsptagdir:/WEB-INF/tags/cobrand"
         xmlns:link="urn:www.greatschools.org/taglib/link"
+        xmlns:mobile="urn:jsptagdir:/WEB-INF/tags/mobile"
         >
 
 <jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
@@ -38,7 +39,8 @@
         <ad:xGAMSetup/>
     </head>
 
-    <body class="site-gradient">
+    <body onload="${!requestScope.context.crawler ? requestScope.pageHelper.onload : ''}"
+          onunload="${!requestScope.context.crawler ? requestScope.pageHelper.onunload : ''}" class="site-gradient">
 
     <div class="container_24">
 
@@ -47,16 +49,21 @@
             <ad:x22 position="Header_728x90"/>
         </c:if>
         <cobrand:header/>
-        <mod:header/>
+        <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
+            <mod:header/>
+        </c:if>
 
         <div class="page-shadow clearfix">
-            <mod:primaryNav/>
-            <mod:secondaryNav/>
-            <mod:belowNavAds/>
+            <c:if test="${requestScope.pageHelper.showingLogo or requestScope.pageHelper.showingUserInfo}">
+                <mod:primaryNav/>
+                <mod:secondaryNav/>
+                <mod:belowNavAds/>
+            </c:if>
             <div class="phs mtm clearfix">
             <decorator:body/>
             </div>
             <mod:footer showAd="true" showSeoFooter="true"/>
+            <div style="text-align:center"><cobrand:footer/></div>
         </div>
 
     </div>
@@ -67,6 +74,8 @@
 
 
     <div id="fullPageOverlay"><!-- do not collapse --></div>
+    <cobrand:framebuster/>
+
     <communityHover:subscriptionEmailValidated/>
     <communityHover:validateEmail/>
     <communityHover:validateEmailSchoolReview/>
@@ -96,6 +105,7 @@
          });
     </script>
     <![endif]-->   ]]>
+    <mobile:desktopSiteSwitchJS/>
     </body>
   </html>
 
