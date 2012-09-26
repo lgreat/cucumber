@@ -125,7 +125,6 @@
                     visitPdfHref = '/catalog/pdf/schq_visit_high.pdf';
                     visitPdfTarget = "_blank";
                 }
-                $('.js-downloadGuide').data('gs-href', visitPdfHref);
                 $('.js-downloadGuide').prop('href', visitPdfHref);
             });
         </script>
