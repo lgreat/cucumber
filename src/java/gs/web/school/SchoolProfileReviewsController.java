@@ -72,7 +72,7 @@ public class SchoolProfileReviewsController extends AbstractSchoolProfileControl
             if (!includeInactive) {
                 reviews = _reviewDao.getPublishedReviewsBySchool(school, reviewsBy);
                 numReviewsBy = _reviewDao.getNumPublishedReviewsBySchool(school, reviewsBy);
-                numberOfNonPrincipalReviews = (ratings.getNumberOfReviews()!=null?ratings.getNumberOfReviews():new Long(0));
+                numberOfNonPrincipalReviews = _reviewDao.countPublishedNonPrincipalReviewsBySchool(school, reviewsBy);
             } else {
                 reviews = _reviewDao.getPublishedDisabledReviewsBySchool(school, reviewsBy);
                 numReviewsBy = _reviewDao.getNumPublishedDisabledReviewsBySchool(school, reviewsBy);
