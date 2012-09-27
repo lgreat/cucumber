@@ -836,9 +836,9 @@ GSType.hover.SignInHover = function() {
             GSType.hover.joinHover.showJoinGlobalHeader();
             GSType.hover.joinHover.addMessage(errorIcon + data.userNoPassword);
         } else if (data.userNotValidated) {
+            GSType.hover.emailNotValidated.setEmail(jQuery('#semail').val()); // must happen before hide
             GSType.hover.signInHover.clearMessages();
             GSType.hover.signInHover.hide();
-            GSType.hover.emailNotValidated.setEmail(jQuery('#semail').val());
             GSType.hover.emailNotValidated.show();
         } else if (data.email) {
             jQuery('#signInHover .errors .error').html(errorIcon + data.email).show();
