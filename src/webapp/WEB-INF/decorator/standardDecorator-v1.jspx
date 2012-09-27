@@ -43,6 +43,10 @@
                 compressedScripts="${param.compressedScripts}"
                 serverName="${pageContext.request.serverName}"/>
 
+        <c:forEach var="entry" items="${requestScope.pageHelper.metaProperties}">
+            <meta property="${entry.key}" content="${entry.value}"/>
+        </c:forEach>
+
         <decorator:head/>
 
         <ad:xGAMSetup/>
