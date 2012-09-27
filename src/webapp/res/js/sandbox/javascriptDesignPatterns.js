@@ -142,3 +142,45 @@ jQuery(function() {
     first = new GS.javascriptDesignPatterns.Class(1,2);
     second = new GS.javascriptDesignPatterns.Class(3,4);
 });
+
+
+////////////////////////////
+// JavaScript Hoising     //
+////////////////////////////
+// In JavaScript, all function and variable definitions are "hoisted" to the top of their containing scope, as though
+// you declared them as undefined on line 1 of the function (var myvar;). However, function declarations and function
+// expressions behave differently as in the example from JavaScript Patterns below:
+
+// Example from "JavaScript Patterns" by Stoyan Stefanov
+// antipattern for illustration only
+
+// global functions
+function foo() {
+    alert('global foo');
+}
+function bar() {
+    alert('global bar');
+}
+
+function hoistMe() {
+    console.log(typeof foo); // "function"
+    console.log(typeof bar); // "undefined"
+
+    foo(); // "local foo"
+    bar(); // TypeError: undefined is not a function
+
+    // function declaration:
+    // variable 'foo' and its implementation both get hoisted
+    function foo() {
+        alert('local foo');
+    }
+
+    // function expression:
+    // only variable bar gets hoisted and not the implementation
+    var bar = function() {
+        alert('local bar');
+    };
+}
+hoistMe();
+
+
