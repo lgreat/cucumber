@@ -53,7 +53,7 @@
                 </c:when>
                 <c:otherwise>
                     <c:set var="plural" value="${overallRating gt 1 ? 's' : ''}"/>
-                    <p class="tac bottom">${overallRating} star${plural}</p>
+                        <p class="tac bottom"><span class="rating"><span class="value">${overallRating}</span></span> star${plural}</p>
                 </c:otherwise>
             </c:choose>
 

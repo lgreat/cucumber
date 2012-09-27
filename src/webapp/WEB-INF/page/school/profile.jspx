@@ -111,6 +111,7 @@
     <ad:disableGptGhostTextHiding position="AboveFold_300x600"/>
     <ad:disableGptGhostTextHiding position="BelowFold_300x250"/>
     <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
+    <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE" />
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 <div id="fb-root"><!-- do not collapse --></div>
@@ -197,7 +198,7 @@
 <!-- end: breadcrumbs -->
 
 <!-- Begin profile header -->
-<div class="grid_16 ptm">
+<div class="hreview-aggregate grid_16 ptm">
 
     <gslink:linkToTab tabName="ratings" customLink="overview_ratings" cssClass="tdn make-555555 js-trigger">
         <div class="alpha grid_4 tac">
@@ -210,7 +211,7 @@
 
     <div class="grid_12 omega">
         <!-- School name and sub data -->
-        <h1 class="mbm"><gslink:linkToTab tabName="overview" cssClass="noUnderline">${school.name}</gslink:linkToTab></h1>
+        <h1 class="mbm"><gslink:linkToTab tabName="overview" cssClass="noUnderline"><span class="item"><span class="fn">${school.name}</span></span></gslink:linkToTab></h1>
         <div class="mbs" style="height:23px;">
             <span class="dib small bottom prm" style="line-height: 24px;">
             <!-- School Type -->
