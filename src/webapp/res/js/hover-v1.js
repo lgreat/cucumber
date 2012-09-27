@@ -386,9 +386,11 @@ GSType.hover.JoinHover = function() {
             GSType.hover.signInHover.loadOnExit(GSType.hover.joinHover.loadOnExitUrl);
             GSType.hover.joinHover.cancelLoadOnExit();
         }
+        var joinEmail = jQuery('#joinHover .jemail').val();
+        var joinRedirect = jQuery('#joinHover .redirect_field').val();
         GSType.hover.joinHover.hide();
-        GSType.hover.signInHover.showHover(jQuery('#joinHover #jemail').val(),
-            jQuery('#joinHover .redirect_field').val(),
+        GSType.hover.signInHover.showHover(joinEmail,
+            joinRedirect,
             GSType.hover.signInHover.showJoinFunction,
             GSType.hover.joinHover.onSubmitCallback);
         return false;
@@ -790,7 +792,7 @@ GSType.hover.SignInHover = function() {
         signInHover.find('.errors .error').hide();
     };
     this.setEmail = function(email) {
-        jQuery('#signInHover #semail').val(email);
+        jQuery('#signInHover .setemail').val(email);
     };
     this.setRedirect = function(redirect) {
         var signInHover = jQuery('#signInHover');
