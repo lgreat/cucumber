@@ -1,5 +1,11 @@
 var GS = GS || {};
 
+// Important aspects of tabs.js
+// 1. tabManager:  Knows about all of the tabs on a page. Central point for requests to show a tab.
+// 2. tab containers (a.k.a tab suites,  gsTabs):  A collection of tabs at one level. Knows how to show one of its tabs
+// 3. Individual tabs
+
+
 GS.tabManager = (function() {
     "use strict";
 
@@ -10,10 +16,12 @@ GS.tabManager = (function() {
     var onTabChanged;
     var beforeTabChange;
 
+    // initialize the tab manager
     var init = function() {
         isHistoryAPIAvailable = (typeof(window.History) !== 'undefined' && window.History.enabled === true);
 
         $(function() {
+            // store the page title from when the page was first loaded
             originalPageTitle = document.title;
 
             // set up click handler for data-gs-tab custom data attribute
@@ -174,6 +182,7 @@ GS.tabManager = (function() {
 GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
     "use strict";
 
+    // a jquery object for the dom element that wraps this level of tabs
     var $container;
     if (selectorOrContainer instanceof $) {
         $container = selectorOrContainer;
@@ -192,6 +201,7 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
         var parentTab; // the parent tab of this entire suite, if one exists
         var allowInterceptHovers = true; // TODO: need this?
 
+        // build up the tab structure for this level of tabs
         var buildTabStructure = function() {
             $tabs.each(function() {
                 var $this = $(this);
@@ -214,6 +224,8 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             $tabNav = $container.find('ul:first'); // get only the first ul not all of the descendents
             $tabs = $tabNav.find('li>a'); // TODO: update this selector; it matches too many items
             buildTabStructure();
+
+            // tell the tab manager about this level of tabs
             GS.tabManager.registerTabs(tabSuiteName, self);
 
             // set up click handler for tabs
@@ -224,10 +236,8 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             return self;
         };
 
+        // this functional evolved from gs_jquery_extensions tab code. Performs some initialization
         var showTabs = function() {
-            // TODO: move this
-            var allowInterceptHovers = $container.data('gs-allow-intercept-hovers');
-
             var showHome = $tabs.filter('.selected').length;
             if(!showHome) {
                 showFirstTab();
@@ -237,6 +247,8 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             }
         };
 
+        // during initialization, we want to make sure the first tab in each level is highlighted by default.
+        // this code highlights the first tab in this level
         var showFirstTab = function() {
             var tabName = GS.tabManager.getTabName($tabs.first());
             showTab(getTabByName(tabName), {
@@ -244,6 +256,7 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             });
         };
 
+        // show one of the tabs in this level
         var showTab = function(tab, options) {
             var tabChanged = false;
             options = options || {};
@@ -315,8 +328,4 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             blah:gsTabsSelf.blah
         };
     }()).init();
-};
-
-GS.Tabs.prototype.blah = function() {
-  alert('yay');
 };
