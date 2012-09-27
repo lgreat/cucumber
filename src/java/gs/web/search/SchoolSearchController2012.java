@@ -392,8 +392,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
             }
         }
         else if (commandWithFields.isNearbySearch()) {
-            if (SchoolHelper.isZipForNewSearchFilters(schoolSearchCommand.getZipCode()) || (schoolSearchCommand.getZipCode() == null &&
-                    SchoolHelper.isLocal(schoolSearchCommand.getCity(), schoolSearchCommand.getState()))) {
+            if (SchoolHelper.isZipForNewSearchFilters(schoolSearchCommand.getZipCode()) || SchoolHelper.isLocal(schoolSearchCommand.getCity(), schoolSearchCommand.getState())) {
                 model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
             }
         }
