@@ -1,5 +1,6 @@
 package gs.web.compare;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ public class CompareConfigStruct {
     private List<BreakdownNameValue> _breakdownList;
     private String _value;
     private int _year;
+    private Date lastModified;  // used to support manual override
     /** Remove any values lower than this from _breakdownList (display requirement) */
     private int _breakdownValueMinimum = 0;
 
@@ -89,6 +91,14 @@ public class CompareConfigStruct {
 
     public void setYear(int year) {
         _year = year;
+    }
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 
     public int getBreakdownValueMinimum() {

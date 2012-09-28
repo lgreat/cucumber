@@ -1,12 +1,11 @@
 package gs.web.compare;
 
 import gs.data.compare.*;
-import gs.data.school.Grades;
-import gs.data.school.School;
-import gs.data.school.SchoolType;
+import gs.data.school.*;
 import gs.data.source.DataSetContentType;
 import gs.data.state.State;
 import gs.data.school.census.*;
+import gs.data.test.Subject;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -98,7 +97,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         // 2) for each config row, retrieve the data set and label
         // also populate the 3 maps
         List<CensusDataSet> censusDataSets =
-                getCensusDataSets(state, compareConfigs, censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType);
+                getCensusDataSetsNew(state, compareConfigs, censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType);
         if (censusDataSets == null || censusDataSets.size() == 0) {
             _log.error("Can't find census data sets for " + state + ", " + tab);
             return new ArrayList<CompareConfigStruct[]>();
@@ -112,20 +111,18 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         Map<String, CompareLabelInfo> rowLabelToInfo = new HashMap<String, CompareLabelInfo>();
 
         // 3) bulk query: retrieve school values for each school and data set
-        List<SchoolCensusValue> schoolCensusValues =
-                _censusDataSchoolValueDao.findSchoolCensusValues(state, censusDataSets, schools);
+        Collection<SchoolCensusValue> schoolCensusValues = retrieveSchoolCensusValues(state, censusDataSets, schools, censusDataSetToSchoolType);
         if (schoolCensusValues == null || schoolCensusValues.size() == 0) {
             _log.error("Can't find school census values for " + state + ", " + tab);
             return new ArrayList<CompareConfigStruct[]>();
         }
-        _log.warn("Found " + schoolCensusValues.size() + " school census values");
 
         // 4) Populate return struct
         // map is used here because all we have when populating each cell is a SchoolCensusValue. From that
         // we can get the data set, and from that we can look up the row label where it is supposed to live.
         // With the row label, we use the map to pull out the specific row needed.
         Map<String, CompareConfigStruct[]> rowLabelToCellList =
-                populateStructs(schools, schoolCensusValues, censusDataSetToSchoolType, censusDataSetToLabel, rowLabelToInfo);
+                populateStructs(schools, schoolCensusValues, censusDataSetToLabel, rowLabelToInfo);
         _log.warn("Created " + rowLabelToCellList.size() + " rows");
 
         // 5) Sort the rows
@@ -185,21 +182,33 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             if (config.getGrade() != null) {
                 grades = Grades.createGrades(config.getGrade());
             }
-            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(state,censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),
-                                                                        grades);
-            if (censusDataSet == null) {
-                _log.warn("Can't find data set corresponding to config row: " + config.getId());
-                continue;
-            }
+
             CompareLabel label = _compareLabelDao.findLabel(state,dataTypeId,config.getTabName(),config.getGrade(),breakdown,config.getLevelCode(),config.getSubject());
             if (label == null) {
                 _log.error("Can't find label corresponding to config row: " + config.getId());
                 continue;
             }
-            // add censusDataSet to list
-            censusDataSets.add(censusDataSet);
-            //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
-            censusDataSetToLabel.put(censusDataSet,label);
+
+            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(state,censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),
+                    grades);
+            if (censusDataSet != null) {
+                // add censusDataSet to list
+                censusDataSets.add(censusDataSet);
+                //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
+                censusDataSetToLabel.put(censusDataSet,label);
+            }
+            // GS-13037-Add manual override data - that would be a dataset with year=0
+            CensusDataSet censusDataSetOverride = _censusDataSetDao.findDataSet(state,censusDataType,0,breakdown,config.getSubject(),config.getLevelCode(),
+                    grades);
+            if( censusDataSetOverride != null ) {
+                censusDataSets.add(censusDataSetOverride);
+                censusDataSetToLabel.put(censusDataSetOverride,label);
+            }
+            if (censusDataSet == null && censusDataSetOverride == null) {
+                _log.warn("Can't find data set corresponding to config row: " + config.getId());
+                continue;
+            }
+
 //            rowLabelToOrder.put(label.getRowLabel(),config.getOrderNum());
             // GS-10784: use static mapping across all states. Ignore config's order_num
             rowLabelToOrder.put(label.getRowLabel(), getOrderForDataType(config.getDataTypeId()));
@@ -211,6 +220,245 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     }
 
     /**
+     * 2) for each config row, retrieve the data set and label.
+     * Also populate the 3 maps
+     */
+    protected List<CensusDataSet> getCensusDataSetsNew(
+            State state,
+            List<CompareConfig> compareConfigs,
+            Map<CensusDataSet, CompareLabel> censusDataSetToLabel,
+            Map<String, Integer> rowLabelToOrder,
+            Map<CensusDataSet, SchoolType> censusDataSetToSchoolType)
+    {
+        // get all of the dataTypeId's and years
+        Set<CensusDataType> censusDataTypes = new HashSet<CensusDataType>();
+        Set<Integer> censusDataTypeIds = new HashSet<Integer>();
+        Set<Integer> years = new HashSet<Integer>();
+        boolean hasNullYear = false;
+        for(CompareConfig config : compareConfigs){
+            Integer dataTypeId = config.getDataTypeId();
+            censusDataTypeIds.add(dataTypeId);
+            CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
+            censusDataTypes.add(censusDataType);
+            Integer year = config.getYear();
+            if( year == null ) {
+                hasNullYear = true;
+            }
+            else {
+                years.add(year);
+            }
+        }
+        if( hasNullYear ) {
+            years = null;
+        }
+
+        // Get all of the CensusDataSets
+        List<CensusDataSet> allCensusDataSets = _censusDataSetDao.findDataSets( state, censusDataTypes, years );
+
+        // Get all labels
+        List<CompareLabel> labels = _compareLabelDao.findLabels(state, compareConfigs.get(0).getTabName(), censusDataTypeIds);
+
+        List <CensusDataSet> censusDataSets = new ArrayList<CensusDataSet>();
+
+        // foreach compareConfig
+        for(CompareConfig config : compareConfigs){
+
+            CompareLabel label = findCompareLabel( config, labels );
+            if (label == null) {
+                _log.error("Can't find label corresponding to config row: " + config.getId());
+                continue;
+            }
+
+            CensusDataSet censusDataSet = findCensusDataSet(config, allCensusDataSets, null);
+            if (censusDataSet != null) {
+                censusDataSets.add(censusDataSet);
+                censusDataSetToLabel.put(censusDataSet,label);
+            }
+
+            CensusDataSet censusDataSetOverride = findCensusDataSet(config, allCensusDataSets, 0);
+            if( censusDataSetOverride != null ) {
+                censusDataSets.add(censusDataSetOverride);
+                censusDataSetToLabel.put(censusDataSetOverride,label);
+            }
+            if (censusDataSet == null && censusDataSetOverride == null) {
+                _log.warn("Can't find data set corresponding to config row: " + config.getId());
+                continue;
+            }
+
+//            rowLabelToOrder.put(label.getRowLabel(),config.getOrderNum());
+            // GS-10784: use static mapping across all states. Ignore config's order_num
+            rowLabelToOrder.put(label.getRowLabel(), getOrderForDataType(config.getDataTypeId()));
+            if (config.getSchoolType() != null) {
+                censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
+            }
+        }
+
+        return censusDataSets;
+    }
+
+    private CensusDataSet findCensusDataSet(CompareConfig config, List<CensusDataSet> censusDataSets, Integer year) {
+
+        for( CensusDataSet censusDataSet : censusDataSets ) {
+            // Datatype ID - which is required
+            int dataTypeId = config.getDataTypeId();
+            CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
+            if( ! censusDataType.equals(censusDataSet.getDataType()) ) {
+                continue;
+            }
+
+            // If configBreakdownId is present it must match
+            Integer configBreakdownId = config.getBreakdownId();
+            if( configBreakdownId != null ) {
+                Integer censusBreakdownId = censusDataSet.getBreakdown().getId();
+                if( censusBreakdownId == null || !censusBreakdownId.equals(configBreakdownId)) {
+                    continue;
+                }
+            }
+
+            // year
+            Integer configYear = (year != null) ? year : config.getYear();
+            if( configYear != null ) {
+                Integer censusYear = censusDataSet.getYear();
+                if( ! censusYear.equals(configYear) ) {
+                    continue;
+                }
+            }
+
+            // If subject is present ...
+            Subject configSubject = config.getSubject();
+            if( configSubject != null ) {
+                Subject censusSubject = censusDataSet.getSubject();
+                if( censusSubject == null || !censusSubject.equals(configSubject)) {
+                    continue;
+                }
+            }
+
+            // If configLevelCode is present ...
+            LevelCode configLevelCode = config.getLevelCode();
+            if( configLevelCode != null ) {
+                LevelCode censusLevelCode = censusDataSet.getLevelCode();
+                if( censusLevelCode == null || !censusLevelCode.equals(configLevelCode)) {
+                    continue;
+                }
+            }
+
+            // If configGrade is present then have to find matching label grade
+            Grade configGrade = config.getGrade();
+            if( configGrade != null ) {
+                Grades censusGrades = censusDataSet.getGradeLevels();
+                if( censusGrades ==  null || !censusGrades.contains(configGrade) ) {
+                    continue;  // No match
+                }
+            }
+
+            return censusDataSet;
+        }
+
+        return null;  // No match
+    }
+
+    private CompareLabel findCompareLabel(CompareConfig config, List<CompareLabel> labels) {
+
+        for( CompareLabel label : labels ) {
+            // Datatype ID - which is required
+            if( ! config.getDataTypeId().equals(label.getDataTypeId()) ) {
+                continue;
+            }
+
+            // If configBreakdownId is present it must match the label breakdownId
+            Integer configBreakdownId = config.getBreakdownId();
+            if( configBreakdownId != null ) {
+                Integer labelBreakdownId = label.getBreakdownId();
+                if( labelBreakdownId == null || !labelBreakdownId.equals(configBreakdownId)) {
+                    continue;
+                }
+            }
+
+            // If configGrade is present then have to find matching label grade
+            Grade configGrade = config.getGrade();
+            if( configGrade != null ) {
+                Grade labelGrade = label.getGrade();
+                if( labelGrade ==  null || !labelGrade.equals(configGrade) ) {
+                    continue;  // No match
+                }
+            }
+
+            // If configLevelCode is present ...
+            LevelCode configLevelCode = config.getLevelCode();
+            if( configLevelCode != null ) {
+                LevelCode labelLevelCode = label.getLevelCode();
+                if( labelLevelCode == null || !labelLevelCode.equals(configLevelCode)) {
+                    continue;
+                }
+            }
+
+            // If subject is present ...
+            Subject configSubject = config.getSubject();
+            if( configSubject != null ) {
+                Subject labelSubject = label.getSubject();
+                if( labelSubject == null || !labelSubject.equals(configSubject)) {
+                    continue;
+                }
+            }
+
+            return label;
+        }
+
+        return null;  // No match
+    }
+
+    /**
+     * 3) retrieve the SchoolCensusValues for the specified datasets and return only the set with the correct years
+     * The general approach is to sort SchoolCensusValues descending and then pick the first one of each type.
+     * Datasets with breakdowns are an added complication because each breakdown must have the same timestamp.
+     */
+    protected Collection<SchoolCensusValue> retrieveSchoolCensusValues(State state, List<CensusDataSet> censusDataSets, List<School> schools, Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap ) {
+        List<SchoolCensusValue> schoolCensusValues =
+                _censusDataSchoolValueDao.findSchoolCensusValues(state, censusDataSets, schools);
+        _log.warn("Found " + schoolCensusValues.size() + " school census values");
+        Collections.sort(schoolCensusValues, SCHOOL_CENSUS_VALUE_DESCENDING);
+        // Put the values into a map that has a unique key for each cell and breakdown
+        Map<String, SchoolCensusValue> desired = new HashMap<String, SchoolCensusValue>();
+        // The following Map is used to make sure each breakdown value come from a SCV with the same time
+        Map<String, Date> breakdownIdentifierMap = new HashMap<String, Date>();
+        for( SchoolCensusValue scv : schoolCensusValues ) {
+            SchoolType schoolTypeOverride = censusDataSetToSchoolTypeMap.get(scv.getDataSet());
+            // if the dataset is restricted to a school type, make sure it is applied only to schools
+            // of that type.
+            // Example: we want public schools to use 2009 data, private schools continue using 2008.
+            // To prevent public schools from falling back on 2008 data, we mark that data set "private".
+            // That way, if a public school has no value in 2009 data, it will get "N/A" rather than 2008 data.
+            if (schoolTypeOverride != null &&
+                    !schoolTypeOverride.equals(scv.getSchool().getType())) {
+                // do nothing!
+                continue;
+            }
+            String key = scv.getSchool().getId() + ":" + scv.getDataSet().getDataType().getId();
+            if( scv.getDataSet().getBreakdown() != null ) {
+                // Since this SCV has a breakdown make sure it is from the latest set
+                String breakdownKey = new String(key);
+                Date effectiveDate = scvEffectiveDate(scv);
+                if( breakdownIdentifierMap.containsKey(breakdownKey) ) {
+                    // Make sure this SCV has the same identifier
+                    if( ! breakdownIdentifierMap.get(breakdownKey).equals(effectiveDate))  {
+                        continue;       // Not from this set
+                    }
+                }
+                else {
+                    breakdownIdentifierMap.put(breakdownKey, effectiveDate);
+                }
+                key += ":" + scv.getDataSet().getBreakdown().getId();
+            }
+            // If the Map already contains a value for this key then it is the latest and skip this one
+            if( !desired.containsKey(key) ) {
+                desired.put(key, scv);
+            }
+        }
+        // Now the Map contains the latest values, just return the values
+        return desired.values();
+    }
+
+    /**
      * 4) Populate return struct
      * map is used here because all we have when populating each cell is a SchoolCensusValue. From that
      * we can get the data set, and from that we can look up the row label where it is supposed to live.
@@ -219,8 +467,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
      */
     protected Map<String, CompareConfigStruct[]> populateStructs
             (List<School> schools,
-             List<SchoolCensusValue> schoolCensusValues,
-             Map<CensusDataSet, SchoolType> censusDataSetToSchoolTypeMap,
+             Collection<SchoolCensusValue> schoolCensusValues,
              Map<CensusDataSet, CompareLabel> censusDataSetToRowLabelMap,
              Map<String, CompareLabelInfo> rowLabelToInfoMap)
     {
@@ -239,17 +486,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         }
 
         for(SchoolCensusValue schoolCensusValue : schoolCensusValues){
-            SchoolType schoolTypeOverride = censusDataSetToSchoolTypeMap.get(schoolCensusValue.getDataSet());
-            // if the dataset is restricted to a school type, make sure it is applied only to schools
-            // of that type.
-            // Example: we want public schools to use 2009 data, private schools continue using 2008.
-            // To prevent public schools from falling back on 2008 data, we mark that data set "private".
-            // That way, if a public school has no value in 2009 data, it will get "N/A" rather than 2008 data.
-            if (schoolTypeOverride != null &&
-                    !schoolTypeOverride.equals(schoolCensusValue.getSchool().getType())) {
-                // do nothing!
-                continue;
-            }
             // look up row and value label in censusDataSetToLabelMap
             CompareLabel label = censusDataSetToRowLabelMap.get(schoolCensusValue.getDataSet());
             // get array of cells from rowLabelToCellList map
@@ -276,12 +512,8 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
             int cellIndex = schoolIdToIndex.get(schoolCensusValue.getSchool().getId());
             CompareConfigStruct cell = cells[cellIndex];
-            // Check list for existing cell in position -- if exists and it is more recent than the
-            // current value, don't overwrite it
-            if (cell != null && cell.getYear() > schoolCensusValue.getDataSet().getYear()) {
-                continue;
-            }
             if (cell == null) {
+                // If the cell is null then create it and populate it with the code below.
                 cell = new CompareConfigStruct();
             }
             if (StringUtils.isNotBlank(label.getBreakdownLabel())) {
@@ -296,15 +528,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                         cell.setBreakdownValueMinimum(5);
                         cells[0].setBreakdownValueMinimum(5); // for a display note in the header cell
                     }
-                } else if (cell.getYear() < schoolCensusValue.getDataSet().getYear()) {
-                    // we found a more recent data set. clear out any values from the older data set
-                    // Example: We have a school with two valid data sets (for some reason): 2008, 2009.
-                    // As we loop through school values, we start seeing values from 2008 and adding them
-                    // to the breakdown list. Once we come across a 2009 value, we realize that we want to
-                    // use that data set instead of the 2008 one, so we delete all the 2008 values out to
-                    // make room. Below we update the year on the cell to 2009 so we know to ignore any
-                    // other 2008 values we come across.
-                    cell.getBreakdownList().clear();
                 }
                 List<BreakdownNameValue> breakdowns = cell.getBreakdownList();
                 // cell.breakdownList.add(new NameValuePair(label.breakdownLabel, schoolCensusValue.valueFloat))
@@ -318,11 +541,12 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
                 } else {
                     _log.warn("Duplicate data value detected for \"" + label.getBreakdownLabel() + "\", ignoring.");
                 }
-                cell.setYear(schoolCensusValue.getDataSet().getYear());
+                setCellDates(cell, schoolCensusValue);
             } else {
                 // populate cell with value and label (from censusDataSetToLabel map)
                 cell.setValue(getValueAsText(schoolCensusValue));
                 cell.setYear(schoolCensusValue.getDataSet().getYear());
+                setCellDates(cell, schoolCensusValue);
                 cell.setIsSimpleCell(true);
             }
             if (cell.getYear() > cells[0].getYear()) {
@@ -333,6 +557,17 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         }
 
         return rval;
+    }
+
+    private void setCellDates(CompareConfigStruct cell, SchoolCensusValue schoolCensusValue) {
+        cell.setYear(schoolCensusValue.getDataSet().getYear());
+        Date lastModified = schoolCensusValue.getModified();
+        if( cell.getYear() == 0 && lastModified != null ) {
+            Calendar lastModifiedCal = Calendar.getInstance();
+            lastModifiedCal.setTime(lastModified);
+            cell.setYear(lastModifiedCal.get(Calendar.YEAR));
+        }
+        cell.setLastModified(lastModified);
     }
 
     /**
@@ -411,6 +646,35 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     protected Integer getOrderForDataType(Integer dataTypeId) {
         Integer rval = _dataTypeIdToOrderMap.get(dataTypeId);
         return (rval == null) ? 0 : rval;
+    }
+
+    // Used to sort SchoolCensusValue descending and considers if there is a modified and if should be used.
+    public static Comparator<SchoolCensusValue> SCHOOL_CENSUS_VALUE_DESCENDING = new Comparator<SchoolCensusValue>() {
+        public int compare(SchoolCensusValue schoolCensusValue1, SchoolCensusValue schoolCensusValue2) {
+            Date modified1 = scvEffectiveDate( schoolCensusValue1 );
+            Date modified2 = scvEffectiveDate( schoolCensusValue2 );
+            return modified2.compareTo(modified1);
+        }
+
+    };
+
+    private static Date scvEffectiveDate(SchoolCensusValue schoolCensusValue) {
+
+        if( schoolCensusValue.getModified() != null ) {
+            return  schoolCensusValue.getModified();
+        }
+        // have to calc a date based on the year.  When comparing SCV with modified date the comparison is the the 10/1/(yr-1)
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, schoolCensusValue.getDataSet().getYear() - 1);
+        cal.set(Calendar.MONTH, Calendar.OCTOBER);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        //noinspection MagicNumber
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        return cal.getTime();
     }
 
     @Override
