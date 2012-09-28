@@ -118,6 +118,8 @@ jQuery(document).ready(function() {
     jQuery('#photo-gallery').disableSelection();
     // disable selection of Photo-gallery on articles page
     jQuery('#article-photo-gallery').disableSelection();
+    jQuery('.photoGalleryViewer').disableSelection();
+    jQuery('.infiniteCarousel8').disableSelection();
 
 });
 
