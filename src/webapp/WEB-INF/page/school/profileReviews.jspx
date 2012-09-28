@@ -71,7 +71,7 @@
                         <div id="js-bubbleInfo7">
                             <div class="js-trigger">
                                 <a class="small bottom">
-                                    Based on <span class="count">${cmd.ratings.count}</span> ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}
+                                    Based on ${cmd.ratings.count} ${cmd.ratings.count eq 1 ? 'rating' : 'ratings'}
                                     <!--<ratings:stars curSR="${cmd.ratings.count}"/>-->
                                     <!--<span class="sprite i-sparklet">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
                                 </a>
@@ -277,7 +277,7 @@
     <div class="grid_16 alpha omega ptm">
         <div id="revPagination">
             <div class="fl">
-                <h3 class="subhead2 mbs">${cmd.totalReviews} ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h3>
+                <h3 class="subhead2 mbs"><span class="count">${cmd.totalReviews}</span> ${gsweb:pluralize(cmd.totalReviews, 'review')} of this school</h3>
             </div>
             <div class="fr">
                 ${reviewsPagination}
