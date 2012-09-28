@@ -70,9 +70,9 @@ GS.profile = GS.profile || (function() {
     var refreshableReviewsAdSlotKeys = refreshableNonOverviewAdSlotKeys.slice(0);
 
     var otherAdSlotKeys = [
-        'School_Profile_Page_Global_NavPromo_970x30',
-        'School_Profile_Page_Custom_Welcome_Ad',
-        'School_Profile_Page_Custom_Peelback_Ad'
+        'Global_NavPromo_970x30',
+        'Custom_Welcome_Ad',
+        'Custom_Peelback_Ad'
     ];
 
     var init = function() {
