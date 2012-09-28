@@ -35,6 +35,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         _schoolProfileProgramsHighlightsController = new SchoolProfileProgramsController();
         _schoolProfileCultureController = new SchoolProfileCultureController();
         _schoolProfileCultureController.setSchoolProfileDataHelper(_schoolProfileDataHelper);
+        _schoolProfileCultureController.setRequestAttributeHelper(new RequestAttributeHelper());
         _schoolProfileProgramsHighlightsController.setSchoolProfileCultureController(_schoolProfileCultureController);
 //        _schoolProfileProgramsHighlightsController.setIEspResponseDao( _espResponseDao );
         _schoolProfileProgramsHighlightsController.setSchoolProfileDataHelper( _schoolProfileDataHelper );
