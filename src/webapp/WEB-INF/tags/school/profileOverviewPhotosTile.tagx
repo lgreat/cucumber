@@ -44,11 +44,13 @@
                             <div class="infiniteCarousel10">
                                 <div class="wrapper">
                                     <ul class="unordered-carousel none">
+                                        <c:set var="imageCounter" value="0"/>
                                         <c:forEach var="review" items="${images}">
                                             <li>
-                                                <div class="js-photo-gallery-trigger">
+                                                <div class="js-photo-gallery-trigger imagecounter-${imageCounter}">
                                                     <img src="${basePath}${review.mediumSizeFile}" alt="Photos of this school" width="130" height="130"/>
                                                 </div>
+                                                <c:set var="imageCounter" value="${imageCounter+1}"/>
                                             </li>
                                         </c:forEach>
                                     </ul>
@@ -77,6 +79,10 @@
                     </div>
                 </div>
             </div>
+            <profile:photoGallery cssClass="js-photo-gallery-trigger" smallImages="${images}"
+                                  largeImages="${images}"
+                                  prefix="overview"
+                                  basePath="${basePath}"/>
         </c:when>
         <c:otherwise>
             <link:schoolEspRegister styleClass="no_interrupt tdn">
@@ -99,8 +105,4 @@
             </link:schoolEspRegister>
         </c:otherwise>
     </c:choose>
-    <!--<profile:photoGallery cssClass="js-photo-gallery-trigger" smallImages="${images}"-->
-                          <!--largeImages="${images}"-->
-                          <!--prefix="overview"-->
-                          <!--basePath="${basePath}"/>-->
 </jsp:root>

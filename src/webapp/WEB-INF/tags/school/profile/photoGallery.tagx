@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:pageHelper="urn:jsptagdir:/WEB-INF/tags/pageHelper"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:gsweb="gstaglib"
+        >
+
+    <jsp:directive.attribute name="cssClass" required="true" description="The dom ID to attach to"
+                             type="java.lang.String"/>
+    <jsp:directive.attribute name="smallImages" required="true" description="List of small image src values"
+                             type="java.util.List"/>
+    <jsp:directive.attribute name="largeImages" required="true" description="List of large image src values"
+                             type="java.util.List"/>
+    <jsp:directive.attribute name="altTexts" required="false" description="List of alt text values"
+                             type="java.util.List"/>
+    <jsp:directive.attribute name="photoCaptions" required="false" description="List of image captions"
+                             type="java.util.List"/>
+    <jsp:directive.attribute name="prefix" required="true" description="prefix for a given gallery.
+    This enables us to have more than one on a given page."
+                             type="java.lang.String"/>
+    <jsp:directive.attribute name="basePath" required="false" description="base path to images"
+                             type="java.lang.String"/>
+
+
+    <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
+    <div id="${prefix}-photo-gallery" class="dn">
+    <div class="mod modal_1 width_17 ${prefix}-photo-gallery"  style="height: 500px;" id="${prefix}-photo-gallery">
+        <div class="outer">
+                        <div class="fr"><span class="iconx24 i-24-close  js_closeHover" id="${prefix}-photo-gallery-close"><!-- do not collapse --></span></div>
+
+
+                <div class="inner">
+                        <div class="bd photoGalleryWrapper">
+                            <div class="photoGalleryViewer mtl">
+                                <c:forEach begin="0" end="${numberOfImages-1}" var="index">
+                                    <!--<div id="${prefix}-gallery-fullsize-${index}" class="galleryPhotoFullsize">-->
+                                    <div id="${prefix}-gallery-fullsize-${index}" class="gallery-fullsize ${prefix}-gallery-fullsize-${index}">
+                                        <img src="/res/img/pixel.gif"/>
+                                        <!--<div class="small quiet mtm bottom">${photoCaptions[index]}</div>-->
+                                    </div>
+                                </c:forEach>
+                                <div class="article-photo-gallery-back">
+                                    <div id="${prefix}-photo-gallery-back">
+                                        <span class="iconx48 i-48-gallery-back-default"><!--Do not collapse--></span>
+                                    </div>
+                                </div>
+                                <div class="article-photo-gallery-next">
+                                    <div id="${prefix}-photo-gallery-next">
+                                        <span class="iconx48 i-48-gallery-next-default"><!--Do not collapse--></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--<div class="photoGalleryControls">-->
+                                <!--<div class="infiniteCarousel8 js_infiniteCarousel">-->
+                                    <!--<div class="wrapper" style="overflow:hidden;">-->
+                                        <!--<ul class="unordered-carousel">-->
+                                            <!--<c:forEach begin="0" end="${numberOfImages-1}" var="index">-->
+                                                <!--<li>-->
+                                                    <!--<div class="gallery-thumbnail ${prefix}-gallery-thumbnail-${index}">-->
+                                                        <!--<img src="/res/img/pixel.gif" width="68" height="68"/>-->
+                                                    <!--</div>-->
+                                                <!--</li>-->
+                                            <!--</c:forEach>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+    </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+        jQuery(function() {
+            var imageArray = [];
+            <c:forEach items="${smallImages}" var="index" >
+            imageArray.push(
+                    new GSM.photoGallery.MultiSizeImage(
+                            new GSM.photoGallery.Image('${basePath}${index.smallSizeFile}'),
+                            new GSM.photoGallery.Image('${basePath}${index.largeSizeFile}')
+                    )
+            );
+            </c:forEach>
+            var gallery = new GSM.photoGallery.PhotoGallery("${prefix}", imageArray, true, "js-photo-gallery-trigger");
+            gallery.init();
+        });
+    </script>
+</jsp:root>

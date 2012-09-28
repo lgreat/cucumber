@@ -350,10 +350,11 @@ jQuery(document).ready(function() {
  *
  *  currently created to work with the review page form!!!!
  *
- * @param containerS    the id of the layer that contains the star rating.
- * @param iconW         icon width needs to have a css component that it is compatible with.
- * @param starsT        total stars currently set to 5 -- also needs to be changed as default value in the jspx or tagx
- * @param overallSR     sets the hidden value of a form field
+ * @param containerS            the id of the layer that contains the star rating.
+ * @param iconW                 icon width needs to have a css component that it is compatible with.
+ * @param starsT                total stars currently set to 5 -- also needs to be changed as default value in the jspx or tagx
+ * @param overallSR             sets the hidden value of a form field
+ * @param divWriteTextValues    show the text value in this div -- the display values are defined in arrStarValuesText
  */
 
 function starRatingInterface(containerS, iconW, starsT, overallSR, divWriteTextValues){
@@ -449,3 +450,277 @@ function drawBarChart(dataIn, divNameId, c, w, h) {
     var chart = new google.visualization.BarChart(document.getElementById(divNameId));
     chart.draw(data, options);
 }
+
+
+/**
+ * GS-12260 PHOTO GALLERY JAVASCRIPT
+ */
+
+var GSM = GSM || {};
+GSM.photoGallery = GSM.photoGallery || {};
+Function.prototype.gs_bind = function(obj) {
+    var method = this;
+    return function() {
+        return method.apply(obj, arguments);
+    };
+};
+/**
+ * Constructor
+ */
+
+GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, triggerLayer) {
+    var closeButtonDomId = prefix + "-photo-gallery-close"; //close button
+    var backButtonId = prefix + "-photo-gallery-back";
+    var nextButtonId = prefix + "-photo-gallery-next";
+    var thumbnailIdPrefix = prefix + "-gallery-thumbnail";
+    var thumbnailSelectedCssClass = "gallery-thumbnail-selected";
+    var fullSizeImageIdPrefix = prefix + "-gallery-fullsize";
+    var triggerLayer = triggerLayer;
+    var id = prefix + "-photo-gallery";
+    var currentFullSizeImage = 0;
+    var numberOfImages = multiSizeImageArray.length;
+    var multiSizeImageArray = multiSizeImageArray;
+
+    var thumbnailLoaderPosition = 0;
+    var fullSizeImageLoaderPosition = 0;
+    var chosenTimeout = 50; //ms
+    var debug = debug;
+    var photoMargins = [];
+    var shownOnce = false;
+
+    var init = function(){
+        attachShowEvent(triggerLayer, null);// function() {jQuery('.infiniteCarousel8').infiniteCarousel();});
+        loadThumbnails();
+        applyThumbnailClickHandlers();
+        applyButtonClickHandlers();
+    };
+    return{
+        init:init
+    };
+
+    function showFullSizeImage(index) {
+        var id;
+        //hide all other images
+        for (var i = 0; i < multiSizeImageArray.length; i++) {
+            if (i === index) {
+                continue;
+            }
+            id = fullSizeImageIdPrefix + '-' + i;
+
+            jQuery('.' + id).hide();
+            jQuery('.' + thumbnailIdPrefix + '-' + i).removeClass(thumbnailSelectedCssClass);
+        }
+        //show desired image
+        id = fullSizeImageIdPrefix + '-' + index;
+
+        jQuery('.' + id).show();
+
+        jQuery('.' + thumbnailIdPrefix + '-' + index).addClass(thumbnailSelectedCssClass);
+//        console.log("index - before trigger:"+index);
+        jQuery('.' + thumbnailIdPrefix + '-' + index).trigger('itemSelected'); // custom infiniteCarousel event
+
+        //track change
+        currentFullSizeImage = index;
+    };
+
+    function showNextImage() {
+        var targetIndex = parseInt(currentFullSizeImage) + 1;
+
+        if (targetIndex >= numberOfImages) {
+            targetIndex = 0;
+        }
+        showFullSizeImage(targetIndex);
+        sendOmnitureTrackingInfo();
+    };
+
+    function showPreviousImage () {
+        var targetIndex = parseInt(currentFullSizeImage) - 1;
+        if (targetIndex < 0) {
+            targetIndex = numberOfImages - 1;
+        }
+        showFullSizeImage(targetIndex);
+        sendOmnitureTrackingInfo();
+    };
+
+    function loadThumbnail (index) {
+        var image = multiSizeImageArray[index].getThumb();
+        if (!image.isLoaded()) {
+            var container = jQuery('.' + thumbnailIdPrefix + '-' + index);
+            container.find('img').attr('src', image.getSrc());
+            image.setLoaded(true);
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    function loadThumbnails() {
+        if (thumbnailLoaderPosition >= numberOfImages) {
+            return;
+        }
+        var success = loadThumbnail(thumbnailLoaderPosition);
+        if (success) {
+            thumbnailLoaderPosition++;
+            if (thumbnailLoaderPosition < multiSizeImageArray.length) {
+                setTimeout(loadThumbnails.gs_bind(this), chosenTimeout);
+            }
+        } else {
+            thumbnailLoaderPosition++;
+            if (thumbnailLoaderPosition < multiSizeImageArray.length) {
+                loadThumbnails();
+            }
+        }
+    };
+
+    function loadFullSizeImage(index) {
+        var image = multiSizeImageArray[index].getFull();
+        if (!image.isLoaded()) {
+            var container = jQuery('.' + fullSizeImageIdPrefix + '-' + index);
+            container.find('img').attr('src', image.getSrc());
+            image.setLoaded(true);
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    function loadFullSizeImages() {
+        if (fullSizeImageLoaderPosition >= numberOfImages) {
+            return;
+        }
+        var success = loadFullSizeImage(fullSizeImageLoaderPosition);
+        if (success) {
+            fullSizeImageLoaderPosition++;
+            if (fullSizeImageLoaderPosition < multiSizeImageArray.length) {
+                setTimeout(loadFullSizeImages.gs_bind(this), chosenTimeout * 2);
+            }
+        } else {
+            fullSizeImageLoaderPosition++;
+            if (fullSizeImageLoaderPosition < multiSizeImageArray.length) {
+                loadFullSizeImages();
+            }
+        }
+    };
+
+    function loadImages() {
+        loadThumbnails();
+        loadFullSizeImages();
+    };
+
+    function applyThumbnailClickHandlers() {
+        var myContainer = jQuery('.' + id + " .unordered-carousel");
+        myContainer.on('click',   function(event){
+            var index = parseThumbnailId($(event.target));
+            showFullSizeImage(index);
+            sendOmnitureTrackingInfo();
+        });
+    };
+
+    /*****
+     * the last class of the containing parent div needs to end with -number
+     * ex. imageIdent-4
+     * @param obj    - this is the img obj
+     * @return {*}   - returns its id
+     */
+    function parseThumbnailId(obj){
+        return obj.parent().attr('class').split("-").reverse()[0];
+    }
+
+    function sendOmnitureTrackingInfo() {
+        //requires /res/js/omnitureEventNotifier.js
+        omnitureEventNotifier.clear();
+        omnitureEventNotifier.successEvents = "event58;";
+        omnitureEventNotifier.send();
+    };
+
+    function applyButtonClickHandlers() {
+        jQuery('#' + backButtonId).click(function() {
+            showPreviousImage();
+        }.gs_bind(this));
+        jQuery('#' + nextButtonId).click(function() {
+            showNextImage();
+        }.gs_bind(this));
+        jQuery('#' + closeButtonDomId).click(function() {
+            hideMod();
+        }.gs_bind(this));
+    };
+
+    function showMod(){
+        sendOmnitureTrackingInfo();
+        var $me = jQuery('#' + id);
+        ModalManager.showModal({
+            'layerId' :  id
+        });
+//        if(!shownOnce){
+        $me.find('.js_infiniteCarousel').trigger('shown'); // custom infiniteCarousel event
+//        }
+    };
+
+    function hideMod() {
+        ModalManager.hideModal({
+            'layerId' : id
+        });
+        return false;
+    };
+
+    /**
+     * Make the gallery open when provided dom node is clicked
+     * @param id
+     */
+    function attachShowEvent(cssClass, initialCallback) {
+        jQuery("." + cssClass).click(function(event) {
+            var index = parseThumbnailId($(event.target));
+            loadFullSizeImages();
+            if (initialCallback && typeof(initialCallback) === 'function' && !shownOnce) {
+                shownOnce = true;
+                initialCallback();
+            }
+//            var photoNumVar = jQuery('input.js_photoNum').val();
+//            var photoNumToShow = (photoNumVar !== undefined && photoNumVar !== null) ? (isNaN(photoNumVar - 1) ? 0 : (photoNumVar - 1)) : 0;
+            showFullSizeImage(index); //load the first full size image into gallery
+            showMod();
+//            if (initialCallback && typeof(initialCallback) === 'function' && !shownOnce) {
+//                shownOnce = true;
+//                initialCallback();
+//            }
+            return false;
+        }.gs_bind(this));
+    };
+
+};
+/**
+ * Constructor
+ */
+GSM.photoGallery.MultiSizeImage = function(thumbnailImage, fullSizeImage) {
+    var thumbnailImage = thumbnailImage;
+    var fullSizeImage = fullSizeImage;
+    var getThumb = function(){return thumbnailImage}
+    var getFull = function(){return fullSizeImage}
+    return {
+        getThumb: getThumb,
+        getFull: getFull
+    }
+};
+
+
+/**
+ * Constructor
+ */
+GSM.photoGallery.Image = function(src, alt, id, cssClass, title, height, width) {
+    var src = src;
+    this.id = id;
+    this.cssClass = cssClass;
+    this.alt = alt;
+    this.title = title;
+    this.height = height;
+    this.width = width;
+    var loaded = false;
+    var getSrc = function(){return src;}
+    var isLoaded = function(){return loaded;}
+    var setLoaded = function(b){loaded = b;}
+    return{
+        isLoaded: isLoaded,
+        getSrc: getSrc,
+        setLoaded: function( b ){setLoaded(b);}
+    }
+};
