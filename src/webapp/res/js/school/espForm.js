@@ -1058,9 +1058,11 @@ new (function() {
         validations.push(GS.validation.validateRequired('input[name=arts_music]', '#js_form_arts_music_error'));
         validations.push(GS.validation.validateRequired('input[name=arts_performing_written]', '#js_form_arts_performing_written_error'));
         validations.push(GS.validation.validateRequired('input[name=arts_visual]', '#js_form_arts_visual_error'));
-        var boysSportsIsValid = GS.validation.validateRequired('input[name=boys_sports]', '#js_form_sports_error');
+        var boysSportsIsValid = GS.validation.validateRequired('input[name=boys_sports]', '#js_form_sports_error') ||
+            GS.validation.validateRequired('input[name=boys_sports_other_cb]', '#js_form_sports_error');
         validations.push(boysSportsIsValid);
-        var girlsSportsIsValid = GS.validation.validateRequired('input[name=girls_sports]', '#js_form_sports_error');
+        var girlsSportsIsValid = GS.validation.validateRequired('input[name=girls_sports]', '#js_form_sports_error') ||
+            GS.validation.validateRequired('input[name=girls_sports_other_cb]', '#js_form_sports_error');
         validations.push(girlsSportsIsValid);
         if(!boysSportsIsValid || !girlsSportsIsValid) {
             $('#js_form_sports_error').show();
