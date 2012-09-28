@@ -259,10 +259,10 @@ public class UnsubscribeControllerTest extends BaseControllerTestCase {
         _command.setUnsubscribedSuccess(true);
         _command.setUnsubscribeReason("I don't recall subscribing");
         _command.setOtherReasonsText("qwerty");
-        _command.setUnsubscribeDateTime(new Date());
+        Date unsubscribeDate = new Date();
+        _command.setUnsubscribeDateTime(unsubscribeDate);
         Unsubscribe unsubscribe = new Unsubscribe(_user, "checkbox");
         unsubscribe.setId(567);
-        Date unsubscribeDate = new Date();
         unsubscribe.setUnsubcribeDateTime(unsubscribeDate);
         UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.HOME);
         String homePageRedirectUri = "redirect:" + urlBuilder.asFullUrl(getRequest());
@@ -270,7 +270,7 @@ public class UnsubscribeControllerTest extends BaseControllerTestCase {
         expect(_unsubscribeDao.findUnsubscribeById(_command.getUnsubscribeId())).andReturn(unsubscribe);
 
         _unsubscribeDao.updateUnsubscribedReason(unsubscribe, _command.getUnsubscribeReason(),
-                _command.getOtherReasonsText(), unsubscribe.getUnsubcribeDateTime());
+                _command.getOtherReasonsText(), unsubscribeDate);
         expectLastCall();
 
         replayAll();
