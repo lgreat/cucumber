@@ -70,7 +70,7 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         modelMap.put(PHOTOS_MODEL_KEY, getSchoolPhotos( request));
 
         // Spaces 2 & 5 - Facebook can appear in in space 2 or 5 depending on other data availability
-        Map<String, Object> facebookModel = getFacebook( espResults, hasClimateRating );
+        Map<String, Object> facebookModel = getFacebook( request, hasClimateRating );
         modelMap.put( FACEBOOK_MODEL_KEY, facebookModel );
         // The facebook ID needs to be put directly into the model so the frontend code can go to facebook to verify it is a valid facebook user
         modelMap.put( "schoolFacebookId", facebookModel.get("facebookId") );
@@ -155,26 +155,21 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         return model;
     }
 
-    protected  Map<String, Object>  getFacebook(Map<String, List<EspResponse>> espData, boolean hasClimateRating) {
+    protected  Map<String, Object>  getFacebook(HttpServletRequest request, boolean hasClimateRating) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
-
-        // Make sure we have espData otherwise there won't be a facebookURL
-        if( espData == null ) {
-            model.put( "content", "hide" );
-            return model;
-        }
 
         // If and where the facebook tile is displayed is dependent on:
         // 1. if there is a facebook link in the espData
         // 2. if climate ratings data is available
         // 3. if a school video is available
 
-        // Gather the required data
-        List<EspResponse> facebook = espData.get("facebook_url");
+        // Gather the required data (Facebook URL is store in the school metadata table)
+        School school = getSchool(request);
+        String facebook = school.getMetadataValue(School.METADATA_FACEBOOK_URL);
         String facebookUrl = null;
-        if( isNotEmpty(facebook) ) {
-            facebookUrl = cleanUpUrl( facebook.get(0).getSafeValue(), "facebook.com" );
+        if( StringUtils.isNotBlank(facebook) ) {
+            facebookUrl = cleanUpUrl( facebook, "facebook.com" );
         }
 
         // Now decide if facebook data can be shown and where

@@ -157,7 +157,7 @@
                 <div class="grid_16 omega">
                     <gsml:input styleId="form_school_video" styleClass="js_otherField text input_8" type="text"
                            name="school_video" value="${responseMap['school_video'].value}"
-                           placeholder="[Paste video URL or web address here]"/>
+                           placeholder="[Paste video URL or web address here]" disabled="${stateLocked}"/>
                     <p class="hint">Example: http://youtu.be/schoolvideo</p>
                 </div>
             </div>

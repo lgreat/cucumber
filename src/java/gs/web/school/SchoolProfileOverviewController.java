@@ -1422,10 +1422,11 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> facebookModel = new HashMap<String, Object>(4);
 
-        List<EspResponse> facebook = espData.get("facebook_url");
+        // Facebook URL now comes from the school metadata table
+        String facebook = school.getMetadataValue(School.METADATA_FACEBOOK_URL);
         String facebookUrl = null;
-        if( isNotEmpty(facebook) ) {
-            facebookUrl = SchoolProfileCultureController.cleanUpUrl(facebook.get(0).getSafeValue(), "facebook.com");
+        if( StringUtils.isNotBlank(facebook) ) {
+            facebookUrl = SchoolProfileCultureController.cleanUpUrl(facebook, "facebook.com");
         }
 
         if( facebookUrl != null ) {

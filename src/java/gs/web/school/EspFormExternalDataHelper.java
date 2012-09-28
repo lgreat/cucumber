@@ -225,6 +225,20 @@ public class EspFormExternalDataHelper {
             } else {
                 _log.error("Missing census data type configuration for " + key + " in " + school.getDatabaseState());
             }
+        } else if (StringUtils.equals("school_video", key)) {
+            List<String> schoolVideosAsList = school.getMetadataAsList("school_video");
+            if( schoolVideosAsList != null ) {
+                return schoolVideosAsList.toArray( new String[schoolVideosAsList.size()] );
+            } else {
+                return new String[0];
+            }
+        } else if (StringUtils.equals("facebook_url", key)) {
+            String facebookUrl = school.getMetadataValue("facebook_url");
+            if( facebookUrl != null ) {
+                return new String[] {facebookUrl};
+            } else {
+                return new String[0];
+            }
         }
         return new String[0];
     }
@@ -337,12 +351,44 @@ public class EspFormExternalDataHelper {
             } else {
                 _log.error("Missing census data type configuration for " + key + " in " + school.getDatabaseState());
             }
+        } else if (StringUtils.equals("school_video", key)) {
+            updateSchoolMetadata( school, values, "school_video", user, now, false);
+        } else if (StringUtils.equals("facebook_url", key)) {
+            updateSchoolMetadata( school, values, "facebook_url", user, now, true);
         } else {
             _log.error("Unknown external key: " + key);
         }
         return null;
     }
-    
+
+    void updateSchoolMetadata( School school, Object [] pageValues, String metadataBaseKey, User user, Date now, boolean singleValued ) {
+        // Before replacing existing values, make sure there were changes
+        List<String> existingList = school.getMetadataAsList(metadataBaseKey);
+        List<String> newList = new ArrayList<String>(pageValues.length);
+        for( Object value : pageValues ) {
+            if( ((String)value).length() > 0 ) {
+                newList.add((String)value);
+            }
+        }
+
+        if( existingList == null ) {
+            existingList = new ArrayList<String>(0);    // the newList is never null
+        }
+        boolean isSame = newList.equals(existingList);
+        if( ! isSame ) {
+            if( singleValued ) {
+                school.deleteMetadata(metadataBaseKey) ;
+                school.putMetadata(metadataBaseKey, newList.get(0));
+            }
+            else {
+                school.deleteMetadataList(metadataBaseKey) ;
+                school.putMetadataAsList(metadataBaseKey, newList);
+            }
+            saveSchool( school, user, now );
+        }
+
+    }
+
     static boolean containsBadChars(String val) {
         return StringUtils.contains(val, "<") || StringUtils.contains(val, "\"");
     } 
@@ -577,6 +623,9 @@ public class EspFormExternalDataHelper {
         keys.add("school_url");
         keys.add("administrator_name");
         keys.add("administrator_email");
+        keys.add("facebook_url");
+        keys.add("school_video");
+
         if (school.getType() == SchoolType.PRIVATE) {
             keys.add("census_ethnicity");
             keys.add("census_6");
