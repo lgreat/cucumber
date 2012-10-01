@@ -57,6 +57,9 @@
                             <!--<div class="private-O r-${size}">${gsRatingValue}</div>-->
                             <!-- TODO: TEMPORARY FOR 21.1. PLEASE REPLACE WITH ABOVE COMMENTED DIV IN 21.2 -->
                             <div class="public-O r-${size}">${gsRating}</div>
+                            <!-- uncomment this for GS-GS-13265
+                                <span class="ratingx24-private-O r-24-${gsRating}"> do not collapse </span>
+                            -->
                         </c:otherwise>
                     </c:choose>
                 </c:when>
