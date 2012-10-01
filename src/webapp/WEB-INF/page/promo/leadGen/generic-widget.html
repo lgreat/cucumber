@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Lead Gen Widget</title>
+
+    <link rel="stylesheet" type="text/css" href="/res/css/combined.house_ads.min.css?date=2012-07"/>
+    <style type="text/css">
+            .CAMPAIGN-CODE .inner {margin:0;padding:0;width:300px;height:250px; background: #fef6df url(http://dev.greatschools.org/catalog/ads/leadGen/img/CAMPAIGN-CODE.png) no-repeat;}
+        /* TODO: move into house_ads.css? */
+        .jq-leadGen2Wrapper .hd.wrapper {width:300px; height:100px;}
+        .jq-leadGen2Wrapper .bd.wrapper {position: relative; width:300px; height: 150px;}
+        .jq-leadGen2Wrapper .leadGenPrelimText {position: absolute; top: 8px; left: 150px; width:145px;margin-left:12px;font:10px/1.25 Arial,Helvetica,sans-serif; color:#fff;}
+        .jq-leadGen2Wrapper .leadGenThankYou{position: absolute; top: 12px; left: 35px; width:235px; font: 12px/1.25 Arial,Helvetica,sans-serif; color:#fff;}
+        .jq-leadGen2Wrapper .jq-leadGenError {position: absolute; top: 8px; left: 160px; width:135px;font:bold italic 10px/1.25 Arial,Helvetica,sans-serif; color: #fff;}
+        .jq-leadGen2Wrapper .jq-leadGenForm {position: absolute; top:8px; left: 14px; width: 150px;}
+        .jq-leadGen2Wrapper .bd.wrapper input{margin:2px 0 2px 0;padding:0; font: 10px Arial,Helvetica,sans-serif; color: #333;width:133px; height:14px;}
+        .jq-leadGen2Wrapper .bd.wrapper select{margin:2px 0 2px 0;}
+        .jq-leadGen2Wrapper .buttonLabel {width:80px;}
+        .jq-leadGen2Wrapper .buttonDiv {width:110px;}
+        .jq-leadGen2Wrapper .bd.wrapper button{margin:3px 0 0 3px; height:18px; border-radius:4px; padding-bottom:1px; /*background-color:#ff8e3e;*/ font:bold 10px Arial,Helvetica,sans-serif;}
+        .jq-leadGen2Wrapper .shim-45 { clear: both; height: 45px; font-size: 1px; line-height: 45px; }
+    </style>
+    <!--[if IE ]>
+    <style type="text/css">
+        .jq-leadGen2Wrapper .bd input{height:15px;}
+    </style>
+    <![endif]-->
+    <script type="text/javascript" src="/res/js/combined.house_ads.min.js?date=2012-10-17"></script>
+    <script type="text/javascript" src="/res/js/promo/leadGen2.js?date=2012-10-17"></script>
+</head>
+
+<body>
+
+<div class="mod CAMPAIGN-CODE jq-leadGen2Wrapper">
+    <div class="inner">
+        <div class="hd wrapper"></div>
+        <div class="bd wrapper">
+
+            <div class="leadGenPrelimText jq-leadGenPrelimText">
+                Please provide your<br/>
+                contact information and a<br/>
+                representative from the<br/>
+                school will contact you<br/>
+                shortly.
+            </div>
+
+            <div class="leadGenErrors">
+                <div class="hidden media jq-leadGenError jq-leadGenError-all">
+                    <div class="iconx16 i-16-alert img mrs shim-45"></div>
+                    <div class="bd">
+                        Please enter:<br/>
+                        first name, last name,<br/>
+                        email and grade level.
+                    </div>
+                </div>
+            </div>
+            <div class="hidden jq-leadGenThankYou leadGenThankYou">
+                Thank you for submitting your information!<br/>
+                A representative from the school will be in<br/>
+                contact with you soon.
+            </div>
+
+            <!-- TODO-13218 ghost text in light grey in input boxes, swapped out onfocus, swapped back in if empty onblur -->
+
+            <form class="jq-leadGenForm" action="#" method="POST">
+                <input type="hidden" class="jq-leadGenCampaign" name="campaign" value="CAMPAIGN-CODE"/>
+                <fieldset class="contact">
+                    <div class="line">
+                        <input type="text" class="jq-leadGenFullName unit lastunit" name="fullName" placeholder="First name, last name"/>
+                    </div>
+
+                    <div class="line">
+                        <input type="text" class="jq-leadGenPhone unit lastunit" name="phone" placeholder="Phone number"/>
+                    </div>
+
+                    <div class="line">
+                        <input type="text" class="jq-leadGenEmail unit lastunit" name="email" placeholder="Email address"/>
+                    </div>
+
+                    <div class="line">
+                        <select name="gradeLevel" class="jq-leadGenGradeLevel unit lastunit">
+                            <option value="" selected="selected">Grade level</option>
+                            <option value="p">Preschool</option>
+                            <option value="e">Elementary</option>
+                            <option value="m">Middle</option>
+                            <option value="h">High</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <fieldset class="submit">
+                    <div class="line">
+                        <div class="unit buttonDiv lastunit"><button class="button-2 jq-leadGenSubmit" type="submit">Submit</button></div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
