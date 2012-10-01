@@ -342,8 +342,9 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 newData.lat = currentCenter.lat();
                 newData.lon = currentCenter.lng();
 
+                var keysToPersist = ['search_type', 'c', 'view', 'sortBy', 'st', 'gradeLevels','distance'];
                 for(var key in queryStringData) {
-                    if(key !== 'search_type' && key !== 'c' && key !== 'view' && key !== 'sortBy') {
+                    if($.inArray(key, keysToPersist) === -1) {
                         delete queryStringData[key];
                     }
                 }
