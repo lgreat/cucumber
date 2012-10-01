@@ -24,14 +24,7 @@
 
     <!-- set the title of the module -->
     <c:set var="t14t15dc">
-        <c:choose>
-            <c:when test="${hasOSPData eq 'true'}">
-                <p class="small_bold textshadow-1 pvs plm bottom">In the know: Get our expert advice on schools</p>
-            </c:when>
-            <c:otherwise>
-                <p class="small_bold textshadow-1 pvs plm bottom">Interested in this school? These articles are for you</p>
-            </c:otherwise>
-        </c:choose>
+        <p class="small_bold textshadow-1 pvs plm bottom">In the know: Get our expert advice on schools</p>
     </c:set>
 
     <!-- set the image of the module -->
