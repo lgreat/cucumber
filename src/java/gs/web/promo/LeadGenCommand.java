@@ -4,12 +4,16 @@ import org.apache.commons.lang.StringUtils;
 
 public class LeadGenCommand {
     private String _campaign;
+    private String _fullName;
+    private String _email;
+    private String _phone;
+    private String _gradeLevel;
+
+    // old widgets
     private String _firstName;
     private String _lastName;
-    private String _email;
     private String _zip;
     private String _childsAge;
-    private String _phone;
 
     public String getCampaign() {
         return _campaign;
@@ -42,6 +46,18 @@ public class LeadGenCommand {
             _lastName = lastName.trim();
         } else {
             _lastName = null;
+        }
+    }
+
+    public String getFullName() {
+        return _fullName;
+    }
+
+    public void setFullName(String fullName) {
+        if (StringUtils.isNotBlank(fullName)) {
+            _fullName = fullName.trim();
+        } else {
+            _fullName = null;
         }
     }
 
@@ -93,17 +109,31 @@ public class LeadGenCommand {
         }
     }
 
+    public String getGradeLevel() {
+        return _gradeLevel;
+    }
+
+    public void setGradeLevel(String gradeLevel) {
+        if (StringUtils.isNotBlank(gradeLevel)) {
+            _gradeLevel = gradeLevel.trim();
+        } else {
+            _gradeLevel = null;
+        }
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
-        sb.append("PrimroseGenCommand");
+        sb.append("LeadGenCommand");
         sb.append("{_campaign='").append(_campaign).append('\'');
         sb.append(", _firstName='").append(_firstName).append('\'');
         sb.append(", _lastName='").append(_lastName).append('\'');
+        sb.append(", _fullName='").append(_fullName).append('\'');
         sb.append(", _email='").append(_email).append('\'');
         sb.append(", _zip='").append(_zip).append('\'');
         sb.append(", _childsAge='").append(_childsAge).append('\'');
         sb.append(", _phone='").append(_phone).append('\'');
+        sb.append(", _gradeLevel='").append(_gradeLevel).append('\'');
         sb.append('}');
         return sb.toString();
     }

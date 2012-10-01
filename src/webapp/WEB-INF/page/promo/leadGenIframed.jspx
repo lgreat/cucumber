@@ -11,5 +11,7 @@
     <!-- GS-13056 -->
     <!--<c:import url="file:///Users/yfan/code/gs/GSWeb/src/webapp/WEB-INF/page/promo/leadGen/rocketship-2012.html"/>-->
     <!-- GS-13078 -->
-    <c:import url="file:///Users/yfan/code/gs/GSWeb/src/webapp/WEB-INF/page/promo/leadGen/laurel-hall-school-2012.html"/>
+    <!--<c:import url="file:///Users/yfan/code/gs/GSWeb/src/webapp/WEB-INF/page/promo/leadGen/laurel-hall-school-2012.html"/>-->
+    <!-- GS-13218 -->
+    <c:import url="file:///Users/yfan/code/gs/GSWeb/src/webapp/WEB-INF/page/promo/leadGen/generic-widget.html?s"/>
 </jsp:root>

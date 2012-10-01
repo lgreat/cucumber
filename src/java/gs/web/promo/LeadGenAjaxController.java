@@ -2,6 +2,7 @@ package gs.web.promo;
 
 import gs.data.promo.ILeadGenDao;
 import gs.data.promo.LeadGen;
+import gs.data.school.LevelCode;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlUtil;
 import org.apache.commons.httpclient.HttpClient;
@@ -44,6 +45,24 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
     public static final String PARAM_ZIP = "zip";
 
     public static final String DEBUG_EMAIL = "ssprouse@greatschools.org";
+
+    @RequestMapping(value = "/promo/leadGenAjax2.page", method = RequestMethod.POST)
+    public void generateLeadGen2(@ModelAttribute("command") LeadGenCommand command,
+                             HttpServletRequest request, HttpServletResponse response) throws Exception {
+        _log.info(command.toString());
+
+        String errors = validate2(command);
+        if (StringUtils.isBlank(errors)) {
+            // log data
+            logData2(command);
+
+            response.getWriter().print(SUCCESS);
+            return;
+        }
+
+        _log.warn("Failure generating lead for " + command.getCampaign() + ": " + command.getEmail());
+        response.getWriter().print(errors);
+    }
 
     @RequestMapping(value = "/promo/leadGenAjax.page", method = RequestMethod.POST)
     public void generateLead(@ModelAttribute("command") LeadGenCommand command,
@@ -102,6 +121,35 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
         if (CAMPAIGN_PRIMROSE_2012.equals(command.getCampaign())) {
             if (StringUtils.isBlank(command.getChildsAge())) {
                 errorList.add("childsAge");
+            }
+        }
+
+        // phone number not required and no formatting validation
+
+        return StringUtils.join(errorList, ',');
+    }
+
+    /**
+     * Returns empty string if the command seems valid; otherwise, comma-separated list of fields with errors
+     */
+    protected String validate2(LeadGenCommand command) {
+        List<String> errorList = new ArrayList<String>();
+
+        // validate not null full name, grade level, email
+        if (StringUtils.isBlank(command.getFullName())) {
+            errorList.add("fullName");
+        }
+        if (StringUtils.isBlank(command.getGradeLevel()) || LevelCode.Level.getLevelCode(command.getGradeLevel()) == null) {
+            errorList.add("gradeLevel");
+        }
+        if (StringUtils.isBlank(command.getEmail())) {
+            errorList.add("email");
+        } else {
+            // validate format email
+            EmailValidator emailValidator = EmailValidator.getInstance();
+            if (!emailValidator.isValid(command.getEmail())) {
+                _log.warn("Lead gen submitted with invalid email: " + command.getEmail());
+                errorList.add("email");
             }
         }
 
@@ -176,6 +224,13 @@ public class LeadGenAjaxController implements ReadWriteAnnotationController {
                 new LeadGen(command.getCampaign(), new Date(), command.getFirstName(),
                             command.getLastName(), command.getEmail(), command.getZip(), command.getChildsAge(),
                             command.getPhone());
+        _leadGenDao.save(leadGen);
+    }
+
+    private void logData2(LeadGenCommand command) {
+        LeadGen leadGen =
+                new LeadGen(command.getCampaign(), new Date(), command.getFullName(),
+                        command.getEmail(), command.getPhone(), command.getGradeLevel());
         _leadGenDao.save(leadGen);
     }
 
