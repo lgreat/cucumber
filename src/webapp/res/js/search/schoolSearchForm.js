@@ -142,18 +142,18 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                 queryStringDataWithFilters = filtersModule.getQueryStringDataWithoutFilters();
             }
 
-            var keysToPersist = ['st','gradeLevels','view'];
+            // if there's no current q param in the URL, we're on a byLocation search results page.
+            // remove sort param when changing between byName and byLocation
+            if (!queryStringDataWithFilters.hasOwnProperty('q')) {
+                delete queryStringDataWithFilters.sortBy;
+            }
+
+            var keysToPersist = ['st','gradeLevels','view', 'sortBy'];
 
             for(var key in queryStringDataWithFilters) {
                 if ($.inArray(key, keysToPersist) === -1) {
                     delete queryStringDataWithFilters[key];
                 }
-            }
-
-            // if there's no current q param in the URL, we're on a byLocation search results page.
-            // remove sort param when changing between byName and byLocation
-            if (!queryStringDataWithFilters.hasOwnProperty('q')) {
-                delete queryStringDataWithFilters.sortBy;
             }
 
             queryStringDataWithFilters.q = encodeURIComponent(searchString);
@@ -198,6 +198,13 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
 
                 gsGeocode(searchQueryWithFilteredStopWords, function(geocodeResult) {
                     if (geocodeResult != null) {
+                        var queryStringDataWithFilters;
+
+                        if (window.location.href.indexOf(SEARCH_PAGE_PATH) !== -1) {
+                            queryStringDataWithFilters = filtersModule.getUpdatedQueryStringData();
+                        } else {
+                            queryStringDataWithFilters = filtersModule.getQueryStringDataWithoutFilters();
+                        }
 
                         var data = {};
                         data['lat'] = geocodeResult['lat'];
@@ -213,14 +220,11 @@ GS.search.schoolSearchForm = GS.search.schoolSearchForm || (function() {
                             data['city'] = geocodeResult['city'];
                         }
 
-                        data['sortBy'] = 'DISTANCE';
-
-                        var queryStringDataWithFilters;
-
-                        if (window.location.href.indexOf(SEARCH_PAGE_PATH) !== -1) {
-                            queryStringDataWithFilters = filtersModule.getUpdatedQueryStringData();
-                        } else {
-                            queryStringDataWithFilters = filtersModule.getQueryStringDataWithoutFilters();
+                        if(queryStringDataWithFilters['sortBy'] !== undefined && queryStringDataWithFilters['q'] === undefined) {
+                            data['sortBy'] = queryStringDataWithFilters['sortBy'];
+                        }
+                        else {
+                            data['sortBy'] = 'DISTANCE';
                         }
 
                         var keysToPersist = ['st', 'gradeLevels', 'distance', 'view'];

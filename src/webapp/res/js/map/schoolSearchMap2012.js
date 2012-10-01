@@ -343,13 +343,15 @@ GS.map.getMap = GS.map.getMap ||(function(){
                 newData.lon = currentCenter.lng();
 
                 for(var key in queryStringData) {
-                    if(key !== 'search_type' && key !== 'c' && key !== 'view') {
+                    if(key !== 'search_type' && key !== 'c' && key !== 'view' && key !== 'sortBy') {
                         delete queryStringData[key];
                     }
                 }
                 queryStringData.start = 0;
                 queryStringData.rs = true;
-                queryStringData.sortBy = 'DISTANCE';
+                if(queryStringData.sortBy === undefined) {
+                    queryStringData.sortBy = 'DISTANCE';
+                }
                 $.extend(queryStringData, newData);
 
                 window.location.href = '/search/search.page' + GS.uri.Uri.getQueryStringFromObject(queryStringData);
