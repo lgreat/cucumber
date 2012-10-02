@@ -747,4 +747,9 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     protected void setDataTypeIdToOrderMap(Map<Integer, Integer> dataTypeIdToOrderMap) {
         _dataTypeIdToOrderMap = dataTypeIdToOrderMap;
     }
+
+    @Override
+    protected String getTabName() {
+        return TAB_NAME;
+    }
 }

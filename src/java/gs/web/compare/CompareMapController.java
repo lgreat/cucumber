@@ -67,4 +67,9 @@ public class CompareMapController extends AbstractCompareSchoolController {
         return 8;
     }
 
+    @Override
+    protected String getTabName() {
+        return TAB_NAME;
+    }
+
 }

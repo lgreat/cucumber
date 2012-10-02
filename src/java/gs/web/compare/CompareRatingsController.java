@@ -73,4 +73,9 @@ public class CompareRatingsController extends AbstractCompareSchoolController {
         _successView = successView;
     }
 
+    @Override
+    protected String getTabName() {
+        return TAB_NAME;
+    }
+
 }

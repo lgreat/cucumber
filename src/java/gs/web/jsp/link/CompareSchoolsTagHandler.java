@@ -17,22 +17,7 @@ public class CompareSchoolsTagHandler extends LinkTagHandler {
 
     @Override
     protected UrlBuilder createUrlBuilder() {
-        UrlBuilder builder;
-        if (StringUtils.equals(CompareOverviewController.TAB_NAME, _tab)) {
-            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_OVERVIEW);
-        } else if (StringUtils.equals(CompareRatingsController.TAB_NAME, _tab)) {
-            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_RATINGS);
-        } else if (StringUtils.equals(CompareTestScoresController.TAB_NAME, _tab)) {
-            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_TEST_SCORES);
-        } else if (StringUtils.equals(CompareStudentTeacherController.TAB_NAME, _tab)) {
-            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_STUDENT_TEACHER);
-        } else if (StringUtils.equals(CompareProgramsExtracurricularsController.TAB_NAME, _tab)) {
-            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_PROGRAMS_EXTRACURRICULARS);
-        } else if (StringUtils.equals(CompareMapController.TAB_NAME, _tab)) {
-            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_MAP);
-        } else {
-            throw new IllegalArgumentException("Tab not recognized for compare: " + _tab);
-        }
+        UrlBuilder builder = AbstractCompareSchoolController.getUrlBuilderForCompareTool(_tab);
 
         if (StringUtils.isNotEmpty(_remove)) {
             String[] schoolsArr = (String[]) ArrayUtils.removeElement(_schools.toLowerCase().split(","), _remove.toLowerCase());

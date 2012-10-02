@@ -425,4 +425,9 @@ public class CompareTestScoresController extends AbstractCompareSchoolController
     public void setCompareLabelInfoDao(ICompareLabelInfoDao compareLabelInfoDao) {
         _compareLabelInfoDao = compareLabelInfoDao;
     }
+
+    @Override
+    protected String getTabName() {
+        return TAB_NAME;
+    }
 }

@@ -286,4 +286,9 @@ public class CompareProgramsExtracurricularsController extends AbstractCompareSc
     public void setEspResponseDao(IEspResponseDao espResponseDao) {
         _espResponseDao = espResponseDao;
     }
+
+    @Override
+    protected String getTabName() {
+        return TAB_NAME;
+    }
 }

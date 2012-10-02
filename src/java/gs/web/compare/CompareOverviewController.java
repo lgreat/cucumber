@@ -28,6 +28,11 @@ public class CompareOverviewController extends AbstractCompareSchoolController {
     }
 
     @Override
+    protected String getTabName() {
+        return TAB_NAME;
+    }
+
+    @Override
     public String getSuccessView() {
         return _successView;
     }

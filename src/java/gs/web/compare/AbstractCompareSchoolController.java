@@ -17,6 +17,7 @@ import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
 import gs.web.util.PageHelper;
+import gs.web.util.RedirectView301;
 import gs.web.util.UrlBuilder;
 import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
@@ -56,6 +57,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public static final String MODEL_PAGE_SIZE = "pageSize";
     public static final String MODEL_RETURN_LINK = "returnLink";
     public static final String MODEL_RETURN_LINK_EXTRA = "returnLinkExtra";
+    public static final String MODEL_REDIRECT_WITH_VALID_SCHOOLS = "RedirectWithValidSchools";
     public static final int DEFAULT_PAGE_SIZE = 4;
     public static final int MIN_SCHOOLS = 0;
     public static final int MAX_SCHOOLS = 8;
@@ -80,7 +82,10 @@ public abstract class AbstractCompareSchoolController extends AbstractController
         Map<String, Object> model = new HashMap<String, Object>();
         List<ComparedSchoolBaseStruct> schools = getSchools(request, model);
         if (schools == null) {
-            return getErrorResponse("invalid school string");
+            return getErrorResponse("invalid school string",response);
+        }else if(model.get(MODEL_REDIRECT_WITH_VALID_SCHOOLS)!= null){
+            UrlBuilder builder = (UrlBuilder)model.get(MODEL_REDIRECT_WITH_VALID_SCHOOLS);
+            return new ModelAndView(new RedirectView301(builder.asSiteRelative(request)));
         }
         model.put(MODEL_SCHOOLS_STRING, request.getParameter(PARAM_SCHOOLS));
         try {
@@ -91,7 +96,7 @@ public abstract class AbstractCompareSchoolController extends AbstractController
             handleMSL(request, schools, model);
         } catch (Exception e) {
             _log.error(e, e);
-            return getErrorResponse("unknown exception");
+            return getErrorResponse("unknown exception",response);
         }
         return new ModelAndView(getSuccessView(), model);
     }
@@ -279,13 +284,15 @@ public abstract class AbstractCompareSchoolController extends AbstractController
     public abstract String getSuccessView();
     /** Return an instance of the struct appropriate for the implementing class. */
     protected abstract ComparedSchoolBaseStruct getStruct();
-
+    /** Return the appropriate tab name for the implementing class. */
+    protected abstract String getTabName();
     /**
      * Returns an error view.
      */
-    protected ModelAndView getErrorResponse(String details) {
+    protected ModelAndView getErrorResponse(String details,HttpServletResponse response) {
         Map<String, String> errorModel = new HashMap<String, String>(1);
         errorModel.put("details", details);
+        response.setStatus(500);
         return new ModelAndView(_errorView, errorModel);
     }
 
@@ -390,11 +397,30 @@ public abstract class AbstractCompareSchoolController extends AbstractController
             return new ArrayList<ComparedSchoolBaseStruct>(0);
         }
         String[] splitSchools = schoolsParamValue.split(",");
+
+        int numSchoolsOriginal =  splitSchools.length;
+
+        //Store all the schools in the request param in a list.
+        List<String> schoolsList = new ArrayList(Arrays.asList(splitSchools));
+
         if (!validateSchools(splitSchools)) {
             return null;
         }
 
         splitSchools = paginateSchools(request, splitSchools, model);
+
+        //Remove all the schools that are on the current page from the list.
+        //Only valid schools will be added back in the list.
+        List<String> schoolsToRemove = new ArrayList(Arrays.asList(splitSchools));
+        for (int i = 0; i < splitSchools.length; i++) {
+            for (String school : schoolsList) {
+                if (school.equals(splitSchools[i])) {
+                    schoolsToRemove.add(school);
+                }
+            }
+        }
+        schoolsList.removeAll(schoolsToRemove);
+
         List<ComparedSchoolBaseStruct> rval = new ArrayList<ComparedSchoolBaseStruct>(splitSchools.length);
         for (String splitSchool: splitSchools) {
             try {
@@ -404,21 +430,47 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                 if (school == null) {
                     _log.error("Compare schools School not found. School " + splitSchool +
                         " from \"" + schoolsParamValue + "\"");
-                    return null;
                 } else if (school.isPreschoolOnly()) {
                     _log.error("Compare does not support preschools.");
-                    return null;
+                } else if (!school.isActive()){
+                    _log.error("School is not active.");
+                }else{
+                    ComparedSchoolBaseStruct struct = getStruct();
+                    struct.setSchool(school);
+                    rval.add(struct);
+                    //Add valid schools to the list.
+                    schoolsList.add(splitSchool);
                 }
-                ComparedSchoolBaseStruct struct = getStruct();
-                struct.setSchool(school);
-                rval.add(struct);
+
             } catch (ObjectRetrievalFailureException orfe) {
                 _log.error("Compare schools School not found. School " + splitSchool +
                         " from \"" + schoolsParamValue + "\"");
                 return null;
             }
         }
-        return rval;
+
+        if(numSchoolsOriginal != schoolsList.size() && schoolsList.size()>0){
+            getRedirectWithValidSchools(request,schoolsList,model);
+        }
+
+        return rval.isEmpty() ? null : rval;
+    }
+
+    protected void getRedirectWithValidSchools(HttpServletRequest request, List<String> schoolsList,
+                                               Map<String, Object> model) {
+
+        UrlBuilder builder = getUrlBuilderForCompareTool(getTabName());
+        Map<String, String> queryParams = UrlUtil.getParamsFromQueryString(request.getQueryString());
+
+        for (String param : queryParams.keySet()) {
+            if (!param.equals(PARAM_SCHOOLS)) {
+                builder.setParameter(param, queryParams.get(param));
+            }
+        }
+
+        String[] schoolsArr = schoolsList.toArray(new String[schoolsList.size()]);
+        builder.setParameter(PARAM_SCHOOLS, StringUtils.join(schoolsArr, ","));
+        model.put(MODEL_REDIRECT_WITH_VALID_SCHOOLS, builder);
     }
 
     /**
@@ -533,6 +585,26 @@ public abstract class AbstractCompareSchoolController extends AbstractController
                 }
             }
         }
+    }
+
+    public static UrlBuilder getUrlBuilderForCompareTool(String tabName) {
+        UrlBuilder builder;
+        if (StringUtils.equals(CompareOverviewController.TAB_NAME, tabName)) {
+            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_OVERVIEW);
+        } else if (StringUtils.equals(CompareRatingsController.TAB_NAME, tabName)) {
+            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_RATINGS);
+        } else if (StringUtils.equals(CompareTestScoresController.TAB_NAME, tabName)) {
+            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_TEST_SCORES);
+        } else if (StringUtils.equals(CompareStudentTeacherController.TAB_NAME, tabName)) {
+            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_STUDENT_TEACHER);
+        } else if (StringUtils.equals(CompareProgramsExtracurricularsController.TAB_NAME, tabName)) {
+            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_PROGRAMS_EXTRACURRICULARS);
+        } else if (StringUtils.equals(CompareMapController.TAB_NAME, tabName)) {
+            builder = new UrlBuilder(UrlBuilder.COMPARE_SCHOOLS_MAP);
+        } else {
+            throw new IllegalArgumentException("Tab not recognized for compare: " + tabName);
+        }
+        return builder;
     }
 
     // FIELD ACCESSOR/MUTATORS
