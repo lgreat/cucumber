@@ -324,7 +324,7 @@ GS.Tabs = function(selectorOrContainer, tabSuiteName, options) {
             getTabBySelector:getTabBySelector,
             setParentGsTabs:setParentGsTabs,
             setParentTab:setParentTab,
-            allowInterceptHovers:allowInterceptHovers,
+            allowInterceptHovers:allowInterceptHovers
         };
     }()).init();
 };
