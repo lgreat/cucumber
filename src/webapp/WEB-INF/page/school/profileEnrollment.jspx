@@ -15,7 +15,7 @@
     <c:choose>
         <c:when test="${apply.learnMoreUrl != null and apply.learnMoreUrl != ''}">
             <c:set var="linkFindOutMore">
-                <a href="${apply.learnMoreUrl}" target="_blank">Learn more about<br/>enrolling at this school &amp;raquo;</a>
+                <a href="${apply.learnMoreUrl}" target="_blank" onclick="if (s.tl) {s.tl(this,'o', 'enrollment_learn_more');}">Learn more about<br/>enrolling at this school &amp;raquo;</a>
             </c:set>
             <c:set var="linkApplyNow">
                 <div onclick="window.open('${apply.learnMoreUrl}','', ''); if (s.tl) {s.tl(this,'o', 'apply_now_button');} return false;">
