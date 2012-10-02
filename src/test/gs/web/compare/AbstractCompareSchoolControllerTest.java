@@ -59,6 +59,11 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
             protected ComparedSchoolBaseStruct getStruct() {
                 return new ComparedSchoolBaseStruct();
             }
+
+            @Override
+            protected String getTabName() {
+                return "";
+            }
         };
 
         _schoolDao = createStrictMock(ISchoolDao.class);
@@ -183,6 +188,7 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
 
         // test no school found
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(null);
+        expect(_schoolDao.getSchoolById(State.CA, 2)).andReturn(null);
         getRequest().setParameter(PARAM_SCHOOLS, "ca1,ca2");
         replayAllMocks();
         assertNull(_controller.getSchools(getRequest(), _model));
@@ -198,7 +204,9 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
         resetAllMocks();
 
         School ca1 = new School();
+        ca1.setActive(true);
         School ca2 = new School();
+        ca2.setActive(true);
         List<ComparedSchoolBaseStruct> schools;
 
         expect(_schoolDao.getSchoolById(State.CA, 1)).andReturn(ca1);
@@ -267,8 +275,10 @@ public class AbstractCompareSchoolControllerTest extends BaseControllerTestCase 
 
         School ca1 = new School();
         ca1.setDatabaseState(State.CA);
+        ca1.setActive(true);
         School ak1 = new School();
         ak1.setDatabaseState(State.AK);
+        ak1.setActive(true);
 
         // too few schools
         getRequest().setParameter(PARAM_SCHOOLS, "ca1");
