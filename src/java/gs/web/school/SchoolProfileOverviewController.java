@@ -177,7 +177,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school, 5) );
 
         // 7th row is Facebook integration
-        model.put(FACEBOOK_MODEL_KEY, getFacebookTile( request, school, espData) );
+        model.put(FACEBOOK_MODEL_KEY, getFacebookTile(school) );
 
         // 8th row is Sports/Arts/Music
         model.put(SPORTS_MODEL_KEY, getSportsArtsMusicEspTile(espData));
@@ -1418,7 +1418,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return sportsModel;
     }
 
-    private Map<String, Object> getFacebookTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    private Map<String, Object> getFacebookTile(School school) {
 
         Map<String, Object> facebookModel = new HashMap<String, Object>(4);
 
@@ -1470,6 +1470,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         // Row 4 - Default: Related content
         model.put( RELATED_CONTENT_MODEL_KEY, getRelatedEspTile(request, school, 6) );
 
+        // Row 5 is Facebook integration
+        model.put(FACEBOOK_MODEL_KEY, getFacebookTile(school) );
     }
 
     Map<String, Object> getSchoolVisitChecklistTile(HttpServletRequest request, School school) {
