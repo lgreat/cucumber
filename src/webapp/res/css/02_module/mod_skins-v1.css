@@ -148,7 +148,6 @@ General comments:
   padding:5px;
 }
 .standard_3-1 .inner{
-    /*display: inline-block;*/
   border:1px solid #d2e9f3; 
   -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
      -moz-border-radius: 4px; /* FF1-3.6 */
@@ -768,13 +767,41 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
 .photoGalleryWrapper .inner{background-color: #fff;}
 .photoGalleryWrapper .article-photo-gallery-close{cursor: pointer;}
 .photoGalleryWrapper .photoGalleryViewer{text-align: center;}
-.photoGalleryWrapper .galleryPhotoFullsize{width:390px;margin:0 auto;}
+.photoGalleryWrapper .galleryPhotoFullsize{ margin:0 auto;}
 .photoGalleryWrapper .galleryPhotoFullsize img{display:block;padding: 0;margin:0 0 5px;}
-.photoGalleryWrapper .galleryPhotoFullsize span{clear:both;display:block;width:100%;height:25px;margin:0;padding: 0;overflow: hidden;}
-.photoGalleryWrapper .photoGalleryControls{margin:0;padding:0;text-align:center;}
+.photoGalleryWrapper .galleryPhotoFullsize span{clear:both;display:block;margin:0;padding: 0;}
+.photoGalleryWrapper .photoGalleryControls{margin:0;padding:0;text-align:center; }
 .photoGalleryWrapper .article-photo-gallery-back{position: absolute; top: 176.5px;left: 11px;cursor: pointer;}
-.photoGalleryWrapper .article-photo-gallery-next{position: absolute; top: 176.5px; left: 471px;cursor: pointer;}
+.photoGalleryWrapper .article-photo-gallery-next{position: absolute; top: 176.5px; right: 11px;cursor: pointer;}
 
+.gallery-thumbnail {
+    border: 2px solid #fff;
+}
+
+.gallery-thumbnail img {
+    border: 1px solid #ccc;
+}
+
+div .gallery-thumbnail:hover {
+    border: 2px solid #999;
+    cursor: pointer;
+}
+
+div .gallery-thumbnail:hover img {
+    border: 1px solid #fff;
+}
+
+.gallery-thumbnail-selected {
+    border: 2px solid #2092C4;
+}
+
+.gallery-thumbnail-selected img {
+    border: 1px solid #fff;
+}
+
+div .gallery-thumbnail-selected:hover {
+    border: 2px solid #2092C4;
+}
 
 /* =12c-3.2.1 infinite carousel 8 (Article Photo gallery GS-12625)
 -------------------------------------------------------------------------------------------*/
