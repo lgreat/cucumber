@@ -23,7 +23,7 @@ GS.map.getMap = GS.map.getMap ||(function(){
         });
         schoolList = $('#js-schoolList');
         var height = getHeight();
-        schoolList.css({height: height, overflowY: 'auto'});
+        schoolList.css({height: height, overflowY: 'auto', overflowX: 'hidden'});
         $('.js-mouseover-open-bubble').live('mouseover', function() {
             var id = jQuery(this).attr('id');
             var schoolIdentifier = id.replace('school-listitem-', '');
