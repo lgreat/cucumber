@@ -15,6 +15,7 @@
           xmlns:mod="urn:jsptagdir:/WEB-INF/tags/mod"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
           xmlns:ad="urn:jsptagdir:/WEB-INF/tags/ad"
+          xmlns:k12="urn:jsptagdir:/WEB-INF/tags/promo/k12"
         >
 <jsp:directive.page import="gs.data.school.School"/>
 <jsp:directive.page import="gs.web.util.PageHelper"/>
@@ -102,6 +103,8 @@
             });
         });
     </script>
+
+    <k12:trafficDriverIncludes/>
 
     <profile:facebookConfig showLongText="false" state="${school.databaseState}" schoolId="${school.id}"/>
     <ad:setSlotPrefix slotPrefix="School_Profile_Page"/>
