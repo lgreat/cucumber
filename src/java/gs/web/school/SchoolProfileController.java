@@ -38,6 +38,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
         Map<String, Object> model = new HashMap<String, Object>();
 
         School school = _requestAttributeHelper.getSchool(request);
+        school.getMetadataValue("gs_rating"); // force lazy initialization
         model.put("school", school);
 
         SessionContext sc = SessionContextUtil.getSessionContext(request);
