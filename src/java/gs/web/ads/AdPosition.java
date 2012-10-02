@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: AdPosition.java,v 1.115 2012/09/27 15:08:55 yfan Exp $
+ * $Id: AdPosition.java,v 1.116 2012/10/02 20:29:41 yfan Exp $
  */
 package gs.web.ads;
 
@@ -158,8 +158,8 @@ public class AdPosition extends Enum {
     public static final AdPosition Sponsor_88x31 = new AdPosition("Sponsor_88x31", true); // GS-11708
     public static final AdPosition SchoolReviews_Integrated_586x30 = new AdPosition("SchoolReviews_Integrated_586x30", true); // GS-11969
     public static final AdPosition K12_Module_Logo_88x31 = new AdPosition("K12_Module_Logo_88x31", true); // GS-11927
-    public static final AdPosition Custom_Peelback_Ad = new AdPosition("Custom_Peelback_Ad", true, true); // GS-11966
-    public static final AdPosition Custom_Welcome_Ad = new AdPosition("Custom_Welcome_Ad", true, true); // GS-11966
+    public static final AdPosition Custom_Peelback_Ad = new AdPosition("Custom_Peelback_Ad", true); // GS-11966
+    public static final AdPosition Custom_Welcome_Ad = new AdPosition("Custom_Welcome_Ad", true); // GS-11966
     public static final AdPosition House_Ad_300x210 = new AdPosition("House_Ad_300x210", true); // GS-12049
     public static final AdPosition Sponsor_320x50 = new AdPosition("Sponsor_320x50", true); //GS-12366
     public static final AdPosition Sponsor_630x40 = new AdPosition("Sponsor_630x40", true); //GS-13058
@@ -178,17 +178,11 @@ public class AdPosition extends Enum {
 
     private boolean _isGAMPosition;
     private boolean _isMobileSpecific = false;
-    private boolean _isOutOfPageSlot = false;
     private String _baseName = null;
     private Set<AdSize> _sizes = new HashSet<AdSize>();
     private Set<AdSize> _companionSizes = new HashSet<AdSize>();
 
     private boolean _isActive;
-
-    private AdPosition(String s, boolean isGamControlled, boolean isOutOfPageSlot) {
-        this(s, isGamControlled);
-        _isOutOfPageSlot = isOutOfPageSlot;
-    }
 
     private AdPosition(String s, boolean isGamControlled) {
         this(s, isGamControlled, (Set<AdSize>)null);
@@ -303,14 +297,6 @@ public class AdPosition extends Enum {
      */
     public boolean isMobileSpecific() {
         return _isMobileSpecific;
-    }
-
-    /**
-     * @return true if the ad position is an out-of-page ad slot
-     * @see http://support.google.com/dfp_premium/bin/answer.py?hl=en&answer=1650154
-     */
-    public boolean isOutOfPageSlot() {
-        return _isOutOfPageSlot;
     }
 
     /**
