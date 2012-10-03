@@ -109,6 +109,7 @@
     <profile:principalReviewSubmitted/>
     <compare:compareSchoolsLimitReachedHover/>
     <communityHover:espAccountVerified/>
+    <communityHover:schoolEspThankYou/>
 
  <![CDATA[
     <!--[if IE 7]>

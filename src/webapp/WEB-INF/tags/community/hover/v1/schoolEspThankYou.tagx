@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+        >
+
+    <div id="schoolEspThankYou" class="dn">
+    <div class="mod modal_1 width_16" id="schoolEspThankYou">
+    <div class="outer">
+    <div class="fr"><span class="iconx24 i-24-close  js_closeHover"><!-- do not collapse --></span></div>
+    <div class="inner">
+        <h2>Your request has been submitted</h2>
+        <p>
+            Thank you for registering for a GreatSchools School Official account!
+            You will receive an email in 2-4 days confirming that your account has been approved.
+            Please click on the link in the email to activate your account and begin editing
+            your Official School Profile.
+        </p>
+        <button class="button-1 schoolEspThankYou_hideHover" type="button">OK</button>
+    </div>
+    </div>
+    </div>
+    </div>
+</jsp:root>
