@@ -350,7 +350,7 @@
         <button class="button-1 joinBtn" type="submit" name="joinBtn" id="joinBtn">Join now</button>
     </div>
     <div class="unit size11of19 lastUnit small">
-        <a href="#" class="js_closeHover">No thanks</a>
+        <a href="javascript:void(0)" class="js_closeHover">No thanks</a>
     </div>
 </div>
 
