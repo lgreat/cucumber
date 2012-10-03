@@ -29,7 +29,9 @@
 
                     </div>
                     <div class="unit size5of14">
-                        <input type="text" id="semail" class="text-smaller input_5 setemail" name="email"/>
+                        <input type="text" id="semail" class="text-smaller input_5 setemail" name="email"
+                               onfocus="if(this.value=='[Enter email address]'){this.value='';}"
+                               onblur="if(this.value==''){this.value='[Enter email address]';}"/>
                     </div>
                     <div class="unit size3of7 lastUnit">
                         <div class="errors">
