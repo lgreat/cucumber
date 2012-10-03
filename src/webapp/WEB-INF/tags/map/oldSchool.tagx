@@ -55,7 +55,7 @@ centerSchool.location = new GLatLng(${school.lat}, ${school.lon});
 centerSchool.ratingHtml = '';
 <c:if test="${gs_rating ne null and gs_rating gt 0 and gs_rating lt 11}">
     <c:set var="schoolRatingImg">
-        <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${gs_rating}" schoolType="${school.type}" isPreschoolOnly="${school.levelCode eq 'p'}" spriteSize="small"/>
+        <ratings:ratingsSprite isNewGsRating="${school.isNewGSRating}" gsRating="${gs_rating}" schoolType="${school.type.schoolTypeName}" isPreschoolOnly="${school.levelCode eq 'p'}" spriteSize="small"/>
     </c:set>
 var schoolRatingImg = '${fn:trim(schoolRatingImg)}';
 
@@ -101,7 +101,7 @@ function initSchoolInfo() {
     mySchool.ratingHtml = '';
     <c:if test="${nearbySchool.rating ne null and nearbySchool.rating gt 0 and nearbySchool.rating lt 11}">
         <c:set var="schoolRatingImg">
-           <ratings:ratingsSprite isNewGsRating="${curSchool.isNewGSRating}" gsRating="${nearbySchool.rating}" schoolType="${curSchool.type}" isPreschoolOnly="${curSchool.levelCode eq 'p'}" spriteSize="small"/>
+           <ratings:ratingsSprite isNewGsRating="${curSchool.isNewGSRating}" gsRating="${nearbySchool.rating}" schoolType="${curSchool.type.schoolTypeName}" isPreschoolOnly="${curSchool.levelCode eq 'p'}" spriteSize="small"/>
         </c:set>
         schoolRatingImg = '${fn:trim(schoolRatingImg)}';
         mySchool.ratingHtml = '<div class="schoolRating" style="float: left"><link:schoolProfileRating school="${curSchool}" title="GreatSchools Rating: ${nearbySchool.rating} out of 10. Greatschools Ratings are based on test results. 10 is best.">'+

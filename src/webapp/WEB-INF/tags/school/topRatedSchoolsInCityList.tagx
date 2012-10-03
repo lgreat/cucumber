@@ -42,7 +42,7 @@
                         </div>
                         <div class="unit size25of100 lastUnit tar">
                             <ratings:ratingsSprite isNewGsRating="${s.school.isNewGSRating}" gsRating="${s.rating}"
-                                                   schoolType="${s.school.type}" isPreschoolOnly="${s.school.levelCode eq 'p'}" spriteSize="small"/>
+                                                   schoolType="${s.school.type.schoolTypeName}" isPreschoolOnly="${s.school.levelCode eq 'p'}" spriteSize="small"/>
                         </div>
                     </div>
 

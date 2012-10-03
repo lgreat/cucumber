@@ -190,7 +190,7 @@
                             </td>
                             <td style="text-align: right" class="dottedLineBottomBox">
                                 <ratings:ratingsSprite isNewGsRating="${s.school.isNewGSRating}" gsRating="${s.rating}"
-                                                       schoolType="${s.school.type}" isPreschoolOnly="${s.school.levelCode eq 'p'}" spriteSize="small"/>
+                                                       schoolType="${s.school.type.schoolTypeName}" isPreschoolOnly="${s.school.levelCode eq 'p'}" spriteSize="small"/>
 
                             </td>
                         </tr>
