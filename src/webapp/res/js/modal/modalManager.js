@@ -112,7 +112,9 @@ function ModalLayer(options, id){
 				+getContent()+'</div></div>'+'</div>');
         if(getContent() == ""){
             $('#'+getLayerId() + ' .mod').clone('true').appendTo($('#modallayer'+getId() + ' .js-modal'));
-            var he = ($('#'+getLayerId() + ' .mod').height())/1.95;
+            if(he == 0){
+                he = ($('#'+getLayerId() + ' .mod').height())/1.95;
+            }
             $('#modallayer'+getId() + ' .js-modal').css("top", "-"+he+'px');
         }
 	}
