@@ -35,7 +35,9 @@
                                                      schools="${schoolsString}"
                                                      page="${page}"
                                                      remove="${school.uniqueIdentifier}"
-                                                     source="${requestScope.source}"><span
+                                                     source="${requestScope.source}"
+                                                     id="js_compare_tool_school_${school.uniqueIdentifier}"
+                                                     styleClass="js_compare_tool_remove_school"><span
                                         class="sprite cpareColClose"><!-- do not collapse --></span>
                                 </link:compareSchools>
                             </div>
