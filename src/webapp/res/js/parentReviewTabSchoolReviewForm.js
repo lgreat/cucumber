@@ -51,12 +51,9 @@ jQuery(function() {
             }
             var redirectUrl = window.location.href;
             var reloading = true;
-            if (data.redirectUrl !== undefined && (redirectUrl!== undefined && redirectUrl.indexOf("state=")>0)) {
+            if (data.redirectUrl !== undefined) {
                 redirectUrl = data.redirectUrl;
                 GSType.hover.signInHover.setRedirect(data.redirectUrl);
-                reloading = false;
-            } else if (data.redirectUrl !== undefined && (redirectUrl!== undefined && redirectUrl.indexOf("state=")<0)) {
-                GSType.hover.signInHover.setRedirect(redirectUrl);
                 reloading = false;
             }
             if (callerFormId) {

@@ -15,6 +15,7 @@ import gs.data.util.DigestUtil;
 import gs.data.util.email.EmailHelperFactory;
 import gs.web.community.IReportContentService;
 import gs.web.community.registration.EmailVerificationReviewOnlyEmail;
+import gs.web.school.AbstractSchoolController;
 import gs.web.school.SchoolPageInterceptor;
 import gs.web.tracking.OmnitureTracking;
 import gs.web.util.ReadWriteController;
@@ -257,7 +258,14 @@ public class SchoolReviewsAjaxController extends AbstractCommandController imple
             responseValues.put("reviewEvent", OmnitureTracking.SuccessEvent.ParentReview.toOmnitureString());
         }
         responseValues.put("reviewPosted", String.valueOf(reviewPosted));
-        responseValues.put("redirectUrl", new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS).asFullUrl(request));
+        UrlBuilder urlBuilder;
+        if (school.isSchoolForNewProfile()) {
+            urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+            urlBuilder.addParameter("tab", AbstractSchoolController.NewProfileTabs.reviews.getParameterValue());
+        } else {
+            urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PARENT_REVIEWS);
+        }
+        responseValues.put("redirectUrl", urlBuilder.asFullUrl(request));
 
         successJSON(response, responseValues);
 
