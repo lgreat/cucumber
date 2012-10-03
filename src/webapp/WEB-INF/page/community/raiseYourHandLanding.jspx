@@ -25,7 +25,9 @@
 </head>
 <body>
 
-    <div class="grid_16">
+    <div class="grid_16 ryh-landing">
+
+        <div class='prs plm'>
         <h1>Raise Your Hand</h1>
 
         <div class="">
@@ -77,7 +79,10 @@
         </c:set>
         ${raiseYourHandRecentQuestions}
 
+        </div>
+
     </div>
+
 
 
 <!-- sidebar that shows More-In: -->
