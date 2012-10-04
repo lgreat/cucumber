@@ -36,6 +36,7 @@
             <!-- Before and after information to be displayed.  These will have the boolean valuse of true or false -->
             <c:set var="extdCareBefore"   value="${specialEdModel['ExtdCareBefore']}" scope="page" />
             <c:set var="extdCareAfter"    value="${specialEdModel['ExtdCareAfter']}"  scope="page" />
+            <c:set var="extdCareNeither"    value="${specialEdModel['ExtdCareNeither']}"  scope="page" />
             <!-- Before and after times.  These will have the time value or empty if none -->
             <c:set var="extdCareBeforeTime"   value="${specialEdModel['ExtdCareBeforeTime']}" scope="page" />
             <c:set var="extdCareAfterTime"    value="${specialEdModel['ExtdCareAfterTime']}"  scope="page" />
@@ -184,6 +185,13 @@
                                             </div>
                                             <div class="unit size50of100 lastUnit">
                                                 <p class="small bottom">Ends ${fn:toLowerCase(extdCareAfterTime)}</p>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                    <c:if test = "${!extdCareBefore and !extdCareAfter and extdCareNeither}">
+                                        <div class="line">
+                                            <div class="unit size1of1 lastUnit">
+                                                <p class="small_bold bottom">Before and after school programming is not provided.</p>
                                             </div>
                                         </div>
                                     </c:if>

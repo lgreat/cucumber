@@ -685,8 +685,10 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
                 // handle display based on contents of beforeAfterCare
                 boolean hasBeforeCare = checkEspResponseListForValue(beforeAfterCare, new String[]{"before"});
                 boolean hasAfterCare  = checkEspResponseListForValue(beforeAfterCare, new String[]{"after"});
+                boolean hasNeither = checkEspResponseListForValue(beforeAfterCare, new String[]{"neither"});
                 specialEdModel.put( "ExtdCareBefore", new Boolean(hasBeforeCare) );
                 specialEdModel.put( "ExtdCareAfter", new Boolean(hasAfterCare) );
+                specialEdModel.put( "ExtdCareNeither", new Boolean(hasNeither) );
                 if( isNotEmpty(beforeAfterCareStart) ) {
                     specialEdModel.put( "ExtdCareBeforeTime", beforeAfterCareStart.get(0).getSafeValue() );
                 }
