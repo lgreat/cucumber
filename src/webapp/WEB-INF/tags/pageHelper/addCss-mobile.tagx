@@ -22,25 +22,25 @@
                          or pageContext.request.serverName eq '127.0.0.1')
                          and empty param.compressedScripts}">
 
-            <gsml:url var="reset" value="/res/mobile/css/00_reset/reset.css"/>
-            <gsml:url var="gridoocss" value="/res/mobile/css/01_grids/grid_oocss.css"/>
-            <gsml:url var="module" value="/res/mobile/css/02_module/mod.css"/>
-            <gsml:url var="moduleskin" value="/res/mobile/css/02_module/mod_skins.css"/>
-            <gsml:url var="contain" value="/res/mobile/css/02_module/container.css"/>
-            <gsml:url var="media" value="/res/mobile/css/03_media/media.css"/>
-            <gsml:url var="text" value="/res/mobile/css/04_text/typography.css"/>
-            <gsml:url var="buttons" value="/res/mobile/css/05_buttons/buttons.css"/>
-            <gsml:url var="filterbuttons" value="/res/mobile/css/05_buttons/filter.css"/>
-            <gsml:url var="icon" value="/res/mobile/css/06_sprites/icon.css"/>
-            <gsml:url var="forms" value="/res/mobile/css/07_forms/forms.css"/>
-            <gsml:url var="topnavigation" value="/res/mobile/css/08_navigation/top.css"/>
-            <gsml:url var="spacing" value="/res/mobile/css/09_spacing/spacing.css"/>
-            <gsml:url var="tables" value="/res/mobile/css/11_tables/tables.css"/>
-            <gsml:url var="bar_graphs" value="/res/mobile/css/12_graphs/bar_graphs.css"/>
-            <gsml:url var="tabs" value="/res/mobile/css/13_tabs/tabs.css"/>
-            <gsml:url var="ratings" value="/res/mobile/css/14_ratings/ratings.css"/>
-            <gsml:url var="modalLayer" value="/res/mobile/css/15_modal/modal.css"/>
-            <gsml:url var="datauri" value="/res/mobile/css/16_datauri/hires.css"/>
+            <gsml:url var="reset" value="/res/mobile/css/00_reset/reset.css?v=${gswebBuildTime}"/>
+            <gsml:url var="gridoocss" value="/res/mobile/css/01_grids/grid_oocss.css?v=${gswebBuildTime}"/>
+            <gsml:url var="module" value="/res/mobile/css/02_module/mod.css?v=${gswebBuildTime}"/>
+            <gsml:url var="moduleskin" value="/res/mobile/css/02_module/mod_skins.css?v=${gswebBuildTime}"/>
+            <gsml:url var="contain" value="/res/mobile/css/02_module/container.css?v=${gswebBuildTime}"/>
+            <gsml:url var="media" value="/res/mobile/css/03_media/media.css?v=${gswebBuildTime}"/>
+            <gsml:url var="text" value="/res/mobile/css/04_text/typography.css?v=${gswebBuildTime}"/>
+            <gsml:url var="buttons" value="/res/mobile/css/05_buttons/buttons.css?v=${gswebBuildTime}"/>
+            <gsml:url var="filterbuttons" value="/res/mobile/css/05_buttons/filter.css?v=${gswebBuildTime}"/>
+            <gsml:url var="icon" value="/res/mobile/css/06_sprites/icon.css?v=${gswebBuildTime}"/>
+            <gsml:url var="forms" value="/res/mobile/css/07_forms/forms.css?v=${gswebBuildTime}"/>
+            <gsml:url var="topnavigation" value="/res/mobile/css/08_navigation/top.css?v=${gswebBuildTime}"/>
+            <gsml:url var="spacing" value="/res/mobile/css/09_spacing/spacing.css?v=${gswebBuildTime}"/>
+            <gsml:url var="tables" value="/res/mobile/css/11_tables/tables.css?v=${gswebBuildTime}"/>
+            <gsml:url var="bar_graphs" value="/res/mobile/css/12_graphs/bar_graphs.css?v=${gswebBuildTime}"/>
+            <gsml:url var="tabs" value="/res/mobile/css/13_tabs/tabs.css?v=${gswebBuildTime}"/>
+            <gsml:url var="ratings" value="/res/mobile/css/14_ratings/ratings.css?v=${gswebBuildTime}"/>
+            <gsml:url var="modalLayer" value="/res/mobile/css/15_modal/modal.css?v=${gswebBuildTime}"/>
+            <gsml:url var="datauri" value="/res/mobile/css/16_datauri/hires.css?v=${gswebBuildTime}"/>
 
             <![CDATA[<link rel="stylesheet" href="${reset}" type="text/css" />]]>
             <![CDATA[<link rel="stylesheet" href="${gridoocss}" type="text/css" />]]>
@@ -63,9 +63,9 @@
             <![CDATA[<link rel="stylesheet" href="${datauri}" type="text/css" />]]>
         </c:when>
         <c:otherwise>
-            <gsml:url var="datauri" value="/res/mobile/css/16_datauri/hires.css"/>
+            <gsml:url var="datauri" value="/res/mobile/css/16_datauri/hires.css?v=${gswebBuildTime}"/>
             <![CDATA[<link rel="stylesheet" href="${datauri}" type="text/css" />]]>
-            <gsml:url var="gs_mobile_stylescss" value="/res/mobile/css/gs_mobile_styles.combined.min.css"/>
+            <gsml:url var="gs_mobile_stylescss" value="/res/mobile/css/gs_mobile_styles.combined.min.css?v=${gswebBuildTime}"/>
             <![CDATA[<link rel="stylesheet" href="${gs_mobile_stylescss}" type="text/css" />]]>
         </c:otherwise>
     </c:choose>

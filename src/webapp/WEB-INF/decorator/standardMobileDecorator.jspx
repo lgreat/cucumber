@@ -26,6 +26,15 @@
         <meta name="MobileOptimized" content="320" />
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=10" />
 
+        <jsp:scriptlet>
+            gs.web.util.context.SessionContext sessionContext = gs.web.util.context.SessionContextUtil.getSessionContext(request);
+            if (sessionContext != null) {
+                org.springframework.context.ApplicationContext ac = sessionContext.getApplicationContext();
+
+                java.util.Properties versionProperties =  (java.util.Properties) ac.getBean("versionProperties");
+                request.setAttribute("gswebBuildTime", versionProperties.getProperty("gsweb.buildtime"));
+            }
+        </jsp:scriptlet>
         <pageHelper:addCss-mobile/>
 
         <!-- GS-12953: BEGIN MOBILE GOMEZ TRACKING CODE -->
