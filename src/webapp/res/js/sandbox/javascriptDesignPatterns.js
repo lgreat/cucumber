@@ -184,3 +184,21 @@ function hoistMe() {
 hoistMe();
 
 
+// a named function expression. function name is equal to variable that references the function.
+// named function expressions contain a .name property, which is not part of the language, but available in many browsers.
+var namedFunctionExpression = function namedFunctionExpression() {
+    alert('named function expression. name=' + namedFunctionExpression.name);
+};
+
+// an unnamed function expression. A.K.A. anonymous function
+var unnamedFunctionExpression = function() {
+    alert('unnamed function expression. name=' + unnamedFunctionExpression.name);
+};
+
+// a function declaration. Function declarations don't require a semicolon after the closing curly brace, but function
+// expressions do. Function declarations have a .name property just like named function expressions
+function functionDeclaration() {
+    alert('A function declaration. name=' + functionDeclaration.name);
+}
+
+
