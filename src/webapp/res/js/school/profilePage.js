@@ -188,6 +188,7 @@ GS.profile = GS.profile || (function() {
                     anchorVal += "/" + options.hash;
                 }
                 GS.util.jumpToAnchor("!" + anchorVal);
+                document.title = getUpdatedTitle(currentTab.title);
             }
         }
 
