@@ -65,29 +65,36 @@
                 </c:if>
 
                 <div class="line">
-                    <div class="unit size68of100">
-                        <input type="text" name="q"
-                               class="text-bigger"
-                               style="width: 400px;padding-right:102px;"
-                               id="js-findByNameBox"
-                               placeholder="Search by school or district ..."
-                               value="${searchString}"/>
-                    </div>
-                    <div class="unit size17of100 mrgtop_7 pr">
-                        <span class="quiet bottom"> | </span>
-                        <span class="showState make-06b"><!-- Do not collapse--></span>
-                        <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
-                                             noStateLabel="Select state"
-                                             usingLongNames="false"
-                                             state="${requestScope.context.state}"
-                                             styleClass="stateSelect"
-                                             styleId="js-findByNameStateSelect"/>
-                        <span class="pa" style="left:76px;"><span class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span></span>
+                    <div class='unit searchBarFas size83of100 mrm' style='background: #fff; border: 1px solid #b8b8b8;'>
+                        <div class="fl">
+                            <input type="text" name="q"
+                                   class="text-bigger"
+                                   style="width: 400px; border: none;"
+                                   id="js-findByNameBox"
+                                   placeholder="Search by school or district ..."
+                                   value="${searchString}"/>
+                        </div>
+                        <div class="unit size17of100 mrgtop_7 pr">
+                            <span class="quiet bottom"> | </span>
+                            <span class="showState make-06b"><!-- Do not collapse--></span>
+                            <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
+                                                 noStateLabel="Select state"
+                                                 usingLongNames="false"
+                                                 state="${requestScope.context.state}"
+                                                 styleClass="stateSelect"
+                                                 styleId="js-findByNameStateSelect"/>
+                            <span class="pa" style="left:76px;"><span class="iconx16 i-16-sort-list-arrow-down mrgtop_3"><!-- do not collapse --></span></span>
+                        </div>
                     </div>
                     <div class="unit size20of100 lastUnit">
                         <button class="button-4 searchSubmit" type="submit">Search</button>
                     </div>
                 </div>
+
+
+
+
+
                 <div class="smallest quiet bottom">e.g. "Cragmont Elementary School", "Los Angeles Unified School District"</div>
 
             </form>
