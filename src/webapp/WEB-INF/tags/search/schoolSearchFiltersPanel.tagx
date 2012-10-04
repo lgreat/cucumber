@@ -114,7 +114,7 @@
                     <!--Add grid to lable and drop down-->
                     <search:dropdownFiltersWithLabel id="schoolFocus" cssClass="mbs" label="School Focus" selectedValueLabel="All">
                         <!--<div class="mod standard_6-3">-->
-                        <search:searchFilterWithCount name="schoolFocus" value="ap_courses" styleClass="js-advFilters"
+                        <search:searchFilterWithCount name="schoolFocus" value="AP_courses" styleClass="js-advFilters"
                                                       facetCountsMap="${instructionalModelCounts}"
                                                       label="AP courses offered" omnitureCustomLink="Focus_APCourses"/>
                         <search:searchFilterWithCount name="schoolFocus" value="core_knowledge" styleClass="js-advFilters"
@@ -135,7 +135,7 @@
                         <search:searchFilterWithCount name="schoolFocus" value="performing_arts" styleClass="js-advFilters"
                                                       facetCountsMap="${academicFocusCounts}"
                                                       label="Performing arts focus" omnitureCustomLink="Focus_PerformingArts"/>
-                        <search:searchFilterWithCount name="schoolFocus" value="projected_based" styleClass="js-advFilters"
+                        <search:searchFilterWithCount name="schoolFocus" value="project_based" styleClass="js-advFilters"
                                                       facetCountsMap="${instructionalModelCounts}"
                                                       label="Project-based learning" omnitureCustomLink="Focus_ProjectBased"/>
                         <search:searchFilterWithCount name="schoolFocus" value="special_education" styleClass="js-advFilters"
@@ -341,10 +341,10 @@
                                                       label="Tutors" omnitureCustomLink="Resources_Tutors"/>
 
                         Facilities
-                        <search:searchFilterWithCount name="staffResources" value="college_career" styleClass="js-advFilters"
+                        <search:searchFilterWithCount name="staffResources" value="college_center" styleClass="js-advFilters"
                                                       label="College / Career center"
                                                       omnitureCustomLink="Facilities_CollegeCareerCenter"/>
-                        <search:searchFilterWithCount name="staffResources" value="computers" styleClass="js-advFilters"
+                        <search:searchFilterWithCount name="staffResources" value="computer" styleClass="js-advFilters"
                                                       label="Computer lab" omnitureCustomLink="Facilities_ComputerLab"/>
                         <search:searchFilterWithCount name="staffResources" value="garden" styleClass="js-advFilters"
                                                       label="Garden / Greenhouse"
