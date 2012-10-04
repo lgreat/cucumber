@@ -97,7 +97,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         // 2) for each config row, retrieve the data set and label
         // also populate the 3 maps
         List<CensusDataSet> censusDataSets =
-                getCensusDataSetsNew(state, compareConfigs, censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType);
+                getCensusDataSets(state, compareConfigs, censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType);
         if (censusDataSets == null || censusDataSets.size() == 0) {
             _log.error("Can't find census data sets for " + state + ", " + tab);
             return new ArrayList<CompareConfigStruct[]>();
@@ -162,6 +162,68 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
      * 2) for each config row, retrieve the data set and label.
      * Also populate the 3 maps
      */
+//    protected List<CensusDataSet> getCensusDataSets(
+//            State state,
+//            List<CompareConfig> compareConfigs,
+//            Map<CensusDataSet, CompareLabel> censusDataSetToLabel,
+//            Map<String, Integer> rowLabelToOrder,
+//            Map<CensusDataSet, SchoolType> censusDataSetToSchoolType)
+//    {
+//        List <CensusDataSet> censusDataSets = new ArrayList<CensusDataSet>();
+//        // foreach compareConfig
+//        for(CompareConfig config : compareConfigs){
+//            int dataTypeId = config.getDataTypeId();
+//            CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
+//            Breakdown breakdown = null;
+//            if (config.getBreakdownId() != null) {
+//                breakdown = new Breakdown(config.getBreakdownId());
+//            }
+//            Grades grades = null;
+//            if (config.getGrade() != null) {
+//                grades = Grades.createGrades(config.getGrade());
+//            }
+//
+//            CompareLabel label = _compareLabelDao.findLabel(state,dataTypeId,config.getTabName(),config.getGrade(),breakdown,config.getLevelCode(),config.getSubject());
+//            if (label == null) {
+//                _log.error("Can't find label corresponding to config row: " + config.getId());
+//                continue;
+//            }
+//
+//            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(state,censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),
+//                    grades);
+//            if (censusDataSet != null) {
+//                // add censusDataSet to list
+//                censusDataSets.add(censusDataSet);
+//                //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
+//                censusDataSetToLabel.put(censusDataSet,label);
+//            }
+//            // GS-13037-Add manual override data - that would be a dataset with year=0
+//            CensusDataSet censusDataSetOverride = _censusDataSetDao.findDataSet(state,censusDataType,0,breakdown,config.getSubject(),config.getLevelCode(),
+//                    grades);
+//            if( censusDataSetOverride != null ) {
+//                censusDataSets.add(censusDataSetOverride);
+//                censusDataSetToLabel.put(censusDataSetOverride,label);
+//            }
+//            if (censusDataSet == null && censusDataSetOverride == null) {
+//                _log.warn("Can't find data set corresponding to config row: " + config.getId());
+//                continue;
+//            }
+//
+////            rowLabelToOrder.put(label.getRowLabel(),config.getOrderNum());
+//            // GS-10784: use static mapping across all states. Ignore config's order_num
+//            rowLabelToOrder.put(label.getRowLabel(), getOrderForDataType(config.getDataTypeId()));
+//            if (config.getSchoolType() != null) {
+//                censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
+//            }
+//        }
+//        return censusDataSets;
+//    }
+
+    /**
+     * 2) for each config row, retrieve the data set and label.
+     * Also populate the 3 maps
+     * This version uses a bulk query
+     */
     protected List<CensusDataSet> getCensusDataSets(
             State state,
             List<CompareConfig> compareConfigs,
@@ -170,66 +232,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             Map<CensusDataSet, SchoolType> censusDataSetToSchoolType)
     {
         List <CensusDataSet> censusDataSets = new ArrayList<CensusDataSet>();
-        // foreach compareConfig
-        for(CompareConfig config : compareConfigs){
-            int dataTypeId = config.getDataTypeId();
-            CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
-            Breakdown breakdown = null;
-            if (config.getBreakdownId() != null) {
-                breakdown = new Breakdown(config.getBreakdownId());
-            }
-            Grades grades = null;
-            if (config.getGrade() != null) {
-                grades = Grades.createGrades(config.getGrade());
-            }
 
-            CompareLabel label = _compareLabelDao.findLabel(state,dataTypeId,config.getTabName(),config.getGrade(),breakdown,config.getLevelCode(),config.getSubject());
-            if (label == null) {
-                _log.error("Can't find label corresponding to config row: " + config.getId());
-                continue;
-            }
-
-            CensusDataSet censusDataSet = _censusDataSetDao.findDataSet(state,censusDataType,config.getYear(),breakdown,config.getSubject(),config.getLevelCode(),
-                    grades);
-            if (censusDataSet != null) {
-                // add censusDataSet to list
-                censusDataSets.add(censusDataSet);
-                //  Populate censusDataSetToLabel, rowLabelToOrder, censusDataSetToSchoolType
-                censusDataSetToLabel.put(censusDataSet,label);
-            }
-            // GS-13037-Add manual override data - that would be a dataset with year=0
-            CensusDataSet censusDataSetOverride = _censusDataSetDao.findDataSet(state,censusDataType,0,breakdown,config.getSubject(),config.getLevelCode(),
-                    grades);
-            if( censusDataSetOverride != null ) {
-                censusDataSets.add(censusDataSetOverride);
-                censusDataSetToLabel.put(censusDataSetOverride,label);
-            }
-            if (censusDataSet == null && censusDataSetOverride == null) {
-                _log.warn("Can't find data set corresponding to config row: " + config.getId());
-                continue;
-            }
-
-//            rowLabelToOrder.put(label.getRowLabel(),config.getOrderNum());
-            // GS-10784: use static mapping across all states. Ignore config's order_num
-            rowLabelToOrder.put(label.getRowLabel(), getOrderForDataType(config.getDataTypeId()));
-            if (config.getSchoolType() != null) {
-                censusDataSetToSchoolType.put(censusDataSet,config.getSchoolType());
-            }
-        }
-        return censusDataSets;
-    }
-
-    /**
-     * 2) for each config row, retrieve the data set and label.
-     * Also populate the 3 maps
-     */
-    protected List<CensusDataSet> getCensusDataSetsNew(
-            State state,
-            List<CompareConfig> compareConfigs,
-            Map<CensusDataSet, CompareLabel> censusDataSetToLabel,
-            Map<String, Integer> rowLabelToOrder,
-            Map<CensusDataSet, SchoolType> censusDataSetToSchoolType)
-    {
         // get all of the dataTypeId's and years
         Set<CensusDataType> censusDataTypes = new HashSet<CensusDataType>();
         Set<Integer> censusDataTypeIds = new HashSet<Integer>();
@@ -250,18 +253,33 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
         }
         if( hasNullYear ) {
             years = null;
+        } else {
+            years.add(0); // always inlude manual override data sets
         }
 
+        if (censusDataTypes.isEmpty()) {
+            return censusDataSets;
+        }
         // Get all of the CensusDataSets
         List<CensusDataSet> allCensusDataSets = _censusDataSetDao.findDataSets( state, censusDataTypes, years );
 
+        if (allCensusDataSets == null || allCensusDataSets.isEmpty()) {
+            return censusDataSets;
+        }
+
         // Get all labels
         List<CompareLabel> labels = _compareLabelDao.findLabels(state, compareConfigs.get(0).getTabName(), censusDataTypeIds);
-
-        List <CensusDataSet> censusDataSets = new ArrayList<CensusDataSet>();
+        if (labels == null || labels.isEmpty()) {
+            _log.error("Can't find any census compare labels for " + state);
+            return censusDataSets;
+        }
 
         // foreach compareConfig
         for(CompareConfig config : compareConfigs){
+            // year is set to -1 to override a national config row and exclude the data type
+            if (config.getYear() != null && config.getYear() == -1) {
+                continue;
+            }
 
             CompareLabel label = findCompareLabel( config, labels );
             if (label == null) {
@@ -297,17 +315,21 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     }
 
     private CensusDataSet findCensusDataSet(CompareConfig config, List<CensusDataSet> censusDataSets, Integer year) {
+        // Datatype ID - which is required
+        int dataTypeId = config.getDataTypeId();
+        CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
+        Integer configBreakdownId = config.getBreakdownId();
+        Integer configYear = (year != null) ? year : config.getYear();
+        Subject configSubject = config.getSubject();
+        LevelCode configLevelCode = config.getLevelCode();
+        Grade configGrade = config.getGrade();
 
         for( CensusDataSet censusDataSet : censusDataSets ) {
-            // Datatype ID - which is required
-            int dataTypeId = config.getDataTypeId();
-            CensusDataType censusDataType = CensusDataType.getEnum(dataTypeId);
             if( ! censusDataType.equals(censusDataSet.getDataType()) ) {
                 continue;
             }
 
             // If configBreakdownId is present it must match
-            Integer configBreakdownId = config.getBreakdownId();
             if( configBreakdownId != null ) {
                 Integer censusBreakdownId = censusDataSet.getBreakdown().getId();
                 if( censusBreakdownId == null || !censusBreakdownId.equals(configBreakdownId)) {
@@ -316,7 +338,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
 
             // year
-            Integer configYear = (year != null) ? year : config.getYear();
             if( configYear != null ) {
                 Integer censusYear = censusDataSet.getYear();
                 if( ! censusYear.equals(configYear) ) {
@@ -325,7 +346,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
 
             // If subject is present ...
-            Subject configSubject = config.getSubject();
             if( configSubject != null ) {
                 Subject censusSubject = censusDataSet.getSubject();
                 if( censusSubject == null || !censusSubject.equals(configSubject)) {
@@ -334,7 +354,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
 
             // If configLevelCode is present ...
-            LevelCode configLevelCode = config.getLevelCode();
             if( configLevelCode != null ) {
                 LevelCode censusLevelCode = censusDataSet.getLevelCode();
                 if( censusLevelCode == null || !censusLevelCode.equals(configLevelCode)) {
@@ -343,7 +362,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
 
             // If configGrade is present then have to find matching label grade
-            Grade configGrade = config.getGrade();
             if( configGrade != null ) {
                 Grades censusGrades = censusDataSet.getGradeLevels();
                 if( censusGrades ==  null || !censusGrades.contains(configGrade) ) {
@@ -358,6 +376,10 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
     }
 
     private CompareLabel findCompareLabel(CompareConfig config, List<CompareLabel> labels) {
+        Integer configBreakdownId = config.getBreakdownId();
+        Grade configGrade = config.getGrade();
+        LevelCode configLevelCode = config.getLevelCode();
+        Subject configSubject = config.getSubject();
 
         for( CompareLabel label : labels ) {
             // Datatype ID - which is required
@@ -366,7 +388,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
 
             // If configBreakdownId is present it must match the label breakdownId
-            Integer configBreakdownId = config.getBreakdownId();
             if( configBreakdownId != null ) {
                 Integer labelBreakdownId = label.getBreakdownId();
                 if( labelBreakdownId == null || !labelBreakdownId.equals(configBreakdownId)) {
@@ -375,7 +396,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
 
             // If configGrade is present then have to find matching label grade
-            Grade configGrade = config.getGrade();
             if( configGrade != null ) {
                 Grade labelGrade = label.getGrade();
                 if( labelGrade ==  null || !labelGrade.equals(configGrade) ) {
@@ -384,7 +404,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
 
             // If configLevelCode is present ...
-            LevelCode configLevelCode = config.getLevelCode();
             if( configLevelCode != null ) {
                 LevelCode labelLevelCode = label.getLevelCode();
                 if( labelLevelCode == null || !labelLevelCode.equals(configLevelCode)) {
@@ -393,7 +412,6 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
             }
 
             // If subject is present ...
-            Subject configSubject = config.getSubject();
             if( configSubject != null ) {
                 Subject labelSubject = label.getSubject();
                 if( labelSubject == null || !labelSubject.equals(configSubject)) {
