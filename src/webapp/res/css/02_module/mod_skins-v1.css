@@ -291,9 +291,11 @@ General comments:
     -moz-border-radius: 8px; /* FF1-3.6 */
     border-radius: 8px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
     background-color:#edf5f9;
+    padding:8px;
 }
 .bestKnownFor .bd { text-align: center; }
-.bestKnownFor .bd .quote { font: normal 21px/38px Arial, Helvetica, sans-serif; color: #0578aa; }
+.bestKnownFor .bd .quote { font: normal 17px/24px Arial, Helvetica, sans-serif; color: #0578aa; }
+
 .bestKnownFor .bd .quote .punctuation { font-size: x-large; vertical-align: bottom; }
 
 /* -----|-----|-----|-----|-----|-----|-----|----- */
