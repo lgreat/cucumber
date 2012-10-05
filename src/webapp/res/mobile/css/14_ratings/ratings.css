@@ -155,8 +155,8 @@ General comments:
     box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.3);
 }
 
-.r-small{
-    font: bold 14px/23px arial;
+.r-24{
+    font: bold 14px/24px arial;
     letter-spacing: 0px;
     width: 24px;
     height: 24px;
@@ -167,7 +167,7 @@ General comments:
     text-align: center;
 }
 
-.r-medium {
+.r-32 {
     font: bold 18px/32px arial;
     letter-spacing: -1px;
     width: 32px;
@@ -179,7 +179,7 @@ General comments:
     text-align: center;
 }
 
-.r-large {
+.r-44 {
     font: bold 26px/43px arial;
     letter-spacing: -1px;
     width: 44px;
@@ -191,5 +191,136 @@ General comments:
     text-align: center;
 }
 
+/*-------------------Private school badges-----------------------*/
 
+/* x24
+-------------------------------------------------------------------------------------------*/
 
+.ratingx24-private-O {  /* (orange ratings) */
+    display: inline-block;
+    background-size:264px 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.ratingx24-private-RYG {  /* walton (red-yellow-green ratings) */
+    display: inline-block;
+    background-size:264px 24px;
+    width: 24px;
+    height: 24px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.r-24-1 {
+    background-position: 0 0;
+}
+
+.r-24-2 {
+    background-position: -24px 0;
+}
+
+.r-24-3 {
+    background-position: -48px 0;
+}
+
+.r-24-4 {
+    background-position: -72px 0;
+}
+
+.r-24-5 {
+    background-position: -96px 0;
+}
+
+.r-24-6 {
+    background-position: -120px 0;
+}
+
+.r-24-7 {
+    background-position: -144px 0;
+}
+
+.r-24-8 {
+    background-position: -168px 0;
+}
+
+.r-24-9 {
+    background-position: -192px 0;
+}
+
+.r-24-10 {
+    background-position: -216px 0;
+}
+
+.r-24-na,
+.r-24-NA,
+.r-24-NR {
+    background-position: -240px 0;
+}
+
+/* x32
+-------------------------------------------------------------------------------------------*/
+
+.ratingx32-private-O {  /* (orange ratings) */
+    display: inline-block;
+    background-size:352px 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.ratingx32-private-RYG {  /* walton (red-yellow-green ratings) */
+    display: inline-block;
+    background-size:352px 32px;
+    width: 32px;
+    height: 32px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.r-32-1 {
+    background-position: 0 0;
+}
+
+.r-32-2 {
+    background-position: -32px 0;
+}
+
+.r-32-3 {
+    background-position: -64px 0;
+}
+
+.r-32-4 {
+    background-position: -96px 0;
+}
+
+.r-32-5 {
+    background-position: -128px 0;
+}
+
+.r-32-6 {
+    background-position: -160px 0;
+}
+
+.r-32-7 {
+    background-position: -192px 0;
+}
+
+.r-32-8 {
+    background-position: -224px 0;
+}
+
+.r-32-9 {
+    background-position: -256px 0;
+}
+
+.r-32-10 {
+    background-position: -288px 0;
+}
+
+.r-32-na,
+.r-32-NA,
+.r-32-NR {
+    background-position: -320px 0;
+}

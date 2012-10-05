@@ -65,13 +65,13 @@
          properly display this button for private schools. For 21.2, removing the "private" portion from
          the following if and adding in the missing styles to ratings.css should
          get you where you need. May also need the private sprite actually. -->
-    <c:if test="${not empty gs_rating and school.type.schoolTypeName ne 'private'}">
+    <c:if test="${not empty gs_rating}">
         <div class="fl mrm ">
             <link:schoolProfileTestscore school="${school}" styleClass="but but-sm but-2 but-overview">
                 <div class="vam fl">
                     <ratings:ratingsSprite-mobile isNewGsRating="${school.isNewGSRating}" gsRating="${gs_rating}"
                                                   schoolType="${school.type.schoolTypeName}" isPreschoolOnly="${school.preschoolOnly}"
-                                                  spriteSize="medium"/>
+                                                  spriteSize="32" privateSpriteSize="32"/>
                 </div>
                 <div class="tal pls fl">GreatSchools<br/>Rating</div>
             </link:schoolProfileTestscore>

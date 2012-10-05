@@ -78,7 +78,7 @@
                                         <!--<div class="ratings-round ratings-small round-small vab fl"><div class="ratings-number number-small">${school.greatSchoolsRating}</div></div> <div class="smaller ac1 fl pls pt3"> of 10</div>-->
                                         <ratings:ratingsSprite-mobile isNewGsRating="${school.isNewGSRating}" gsRating="${school.greatSchoolsRating}"
                                                                       schoolType="${schoolType}" isPreschoolOnly="${school.levelCode eq 'p'}"
-                                                                      spriteSize="small"/>
+                                                                      spriteSize="24"/>
                                     </div>
                                     <c:if test="${not empty school.greatSchoolsRating and school.greatSchoolsRating gt 0}">
                                         <div class="fl">

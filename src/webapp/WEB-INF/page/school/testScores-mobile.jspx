@@ -61,7 +61,7 @@
                 <div class="fl">
                     <ratings:ratingsSprite-mobile isNewGsRating="${school.isNewGSRating}" gsRating="${gs_rating}"
                                                   schoolType="${school.type.schoolTypeName}" isPreschoolOnly="${school.preschoolOnly}"
-                                                  spriteSize="medium"/>
+                                                  spriteSize="32"/>
                 </div>
                 <c:if test="${not empty gs_rating}">
                     <div class="pls pts fl"><span class="ac1 small "> of 10</span><strong
