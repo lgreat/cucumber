@@ -46,27 +46,35 @@ jQuery(function () {
 /* -- TOPIC CENTER AND GRADE LEVEL FIND A SCHOOL (moved over from topicCenter2010.js)-- */
 /* ------------------------------------------------ */
 
-// change state
-jQuery('#topSchoolsStateSelector').change(function() {
-    var url = '/accountInformationAjax.page';
-    var pars = 'state=' + jQuery(this).val() + '&showNotListed=false';
-    var cityDiv = jQuery('#topCitiesCityListSpan');
-    var citySelect = jQuery('#topCitiesCityList');
-    var cityLoading = jQuery('#topCitiesCityLoadingSpan');
-    var stateSelect = jQuery('#topSchoolsStateSelector');
+jQuery(function () {
+    // change state
+    jQuery('#topSchoolsStateSelector').change(function () {
+        var url = '/accountInformationAjax.page';
+        var pars = 'state=' + jQuery(this).val() + '&showNotListed=false';
+        var cityDiv = jQuery('#topCitiesCityListSpan');
+        var citySelect = jQuery('#topCitiesCityList');
+        var cityLoading = jQuery('#topCitiesCityLoadingSpan');
+        var stateSelect = jQuery('#topSchoolsStateSelector');
 
-    citySelect.hide();
-    stateSelect.hide();
+        citySelect.hide();
+        stateSelect.hide();
 
-    cityLoading.html('<span>&nbsp;&nbsp;Loading ...</span>');
-    cityLoading.show();
+        cityLoading.html('<span>&nbsp;&nbsp;Loading ...</span>');
+        cityLoading.show();
 
-    jQuery.get(url, {state: jQuery(this).val(), showNotListed: 'false'}, function(data) {
-        citySelect.html(data);
-        citySelect.show();
-        cityLoading.html('');
-        cityLoading.hide();
-        stateSelect.show();
+        jQuery.ajax({
+            type: 'GET',
+            url: url,
+            data: {state:jQuery(this).val(), showNotListed:'false'},
+            dataType: 'html',
+            async: true
+        }).done(function(data) {
+            citySelect.html(data);
+            citySelect.show();
+            cityLoading.html('');
+            cityLoading.hide();
+            stateSelect.show();
+        });
     });
 });
 
