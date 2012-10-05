@@ -55,9 +55,11 @@
             <c:choose>
                 <c:when test="${isNewGsRating}">
                     <!--<div class="preschool-NR r-${size}">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                    <span class="ratingx24-preschool r-24-NR"><!--Do not collapse--></span>
                 </c:when>
                 <c:otherwise>
                     <!--<div class="preschool-NR r-${size}">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                    <span class="ratingx24-preschool r-24-NR"><!--Do not collapse--></span>
                 </c:otherwise>
             </c:choose>
         </c:when>

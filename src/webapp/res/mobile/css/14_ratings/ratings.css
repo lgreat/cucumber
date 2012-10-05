@@ -210,6 +210,13 @@ General comments:
     height: 24px;
 }
 
+.ratingx24-preschool{
+    display: inline-block;
+    background-size: 264px 24px;
+    width: 24px;
+    height: 24px;
+}
+
 /* **************** VIEWPORT ***************** */
 
 /* row 0 */
