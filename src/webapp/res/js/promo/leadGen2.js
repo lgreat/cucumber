@@ -39,6 +39,7 @@ GS.form.LeadGenCampaign2 = function() {
         wrapper.find('.jq-leadGenPrelimText').hide();
 
         if (this.validate(wrapper)) {
+            wrapper.find('.jq-leadGenForm').hide();
             submitButton.hide();
             var params = {
                 campaign: wrapper.find('.jq-leadGenCampaign').val(),
@@ -55,17 +56,15 @@ GS.form.LeadGenCampaign2 = function() {
                 dataType: 'text',
                 success: function(data, textStatus, jqXHR) {
                     if (data == "OK") {
-                        wrapper.find('.jq-leadGenIntroText').hide();
-                        wrapper.find('.jq-leadGenForm').hide();
                         wrapper.find('.jq-leadGenThankYou').show();
                     } else {
                         wrapper.find('.jq-leadGenError-all').show();
+                        wrapper.find('.jq-leadGenForm').show();
                         submitButton.show();
                     }
                 },
                 error: function(jqXHR,textStatus,errorThrown) {
                     wrapper.find('.jq-leadGenPrelimText').show();
-                    wrapper.find('.jq-leadGenIntroText').show();
                     wrapper.find('.jq-leadGenForm').show();
                     wrapper.find('.jq-leadGenThankYou').hide();
                     wrapper.find('.jq-leadGenError').hide();
