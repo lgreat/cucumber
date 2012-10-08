@@ -466,7 +466,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
             }
 
             schoolVideos = school.getMetadataAsList(School.METADATA_SCHOOL_VIDEO);
-            if (!schoolVideos.isEmpty()) {
+            if (schoolVideos != null && !schoolVideos.isEmpty()) {
                 setSharedData(request, key, schoolVideos); // Save in request for future use
             }else{
                 // Set flag to prevent this DB request again
