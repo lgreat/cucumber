@@ -11,6 +11,8 @@
 .jq-leadGen2Wrapper .bd.wrapper select {margin:2px 0 2px 0; width:100px; height: 22px; line-height: 20px; padding:2px; font:10.5px Arial,Helvetica,sans-serif;}
 .jq-leadGen2Wrapper .bd.wrapper select option {margin:4px;padding-top:2px;padding-bottom:2px;}
 .jq-leadGen2Wrapper .bd.wrapper button{margin:2px 0 0 0; width:100px; height:20px; border-radius:4px; padding-bottom:1px; color:#000; font: 10.5px Arial,Helvetica,sans-serif;}
+/* .line overflow override is a workaround to prevent mouseover in Mac FF15+ from hiding form field */
+.jq-leadGen2Wrapper .jq-leadGenForm .line, .jq-leadGen2Wrapper .jq-leadGenForm .lastUnit {overflow:visible;}
 
 /* GS-12784 reusable lead gen widget: .formErrorText in use by older widgets, pre-GS-13218 */
 
