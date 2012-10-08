@@ -481,7 +481,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         Map<String, Object> model = null;
 
         // Get all of the data needed to make the required decisions
-        List<String> schoolsVideos = _schoolProfileDataHelper.getSchoolsVideos(request);
+        List<String> schoolsVideos = _schoolProfileDataHelper.getSchoolVideos(request);
         if(schoolsVideos != null && !schoolsVideos.isEmpty() ) {
             model = new HashMap<String, Object>(2);
             model.put( "content", "video" );

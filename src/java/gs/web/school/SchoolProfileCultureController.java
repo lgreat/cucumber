@@ -106,7 +106,7 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
     protected Map<String, Object> getSchoolVideos(HttpServletRequest request) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
-        List<String> schoolsVideos = _schoolProfileDataHelper.getSchoolsVideos(request);
+        List<String> schoolsVideos = _schoolProfileDataHelper.getSchoolVideos(request);
 
         // Get all of the data needed to make the required decisions
         if (schoolsVideos != null && !schoolsVideos.isEmpty()) {

@@ -443,7 +443,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         return  reviews;    // Return what we have
     }
 
-    protected List<String> getSchoolsVideos(HttpServletRequest request) {
+    protected List<String> getSchoolVideos(HttpServletRequest request) {
 
         String key = SCHOOL_VIDEOS;
         String noKey = "NO_" + key;

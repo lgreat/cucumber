@@ -423,6 +423,10 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         String adminName = (espData.get("administrator_name") == null) ? null : espData.get("administrator_name").get(0).getSafeValue();
         scv.setValueText(adminName);
         expect( _schoolProfileDataHelper.getSchoolCensusValue(getRequest(), CensusDataType.HEAD_OFFICIAL_NAME) ).andReturn( scv ).anyTimes();
+        //School video
+        List<String> schoolVideos = new ArrayList<String>();
+        schoolVideos.add("school video 1");
+        expect( _schoolProfileDataHelper.getSchoolVideos(getRequest()) ).andReturn( schoolVideos);
 
         replay(_schoolProfileDataHelper);
         _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest());

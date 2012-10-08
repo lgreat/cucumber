@@ -515,7 +515,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
         List<String> schoolVideos = new ArrayList<String>();
         schoolVideos.add("http://www.youtube.com/watch?v=eImToAYIq7o");
-        expect(_schoolProfileDataHelper.getSchoolsVideos(getRequest())).andReturn(schoolVideos);
+        expect(_schoolProfileDataHelper.getSchoolVideos(getRequest())).andReturn(schoolVideos);
         replay(_schoolProfileDataHelper);
         Map resultsModel = _schoolProfileOverviewController.getVideosTile(_request);
         verify(_schoolProfileDataHelper);
