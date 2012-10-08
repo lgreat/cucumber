@@ -202,8 +202,8 @@
 
 <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
 <c:if test="${not empty principalReview}">
-    <div id="principalsPOV">
-        <h4 class="text1bold">The Principal's point of view</h4>
+    <div id="principalsPOV" class='standard_6-1'>
+        <h3>The Principal's point of view</h3>
 
         <div class="spacer_5"><!-- do not collapse --></div>
         <div class="principalsIMG">
@@ -228,7 +228,7 @@
                 </p>
             </c:when>
             <c:otherwise>
-                <p class="small">Posted ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</p>
+                <p class="quiet">Posted ${gsweb:periodBetweenDates(principalReview.posted,cmd.currentDate)}</p>
             </c:otherwise>
         </c:choose>
         <gsml:ifUserCanDeleteContent pageUser="${validUser}">
