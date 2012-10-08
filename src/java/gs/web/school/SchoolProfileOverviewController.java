@@ -65,9 +65,9 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     private static final String VIDEO_TOUR_MODEL_KEY = "videoTour";
     private static final String BOUNDARY_TOOL_MODEL_KEY = "boundaryTool";
 
-    public static final String VIDEO_ELEMENTARY = "6857";
-    public static final String VIDEO_MIDDLE = "6856";
-    public static final String VIDEO_HIGH = "6855";
+    public static final String VIDEO_ELEMENTARY = "7055";
+    public static final String VIDEO_MIDDLE = "7056";
+    public static final String VIDEO_HIGH = "7066";
 
 
     public enum NoneHandling{ ALWAYS_SHOW, SHOW_IF_ONLY_VALUE, HIDE_IF_ONLY_NONE }
@@ -506,37 +506,37 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> model = new HashMap<String, Object>(3);
 
-        model.put("content", "none");
+        // Which video to display will depend on the lowest level taught at the school.  For instance if level_code is e,m,h then just show for e
+        LevelCode levelCode = school.getLevelCode();
+        if( levelCode != null ) {
+            LevelCode.Level level = levelCode.getLowestNonPreSchoolLevel();
+            // determine which video to show
+            String videoId;
+            String thumbnailUrl;
+            String levelName;
+            if( level.equals( LevelCode.Level.MIDDLE_LEVEL) ) {
+                videoId = VIDEO_MIDDLE;
+                thumbnailUrl = "/res/img/content/video/schoolTourThumb-m.png";
+                levelName="middle";
+            } else if( level.equals( LevelCode.Level.HIGH_LEVEL) ) {
+                videoId = VIDEO_HIGH;
+                thumbnailUrl = "/res/img/content/video/schoolTourThumb-h.png";
+                levelName="high";
+            } else { // fallback on elementary. This captures the case where the lowest level is really preschool
+                videoId = VIDEO_ELEMENTARY;
+                thumbnailUrl = "/res/img/content/video/schoolTourThumb-e.png";
+                levelName="elementary";
+            }
+
+            model.put( "schoolLevel", level.getName() );
+            model.put( "content", "schoolTourVideo" );
+            model.put( "contentUrl", "/school-choice/school-choice/" + videoId + "-choose-" + levelName + "-school-video.gs");
+            model.put( "videoIconUrl", thumbnailUrl);
+        } else {
+            model.put( "content", "none" );
+        }
 
         return model;
-
-//        // Which video to display will depend on the lowest level taught at the school.  For instance if level_code is e,m,h then just show for e
-//        LevelCode levelCode = school.getLevelCode();
-//        if( levelCode != null ) {
-//            LevelCode.Level level = levelCode.getLowestNonPreSchoolLevel();
-//            // determine which video to show
-//            String videoId;
-//            if (request.getParameter("_tourVideoId") != null) {
-//                videoId = request.getParameter("_tourVideoId");
-//            } else if( level.equals( LevelCode.Level.MIDDLE_LEVEL) ) {
-//                videoId = VIDEO_MIDDLE;
-//            } else if( level.equals( LevelCode.Level.HIGH_LEVEL) ) {
-//                videoId = VIDEO_HIGH;
-//            } else { // fallback on elementary
-//                videoId = VIDEO_ELEMENTARY;
-//            }
-//            // videoId = "5073"; // Debug, this is an existing Id in dev-cms
-//
-//            model.put( "schoolLevel", level.getName() );
-//            model.put( "content", "schoolTourVideo" );
-//            model.put( "contentUrl", "/content/cms/translate.page?Video=" + videoId);
-////            model.put( "videoIconUrl", result1.getImageUrl() );
-////            model.put( "videoIconAltText", result1.getImageAltText() );
-//        } else {
-//            model.put( "content", "none" );
-//        }
-//
-//        return model;
     }
 
 

@@ -526,7 +526,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void xtestSchoolTourVideoA() {
+    public void testSchoolTourVideoA() {
 
         // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.PRESCHOOL_ELEMENTARY_MIDDLE);
@@ -542,7 +542,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void xtestSchoolTourVideoB() {
+    public void testSchoolTourVideoB() {
 
         // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.HIGH);
@@ -557,7 +557,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void xtestSchoolTourVideoC() {
+    public void testSchoolTourVideoC() {
 
         List<EspResponse> l = new ArrayList<EspResponse>();
         l.add( createEspResponse( "something", "doesnt matter what" ) );
@@ -575,7 +575,7 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
     }
 
     // Tests the substitute action of returning the lowest school level
-    public void xtestSchoolTourVideoD() {
+    public void testSchoolTourVideoD() {
 
         // Set the school level since that controls which CMS video will be chosen
         _school.setLevelCode( LevelCode.MIDDLE_HIGH);
