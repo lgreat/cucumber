@@ -4,7 +4,7 @@
 .jq-leadGen2Wrapper .bd.wrapper {position: relative; width:300px; height: 150px;}
 .jq-leadGen2Wrapper .leadGenPrelimText {position: absolute; top: 8px; left: 150px; width:145px;margin-left:12px;font:10.5px/1.25 Arial,Helvetica,sans-serif; color:#fff;}
 .jq-leadGen2Wrapper .leadGenThankYou{position: absolute; top: 12px; left: 35px; width:235px; font: 12px/1.25 Arial,Helvetica,sans-serif; color:#fff;}
-.jq-leadGen2Wrapper .jq-leadGenError {position: absolute; top: 8px; left: 158px; width:140px;font:bold italic 10.5px/1.25 Arial,Helvetica,sans-serif; color: #fff;}
+.jq-leadGen2Wrapper .jq-leadGenError {position: absolute; top: 8px; left: 157px; width:140px;font:bold italic 10.5px/1.25 Arial,Helvetica,sans-serif; color: #fff;}
 .jq-leadGen2Wrapper .jq-leadGenError .i-16-alert {margin-right:3px; clear: both; height: 45px; font-size: 1px; line-height: 45px;}
 .jq-leadGen2Wrapper .jq-leadGenForm {position: absolute; top:8px; left: 14px; width: 150px;}
 .jq-leadGen2Wrapper .bd.wrapper input{margin:2px 0 2px 0;padding:0; font: 10.5px Arial,Helvetica,sans-serif; color: #333;width:133px; height:15px;}
