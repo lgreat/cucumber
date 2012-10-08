@@ -219,6 +219,20 @@ caption, .tableType1 caption     { font-size: 18px; line-height: 27px; margin-bo
 .make-f8f8f8 { color: #f8f8f8; }
 .make-ffffff { color: #ffffff; }
 
+
+/*** headerCobrand header tables needs to retain old table styling
+-------------------------------------------------------------- */
+
+#headerCobrand table {
+    width: auto;
+    line-height: 8px;
+}
+
+#headerCobrand td {
+    padding:0;
+}
+
+
 /* Misc classes
 -------------------------------------------------------------- */
 
