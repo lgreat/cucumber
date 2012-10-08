@@ -376,9 +376,19 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         }
         model.put("coed", coed);
 
+        //school video
+        handleSchoolVideos(model,school);
+
         _schoolProfileHeaderHelper.updateModel(httpServletRequest, httpServletResponse, school, model);
 
         return new ModelAndView("/school/enhancedSchoolProfile2", model);
+    }
+
+    protected void handleSchoolVideos(Map<String, Object> model, School school) {
+        List<String> schoolVideos = school.getMetadataAsList(School.METADATA_SCHOOL_VIDEO);
+        if (schoolVideos != null && !schoolVideos.isEmpty()) {
+            model.put("schoolVideo", schoolVideos.get(0).toString().trim());
+        }
     }
 
     @Override

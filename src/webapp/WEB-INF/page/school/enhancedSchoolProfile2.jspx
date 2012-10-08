@@ -514,7 +514,6 @@
                 </tr>
             </c:if>
 
-            <c:set var="schoolVideo"><gsweb:erts list="${responses.school_video}" pretty="false"/></c:set>
             <c:if test="${not empty schoolVideo}">
                 <tr>
                     <td class="small_bold">School videos</td>
