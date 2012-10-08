@@ -147,7 +147,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         model.put(PHOTOS_MODEL_KEY, getPhotosEspTile(request, school));
 
         // Title 3 - Default: Videos, Substitute 1: Boundary Tool Promo
-        model.put( VIDEO_MODEL_KEY, getVideoEspTile(request, school, espData) );
+        model.put( VIDEO_MODEL_KEY, getVideosTile(request) );
 
         // Title 4 - Default: Community ratings, Substitute 1: Review CTA
         model.put( COMMUNITY_RATING_MODEL_KEY, getCommunityRatingEspTile(request, school) );
@@ -476,16 +476,16 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
 
-    Map<String, Object> getVideoEspTile(HttpServletRequest request, School school, Map<String, List<EspResponse>> espData) {
+    Map<String, Object> getVideosTile(HttpServletRequest request) {
 
         Map<String, Object> model = null;
 
         // Get all of the data needed to make the required decisions
-        List<EspResponse> video = espData.get("school_video");
-        if( isNotEmpty( video ) ) {
+        List<String> schoolsVideos = _schoolProfileDataHelper.getSchoolsVideos(request);
+        if(schoolsVideos != null && !schoolsVideos.isEmpty() ) {
             model = new HashMap<String, Object>(2);
             model.put( "content", "video" );
-            model.put( "videoUrl", video.get(0).getSafeValue() );
+            model.put( "videoUrl", schoolsVideos.get(0) );
         }
         else {
             // Substitute action, school boundary tool promo

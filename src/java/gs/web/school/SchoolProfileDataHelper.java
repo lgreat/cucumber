@@ -51,6 +51,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     private final static String ENROLLMENT = "enrollment";
     private final static String SPERLINGS = "sperlings";
     private final static String RELATED_CONTENT = "relatedContent";
+    private final static String SCHOOL_VIDEOS = "schoolVideos";
 
     private final static String CENSUS_DATA = "censusData";
 
@@ -440,6 +441,40 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         }
 
         return  reviews;    // Return what we have
+    }
+
+    protected List<String> getSchoolsVideos(HttpServletRequest request) {
+
+        String key = SCHOOL_VIDEOS;
+        String noKey = "NO_" + key;
+
+        // Make sure we have a school
+        School school = _requestAttributeHelper.getSchool(request);
+        if (school == null) {
+            throw new IllegalArgumentException("The request must already contain a school object");
+        }
+
+        // Get Data
+        // First see if it is already in the request
+        List<String> schoolVideos = (List<String>) getSharedData(request, key);
+
+        // If it isn't in the request try to retrieve it
+        if (schoolVideos == null) {
+            // Before going to DB see if we have ready done that and determined there is no data
+            if (getSharedData(request, noKey) != null) {
+                return null;
+            }
+
+            schoolVideos = school.getMetadataAsList(School.METADATA_SCHOOL_VIDEO);
+            if (!schoolVideos.isEmpty()) {
+                setSharedData(request, key, schoolVideos); // Save in request for future use
+            }else{
+                // Set flag to prevent this DB request again
+                setSharedData(request, noKey, "yes");
+            }
+        }
+
+        return schoolVideos;
     }
 
     protected Integer getReviewsTotalPages( HttpServletRequest request ) {

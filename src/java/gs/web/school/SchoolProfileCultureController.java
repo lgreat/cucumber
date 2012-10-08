@@ -76,7 +76,7 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         modelMap.put( "schoolFacebookId", facebookModel.get("facebookId") );
 
         // Space 3 - Videos or Principal CTA
-        modelMap.put( VIDEO_MODEL_KEY, getSchoolVideos(espResults) );
+        modelMap.put( VIDEO_MODEL_KEY, getSchoolVideos(request) );
 
         // Space 4 - Climate Rating or Tips
         modelMap.put( CLIMATE_RATING_MODEL_KEY, climateRatings );
@@ -103,18 +103,18 @@ public class SchoolProfileCultureController extends AbstractSchoolProfileControl
         return photosModel;
     }
 
-    protected Map<String, Object> getSchoolVideos(  Map<String, List<EspResponse>> espData ) {
+    protected Map<String, Object> getSchoolVideos(HttpServletRequest request) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
+        List<String> schoolsVideos = _schoolProfileDataHelper.getSchoolsVideos(request);
 
         // Get all of the data needed to make the required decisions
-        if( espData != null && isNotEmpty( espData.get("school_video") ) ) {
-            model.put( "content", "video" );
-            model.put( "videoUrl", espData.get("school_video").get(0).getSafeValue() );
-        }
-        else {
+        if (schoolsVideos != null && !schoolsVideos.isEmpty()) {
+            model.put("content", "video");
+            model.put("videoUrl", schoolsVideos.get(0));
+        } else {
             // Substitute action, Principal CTA
-            model.put( "content", "principalCTA" );
+            model.put("content", "principalCTA");
         }
 
         return model;

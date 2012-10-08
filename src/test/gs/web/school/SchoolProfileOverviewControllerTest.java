@@ -513,7 +513,12 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
 
 //        Map map = runController( convertToEspData( l ) );
 
-        Map resultsModel = _schoolProfileOverviewController.getVideoEspTile(_request, _school, espData);
+        List<String> schoolVideos = new ArrayList<String>();
+        schoolVideos.add("http://www.youtube.com/watch?v=eImToAYIq7o");
+        expect(_schoolProfileDataHelper.getSchoolsVideos(getRequest())).andReturn(schoolVideos);
+        replay(_schoolProfileDataHelper);
+        Map resultsModel = _schoolProfileOverviewController.getVideosTile(_request);
+        verify(_schoolProfileDataHelper);
 //        Map<String, Object> resultsModel = (Map<String, Object>) map.get("video");
         assertEquals( "testVideoDefaultA: content wrong", "video", resultsModel.get("content") );
         assertEquals( "testVideoDefaultA: url wrong", url, resultsModel.get("videoUrl") );
