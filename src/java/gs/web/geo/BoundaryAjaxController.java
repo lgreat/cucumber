@@ -186,11 +186,11 @@ public class BoundaryAjaxController {
         DistrictBoundary districtBoundary = _districtBoundaryDao.getDistrictBoundaryByGSId(state, id);
         if (districtBoundary != null) {
             District district = _districtDao.findDistrictById(state, id);
-            DistrictRating rating = _districtRatingDao.getDistrictRatingByDistrict(district);
-            int ratingInt = 0;
-            if (rating != null && rating.getActive() == 1) {
-                ratingInt = rating.getRating();
-            }
+//            DistrictRating rating = _districtRatingDao.getDistrictRatingByDistrict(district);
+//            int ratingInt = 0;
+//            if (rating != null && rating.getActive() == 1) {
+//                ratingInt = rating.getRating();
+//            }
             districtBoundary.setDistrict(district);
             try {
 
@@ -228,11 +228,15 @@ public class BoundaryAjaxController {
         List<School> results = _schoolDao.getSchoolsInDistrict(state, id, true);
 
         Map districtMap = map(district, ratingInt, request);
-        try {
-            DistrictBoundary boundary = _districtBoundaryDao.getDistrictBoundaryByGSId(state, id);
-            districtMap.put("coordinates", map(boundary.getGeometry()));
-        } catch (ObjectRetrievalFailureException e ) {
-            _log.error("Error getting district boundary");
+        if (!district.isCharterOnly()) {
+            try {
+                DistrictBoundary boundary = _districtBoundaryDao.getDistrictBoundaryByGSId(state, id);
+                if (boundary != null) {
+                    districtMap.put("coordinates", map(boundary.getGeometry()));
+                }
+            } catch (ObjectRetrievalFailureException e ) {
+                _log.error("Error getting district boundary");
+            }
         }
         districts.add(districtMap);
         model.addAttribute("districts", districts);
