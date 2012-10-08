@@ -35,35 +35,38 @@
                         </div>
                         <hr class="keyline2"/>
                         <div class="mam">
-                            <h4>Touring a school</h4>
-                            <c:set var="tourVideoUrl" value="/school-choice/school-choice/7055-choose-elementary-school-video.gs"/>
-                            <c:set var="tourVideoThumb" value="/res/img/content/video/schoolTourThumb-e.png"/>
-                            <c:set var="tourVideoText" value="Touring an Elementary School"/>
-                            <c:choose>
-                                <c:when test="${fn:contains(school.levelCode, 'e')}">
-                                    <!-- keep defaults -->
-                                </c:when>
-                                <c:when test="${fn:contains(school.levelCode, 'm')}">
-                                    <c:set var="tourVideoUrl" value="/school-choice/school-choice/7056-choose-middle-school-video.gs"/>
-                                    <c:set var="tourVideoThumb" value="/res/img/content/video/schoolTourThumb-m.png"/>
-                                    <c:set var="tourVideoText" value="Touring a Middle School"/>
-                                </c:when>
-                                <c:when test="${fn:contains(school.levelCode, 'h')}">
-                                    <c:set var="tourVideoUrl" value="/school-choice/school-choice/7066-choose-high-school-video.gs"/>
-                                    <c:set var="tourVideoThumb" value="/res/img/content/video/schoolTourThumb-h.png"/>
-                                    <c:set var="tourVideoText" value="Touring a High School"/>
-                                </c:when>
-                                <c:otherwise>
-                                    <!-- keep defaults -->
-                                </c:otherwise>
-                            </c:choose>
+                            <h4>Finding the right school</h4>
                             <p>
-                                <a href="${tourVideoUrl}">
-                                    <div class="tac smaller">
-                                        <img src="${tourVideoThumb}" alt="Touring a school video thumbnail"/><br /> ${tourVideoText}
-                                    </div>
-                                </a>
+                                <c:if test="${fn:contains(school.levelCode, 'e')}">
+                                    <a href="/school-choice/school-choice/7055-choose-elementary-school-video.gs">
+                                        <div class="tac smaller">
+                                            <img src="/res/img/content/video/schoolTourThumb-e.png" alt="Touring a school video thumbnail"/><br />
+                                            What to look for in an<br/>elementary school
+                                        </div>
+                                    </a>
+                                </c:if>
                             </p>
+                            <p>
+                                <c:if test="${fn:contains(school.levelCode, 'm')}">
+                                    <a href="/school-choice/school-choice/7056-choose-middle-school-video.gs">
+                                        <div class="tac smaller">
+                                            <img src="/res/img/content/video/schoolTourThumb-m.png" alt="Touring a school video thumbnail"/><br />
+                                            What to look for in a<br/>middle school
+                                        </div>
+                                    </a>
+                                </c:if>
+                            </p>
+                            <p>
+                                <c:if test="${fn:contains(school.levelCode, 'h')}">
+                                    <a href="/school-choice/school-choice/7066-choose-high-school-video.gs">
+                                        <div class="tac smaller">
+                                            <img src="/res/img/content/video/schoolTourThumb-h.png"/><br />
+                                            What to look for in a<br/>high school
+                                        </div>
+                                    </a>
+                                </c:if>
+                            </p>
+
                         </div>
                     </div>
 

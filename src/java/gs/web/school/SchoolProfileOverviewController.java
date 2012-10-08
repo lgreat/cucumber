@@ -504,7 +504,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     Map<String, Object> getTourVideoModel(HttpServletRequest request, School school) {
 
-        Map<String, Object> model = new HashMap<String, Object>(3);
+        Map<String, Object> model = new HashMap<String, Object>(5);
 
         // Which video to display will depend on the lowest level taught at the school.  For instance if level_code is e,m,h then just show for e
         LevelCode levelCode = school.getLevelCode();
@@ -514,23 +514,28 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             String videoId;
             String thumbnailUrl;
             String levelName;
+            String caption;
             if( level.equals( LevelCode.Level.MIDDLE_LEVEL) ) {
                 videoId = VIDEO_MIDDLE;
                 thumbnailUrl = "/res/img/content/video/schoolTourThumb-m.png";
+                caption = "What to look for in a<br/>middle school";
                 levelName="middle";
             } else if( level.equals( LevelCode.Level.HIGH_LEVEL) ) {
                 videoId = VIDEO_HIGH;
                 thumbnailUrl = "/res/img/content/video/schoolTourThumb-h.png";
+                caption = "What to look for in a<br/>high school";
                 levelName="high";
             } else { // fallback on elementary. This captures the case where the lowest level is really preschool
                 videoId = VIDEO_ELEMENTARY;
                 thumbnailUrl = "/res/img/content/video/schoolTourThumb-e.png";
+                caption = "What to look for in an<br/>elementary school";
                 levelName="elementary";
             }
 
             model.put( "schoolLevel", level.getName() );
             model.put( "content", "schoolTourVideo" );
             model.put( "contentUrl", "/school-choice/school-choice/" + videoId + "-choose-" + levelName + "-school-video.gs");
+            model.put( "videoIconCaption", caption);
             model.put( "videoIconUrl", thumbnailUrl);
         } else {
             model.put( "content", "none" );
