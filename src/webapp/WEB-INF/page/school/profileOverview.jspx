@@ -38,7 +38,7 @@
                     <div class="mod bestKnownFor">
                         <div class="inner">
                             <div class="bd">
-                                <span class="quote"><span class="punctuation">&amp;ldquo;</span>${gsweb:abbreviateAtWhitespace(bestKnownFor,60)}<span class="punctuation">&amp;rdquo;</span></span>
+                                <span class="quote"><span class="punctuation">&amp;ldquo;</span>${gsweb:abbreviateAtWhitespace(bestKnownFor,120)}<span class="punctuation">&amp;rdquo;</span></span>
                             </div>
                         </div>
                     </div>
