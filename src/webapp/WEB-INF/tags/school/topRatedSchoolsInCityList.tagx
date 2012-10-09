@@ -22,10 +22,10 @@
                 <h5 class="mbm">Top-Rated ${city.name} Schools</h5>
 
                 <div class="line">
-                    <div class="unit size75of100">
+                    <div class="unit size73of100">
                         <h6>Top-Rated Public Schools</h6>
                     </div>
-                    <div class="unit size25of100 lastUnit">
+                    <div class="lastUnit">
                         <h6 class="tar">GreatSchools<br/>Rating</h6>
                     </div>
                 </div>
