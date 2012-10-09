@@ -679,9 +679,22 @@ GSType.hover.JoinHover = function() {
 
         params += "&grades=" + newsletters.join(',');
 
-        params += "&simpleMss=" + (jQuery('#joinHoverType').val() === 'Auto');
+        var mssHover = false;
+        if(jQuery('#joinHoverType').val() === 'Auto') {
+            mssHover = true;
+        }
+        params += "&simpleMss=" + mssHover;
 
-        jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, GS.joinHover_checkValidationResponse);
+        if(mssHover) {
+            jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, function(data) {
+                GS.joinHover_checkValidationResponse(data, true);
+            });
+        }
+        else {
+            jQuery.getJSON(GS.uri.Uri.getBaseHostname() + "/community/registrationValidationAjax.page", params, function(data) {
+                GS.joinHover_checkValidationResponse(data, false);
+            });
+        }
         return false;
     };
 };
@@ -1430,10 +1443,16 @@ GS.joinHover_checkValidationResponse2 = function(data) {
     jQuery('#joinBtn').prop('disabled', false);
 };
 
-GS.joinHover_checkValidationResponse = function(data) {
+GS.joinHover_checkValidationResponse = function(data, sendTracking) {
     if (GS.joinHover_passesValidationResponse(data)) {
         if (GSType.hover.joinHover.loadOnExitUrl) {
             GSType.hover.joinHover.cancelLoadOnExit();
+        }
+        if(sendTracking) {
+            pageTracking.clear();
+            pageTracking.successEvents = "event5";
+            pageTracking.pageName = "MSS Hover chrome check with delay";
+            pageTracking.send();
         }
         if (GSType.hover.joinHover.onSubmitCallback) {
             GSType.hover.joinHover.onSubmitCallback(jQuery("#joinGS #jemail").val(), "joinGS");
@@ -1445,7 +1464,7 @@ GS.joinHover_checkValidationResponse = function(data) {
             GSType.hover.joinHover.hide();
         }
     }
-    jQuery('#joinBtn').prop('disabled', false);
+    jQuery('.joinBtn').prop('disabled', false);
 };
 
 GS.joinHover_passesValidationResponse = function(data) {
