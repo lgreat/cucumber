@@ -23,17 +23,17 @@ public class PagerTest {
     @Test
     public void testGetPageSequence() throws Exception {
         _pager = new Pager(100, 25, paginationConfig);
-        assertTrue(sequenceMatches(new int[]{1,2,3}, _pager.getPageSequence(1)));
-        assertTrue(sequenceMatches(new int[]{1,2,3}, _pager.getPageSequence(2)));
-        assertTrue(sequenceMatches(new int[]{2,3,4}, _pager.getPageSequence(3)));
-        assertTrue(sequenceMatches(new int[]{2,3,4}, _pager.getPageSequence(4)));
+        assertTrue(sequenceMatches(new int[]{1,2,3,4}, _pager.getPageSequence(1)));
+        assertTrue(sequenceMatches(new int[]{1,2,3,4}, _pager.getPageSequence(2)));
+        assertTrue(sequenceMatches(new int[]{1,2,3,4}, _pager.getPageSequence(3)));
+        assertTrue(sequenceMatches(new int[]{1,2,3,4}, _pager.getPageSequence(4)));
 
         _pager = new Pager(125, 25, paginationConfig);
-        assertTrue(sequenceMatches(new int[]{1,2,3}, _pager.getPageSequence(1)));
-        assertTrue(sequenceMatches(new int[]{1,2,3}, _pager.getPageSequence(2)));
-        assertTrue(sequenceMatches(new int[]{2,3,4}, _pager.getPageSequence(3)));
-        assertTrue(sequenceMatches(new int[]{3,4,5}, _pager.getPageSequence(4)));
-        assertTrue(sequenceMatches(new int[]{3,4,5}, _pager.getPageSequence(5)));
+        assertTrue(sequenceMatches(new int[]{1,2,3,4,5}, _pager.getPageSequence(1)));
+        assertTrue(sequenceMatches(new int[]{1,2,3,4,5}, _pager.getPageSequence(2)));
+        assertTrue(sequenceMatches(new int[]{1,2,3,4,5}, _pager.getPageSequence(3)));
+        assertTrue(sequenceMatches(new int[]{1,2,3,4,5}, _pager.getPageSequence(4)));
+        assertTrue(sequenceMatches(new int[]{1,2,3,4,5}, _pager.getPageSequence(5)));
 
     }
 

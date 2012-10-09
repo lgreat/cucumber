@@ -62,30 +62,38 @@ public class Pager {
      * @return
      */
     public List<Page> getPageSequence(int pageNumber) {
-        int thirdPageNumber = isZeroBasedPages() ? 2:3;
-
-        Integer firstPageInSeries;
-        Integer lastPageInSeries;
-
-        if (getTotalPages() <= thirdPageNumber) {
-            firstPageInSeries = getFirstPageNumber();
-            lastPageInSeries = getLastPageNumber();
-        } else if (pageNumber < thirdPageNumber) {
-            firstPageInSeries = getFirstPageNumber();
-            lastPageInSeries = thirdPageNumber;
-        } else if (pageNumber > (getTotalPages() - 2) && getTotalPages() > thirdPageNumber) {
-            firstPageInSeries = getLastPageNumber() - 2;
-            lastPageInSeries = getLastPageNumber();
-        } else {
-            firstPageInSeries = pageNumber - 1;
-            lastPageInSeries = pageNumber + 1;
-        }
-
+        int lastPageNumber = isZeroBasedPages() ? getLastPageNumber() - 1 : getLastPageNumber();
         List<Page> series = new ArrayList<Page>();
+        if(lastPageNumber > 6) {
+            int thirdPageNumber = isZeroBasedPages() ? 2:3;
 
-        for (int i = firstPageInSeries; i <= lastPageInSeries; i++) {
-            Page page = new Page(this, getOffset(i));
-            series.add(page);
+            Integer firstPageInSeries;
+            Integer lastPageInSeries;
+
+            if (getTotalPages() <= thirdPageNumber) {
+                firstPageInSeries = getFirstPageNumber();
+                lastPageInSeries = getLastPageNumber();
+            } else if (pageNumber < thirdPageNumber) {
+                firstPageInSeries = getFirstPageNumber();
+                lastPageInSeries = thirdPageNumber;
+            } else if (pageNumber > (getTotalPages() - 2) && getTotalPages() > thirdPageNumber) {
+                firstPageInSeries = getLastPageNumber() - 2;
+                lastPageInSeries = getLastPageNumber();
+            } else {
+                firstPageInSeries = pageNumber - 1;
+                lastPageInSeries = pageNumber + 1;
+            }
+
+            for (int i = firstPageInSeries; i <= lastPageInSeries; i++) {
+                Page page = new Page(this, getOffset(i));
+                series.add(page);
+            }
+        }
+        else {
+            for (int i = 1; i <= lastPageNumber; i++) {
+                Page page = new Page(this, getOffset(i));
+                series.add(page);
+            }
         }
 
         return series;
