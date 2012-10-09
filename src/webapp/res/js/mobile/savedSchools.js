@@ -50,6 +50,8 @@ define(['localStorage', 'hogan', 'tracking', 'modal'], function(localStorage, ho
             var display_public_GS_rating = "none";
             if(schools[i].isPreschoolOnly === 'true') {
                 display_PK_only_GS_rating = "block";
+                display_New_GSRating = " dn";
+                display_Old_GSRating = " dn";
             }
             else if(schools[i].type === 'private') {
                 display_private_GS_rating = "block";

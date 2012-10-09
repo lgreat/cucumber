@@ -81,11 +81,11 @@
                         <span class="fl ratingx24-preschool r-24-NR" style="display: {{displayPKOnlyGSRating}}"><!-- do not collapse --></span>
                         <span class="fl {{displayNewGSRating}}">
                             <span class="ratingx24-private-RYG r-24-{{gsRating}}" style="display: {{displayPrivateGSRating}}"><!-- do not collapse --></span>
-                            <div class="public-{{gsRating}} r-small" style="display: {{displayPublicGSRating}}">{{gsRating}}</div>
+                            <div class="public-{{gsRating}} r-24" style="display: {{displayPublicGSRating}}">{{gsRating}}</div>
                         </span>
                         <span class="fl {{displayOldGSRating}}">
                             <span class="ratingx24-private-O r-24-{{gsRating}}" style="display: {{displayPrivateGSRating}}"><!-- do not collapse --></span>
-                            <div class="public-O r-small">{{gsRating}}</div>
+                            <div class="public-O r-24" style="display: {{displayPublicGSRating}}">{{gsRating}}</div>
                         </span>
                         <div class="small-lt fl pls pt4{{noRating}}"> of 10</div>
                     </div>
