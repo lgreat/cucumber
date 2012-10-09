@@ -14,13 +14,13 @@ GS.form.LeadGenCampaign2 = function() {
 
         var passed = true;
 
-        if (wrapper.find('.jq-leadGenFullName').val() == '') {
+        if (wrapper.find('.jq-leadGenFullName').val() === '') {
             passed = false;
         }
-        if (wrapper.find('.jq-leadGenEmail').val() == '') {
+        if (wrapper.find('.jq-leadGenEmail').val() === '') {
             passed = false;
         }
-        if (wrapper.find('.jq-leadGenGradeLevel').val() == '') {
+        if (wrapper.find('.jq-leadGenGradeLevel').val() === '') {
             passed = false;
         }
 
@@ -55,7 +55,7 @@ GS.form.LeadGenCampaign2 = function() {
                 data: params,
                 dataType: 'text',
                 success: function(data, textStatus, jqXHR) {
-                    if (data == "OK") {
+                    if (data === "OK") {
                         wrapper.find('.jq-leadGenThankYou').show();
                     } else {
                         wrapper.find('.jq-leadGenError-all').show();
@@ -63,7 +63,7 @@ GS.form.LeadGenCampaign2 = function() {
                         submitButton.show();
                     }
                 },
-                error: function(jqXHR,textStatus,errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     wrapper.find('.jq-leadGenPrelimText').show();
                     wrapper.find('.jq-leadGenForm').show();
                     wrapper.find('.jq-leadGenThankYou').hide();
@@ -75,13 +75,6 @@ GS.form.LeadGenCampaign2 = function() {
         return false;
     }.lead_gen_bind(this);
 };
-
-/*
-TODO-13218: What to do with this line from espForm.js? data = GS.form.handleInputsWithGhostTextAsValue(data, '#espFormPage-' + GS.espForm.currentPage);
-TODO-13218: test ghost text in different browsers
-TODO-13218: test UI across browsers
- */
-
 
 jQuery(function() {
 
