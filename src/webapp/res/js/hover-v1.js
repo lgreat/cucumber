@@ -1607,7 +1607,7 @@ GS.joinHover_checkValidationResponse = function(data, sendTracking) {
         if(sendTracking) {
             pageTracking.clear();
             pageTracking.successEvents = "event5";
-            pageTracking.pageName = "MSS Hover chrome check with delay";
+            pageTracking.pageName = "MSS Hover";
             pageTracking.send();
         }
         if (GSType.hover.joinHover.onSubmitCallback) {
