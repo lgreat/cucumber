@@ -59,7 +59,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String SECTION_3_COPY =
             "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
                     "(for elementary and middle schools) and their readiness for college (for high schools). " +
-                    "The graphs below compare this school's results in each area to other schools in the city and state.";
+                    "The graphs below compare this school's results in each area to other schools in the city and state. "+
+                    "Growth and college readiness ratings are coming soon, pending publication of 2012 data.";
     public static final String SECTION_3_COPY_DATA_UNAVAILABLE =
             "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
                     "(for elementary and middle schools) and their readiness for college (for high schools). " +
@@ -69,7 +70,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "Test scores are based on <a href=\"/students/local-facts-resources/453-testing-in-DC.gs\">2012 DC-CAS</a> results" +
                     " from the District of Columbia.";
     public static final String TEST_SCORE_RATING_SOURCE_IN =
-            "Test scores are based on <a href=\"/students/local-facts-resources/442-testing-in-IN.gs\">2012 ISTEP and ECA</a> results" +
+            "Test scores are based on <a href=\"/students/local-facts-resources/442-testing-in-IN.gs\">2011 ISTEP and ECA</a> results" +
                     " from the state of Indiana.";
     public static final String TEST_SCORE_RATING_SOURCE_WI =
             "Test scores are based on the <a href=\"/students/local-facts-resources/445-testing-in-WI.gs\">2011-2012 WSAS</a> results" +
@@ -110,8 +111,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     "involvement. This school's climate ratings are the result of GreatSchools' analysis of teacher " +
                     "survey data from the Spring 2011 School Climate Survey developed by Milwaukee Public Schools.";
     public static final String SECTION_4_COPY_DATA_UNAVAILABLE =
-            "Unfortunately, this school didn't provide enough survey responses to generate a climate rating.";
-
+           // "Unfortunately, this school didn't provide enough survey responses to generate a climate rating.";
+             "Climate rating coming soon.";
     public static final String SECTION_4_SCHOOL_ENVIRONMENT_COPY="This rating evaluates a school's " +
             "environment, based on its safety, order, cleanliness and more.  More highly rated schools have well-kept facilities " +
             "and a safe environment conducive to learning. Schools rated poorly may have a chaotic environment, conflicts among " +
