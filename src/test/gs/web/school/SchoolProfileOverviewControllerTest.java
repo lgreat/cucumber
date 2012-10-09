@@ -284,10 +284,10 @@ public class SchoolProfileOverviewControllerTest extends BaseControllerTestCase 
         csvStudents.setSchool(_school);
         csvStudents.setValueInteger(numStudents);
 
-        //school has no ratings.
+        //school has no ratings.:
         Map<String, Object> ratingsMap = new HashMap();
         expect( _schoolProfileDataHelper.getGsRatings(getRequest())).andReturn(ratingsMap);
-        expect( _schoolProfileDataHelper.getSchoolCensusValue(getRequest(), CensusDataType.STUDENTS_ENROLLMENT) ).andReturn(csvStudents);
+        expect(_schoolProfileDataHelper.getEnrollment(getRequest())).andReturn(new Integer(numStudents));
 
         replay(_schoolProfileDataHelper);
 

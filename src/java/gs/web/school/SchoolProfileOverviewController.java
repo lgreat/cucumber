@@ -301,15 +301,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
 
         // From the spec create sentence 1.2 if the data is present
-        /* It is better to get the enrollment from the census data because school.getEnrollment causes a database lookup
-        Integer enrollment = school.getEnrollment();
-         */
-        // Enrollment is from the census data
-        SchoolCensusValue enrollmentSCV = _schoolProfileDataHelper.getSchoolCensusValue( request, CensusDataType.STUDENTS_ENROLLMENT );
-        Integer enrollment = null;
-        if( enrollmentSCV != null ) {
-                enrollment = enrollmentSCV.getValueInteger();
-        }
+        Integer enrollment = _schoolProfileDataHelper.getEnrollment(request);
+
         if( school.getName()!=null && school.getName().length()>0 &&
                 school.getType()!=null && school.getType().getSchoolTypeName().length()>0 ) {
             String enrollmentStr = " ";  // if no enrollment use a space
@@ -622,7 +615,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         }
 
         if( displayDefault ) {
-            // 
+            //
             // ------------- Special Education -------------
             // For the default content there are 4 display options and if none of those conditions are met there is static text to display
             if( hasSpecEdLevelSpecified || isNotEmpty(specEdPgmsExist) || isNotEmpty(specEdPgms) || hasAcademicFocus ||
