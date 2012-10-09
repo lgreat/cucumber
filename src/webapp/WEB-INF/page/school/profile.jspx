@@ -82,7 +82,7 @@
 
         <!--Needed for photogallery-->
         <gsml:javascript src="/res/js/omnitureEventNotifier.js"/>
-        <gsml:javascript src="/res/js/photoGallery.js"/>
+        <!--<gsml:javascript src="/res/js/photoGallery.js"/>-->
 
         <gsml:javascript src="/res/js/mssAutoHoverInterceptor.js"/>
     </gsml:combinedJavascript>
