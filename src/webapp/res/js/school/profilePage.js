@@ -71,8 +71,7 @@ GS.profile = GS.profile || (function() {
 
     var otherAdSlotKeys = [
         'Global_NavPromo_970x30',
-        'Custom_Welcome_Ad',
-        'Custom_Peelback_Ad'
+        'Custom_Welcome_Ad'
     ];
 
     var init = function() {

@@ -17,7 +17,6 @@ public class AdSizeTest extends TestCase {
         assertEquals(1, (new AdSize("X_20")).getWidth());
         assertEquals(1, (new AdSize("Interstitial")).getWidth());
         assertEquals(1, (new AdSize("Interstitial_Search")).getWidth());
-        assertEquals(1, (new AdSize("Custom_Peelback_Ad")).getWidth());
         assertEquals(1, (new AdSize("Custom_Welcome_Ad")).getWidth());
         assertEquals(1, (new AdSize("Generic_640")).getWidth());
 
@@ -42,7 +41,6 @@ public class AdSizeTest extends TestCase {
         assertEquals(1, (new AdSize("X_20")).getHeight());
         assertEquals(1, (new AdSize("Interstitial")).getHeight());
         assertEquals(1, (new AdSize("Interstitial_Search")).getHeight());
-        assertEquals(1, (new AdSize("Custom_Peelback_Ad")).getHeight());
         assertEquals(1, (new AdSize("Custom_Welcome_Ad")).getHeight());
         assertEquals(1, (new AdSize("Generic_640")).getHeight());
 
