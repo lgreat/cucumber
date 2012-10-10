@@ -40,6 +40,7 @@
         gs.web.util.PageHelper.addMetaProperty(request, "fb:app_id", CmsUtil.getFacebookAppId());
 
         request.setAttribute("pageUrlOnFacebook", encodedUrl);
+        request.setAttribute("schoolPlainTextSummary", plainTextSummary);
 
     </jsp:scriptlet>
 

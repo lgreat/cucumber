@@ -240,6 +240,14 @@
                 <span class="make-dddddd phs">|</span> ${schoolEnrollment} ${gsweb:pluralize(schoolEnrollment, 'student')}
             </c:if>
             </span>
+
+            <!-- Pinterest Button -->
+            <div id="schoolProfilePinIt" style='display: inline-block; vertical-align: top;'>
+                <promo:addPinItButton url="${schoolOverviewUrl}" title="${schoolPlainTextSummary}"
+                                      image="http://www.greatschools.org/res/img/content/article/GS_FB_logo_200x200.jpg"/>
+            </div>
+
+            <!-- Facebook 'Like' Button -->
             <![CDATA[
     <fb:like href="${gsweb:getRequestHostAndPath(requestInfo.request)}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light" font="arial"></fb:like>
     ]]>
