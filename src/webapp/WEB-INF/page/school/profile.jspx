@@ -346,26 +346,31 @@
 
     <div class="media">
         <div class="img mrm">
-            <div class="mod standard_1-1 mbs">
+            <div class="mod standard_1-1-1 mbs">
                 <div class="inner">
                     <div class="bd">
                         <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'header_largermap'); }">
-                            <img height="98" width="148" alt="Map thumbnail"
-                                 src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=148x98&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
+                            <div class="pr">
+                                <img height="98" width="98" alt="Map thumbnail"
+                                 src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=98x98&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
+                                <div style="position:absolute; top:73px; right:1px;z-index: 1;"><span class="iconx24 i-24-map-plus"><!-- do not collapse --></span></div>
+                            </div>
                         </link:districtBoundaryTool>
                     </div>
                 </div>
             </div>
 
             <p class="smaller">
-                <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'header_largermap'); }">Larger map</link:districtBoundaryTool>
+                <a class="bd smaller bottom" onclick="if (s.tl) { s.tl(this, 'o', 'School Profile - Get Directions'); }" href="http://maps.google.com/?daddr=${schoolAddressWithName}"
+                   target="_blank">Get directions &amp;raquo;</a>
+                <!--<link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'header_largermap'); }">Larger map</link:districtBoundaryTool>-->
             </p>
         </div>
 
 
         <!-- Address, phone, fax, directions, homes for sale -->
-        <div class="bd fl" style="width:150px;">
-            <p class="small bottom mbm">${school.physicalAddress.street}
+        <div class="bd fl" style="width:200px;">
+            <p class="small bottom ">${school.physicalAddress.street}
 
                 <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">
                     <br/>
@@ -377,34 +382,36 @@
                 <span>${school.physicalAddress.state.abbreviation} </span>
                 <span>${school.physicalAddress.zip}</span>
 
+
+
+                <!--<c:if test="${not empty school.fax}">-->
+                    <!--<br/>-->
+                    <!--<strong>Fax: </strong>${school.fax}-->
+                <!--</c:if>-->
+
+                <c:if test="${not empty school.webSitePrettyUrl}">
+                    <br/>
+                    <strong>Website: </strong><a href="${school.webSitePrettyUrl}" target="_blank">Click here</a>
+                </c:if>
                 <c:if test="${not empty school.phone}">
                     <br/>
                     <strong>Phone: </strong>${school.phone}
                 </c:if>
-
-                <c:if test="${not empty school.fax}">
-                    <br/>
-                    <strong>Fax: </strong>${school.fax}
-                </c:if>
-
-                <c:if test="${not empty school.webSitePrettyUrl}">
-                    <br/>
-                    <a href="${school.webSitePrettyUrl}" target="_blank">School Website</a>
-                </c:if>
-            </p>
-
-            <div>
-                <div class="media">
-                    <span class="img iconx16 i-16-getDirections mrs"><!-- do not collapse --></span>
-                    <a class="bd small bottom" onclick="if (s.tl) { s.tl(this, 'o', 'School Profile - Get Directions'); }" href="http://maps.google.com/?daddr=${schoolAddressWithName}"
-                       target="_blank">Get directions</a>
-                </div>
-
                 <c:if test="${requestScope.context.showRealtorDotComPromos}">
                     <gslink:realtorDotComLink address="${school.physicalAddress}"
                                               customLinkSuffix="inlinelinkheader">Nearby homes for sale</gslink:realtorDotComLink>
                 </c:if>
-            </div>
+            </p>
+
+            <!--<div>-->
+                <!--<div class="media">-->
+                    <!--<span class="img iconx16 i-16-getDirections mrs">&lt;!&ndash; do not collapse &ndash;&gt;</span>-->
+                    <!--<a class="bd small bottom" onclick="if (s.tl) { s.tl(this, 'o', 'School Profile - Get Directions'); }" href="http://maps.google.com/?daddr=${schoolAddressWithName}"-->
+                       <!--target="_blank">Get directions</a>-->
+                <!--</div>-->
+
+
+            <!--</div>-->
         </div>
     </div>
 
