@@ -67,13 +67,13 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     "Unfortunately, this school doesn't have sufficient data to generate an academic rating.";
 
     public static final String TEST_SCORE_RATING_SOURCE_DC =
-            "Test scores are based on <a href=\"/students/local-facts-resources/453-testing-in-DC.gs\">2012 DC-CAS</a> results" +
+            "Test scores are based on <a href=\"/students/local-facts-resources/453-testing-in-DC.gs\">2011 DC-CAS</a> results" +
                     " from the District of Columbia.";
     public static final String TEST_SCORE_RATING_SOURCE_IN =
             "Test scores are based on <a href=\"/students/local-facts-resources/442-testing-in-IN.gs\">2011 ISTEP and ECA</a> results" +
                     " from the state of Indiana.";
     public static final String TEST_SCORE_RATING_SOURCE_WI =
-            "Test scores are based on the <a href=\"/students/local-facts-resources/445-testing-in-WI.gs\">2011-2012 WSAS</a> results" +
+            "Test scores are based on the <a href=\"/students/local-facts-resources/445-testing-in-WI.gs\">2011 WSAS</a> results" +
                     " from the state of Wisconsin.";
 
     public static final String STUDENT_GROWTH_RATING_SOURCE_DC =
