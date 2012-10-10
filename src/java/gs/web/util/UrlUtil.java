@@ -1,12 +1,13 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: UrlUtil.java,v 1.128 2012/06/22 21:41:29 rcox Exp $
+ * $Id: UrlUtil.java,v 1.129 2012/10/10 23:02:52 yfan Exp $
  */
 
 package gs.web.util;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.TreeMultimap;
 import gs.data.state.State;
 import gs.data.util.CdnUtil;
 import gs.web.util.context.SessionContextUtil;
@@ -75,7 +76,10 @@ public final class UrlUtil {
 
         queryString = putQueryParamIntoQueryString(queryString, key, value, overwrite);
 
-        String newUrl = base + "?" + queryString;
+        String newUrl = base;
+        if (queryString.length() > 0) {
+            newUrl += "?" + queryString;
+        }
 
         return newUrl;
     }
@@ -113,7 +117,7 @@ public final class UrlUtil {
      * with the same key
      */
     public static Multimap<String, String> getParamsFromQueryStringPreserveAll(String queryString) {
-        Multimap<String, String> params = HashMultimap.create();
+        Multimap<String, String> params = TreeMultimap.create();
         if (StringUtils.isNotBlank(queryString)) {
             queryString = queryString.replaceAll("&amp;", "&");
             String[] nameValuePairs = queryString.split("&");

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.291 2012/07/12 21:17:23 cauer Exp $
+ * $Id: UrlBuilder.java,v 1.292 2012/10/10 23:02:52 yfan Exp $
  */
 
 package gs.web.util;
@@ -1019,11 +1019,30 @@ public class UrlBuilder {
     }
 
     public UrlBuilder(VPage page, State state, String cityName, Set<SchoolType> schoolTypes, LevelCode levelCode) {
+        this(page, state, cityName, schoolTypes, levelCode, null);
+    }
+
+    public UrlBuilder(VPage page, State state, String cityName, Set<SchoolType> schoolTypes, LevelCode levelCode, Integer start) {
         _vPage = page;
         _perlPage = false;
 
         if (SCHOOLS_IN_CITY.equals(page)) {
-            _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, schoolTypes, levelCode);
+            _path = DirectoryStructureUrlFactory.createNewCityBrowseURI(state, cityName, new HashSet<SchoolType>(), null);
+            if (schoolTypes != null && schoolTypes.size() < 3) {
+                SortedSet<SchoolType> sortedSchoolTypes = new TreeSet<SchoolType>();
+                sortedSchoolTypes.addAll(schoolTypes);
+                for (SchoolType schoolType : sortedSchoolTypes) {
+                    this.addParameter("st", schoolType.getSchoolTypeName());
+                }
+            }
+            if (levelCode != null && !LevelCode.ALL_LEVELS.equals(levelCode)) {
+                for (LevelCode.Level level : levelCode.getIndividualLevelCodes()) {
+                    this.addParameter("gradeLevels", level.getName());
+                }
+            }
+            if (start != null && start > 0) {
+                this.setParameter("start", String.valueOf(start));
+            }
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

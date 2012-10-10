@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.26 2011/01/26 21:40:41 yfan Exp $
+ * $Id: AnchorListModelFactory.java,v 1.27 2012/10/10 23:02:52 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -122,7 +122,7 @@ public class AnchorListModelFactory {
         if (sc > 0) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName, schoolTypes, LevelCode.PRESCHOOL);
             String href = urlBuilder.asSiteRelative(request);
-            final Anchor anchor = new Anchor(href, cityDisplayName + " Preschools");
+            final Anchor anchor = new Anchor(href, "Preschools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
@@ -131,7 +131,7 @@ public class AnchorListModelFactory {
         if (sc > 0) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName, schoolTypes, LevelCode.ELEMENTARY);
             String href = urlBuilder.asSiteRelative(request);
-            final Anchor anchor = new Anchor(href, cityDisplayName + " Elementary Schools");
+            final Anchor anchor = new Anchor(href, "Elementary Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
@@ -140,7 +140,7 @@ public class AnchorListModelFactory {
         if (sc > 0) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName, schoolTypes, LevelCode.MIDDLE);
             String href = urlBuilder.asSiteRelative(request);
-            final Anchor anchor = new Anchor(href, cityDisplayName + " Middle Schools");
+            final Anchor anchor = new Anchor(href, "Middle Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
@@ -149,7 +149,7 @@ public class AnchorListModelFactory {
         if (sc > 0) {
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName, schoolTypes, LevelCode.HIGH);
             String href = urlBuilder.asSiteRelative(request);
-            final Anchor anchor = new Anchor(href, cityDisplayName + " High Schools");
+            final Anchor anchor = new Anchor(href, "High Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
@@ -162,7 +162,7 @@ public class AnchorListModelFactory {
             schoolTypes.add(SchoolType.CHARTER);
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName, schoolTypes, null);
             String href = urlBuilder.asSiteRelative(request);
-            final Anchor anchor = new Anchor(href, cityDisplayName + " Public Schools");
+            final Anchor anchor = new Anchor(href, "Public Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }
@@ -173,7 +173,18 @@ public class AnchorListModelFactory {
             schoolTypes.add(SchoolType.PRIVATE);
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName, schoolTypes, null);
             String href = urlBuilder.asSiteRelative(request);
-            final Anchor anchor = new Anchor(href, cityDisplayName + " Private Schools");
+            final Anchor anchor = new Anchor(href, "Private Schools");
+            anchor.setAfter(" (" + sc + ")");
+            schoolBreakdownAnchorList.add(anchor);
+        }
+
+        sc = _schoolDao.countSchools(state, SchoolType.CHARTER, null, cityName);
+        if (sc > 0) {
+            schoolTypes.clear();
+            schoolTypes.add(SchoolType.CHARTER);
+            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName, schoolTypes, null);
+            String href = urlBuilder.asSiteRelative(request);
+            final Anchor anchor = new Anchor(href, "Charter Schools");
             anchor.setAfter(" (" + sc + ")");
             schoolBreakdownAnchorList.add(anchor);
         }

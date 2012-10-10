@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.60 2011/03/31 00:34:24 ssprouse Exp $
+ * $Id: SchoolsControllerTest.java,v 1.61 2012/10/10 23:02:52 yfan Exp $
  */
 
 package gs.web.school;
@@ -165,30 +165,31 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         // type filters
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE, SchoolType.PUBLIC.getSchoolTypeName());
-        expectedRedirectURI = "/california/san-francisco/public/schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?st=public";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE, SchoolType.PRIVATE.getSchoolTypeName());
-        expectedRedirectURI = "/california/san-francisco/private/schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?st=private";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE, SchoolType.CHARTER.getSchoolTypeName());
-        expectedRedirectURI = "/california/san-francisco/charter/schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?st=charter";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
+        // multiple st values in alphabetical order
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
                 new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()});
-        expectedRedirectURI = "/california/san-francisco/public-charter/schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?st=charter&st=public";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
                 new String[]{SchoolType.PRIVATE.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()});
-        expectedRedirectURI = "/california/san-francisco/private-charter/schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?st=charter&st=private";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
                 new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.PRIVATE.getSchoolTypeName()});
-        expectedRedirectURI = "/california/san-francisco/public-private/schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?st=private&st=public";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
@@ -201,25 +202,25 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         request.removeParameter(SchoolsController.PARAM_SCHOOL_TYPE);
 
         request.setParameter(SchoolsController.PARAM_LEVEL_CODE, LevelCode.PRESCHOOL.getLowestLevel().getName());
-        expectedRedirectURI = "/california/san-francisco/preschools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?gradeLevels=p";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_LEVEL_CODE, LevelCode.ELEMENTARY.getLowestLevel().getName());
-        expectedRedirectURI = "/california/san-francisco/elementary-schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?gradeLevels=e";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_LEVEL_CODE, LevelCode.MIDDLE.getLowestLevel().getName());
-        expectedRedirectURI = "/california/san-francisco/middle-schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?gradeLevels=m";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_LEVEL_CODE, LevelCode.HIGH.getLowestLevel().getName());
-        expectedRedirectURI = "/california/san-francisco/high-schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?gradeLevels=h";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
-        // multiple level codes is interpreted as no level filter
+        // multiple level codes - values in p,e,m,h sorted order
         request.setParameter(SchoolsController.PARAM_LEVEL_CODE,
                 new String[]{LevelCode.MIDDLE.getLowestLevel().getName(), LevelCode.HIGH.getLowestLevel().getName()});
-        expectedRedirectURI = "/california/san-francisco/schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?gradeLevels=m&gradeLevels=h";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         // combined filters
@@ -228,14 +229,14 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
                 new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()});
         request.removeParameter(SchoolsController.PARAM_LEVEL_CODE);
         request.setParameter(SchoolsController.PARAM_LEVEL_CODE, LevelCode.ELEMENTARY.getLowestLevel().getName());
-        expectedRedirectURI = "/california/san-francisco/public-charter/elementary-schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?gradeLevels=e&st=charter&st=public";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.removeParameter(SchoolsController.PARAM_SCHOOL_TYPE);
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE, SchoolType.CHARTER.getSchoolTypeName());
         request.removeParameter(SchoolsController.PARAM_LEVEL_CODE);
         request.setParameter(SchoolsController.PARAM_LEVEL_CODE, LevelCode.MIDDLE.getLowestLevel().getName());
-        expectedRedirectURI = "/california/san-francisco/charter/middle-schools/";
+        expectedRedirectURI = "/california/san-francisco/schools/?gradeLevels=m&st=charter";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         // hyphenated city

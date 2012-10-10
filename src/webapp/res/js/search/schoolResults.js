@@ -294,7 +294,11 @@ GS.search.results = GS.search.results || (function() {
         if(queryString !== queryStringWithFilters) {
             queryString = queryStringWithFilters;
         }
-        queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
+        if (start !== 0) {
+            queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
+        } else {
+            queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
+        }
 
         window.location.search = queryString;
     };
@@ -307,7 +311,11 @@ GS.search.results = GS.search.results || (function() {
             }
             else {
                 var start = (pageNumber-1) * pageSize;
-                queryData.start = start;
+                if (start !== 0) {
+                    queryData.start = start;
+                } else {
+                    delete queryData.start;
+                }
                 update(queryData);
             }
         }
@@ -320,12 +328,20 @@ GS.search.results = GS.search.results || (function() {
         var start = (pageNumber-1) * pageSize;
         var queryString = '';
         if(queryStringData !== undefined) {
-            queryStringData.start = start;
+            if (start !== 0) {
+                queryStringData.start = start;
+            } else {
+                delete queryStringData.start;
+            }
             queryString = GS.uri.Uri.getQueryStringFromObject(queryStringData);
         }
         else {
             queryString = window.location.search;
-            queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
+            if (start !== 0) {
+                queryString = GS.uri.Uri.putIntoQueryString(queryString,"start",start, true);
+            } else {
+                queryString = GS.uri.Uri.removeFromQueryString(queryString, "start");
+            }
         }
 
         var state = { queryString: "queryString"};

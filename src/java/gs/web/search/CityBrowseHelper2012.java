@@ -110,25 +110,20 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
         return sb.toString();
     }
 
-    protected String getRelCanonical(SchoolSearchCommandWithFields commandWithFields, HttpServletRequest request) {
+    protected UrlBuilder getRelCanonical(SchoolSearchCommandWithFields commandWithFields) {
         City city = commandWithFields.getCityFromUrl();
         State state = commandWithFields.getState();
         
-        if (request == null || city == null || state == null) {
+        if (city == null || state == null) {
             throw new IllegalArgumentException("request, city, and state are required and cannot be null");
         }
-        HashSet<SchoolType> schoolTypeSet = new HashSet<SchoolType>(1);
-        schoolTypeSet.add(SchoolType.PUBLIC);
-        schoolTypeSet.add(SchoolType.CHARTER);
-        schoolTypeSet.add(SchoolType.PRIVATE);
 
-        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+        return new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
                 state,
                 city.getName(),
-                schoolTypeSet, null);
-        String url = urlBuilder.asFullUrl(request);
-
-        return url;
+                SchoolType.getSetContainingOnlyLowestSchoolType(commandWithFields.getSchoolTypes()),
+                LevelCode.createLevelCode(commandWithFields.getGradeLevels()).getLowestNonPreSchoolLevelCode(),
+                commandWithFields.getRequestedPage().offset);
     }
 
     public String getOmnitureHierarchy(int currentPage, int totalResults) {

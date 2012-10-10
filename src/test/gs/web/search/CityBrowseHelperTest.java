@@ -79,7 +79,7 @@ public class CityBrowseHelperTest {
         _schoolSearchCommandWithFields.setCityFromUrl(city);
         _schoolSearchCommand.setState("CA");
 
-        assertEquals("http://localhost/california/alameda/schools/", _cityBrowseHelper.getRelCanonical(_request));
+        assertEquals("http://localhost/california/alameda/schools/", _cityBrowseHelper.getRelCanonical(_schoolSearchCommandWithFields).asFullUrlXml(_request));
     }
 
     @Test

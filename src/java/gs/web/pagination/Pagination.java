@@ -101,7 +101,12 @@ public class Pagination {
     }
 
     public static String recordOffsetInUrl(int offset, String url) {
-        String newUrl = UrlUtil.putQueryParamIntoUrl(url, gs.data.pagination.Pagination.DEFAULT_PAGINATION_CONFIG.getOffsetParam(), String.valueOf(offset));
+        String newUrl;
+        if (offset != 0) {
+            newUrl = UrlUtil.putQueryParamIntoUrl(url, gs.data.pagination.Pagination.DEFAULT_PAGINATION_CONFIG.getOffsetParam(), String.valueOf(offset));
+        } else {
+            newUrl = UrlUtil.removeQueryParamsFromUrl(url, gs.data.pagination.Pagination.DEFAULT_PAGINATION_CONFIG.getOffsetParam());
+        }
         return newUrl;
     }
 

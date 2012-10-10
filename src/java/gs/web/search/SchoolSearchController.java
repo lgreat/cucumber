@@ -401,7 +401,7 @@ public class SchoolSearchController extends AbstractCommandController implements
                 if (district != null) {
                     relCanonicalUrl = districtBrowseHelper.getRelCanonical(request);
                 } else if (city != null) {
-                    relCanonicalUrl = cityBrowseHelper.getRelCanonical(request);
+                    relCanonicalUrl = cityBrowseHelper.getRelCanonical(commandAndFields).asFullUrlXml(request);
                }
             }
 

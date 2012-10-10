@@ -36,6 +36,7 @@ import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
 import gs.web.util.PageHelper;
 import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
 import org.apache.commons.lang.ArrayUtils;
@@ -99,6 +100,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
     public static final String MODEL_STATE = "state";
 
     public static final String MODEL_REL_CANONICAL = "relCanonical";
+    public static final String MODEL_CURRENT_URL_MATCHES_REL_CANONICAL = "currentUrlMatchesRelCanonical";
     public static final String MODEL_NEARBY_SEARCH_TITLE_PREFIX = "nearbySearchTitlePrefix";
     public static final String MODEL_NEARBY_SEARCH_IS_ESTABLISHMENT= "nearbySearchIsEstablishment";
     public static final String MODEL_NEARBY_SEARCH_ZIP_CODE = "nearbySearchZipCode";
@@ -653,9 +655,15 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
 
         // City Browse Specific:  Put rel canonical value into the model
-        String relCanonical = _cityBrowseHelper.getRelCanonical(commandAndFields, request);
+        UrlBuilder relCanonical = _cityBrowseHelper.getRelCanonical(commandAndFields);
         if (relCanonical != null) {
-            model.put(MODEL_REL_CANONICAL, relCanonical);
+            model.put(MODEL_REL_CANONICAL, relCanonical.asFullUrlXml(request));
+
+            String currentUrl = UrlUtil.getRequestURL(request);
+
+            model.put(MODEL_CURRENT_URL_MATCHES_REL_CANONICAL, currentUrl.equals(relCanonical.asFullUrl(request)));
+        } else {
+            model.put(MODEL_CURRENT_URL_MATCHES_REL_CANONICAL, false);
         }
 
 

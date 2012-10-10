@@ -493,7 +493,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
                 if (commandAndFields.getDistrict() != null) {
                     relCanonicalUrl = districtBrowseHelper.getRelCanonical(request);
                 } else if (commandAndFields.getCity() != null) {
-                    relCanonicalUrl = cityBrowseHelper.getRelCanonical(request);
+                    relCanonicalUrl = cityBrowseHelper.getRelCanonical(commandAndFields).asFullUrlXml(request);
                }
             }
 
@@ -508,12 +508,12 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
 
         // determine the correct canonical URL based on if this controller is handling a string search that matches
         // a city or not, and whether or not the controller is handling a city browse or district browse request
-        String relCanonicalUrl = null;
+        UrlBuilder relCanonicalUrl = null;
         if (commandAndFields.getState() != null) {
-            relCanonicalUrl = cityBrowseHelper.getRelCanonical(request);
+            relCanonicalUrl = cityBrowseHelper.getRelCanonical(commandAndFields);
 
             if (relCanonicalUrl != null) {
-                model.put(MODEL_REL_CANONICAL, relCanonicalUrl);
+                model.put(MODEL_REL_CANONICAL, relCanonicalUrl.asFullUrlXml(request));
             }
         }
     }
