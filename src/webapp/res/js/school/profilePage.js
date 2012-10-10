@@ -511,8 +511,11 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
             jQuery('.' + thumbnailIdPrefix + '-' + i).removeClass(thumbnailSelectedCssClass);
         }
         //show desired image
+        var image = multiSizeImageArray[index].getFull();
+        var h = image.getImageHeight();
+        var paddingToAdd = Math.round((500-h)/2);
         id = fullSizeImageIdPrefix + '-' + index;
-
+        jQuery('.' + id).css('padding-top', paddingToAdd);
         jQuery('.' + id).show();
 
         jQuery('.' + thumbnailIdPrefix + '-' + index).addClass(thumbnailSelectedCssClass);
@@ -647,9 +650,11 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
 
     function showMod(){
         sendOmnitureTrackingInfo();
+        var overlayClass = 'js-overlay_black';
         var $me = jQuery('#' + id);
         ModalManager.showModal({
-            'layerId' :  id
+            'layerId' :  id,
+            'bgcolorOverlay' : overlayClass
         });
 //        if(!shownOnce){
         $me.find('.js_infiniteCarousel').trigger('shown'); // custom infiniteCarousel event
@@ -706,21 +711,25 @@ GSM.photoGallery.MultiSizeImage = function(thumbnailImage, fullSizeImage) {
 /**
  * Constructor
  */
-GSM.photoGallery.Image = function(src, alt, id, cssClass, title, height, width) {
+GSM.photoGallery.Image = function(src, h, alt, id, cssClass, title, width) {
     var src = src;
     this.id = id;
     this.cssClass = cssClass;
     this.alt = alt;
     this.title = title;
-    this.height = height;
+    var height = h;
+//    var ih = h;
+//    console.log("height:"+height);
     this.width = width;
     var loaded = false;
     var getSrc = function(){return src;}
+    var getImageHeight = function(){return height;}
     var isLoaded = function(){return loaded;}
     var setLoaded = function(b){loaded = b;}
     return{
         isLoaded: isLoaded,
         getSrc: getSrc,
-        setLoaded: function( b ){setLoaded(b);}
+        setLoaded: function( b ){setLoaded(b);},
+        getImageHeight: getImageHeight
     }
 };

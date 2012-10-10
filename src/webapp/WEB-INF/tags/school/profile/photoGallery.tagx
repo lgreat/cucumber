@@ -26,7 +26,7 @@
 
     <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
     <div id="${prefix}-photo-gallery" class="dn">
-    <div class="mod modal_2 width_17 ${prefix}-photo-gallery"  style="min-height: 600px;" id="${prefix}-photo-gallery">
+    <div class="mod modal_2 width_17 ${prefix}-photo-gallery"  style="height: 600px;" id="${prefix}-photo-gallery">
         <div class="outer">
                         <div class="fr"><span class="iconx24 i-24-gallery-close  js_closeHover" id="${prefix}-photo-gallery-close"><!-- do not collapse --></span></div>
 
@@ -77,11 +77,11 @@
     <script type="text/javascript">
         jQuery(function() {
             var imageArray = [];
-            <c:forEach items="${smallImages}" var="index" >
+            <c:forEach items="${largeImages}" var="index" >
             imageArray.push(
                     new GSM.photoGallery.MultiSizeImage(
                             new GSM.photoGallery.Image('${basePath}${index.smallSizeFile}'),
-                            new GSM.photoGallery.Image('${basePath}${index.largeSizeFile}')
+                            new GSM.photoGallery.Image('${basePath}${index.largeSizeFile}','${index.height}')
                     )
             );
             </c:forEach>

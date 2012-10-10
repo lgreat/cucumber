@@ -170,10 +170,12 @@ jQuery(document).ready(function() {
         var popupWidth = popup.outerWidth();
         var popupHeight = popup.outerHeight();
         var popupOffset = popup.offset();
-        var popupOffsetLeft = popupOffset.left;
+      var popupOffsetLeft = 0;
+      if(popupOffset)popupOffsetLeft = popupOffset.left;
         var triggerWidth = trigger.outerWidth();
         var triggerOffset = trigger.offset();
-        var triggerOffsetLeft = triggerOffset.left;
+      var triggerOffsetLeft = 0;
+      if(triggerOffset) triggerOffsetLeft = triggerOffset.left;
 
         var topPos = null;
         var leftPos = null;
