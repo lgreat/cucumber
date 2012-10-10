@@ -28,10 +28,10 @@
                 <c:if test="${total eq '1'}">
                     <c:set var="stringForReviews">See 1 review &amp;raquo;</c:set>
                 </c:if>
-                <p class="small js-popup" style="width:120px;"><span class="fr">${stringForReviews}</span></p>
+                <p class="small js-popup" style="width:118px;"><span class="fr">${stringForReviews}</span></p>
             </c:when>
             <c:otherwise>
-                <p class="small js-popup" style="width:120px;"><span class="fr">Review this school &amp;raquo;</span></p>
+                <p class="small js-popup" style="width:118px;"><span class="fr">Review this school &amp;raquo;</span></p>
             </c:otherwise>
         </c:choose>
         <div class="clearfloat"><!-- do not collapse --></div>
