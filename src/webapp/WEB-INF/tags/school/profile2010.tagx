@@ -51,11 +51,19 @@
                         </c:otherwise>
                     </c:choose>
                 <![CDATA[</li>]]>
-                <c:if test="${school.districtId != 0 and school.levelCode != 'p'}">
-                    <li>&amp;gt; <link:districtHome district="${school.district}"
-                                                    title="District information">DCPS</link:districtHome>
-                    </li>
-                </c:if>
+                <c:choose>
+                    <c:when test="${not empty school.districtId and school.districtId eq 1}">
+                        <li>&amp;gt; <link:districtHome district="${school.district}"
+                                                        title="District information">DCPS</link:districtHome>
+                        </li>
+                    </c:when>
+                    <c:when test="${school.districtId != 0 and school.levelCode != 'p'}">
+                        <li>&amp;gt; <link:districtHome district="${school.district}"
+                                                        title="District information"><c:out
+                                value="${school.district.name}" escapeXml="true"/></link:districtHome>
+                        </li>
+                    </c:when>
+                </c:choose>
             </c:when>
             <c:otherwise>
                 <![CDATA[<li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">]]>
