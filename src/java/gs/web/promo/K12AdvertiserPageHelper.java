@@ -15,7 +15,7 @@ public class K12AdvertiserPageHelper {
         K12_SCHOOL_INFO.put("CA", new K12SchoolInfo("cava", "California Virtual Academies"));
         K12_SCHOOL_INFO.put("CO", new K12SchoolInfo("cova", "Colorado Virtual Academy"));
         K12_SCHOOL_INFO.put("DC", new K12SchoolInfo("capcs", "Community Academy Public Charter School Online", false));
-        K12_SCHOOL_INFO.put("FL", new K12SchoolInfo("flvp", "Florida Virtual Program", false));
+        K12_SCHOOL_INFO.put("FL", new K12SchoolInfo("flva", "Florida Virtual Academies", false));
         K12_SCHOOL_INFO.put("GA", new K12SchoolInfo("gca", "Georgia Cyber Academy", false));
         K12_SCHOOL_INFO.put("HI", new K12SchoolInfo("hta", "Hawaii Technology Academy", false));
         K12_SCHOOL_INFO.put("IA", new K12SchoolInfo("iava", "Iowa Virtual Academy", false, false));
