@@ -28,7 +28,8 @@ var ModalManager = (function($) {
             'overlay' : 'true',
             'content' : '',
             'templateId' : '0',
-            'closeButton' : 'false'
+            'closeButton' : 'false',
+            'bgcolorOverlay' : 'js-overlay'
         }, options);	
 	  var matchModal = 0;
 	  $.each(trackModal, function(key, value) {  	
@@ -75,6 +76,7 @@ function ModalLayer(options, id){
     
 	var mlUniqueId = 0;
 	var layerId = "";
+    var overlayClass = "";
 	var containerId = "";
 	var templateId = "0";
 	var overlay = "true";
@@ -84,6 +86,7 @@ function ModalLayer(options, id){
 	
 	var setId = function( id ) { mlUniqueId = id; }
 	var setLayerId = function( id ) { layerId = id; }
+    var setBgClass = function( overlay ) { overlayClass = overlay; }
 	var setContainerId = function( id ) { containerId = id; }
 	var setTemplateId = function( id ) { templateId = id; }	
 	var setOverlayState= function( state ) { overlay = state; }	
@@ -92,6 +95,7 @@ function ModalLayer(options, id){
 	
 	var getId = function(  ) { return mlUniqueId; }
 	var getLayerId = function(  ) { return layerId; }
+    var getBgClass = function(  ) { return overlayClass; }
 	var getTemplateId = function(  ) {	return templateId; }
 	var getOverlayState = function(  ) { return overlay; }
 	var getZIndex = function(  ) { return zIndex; }
@@ -105,7 +109,7 @@ function ModalLayer(options, id){
 
 
         var overlayState = "";
-		if(this.getOverlayState() == 'true') { overlayState = '<div class="js-overlay '+pagePosition+'"></div>' };
+		if(this.getOverlayState() == 'true') { overlayState = '<div class="'+getBgClass()+' '+pagePosition+'"></div>' };
 		containerObj.append('<div id="modallayer'+getId()+'" >'
 				+overlayState
 				+'<div class="horizon '+pagePosition+'"><div class="js-modal" style="top:-'+he+'px; ">'
@@ -135,10 +139,12 @@ function ModalLayer(options, id){
             'overlay' : 'true',
             'content' : '',
             'templateId' : '0',
-            'closeButton' : 'false'
+            'closeButton' : 'false',
+            'bgcolorOverlay' : 'js-overlay'
         }, options);
 
 	setLayerId(settings['layerId']);
+    setBgClass(settings['bgcolorOverlay']);
 	setTemplateId(settings['templateId']);
 	setContainerId(settings['containerId']);
     if(getContainerId() == 'fullPageOverlay')  pagePosition = "pf";

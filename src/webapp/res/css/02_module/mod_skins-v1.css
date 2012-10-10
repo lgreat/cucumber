@@ -787,14 +787,14 @@ New Popover for all arrow popups.  Uses the bootstrap-popover module which also 
 /* ----------- photoGalleryWrapper ----------- */
 .photoGalleryWrapper{}
 .photoGalleryWrapper .inner{background-color: #fff;}
-.photoGalleryWrapper .article-photo-gallery-close{cursor: pointer;}
-.photoGalleryWrapper .photoGalleryViewer{text-align: center;}
-.photoGalleryWrapper .galleryPhotoFullsize{ margin:0 auto;}
-.photoGalleryWrapper .galleryPhotoFullsize img{display:block;padding: 0;margin:0 0 5px;}
+.photoGalleryWrapper .profile-photo-gallery-close{cursor: pointer;}
+.photoGalleryWrapper .photoGalleryViewer{text-align: center; min-height: 520px;}
+.photoGalleryWrapper .galleryPhotoFullsize{ margin:auto auto; }
+.photoGalleryWrapper .galleryPhotoFullsize img{display:block;padding: 0;margin: auto auto}
 .photoGalleryWrapper .galleryPhotoFullsize span{clear:both;display:block;margin:0;padding: 0;}
 .photoGalleryWrapper .photoGalleryControls{margin:0;padding:0;text-align:center; }
-.photoGalleryWrapper .article-photo-gallery-back{position: absolute; top: 176.5px;left: 11px;cursor: pointer;}
-.photoGalleryWrapper .article-photo-gallery-next{position: absolute; top: 176.5px; right: 11px;cursor: pointer;}
+.photoGalleryWrapper .profile-photo-gallery-back{position: absolute; top: 280px;left: 20px;cursor: pointer;}
+.photoGalleryWrapper .profile-photo-gallery-next{position: absolute; top: 280px; right: 20px;cursor: pointer;}
 
 .gallery-thumbnail {
     border: 2px solid #fff;

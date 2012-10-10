@@ -26,9 +26,22 @@ General comments:
     right:0;
     bottom:0;
     left:0;
-    background-color:#999999;;
+    background-color:#999999;
     opacity: 0.5;
     filter: alpha(opacity = .5);
+    zoom: 1;
+    display: block;
+    z-index:10;
+}
+
+.js-overlay_black {
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background-color:#000000;
+    opacity: 0.75;
+    filter: alpha(opacity = .75);
     zoom: 1;
     display: block;
     z-index:10;
@@ -186,3 +199,38 @@ box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
     margin: 0px;
 }
 
+/* ------------------- modal_2 ------------------- */
+
+.modal_2 {
+    /*height:600px;*/
+    margin: 0 auto 20px;
+    position: relative;
+}
+.modal_2 .outer{
+    padding:10px 13px;
+    padding:10px 13px;
+    /*border:2px solid #bcdeed;*/
+    background-color:#1A1A1A;
+    /*Rounded corners*/
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6)";
+    *filter: progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6);
+}
+.modal_2 .inner{
+    padding: 20px 20px;
+}
+.modal_2 .inner .hd{}
+.modal_2 .inner .hd h3{
+    line-height: 2.7;
+}
+.modal_1 .inner .hd span{
+    margin: 10px;
+}
+.modal_22 .inner .hd span.reportHoverHeader {
+    margin: 0px;
+}

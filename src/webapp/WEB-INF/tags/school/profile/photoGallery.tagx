@@ -26,9 +26,9 @@
 
     <c:set var="numberOfImages" value="${fn:length(smallImages)}"/>
     <div id="${prefix}-photo-gallery" class="dn">
-    <div class="mod modal_1 width_17 ${prefix}-photo-gallery"  style="height: 500px;" id="${prefix}-photo-gallery">
+    <div class="mod modal_2 width_17 ${prefix}-photo-gallery"  style="min-height: 600px;" id="${prefix}-photo-gallery">
         <div class="outer">
-                        <div class="fr"><span class="iconx24 i-24-close  js_closeHover" id="${prefix}-photo-gallery-close"><!-- do not collapse --></span></div>
+                        <div class="fr"><span class="iconx24 i-24-gallery-close  js_closeHover" id="${prefix}-photo-gallery-close"><!-- do not collapse --></span></div>
 
 
                 <div class="inner">
@@ -41,14 +41,14 @@
                                         <!--<div class="small quiet mtm bottom">${photoCaptions[index]}</div>-->
                                     </div>
                                 </c:forEach>
-                                <div class="article-photo-gallery-back">
+                                <div class="profile-photo-gallery-back">
                                     <div id="${prefix}-photo-gallery-back">
-                                        <span class="iconx48 i-48-gallery-back-default"><!--Do not collapse--></span>
+                                        <span class="iconx32g i-32-arrow-left"><!--Do not collapse--></span>
                                     </div>
                                 </div>
-                                <div class="article-photo-gallery-next">
+                                <div class="profile-photo-gallery-next">
                                     <div id="${prefix}-photo-gallery-next">
-                                        <span class="iconx48 i-48-gallery-next-default"><!--Do not collapse--></span>
+                                        <span class="iconx32g i-32-arrow-right"><!--Do not collapse--></span>
                                     </div>
                                 </div>
                             </div>

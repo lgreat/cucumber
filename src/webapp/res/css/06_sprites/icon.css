@@ -315,7 +315,7 @@ a:active .i-16-search-filter-arrow-up {
 
 .iconx24 {
     display: inline-block;
-    background-image: url(/res/img/sprites/icon/x24/120911-24x24.png);
+    background-image: url(/res/img/sprites/icon/x24/121009-24x24.png);
     width: 24px;
     height: 24px;
 }
@@ -407,14 +407,56 @@ a:active .i-16-search-filter-arrow-up {
     background-position: -480px 0;
 }
 
+.i-24-map-plus {
+    background-position: -504px 0;
+}
+
+.i-24-gallery-close {
+    background-position: -528px 0;
+}
 /* row 24 */
 
 span:hover.i-24-close {
     background-position: 0 -24px;
 }
 
+span:hover.i-24-gallery-close {
+    background-position: -528px -24px;
+}
+
 /* =6 x32
 -------------------------------------------------------------------------------------------*/
+
+
+/* **************** SPRITE ***************** */
+
+.iconx32g {
+    display: inline-block;
+    background-image: url(/res/img/sprites/icon/x32/121009-32x32.png);
+    width: 32px;
+    height: 32px;
+}
+
+/* **************** VIEWPORT ***************** */
+
+/* row 0 */
+.i-32-arrow-left {
+    background-position: 0 0;
+}
+
+.i-32-arrow-right {
+    background-position: -32px 0;
+}
+
+span:hover.i-32-arrow-left {
+    background-position: 0 -32px;
+}
+
+span:hover.i-32-arrow-right {
+    background-position: -32px -32px;
+}
+
+
 
 /* **************** SPRITE ***************** */
 
