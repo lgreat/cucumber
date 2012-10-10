@@ -63,7 +63,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
     private ICensusDataSetDao _censusDataSetDao;
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
 
-    public boolean _isDistrictBoilerplatePresent;
     public static final String MODEL_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
     public static final String MODEL_NUM_MIDDLE_SCHOOLS = "numMiddleSchools";
     public static final String MODEL_NUM_HIGH_SCHOOLS = "numHighSchools";
@@ -189,7 +188,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
         loadTopRatedSchools(city,pageModel);
         loadNumberofGradeLevelSchools(state,district.getId().toString(),pageModel);
         pageModel.put("googleMapLink","http://maps.google.com?oi=map&amp;q="+URLEncoder.encode(district.getPhysicalAddress().getStreet() + " "+district.getPhysicalAddress().getCity()+ ", " +district.getPhysicalAddress().getState().getAbbreviationLowerCase(), "UTF-8"));
-        pageModel.put("isDistrictBoilerplatePresent", _isDistrictBoilerplatePresent);
         model.put("model", pageModel);
 
         // Google ad keywords
@@ -221,7 +219,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
 
         String boilerplate = (String) row.get("boilerplate");
 
-        _isDistrictBoilerplatePresent = !StringUtils.isEmpty(boilerplate);
+        model.put("isDistrictBoilerplatePresent", !StringUtils.isEmpty(boilerplate));
 
         model.putAll(row);
     }
