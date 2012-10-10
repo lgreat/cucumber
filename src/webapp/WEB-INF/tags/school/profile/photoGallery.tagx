@@ -41,16 +41,18 @@
                                         <!--<div class="small quiet mtm bottom">${photoCaptions[index]}</div>-->
                                     </div>
                                 </c:forEach>
-                                <div class="profile-photo-gallery-back">
-                                    <div id="${prefix}-photo-gallery-back">
-                                        <span class="iconx32g i-32-arrow-left"><!--Do not collapse--></span>
+                                <c:if test="${numberOfImages > 1}">    <!-- no arrows if one image -->
+                                    <div class="profile-photo-gallery-back">
+                                        <div id="${prefix}-photo-gallery-back">
+                                            <span class="iconx32g i-32-arrow-left"><!--Do not collapse--></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="profile-photo-gallery-next">
-                                    <div id="${prefix}-photo-gallery-next">
-                                        <span class="iconx32g i-32-arrow-right"><!--Do not collapse--></span>
+                                    <div class="profile-photo-gallery-next">
+                                        <div id="${prefix}-photo-gallery-next">
+                                            <span class="iconx32g i-32-arrow-right"><!--Do not collapse--></span>
+                                        </div>
                                     </div>
-                                </div>
+                                </c:if>
                             </div>
 
                             <!--<div class="photoGalleryControls">-->
