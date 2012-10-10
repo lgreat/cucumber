@@ -68,7 +68,7 @@
                 <c:when test="${not empty gsRating and gsRating gt 0}">
                     <c:choose>
                         <c:when test="${isNewGsRating}">
-                            <!--<div class="private-${gsRatingValue} r-${size}">${gsRatingValue}</div>-->
+                            <span class="ratingx${privateSpriteSize}-private-RYG r-${privateSpriteSize}-${gsRating}"><!--Do not collapse--></span>
                         </c:when>
                         <c:otherwise>
                             <span class="ratingx${privateSpriteSize}-private-O r-${privateSpriteSize}-${gsRating}"><!--Do not collapse--></span>
