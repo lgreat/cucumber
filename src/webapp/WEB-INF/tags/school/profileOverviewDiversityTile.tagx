@@ -59,7 +59,7 @@
 
     </c:when>
     <c:otherwise>
-        <school:profileOverviewCell1 title="${t7dc}">
+        <school:profileOverviewCell2 title="${t7dc}">
 
                     <!-- Static text is to be displayed when data not available -->
                     <div class="mam" style="height:149px;">
@@ -67,7 +67,7 @@
                         <p class="tac small make-555555">Looks like we have no information about the race or ethnicity of the student body.</p>
                     </div>
 
-        </school:profileOverviewCell1>
+        </school:profileOverviewCell2>
     </c:otherwise>
     </c:choose>
 

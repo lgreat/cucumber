@@ -57,11 +57,11 @@
             <c:choose>
                 <c:when test="${specEdPgmsProvided eq 'call'}">
 
-                    <school:profileOverviewCell1 title="${t8_1dc}">
+                    <school:profileOverviewCell2 title="${t8_1dc}">
                         <div class="mam" style="height:46px;">
                             <p class="small bottom tac">The school has not provided this information yet.</p>
                         </div>
-                    </school:profileOverviewCell1>
+                    </school:profileOverviewCell2>
 
                 </c:when>
                 <c:otherwise>
@@ -139,11 +139,11 @@
             <c:choose>
                 <c:when test="${extdCareProvided eq 'noInfo'}">
 
-                    <school:profileOverviewCell1 title="${t8_2dc}">
+                    <school:profileOverviewCell2 title="${t8_2dc}">
                         <div class="mam" style="height:40px;">
                             <p class="small bottom tac">The school has not provided this information yet.</p>
                         </div>
-                    </school:profileOverviewCell1>
+                    </school:profileOverviewCell2>
 
                 </c:when>
                 <c:otherwise>
