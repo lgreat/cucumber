@@ -21,8 +21,8 @@
         <c:when test="${content eq 'default'}">
             <c:set var="t9dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Transportation</p>
-                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
-                <div class="clearfloat"><!-- do not collapse --></div>
+                <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
+                <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
 
             <div id="js-tile-9-0">
@@ -68,8 +68,8 @@
                 <c:when test="${not empty classSize}">
                     <c:set var="t9s1">
                         <p class="small_bold textshadow-1 pvs plm bottom">Average class size</p>
-                        <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
-                        <div class="clearfloat"><!-- do not collapse --></div>
+                        <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
+                        <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                     </c:set>
 
                     <div id="js-tile-9-1-0">
@@ -96,8 +96,8 @@
                 <c:otherwise>
                     <c:set var="t9s1">
                         <p class="small_bold textshadow-1 pvs plm bottom">Students per teacher</p>
-                        <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
-                        <div class="clearfloat"><!-- do not collapse --></div>
+                        <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
+                        <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
                     </c:set>
 
                     <div id="js-tile-9-1-1">

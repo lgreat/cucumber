@@ -21,8 +21,8 @@
         <c:when test="${content eq 'default'}">
             <c:set var="t10dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Programs</p>
-                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
-                <div class="clearfloat"><!-- do not collapse --></div>
+                <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
+                <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
 
             <div id="js-tile-10-0">
@@ -51,8 +51,8 @@
         <c:when test="${content eq 'substitute1'}">
             <c:set var="t10s1">
                 <p class="small_bold textshadow-1 pvs plm bottom">Parent involvement</p>
-                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
-                <div class="clearfloat"><!-- do not collapse --></div>
+                <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
+                <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
 
             <div id="js-tile-10-1">
@@ -90,8 +90,8 @@
         <c:otherwise>
             <c:set var="t10s2">
                 <p class="small_bold textshadow-1 pvs plm bottom make-555555">Highlights</p>
-                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
-                <div class="clearfloat"><!-- do not collapse --></div>
+                <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
+                <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
 
             <div id="js-tile-10-2">

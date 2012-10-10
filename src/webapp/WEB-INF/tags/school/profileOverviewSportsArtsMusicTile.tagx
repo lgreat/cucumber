@@ -32,7 +32,7 @@
                 </div>
                 <div class="unit size24of100 ">
                     <div class="fl small_bold textshadow-1 bottom"><span class="iconx16 i-16-music vam"><!-- do not collapse --></span> Music</div>
-                    <div class="small bottom js-popup">More &amp;raquo;</div>
+                    <!--<div class="small bottom js-popup">More &amp;raquo;</div>-->
                 </div>
             </div>
         </c:set>

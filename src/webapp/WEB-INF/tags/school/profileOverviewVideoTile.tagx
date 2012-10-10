@@ -22,8 +22,8 @@
         <c:when test="${content eq 'video'}">
             <c:set var="t3dc">
                 <p class="small_bold textshadow-1 pvs plm bottom make-555555">Videos</p>
-                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
-                <div class="clearfloat"><!-- do not collapse --></div>
+                <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
+                <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
 
                 <div class="mod standard_1-1">

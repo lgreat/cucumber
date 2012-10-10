@@ -48,15 +48,10 @@ General comments:
 }
 
 .standard_1-1 .inner.box-shadow-animation-1:hover{
-    border-color:#b8b8b8;
+    border: solid 1px #2092C4;
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Saf3-4 */
     -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* FF3.5 - 3.6 */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Opera 10.5, IE9, FF4+, Chrome 10+ */
-    -webkit-transition: all 0.2s ease-in;  /* Saf3.2+, Chrome */
-    -moz-transition: all 0.2s ease-in;  /* FF4+ */
-    -ms-transition: all 0.2s ease-in;  /* IE10 */
-    -o-transition: all 0.2s ease-in;  /* Opera 10.5+ */
-    transition: all 0.2s ease-in;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Opera 10.5, IE9, FF4+, Chrome 10+ */
 }
 
 .standard_1-1 .hd{
@@ -90,7 +85,9 @@ General comments:
     max-height: 200px; overflow-y: auto; position: relative;  overflow-x:hidden;
 }
 
-
+/*  ///////////////////
+  used for the header map image
+*/
 .standard_1-1-1{
     margin-bottom:10px;
 }
@@ -169,6 +166,9 @@ General comments:
           border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
   background-color:#f3fafd;
   padding:5px;
+}
+.standard_3-1 .outer:hover{
+    background-color:#D2E9F3;
 }
 .standard_3-1 .inner{
   border:1px solid #d2e9f3; 

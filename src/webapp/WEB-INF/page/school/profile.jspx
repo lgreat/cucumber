@@ -348,7 +348,7 @@
         <div class="img mrm">
             <div class="mod standard_1-1-1 mbs">
                 <div class="inner">
-                    <div class="bd">
+                    <div class="box-shadow-animation-1">
                         <link:districtBoundaryTool school="${school}" onclick="if (s.tl) { s.tl(this, 'o', 'header_largermap'); }">
                             <div class="pr">
                                 <img height="98" width="98" alt="Map thumbnail"

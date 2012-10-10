@@ -156,7 +156,7 @@
         </c:otherwise>
     </c:choose>
 
-    <school:profileOverviewCell1 title="${t14t15dc}">
+    <school:profileOverviewCell2 title="${t14t15dc}">
 
             <!-- cmsResults is: List<ICmsFeatureSearchResult> -->
             <c:choose>
@@ -205,7 +205,7 @@
                 </c:otherwise>
             </c:choose>
 
-    </school:profileOverviewCell1>
+    </school:profileOverviewCell2>
 
 
 </jsp:root>

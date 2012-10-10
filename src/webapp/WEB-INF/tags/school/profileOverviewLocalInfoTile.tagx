@@ -35,8 +35,8 @@
         <c:when test="${content eq 'districtInfo'}">
             <c:set var="t13s1">
                 <p class="small_bold textshadow-1 pvs plm bottom">District information</p>
-                <p class="small js-popup" style="width:42px;">More &amp;raquo;</p>
-                <div class="clearfloat"><!-- do not collapse --></div>
+                <!--<p class="small js-popup" style="width:42px;">More &amp;raquo;</p>-->
+                <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
             </c:set>
 
             <div id="js-tile-13-1">
