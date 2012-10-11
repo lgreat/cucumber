@@ -580,9 +580,9 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
      * @param obj    - this is the img obj
      * @return {*}   - returns its id
      */
-//    function parseThumbnailId(obj){
-//        return obj.parent().attr('class').split("-").reverse()[0];
-//    }
+    function parseImageId(obj){
+        return obj.parent().attr('class').split("-").reverse()[0];
+    }
 
     function sendOmnitureTrackingInfo() {
         //requires /res/js/omnitureEventNotifier.js
@@ -626,6 +626,7 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
      */
     function attachShowEvent(cssClass, initialCallback) {
         jQuery("." + cssClass).click(function(event) {
+            var index = parseImageId($(event.target));
             loadFullSizeImages();
             showFullSizeImage(index); //load the first full size image into gallery
             showMod();
