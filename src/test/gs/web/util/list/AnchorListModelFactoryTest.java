@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.19 2012/10/11 00:38:18 yfan Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.20 2012/10/11 00:58:05 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -75,7 +75,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         verify(schoolDao);
 
         List list = anchorListModel.getResults();
-        assertEquals(6, list.size());
+        assertEquals(7, list.size());
 
         Anchor preschoolAnchor = (Anchor) list.get(0);
         assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.PRESCHOOL)).asSiteRelative(null),
@@ -99,12 +99,16 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         assertEquals(" (4)", highAnchor.getAfter());
 
         Anchor publicAnchor = (Anchor) list.get(4);
-        assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PUBLIC, SchoolType.CHARTER), null)).asSiteRelative(null),
+        assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PUBLIC), null)).asSiteRelative(null),
                 publicAnchor.getHref());
 
         Anchor privateAnchor = (Anchor) list.get(5);
         assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(SchoolType.PRIVATE), null)).asSiteRelative(null),
                 privateAnchor.getHref());
+
+        Anchor charterAnchor = (Anchor) list.get(6);
+        assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(SchoolType.CHARTER), null)).asSiteRelative(null),
+                publicAnchor.getHref());
 
         _anchorListModelFactory.setSchoolDao(springSchoolDao);
     }
