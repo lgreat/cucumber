@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.18 2011/01/26 21:40:41 yfan Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.19 2012/10/11 00:38:18 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -66,8 +66,8 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         expect(schoolDao.countSchools(State.AK, null, LevelCode.MIDDLE, "Anchorage")).andReturn(3);
         expect(schoolDao.countSchools(State.AK, null, LevelCode.HIGH, "Anchorage")).andReturn(4);
         expect(schoolDao.countSchools(State.AK, SchoolType.PUBLIC, null, "Anchorage")).andReturn(4);
-        expect(schoolDao.countSchools(State.AK, SchoolType.CHARTER, null, "Anchorage")).andReturn(2);
         expect(schoolDao.countSchools(State.AK, SchoolType.PRIVATE, null, "Anchorage")).andReturn(6);
+        expect(schoolDao.countSchools(State.AK, SchoolType.CHARTER, null, "Anchorage")).andReturn(2);
         replay(schoolDao);
 
         AnchorListModel anchorListModel = _anchorListModelFactory.createSchoolSummaryModel(State.AK, "Anchorage", "Anchorage", _request);
@@ -80,13 +80,13 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         Anchor preschoolAnchor = (Anchor) list.get(0);
         assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.PRESCHOOL)).asSiteRelative(null),
                 preschoolAnchor.getHref());
-        assertEquals("Anchorage Preschools", preschoolAnchor.getContents());
+        assertEquals("Preschools", preschoolAnchor.getContents());
         assertEquals(" (1)", preschoolAnchor.getAfter());
 
         Anchor elementaryAnchor = (Anchor) list.get(1);
         assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(), LevelCode.ELEMENTARY)).asSiteRelative(null),
                 elementaryAnchor.getHref());
-        assertEquals("Anchorage Elementary Schools", elementaryAnchor.getContents());
+        assertEquals("Elementary Schools", elementaryAnchor.getContents());
         assertEquals(" (2)", elementaryAnchor.getAfter());
 
         Anchor middleAnchor = (Anchor) list.get(2);
@@ -95,7 +95,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
         assertEquals(" (3)", middleAnchor.getAfter());
 
         Anchor highAnchor = (Anchor) list.get(3);
-        assertEquals("Anchorage High Schools", highAnchor.getContents());
+        assertEquals("High Schools", highAnchor.getContents());
         assertEquals(" (4)", highAnchor.getAfter());
 
         Anchor publicAnchor = (Anchor) list.get(4);
