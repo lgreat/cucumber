@@ -29,15 +29,16 @@
                 <school:profileOverviewCell1 title="${t1dc}">
                     <div class="mhm">
                         <c:set var="academicRating" value="${gsRatingsModel.academicRating}"/>
-                        <c:set var="climateRating" value="${gsRatingsModel.climateRating}"/>
+                        <c:set var="climateRating">${gsRatingsModel.climateRating}</c:set>
                         <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
-                        <c:if test="${climateRating eq 'Data not available'}">
-                            <c:set var="climateRating">Not available</c:set>
-                        </c:if>
-
-                        <c:if test="${!((climateRating gt '0')  and (climateRating lt '11'))}">
-                            <c:set var="climateRating"><em>${climateRating}</em></c:set>
-                        </c:if>
+                        <c:choose>
+                            <c:when test="${!((climateRating gt '0')  and (climateRating lt '11'))}">
+                                <c:set var="climateRating">Not available</c:set>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="climateRating"><em>${climateRating}</em></c:set>
+                            </c:otherwise>
+                        </c:choose>
                         <c:set var="schoolSpriteType" value="${schoolType}" />
                         <c:if test="${schoolType eq 'charter'}">
                             <c:set var="schoolSpriteType" value="public" />
