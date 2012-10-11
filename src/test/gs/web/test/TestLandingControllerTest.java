@@ -35,11 +35,11 @@ public class TestLandingControllerTest extends BaseControllerTestCase {
 
     public void testGetCityBrowseUrlBuilder() {
         UrlBuilder urlBuilder = TestLandingController.getCityBrowseUrlBuilder(State.CA, "San Francisco", "e");
-        assertEquals("/california/san-francisco/schools/?gradeLevels=e&st=charter&st=public", urlBuilder.asSiteRelative(getRequest()));
+        assertEquals("/california/san-francisco/schools/?gradeLevels=e&st=public&st=charter", urlBuilder.asSiteRelative(getRequest()));
         urlBuilder = TestLandingController.getCityBrowseUrlBuilder(State.CA, "San Francisco", "m");
-        assertEquals("/california/san-francisco/schools/?gradeLevels=m&st=charter&st=public", urlBuilder.asSiteRelative(getRequest()));
+        assertEquals("/california/san-francisco/schools/?gradeLevels=m&st=public&st=charter", urlBuilder.asSiteRelative(getRequest()));
         urlBuilder = TestLandingController.getCityBrowseUrlBuilder(State.CA, "San Francisco", "h");
-        assertEquals("/california/san-francisco/schools/?gradeLevels=h&st=charter&st=public", urlBuilder.asSiteRelative(getRequest()));
+        assertEquals("/california/san-francisco/schools/?gradeLevels=h&st=public&st=charter", urlBuilder.asSiteRelative(getRequest()));
 
         boolean threwException = false;
         try {

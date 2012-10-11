@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.61 2012/10/10 23:02:52 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.62 2012/10/11 14:40:30 yfan Exp $
  */
 
 package gs.web.school;
@@ -229,7 +229,7 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
                 new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()});
         request.removeParameter(SchoolsController.PARAM_LEVEL_CODE);
         request.setParameter(SchoolsController.PARAM_LEVEL_CODE, LevelCode.ELEMENTARY.getLowestLevel().getName());
-        expectedRedirectURI = "/california/san-francisco/schools/?gradeLevels=e&st=charter&st=public";
+        expectedRedirectURI = "/california/san-francisco/schools/?gradeLevels=e&st=public&st=charter";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.removeParameter(SchoolsController.PARAM_SCHOOL_TYPE);

@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilderSaTest.java,v 1.151 2012/10/10 23:02:52 yfan Exp $
+ * $Id: UrlBuilderSaTest.java,v 1.152 2012/10/11 14:40:30 yfan Exp $
  */
 
 package gs.web.util;
@@ -589,7 +589,7 @@ public class UrlBuilderSaTest extends BaseTestCase {
         schoolTypes.add(SchoolType.PUBLIC);
         schoolTypes.add(SchoolType.CHARTER);
         UrlBuilder builder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", schoolTypes, LevelCode.ELEMENTARY);
-        assertEquals("Unexpected URL", "/alaska/anchorage/schools/?gradeLevels=e&st=charter&st=public", builder.asSiteRelative(request));
+        assertEquals("Unexpected URL", "/alaska/anchorage/schools/?gradeLevels=e&st=public&st=charter", builder.asSiteRelative(request));
     }
 
     public void testVpageEquality() {
