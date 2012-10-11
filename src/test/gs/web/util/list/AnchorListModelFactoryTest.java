@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: AnchorListModelFactoryTest.java,v 1.20 2012/10/11 00:58:05 yfan Exp $
+ * $Id: AnchorListModelFactoryTest.java,v 1.21 2012/10/11 01:07:58 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -108,7 +108,7 @@ public class AnchorListModelFactoryTest extends BaseTestCase {
 
         Anchor charterAnchor = (Anchor) list.get(6);
         assertEquals((new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, State.AK, "Anchorage", createSchoolTypeSet(SchoolType.CHARTER), null)).asSiteRelative(null),
-                publicAnchor.getHref());
+                charterAnchor.getHref());
 
         _anchorListModelFactory.setSchoolDao(springSchoolDao);
     }
