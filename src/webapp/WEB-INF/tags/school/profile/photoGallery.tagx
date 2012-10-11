@@ -81,13 +81,13 @@
             var imageArray = [];
             <c:forEach items="${largeImages}" var="index" >
             imageArray.push(
-                    new GSM.photoGallery.MultiSizeImage(
-                            new GSM.photoGallery.Image('${basePath}${index.smallSizeFile}'),
-                            new GSM.photoGallery.Image('${basePath}${index.largeSizeFile}','${index.height}')
+                    new GS.photoGallery.MultiSizeImage(
+                            new GS.photoGallery.Image('${basePath}${index.smallSizeFile}'),
+                            new GS.photoGallery.Image('${basePath}${index.largeSizeFile}','${index.height}')
                     )
             );
             </c:forEach>
-            var gallery = new GSM.photoGallery.PhotoGallery("${prefix}", imageArray, true, "js-photo-gallery-trigger");
+            var gallery = new GS.photoGallery.PhotoGallery("${prefix}", imageArray, true, "js-photo-gallery-trigger");
             gallery.init();
         });
     </script>

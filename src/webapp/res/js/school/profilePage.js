@@ -456,8 +456,8 @@ function drawBarChart(dataIn, divNameId, c, w, h) {
  * GS-12260 PHOTO GALLERY JAVASCRIPT
  */
 
-var GSM = GSM || {};
-GSM.photoGallery = GSM.photoGallery || {};
+var GS = GS || {};
+GS.photoGallery = GS.photoGallery || {};
 Function.prototype.gs_bind = function(obj) {
     var method = this;
     return function() {
@@ -468,7 +468,7 @@ Function.prototype.gs_bind = function(obj) {
  * Constructor
  */
 
-GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, triggerLayer) {
+GS.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, triggerLayer) {
     var closeButtonDomId = prefix + "-photo-gallery-close"; //close button
     var backButtonId = prefix + "-photo-gallery-back";
     var nextButtonId = prefix + "-photo-gallery-next";
@@ -638,7 +638,7 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
 /**
  * Constructor
  */
-GSM.photoGallery.MultiSizeImage = function(thumbnailImage, fullSizeImage) {
+GS.photoGallery.MultiSizeImage = function(thumbnailImage, fullSizeImage) {
     var thumbnailImage = thumbnailImage;
     var fullSizeImage = fullSizeImage;
     var getThumb = function(){return thumbnailImage}
@@ -653,7 +653,7 @@ GSM.photoGallery.MultiSizeImage = function(thumbnailImage, fullSizeImage) {
 /**
  * Constructor
  */
-GSM.photoGallery.Image = function(src, h, alt, id, cssClass, title, width) {
+GS.photoGallery.Image = function(src, h, alt, id, cssClass, title, width) {
     var src = src;
     this.id = id;
     this.cssClass = cssClass;
