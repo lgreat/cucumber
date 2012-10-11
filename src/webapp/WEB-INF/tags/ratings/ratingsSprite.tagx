@@ -35,14 +35,29 @@
         </c:otherwise>
     </c:choose>
 
+    <c:set var="NRTextHover">
+
+        <div class='dn' id='noRatingDescText'>
+            <p style='width:60px;' class='small'>No Rating</p>
+        </div>
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery(".r-${size}-NR").popover({content: jQuery("#noRatingDescText").html(), placement:'right', delay:{ show: 100, hide: 100 }});
+            });
+        </script>
+    </c:set>
+
+
     <c:choose>
         <c:when test="${isPreschoolOnly}">
             <c:choose>
                 <c:when test="${isNewGsRating}">
                     <span class="ratingx${size}-preschool r-${size}-NR"><!-- do not collapse --></span>
+                    ${NRTextHover}
                 </c:when>
                 <c:otherwise>
                     <span class="ratingx${size}-preschool r-${size}-NR"><!-- do not collapse --></span>
+                    ${NRTextHover}
                 </c:otherwise>
             </c:choose>
         </c:when>
@@ -62,9 +77,11 @@
                     <c:choose>
                         <c:when test="${isNewGsRating}">
                             <span class="ratingx${size}-private-RYG r-${size}-NR"><!-- do not collapse --></span>
+                            ${NRTextHover}
                         </c:when>
                         <c:otherwise>
                             <span class="ratingx${size}-private-O r-${size}-NR"><!-- do not collapse --></span>
+                            ${NRTextHover}
                         </c:otherwise>
                     </c:choose>
                 </c:otherwise>
@@ -86,9 +103,11 @@
                     <c:choose>
                         <c:when test="${isNewGsRating}">
                             <span class="ratingx${size}-public-RYG r-${size}-NR"><!-- do not collapse --></span>
+                            ${NRTextHover}
                         </c:when>
                         <c:otherwise>
                             <span class="ratingx${size}-public-O r-${size}-NR"><!-- do not collapse --></span>
+                            ${NRTextHover}
                         </c:otherwise>
                     </c:choose>
                 </c:otherwise>
