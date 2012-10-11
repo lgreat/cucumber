@@ -489,9 +489,7 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
     var shownOnce = false;
 
     var init = function(){
-        attachShowEvent(triggerLayer, null);// function() {jQuery('.infiniteCarousel8').infiniteCarousel();});
-//        loadThumbnails();
-//        applyThumbnailClickHandlers();
+        attachShowEvent(triggerLayer, null);
         applyButtonClickHandlers();
     };
     return{
@@ -508,19 +506,14 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
             id = fullSizeImageIdPrefix + '-' + i;
 
             jQuery('.' + id).hide();
-//            jQuery('.' + thumbnailIdPrefix + '-' + i).removeClass(thumbnailSelectedCssClass);
         }
-        //show desired image
+        //show desired image  - align vertically
         var image = multiSizeImageArray[index].getFull();
         var h = image.getImageHeight();
         var paddingToAdd = Math.round((500-h)/2);
         id = fullSizeImageIdPrefix + '-' + index;
         jQuery('.' + id).css('padding-top', paddingToAdd);
         jQuery('.' + id).show();
-
-//        jQuery('.' + thumbnailIdPrefix + '-' + index).addClass(thumbnailSelectedCssClass);
-//        console.log("index - before trigger:"+index);
-//        jQuery('.' + thumbnailIdPrefix + '-' + index).trigger('itemSelected'); // custom infiniteCarousel event
 
         //track change
         currentFullSizeImage = index;
@@ -544,36 +537,6 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
         showFullSizeImage(targetIndex);
         sendOmnitureTrackingInfo();
     };
-
-//    function loadThumbnail (index) {
-//        var image = multiSizeImageArray[index].getThumb();
-//        if (!image.isLoaded()) {
-//            var container = jQuery('.' + thumbnailIdPrefix + '-' + index);
-//            container.find('img').attr('src', image.getSrc());
-//            image.setLoaded(true);
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    };
-
-//    function loadThumbnails() {
-//        if (thumbnailLoaderPosition >= numberOfImages) {
-//            return;
-//        }
-//        var success = loadThumbnail(thumbnailLoaderPosition);
-//        if (success) {
-//            thumbnailLoaderPosition++;
-//            if (thumbnailLoaderPosition < multiSizeImageArray.length) {
-//                setTimeout(loadThumbnails.gs_bind(this), chosenTimeout);
-//            }
-//        } else {
-//            thumbnailLoaderPosition++;
-//            if (thumbnailLoaderPosition < multiSizeImageArray.length) {
-//                loadThumbnails();
-//            }
-//        }
-//    };
 
     function loadFullSizeImage(index) {
         var image = multiSizeImageArray[index].getFull();
@@ -610,14 +573,6 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
         loadFullSizeImages();
     };
 
-//    function applyThumbnailClickHandlers() {
-//        var myContainer = jQuery('.' + id + " .unordered-carousel");
-//        myContainer.on('click',   function(event){
-//            var index = parseThumbnailId($(event.target));
-//            showFullSizeImage(index);
-//            sendOmnitureTrackingInfo();
-//        });
-//    };
 
     /*****
      * the last class of the containing parent div needs to end with -number
@@ -656,9 +611,6 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
             'layerId' :  id,
             'bgcolorOverlay' : overlayClass
         });
-//        if(!shownOnce){
-//        $me.find('.js_infiniteCarousel').trigger('shown'); // custom infiniteCarousel event
-//        }
     };
 
     function hideMod() {
@@ -674,20 +626,9 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
      */
     function attachShowEvent(cssClass, initialCallback) {
         jQuery("." + cssClass).click(function(event) {
-            //var index = parseThumbnailId($(event.target));
             loadFullSizeImages();
-//            if (initialCallback && typeof(initialCallback) === 'function' && !shownOnce) {
-//                shownOnce = true;
-//                initialCallback();
-//            }
-//            var photoNumVar = jQuery('input.js_photoNum').val();
-//            var photoNumToShow = (photoNumVar !== undefined && photoNumVar !== null) ? (isNaN(photoNumVar - 1) ? 0 : (photoNumVar - 1)) : 0;
             showFullSizeImage(index); //load the first full size image into gallery
             showMod();
-//            if (initialCallback && typeof(initialCallback) === 'function' && !shownOnce) {
-//                shownOnce = true;
-//                initialCallback();
-//            }
             return false;
         }.gs_bind(this));
     };
@@ -718,8 +659,6 @@ GSM.photoGallery.Image = function(src, h, alt, id, cssClass, title, width) {
     this.alt = alt;
     this.title = title;
     var height = h;
-//    var ih = h;
-//    console.log("height:"+height);
     this.width = width;
     var loaded = false;
     var getSrc = function(){return src;}
