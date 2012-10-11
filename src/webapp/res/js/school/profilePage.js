@@ -490,8 +490,8 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
 
     var init = function(){
         attachShowEvent(triggerLayer, null);// function() {jQuery('.infiniteCarousel8').infiniteCarousel();});
-        loadThumbnails();
-        applyThumbnailClickHandlers();
+//        loadThumbnails();
+//        applyThumbnailClickHandlers();
         applyButtonClickHandlers();
     };
     return{
@@ -508,7 +508,7 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
             id = fullSizeImageIdPrefix + '-' + i;
 
             jQuery('.' + id).hide();
-            jQuery('.' + thumbnailIdPrefix + '-' + i).removeClass(thumbnailSelectedCssClass);
+//            jQuery('.' + thumbnailIdPrefix + '-' + i).removeClass(thumbnailSelectedCssClass);
         }
         //show desired image
         var image = multiSizeImageArray[index].getFull();
@@ -518,9 +518,9 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
         jQuery('.' + id).css('padding-top', paddingToAdd);
         jQuery('.' + id).show();
 
-        jQuery('.' + thumbnailIdPrefix + '-' + index).addClass(thumbnailSelectedCssClass);
+//        jQuery('.' + thumbnailIdPrefix + '-' + index).addClass(thumbnailSelectedCssClass);
 //        console.log("index - before trigger:"+index);
-        jQuery('.' + thumbnailIdPrefix + '-' + index).trigger('itemSelected'); // custom infiniteCarousel event
+//        jQuery('.' + thumbnailIdPrefix + '-' + index).trigger('itemSelected'); // custom infiniteCarousel event
 
         //track change
         currentFullSizeImage = index;
@@ -545,35 +545,35 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
         sendOmnitureTrackingInfo();
     };
 
-    function loadThumbnail (index) {
-        var image = multiSizeImageArray[index].getThumb();
-        if (!image.isLoaded()) {
-            var container = jQuery('.' + thumbnailIdPrefix + '-' + index);
-            container.find('img').attr('src', image.getSrc());
-            image.setLoaded(true);
-            return true;
-        } else {
-            return false;
-        }
-    };
+//    function loadThumbnail (index) {
+//        var image = multiSizeImageArray[index].getThumb();
+//        if (!image.isLoaded()) {
+//            var container = jQuery('.' + thumbnailIdPrefix + '-' + index);
+//            container.find('img').attr('src', image.getSrc());
+//            image.setLoaded(true);
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    };
 
-    function loadThumbnails() {
-        if (thumbnailLoaderPosition >= numberOfImages) {
-            return;
-        }
-        var success = loadThumbnail(thumbnailLoaderPosition);
-        if (success) {
-            thumbnailLoaderPosition++;
-            if (thumbnailLoaderPosition < multiSizeImageArray.length) {
-                setTimeout(loadThumbnails.gs_bind(this), chosenTimeout);
-            }
-        } else {
-            thumbnailLoaderPosition++;
-            if (thumbnailLoaderPosition < multiSizeImageArray.length) {
-                loadThumbnails();
-            }
-        }
-    };
+//    function loadThumbnails() {
+//        if (thumbnailLoaderPosition >= numberOfImages) {
+//            return;
+//        }
+//        var success = loadThumbnail(thumbnailLoaderPosition);
+//        if (success) {
+//            thumbnailLoaderPosition++;
+//            if (thumbnailLoaderPosition < multiSizeImageArray.length) {
+//                setTimeout(loadThumbnails.gs_bind(this), chosenTimeout);
+//            }
+//        } else {
+//            thumbnailLoaderPosition++;
+//            if (thumbnailLoaderPosition < multiSizeImageArray.length) {
+//                loadThumbnails();
+//            }
+//        }
+//    };
 
     function loadFullSizeImage(index) {
         var image = multiSizeImageArray[index].getFull();
@@ -606,18 +606,18 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
     };
 
     function loadImages() {
-        loadThumbnails();
+        //loadThumbnails();
         loadFullSizeImages();
     };
 
-    function applyThumbnailClickHandlers() {
-        var myContainer = jQuery('.' + id + " .unordered-carousel");
-        myContainer.on('click',   function(event){
-            var index = parseThumbnailId($(event.target));
-            showFullSizeImage(index);
-            sendOmnitureTrackingInfo();
-        });
-    };
+//    function applyThumbnailClickHandlers() {
+//        var myContainer = jQuery('.' + id + " .unordered-carousel");
+//        myContainer.on('click',   function(event){
+//            var index = parseThumbnailId($(event.target));
+//            showFullSizeImage(index);
+//            sendOmnitureTrackingInfo();
+//        });
+//    };
 
     /*****
      * the last class of the containing parent div needs to end with -number
@@ -625,9 +625,9 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
      * @param obj    - this is the img obj
      * @return {*}   - returns its id
      */
-    function parseThumbnailId(obj){
-        return obj.parent().attr('class').split("-").reverse()[0];
-    }
+//    function parseThumbnailId(obj){
+//        return obj.parent().attr('class').split("-").reverse()[0];
+//    }
 
     function sendOmnitureTrackingInfo() {
         //requires /res/js/omnitureEventNotifier.js
@@ -657,7 +657,7 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
             'bgcolorOverlay' : overlayClass
         });
 //        if(!shownOnce){
-        $me.find('.js_infiniteCarousel').trigger('shown'); // custom infiniteCarousel event
+//        $me.find('.js_infiniteCarousel').trigger('shown'); // custom infiniteCarousel event
 //        }
     };
 
@@ -674,12 +674,12 @@ GSM.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, tri
      */
     function attachShowEvent(cssClass, initialCallback) {
         jQuery("." + cssClass).click(function(event) {
-            var index = parseThumbnailId($(event.target));
+            //var index = parseThumbnailId($(event.target));
             loadFullSizeImages();
-            if (initialCallback && typeof(initialCallback) === 'function' && !shownOnce) {
-                shownOnce = true;
-                initialCallback();
-            }
+//            if (initialCallback && typeof(initialCallback) === 'function' && !shownOnce) {
+//                shownOnce = true;
+//                initialCallback();
+//            }
 //            var photoNumVar = jQuery('input.js_photoNum').val();
 //            var photoNumToShow = (photoNumVar !== undefined && photoNumVar !== null) ? (isNaN(photoNumVar - 1) ? 0 : (photoNumVar - 1)) : 0;
             showFullSizeImage(index); //load the first full size image into gallery
