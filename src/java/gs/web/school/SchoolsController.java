@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsController.java,v 1.101 2011/08/02 01:10:18 ssprouse Exp $
+ * $Id: SchoolsController.java,v 1.102 2012/10/11 15:06:08 yfan Exp $
  */
 
 package gs.web.school;
@@ -513,19 +513,9 @@ public class SchoolsController extends AbstractController implements IDirectoryS
 
     public static String createNewCityBrowseURI(HttpServletRequest request) {
         // school type(s)
-        Set<SchoolType> schoolTypes = new HashSet<SchoolType>();
+
         final String[] paramSchoolType = request.getParameterValues(PARAM_SCHOOL_TYPE);
-        if (paramSchoolType != null) {
-            for (String schoolType : paramSchoolType) {
-                if (SchoolType.PUBLIC.getSchoolTypeName().equals(schoolType)) {
-                    schoolTypes.add(SchoolType.PUBLIC);
-                } else if (SchoolType.PRIVATE.getSchoolTypeName().equals(schoolType)) {
-                    schoolTypes.add(SchoolType.PRIVATE);
-                } else if (SchoolType.CHARTER.getSchoolTypeName().equals(schoolType)) {
-                    schoolTypes.add(SchoolType.CHARTER);
-                }
-            }
-        }
+        Set<SchoolType> schoolTypes = SchoolType.getSchoolTypes(paramSchoolType);
 
         // level code
         LevelCode levelCode = null;

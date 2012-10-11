@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: SchoolsControllerTest.java,v 1.62 2012/10/11 14:40:30 yfan Exp $
+ * $Id: SchoolsControllerTest.java,v 1.63 2012/10/11 15:06:08 yfan Exp $
  */
 
 package gs.web.school;
@@ -176,20 +176,20 @@ public class SchoolsControllerTest extends BaseControllerTestCase {
         expectedRedirectURI = "/california/san-francisco/schools/?st=charter";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
-        // multiple st values in alphabetical order
+        // multiple st values in public,private,charter order
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
                 new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()});
-        expectedRedirectURI = "/california/san-francisco/schools/?st=charter&st=public";
+        expectedRedirectURI = "/california/san-francisco/schools/?st=public&st=charter";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
                 new String[]{SchoolType.PRIVATE.getSchoolTypeName(), SchoolType.CHARTER.getSchoolTypeName()});
-        expectedRedirectURI = "/california/san-francisco/schools/?st=charter&st=private";
+        expectedRedirectURI = "/california/san-francisco/schools/?st=private&st=charter";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
                 new String[]{SchoolType.PUBLIC.getSchoolTypeName(), SchoolType.PRIVATE.getSchoolTypeName()});
-        expectedRedirectURI = "/california/san-francisco/schools/?st=private&st=public";
+        expectedRedirectURI = "/california/san-francisco/schools/?st=public&st=private";
         assertEquals(expectedRedirectURI, SchoolsController.createNewCityBrowseURI(request));
 
         request.setParameter(SchoolsController.PARAM_SCHOOL_TYPE,
