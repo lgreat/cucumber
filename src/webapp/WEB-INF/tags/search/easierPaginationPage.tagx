@@ -25,6 +25,15 @@
                              description="Class for the span that wraps an individual page number."/>
     <jsp:directive.attribute name="pageNumberStyleClass" required="false" type="java.lang.String"
                              description="Class for the span that wraps an individual page number."/>
+    <jsp:directive.attribute name="addClassPrevNext" required="false" type="java.lang.String"
+                             description="Class for the span that wraps an individual page number."/>
+    <jsp:directive.attribute name="linkText" required="false" type="java.lang.String"
+                             description="Class for the span that wraps an individual page number."/>
+
+    <c:set var="linkTextInner" value="${linkText}"/>
+    <c:if test="${empty linkTextInner}">
+        <c:set var="linkTextInner" value="${indexNumber}"/>
+    </c:if>
     <c:choose>
         <c:when test="${currentPage eq indexNumber}">
             <span class="active ${pageNumberStyleClass}">${currentPage}</span>
@@ -32,13 +41,13 @@
         <c:otherwise>
             <c:choose>
                 <c:when test="${useJavascriptPaging}">
-                            <span onclick="${javascriptMethod}(${indexNumber},${pageSize});">
-                                ${indexNumber}
+                            <span  onclick="${javascriptMethod}(${indexNumber},${pageSize});" class="${addClassPrevNext}">
+                                ${linkTextInner}
                             </span>
                 </c:when>
                 <c:otherwise>
                             <span>
-                                <a href="${pagination:recordPageInUrl(indexNumber, url,mode)}">${indexNumber}</a>
+                                <a href="${pagination:recordPageInUrl(indexNumber, url,mode)}">${linkTextInner}</a>
                             </span>
                 </c:otherwise>
             </c:choose>

@@ -62,8 +62,10 @@
                                              mode="${useJavascriptPaging}"
                                              pageSize="${pageSize}"
                                              url="${url}"
-                                             indexNumber="&amp;#171;"
-                                             javascriptMethod="${javascriptMethod}"/>
+                                             linkText="&amp;#171;"
+                                             indexNumber="${currentPage-1}"
+                                             javascriptMethod="${javascriptMethod}"
+                                             addClassPrevNext="prv_nxt"/>
 
             </c:if>
 
@@ -159,8 +161,10 @@
                                              mode="${useJavascriptPaging}"
                                              pageSize="${pageSize}"
                                              url="${url}"
-                                             indexNumber="&amp;#187;"
-                                             javascriptMethod="${javascriptMethod}"/>
+                                             linkText="&amp;#187;"
+                                             indexNumber="${currentPage+1}"
+                                             javascriptMethod="${javascriptMethod}"
+                                             addClassPrevNext="prv_nxt" />
 
             </c:if>
         </div>

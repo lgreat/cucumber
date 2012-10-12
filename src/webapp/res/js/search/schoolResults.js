@@ -591,40 +591,79 @@ GS.search.results = GS.search.results || (function() {
     var updatePageNav = function(page) {
         var pageNumbers = $('.js-pageNumbers');
         var pageNav = "";
+        var totalPages = page.totalPages;
+        var currentPage = page.pageNumber;
+        var pageSize = page.pageSize;
+        var previousPage = currentPage-1;
+        var nextPage = currentPage+1;
 
         var ellipsis = "<span class='ellipsis'>...</span>\n";
         pageNumbers.html('');
 
-        if(page.totalPages == 1) {
+        if(totalPages <= 1) {
             return;
         }
 
-        if(page.pageNumber > 1) {
-            pageNav += setPageNavIndex(page.previousPage, page.pageSize, '«');
+        if(currentPage > 1) {
+            pageNav += setPageNavIndex(previousPage, pageSize, '«');
         }
 
-        if(page.totalPages >= 5 && page.pageNumber >= 5) {
-            pageNav += setPageNavIndex(page.firstPageNum, page.pageSize, page.firstPageNum);
-            pageNav += setEllipsisOrActive('ellipsis', '...');
-        }
-
-        var pageSequence = page.pageSequence;
-        for(var i = 0; i < pageSequence.length; i++) {
-            if(pageSequence[i] == page.pageNumber) {
-                pageNav += setEllipsisOrActive('active', pageSequence[i]);
-            }
-            else {
-                pageNav += setPageNavIndex(pageSequence[i], page.pageSize, pageSequence[i]);
+        if(totalPages <= 7){
+           //show all pages
+            for(var i=1; i<= totalPages; i++){
+                if(i == currentPage) {
+                    pageNav += setEllipsisOrActive('active', i);
+                }
+                else {
+                    pageNav += setPageNavIndex(i, pageSize, i);
+                }
             }
         }
-
-        if(page.totalPages > 5 && (page.pageNumber < 5 || (page.pageNumber <= page.totalPages - 4 ))) {
-            pageNav += setEllipsisOrActive('ellipsis', '...');
-            pageNav += setPageNavIndex(page.lastPageNum, page.pageSize, page.lastPageNum);
+        else{
+            if(currentPage > (totalPages -4)){
+                pageNav += setPageNavIndex(1, pageSize, 1);
+                pageNav += setEllipsisOrActive('ellipsis', '...');
+                for(var i=totalPages-4; i<= totalPages; i++){
+                    if(i == currentPage) {
+                        pageNav += setEllipsisOrActive('active', i);
+                    }
+                    else {
+                        pageNav += setPageNavIndex(i, pageSize, i);
+                    }
+                }
+            }
+            else{
+                if(currentPage <= 4){
+                    for(var i=1; i<= 5; i++){
+                        if(i == currentPage) {
+                            pageNav += setEllipsisOrActive('active', i);
+                        }
+                        else {
+                            pageNav += setPageNavIndex(i, pageSize, i);
+                        }
+                    }
+                    pageNav += setEllipsisOrActive('ellipsis', '...');
+                    pageNav += setPageNavIndex(totalPages, pageSize, totalPages);
+                }
+                else{
+                    pageNav += setPageNavIndex(1, pageSize, 1);
+                    pageNav += setEllipsisOrActive('ellipsis', '...');
+                    for(var i=currentPage-1; i<= currentPage+1; i++){
+                        if(i == currentPage) {
+                            pageNav += setEllipsisOrActive('active', i);
+                        }
+                        else {
+                            pageNav += setPageNavIndex(i, pageSize, i);
+                        }
+                    }
+                    pageNav += setEllipsisOrActive('ellipsis', '...');
+                    pageNav += setPageNavIndex(totalPages, pageSize, totalPages);
+                }
+            }
         }
 
-        if(page.pageNumber < page.totalPages) {
-            pageNav += setPageNavIndex(page.nextPage, page.pageSize, '»');
+        if(currentPage < totalPages) {
+            pageNav += setPageNavIndex(nextPage, page.pageSize, '»');
         }
         pageNumbers.html(pageNav);
     }
