@@ -6,6 +6,10 @@ import gs.data.state.State;
 import gs.data.test.*;
 import gs.data.test.rating.CityRating2;
 import gs.data.test.rating.ICityRating2Dao;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilyResolver;
+import gs.web.IControllerFamilySpecifier;
+import gs.web.request.RequestInfo;
 import gs.web.util.ReadWriteAnnotationController;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -24,9 +28,11 @@ import java.util.*;
 
 @Controller
 @RequestMapping("/school/profileRatings.page")
-public class SchoolProfileRatingsController extends AbstractSchoolProfileController implements ReadWriteAnnotationController {
+public class SchoolProfileRatingsController extends AbstractSchoolProfileController implements ReadWriteAnnotationController, IControllerFamilySpecifier {
     private static final Log _log = LogFactory.getLog(SchoolProfileRatingsController.class);
     public static final String VIEW = "school/profileRatings";
+    public static final String MOBILE_VIEW = "school/profileRatings-mobile";
+    private ControllerFamily _controllerFamily;
 
     @Autowired
     private ICityRating2Dao _cityRating2Dao;
@@ -242,6 +248,12 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         populateSection3Model(school, dataMap, modelMap);
 
         populateSection4Model(school, dataMap, modelMap);
+
+        // need to check which view to return
+        RequestInfo requestInfo = RequestInfo.getRequestInfo(request);
+        if (requestInfo != null && requestInfo.shouldRenderMobileView()) {
+            return MOBILE_VIEW;
+        }
 
         return VIEW;
     }
@@ -596,5 +608,13 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     public void setCityRating2Dao(ICityRating2Dao cityRating2Dao) {
         _cityRating2Dao = cityRating2Dao;
+    }
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
+    }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
     }
 }

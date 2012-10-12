@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsController.java,v 1.26 2012/08/07 17:31:11 aroy Exp $
+ * $Id: RatingsController.java,v 1.27 2012/10/12 01:53:45 ssprouse Exp $
  */
 package gs.web.test.rating;
 
@@ -13,6 +13,8 @@ import gs.data.test.SchoolTestValue;
 import gs.data.test.TestManager;
 import gs.data.test.rating.IRatingsConfig;
 import gs.data.test.rating.IRatingsConfigDao;
+import gs.web.ControllerFamily;
+import gs.web.IControllerFamilySpecifier;
 import gs.web.request.RequestInfo;
 import gs.web.school.AbstractSchoolController;
 import gs.web.school.SchoolProfileHeaderHelper;
@@ -40,7 +42,7 @@ import java.util.Map;
  *
  * @author David Lee <mailto:dlee@greatschools.org>
  */
-public class RatingsController extends AbstractCommandController {
+public class RatingsController extends AbstractCommandController implements IControllerFamilySpecifier {
 
     private static final Log _log = LogFactory.getLog(RatingsController.class);
 
@@ -52,6 +54,7 @@ public class RatingsController extends AbstractCommandController {
     private TestManager _testManager;
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
     private boolean _showingSubjectGroups = false;
+    private ControllerFamily _controllerFamily;
 
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
         RatingsCommand ratingsCommand = (RatingsCommand) command;
@@ -198,5 +201,13 @@ public class RatingsController extends AbstractCommandController {
 
     public void setSchoolProfileHeaderHelper(SchoolProfileHeaderHelper schoolProfileHeaderHelper) {
         _schoolProfileHeaderHelper = schoolProfileHeaderHelper;
+    }
+
+    public void setControllerFamily(ControllerFamily controllerFamily) {
+        _controllerFamily = controllerFamily;
+    }
+
+    public ControllerFamily getControllerFamily() {
+        return _controllerFamily;
     }
 }

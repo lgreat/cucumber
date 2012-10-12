@@ -1991,7 +1991,7 @@
           class="gs.web.util.RedirectController"
           autowire="byName" lazy-init="true"/>
 
-    <bean name="/school/rating.page"
+    <!--<bean name="/school/rating.page"
           class="gs.web.test.rating.RatingsController"
           autowire="byName" lazy-init="true">
         <property name="commandName" value="ratingsCmd"/>
@@ -2003,7 +2003,31 @@
                 <ref bean="schoolIdValidator"/>
             </list>
         </property>
+    </bean>-->
+
+    <bean name="ratingsController" class="gs.web.test.rating.RatingsController" autowire="byName" lazy-init="true">
+        <property name="commandName" value="ratingsCmd"/>
+        <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
+        <property name="viewName" value="test/ratings"/>
+        <property name="controllerFamily" value="DESKTOP"/>
+        <property name="onLoadValidators">
+            <list>
+                <ref bean="stateValidator"/>
+                <ref bean="schoolIdValidator"/>
+            </list>
+        </property>
     </bean>
+    <bean name="/school/rating.page" class="org.springframework.stereotype.Controller" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
+        <constructor-arg>
+            <list>
+                <ref bean="ratingsController"/>
+                <bean name="schoolProfileRatingsMobileController" parent="schoolProfileRatingsController">
+                    <property name="controllerFamily" value="MOBILE"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+
 
     <bean name="/school/rating2.page"
           class="gs.web.test.rating.RatingsController"

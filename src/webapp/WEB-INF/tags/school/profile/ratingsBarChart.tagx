@@ -15,6 +15,10 @@
     <jsp:directive.attribute name="cityRating" type="java.lang.Float" required="true" description="City rating value"/>
     <jsp:directive.attribute name="stateRatingShow" type="java.lang.String" required="true" description="Do we show the state rating"/>
     <jsp:directive.attribute name="stateRating" type="java.lang.Float" required="true" description="State rating value"/>
+    <jsp:directive.attribute name="showLabels" type="java.lang.Boolean" required="false" description="Defaults true"/>
+
+    <c:set var="showLabels" scope="page" value="${empty showLabels? true:showLabels}"/>
+
     <!--ratings div = ${ratingDivId}<br />-->
     <!--${schoolRating}             <br />-->
     <!--${cityRating}                     <br />-->
@@ -49,12 +53,14 @@
 
     <div class="bargraph" id="${ratingDivId}">
         <div class="graphLabelsY">
-            <div class="spacerLabel small bottom">This school</div>
-            <c:if test="${cityRating ne ''}">
-                <div class="spacerLabel small bottom">City</div>
-            </c:if>
-            <c:if test="${stateRatingShow and stateRating ne ''}">
-                <div class="spacerLabel small bottom">State</div>
+            <c:if test="${showLabels}">
+                <div class="spacerLabel small bottom">This school</div>
+                <c:if test="${cityRating ne ''}">
+                    <div class="spacerLabel small bottom">City</div>
+                </c:if>
+                <c:if test="${stateRatingShow and stateRating ne ''}">
+                    <div class="spacerLabel small bottom">State</div>
+                </c:if>
             </c:if>
         </div>
         <div style="float:left">

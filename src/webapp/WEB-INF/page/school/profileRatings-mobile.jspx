@@ -58,9 +58,6 @@
 
 <body>
 <div class="contain_1-2">
-    <c:set var="climateRatingAvailabilityText" value=""/>
-    <c:set var="overallClimateRating" value="5"/>
-
     <div>
         <h6>RATINGS DETAILS</h6>
     </div>
@@ -70,7 +67,7 @@
                 <div class="inner">
                     <div class="hd plm">
                         <div class="fl">
-                            <h2>GreatSchools rating</h2>
+                            <h2>What makes up this rating?</h2>
                         </div>
                     </div>
                     <div class="bd pam ratingsGraphicMakesUp ptl">
@@ -127,7 +124,7 @@
                 <div class="inner">
                     <div class="hd plm">
                         <div class="fl">
-                            <h2>What does this rating tell you?</h2>
+                            <h2>What is the new GreatSchools rating?</h2>
                         </div>
                     </div>
                     <div class="bd pam ratingsGraphicMakesUp ptl">
@@ -339,14 +336,10 @@
         </div>
     </div>
 
-<!-- TODO: omniture tracking -->
-<!--
-<c:set var="pageName" value="Overview" scope="request"/>
-<mod:deferredTracking key="ratings" pageName="Ratings" hier1="School,SchoolProfileSuite,Ratings"/>
+<!-- TODO: confirm omniture pagename and hierarchy are correct -->
 <mod:mobileTracking pageName="Ratings"
                     hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
-                    school="${school}" schoolGSRating="${gs_rating}" schoolPhotosTracking="${schoolPhotosTracking}"/>
--->
+                    school="${school}" schoolGSRating="${overallRating}"/>
 
 </body>
 </html>
