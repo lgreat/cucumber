@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:gsweb="gstaglib"
+          xmlns:pagination="pagination"
+          xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
+
+        >
+    <jsp:directive.tag body-content="empty"/>
+
+    <jsp:directive.attribute name="url" required="false" type="java.lang.String"
+                             description="URL for each pagination link. page=[page number] or start=[offset] will be appended to the URL."/>
+    <jsp:directive.attribute name="useJavascriptPaging" required="true" type="java.lang.Boolean"/>
+    <jsp:directive.attribute name="javascriptMethod" required="false" type="java.lang.String" description="A string containing a the path to a javascript method that will be executed. Method must have signature matching (pageNumber,pageSize)"/>
+    <jsp:directive.attribute name="mode" required="true" type="java.lang.String" description="[offset | pageNumber] Whether to use offset or pagenumber."/>
+
+    <jsp:directive.attribute name="currentPage" required="false" type="java.lang.String"
+                             description="Class for the span that wraps an individual page number."/>
+
+    <jsp:directive.attribute name="indexNumber" required="false" type="java.lang.String"
+                             description="Class for the span that wraps an individual page number."/>
+    <jsp:directive.attribute name="pageSize" required="false" type="java.lang.Integer"
+                             description="Class for the span that wraps an individual page number."/>
+    <jsp:directive.attribute name="pageNumberStyleClass" required="false" type="java.lang.String"
+                             description="Class for the span that wraps an individual page number."/>
+    <c:choose>
+        <c:when test="${currentPage eq indexNumber}">
+            <span class="active ${pageNumberStyleClass}">${currentPage}</span>
+        </c:when>
+        <c:otherwise>
+            <c:choose>
+                <c:when test="${useJavascriptPaging}">
+                            <span onclick="${javascriptMethod}(${indexNumber},${pageSize});">
+                                ${indexNumber}
+                            </span>
+                </c:when>
+                <c:otherwise>
+                            <span>
+                                <a href="${pagination:recordPageInUrl(indexNumber, url,mode)}">${indexNumber}</a>
+                            </span>
+                </c:otherwise>
+            </c:choose>
+        </c:otherwise>
+    </c:choose>
+</jsp:root>

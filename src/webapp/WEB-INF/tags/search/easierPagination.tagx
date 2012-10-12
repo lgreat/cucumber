@@ -5,6 +5,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:gsweb="gstaglib"
     xmlns:pagination="pagination"
+    xmlns:search="urn:jsptagdir:/WEB-INF/tags/search"
         >
     <jsp:directive.tag body-content="empty"/>
     <!-- Required attributes -->
@@ -36,107 +37,134 @@
         <c:set var="pageNumberParam" value="page"/>
     </c:if>
 
+    <!--
+       cases:
+             1) less than or equal to 7 total pages.  show all
+             2) within 4 of the edges show five numbers - so if total 20  - 1 2 3 4 5 ... 20     1 ... 16 17 18 19 20
+             3) always show one more and one less than the current number so 1 ... 5 6 7 ... 20
+             4) ellipsis should never stand for a single number
+             5) arrows show if not on first or last page
+   -->
+
+
+
     <c:set var="totalPages" value="${page.pager.totalPages}"/>
     <c:set var="pageSize" value="${page.pager.pageSize}"/>
+    <c:set var="currentPage" value="${page.pageNumber}"/>
+    <c:set var="previousPage" value="${currentPage - 1}"/>
+    <c:set var="nextPage" value="${currentPage + 1}"/>
+
 
     <c:if test="${totalPages gt 1}">
         <div class="${pageScope.styleClass}">
-            <c:if test="${page.pageNumber gt 1}">
-                <c:set var="targetPage" value="${page.previousPage}" />
+            <c:if test="${currentPage gt 1}">
+                <search:easierPaginationPage useJavascriptPaging="${useJavascriptPaging}"
+                                             mode="${useJavascriptPaging}"
+                                             pageSize="${pageSize}"
+                                             url="${url}"
+                                             indexNumber="&amp;#171;"
+                                             javascriptMethod="${javascriptMethod}"/>
 
-                <c:choose>
-                    <c:when test="${useJavascriptPaging}">
-                        <span class="prv_nxt" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                            &amp;#171;
-                        </span>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="prv_nxt">
-                             <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">&amp;#171;</a>
-                        </span>
-                    </c:otherwise>
-                </c:choose>
             </c:if>
 
-            <c:set var="pageSequence" value="${page.pageSequence}"/>
+            <c:choose>
+                <c:when test="${totalPages le 7}">
+                    <!-- show all numbers -->
+                    <c:set var="allPagesShow">
+                        <search:easierPaginationSequence useJavascriptPaging="${useJavascriptPaging}"
+                                                         mode="${useJavascriptPaging}"
+                                                         pageSize="${pageSize}"
+                                                         url="${url}"
+                                                         pageNumberStyleClass="${pageNumberStyleClass}"
+                                                         currentPage="${currentPage}"
+                                                         beginNumber="1"
+                                                         totalNumber="${totalPages}"
+                                                         javascriptMethod="${javascriptMethod}"/>
+                    </c:set>
 
-            <c:if test="${totalPages gt 3 and page.pageNumber ge 3}">
-                <c:set var="targetPage" value="${page.pager.firstPage}" scope="page"/>
+                </c:when>
+                <c:when test="${currentPage gt totalPages -4}">
+                    <c:set var="allPagesShow">
+                        <search:easierPaginationPage useJavascriptPaging="${useJavascriptPaging}"
+                                                     mode="${useJavascriptPaging}"
+                                                     pageSize="${pageSize}"
+                                                     url="${url}"
+                                                     indexNumber="1"
+                                                     javascriptMethod="${javascriptMethod}"/>
+                        <span class="ellipsis">...</span>
+                        <search:easierPaginationSequence useJavascriptPaging="${useJavascriptPaging}"
+                                                         mode="${useJavascriptPaging}"
+                                                         pageSize="${pageSize}"
+                                                         url="${url}"
+                                                         pageNumberStyleClass="${pageNumberStyleClass}"
+                                                         currentPage="${currentPage}"
+                                                         beginNumber="${totalPages-4}"
+                                                         totalNumber="${totalPages}"
+                                                         javascriptMethod="${javascriptMethod}"/>
+                    </c:set>
+                </c:when>
+                <c:when test="${currentPage le 4}">
+                    <c:set var="allPagesShow">
+                        <search:easierPaginationSequence useJavascriptPaging="${useJavascriptPaging}"
+                                                         mode="${useJavascriptPaging}"
+                                                         pageSize="${pageSize}"
+                                                         url="${url}"
+                                                         pageNumberStyleClass="${pageNumberStyleClass}"
+                                                         currentPage="${currentPage}"
+                                                         beginNumber="1"
+                                                         totalNumber="5"
+                                                         javascriptMethod="${javascriptMethod}"/>
+                        <span class="ellipsis">...</span>
+                        <search:easierPaginationPage useJavascriptPaging="${useJavascriptPaging}"
+                                                     mode="${useJavascriptPaging}"
+                                                     pageSize="${pageSize}"
+                                                     url="${url}"
+                                                     indexNumber="${totalPages}"
+                                                     javascriptMethod="${javascriptMethod}"/>
+                    </c:set>
+                </c:when>
+                <c:otherwise>
+                    <c:set var="allPagesShow">
+                        <search:easierPaginationPage useJavascriptPaging="${useJavascriptPaging}"
+                                                     mode="${useJavascriptPaging}"
+                                                     pageSize="${pageSize}"
+                                                     url="${url}"
+                                                     indexNumber="1"
+                                                     javascriptMethod="${javascriptMethod}"/>
+                        <span class="ellipsis">...</span>
+                        <search:easierPaginationSequence useJavascriptPaging="${useJavascriptPaging}"
+                                                         mode="${useJavascriptPaging}"
+                                                         pageSize="${pageSize}"
+                                                         url="${url}"
+                                                         pageNumberStyleClass="${pageNumberStyleClass}"
+                                                         currentPage="${currentPage}"
+                                                         beginNumber="${currentPage - 1}"
+                                                         totalNumber="${currentPage + 1}"
+                                                         javascriptMethod="${javascriptMethod}"/>
+                        <span class="ellipsis">...</span>
+                        <search:easierPaginationPage useJavascriptPaging="${useJavascriptPaging}"
+                                                     mode="${useJavascriptPaging}"
+                                                     pageSize="${pageSize}"
+                                                     url="${url}"
+                                                     indexNumber="${totalPages}"
+                                                     javascriptMethod="${javascriptMethod}"/>
+                    </c:set>
+                </c:otherwise>
+            </c:choose>
 
-                <c:choose>
-                    <c:when test="${useJavascriptPaging}">
-                        <span onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                            ${targetPage.pageNumber}
-                        </span>
-                    </c:when>
-                    <c:otherwise>
-                        <span>
-                            <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">${targetPage.pageNumber}</a>
-                        </span>
-                    </c:otherwise>
-                </c:choose>
+            ${allPagesShow}
 
-                <span class="ellipsis">...</span>
-            </c:if>
+            <c:if test="${currentPage lt totalPages}">
+                <search:easierPaginationPage useJavascriptPaging="${useJavascriptPaging}"
+                                             mode="${useJavascriptPaging}"
+                                             pageSize="${pageSize}"
+                                             url="${url}"
+                                             indexNumber="&amp;#187;"
+                                             javascriptMethod="${javascriptMethod}"/>
 
-            <c:forEach items="${pageSequence}" var="targetPage" varStatus="status">
-                <c:choose>
-                    <c:when test="${targetPage.pageNumber == page.pageNumber}">
-                        <span class="active ${pageNumberStyleClass}">${targetPage.pageNumber}</span>
-                    </c:when>
-                    <c:otherwise>
-                        <c:choose>
-                            <c:when test="${useJavascriptPaging}">
-                                <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                                    ${targetPage.pageNumber}
-                                </span>
-                            </c:when>
-                            <c:otherwise>
-                                <span class="${pageNumberStyleClass}">
-                                    <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">${targetPage.pageNumber}</a>
-                                </span>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-
-            <c:if test="${totalPages gt 3 and (page.pageNumber lt 3 or page.pageNumber le totalPages - 2)}">
-                <c:set var="targetPage" value="${page.pager.lastPage}"/>
-
-                <span class="ellipsis">...</span>
-
-                <c:choose>
-                    <c:when test="${useJavascriptPaging}">
-                        <span class="${pageNumberStyleClass}" onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                            ${targetPage.pageNumber}
-                        </span>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="${pageNumberStyleClass}">
-                            <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">${targetPage.pageNumber}</a>
-                        </span>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-
-            <c:if test="${page.pageNumber lt totalPages}">
-                <c:set var="targetPage" value="${page.nextPage}"/>
-
-                <c:choose>
-                    <c:when test="${useJavascriptPaging}">
-                        <span class="${pageNumberStyleClass}"
-                              onclick="${javascriptMethod}(${targetPage.pageNumber},${pageSize});">
-                            &amp;#187;
-                        </span>
-                    </c:when>
-                    <c:otherwise>
-                        <span class="prv_nxt">
-                            <a href="${pagination:recordPageInUrl(targetPage, url,mode)}">&amp;#187;</a>
-                        </span>
-                    </c:otherwise>
-                </c:choose>
             </c:if>
         </div>
     </c:if>
+
+
 </jsp:root>
