@@ -386,7 +386,7 @@ GSType.hover.JoinHover = function() {
             GSType.hover.signInHover.loadOnExit(GSType.hover.joinHover.loadOnExitUrl);
             GSType.hover.joinHover.cancelLoadOnExit();
         }
-        var joinEmail = jQuery('#joinHover .jemail').val();
+        var joinEmail = jQuery('#joinHover #jemail').val();
         var joinRedirect = jQuery('#joinHover .redirect_field').val();
         GSType.hover.joinHover.hide();
         GSType.hover.signInHover.showHover(joinEmail,
