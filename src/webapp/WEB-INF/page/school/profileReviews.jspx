@@ -202,7 +202,7 @@
 
 <c:set var="principalReview" value="${cmd.reviews[0].who eq 'principal' ? cmd.reviews[0] : null}"/>
 <c:if test="${not empty principalReview}">
-    <div id="principalsPOV" class='standard_6-1'>
+    <div id="principalsPOV" class='standard_6-1' style="margin-top:10px;">
         <h3>The Principal's point of view</h3>
 
         <div class="spacer_5"><!-- do not collapse --></div>
