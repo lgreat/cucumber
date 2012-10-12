@@ -569,7 +569,6 @@ GS.photoGallery.PhotoGallery = function(prefix, multiSizeImageArray, debug, trig
     };
 
     function loadImages() {
-        //loadThumbnails();
         loadFullSizeImages();
     };
 
