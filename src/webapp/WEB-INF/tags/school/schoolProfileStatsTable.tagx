@@ -88,10 +88,12 @@
                         jspContext.setAttribute("thisFootnote", "*");
                         jspContext.setAttribute("hasManualOverride", true);
                     } else {
-                        footnotes.put(statsTab, descriptions);
-                        jspContext.setAttribute("footnotes", footnotes);
-                        footnotesForThisTable.add(descriptions.size());
-                        jspContext.setAttribute("thisFootnote", descriptions.size());
+                        if (descriptions.size() > 0) {
+                            footnotes.put(statsTab, descriptions);
+                            jspContext.setAttribute("footnotes", footnotes);
+                            footnotesForThisTable.add(descriptions.size());
+                            jspContext.setAttribute("thisFootnote", descriptions.size());
+                        }
                     }
                 ]]>
                 </jsp:scriptlet>
@@ -105,7 +107,11 @@
                     </c:otherwise>
                 </c:choose>
                 <tr class="${rowColor}" >
-                    <td>${row.text} <sup>${thisFootnote}</sup></td>
+                    <td>${row.text}
+                        <c:if test="${thisFootnote gt 0}">
+                            <sup>${thisFootnote}</sup>
+                        </c:if>
+                    </td>
                     <c:if test="${showSchoolData}">
                         <c:choose>
                             <c:when test="${not empty row.schoolValue}">

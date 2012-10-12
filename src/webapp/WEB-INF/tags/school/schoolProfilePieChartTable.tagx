@@ -108,10 +108,12 @@
                     jspContext.setAttribute("thisFootnote", "*");
                     jspContext.setAttribute("hasManualOverride", true);
                 } else {
-                    footnotes.put(statsTab, descriptions);
-                    jspContext.setAttribute("footnotes", footnotes);
-                    footnotesForThisTable.add(descriptions.size());
-                    jspContext.setAttribute("thisFootnote", descriptions.size());
+                    if (descriptions.size() > 0) {
+                        footnotes.put(statsTab, descriptions);
+                        jspContext.setAttribute("footnotes", footnotes);
+                        footnotesForThisTable.add(descriptions.size());
+                        jspContext.setAttribute("thisFootnote", descriptions.size());
+                    }
                 }
                 ]]>
             </jsp:scriptlet>
@@ -160,7 +162,11 @@
                     </c:choose>
                 </c:if>
                 <td class="tac"><div class="grayBoxForPieChartLegend" style=" background-color: ${schoolColorToShow};"><!-- do not collapse --></div></td>
-                <td>${row.text}<sup>${thisFootnote}</sup></td>
+                <td>${row.text}
+                    <c:if test="${thisFootnote gt 0}">
+                        <sup>${thisFootnote}</sup>
+                    </c:if>
+                </td>
                 ${schoolScoreToShow}
                 <!--<c:if test="${showDistrictData}">-->
                     <!--<c:choose>-->
