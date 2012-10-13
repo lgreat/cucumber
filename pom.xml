@@ -638,7 +638,6 @@
                                 <param>tracking/customLinks.js</param>
                                 <param>compare/persistentCompare.js</param>
                                 <param>omnitureEventNotifier.js</param>
-                                <param>photoGallery.js</param>
                                 <param>mssAutoHoverInterceptor.js</param>
                             </jsSourceFiles>
                             <jsFinalFile>school-profile.js</jsFinalFile>
