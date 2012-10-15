@@ -340,13 +340,6 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         ModelMap model = new ModelMap();
         School s = new School();
 
-        // schools with high-only level code: no student growth ratings
-
-        s.setLevelCode(LevelCode.HIGH);
-        _controller.populateStudentGrowthRatingsModel(s, true, _dataMap,model);
-        assertNull(model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
-        assertNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
-
         // check if school has student growth rating regardless of level code
 
         // temporarily remove rating for this test
