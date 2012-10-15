@@ -33,7 +33,7 @@
                                     <c:set var="imageCounter" value="0"/>
                                     <c:forEach var="review" items="${images}">
                                         <li>
-                                            <div class="js-photo-gallery-trigger imagecounter-${imageCounter}">
+                                            <div class="js-photo-gallery-trigger addMousePointer imagecounter-${imageCounter}">
                                             <img src="${basePath}${review.smallSizeFile}" alt="Photos of this school" width="90" height="90"/>
                                             </div>
                                         </li>

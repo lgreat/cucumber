@@ -297,3 +297,5 @@ ul.disc li  { list-style-type: disc }
     border-radius: 3px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
 }
 .enrollmentApply .grayBox .numberFormat{ font-size: 24px; line-height: 24px; font-weight: bold}
+
+.addMousePointer{cursor: pointer;}
