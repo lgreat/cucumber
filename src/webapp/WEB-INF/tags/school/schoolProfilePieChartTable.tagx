@@ -41,7 +41,7 @@
 
 <jsp:scriptlet>
     <![CDATA[
-               java.util.Set footnotesForThisTable = new java.util.HashSet<Integer>();
+               java.util.Set footnotesForThisTable = new java.util.TreeSet<Integer>();
                 jspContext.setAttribute("footnotesForThisTable", footnotesForThisTable);
             ]]>
 </jsp:scriptlet>
@@ -163,7 +163,7 @@
                 </c:if>
                 <td class="tac"><div class="grayBoxForPieChartLegend" style=" background-color: ${schoolColorToShow};"><!-- do not collapse --></div></td>
                 <td>${row.text}
-                    <c:if test="${thisFootnote gt 0}">
+                    <c:if test="${hasManualOverride eq true or fn:length(footnotesForThisTable) gt 0}">
                         <sup>${thisFootnote}</sup>
                     </c:if>
                 </td>

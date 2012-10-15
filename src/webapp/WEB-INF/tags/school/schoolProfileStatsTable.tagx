@@ -38,7 +38,7 @@
 
         <jsp:scriptlet>
             <![CDATA[
-                java.util.Set footnotesForThisTable = new java.util.HashSet<Integer>();
+                java.util.Set footnotesForThisTable = new java.util.TreeSet<Integer>();
                 jspContext.setAttribute("footnotesForThisTable", footnotesForThisTable);
                 jspContext.setAttribute("hasManualOverride", false);
             ]]>
@@ -108,7 +108,7 @@
                 </c:choose>
                 <tr class="${rowColor}" >
                     <td>${row.text}
-                        <c:if test="${thisFootnote gt 0}">
+                        <c:if test="${hasManualOverride eq true or fn:length(footnotesForThisTable) gt 0}">
                             <sup>${thisFootnote}</sup>
                         </c:if>
                     </td>
