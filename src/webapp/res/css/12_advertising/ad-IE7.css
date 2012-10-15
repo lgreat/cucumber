@@ -73,3 +73,15 @@ tab fix
 .gsTabs ul.tabStyle-8 li a {padding-bottom: 8px;}
 .gsTabs ul.tabStyle-8 li a:hover {padding-bottom: 8px;}
 .gsTabs ul.tabStyle-8 li a.selected { filter: "progid:DXImageTransform.Microsoft.gradient(enabled=false)"; padding-bottom: 8px;}
+
+
+
+/*************************************************************************************************************
+
+fix for Pinterest button layout in the new school profile, in ie7
+
+******/
+
+#schoolProfilePinIt{
+    zoom:1; _height:25px; *display: inline; margin-right: 5px;
+}

@@ -242,7 +242,7 @@
             </span>
 
             <!-- Pinterest Button -->
-            <div id="schoolProfilePinIt" style='display: inline-block; vertical-align: top;'>
+            <div id="schoolProfilePinIt" style='vertical-align: top; display: inline-block; *display: inline;'>
                 <promo:addPinItButton url="${schoolOverviewUrl}" title="${schoolPlainTextSummary}"
                                       image="http://www.greatschools.org/res/img/content/article/GS_FB_logo_200x200.jpg"/>
             </div>
