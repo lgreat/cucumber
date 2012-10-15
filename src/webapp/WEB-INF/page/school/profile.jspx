@@ -363,7 +363,7 @@
                             <div class="pr">
                                 <img height="98" width="98" alt="Map thumbnail"
                                  src="http://maps.googleapis.com/maps/api/staticmap?markers=${gsweb:urlEncode(mapMarkerParam)}&amp;size=98x98&amp;maptype=roadmap&amp;scale=1&amp;sensor=false"/>
-                                <div style="position:absolute; top:73px; right:1px;z-index: 1;"><span class="iconx24 i-24-map-plus"><!-- do not collapse --></span></div>
+                                <div style="position:absolute; top:73px; right:1px;z-index: 0;"><span class="iconx24 i-24-map-plus"><!-- do not collapse --></span></div>
                             </div>
                         </link:districtBoundaryTool>
                     </div>
