@@ -361,32 +361,43 @@ public class EspFormExternalDataHelper {
         return null;
     }
 
-    void updateSchoolMetadata( School school, Object [] pageValues, String metadataBaseKey, User user, Date now, boolean singleValued ) {
+    void updateSchoolMetadata(School school, Object[] pageValues, String metadataBaseKey, User user, Date now, boolean singleValued) {
         // Before replacing existing values, make sure there were changes
-        List<String> existingList = school.getMetadataAsList(metadataBaseKey);
-        List<String> newList = new ArrayList<String>(pageValues.length);
-        for( Object value : pageValues ) {
-            if( ((String)value).length() > 0 ) {
-                newList.add((String)value);
+        List<String> existingList = new ArrayList<String>();
+        if (singleValued) {
+            String oldVal = school.getMetadataValue(metadataBaseKey);
+            if (StringUtils.isNotBlank(oldVal)) {
+                existingList.add(oldVal);
             }
+        } else {
+            existingList = school.getMetadataAsList(metadataBaseKey);
+        }
+        if (existingList == null) {
+            existingList = new ArrayList<String>(0);
         }
 
-        if( existingList == null ) {
-            existingList = new ArrayList<String>(0);    // the newList is never null
+        List<String> newList = new ArrayList<String>(pageValues.length);
+        for (Object value : pageValues) {
+            if (((String) value).length() > 0) {
+                newList.add((String) value);
+            }
         }
         boolean isSame = newList.equals(existingList);
-        if( ! isSame ) {
-            if( singleValued ) {
-                school.deleteMetadata(metadataBaseKey) ;
-                school.putMetadata(metadataBaseKey, newList.get(0));
-            }
-            else {
-                school.deleteMetadataList(metadataBaseKey) ;
-                school.putMetadataAsList(metadataBaseKey, newList);
-            }
-            saveSchool( school, user, now );
-        }
 
+        if (!isSame) {
+            if (singleValued) {
+                school.deleteMetadata(metadataBaseKey);
+                if (!newList.isEmpty()) {
+                    school.putMetadata(metadataBaseKey, newList.get(0));
+                }
+            } else {
+                school.deleteMetadataList(metadataBaseKey);
+                if (!newList.isEmpty()) {
+                    school.putMetadataAsList(metadataBaseKey, newList);
+                }
+            }
+            saveSchool(school, user, now);
+        }
     }
 
     static boolean containsBadChars(String val) {
