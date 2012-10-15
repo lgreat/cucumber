@@ -672,7 +672,7 @@ public class CompareStudentTeacherControllerTest extends BaseControllerTestCase 
         expectedListOfDataSets.add(censusDataSet);
         expectedListOfDataSets.add(overrideCensusDataSet);
         IBreakdownDao censusBreakdownDao = createStrictMock(IBreakdownDao.class);
-        expect(censusBreakdownDao.getCensusBreakdown(5)).andReturn(new Breakdown(5)).times(3); // twice for 2009, once for 0
+        //expect(censusBreakdownDao.getCensusBreakdown(5)).andReturn(new Breakdown(5)).times(3); // twice for 2009, once for 0
         replay(censusBreakdownDao);
         censusDataSet.setCensusBreakdownDao(censusBreakdownDao);
         overrideCensusDataSet.setCensusBreakdownDao(censusBreakdownDao);

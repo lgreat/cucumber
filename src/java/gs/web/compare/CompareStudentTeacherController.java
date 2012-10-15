@@ -331,7 +331,7 @@ public class CompareStudentTeacherController extends AbstractCompareSchoolContro
 
             // If configBreakdownId is present it must match
             if( configBreakdownId != null ) {
-                Integer censusBreakdownId = censusDataSet.getBreakdown().getId();
+                Integer censusBreakdownId = censusDataSet.getBreakdownId();
                 if( censusBreakdownId == null || !censusBreakdownId.equals(configBreakdownId)) {
                     continue;
                 }
