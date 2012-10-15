@@ -170,6 +170,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_CITY_STUDENT_GROWTH_RATING = "cityStudentGrowthRating";
     public static final String MODEL_STATE_STUDENT_GROWTH_RATING = "stateStudentGrowthRating";
     public static final String MODEL_SHOW_STATE_STUDENT_GROWTH_RATING = "showStateStudentGrowthRating";
+    public static final String MODEL_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP = "schoolStudentGrowthRatingBreakdown"; // TestDataType.id = 165 with Reading and Math as subjects
 
     public static final String MODEL_POST_SECONDARY_READINESS_RATING_YEAR = "postSecondaryReadinessRatingYear";
     public static final String MODEL_SCHOOL_POST_SECONDARY_READINESS_RATING = "schoolPostSecondaryReadinessRating";
@@ -216,6 +217,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String DATA_SCHOOL_STUDENT_GROWTH_RATING = "schoolStudentGrowthRating"; // TestDataType.id = 165
     public static final String DATA_CITY_STUDENT_GROWTH_RATING = "cityStudentGrowthRating"; // TBD
     public static final String DATA_STATE_STUDENT_GROWTH_RATING = "stateStudentGrowthRating"; // TestDataType.id = 165
+    public static final String DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP = "schoolStudentGrowthRatingBreakdown"; // TestDataType.id = 165 with Reading and Math as subjects
 
     public static final String DATA_POST_SECONDARY_READINESS_RATING_YEAR = "postSecondaryReadinessRatingYear"; // TestDataType.id = 166 (TestDataSchoolValue.year)
     public static final String DATA_SCHOOL_POST_SECONDARY_READINESS_RATING = "schoolPostSecondaryReadinessRating"; // TestDataType.id = 166
@@ -441,13 +443,13 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     public static void populateStudentGrowthRatingsModel(School school, boolean showStateRating, Map<String,Object> dataMap,ModelMap model) {
 
-        if (dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING) &&
-                school.getLevelCode() != null && !school.getLevelCode().equals(LevelCode.HIGH)) {
-
+        if (dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING )) {
             model.put(MODEL_STUDENT_GROWTH_RATING_YEAR, dataMap.get(DATA_STUDENT_GROWTH_RATING_YEAR));
             model.put(MODEL_SCHOOL_STUDENT_GROWTH_RATING, dataMap.get(DATA_SCHOOL_STUDENT_GROWTH_RATING));
             model.put(MODEL_CITY_STUDENT_GROWTH_RATING, dataMap.get(DATA_CITY_STUDENT_GROWTH_RATING));
-
+            if(dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP)){
+                model.put(MODEL_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP,dataMap.get(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP));
+            }
             if (showStateRating) {
                 model.put(MODEL_STATE_STUDENT_GROWTH_RATING, dataMap.get(DATA_STATE_STUDENT_GROWTH_RATING));
             }

@@ -106,6 +106,9 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     @Autowired
     private ParentReviewHelper _parentReviewHelper;
 
+    @Autowired
+    private ISubjectDao _subjectDao;
+
     protected Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
         String key = ESP_DATA_REQUEST_ATTRIBUTE;
@@ -702,6 +705,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
     public static final String DATA_STUDENT_GROWTH_RATING_YEAR = "studentGrowthRatingYear"; // TestDataType.id = 165 (TestDataSchoolValue.year)
     public static final String DATA_SCHOOL_STUDENT_GROWTH_RATING = "schoolStudentGrowthRating"; // TestDataType.id = 165
+    public static final String DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP = "schoolStudentGrowthRatingBreakdown"; // TestDataType.id = 165 with Reading and Math as subjects
     public static final String DATA_STATE_STUDENT_GROWTH_RATING = "stateStudentGrowthRating"; // TestDataType.id = 165
 
     public static final String DATA_POST_SECONDARY_READINESS_RATING_YEAR = "postSecondaryReadinessRatingYear"; // TestDataType.id = 166 (TestDataSchoolValue.year)
@@ -761,6 +765,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                 dataMap = new HashMap<String, Object>();
             }
 
+            Map<String,Integer> subjectLabelToValueMap = new HashMap<String,Integer>();
             //Get the school ratings.
             // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
             for (SchoolTestValue value : schoolTestValues) {
@@ -783,8 +788,24 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                         dataMap.put(DATA_SCHOOL_TEST_SCORE_RATING, value.getValueFloat().intValue());
                         break;
                     case TestDataType.RATING_ACADEMIC_VALUE_ADDED:
-                        dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, value.getDataSet().getYear());
-                        dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
+                        TestDataSet dataSet = value.getDataSet();
+                        Subject subject = dataSet.getSubject();
+                        if(subject != null && subject.getSubjectId() != 1){
+                            String subjectLabel = "";
+                            try {
+                                subjectLabel = _subjectDao.findSubjectName(subject, school.getDatabaseState());
+                            } catch (IllegalArgumentException e) {
+                                subjectLabel = Subject.getName(subject);
+                            }
+
+                            subjectLabelToValueMap.put(subjectLabel,new Integer(value.getValueText()));
+                            //The value in dataMap gets overridden each time there is breakdown data.
+                            dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP, subjectLabelToValueMap);
+                        }else{
+                            dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, dataSet.getYear());
+                            dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING, value.getValueFloat().intValue());
+                        }
+
                         break;
                     case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS:
                         dataMap.put(DATA_POST_SECONDARY_READINESS_RATING_YEAR, value.getDataSet().getYear());
