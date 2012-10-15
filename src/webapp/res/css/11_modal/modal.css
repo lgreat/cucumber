@@ -28,7 +28,7 @@ General comments:
     left:0;
     background-color:#999999;
     opacity: 0.5;
-    filter: alpha(opacity = .5);
+    filter: alpha(opacity=50);
     zoom: 1;
     display: block;
     z-index:10;
@@ -41,7 +41,7 @@ General comments:
     left:0;
     background-color:#000000;
     opacity: 0.75;
-    filter: alpha(opacity = .75);
+    filter: alpha(opacity=75);
     zoom: 1;
     display: block;
     z-index:10;
