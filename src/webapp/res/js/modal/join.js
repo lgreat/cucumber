@@ -156,10 +156,11 @@ var JoinModal = (function($){
 //             this.showJoinFunction = showJoinFunction;
 //             }
 //             $('#'+submitButton).click(this.validateFields);
-            console.log("showModal");
+//            console.log("showModal");
             ModalManager.showModal({
                 'layerId' : layerId
             });
+
             $(formAccess+' #fName').blur(this.validateFirstName);
             $(formAccess+' #jemail').blur(this.validateEmail);
             $(formAccess+' #jcemail').blur(this.validateConfirmEmail);
@@ -168,6 +169,7 @@ var JoinModal = (function($){
             $(formAccess+' #cpword').blur(this.validateConfirmPassword);
             $(formAccess+' #joinState').change(this.loadCities);
             $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
+            this.loadCities;
         },
 
         undoSimpleMssFields : function() {
@@ -444,7 +446,7 @@ var JoinModal = (function($){
         },
         showJoinAuto : function(schoolName, schoolId, schoolState) {
             console.log("showJoinAuto");
-            $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
+           // $(formAccess+' #joinBtn').click(this.clickSubmitHandler);
             this.configureForMss(schoolName, schoolId, schoolState);
             this.baseFields();
             this.setTitle("Send me updates");

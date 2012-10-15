@@ -1714,6 +1714,32 @@ jQuery(function() {
     });
 */
 
+    jQuery('.js_chooseEnableDisable').click(function( ) {
+        if(jQuery(this).is(':checked')){
+            jQuery('#js_ShowHideGrades').removeClass('disabled_field');
+        }
+        else{
+            jQuery("#js_showGradeSelect").hide('fast');
+            jQuery('#js_ShowHideGrades').html("Choose grades &#187;");
+            jQuery('#js_ShowHideGrades').addClass('disabled_field');
+        }
+    })
+
+    jQuery('#js_ShowHideGrades').click(function( event) {
+        event.preventDefault();
+        if(!jQuery('#js_ShowHideGrades').hasClass('disabled_field')){
+            if(jQuery("#js_showGradeSelect").css("display") == "none"){
+
+                jQuery("#js_showGradeSelect").show('fast');
+                jQuery('#js_ShowHideGrades').html("&#171; Hide Grade Chooser");
+            }
+            else{
+                jQuery("#js_showGradeSelect").hide('fast');
+                jQuery('#js_ShowHideGrades').html("Choose grades &#187;");
+            }
+        }
+    });
+
     jQuery('#grdShow').click(function() {
         if (jQuery('#grdShow').hasClass('active')) {
             jQuery('#grdShow').removeClass('active');

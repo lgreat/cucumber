@@ -191,79 +191,140 @@
     <div class="unit size15of19 lastUnit btstips">
         <div class="media grades">
             <div class="img mrm">
-                <input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1"/>
+                <input type="checkbox" checked="checked" name="newsletter" value="true" id="opt1" class="js_chooseEnableDisable"/>
             </div>
-            <div class="bd">
+            <div class="bd text3">
                 <label for="opt1">Sign me up for weekly emails from GreatSchools with grade-by-grade tips, including periodic updates about
                     <strong>Lowell High School</strong>.</label>
             </div>
         </div>
+        <div class="grades2 text3" style="margin-left: 20px;">
+            <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+            <p class="smaller bottom "><a href="#" id="js_ShowHideGrades">Choose grades &amp;#187;</a></p>
+            <!--<ul class="none">-->
+            <!--<li id="pickGrade">-->
 
-        <div class="grades2">
-            <div class="clearfloat"><!-- do not collapse --></div>
-            <p>In 2011-2012 my children are in:</p>
-            <ul class="none">
-                <li id="pickGrade">
-                    <input type="checkbox" value="mypk" id="gp" name="grades"/>
-                    <label for="gp">Preschool</label>
-                    <button id="grdShow" type="button" title="show more">show more</button>
-                    <div id="moreGrades" class="rnd3">
-                        <div class="line">
-                            <div class="unit size1of3">
-                                <div>
-                                    <input type="checkbox" value="myk" id="gk" name="grades"/>
-                                    <label for="gk">Kindergarten</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" value="my1" id="g1" name="grades"/>
-                                    <label for="g1">1st Grade</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" value="my2" id="g2" name="grades"/>
-                                    <label for="g2">2nd Grade</label>
-                                </div>
-                            </div>
-                            <div class="unit size1of3">
-                                <div>
-                                    <input type="checkbox" value="my3" id="g3" name="grades"/>
-                                    <label for="g3">3rd Grade</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" value="my4" id="g4" name="grades"/>
-                                    <label for="g4">4th Grade</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" value="my5" id="g5" name="grades"/>
-                                    <label for="g5">5th Grade</label>
-                                </div>
-                            </div>
-                            <div class="unit size1of3 lastUnit">
-                                <div>
-                                    <input type="checkbox" value="myms" id="gM" name="grades"/>
-                                    <label for="gM">Middle School</label>
-                                </div>
-                                <div>
-                                    <input type="checkbox" value="myhs" id="gH" name="grades"/>
-                                    <label for="gH">High School</label>
-                                </div>
-                            </div>
+            <!--<button id="grdShow" type="button" title="show more">show more</button>-->
+            <div id="js_showGradeSelect" class="rnd3 dn" style="display: none">
+                <div class="line">
+                    <div class="unit size1of3">
+                        <div>
+                            <input type="checkbox" value="mypk" id="gp" name="grades"/>
+                            <label for="gp" class="checkbox-smaller">Preschool</label>
                         </div>
-                        <div class="line">
-                            <div class="unit size1of1 lastUnit">
-                                <button class="button-1" id="gradeDone" type="button">Done</button>
-                            </div>
+                        <div>
+                            <input type="checkbox" value="myk" id="gk" name="grades"/>
+                            <label for="gk" class="checkbox-smaller">Kindergarten</label>
                         </div>
-                        <div class="clear"><!-- do not collapse --></div>
+                        <div>
+                            <input type="checkbox" value="my1" id="g1" name="grades"/>
+                            <label for="g1" class="checkbox-smaller">1st Grade</label>
+                        </div>
                     </div>
-                </li>
-            </ul>
+                    <div class="unit size1of3">
+                        <div>
+                            <input type="checkbox" value="my2" id="g2" name="grades"/>
+                            <label for="g2" class="checkbox-smaller">2nd Grade</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="my3" id="g3" name="grades"/>
+                            <label for="g3" class="checkbox-smaller">3rd Grade</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="my4" id="g4" name="grades"/>
+                            <label for="g4" class="checkbox-smaller">4th Grade</label>
+                        </div>
+                    </div>
+                    <div class="unit size1of3 lastUnit">
+                        <div>
+                            <input type="checkbox" value="my5" id="g5" name="grades"/>
+                            <label for="g5" class="checkbox-smaller">5th Grade</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="myms" id="gM" name="grades"/>
+                            <label for="gM" class="checkbox-smaller">Middle School</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" value="myhs" id="gH" name="grades"/>
+                            <label for="gH" class="checkbox-smaller">High School</label>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="line">-->
+                <!--<div class="unit size1of1 lastUnit">-->
+                <!--<button class="button-1" id="gradeDone" type="button">Done</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <div class="clearFloat"><!-- do not collapse --></div>
+            </div>
+            <!--</li>-->
+            <!--</ul>-->
         </div>
+        <!--<div class="grades2">-->
+            <!--<div class="clearfloat">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+            <!--<p>In 2011-2012 my children are in:</p>-->
+            <!--<ul class="none">-->
+                <!--<li id="pickGrade">-->
+                    <!--<input type="checkbox" value="mypk" id="gp" name="grades"/>-->
+                    <!--<label for="gp">Preschool</label>-->
+                    <!--<button id="grdShow" type="button" title="show more">show more</button>-->
+                    <!--<div id="moreGrades" class="rnd3">-->
+                        <!--<div class="line">-->
+                            <!--<div class="unit size1of3">-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="myk" id="gk" name="grades"/>-->
+                                    <!--<label for="gk">Kindergarten</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="my1" id="g1" name="grades"/>-->
+                                    <!--<label for="g1">1st Grade</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="my2" id="g2" name="grades"/>-->
+                                    <!--<label for="g2">2nd Grade</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="unit size1of3">-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="my3" id="g3" name="grades"/>-->
+                                    <!--<label for="g3">3rd Grade</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="my4" id="g4" name="grades"/>-->
+                                    <!--<label for="g4">4th Grade</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="my5" id="g5" name="grades"/>-->
+                                    <!--<label for="g5">5th Grade</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="unit size1of3 lastUnit">-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="myms" id="gM" name="grades"/>-->
+                                    <!--<label for="gM">Middle School</label>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<input type="checkbox" value="myhs" id="gH" name="grades"/>-->
+                                    <!--<label for="gH">High School</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="line">-->
+                            <!--<div class="unit size1of1 lastUnit">-->
+                                <!--<button class="button-1" id="gradeDone" type="button">Done</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="clear">&lt;!&ndash; do not collapse &ndash;&gt;</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
 
         <div class="media joinHover_ld mtm">
             <div class="img mrm">
                 <input type="checkbox" name="ldNewsletter" value="true" id="opt2"/>
             </div>
-            <div class="bd">
+            <div class="bd text3">
                 <label for="opt2">Send me monthly emails about Learning Difficulties.</label>
             </div>
         </div>
@@ -272,7 +333,7 @@
             <div class="img mrm">
                 <input type="checkbox" name="btsTip" value="true" id="opt4"/>
             </div>
-            <div class="bd">
+            <div class="bd text3">
                 <label for="opt4">Sign me up for daily Back-to-School tips (ends Sept 7, 2010).</label>
                 <ul class="inner-row">
                     <li class="btstip_version">
@@ -290,7 +351,7 @@
         </div>
 
         <div class="media joinHover_partners mtm">
-            <div class="img mrm">
+            <div class="img mrm text3">
                 <c:choose>
                     <c:when test="${requestScope.context.partnerOptInCheckedByDefault}">
                         <input type="checkbox" name="partnerNewsletter" value="true" id="opt3"
@@ -301,7 +362,7 @@
                     </c:otherwise>
                 </c:choose>
             </div>
-            <div class="bd">
+            <div class="bd text3">
                 <label for="opt3">Send me offers to save on family activities and special
                     promotions from our carefully chosen partners.</label>
             </div>
@@ -310,7 +371,7 @@
         <div class="joinHover_terms">
             <div class="spacer_10"><!-- do not collapse --></div>
             <input type="checkbox" name="terms" value="true" class="hidden" checked="checked"/>
-            <label for="touy">
+            <label for="touy text3">
                 By joining GreatSchools, you agree to our
                 <gsml:popupWindow width="800" height="600" left="50" top="50"
                                   title="GreatSchools Terms of Use"
