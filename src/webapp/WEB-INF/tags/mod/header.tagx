@@ -131,7 +131,7 @@
                                            class="radLabel">Articles, Worksheets &amp;amp; More</label></li>
                             </ul>
                             <input type="text" name="q" id="qNew"
-                                   value="${searchBoxValue}" onclick="${searchBoxOnClick}"/>
+                                   value="${searchBoxValue}" onfocus="${searchBoxOnClick}"/>
                             <gsweb:stateSelector useNoState="${not requestScope.context.hasSearched}"
                                                  noStateLabel="--"
                                                  usingLongNames="false"
