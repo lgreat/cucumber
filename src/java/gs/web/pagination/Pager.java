@@ -41,6 +41,11 @@ public class Pager {
         return getPage(_lastPageNumber);
     }
 
+    public static Page getNthPage(Page page, int pageNumber) {
+        Pager pager = new Pager(page.getPager().getTotalItems(), page.getPager().getPageSize(), page.getPager().getPaginationConfig());
+        return pager.getPage(pageNumber);
+    }
+
     public Page getPage(int pageNumber) {
         int offset = getOffset(pageNumber);
 
@@ -133,6 +138,10 @@ public class Pager {
 
     public int getTotalPages() {
         return _totalPages;
+    }
+
+    public PaginationConfig getPaginationConfig() {
+        return _paginationConfig;
     }
 
     public boolean isZeroBasedOffset() {

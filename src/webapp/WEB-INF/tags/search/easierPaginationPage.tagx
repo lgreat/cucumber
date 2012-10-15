@@ -29,6 +29,7 @@
                              description="Class for the span that wraps an individual page number."/>
     <jsp:directive.attribute name="linkText" required="false" type="java.lang.String"
                              description="Class for the span that wraps an individual page number."/>
+    <jsp:directive.attribute name="page" required="false" type="gs.web.pagination.Page" description="Current page."/>
 
     <c:set var="linkTextInner" value="${linkText}"/>
     <c:if test="${empty linkTextInner}">
@@ -47,7 +48,7 @@
                 </c:when>
                 <c:otherwise>
                             <span>
-                                <a href="${pagination:recordPageInUrl(indexNumber, url,mode)}">${linkTextInner}</a>
+                                <a href="${pagination:recordPageInUrl(page, url,mode)}">${linkTextInner}</a>
                             </span>
                 </c:otherwise>
             </c:choose>

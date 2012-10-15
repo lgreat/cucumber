@@ -65,7 +65,7 @@
                                              linkText="&amp;#171;"
                                              indexNumber="${currentPage-1}"
                                              javascriptMethod="${javascriptMethod}"
-                                             addClassPrevNext="prv_nxt"/>
+                                             addClassPrevNext="prv_nxt" page="${page.previousPage}"/>
 
             </c:if>
 
@@ -81,7 +81,7 @@
                                                          currentPage="${currentPage}"
                                                          beginNumber="1"
                                                          totalNumber="${totalPages}"
-                                                         javascriptMethod="${javascriptMethod}"/>
+                                                         javascriptMethod="${javascriptMethod}" startPage="${page.pager.firstPage}"/>
                     </c:set>
 
                 </c:when>
@@ -92,7 +92,7 @@
                                                      pageSize="${pageSize}"
                                                      url="${url}"
                                                      indexNumber="1"
-                                                     javascriptMethod="${javascriptMethod}"/>
+                                                     javascriptMethod="${javascriptMethod}" page="${page.pager.firstPage}"/>
                         <span class="ellipsis">...</span>
                         <search:easierPaginationSequence useJavascriptPaging="${useJavascriptPaging}"
                                                          mode="${useJavascriptPaging}"
@@ -102,7 +102,7 @@
                                                          currentPage="${currentPage}"
                                                          beginNumber="${totalPages-4}"
                                                          totalNumber="${totalPages}"
-                                                         javascriptMethod="${javascriptMethod}"/>
+                                                         javascriptMethod="${javascriptMethod}" startPage="${pagination:getNthPage(page, totalPages - 4)}"/>
                     </c:set>
                 </c:when>
                 <c:when test="${currentPage le 4}">
@@ -115,14 +115,14 @@
                                                          currentPage="${currentPage}"
                                                          beginNumber="1"
                                                          totalNumber="5"
-                                                         javascriptMethod="${javascriptMethod}"/>
+                                                         javascriptMethod="${javascriptMethod}" startPage="${page.pager.firstPage}"/>
                         <span class="ellipsis">...</span>
                         <search:easierPaginationPage useJavascriptPaging="${useJavascriptPaging}"
                                                      mode="${useJavascriptPaging}"
                                                      pageSize="${pageSize}"
                                                      url="${url}"
                                                      indexNumber="${totalPages}"
-                                                     javascriptMethod="${javascriptMethod}"/>
+                                                     javascriptMethod="${javascriptMethod}" page="${page.pager.lastPage}"/>
                     </c:set>
                 </c:when>
                 <c:otherwise>
@@ -132,7 +132,7 @@
                                                      pageSize="${pageSize}"
                                                      url="${url}"
                                                      indexNumber="1"
-                                                     javascriptMethod="${javascriptMethod}"/>
+                                                     javascriptMethod="${javascriptMethod}" page="${page.pager.firstPage}"/>
                         <span class="ellipsis">...</span>
                         <search:easierPaginationSequence useJavascriptPaging="${useJavascriptPaging}"
                                                          mode="${useJavascriptPaging}"
@@ -142,14 +142,14 @@
                                                          currentPage="${currentPage}"
                                                          beginNumber="${currentPage - 1}"
                                                          totalNumber="${currentPage + 1}"
-                                                         javascriptMethod="${javascriptMethod}"/>
+                                                         javascriptMethod="${javascriptMethod}" startPage="${page.previousPage}"/>
                         <span class="ellipsis">...</span>
                         <search:easierPaginationPage useJavascriptPaging="${useJavascriptPaging}"
                                                      mode="${useJavascriptPaging}"
                                                      pageSize="${pageSize}"
                                                      url="${url}"
                                                      indexNumber="${totalPages}"
-                                                     javascriptMethod="${javascriptMethod}"/>
+                                                     javascriptMethod="${javascriptMethod}" page="${page.pager.lastPage}"/>
                     </c:set>
                 </c:otherwise>
             </c:choose>
@@ -164,7 +164,7 @@
                                              linkText="&amp;#187;"
                                              indexNumber="${currentPage+1}"
                                              javascriptMethod="${javascriptMethod}"
-                                             addClassPrevNext="prv_nxt" />
+                                             addClassPrevNext="prv_nxt" page="${page.nextPage}"/>
 
             </c:if>
         </div>

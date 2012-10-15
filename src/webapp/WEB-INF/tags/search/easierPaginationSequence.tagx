@@ -25,8 +25,9 @@
                              description="Class for the span that wraps an individual page number."/>
     <jsp:directive.attribute name="pageSize" required="false" type="java.lang.Integer"
                              description="Class for the span that wraps an individual page number."/>
+    <jsp:directive.attribute name="startPage" required="false" type="gs.web.pagination.Page" description="Current page."/>
 
-
+    <c:set var="thisPage" value="${startPage}"/>
     <!--TEST    ${totalNumber}  ${beginNumber}-->
     <c:forEach  var="index" varStatus="status" begin="${beginNumber}" end="${totalNumber}">
         <search:easierPaginationPage useJavascriptPaging="${useJavascriptPaging}"
@@ -36,6 +37,7 @@
                                          pageNumberStyleClass="${pageNumberStyleClass}"
                                          url="${url}"
                                          indexNumber="${index}"
-                                         javascriptMethod="${javascriptMethod}"/>
+                                         javascriptMethod="${javascriptMethod}" page="${thisPage}"/>
+        <c:set var="thisPage" value="${thisPage.nextPage}"/>
     </c:forEach>
 </jsp:root>

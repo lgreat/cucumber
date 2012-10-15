@@ -20,5 +20,10 @@
         <function-signature>java.lang.String recordPageInUrl(gs.web.pagination.Page,java.lang.String,java.lang.String)</function-signature>
     </function>
 
+    <function>
+        <name>getNthPage</name>
+        <function-class>gs.web.pagination.Pager</function-class>
+        <function-signature>gs.web.pagination.Page getNthPage(gs.web.pagination.Page,int)</function-signature>
+    </function>
 
 </taglib>
