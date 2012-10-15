@@ -38,7 +38,7 @@
         }
         function gotoNewarkSchoolsPage() {
             var level = document.getElementById('findAllLevel').value;
-            var url = "/new-jersey/newark/" + level + "/";
+            var url = "/new-jersey/newark/schools/?gradeLevels=" + level;
             window.location.href = decodeURIComponent(url);
         }
         function gotoComparePage() {
@@ -100,9 +100,9 @@
                         <img src="/res/img/content/research/yellow_arrow.gif" alt="yellow arrow" />
                         <span>Find all Newark</span>
                         <select id="findAllLevel">
-                            <option value="elementary-schools">elementary schools</option>
-                            <option value="middle-schools">middle schools</option>
-                            <option value="high-schools">high schools</option>
+                            <option value="e">elementary schools</option>
+                            <option value="m">middle schools</option>
+                            <option value="h">high schools</option>
                         </select>
                         <input src="/res/img/splash/go.gif" alt="Find Newark Schools" style="width: 41px; height: 26px;"
                                class="button" onmouseover="this.src='/res/img/splash/goOver.gif';"
