@@ -220,7 +220,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         } else if (commandAndFields.isDistrictBrowse()) {
             modelAndView = handleDistrictBrowse(request, response, commandAndFields, model);
         } else {
-            modelAndView = handleQueryStringAndNearbySearch(request, response, commandAndFields, model);
+            modelAndView = handleQueryStringAndNearbySearch(request, response, commandAndFields, model, schoolSearchCommand.isNearbySearchByLocation());
         }
 
         // hack to get school types / level code checkboxes to reflect browse prefilters
@@ -655,17 +655,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
 
         // City Browse Specific:  Put rel canonical value into the model
-        UrlBuilder relCanonical = _cityBrowseHelper.getRelCanonical(commandAndFields);
-        if (relCanonical != null) {
-            model.put(MODEL_REL_CANONICAL, relCanonical.asFullUrlXml(request));
-
-            String currentUrl = UrlUtil.getRequestURL(request);
-
-            model.put(MODEL_CURRENT_URL_MATCHES_REL_CANONICAL, currentUrl.equals(relCanonical.asFullUrl(request)));
-        } else {
-            model.put(MODEL_CURRENT_URL_MATCHES_REL_CANONICAL, false);
-        }
-
+        putRelCanonicalIntoModel(request, _cityBrowseHelper.getRelCanonical(commandAndFields), model);
 
         // City Browse Specific:  Use a city browse helper to calculate title and description and put them into model
         model.putAll(
@@ -724,17 +714,8 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         // District Browse Specific: put GAM attributes for district browse into model
         _districtBrowseHelper.addGamAttributes(request, commandAndFields, searchResultsPage.getSearchResults());
 
-
         // District Browse Specific:  Put rel canonical value into the model
-        _districtBrowseHelper.putRelCanonicalIntoModel(request, model, commandAndFields);
-
-
-        // District Browse Specific:  Put rel canonical value into the model
-        String relCanonical = _districtBrowseHelper.getRelCanonical(commandAndFields, request);
-        if (relCanonical != null) {
-            model.put(MODEL_REL_CANONICAL, relCanonical);
-        }
-
+        putRelCanonicalIntoModel(request, _districtBrowseHelper.getRelCanonical(commandAndFields), model);
 
         // District Browse Specific:  Use a district browse helper to calculate title and description and put them into model
         model.putAll(
@@ -763,7 +744,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         return new ModelAndView(viewName, model);
     }
 
-    private ModelAndView handleQueryStringAndNearbySearch(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
+    private ModelAndView handleQueryStringAndNearbySearch(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model, boolean isNearbySearchByLocation) {
 
         // QueryString Search Specific (not city browse and not district browse and no lat/lon)
         // if user did not enter search term (and this is not a nearby search), redirect to state browse
@@ -791,8 +772,19 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
 
         // QueryString Search Specific:  Put rel canonical value into the model
-        String relCanonical = _queryStringSearchHelper.getRelCanonical(request, commandAndFields.getSearchString() == null ?
-                commandAndFields.getSchoolSearchCommand().getLocationSearchString() : commandAndFields.getSearchString(), commandAndFields.getState(), citySearchResults);
+        String relCanonical;
+        if (isNearbySearchByLocation) {
+            // TODO-13231
+            relCanonical = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+                    commandAndFields.getState(),
+                    commandAndFields.getCity().getName(),
+                    SchoolType.getSetContainingOnlyLowestSchoolType(commandAndFields.getSchoolTypes()),
+                    LevelCode.createLevelCode(commandAndFields.getGradeLevels()).getLowestNonPreSchoolLevelCode()).asFullUrlXml(request);
+        } else {
+            // TODO-13231 - does this still work or does it need refactoring?
+            relCanonical = _queryStringSearchHelper.getRelCanonical(request, commandAndFields.getSearchString() == null ?
+                    commandAndFields.getSchoolSearchCommand().getLocationSearchString() : commandAndFields.getSearchString(), commandAndFields.getState(), citySearchResults);
+        }
         if (relCanonical != null) {
             model.put(MODEL_REL_CANONICAL, relCanonical);
         }
@@ -864,6 +856,18 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         model.put(MODEL_SCHOOL_SEARCH_RESULTS, searchResultsPage.getSearchResults());
 
         return searchResultsPage;
+    }
+
+    private static void putRelCanonicalIntoModel(HttpServletRequest request, UrlBuilder relCanonical, Map<String,Object> model) {
+        if (relCanonical != null) {
+            model.put(MODEL_REL_CANONICAL, relCanonical.asFullUrlXml(request));
+
+            String currentUrl = UrlUtil.getRequestURL(request);
+
+            model.put(MODEL_CURRENT_URL_MATCHES_REL_CANONICAL, currentUrl.equals(relCanonical.asFullUrl(request)));
+        } else {
+            model.put(MODEL_CURRENT_URL_MATCHES_REL_CANONICAL, false);
+        }
     }
 
     private SchoolSearchCommandWithFields createSchoolSearchCommandWithFields(SchoolSearchCommand schoolSearchCommand, DirectoryStructureUrlFields fields, Map nearbySearchInfo) {

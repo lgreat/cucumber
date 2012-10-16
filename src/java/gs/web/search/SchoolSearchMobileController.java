@@ -391,7 +391,7 @@ public class SchoolSearchMobileController extends SchoolSearchController impleme
 
 
         // District Browse Specific:
-        // if district browse *and* lc parameter was specified, 301-redirect to use directory-structure schools label instead of lc parameter
+        // if district browse *and* lc parameter was specified, 301-redirect to use gradeLevels parameter instead of lc parameter
         String lc = request.getParameter("lc");
         if (StringUtils.isNotBlank(lc) && !commandAndFields.isAjaxRequest()) {
             LevelCode levelCode = LevelCode.createLevelCode(lc);

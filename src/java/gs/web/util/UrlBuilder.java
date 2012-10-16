@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: UrlBuilder.java,v 1.293 2012/10/11 15:12:14 yfan Exp $
+ * $Id: UrlBuilder.java,v 1.294 2012/10/16 22:02:29 yfan Exp $
  */
 
 package gs.web.util;
@@ -751,12 +751,7 @@ public class UrlBuilder {
     }
 
     public UrlBuilder(District district, LevelCode levelCode, VPage page) {
-        if (SCHOOLS_IN_DISTRICT.equals(page)) {
-            _perlPage = false;
-            _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(district.getDatabaseState(), district, levelCode);
-        } else {
-            throw new IllegalArgumentException("VPage unknown" + page);
-        }
+        this(page, district, levelCode, null);
     }
 
     public UrlBuilder(District district, VPage page) {
@@ -779,10 +774,26 @@ public class UrlBuilder {
         }
     }
 
+    public UrlBuilder(VPage page, District district, LevelCode levelCode, Integer start) {
+        this(page, district.getDatabaseState(), district.getId(), district.getName(), district.getPhysicalAddress().getCity(), levelCode, start);
+    }
+
     public UrlBuilder(State state, Integer districtId, String districtName, String districtCity, LevelCode levelCode, VPage page) {
+        this(page, state, districtId, districtName, districtCity, levelCode, null);
+    }
+
+    public UrlBuilder(VPage page, State state, Integer districtId, String districtName, String districtCity, LevelCode levelCode, Integer start) {
         if (SCHOOLS_IN_DISTRICT.equals(page)) {
             _perlPage = false;
-            _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(state, districtId, districtName, districtCity, levelCode);
+            _path = DirectoryStructureUrlFactory.createNewDistrictBrowseURI(state, districtId, districtName, districtCity, null);
+            if (levelCode != null && !LevelCode.ALL_LEVELS.equals(levelCode)) {
+                for (LevelCode.Level level : levelCode.getIndividualLevelCodes()) {
+                    this.addParameter("gradeLevels", level.getName());
+                }
+            }
+            if (start != null && start > 0) {
+                this.setParameter("start", String.valueOf(start));
+            }
         } else {
             throw new IllegalArgumentException("VPage unknown" + page);
         }

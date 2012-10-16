@@ -41,18 +41,14 @@
         <link rel="canonical" href="${relCanonical}"/>
     </c:if>
 
-    <c:if test="${isSearch}">
-        <meta name="robots" content="follow,noindex"/>
-    </c:if>
-
     <c:if test="${!isSearch and page.pager.totalItems gt 0 and currentUrlMatchesRelCanonical}">
         <c:if test="${!page.lastPage}">
-            <link rel="next"
-                  href="${pagination:recordPageInUrl(page.nextPage, gsweb:getRequestURL(pageContext.request), 'offset')}"/>
+            <c:set var="relUrl"><c:out value="${pagination:recordPageInUrl(page.nextPage, gsweb:getRequestURL(pageContext.request), 'offset')}" escapeXml="true"/></c:set>
+            <link rel="next" href="${relUrl}"/>
         </c:if>
         <c:if test="${!page.firstPage}">
-            <link rel="prev"
-                  href="${pagination:recordPageInUrl(page.previousPage, gsweb:getRequestURL(pageContext.request), 'offset')}"/>
+            <c:set var="relUrl"><c:out value="${pagination:recordPageInUrl(page.previousPage, gsweb:getRequestURL(pageContext.request), 'offset')}" escapeXml="true"/></c:set>
+            <link rel="prev" href="${relUrl}"/>
         </c:if>
     </c:if>
 

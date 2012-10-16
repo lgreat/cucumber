@@ -1,5 +1,6 @@
 package gs.web.search;
 
+import gs.data.school.SchoolType;
 import gs.data.search.*;
 import gs.data.search.beans.CitySearchResult;
 import gs.data.search.beans.ICitySearchResult;
@@ -24,10 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component("schoolSearchHelper")
 public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
@@ -172,10 +170,12 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
             // search string that matches city, e.g. q=alameda&state=CA
             if (citySearchResults != null) {
                 for (ICitySearchResult cityResult : citySearchResults) {
+                    // TODO-13231 - support by-name search, by-location search, header search - and include gradeLevels= and school type, if applicable
+                    // TODO-13231 - i don't think it takes level code, school type into account
                     try {
                         if (StringUtils.equalsIgnoreCase(searchString, cityResult.getCity())
                                 && StringUtils.equalsIgnoreCase(state.getAbbreviation(), cityResult.getState().toString())) {
-                            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.CITY_PAGE, state, searchString);
+                            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityResult.getCity(), new HashSet<SchoolType>(), null);
                             url = urlBuilder.asFullUrl(request);
                         }
                     } catch (Exception e) {

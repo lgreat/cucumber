@@ -271,7 +271,7 @@ public class SchoolSearchController extends AbstractCommandController implements
             return stateBrowseRedirect(request, SessionContextUtil.getSessionContext(request));
         }
 
-        // if district browse *and* lc parameter was specified, 301-redirect to use directory-structure schools label instead of lc parameter
+        // if district browse *and* lc parameter was specified, 301-redirect to use gradeLevels parameter instead of lc parameter
         String lc = request.getParameter("lc");
         if (commandAndFields.isDistrictBrowse() && StringUtils.isNotBlank(lc) && !schoolSearchCommand.isAjaxRequest()) {
             LevelCode levelCode = LevelCode.createLevelCode(lc);

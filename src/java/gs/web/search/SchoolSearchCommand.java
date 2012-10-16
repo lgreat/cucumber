@@ -263,7 +263,7 @@ public class SchoolSearchCommand {
     }
 
     public boolean isNearbySearchByLocation() {
-        return isNearbySearch() && StringUtils.isNotEmpty(_searchString);
+        return isNearbySearch() && StringUtils.isNotEmpty(_locationSearchString);
     }
 
     public String[] getAffiliations() {

@@ -194,6 +194,8 @@ public class SchoolSearchCommandWithFields {
     public City getCity() {
         if (isDistrictBrowse() || isCityBrowse()) {
             return getCityFromUrl();
+        } else if (isNearbySearchByLocation()) {
+            return getCity(getState(), _command.getCity());
         } else {
             return getCityFromSearchString();
         }

@@ -60,16 +60,19 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
         return model;
     }
 
-    protected String getRelCanonical(SchoolSearchCommandWithFields commandWithFields, HttpServletRequest request) {
+    protected UrlBuilder getRelCanonical(SchoolSearchCommandWithFields commandWithFields) {
         District district = commandWithFields.getDistrict();
 
-        if (request == null || district == null) {
-            throw new IllegalArgumentException("HttpServletRequest and District are required and cannot be null");
+        if (district == null) {
+            throw new IllegalArgumentException("District is required and cannot be null");
         }
-        UrlBuilder urlBuilder = new UrlBuilder(district, UrlBuilder.SCHOOLS_IN_DISTRICT);
-        String url = urlBuilder.asFullUrl(request);
 
-        return url;
+        UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_DISTRICT,
+                district,
+                LevelCode.createLevelCode(commandWithFields.getGradeLevels()).getLowestNonPreSchoolLevelCode(),
+                commandWithFields.getRequestedPage().offset);
+
+        return urlBuilder;
     }
 
     public Map<String,Object> getOmnitureHierarchyAndPageName(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, int totalResults) {
@@ -131,7 +134,7 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
 
 
         // District Browse Specific:
-        // if district browse *and* lc parameter was specified, 301-redirect to use directory-structure schools label instead of lc parameter
+        // if district browse *and* lc parameter was specified, 301-redirect to use gradeLevels parameter instead of lc parameter
         String lc = request.getParameter("lc");
         if (StringUtils.isNotBlank(lc) && !commandAndFields.isAjaxRequest()) {
             LevelCode levelCode = LevelCode.createLevelCode(lc);
@@ -159,20 +162,6 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
         // GS-10157 - district browse
         if (commandAndFields.isDistrictBrowse()) {
             _searchAdHelper.addDistrictAdKeywords(pageHelper, commandAndFields.getDistrict());
-        }
-    }
-
-    protected void putRelCanonicalIntoModel(HttpServletRequest request, Map<String, Object> model, SchoolSearchCommandWithFields commandAndFields) {
-
-        // determine the correct canonical URL based on if this controller is handling a string search that matches
-        // a city or not, and whether or not the controller is handling a city browse or district browse request
-        String relCanonicalUrl = null;
-        if (commandAndFields.getState() != null) {
-            relCanonicalUrl = getRelCanonical(commandAndFields, request);
-
-            if (relCanonicalUrl != null) {
-                model.put(MODEL_REL_CANONICAL, relCanonicalUrl);
-            }
         }
     }
 
