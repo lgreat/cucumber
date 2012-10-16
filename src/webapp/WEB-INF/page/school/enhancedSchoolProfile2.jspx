@@ -104,16 +104,31 @@
                     <td>
                         <c:set var="scStart"><gsweb:erts list="${responses.before_after_care_start}" pretty="false"/></c:set>
                         <c:set var="scEnd"><gsweb:erts list="${responses.before_after_care_end}" pretty="false"/></c:set>
-                        <c:if test="${not empty scStart or not empty scEnd}">
-                            <ul>
-                                <c:if test="${not empty scStart}">
-                                    <li>Before school care / program starts ${scStart}</li>
-                                </c:if>
-                                <c:if test="${not empty scEnd}">
-                                    <li>After school care / program ends ${scEnd}</li>
-                                </c:if>
-                            </ul>
-                        </c:if>
+                        <c:choose>
+                            <c:when test="${fn:toLowerCase(bacare) eq 'neither'}">
+                                Before and after school programming is not provided.
+                            </c:when>
+                            <c:otherwise>
+                                <ul>
+                                    <c:if test="${(hasBeforeCare and empty scStart) or (hasAfterCare and empty scEnd)}">
+                                        <c:if test="${hasBeforeCare and empty scStart}">
+                                            <li>Before school</li>
+                                        </c:if>
+                                        <c:if test="${hasAfterCare and empty scEnd}">
+                                            <li>After school</li>
+                                        </c:if>
+                                    </c:if>
+                                    <c:if test="${not empty scStart or not empty scEnd}">
+                                        <c:if test="${not empty scStart}">
+                                            <li>Before school care / program starts ${scStart}</li>
+                                        </c:if>
+                                        <c:if test="${not empty scEnd}">
+                                            <li>After school care / program ends ${scEnd}</li>
+                                        </c:if>
+                                    </c:if>
+                                </ul>
+                            </c:otherwise>
+                        </c:choose>
                     </td>
                 </tr>
             </c:if>

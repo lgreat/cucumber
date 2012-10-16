@@ -173,6 +173,28 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         return pretty ? response.getPrettyValue() : response.getSafeValue();
     }
 
+    /**
+     * Same as new profile overview controller
+     * Helper function to go through a list of EspResponse objects looking for one of the specified values
+     * @param espResponses The EspResponse objects to check
+     * @param valuesToLookFor The values to look for
+     * @return True if any value is found in the EspResponses
+     */
+    private boolean checkEspResponseListForValue(List<EspResponse> espResponses, String[] valuesToLookFor) {
+        if( (espResponses==null) || (espResponses.size()==0) ) {
+            return false;
+        }
+
+        for( String val : valuesToLookFor ) {
+            for( EspResponse r : espResponses ) {
+                if( r.getValue().equals( val ) ) {
+                    return true;    // Found, we are done
+                }
+            }
+        }
+        return false;   // If we get here the answer no match was found
+    }
+
     private IEspResponseDao _espResponseDao;
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
 
@@ -198,6 +220,11 @@ public class EnhancedSchoolProfileController extends AbstractSchoolController im
         List<EspResponse> listResponses = _espResponseDao.getResponses(school);
         Map<String, List<EspResponse>> responses = EspResponse.rollup(listResponses);
         model.put("responses", responses);
+
+        List<EspResponse> beforeAfterCare = responses.get("before_after_care");
+        model.put("hasBeforeCare", checkEspResponseListForValue(beforeAfterCare, new String[]{"before"}));
+        model.put("hasAfterCare", checkEspResponseListForValue(beforeAfterCare, new String[]{"after"}));
+        model.put("hasNoBeforeAfterCare", checkEspResponseListForValue(beforeAfterCare, new String[]{"neither"}));
 
         boolean admissionsContactSchool = false;
         if (org.apache.commons.lang.StringUtils.equals(getFirstValue(responses.get("admissions_contact_school"), false), "yes")) {
