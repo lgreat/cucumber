@@ -38,7 +38,7 @@
     <c:set var="NRTextHover">
 
         <div class='dn' id='noRatingDescText'>
-            <p style='width:60px;' class='small'>No Rating</p>
+            <p style='width:60px;' class='small'>No rating</p>
         </div>
         <script type="text/javascript">
             jQuery(document).ready(function() {
