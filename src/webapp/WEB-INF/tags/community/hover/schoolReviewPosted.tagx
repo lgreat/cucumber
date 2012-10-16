@@ -30,7 +30,9 @@
                 .FBConnectButton_RTL_Small.FBConnectButton_Text{margin-right:25px}
                 a.FBConnectButton_RTL_Small:active{background-position:right -371px}
             </style>
-                <div style="display:none;" class="prl fltlft" id="js_fbshare_div"><a name="fb_share" type="button" href="http://www.facebook.com/sharer.php" id="js_fbshare_schoolReviewPosted" style="font-size: 20px">Share on Facebook</a></div>
+                <div style="display:none;" class="prl fltlft" id="js_fbshare_div">
+                    <a name="fb_share" type="button" href="http://www.facebook.com/sharer.php?u=${relCanonical}" id="js_fbshare_schoolReviewPosted" style="font-size: 20px">Share on Facebook (/hover) </a>
+                </div>
 
                 <div style="display: inline-block;"><button class="button-1 schoolReviewPosted_hideHover" type="button">No, thanks</button></div>
             </div>
