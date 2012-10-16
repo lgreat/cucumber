@@ -683,6 +683,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_CLIMATE_SOCIAL_EMOTIONAL_LEARNING);
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_OVERALL_CLIMATE);
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_OVERALL);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.ACT_SCORE);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.ACT_PERCENT_TESTED);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.SAT_SCORE);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.SAT_PERCENT_TESTED);
     }
 
     // test data types for state ratings
@@ -711,6 +715,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     public static final String DATA_POST_SECONDARY_READINESS_RATING_YEAR = "postSecondaryReadinessRatingYear"; // TestDataType.id = 166 (TestDataSchoolValue.year)
     public static final String DATA_SCHOOL_POST_SECONDARY_READINESS_RATING = "schoolPostSecondaryReadinessRating"; // TestDataType.id = 166
     public static final String DATA_STATE_POST_SECONDARY_READINESS_RATING = "statePostSecondaryReadinessRating"; // TestDataType.id = 166
+    public static final String DATA_SCHOOL_ACT_SCORE = "schoolACTScore"; // TestDataType.id = 120
+    public static final String DATA_SCHOOL_ACT_PERCENT_TAKING_TEST = "schoolACTPercentTakingTest"; // TestDataType.id = 175
+    public static final String DATA_SCHOOL_SAT_SCORE = "schoolSATScore"; // TestDataType.id = 177
+    public static final String DATA_SCHOOL_SAT_PERCENT_TAKING_TEST = "schoolSATPercentTakingTest"; // TestDataType.id = 176
 
     public static final String DATA_CLIMATE_RATING_NUM_RESPONSES = "climateRatingNumResponses"; // TestDataType.id = 173 (TestDataSchoolValue.number_tested)
     public static final String DATA_SCHOOL_ENVIRONMENT_RATING = "schoolEnvironmentRating"; // TestDataType.id = 172
@@ -765,7 +773,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                 dataMap = new HashMap<String, Object>();
             }
 
-            Map<String,Integer> subjectLabelToValueMap = new HashMap<String,Integer>();
+            Map<String,String> subjectLabelToValueMap = new HashMap<String,String>();
             //Get the school ratings.
             // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
             for (SchoolTestValue value : schoolTestValues) {
@@ -798,7 +806,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                                 subjectLabel = Subject.getName(subject);
                             }
 
-                            subjectLabelToValueMap.put(subjectLabel,new Integer(value.getValueText()));
+                            subjectLabelToValueMap.put(subjectLabel+ " growth", value.getValueText());
                             //The value in dataMap gets overridden each time there is breakdown data.
                             dataMap.put(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP, subjectLabelToValueMap);
                         }else{
@@ -825,8 +833,17 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                     case TestDataType.RATING_CLIMATE_TEACHER_SUPPORT:
                         dataMap.put(DATA_TEACHER_SUPPORT_RATING, value.getValueFloat().intValue());
                         break;
-                    case TestDataType.RATING_CLIMATE_FAMILY_ENGAGEMENT:
-                        dataMap.put(DATA_FAMILY_ENGAGEMENT_RATING, value.getValueFloat().intValue());
+                    case TestDataType.ACT_SCORE:
+                        dataMap.put(DATA_SCHOOL_ACT_SCORE, value.getValueFloat().intValue());
+                        break;
+                    case TestDataType.ACT_PERCENT_TESTED:
+                        dataMap.put(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST, value.getValueFloat().intValue());
+                        break;
+                    case TestDataType.SAT_SCORE:
+                        dataMap.put(DATA_SCHOOL_SAT_SCORE, value.getValueFloat().intValue());
+                        break;
+                    case TestDataType.SAT_PERCENT_TESTED:
+                        dataMap.put(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST, value.getValueFloat().intValue());
                         break;
                 }
             }

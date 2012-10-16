@@ -177,6 +177,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_CITY_POST_SECONDARY_READINESS_RATING = "cityPostSecondaryReadinessRating";
     public static final String MODEL_STATE_POST_SECONDARY_READINESS_RATING = "statePostSecondaryReadinessRating";
     public static final String MODEL_SHOW_STATE_POST_SECONDARY_READINESS_RATING  = "showStatePostSecondaryReadinessRating";
+    public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_NAME = "postSecondaryReadinessBreakdownTestName";
+    public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE = "postSecondaryReadinessBreakdownTestScore";
+    public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED = "postSecondaryReadinessBreakdownPercentTested";
 
     public static final String MODEL_TEST_SCORE_RATING_SOURCE = "testScoreRatingSource";
 
@@ -223,6 +226,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String DATA_SCHOOL_POST_SECONDARY_READINESS_RATING = "schoolPostSecondaryReadinessRating"; // TestDataType.id = 166
     public static final String DATA_CITY_POST_SECONDARY_READINESS_RATING = "cityPostSecondaryReadinessRating"; // TBD
     public static final String DATA_STATE_POST_SECONDARY_READINESS_RATING = "statePostSecondaryReadinessRating"; // TestDataType.id = 166
+    public static final String DATA_SCHOOL_ACT_SCORE = "schoolACTScore"; // TestDataType.id = 120
+    public static final String DATA_SCHOOL_ACT_PERCENT_TAKING_TEST = "schoolACTPercentTakingTest"; // TestDataType.id = 175
+    public static final String DATA_SCHOOL_SAT_SCORE = "schoolSATScore"; // TestDataType.id = 177
+    public static final String DATA_SCHOOL_SAT_PERCENT_TAKING_TEST = "schoolSATPercentTakingTest"; // TestDataType.id = 176
 
     public static final String DATA_CLIMATE_RATING_NUM_RESPONSES = "climateRatingNumResponses"; // TestDataType.id = 173 (TestDataSchoolValue.number_tested)
     public static final String DATA_SCHOOL_ENVIRONMENT_RATING = "schoolEnvironmentRating"; // TestDataType.id = 172
@@ -447,6 +454,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             model.put(MODEL_STUDENT_GROWTH_RATING_YEAR, dataMap.get(DATA_STUDENT_GROWTH_RATING_YEAR));
             model.put(MODEL_SCHOOL_STUDENT_GROWTH_RATING, dataMap.get(DATA_SCHOOL_STUDENT_GROWTH_RATING));
             model.put(MODEL_CITY_STUDENT_GROWTH_RATING, dataMap.get(DATA_CITY_STUDENT_GROWTH_RATING));
+            //Add the Student Growth breakdown data for subjects.
             if(dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP)){
                 model.put(MODEL_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP,dataMap.get(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP));
             }
@@ -467,6 +475,18 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             model.put(MODEL_CITY_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_CITY_POST_SECONDARY_READINESS_RATING));
             if (showStateRating) {
                 model.put(MODEL_STATE_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_STATE_POST_SECONDARY_READINESS_RATING));
+            }
+
+            //Add the Post Secondary Readiness breakdown data for ACT and SAT tests.
+            //School can have only ACT score or SAT score but not both.
+            if (dataMap.containsKey(DATA_SCHOOL_ACT_SCORE) && dataMap.containsKey(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST)) {
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_ACT_SCORE));
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_NAME, "ACT");
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED, dataMap.get(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST));
+            } else if (dataMap.containsKey(DATA_SCHOOL_SAT_SCORE) && dataMap.containsKey(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST)) {
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_SAT_SCORE));
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_NAME, "SAT");
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED, dataMap.get(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST));
             }
         }
     }
