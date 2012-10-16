@@ -379,6 +379,7 @@ General comments:
 
 
 /************  Ratings Legend **************************/
+.ratingsLegend{width:310px;}
 .ratingsLegend .marLeft{margin-left: 4px;}
 .ratingsLegend .bracketUp3 { border: 1px solid #999999; border-top: none; height:9px; width:56px; margin-top: 4px;}
 .ratingsLegend .bracketUp4 { border: 1px solid #999999; border-top: none; height:9px; width:84px; margin-top: 4px;}
@@ -647,16 +648,16 @@ General comments:
 .bargraph { }
 .bargraph .graphContainer { position:relative; float:left; }
 .bargraph .graphContainer .barDrawing { position:absolute; top:0px; left:1px; }
-.bargraph .graphContainer .spacerW { width:33px; border-right:1px solid #DDDDDD; float:left; height:100%; }
-.bargraph .graphContainer .spacerFirst { width:33px; border-left:1px solid #333333; border-right:1px solid #999999; float:left; height:100%; }
+.bargraph .graphContainer .spacerW { width:19px; border-right:1px solid #DDDDDD; float:left; height:100%; }
+.bargraph .graphContainer .spacerFirst { width:19px; border-left:1px solid #333333; border-right:1px solid #999999; float:left; height:100%; }
 .bargraph .graphContainer .spacerH { height:10px; }
 
 .bargraph .graphLabelsY { position:relative; float:left; padding-right:10px; text-align:right; }
 .bargraph .graphLabelsY .spacerLabel { position:relative; height:10px; margin-top:10px; line-height:10px; }
 
 .bargraph .graphLabelsX { position:relative; clear:both; }
-.bargraph .graphLabelsX .spacerOffset { width:17px; height:10px; float:left; }
-.bargraph .graphLabelsX .spacerWNumbers { width:34px; float:left; padding-top:10px; text-align:center; }
+.bargraph .graphLabelsX .spacerOffset { width:10px; height:10px; float:left; }
+.bargraph .graphLabelsX .spacerWNumbers { width:20px; float:left; padding-top:10px; text-align:center; }
 
 .bargraph .graphContainer .barContainer { height:10px;margin-top:10px; }
 .bargraph .graphContainer .barContainer div { width:100%; height:100%; }

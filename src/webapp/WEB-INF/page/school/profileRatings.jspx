@@ -246,10 +246,37 @@
                     <h4 class="pvm plm bottom">Climate ratings</h4>
                 </div>
                 <div class="bd pam">
+
+
+                    <!--<div class="line">-->
+                        <!--<div class="small mbl size70of100 unit">-->
+                            <!--${section3Copy}-->
+                            <!--&lt;!&ndash;TODO Is this needed&ndash;&gt;-->
+                            <!--<c:if test="${schoolPostSecondaryReadinessRating != null and not empty section3CopyPostSecondaryReadiness}">-->
+                                <!--${section3CopyPostSecondaryReadiness}-->
+                            <!--</c:if>-->
+                        <!--</div>-->
+                        <!--<c:set var="overallAcademicRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>-->
+                        <!--<c:set var="overallAcademicRatingColor"><c:if test="${overallAcademicRating le 3}">ratingsRedText</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">ratingsYellowText</c:if><c:if test="${overallAcademicRating ge 8}">ratingsGreenText</c:if></c:set>-->
+
+                        <!--<div class="ratingsRightSide size30of100 lastUnit">-->
+                            <!--<div class="grayBox smallest">Overall academic rating<h1 class="bottom">${overallAcademicRating}</h1>-->
+                                <!--<h5 class="bottom"><em class="${overallAcademicRatingColor}">${overallAcademicRatingContent}</em></h5></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<hr class="keyline2"/>-->
+
+
+
+
+
+
+
+
                     <c:set var="widthForClimateHeaderContent" value="" />
                     <c:if test="${showClimateRatingsDetails}">
                         <c:if test="${climateRatingNumResponses gt 0}">
-                            <c:set var="widthForClimateHeaderContent" value="size73of100" />
+                            <c:set var="widthForClimateHeaderContent" value="size70of100" />
                         </c:if>
                     </c:if>
                     <div class="${widthForClimateHeaderContent}">
@@ -260,13 +287,22 @@
                     <c:if test="${showClimateRatingsDetails}">
 
                         <c:if test="${climateRatingNumResponses gt 0}">
-                            <div class="ratingsClimateHeader size25of100 fr">
+                            <c:set var="overallClimateRatingContent"><c:if test="${overallClimateRating le 3}">Below average</c:if><c:if test="${overallClimateRating ge 4 and overallClimateRating le 7}">Average</c:if><c:if test="${overallClimateRating ge 8}">Above average</c:if></c:set>
+                            <c:set var="overallClimateRatingColor"><c:if test="${overallClimateRating le 3}">ratingsRedText</c:if><c:if test="${overallClimateRating ge 4 and overallClimateRating le 7}">ratingsYellowText</c:if><c:if test="${overallClimateRating ge 8}">ratingsGreenText</c:if></c:set>
+
+                            <div class="ratingsRightSide size30of100 lastUnit">
+                                <div class="grayBox smallest">Overall climate rating<h1 class="bottom">${overallClimateRating}</h1>
+                                    <h5 class="bottom"><em class="${overallClimateRatingColor}">${overallClimateRatingContent}</em></h5></div>
+                                <div class="tac mtm">Based on <span class="numberFormat">${climateRatingNumResponses}</span> teacher<br />responses</div>
+                            </div>
+                            <div class="ratingsClimateHeader size30of100 fr">
                                 <div class="grayBox small">
                                 Number of responses<br /><span class="numberFormat">${climateRatingNumResponses}</span>
                                 </div>
                             </div>
                         </c:if>
                         <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
+                        <h3 class="bottom">We rated schools on &amp;#8230;</h3>
                         <hr class="keyline2"/>
                         <c:set var="overallClimateRatingColor"><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Poor')}">ratingsRedText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'High')}">ratingsGreenText</c:if></c:set>
 

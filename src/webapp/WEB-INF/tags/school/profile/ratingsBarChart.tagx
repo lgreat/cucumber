@@ -16,6 +16,7 @@
     <jsp:directive.attribute name="stateRatingShow" type="java.lang.String" required="true" description="Do we show the state rating"/>
     <jsp:directive.attribute name="stateRating" type="java.lang.Float" required="true" description="State rating value"/>
     <jsp:directive.attribute name="showLabels" type="java.lang.Boolean" required="false" description="Defaults true"/>
+    <jsp:directive.attribute name="mobileDisplay" type="java.lang.Boolean" required="false" description="Defaults false"/>
 
     <c:set var="showLabels" scope="page" value="${empty showLabels? true:showLabels}"/>
 
@@ -31,8 +32,12 @@
         height needs to be calculated 10(bottom spacing) + 22 for each bar.  (padding-top:10 - border:2px and bar height:10xp
     -->
 
-    <c:set var="DEFINED_HORIZONTAL_SPACER" value="34"/>
-
+    <c:set var="DEFINED_HORIZONTAL_SPACER">
+        <c:choose>
+            <c:when test="${mobileDisplay}">20</c:when>
+            <c:otherwise>34</c:otherwise>
+        </c:choose>
+    </c:set>
     <c:set var="schoolWidth" value="${schoolRating * DEFINED_HORIZONTAL_SPACER - 1}"/>
     <c:set var="barChartHeight" value="${20+10}"/>
     <c:set var="schoolRatingColor"><c:if test="${schoolRating le 3}">ratingsRed</c:if><c:if test="${schoolRating ge 4 and schoolRating le 7}">ratingsYellow</c:if><c:if test="${schoolRating ge 8}">ratingsGreen</c:if></c:set>
@@ -54,12 +59,12 @@
     <div class="bargraph" id="${ratingDivId}">
         <div class="graphLabelsY">
             <c:if test="${showLabels}">
-                <div class="spacerLabel small bottom">This school</div>
+                <div class="spacerLabel smaller bottom">This school</div>
                 <c:if test="${cityRating ne ''}">
-                    <div class="spacerLabel small bottom">City</div>
+                    <div class="spacerLabel smaller bottom">City</div>
                 </c:if>
                 <c:if test="${stateRatingShow and stateRating ne ''}">
-                    <div class="spacerLabel small bottom">State</div>
+                    <div class="spacerLabel smaller bottom">State</div>
                 </c:if>
             </c:if>
         </div>

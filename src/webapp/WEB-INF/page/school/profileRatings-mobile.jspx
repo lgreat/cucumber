@@ -57,7 +57,7 @@
 </head>
 
 <body>
-<div class="contain_1-2">
+<div class="contain_1-2"  style="min-width: 320px;">
     <div>
         <h6>RATINGS DETAILS</h6>
     </div>
@@ -227,7 +227,8 @@
                                                      cityRating="${cityTestScoreRating}"
                                                      stateRatingShow="${showStateTestScoreRating}"
                                                      stateRating="${stateTestScoreRating}"
-                                                     showLabels="${false}"
+                                                     showLabels="${true}"
+                                                     mobileDisplay="${true}"
                             />
 
                         </div>
@@ -242,7 +243,8 @@
                                                      cityRating="${cityStudentGrowthRating}"
                                                      stateRatingShow="${showStateStudentGrowthRating}"
                                                      stateRating="${stateStudentGrowthRating}"
-                                                     showLabels="${false}"
+                                                     showLabels="${true}"
+                                                     mobileDisplay="${true}"
                             />
 
                         </div>
@@ -260,7 +262,8 @@
                                                           schoolRating="${schoolPostSecondaryReadinessRating}"
                                                           cityRating="${cityPostSecondaryReadinessRating}"
                                                           stateRatingShow="${showStatePostSecondaryReadinessRating}"
-                                                          stateRating="${statePostSecondaryReadinessRating}" />
+                                                          stateRating="${statePostSecondaryReadinessRating}"
+                                                          mobileDisplay="${true}" />
                         </div>
 
 
