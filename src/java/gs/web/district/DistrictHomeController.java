@@ -11,13 +11,14 @@ import gs.data.school.census.CensusInfoFactory;
 import gs.data.school.census.DistrictCensusValue;
 import gs.data.school.census.ICensusDataSetDao;
 import gs.data.school.district.District;
+import gs.data.school.district.DistrictStateLevelBoilerplate;
 import gs.data.school.district.IDistrictDao;
+import gs.data.school.district.IDistrictStateLevelBoilerplateDao;
 import gs.data.state.State;
 import gs.data.test.rating.DistrictRating;
 import gs.data.test.rating.IDistrictRatingDao;
 import gs.data.url.DirectoryStructureUrlFactory;
 import gs.data.util.table.ITableDao;
-import gs.data.util.table.ITableRow;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -55,13 +56,13 @@ public class DistrictHomeController extends AbstractController  implements IDire
     public static final String PARAM_SCHOOL_ID = "schoolId";
     String _viewName;
     private ITableDao _boilerPlateTableDao;
-    private ITableDao _definitionsTableDao;
     private IDistrictDao _districtDao;
     private ISchoolDao _schoolDao;
     private IGeoDao _geoDao;
     private IDistrictRatingDao _districtRatingDao;
     private ICensusDataSetDao _censusDataSetDao;
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
+    private IDistrictStateLevelBoilerplateDao _districtStateLevelBoilerplateDao;
 
     public static final String MODEL_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
     public static final String MODEL_NUM_MIDDLE_SCHOOLS = "numMiddleSchools";
@@ -177,7 +178,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
         processSchoolData(school, pageModel);
 
         getBoilerPlateForDistrict(state.getAbbreviation(),district.getId(),pageModel,request);
-        getBoilerPlateForState(state.getAbbreviation(),pageModel,request);
+        getBoilerPlateForState(state,pageModel);
         if(pageModel.get("acronym")!= null && !"".equals(pageModel.get("acronym"))){
             pageModel.put("acronymOrName", pageModel.get("acronym"));
         }else{
@@ -224,25 +225,16 @@ public class DistrictHomeController extends AbstractController  implements IDire
         model.putAll(row);
     }
 
-    protected void getBoilerPlateForState(String state, Map<String, Object> model,HttpServletRequest request){
-        GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
-        boilerPlateCastDao.getSpreadsheetInfo().setWorksheetName(
-                boilerPlateCastDao.getWorksheetForBoilerPlates(
-                        UrlUtil.isDevEnvironment(request.getServerName()),
-                        UrlUtil.isStagingServer(request.getServerName())
-                )
-        );
-
-        List<ITableRow> rows = getBoilerPlateTableDao().getRowsByKey("state",state);
-        if(rows != null && rows.size() >0){
-            model.put("stateBoilerplate",(rows.get(0).get("boilerplate")) == null ? "": rows.get(0).get("boilerplate").toString().replaceAll("\n","<br/>"));
-            model.put("stateBoilerplateHeading",(rows.get(0).get("stateboilerplateheading")) == null ? "": rows.get(0).get("stateboilerplateheading").toString());
-        }else{
+    protected void getBoilerPlateForState(State state, Map<String, Object> model){
+        DistrictStateLevelBoilerplate boilerplate = _districtStateLevelBoilerplateDao.getByState(state);
+        if (boilerplate != null) {
+            model.put("stateBoilerplate",boilerplate.getBoilerplate().replaceAll("\n","<br/>"));
+            model.put("stateBoilerplateHeading",boilerplate.getHeading());
+        } else {
             model.put("stateBoilerplate","");
             model.put("stateBoilerplateHeading","");
         }
     }
-
 
     protected void loadDistrictEnrollment(District district,Map<String, Object> model){
 
@@ -364,14 +356,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
         _boilerPlateTableDao = boilerPlateTableDao;
     }
 
-    public ITableDao getDefinitionsTableDao() {
-        return _definitionsTableDao;
-    }
-
-    public void setDefinitionsTableDao(ITableDao definitionsTableDao) {
-        _definitionsTableDao = definitionsTableDao;
-    }
-
     public ISchoolDao getSchoolDao() {
         return _schoolDao;
     }
@@ -409,5 +393,14 @@ public class DistrictHomeController extends AbstractController  implements IDire
 
     public void setStateSpecificFooterHelper(StateSpecificFooterHelper stateSpecificFooterHelper) {
         _stateSpecificFooterHelper = stateSpecificFooterHelper;
+    }
+
+    public IDistrictStateLevelBoilerplateDao getDistrictStateLevelBoilerplateDao() {
+        return _districtStateLevelBoilerplateDao;
+    }
+
+    public void setDistrictStateLevelBoilerplateDao(IDistrictStateLevelBoilerplateDao
+                                                            districtStateLevelBoilerplateDao) {
+        _districtStateLevelBoilerplateDao = districtStateLevelBoilerplateDao;
     }
 }
