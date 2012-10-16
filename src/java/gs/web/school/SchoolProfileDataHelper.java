@@ -719,6 +719,8 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     public static final String DATA_SCHOOL_ACT_PERCENT_TAKING_TEST = "schoolACTPercentTakingTest"; // TestDataType.id = 175
     public static final String DATA_SCHOOL_SAT_SCORE = "schoolSATScore"; // TestDataType.id = 177
     public static final String DATA_SCHOOL_SAT_PERCENT_TAKING_TEST = "schoolSATPercentTakingTest"; // TestDataType.id = 176
+    public static final String DATA_SCHOOL_ACT_GRADE_TEXT = "schoolACTGradeText";
+    public static final String DATA_SCHOOL_SAT_GRADE_TEXT = "schoolSATGradeText";
 
     public static final String DATA_CLIMATE_RATING_NUM_RESPONSES = "climateRatingNumResponses"; // TestDataType.id = 173 (TestDataSchoolValue.number_tested)
     public static final String DATA_SCHOOL_ENVIRONMENT_RATING = "schoolEnvironmentRating"; // TestDataType.id = 172
@@ -777,6 +779,8 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
             //Get the school ratings.
             // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
             for (SchoolTestValue value : schoolTestValues) {
+                TestDataSet dataSet = value.getDataSet();
+                Grade grade = dataSet.getGrade();
                 switch (value.getDataSet().getDataTypeId()) {
                     // overall ratings
                     case TestDataType.RATING_OVERALL:
@@ -796,7 +800,6 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                         dataMap.put(DATA_SCHOOL_TEST_SCORE_RATING, value.getValueFloat().intValue());
                         break;
                     case TestDataType.RATING_ACADEMIC_VALUE_ADDED:
-                        TestDataSet dataSet = value.getDataSet();
                         Subject subject = dataSet.getSubject();
                         if(subject != null && subject.getSubjectId() != 1){
                             String subjectLabel = "";
@@ -837,12 +840,14 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                         dataMap.put(DATA_SCHOOL_ACT_SCORE, value.getValueFloat().intValue());
                         break;
                     case TestDataType.ACT_PERCENT_TESTED:
+                        dataMap.put(DATA_SCHOOL_ACT_GRADE_TEXT, getGradeText(grade));
                         dataMap.put(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST, value.getValueFloat().intValue());
                         break;
                     case TestDataType.SAT_SCORE:
                         dataMap.put(DATA_SCHOOL_SAT_SCORE, value.getValueFloat().intValue());
                         break;
                     case TestDataType.SAT_PERCENT_TESTED:
+                        dataMap.put(DATA_SCHOOL_SAT_GRADE_TEXT, getGradeText(grade));
                         dataMap.put(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST, value.getValueFloat().intValue());
                         break;
                 }
@@ -879,6 +884,20 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
             }
         }
         return dataMap;
+    }
+
+    protected String getGradeText(Grade grade) {
+        String rval = "";
+        if (grade != null) {
+            if (grade.getValue() == 11) {
+                rval = "11th";
+            } else if (grade.getValue() == 12) {
+                rval = "12th";
+            } else if (grade.getValue() == 13) {
+                rval = "graduates";
+            }
+        }
+        return rval;
     }
 
     // ============== The following setters are just for unit testing ===================

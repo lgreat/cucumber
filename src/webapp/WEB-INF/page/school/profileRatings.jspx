@@ -196,10 +196,7 @@
                             This school  <br/>
                             <c:forEach var="entry" items="${schoolStudentGrowthRatingBreakdown}">
                                 <c:out value="${entry.key}"/>    <br/>
-                                <c:set var="studentGrowthBreakdownRatingBand"><c:if test="${entry.value le 3}">Below average</c:if>
-                                    <c:if test="${entry.value ge 4 and entry.value le 7}">Average</c:if>
-                                    <c:if test="${entry.value ge 8}">Above average</c:if></c:set>
-                                <c:out value="${studentGrowthBreakdownRatingBand}"/>   <br/>
+                                <c:out value="${entry.value}"/>    <br/>
                             </c:forEach>
                         </c:if>
                     </c:if>
@@ -219,9 +216,9 @@
                         <hr class="keyline2"/>
                         <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
                             This school <br/>
-                            Average composite ${postSecondaryReadinessBreakdownTestName} score:${postSecondaryReadinessBreakdownTestScore}
+                            ${postSecondaryReadinessBreakdownTestScoreLabel}:${postSecondaryReadinessBreakdownTestScore}
                             <br/>
-                            Percent of graduates taking test:${postSecondaryReadinessBreakdownPercentTested}
+                            ${postSecondaryReadinessBreakdownPercentTestedLabel}:${postSecondaryReadinessBreakdownPercentTested}
                         </c:if>
                     </c:if>
 

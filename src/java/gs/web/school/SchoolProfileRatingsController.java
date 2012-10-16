@@ -103,6 +103,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     " how many students took the ACT, giving more credit to schools with a higher percentage of graduates" +
                     " taking the ACT exam. The ACT data is provided by Milwaukee Public Schools";
 
+    public static final String POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL_ACT = "Average composite ACT score";
+    public static final String POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL_SAT = "Average SAT score";
+
     public static final String SECTION_4_COPY_DC =
             "Starting in fall 2013, we plan to release a climate rating as part of this school's overall GreatSchools Rating." +
                     " The climate rating will be based on survey data about various aspects of this school's climate, such as safety, " +
@@ -177,9 +180,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_CITY_POST_SECONDARY_READINESS_RATING = "cityPostSecondaryReadinessRating";
     public static final String MODEL_STATE_POST_SECONDARY_READINESS_RATING = "statePostSecondaryReadinessRating";
     public static final String MODEL_SHOW_STATE_POST_SECONDARY_READINESS_RATING  = "showStatePostSecondaryReadinessRating";
-    public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_NAME = "postSecondaryReadinessBreakdownTestName";
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE = "postSecondaryReadinessBreakdownTestScore";
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED = "postSecondaryReadinessBreakdownPercentTested";
+    public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL = "postSecondaryReadinessBreakdownTestScoreLabel";
+    public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL = "postSecondaryReadinessBreakdownPercentTestedLabel";
 
     public static final String MODEL_TEST_SCORE_RATING_SOURCE = "testScoreRatingSource";
 
@@ -230,6 +234,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String DATA_SCHOOL_ACT_PERCENT_TAKING_TEST = "schoolACTPercentTakingTest"; // TestDataType.id = 175
     public static final String DATA_SCHOOL_SAT_SCORE = "schoolSATScore"; // TestDataType.id = 177
     public static final String DATA_SCHOOL_SAT_PERCENT_TAKING_TEST = "schoolSATPercentTakingTest"; // TestDataType.id = 176
+    public static final String DATA_SCHOOL_ACT_GRADE_TEXT = "schoolACTGradeText";
+    public static final String DATA_SCHOOL_SAT_GRADE_TEXT = "schoolSATGradeText";
 
     public static final String DATA_CLIMATE_RATING_NUM_RESPONSES = "climateRatingNumResponses"; // TestDataType.id = 173 (TestDataSchoolValue.number_tested)
     public static final String DATA_SCHOOL_ENVIRONMENT_RATING = "schoolEnvironmentRating"; // TestDataType.id = 172
@@ -481,14 +487,34 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             //School can have only ACT score or SAT score but not both.
             if (dataMap.containsKey(DATA_SCHOOL_ACT_SCORE) && dataMap.containsKey(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST)) {
                 model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_ACT_SCORE));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_NAME, "ACT");
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED, dataMap.get(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST));
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
+                        POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL_ACT);
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
+                        dataMap.get(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST));
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
+                        getPSRBreakdownPercentTestedLabel(dataMap.get(DATA_SCHOOL_ACT_GRADE_TEXT).toString()));
             } else if (dataMap.containsKey(DATA_SCHOOL_SAT_SCORE) && dataMap.containsKey(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST)) {
                 model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_SAT_SCORE));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_NAME, "SAT");
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED, dataMap.get(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST));
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
+                        POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL_SAT);
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
+                        dataMap.get(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST));
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
+                        getPSRBreakdownPercentTestedLabel(dataMap.get(DATA_SCHOOL_SAT_GRADE_TEXT).toString()));
             }
         }
+    }
+
+    protected static String getPSRBreakdownPercentTestedLabel(String gradeText) {
+        String rval = "";
+        if (StringUtils.isNotBlank(gradeText)) {
+            if (gradeText.equals("graduates")) {
+                rval = "Percent of graduates taking test";
+            } else {
+                rval = "Percent of " + gradeText + " graders taking test";
+            }
+        }
+        return rval;
     }
 
     public static String getTestScoreRatingSource(School school) {
