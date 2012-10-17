@@ -2666,16 +2666,6 @@
           class="gs.web.district.DistrictHomeController"
           autowire="byName" lazy-init="true">
         <property name="viewName" value="district/districtHome"/>
-        <property name="boilerPlateTableDao">
-            <bean factory-bean="districtHomePageBoilerPlateFactory" factory-method="getTableDao"/>
-        </property>
-    </bean>
-
-    <bean id="districtHomePageBoilerPlateFactory"
-          class="gs.data.util.google.GoogleSpreadsheetDaoFactory" lazy-init="true">
-        <property name="googleKey" value="pHIaC-TrslBgUJrAsFa4uEw"/>
-        <property name="visibility" value="public"/>
-        <property name="projection" value="values"/>
     </bean>
 
     <bean name="/api/docs/scorecard/*"

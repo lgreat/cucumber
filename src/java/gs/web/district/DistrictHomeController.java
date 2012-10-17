@@ -10,15 +10,11 @@ import gs.data.school.census.CensusDataType;
 import gs.data.school.census.CensusInfoFactory;
 import gs.data.school.census.DistrictCensusValue;
 import gs.data.school.census.ICensusDataSetDao;
-import gs.data.school.district.District;
-import gs.data.school.district.DistrictStateLevelBoilerplate;
-import gs.data.school.district.IDistrictDao;
-import gs.data.school.district.IDistrictStateLevelBoilerplateDao;
+import gs.data.school.district.*;
 import gs.data.state.State;
 import gs.data.test.rating.DistrictRating;
 import gs.data.test.rating.IDistrictRatingDao;
 import gs.data.url.DirectoryStructureUrlFactory;
-import gs.data.util.table.ITableDao;
 import gs.web.geo.StateSpecificFooterHelper;
 import gs.web.path.DirectoryStructureUrlFields;
 import gs.web.path.IDirectoryStructureUrlController;
@@ -28,7 +24,6 @@ import gs.web.tracking.OmnitureTracking;
 import gs.web.util.*;
 import gs.web.util.context.SessionContext;
 import gs.web.util.context.SessionContextUtil;
-import gs.data.util.google.GoogleSpreadsheetDao;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -55,7 +50,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
     public static final String PARAM_DISTRICT_ID = "district_id";
     public static final String PARAM_SCHOOL_ID = "schoolId";
     String _viewName;
-    private ITableDao _boilerPlateTableDao;
     private IDistrictDao _districtDao;
     private ISchoolDao _schoolDao;
     private IGeoDao _geoDao;
@@ -63,6 +57,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
     private ICensusDataSetDao _censusDataSetDao;
     private StateSpecificFooterHelper _stateSpecificFooterHelper;
     private IDistrictStateLevelBoilerplateDao _districtStateLevelBoilerplateDao;
+    private IDistrictBoilerplateDao _districtBoilerplateDao;
 
     public static final String MODEL_NUM_ELEMENTARY_SCHOOLS = "numElementarySchools";
     public static final String MODEL_NUM_MIDDLE_SCHOOLS = "numMiddleSchools";
@@ -177,7 +172,7 @@ public class DistrictHomeController extends AbstractController  implements IDire
         }
         processSchoolData(school, pageModel);
 
-        getBoilerPlateForDistrict(state.getAbbreviation(),district.getId(),pageModel,request);
+        getBoilerPlateForDistrict(district,pageModel);
         getBoilerPlateForState(state,pageModel);
         if(pageModel.get("acronym")!= null && !"".equals(pageModel.get("acronym"))){
             pageModel.put("acronymOrName", pageModel.get("acronym"));
@@ -209,20 +204,23 @@ public class DistrictHomeController extends AbstractController  implements IDire
         return new ModelAndView(getViewName(), model);
     }
 
-    protected void getBoilerPlateForDistrict(String state,Integer districtId, Map<String, Object> model,HttpServletRequest request){
+    protected void getBoilerPlateForDistrict(District district, Map<String, Object> model){
+        DistrictBoilerplate boilerplate = _districtBoilerplateDao.getByDistrict(district);
+        if (boilerplate != null) {
+            model.put("isDistrictBoilerplatePresent", true);
 
-        GoogleSpreadsheetDao boilerPlateCastDao = (GoogleSpreadsheetDao) getBoilerPlateTableDao();
-
-        Map<String,Object> row = boilerPlateCastDao.getBoilerPlateForDistrict(
-                state, districtId, UrlUtil.isDevEnvironment(request.getServerName()),
-                UrlUtil.isStagingServer(request.getServerName())
-        );
-
-        String boilerplate = (String) row.get("boilerplate");
-
-        model.put("isDistrictBoilerplatePresent", !StringUtils.isEmpty(boilerplate));
-
-        model.putAll(row);
+            model.put("id",boilerplate.getDistrictId());
+            model.put("state",boilerplate.getState());
+            model.put("name",district.getName());
+            model.put("acronym", boilerplate.getAcronym());
+            model.put("choicelink", boilerplate.getChoiceLink());
+            model.put("locatorlink", boilerplate.getLocatorLink());
+            model.put("superintendent", boilerplate.getSuperintendent());
+            model.put("boilerplate", boilerplate.getBoilerplate().replaceAll("\n","<br/>"));
+            model.put("districtBoilerplateHeading", boilerplate.getHeading());
+        } else {
+            model.put("isDistrictBoilerplatePresent", false);
+        }
     }
 
     protected void getBoilerPlateForState(State state, Map<String, Object> model){
@@ -348,13 +346,6 @@ public class DistrictHomeController extends AbstractController  implements IDire
     public void setViewName(String viewName) {
         _viewName = viewName;
     }
-    public ITableDao getBoilerPlateTableDao() {
-        return _boilerPlateTableDao;
-    }
-
-    public void setBoilerPlateTableDao(ITableDao boilerPlateTableDao) {
-        _boilerPlateTableDao = boilerPlateTableDao;
-    }
 
     public ISchoolDao getSchoolDao() {
         return _schoolDao;
@@ -402,5 +393,13 @@ public class DistrictHomeController extends AbstractController  implements IDire
     public void setDistrictStateLevelBoilerplateDao(IDistrictStateLevelBoilerplateDao
                                                             districtStateLevelBoilerplateDao) {
         _districtStateLevelBoilerplateDao = districtStateLevelBoilerplateDao;
+    }
+
+    public IDistrictBoilerplateDao getDistrictBoilerplateDao() {
+        return _districtBoilerplateDao;
+    }
+
+    public void setDistrictBoilerplateDao(IDistrictBoilerplateDao districtBoilerplateDao) {
+        _districtBoilerplateDao = districtBoilerplateDao;
     }
 }
