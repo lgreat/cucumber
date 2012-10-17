@@ -64,8 +64,11 @@
                                 <div class="clear"><!-- do not collapse --></div>
                             </div>
 
-                        <p class="small bottom tal">
+                        <p class="small bottom tal mbs">
                             ${section1Copy}</p>
+                        <p class="small bottom tal mbn">
+                            <a><span class="iconx16 i-16-pdf"><!-- do not collapse --></span> Learn more about our methodology</a></p>
+
                     </div>
                 </div>
             </div>
@@ -323,11 +326,11 @@
                         <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
                         <h3 class="bottom">We rated schools on &amp;#8230;</h3>
                         <hr class="keyline2"/>
-                        <c:set var="overallClimateRatingColor"><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Poor')}">ratingsRedText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'High')}">ratingsGreenText</c:if></c:set>
+                        <!--<c:set var="overallClimateRatingColor"><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Poor')}">ratingsRedText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'High')}">ratingsGreenText</c:if></c:set>-->
 
 
                         <!--<c:set var="overallClimateRatingColor"><c:if test="${overallClimateRatingLabel  eq 'Poor'}">ratingsRedText</c:if><c:if test="${overallClimateRatingLabel eq 'Average'}">ratingsYellowText</c:if><c:if test="${overallClimateRatingLabel eq 'High'}">ratingsGreenText</c:if></c:set>-->
-                        <h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10 <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em></h5>
+                        <!--<h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10 <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em></h5>-->
 
                         <profile:ratingsClimateComponent climateVarName="Keeping things safe, clean, and orderly." climateVarRating="${schoolEnvironmentRating}" climateVarContent="${SchoolEnvironmentCopy}" />
 
