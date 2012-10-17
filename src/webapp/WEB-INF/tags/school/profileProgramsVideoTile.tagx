@@ -8,9 +8,13 @@
         >
 
     <jsp:directive.attribute name="videoModel" type="java.lang.Object" required="true"/>
+    <jsp:directive.attribute name="heightToShow" type="java.lang.String" required="false"/>
 
     <c:set var="content" value="${videoModel['content']}" scope="page"/>
     <c:set var="videoUrl" value="${videoModel['videoUrl']}" scope="page"/>
+
+
+
 
     <c:set var="t2dc">
         <p class="small_bold textshadow-1 pvs plm bottom make-555555">Videos</p>
@@ -21,38 +25,49 @@
 
     <c:choose>
         <c:when test="${content eq 'video'}">
+            <c:set var="setHeightModuleVideo" value=""/>
+            <c:if test="${heightToShow eq 'tall'}">
+                <c:set var="setHeightModuleVideo">height:161px;</c:set>
+            </c:if>
             <!-- Randall - This is from the profileOverviewVideoTile.tagx -->
             <a onclick="if (s.tl) { s.tl(this, 'o', 'culture_videos'); }"  href="${videoUrl}" class="tdn make-cccccc" target="_blank">
                 <school:profileCell2 title="${t2dc}" boxShadow="box-shadow-animation-1">
                     <!-- Show generic video icon and clicking on it takes you to the video at videoUrl -->
-                    <div class="mam media">
-                        <div class="img mrl"><img src="/res/img/school/culture/sampleVideo_100x70.png"/></div>
-                        <div class=" make-555555"><strong class="bottom">Watch Now</strong>
+                    <div style="${setHeightModuleVideo}">
+                        <div class="mam media">
+                            <div class="img mrl"><img src="/res/img/school/culture/sampleVideo_100x70.png"/></div>
+                            <div class=" make-555555"><strong class="bottom">Watch Now</strong>
 
-                            <p class="small bottom"><span
-                                    class="make-06b">See a video</span> featuring this school.</p></div>
+                                <p class="small bottom"><span
+                                        class="make-06b">See a video</span> featuring this school.</p></div>
+                        </div>
                     </div>
                 </school:profileCell2>
             </a>
         </c:when>
         <c:otherwise>
-
+            <c:set var="setHeightModuleVideo">height:86px;</c:set>
+            <c:if test="${heightToShow eq 'tall'}">
+                <c:set var="setHeightModuleVideo">height:180px;</c:set>
+            </c:if>
             <!-- Substitute content of the Principal CTA -->
             <!-- Randall - see the mock: School Culture, alt tiles -->
             <link:schoolEspRegister styleClass="tdn make-555555 no_interrupt">
                 <div class="mod standard_3-1">
                     <div class="outer">
                         <div class="inner">
-                            <div class="media">
-                                <span class="imgReg fr"><span
-                                        class="iconx96 i-96-video-add" style="height:86px;"><!-- do not collapse --></span></span>
-                                <h3 class="bottom">Add videos</h3>
+                            <div style="${setHeightModuleVideo}">
+                                <div class="media">
+                                    <span class="imgReg fr"><span
+                                            class="iconx96 i-96-video-add" style="height:86px"><!-- do not collapse --></span></span>
+                                    <h3 class="bottom">Add videos</h3>
 
-                                <p class="small bottom mtm">
-                                    Schools, <span class="make-06b">join today</span> to<br/>
-                                    upload videos
-                                </p>
+                                    <p class="small bottom mtm">
+                                        Schools, <span class="make-06b">join today</span> to<br/>
+                                        upload videos
+                                    </p>
 
+                                </div>
                             </div>
                         </div>
                     </div>

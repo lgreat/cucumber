@@ -113,8 +113,13 @@ where each entry is the first bean for that section, this allows access to the s
         <!-- Spaces 3 & 4 are together on one line -->
         <div class="line ${addSpacer}">
             <!-- Space 3 - Videos otherwise principal CTA -->
+            <c:set var="heightVideoModule" value="short"/>
+            <c:if test="${climateRating['content'] eq 'default'}">
+                <c:set var="heightVideoModule" value="tall"/>
+            </c:if>
+
             <div class="unit size49of100">
-                <school:profileProgramsVideoTile videoModel="${video}" />
+                <school:profileProgramsVideoTile videoModel="${video}" heightToShow="${heightVideoModule}" />
             </div>
 
             <div class="unit size2of100">&amp;nbsp;</div>

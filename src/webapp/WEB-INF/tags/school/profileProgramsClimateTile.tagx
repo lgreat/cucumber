@@ -32,11 +32,12 @@
                 <school:profileCell2 title="${t8_1dc}" boxShadow="box-shadow-animation-1">
                     <!-- Randall - Build default "What's this school like?" here -->
                     <!-- the climate rating is in climateRatings -->
+                    <c:set var="climateRatingColor"><c:if test="${climateRating eq 'Below average'}">ratingsRedText</c:if><c:if test="${climateRating eq 'Average'}">ratingsYellowText</c:if><c:if test="${climateRating eq 'Above average'}">ratingsGreenText</c:if></c:set>
 
                     <div class="mam media">
-                        <div><h4 class="tac">${climateRating}</h4></div>
+                        <div><h4 class="tac bottom ${climateRatingColor} pbm">${climateRating}</h4></div>
                         <hr class="keyline2"/>
-                        <div class="bd make-555555"><strong class="bottom">How do we measure school climate?</strong>
+                        <div class="bd make-555555 ptm small bottom"><strong class="bottom">How do we measure school climate?</strong>
 
                             <p class="small bottom">Our climate rating measures teacher support, culture of high expectations,
                                 social and emotional learning, school environment, and family engagement.
