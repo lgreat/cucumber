@@ -661,11 +661,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     // TODO-13012 temporary: to be replaced with a more global helper/util method for new ratings
     public static String getLabelForClimateRating(double climateRating) {
         if (climateRating >= 1 && climateRating <= 3) {
-            return "Poor";
+            return "Below average";
         } else if (climateRating >= 4 && climateRating <= 7) {
             return "Average";
         } else if (climateRating >= 8 && climateRating <= 10) {
-            return "High";
+            return "Above average";
         } else {
             throw new IllegalArgumentException("Rating must be from 1 to 10");
         }
