@@ -347,7 +347,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         Object overallSchoolStudentGrowthRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_SCHOOL_STUDENT_GROWTH_RATING);
 
         s.setLevelCode(LevelCode.ELEMENTARY);
-        _controller.populateStudentGrowthRatingsModel(s, true, _dataMap,model);
+        _controller.populateStudentGrowthRatingsModel(true, _dataMap,model);
         assertNull(model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
         assertNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
 
@@ -359,7 +359,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         for (LevelCode levelCode : NON_HIGH_ONLY_LEVEL_CODES) {
             s.setLevelCode(levelCode);
-            _controller.populateStudentGrowthRatingsModel(s, true, _dataMap,model);
+            _controller.populateStudentGrowthRatingsModel(true, _dataMap,model);
             assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR),
                     model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
             assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_STUDENT_GROWTH_RATING),
@@ -372,7 +372,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         // omit state rating
         model = new ModelMap();
-        _controller.populateStudentGrowthRatingsModel(s, false, _dataMap,model);
+        _controller.populateStudentGrowthRatingsModel(false, _dataMap,model);
         s.setLevelCode(LevelCode.ALL_LEVELS);
         assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR),
                 model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
