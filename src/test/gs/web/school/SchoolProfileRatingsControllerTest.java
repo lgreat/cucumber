@@ -174,7 +174,8 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         _controller.populateSection1Model(s, _dataMap,model);
         climateRatingAvailabilityText =
                 model.get(SchoolProfileRatingsController.MODEL_CLIMATE_RATING_AVAILABILITY_TEXT);
-        assertEquals(SchoolProfileRatingsController.CLIMATE_RATING_AVAILABILITY_TEXT_DC, climateRatingAvailabilityText);
+        //Since there is climate rating, the availability text should be null.
+        assertEquals(null, climateRatingAvailabilityText);
 
         // SECTION 1 COPY
 
@@ -711,26 +712,6 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
             assertEquals("School is from unsupported state", e.getMessage());
         }
         assertTrue(threwException);
-    }
-
-    public void testIsShowClimateRatingDetails() {
-        Boolean showStateRating;
-
-        // Milwaukee
-        showStateRating = _controller.isShowClimateRatingDetails(State.WI);
-        assertTrue(showStateRating);
-
-        // DC
-        showStateRating = _controller.isShowClimateRatingDetails(State.DC);
-        assertFalse(showStateRating);
-
-        // Indy
-        showStateRating = _controller.isShowClimateRatingDetails(State.IN);
-        assertFalse(showStateRating);
-
-        // other state
-        showStateRating = _controller.isShowClimateRatingDetails(State.AK);
-        assertFalse(showStateRating);
     }
 
     public void testGetClimateRatingDetailsModel() {
