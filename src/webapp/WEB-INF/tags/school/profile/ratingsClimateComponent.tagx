@@ -13,11 +13,21 @@
                              description="This moves the pointer to the correct location"/>
     <jsp:directive.attribute name="climateVarContent" required="true" type="java.lang.String"
                              description="Shows the content below the title and bar"/>
+    <jsp:directive.attribute name="mobileSize" required="false" type="java.lang.Boolean"
+                             description="Switch to mobile sizing"/>
 
-    <c:set var="pointerLeftMargin" value="${4.3 * climateVarRating + 5}" />
+    <c:set var="multiplierArrowPointer" value="4.3" />
+    <c:set var="spacingTitle" value=""/>
+
+    <c:if test="${mobileSize}">
+        <c:set var="multiplierArrowPointer" value="3" />
+        <c:set var="spacingTitle" value="pts"/>
+    </c:if>
+
+    <c:set var="pointerLeftMargin" value="${multiplierArrowPointer * climateVarRating + 5}" />
 
     <hr class="keyline2"/>
-    <div class="tac">
+    <div class="tac ${spacingTitle}">
         <div><h6 class="mvm medium_bold bottom">${climateVarName}</h6></div>
 
         <div class="ratingsClimateBar">

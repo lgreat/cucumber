@@ -392,8 +392,9 @@ General comments:
 
 /************  Ratings Climate Bar **************************/
 .ratingsClimateHeader .grayBox{
-    float: right;
-    width:110px;
+    /*float: right;*/
+    margin-left: 55px;
+    width:190px;
     border:1px #DDDDDD solid;
     background-color: #f5f5f5;
     text-align: center;
@@ -404,9 +405,9 @@ General comments:
 }
 .ratingsClimateHeader .grayBox .numberFormat{ font-size: 24px; line-height: 28px}
 
-.ratingsClimateBar { padding-top: 17px; position: relative;}
-.ratingsClimateBar .barShort { float:left;  height:6px; width:76px; }
-.ratingsClimateBar .barLong { float:left; height:6px; width:226px;}
+.ratingsClimateBar { padding-top: 10px; position:relative; margin: auto;}
+.ratingsClimateBar .barShort { float:left;  height:6px; width:60px; }
+.ratingsClimateBar .barLong { float:left; height:6px; width:180px;}
 .ratingsClimateBar .ratingsClimatePointer { margin-left:-5px; float: left; text-align: center; position: relative;}
 
 .ratingsClimatePointer{ margin-top: 7px; position: relative; }

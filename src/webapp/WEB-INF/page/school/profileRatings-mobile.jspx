@@ -181,19 +181,22 @@
                 <div class="bd pam ptl">
                     <c:choose>
                         <c:when test="${overallAcademicRating != null}">
-                            <div class="grayBox">
-                                <div class="fl">
-                                    Overall academic rating
+                            <div class="tac">
+                                <div class="grayBox tac mbm">
+                                    <div class="">
+                                        Overall academic rating<br />
+                                        <h3>${overallAcademicRating}</h3>
+                                    </div>
+                                    <c:set var="overallAcademicRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>
+                                    <c:set var="overallAcademicRatingColor"><c:if test="${overallAcademicRating le 3}">ratingsRedText</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">ratingsYellowText</c:if><c:if test="${overallAcademicRating ge 8}">ratingsGreenText</c:if></c:set>
+                                    <div class="">
+                                        <h5><em class="${overallAcademicRatingColor}">${overallAcademicRatingContent}</em></h5>
+                                    </div>
+                                    <!--<div class="">-->
+                                        <!--<h3>${overallAcademicRating}</h3>-->
+                                    <!--</div>-->
+                                    <div class="clearfloat"><!-- do not collapse --></div>
                                 </div>
-                                <c:set var="overallAcademicRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>
-                                <c:set var="overallAcademicRatingColor"><c:if test="${overallAcademicRating le 3}">ratingsRedText</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">ratingsYellowText</c:if><c:if test="${overallAcademicRating ge 8}">ratingsGreenText</c:if></c:set>
-                                <div class="fr">
-                                    <h5><em class="${overallAcademicRatingColor}">${overallAcademicRatingContent}</em></h5>
-                                </div>
-                                <div class="fr">
-                                    <h3>${overallAcademicRating}</h3>
-                                </div>
-                                <div class="clearfloat"><!-- do not collapse --></div>
                             </div>
                             <div>
                                 <div>
@@ -322,15 +325,15 @@
                         <!--<c:set var="overallClimateRatingColor"><c:if test="${overallClimateRatingLabel  eq 'Poor'}">ratingsRedText</c:if><c:if test="${overallClimateRatingLabel eq 'Average'}">ratingsYellowText</c:if><c:if test="${overallClimateRatingLabel eq 'High'}">ratingsGreenText</c:if></c:set>-->
                         <h5 class="mvm medium_bold tac">Overall climate rating is ${overallClimateRating} / 10 <em class="${overallClimateRatingColor}">${overallClimateRatingLabel}</em></h5>
 
-                        <profile:ratingsClimateComponent climateVarName="Keeping things safe, clean, and orderly." climateVarRating="${schoolEnvironmentRating}" climateVarContent="${SchoolEnvironmentCopy}" />
+                        <div class="pbm"><profile:ratingsClimateComponent climateVarName="Keeping things safe, clean, and orderly." climateVarRating="${schoolEnvironmentRating}" climateVarContent="${SchoolEnvironmentCopy}" mobileSize="${true}" /></div>
 
-                        <profile:ratingsClimateComponent climateVarName="Creating healthy, respectful relationships." climateVarRating="${socialEmotionalLearningRating}" climateVarContent="${socialEmotionalLearningCopy}" />
+                        <div class="pbm"><profile:ratingsClimateComponent climateVarName="Creating healthy, respectful relationships." climateVarRating="${socialEmotionalLearningRating}" climateVarContent="${socialEmotionalLearningCopy}" mobileSize="${true}" /></div>
 
-                        <profile:ratingsClimateComponent climateVarName="Promoting high academic expectations for all students." climateVarRating="${highExpectationsRating}" climateVarContent="${highExpectationsCopy}" />
+                        <div class="pbm"><profile:ratingsClimateComponent climateVarName="Promoting high academic expectations for all students." climateVarRating="${highExpectationsRating}" climateVarContent="${highExpectationsCopy}" mobileSize="${true}" /></div>
 
-                        <profile:ratingsClimateComponent climateVarName="Supporting its teachers." climateVarRating="${teacherSupportRating}" climateVarContent="${teacherSupportCopy}" />
+                        <div class="pbm"><profile:ratingsClimateComponent climateVarName="Supporting its teachers." climateVarRating="${teacherSupportRating}" climateVarContent="${teacherSupportCopy}" mobileSize="${true}" /></div>
 
-                        <profile:ratingsClimateComponent climateVarName="Informing and including families." climateVarRating="${familyEngagementRating}" climateVarContent="${familyEngagementCopy}" />
+                        <div class="pbm"><profile:ratingsClimateComponent climateVarName="Informing and including families." climateVarRating="${familyEngagementRating}" climateVarContent="${familyEngagementCopy}" mobileSize="${true}" /></div>
 
                     </c:if>
 
