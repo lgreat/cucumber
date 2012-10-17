@@ -132,19 +132,7 @@
                                 <p class="small bottom">${gsRatingsModel['autotext']}</p>
                             </c:when>
                             <c:otherwise>
-                                <p class="small bottom" id='gsRatingModelText'>${gsweb:abbreviateAtWhitespace(gsRatingsModel['autotext'],180)} More &amp;raquo;</p>
-
-                                <div class='dn' id='gsRatingModelTextFeed'>
-                                    <p style='width:250px;' class='small'>${gsRatingsModel['autotext']}</p>
-                                </div>
-
-                                <script type="text/javascript">
-                                    jQuery(document).ready(function() {
-
-                                        jQuery("#gsRatingModelText").popover({content: jQuery("#gsRatingModelTextFeed").html(), placement:'right', delay:{ show: 100, hide: 100 }});
-                                    });
-                                </script>
-
+                                <p class="small bottom">${gsweb:abbreviateAtWhitespace(gsRatingsModel['autotext'],180)}</p>
                             </c:otherwise>
                         </c:choose>
                     </div>
