@@ -1211,7 +1211,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> model = new HashMap<String, Object>(2);
         // Get the performance management ratings fro charter schools in DC
-        model = getPerformanceManagementRatingModel(request, school);
+        model = getPerformanceManagementRatingModel(request);
         if (model != null && model.size() > 0) {
             return model;
         }
@@ -1222,7 +1222,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    public Map<String, Object> getPerformanceManagementRatingModel(HttpServletRequest request, School school) {
+    public Map<String, Object> getPerformanceManagementRatingModel(HttpServletRequest request) {
         Map<String, Object> model = null;
 
         Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
@@ -1231,12 +1231,30 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         if (ratingsMap != null && !ratingsMap.isEmpty()
                 && ratingsMap.containsKey(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP)) {
             model = new HashMap<String, Object>();
-            model.put(MODEL_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP,
-                    ratingsMap.get(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP));
+            Map<String, Integer> performanceManagementRatingsMap = new HashMap<String, Integer>();
+
+            //Convert the level codes into String
+            Map<LevelCode, Integer> mapWithLevelCode = (HashMap<LevelCode, Integer>) ratingsMap.get(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP);
+            for (LevelCode levelCode : mapWithLevelCode.keySet()) {
+                performanceManagementRatingsMap.put(getLevelText(levelCode), mapWithLevelCode.get(levelCode));
+            }
+            model.put(MODEL_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP,performanceManagementRatingsMap);
 
             model.put("content", "performanceManagementRating");
         }
         return model;
+    }
+
+    protected String getLevelText(LevelCode level) {
+        String rval = "";
+        if (level != null) {
+            if (level.equals(LevelCode.ELEMENTARY)) {
+                rval = "lower";
+            } else if (level.equals(LevelCode.HIGH)) {
+                rval = "upper";
+            }
+        }
+        return rval;
     }
 
     /**
