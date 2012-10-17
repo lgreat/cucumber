@@ -31,6 +31,26 @@
                 </div>
             </school:profileOverviewCell1>
         </c:when>
+        <c:when test="${content eq 'performanceManagementRating'}">
+                <c:if test="${fn:length(localInfoModel['schoolPerformanceManagementRating']) eq 1}">
+                    This schools performance management framework
+                </c:if>
+
+                <c:forEach var="entry" items="${localInfoModel['schoolPerformanceManagementRating']}">
+                    <c:set var="schoolPerformanceManagementRatingTier"><c:if
+                            test="${entry.value le 34}">3</c:if><c:if
+                            test="${entry.value ge 35 and overallAcademicRating le 64}">2</c:if><c:if
+                            test="${entry.value ge 65}">1</c:if></c:set>
+                    <c:set var="schoolPerformanceManagementRatingBand"><c:if
+                            test="${entry.value le 34}">Low</c:if><c:if
+                            test="${entry.value ge 35 and overallAcademicRating le 64}">Mid</c:if><c:if
+                            test="${entry.value ge 65}">High</c:if></c:set>
+                    ${entry.key}<br/>
+                    total score: ${entry.value}<br/>
+                    ${schoolPerformanceManagementRatingBand} performing <br/>
+                    Tier ${schoolPerformanceManagementRatingTier}<br/>
+                </c:forEach>
+        </c:when>
 
         <c:when test="${content eq 'districtInfo'}">
             <c:set var="t13s1">

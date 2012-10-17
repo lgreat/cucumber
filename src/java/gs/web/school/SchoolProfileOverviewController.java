@@ -79,6 +79,8 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     public  static final  String CLIMATE_RATING_NO_DATA_TEXT_DC = "Coming 2013";
     public  static final  String CLIMATE_RATING_NO_DATA_TEXT_IN = "Coming soon";
 
+    public static final String MODEL_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP = "schoolPerformanceManagementRating";
+
     String _viewName;
 
     @Autowired
@@ -1208,19 +1210,32 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     Map<String, Object> getLocalInfoEspTile(HttpServletRequest request, School school) {
 
         Map<String, Object> model = new HashMap<String, Object>(2);
-
-        // TODO - Default content is in design.  Will have to display substitute for now
-
-        boolean doSubstitute = true;
-
-
-        // Default action
-
-        // Substitute action 1
-        if( doSubstitute ) {
-            model = getDistrictInfoModel(request, school);
+        // Get the performance management ratings fro charter schools in DC
+        model = getPerformanceManagementRatingModel(request, school);
+        if (model != null && model.size() > 0) {
+            return model;
         }
 
+        // Substitute action 1
+        model = getDistrictInfoModel(request, school);
+
+        return model;
+    }
+
+    public Map<String, Object> getPerformanceManagementRatingModel(HttpServletRequest request, School school) {
+        Map<String, Object> model = null;
+
+        Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
+
+        //Only display performance management rating for DC charter schools and only if there is rating
+        if (ratingsMap != null && !ratingsMap.isEmpty()
+                && ratingsMap.containsKey(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP)) {
+            model = new HashMap<String, Object>();
+            model.put(MODEL_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP,
+                    ratingsMap.get(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP));
+
+            model.put("content", "performanceManagementRating");
+        }
         return model;
     }
 

@@ -687,6 +687,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.ACT_PERCENT_TESTED);
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.SAT_SCORE);
         RATING_TEST_DATA_TYPE_IDS.add(TestDataType.SAT_PERCENT_TESTED);
+        RATING_TEST_DATA_TYPE_IDS.add(TestDataType.RATING_PERFORMANCE_MANAGEMENT);
     }
 
     // test data types for state ratings
@@ -728,6 +729,8 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     public static final String DATA_HIGH_EXPECTATIONS_RATING = "highExpectationsRating"; // TestDataType.id = 168
     public static final String DATA_TEACHER_SUPPORT_RATING = "teacherSupportRating"; // TestDataType.id = 170
     public static final String DATA_FAMILY_ENGAGEMENT_RATING = "familyEngagementRating"; // TestDataType.id = 169
+
+    public static final String DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP = "schoolPerformanceManagementRating"; // TestDataType.id = 180
 
     public Map<String, Object> getGsRatings(HttpServletRequest request) {
 
@@ -776,6 +779,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
             }
 
             Map<String,String> subjectLabelToValueMap = new HashMap<String,String>();
+            Map<String,Integer> performanceManagementRatingMap = new HashMap<String,Integer>();
             //Get the school ratings.
             // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
             for (SchoolTestValue value : schoolTestValues) {
@@ -850,6 +854,10 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                         dataMap.put(DATA_SCHOOL_SAT_GRADE_TEXT, getGradeText(grade));
                         dataMap.put(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST, value.getValueFloat().intValue());
                         break;
+                    case TestDataType.RATING_PERFORMANCE_MANAGEMENT:
+                        LevelCode levelCode = dataSet.getLevelCode();
+                        performanceManagementRatingMap.put(getLevelText(levelCode),value.getValueFloat().intValue());
+                        dataMap.put(DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP, performanceManagementRatingMap);
                 }
             }
 
@@ -895,6 +903,18 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                 rval = "12th";
             } else if (grade.getValue() == 13) {
                 rval = "graduates";
+            }
+        }
+        return rval;
+    }
+
+    protected String getLevelText(LevelCode level) {
+        String rval = "";
+        if (level != null) {
+            if (level.equals(LevelCode.ELEMENTARY)) {
+                rval = "lower";
+            } else if (level.equals(LevelCode.HIGH)) {
+                rval = "upper";
             }
         }
         return rval;
