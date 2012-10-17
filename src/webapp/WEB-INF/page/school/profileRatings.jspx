@@ -232,9 +232,9 @@
                                 <div class="tal mbn">
                                     <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
                                         <h5 class="bottom">This school</h5>
-                                        ${postSecondaryReadinessBreakdownTestScoreLabel}: <strong>${postSecondaryReadinessBreakdownTestScore}</strong>
-                                        <br/>
                                         ${postSecondaryReadinessBreakdownPercentTestedLabel}: <strong>${postSecondaryReadinessBreakdownPercentTested}%</strong>
+                                        <br/>
+                                        ${postSecondaryReadinessBreakdownTestScoreLabel}: <strong>${postSecondaryReadinessBreakdownTestScore}</strong>
                                     </c:if>
                                 </div>
                             </div>
