@@ -181,7 +181,7 @@
                     </c:if>
 
                     <c:if test="${schoolStudentGrowthRating != null and studentGrowthRatingYear != null}">
-                        <div class="pbm ptm">
+                        <div class="pbm ptm  fl">
                             <h6 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}**</h6>
                             <profile:ratingsBarChart ratingDivId="ratingTestResults2"
                                                      schoolRating="${schoolStudentGrowthRating}"
@@ -190,15 +190,25 @@
                                                      stateRating="${stateStudentGrowthRating}" />
 
                         </div>
-
-                        <hr class="keyline2"/>
                         <c:if test="${schoolStudentGrowthRatingBreakdown != null}">
-                            This school  <br/>
-                            <c:forEach var="entry" items="${schoolStudentGrowthRatingBreakdown}">
-                                <c:out value="${entry.key}"/>    <br/>
-                                <c:out value="${entry.value}"/>    <br/>
-                            </c:forEach>
+                            <!--<c:set var="growthRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>-->
+                            <!--<c:set var="growthRatingColor"><c:if test="${overallAcademicRating eq 'below average'}">ratingsRedText</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">ratingsYellowText</c:if><c:if test="${overallAcademicRating ge 8}">ratingsGreenText</c:if></c:set>-->
+
+                            <div class="ratingsRightSide ptm">
+                                <div class="grayBox small tal">
+                                    <h5 class="bottom">This school</h5>
+                                    <c:forEach var="entry" items="${schoolStudentGrowthRatingBreakdown}">
+                                        <c:out value="${entry.key}"/><br/>
+                                        <!--<c:set var="growthRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>-->
+                                        <c:set var="growthRatingColor"><c:if test="${entry.value eq 'below average'}">ratingsRedText</c:if><c:if test="${entry.value eq 'average'}">ratingsYellowText</c:if><c:if test="${entry.value eq 'above average'}">ratingsGreenText</c:if></c:set>
+
+                                        <h5 class="bottom"><em class="${growthRatingColor}"><c:out value="${entry.value}"/></em></h5>
+                                    </c:forEach>
+                                </div>
+                            </div>
                         </c:if>
+                        <hr class="keyline2"/>
+
                     </c:if>
 
                     <c:if test="${schoolPostSecondaryReadinessRating != null and postSecondaryReadinessRatingYear != null}">
@@ -272,7 +282,9 @@
 
 
 
-
+                    <!--${showClimateRatingsDetails}<br />-->
+                    <!--${climateRatingNumResponses}<br />-->
+                    <!--${widthForClimateHeaderContent}<br />-->
                     <c:set var="widthForClimateHeaderContent" value="" />
                     <c:if test="${showClimateRatingsDetails}">
                         <c:if test="${climateRatingNumResponses gt 0}">
