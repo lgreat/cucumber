@@ -203,10 +203,10 @@
                                         <h5 class="bottom">This school</h5>
                                         <c:forEach var="entry" items="${schoolStudentGrowthRatingBreakdown}">
                                             <c:out value="${entry.key}"/><br/>
-                                            <!--<c:set var="growthRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>-->
+                                            <c:set var="growthRatingContent"><c:if test="${entry.value eq 'below average'}">Below average</c:if><c:if test="${entry.value eq 'average'}">Average</c:if><c:if test="${entry.value eq 'above average'}">Above average</c:if></c:set>
                                             <c:set var="growthRatingColor"><c:if test="${entry.value eq 'below average'}">ratingsRedText</c:if><c:if test="${entry.value eq 'average'}">ratingsYellowText</c:if><c:if test="${entry.value eq 'above average'}">ratingsGreenText</c:if></c:set>
 
-                                            <h5 class="bottom"><em class="${growthRatingColor}"><c:out value="${entry.value}"/></em></h5>
+                                            <h5 class="bottom"><em class="${growthRatingColor}"><c:out value="${growthRatingContent}"/></em></h5>
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -232,9 +232,9 @@
                                 <div class="tal mbn">
                                     <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
                                         <h5 class="bottom">This school</h5>
-                                        ${postSecondaryReadinessBreakdownTestScoreLabel}:<strong>${postSecondaryReadinessBreakdownTestScore}</strong>
+                                        ${postSecondaryReadinessBreakdownTestScoreLabel}: <strong>${postSecondaryReadinessBreakdownTestScore}</strong>
                                         <br/>
-                                        ${postSecondaryReadinessBreakdownPercentTestedLabel}:<strong>${postSecondaryReadinessBreakdownPercentTested}%</strong>
+                                        ${postSecondaryReadinessBreakdownPercentTestedLabel}: <strong>${postSecondaryReadinessBreakdownPercentTested}%</strong>
                                     </c:if>
                                 </div>
                             </div>
@@ -302,7 +302,7 @@
                         </c:if>
                     </c:if>
                     <div class="${widthForClimateHeaderContent}">
-                        <p class="small bottom">
+                        <p class="small bottom fl">
                             ${section4Copy}
                         </p>
                     </div>
@@ -315,13 +315,13 @@
                             <div class="ratingsRightSide size30of100 lastUnit">
                                 <div class="grayBox smallest">Overall climate rating<h1 class="bottom">${overallClimateRating}</h1>
                                     <h5 class="bottom"><em class="${overallClimateRatingColor}">${overallClimateRatingContent}</em></h5></div>
-                                <div class="tac mtm">Based on <span class="numberFormat">${climateRatingNumResponses}</span> teacher<br />responses</div>
+                                <div class="tac smaller mts">Based on <span class="numberFormat">${climateRatingNumResponses}</span> teacher<br />responses</div>
                             </div>
-                            <div class="ratingsClimateHeader size30of100 fr">
-                                <div class="grayBox small">
-                                Number of responses<br /><span class="numberFormat">${climateRatingNumResponses}</span>
-                                </div>
-                            </div>
+                            <!--<div class="ratingsClimateHeader size30of100 fr">-->
+                                <!--<div class="grayBox small">-->
+                                <!--Number of responses<br /><span class="numberFormat">${climateRatingNumResponses}</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         </c:if>
                         <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
                         <h3 class="bottom">We rated schools on &amp;#8230;</h3>

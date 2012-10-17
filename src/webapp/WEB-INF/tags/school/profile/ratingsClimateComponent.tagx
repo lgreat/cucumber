@@ -14,28 +14,28 @@
     <jsp:directive.attribute name="climateVarContent" required="true" type="java.lang.String"
                              description="Shows the content below the title and bar"/>
 
-    <c:set var="pointerLeftMargin" value="${3.78 * climateVarRating - 25}" />
+    <c:set var="pointerLeftMargin" value="${4 * climateVarRating + 5}" />
 
     <hr class="keyline2"/>
-    <div>
-        <div class="fl"><h6 class="mvm medium_bold bottom">${climateVarName}</h6></div>
+    <div class="tac">
+        <div><h6 class="mvm medium_bold bottom">${climateVarName}</h6></div>
 
-        <div class="fr ratingsClimateBar">
-        <div class="barShort ratingsRed"><!-- do not collapse --></div>
-        <div class="barLong ratingsYellow"><!-- do not collapse --></div>
-        <div class="barShort ratingsGreen"><!-- do not collapse --></div>
-        <div class="clearFloatRatings pan man"><!-- do not collapse --></div>
-        <div class="tac" style="margin-left: ${pointerLeftMargin}px"><!-- set margin to move left and right -->
-            <div class="ratingsClimatePointer">
-                <div class="arrowUpOut"><div class="arrowUpIn"><!-- do not collapse --></div></div>
-                <div class="ratingsBottomBox"><!-- do not collapse --></div>
-                <div class="ratingsTextBelowBox smaller">This school</div>
+        <div class="ratingsClimateBar">
+            <div class="barShort ratingsRed"><!-- do not collapse --></div>
+            <div class="barLong ratingsYellow"><!-- do not collapse --></div>
+            <div class="barShort ratingsGreen"><!-- do not collapse --></div>
+            <div class="clearFloatRatings pan man"><!-- do not collapse --></div>
+            <div class="tac" style="margin-left: ${pointerLeftMargin}px"><!-- set margin to move left and right -->
+                <div class="ratingsClimatePointer">
+                    <div class="arrowUpOut"><div class="arrowUpIn"><!-- do not collapse --></div></div>
+                    <div class="ratingsBottomBox"><!-- do not collapse --></div>
+                    <!--<div class="ratingsTextBelowBox smaller">This school</div>-->
+                </div>
             </div>
         </div>
-        </div>
-        <div class="clearFloatRatings"><!-- do not collapse --></div>
+        <div class="clearFloatRatings pbs"><!-- do not collapse --></div>
         <!--<div>[SCHOOL ENVIRONMENT RATING GRAPHIC: ${schoolEnvironmentRating}]</div>-->
-        <p class="small">
+        <p class="ptm small tal">
             ${climateVarContent}
         </p>
     </div>
