@@ -37,7 +37,7 @@
                                 <c:forEach begin="0" end="${numberOfImages-1}" var="index">
                                     <!--<div id="${prefix}-gallery-fullsize-${index}" class="galleryPhotoFullsize">-->
                                     <div id="${prefix}-gallery-fullsize-${index}" class="gallery-fullsize ${prefix}-gallery-fullsize-${index}">
-                                        <img src="/res/img/pixel.gif"/>
+                                        <a href="javascript:void(0)" class="closePhotoGalleryImage" title="Close Photo Gallery"><img src="/res/img/pixel.gif"/></a>
                                         <!--<div class="small quiet mtm bottom">${photoCaptions[index]}</div>-->
                                     </div>
                                 </c:forEach>
@@ -89,6 +89,17 @@
             </c:forEach>
             var gallery = new GS.photoGallery.PhotoGallery("${prefix}", imageArray, true, "js-photo-gallery-trigger");
             gallery.init();
+            $(".closePhotoGalleryImage").click(function(){
+                hidePhotoGallery()
+            });
+            function hidePhotoGallery(){
+                var id = "${prefix}-photo-gallery";
+
+                ModalManager.hideModal({
+                    'layerId' : id
+                });
+                return false;
+            }
         });
     </script>
 </jsp:root>
