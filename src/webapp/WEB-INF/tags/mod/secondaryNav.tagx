@@ -96,7 +96,7 @@
             <li class="subMenuItem"><a href="/articles/?topics=188" id="SN_LD-AssistiveTechnology" class="subMenuItemAnchorText GS_CI9_">Assistive Technology</a></li>
           </ul>
         </li>
-        <li class="menuItem"><a href="/readers-corner.topic?content=7082" id="SN-ReadersCorner" class="last menuItemAnchorText GS_CI9_ ">Reader's Corner&amp;nbsp;</a>
+        <li class="menuItem"><a href="/raising-a-reader.topic?content=7082" id="SN-RaisingAReader" class="last menuItemAnchorText GS_CI9_ ">Raising a Reader&amp;nbsp;</a>
         </li>
       </ul>
 </jsp:root>
