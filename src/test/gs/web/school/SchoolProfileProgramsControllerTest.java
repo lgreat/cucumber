@@ -11,6 +11,8 @@ import gs.web.request.RequestAttributeHelper;
 import org.springframework.ui.ModelMap;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.easymock.classextension.EasyMock.*;
 
@@ -426,7 +428,7 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         //School video
         List<String> schoolVideos = new ArrayList<String>();
         schoolVideos.add("school video 1");
-        expect( _schoolProfileDataHelper.getSchoolVideos(getRequest()) ).andReturn( schoolVideos);
+        expect(_schoolProfileDataHelper.getSchoolVideos(getRequest())).andReturn( schoolVideos);
 
         replay(_schoolProfileDataHelper);
         _schoolProfileProgramsHighlightsController.showHighlightsPage(map, getRequest());
@@ -465,6 +467,18 @@ public class SchoolProfileProgramsControllerTest extends BaseControllerTestCase 
         }
 
         return sb.toString();
+    }
+
+    public void testUrl() {
+        String s = "facebook.com";
+
+        //String regex = "(http|https)://([\\w-]+\\.)+[\\w-]";
+        String regex = "facebook.com[\\w\\W]*";
+        Pattern patt = Pattern.compile(regex);
+        Matcher matcher = patt.matcher(s);
+        boolean isValid = matcher.matches();
+        System.out.println("--isValid-a------------" + isValid);
+
     }
 
 }
