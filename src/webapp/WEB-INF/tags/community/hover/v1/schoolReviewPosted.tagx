@@ -36,7 +36,7 @@
             </style>
                 <div  class="prl fl" id="js_fbshare_div">
                     <a class="button-1" name="fb_share" type="button" href="http://www.facebook.com/sharer.php?u=${relCanonical}"
-                       id="js_fbshare_schoolReviewPosted">Share on Facebook</a>
+                       id="js_fbshare_schoolReviewPosted" target='_blank'>Share on Facebook</a>
                 </div>
 
                 <div class="fl"><button class="button-1 js_closeHover" type="button">No, thanks</button></div>
