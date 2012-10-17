@@ -323,7 +323,7 @@
                                 <!--</div>-->
                             <!--</div>-->
                         </c:if>
-                        <div class="clearFloatRatings pbm"><!-- do not collapse --></div>
+                        <div class="clearFloatRatings pbn"><!-- do not collapse --></div>
                         <h3 class="bottom">We rated schools on &amp;#8230;</h3>
                         <hr class="keyline2"/>
                         <!--<c:set var="overallClimateRatingColor"><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Poor')}">ratingsRedText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'Average')}">ratingsYellowText</c:if><c:if test="${fn:containsIgnoreCase(overallClimateRatingLabel,'High')}">ratingsGreenText</c:if></c:set>-->

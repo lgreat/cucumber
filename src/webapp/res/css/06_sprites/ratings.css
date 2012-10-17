@@ -287,9 +287,9 @@ Created by Mitchell Seltzer
 }
 .ratingsClimateHeader .grayBox .numberFormat{ font-size: 24px; line-height: 28px}
 
-.ratingsClimateBar {margin-left: 103px;}
-.ratingsClimateBar .barShort { float:left;  height:6px; width:80px; }
-.ratingsClimateBar .barLong { float:left; height:6px; width:240px;}
+.ratingsClimateBar {margin-left: 88px; padding-top: 10px;}
+.ratingsClimateBar .barShort { float:left;  height:6px; width:86px; }
+.ratingsClimateBar .barLong { float:left; height:6px; width:258px;}
 .ratingsClimateBar .ratingsClimatePointer { margin-left:-5px; float: left; text-align: center; position: relative;}
 
 .ratingsClimatePointer{ margin-top: 7px; position: relative; }
