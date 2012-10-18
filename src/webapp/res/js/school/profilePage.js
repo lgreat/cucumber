@@ -275,11 +275,18 @@ GS.profile = GS.profile || (function() {
         GS.ad.refreshAds(refreshableNonOverviewAdSlotKeys.concat(otherAdSlotKeys));
     };
 
+    var getAlternateSitePath = function() {
+        var $currentTabLayer = GS.tabManager.getActiveLayer();
+        var href = $currentTabLayer.find('a.js-alternateSitePath').attr('href');
+        return href;
+    };
+
     return {
         init:init,
         refreshAdsForTab:refreshAdsForTab,
         initializeOverviewAds:initializeOverviewAds,
-        initializeNonOverviewAds:initializeNonOverviewAds
+        initializeNonOverviewAds:initializeNonOverviewAds,
+        getAlternateSitePath:getAlternateSitePath
     };
 }());
 

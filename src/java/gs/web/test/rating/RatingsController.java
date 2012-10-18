@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsController.java,v 1.27 2012/10/12 01:53:45 ssprouse Exp $
+ * $Id: RatingsController.java,v 1.28 2012/10/18 03:31:54 ssprouse Exp $
  */
 package gs.web.test.rating;
 
@@ -55,6 +55,7 @@ public class RatingsController extends AbstractCommandController implements ICon
     private SchoolProfileHeaderHelper _schoolProfileHeaderHelper;
     private boolean _showingSubjectGroups = false;
     private ControllerFamily _controllerFamily;
+    public static final String MODEL_KEY_HIDE_ALTERNATE_SITE_BUTTON = "hideAlternateSiteButton";
 
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
         RatingsCommand ratingsCommand = (RatingsCommand) command;
@@ -104,6 +105,7 @@ public class RatingsController extends AbstractCommandController implements ICon
         if (!errors.hasErrors()) {
             Map<String, Object> model = referenceData(request, command, errors);
             _schoolProfileHeaderHelper.updateModel(request, response, ratingsCommand.getSchool(), model);
+            model.put(MODEL_KEY_HIDE_ALTERNATE_SITE_BUTTON, true);
             return new ModelAndView(getViewName(), model);
         } else {
             return new ModelAndView(getViewName(), errors.getModel());

@@ -9,6 +9,9 @@
           xmlns:gslink="urn:jsptagdir:/WEB-INF/tags/link">
 
 <div class="${(!empty requestScope.schoolProfileTabMap.ratings and requestScope.schoolProfileTabMap.ratings eq 'selected'?'':'dn')}">
+    <c:if test="${not empty alternateSitePath}">
+        <a class="dn js-alternateSitePath" href="${alternateSitePath}" data-hide-alternate-site-button="${not empty hideAlternateSiteButton}"><!-- do not collapse --></a>
+    </c:if>
 
     <div class="alpha grid_16 omega">
         <h2>GreatSchools Rating</h2>

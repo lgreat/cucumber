@@ -83,6 +83,12 @@ GS.tabManager = (function() {
         return tab;
     };
 
+    var getActiveLayer = function() {
+        var currentTab = getCurrentTab();
+        var layerSelector = '[data-gs-tabs=' + currentTab.owner.tabSuiteName + ']';
+        return $(layerSelector).find('>div:visible');
+    };
+
     var getTabNamesToTabModules = function() {
         return tabNamesToTabModules;
     };
@@ -175,7 +181,8 @@ GS.tabManager = (function() {
         getCurrentTab:getCurrentTab,
         getTabByName:getTabByName,
         setOnTabChanged:setOnTabChanged,
-        setBeforeTabChange:setBeforeTabChange
+        setBeforeTabChange:setBeforeTabChange,
+        getActiveLayer:getActiveLayer
     };
 }()).init();
 

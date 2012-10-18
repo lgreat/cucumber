@@ -342,10 +342,7 @@
         </div>
     </div>
 
-<!-- TODO: confirm omniture pagename and hierarchy are correct -->
-<mod:mobileTracking pageName="Ratings"
-                    hier1="School,SchoolProfileOverview,${gsweb:capitalize(school.type.schoolTypeName)}"
-                    school="${school}" schoolGSRating="${overallRating}"/>
+<mod:mobileTracking pageName="Ratings" hier1="Mobile,School,GSRatingsDetail" school="${school}" schoolGSRating="${overallRating}"/>
 
 </body>
 </html>

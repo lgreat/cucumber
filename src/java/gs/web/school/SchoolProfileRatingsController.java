@@ -12,6 +12,8 @@ import gs.web.IControllerFamilyResolver;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.request.RequestInfo;
 import gs.web.util.ReadWriteAnnotationController;
+import gs.web.util.UrlBuilder;
+import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -206,6 +208,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_SECTION_4_SOCIAL_EMOTIONAL_LEARNING_COPY = "socialEmotionalLearningCopy";
     public static final String MODEL_SECTION_4_TEACHER_SUPPORT_COPY = "teacherSupportCopy";
 
+    // these two attributes used by both mobile and desktop views
+    public static final String MODEL_KEY_HIDE_ALTERNATE_SITE_BUTTON = "hideAlternateSiteButton";
+    public static final String MODEL_KEY_ALTERNATE_SITE_PATH = "alternateSitePath";
+
 
     // ===================== DATA ===================================
 
@@ -251,6 +257,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         School school = getSchool(request);
         modelMap.put("school", school);
+
+        handleMobileRedirects(school, request, modelMap);
 
         Map<String,Object> dataMap = getData(school,request);
 
@@ -668,6 +676,47 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             return "Above average";
         } else {
             throw new IllegalArgumentException("Rating must be from 1 to 10");
+        }
+    }
+
+    public String getAlternateSitePath(School school, HttpServletRequest request) {
+        String requestUrl = null;
+        UrlBuilder urlBuilder;
+        boolean onMobile = ControllerFamily.MOBILE.equals(getControllerFamily());
+
+        if (onMobile) {
+            if (school.isSchoolForNewProfile()) {
+                // build URL to old profile ratings page on desktop
+                urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+                requestUrl = urlBuilder.asFullUrl(request);
+                UrlUtil.addParameter(requestUrl, "site_preference=normal");
+                // build URL to new profile on desktop
+            } else {
+                // should never happen since we don't have a mobile ratings page for schools without new profile
+            }
+        } else {
+            if (school.isSchoolForNewProfile()) {
+                // build URL to mobile ratings page
+                urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
+                requestUrl = urlBuilder.asFullUrl(request);
+                UrlUtil.addParameter(requestUrl, "site_preference=mobile");
+            } else {
+                // URL to mobile site won't be offered
+            }
+        }
+
+        return requestUrl;
+    }
+
+    public void handleMobileRedirects(School school, HttpServletRequest request, ModelMap modelMap) {
+        boolean onMobile = ControllerFamily.MOBILE.equals(getControllerFamily());
+
+        String tabParam = request.getParameter("tab");
+        if (tabParam != null && StringUtils.equals(tabParam, AbstractSchoolController.NewProfileTabs.ratings.getParameterValue())) {
+            String alternativeSitePath = getAlternateSitePath(school, request);
+            if (alternativeSitePath != null) {
+                modelMap.put(MODEL_KEY_ALTERNATE_SITE_PATH, alternativeSitePath);
+            }
         }
     }
 
