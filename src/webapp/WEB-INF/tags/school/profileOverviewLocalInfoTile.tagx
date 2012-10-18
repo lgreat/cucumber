@@ -20,6 +20,7 @@
     <c:set var="content" value="${localInfoModel['content']}" scope="page"/>
 
     <c:choose>
+
         <c:when test="${content eq 'default'}">
             <c:set var="t13dc">
                 <p class="small_bold textshadow-1 pvs plm bottom">Local information</p>
@@ -31,26 +32,102 @@
                 </div>
             </school:profileOverviewCell1>
         </c:when>
+
+
+        <!-- When content is DC charter Performance Management Rating-->
         <c:when test="${content eq 'performanceManagementRating'}">
-                <c:if test="${fn:length(localInfoModel['schoolPerformanceManagementRating']) eq 1}">
-                    This schools performance management framework
+
+
+
+        <!-- Tile opening, and tile header -->
+        <div class='mod standard_1-1'>
+            <div class='inner box-shadow-animation-1'>
+                <div class='hd pr'>
+                    <p class="small_bold textshadow-1 pvs plm bottom make-555555">DC Public Charter School
+                        Board</p>
+
+                </div>
+
+                <div class='bd clearfix'>
+                    <div class="mam" style='height: 149px;'>
+                        <div class='small' id='PMFContent'>
+
+            <!-- if only 1 rating -->
+            <c:if test="${fn:length(localInfoModel['schoolPerformanceManagementRating']) eq 1}">
+
+                <span class='PMF-text'>This school's Performance Management Framework (PMF) Rating:</span>
+                <hr class="keyline2" style='margin: 10px 0;' />
+
+            </c:if><!-- END if only 1 rating -->
+
+
+
+            <c:forEach var="entry" items="${localInfoModel['schoolPerformanceManagementRating']}" varStatus="status">
+
+                <c:set var='schoolLevel' scope="page">
+                    <c:if test="${entry.key eq 'lower'}">Elementary &amp; Middle</c:if>
+                    <c:if test="${entry.key eq 'upper'}">High</c:if>
+                </c:set>
+                <c:set var="schoolPerformanceManagementRatingTier">
+                    <c:if test="${entry.value le 34}">3</c:if>
+                    <c:if test="${entry.value ge 35 and entry.value le 64}">2</c:if>
+                    <c:if test="${entry.value ge 65}">1</c:if>
+                </c:set>
+                <c:set var="schoolPerformanceTierIcon">
+                    <c:if test="${entry.value le 34}">
+                        <span class='ratingx-32-charter r-32-3'></span>
+                    </c:if>
+                    <c:if test="${entry.value ge 35 and entry.value le 64}">
+                        <span class='ratingx-32-charter r-32-2'></span>
+                    </c:if>
+                    <c:if test="${entry.value ge 65}">
+                        <span class='ratingx-32-charter r-32-1'></span>
+                    </c:if>
+                </c:set>
+                <c:set var="schoolPerformanceManagementRatingBand">
+                    <c:if test="${entry.value le 34}">Low</c:if>
+                    <c:if test="${entry.value ge 35 and entry.value le 64}">Mid</c:if>
+                    <c:if test="${entry.value ge 65}">High</c:if>
+                </c:set>
+
+
+                <div id='charterRatingDiv' style="height: 60px; ">
+
+                    <div id='charterRatingInfo' style="width: 120px; float: left;">
+                        <span class='small_bold'>${schoolLevel} </span>
+                        <br />
+                        <span class='small'><em>Total Score: ${entry.value}%</em></span>
+                        <br />
+                        <span class='small_bold'>
+                            <em>${schoolPerformanceManagementRatingBand} performing</em>
+                        </span>
+                    </div><!-- END charterRatingInfo  -->
+
+                    <div id='tierIconDiv' style='width:49px; float:right; text-align: center; border-left: 1px solid #e6e6e6;'>
+                        <span class="small_bold make-uppercase">Tier</span>
+                        ${schoolPerformanceTierIcon}
+
+                    </div><!-- END tierIconDiv  -->
+
+                </div><!-- END charterRatingDiv  -->
+
+                <c:if test="${ (fn:length(localInfoModel['schoolPerformanceManagementRating']) gt 1) and ! status.last }">
+                    <hr class="keyline2" style='margin: 10px 0;' />
                 </c:if>
 
-                <c:forEach var="entry" items="${localInfoModel['schoolPerformanceManagementRating']}">
-                    <c:set var="schoolPerformanceManagementRatingTier"><c:if
-                            test="${entry.value le 34}">3</c:if><c:if
-                            test="${entry.value ge 35 and entry.value le 64}">2</c:if><c:if
-                            test="${entry.value ge 65}">1</c:if></c:set>
-                    <c:set var="schoolPerformanceManagementRatingBand"><c:if
-                            test="${entry.value le 34}">Low</c:if><c:if
-                            test="${entry.value ge 35 and entry.value le 64}">Mid</c:if><c:if
-                            test="${entry.value ge 65}">High</c:if></c:set>
-                    ${entry.key}<br/>
-                    total score: ${entry.value}<br/>
-                    ${schoolPerformanceManagementRatingBand} performing <br/>
-                    Tier ${schoolPerformanceManagementRatingTier}<br/>
-                </c:forEach>
+            </c:forEach>
+
+                            </div><!-- END PMFContent -->
+                        </div><!-- END class="mam" style='height: 149px;' -->
+                    </div><!-- END class='bd clearfix' -->
+                </div><!-- END div class='inner box-shadow-animation-1' -->
+            </div><!-- END  class='mod standard_1-1' -->
+
         </c:when>
+        <!-- END When content is DC charter Performance Management Rating-->
+
+
+
 
         <c:when test="${content eq 'districtInfo'}">
             <c:set var="t13s1">

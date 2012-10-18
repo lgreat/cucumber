@@ -597,3 +597,25 @@ Created by Mitchell Seltzer
 .r-96-NR {
     background-position: -960px 0;
 }
+
+
+/******************* charter school tier icon ***************** */
+.ratingx-32-charter {
+    display: inline-block;
+    background-image: url(/res/img/sprites/ratings/x32/DC_charter_ratings_32x32.png);
+    width: 32px;
+    height: 32px;
+}
+
+/**** ratings 32px x 32px ***************/
+.r-32-1{
+    background-position: 0 0;
+}
+
+.r-32-2{
+    background-position: -32px 0;
+}
+
+.r-32-3{
+    background-position: -64px 0;
+}
