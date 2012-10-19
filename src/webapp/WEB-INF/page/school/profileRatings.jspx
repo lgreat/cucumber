@@ -305,7 +305,7 @@
                         </c:if>
                     </c:if>
                     <div class="${widthForClimateHeaderContent}">
-                        <p class="small bottom fl">
+                        <p class="small bottom">
                             ${section4Copy}
                         </p>
                     </div>
