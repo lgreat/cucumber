@@ -8,12 +8,10 @@ import gs.data.test.*;
 import gs.data.test.rating.CityRating2;
 import gs.data.test.rating.ICityRating2Dao;
 import gs.web.ControllerFamily;
-import gs.web.IControllerFamilyResolver;
 import gs.web.IControllerFamilySpecifier;
 import gs.web.request.RequestInfo;
 import gs.web.util.ReadWriteAnnotationController;
 import gs.web.util.UrlBuilder;
-import gs.web.util.UrlUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -258,7 +256,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         School school = getSchool(request);
         modelMap.put("school", school);
 
-        handleMobileRedirects(school, request, modelMap);
+        handleAlternateSitePaths(school, request, modelMap);
 
         Map<String,Object> dataMap = getData(school,request);
 
@@ -689,17 +687,16 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                 // build URL to old profile ratings page on desktop
                 urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
                 requestUrl = urlBuilder.asFullUrl(request);
-                UrlUtil.addParameter(requestUrl, "site_preference=normal");
                 // build URL to new profile on desktop
             } else {
                 // should never happen since we don't have a mobile ratings page for schools without new profile
+                // and because the controller family factories in pages-servlet won't send us here unless new profile
             }
         } else {
             if (school.isSchoolForNewProfile()) {
                 // build URL to mobile ratings page
                 urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE_RATINGS);
                 requestUrl = urlBuilder.asFullUrl(request);
-                UrlUtil.addParameter(requestUrl, "site_preference=mobile");
             } else {
                 // URL to mobile site won't be offered
             }
@@ -708,9 +705,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return requestUrl;
     }
 
-    public void handleMobileRedirects(School school, HttpServletRequest request, ModelMap modelMap) {
-        boolean onMobile = ControllerFamily.MOBILE.equals(getControllerFamily());
-
+    public void handleAlternateSitePaths(School school, HttpServletRequest request, ModelMap modelMap) {
         String tabParam = request.getParameter("tab");
         if (tabParam != null && StringUtils.equals(tabParam, AbstractSchoolController.NewProfileTabs.ratings.getParameterValue())) {
             String alternativeSitePath = getAlternateSitePath(school, request);

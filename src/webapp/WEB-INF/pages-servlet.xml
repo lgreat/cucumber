@@ -287,11 +287,21 @@
 
     <bean name="mobileControllerFamilyResolver" class="gs.web.DeviceSpecificControllerFamilyResolver" />
     <bean name="fruitcakeControllerFamilyResolver" class="gs.web.FruitcakeControllerFamilyResolver" />
+    <bean name="mobileFruitcakeControllerFamilyResolver" class="gs.web.MobileFruitcakeControllerFamilyResolver" />
     <bean name="controllerFamilyFactory" class="gs.web.GenericControllerFamilyFactory" lazy-init="true">
         <property name="resolvers">
             <list>
                 <ref bean="mobileControllerFamilyResolver"/>
                 <ref bean="fruitcakeControllerFamilyResolver"/>
+            </list>
+        </property>
+        <aop:scoped-proxy proxy-target-class="false"/>
+    </bean>
+    <bean name="mobileFruitcakeControllerFamilyFactory" class="gs.web.GenericControllerFamilyFactory" lazy-init="true">
+        <!-- this is needed because our mobile version of the ratings page only handles new profile schools -->
+        <property name="resolvers">
+            <list>
+                <ref bean="mobileFruitcakeControllerFamilyResolver"/>
             </list>
         </property>
         <aop:scoped-proxy proxy-target-class="false"/>
@@ -2017,12 +2027,13 @@
             </list>
         </property>
     </bean>
-    <bean name="/school/rating.page" class="org.springframework.stereotype.Controller" factory-bean="controllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
+    <!-- handles ratings page for old profile schools, mobile version of new profile schools -->
+    <bean name="/school/rating.page" class="org.springframework.stereotype.Controller" factory-bean="mobileFruitcakeControllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <ref bean="ratingsController"/>
                 <bean name="schoolProfileRatingsMobileController" parent="schoolProfileRatingsController">
-                    <property name="controllerFamily" value="MOBILE"/>
+                    <property name="controllerFamily" value="MOBILE_FRUITCAKE"/>
                 </bean>
             </list>
         </constructor-arg>
@@ -2544,6 +2555,7 @@
             <map>
                 <entry key="json" value="application/json" />
                 <entry key="xml" value="application/xml" />
+                <entry key="pdf" value="application/pdf" />
             </map>
         </property>
         <property name="defaultViews">
@@ -2557,6 +2569,15 @@
             </list>
         </property>
         <property name="ignoreAcceptHeader" value="true" />
+        <property name="viewResolvers">
+            <list>
+                <bean class="gs.web.HTML2PDFViewResolver">
+                    <property name="viewResolver">
+                        <ref bean="viewResolver"/>
+                    </property>
+                </bean>
+            </list>
+        </property>
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true">

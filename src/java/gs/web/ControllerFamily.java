@@ -3,5 +3,6 @@ package gs.web;
 public enum ControllerFamily {
     DESKTOP,
     MOBILE,
-    FRUITCAKE
+    FRUITCAKE,
+    MOBILE_FRUITCAKE
 }
