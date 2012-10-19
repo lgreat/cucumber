@@ -2555,7 +2555,6 @@
             <map>
                 <entry key="json" value="application/json" />
                 <entry key="xml" value="application/xml" />
-                <entry key="pdf" value="application/pdf" />
             </map>
         </property>
         <property name="defaultViews">
@@ -2569,15 +2568,6 @@
             </list>
         </property>
         <property name="ignoreAcceptHeader" value="true" />
-        <property name="viewResolvers">
-            <list>
-                <bean class="gs.web.HTML2PDFViewResolver">
-                    <property name="viewResolver">
-                        <ref bean="viewResolver"/>
-                    </property>
-                </bean>
-            </list>
-        </property>
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" lazy-init="true">
