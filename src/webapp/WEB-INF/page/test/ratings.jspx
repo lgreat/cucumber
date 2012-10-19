@@ -62,6 +62,9 @@
     <c:set var="ratingImagePath" value="/res/img/ratings/profile/ratings_${overallRating}.gif"/>
     <c:set var="imageDesc" value="GreatSchools Rating: ${overallRating} out of 10. Greatschools Ratings are based on test results. 10 is best."/>
 </c:if>
+<c:if test="${school.type.name eq 'private'}">
+    <c:set var="ratingImagePath" value="/res/img/ratings/profile/ratings_private.gif"/>
+</c:if>
 
 
 <pageHelper:externalCss file="/res/css/school/ratings/ratings.css"/>
