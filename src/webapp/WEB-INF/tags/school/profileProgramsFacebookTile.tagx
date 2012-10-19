@@ -20,7 +20,7 @@
 
 
     <c:if test="${content eq currentSpace}">
-        <div class="line dn" id="js_facebookModuleCulturePage">
+        <div class="line dn standard_1-1" id="js_facebookModuleCulturePage">
             <div class="unit size100of100 lastUnit">
                 <![CDATA[
                     <fb:like-box href="${facebookUrl}" width="630" border_color="#CCCCCC" show_faces="false" stream="true" header="false" force_wall="true"></fb:like-box>
