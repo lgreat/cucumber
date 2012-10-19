@@ -63,7 +63,8 @@ General comments:
 }
 
 #gs-secondary .menuItem .last {
-    padding: 0 8px 0 1px;
+    /*padding: 0 8px 0 1px;*/
+    padding: 0 5px 0 4px;
 }
 
 #gs-secondary .menuItem:hover .menuItemAnchorText {
