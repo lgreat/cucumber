@@ -37,8 +37,6 @@
         <!-- When content is DC charter Performance Management Rating-->
         <c:when test="${content eq 'performanceManagementRating'}">
 
-
-
         <!-- Tile opening, and tile header -->
         <div class='mod standard_1-1'>
             <div class='inner box-shadow-animation-1'>
@@ -64,30 +62,27 @@
 
             <c:forEach var="entry" items="${localInfoModel['schoolPerformanceManagementRating']}" varStatus="status">
 
-                <c:set var='schoolLevel' scope="page">
-                    <c:if test="${entry.key eq 'lower'}">Elementary &amp; Middle</c:if>
-                    <c:if test="${entry.key eq 'upper'}">High</c:if>
-                </c:set>
+                <c:set var='schoolLevel' scope="page">${entry.levelText}</c:set>
                 <c:set var="schoolPerformanceManagementRatingTier">
-                    <c:if test="${entry.value le 34}">3</c:if>
-                    <c:if test="${entry.value ge 35 and entry.value le 64}">2</c:if>
-                    <c:if test="${entry.value ge 65}">1</c:if>
+                    <c:if test="${entry.score le 34}">3</c:if>
+                    <c:if test="${entry.score ge 35 and entry.score le 64}">2</c:if>
+                    <c:if test="${entry.score ge 65}">1</c:if>
                 </c:set>
                 <c:set var="schoolPerformanceTierIcon">
-                    <c:if test="${entry.value le 34}">
+                    <c:if test="${entry.score le 34}">
                         <span class='ratingx-32-charter r-32-3'></span>
                     </c:if>
-                    <c:if test="${entry.value ge 35 and entry.value le 64}">
+                    <c:if test="${entry.score ge 35 and entry.score le 64}">
                         <span class='ratingx-32-charter r-32-2'></span>
                     </c:if>
-                    <c:if test="${entry.value ge 65}">
+                    <c:if test="${entry.score ge 65}">
                         <span class='ratingx-32-charter r-32-1'></span>
                     </c:if>
                 </c:set>
                 <c:set var="schoolPerformanceManagementRatingBand">
-                    <c:if test="${entry.value le 34}">Low</c:if>
-                    <c:if test="${entry.value ge 35 and entry.value le 64}">Mid</c:if>
-                    <c:if test="${entry.value ge 65}">High</c:if>
+                    <c:if test="${entry.score le 34}">Low</c:if>
+                    <c:if test="${entry.score ge 35 and entry.score le 64}">Mid</c:if>
+                    <c:if test="${entry.score ge 65}">High</c:if>
                 </c:set>
 
 
@@ -96,7 +91,7 @@
                     <div id='charterRatingInfo' style="width: 120px; float: left;">
                         <span class='small_bold'>${schoolLevel} </span>
                         <br />
-                        <span class='small'><em>Total Score: ${entry.value}%</em></span>
+                        <span class='small'><em>Total Score: ${entry.score}%</em></span>
                         <br />
                         <span class='small_bold'>
                             <em>${schoolPerformanceManagementRatingBand} performing</em>

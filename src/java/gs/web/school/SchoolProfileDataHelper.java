@@ -730,7 +730,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     public static final String DATA_TEACHER_SUPPORT_RATING = "teacherSupportRating"; // TestDataType.id = 170
     public static final String DATA_FAMILY_ENGAGEMENT_RATING = "familyEngagementRating"; // TestDataType.id = 169
 
-    public static final String DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP = "schoolPerformanceManagementRating"; // TestDataType.id = 180
+    public static final String DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST = "schoolPerformanceManagementRating"; // TestDataType.id = 180
 
     public Map<String, Object> getGsRatings(HttpServletRequest request) {
 
@@ -779,7 +779,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
             }
 
             Map<String,String> subjectLabelToValueMap = new HashMap<String,String>();
-            Map<LevelCode,Integer> performanceManagementRatingMap = new HashMap<LevelCode,Integer>();
+            List<PerformanceRatingObj> performanceManagementRatingList = new ArrayList<PerformanceRatingObj>();
             //Get the school ratings.
             // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
             for (SchoolTestValue value : schoolTestValues) {
@@ -856,9 +856,19 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                         break;
                     case TestDataType.RATING_PERFORMANCE_MANAGEMENT:
                         LevelCode levelCode = dataSet.getLevelCode();
-                        performanceManagementRatingMap.put(levelCode,value.getValueFloat().intValue());
-                        dataMap.put(DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP, performanceManagementRatingMap);
+                        if (levelCode != null && value.getValueFloat() != null) {
+                            PerformanceRatingObj performanceRatingObj = new PerformanceRatingObj();
+                            performanceRatingObj.setLevelCode(levelCode);
+                            performanceRatingObj.setScore(value.getValueFloat().intValue());
+                            performanceRatingObj.setLevelText(getLevelText(levelCode));
+                            performanceManagementRatingList.add(performanceRatingObj);
+                        }
                 }
+            }
+
+            if (!performanceManagementRatingList.isEmpty()) {
+                Collections.sort(performanceManagementRatingList);
+                dataMap.put(DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST, performanceManagementRatingList);
             }
 
             //Get the state ratings only if there is school rating info.
@@ -894,6 +904,52 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
         return dataMap;
     }
 
+
+    public static class PerformanceRatingObj implements Comparable<PerformanceRatingObj> {
+       LevelCode _levelCode;
+       Integer _score;
+       String _levelText;
+
+        public LevelCode getLevelCode() {
+            return _levelCode;
+        }
+
+        public void setLevelCode(LevelCode levelCode) {
+            _levelCode = levelCode;
+        }
+
+        public Integer getScore() {
+            return _score;
+        }
+
+        public void setScore(Integer score) {
+            _score = score;
+        }
+
+        public String getLevelText() {
+            return _levelText;
+        }
+
+        public void setLevelText(String levelText) {
+           _levelText = levelText;
+        }
+
+        public int compareTo(PerformanceRatingObj performanceRatingObj) {
+            return getLevelCode().getLowestLevel().compareTo(performanceRatingObj.getLevelCode().getLowestLevel());
+        }
+    }
+
+    protected String getLevelText(LevelCode level) {
+        String rval = "";
+        if (level != null) {
+            if (level.equals(LevelCode.ELEMENTARY)) {
+                rval = "Elem / Middle";
+            } else if (level.equals(LevelCode.HIGH)) {
+                rval = "High School";
+            }
+        }
+        return rval;
+    }
 
     // ============== The following setters are just for unit testing ===================
     public void setEspResponseDao( IEspResponseDao espResponseDao ) {

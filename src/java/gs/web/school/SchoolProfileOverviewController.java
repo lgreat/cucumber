@@ -15,6 +15,7 @@ import gs.data.search.SearchException;
 import gs.data.search.SearchResultsPage;
 import gs.data.search.fields.CmsFeatureFields;
 import gs.data.search.fields.DocumentType;
+import gs.data.state.State;
 import gs.data.util.CommunityUtil;
 import gs.web.content.cms.CmsContentLinkResolver;
 import gs.web.i18n.LanguageToggleHelper;
@@ -79,7 +80,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     public  static final  String CLIMATE_RATING_NO_DATA_TEXT_DC = "Coming 2013";
     public  static final  String CLIMATE_RATING_NO_DATA_TEXT_IN = "Coming soon";
 
-    public static final String MODEL_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP = "schoolPerformanceManagementRating";
+    public static final String MODEL_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST = "schoolPerformanceManagementRating";
 
     String _viewName;
 
@@ -1211,7 +1212,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
         Map<String, Object> model = new HashMap<String, Object>(2);
         // Get the performance management ratings fro charter schools in DC
-        model = getPerformanceManagementRatingModel(request);
+        model = getPerformanceManagementRatingModel(request,school);
         if (model != null && model.size() > 0) {
             return model;
         }
@@ -1222,40 +1223,28 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
         return model;
     }
 
-    public Map<String, Object> getPerformanceManagementRatingModel(HttpServletRequest request) {
+    public Map<String, Object> getPerformanceManagementRatingModel(HttpServletRequest request, School school) {
         Map<String, Object> model = null;
+        //Only display performance management rating for DC schools and only if there is rating
+        if (showPerformanceManagementRating(school.getDatabaseState())) {
+            Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
+            if (ratingsMap != null && !ratingsMap.isEmpty()
+                    && ratingsMap.containsKey(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST)) {
+                model = new HashMap<String, Object>();
+                model.put(MODEL_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST, ratingsMap.get(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST));
 
-        Map<String, Object> ratingsMap = _schoolProfileDataHelper.getGsRatings(request);
-
-        //Only display performance management rating for DC charter schools and only if there is rating
-        if (ratingsMap != null && !ratingsMap.isEmpty()
-                && ratingsMap.containsKey(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP)) {
-            model = new HashMap<String, Object>();
-            Map<String, Integer> performanceManagementRatingsMap = new HashMap<String, Integer>();
-
-            //Convert the level codes into String
-            Map<LevelCode, Integer> mapWithLevelCode = (HashMap<LevelCode, Integer>) ratingsMap.get(_schoolProfileDataHelper.DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP);
-            for (LevelCode levelCode : mapWithLevelCode.keySet()) {
-                performanceManagementRatingsMap.put(getLevelText(levelCode), mapWithLevelCode.get(levelCode));
+                model.put("content", "performanceManagementRating");
             }
-            model.put(MODEL_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_MAP,performanceManagementRatingsMap);
-
-            model.put("content", "performanceManagementRating");
         }
+
         return model;
     }
 
-    protected String getLevelText(LevelCode level) {
-        String rval = "";
-        if (level != null) {
-            if (level.equals(LevelCode.ELEMENTARY)) {
-                rval = "lower";
-            } else if (level.equals(LevelCode.HIGH)) {
-                rval = "upper";
-            }
-        }
-        return rval;
+    protected boolean showPerformanceManagementRating(State state) {
+//        return state.equals(State.DC) ? true : false;
+        return true;
     }
+
 
     /**
      * Builds the model data for the District Info tile if the required data is available, otherwise builds data for Neighborhood Info
