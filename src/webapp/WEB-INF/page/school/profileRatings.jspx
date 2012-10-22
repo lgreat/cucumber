@@ -319,7 +319,7 @@
                             <c:set var="widthForClimateHeaderContent" value="size70of100" />
                         </c:if>
                     </c:if>
-                    <div class="${widthForClimateHeaderContent}">
+                    <div class="${widthForClimateHeaderContent}" style='display: inline-block;'>
                         <p class="small bottom">
                             ${section4Copy}
                         </p>
