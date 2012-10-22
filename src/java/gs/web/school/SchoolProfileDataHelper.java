@@ -942,7 +942,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     protected String getLevelText(LevelCode level) {
         String rval = "";
         if (level != null) {
-            if (level.equals(LevelCode.ELEMENTARY)) {
+            if (level.containsLevelCode(LevelCode.Level.ELEMENTARY_LEVEL) &&  level.containsLevelCode(LevelCode.Level.MIDDLE_LEVEL) ) {
                 rval = "Elem / Middle";
             } else if (level.equals(LevelCode.HIGH)) {
                 rval = "High School";
