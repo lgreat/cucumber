@@ -182,6 +182,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED = "postSecondaryReadinessBreakdownPercentTested";
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL = "postSecondaryReadinessBreakdownTestScoreLabel";
     public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL = "postSecondaryReadinessBreakdownPercentTestedLabel";
+    public static final String MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_MEASUREMENT = "postSecondaryReadinessBreakdownTestScoreMeasurement";
 
     public static final String MODEL_TEST_SCORE_RATING_SOURCE = "testScoreRatingSource";
 
@@ -494,33 +495,41 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                 model.put(MODEL_STATE_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_STATE_POST_SECONDARY_READINESS_RATING));
             }
             //Add the Post Secondary Readiness breakdown data for ACT and SAT tests.
+            populatePostSecondaryReadinessRatingsBreakdownModel(dataMap,model);
+        }
+    }
+
+    public static void populatePostSecondaryReadinessRatingsBreakdownModel(Map<String, Object> dataMap, ModelMap model) {
+
+        if (dataMap.containsKey(DATA_SCHOOL_ACT_SCORE) && dataMap.containsKey(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST)) {
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_ACT_SCORE));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
+                    getPSRBreakdownPercentTestScoreLabel(ACT_TEST_NAME));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
+                    dataMap.get(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
+                    getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_ACT_GRADE), ACT_TEST_NAME));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_MEASUREMENT, "number");
+        } else if (dataMap.containsKey(DATA_SCHOOL_SAT_SCORE) && dataMap.containsKey(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST)) {
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_SAT_SCORE));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
+                    getPSRBreakdownPercentTestScoreLabel(SAT_TEST_NAME));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
+                    dataMap.get(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
+                    getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_SAT_GRADE), SAT_TEST_NAME));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_MEASUREMENT, "number");
+        } else if (dataMap.containsKey(DATA_SCHOOL_ACT_SAT_PARTICIPATION) && dataMap.containsKey(DATA_SCHOOL_ACT_SAT_COLLEGE_READY)) {
             //Sometimes states like DC give us scores for both SAT and ACT together as college readiness.Therefore take
             //that into account as well.
-            if (dataMap.containsKey(DATA_SCHOOL_ACT_SCORE) && dataMap.containsKey(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST)) {
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_ACT_SCORE));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
-                        getPSRBreakdownPercentTestScoreLabel(ACT_TEST_NAME));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
-                        dataMap.get(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
-                        getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_ACT_GRADE), ACT_TEST_NAME));
-            } else if (dataMap.containsKey(DATA_SCHOOL_SAT_SCORE) && dataMap.containsKey(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST)) {
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_SAT_SCORE));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
-                        getPSRBreakdownPercentTestScoreLabel(SAT_TEST_NAME));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
-                        dataMap.get(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
-                        getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_SAT_GRADE), SAT_TEST_NAME));
-            } else if (dataMap.containsKey(DATA_SCHOOL_ACT_SAT_PARTICIPATION) && dataMap.containsKey(DATA_SCHOOL_ACT_SAT_COLLEGE_READY)) {
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_ACT_SAT_PARTICIPATION));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
-                        getPSRBreakdownPercentTestScoreLabel(ACT_OR_SAT_TEST_NAME));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
-                        dataMap.get(DATA_SCHOOL_ACT_SAT_COLLEGE_READY));
-                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
-                        getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_ACT_SAT_GRADE), ACT_OR_SAT_TEST_NAME));
-            }
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_ACT_SAT_PARTICIPATION));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
+                    getPSRBreakdownPercentTestScoreLabel(ACT_OR_SAT_TEST_NAME));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
+                    dataMap.get(DATA_SCHOOL_ACT_SAT_COLLEGE_READY));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
+                    getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_ACT_SAT_GRADE), ACT_OR_SAT_TEST_NAME));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_MEASUREMENT, "percent");
         }
     }
 

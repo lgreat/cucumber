@@ -252,7 +252,9 @@
                                         <h5 class="bottom">This school</h5>
                                         ${postSecondaryReadinessBreakdownPercentTestedLabel}: <strong>${postSecondaryReadinessBreakdownPercentTested}%</strong>
                                         <br/>
-                                        ${postSecondaryReadinessBreakdownTestScoreLabel}: <strong>${postSecondaryReadinessBreakdownTestScore}</strong>
+                                        ${postSecondaryReadinessBreakdownTestScoreLabel}:
+                                        <strong>${postSecondaryReadinessBreakdownTestScore}<c:if test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if>
+                                        </strong>
                                     </c:if>
                                 </div>
                             </div>
