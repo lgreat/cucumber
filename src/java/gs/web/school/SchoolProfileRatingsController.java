@@ -238,6 +238,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String DATA_SCHOOL_SAT_PERCENT_TAKING_TEST = "schoolSATPercentTakingTest"; // TestDataType.id = 176
     public static final String DATA_SCHOOL_ACT_GRADE = "schoolACTGrade";
     public static final String DATA_SCHOOL_SAT_GRADE = "schoolSATGrade";
+    public static final String DATA_SCHOOL_ACT_SAT_GRADE = "schoolACTSATGrade";
+    public static final String DATA_SCHOOL_ACT_SAT_PARTICIPATION = "schoolACTSATParticipation"; // TestDataType.id = 181
+    public static final String DATA_SCHOOL_ACT_SAT_COLLEGE_READY = "schoolACTSATCollegeReady"; // TestDataType.id = 182
 
     public static final String DATA_CLIMATE_RATING_NUM_RESPONSES = "climateRatingNumResponses"; // TestDataType.id = 173 (TestDataSchoolValue.number_tested)
     public static final String DATA_SCHOOL_ENVIRONMENT_RATING = "schoolEnvironmentRating"; // TestDataType.id = 172
@@ -474,6 +477,10 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
+    public static final String ACT_TEST_NAME="ACT";
+    public static final String SAT_TEST_NAME="SAT";
+    public static final String ACT_OR_SAT_TEST_NAME="ACT / SAT";
+
     public static void populatePostSecondaryReadinessRatingsModel(School school,boolean showStateRating, Map<String,Object> dataMap,ModelMap model) {
 
         if (dataMap.containsKey(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING) &&
@@ -486,27 +493,33 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             if (showStateRating) {
                 model.put(MODEL_STATE_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_STATE_POST_SECONDARY_READINESS_RATING));
             }
-
             //Add the Post Secondary Readiness breakdown data for ACT and SAT tests.
-            //School can have only ACT score or SAT score but not both.
+            //Sometimes states like DC give us scores for both SAT and ACT together as college readiness.Therefore take
+            //that into account as well.
             if (dataMap.containsKey(DATA_SCHOOL_ACT_SCORE) && dataMap.containsKey(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST)) {
-                String testName = "ACT";
                 model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_ACT_SCORE));
                 model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
-                        getPSRBreakdownPercentTestScoreLabel(school, testName));
+                        getPSRBreakdownPercentTestScoreLabel(ACT_TEST_NAME));
                 model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
                         dataMap.get(DATA_SCHOOL_ACT_PERCENT_TAKING_TEST));
                 model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
-                        getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_ACT_GRADE), school, testName));
+                        getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_ACT_GRADE), ACT_TEST_NAME));
             } else if (dataMap.containsKey(DATA_SCHOOL_SAT_SCORE) && dataMap.containsKey(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST)) {
-                String testName = "SAT";
                 model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_SAT_SCORE));
                 model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
-                        getPSRBreakdownPercentTestScoreLabel(school, testName));
+                        getPSRBreakdownPercentTestScoreLabel(SAT_TEST_NAME));
                 model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
                         dataMap.get(DATA_SCHOOL_SAT_PERCENT_TAKING_TEST));
                 model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
-                        getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_SAT_GRADE), school, testName));
+                        getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_SAT_GRADE), SAT_TEST_NAME));
+            } else if (dataMap.containsKey(DATA_SCHOOL_ACT_SAT_PARTICIPATION) && dataMap.containsKey(DATA_SCHOOL_ACT_SAT_COLLEGE_READY)) {
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_ACT_SAT_PARTICIPATION));
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
+                        getPSRBreakdownPercentTestScoreLabel(ACT_OR_SAT_TEST_NAME));
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
+                        dataMap.get(DATA_SCHOOL_ACT_SAT_COLLEGE_READY));
+                model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
+                        getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_ACT_SAT_GRADE), ACT_OR_SAT_TEST_NAME));
             }
         }
     }
@@ -525,11 +538,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return rval;
     }
 
-    protected static String getPSRBreakdownPercentTestedLabel(Grade grade, School school, String testName) {
+    protected static String getPSRBreakdownPercentTestedLabel(Grade grade, String testName) {
         String rval = "";
         String gradeText = getGradeText(grade);
-        if (StringUtils.isNotBlank(gradeText)) {
-            if (school.getDatabaseState().equals(State.DC)) {
+        if (StringUtils.isNotBlank(gradeText) && StringUtils.isNotBlank(testName)) {
+            if (testName.equals(ACT_OR_SAT_TEST_NAME)) {
                 rval = "Percent of " + gradeText + " taking SAT or ACT";
             } else {
                 rval = "Percent of " + gradeText + " taking " + testName;
@@ -538,9 +551,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return rval;
     }
 
-    protected static String getPSRBreakdownPercentTestScoreLabel(School school, String testName) {
+    protected static String getPSRBreakdownPercentTestScoreLabel(String testName) {
         String rval = "";
-        if (school.getDatabaseState().equals(State.DC)) {
+        if (StringUtils.isNotBlank(testName) && testName.equals(ACT_OR_SAT_TEST_NAME)) {
             rval = "Percent of test takers who are \"college ready\"";
         } else {
             rval = "Average Composite " + testName + " score";
