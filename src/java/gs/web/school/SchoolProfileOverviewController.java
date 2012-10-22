@@ -1241,8 +1241,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
     }
 
     protected boolean showPerformanceManagementRating(State state) {
-//        return state.equals(State.DC) ? true : false;
-        return true;
+        return state.equals(State.DC) ? true : false;
     }
 
 
