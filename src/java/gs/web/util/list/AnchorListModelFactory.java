@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005-2006 GreatSchools.org. All Rights Reserved.
- * $Id: AnchorListModelFactory.java,v 1.30 2012/10/22 20:48:48 yfan Exp $
+ * $Id: AnchorListModelFactory.java,v 1.31 2012/10/22 20:59:14 yfan Exp $
  */
 
 package gs.web.util.list;
@@ -159,6 +159,7 @@ public class AnchorListModelFactory {
         if (sc > 0) {
             schoolTypes.clear();
             schoolTypes.add(SchoolType.PUBLIC);
+            schoolTypes.add(SchoolType.CHARTER);
             UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityName, schoolTypes, null);
             String href = urlBuilder.asSiteRelative(request);
             final Anchor anchor = new Anchor(href, "Public Schools");
