@@ -285,7 +285,7 @@
                 <div class="hd">
                     <h4 class="pvm plm bottom">Climate ratings</h4>
                 </div>
-                <div class="bd pam">
+                <div class="bd pam" style="min-height: 80px;">
 
 
                     <!--<div class="line">-->
@@ -321,7 +321,7 @@
                             <c:set var="widthForClimateHeaderContent" value="size70of100" />
                         </c:if>
                     </c:if>
-                    <div class="${widthForClimateHeaderContent}" style='display: inline-block;'>
+                    <div class="${widthForClimateHeaderContent} unit">
                         <p class="small bottom">
                             ${section4Copy}
                         </p>
