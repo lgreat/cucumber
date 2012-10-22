@@ -73,6 +73,16 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     "(for elementary and middle schools) and their readiness for college (for high schools). " +
                     "Unfortunately, this school doesn't have sufficient data to generate an academic rating.";
 
+    public static final String SECTION_3_COPY_DC =
+            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
+                    "and their readiness for college (for high schools). " +
+                    "The graphs below compare this school's results in each area to other schools in the city and state. "+
+                    "Growth and college readiness ratings are coming soon, pending publication of 2012 data.";
+    public static final String SECTION_3_COPY_DATA_UNAVAILABLE_DC =
+            "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
+                    "and their readiness for college (for high schools). " +
+                    "Unfortunately, this school doesn't have sufficient data to generate an academic rating.";
+
     public static final String TEST_SCORE_RATING_SOURCE_DC =
             "Test scores are based on <a href=\"/students/local-facts-resources/453-testing-in-DC.gs\">2011 DC-CAS</a> results" +
                     " from the District of Columbia.";
@@ -400,7 +410,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static void populateSection3Model(School school, Map<String,Object> dataMap,ModelMap model) {
 
         // SECTION 3 COPY
-        model.put(MODEL_SECTION_3_COPY, getSection3Copy(dataMap));
+        model.put(MODEL_SECTION_3_COPY, getSection3Copy(dataMap,school));
 
         // SECTION 3 CHARTS
 
@@ -606,12 +616,24 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    public static String getSection3Copy(Map<String,Object> dataMap) {
+    public static String getSection3Copy(Map<String, Object> dataMap, School school) {
+        String copy = "";
         if (dataMap.containsKey(DATA_OVERALL_ACADEMIC_RATING)) {
-            return SECTION_3_COPY;
+
+            if (school.getDatabaseState().equals(State.DC)) {
+                copy = SECTION_3_COPY_DC;
+            } else {
+                copy = SECTION_3_COPY;
+            }
+
         } else {
-            return SECTION_3_COPY_DATA_UNAVAILABLE;
+            if (school.getDatabaseState().equals(State.DC)) {
+                copy = SECTION_3_COPY_DATA_UNAVAILABLE_DC;
+            } else {
+                copy = SECTION_3_COPY_DATA_UNAVAILABLE;
+            }
         }
+        return copy;
     }
 
     // ===================== Section 4 ==============================
