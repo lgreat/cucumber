@@ -422,19 +422,20 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
     public void testGetSection3Copy() {
         String copy;
-
+        School school = new School();
+        school.setDatabaseState(State.WI);
         // Milwaukee, no climate rating - data unavailable copy
 
         // temporarily remove rating for this test
         Object overallAcademicRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING);
 
-        copy = _controller.getSection3Copy( _dataMap);
+        copy = _controller.getSection3Copy( _dataMap,school);
         assertEquals(SchoolProfileRatingsController.SECTION_3_COPY_DATA_UNAVAILABLE, copy);
 
         // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_OVERALL_ACADEMIC_RATING, overallAcademicRatingOrigValue);
 
-        copy = _controller.getSection3Copy(_dataMap);
+        copy = _controller.getSection3Copy(_dataMap,school);
         assertEquals(SchoolProfileRatingsController.SECTION_3_COPY, copy);
     }
 
