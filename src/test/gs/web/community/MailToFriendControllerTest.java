@@ -97,6 +97,25 @@ public class MailToFriendControllerTest extends BaseControllerTestCase {
         assertTrue(command.getSubject().indexOf(SCHOOL_TEST_NAME) > -1);
     }
 
+    public void testSchoolIdNoStateRegression() {
+        MailToFriendCommand command = new MailToFriendCommand();
+        BindException errors = new BindException(command, "");
+
+        getSessionContext().setState(null);
+        command.setSchoolId(1);
+        replay(_schoolDao);
+        try {
+            _controller.onBindOnNewForm(getRequest(), command, errors);
+        } catch (Exception e) {
+            fail("Unexpected exception when state is not set on session context");
+        }
+        verify(_schoolDao);
+
+        assertFalse(command.getMessage().contains(SCHOOL_TEST_NAME));
+        //link to school profile page is part of the message
+        assertFalse(command.getSubject().contains(SCHOOL_TEST_NAME));
+    }
+
     public void testArticleId() {
         MailToFriendCommand command = new MailToFriendCommand();
         BindException errors = new BindException(command, "");

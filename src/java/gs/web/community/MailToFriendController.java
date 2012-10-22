@@ -56,31 +56,33 @@ public class MailToFriendController extends SimpleFormController {
 
         if (0 != mtc.getSchoolId()) {
             State state = session.getState();
-            School school = getSchoolDao().getSchoolById(state, mtc.getSchoolId());
+            if (state != null) {
+                School school = getSchoolDao().getSchoolById(state, mtc.getSchoolId());
 
-            if (null != school && school.isActive()) {
-                mtc.setSubject("Check out this info about " + school.getName());
-                StringBuffer msgBuffer = new StringBuffer();
+                if (null != school && school.isActive()) {
+                    mtc.setSubject("Check out this info about " + school.getName());
+                    StringBuffer msgBuffer = new StringBuffer();
 
-                msgBuffer.append("Check out what I found about my school -");
+                    msgBuffer.append("Check out what I found about my school -");
 
-                if (!school.getType().getSchoolTypeName().equals("private")) {
-                    msgBuffer.append("test scores, ");
+                    if (!school.getType().getSchoolTypeName().equals("private")) {
+                        msgBuffer.append("test scores, ");
+                    }
+                    msgBuffer.append("demographics, parent reviews and more.")
+                            .append("\n\n")
+                            .append("I think you'll find this helpful too! Click on this link to ")
+                            .append(school.getName())
+                            .append(".\n\n");
+
+                    UrlBuilder urlBuilder;
+                    if (mtc.getRefer().equals("authorizer")) {
+                        urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_AUTHORIZER);
+                    } else {
+                        urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
+                    }
+                    msgBuffer.append(urlBuilder.asFullUrl(request));
+                    mtc.setMessage(msgBuffer.toString());
                 }
-                msgBuffer.append("demographics, parent reviews and more.")
-                        .append("\n\n")
-                        .append("I think you'll find this helpful too! Click on this link to ")
-                        .append(school.getName())
-                        .append(".\n\n");
-
-                UrlBuilder urlBuilder;
-                if (mtc.getRefer().equals("authorizer")) {
-                    urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_AUTHORIZER);
-                } else {
-                    urlBuilder = new UrlBuilder(school, UrlBuilder.SCHOOL_PROFILE);
-                }
-                msgBuffer.append(urlBuilder.asFullUrl(request));
-                mtc.setMessage(msgBuffer.toString());
             }
         } else if (0 != mtc.getArticleId()) {
             Article article = getArticleDao().getArticleFromId(mtc.getArticleId());
