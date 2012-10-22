@@ -774,16 +774,16 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         // QueryString Search Specific:  Put rel canonical value into the model
         UrlBuilder relCanonical = null;
         if (isNearbySearchByLocation) {
-            // TODO-13231
             if (commandAndFields.getState() != null && commandAndFields.getCity() != null) {
                 relCanonical = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
                         commandAndFields.getState(),
                         commandAndFields.getCity().getName(),
                         SchoolType.getSetContainingOnlyLowestSchoolType(commandAndFields.getSchoolTypes()),
                         LevelCode.createLevelCode(commandAndFields.getGradeLevels()).getLowestNonPreSchoolLevelCode());
+            } else if (commandAndFields.getState() != null) {
+                relCanonical = new UrlBuilder(UrlBuilder.RESEARCH, commandAndFields.getState());
             }
         } else {
-            // TODO-13231 - does this still work or does it need refactoring?
             relCanonical = _queryStringSearchHelper.getRelCanonical(commandAndFields.getSearchString() == null ?
                     commandAndFields.getSchoolSearchCommand().getLocationSearchString() : commandAndFields.getSearchString(), commandAndFields.getState(),
                     SchoolType.getSetContainingOnlyLowestSchoolType(commandAndFields.getSchoolTypes()),

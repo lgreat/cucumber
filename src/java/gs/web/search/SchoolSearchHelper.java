@@ -171,8 +171,6 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
             // search string that matches city, e.g. q=alameda&state=CA
             if (citySearchResults != null) {
                 for (ICitySearchResult cityResult : citySearchResults) {
-                    // TODO-13231 - support by-name search, by-location search, header search - and include gradeLevels= and school type, if applicable
-                    // TODO-13231 - i don't think it takes level code, school type into account
                     try {
                         if (StringUtils.equalsIgnoreCase(searchString, cityResult.getCity())
                                 && StringUtils.equalsIgnoreCase(state.getAbbreviation(), cityResult.getState().toString())) {
