@@ -2001,7 +2001,7 @@
           class="gs.web.util.RedirectController"
           autowire="byName" lazy-init="true"/>
 
-    <!--<bean name="/school/rating.page"
+    <bean name="/school/rating.page"
           class="gs.web.test.rating.RatingsController"
           autowire="byName" lazy-init="true">
         <property name="commandName" value="ratingsCmd"/>
@@ -2013,9 +2013,10 @@
                 <ref bean="schoolIdValidator"/>
             </list>
         </property>
-    </bean>-->
+    </bean>
 
-    <bean name="ratingsController" class="gs.web.test.rating.RatingsController" autowire="byName" lazy-init="true">
+    <!-- ratingsController and new /school/rating.page beans are for GS-13344 -->
+    <!--<bean name="ratingsController" class="gs.web.test.rating.RatingsController" autowire="byName" lazy-init="true">
         <property name="commandName" value="ratingsCmd"/>
         <property name="commandClass" value="gs.web.test.rating.RatingsCommand"/>
         <property name="viewName" value="test/ratings"/>
@@ -2026,9 +2027,9 @@
                 <ref bean="schoolIdValidator"/>
             </list>
         </property>
-    </bean>
+    </bean>-->
     <!-- handles ratings page for old profile schools, mobile version of new profile schools -->
-    <bean name="/school/rating.page" class="org.springframework.stereotype.Controller" factory-bean="mobileFruitcakeControllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
+    <!--<bean name="/school/rating.page" class="org.springframework.stereotype.Controller" factory-bean="mobileFruitcakeControllerFamilyFactory" factory-method="getController" lazy-init="true" scope="request">
         <constructor-arg>
             <list>
                 <ref bean="ratingsController"/>
@@ -2037,7 +2038,7 @@
                 </bean>
             </list>
         </constructor-arg>
-    </bean>
+    </bean>-->
 
 
     <bean name="/school/rating2.page"

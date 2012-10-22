@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: RatingsControllerTest.java,v 1.9 2012/10/12 01:53:45 ssprouse Exp $
+ * $Id: RatingsControllerTest.java,v 1.10 2012/10/22 23:05:15 ssprouse Exp $
  */
 package gs.web.test.rating;
 
@@ -43,7 +43,7 @@ public class RatingsControllerTest extends BaseControllerTestCase {
 
         _state = State.CA;
         _schoolId = Integer.valueOf("1");
-        _controller = (RatingsController) getApplicationContext().getBean("ratingsController");
+        _controller = (RatingsController) getApplicationContext().getBean("/school/rating.page");
 
         MockControl schoolResultControl = MockControl.createControl(ISchoolDao.class);
         ISchoolDao mockSchoolDao = (ISchoolDao) schoolResultControl.getMock();
