@@ -1,5 +1,6 @@
 package gs.web.search;
 
+import gs.data.school.LevelCode;
 import gs.data.school.SchoolType;
 import gs.data.search.*;
 import gs.data.search.beans.CitySearchResult;
@@ -159,11 +160,11 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
     //-------------------------------------------------------------------------
     // rel canonical
     //-------------------------------------------------------------------------
-    protected String getRelCanonical(HttpServletRequest request, String searchString, State state, List<ICitySearchResult> citySearchResults) {
-        if (request == null || state == null) {
+    protected UrlBuilder getRelCanonical(String searchString, State state, Set<SchoolType> schoolTypes, LevelCode levelCode, List<ICitySearchResult> citySearchResults) {
+        if (state == null) {
             return null;
         }
-        String url = null;
+        UrlBuilder urlBuilder = null;
 
         if (StringUtils.isNotBlank(searchString) && state != null) {
             // GS-10036 - search pages
@@ -175,8 +176,11 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
                     try {
                         if (StringUtils.equalsIgnoreCase(searchString, cityResult.getCity())
                                 && StringUtils.equalsIgnoreCase(state.getAbbreviation(), cityResult.getState().toString())) {
-                            UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY, state, cityResult.getCity(), new HashSet<SchoolType>(), null);
-                            url = urlBuilder.asFullUrl(request);
+                            urlBuilder = new UrlBuilder(UrlBuilder.SCHOOLS_IN_CITY,
+                                    state,
+                                    cityResult.getCity(),
+                                    schoolTypes,
+                                    levelCode);
                         }
                     } catch (Exception e) {
                         _log.warn("Error determining city URL for canonical: " + e, e);
@@ -184,16 +188,15 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
                 }
             }
             // if no valid city is discernible, the result should be canonicalized to the appropriate state home page
-            if (url == null) {
+            if (urlBuilder == null) {
                 try {
-                    UrlBuilder urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state);
-                    url = urlBuilder.asFullUrl(request);
+                    urlBuilder = new UrlBuilder(UrlBuilder.RESEARCH, state);
                 } catch (Exception e) {
                     _log.warn("Error determining state URL for canonical: " + e, e);
                 }
             }
         }
-        return url;
+        return urlBuilder;
     }
 
     protected Map<String,Object> getMetaData(SchoolSearchCommandWithFields commandAndFields, HttpServletRequest request) {

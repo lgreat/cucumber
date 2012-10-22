@@ -772,7 +772,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
 
         // QueryString Search Specific:  Put rel canonical value into the model
-        String relCanonical = null;
+        UrlBuilder relCanonical = null;
         if (isNearbySearchByLocation) {
             // TODO-13231
             if (commandAndFields.getState() != null && commandAndFields.getCity() != null) {
@@ -780,15 +780,18 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
                         commandAndFields.getState(),
                         commandAndFields.getCity().getName(),
                         SchoolType.getSetContainingOnlyLowestSchoolType(commandAndFields.getSchoolTypes()),
-                        LevelCode.createLevelCode(commandAndFields.getGradeLevels()).getLowestNonPreSchoolLevelCode()).asFullUrlXml(request);
+                        LevelCode.createLevelCode(commandAndFields.getGradeLevels()).getLowestNonPreSchoolLevelCode());
             }
         } else {
             // TODO-13231 - does this still work or does it need refactoring?
-            relCanonical = _queryStringSearchHelper.getRelCanonical(request, commandAndFields.getSearchString() == null ?
-                    commandAndFields.getSchoolSearchCommand().getLocationSearchString() : commandAndFields.getSearchString(), commandAndFields.getState(), citySearchResults);
+            relCanonical = _queryStringSearchHelper.getRelCanonical(commandAndFields.getSearchString() == null ?
+                    commandAndFields.getSchoolSearchCommand().getLocationSearchString() : commandAndFields.getSearchString(), commandAndFields.getState(),
+                    SchoolType.getSetContainingOnlyLowestSchoolType(commandAndFields.getSchoolTypes()),
+                    LevelCode.createLevelCode(commandAndFields.getGradeLevels()).getLowestNonPreSchoolLevelCode(),
+                    citySearchResults);
         }
         if (relCanonical != null) {
-            model.put(MODEL_REL_CANONICAL, relCanonical);
+            model.put(MODEL_REL_CANONICAL, relCanonical.asFullUrlXml(request));
         }
 
 
