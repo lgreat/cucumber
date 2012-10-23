@@ -77,8 +77,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String SECTION_3_COPY_DC =
             "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
                     "and their readiness for college (for high schools). " +
-                    "The graphs below compare this school's results in each area to other schools in the city and state. "+
-                    "Growth and college readiness ratings are coming soon, pending publication of 2012 data.";
+                    "The graphs below compare this school's results in each area to other schools in the city and state. ";
     public static final String SECTION_3_COPY_DATA_UNAVAILABLE_DC =
             "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
                     "and their readiness for college (for high schools). " +
