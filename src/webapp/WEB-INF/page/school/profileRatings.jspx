@@ -221,10 +221,9 @@
                                         <h5 class="bottom">This school</h5>
                                         <c:forEach var="entry" items="${schoolStudentGrowthRatingBreakdown}">
                                             <c:out value="${entry.key}"/><br/>
-                                            <c:set var="growthRatingContent"><c:if test="${entry.value eq 'below average'}">Below average</c:if><c:if test="${entry.value eq 'average'}">Average</c:if><c:if test="${entry.value eq 'above average'}">Above average</c:if></c:set>
-                                            <c:set var="growthRatingColor"><c:if test="${entry.value eq 'below average'}">ratingsRedText</c:if><c:if test="${entry.value eq 'average'}">ratingsYellowText</c:if><c:if test="${entry.value eq 'above average'}">ratingsGreenText</c:if></c:set>
+                                            <c:set var="growthRatingColor"><c:if test="${entry.value eq 'Below average'}">ratingsRedText</c:if><c:if test="${entry.value eq 'Average'}">ratingsYellowText</c:if><c:if test="${entry.value eq 'Above average'}">ratingsGreenText</c:if></c:set>
 
-                                            <h5 class="bottom"><em class="${growthRatingColor}"><c:out value="${growthRatingContent}"/></em></h5>
+                                            <h5 class="bottom"><em class="${growthRatingColor}"><c:out value="${entry.value}"/></em></h5>
                                         </c:forEach>
                                     </div>
                                 </div>
