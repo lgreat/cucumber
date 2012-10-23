@@ -244,8 +244,8 @@ jQuery(document).ready(function() {
           }
         }).mouseout(function () {
           //Add a higher z-index value so this image stays on top
-          obj.css({'z-index' : '1'});
-          popup.css({'z-index' : '1'});
+//          obj.css({'z-index' : '1'});
+//          popup.css({'z-index' : '1'});
           // reset the timer if we get fired again - avoids double animations
           if (hideDelayTimer) clearTimeout(hideDelayTimer);
 
