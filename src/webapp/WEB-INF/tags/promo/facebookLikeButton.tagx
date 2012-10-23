@@ -89,7 +89,7 @@
     </c:choose>
     <![CDATA[
     <fb:like href="${pageUrlOnFacebook}" layout="button_count" show_faces="false" width="90" action="like" colorscheme="light"
-        style='z-index:1001;' font="arial"></fb:like>
+        font="arial"></fb:like>
     ]]>
 </jsp:root>
 
