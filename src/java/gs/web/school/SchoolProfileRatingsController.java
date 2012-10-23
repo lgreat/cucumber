@@ -112,9 +112,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "This rating is based on the percent of 12th graders in ";
     public static final String POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_2 =
             " that took the SAT or ACT, and the percent of those test-takers that reached a \"college ready\" benchmark " +
-                    "as determined by SAT or ACT. average SAT score for 12th graders from the ";
-    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_3 =
-            " school year. Data is provided by the Office of the State Superintendent of Education.";
+                    "as determined by SAT or ACT. Data is provided by the Office of the State Superintendent of Education.";
     public static final String POST_SECONDARY_READINESS_RATING_SOURCE_IN_PART_1 =
             "This rating is based on the average SAT scores of students that graduated in ";
     public static final String POST_SECONDARY_READINESS_RATING_SOURCE_IN_PART_2 =
@@ -123,7 +121,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "This rating is based on composite ACT scores for all 12th graders in ";
     public static final String POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_2 =
             ". This rating takes into account how many students took the ACT, giving more credit to schools with a higher" +
-                    " percentage of graduates taking the ACT exam. The ACT data is provided by Milwaukee Public Schools";
+                    " percentage of graduates taking the ACT exam. The ACT data is provided by Milwaukee Public Schools.";
 
 
     public static final String SECTION_4_COPY_DC =
@@ -622,8 +620,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     public static String getPostSecondaryReadinessRatingSource(School school, Integer year) {
         if (State.DC.equals(school.getDatabaseState())) {
-            return POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_1 + year + POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_2 +
-                    year + POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_3;
+            return POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_1 + year + POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_2;
         } else if (State.IN.equals(school.getDatabaseState())) {
             return POST_SECONDARY_READINESS_RATING_SOURCE_IN_PART_1 + year +POST_SECONDARY_READINESS_RATING_SOURCE_IN_PART_2;
         } else if (State.WI.equals(school.getDatabaseState())) {

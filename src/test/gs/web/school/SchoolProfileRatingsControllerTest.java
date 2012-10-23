@@ -602,9 +602,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         // DC
         source = SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_1 +
                 _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR) +
-                SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_2 +
-                _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR) +
-                SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_3;
+                SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_2;
         s.setDatabaseState(State.DC);
         copy = _controller.getPostSecondaryReadinessRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR));
         assertEquals(source, copy);
