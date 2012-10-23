@@ -183,7 +183,7 @@ jQuery(document).ready(function() {
         // set the mouseover and mouseout on both element
         $([trigger.get(0), popup.get(0)]).mouseover(function () {
           //Add a higher z-index value so this image stays on top
-          obj.css({'z-index' : '1000'});
+          //obj.css({'z-index' : '1000'});
           popup.css({'z-index' : '501'});
           // get the location of the popup and set its horizonal and vertical directions
           switch (true) {
