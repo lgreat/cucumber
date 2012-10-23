@@ -267,9 +267,13 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
 
         // Sort ethnicities based on school / state value
-        // TODO: move to its own method
         Long ethnicityTableGroupId = 6l;
-        List<SchoolProfileStatsDisplayRow> statsRows = statsRowMap.get(ethnicityTableGroupId);
+        sortEthnicityValues(statsRowMap.get(ethnicityTableGroupId));
+
+        return statsRowMap;
+    }
+
+    protected void sortEthnicityValues(List<SchoolProfileStatsDisplayRow> statsRows) {
         if (statsRows != null && statsRows.size() > 1) {
             Collections.sort(statsRows, new Comparator<SchoolProfileStatsDisplayRow>() {
                 public int compare(SchoolProfileStatsDisplayRow statsRow1, SchoolProfileStatsDisplayRow statsRow2) {
@@ -284,17 +288,13 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
                 }
             });
         }
-
-
-
-        return statsRowMap;
     }
 
-    private boolean censusValueNotEmpty(String value) {
+    protected boolean censusValueNotEmpty(String value) {
         return !StringUtils.isEmpty(value) && !"N/A".equalsIgnoreCase(value);
     }
 
-    private String formatValueAsString(Float value, CensusDataType.ValueType valueType) {
+    protected String formatValueAsString(Float value, CensusDataType.ValueType valueType) {
         String result;
         if (CensusDataType.ValueType.PERCENT.equals(valueType)) {
             result = String.valueOf(Math.round(value)) + "%";
@@ -307,14 +307,14 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
         return result;
     }
 
-    private Float formatValueAsFloat(String value) {
+    protected Float formatValueAsFloat(String value) {
         Float result = 0f;
 
         if (StringUtils.isBlank(value)) {
             return result;
         }
 
-        value = value.replaceAll("[^0-9.]", "");
+        value = value.replaceAll("[^0-9.\\-]", "");
 
         try {
             result = new Float(value);
@@ -349,5 +349,33 @@ public class SchoolProfileStatsController extends AbstractSchoolProfileControlle
 
     public void setCensusDataSetDao(ICensusDataSetDao censusDataSetDao) {
         _censusDataSetDao = censusDataSetDao;
+    }
+
+    public void setCensusStateConfigDao(ICensusDataConfigEntryDao censusStateConfigDao) {
+        _censusStateConfigDao = censusStateConfigDao;
+    }
+
+    public void setCensusDataSchoolValueDao(ICensusDataSchoolValueDao censusDataSchoolValueDao) {
+        _censusDataSchoolValueDao = censusDataSchoolValueDao;
+    }
+
+    public void setCensusDataDistrictValueDao(ICensusDataDistrictValueDao censusDataDistrictValueDao) {
+        _censusDataDistrictValueDao = censusDataDistrictValueDao;
+    }
+
+    public void setCensusDataStateValueDao(ICensusDataStateValueDao censusDataStateValueDao) {
+        _censusDataStateValueDao = censusDataStateValueDao;
+    }
+
+    public void setSchoolProfileDataHelper(SchoolProfileDataHelper schoolProfileDataHelper) {
+        _schoolProfileDataHelper = schoolProfileDataHelper;
+    }
+
+    public void setSchoolProfileCensusHelper(SchoolProfileCensusHelper schoolProfileCensusHelper) {
+        _schoolProfileCensusHelper = schoolProfileCensusHelper;
+    }
+
+    public void setCensusCacheDao(ICensusCacheDao censusCacheDao) {
+        _censusCacheDao = censusCacheDao;
     }
 }
