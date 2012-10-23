@@ -41,7 +41,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     @Autowired
     private SchoolProfileDataHelper _schoolProfileDataHelper;
 
-    // ===================== COPY ===================================
+    //===================== COPY ===================================
 
     public static final String CLIMATE_RATING_AVAILABILITY_TEXT_DC =
             "Coming 2013";
@@ -66,8 +66,9 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String SECTION_3_COPY =
             "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
                     "(for elementary and middle schools) and their readiness for college (for high schools). " +
-                    "The graphs below compare this school's results in each area to other schools in the city and state. "+
-                    "Growth and college readiness ratings are coming soon, pending publication of 2012 data.";
+                    "The graphs below compare this school's results in each area to other schools in the city and state.";
+    public static final String SECTION_3_COPY_IN =
+            SECTION_3_COPY + " Growth and college readiness ratings are coming soon, pending publication of 2012 data.";
     public static final String SECTION_3_COPY_DATA_UNAVAILABLE =
             "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
                     "(for elementary and middle schools) and their readiness for college (for high schools). " +
@@ -82,37 +83,49 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "The academic rating is made up of equally-weighted parts: students' test scores, their academic growth " +
                     "and their readiness for college (for high schools). " +
                     "Unfortunately, this school doesn't have sufficient data to generate an academic rating.";
+    public static final String TEST_SCORE_RATING_SOURCE_DC_PART_1 =
+            "Test scores are based on <a href=\"/students/local-facts-resources/453-testing-in-DC.gs\">";
+    public static final String TEST_SCORE_RATING_SOURCE_DC_PART_2 = " DC-CAS</a> results from the District of Columbia.";
+    public static final String TEST_SCORE_RATING_SOURCE_IN_PART_1 =
+            "Test scores are based on <a href=\"/students/local-facts-resources/442-testing-in-IN.gs\">";
+    public static final String TEST_SCORE_RATING_SOURCE_IN_PART_2 = " ISTEP and ECA</a> results from the state of Indiana.";
+    public static final String TEST_SCORE_RATING_SOURCE_WI_PART_1 =
+            "Test scores are based on the <a href=\"/students/local-facts-resources/445-testing-in-WI.gs\">";
+    public static final String TEST_SCORE_RATING_SOURCE_WI_PART_2 = " WSAS</a> results from the state of Wisconsin.";
 
-    public static final String TEST_SCORE_RATING_SOURCE_DC =
-            "Test scores are based on <a href=\"/students/local-facts-resources/453-testing-in-DC.gs\">2011 DC-CAS</a> results" +
-                    " from the District of Columbia.";
-    public static final String TEST_SCORE_RATING_SOURCE_IN =
-            "Test scores are based on <a href=\"/students/local-facts-resources/442-testing-in-IN.gs\">2011 ISTEP and ECA</a> results" +
-                    " from the state of Indiana.";
-    public static final String TEST_SCORE_RATING_SOURCE_WI =
-            "Test scores are based on the <a href=\"/students/local-facts-resources/445-testing-in-WI.gs\">2011 WSAS</a> results" +
-                    " from the state of Wisconsin.";
+    public static final String STUDENT_GROWTH_RATING_SOURCE_DC_PART_1 =
+            "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
+                    "  The data is for the ";
+    public static final String STUDENT_GROWTH_RATING_SOURCE_DC_PART_2 =
+            " school year and is provided by the Office of the State Superintendent of Education.";
+    public static final String STUDENT_GROWTH_RATING_SOURCE_IN_PART_1 =
+            "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
+                    " Data is from the ";
+    public static final String STUDENT_GROWTH_RATING_SOURCE_IN_PART_2 =
+            " school year and is provided by the Indiana Department of Education.";
+    public static final String STUDENT_GROWTH_RATING_SOURCE_WI_PART_1 =
+            "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
+                    " This data is from ";
+    public static final String STUDENT_GROWTH_RATING_SOURCE_WI_PART_2 =
+            " and is provided by the Value-Added Research Center and Milwaukee Public Schools.";
 
-    public static final String STUDENT_GROWTH_RATING_SOURCE_DC =
-            "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
-                    "  The data is for the 2011-12 school year and is provided by the Office of the State Superintendent of Education.";
-    public static final String STUDENT_GROWTH_RATING_SOURCE_IN =
-            "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
-                    " Data is from the 2011-12 school year and is provided by the Indiana Department of Education.";
-    public static final String STUDENT_GROWTH_RATING_SOURCE_WI =
-            "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
-                    " This data is from 2011 and is provided by the Value-Added Research Center and Milwaukee Public Schools.";
+    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_1 =
+            "This rating is based on the percent of 12th graders in ";
+    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_2 =
+            " that took the SAT or ACT, and the percent of those test-takers that reached a \"college ready\" benchmark " +
+                    "as determined by SAT or ACT. average SAT score for 12th graders from the ";
+    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_3 =
+            " school year. Data is provided by the Office of the State Superintendent of Education.";
+    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_IN_PART_1 =
+            "This rating is based on the average SAT scores of students that graduated in ";
+    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_IN_PART_2 =
+            ". ACT scores were used if more students took that test. Data is provided by the Indiana Department of Education.";
+    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_1 =
+            "This rating is based on composite ACT scores for all 12th graders in ";
+    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_2 =
+            ". This rating takes into account how many students took the ACT, giving more credit to schools with a higher" +
+                    " percentage of graduates taking the ACT exam. The ACT data is provided by Milwaukee Public Schools";
 
-    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_DC =
-            "This rating is based on the average SAT score for 12th graders from the 2011-12 school year." +
-                    "  Data is provided by the Office of the State Superintendent of Education";
-    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_IN =
-            "This rating is based on the average SAT scores of students that graduated in 2012. " +
-                    "ACT scores were used if more students took that test. Data is provided by the Indiana Department of Education.";
-    public static final String POST_SECONDARY_READINESS_RATING_SOURCE_WI =
-            "This rating is based on composite ACT scores for all 12th graders in 2011-12. This rating takes into account" +
-                    " how many students took the ACT, giving more credit to schools with a higher percentage of graduates" +
-                    " taking the ACT exam. The ACT data is provided by Milwaukee Public Schools";
 
     public static final String SECTION_4_COPY_DC =
             "Starting in fall 2013, we plan to release a climate rating as part of this school's overall GreatSchools Rating." +
@@ -128,8 +141,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
                     "involvement. This school's climate ratings are the result of GreatSchools' analysis of teacher " +
                     "survey data from the Spring 2011 School Climate Survey developed by Milwaukee Public Schools.";
     public static final String SECTION_4_COPY_DATA_UNAVAILABLE =
-           // "Unfortunately, this school didn't provide enough survey responses to generate a climate rating.";
-             "Climate rating coming soon.";
+           "Unfortunately, this school didn't provide enough survey responses to generate a climate rating.";
     public static final String SECTION_4_SCHOOL_ENVIRONMENT_COPY="This rating evaluates a school's " +
             "environment, based on its safety, order, cleanliness and more.  More highly rated schools have well-kept facilities " +
             "and a safe environment conducive to learning. Schools rated poorly may have a chaotic environment, conflicts among " +
@@ -261,7 +273,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
     public static final String DATA_FAMILY_ENGAGEMENT_RATING = "familyEngagementRating"; // TestDataType.id = 169
 
 
-    // ===================== REQUEST HANDLERS =======================
+    //===================== REQUEST HANDLERS =======================
 
     @RequestMapping(method=RequestMethod.GET)
     public String showRatingsPage(ModelMap modelMap,
@@ -291,7 +303,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return VIEW;
     }
 
-    // ===================== Data ===================================
+    //===================== Data ===================================
 
     public Map<String,Object> getData(School school,HttpServletRequest request) {
 
@@ -334,7 +346,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     }
 
-    // ===================== Section 1 ==============================
+    //===================== Section 1 ==============================
     public static void populateSection1Model(School school, Map<String,Object> dataMap ,ModelMap model) {
 
         // OVERALL RATING
@@ -399,18 +411,23 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    // ===================== SECTIONS -==============================
+    //===================== SECTIONS -==============================
 
-    // ===================== Section 2 ==============================
+    //===================== Section 2 ==============================
 
     // no code needed here
 
-    // ===================== Section 3 ==============================
+    //===================== Section 3 ==============================
 
     public static void populateSection3Model(School school, Map<String,Object> dataMap,ModelMap model) {
 
         // SECTION 3 COPY
-        model.put(MODEL_SECTION_3_COPY, getSection3Copy(dataMap,school));
+        if("IN".equals(school.getDatabaseState().getAbbreviation())) {
+            model.put(MODEL_SECTION_3_COPY, getSection3CopyIN(dataMap));
+        }
+        else {
+            model.put(MODEL_SECTION_3_COPY, getSection3Copy(dataMap,school));
+        }
 
         // SECTION 3 CHARTS
 
@@ -434,11 +451,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
         // SECTION 3 SOURCES
 
-        model.put(MODEL_TEST_SCORE_RATING_SOURCE, getTestScoreRatingSource(school));
+        model.put(MODEL_TEST_SCORE_RATING_SOURCE, getTestScoreRatingSource(school, (Integer) dataMap.get(DATA_TEST_SCORE_RATING_YEAR)));
 
-        model.put(MODEL_STUDENT_GROWTH_RATING_SOURCE, getStudentGrowthRatingSource(school));
+        model.put(MODEL_STUDENT_GROWTH_RATING_SOURCE, getStudentGrowthRatingSource(school, (Integer) dataMap.get(DATA_STUDENT_GROWTH_RATING_YEAR)));
 
-        model.put(MODEL_POST_SECONDARY_READINESS_RATING_SOURCE, getPostSecondaryReadinessRatingSource(school));
+        model.put(MODEL_POST_SECONDARY_READINESS_RATING_SOURCE, getPostSecondaryReadinessRatingSource(school, (Integer) dataMap.get(DATA_POST_SECONDARY_READINESS_RATING_YEAR)));
 
     }
 
@@ -580,37 +597,38 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return rval;
     }
 
-    public static String getTestScoreRatingSource(School school) {
+    public static String getTestScoreRatingSource(School school, Integer year) {
         if (State.DC.equals(school.getDatabaseState())) {
-            return TEST_SCORE_RATING_SOURCE_DC;
+            return TEST_SCORE_RATING_SOURCE_DC_PART_1 + year + TEST_SCORE_RATING_SOURCE_DC_PART_2;
         } else if (State.IN.equals(school.getDatabaseState())) {
-            return TEST_SCORE_RATING_SOURCE_IN;
+            return TEST_SCORE_RATING_SOURCE_IN_PART_1 + year + TEST_SCORE_RATING_SOURCE_IN_PART_2;
         } else if (State.WI.equals(school.getDatabaseState())) {
-            return TEST_SCORE_RATING_SOURCE_WI;
+            return TEST_SCORE_RATING_SOURCE_WI_PART_1 + year + TEST_SCORE_RATING_SOURCE_WI_PART_2;
         } else {
             throw new IllegalArgumentException("School is from unsupported state");
         }
     }
 
-    public static String getStudentGrowthRatingSource(School school) {
+    public static String getStudentGrowthRatingSource(School school, Integer year) {
         if (State.DC.equals(school.getDatabaseState())) {
-            return STUDENT_GROWTH_RATING_SOURCE_DC;
+            return STUDENT_GROWTH_RATING_SOURCE_DC_PART_1 + year + STUDENT_GROWTH_RATING_SOURCE_DC_PART_2;
         } else if (State.IN.equals(school.getDatabaseState())) {
-            return STUDENT_GROWTH_RATING_SOURCE_IN;
+            return STUDENT_GROWTH_RATING_SOURCE_IN_PART_1 + year + STUDENT_GROWTH_RATING_SOURCE_IN_PART_2;
         } else if (State.WI.equals(school.getDatabaseState())) {
-            return STUDENT_GROWTH_RATING_SOURCE_WI;
+            return STUDENT_GROWTH_RATING_SOURCE_WI_PART_1 + year + STUDENT_GROWTH_RATING_SOURCE_WI_PART_2;
         } else {
             throw new IllegalArgumentException("School is from unsupported state");
         }
     }
 
-    public static String getPostSecondaryReadinessRatingSource(School school) {
+    public static String getPostSecondaryReadinessRatingSource(School school, Integer year) {
         if (State.DC.equals(school.getDatabaseState())) {
-            return POST_SECONDARY_READINESS_RATING_SOURCE_DC;
+            return POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_1 + year + POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_2 +
+                    year + POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_3;
         } else if (State.IN.equals(school.getDatabaseState())) {
-            return POST_SECONDARY_READINESS_RATING_SOURCE_IN;
+            return POST_SECONDARY_READINESS_RATING_SOURCE_IN_PART_1 + year +POST_SECONDARY_READINESS_RATING_SOURCE_IN_PART_2;
         } else if (State.WI.equals(school.getDatabaseState())) {
-            return POST_SECONDARY_READINESS_RATING_SOURCE_WI;
+            return POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_1 + year + POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_2;
         } else {
             throw new IllegalArgumentException("School is from unsupported state");
         }
@@ -636,7 +654,15 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return copy;
     }
 
-    // ===================== Section 4 ==============================
+    public static String getSection3CopyIN(Map<String,Object> dataMap) {
+        if (dataMap.containsKey(DATA_OVERALL_ACADEMIC_RATING)) {
+            return SECTION_3_COPY_IN;
+        } else {
+            return SECTION_3_COPY_DATA_UNAVAILABLE;
+        }
+    }
+
+    //===================== Section 4 ==============================
 
     public static void populateSection4Model(School school, Map<String, Object> dataMap, ModelMap model) {
 
@@ -699,7 +725,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         return model;
     }
 
-    // ===================== UTILITY METHODS ========================
+    //===================== UTILITY METHODS ========================
 
     // TODO-13012 temporary: to be replaced with a more global helper/util method for new ratings
     public static String getLabelForAcademicRating(double rating) {
@@ -765,7 +791,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    // ===================== SETTERS FOR UNIT TESTS =================
+    //===================== SETTERS FOR UNIT TESTS =================
 
     public void setCityRating2Dao(ICityRating2Dao cityRating2Dao) {
         _cityRating2Dao = cityRating2Dao;

@@ -312,21 +312,26 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING), postSecondaryReadinessRating);
 
         // SECTION 3 SOURCES
-
+        String source = SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_WI_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR) +
+                SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_WI_PART_2;
         Object testScoreRatingSource =
                 model.get(SchoolProfileRatingsController.MODEL_TEST_SCORE_RATING_SOURCE);
-        assertEquals(SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_WI,
-                testScoreRatingSource);
+        assertEquals(source, testScoreRatingSource);
 
+        source = SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_WI_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR) +
+                SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_WI_PART_2;
         Object studentGrowthRatingSource =
                 model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_SOURCE);
-        assertEquals(SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_WI,
-                studentGrowthRatingSource);
+        assertEquals(source, studentGrowthRatingSource);
 
+        source = SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR) +
+                SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_2;
         Object postSecondaryReadinessSource =
                 model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_SOURCE);
-        assertEquals(SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_WI,
-                postSecondaryReadinessSource);
+        assertEquals(source, postSecondaryReadinessSource);
     }
 
     public void testGetTestScoreRatingsModel() {
@@ -505,25 +510,34 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         String copy;
 
         // Milwaukee
+        String source = SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_WI_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR) +
+                SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_WI_PART_2;
         s.setDatabaseState(State.WI);
-        copy = _controller.getTestScoreRatingSource(s);
-        assertEquals(SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_WI, copy);
+        copy = _controller.getTestScoreRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR));
+        assertEquals(source, copy);
 
         // DC
+        source = SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_DC_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR) +
+                SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_DC_PART_2;
         s.setDatabaseState(State.DC);
-        copy = _controller.getTestScoreRatingSource(s);
-        assertEquals(SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_DC, copy);
+        copy = _controller.getTestScoreRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR));
+        assertEquals(source, copy);
 
         // Indy
+        source = SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_IN_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR) +
+                SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_IN_PART_2;
         s.setDatabaseState(State.IN);
-        copy = _controller.getTestScoreRatingSource(s);
-        assertEquals(SchoolProfileRatingsController.TEST_SCORE_RATING_SOURCE_IN, copy);
+        copy = _controller.getTestScoreRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR));
+        assertEquals(source, copy);
 
         // unsupported state
         boolean threwException = false;
         s.setDatabaseState(State.AK);
         try {
-            copy = _controller.getTestScoreRatingSource(s);
+            copy = _controller.getTestScoreRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_TEST_SCORE_RATING_YEAR));
         } catch (Exception e) {
             threwException = true;
             assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
@@ -537,25 +551,34 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         String copy;
 
         // Milwaukee
+        String source = SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_WI_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR) +
+                SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_WI_PART_2;
         s.setDatabaseState(State.WI);
-        copy = _controller.getStudentGrowthRatingSource(s);
-        assertEquals(SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_WI, copy);
+        copy = _controller.getStudentGrowthRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR));
+        assertEquals(source, copy);
 
         // DC
+        source = SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_DC_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR) +
+                SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_DC_PART_2;
         s.setDatabaseState(State.DC);
-        copy = _controller.getStudentGrowthRatingSource(s);
-        assertEquals(SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_DC, copy);
+        copy = _controller.getStudentGrowthRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR));
+        assertEquals(source, copy);
 
         // Indy
+        source = SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_IN_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR) +
+                SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_IN_PART_2;
         s.setDatabaseState(State.IN);
-        copy = _controller.getStudentGrowthRatingSource(s);
-        assertEquals(SchoolProfileRatingsController.STUDENT_GROWTH_RATING_SOURCE_IN, copy);
+        copy = _controller.getStudentGrowthRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR));
+        assertEquals(source, copy);
 
         // unsupported state
         boolean threwException = false;
         s.setDatabaseState(State.AK);
         try {
-            copy = _controller.getStudentGrowthRatingSource(s);
+            copy = _controller.getStudentGrowthRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_STUDENT_GROWTH_RATING_YEAR));
         } catch (Exception e) {
             threwException = true;
             assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
@@ -569,25 +592,36 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         String copy;
 
         // Milwaukee
+        String source = SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR) +
+                SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_WI_PART_2;
         s.setDatabaseState(State.WI);
-        copy = _controller.getPostSecondaryReadinessRatingSource(s);
-        assertEquals(SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_WI, copy);
+        copy = _controller.getPostSecondaryReadinessRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR));
+        assertEquals(source, copy);
 
         // DC
+        source = SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR) +
+                SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_2 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR) +
+                SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_3;
         s.setDatabaseState(State.DC);
-        copy = _controller.getPostSecondaryReadinessRatingSource(s);
-        assertEquals(SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_DC, copy);
+        copy = _controller.getPostSecondaryReadinessRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR));
+        assertEquals(source, copy);
 
         // Indy
+        source = SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_IN_PART_1 +
+                _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR) +
+                SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_IN_PART_2;
         s.setDatabaseState(State.IN);
-        copy = _controller.getPostSecondaryReadinessRatingSource(s);
-        assertEquals(SchoolProfileRatingsController.POST_SECONDARY_READINESS_RATING_SOURCE_IN, copy);
+        copy = _controller.getPostSecondaryReadinessRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR));
+        assertEquals(source, copy);
 
         // unsupported state
         boolean threwException = false;
         s.setDatabaseState(State.AK);
         try {
-            copy = _controller.getPostSecondaryReadinessRatingSource(s);
+            copy = _controller.getPostSecondaryReadinessRatingSource(s, (Integer) _dataMap.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR));
         } catch (Exception e) {
             threwException = true;
             assertTrue("Should have thrown IllegalArgumentException", e instanceof IllegalArgumentException);
