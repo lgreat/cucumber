@@ -244,20 +244,23 @@
                                                           stateRating="${statePostSecondaryReadinessRating}" />
                         </div>
 
-                        <div class="ratingsRightSide  pvm ">
-                            <div class="grayBox small bottom">
-                                <div class="tal mbn">
-                                    <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
+                        <c:if test="${postSecondaryReadinessBreakdownTestScore != null and postSecondaryReadinessBreakdownPercentTested != null}">
+                            <div class="ratingsRightSide  pvm ">
+                                <div class="grayBox small bottom">
+                                    <div class="tal mbn">
                                         <h5 class="bottom">This school</h5>
-                                        ${postSecondaryReadinessBreakdownPercentTestedLabel}: <strong>${postSecondaryReadinessBreakdownPercentTested}%</strong>
+                                        ${postSecondaryReadinessBreakdownPercentTestedLabel}:
+                                        <strong>${postSecondaryReadinessBreakdownPercentTested}%</strong>
                                         <br/>
                                         ${postSecondaryReadinessBreakdownTestScoreLabel}:
-                                        <strong>${postSecondaryReadinessBreakdownTestScore}<c:if test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if>
+                                        <strong>${postSecondaryReadinessBreakdownTestScore}<c:if
+                                                test="${postSecondaryReadinessBreakdownTestScoreMeasurement eq 'percent'}">%</c:if>
                                         </strong>
-                                    </c:if>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:if>
                         <hr class="keyline2"/>
                     </c:if>
 
