@@ -87,7 +87,7 @@
                             table.gadget td{ padding: 0; }
                             .gadget iframe{ width: 212px; }
                             .fltlft .gadget tbody tr td { background-color: #fff;}
-                            .fltlft .gadget tbody tr td:first-child{ width: 70px; }
+
                         </style>
                         </div>
                         <p class="mbm">Give users the option of searching the GreatSchools website by featuring our search box on your site. Cut and paste the HTML below, or customize colors and size to match your site. </p>
