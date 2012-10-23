@@ -287,7 +287,7 @@
                 <div class="hd">
                     <h4 class="pvm plm bottom">Climate ratings</h4>
                 </div>
-                <div class="bd pam" style="min-height: 80px;">
+                <div class="bd pam clearfix">
 
 
                     <!--<div class="line">-->
