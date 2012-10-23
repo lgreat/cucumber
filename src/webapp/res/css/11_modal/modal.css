@@ -218,8 +218,8 @@ box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
     -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.5);
-    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6)";
-    *filter: progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6);
+    /* -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6)";
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#999999', Direction=135, Strength=6); */
 }
 .modal_2 .inner{
     padding: 20px 20px;
