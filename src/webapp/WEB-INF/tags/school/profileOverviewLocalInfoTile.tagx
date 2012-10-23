@@ -71,13 +71,13 @@
                 </c:set>
                 <c:set var="schoolPerformanceTierIcon">
                     <c:if test="${entry.score le 34}">
-                        <span class='ratingx-32-charter r-32-3'></span>
+                        <span class='ratingx-32-charter r-32-3'><!-- do not close --></span>
                     </c:if>
                     <c:if test="${entry.score ge 35 and entry.score le 64}">
-                        <span class='ratingx-32-charter r-32-2'></span>
+                        <span class='ratingx-32-charter r-32-2'><!-- do not close --></span>
                     </c:if>
                     <c:if test="${entry.score ge 65}">
-                        <span class='ratingx-32-charter r-32-1'></span>
+                        <span class='ratingx-32-charter r-32-1'><!-- do not close --></span>
                     </c:if>
                 </c:set>
                 <c:set var="schoolPerformanceManagementRatingBand">
