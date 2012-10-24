@@ -32,6 +32,10 @@
         height needs to be calculated 10(bottom spacing) + 22 for each bar.  (padding-top:10 - border:2px and bar height:10xp
     -->
 
+    <c:if test="${schoolRating eq ''}">
+        <c:set var="schoolRating" value="0"/>
+    </c:if>
+
     <c:set var="DEFINED_HORIZONTAL_SPACER">
         <c:choose>
             <c:when test="${mobileDisplay}">20</c:when>
