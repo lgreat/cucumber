@@ -105,7 +105,8 @@
             <gsml:a href="${feature.pdfUri}" styleClass="button-1" target="_blank">Print Full Size</gsml:a>
 
             <div class="spacer_20"><!-- don't collapse --></div>
-
+<!-- commented out in 21.3 for GS-13437. to be reinstated in 21.6 for GS-13438 -->
+<!--
             <c:if test="${not empty feature.commonCoreStandardsList}">
                 <p class="smallText1-333" id="js-ccs-links">
                     Common Core Standards:
@@ -116,7 +117,7 @@
                 </p>
             </c:if>
 
-            <div class="spacer_15"><!-- don't collapse --></div>
+            <div class="spacer_15">--><!-- don't collapse --><!--</div>
 
             <p class="smallText2-777">
                 <c:forEach var="standard" items="${feature.commonCoreStandardsMap}" varStatus="loopStatus">
@@ -124,6 +125,7 @@
                         test="${!loopStatus.last}">, </c:if>
                 </c:forEach>
             </p>
+-->
         </div>
         <div class="grid_7 omega">
 
