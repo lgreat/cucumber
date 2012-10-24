@@ -115,6 +115,14 @@
     <ad:disableGptGhostTextHiding position="BelowFold_300x250"/>
     <ad:disableGptGhostTextHiding position="BelowFold_Top_300x125"/>
     <pageHelper:addFacebookMetaTags school="${school}" vpage="SCHOOL_PROFILE" />
+
+    <!-- One of the modules is clearing the variable "overallRating" so I need to cache it here -->
+    <!-- Urgent change for merge into 21.3. TODO: investigate why it is getting cleared -->
+    <c:set var="overallRatingForMap" value="NR"/>
+    <c:if test="${not empty overallRating}">
+        <c:set var="overallRatingForMap" value="${overallRating}"/>
+    </c:if>
+
 </head>
 <gsml:body adPageName="overview" pageLayout="overview">
 <div id="fb-root"><!-- do not collapse --></div>
@@ -338,12 +346,8 @@
     <c:set var="schoolAddress" value="${gsweb:escapeHtml(school.physicalAddress.asSingleLineString)}"/>
     <c:set var="schoolAddressWithName"
            value="${schoolAddress}+(${gsweb:escapeHtml(school.name)})"/>
-    <!-- TODO: references mobile, needs accurate rating -->
-    <c:set var="overallRatingForMap" value="NR"/>
-    <c:if test="${not empty overallRating}">
-        <c:set var="overallRatingForMap" value="${overallRating}"/>
-    </c:if>
 
+    <!-- overallRatingForMap gets set in the head block -->
     <c:choose>
         <c:when test="${school.type.schoolTypeName eq 'private'}">
             <c:set var="mapMarkerUrl" value="/res/img/mapPins/private/RYG/private_RGY_${overallRatingForMap}.png"/>
