@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jsp:root version="2.0"
+    xmlns:gsweb="gstaglib"
+    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:link="urn:www.greatschools.org/taglib/link"
+>
+
+    <jsp:directive.attribute name="school" type="gs.data.school.School" />
+    <jsp:directive.attribute name="schoolData" type="java.util.Map" />
+
+
+<div class="chooser-section container_24">
+    <div class="alpha grid_6 contain_2-1">
+        <div class="section-school-head">
+            <h2>${school.name}</h2>
+            <p>${school.type.schoolTypeName} | Grades ${school.gradeLevels.rangeString} | ${school.enrollmentOrCapacity} schools</p>
+        </div>
+        <!--Best Known For quote was removed from mock <c:if test="${not empty schoolData['bestKnownFor']}">
+            <div class="grayBox pam">
+                ${schoolData['bestKnownFor']}
+            </div>
+        </c:if>-->
+
+        <div style="border-bottom:3px solid white;"><!-- do not collapse --></div>
+
+        <div class="chooser-overall-rating ptm" style="width:230px">
+            <div class="fl" style="width:40;">
+                <img src="/res/img/preschool/review/survey_landing_3.jpg" width="40px"/>
+                <p class="smaller">Overall rating</p>
+            </div>
+            <div class="fl plm small">
+                <table class="rating-table">
+                    <tbody>
+                    <tr>
+                        <td class="pbs">Academic</td>
+                        <td>[[]]</td>
+                        <td>HIGH</td>
+                    </tr>
+                    <tr>
+                        <td>Climate</td>
+                        <td>[[]]</td>
+                        <td>AVERAGE</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clearfloat"><!-- do not collapse--></div>
+        </div>
+
+        <div style="border-bottom:3px solid white;"><!-- do not collapse --></div>
+        <div class="ptm mts">
+            ${school.physicalAddress.street}
+
+            <c:if test="${not empty school.physicalAddress.streetLine2 and school.physicalAddress.streetLine2 ne ','}">
+                <br/>
+                ${school.physicalAddress.streetLine2}
+            </c:if>
+
+            <br/>
+            <span>${school.physicalAddress.city}</span>,
+            <span>${school.physicalAddress.state.abbreviation} </span>
+            <span>${school.physicalAddress.zip}</span>
+        </div>
+
+
+        <c:if test="${not empty school.phone}">
+            <br/>
+            <strong>Phone: </strong>${school.phone}
+        </c:if>
+
+        <strong>Class hours:</strong><br/>
+        [Time begin] - [Time end]
+
+
+    </div>
+    <div class="grid_6">
+
+        <h3>School Stats</h3>
+        <table>
+            <tbody>
+            <tr>
+                <td>Uniforms/Dress code</td><td>??</td>
+            </tr>
+            <tr>
+                <td>Income level</td><td>??</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <c:if test="${not empty schoolData['ethnicityMap'] and fn:length(schoolData['ethnicityMap']) gt 0}">
+            <h3 class="ptm">Diversity</h3>
+            <table>
+                <tbody>
+                <c:forEach items="${schoolData['ethnicityMap']}" var="ethnicityItem">
+                    <tr>
+                        <td>${ethnicityItem.value}</td><td>${ethnicityItem.key}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </c:if>
+
+        <h3 class="ptm">Application</h3>
+        <table>
+            <tbody>
+            <tr>
+                <td>Deadline</td><td>??</td>
+            </tr>
+            <tr>
+                <td>Tuition</td><td>??</td>
+            </tr>
+            <tr>
+                <td>Financial Aid</td><td>??</td>
+            </tr>
+            <tr>
+                <td>Voucher accepted?</td><td>??</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <strong>Before care:</strong> Starts [time] <br/>
+        <strong>After care:</strong> Starts [time] <br/>
+        <strong>Transportation</strong> Yes/No <br/>
+
+
+
+    </div>
+    <div class="grid_6 omega">
+        <h3>Special Education Services</h3>
+        <strong>Intensive</strong>
+
+
+        <h3 class="ptm">English Language Learners Services</h3>
+        <p>Intensive</p>
+
+        <h3>Our grads typically go to:</h3>
+        Nibh Magna Tristique Egestas Bibendum
+
+        <h3>Notes</h3>
+        <hr class="mbl"><!-- do not collapse--></hr>
+        <hr class="mbl"><!-- do not collapse--></hr>
+        <hr class="mbl"><!-- do not collapse--></hr>
+        <hr class="mbl"><!-- do not collapse--></hr>
+
+
+    </div>
+</div>
+    <div class="clearfloat"><!-- do not collapse --></div>
+</jsp:root>

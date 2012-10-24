@@ -109,7 +109,7 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
     @Autowired
     private ISubjectDao _subjectDao;
 
-    protected Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
+    public Map<String, List<EspResponse>> getEspDataForSchool( HttpServletRequest request ) {
 
         String key = ESP_DATA_REQUEST_ATTRIBUTE;
         String noKey = "NO_" + key;

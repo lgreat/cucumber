@@ -20,7 +20,7 @@ public abstract class AbstractDataHelper {
     /** Used for access to a shared map stored in the request.  Contents of that map are pointers to shared data */
     public static final String SHARED_STATE_KEY = "SharedState";
 
-    protected static Map<String, Map<String, Object>> initialize( HttpServletRequest request ) {
+    public static Map<String, Map<String, Object>> initialize( HttpServletRequest request ) {
 
         // Set up the shared state map in the request if not present.  Entries in this shared state map are data that is to be reused during a request
         Map<String, Map<String, Object>> sharedState = (Map<String, Map<String, Object>>) request.getAttribute(SHARED_STATE_KEY);

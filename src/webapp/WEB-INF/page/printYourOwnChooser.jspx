@@ -1,0 +1,1002 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:gsweb="gstaglib"
+          version="2.0" xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml" xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:school="urn:jsptagdir:/WEB-INF/tags/school">
+<html>
+<jsp:directive.page contentType="text/html"/>
+<head>
+    <title>Find a School In Your State | GreatSchools</title>
+    <meta name="description"
+          content="Find and compare schools across the country by searching near an address or by name. Search for public, private, and charter schools, preschools, elementary, middle, and high schools."/>
+    <meta name="decorator" content="minimalDecorator"/>
+    <style type="text/css">
+        html {
+            margin:0;
+            padding:0;
+            border:0;
+        }
+
+        body, div, span, object, iframe,
+        h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+        a, abbr, acronym, address, code,
+        del, dfn, em, img, q, dl, dt, dd, ol, ul, li,
+        fieldset, form, label, legend,
+        table, caption, tbody, tfoot, thead, tr, th, td,
+        article, aside, dialog, figure, footer, header,
+        hgroup, nav, section {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font: inherit;
+            vertical-align: baseline;
+        }
+
+            /* This helps to make newer HTML5 elements behave like DIVs in older browsers */
+        article, aside, details, figcaption, figure, dialog,
+        footer, header, hgroup, menu, nav, section {
+            display:block;
+        }
+
+            /* Line-height should always be unitless! */
+        body {
+            font: 13px / 1.3 Arial, sans-serif;
+            color: #333;
+            /*line-height: 1.5;*/
+        }
+            /* Tables still need 'cellspacing="0"' in the markup. */
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+            /* float:none prevents the span-x classes from breaking table-cell display */
+        caption, th, td {
+            text-align: left;
+            font-weight: normal;
+            float:none !important;
+        }
+        table, th, td {
+            vertical-align: middle;
+        }
+
+        blockquote:before, blockquote:after, q:before, q:after { content: ''; }
+        blockquote, q { quotes: "" ""; }
+
+            /* Remove annoying border on linked images. */
+        a img { border: none; }
+
+            /* Remember to define your own focus styles! */
+        :focus { outline: 0; }
+
+
+
+
+            /*@charset "UTF-8";*/
+            /* CSS Document */
+
+            /*
+            Theme Name: 960.gs 24-column grid
+            Description: All the specific styles for the GreatSchools website
+            Author: Randall Cox
+            Version: 1.0
+            .
+            General comments:
+            .
+
+            [Table Of Contents]
+
+            `Container >> 24 Columns
+            `Grid >> Global
+            `Grid >> Children
+            `Grid >> 24 Columns
+            `Prefix Extra Space >> 24 Columns
+            `Suffix Extra Space >> 24 Columns
+            `Push Space >> 24 Columns
+            `Pull Space >> 24 Columns
+            `Clear Floated Elements
+
+            */
+
+
+            /*
+              Forces backgrounds to span full width,
+              even if there is horizontal scrolling.
+              Increase this if your layout is wider.
+
+              Note: IE6 works fine without this fix.
+            */
+
+        body {
+            min-width: 970px;
+        }
+
+            /* `Container >> 24 Columns
+            ----------------------------------------------------------------------------------------------------*/
+        .container_24 {
+            margin-left: auto;
+            margin-right: auto;
+            width: 970px;
+        }
+
+            /* `Grid >> Global
+            ----------------------------------------------------------------------------------------------------*/
+
+        .grid_1,
+        .grid_2,
+        .grid_3,
+        .grid_4,
+        .grid_5,
+        .grid_6,
+        .grid_7,
+        .grid_8,
+        .grid_9,
+        .grid_10,
+        .grid_11,
+        .grid_12,
+        .grid_13,
+        .grid_14,
+        .grid_15,
+        .grid_16,
+        .grid_17,
+        .grid_18,
+        .grid_19,
+        .grid_20,
+        .grid_21,
+        .grid_22,
+        .grid_23,
+        .grid_24 {
+            _display: inline;
+            float: left;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .push_1, .pull_1,
+        .push_2, .pull_2,
+        .push_3, .pull_3,
+        .push_4, .pull_4,
+        .push_5, .pull_5,
+        .push_6, .pull_6,
+        .push_7, .pull_7,
+        .push_8, .pull_8,
+        .push_9, .pull_9,
+        .push_10, .pull_10,
+        .push_11, .pull_11,
+        .push_12, .pull_12,
+        .push_13, .pull_13,
+        .push_14, .pull_14,
+        .push_15, .pull_15,
+        .push_16, .pull_16,
+        .push_17, .pull_17,
+        .push_18, .pull_18,
+        .push_19, .pull_19,
+        .push_20, .pull_20,
+        .push_21, .pull_21,
+        .push_22, .pull_22,
+        .push_23, .pull_23 {
+            position: relative;
+        }
+
+            /* `Grid >> Children (Alpha ~ First, Omega ~ Last)
+            ----------------------------------------------------------------------------------------------------*/
+
+        .alpha {
+            margin-left: 0;
+        }
+
+        .omega {
+            margin-right: 0;
+        }
+
+            /* `Grid >> 24 Columns
+            ----------------------------------------------------------------------------------------------------*/
+
+        .container_24 .grid_1 {
+            width: 30px;
+        }
+
+        .container_24 .grid_2 {
+            width: 70px;
+        }
+
+        .container_24 .grid_3 {
+            width: 110px;
+        }
+
+        .container_24 .grid_4 {
+            width: 150px;
+        }
+
+        .container_24 .grid_5 {
+            width: 190px;
+        }
+
+        .container_24 .grid_6 {
+            width: 230px;
+        }
+
+        .container_24 .grid_7 {
+            width: 270px;
+        }
+
+        .container_24 .grid_8 {
+            width: 310px;
+        }
+
+        .container_24 .grid_9 {
+            width: 350px;
+        }
+
+        .container_24 .grid_10 {
+            width: 390px;
+        }
+
+        .container_24 .grid_11 {
+            width: 430px;
+        }
+
+        .container_24 .grid_12 {
+            width: 470px;
+        }
+
+        .container_24 .grid_13 {
+            width: 510px;
+        }
+
+        .container_24 .grid_14 {
+            width: 550px;
+        }
+
+        .container_24 .grid_15 {
+            width: 590px;
+        }
+
+        .container_24 .grid_16 {
+            width: 630px;
+        }
+
+        .container_24 .grid_17 {
+            width: 670px;
+        }
+
+        .container_24 .grid_18 {
+            width: 710px;
+        }
+
+        .container_24 .grid_19 {
+            width: 750px;
+        }
+
+        .container_24 .grid_20 {
+            width: 790px;
+        }
+
+        .container_24 .grid_21 {
+            width: 830px;
+        }
+
+        .container_24 .grid_22 {
+            width: 870px;
+        }
+
+        .container_24 .grid_23 {
+            width: 910px;
+        }
+
+        .container_24 .grid_24 {
+            width: 950px;
+        }
+
+            /* `Prefix Extra Space >> 24 Columns
+            ----------------------------------------------------------------------------------------------------*/
+
+        .container_24 .prefix_1 {
+            padding-left: 40px;
+        }
+
+        .container_24 .prefix_2 {
+            padding-left: 80px;
+        }
+
+        .container_24 .prefix_3 {
+            padding-left: 120px;
+        }
+
+        .container_24 .prefix_4 {
+            padding-left: 160px;
+        }
+
+        .container_24 .prefix_5 {
+            padding-left: 200px;
+        }
+
+        .container_24 .prefix_6 {
+            padding-left: 240px;
+        }
+
+        .container_24 .prefix_7 {
+            padding-left: 280px;
+        }
+
+        .container_24 .prefix_8 {
+            padding-left: 320px;
+        }
+
+        .container_24 .prefix_9 {
+            padding-left: 360px;
+        }
+
+        .container_24 .prefix_10 {
+            padding-left: 400px;
+        }
+
+        .container_24 .prefix_11 {
+            padding-left: 440px;
+        }
+
+        .container_24 .prefix_12 {
+            padding-left: 480px;
+        }
+
+        .container_24 .prefix_13 {
+            padding-left: 520px;
+        }
+
+        .container_24 .prefix_14 {
+            padding-left: 560px;
+        }
+
+        .container_24 .prefix_15 {
+            padding-left: 600px;
+        }
+
+        .container_24 .prefix_16 {
+            padding-left: 640px;
+        }
+
+        .container_24 .prefix_17 {
+            padding-left: 680px;
+        }
+
+        .container_24 .prefix_18 {
+            padding-left: 720px;
+        }
+
+        .container_24 .prefix_19 {
+            padding-left: 760px;
+        }
+
+        .container_24 .prefix_20 {
+            padding-left: 800px;
+        }
+
+        .container_24 .prefix_21 {
+            padding-left: 840px;
+        }
+
+        .container_24 .prefix_22 {
+            padding-left: 880px;
+        }
+
+        .container_24 .prefix_23 {
+            padding-left: 920px;
+        }
+
+            /* `Suffix Extra Space >> 24 Columns
+            ----------------------------------------------------------------------------------------------------*/
+
+        .container_24 .suffix_1 {
+            padding-right: 40px;
+        }
+
+        .container_24 .suffix_2 {
+            padding-right: 80px;
+        }
+
+        .container_24 .suffix_3 {
+            padding-right: 120px;
+        }
+
+        .container_24 .suffix_4 {
+            padding-right: 160px;
+        }
+
+        .container_24 .suffix_5 {
+            padding-right: 200px;
+        }
+
+        .container_24 .suffix_6 {
+            padding-right: 240px;
+        }
+
+        .container_24 .suffix_7 {
+            padding-right: 280px;
+        }
+
+        .container_24 .suffix_8 {
+            padding-right: 320px;
+        }
+
+        .container_24 .suffix_9 {
+            padding-right: 360px;
+        }
+
+        .container_24 .suffix_10 {
+            padding-right: 400px;
+        }
+
+        .container_24 .suffix_11 {
+            padding-right: 440px;
+        }
+
+        .container_24 .suffix_12 {
+            padding-right: 480px;
+        }
+
+        .container_24 .suffix_13 {
+            padding-right: 520px;
+        }
+
+        .container_24 .suffix_14 {
+            padding-right: 560px;
+        }
+
+        .container_24 .suffix_15 {
+            padding-right: 600px;
+        }
+
+        .container_24 .suffix_16 {
+            padding-right: 640px;
+        }
+
+        .container_24 .suffix_17 {
+            padding-right: 680px;
+        }
+
+        .container_24 .suffix_18 {
+            padding-right: 720px;
+        }
+
+        .container_24 .suffix_19 {
+            padding-right: 760px;
+        }
+
+        .container_24 .suffix_20 {
+            padding-right: 800px;
+        }
+
+        .container_24 .suffix_21 {
+            padding-right: 840px;
+        }
+
+        .container_24 .suffix_22 {
+            padding-right: 880px;
+        }
+
+        .container_24 .suffix_23 {
+            padding-right: 920px;
+        }
+
+            /* `Push Space >> 24 Columns
+            ----------------------------------------------------------------------------------------------------*/
+
+        .container_24 .push_1 {
+            left: 40px;
+        }
+
+        .container_24 .push_2 {
+            left: 80px;
+        }
+
+        .container_24 .push_3 {
+            left: 120px;
+        }
+
+        .container_24 .push_4 {
+            left: 160px;
+        }
+
+        .container_24 .push_5 {
+            left: 200px;
+        }
+
+        .container_24 .push_6 {
+            left: 240px;
+        }
+
+        .container_24 .push_7 {
+            left: 280px;
+        }
+
+        .container_24 .push_8 {
+            left: 320px;
+        }
+
+        .container_24 .push_9 {
+            left: 360px;
+        }
+
+        .container_24 .push_10 {
+            left: 400px;
+        }
+
+        .container_24 .push_11 {
+            left: 440px;
+        }
+
+        .container_24 .push_12 {
+            left: 480px;
+        }
+
+        .container_24 .push_13 {
+            left: 520px;
+        }
+
+        .container_24 .push_14 {
+            left: 560px;
+        }
+
+        .container_24 .push_15 {
+            left: 600px;
+        }
+
+        .container_24 .push_16 {
+            left: 640px;
+        }
+
+        .container_24 .push_17 {
+            left: 680px;
+        }
+
+        .container_24 .push_18 {
+            left: 720px;
+        }
+
+        .container_24 .push_19 {
+            left: 760px;
+        }
+
+        .container_24 .push_20 {
+            left: 800px;
+        }
+
+        .container_24 .push_21 {
+            left: 840px;
+        }
+
+        .container_24 .push_22 {
+            left: 880px;
+        }
+
+        .container_24 .push_23 {
+            left: 920px;
+        }
+
+            /* `Pull Space >> 24 Columns
+            ----------------------------------------------------------------------------------------------------*/
+
+        .container_24 .pull_1 {
+            left: -40px;
+        }
+
+        .container_24 .pull_2 {
+            left: -80px;
+        }
+
+        .container_24 .pull_3 {
+            left: -120px;
+        }
+
+        .container_24 .pull_4 {
+            left: -160px;
+        }
+
+        .container_24 .pull_5 {
+            left: -200px;
+        }
+
+        .container_24 .pull_6 {
+            left: -240px;
+        }
+
+        .container_24 .pull_7 {
+            left: -280px;
+        }
+
+        .container_24 .pull_8 {
+            left: -320px;
+        }
+
+        .container_24 .pull_9 {
+            left: -360px;
+        }
+
+        .container_24 .pull_10 {
+            left: -400px;
+        }
+
+        .container_24 .pull_11 {
+            left: -440px;
+        }
+
+        .container_24 .pull_12 {
+            left: -480px;
+        }
+
+        .container_24 .pull_13 {
+            left: -520px;
+        }
+
+        .container_24 .pull_14 {
+            left: -560px;
+        }
+
+        .container_24 .pull_15 {
+            left: -600px;
+        }
+
+        .container_24 .pull_16 {
+            left: -640px;
+        }
+
+        .container_24 .pull_17 {
+            left: -680px;
+        }
+
+        .container_24 .pull_18 {
+            left: -720px;
+        }
+
+        .container_24 .pull_19 {
+            left: -760px;
+        }
+
+        .container_24 .pull_20 {
+            left: -800px;
+        }
+
+        .container_24 .pull_21 {
+            left: -840px;
+        }
+
+        .container_24 .pull_22 {
+            left: -880px;
+        }
+
+        .container_24 .pull_23 {
+            left: -920px;
+        }
+
+            /* `Clear Floated Elements
+            ----------------------------------------------------------------------------------------------------*/
+
+            /* http://sonspring.com/journal/clearing-floats */
+
+        .clear {
+            clear: both;
+            display: block;
+            overflow: hidden;
+            visibility: hidden;
+            width: 0;
+            height: 0;
+        }
+
+            /* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+
+        .clearfix:before,
+        .clearfix:after {
+            content: '\0020';
+            display: block;
+            overflow: hidden;
+            visibility: hidden;
+            width: 0;
+            height: 0;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+            /*
+              The following zoom:1 rule is specifically for IE6 + IE7.
+              Move to separate stylesheet if invalid CSS is a problem.
+            */
+
+        .clearfix {
+            zoom: 1;
+        }
+
+
+
+        .ptn,.pvn,.pan{padding-top: 0}
+        .pts,.pvs,.pas{padding-top:5px}
+        .ptm,.pvm,.pam{padding-top:10px}
+        .ptl,.pvl,.pal{padding-top:20px}
+        .prn,.phn,.pan{padding-right: 0}
+        .prs,.phs,.pas{padding-right:5px}
+        .prm,.phm,.pam{padding-right:10px}
+        .prl,.phl,.pal{padding-right:20px}
+        .pbn,.pvn,.pan{padding-bottom: 0}
+        .pbs,.pvs,.pas{padding-bottom:5px}
+        .pbm,.pvm,.pam{padding-bottom:10px}
+        .pbl,.pvl,.pal{padding-bottom:20px}
+        .pln,.phn,.pan{padding-left: 0}
+        .pls,.phs,.pas{padding-left:5px}
+        .plm,.phm,.pam{padding-left:10px}
+        .pll,.phl,.pal{padding-left:20px}
+        .mtn,.mvn,.man{margin-top: 0}
+        .mts,.mvs,.mas{margin-top:5px}
+        .mtm,.mvm,.mam{margin-top:10px}
+        .mtl,.mvl,.mal{margin-top:20px}
+        .mrn,.mhn,.man{margin-right: 0}
+        .mrs,.mhs,.mas{margin-right:5px}
+        .mrm,.mhm,.mam{margin-right:10px}
+        .mrl,.mhl,.mal{margin-right:20px}
+        .mbn,.mvn,.man{margin-bottom: 0}
+        .mbs,.mvs,.mas{margin-bottom:5px}
+        .mbm,.mvm,.mam{margin-bottom:10px}
+        .mbl,.mvl,.mal{margin-bottom:20px}
+        .mln,.mhn,.man{margin-left: 0}
+        .mls,.mhs,.mas{margin-left:5px}
+        .mlm,.mhm,.mam{margin-left:10px}
+        .mll,.mhl,.mal{margin-left:20px}
+
+        .mha{margin-right: auto;margin-left: auto;}
+
+        .fl { float: left; }
+        .fr { float: right; }
+
+        .clearfloat { clear: both; height: 0; font-size: 1px; line-height: 0; }
+
+            /* height shims */
+        .shim-1 { clear: both; height: 1px; font-size: 1px; line-height: 1px; }
+        .shim-2 { clear: both; height: 2px; font-size: 1px; line-height: 2px; }
+        .shim-5 { clear: both; height: 5px; font-size: 1px; line-height: 5px; }
+        .shim-10 { clear: both; height: 10px; font-size: 1px; line-height: 10px; }
+        .shim-20 { clear: both; height: 20px; font-size: 1px; line-height: 20px; }
+        .shim-25 { clear: both; height: 25px; font-size: 1px; line-height: 25px; }
+        .shim-50 { clear: both; height: 50px; font-size: 1px; line-height: 50px; }
+        .shim-100 { clear: both; height: 100px; font-size: 1px; line-height: 100px; }
+
+        .db { display: block; }
+        .di { display: inline; }
+        .dib { display: inline-block; }
+        .dn { display: none; }
+
+        .tal { text-align: left; }
+        .tac { text-align: center; }
+        .tar { text-align: right; }
+
+        .vat { vertical-align: top; }
+        .vam { vertical-align: middle; }
+        .vab { vertical-align: bottom; }
+
+        .wsnw { white-space:nowrap; }
+
+        .pa { position: absolute; }
+        .pf { position: fixed; }
+        .pr { position: relative; }
+        .ps { position: static; }
+
+            /* z-index resets */
+        .zir-1{position:relative;z-index:1;}
+        .zir-2{position:relative;z-index:2;}
+        .zir-3{position:relative;z-index:3;}
+        .zir-4{position:relative;z-index:4;}
+
+
+
+
+
+
+
+        /* spacing-v1.css */
+
+
+        .ptn,.pvn,.pan{padding-top: 0}
+        .pts,.pvs,.pas{padding-top:5px}
+        .ptm,.pvm,.pam{padding-top:10px}
+        .ptl,.pvl,.pal{padding-top:20px}
+        .prn,.phn,.pan{padding-right: 0}
+        .prs,.phs,.pas{padding-right:5px}
+        .prm,.phm,.pam{padding-right:10px}
+        .prl,.phl,.pal{padding-right:20px}
+        .pbn,.pvn,.pan{padding-bottom: 0}
+        .pbs,.pvs,.pas{padding-bottom:5px}
+        .pbm,.pvm,.pam{padding-bottom:10px}
+        .pbl,.pvl,.pal{padding-bottom:20px}
+        .pln,.phn,.pan{padding-left: 0}
+        .pls,.phs,.pas{padding-left:5px}
+        .plm,.phm,.pam{padding-left:10px}
+        .pll,.phl,.pal{padding-left:20px}
+        .mtn,.mvn,.man{margin-top: 0}
+        .mts,.mvs,.mas{margin-top:5px}
+        .mtm,.mvm,.mam{margin-top:10px}
+        .mtl,.mvl,.mal{margin-top:20px}
+        .mrn,.mhn,.man{margin-right: 0}
+        .mrs,.mhs,.mas{margin-right:5px}
+        .mrm,.mhm,.mam{margin-right:10px}
+        .mrl,.mhl,.mal{margin-right:20px}
+        .mbn,.mvn,.man{margin-bottom: 0}
+        .mbs,.mvs,.mas{margin-bottom:5px}
+        .mbm,.mvm,.mam{margin-bottom:10px}
+        .mbl,.mvl,.mal{margin-bottom:20px}
+        .mln,.mhn,.man{margin-left: 0}
+        .mls,.mhs,.mas{margin-left:5px}
+        .mlm,.mhm,.mam{margin-left:10px}
+        .mll,.mhl,.mal{margin-left:20px}
+
+        .mha{margin-right: auto;margin-left: auto;}
+
+        .fl { float: left; }
+        .fr { float: right; }
+        .clearfloat { clear: both; height: 0; font-size: 1px; line-height: 0; }
+
+            /* height shims */
+        .shim-1 { clear: both; height: 1px; font-size: 1px; line-height: 1px; }
+        .shim-2 { clear: both; height: 2px; font-size: 1px; line-height: 2px; }
+        .shim-5 { clear: both; height: 5px; font-size: 1px; line-height: 5px; }
+        .shim-10 { clear: both; height: 10px; font-size: 1px; line-height: 10px; }
+        .shim-20 { clear: both; height: 20px; font-size: 1px; line-height: 20px; }
+        .shim-25 { clear: both; height: 25px; font-size: 1px; line-height: 25px; }
+        .shim-50 { clear: both; height: 50px; font-size: 1px; line-height: 50px; }
+        .shim-100 { clear: both; height: 100px; font-size: 1px; line-height: 100px; }
+
+        .db { display: block; }
+        .di { display: inline; }
+        .dib { display: inline-block; }
+        .dn { display: none; }
+
+        .tal { text-align: left; }
+        .tac { text-align: center; }
+        .tar { text-align: right; }
+
+        .vat { vertical-align: top; }
+        .vam { vertical-align: middle; }
+        .vab { vertical-align: bottom; }
+
+        .wsnw { white-space:nowrap; }
+
+        .pa { position: absolute; }
+        .pf { position: fixed; }
+        .pr { position: relative; }
+        .ps { position: static; }
+
+            /* z-index resets */
+        .zir-1{position:relative;z-index:1;}
+        .zir-2{position:relative;z-index:2;}
+        .zir-3{position:relative;z-index:3;}
+        .zir-4{position:relative;z-index:4;}
+
+
+
+
+
+
+
+
+
+
+    /*
+    some heading stuff copied in from typography-v1.css
+    /*
+
+body {
+  font: normal 14px/20px Arial, Helvetica, sans-serif;
+  color: #555;
+  /*background: #fff;*/
+            }
+
+            /* Headings
+           -------------------------------------------------------------- */
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 { font-weight: normal; color: #2b2b2b; }
+            /*h1 {color: #FF8000; }*/
+
+        h1 { font: normal 24px/30px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+        h2 { font: normal 21px/25px Arial, Helvetica, sans-serif; margin-bottom: 2px; }
+        h3 { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 2px; color: blue;}
+
+        h4 { font: normal 16px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+        h5 { font: bold   14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+        h6 { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+
+        h1 img,
+        h2 img,
+        h3 img,
+        h4 img,
+        h5 img,
+        h6 img { margin: 0; }
+
+        hr.keyline1 {background:#dddddd;color:#dddddd;clear:both;float:none;width:100%;height:1px;margin:0;border:none;}
+        hr.keyline2 {background:#e6e6e6;color:#e6e6e6;clear:both;float:none;width:100%;height:1px;margin:0;border:none;}
+        hr.space {background:#fff;color:#fff;visibility:hidden;}
+
+
+            /* Text elements used by pdf
+           -------------------------------------------------------------- */
+
+        p,
+        .default     { font: normal 14px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+        .big         { font: normal 36px/40px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+        .medium      { font: normal 13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+        .medium_bold { font: bold   13px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+        .small       { font: normal 12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+        .small_bold  { font: bold   12px/20px Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+        .smaller     { font: normal 11px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+        .smallest    { font: normal 10px/16px Arial, Helvetica, sans-serif; margin-bottom: 16px; }
+
+
+            /* Container 2
+            -----------------------------------------------------------------------------*/
+        .contain_2-1{
+            border: solid 1px #BCDEED;
+            padding:8px;
+            -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android lt 1.6 */
+            -moz-border-radius: 4px; /* FF1-3.6 */
+            border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+            /* ssprouse: commenting out for pdf page margin:8px; */
+            background:#F3F9FD;
+        }
+
+            /* Container 3
+            -----------------------------------------------------------------------------*/
+        .contain_3-1{
+            border: solid 1px #BCDEED;
+            padding:8px;
+            -webkit-border-radius: 4px; /* Saf3-4, iOS 1-3.2, Android lt 1.6 */
+            -moz-border-radius: 4px; /* FF1-3.6 */
+            border-radius: 4px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+            background:#FFFFFF;
+            margin:8px;
+        }
+
+            /* Container 4
+            -----------------------------------------------------------------------------*/
+        .contain_4-1{
+            -moz-box-shadow: inset 0 2px 12px rgba(120, 120, 120, 0.5);
+            -webkit-box-shadow: inset 0 2px 12px rgba(120, 120, 120, 0.5);
+            box-shadow: inset 0 2px 12px rgba(120, 120, 120, 0.5);
+            background:#CCCCCC;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#E5E5E5), to(#CCCCCC)); /* Saf4+, Chrome */
+            background-image: -webkit-linear-gradient(top, #E5E5E5, #CCCCCC); /* Chrome 10+, Saf5.1+, iOS 5+ */
+            background-image:    -moz-linear-gradient(top, #E5E5E5, #CCCCCC); /* FF3.6 */
+            background-image:     -ms-linear-gradient(top, #E5E5E5, #CCCCCC); /* IE10 */
+            background-image:      -o-linear-gradient(top, #E5E5E5, #CCCCCC); /* Opera 11.10+ */
+            background-image:         linear-gradient(top, #E5E5E5, #CCCCCC); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#E5E5E5', EndColorStr='#CCCCCC');
+            padding:8px;
+        }
+
+
+
+
+        table.rating-table td {
+            padding: 0 0 5px 5px;
+        }
+    </style>
+
+</head>
+<body>
+<h1>${schools[0].city} Chooser [Year-1]-[Year]</h1>
+<hr/>
+
+<c:forEach items="${schools}" var="school">
+    <c:set var="schoolIdString" scope="page">${school.id}</c:set>
+    <c:set var="key" scope="page">${school.databaseState.abbreviationLowerCase}${schoolIdString}</c:set>
+
+    <school:printChooserSection school="${school}" schoolData="${schoolData[key]}"/>
+    <hr class="mvm"><!-- do not collapse --></hr>
+
+</c:forEach>
+
+
+</body>
+</html>
+</jsp:root>
