@@ -43,6 +43,10 @@
         </c:choose>
     </c:set>
     <c:set var="schoolWidth" value="${schoolRating * DEFINED_HORIZONTAL_SPACER - 1}"/>
+    <c:if test="${schoolRating eq '0'}">
+        <c:set var="schoolWidth" value="0"/>
+    </c:if>
+
     <c:set var="barChartHeight" value="${20+10}"/>
     <c:set var="schoolRatingColor"><c:if test="${schoolRating le 3}">ratingsRed</c:if><c:if test="${schoolRating ge 4 and schoolRating le 7}">ratingsYellow</c:if><c:if test="${schoolRating ge 8}">ratingsGreen</c:if></c:set>
 
