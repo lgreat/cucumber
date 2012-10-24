@@ -149,15 +149,17 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         DirectoryStructureUrlFields fields = (DirectoryStructureUrlFields) request.getAttribute(IDirectoryStructureUrlController.FIELDS);
 
-        if (schoolSearchCommand.isNearbySearchByLocation()) {
+        // GS-13174 : was decided to use the lat lon returned by google maps instead of using the values in us_geo.bp_census
+        /*if (schoolSearchCommand.isNearbySearchByLocation()) {
+            String searchString = schoolSearchCommand.getLocationSearchString() != null ? schoolSearchCommand.getLocationSearchString() : schoolSearchCommand.getSearchString();
             // check for exact county match
-            ICounty county = getExactCountyMatch(schoolSearchCommand.getSearchString());
+            ICounty county = getExactCountyMatch(searchString);
             if (county != null) {
                 schoolSearchCommand.setLat((double)county.getLat());
                 schoolSearchCommand.setLon((double)county.getLon());
                 schoolSearchCommand.setNormalizedAddress(county.getName() + " County, " + county.getState());
             }
-        }
+        }*/
 
         if(schoolSearchCommand.isAjaxRequest() && !schoolSearchCommand.hasGradeLevels()) {
             fields.setLevelCode(null);
@@ -604,6 +606,9 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         // set the solr query's q parameter (querystring) to be the user search string
         if (!schoolSearchCommand.hasLatLon()) {
             q.query(Searching.cleanseSearchString(searchString));
+        }
+        else {
+            q.setSpellCheckEnabled(false);
         }
 
         // apply sorting
