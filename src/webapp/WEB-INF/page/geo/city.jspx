@@ -124,7 +124,11 @@
         </div>
         <div id="textwrapper">
             <div id="ratingtext">
-                ${displayName}'s rating is based on its public schools' test results; 10 is best.
+                <c:set var="displayPublicInSentence" value="public "/>
+                <c:if test="${displayName == 'Milwaukee' and cityObject.state == 'WI'}">
+                    <c:set var="displayPublicInSentence" value=""/>
+                </c:if>
+                ${displayName}'s rating is based on its ${displayPublicInSentence}schools' test results; 10 is best.
                 <link:cmsContent contentKey="Article#2423" fullUri="/find-a-school/defining-your-ideal/ratings" anchor="13" target="_blank"><img src="/res/img/yellow_circle_i.gif" alt="Learn more" id="ratingYellowCircle"/></link:cmsContent>
             </div>
 
@@ -145,7 +149,7 @@
         All
     </c:if>
     ${displayName}
-    <c:if test="${not empty requestScope.topRatedSchools}">
+    <c:if test="${not empty requestScope.topRatedSchools and !(displayName == 'Milwaukee' and cityObject.state == 'WI') }">
         Public
     </c:if>
     Schools
@@ -180,7 +184,11 @@
             <div class="topRatedSchools">
                 <table style="width: 100%; margin: 0 auto;" cellpadding="0" cellspacing="0">
                     <tr style="">
-                        <th style="text-align: left">Top-Rated Public Schools</th>
+                        <c:set var="schoolTitleContent" value="Top-Rated Public Schools"/>
+                        <c:if test="${displayName == 'Milwaukee' and cityObject.state == 'WI'}">
+                            <c:set var="schoolTitleContent" value="Top-Rated Schools"/>
+                        </c:if>
+                        <th style="text-align: left">${schoolTitleContent}</th>
                         <th style="text-align: right;">GreatSchools<br/>Rating</th>
                     </tr>
                     <c:forEach items="${requestScope.topRatedSchools}" var="s">

@@ -23,7 +23,11 @@
 
                 <div class="line">
                     <div class="unit size73of100">
-                        <h6>Top-Rated Public Schools</h6>
+                        <c:set var="schoolTitleContent" value="Top-Rated Public Schools"/>
+                        <c:if test="${city.name eq 'Milwaukee' and city.state eq 'WI'}">
+                            <c:set var="schoolTitleContent" value="Top-Rated Schools"/>
+                        </c:if>
+                        <h6>${schoolTitleContent}</h6>
                     </div>
                     <div class="lastUnit">
                         <h6 class="tar">GreatSchools<br/>Rating</h6>

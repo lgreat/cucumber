@@ -81,7 +81,11 @@
                     
                     <table style="width: 100%" cellpadding="0" cellspacing="0">
                         <tr style="">
-                            <th style="text-align: left">Top-Rated Public Schools</th>
+                            <c:set var="schoolTitleContent" value="Top-Rated Public Schools"/>
+                            <c:if test="${city.name eq 'Milwaukee' and city.state eq 'WI'}">
+                                <c:set var="schoolTitleContent" value="Top-Rated Schools"/>
+                            </c:if>
+                            <th style="text-align: left">${schoolTitleContent}</th>
                             <th style="text-align: right;">GreatSchools<br/>Rating</th>
                         </tr>
                         <c:forEach items="${topRatedSchools}" var="s">
