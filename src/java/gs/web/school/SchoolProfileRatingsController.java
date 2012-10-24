@@ -323,22 +323,22 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     public void populateCityData(School school, Map<String, Object> dataMap) {
 
-        List<CityRating2> ratings = _cityRating2Dao.getLatestCityRatingsByCity(school.getDatabaseState(), school.getCity());
-        if (ratings != null) {
-            for (CityRating2 rating : ratings) {
-                switch (rating.getDataTypeId()) {
-                    // overall ratings
-                    case TestDataType.RATING_ACADEMIC_ACHIEVEMENT :
-                        dataMap.put(DATA_CITY_TEST_SCORE_RATING, rating.getRating());
-                        break;
-                    case TestDataType.RATING_ACADEMIC_VALUE_ADDED :
-                        dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, rating.getRating());
-                        break;
-                    case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS :
-                        dataMap.put(DATA_CITY_POST_SECONDARY_READINESS_RATING, rating.getRating());
-                        break;
-                }
-            }
+        CityRating2 cityAcademicRating = _cityRating2Dao.getLatestCityRatingByCity(school.getDatabaseState(),
+                school.getCity(), TestDataType.RATING_ACADEMIC_ACHIEVEMENT);
+        if (cityAcademicRating != null) {
+            dataMap.put(DATA_CITY_TEST_SCORE_RATING, cityAcademicRating.getRating());
+        }
+
+        CityRating2 cityValueAddedRating = _cityRating2Dao.getLatestCityRatingByCity(school.getDatabaseState(),
+                school.getCity(), TestDataType.RATING_ACADEMIC_VALUE_ADDED);
+        if (cityValueAddedRating != null) {
+            dataMap.put(DATA_CITY_STUDENT_GROWTH_RATING, cityValueAddedRating.getRating());
+        }
+
+        CityRating2 cityPSRRating = _cityRating2Dao.getLatestCityRatingByCity(school.getDatabaseState(),
+                school.getCity(), TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS);
+        if (cityPSRRating != null) {
+            dataMap.put(DATA_CITY_POST_SECONDARY_READINESS_RATING, cityPSRRating.getRating());
         }
 
     }
