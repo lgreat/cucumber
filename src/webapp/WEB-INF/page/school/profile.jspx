@@ -249,9 +249,10 @@
             </c:if>
             </span>
 
-            <!-- Pinterest Button -->
+            <!-- Pinterest Button : uses parameters set on addFacebookMetaTags.tagx -->
             <div id="schoolProfilePinIt" style='vertical-align: top; display: inline-block; *display: inline;'>
-                <promo:addPinItButton url="${schoolOverviewUrl}" title="${schoolPlainTextSummary}"
+
+                <promo:addPinItButton url="${pinterestUrl}" title="${schoolPlainTextSummary}"
                                       image="http://www.greatschools.org/res/img/content/article/GS_FB_logo_200x200.jpg"/>
             </div>
 
