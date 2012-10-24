@@ -508,9 +508,7 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
 
     public static void populatePostSecondaryReadinessRatingsModel(School school,boolean showStateRating, Map<String,Object> dataMap,ModelMap model) {
 
-        if (dataMap.containsKey(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING) &&
-                school.getLevelCode() != null &&
-                school.getLevelCode().containsLevelCode(LevelCode.Level.HIGH_LEVEL)) {
+        if (dataMap.containsKey(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING)) {
 
             model.put(MODEL_POST_SECONDARY_READINESS_RATING_YEAR, dataMap.get(DATA_POST_SECONDARY_READINESS_RATING_YEAR));
             model.put(MODEL_SCHOOL_POST_SECONDARY_READINESS_RATING, dataMap.get(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING));
@@ -546,11 +544,11 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         } else if (dataMap.containsKey(DATA_SCHOOL_ACT_SAT_PARTICIPATION) && dataMap.containsKey(DATA_SCHOOL_ACT_SAT_COLLEGE_READY)) {
             //Sometimes states like DC give us scores for both SAT and ACT together as college readiness.Therefore take
             //that into account as well.
-            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_ACT_SAT_PARTICIPATION));
+            model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE, dataMap.get(DATA_SCHOOL_ACT_SAT_COLLEGE_READY));
             model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_LABEL,
                     getPSRBreakdownPercentTestScoreLabel(ACT_OR_SAT_TEST_NAME));
             model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED,
-                    dataMap.get(DATA_SCHOOL_ACT_SAT_COLLEGE_READY));
+                    dataMap.get(DATA_SCHOOL_ACT_SAT_PARTICIPATION));
             model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_PERCENT_TESTED_LABEL,
                     getPSRBreakdownPercentTestedLabel((Grade) dataMap.get(DATA_SCHOOL_ACT_SAT_GRADE), ACT_OR_SAT_TEST_NAME));
             model.put(MODEL_POST_SECONDARY_READINESS_BREAKDOWN_TEST_SCORE_MEASUREMENT, "percent");

@@ -391,17 +391,17 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         ModelMap model = new ModelMap();
         School s = new School();
 
-        // schools with no high level code: no post-secondary readiness ratings
+        // check if school has post-secondary readiness rating regardless of level code
 
         for (LevelCode levelCode : NON_HIGH_LEVEL_CODES) {
             s.setLevelCode(levelCode);
             _controller.populatePostSecondaryReadinessRatingsModel(s,true, _dataMap,model);
-            assertNull(model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_YEAR));
-            assertNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_POST_SECONDARY_READINESS_RATING));
+            assertNotNull(model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_YEAR));
+            assertNotNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_POST_SECONDARY_READINESS_RATING));
+            model.clear();
         }
 
-        // check if school has post-secondary readiness rating regardless of level code
-
+        model.clear();
         // temporarily remove rating for this test
         Object postSecondaryReadinessRatingOrigValue = _dataMap.remove(SchoolProfileRatingsController.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING);
 
@@ -409,6 +409,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
         _controller.populatePostSecondaryReadinessRatingsModel(s,true, _dataMap,model);
         assertNull(model.get(SchoolProfileRatingsController.DATA_POST_SECONDARY_READINESS_RATING_YEAR));
         assertNull(model.get(SchoolProfileRatingsController.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING));
+        model.clear();
 
         // restore rating
         _dataMap.put(SchoolProfileRatingsController.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING, postSecondaryReadinessRatingOrigValue);
@@ -422,6 +423,7 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
                     model.get(SchoolProfileRatingsController.MODEL_POST_SECONDARY_READINESS_RATING_YEAR));
             assertEquals(_dataMap.get(SchoolProfileRatingsController.DATA_SCHOOL_POST_SECONDARY_READINESS_RATING),
                     model.get(SchoolProfileRatingsController.MODEL_SCHOOL_POST_SECONDARY_READINESS_RATING));
+            model.clear();
         }
     }
 
