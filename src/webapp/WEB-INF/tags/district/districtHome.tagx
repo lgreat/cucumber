@@ -64,7 +64,7 @@
 
                 <c:choose>
                     <c:when test="${model.isDistrictBoilerplatePresent eq true}">
-                        <h3 id="districtHeading" style="">${model.districtboilerplateheading}</h3>
+                        <h3 id="districtHeading" style="">${model.districtBoilerplateHeading}</h3>
                         <h3 id="stateHeading" style="display: none;">${model.stateBoilerplateHeading}</h3>
                         <span id="districtBox" class="boilerPlate" style="">${model.boilerplate}</span>
                         <span id="stateBox"  class="boilerPlate" style="display: none;">${model.stateBoilerplate}</span>
