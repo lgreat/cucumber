@@ -363,6 +363,12 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
             resultsModel.put( "programs_resources/Basics/administrator_name", administratorList );
         }
 
+        if (school != null) {
+            List<String> faxList = new ArrayList<String>(1);
+            faxList.add(school.getFax());
+            resultsModel.put( "programs_resources/Basics/school_fax_office_code", faxList );
+        }
+
         // Blue ribbon school data has been removed from the project scope for now.
         // GSData classes (BlueRibbonSchoolDaoHibernate) have been started to get this data but they need some cleaning up.
 //        // This is just debug data for testing blue_ribbon_schools
@@ -1049,6 +1055,9 @@ public class SchoolProfileProgramsController extends AbstractSchoolProfileContro
                 "school_type_affiliation"));
         DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Associations",
                 "school.association"));
+
+        DISPLAY_CONFIG.add(new SchoolProfileDisplayBean(tabAbbrev, sectionAbbrev, sectionTitle, "Fax number",
+                "school_fax_office_code"));
 
         // Programs section
         sectionAbbrev = "Programs";
