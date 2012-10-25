@@ -145,7 +145,7 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
         return null;
     }
 
-    protected void addGamAttributes(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, List<SolrSchoolSearchResult> schoolResults) {
+    protected void addGamAttributes(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, List<SolrSchoolSearchResult> schoolResults, boolean showAdvancedFilters) {
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 
         // GS-10448 - search results
@@ -162,6 +162,10 @@ class DistrictBrowseHelper2012 extends AbstractBrowseHelper {
         // GS-10157 - district browse
         if (commandAndFields.isDistrictBrowse()) {
             _searchAdHelper.addDistrictAdKeywords(pageHelper, commandAndFields.getDistrict());
+        }
+
+        if (showAdvancedFilters) {
+            _searchAdHelper.addAdvancedFiltersKeywords(pageHelper, showAdvancedFilters);
         }
     }
 

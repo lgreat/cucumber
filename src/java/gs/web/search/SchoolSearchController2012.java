@@ -196,7 +196,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         }
 
         // support new additional OSP filters for redesigned search
-        showAdvancedFilters(schoolSearchCommand, commandAndFields, model);
+        boolean showAdvancedFilters = showAdvancedFilters(schoolSearchCommand, commandAndFields, model);
 
 
         // local board module support
@@ -218,11 +218,11 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
         ModelAndView modelAndView;
         if (commandAndFields.isCityBrowse()) {
-            modelAndView = handleCityBrowse(request, response, commandAndFields, model);
+            modelAndView = handleCityBrowse(request, response, commandAndFields, model, showAdvancedFilters);
         } else if (commandAndFields.isDistrictBrowse()) {
-            modelAndView = handleDistrictBrowse(request, response, commandAndFields, model);
+            modelAndView = handleDistrictBrowse(request, response, commandAndFields, model, showAdvancedFilters);
         } else {
-            modelAndView = handleQueryStringAndNearbySearch(request, response, commandAndFields, model, schoolSearchCommand.isNearbySearchByLocation());
+            modelAndView = handleQueryStringAndNearbySearch(request, response, commandAndFields, model, schoolSearchCommand.isNearbySearchByLocation(), showAdvancedFilters);
         }
 
         // hack to get school types / level code checkboxes to reflect browse prefilters
@@ -383,28 +383,35 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         responseJson.accumulate("pageview_candidate", "pageview_candidate");
     }
 
-    public void showAdvancedFilters(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandWithFields,
+    public boolean showAdvancedFilters(SchoolSearchCommand schoolSearchCommand, SchoolSearchCommandWithFields commandWithFields,
                                     Map<String, Object> model) {
+        boolean showAdvancedFilters = false;
         final String MODEL_SHOW_ADDITIONAL_FILTERS = "showAdditionalFilters";
         // special-case check for DC
         if (schoolSearchCommand.getState() != null && schoolSearchCommand.getState().equalsIgnoreCase(State.DC.getAbbreviation())) {
-                model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+            showAdvancedFilters = true;
         } else if(commandWithFields.isCityBrowse() || commandWithFields.isDistrictBrowse()) {
             City city = commandWithFields.getCity();
             if(city != null && SchoolHelper.isLocal(city.getName(), city.getState().getAbbreviation())) {
-                model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+                showAdvancedFilters = true;
             }
         }
         else if (commandWithFields.isNearbySearch()) {
             if (SchoolHelper.isZipForNewSearchFilters(schoolSearchCommand.getZipCode()) || SchoolHelper.isLocal(schoolSearchCommand.getCity(), schoolSearchCommand.getState())) {
-                model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+                showAdvancedFilters = true;
             }
         }
         else {
             if (SchoolHelper.isLocal(schoolSearchCommand.getSearchString(), schoolSearchCommand.getState())) {
-                model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+                showAdvancedFilters = true;
             }
         }
+
+        if (showAdvancedFilters) {
+            model.put(MODEL_SHOW_ADDITIONAL_FILTERS, true);
+        }
+
+        return showAdvancedFilters;
     }
 
     private String getNoResultsView(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {
@@ -635,7 +642,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         return searchResultsPage;
     }
 
-    public ModelAndView handleCityBrowse(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
+    public ModelAndView handleCityBrowse(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model, boolean showAdvancedFilters) {
         // City Browse Specific: check valid city
         ModelAndView redirect = _cityBrowseHelper.checkForRedirectConditions(response, commandAndFields);
         if (redirect != null) {
@@ -656,7 +663,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
 
         // City Browse Specific: Ad GAM attributes for city browse
-        _cityBrowseHelper.addGamAttributes(request, commandAndFields, searchResultsPage.getSearchResults());
+        _cityBrowseHelper.addGamAttributes(request, commandAndFields, searchResultsPage.getSearchResults(), showAdvancedFilters);
 
 
         // City Browse Specific:  Put rel canonical value into the model
@@ -691,7 +698,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         return new ModelAndView(viewName, model);
     }
 
-    public ModelAndView handleDistrictBrowse(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model) {
+    public ModelAndView handleDistrictBrowse(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model, boolean showAdvancedFilters) {
 
         // District Browse Specific: check valid city, valid district, wrong param combination, etc
         ModelAndView redirect = _districtBrowseHelper.checkForRedirectConditions(request, response, commandAndFields);
@@ -717,7 +724,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
 
         // District Browse Specific: put GAM attributes for district browse into model
-        _districtBrowseHelper.addGamAttributes(request, commandAndFields, searchResultsPage.getSearchResults());
+        _districtBrowseHelper.addGamAttributes(request, commandAndFields, searchResultsPage.getSearchResults(), showAdvancedFilters);
 
         // District Browse Specific:  Put rel canonical value into the model
         putRelCanonicalIntoModel(request, _districtBrowseHelper.getRelCanonical(commandAndFields), model);
@@ -749,7 +756,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
         return new ModelAndView(viewName, model);
     }
 
-    private ModelAndView handleQueryStringAndNearbySearch(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model, boolean isNearbySearchByLocation) {
+    private ModelAndView handleQueryStringAndNearbySearch(HttpServletRequest request, HttpServletResponse response, SchoolSearchCommandWithFields commandAndFields, Map<String,Object> model, boolean isNearbySearchByLocation, boolean showAdvancedFilters) {
 
         // QueryString Search Specific (not city browse and not district browse and no lat/lon)
         // if user did not enter search term (and this is not a nearby search), redirect to state browse
@@ -773,7 +780,7 @@ public class SchoolSearchController2012  extends AbstractCommandController imple
 
 
         // Nearby Search and QueryString Search Specific: put GAM attributes for these flows into model
-        _queryStringSearchHelper.addGamAttributes(request, commandAndFields, searchResultsPage.getSearchResults());
+        _queryStringSearchHelper.addGamAttributes(request, commandAndFields, searchResultsPage.getSearchResults(), showAdvancedFilters);
 
 
         // QueryString Search Specific:  Put rel canonical value into the model

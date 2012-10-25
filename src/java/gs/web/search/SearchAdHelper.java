@@ -98,6 +98,12 @@ public class SearchAdHelper {
         }
     }
 
+    public void addAdvancedFiltersKeywords(PageHelper pageHelper, boolean showAdvancedFilters) {
+        if (showAdvancedFilters) {
+            pageHelper.addAdKeywordMulti("template", "AdvFilters");
+        }
+    }
+
     public void addRealtorDotComAdKeywords(PageHelper pageHelper, State state, City city) {
         if (state != null && city != null) {
             String cityName = city.getName();

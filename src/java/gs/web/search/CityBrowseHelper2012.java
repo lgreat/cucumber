@@ -236,7 +236,7 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
         return model;
     }
 
-    protected void addGamAttributes(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, List<SolrSchoolSearchResult> schoolResults) {
+    protected void addGamAttributes(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, List<SolrSchoolSearchResult> schoolResults, boolean showAdvancedFilters) {
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
 
         // GS-10448 - search results
@@ -259,6 +259,10 @@ public class CityBrowseHelper2012 extends AbstractBrowseHelper {
 
             // GS-7809 - adsense hints for realtor.com
             _searchAdHelper.addRealtorDotComAdKeywords(pageHelper, state, city);
+        }
+
+        if (showAdvancedFilters) {
+            _searchAdHelper.addAdvancedFiltersKeywords(pageHelper, showAdvancedFilters);
         }
     }
 

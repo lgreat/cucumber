@@ -113,7 +113,7 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
         return model;
     }
 
-    public void addGamAttributes(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, List<SolrSchoolSearchResult> schoolResults) {
+    public void addGamAttributes(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, List<SolrSchoolSearchResult> schoolResults, boolean showAdvancedFilters) {
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         String searchString = commandAndFields.getSearchString();
 
@@ -139,6 +139,10 @@ public class SchoolSearchHelper extends AbstractSchoolSearchHelper {
 
         // GS-11511 - nearby search by zip code
         _searchAdHelper.addNearbySearchInfoKeywords(pageHelper, request);
+
+        if (showAdvancedFilters) {
+            _searchAdHelper.addAdvancedFiltersKeywords(pageHelper, showAdvancedFilters);
+        }
     }
 
     public ModelAndView checkForRedirectConditions(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields) {
