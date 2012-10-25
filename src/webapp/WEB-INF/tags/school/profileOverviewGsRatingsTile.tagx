@@ -36,7 +36,7 @@
                                 <c:set var="climateRating">Not available</c:set>
                             </c:when>
                             <c:otherwise>
-                                <c:set var="climateRating"><em>${climateRating}</em></c:set>
+                                <c:set var="climateRating">${climateRating}</c:set>
                             </c:otherwise>
                         </c:choose>
                         <c:set var="schoolSpriteType" value="${schoolType}" />
