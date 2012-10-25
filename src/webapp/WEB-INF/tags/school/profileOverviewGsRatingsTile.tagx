@@ -32,7 +32,7 @@
                         <c:set var="climateRating">${gsRatingsModel.climateRating}</c:set>
                         <c:set var="overallRating" value="${gsRatingsModel.overallRating}"/>
                         <c:choose>
-                            <c:when test="${!((climateRating gt '0')  and (climateRating lt '11'))}">
+                            <c:when test="${!((climateRating gt 0)  and (climateRating lt 11))}">
                                 <c:set var="climateRating">Not available</c:set>
                             </c:when>
                             <c:otherwise>
