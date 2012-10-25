@@ -75,6 +75,7 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
 
     public  static final  String MODEL_OVERALL_RATING = "overallRating";
     public  static final  String MODEL_CLIMATE_RATING = "climateRating";
+    public  static final  String MODEL_CLIMATE_RATING_NUMERIC = "climateRatingNumeric";
     public  static final  String MODEL_ACADEMIC_RATING = "academicRating";
     public  static final  String CLIMATE_RATING_NO_DATA_TEXT = "Data not available";
     public  static final  String CLIMATE_RATING_NO_DATA_TEXT_DC = "Coming 2013";
@@ -422,12 +423,13 @@ public class SchoolProfileOverviewController extends AbstractSchoolProfileContro
             model.put(MODEL_ACADEMIC_RATING, ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_ACADEMIC_RATING));
 
             Object climateRating = ratingsMap.get(_schoolProfileDataHelper.DATA_OVERALL_CLIMATE_RATING);
-            if (climateRating == null) {
+            if (climateRating == null || !(climateRating instanceof Integer)) {
                 String climateRatingNoDataText = school.getDatabaseState().getName().equals("DC") ? CLIMATE_RATING_NO_DATA_TEXT_DC :
                         school.getDatabaseState().getName().equals("IN") ? CLIMATE_RATING_NO_DATA_TEXT_IN : CLIMATE_RATING_NO_DATA_TEXT;
                 model.put(MODEL_CLIMATE_RATING, climateRatingNoDataText);
             }else{
                 model.put(MODEL_CLIMATE_RATING, climateRating);
+                model.put(MODEL_CLIMATE_RATING_NUMERIC, climateRating);
             }
 
             model.put("content", "GsRatings");
