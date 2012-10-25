@@ -53,12 +53,9 @@
                 pageHelper.addAdKeyword("env", "dev");
             }
 
-            if (!pageHelper.hasAdKeyword("template")) {
-                // "run of site" is the default value if no other code has already set it,
-                // e.g. in a controller. note that setting this in a jspx or tagx file
-                // which gets processed after xGAMSetup.tagx will still work because
-                // adding a non-multi value replaces any existing one
-                pageHelper.addAdKeyword("template", "ros");
+            if (!pageHelper.hasAdKeyword("template") || !pageHelper.hasAdKeywordWithValue("template","homepage")) {
+                // "run of site" is the default value added if the value "homepage" has not already been added
+                pageHelper.addAdKeywordMulti("template", "ros");
             }
 
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);

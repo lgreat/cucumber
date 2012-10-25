@@ -100,7 +100,7 @@ public class SchoolProfileController extends AbstractSchoolController implements
         // Google Ad Manager ad keywords
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {
-            pageHelper.addAdKeyword("template", "SchoolProf");
+            pageHelper.addAdKeywordMulti("template", "SchoolProf");
         }
 
         return new ModelAndView(_viewName, model);

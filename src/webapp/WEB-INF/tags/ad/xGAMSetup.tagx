@@ -73,12 +73,9 @@
                 pageHelper.addAdKeyword("env", "prod");
             }
 
-            if (!pageHelper.hasAdKeyword("template")) {
-                // "run of site" is the default value if no other code has already set it,
-                // e.g. in a controller. note that setting this in a jspx or tagx file
-                // which gets processed after xGAMSetup.tagx will still work because
-                // adding a non-multi value replaces any existing one
-                pageHelper.addAdKeyword("template","ros");
+            if (!pageHelper.hasAdKeyword("template") || !pageHelper.hasAdKeywordWithValue("template","homepage")) {
+                // "run of site" is the default value added if the value "homepage" has not already been added
+                pageHelper.addAdKeywordMulti("template","ros");
             }
 
             SessionContext sessionContext = SessionContextUtil.getSessionContext(request);
@@ -180,6 +177,7 @@
         <![CDATA[
             if(typeof(googletag) !== 'undefined' && googletag.pubads) {
         ]]>
+            <c:set var="compfilter" value="${gsweb:randomNumber(4)+1}"/>
             <c:forEach var="slotName" items="${GAMadNames}">
                 <c:set var="adPosition" value="${GPTadNameAdPositionMap[slotName]}"/>
                 <c:set var="adSizes" value="${gsweb:contains(requestScope.pageHelper.adPositionsWithOmittedCompanionSizes,adPosition) ? adPosition.sizes : adPosition.allSizes}"/>
@@ -198,6 +196,15 @@
                     <c:otherwise>'ad${adPosition.name}'</c:otherwise>
                 </c:choose>);
                 GS.ad.slots['${slotName}'].addService(googletag.pubads());
+                <c:if test="${requestScope.context.gptSlotLevelTargetingEnabled}">
+                    <c:forEach var="keywordEntry" items="${GAMadKeywords}">
+                    GS.ad.slots['${slotName}'].setTargeting("${keywordEntry.key}", <c:choose>
+                    <c:when test="${fn:length(keywordEntry.value) == 1}">"${keywordEntry.value[0]}"</c:when>
+                    <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
+                    </c:choose>);
+                    </c:forEach>
+                    GS.ad.slots['${slotName}'].setTargeting("compfilter", "${compfilter}");
+                </c:if>
 
                 <c:if test="${associatedTab != null}">
                 } else {
@@ -208,15 +215,17 @@
                 </c:if>
             </c:forEach>
 
-            <c:forEach var="keywordEntry" items="${GAMadKeywords}">
-                googletag.pubads().setTargeting("${keywordEntry.key}", <c:choose>
-                      <c:when test="${fn:length(keywordEntry.value) == 1}">"${keywordEntry.value[0]}"</c:when>
-                      <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
-                  </c:choose>);
-            </c:forEach>
-            <![CDATA[
-                googletag.pubads().setTargeting("compfilter", "${gsweb:randomNumber(4)+1}");
-            ]]>
+            <c:if test="${!requestScope.context.gptSlotLevelTargetingEnabled}">
+                <c:forEach var="keywordEntry" items="${GAMadKeywords}">
+                    googletag.pubads().setTargeting("${keywordEntry.key}", <c:choose>
+                    <c:when test="${fn:length(keywordEntry.value) == 1}">"${keywordEntry.value[0]}"</c:when>
+                    <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
+                </c:choose>);
+                </c:forEach>
+                <![CDATA[
+                googletag.pubads().setTargeting("compfilter", "${compfilter}");
+                ]]>
+            </c:if>
 
             <![CDATA[
                 googletag.pubads().collapseEmptyDivs();

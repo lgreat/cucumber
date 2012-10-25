@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2005 GreatSchools.org. All Rights Reserved.
- * $Id: PageHelper.java,v 1.111 2012/09/15 03:37:51 yfan Exp $
+ * $Id: PageHelper.java,v 1.112 2012/10/25 23:36:22 yfan Exp $
  */
 
 package gs.web.util;
@@ -379,6 +379,14 @@ public class PageHelper {
         }
 
         return value;
+    }
+
+    public boolean hasAdKeywordWithValue(String key, String value) {
+        Collection values = (Collection)_adKeywords.get(key);
+        if (values != null) {
+            return values.contains(value);
+        }
+        return false;
     }
 
     /**

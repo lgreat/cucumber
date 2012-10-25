@@ -126,7 +126,7 @@ public class CmsHomepageController extends AbstractController implements IContro
 
         PageHelper pageHelper = (PageHelper) request.getAttribute(PageHelper.REQUEST_ATTRIBUTE_NAME);
         if (pageHelper != null) {
-            pageHelper.addAdKeyword("template", "homepage");
+            pageHelper.addAdKeywordMulti("template", "homepage");
             pageHelper.addAdKeywordMulti("editorial", "pushdownad");
         }
 
