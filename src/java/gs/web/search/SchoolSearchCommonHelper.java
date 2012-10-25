@@ -28,14 +28,13 @@ public class SchoolSearchCommonHelper extends AbstractSchoolSearchHelper {
     public Map<String,Object> getCommonOmnitureAttributes(HttpServletRequest request, SchoolSearchCommandWithFields commandAndFields, SearchResultsPage<SolrSchoolSearchResult> searchResultsPage) {
         Map<String,Object> map = new HashMap<String,Object>();
         String[] schoolSearchTypes = commandAndFields.getSchoolTypes();
-        boolean sortChanged = commandAndFields.getSchoolSearchCommand().isSortChanged();
         String searchString = (commandAndFields.getSearchString() != null) ? commandAndFields.getSearchString() :
                 commandAndFields.getSchoolSearchCommand().getLocationSearchString();
         String omnitureQuery = commandAndFields.isSearch()? getOmnitureQuery(searchString) : null;
         map.put(MODEL_OMNITURE_QUERY, omnitureQuery);
         map.put(MODEL_OMNITURE_SCHOOL_TYPE, getOmnitureSchoolType(schoolSearchTypes));
         map.put(MODEL_OMNITURE_SCHOOL_LEVEL, getOmnitureSchoolLevel(commandAndFields.getLevelCode()));
-        map.put(MODEL_OMNITURE_SORT_SELECTION, getOmnitureSortSelection(sortChanged ? commandAndFields.getFieldSort() : null));
+        map.put(MODEL_OMNITURE_SORT_SELECTION, commandAndFields.getFieldSort() != null ? commandAndFields.getFieldSort().getName() : null);
         map.put(MODEL_OMNITURE_RESULTS_PER_PAGE, getOmnitureResultsPerPage(commandAndFields.getRequestedPage().pageSize, searchResultsPage.getTotalResults()));
         map.put(MODEL_OMNITURE_ADDRESS_SEARCH, false);
         map.put(MODEL_OMNITURE_NAME_SEARCH, false);
@@ -76,24 +75,6 @@ public class SchoolSearchCommonHelper extends AbstractSchoolSearchHelper {
             return levelCode.getCommaSeparatedString();
         }
         return null;
-    }
-
-    protected static String getOmnitureSortSelection(FieldSort sort) {
-        if (sort == null) {
-            return null;
-        } else {
-            if (sort.name().startsWith("SCHOOL_NAME")) {
-                return "School name";
-            } else if (sort.name().startsWith("GS_RATING")) {
-                return "GS Rating";
-            } else if (sort.name().startsWith("PARENT_RATING")) {
-                return "Parent Rating";
-            } else if (sort.name().startsWith("DISTANCE")) {
-                return "Distance";
-            } else {
-                return null;
-            }
-        }
     }
 
     protected static String getOmnitureResultsPerPage(int pageSize, int totalResults) {
