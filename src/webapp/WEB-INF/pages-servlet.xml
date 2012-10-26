@@ -2989,6 +2989,13 @@
         </property>
     </bean>
 
+    <bean name="/ads/leadGen.page"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
+        <property name="viewName">
+            <value>/ads/leadGen</value>
+        </property>
+    </bean>
+
     <bean name="/demo/emailSignUp.page"
           class="org.springframework.web.servlet.mvc.ParameterizableViewController" lazy-init="true">
         <property name="viewName">
