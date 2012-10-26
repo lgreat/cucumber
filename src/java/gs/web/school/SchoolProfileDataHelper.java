@@ -845,6 +845,9 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                     case TestDataType.RATING_CLIMATE_TEACHER_SUPPORT:
                         dataMap.put(DATA_TEACHER_SUPPORT_RATING, value.getValueFloat().intValue());
                         break;
+                    case TestDataType.RATING_CLIMATE_FAMILY_ENGAGEMENT:
+                        dataMap.put(DATA_FAMILY_ENGAGEMENT_RATING, value.getValueFloat().intValue());
+                        break;
                     case TestDataType.ACT_SCORE:
                         dataMap.put(DATA_SCHOOL_ACT_SCORE, value.getValueFloat().intValue());
                         break;
