@@ -188,6 +188,36 @@
         </div>
     </c:if>
 
+<!-- GS-13256 : ratings key -->
+    <div class="contain_2-1" id='ratingsKey'>
+        <div class='vam mbs' style="height: 60px; text-align: center;">
+            <div style="width:280px; height: 28px; margin: 10px auto 0;">
+
+                <div class="fl">
+                    <span class='ratingx24-private-O r-24-NR fl'><!-- do not close--></span>
+                    <span class='smaller fl pls pt4 mrl'>Private</span>
+                </div>
+
+                <div class="fl">
+                    <div class="public-O r-24 fl"><!-- do not close --></div>
+                    <span class='smaller fl pls pt4 mrl'>Private</span>
+                </div>
+
+                <div class="fl">
+                    <div class="ratingx24-preschool r-24-NR fl"><!-- do not close --></div>
+                    <span class='smaller fl pls pt4 mrl'>Preschool</span>
+                </div>
+            </div>
+
+            <div class='mtm' style='width: 280px; height: 28px; margin-left: auto; margin-right: auto;'>
+                <!-- GS-13256 : Link to new ratings key page goes here... -->
+                <span class="smaller"><a href="/search/ratingsKey-mobile.jspx"> Full ratings key >> </a></span>
+            </div>
+
+
+        </div>
+    </div>
+
     <c:if test="${isNearbySearch}">
         <ul class="list1">
             <li><h3>Nearby Cities</h3></li>
