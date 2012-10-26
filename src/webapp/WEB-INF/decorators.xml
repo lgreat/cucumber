@@ -34,7 +34,7 @@
     </decorator>
 
     <decorator name="houseAdsDecorator" page="houseAdsDecorator.jspx">
-        <pattern>/demo/house-ads/*</pattern>
+        <pattern>/ads/leadGen.page*</pattern>
     </decorator>
 
     <decorator name="iPhoneSplashPageDecorator" page="iPhoneSplashPageDecorator.jspx">

@@ -12,20 +12,16 @@
                 doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     <jsp:directive.page contentType="text/html"/>
     <head>
-        <!-- nothing goes here -->
+        <pageHelper:addHouseAdsCss/>
+        <pageHelper:addHouseAdsJavaScript
+                uncompressedScripts="${param.uncompressedScripts}"
+                compressedScripts="${param.compressedScripts}"
+                serverName="${pageContext.request.serverName}"/>
+
+        <decorator:head/>
     </head>
 
     <body>
-
-    <!-- TODO-12415 add JS condition to wrap around adding CSS and JavaScript if using synchronous mode not in iframes?
-                    but maybe do this somewhere else? -->
-    <!-- this is not complete because we're not moving ahead with GPT Asynchronous Mode at this time -->
-
-    <pageHelper:addHouseAdsCss/>
-    <pageHelper:addHouseAdsJavaScript
-            uncompressedScripts="${param.uncompressedScripts}"
-            compressedScripts="${param.compressedScripts}"
-            serverName="${pageContext.request.serverName}"/>
 
     <decorator:body/>
 

@@ -16,7 +16,7 @@
 
     <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
-    <c:set var="alphaNumericHyphenRegex" value="[\\p{Alnum}\\-']+"/>
+    <c:set var="alphaNumericHyphenRegex" value="[\p{Alnum}\-']+"/>
 
     <!-- lead_gen.campaign has a max length of 64 characters -->
     <c:set var="campaignCode"><c:if test="${param.cc != null and
@@ -30,17 +30,12 @@
     <head>
         <title>Lead Gen Widget</title>
 
-        <pageHelper:addHouseAdsCss/>
         <style type="text/css">
             .${campaignCode} .inner {
                 background-image: url(/catalog/ads/leadGen/img/${backgroundImage}.png);
             }
         </style>
 
-        <pageHelper:addHouseAdsJavaScript
-                uncompressedScripts="${param.uncompressedScripts}"
-                compressedScripts="${param.compressedScripts}"
-                serverName="${pageContext.request.serverName}"/>
         <gsml:url var="leadgenjs" value="/res/js/promo/leadGen2.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <![CDATA[<script type="text/javascript" src="${leadgenjs}"></script>]]>
     </head>
@@ -51,7 +46,7 @@
 
         <div class="mod ${campaignCode} jq-leadGen2Wrapper">
             <div class="inner">
-                <div class="hd wrapper"></div>
+                <div class="hd wrapper"><!-- do not collapse --></div>
                 <div class="bd wrapper">
 
                     <div class="leadGenPrelimText jq-leadGenPrelimText">
@@ -64,7 +59,7 @@
 
                     <div class="leadGenErrors">
                         <div class="hidden media jq-leadGenError jq-leadGenError-all">
-                            <div class="iconx16 i-16-alert img"></div>
+                            <div class="iconx16 i-16-alert img"><!-- do not collapse --></div>
                             <div class="bd">
                                 Please enter:<br/>
                                 first name, last name,<br/>
