@@ -106,12 +106,12 @@ education.</p>
 				<li><a href="#faq-datapublic">School Data – Public &amp;amp; Charter schools</a></li>
 				<li><a href="#pvtdata">School Data – Private Schools</a></li>
                 <li><a href="#preschools">School Data - Preschools</a></li>
+                <li><a href="#faq-ratings">GreatSchools Ratings</a></li>
+                <li><a href="#faq-officialprofiles">Official School Profiles</a></li>
 				<li><a href="#faq-datacity">City and District Data</a></li>
                 <li><a href="#faq-boundarymap">School and District Boundary Map</a></li>
-                <li><a href="#faq-officialprofiles">Official School Profiles</a></li>
                 <li><a href="#faq-newAndImprovedGS">The new and improved GreatSchools</a></li>
-				<li><a href="#faq-ratings">GreatSchools Ratings</a></li>
-				<li><a href="#faq-surveyinfo">Parent Survey Information</a></li>
+                <li><a href="#faq-surveyinfo">Parent Survey Information</a></li>
 				<li><a href="#faq-comparingschools">Comparing Schools</a></li>
 				<li><a href="#faq-schoollist">My School List</a></li>
 			</ul>
@@ -308,7 +308,95 @@ School Profile feature. School leaders can <link:schoolEspRegister>request acces
 			<p class="emphasis-right">Didn't find the answer you're looking for?
                 <gsml:a href="/cgi-bin/feedback_faq/${state}?fbtype=profile">Contact us about our school information</gsml:a>.</p>
 
-			<h3 id="faq-datacity">City and School District Data</h3>
+
+            <h3 id="faq-ratings">GreatSchools Ratings</h3>
+
+            <ol class="questions none">
+                <li>
+                    <p class="question">How are the GreatSchools Ratings calculated?</p>
+                    <p>GreatSchools
+                        analyzes each school's performance on state standardized tests and
+                        provides a one-through-ten rating for the school's performance relative
+                        to other schools in the state. Our ratings also allow you to compare
+                        the performance of particular grade levels and groups of students to
+                        comparable groups in other schools in the state. A rating of "10" means
+                        that the group's test scores are in the top 10% compared to scores for
+                        the same group across all schools in the state. In other words, that
+                        group's test score performance is as good as, or better than, 90% of
+                        the scores for that group in the state. A rating of "1" means that the
+                        group is in the bottom 10% compared to scores for that group across all
+                        schools in the state. Learn more about
+                        <link:article articleId="1023">GreatSchools Ratings</link:article>.</p>
+                    <p>GreatSchools'
+                        Overall Ratings are calculated by averaging the ratings for each grade
+                        and subject. A Test Score Rating is not given if fewer than 50 schools
+                        have data for a particular group. The different student groups
+                        (category, ethnicity and gender) are identified by the state Department
+                        of Education; if there is a small number of students in a particular
+                        group in a school, data is not reported for that group.</p>
+                    <p>Please
+                        keep in mind that it's important to factor in information other than
+                        Test Score Ratings, including the quality of each school's teachers,
+                        the school culture and special programs, when evaluating a school. Also
+                        note that GreatSchools Ratings are not linked to any performance
+                        ratings given by the state Department of Education.</p>
+                </li>
+            </ol>
+
+            <p class="emphasis-right">Didn't find the answer you're looking for?
+                <gsml:a href="/cgi-bin/feedback_faq/${state}?fbtype=profile">Contact us about our ratings</gsml:a>.</p>
+
+            <h3 id="faq-officialprofiles">Official School Profiles</h3>
+
+            <ol class="questions none">
+                <li>
+                    <p class="question">What is an Official School Profile and is it free?</p>
+                    <p>An
+                        Official School Profile is absolutely free. It allows the principal or
+                        other school official to add the following information about the school
+                        directly to their GreatSchools.org profile:</p>
+                    <ul>
+                        <li>Schedule and program details</li>
+                        <li>Detailed descriptions of curriculum and enrichment activities (music, sports, etc.)</li>
+                        <li>In-depth information on staff, safety, student support, community involvement</li>
+                        <li>School photos and videos</li>
+                    </ul>
+                    <p>As
+                        an added bonus, the Official School Profile also lets the principal or
+                        other school official edit the school's contact information directly,
+                        in the event that the school's address or phone number has changed
+                        since we last updated it.</p>
+                </li>
+
+                <li>
+                    <p class="question">Why do I need an Official School Profile for my school?</p>
+                    <p>GreatSchools.org
+                        is the most visited K-12 education Web site in the country, attracting
+                        thousands of people every day. Parents, community leaders, potential
+                        volunteers, funders, teachers and people looking for education jobs
+                        will have access to information that you provide about your school. You
+                        can use your profile to draw attention to your school's successes and
+                        unique qualities, and even point your school community straight to your
+                        GreatSchools profile to gather important information. It's a great way
+                        to spread the word about your school to a broader audience, even if you
+                        already have a school Web site.</p>
+                </li>
+
+                <li>
+                    <p class="question">How do I create an Official School Profile?</p>
+                    <p>Creating an Official School Profile is simple! Principals and school officials,
+                        <link:schoolEspRegister>get started on your Official School Profile</link:schoolEspRegister>
+                        by requesting a school official’s account. Our team will manually verify your affiliation with
+                        the school to ensure that only authorized individuals may edit your school’s information. </p>
+                </li>
+            </ol>
+
+            <p class="emphasis-right">Didn't find the answer you're looking for? <link:contactUs feedbackType="esp">Contact us about Official School Profiles</link:contactUs>.</p>
+
+
+
+
+            <h3 id="faq-datacity">City and School District Data</h3>
 
 			<ol class="questions none">
 				<li>
@@ -360,50 +448,7 @@ Violent Crime index, climate statistics and median home price</li>
                 </li>
             </ol>
 
-            <h3 id="faq-officialprofiles">Official School Profiles</h3>
 
-			<ol class="questions none">
-				<li>
-					<p class="question">What is an Official School Profile and is it free?</p>
-					<p>An
-Official School Profile is absolutely free. It allows the principal or
-other school official to add the following information about the school
-directly to their GreatSchools.org profile:</p>
-					<ul>
-						<li>Schedule and program details</li>
-						<li>Detailed descriptions of curriculum and enrichment activities (music, sports, etc.)</li>
-						<li>In-depth information on staff, safety, student support, community involvement</li>
-                        <li>School photos and videos</li>
-					</ul>
-					<p>As
-an added bonus, the Official School Profile also lets the principal or
-other school official edit the school's contact information directly,
-in the event that the school's address or phone number has changed
-since we last updated it.</p>
-				</li>
-
-				<li>
-					<p class="question">Why do I need an Official School Profile for my school?</p>
-					<p>GreatSchools.org
-is the most visited K-12 education Web site in the country, attracting
-thousands of people every day. Parents, community leaders, potential
-volunteers, funders, teachers and people looking for education jobs
-will have access to information that you provide about your school. You
-can use your profile to draw attention to your school's successes and
-unique qualities, and even point your school community straight to your
-GreatSchools profile to gather important information. It's a great way
-to spread the word about your school to a broader audience, even if you
-already have a school Web site.</p>
-				</li>
-
-				<li>
-					<p class="question">How do I create an Official School Profile?</p>
-					<p>Creating an Official School Profile is simple! Principals and school officials,
-                        <link:schoolEspRegister>get started on your Official School Profile</link:schoolEspRegister>
-                        by requesting a school official’s account. Our team will manually verify your affiliation with
-                        the school to ensure that only authorized individuals may edit your school’s information. </p>
-				</li>
-			</ol>
 
 			<p class="emphasis-right">Didn't find the answer you're looking for? <link:contactUs feedbackType="esp">Contact us about Official School Profiles</link:contactUs>.</p>
 
@@ -444,39 +489,7 @@ already have a school Web site.</p>
                 </li>
             </ol>
 
-            <h3 id="faq-ratings">GreatSchools Ratings</h3>
 
-			<ol class="questions none">
-				<li>
-					<p class="question">How are the GreatSchools Ratings calculated?</p>
-					<p>GreatSchools
-analyzes each school's performance on state standardized tests and
-provides a one-through-ten rating for the school's performance relative
-to other schools in the state. Our ratings also allow you to compare
-the performance of particular grade levels and groups of students to
-comparable groups in other schools in the state. A rating of "10" means
-that the group's test scores are in the top 10% compared to scores for
-the same group across all schools in the state. In other words, that
-group's test score performance is as good as, or better than, 90% of
-the scores for that group in the state. A rating of "1" means that the
-group is in the bottom 10% compared to scores for that group across all
-schools in the state. Learn more about
-                        <link:article articleId="1023">GreatSchools Ratings</link:article>.</p>
-					<p>GreatSchools'
-Overall Ratings are calculated by averaging the ratings for each grade
-and subject. A Test Score Rating is not given if fewer than 50 schools
-have data for a particular group. The different student groups
-(category, ethnicity and gender) are identified by the state Department
-of Education; if there is a small number of students in a particular
-group in a school, data is not reported for that group.</p>
-					<p>Please
-keep in mind that it's important to factor in information other than
-Test Score Ratings, including the quality of each school's teachers,
-the school culture and special programs, when evaluating a school. Also
-note that GreatSchools Ratings are not linked to any performance
-ratings given by the state Department of Education.</p>
-				</li>
-			</ol>
 
 			<p class="emphasis-right">Didn't find the answer you're looking for?
                 <gsml:a href="/cgi-bin/feedback_faq/${state}?fbtype=profile">Contact us about our ratings</gsml:a>.</p>
