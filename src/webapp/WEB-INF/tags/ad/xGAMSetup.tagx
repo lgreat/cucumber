@@ -196,15 +196,6 @@
                     <c:otherwise>'ad${adPosition.name}'</c:otherwise>
                 </c:choose>);
                 GS.ad.slots['${slotName}'].addService(googletag.pubads());
-                <c:if test="${requestScope.context.gptSlotLevelTargetingEnabled}">
-                    <c:forEach var="keywordEntry" items="${GAMadKeywords}">
-                    GS.ad.slots['${slotName}'].setTargeting("${keywordEntry.key}", <c:choose>
-                    <c:when test="${fn:length(keywordEntry.value) == 1}">"${keywordEntry.value[0]}"</c:when>
-                    <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
-                    </c:choose>);
-                    </c:forEach>
-                    GS.ad.slots['${slotName}'].setTargeting("compfilter", "${compfilter}");
-                </c:if>
 
                 <c:if test="${associatedTab != null}">
                 } else {
@@ -215,17 +206,15 @@
                 </c:if>
             </c:forEach>
 
-            <c:if test="${!requestScope.context.gptSlotLevelTargetingEnabled}">
-                <c:forEach var="keywordEntry" items="${GAMadKeywords}">
-                    googletag.pubads().setTargeting("${keywordEntry.key}", <c:choose>
-                    <c:when test="${fn:length(keywordEntry.value) == 1}">"${keywordEntry.value[0]}"</c:when>
-                    <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
-                </c:choose>);
-                </c:forEach>
-                <![CDATA[
-                googletag.pubads().setTargeting("compfilter", "${compfilter}");
-                ]]>
-            </c:if>
+            <c:forEach var="keywordEntry" items="${GAMadKeywords}">
+                googletag.pubads().setTargeting("${keywordEntry.key}", <c:choose>
+                <c:when test="${fn:length(keywordEntry.value) == 1}">"${keywordEntry.value[0]}"</c:when>
+                <c:otherwise>[<c:forEach var="keywordValue" items="${keywordEntry.value}" varStatus="status">"${keywordValue}"<c:if test="${!status.last}">,</c:if></c:forEach>]</c:otherwise>
+            </c:choose>);
+            </c:forEach>
+            <![CDATA[
+            googletag.pubads().setTargeting("compfilter", "${compfilter}");
+            ]]>
 
             <![CDATA[
                 googletag.pubads().collapseEmptyDivs();
