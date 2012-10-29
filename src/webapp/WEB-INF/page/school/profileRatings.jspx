@@ -201,21 +201,17 @@
                         <hr class="keyline2"/>
                     </c:if>
 
-                    <c:if test="${(schoolStudentGrowthRating != null or cityStudentGrowthRating != null
-                        or stateStudentGrowthRating != null)
-                    or schoolStudentGrowthRatingBreakdown != null}">
-                        <c:if test="${schoolStudentGrowthRating != null or cityStudentGrowthRating != null
-                        or stateStudentGrowthRating != null}">
-                            <div class="pbm ptm  fl">
-                                <h6 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}**</h6>
-                                <profile:ratingsBarChart ratingDivId="ratingTestResults2"
-                                                         schoolRating="${schoolStudentGrowthRating}"
-                                                         cityRating="${cityStudentGrowthRating}"
-                                                         stateRatingShow="${showStateStudentGrowthRating}"
-                                                         stateRating="${stateStudentGrowthRating}"/>
+                    <c:if test="${(schoolStudentGrowthRating != null) or (schoolStudentGrowthRatingBreakdown != null and cityStudentGrowthRating != null
+                        and stateStudentGrowthRating != null)}">
+                        <div class="pbm ptm  fl">
+                            <h6 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}**</h6>
+                            <profile:ratingsBarChart ratingDivId="ratingTestResults2"
+                                                     schoolRating="${schoolStudentGrowthRating}"
+                                                     cityRating="${cityStudentGrowthRating}"
+                                                     stateRatingShow="${showStateStudentGrowthRating}"
+                                                     stateRating="${stateStudentGrowthRating}"/>
 
-                            </div>
-                        </c:if>
+                        </div>
                         <c:if test="${schoolStudentGrowthRatingBreakdown != null}">
                             <div class="ratingsRightSide pvm">
                                 <div class="grayBox small bottom">
