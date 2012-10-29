@@ -888,7 +888,8 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
 
 
             if (!stateTestDataSets.isEmpty() && (SchoolProfileRatingsController.isShowStateTestScoreRating(school.getDatabaseState())
-                    || SchoolProfileRatingsController.isShowStateStudentGrowthRating(school.getDatabaseState()))) {
+                    || SchoolProfileRatingsController.isShowStateStudentGrowthRating(school.getDatabaseState())
+                    || SchoolProfileRatingsController.isShowStatePostSecondaryReadinessRating(school.getDatabaseState()))) {
 
                 List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(stateTestDataSets, school.getDatabaseState());
                 for (StateTestValue value : stateTestValues) {

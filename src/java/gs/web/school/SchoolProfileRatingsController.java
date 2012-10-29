@@ -312,7 +312,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
 
         // must be run after school data is fetched
-        if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING) || dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING)) {
+        if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING) || dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING)
+                || dataMap.containsKey(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING)) {
 
             //Get city ratings data
             populateCityData(school,dataMap);
