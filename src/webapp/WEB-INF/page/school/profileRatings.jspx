@@ -201,20 +201,22 @@
                         <hr class="keyline2"/>
                     </c:if>
 
-                    <c:if test="${schoolStudentGrowthRating != null and studentGrowthRatingYear != null}">
-                        <div class="pbm ptm  fl">
-                            <h6 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}**</h6>
-                            <profile:ratingsBarChart ratingDivId="ratingTestResults2"
-                                                     schoolRating="${schoolStudentGrowthRating}"
-                                                     cityRating="${cityStudentGrowthRating}"
-                                                     stateRatingShow="${showStateStudentGrowthRating}"
-                                                     stateRating="${stateStudentGrowthRating}" />
+                    <c:if test="${(schoolStudentGrowthRating != null or cityStudentGrowthRating != null
+                        or stateStudentGrowthRating != null)
+                    or schoolStudentGrowthRatingBreakdown != null}">
+                        <c:if test="${schoolStudentGrowthRating != null or cityStudentGrowthRating != null
+                        or stateStudentGrowthRating != null}">
+                            <div class="pbm ptm  fl">
+                                <h6 class="mtm medium_bold bottom pbm">Student growth rating ${studentGrowthRatingYear}**</h6>
+                                <profile:ratingsBarChart ratingDivId="ratingTestResults2"
+                                                         schoolRating="${schoolStudentGrowthRating}"
+                                                         cityRating="${cityStudentGrowthRating}"
+                                                         stateRatingShow="${showStateStudentGrowthRating}"
+                                                         stateRating="${stateStudentGrowthRating}"/>
 
-                        </div>
+                            </div>
+                        </c:if>
                         <c:if test="${schoolStudentGrowthRatingBreakdown != null}">
-                            <!--<c:set var="growthRatingContent"><c:if test="${overallAcademicRating le 3}">Below average</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">Average</c:if><c:if test="${overallAcademicRating ge 8}">Above average</c:if></c:set>-->
-                            <!--<c:set var="growthRatingColor"><c:if test="${overallAcademicRating eq 'below average'}">ratingsRedText</c:if><c:if test="${overallAcademicRating ge 4 and overallAcademicRating le 7}">ratingsYellowText</c:if><c:if test="${overallAcademicRating ge 8}">ratingsGreenText</c:if></c:set>-->
-
                             <div class="ratingsRightSide pvm">
                                 <div class="grayBox small bottom">
                                     <div class="tal mbn">

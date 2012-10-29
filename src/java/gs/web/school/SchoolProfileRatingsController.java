@@ -486,19 +486,22 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
         }
     }
 
-    public static void populateStudentGrowthRatingsModel(boolean showStateRating, Map<String,Object> dataMap,ModelMap model) {
+    public static void populateStudentGrowthRatingsModel(boolean showStateRating, Map<String, Object> dataMap, ModelMap model) {
 
-        if (dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING )) {
-            model.put(MODEL_STUDENT_GROWTH_RATING_YEAR, dataMap.get(DATA_STUDENT_GROWTH_RATING_YEAR));
+        if (dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING)) {
             model.put(MODEL_SCHOOL_STUDENT_GROWTH_RATING, dataMap.get(DATA_SCHOOL_STUDENT_GROWTH_RATING));
+        }
+        if (dataMap.containsKey(DATA_STUDENT_GROWTH_RATING_YEAR)) {
+            model.put(MODEL_STUDENT_GROWTH_RATING_YEAR, dataMap.get(DATA_STUDENT_GROWTH_RATING_YEAR));
+        }
+        if (dataMap.containsKey(DATA_CITY_STUDENT_GROWTH_RATING)) {
             model.put(MODEL_CITY_STUDENT_GROWTH_RATING, dataMap.get(DATA_CITY_STUDENT_GROWTH_RATING));
-            //Add the Student Growth breakdown data for subjects.
-            if(dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP)){
-                model.put(MODEL_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP,dataMap.get(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP));
-            }
-            if (showStateRating) {
-                model.put(MODEL_STATE_STUDENT_GROWTH_RATING, dataMap.get(DATA_STATE_STUDENT_GROWTH_RATING));
-            }
+        }
+        if (showStateRating && dataMap.containsKey(DATA_STATE_STUDENT_GROWTH_RATING)) {
+            model.put(MODEL_STATE_STUDENT_GROWTH_RATING, dataMap.get(DATA_STATE_STUDENT_GROWTH_RATING));
+        }
+        if (dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP)) {
+            model.put(MODEL_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP, dataMap.get(DATA_SCHOOL_STUDENT_GROWTH_RATING_BREAKDOWN_MAP));
         }
     }
 

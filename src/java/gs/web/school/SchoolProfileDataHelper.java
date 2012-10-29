@@ -886,23 +886,32 @@ public class SchoolProfileDataHelper extends AbstractDataHelper {
                 dataMap.put(DATA_SCHOOL_RATING_PERFORMANCE_MANAGEMENT_LIST, performanceManagementRatingList);
             }
 
-            //Get the state ratings only if there is school rating info.
-            if (!stateTestDataSets.isEmpty() && (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING) || dataMap.containsKey(DATA_SCHOOL_STUDENT_GROWTH_RATING))
-                    && (SchoolProfileRatingsController.isShowStateTestScoreRating(school.getDatabaseState()) ||
-                    SchoolProfileRatingsController.isShowStateStudentGrowthRating(school.getDatabaseState()))) {
-                List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(stateTestDataSets, school.getDatabaseState());
 
-                // TODO-13012 what object type should be in dataMap? float or int? different for overall vs. other ratings?
+            if (!stateTestDataSets.isEmpty() && (SchoolProfileRatingsController.isShowStateTestScoreRating(school.getDatabaseState())
+                    || SchoolProfileRatingsController.isShowStateStudentGrowthRating(school.getDatabaseState()))) {
+
+                List<StateTestValue> stateTestValues = _testDataStateValueDao.findValues(stateTestDataSets, school.getDatabaseState());
                 for (StateTestValue value : stateTestValues) {
                     switch (value.getDataSet().getDataTypeId()) {
                         case TestDataType.RATING_ACADEMIC_ACHIEVEMENT:
-                            dataMap.put(DATA_STATE_TEST_SCORE_RATING, value.getValueFloat());
+                            //Get the state test score only if there is school test score info.
+                            if (dataMap.containsKey(DATA_SCHOOL_TEST_SCORE_RATING)) {
+                                dataMap.put(DATA_STATE_TEST_SCORE_RATING, value.getValueFloat());
+                            }
                             break;
                         case TestDataType.RATING_ACADEMIC_VALUE_ADDED:
+                            //Get the year for the Rating from the data set for the state value.
+                            if(!dataMap.containsKey(DATA_STUDENT_GROWTH_RATING_YEAR)){
+                                dataMap.put(DATA_STUDENT_GROWTH_RATING_YEAR, value.getDataSet().getYear());
+                            }
+                            //Get the state growth rating even if there is no school growth rating.
                             dataMap.put(DATA_STATE_STUDENT_GROWTH_RATING, value.getValueFloat());
                             break;
                         case TestDataType.RATING_ACADEMIC_POST_SECONDARY_READINESS:
-                            dataMap.put(DATA_STATE_POST_SECONDARY_READINESS_RATING, value.getValueFloat());
+                            //Get the state test score only if there is school post secondary info.
+                            if (dataMap.containsKey(DATA_SCHOOL_POST_SECONDARY_READINESS_RATING)) {
+                                dataMap.put(DATA_STATE_POST_SECONDARY_READINESS_RATING, value.getValueFloat());
+                            }
                             break;
                     }
                 }

@@ -352,7 +352,9 @@ public class SchoolProfileRatingsControllerTest extends BaseControllerTestCase {
 
         s.setLevelCode(LevelCode.ELEMENTARY);
         _controller.populateStudentGrowthRatingsModel(true, _dataMap,model);
-        assertNull(model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
+        //The growth breakdown is shown along with the growth city rating (bar) and state rating(bar) even if there is no growth rating for the school.
+        // Therefore rating year is put into the model even if there is not growth rating for the school.
+        assertEquals(2012,model.get(SchoolProfileRatingsController.MODEL_STUDENT_GROWTH_RATING_YEAR));
         assertNull(model.get(SchoolProfileRatingsController.MODEL_SCHOOL_STUDENT_GROWTH_RATING));
 
         // restore rating
