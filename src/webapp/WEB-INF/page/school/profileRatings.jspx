@@ -335,7 +335,11 @@
                             <div class="ratingsRightSide size30of100 lastUnit">
                                 <div class="grayBox smallest">Overall climate rating<h1 class="bottom">${overallClimateRating}</h1>
                                     <h5 class="bottom"><em class="${overallClimateRatingColor}">${overallClimateRatingContent}</em></h5></div>
-                                <div class="tac smaller mts">Based on <span class="numberFormat">${climateRatingNumResponses}</span> teacher<br />responses</div>
+                                <c:set var="addSToResponses" value="responses" />
+                                <c:if test="${climateRatingNumResponses eq 1}">
+                                    <c:set var="addSToResponses" value="response" />
+                                </c:if>
+                                <div class="tac smaller mts">Based on <span class="numberFormat">${climateRatingNumResponses}</span> teacher<br />${addSToResponses}</div>
                             </div>
                             <!--<div class="ratingsClimateHeader size30of100 fr">-->
                                 <!--<div class="grayBox small">-->
