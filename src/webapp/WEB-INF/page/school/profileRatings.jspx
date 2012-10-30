@@ -266,7 +266,8 @@
                         <p class="smaller bottom pts">*${testScoreRatingSource}</p>
                     </c:if>
 
-                    <c:if test="${schoolStudentGrowthRating != null and not empty studentGrowthRatingSource}">
+                    <c:if test="${((schoolStudentGrowthRating != null) or (schoolStudentGrowthRatingBreakdown != null and cityStudentGrowthRating != null
+                        and stateStudentGrowthRating != null)) and not empty studentGrowthRatingSource}">
                         <p class="smaller bottom">**${studentGrowthRatingSource}</p>
                     </c:if>
 

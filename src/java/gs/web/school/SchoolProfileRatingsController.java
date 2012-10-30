@@ -106,7 +106,8 @@ public class SchoolProfileRatingsController extends AbstractSchoolProfileControl
             "The academic growth rating measures how schools affect student test score improvement over time in reading and math." +
                     " This data is from ";
     public static final String STUDENT_GROWTH_RATING_SOURCE_WI_PART_2 =
-            " and is provided by the Value-Added Research Center and Milwaukee Public Schools.";
+            " and is provided by the Value-Added Research Center and Milwaukee Public Schools." +
+                    " Private school growth data is not included in the rating because it is not comparable with public school results.";
 
     public static final String POST_SECONDARY_READINESS_RATING_SOURCE_DC_PART_1 =
             "This rating is based on the percent of 12th graders in ";
