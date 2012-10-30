@@ -1,6 +1,8 @@
 package gs.web;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
@@ -34,7 +36,9 @@ public class HTML2PDFViewResolver implements ViewResolver, URIResolver {
 
     private ViewResolver viewResolver;
 
-    private static final Logger logger = Logger.getLogger(HTML2PDFViewResolver.class);
+    private static final Logger LOGGER = Logger.getLogger(HTML2PDFViewResolver.class);
+
+    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd_HHmmss");
 
     // Spring calls resolveViewName
     public View resolveViewName(String viewName, Locale locale) throws Exception {
@@ -68,8 +72,8 @@ public class HTML2PDFViewResolver implements ViewResolver, URIResolver {
                 Document document = documentBuilder.parse(is);
 
                 // set response headers
-                response.setContentType("application/pdf; charset=UTF-8");
-                String outFileName = "chooser-TODO-defaultFileName";
+                response.setContentType("application/pdf");
+                String outFileName = "GreatSchools_Chooser_" + DATE_FORMATTER.format(new Date()) + ".pdf";
                 response.setHeader("Content-disposition", "inline; filename=\"" + outFileName + "\"");
 
                 // ITextRenderer uses base href when resolving assets like images / css

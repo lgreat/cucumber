@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
-@RequestMapping("/school/printYOChooser")
+@RequestMapping("/print-your-own-chooser/chooser")
 @Component("printYourOwnChooserController")
 public class PrintYourOwnChooserController implements BeanFactoryAware {
 
