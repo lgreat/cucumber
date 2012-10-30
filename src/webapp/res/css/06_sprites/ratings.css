@@ -212,8 +212,8 @@ Created by Mitchell Seltzer
 .bargraph .graphContainer .spacerFirst { width:33px; border-left:1px solid #333333; border-right:1px solid #999999; float:left; height:100%; }
 .bargraph .graphContainer .spacerH { height:10px; }
 
-.bargraph .graphLabelsY { position:relative; float:left; padding-right:10px; text-align:right; }
-.bargraph .graphLabelsY .spacerLabel { position:relative; height:10px; margin-top:10px; line-height:10px; }
+.bargraph .graphLabelsY { position:relative; float:left; padding-right:10px; text-align:right;}
+.bargraph .graphLabelsY .spacerLabel { position:relative; height:10px; margin-top:10px; line-height:10px;  width:60px; }
 
 .bargraph .graphLabelsX { position:relative; clear:both; }
 .bargraph .graphLabelsX .spacerOffset { width:17px; height:10px; float:left; }
