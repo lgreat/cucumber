@@ -20,21 +20,24 @@
 
     <!-- lead_gen.campaign has a max length of 64 characters -->
     <c:set var="campaignCode"><c:if test="${param.cc != null and
-      fn:length(param.cc) le 64 and gsweb:matchesRegex(param.cc,alphaNumericHyphenRegex)}">${param.cc}</c:if></c:set>
+      fn:length(param.cc) gt 0 and fn:length(param.cc) le 64 and
+      gsweb:matchesRegex(param.cc,alphaNumericHyphenRegex)}">${param.cc}</c:if></c:set>
 
     <c:set var="backgroundImage"><c:choose>
-            <c:when test="${param.bg != null and gsweb:matchesRegex(param.bg,alphaNumericHyphenRegex)}">${param.bg}</c:when>
+            <c:when test="${param.bg != null and fn:length(param.bg) gt 0 and gsweb:matchesRegex(param.bg,alphaNumericHyphenRegex)}">${param.bg}</c:when>
             <c:otherwise>${campaignCode}</c:otherwise>
     </c:choose></c:set>
 
     <head>
         <title>Lead Gen Widget</title>
 
-        <style type="text/css">
-            .${campaignCode} .inner {
-                background-image: url(/catalog/ads/leadGen/img/${backgroundImage}.png);
-            }
-        </style>
+        <c:if test="${not empty campaignCode and not empty backgroundImage}">
+            <style type="text/css">
+                .${campaignCode} .inner {
+                    background-image: url(/catalog/ads/leadGen/img/${backgroundImage}.png);
+                }
+            </style>
+        </c:if>
 
         <gsml:url var="leadgenjs" value="/res/js/promo/leadGen2.js?v=$RELEASE_NUMBER" allowCdn="true"/>
         <![CDATA[<script type="text/javascript" src="${leadgenjs}"></script>]]>
