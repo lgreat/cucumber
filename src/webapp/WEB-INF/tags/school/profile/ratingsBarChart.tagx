@@ -47,7 +47,10 @@
         <c:set var="schoolWidth" value="0"/>
     </c:if>
 
-    <c:set var="barChartHeight" value="${20+10}"/>
+    <c:set var="barChartHeight" value="${10}"/>
+    <c:if test="${schoolRating ne '0'}">
+        <c:set var="barChartHeight" value="${barChartHeight +20}"/>
+    </c:if>
     <c:set var="schoolRatingColor"><c:if test="${schoolRating le 3}">ratingsRed</c:if><c:if test="${schoolRating ge 4 and schoolRating le 7}">ratingsYellow</c:if><c:if test="${schoolRating ge 8}">ratingsGreen</c:if></c:set>
 
     <c:set var="cityWidth" value=""/>
@@ -83,7 +86,9 @@
         <div style="float:left">
             <div class="graphContainer" style="height:${barChartHeight}px;">
                 <div class="barDrawing">
-                    <div class="barContainer" style="width:${schoolWidth}px"><div class="${schoolRatingColor}"><!-- do not collapse --></div></div>
+                    <c:if test="${!(schoolRating eq '0')}">
+                        <div class="barContainer" style="width:${schoolWidth}px"><div class="${schoolRatingColor}"><!-- do not collapse --></div></div>
+                    </c:if>
                     <c:if test="${cityRating ne ''}">
                         <div class="barContainer" style="width:${cityWidth}px"><div class="${cityRatingColor}"><!-- do not collapse --></div></div>
                     </c:if>
