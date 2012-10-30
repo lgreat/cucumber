@@ -64,10 +64,14 @@
         <c:set var="stateRatingColor"><c:if test="${stateRating le 3}">ratingsRed</c:if><c:if test="${stateRating ge 4 and stateRating le 7}">ratingsYellow</c:if><c:if test="${stateRating ge 8}">ratingsGreen</c:if></c:set>
     </c:if>
 
+    <c:if test="${!(schoolRating eq '0') or (cityRating ne '') or (stateRatingShow and stateRating ne '')}">
+
     <div class="bargraph" id="${ratingDivId}">
         <div class="graphLabelsY">
             <c:if test="${showLabels}">
-                <div class="spacerLabel smaller bottom">This school</div>
+                <c:if test="${!(schoolRating eq '0')}">
+                    <div class="spacerLabel smaller bottom">This school</div>
+                </c:if>
                 <c:if test="${cityRating ne ''}">
                     <div class="spacerLabel smaller bottom">City</div>
                 </c:if>
@@ -113,5 +117,7 @@
             </div>
         </div>
     </div>
+
+    </c:if>
 
 </jsp:root>
