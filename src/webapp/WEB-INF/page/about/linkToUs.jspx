@@ -95,7 +95,7 @@
                         <a href="http://gmodules.com/ig/creator?synd=open&amp;amp;url=http://www.greatschools.org/res/gadget/GS_Search.xml&amp;amp;border=%23ffffff%7C0px%2C0+solid+%2382CAFA%7C0px%2C0+solid+%23BDEDFF%7C0px%2C1px+solid+%23CCCCCC&amp;amp;w=214"
                            target="_blank" class="button-1 mbm">Customize this widget</a>
 
-                        <p class="mbm"><strong>Embed the search box</strong></p>
+                        <p class="mtl bottom"><strong>Embed the search box</strong></p>
 
                         <form name="searchboxexample" action="" style="margin-top: 4px; padding-top: 0;">
                             <textarea type="text" onclick="this.select()" readonly="readonly"
