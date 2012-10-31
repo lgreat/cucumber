@@ -3,11 +3,10 @@ package gs.web.school;
 import gs.data.school.*;
 import gs.data.school.census.CensusDataSet;
 import gs.data.state.State;
-import gs.web.request.RequestAttributeHelper;
-import gs.web.school.AbstractDataHelper;
-import gs.web.school.CensusDataHolder;
-import gs.web.school.SchoolProfileCensusHelper;
-import gs.web.school.SchoolProfileDataHelper;
+import gs.data.test.TestDataSetDisplayTarget;
+import gs.web.util.NoCookieController;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -20,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequestMapping("/print-your-own-chooser/chooser")
 @Component("printYourOwnChooserController")
-public class PrintYourOwnChooserController implements BeanFactoryAware {
+public class PrintYourOwnChooserController implements BeanFactoryAware, NoCookieController {
 
     private BeanFactory _beanFactory;
 
@@ -37,6 +38,14 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
     @Autowired
     private ISchoolDao _schoolDaoHibernate;
 
+    @Autowired
+    private SchoolProfileDataHelper _schoolProfileDataHelper;
+
+    private static Logger _logger = Logger.getLogger(PrintYourOwnChooserController.class);
+
+    public static final String DATA_OVERALL_RATING = "overallRating"; // TestDataType.id = 174
+    public static final String DATA_OVERALL_ACADEMIC_RATING = "overallAcademicRating"; // TestDataType.id = 167
+    public static final String DATA_OVERALL_CLIMATE_RATING = "overallClimateRating"; // TestDataType.id = 173
 
     private static final String MODEL_KEY_BEST_KNOWN_FOR = "bestKnownFor";
     private static final String MODEL_KEY_ETHNICITY_MAP = "ethnicityMap";
@@ -66,12 +75,36 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
             addEthnicityDataToModel(school, data);
 
             schoolData.put(school.getStateAbbreviation().getAbbreviationLowerCase() + String.valueOf(school.getId()), data);
+
+            Set<String> displayTarget = new HashSet<String>();
+            displayTarget.add(TestDataSetDisplayTarget.ratings.name());
+            /*Map<String, Object> dataMap = _schoolProfileDataHelper.getDataMap(school, displayTarget);
+
+
+            schoolData.put(DATA_OVERALL_RATING, dataMap.get(DATA_OVERALL_RATING));
+            Object climateRating = dataMap.get(DATA_OVERALL_CLIMATE_RATING);
+            if (climateRating != null) {
+                schoolData.put(DATA_OVERALL_CLIMATE_RATING, formatRating((Integer) climateRating));
+            }
+            Object academicRating = dataMap.get(DATA_OVERALL_ACADEMIC_RATING);
+            if (academicRating != null) {
+                schoolData.put(DATA_OVERALL_ACADEMIC_RATING, formatRating((Integer) academicRating));
+            }*/
         }
 
         modelMap.put("schoolData", schoolData);
 
         return "printYourOwnChooser";
+    }
 
+    private String formatRating(int rating) {
+        if (rating > 7) {
+            return "High";
+        } else if (rating > 3) {
+            return "Average";
+        } else {
+            return "Low";
+        }
     }
 
     private void addBestKnownForQuoteToModel(School school, Map<String, Object> data) {
@@ -84,6 +117,61 @@ public class PrintYourOwnChooserController implements BeanFactoryAware {
             bestKnownFor = espResponses.get(0).getSafeValue();
             data.put(MODEL_KEY_BEST_KNOWN_FOR, bestKnownFor);
         }
+
+        data.put("tuition_low", getSinglePrettyValue(espData, "tuition_low"));
+        data.put("tuition_high", getSinglePrettyValue(espData, "tuition_high"));
+        data.put("financial_aid", getSinglePrettyValue(espData, "financial_aid"));
+        String applicationDeadline = getSingleValue(espData, "application_deadline_date");
+        Date applicationDeadlineDate = null;
+        if (applicationDeadline != null) {
+            SimpleDateFormat format = new SimpleDateFormat("mm/dd/yyyy");
+            try {
+                applicationDeadlineDate = format.parse(applicationDeadline);
+            } catch (ParseException e) {
+                _logger.debug("Problem parsing date: "+ applicationDeadline);
+            }
+            data.put("application_deadline_date", applicationDeadlineDate);
+        }
+
+        data.put("destination_schools", StringUtils.join(new String[]{
+            getSinglePrettyValue(espData, "destination_school_1"),
+            getSinglePrettyValue(espData, "destination_school_2"),
+            getSinglePrettyValue(espData, "destination_school_3")
+        }, "; "));
+        data.put("destination_school_1", getSinglePrettyValue(espData, "destination_school_1"));
+        data.put("destination_school_2", getSinglePrettyValue(espData, "destination_school_2"));
+        data.put("destination_school_3", getSinglePrettyValue(espData, "destination_school_3"));
+        data.put("students_vouchers", getSinglePrettyValue(espData, "students_vouchers"));
+        data.put("ell_level", getSingleValue(espData, "ell_level"));
+
+        data.put("before_after_care_start", getSinglePrettyValue(espData, "before_after_care_start"));
+        data.put("before_after_care_end", getSinglePrettyValue(espData, "before_after_care_end"));
+
+        String dressCode = getSingleValue(espData, "dress_code");
+        data.put("dress_code",
+            (dressCode.equalsIgnoreCase("dress_code") || dressCode.equalsIgnoreCase("uniform"))? "Yes":"No"
+        );
+
+        String transportation = getSingleValue(espData, "transportation");
+        data.put("transportation", (transportation != null && !transportation.equalsIgnoreCase("none"))? "Yes":"No");
+
+
+    }
+
+    private String getSinglePrettyValue(Map<String, List<EspResponse>> espData, String key) {
+        List<EspResponse> responses = espData.get(key);
+        if (responses != null && responses.size() > 0) {
+            return StringUtils.trimToNull(responses.get(0).getPrettyValue());
+        }
+        return null;
+    }
+
+    private String getSingleValue(Map<String, List<EspResponse>> espData, String key) {
+        List<EspResponse> responses = espData.get(key);
+        if (responses != null && responses.size() > 0) {
+            return responses.get(0).getSafeValue();
+        }
+        return null;
     }
 
     private void addEthnicityDataToModel(School school, Map<String, Object> data) {

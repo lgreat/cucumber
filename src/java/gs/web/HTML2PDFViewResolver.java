@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -59,6 +60,27 @@ public class HTML2PDFViewResolver implements ViewResolver, URIResolver {
                     public PrintWriter getWriter() throws IOException {
                         return new PrintWriter(htmlWriter);
                     }
+
+                    // remove jsessionid URL encoding. Using the existing filter didnt work
+                    public String encodeRedirectUrl(String url) {
+                        return url;
+                    }
+
+                    public String encodeRedirectURL(String url) {
+                        return url;
+                    }
+
+                    public String encodeUrl(String url) {
+                        return url;
+                    }
+
+                    public String encodeURL(String url) {
+                        return url;
+                    }
+
+                    public void addCookie(Cookie cookie) {
+                        return;
+                    }
                 };
 
                 // does the work of rendering the html and writing to our StringWriter
@@ -74,7 +96,10 @@ public class HTML2PDFViewResolver implements ViewResolver, URIResolver {
                 // set response headers
                 response.setContentType("application/pdf");
                 String outFileName = "GreatSchools_Chooser_" + DATE_FORMATTER.format(new Date()) + ".pdf";
+                response.setHeader("Cache-control", "no-store");
                 response.setHeader("Content-disposition", "inline; filename=\"" + outFileName + "\"");
+                response.setHeader("Cache-Control","private");
+                response.setHeader("Vary", "Accept-Encoding");
 
                 // ITextRenderer uses base href when resolving assets like images / css
                 String baseHref = UrlUtil.buildHostAndPortString(request).toString();

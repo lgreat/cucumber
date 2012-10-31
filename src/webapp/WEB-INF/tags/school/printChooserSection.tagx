@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jsp:root version="2.0"
-    xmlns:gsweb="gstaglib"
-    xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
-    xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
-    xmlns:jsp="http://java.sun.com/JSP/Page"
-    xmlns:c="http://java.sun.com/jsp/jstl/core"
-    xmlns:link="urn:www.greatschools.org/taglib/link"
->
+          xmlns:gsweb="gstaglib"
+          xmlns:gsml="urn:jsptagdir:/WEB-INF/tags/gsml"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:school="urn:jsptagdir:/WEB-INF/tags/school"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:link="urn:www.greatschools.org/taglib/link"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+        >
 
     <jsp:directive.attribute name="school" type="gs.data.school.School" />
     <jsp:directive.attribute name="schoolData" type="java.util.Map" />
@@ -172,8 +173,8 @@
             </div>
 
             <div style="float:left;padding:0 20px 0 20px;">
-                <p>Academic:<span class="strong"><br />Good</span></p>
-                <p>Climate:<span class="strong"><br />Average</span></p>
+                <p>Academic:<span class="strong"><br />${schoolData['overallAcademicRating']}</span></p>
+                <p>Climate:<span class="strong"><br />${schoolData['overallClimateRating']}</span></p>
             </div>
 
             <div>
@@ -234,17 +235,19 @@
             <div class="bd_column">
                 <h2>Application</h2>
                 <p>
-                Deadline:<span class="strong"> March 15, 2013</span><br />
-                Tuition:<span class="strong"> $15,600 - $24,450</span><br />
-                Financial Aid:<span class="strong"> Yes</span><br />
-                Voucher accepted:<span class="strong"> Yes</span>
+                    <c:if test="${not empty schoolData['application_deadline_date']}">
+                        Deadline:<span class="strong"> <fmt:formatDate pattern="MMMMM dd, yyyy" value="${schoolData['application_deadline_date']}" /></span><br />
+                    </c:if>
+                Tuition:<span class="strong"> ${schoolData['tuition_low']} - ${schoolData['tuition_high']}</span><br />
+                Financial Aid:<span class="strong"> ${schoolData['financial_aid']}</span><br />
+                Voucher accepted:<span class="strong"> ${schoolData['students_vouchers']}</span>
                 </p>
                 <h2>School Stats</h2>
                 <p>
-                    Uniforms/Dress code:<span class="strong"> Yes</span><br />
-                    Before care:<span class="strong"> Starts 7:00 am</span><br />
-                    After care:<span class="strong"> Ends 6:00 pm</span><br />
-                    Transportation:<span class="strong">Yes</span>
+                    Uniforms/Dress code:<span class="strong"> ${schoolData['dress_code']}</span><br />
+                    Before care:<span class="strong"> Starts ${schoolData['before_after_care_start']}</span><br />
+                    After care:<span class="strong"> Ends ${schoolData['before_after_care_end']}</span><br />
+                    Transportation:<span class="strong">${schoolData['transportation']}</span>
                 </p>
             </div>
 
@@ -252,9 +255,10 @@
                 <h2>Special education services</h2>
                 <p><span class="strong uppercase">INTENSIVE</span></p>
                 <h2>ELL services</h2>
-                <p><span class="strong uppercase">INTENSIVE</span></p>
+                <p><span class="strong uppercase">${schoolData['ell_level']}</span></p>
                 <h2>Our grads typically go to</h2>
-                <p>Tenor High School; Riverside University High School; Milwaukee Lutheran High School</p>
+                <p></p>
+                <p>${schoolData['destination_schools']}</p>
             </div>
         </div>
 
